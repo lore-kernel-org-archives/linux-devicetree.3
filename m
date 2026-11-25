@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795642701;
-	b=I+qiFRrNy7dgISqTGRNtfpfLJtQLDal1Yp2QYvDvWKNvgI8+kG6jDH+3cmKDMU6vM1/n
-	 ot7Lt9KQofJhQ654hureTK2Qh4wPu0PPa8uXInhSaKa7teedQTMKKEi0fPtMI8mddHrD2
-	 OLGanFTbquLohl5yMUsabroLzRHpooG+dgpkumFP/6t/BqYSkkjFDLXSyvEvMCiBHwFl5
-	 yq5pb/OY6jFAcavMD+sBJtlRaEUQfmbmvV4Cfj5kjQyUgfZB88YrbrfL5PKQqkssM+P9R
-	 LviHImlr0Ci1YK2fWSN423yQqLLbYFnTE+J7bNa1cUIwt5YvX3En60G1OVT1VL15ULw==
+	t=1795642780;
+	b=WCOiDKobXUbwQ7j6q29fZEuFszd5k36ydsvVyM7MAj57qXV6WsOV8GgWViVUXtvt7Me1
+	 GJOZPj1cpBgaQs7m5/RLJqJSotqVnqvnEG+I6ZW572ib6hHiCPXBeCoUhBlf80Gmgpj38
+	 hbZQkbRp3e94C6hIyrvSmfpiLRWkZspG+oTNOxx/q8PL7ilbEE0lAsxLmL7XAQpH4xeTo
+	 MFEkTfqgjwdrpdHOp9gWfg5XnxmQXjwqQmx0i+ZzHRTOIkJyQecKQ30247ZVmimNrzG9o
+	 Xj89tu+a3Hlh/ywy0/2TWbZwmoC0q/1VVikIMpZsiCXXQ/Anj0x8faP1AMok9swx95w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795642701;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795642780;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=LCrgXMXnD6jSurHB14n5Y2wtuVtbkQn2EtMzPk2kfu0=;
-	b=FLjbcm6cbmDP/ABHvu79Wgvv4tXVDi8NEQt+JMkrCghaNKWpz42q9V13gRFYLYDQrdJQ
-	 b7cODtaKbn4ymbWvbSNjNJmYK2uSyR9VNI+x6qi9Whh1WVd0tba4KJ9zqPgB31vGUBBj0
-	 lIAt21jUJ3/+U6sMnKOiQs4NJUmoqcPbJRQgj1BL93hzKv0/zLm3UR4S/vSa0fPudUy1h
-	 TsxEdtH8HEq6t2UPSPQyu2X0inrwUe3ih34bAE1PyBP7NScRLxMtQIEqTGsYng5oKY0fM
-	 7Ww/Abtnfy+0nwtlRuQJ2jNcsOUgKzTjcWiLdevdk0vfu/Xx++6rMaKoNAwvxiUNOOQ==
+	bh=k5O1FmX2sWRXr7+/EJd3ks/Dw+JHXX+Dzw+lFSnik5E=;
+	b=n80KwUkoJlkLkPM62gWevNgvcHTQyQwi4i6kQBMzEulaLLapX8yD0W780cf4qYIFAPfp
+	 TAq3l9g+WMy6qRdnRXiF3YLOoP9k2GZGpdT63j9VdKHbtbRSi3bvXLNBqAzijtJylTbXs
+	 brQwdfsj8j2zdBtZM9vlZ0Bqys33jx5MItcJrdomb0fiF6ZZQkoEbm0W6iLmUCCldRVrs
+	 voIL4Z3powTpODAAWLCbWz5EiBC163c7t4zInGhUAGYP+ejl9i3mn8qT0/H5zLUp1Gi1U
+	 ET8OVEhcqJxnVjBpsQopXxR8eCCPTV/gTR0m5mt/cSS5CvENb+UE9DhLpED1ibISIfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OjDs6JRL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AALQ47Kv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A7B606A323
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 21:38:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1631C606A326
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 21:39:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OjDs6JRL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71D9D1F000E1;
-	Wed, 25 Nov 2026 21:38:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AALQ47Kv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3106C1F000C0;
+	Wed, 25 Nov 2026 21:39:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795642700;
-	bh=LCrgXMXnD6jSurHB14n5Y2wtuVtbkQn2EtMzPk2kfu0=;
+	s=k20260515; t=1795642779;
+	bh=k5O1FmX2sWRXr7+/EJd3ks/Dw+JHXX+Dzw+lFSnik5E=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OjDs6JRLRsrxfIRA9sRH2NXmA1GLAdrnaM722Oft4mZtiPLt/VzUxsc3ThcZkwXvo
-	 J9WadSwfIg2YuXZm1W9TnTMc5qYGCjs0pFu9K7KskOyOGnxgNZ8Mc4j0VwV30uedvv
-	 LL9Tt0lSA7btWKZb9Xj/NbS4W9uwIul43udhT0clKNee26gq4mZDd1QPfWQxHJCxsN
-	 Fq91u00qwR/S/oAhDUofu89aVhzr+55n7FuLBKUIW9zcAcy7RJfGD6Gh6V1hCBLaEk
-	 JoAeAjql883BGYwLc/F1rNgz13H4Ls3G1Tos2+uPnkaKjEYmr+1K1wKQpUg81oF8Fs
-	 xp8XbKgXBHJbg==
-Message-ID: <sashiko-outbox-234190@kernel.org>
+	b=AALQ47KvAIGBrRNdKHJPiClCDaCiA0msn/lBi3NwJUnDZLWBLctcviVZG1mftF06o
+	 k46woKWtkgZD6PU2+fAgsqqYu0onTcPGdHWcJnhYcFqIKDkbxWscWwhpzkVqLYdRS6
+	 amgr0lQW+9gUMeWOAGUocIQHTeJhxaQ3WPaLU3mFsaBy/n6eSlefWz6NtYHw86ifRE
+	 AJ+Oxcv+B5x6SKjdPWdO3m3lWYM+45Ec/DiuArlE4Qo2ll9pw6uDlk1zppsRv69pA0
+	 1vD9E5c8HR0nGYQbl+9ljbqHmFAl6pca5cp5aSICo+zUbLsDa7x5QQG7UdYfNT956k
+	 aUg9ogwuRMjcQ==
+Message-ID: <sashiko-outbox-234193@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/5] phy: apple: atc: Add initial M3 series support
+Subject: Re: [PATCH v3 4/5] phy: apple: atc: Add T8122 DisplayPort support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sasha Finkelstein" <k@chaosmail.tech>
 Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261125-t8122-phy-v3-3-196e20b3537e@chaosmail.tech>
+In-Reply-To: <20261125-t8122-phy-v3-4-196e20b3537e@chaosmail.tech>
 References: <20261125-t8122-phy-v3-0-196e20b3537e@chaosmail.tech>
- <20261125-t8122-phy-v3-3-196e20b3537e@chaosmail.tech>
+ <20261125-t8122-phy-v3-4-196e20b3537e@chaosmail.tech>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 21:38:20 +0000
+Date: Wed, 25 Nov 2026 21:39:38 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,115 +60,116 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] phy: apple: atc: stale atcphy->mode on
-  atcphy_wait_rcal1_done_t8122() failure
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] phy: apple: atc: incomplete lane reconfiguration in
+  atcphy_sw_set()
+- [Medium] phy: apple: atc: missing DP mode check in
+  atcphy_wait_rcal1_done_t8122()
 --
 
-commit 5502f6b851712985ca558c7a0dd17a0358624746
-Author: Sasha Finkelstein <k@chaosmail.tech>
+commit c4e8622c01c5077bdf8e1c63b98987b04ebc54bf
+Author: Ramzi Abdiche <abdicheramzi@gmail.com>
 
-phy: apple: atc: Add initial M3 series support
+phy: apple: atc: Add T8122 DisplayPort support
 
-This commit adds initial support for the Apple t8122 (M3) Type-C PHY,
-covering USB and Thunderbolt modes through a per-SoC hardware operations
-structure.
+This commit adds DisplayPort AUX and lane setup support for T8122-family
+Apple Type-C PHYs, including link-rate PLL/lane configuration and stopping
+active lanes before mode or orientation changes.
 
 > diff --git a/drivers/phy/apple/atc.c b/drivers/phy/apple/atc.c
-> index 45f1280a6faa3..68fc93a88f41a 100644
+> index 68fc93a88f41a..5c06883393539 100644
 > --- a/drivers/phy/apple/atc.c
 > +++ b/drivers/phy/apple/atc.c
 [ ... ]
-> @@ -1792,18 +1929,93 @@ static int atcphy_configure(struct apple_atcphy *=
-atcphy, enum atcphy_mode mode)
-[ ... ]
-> +static int atcphy_wait_rcal1_done_t8122(struct apple_atcphy *atcphy, enu=
-m atcphy_mode mode)
+> @@ -1951,6 +2497,13 @@ static void atcphy_configure_post_tunable_t8122(st=
+ruct apple_atcphy *atcphy, enu
+>  	udelay(10);
+>  }
+> =20
+> +static void atcphy_configure_post_tunable_t8122(struct apple_atcphy *atc=
+phy, enum atcphy_mode mode)
 > +{
-> +	int ret =3D 0;
-> +	u32 reg;
-> +
 > +	if (atcphy_modes[mode].pipehandler_state =3D=3D ATCPHY_PIPEHANDLER_STAT=
-E_USB3) {
-> +		ret =3D readl_poll_timeout(atcphy->regs.core + AUS_COMMON_DIG_RCAL1, r=
-eg,
-> +					 (reg & AUS_COMMON_DIG_RCAL1_ALL_CODES_DONE), 10, 100000);
-> +		if (ret) {
-> +			atcphy_power_off(atcphy);
-> +			dev_err(atcphy->dev, "Failed to wait for RCAL1 done\n");
-> +			return ret;
-> +		}
-> +	}
-> +	return ret;
+E_USB3 ||
+> +	    (atcphy->hw->dp_enable_aux && atcphy_modes[mode].enable_dp_aux))
+> +		atcphy_power_on_common_t8122(atcphy);
 > +}
-> +
-> +static int atcphy_configure(struct apple_atcphy *atcphy, enum atcphy_mod=
-e mode)
-> +{
-> +	int ret =3D 0;
-> +
-> +	lockdep_assert_held(&atcphy->lock);
-> +
-> +	if (mode =3D=3D APPLE_ATCPHY_MODE_OFF) {
-> +		ret =3D atcphy_power_off(atcphy);
-> +		atcphy->mode =3D mode;
-> +		return ret;
+
+[Severity: Medium]
+Should atcphy_wait_rcal1_done_t8122() also check
+(atcphy->hw->dp_enable_aux && atcphy_modes[mode].enable_dp_aux)?
+
+In 4-lane DisplayPort mode (APPLE_ATCPHY_MODE_DP), pipehandler_state is
+ATCPHY_PIPEHANDLER_STATE_DUMMY while enable_dp_aux is true.
+atcphy_configure_post_tunable_t8122() now powers on the AUS common block
+for APPLE_ATCPHY_MODE_DP, but atcphy_wait_rcal1_done_t8122() still only
+checks for ATCPHY_PIPEHANDLER_STATE_USB3:
+
+drivers/phy/apple/atc.c:atcphy_wait_rcal1_done_t8122() {
+	if (atcphy_modes[mode].pipehandler_state =3D=3D ATCPHY_PIPEHANDLER_STATE_U=
+SB3) {
+		ret =3D readl_poll_timeout(atcphy->regs.core + AUS_COMMON_DIG_RCAL1, reg,
+					 (reg & AUS_COMMON_DIG_RCAL1_ALL_CODES_DONE), 10, 100000);
+    ...
+}
+
+As a result, APPLE_ATCPHY_MODE_DP skips waiting for AUS_COMMON_DIG_RCAL1
+calibration to complete after releasing PHY reset.
+
+[ ... ]
+
+> @@ -2283,19 +2851,31 @@ static int atcphy_probe_rcdev(struct apple_atcphy=
+ *atcphy)
+>  static int atcphy_sw_set(struct typec_switch_dev *sw, enum typec_orienta=
+tion orientation)
+>  {
+>  	struct apple_atcphy *atcphy =3D typec_switch_get_drvdata(sw);
+> +	bool swap_lanes;
+> +	int ret;
+> =20
+>  	guard(mutex)(&atcphy->lock);
+> =20
+>  	switch (orientation) {
+>  	case TYPEC_ORIENTATION_NONE:
+> -		break;
+> +		return 0;
+>  	case TYPEC_ORIENTATION_NORMAL:
+> -		atcphy->swap_lanes =3D false;
+> +		swap_lanes =3D false;
+>  		break;
+>  	case TYPEC_ORIENTATION_REVERSE:
+> -		atcphy->swap_lanes =3D true;
+> +		swap_lanes =3D true;
+>  		break;
+> +	default:
+> +		return -EINVAL;
 > +	}
 > +
-> +	ret =3D atcphy_power_on(atcphy);
-> +	if (ret)
-> +		return ret;
-> +
-> +	atcphy_apply_tunables(atcphy, mode);
-> +	atcphy->hw->configure_post_tunable(atcphy, mode);
-> =20
->  	/* Setup AUX channel if DP altmode is requested */
->  	if (atcphy_modes[mode].enable_dp_aux)
->  		atcphy_enable_dp_aux(atcphy);
-> =20
->  	/* Enable clocks and configure lanes */
-> -	core_set32(atcphy, CIO3PLL_CLK_CTRL, CIO3PLL_CLK_PCLK_EN);
-> -	core_set32(atcphy, CIO3PLL_CLK_CTRL, CIO3PLL_CLK_REFCLK_EN);
-> +	if (atcphy->hw->enable_cio3pll_clk)
-> +		atcphy->hw->enable_cio3pll_clk(atcphy);
-> +
->  	atcphy_configure_lanes(atcphy, mode);
-> =20
->  	/* Take the USB3 PHY out of reset */
->  	core_set32(atcphy, ATCPHY_POWER_CTRL, ATCPHY_POWER_PHY_RESET_N);
-> +	/*
-> +	 * NOTE: Not what macos does, it takes the phy out of reset right befor=
-e writing to
-> +	 * ACIOPHY_CFG0_COMMON_SMALL does lane configuration with phy out of re=
-set, and the poll is
-> +	 * right after AUS_COMMON_SHIM_BLK_BIAS_REG write. Does not seem to mat=
-ter, but if something
-> +	 * does not work, consider re-ordering things to macos order.
-> +	 */
-> +	if (atcphy->hw->wait_rcal1_done) {
-> +		ret =3D atcphy->hw->wait_rcal1_done(atcphy, mode);
+> +	/* Cleanup needs the old lane configuration until shutdown succeeds. */
+> +	if (swap_lanes !=3D atcphy->swap_lanes && atcphy->hw->dp_stop) {
+> +		ret =3D atcphy->hw->dp_stop(atcphy);
 > +		if (ret)
 > +			return ret;
 > +	}
+> +	atcphy->swap_lanes =3D swap_lanes;
 > =20
->  	atcphy->mode =3D mode;
+>  	return 0;
+>  }
 
 [Severity: Medium]
-Does failing in atcphy_wait_rcal1_done_t8122() leave atcphy->mode out of
-sync with the hardware state?
+If orientation changes while atcphy->mode !=3D APPLE_ATCPHY_MODE_OFF, does
+stopping DisplayPort without reconfiguring the PHY leave the crossbar and
+lane routing out of sync with atcphy->swap_lanes?
 
-When the RCAL1 poll times out, atcphy_wait_rcal1_done_t8122() calls
-atcphy_power_off(), and atcphy_configure() returns early without updating
-atcphy->mode.  If atcphy->mode was already a non-OFF mode (such as
-APPLE_ATCPHY_MODE_USB2) before transitioning to a USB3 mode, atcphy->mode
-retains that previous active mode while the PHY hardware is powered off
-and held in reset.  A subsequent atcphy_mux_set() back to that previous
-mode will then see atcphy->mode =3D=3D target_mode and return 0 without
-powering the PHY back on.  Should atcphy->mode be reset to
-APPLE_ATCPHY_MODE_OFF when atcphy_power_off() is called on this error
-path?
+atcphy_sw_set() stops the DisplayPort link and updates atcphy->swap_lanes,
+but leaves the hardware crossbar, lane mode, ATCPHY_MISC_LANE_SWAP and
+lane tunables programmed for the previous orientation.  If
+atcphy_mux_set() is then called with the same target_mode, it returns
+early because atcphy->mode =3D=3D target_mode, and a subsequent
+atcphy_dp_set_rate_t8122() configures the DisplayPort PMA lanes for the
+new orientation while the crossbar remains routed for the old one.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-t8122-phy-=
-v3-0-196e20b3537e@chaosmail.tech?part=3D3
+v3-0-196e20b3537e@chaosmail.tech?part=3D4
