@@ -1,56 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795595210;
-	b=44i1SYWXGKPzU0FXqkhhIpRYQoplTDbDP4zrWMk4oe8iZ8LTPoiZ0+idbIpC4FCJZcY6
-	 /Ssn/NSIfdPf+nDlup1orPcb+g9SlRRsLXZ/3ghbAcvCJTFK6NfYC1ABGnvxhq2ffc7Wl
-	 hOc8SICYgC6h/EbE0LT/lIqvWDkzuchatr6LRXtUJvlQxi/gr4w94CYXrXcJnQVSHBX98
-	 vtf+QMto/kTLwm2QAaOLX4x8wpONIGobLaxk0YNlbv/0MzrDeCI6pJzxOT3n9wull2H8c
-	 jpGw8RvR8HkYRmmj1CFHBFXcycn+S9obyhcNVBBUf0Gsi+/jnqCc89cUIShKPblZXng==
+	t=1795595363;
+	b=QFkW8z4xUPyhP/osVbxb9/8vCKI1msS/0KTK7KItxMQyzyOqbgynqcdQet8IfOwbluae
+	 xcY7V7AN3cG61p7nurqnxeG+xuEeIh4i2GthyvTNvhoLfiaiRBApFyFXViQ/oQgtDw4y8
+	 9LOdpum8BdVvc89krv5ntLZUn4E0bmYKAwraYExfTdu0RCWfalTI9NRszwu0DgwHfukvX
+	 YW8cw+sc6dkUFwPCHlMlrm5EqATV714TDhB/cIvMH9Eck5xRsp93VX1H9Ts9k/Mi+kc1N
+	 FDF5iyWO/AnredzWH7+7XSLw/eSiFX4xSMaUKlMT0rF0R2lJFPIwdYJNSLQcdrEHrJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795595210;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=+FGIpMG5ae4/LhcK4WslesNlSZmAoMou93v27skahbg=;
-	b=oXBi0Vq832D456tXLmooFFFeWRYLO8HqB1ew+PEcfnMLV+/izpflNDPx6+ApkBvEenu/
-	 paJUNfRgZuV83c/j87E4JmiHgNI3z5LPUU7zlUfh1ZP7nnc61ErSp1q8kTWSPkCWu3mgz
-	 ghU24iHpDOfTnEVRET83IKjqOnq9e+Aufz72r3S7Vjn69BqWMWy4FBh3dIlavb5Xq4ckW
-	 xy7oPYL7Rdf9uGYU4sxtlItr5ynL1vcF6Umj1Ba+pdeCwbg50TDvXd5m1CKYC5Lup40Si
-	 Kstibc4gQ8LO6VVW2QuuMuizfLiZ/5d0Q94WZFsyeFVJn+qcw/rVBt1imBBAV0CJwcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795595363;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer;
+	bh=FbYqJzFf/cdus41h7iS6CyGUUrAMUJ6zZQQ1fJxNpwE=;
+	b=jSwuWXbE6015+aMj0Fvjp2J7SpPni6tP6jaVu6FbL6DeLnxcnHUalV6Fcrskwlq0Cy5C
+	 8ilzxk3LzC6iglTyswcuP9r1Fl2L22Vfm1oKb2vBrR5F77jjhHHkDxMpNcIr2rZ1rjBKt
+	 x1hrgVtfZ3bMAfOlY58zFRsirRVO/ZdYrieVFaXy66PwvWIg0troLP32oHmCBOD2KM4F6
+	 TE5jis7MvwFlH9B4hq75TcU6v813mNFkhX41BNoALLcQCAstGkpC84UIXY+G8ccs6gMeq
+	 PgmFH26zdqTmtQY9mSA/Jk72mxEp265btaHXz2d6LKol8VU/CqU9Wt9w81HKz0XCQrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RqenInLK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IDYgS4xj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE595606A31E;
-	Wed, 25 Nov 2026 08:26:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5DC606A31E;
+	Wed, 25 Nov 2026 08:29:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RqenInLK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28F361F000C0;
-	Wed, 25 Nov 2026 08:26:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IDYgS4xj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32DD71F000D2;
+	Wed, 25 Nov 2026 08:29:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795595210;
-	bh=+FGIpMG5ae4/LhcK4WslesNlSZmAoMou93v27skahbg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RqenInLKGULQhAJ+yNOP1gsCYdoSz8SnJOKzBfO85P5hrwyaFfWVMyT+kEBaiJ4MT
-	 /ByedvDOwbrP8fxgvUd0D/bXDTihiyXGeeUwHCaSWSvKpzu/mX5ufF17qKvPMK1wJ5
-	 dYlwEifwKYA4UjhhSUO/ZrGDkM/tcQfHK4D1KyURxUkNu6Y8Qb0SlYsiGbsQoADLmY
-	 2OA/orVWreMlteO7qjhtGmwyd+rL6RxCFNQh2X0c1Hpomkvno+Vjolx1vLW9b4pEJW
-	 uPstjpEw2AdExIx7ft+CUPiHfqPa4XBt4+McDvIY/tC6544zE+fc3Lb4smvY9abtur
-	 Fm+Gm93w11zSg==
-Message-ID: <sashiko-outbox-232893@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/3] dt-bindings: vendor-prefixes: Add ADLINK
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dinesh kumar v" <dineshkumarv85@gmail.com>
-Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261125082222.136238-2-dineshkumarv85@gmail.com>
-References: <20261125082222.136238-1-dineshkumarv85@gmail.com>
- <20261125082222.136238-2-dineshkumarv85@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 08:26:49 +0000
+	s=k20260515; t=1795595363;
+	bh=FbYqJzFf/cdus41h7iS6CyGUUrAMUJ6zZQQ1fJxNpwE=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=IDYgS4xjPyQBHitiGNG1LRqPWUtMUz3gucAMgVKJiIBNqYLhlNMgO1AGxNtanie0H
+	 seDi+za9AqCkV+WsjEqMv9mjzhy56Sftg2hF2viU7DetVK5p/PDpMnTVrjYt46gJOh
+	 t4OVETCI11jifuZOJ7KWNaOZ5zv9fvVsqhimA3b/sjCWtIa1AmbS1Kq1UtUoi0/KYc
+	 i2h1EkJwoijZ9nVpLfdQlzqkZDb0MGosa2wizPgJimGZz4RNnj9c9tdcPSjH52HldS
+	 CPcqsobfdJoPDDELkJNRzmTLPeIEXwU9ax3QZlkrQISJcwoXah6dltjqPj5/Yjxfdt
+	 gq85t0FJ4wv/w==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,37 +48,47 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 1/2] dt-bindings: firmware: qcom: scm: fix
+ CP_ADSP_SHARED VMID value
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nickolay Goppen <setotau@mainlining.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Gianluca Boiano <morf3089@gmail.com>, Krzysztof Kozlowski <krzk@kernel.org>
+In-Reply-To: <20261124-qcom-adsp-shared-vmid-fixes-v1-1-f1a808dc41a5@mainlining.org>
+References: <20261124-qcom-adsp-shared-vmid-fixes-v1-0-f1a808dc41a5@mainlining.org>
+ <20261124-qcom-adsp-shared-vmid-fixes-v1-1-f1a808dc41a5@mainlining.org>
+Date: Wed, 25 Nov 2026 09:29:19 +0100
+Message-Id: <179559535967.14607.13377213266450757103.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] dt-bindings: vendor-prefixes: adlink entry inserted out of
-  alphabetical order
---
+On 2026-11-24 19:52 +0300, Nickolay Goppen wrote:
+> From: Gianluca Boiano <morf3089@gmail.com>
+> 
+> CP_ADSP_SHARED was taken from downstream AC_VM_ADSP_HEAP_SHARED, which
+> is defined there as decimal 33, i.e. 0x21, not 0x33.
+> 
+> TZ on SDM636 accepts assigning the ADSP heap to 0x21 and rejects 0x33
+> with -EINVAL.
 
-commit 2f4d78076b6d244278338cd9e5998e364b7f32b1
-Author: Dinesh kumar v <dineshkumarv85@gmail.com>
+So not a binding? The value is abstract, just fix firmware... even the
+drivers are not really treating this as DT ABI.
 
-dt-bindings: vendor-prefixes: Add ADLINK
+Anyway, any ABI break must be explicit in commit msg, better with
+explanation what was actually not working.
 
-This commit adds the ADLINK Technology vendor prefix ("^adlink,.*") to
-vendor-prefixes.yaml.
 
-> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Doc=
-umentation/devicetree/bindings/vendor-prefixes.yaml
-> index e467da45cd7ac..6bbfa5619ee46 100644
-> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> @@ -70,6 +70,8 @@ patternProperties:
->      description: ADI Engineering, Inc.
->    "^admatec,.*":
->      description: admatec GmbH
-> +  "^adlink,.*":
-> +    description: ADLINK Technology Inc.
 
-[Severity: Low]
-Should "^adlink,.*" be placed before "^admatec,.*" to keep
-patternProperties in alphabetical order?
+Best regards,
+Krzysztof
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125082222.1362=
-38-1-dineshkumarv85@gmail.com?part=3D1
+-- 
+Krzysztof Kozlowski <krzk@kernel.org>
