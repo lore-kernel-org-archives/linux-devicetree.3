@@ -1,51 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606718;
-	b=TEKPQAv1haG7iEYtOYawX9VDlhi8F0aEs6xL+nrCZimMJYJGO+3eH35wV1GZlWJSMwHo
-	 94J3JvSrFZUrk1By3FZIQkFuBQA45X/xNMlRjxwzdtnaw/nV8VZ+0T5VKTPGdQPivYSo0
-	 yDKhqvRB+6fislPchoDtyTjbJnJkjqGckWJvkN2/zRjrGHfSzmVQFeFlb3FVDBxnJXvbk
-	 i6PlhD1ldSS96EXpklYYUPRvfsu4rp8aBC1WQYWqmuSfw5VO1AcZfNtrLagAKRbzIHXRU
-	 yAp5UgAXBdJkXdENqyTE2j+0T2hFErxC4CJLuCwLzkIj+RaXBrv0L06aQ1HeVja2FXg==
+	t=1795606764;
+	b=rerxHasvda3ZG8r8qMgL3aPqySUkl1rbmoSP//yHOhEPTPehUOejYABsSZur4tXIEGeD
+	 vj710xGNEGDWdBfwXYtP3lY0PSyaHZAerCtLmVbBkhXh59TGJBfjV/9KH2Xrq+F8YHjQa
+	 YsS52l+2FrgqDQr4ZCo7eGigOM5qvGARV7Fz72IUZckq9vba6vKy2hUSfoUaGL6zh0oHF
+	 mYXtRQS1ANsqyDee0j2ehOppJ6KfretH0zdPxxzkf4KQGTyLzcgkkuhNBSChtHrnU/6rG
+	 lXM4sS+GYjsr/arikOg6brDDeFDGUffRkpHQ3iXkZFC/pl2hQeL88hRaUHs+k4KW0+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606718;
-	h=DMARC-Filter:DKIM-Signature:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=a+FoSJK19GndXtAvkhoYAiWjPx5q6h27H22yvjuinKo=;
-	b=Fz5EiZPJLjIjaX01r0EOka+O4R0Di63pnY93Fs68Ustn/OzMrbKHUfR4GbJKW0bbjgkk
-	 /sk0KnnI6ztDGHLUR4wHwiIcFzNdF33Eaa2rp/FRDnrv2gj1icQsjAfrESwKY1TefGzgD
-	 CPSgcBSGUt1KthydxG2kG8NOv2xrF1wlSG8q+jKvXA/sFS7yTTLBd2gqNff9u6uQd+NW2
-	 c3yFQ9T57QamHd7289yi2YVTCtBv0TUt0XOb5K1sYIvkEQQ5hALLmKwCIxPs8gilaVyxm
-	 6b3QwhKqz8osHqSf0DP4Q3wtQi+tvdJTO1S2n6pt7pE0Ve91dj6IllC7AtjCbdJW4Xw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606764;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ucIqmBM6KN9EminbPJZhmBbHA/CEHwAxdNotG8ANz4Y=;
+	b=luorzHBSoblaoDTNFzE9I0bioOsLTQjUl4jnosW1Pd8c4qROLUGfBmSN4ZuIWZDyxJJZ
+	 lHzvmyI/PNNjR/B2ORsYq0DsvgotoS0Fa83bWCcRsOCX8EQFKPtz/H/bjl1HbbNB89Q7m
+	 cgu2cGaIODp+Bl8+hlz4R0J+0l7Nz+FYgzQA1iryFyxBPG7nIbywW5ACA4333FGBxoPUl
+	 Wqsh6k+RyEaQDjrgxwO3FR5zLhSGNNCHNwfWRdnai56bNCzgzSN2ulOEbQbg9apuAmYF+
+	 uTDfNIuYJk+5Af4Dnl7+pot9qk0kO7TYS5Gk8s0dnmSIB/qBWwYe/P2kPgblIZDrqdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=rUghJ8Iv;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gGmtx8aw;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE77606A31E;
-	Wed, 25 Nov 2026 11:38:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BE77606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D560606A326
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 11:39:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D560606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=rUghJ8Iv
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=Cc:To:Subject:From:Reply-To:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=a+FoSJK19GndXtAvkhoYAiWjPx5q6h27H22yvjuinKo=; t=1795606718; x=1796816318; 
-	b=rUghJ8Iv0WP3kMvmIMofoLuBvxJSffF8soRm4IKPoimloNVhUoQhkclAv/lqvCe+7u6inXjXja1
-	HOqunQadGQhzYd6SUs2fwI1nOoUnyBiP0jzjuz2u3GvivB9nkeElV6oAvudm4wd2Zx1pJbgTPNEmF
-	iLIgeVHPxpU85w9AcJ6xhBLPsXy/kzhnRwySlDWpk/mS4HPfEj/wYxbQACZSj9oZTmesLjr/qyhX5
-	hTocJABcjsExo40CHkrlzF2V+8DyGBvyDD1iQCeoOtP4Wm9j/Zs3EboW5DC83k1oHKRIgdUyaNWsc
-	kKZ7Jf/liRqRvuo8xTXAdVHWdd22cV0PpVbA==;
-From: Andreas Kemnade <andreas@kemnade.info>
-Subject: [PATCH v2 0/2] drm/bridge: tc358762: fix reset handling
-Date: Wed, 25 Nov 2026 12:37:19 +0100
-Message-Id: <20261125-tc3-reset-v2-0-32eefcaf1460@kemnade.info>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gGmtx8aw
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-14394530ec6so7960880c88.1
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 03:39:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795606763; x=1796211563; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ucIqmBM6KN9EminbPJZhmBbHA/CEHwAxdNotG8ANz4Y=;
+        b=gGmtx8awMUUmFTiaXCzcGP7Dz3tVc3lapgD8z7utRcgQyd1sZFHWA2QkVj0mbX6zC2
+         OC2zLdDcGNr9HE4u3RceXGAhHJRxgaIjkOG1aw7E/W6kWYS0zfWNHPrpTRgru84VJqjP
+         xeeX8F/MC2/B221vKJBVnaMiELUeqkmpPUf7/IGLopSQaGK47cf2XW7cTqaDKX+Uyxpt
+         BPRtrv5ozi+/M3A2MtruZK4iLiutkBXXcRVoK/6/rfPmqjwVaT144jf5Ln5RbB4MQzRW
+         y8Z8JFhg96ci+15qF01vsqu6Z3o/qEW1tQbEancg1D+E4weIF0gNtuBXtqAzrwzgCz45
+         XdIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795606763; x=1796211563;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ucIqmBM6KN9EminbPJZhmBbHA/CEHwAxdNotG8ANz4Y=;
+        b=FYLLD+LxuXgr3f7q40So1UpEhxcwdzlFTIUCoZfWs0zUJcS+HetnCtuEejPoKf6lxr
+         riMgBNVdGFk7TfJo2720tTacHVPanVxlgUJV2o+mBCNRc2b6ru+kZg8pev5T/w3WPoF4
+         e5N2c9W1tQBu/ph3A6cQFhGlIUonLpHev2iFuOEamLpWqaozN/csu3NduCk4u5TyFpo0
+         BW1VHWvQh8XWey5Eg0mywwsZYsmS35qDAdSEOqdOXJrXAVISem/LWdjBnh+cu2GSAwEz
+         33jd1NIiL+/+DW7u3hgsw2ojw/dU1o3/dzN9CoJxBJLenD46kMibcgWAe4C6eepC6Y1f
+         kcog==
+X-Forwarded-Encrypted: i=1; AL+hErHjaWLgP49aX/wXfELFRZ2g9ZR4O2k+AudjYP+x9XeEbLebQjfu8R8ZmUcUuzP0+k++wfrK/rEOJsF3@vger.kernel.org
+X-Gm-Message-State: APuU4Z/2pvvCrEfpsM3rCE4xj4+jC36qI6LXpPBarLyThdJkJcWnRSGb
+	KdE7d1PdMo5w6euFsEEAztP1LHKh+hT28QV6hauUwbp25BD2Um1uP31Z
+X-Gm-Gg: AZFdTZeeFTm7U9tBToBOVY3w3pfum7n5SA2h/zJ+KyC2MvyhGtgvIYopzFTcEFWc2wD
+	NcHy1rry4m5m78KCwRJ+MYCHzxIjY71iKosXEJESnGbPHa0byABcjnGWC6V8aq9573iQeCpGa/F
+	tZmO8TPks5rntZGnkjfPiMqP1LKw/7Hi4mwvYdNQ9C0sQPzHdnplKUuOQHsawfrZwHJ7c4yzi4q
+	7H9Q9Tl+XO2biTEbllLwyF2RL7hz5viglYebHHenv4GSUk6rYGtfExayZ3Rv6ODpyS6sheB7Xh2
+	yxJWTxONEHd1jUlBsD8AneN8V5DW7W8yQCi+8x7mGeZxyO6IG/FL24AT9rvau223k/hs5lGpwgU
+	Lb9WI2K0Oy2DXZs6Yyhw4zxQHTqRS1IcrESoI6OO+tQQwUv3MLhn8K9K+SlWAW8e4SOkrAhLNbP
+	wThwpy8AAouevKOMuBsQS/u4Ufi6jJBfDR7pbQwsWCd4v1Nh8uoiOLp6aIcKEWypWUejuqGZ1z1
+	WdxQN+7nPdm9KMmuaP9to1zzmqrKH5S6BDYhq9qtrVgHvy9gmXPV/uKzsqSBDvzeUmBV8vkbuuU
+	sD+YwuKzs/E5DpLAxgsmpT7H2tMfsfap07Ted3oqvMYGudo=
+X-Received: by 2002:a05:701b:4502:20b0:152:9e88:daaa with SMTP id a92af1059eb24-1b55690040amr17444087c88.36.1795606763346;
+        Wed, 25 Nov 2026 03:39:23 -0800 (PST)
+Received: from localhost.localdomain ([183.82.204.100])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b556847fdasm47479629c88.13.2026.11.25.03.39.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 03:39:22 -0800 (PST)
+From: Dinesh kumar v <dineshkumarv85@gmail.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>
+Cc: imx@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	kernel@pengutronix.de,
+	festevam@gmail.com,
+	Dinesh kumar v <dineshkumarv85@gmail.com>
+Subject: [PATCH v4 0/3] arm64: dts: imx95: Add ADLINK LEC-iMX95 support
+Date: Wed, 25 Nov 2026 17:08:42 +0530
+Message-Id: <20261125113845.297658-1-dineshkumarv85@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,91 +102,38 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAHHIBmsC/22NTQ6CMBQGr0Le2hpafkRX3sOwgParPI2taSvRE
- O4u4NblJJOZiSICI9Ipmyhg5MjeLaB2Gemhc1cINguTylUtpSpF0oUIiEgCdYOj7LWsi4YW/xl
- g+b21Lu2P46u/Qac1sBoDx+TDZ5uNcvX+dUcpctFVRh0syr4yON/xcJ3Bnp311M7z/AVszK1Pt
- wAAAA==
-X-Change-ID: 20261124-tc3-reset-e68e91bc1638
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Dmitry Baryshkov <lumag@kernel.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Christoph Niedermaier <cniedermaier@dh-electronics.com>, 
- Marek Vasut <marex@nabladev.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- kernel@dh-electronics.com, linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
- Andreas Kemnade <andreas@kemnade.info>
-X-Mailer: b4 0.17-dev-1b309
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1687; i=andreas@kemnade.info;
- h=from:subject:message-id; bh=T/U8AWB5sWFUy24znwFaGmRRqn6YQ5i1SBCRspg3Uwg=;
- b=owEBbQKS/ZANAwAKAYRhRfpAKNzxAcsmYgBrBsh2xt0uJ0Nbol28KORb220eRtAVNw95ZKHXG
- lTs9SAfjG2JAjMEAAEKAB0WIQTY6xCZL0TEE1XHfFiEYUX6QCjc8QUCawbIdgAKCRCEYUX6QCjc
- 8cgmD/9XjTW7cSXqGjxjebT+/XtC176aOB54MXB4lacfSigdFRHzVANP8xRO/+GLlWnkTR94vmp
- FyLDm1AYkXvNhl6UMyMBwBxzYGY8A5C3jwJO0TCgZnooQo09Owoig8euWqSsGJxgvM+yqJRJL0F
- EF7jJq6rxfygBjuUSg3EOAzAEHj+TnPSn+1UpyeP8+vjDSjBeoyig6YEcOlBVaredU7MIKAl7bn
- nTEhA5FhnczNLIojnRetORVAdxR14YNEq3cyAZFYZfmpccxOG/XVoBZ+A7Fo5gXviWdFNL9e3fg
- CwxmUnkr60rpS5rQs4uO3DoiU/cnOXj+TiXyJ9/IPcpn8Xj9koFxygJHIdtQvY8ntzi2cLjhyDI
- hI/NCOBl6LAkM2MMtaWCsGZDsLr64cQ6yP7to79VGLIaLnZvXrk75caUpp1KrgNrC9Sc4f5l25Y
- 2QPewneq6RW2a8yIWgOIefjTFzyb/WsNvTUIOhMNYF0QBh8VaI0Ghs7eVctFd5VSl+qB0wkp/Ww
- lrTxDLcAqCgbDk+6/fqM+yqMyJdhyiAcPMFlGGYXLfD6RmwhNCxCLdZr6qApPYUrHi9fDfycwOH
- n67/Nv/yvIN1dR2kXAahbQLRGQsUzTbP68W0ac96w8WRQbdfiQuSFb4wrYor+iwgw27r3t7NTwa
- 7s3zRCKSJ8egXlQ==
-X-Developer-Key: i=andreas@kemnade.info; a=openpgp;
- fpr=EEC0DB858E66C0DA70620AC07DBD6AC74DE29324
+Content-Transfer-Encoding: 8bit
 
-The bridge driver desserts reset after disable and asserts that 
-upon enbale. That requires users to workaround that by declaring
-the reset gpio wrongfully active high.
+Add device tree support for the ADLINK LEC-iMX95 module with the I-Pi SMARC Plus carrier board.
 
-Fix polarity in the one device tree actually declaring
-a reset line. That patch has to go in after the bridge fix.
+The series includes:
+ - Add ADLINK Technology vendor prefix.
+ - Document ADLINK LEC-iMX95 compatible strings.
+ - Add device tree support for the LEC-iMX95 module and I-Pi SMARC Plus carrier board.
 
-The issue came to sight during experiments with reset lines on the
-Epson Moverio BT-200. There are two of these chips with a shared reset
-line, so also prepare for future conversion to use a reset controller.
+Changes in v4:
+ - Correct alphabetical ordering of the ADLINK vendor prefix.
+ - Remove non-standard USB aliases.
+ - Remove the ChipIdea USB2 controller configuration. Hardware testing
+   confirmed that all four Type-A ports on the I-Pi SMARC Plus carrier
+   board work without enabling this controller.
+ - Remove unverified SMARC USB connector comments while retaining the
+   DWC3 host configuration and U1/U2 quirks.
 
-To avoid having GPIO maintainers spammed with a bunch of patches for
-BT200 support, do that fix separately and now, so it can go in more
-fast-track way.
+Dinesh kumar v (3):
+  dt-bindings: vendor-prefixes: Add ADLINK
+  dt-bindings: arm: fsl: Add ADLINK LEC-iMX95
+  arm64: dts: imx95: Add ADLINK LEC-iMX95 board support
 
-The devicetree change is only compile tested and is more
-a cleanup, not an urgent fix.
+ .../devicetree/bindings/arm/fsl.yaml          |   6 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/arm64/boot/dts/freescale/Makefile        |   1 +
+ .../dts/freescale/imx95-lec-ipi-smarc.dts     | 138 ++++
+ arch/arm64/boot/dts/freescale/imx95-lec.dtsi  | 628 ++++++++++++++++++
+ 5 files changed, 775 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx95-lec-ipi-smarc.dts
+ create mode 100644 arch/arm64/boot/dts/freescale/imx95-lec.dtsi
 
-Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
----
-Changes in v2:
-- do not use raw gpios but use the quirk framework fixing also initial
-  state
-- Link to v1: https://patch.msgid.link/20261124-tc3-reset-v1-0-a5d27fe4b5de@kemnade.info
-
----
-Andreas Kemnade (2):
-      gpio: tc358762: fix reset gpio handling
-      ARM: dts: st: stm32mp15xx-dhsom: fix bridge reset polarity
-
- .../boot/dts/st/stm32mp15xx-dhsom-overlay-panel-dsi-rpi7inch.dtsi  | 2 +-
- drivers/gpio/gpiolib-of.c                                          | 7 +++++++
- drivers/gpu/drm/bridge/tc358762.c                                  | 6 +++---
- 3 files changed, 11 insertions(+), 4 deletions(-)
----
-base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-change-id: 20261124-tc3-reset-e68e91bc1638
-
-Best regards,
---  
-Andreas Kemnade <andreas@kemnade.info>
+-- 
+2.25.1
 
