@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795590882;
-	b=EvsOhYFKHtZb+y2KOXy7M+ILnZEeXOQ0H2uEWZHXuiqIlYCE9I8olRR4L+DdFYlyQVDR
-	 KRR/6EZSzCKW69NsuwAk2NeehOLuED7OKo2Z9miUz3yB3uZY/RVO0t6ZtMSHU1Hz4cixn
-	 SPVvZVZFtC3dWsw1slaZuU0ql19Vx1UVVGq1XHlgm6ErPp8OJEr4JQy/c+tQzWh9KwtXk
-	 B+WtV7UiwS6hFYwBhoLyGC5Z7ULvaiOXEKZl+6+a7l0K//cnrtClIUAgKVkNc6dhmWF+y
-	 /odWSJ8SCPAXolK2/dtemXJhGPIlM9npt6wP1ror4HDV7D1JyaE9qjH9+Qh1H3FvG/A==
+	t=1795591230;
+	b=G9AIFnvkiQEdSNg33w9+FWuC9aiYI9ovayo+ekEF2JAlWNPPQVSRJ1TMIXe5nNrM6d1A
+	 h8EqEBgGD5zUhXs9JW7aP37RGSyK4LzSCQHkbOP2mZsQBNMoJriwh0XndH2VHiq05SBe6
+	 SZl1GH9qvuZWlu65aN8ZEdPITB+UYABUFdC5OxaqKD99U6bg1UW+jfwLy5Awh/LSJ2OSc
+	 mtxWfWr6xATCzJo1pgotvQOAr0PtMx3qnfIEBYN7MITYreIwoj3R8HP2tQa13MC3SfdIi
+	 n0gXm/WTJ5LQ1luGwmgJlZQ0GYRmrjV8HKeL6QsmEuEIKPHYRqd1oRx9SgvexRpocRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795590882;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795591230;
 	h=Received:DKIM-Signature:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
 	 Date:Message-Id:X-Mailer;
-	bh=9O9vWon2AID/bXAvQdP8zYGG5/Ux/NpXmOMChYy6MoU=;
-	b=bJv9jDa1eyWWAhDtBOTUjHop+D5Hhg3Sa8v73e6LhOxsFFfLpWcMJ57vryIpb0l6dI2i
-	 n3ywyR8W7rMJKzQ9hTIA9Eyr/rOtLlBxMUI9Z86Gxn2mQlkupX7b9yMlfbvOLLeLRWKyC
-	 6RvY0MEeelxsNZoPZKXRCb/FwGN5ijcyOvb4IywFljZnotvIqF7B5mgFOos1BwWNoLtpP
-	 QOYKliP3CT4bdXBD+DkLkKBMwOk06XzttcKUIdGWx7bi4LqVGqVTWsyB/7hoWkk00lYGh
-	 SoKw4sXFoP/vR7dzJLRAZ6bYmtVxH9/iMkuJrGy9vAwzYjBKHAHI6CfrVg0oTPjrobQ==
+	bh=L05En4/xKFVGe3YwLYxtCb15h7QwemjDiV1X8U2nthE=;
+	b=HJbuf0f3Luto23jSK3T6xlkg13mF6BB5Vz9rAUrmgnhZ1gp/WC9uE33PCOF+olZjFfq6
+	 4JtoyLAaqyO6P8nV1exy0JAd669wZ4H6IHATXF/12VPoGmK+Pttul7arCUht8QDA3SaFo
+	 7nutZQ3l0xDU/m9VGHI+gphqheg81AhWlLaDPjQwwfaeKAMLD4jA+aI3c+ONMCJMqNjM8
+	 ECpnK5Be0b2xbyJcIg+LaUT+7PW58gMQsL2OdMVaRum4OUbGsDvh81Dop/ustou50QcWT
+	 GLreRfbLhNCWI3L43VY4MXmea806vDnjH7roW374rCi6FUysBlT8YkfFYfMweFmkPig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WvEXUrd4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CI7KwRD6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B00606A33E;
-	Wed, 25 Nov 2026 07:14:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACE96606A323;
+	Wed, 25 Nov 2026 07:20:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WvEXUrd4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E6F61F000C6;
-	Wed, 25 Nov 2026 07:14:40 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CI7KwRD6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 850C01F000C0;
+	Wed, 25 Nov 2026 07:20:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795590881;
-	bh=9O9vWon2AID/bXAvQdP8zYGG5/Ux/NpXmOMChYy6MoU=;
+	s=k20260515; t=1795591230;
+	bh=L05En4/xKFVGe3YwLYxtCb15h7QwemjDiV1X8U2nthE=;
 	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=WvEXUrd48V04Um5yRGlR1O3i6XcYPHzzpMIBD9AacCfPfeZLoU+0DqeQX01NeK2CA
-	 8+1da4KV9oXHQ7gD5JQEirTsNtgv3/u7B9vyfhIQgvHJlDqkZbln9EEYA1DMg1HWnC
-	 PD2ogIFnYWV9A/zNDimkm2Qmh7gHRTh2D3Fqh8stSr9EvPe3827pEuLM9qR8F7uwxG
-	 NABN5edtMh/SLXJTYjGAlFI1cyga1Wy5YsIT3LR98UfIHdV2OVtc6X9NiGXFd1lgH/
-	 2FZOvRWkKfhcY3nwzafTZVcjoxmCFkVodBeBNU5xKf8eEjteI8fzrNEOevr3nzi2Kr
-	 7mTQrNGMK2xdQ==
+	b=CI7KwRD6/npgdogDA9soGnOx7aANCu/YHtpit9WlZvZg6ZNb5WZ91xuGXsP7htK9g
+	 AxNgBw6ZxZd2f6JTLRrLXyyVsLDB2JfUyK36sJdxvwYfems3TDhQd04jFCNZHUrli+
+	 l9j3qtu5KNZ+lerE4srjbX7HELfzHhrXTwjDtie0f7LzJhHXJcf8ZhmnytnfsAeBt8
+	 Ya9P518uE9M3mZKCYl9KJzZwloz+9LV+RQrwPgXWYdEYLkvFo/XXGHbWsDXoz74ntk
+	 11l/Lw54Z67R5RWw+J/uPKkCX/Xq3kJj1uph9H+K3yqDaBXtcDYx3Agm//IrDrHZ3N
+	 5N2FqPYzw3twQ==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,29 +51,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 2/6] dt-bindings: input: add Jadard JD9365TX
- touchscreen binding
+Subject: Re: [PATCH v2 1/9] dt-bindings: mfd: Add Marvell AP806/CP110
+ system controller schema
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Hefei <3066883572@qq.com>
-Cc: dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, robh@kernel.org, 
- conor@kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
-In-Reply-To: <tencent_50B2DF6754BBF1EA8F2CABA66F0342A8A707@qq.com>
-References: <20261125021127.1430-1-3066883572@qq.com>
- <tencent_50B2DF6754BBF1EA8F2CABA66F0342A8A707@qq.com>
-Date: Wed, 25 Nov 2026 08:14:38 +0100
-Message-Id: <179559087806.9063.7183621842723367523.b4-reply@b4>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+ Gregory Clement <gregory.clement@bootlin.com>, 
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+ mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>
+In-Reply-To: <20261124-dtbs-marvell-v2-1-663009a769da@kernel.org>
+References: <20261124-dtbs-marvell-v2-0-663009a769da@kernel.org>
+ <20261124-dtbs-marvell-v2-1-663009a769da@kernel.org>
+Date: Wed, 25 Nov 2026 08:20:26 +0100
+Message-Id: <179559122613.9063.9445094754243687783.b4-reply@b4>
 X-Mailer: b4 0.17-dev
 
-On 2026-11-25 10:11 +0800, Hefei wrote:
-> Signed-off-by: Hefei <3066883572@qq.com>
+On 2026-11-24 14:46 -0600, Rob Herring (Arm) wrote:
+> The Marvell AP806 and CP110 lack specific compatibles. Add a dedicated
+> schema for the Marvell AP806 and CP110 system controllers and their
+> child devices.
+> 
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 > ---
->  .../input/touchscreen/jadard,jd9365tx.yaml    | 64 +++++++++++++++++++
->  1 file changed, 64 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/input/touchscreen/jadard,jd9365tx.yaml
->
+> v2:
+>  - Update compatibles to avoid old legacy ones
+> ---
+>  .../mfd/marvell,ap806-cp110-system-controller.yaml | 59 ++++++++++++++++++++++
+>  1 file changed, 59 insertions(+)
 
-Dropping all your patches from DT patchwork.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
