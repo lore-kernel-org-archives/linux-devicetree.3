@@ -1,45 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608069;
-	b=iBR4ITRC3rKnnMLPRrqaToIh6oXD9eYqdpgy2+hJuaQnZbWYuw/06A7CyS+Pqpxd9w1D
-	 m3DR5dq9Bj5wmyCzKy/HVF5/4rh3t5GC6IPqbQLdj1wadHj/TFK0m53WJxZRUwI37pD1L
-	 jOPucn1XBgo7z1BN7thGUnGxsBj4vHRzmMp77UdIeJwpBR5B9pDigge5iKekrFwfdrrLt
-	 6U1t66QNIcRxNfgSwhal002d6E2csWeME86BGVYiFXLtk0923z5I1VpiM6tI6lI/LebJi
-	 w4rddNuOwYp32PV10NKBj1XkSeBp7fOBNyx7KjAhNeZOtof9FfaCFlAzEOI6GTvzJiQ==
+	t=1795608113;
+	b=n59fkMz4kWPNDoG88ti8QnGp1GA4jK2gBeIyrFtgSuoHvbIdcxxJZ8eMSjsvnNn+AzMW
+	 KG0walyLrXSx8SnZ0f+jkR/uYJC6t++blc4UoZydvuX+ASppL3Z0aq1qFbo/+5Q9D/+yH
+	 gXJiXdnKS7Z9w/Ix9Ya4vdO4+NRnDO+hX+h1GFd4XvTq3fBv1KsY7JDPKEuXauS0/paWr
+	 eVpWlO+jyPooonVnbZYZGwidHPpDtXKmXmAFTNVU4cY9CWns8FSBZX4X9XQiiHwoRQaXn
+	 G82PpXzqUAWK2ekZH+8OZNeSNn6G3oQn2KA17O+hFNKRqQAMq2GKA/69QSz/LrtfkkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608069;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer;
-	bh=bUwHBoFCV/3Z27mWEeTKGjzMbYasPj0mIvhyyLXjasY=;
-	b=McyyDagMvyqabGcD6AJGYy2dMG/ycxSYGTEjybZWoYZ9DKkvR9rnZuRfmlltM6zAmYjo
-	 0M/CBMisOGmq5fgd9ubsYR0K1tWqGx8OTAH753t5MsZgNpfC5omDvhhYPiQcRo9HsyFYk
-	 sfalwcQUxLjy44ozN9VenAI+v4EcjiomOQX3abaZAPZkKVbQ+HQEk0oAHRT+wv+Mc/8QR
-	 zUByv/x3+dz2k9yc8ecnPFbt7YKDzN5hQNFJxmGYE4lFwmof4UNvAbAJM85XOsecr4srV
-	 7G6QWBP/8WHdNkE9Ympy897xkPVQNXZ8HTdGuF9qFDHDuZN5WBTyVMXF/Oc5ncWO+nQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608113;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=JH0+oBZQMbhzUlbiC8dnWCz5sXtMHNDZ49YbsVl19LY=;
+	b=KyH5XyO/5uD58RUt3vQGB4EykRqqW9SHOI8pYMQ2wQO1wzg0+P7DFo15ZUp6axjpqAwo
+	 cCpWbpHJ5AcWSQfgkY1zkfKo+5KM6GKQn1x4mYtbmF2dVoGQtLvQBxLU25N57haV2ZPwD
+	 XBT33hlW6qeXvby1jfVM3zcMNNqnCKHBkDeqAr1VD/u+jDqOKq5AkgyHlhpenUbHZJBXf
+	 WpK6p5RuXksbXtxOdLr2oLH2wGZ8Sz1yUlTRN+DgpBk6dvQ1VdWdAvxG1tFC/oQfgsxr7
+	 IRYqEfdK7UVI1VOU8e6imhOmrNq6WfXvsFoLy41x5zc26KeDlB179s8b0xnw5VLKULg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QjuIEi9S;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FcCKHBfO;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bkHEKFaG;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECCB6606A31E;
-	Wed, 25 Nov 2026 12:01:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BB92606A31E
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 12:01:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BB92606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QjuIEi9S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F0AC1F000CA;
-	Wed, 25 Nov 2026 12:01:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795608068;
-	bh=bUwHBoFCV/3Z27mWEeTKGjzMbYasPj0mIvhyyLXjasY=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=QjuIEi9Sc7PuxMQCTt1tdExnmDMPnhqPqVz1KD3ClP8PdYMtvoSWuOrO6HAYxmPAz
-	 CNWlZ2wE9nMs5a4tkTI+4TA+A/PnLIRIm7ZqaeIl69RJ5j4oGwsLL8q1Gqx3qsBGHg
-	 Kh5VidsI4cxzflBIqnsp0rWMn/t7bxHO869pzAm5sXNEnxQt2zN1Mqx44esZ0WjAfT
-	 GRMCvuQmxemAuuCvhqOuS2OeaaVAD6SXFyc5lq2q5zVx4hvNYI0GkXC9twLWMHkDy2
-	 SmzeE/2Pw3QodKnU/mr+Gf4dsi4jtMVvASpsVpnIyJURg97W+G1VcrYL+nsbU+pG//
-	 ADodaVfb/v4Pw==
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FcCKHBfO;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bkHEKFaG
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AP9m8v14130785
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 12:01:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=JH0+oBZQMbh
+	zUlbiC8dnWCz5sXtMHNDZ49YbsVl19LY=; b=FcCKHBfO6oIC01Z1971CkqMK19f
+	b6IwpdYxK7hts14LM5Tu5dXXC2NVJ51/nQGpRwbIppx92GgLV70t/KNHAPxBxkqz
+	XvKLto4njmstadffJDtTosoHjPRaQpaXtNBebMb2u7680gPo0KlHtKwbd+oEYR23
+	+kKxrqMxChitoG9lbTRbKpu5ws/pij2vd/cGzcwWWFGFYgamxCsYtugjSmXfzW8L
+	9AvlnbkZumDPo+m31KsO5KzUAqR9F6KShCZf+R769WdClM1jIAmBXECEWncGRJ8d
+	KFJaqRIoUXn2fbXkKKEIdgJCVojR4ScF+1dyaVP/RyY7JUsRkyw7kAiSDdw==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5vuhrqwf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 12:01:52 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2efe8f2bdc0so45407885ad.0
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 04:01:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795608111; x=1796212911; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JH0+oBZQMbhzUlbiC8dnWCz5sXtMHNDZ49YbsVl19LY=;
+        b=bkHEKFaG0ykIpUvTORCKyOWsGdXaMljYg8yfuvaOjiL4hRIr0mp+RN934I+2cSBwUC
+         PDM404kvjLEw4kEsCH9kFLNEotlwexNVSl5zuSDK1HCaJnq3eYrGJs0XpiYtaJGhaPuT
+         BB4Q/ed5dUqkvdeDShXBlpKAISbOXOVRND+w+xKuRvMOR6AogPir3BhnUpsrhceZENHT
+         BO2oE3wJ+Wj1R27auWQnvHHL5xYMNBCeEif42/B4WVSiM8nCw9sq1BhQ2bTRz5nv+pv1
+         OcFamE2GU4H6ZgvzYcVPLB+oQSzeztqeJtH/wwX5NIAMAly4W7XpYQf5y1oFnuiyb5vg
+         Qn+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795608111; x=1796212911;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JH0+oBZQMbhzUlbiC8dnWCz5sXtMHNDZ49YbsVl19LY=;
+        b=g4L+9o+ULYLbb4h5BMYdA/yelIBSXxRHV9/l6LBFb8fIu3wiNittGOY8FdNTmDc++b
+         AL4d42bnVeEtPoDCgKtl96qXwCh3qsVCXX5dMGy4jorvjpGDExvkdim0aHt7hYuqr1fa
+         WTW2NvkfuyzqsuiJm7KJOD6Ajuj6bW5ZFg+UOe5dJcclaaT7aOT7fYTMBCaBMVbhBXfy
+         OxIrUgn/jVtkv/wnT8fFTlWZRoGWAiUqFhVunBSxDDSwU9n8jko2SSUxweCPM5KZ7SEM
+         6aS8dlY+fS5Rey1zDkwAqjhfYnzZYAdhmkvBB5iwH+UXCrz9K6HWbVMEzNmrSIbNRSIW
+         faKw==
+X-Forwarded-Encrypted: i=1; AL+hErFHtyutJ2zVSUEaMpXOkryimE5XmFwmVhj8vx4nthBKjQdPajsHsAN1FxJmIhqNq17DX7JTuXaSz1vP@vger.kernel.org
+X-Gm-Message-State: APuU4Z+FfclKNwdHPzNg1pi+GyzKwKwnriiAVVY1Y0s/0LnhdV1MMVys
+	7AA0AlzZG+rFrFqZtCai9UhJvAOppAW3H0Wd3A3jbi8kdJq1iatUcFCtfyAf+H3fyT5MVhwNvik
+	+upLlc3yiTNohoR3D+4UU9JP26AUHdvBiKpV0RmqHblfU/JxAlV3UlPTarLzNyjW8
+X-Gm-Gg: AZFdTZeyHlayeX7CFJFs0m+jNxWQ16jtT4HW5nV9n0hyx7NzK1sjNWgcQw426SNwZin
+	NvwIZIVoFKsJIkLYP7p0Q5mgeJcGaYuFuVdma5QT8ynxuRVJwXZeKg9L5SD83F7ParPYGjfpf6G
+	R7KoP4MPemkRb8JwBty6zloNAIT7rRJ50s0yQvk3AAbf8Idlrw+DvQJrhQhcGcM6IIU0OB03/Ll
+	Sk4a+ktKjg7HZq86ostX0zEljBSkvEyOWhosX/MW/VrVVe8hWOURp2kfOnGDzJDks4nhQr+wjx4
+	P5HgeY7jnSUEPh1gZR5b3A28ZB2thRPSrfvT928W0jErTo+2ArB8E821uh/iIA52lEvh6ozn491
+	EpAAeL086TBYIyZgxU57bbbJUxr92ek6l2r6vbRjz0bg0Y0BdZErrTzmojdrxaD4GrAITy8eAba
+	Qwh5hPnPh4ChRj/6PwpIl8uxcvkUhWovCkA1w6caMHexnViikT1yzZhm8=
+X-Received: by 2002:a17:903:4586:b0:2ef:de2a:3bae with SMTP id d9443c01a7336-2f03f170047mr176859895ad.30.1795608111050;
+        Wed, 25 Nov 2026 04:01:51 -0800 (PST)
+X-Received: by 2002:a17:903:4586:b0:2ef:de2a:3bae with SMTP id d9443c01a7336-2f03f170047mr176859435ad.30.1795608110199;
+        Wed, 25 Nov 2026 04:01:50 -0800 (PST)
+Received: from hu-ymg-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03f0c1a8asm84700455ad.24.2026.11.25.04.01.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 04:01:49 -0800 (PST)
+From: Yadu M G <yadu.mg@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+        Alim Akhtar <alim.akhtar@samsung.com>,
+        Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>,
+        Stanley Jhu <stanleyjhu@google.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Kumar Dwivedi <ram.dwivedi@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-scsi@vger.kernel.org,
+        devicetree@vger.kernel.org
+Subject: Re: [PATCH] scsi: ufs: dt-bindings: Add compatible for Seca UFS Host Controller
+Date: Wed, 25 Nov 2026 17:31:41 +0530
+Message-ID: <20261125120141.348306-1-yadu.mg@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <7401e343-71f9-476c-9143-26d068c28aa7@kernel.org>
+References: <61136dcb5cde2c0cfe1b8f3a488e9edcf36043cf.1795517687.git.yadu.mg@oss.qualcomm.com> <7401e343-71f9-476c-9143-26d068c28aa7@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -49,78 +127,43 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH V4 1/3] dt-bindings: power: cw2015: add cw2215, cw2217,
- and cw2218
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Chris Morgan <macroalpha82@gmail.com>
-Cc: linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
- shawn.lin@rock-chips.com, linux-pm@vger.kernel.org, heiko@sntech.de, 
- conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, sre@kernel.org, 
- t.schramm@manjaro.org, xsf@rock-chips.com, 
- Chris Morgan <macromorgan@hotmail.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>
-In-Reply-To: <20261124191346.434143-2-macroalpha82@gmail.com>
-References: <20261124191346.434143-1-macroalpha82@gmail.com>
- <20261124191346.434143-2-macroalpha82@gmail.com>
-Date: Wed, 25 Nov 2026 13:01:06 +0100
-Message-Id: <179560806608.84329.5895350466243051992.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=FPmOVOos c=1 sm=1 tr=0 ts=6b06ce30 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=zTK7sikzi49oAEfBURIA:9
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-GUID: 7XjloqHvJ-NfLwzO5_o9YBs-NV88dGx6
+X-Proofpoint-ORIG-GUID: 7XjloqHvJ-NfLwzO5_o9YBs-NV88dGx6
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDA0NyBTYWx0ZWRfX3RUuLa8j857K
+ c1Z5W2TUt8kkfs0mf+0POGvJohj0hTFVi1y/J2PsWtLMBiQRHv0HvhNhQLvn5x7CM6+Yggz2mlQ
+ Hh5aIVFuOV7TEYydbo1FImzneNHS/KE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDA0NyBTYWx0ZWRfX5pWUO7Al2pwg
+ DtPy4Ex9zeKbXJKNG1zgQPZJajR2xES5SGaSlOGwYkfr7HQ4ejqr1z1+jLiwKR9DqoA94Np4Bx+
+ 83i4zReaNfLTr6V3BRkjX1otygXqhr/9l3X1Zoik3clEQyaMFTu4om87T/Eo//JgjtV1xwHMoWi
+ zceA3vzIXxK49sKxQgl2eOYHTyALkrN4nK2fvPTRsSInCBMqhb3UAtiMP10MRNST0myiKEHD9L2
+ KkDG9ZBSj36jqFbH2o77B1YM1ZOlAwSPcnnworqT/X5gh9fkb4RArkiOlihqoMtsU19/KPKFWCC
+ cO5MIELHGZPX+t3PXS+N2CZM8uoUYlKkYhkSm0+8P4eyLo6RtQnDBeXMv3zsG7iOPiGRFpea2/U
+ Fosn9j6zOicmaX+yKcRs3IYzCF8FELr3OGP/j2u2XoKXeVP9wx0hSC3OutiFwqe7FQzMkN7VUlM
+ DKcNRdGT9AgMOX27DuQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-25_03,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 malwarescore=0 suspectscore=0 impostorscore=0
+ priorityscore=1501 adultscore=0 phishscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611250047
 
-On 2026-11-24 13:13 -0600, Chris Morgan wrote:
-> From: Chris Morgan <macromorgan@hotmail.com>
-> 
-> Add bindings for the Cellwise cw2215/cw2217/cw2218 i2C interface
-> battery gauge. It is similar in function to the existing cw2015 but
-> with a different register layout. Each of the cw2215, cw2217 and cw2218
-> only really differ in the minor specs and the hardware ID they display
-> when queried. shunt-resistor-micro-ohms is a property in use for
-> multiple devices so not appending a vendor prefix to it.
-> 
-> Move the minItems and maxItems for the battery profile to a conditional
-> based on the compatible string, as the new monitors require 80 bytes of
-> firmware instead of 64 bytes.
-> 
-> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
-> ---
->  .../bindings/power/supply/cw2015_battery.yaml | 41 ++++++++++++++++---
->  1 file changed, 35 insertions(+), 6 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/power/supply/cw2015_battery.yaml b/Documentation/devicetree/bindings/power/supply/cw2015_battery.yaml
-> index f7bde324153d..992cd5f6a216 100644
-> --- a/Documentation/devicetree/bindings/power/supply/cw2015_battery.yaml
-> +++ b/Documentation/devicetree/bindings/power/supply/cw2015_battery.yaml
-> @@ -14,12 +14,13 @@ description: |
->    phandle in monitored-battery. If specified the driver uses the
->    charge-full-design-microamp-hours property of the battery.
->  
-> -allOf:
-> -  - $ref: power-supply.yaml#
-> -
->  properties:
->    compatible:
-> -    const: cellwise,cw2015
-> +    enum:
-> +      - cellwise,cw2015
-> +      - cellwise,cw2215
-> +      - cellwise,cw2217
-> +      - cellwise,cw2218
->  
->    reg:
->      maxItems: 1
-> @@ -31,8 +32,6 @@ properties:
->        it is to mail two batteries to a test facility of CellWise and receive
->        back a test report with the binary blob.
->      $ref: /schemas/types.yaml#/definitions/uint8-array
-> -    minItems: 64
-> -    maxItems: 64
+On 24/11/2026 16:49, Krzysztof Kozlowski wrote:
+>> +      - items:
+>> +          - const: qcom,secaau-ufshc
+>> +          - const: qcom,sa8255p-ufshc
+>
+> And Claude did not tell you how this is organized? That's one enum.
 
-Nothing improved. Broadest constraints always stay here (explained also
-in writing bindings).
+Ack. It was missed. v2 uses a single enum with the SA8797P entry, and
+will recheck the other bindings in the series for the same pattern
+before resending.
 
-Best regards,
-Krzysztof
-
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
+Yadu
