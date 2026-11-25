@@ -1,57 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.203.31.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795610281;
-	b=25TMkP62EVm6mrOwIqHQRuhmPvUkUIOFuymGLQlTaKvOwlKvAh9G7UAb3/P3w+sb11e1
-	 gKSDkQn9t8ALucIqvGBbzL8bUUGe0AR1b5Gp0z3judrACAJ3ZG4Ms9kgob5LGECGB+yyg
-	 OekJfaiZD2S/9vQ8p0+D9NLV3YBTntKmc504fstxkig8ewNUZuwupK6GiTfdJVd4czKOR
-	 bljULjN562heLvyYcoW0y9YK4hj5sgS3hLYFVJyw8wsQbeYbQlq4a29fovjlM0e6QzdJ2
-	 o6QLy5+JUlAtKcWrKaUynHZLcbnC2ztUSG9/OivzYbtKEvjcGebwKPEmARSzBeV2L9w==
+	t=1795610315;
+	b=SRUzsqiXRnvf0ltUY1EwIXOUe5EdLFgQC8uMJ4FDVdToanrVs5FECwSY0pbxJhP0D45/
+	 e5F6CACxfXjfai8nuW3KeZXFIrmdsrL424hHPhrgWLKKWIZ8W7Dmuiaexq0nGQyTgXIIn
+	 AwODcIyqVfMA18Locyk5GaBd3L2oYVZFVI9ZsexZlTOTPLTG3fqjkJtAzBWIgtee/rrx0
+	 IRjPVfiW2k5iMlzwrjl2zm93juds0OjHgpE2s5DIenSqoqWgJr4LoLbhE5KlAGhZNc+oy
+	 N+lTaog/eF8+j/UVJSxbRSzwzmKf0iDds0Hazchwc0oqvsqCb9TvTSbz+GC9EF5jT7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795610281;
-	h=DMARC-Filter:DKIM-Signature:From:To:CC:Subject:Date:Message-ID:
-	 X-klartext:MIME-Version:Content-Transfer-Encoding:Content-Type;
-	bh=n//DTZBcx/4hfvqlbxCdXzZBUWO1eReKPjxq+SXr1Kk=;
-	b=0NApgdIiG0QbqFXtHNjPdsDJSP+AO306xktvoOVJIPrRLamO7FXGGeeJuo39j+m92FiM
-	 0wD7BGpW3K39p8uO6yBu5WfRpbZmGyoomWB3g49mouguyRhjn22wnQuYsiso+UplcFxAB
-	 mnbV3/OaCXtl4SLeuLmGByM/Jp5GRIR8v6rUsapte/plfvdoGTWV4BzU1IPkhXFiy7UCw
-	 guAcsGqzV4dKJ1Xvras4h+Y5T2U6/de+IrxYRF5yj6oglieN3pTcKPuhuE54JMlvuh6cj
-	 OLgtz2PDNee95grY9nMr/P+HsZ+riHfb3s88TsbomGjxDh6yv+69KZ30Earm0x2te2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795610315;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=0+AXJAxWZ9BUMXQ24kh2T7Uu8yMvUDzaGqCtAJHJM04=;
+	b=hjv+jalfkw9s+5RCONAIVqgXRasr1GY6kymjjSGqrKEHd7ereCUSu6WMDnVqI9tegkoL
+	 r8t+zD7uMNJEVNIG4g6aNErt8nn9IEBnLzT3Bpcc+nZwMz50nEnx0aK2ryePdQIb+FYgO
+	 3MGmiBiqeTsP6P22pbEaBbUANerB0nDgvqx9tkW+/VG+k0Y1qnL2Lkfren/msd/PbK2nD
+	 j1V6ZFrcl+HxSjeXr+U/qkP57mBZ0DavvtoHrZX59j5IyFfCjmMkiTcx5f7Zdjg0E3rD1
+	 De8Gq/6SvOErgBBWlWCNLGbXTEUIFflJfqLTxV31WYhDG6M3C5N57WM5p6GJ8besqDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dh-electronics.com;
-	spf=pass smtp.mailfrom=dh-electronics.com;
-	dkim=pass header.d=dh-electronics.com header.i=@dh-electronics.com header.a=rsa-sha256 header.s=dhelectronicscom header.b=uOGHznIT;
-	arc=none smtp.remote-ip=116.203.31.6
-Received: from mx3.securetransport.de (mx3.securetransport.de [116.203.31.6])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CEDA6606A31E
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 12:38:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEDA6606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dh-electronics.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dh-electronics.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ApzE5VP+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A9E9606A31E;
+	Wed, 25 Nov 2026 12:38:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dh-electronics.com header.i=@dh-electronics.com header.a=rsa-sha256 header.s=dhelectronicscom header.b=uOGHznIT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dh-electronics.com;
-	s=dhelectronicscom; t=1795610213;
-	bh=n//DTZBcx/4hfvqlbxCdXzZBUWO1eReKPjxq+SXr1Kk=;
-	h=From:To:CC:Subject:Date:From;
-	b=uOGHznITf9fa4EOweyKuhzhXoiR7raT+f1wfVZIv7Pn8kfHdrayQ/PkxCsarQI2xj
-	 2lwuxw8hmWNs2KjuASIizA3apdopog14vFgks+zWWu0EcIvRzFRIbaazufQfKzEwYa
-	 0rfyqUc4MZUHRgom5hMHhvPXUzAtazGEL5gn+gcXhTLZ5IxOwBGnN3Sn0MXnHlGeAx
-	 nlwuIY1Nh0XVHxZNzxaSB+cRCLqplkkPWPOCRZ2ylo+3AHMQOu5MXce5bi4iYaCF7U
-	 krgEo8ZQdRtJEHX3cqkeZGoAIzHDRniLmiHhWd5EgzR8Rtqo1NCkOK5OONOBxo/X6Y
-	 lMK8oZPI4W5fA==
-From: Christoph Niedermaier <cniedermaier@dh-electronics.com>
-To: <linux-arm-kernel@lists.infradead.org>
-CC: Christoph Niedermaier <cniedermaier@dh-electronics.com>, Pascal Zimmermann
-	<pzimmermann@dh-electronics.com>, Conor Dooley <conor+dt@kernel.org>, Fabio
- Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Marek Vasut <marex@nabladev.com>, Rob Herring
-	<robh@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
-	<kernel@dh-electronics.com>, <devicetree@vger.kernel.org>,
-	<imx@lists.linux.dev>
-Subject: [PATCH] ARM: dts: imx6ull-dhcom: Change eMMC pin configuration
-Date: Wed, 25 Nov 2026 13:35:20 +0100
-Message-ID: <20261125123520.6040-1-cniedermaier@dh-electronics.com>
-X-klartext: yes
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ApzE5VP+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D79B11F000C0;
+	Wed, 25 Nov 2026 12:38:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795610314;
+	bh=0+AXJAxWZ9BUMXQ24kh2T7Uu8yMvUDzaGqCtAJHJM04=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ApzE5VP+2dyQZ+VYa227NrDkMHpe2prWp0lrTGmovXoZWR24/hbM0VuIU+zXijTcE
+	 FzZNzjjDDRQpNM/XpKgChUEnC/J3zVt3J8uv7t4+ryB/bX2ZLtWqb/BEGAJfVVNiJs
+	 Esbo5Bt+ORkjHZwFrg7rhe2bFAF9kFHVynVvPu9AZJ5eGjlN3U2upfG8n8e0A+8RXL
+	 wWI3a4PgSJCj52smF7KIu7x8Wc9ipB9qDm3Ta8kEl88Izg/sEJ1Puchk8+z/K582YV
+	 7f0PMugFQW25FSSjU/cFIAP/Ya+Hi0aZrO+wsXUihAHb0/ZXnMM/+6bklITcQ24YBL
+	 ZULloFZcWTe9g==
+Message-ID: <6dba4041-fd5c-448d-9f9d-e3c1dcff8185@kernel.org>
+Date: Wed, 25 Nov 2026 13:38:30 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,71 +51,126 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/9] media: v4l2-ctrls: add DV RX audio sampling rate
+ and present controls
+To: Hermes.wu@ite.com.tw, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Hans Verkuil
+ <hverkuil+cisco@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
+ linux-api@vger.kernel.org
+References: <20261124-upstream-it6625-alsa-i2s-v2-0-a154685f6989@ite.com.tw>
+ <20261124-upstream-it6625-alsa-i2s-v2-1-a154685f6989@ite.com.tw>
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20261124-upstream-it6625-alsa-i2s-v2-1-a154685f6989@ite.com.tw>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Pascal Zimmermann <pzimmermann@dh-electronics.com>
+On 24/11/2026 04:04, Hermes Wu via B4 Relay wrote:
+> From: Hermes Wu <Hermes.wu@ite.com.tw>
+> 
+> HDMI and DisplayPort receivers can report whether the source sends audio
+> and at which sampling rate. Drivers expose this today through
+> driver-specific controls (tc358743 and IT6625 each define their own pair),
+> so userspace has to know every driver to find it.
+> 
+> Add two standard read-only controls to the DV control class:
+> V4L2_CID_DV_RX_AUDIO_SAMPLING_RATE, the sampling rate in Hz, 0 when no
+> audio is received or the rate is not known, and
+> V4L2_CID_DV_RX_AUDIO_PRESENT, whether audio is received. Drivers set
+> the range of the sampling rate control.
+> ---
+>  Documentation/userspace-api/media/v4l/ext-ctrls-dv.rst | 10 ++++++++++
+>  drivers/media/v4l2-core/v4l2-ctrls-defs.c              |  5 +++++
+>  include/uapi/linux/v4l2-controls.h                     |  2 ++
+>  3 files changed, 17 insertions(+)
+> 
+> diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-dv.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-dv.rst
+> index 5918dde83efb324cd27cc4c771245cd2c38d0b0e..a9117912e9cb255a2ce452147858d927e9e3c27a 100644
+> --- a/Documentation/userspace-api/media/v4l/ext-ctrls-dv.rst
+> +++ b/Documentation/userspace-api/media/v4l/ext-ctrls-dv.rst
+> @@ -158,3 +158,13 @@ enum v4l2_dv_it_content_type -
+>      from a computer as opposed to content from a TV broadcast or an
+>      analog source. See ``V4L2_CID_DV_TX_IT_CONTENT_TYPE`` for the
+>      available content types.
+> +
+> +``V4L2_CID_DV_RX_AUDIO_SAMPLING_RATE (integer)``
+> +    Reads the sampling rate, in Hz, of the audio that the receiver
+> +    receives from the source. It is 0 if no audio is received, or if the
 
-Tests have shown that, with the current pin configuration of the
-eMMC (usdhc2 interface) read errors can occur with a certain
-type of eMMC chips. Tests conducted with all eMMC chip types
-used in the DHCOM i.MX6ULL SoM showed that there were no issues
-with the pin configuration currently used in the U-Boot. That is
-why this configuration is being adopted in Linux as well.
+received -> present
 
-Co-developed-by: Pascal Zimmermann <pzimmermann@dh-electronics.com>
-Signed-off-by: Pascal Zimmermann <pzimmermann@dh-electronics.com>
-Co-developed-by: Christoph Niedermaier <cniedermaier@dh-electronics.com>
-Signed-off-by: Christoph Niedermaier <cniedermaier@dh-electronics.com>
----
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Fabio Estevam <festevam@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Marek Vasut <marex@nabladev.com>
-Cc: Pascal Zimmermann <pzimmermann@dh-electronics.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Sascha Hauer <s.hauer@pengutronix.de>
-Cc: kernel@dh-electronics.com
-Cc: devicetree@vger.kernel.org
-Cc: imx@lists.linux.dev
----
- .../boot/dts/nxp/imx/imx6ull-dhcom-som.dtsi   | 22 +++++++++----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+Is this indeed the case, that it is 0 if V4L2_CID_DV_RX_AUDIO_PRESENT is
+false? I think both the tc358743 and this driver actually do not set the
+sampling rate to 0 if audio disappears. (Might be wrong, I didn't dig deeply
+into this)
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-dhcom-som.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ull-dhcom-som.dtsi
-index a74f5273f9b3..97d4de84b2ac 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6ull-dhcom-som.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ull-dhcom-som.dtsi
-@@ -568,17 +568,17 @@ MX6UL_PAD_GPIO1_IO05__GPIO1_IO05	0x120b0
- 
- 	pinctrl_usdhc2: usdhc2-grp {
- 		fsl,pins = <
--			MX6UL_PAD_NAND_RE_B__USDHC2_CLK		0x10069
--			MX6UL_PAD_NAND_WE_B__USDHC2_CMD		0x17059
--			MX6UL_PAD_NAND_DATA00__USDHC2_DATA0	0x17059
--			MX6UL_PAD_NAND_DATA01__USDHC2_DATA1	0x17059
--			MX6UL_PAD_NAND_DATA02__USDHC2_DATA2	0x17059
--			MX6UL_PAD_NAND_DATA03__USDHC2_DATA3	0x17059
--			MX6UL_PAD_NAND_DATA04__USDHC2_DATA4	0x17059
--			MX6UL_PAD_NAND_DATA05__USDHC2_DATA5	0x17059
--			MX6UL_PAD_NAND_DATA06__USDHC2_DATA6	0x17059
--			MX6UL_PAD_NAND_DATA07__USDHC2_DATA7	0x17059
--			MX6UL_PAD_NAND_ALE__USDHC2_RESET_B	0x17059 /* SD2 Reset */
-+			MX6UL_PAD_NAND_RE_B__USDHC2_CLK		0x1f019
-+			MX6UL_PAD_NAND_WE_B__USDHC2_CMD		0x1f019
-+			MX6UL_PAD_NAND_DATA00__USDHC2_DATA0	0x1f019
-+			MX6UL_PAD_NAND_DATA01__USDHC2_DATA1	0x1f019
-+			MX6UL_PAD_NAND_DATA02__USDHC2_DATA2	0x1f019
-+			MX6UL_PAD_NAND_DATA03__USDHC2_DATA3	0x1f019
-+			MX6UL_PAD_NAND_DATA04__USDHC2_DATA4	0x1f019
-+			MX6UL_PAD_NAND_DATA05__USDHC2_DATA5	0x1f019
-+			MX6UL_PAD_NAND_DATA06__USDHC2_DATA6	0x1f019
-+			MX6UL_PAD_NAND_DATA07__USDHC2_DATA7	0x1f019
-+			MX6UL_PAD_NAND_ALE__USDHC2_RESET_B	0x1f019 /* SD2 Reset */
- 		>;
- 	};
- };
--- 
-2.30.2
+I'm inclined to drop that requirement, and instead...
+
+> +    receiver cannot determine the sampling rate. This read-only control
+> +    is applicable to HDMI and DisplayPort connectors.
+
+...add 'The value is only meaningful while ``V4L2_CID_DV_RX_AUDIO_PRESENT`` is set.'
+to the description.
+
+So '0' is specific to the case that there is audio present, but the sampling rate
+cannot be determined. If there is no audio present, then, just like AUDIO_TYPE, the
+value is not meaningful. I.e., it should be ignored.
+
+Regards,
+
+	Hans
+
+> +
+> +``V4L2_CID_DV_RX_AUDIO_PRESENT (boolean)``
+> +    Detects whether the receiver receives audio from the source. This
+> +    read-only control is applicable to HDMI and DisplayPort connectors.
+> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> index e062f2088490470c42d6c579ff7675be454a29b0..579b2d297cc8246dddb4e8d4ab74aed1e6084744 100644
+> --- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> +++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> @@ -1180,6 +1180,8 @@ const char *v4l2_ctrl_get_name(u32 id)
+>  	case V4L2_CID_DV_RX_POWER_PRESENT:	return "Power Present";
+>  	case V4L2_CID_DV_RX_RGB_RANGE:		return "Rx RGB Quantization Range";
+>  	case V4L2_CID_DV_RX_IT_CONTENT_TYPE:	return "Rx IT Content Type";
+> +	case V4L2_CID_DV_RX_AUDIO_SAMPLING_RATE: return "Rx Audio Sampling Rate";
+> +	case V4L2_CID_DV_RX_AUDIO_PRESENT:	return "Rx Audio Present";
+>  
+>  	case V4L2_CID_FM_RX_CLASS:		return "FM Radio Receiver Controls";
+>  	case V4L2_CID_TUNE_DEEMPHASIS:		return "De-Emphasis";
+> @@ -1317,6 +1319,7 @@ void v4l2_ctrl_fill(u32 id, const char **name, enum v4l2_ctrl_type *type,
+>  	case V4L2_CID_RDS_RX_TRAFFIC_ANNOUNCEMENT:
+>  	case V4L2_CID_RDS_RX_TRAFFIC_PROGRAM:
+>  	case V4L2_CID_RDS_RX_MUSIC_SPEECH:
+> +	case V4L2_CID_DV_RX_AUDIO_PRESENT:
+>  		*type = V4L2_CTRL_TYPE_BOOLEAN;
+>  		*min = 0;
+>  		*max = *step = 1;
+> @@ -1682,6 +1685,8 @@ void v4l2_ctrl_fill(u32 id, const char **name, enum v4l2_ctrl_type *type,
+>  	case V4L2_CID_DV_TX_EDID_PRESENT:
+>  	case V4L2_CID_DV_RX_POWER_PRESENT:
+>  	case V4L2_CID_DV_RX_IT_CONTENT_TYPE:
+> +	case V4L2_CID_DV_RX_AUDIO_SAMPLING_RATE:
+> +	case V4L2_CID_DV_RX_AUDIO_PRESENT:
+>  	case V4L2_CID_RDS_RX_PTY:
+>  	case V4L2_CID_RDS_RX_PS_NAME:
+>  	case V4L2_CID_RDS_RX_RADIO_TEXT:
+> diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+> index d17e41d51d2ec1ccb9e8ceb3ccc89ebc4381a4cd..52124b7acdeab787978029aa49ea75d0ad4cc534 100644
+> --- a/include/uapi/linux/v4l2-controls.h
+> +++ b/include/uapi/linux/v4l2-controls.h
+> @@ -1301,6 +1301,8 @@ enum v4l2_dv_it_content_type {
+>  #define V4L2_CID_DV_RX_POWER_PRESENT		(V4L2_CID_DV_CLASS_BASE + 100)
+>  #define V4L2_CID_DV_RX_RGB_RANGE		(V4L2_CID_DV_CLASS_BASE + 101)
+>  #define V4L2_CID_DV_RX_IT_CONTENT_TYPE		(V4L2_CID_DV_CLASS_BASE + 102)
+> +#define V4L2_CID_DV_RX_AUDIO_SAMPLING_RATE	(V4L2_CID_DV_CLASS_BASE + 103)
+> +#define V4L2_CID_DV_RX_AUDIO_PRESENT		(V4L2_CID_DV_CLASS_BASE + 104)
+>  
+>  #define V4L2_CID_FM_RX_CLASS_BASE		(V4L2_CTRL_CLASS_FM_RX | 0x900)
+>  #define V4L2_CID_FM_RX_CLASS			(V4L2_CTRL_CLASS_FM_RX | 1)
+> 
 
