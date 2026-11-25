@@ -1,104 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795643757;
-	b=dv/wgwFchyItuP67R6AypJnPYKdUkHhk+BnlQ5UxdbGiu3kGzyGJFz9PpwW/56mMUB73
-	 MWH0IYz+ZLCUxhe2m1ViT+djjS0wT0mm9IFzNhe40G/32fnotkBYTX0neCV1nJIIZ5xOu
-	 X3ORNBUEh0Dl4rrHmMmtwNLICE+nYh/y2HlJk+MZ3qoqtSXLru2b6+gZ/ykpWDlNIFj+7
-	 Aqe9ZxMPQNC/ClsHiyNn7wbW8jde/RFYAh6u7ma+t7WBZNunyjsKtg/QTuR0Z0Ofz0ho+
-	 ESplshFufjO6oo867i2BsWL7s32E2ojJkGgv9sXAt22cSkbrtW36iDLRt5aZjpYylRQ==
+	t=1795643863;
+	b=Tz4XzWPGee4WMkyTXm8yriUvcwD5XEushVNNuWw+G8CbC8HaLbxJdTt7Vds604mTOFlZ
+	 ddbl+bSGPEM3KnrQOrkpsssT3MlqZQc8MdQWSiMBxCR7ohwnBYIJ9T/lq3BrqMwgyeCpW
+	 h0DDRaHolbU4VU+aQOWZ/MspFZ6GQ2GnP1S95ujwX7EC76i8Wl8cYfYEiqfkovwfmFVAJ
+	 T32iPmvsA1Od3tfSw0BxvMQ+nWaiSEWc6zdwLsFbhszIom3Sr/5jg5kE6s7iz1qnQ5Fuu
+	 3yXfVFFm4S8cMHqL77x4ay0jMmvWXk3p/hd3QL1l40g4LnH3081Nc6Sx/wyBt0D2UEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795643757;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=uAN+qnezUmFhxXGPo6XpLvUj0u7gFP0sdPzMCnlyKSE=;
-	b=wCOnBnlrWoiTbstV8p/7lJ0EHst3U6FZS5B8P1z/VRjSVPCzIYgWwsbW0c/lp2YRwwTD
-	 htQcNdNdkua775RurFGaaUjpFXT+jkp20+Pm3Dtk3MsB5OsuOX1xoQtHfILy0WmGvcgvH
-	 cAsdpc3BjKlOQStTMbimBtXKeFrYV/C6vl/G8IF5SELSf45WqAzrtnalToWL8QZ4NGKnQ
-	 ZbaMinOWQt2ju1KD8WHsWM15EpabL9B2ZZwq/OJIkveCvR9AJNenp6LUf9T/kV09LdZwk
-	 mtquLGTeA8axrXBD1JXJKZm3MvGWqX2vRknyUNFYZgNIJ2qI9Qabf3SJcftCIg65qzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795643863;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=fQSJlq2AB9gSSiRXHYp7CIMNPJd6C/z8QNb96gGU/Io=;
+	b=rV1Vag7PD/Mt7qMkBieB/nksmd/rUg1WzCS1vBwslYcovJQAV7Q6pfEgHtzN4U+Hwk+P
+	 eb2/SnOyIsMPoHPgBjyEQO/cIjs7CmcREOnYrUcRWccv9oVlJDZ9IwMuU3pbMCJ4V2XLA
+	 NFh/d14f01TZCBX9Rr0CUstk7qmqAZCXpx0iGOUpYo7n2QcC2K4AvUiaCWwLCEzLmREWq
+	 +onEW+vt+E++FfBWpVARFH9VGt4n9OBpp8a18g9GNIWdGSM4oLKWy7eKF8qkDyHMqdVke
+	 7rqP64ZZBbFJpX+w0uCjFDaeM2ibLvkUVpKG36JmO8Obgk3DxC9fLRfXUKLtJHPWtyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="gXo0hC/n";
-	arc=none smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dvWh1JfU;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B160606A699
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 21:55:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B160606A699
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 114AF606A321;
+	Wed, 25 Nov 2026 21:57:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 114AF606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gXo0hC/n
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6ba38c41804so7460999a12.3
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 13:55:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795643755; x=1796248555; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uAN+qnezUmFhxXGPo6XpLvUj0u7gFP0sdPzMCnlyKSE=;
-        b=gXo0hC/nffijD3GTgiFu30p6FztE0NaPZrXRVSn1ssm2VPg7P920slYHTUXtguI0No
-         5i+BcgE+yT5GypKmCQQFCpAbaggDi3hsLNzZBrTcOL76nYozB8FhrVWIj/+hqvxzo93E
-         KYynxwNIPylitInk/wGonjKpwwwx9BOYMeuExwO17P+R54k3196WCj4hpHdRVcrvDaev
-         tyqoZvmB3M0VH1vZxvjah0/V/ysq5jLnWS6Z3GUK7uBKuHytklNS6EuK+C4+OZSYb0L0
-         N4c6PJGLC149Lun7XUW+wp29maw6rYjdf4jd61rKuSnovs4pd79yuETKfLzgMgEoUoAt
-         pWrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795643755; x=1796248555;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uAN+qnezUmFhxXGPo6XpLvUj0u7gFP0sdPzMCnlyKSE=;
-        b=xpsTEPC36z+u5Ob7JpE7+za+owMSBgnIez169AIU/6O2BWRRyxqyo4OMt83rGUsRjr
-         tTRHVnu2pgMqQVuICGmwgr7uaaUzfePe6SQp5mfyuNlBd2dBTRLvAyRMK7dvIxlP6oR2
-         QqoHX77y3T6EoXsAyGiol7Rhq3qSRu501SEha8mKZBABUMFipdO305dS5MJ6ugxOF5mD
-         +nQGtDNCnQit/YsUBzgN3XP1xdAhLfcqFTpAiK/Ku49kJszY1w/b02OzzS5YCAg7jL3a
-         2isAJdqK+xcE/4RRosa/TIN7G2rRCPPKymOxGqs47m/c1a7j4LlPxBOb/e6tejKBXzTI
-         PwSA==
-X-Forwarded-Encrypted: i=1; AL+hErHbOR6PIEJjdsigAuIac0ko22Hy/wuPwpTC6Y1Oq7T35D0fC6Wmg1akKjogLZ8CkNImsph2fa3cy5RV@vger.kernel.org
-X-Gm-Message-State: APuU4Z+fHmH5/QsiYC/aBxqdPyqE4YRwIyuOgWfWXtMave44z4mDzKaZ
-	B1XIGmsaGt0BFuDLqU7UOXu7yOCxWk46LtOdiTHrR9fNepagskha0d8=
-X-Gm-Gg: AZFdTZcj1F+Gd8HDG274lNqP7Uxq2sxS1zebYlyA1Z68XiARWVM+ddxXPnbNwnQqidh
-	/uflN9m42ebZ2XdxbyMZKuY15H9jde0YU+FQwcfnPG15BCtPfYu5NJd6fPMGoqHJrro50kG1dhm
-	4YZIDFBzKjwxFlQO6YDt7LVfmxzxfHNvY6eFCeMEG23tqj8V+8awZhp9+ohHgkqJUHM5sVt40qd
-	CwxW46c88vblAgDlfctTS3wlpZoFCX03as6RAJu/CbgdniLYhEDg1K3BS0zHkerbK2QAgUUb0s+
-	mNOhqk8g91yp3gy74AxZEWCw8b8UTVRxSm0IgYYjpQ1JgqPNP305hwzsXoX3xKDZCsS7t/FX2Iq
-	JYJuGYVYwe246ShGqrXiCO0hegXneTgOgl9pPbFhZE+/3e5+OuN+Z8w8gz1Plw40aBsX7Pe6430
-	UF1OsAf821MmG0Fxz4mIYj3JBCJEb1mQ2cjZCRjEETNvoiAhng2763QmpZJ9g5OaqXtOyv7ywFk
-	c7+TVSNnNtmb+8KySAEeo4kq/gIs9GYj5ygNujIn5AWdwLKNpxnjq0ha9hbQD21tljem/9OD6fc
-	TmVe22DrJvyBue6SVHTzaIW4ywifwYL+YNOJ94DfafRlv2KDl0lr+CzZ8DmMcMKKReQukPg3gQ9
-	ZReL5h6GdtvUxcUFHe+HoDPC2
-X-Received: by 2002:a05:6402:280e:b0:6b7:d55:87d3 with SMTP id 4fb4d7f45d1cf-6ba37ea7696mr12598729a12.36.1795643755329;
-        Wed, 25 Nov 2026 13:55:55 -0800 (PST)
-Received: from sohrab-omarchy.fritz.box (2a02-a44e-4ae7-1-c0e-6d5a-8ae2-915.fixed6.kpn.net. [2a02:a44e:4ae7:1:c0e:6d5a:8ae2:915])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba370e77d8sm8608871a12.14.2026.11.25.13.55.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 13:55:54 -0800 (PST)
-From: Majid Hajiheidari <majidhhdri@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dvWh1JfU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795643862; x=1827179862;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=pZh7FPy1aRkXInOd3Z/lqy51P/H4KfXJDCzy5vYW68Y=;
+  b=dvWh1JfUPT3iCHVmrASvgn4ZpXZk16048LVbpXkJg6pMZ/Q88TCOpvVp
+   99psw2SvAAPgszw3xqe4zFDgKNX3wdrUaiQutwnhDMwKDqkgGmKCXoAjq
+   GCQr4/x1hrj5JnT3LYH+EoVpqcTZ4r7q9RaDeW19D+knSn4wBAUZ8ll+O
+   GzzpC0l2bHYTTi/m8LAUVSfsR9DGSVy+mzw8W2Du5BKgOs1PAo/CTiK3J
+   Ls+WyrockeVN13pOSMpjWkKHLowvBimkWrdum4osMQgSQ9sCsG8/NlDIm
+   gz8OkIPmnB0sdReyB+Vp/2sv/INX8WRr6E/HUqYFFxYDWVKV1GiDyC4pN
+   A==;
+X-CSE-ConnectionGUID: Wg2/JX6AQNicn62bB38vpg==
+X-CSE-MsgGUID: 7tmkhYjsQ3uu9jg74MV95g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4446498"
+X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
+   d="scan'208";a="4446498"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 13:57:42 -0800
+X-CSE-ConnectionGUID: HkRkHbzMTgG06ER/z44mbw==
+X-CSE-MsgGUID: s2DEfbL2R6S8bPeeGAfkTQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
+   d="scan'208";a="12569558"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa010.fm.intel.com with ESMTP; 25 Nov 2026 13:57:37 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xWKze-00000001Sji-1nMK;
+	Wed, 25 Nov 2026 21:57:34 +0000
+Date: Thu, 26 Nov 2026 05:57:26 +0800
+From: kernel test robot <lkp@intel.com>
+To: Hikmah Gumelar <hikmahgumelar@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	=?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>,
-	Roman Linev <admin@mswin.me>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] arm64: dts: qcom: sm6125: Add CPU idle states
-Date: Wed, 25 Nov 2026 22:55:50 +0100
-Message-ID: <20261125215550.1834075-3-majidhhdri@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261125215550.1834075-1-majidhhdri@gmail.com>
-References: <20261125215550.1834075-1-majidhhdri@gmail.com>
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org, u.kleine-koenig@baylibre.com,
+	Hikmah Gumelar <hikmahgumelar@gmail.com>
+Subject: Re: [PATCH v4 3/7] media: i2c: add s5k5e8 image sensor driver
+Message-ID: <20261126053002.F2AZOt2m-lkp@intel.com>
+References: <20261125123146.379057-4-hikmahgumelar@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,123 +95,180 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261125123146.379057-4-hikmahgumelar@gmail.com>
 
-Add per-CPU power collapse states. The downstream "trinket" low power
-levels use exactly the SM6115 numbers (silver: entry 290 us, exit
-376 us, min residency 1182 us; gold: 297/324/1110 us; PSCI CPU mode 3),
-so reuse them in platform-coordinated mode.
+Hi Hikmah,
 
-Cluster (domain) idle states are left for later; their PSCI parameters
-still need to be checked against the downstream levels.
+kernel test robot noticed the following build errors:
 
-Tested on a Xiaomi Mi A3: WFI and cpu-sleep-N-0 show up in cpuidle and
-the usage counters increase.
+[auto build test ERROR on next-20261124]
+[cannot apply to robh/for-next linuxtv-media-pending/master media-tree/master linus/master v7.4-rc4 v7.4-rc3 v7.4-rc2 v7.4-rc4]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Signed-off-by: Majid Hajiheidari <majidhhdri@gmail.com>
----
- arch/arm64/boot/dts/qcom/sm6125.dtsi | 32 ++++++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+url:    https://github.com/intel-lab-lkp/linux/commits/Hikmah-Gumelar/clk-qcom-gcc-msm8953-fix-csi_phytimer_clk_src-100MHz-parent/20261125-193140
+base:   next-20261124
+patch link:    https://lore.kernel.org/r/20261125123146.379057-4-hikmahgumelar%40gmail.com
+patch subject: [PATCH v4 3/7] media: i2c: add s5k5e8 image sensor driver
+config: hexagon-randconfig-1000-20261126 (https://download.01.org/0day-ci/archive/20261126/20261126053002.F2AZOt2m-lkp@intel.com/config)
+compiler: clang version 21.1.8 (https://github.com/llvm/llvm-project 2078da43e25a4623cab2d0d60decddf709aaea28)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261126/20261126053002.F2AZOt2m-lkp@intel.com/reproduce)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6125.dtsi b/arch/arm64/boot/dts/qcom/sm6125.dtsi
-index cbc500d69..f30f7b16d 100644
---- a/arch/arm64/boot/dts/qcom/sm6125.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm6125.dtsi
-@@ -44,6 +44,7 @@ cpu0: cpu@0 {
- 			reg = <0x0 0x0>;
- 			enable-method = "psci";
- 			clocks = <&cpufreq_hw 0>;
-+			cpu-idle-states = <&little_cpu_sleep_0>;
- 			qcom,freq-domain = <&cpufreq_hw 0>;
- 			capacity-dmips-mhz = <1024>;
- 			next-level-cache = <&l2_0>;
-@@ -60,6 +61,7 @@ cpu1: cpu@1 {
- 			reg = <0x0 0x1>;
- 			enable-method = "psci";
- 			clocks = <&cpufreq_hw 0>;
-+			cpu-idle-states = <&little_cpu_sleep_0>;
- 			qcom,freq-domain = <&cpufreq_hw 0>;
- 			capacity-dmips-mhz = <1024>;
- 			next-level-cache = <&l2_0>;
-@@ -71,6 +73,7 @@ cpu2: cpu@2 {
- 			reg = <0x0 0x2>;
- 			enable-method = "psci";
- 			clocks = <&cpufreq_hw 0>;
-+			cpu-idle-states = <&little_cpu_sleep_0>;
- 			qcom,freq-domain = <&cpufreq_hw 0>;
- 			capacity-dmips-mhz = <1024>;
- 			next-level-cache = <&l2_0>;
-@@ -82,6 +85,7 @@ cpu3: cpu@3 {
- 			reg = <0x0 0x3>;
- 			enable-method = "psci";
- 			clocks = <&cpufreq_hw 0>;
-+			cpu-idle-states = <&little_cpu_sleep_0>;
- 			qcom,freq-domain = <&cpufreq_hw 0>;
- 			capacity-dmips-mhz = <1024>;
- 			next-level-cache = <&l2_0>;
-@@ -93,6 +97,7 @@ cpu4: cpu@100 {
- 			reg = <0x0 0x100>;
- 			enable-method = "psci";
- 			clocks = <&cpufreq_hw 1>;
-+			cpu-idle-states = <&big_cpu_sleep_0>;
- 			qcom,freq-domain = <&cpufreq_hw 1>;
- 			capacity-dmips-mhz = <1638>;
- 			next-level-cache = <&l2_1>;
-@@ -109,6 +114,7 @@ cpu5: cpu@101 {
- 			reg = <0x0 0x101>;
- 			enable-method = "psci";
- 			clocks = <&cpufreq_hw 1>;
-+			cpu-idle-states = <&big_cpu_sleep_0>;
- 			qcom,freq-domain = <&cpufreq_hw 1>;
- 			capacity-dmips-mhz = <1638>;
- 			next-level-cache = <&l2_1>;
-@@ -120,6 +126,7 @@ cpu6: cpu@102 {
- 			reg = <0x0 0x102>;
- 			enable-method = "psci";
- 			clocks = <&cpufreq_hw 1>;
-+			cpu-idle-states = <&big_cpu_sleep_0>;
- 			qcom,freq-domain = <&cpufreq_hw 1>;
- 			capacity-dmips-mhz = <1638>;
- 			next-level-cache = <&l2_1>;
-@@ -131,6 +138,7 @@ cpu7: cpu@103 {
- 			reg = <0x0 0x103>;
- 			enable-method = "psci";
- 			clocks = <&cpufreq_hw 1>;
-+			cpu-idle-states = <&big_cpu_sleep_0>;
- 			qcom,freq-domain = <&cpufreq_hw 1>;
- 			capacity-dmips-mhz = <1638>;
- 			next-level-cache = <&l2_1>;
-@@ -173,6 +181,30 @@ core3 {
- 				};
- 			};
- 		};
-+
-+		idle-states {
-+			entry-method = "psci";
-+
-+			little_cpu_sleep_0: cpu-sleep-0-0 {
-+				compatible = "arm,idle-state";
-+				idle-state-name = "silver-rail-power-collapse";
-+				arm,psci-suspend-param = <0x40000003>;
-+				entry-latency-us = <290>;
-+				exit-latency-us = <376>;
-+				min-residency-us = <1182>;
-+				local-timer-stop;
-+			};
-+
-+			big_cpu_sleep_0: cpu-sleep-1-0 {
-+				compatible = "arm,idle-state";
-+				idle-state-name = "gold-rail-power-collapse";
-+				arm,psci-suspend-param = <0x40000003>;
-+				entry-latency-us = <297>;
-+				exit-latency-us = <324>;
-+				min-residency-us = <1110>;
-+				local-timer-stop;
-+			};
-+		};
- 	};
- 
- 	firmware {
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/20261126053002.F2AZOt2m-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/media/i2c/st-mipid02.c:847:19: error: call to undeclared function 'devm_cci_regmap_init_i2c'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     847 |         bridge->regmap = devm_cci_regmap_init_i2c(client, 16);
+         |                          ^
+>> drivers/media/i2c/st-mipid02.c:847:17: error: incompatible integer to pointer conversion assigning to 'struct regmap *' from 'int' [-Wint-conversion]
+     847 |         bridge->regmap = devm_cci_regmap_init_i2c(client, 16);
+         |                        ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   2 errors generated.
+--
+>> drivers/media/i2c/thp7312.c:2097:20: error: call to undeclared function 'devm_cci_regmap_init_i2c'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    2097 |         thp7312->regmap = devm_cci_regmap_init_i2c(client, 16);
+         |                           ^
+>> drivers/media/i2c/thp7312.c:2097:18: error: incompatible integer to pointer conversion assigning to 'struct regmap *' from 'int' [-Wint-conversion]
+    2097 |         thp7312->regmap = devm_cci_regmap_init_i2c(client, 16);
+         |                         ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   2 errors generated.
+
+
+vim +/devm_cci_regmap_init_i2c +847 drivers/media/i2c/st-mipid02.c
+
+642bb5e88fed89e Mickael Guene 2019-04-09  803  
+642bb5e88fed89e Mickael Guene 2019-04-09  804  static int mipid02_probe(struct i2c_client *client)
+642bb5e88fed89e Mickael Guene 2019-04-09  805  {
+642bb5e88fed89e Mickael Guene 2019-04-09  806  	struct device *dev = &client->dev;
+642bb5e88fed89e Mickael Guene 2019-04-09  807  	struct mipid02_dev *bridge;
+642bb5e88fed89e Mickael Guene 2019-04-09  808  	u32 clk_freq;
+642bb5e88fed89e Mickael Guene 2019-04-09  809  	int ret;
+642bb5e88fed89e Mickael Guene 2019-04-09  810  
+4dd10fbbeb9c337 Kees Cook     2026-10-28  811  	bridge = devm_kzalloc_obj(dev, *bridge);
+642bb5e88fed89e Mickael Guene 2019-04-09  812  	if (!bridge)
+642bb5e88fed89e Mickael Guene 2019-04-09  813  		return -ENOMEM;
+642bb5e88fed89e Mickael Guene 2019-04-09  814  
+642bb5e88fed89e Mickael Guene 2019-04-09  815  	bridge->i2c_client = client;
+642bb5e88fed89e Mickael Guene 2019-04-09  816  	v4l2_i2c_subdev_init(&bridge->sd, client, &mipid02_subdev_ops);
+642bb5e88fed89e Mickael Guene 2019-04-09  817  
+642bb5e88fed89e Mickael Guene 2019-04-09  818  	/* got and check clock */
+642bb5e88fed89e Mickael Guene 2019-04-09  819  	bridge->xclk = devm_clk_get(dev, "xclk");
+642bb5e88fed89e Mickael Guene 2019-04-09  820  	if (IS_ERR(bridge->xclk)) {
+642bb5e88fed89e Mickael Guene 2019-04-09  821  		dev_err(dev, "failed to get xclk\n");
+642bb5e88fed89e Mickael Guene 2019-04-09  822  		return PTR_ERR(bridge->xclk);
+642bb5e88fed89e Mickael Guene 2019-04-09  823  	}
+642bb5e88fed89e Mickael Guene 2019-04-09  824  
+642bb5e88fed89e Mickael Guene 2019-04-09  825  	clk_freq = clk_get_rate(bridge->xclk);
+642bb5e88fed89e Mickael Guene 2019-04-09  826  	if (clk_freq < 6000000 || clk_freq > 27000000) {
+642bb5e88fed89e Mickael Guene 2019-04-09  827  		dev_err(dev, "xclk freq must be in 6-27 Mhz range. got %d Hz\n",
+642bb5e88fed89e Mickael Guene 2019-04-09  828  			clk_freq);
+642bb5e88fed89e Mickael Guene 2019-04-09  829  		return -EINVAL;
+642bb5e88fed89e Mickael Guene 2019-04-09  830  	}
+642bb5e88fed89e Mickael Guene 2019-04-09  831  
+642bb5e88fed89e Mickael Guene 2019-04-09  832  	bridge->reset_gpio = devm_gpiod_get_optional(dev, "reset",
+642bb5e88fed89e Mickael Guene 2019-04-09  833  						     GPIOD_OUT_HIGH);
+642bb5e88fed89e Mickael Guene 2019-04-09  834  
+61c03b631b74a38 Chuhong Yuan  2019-10-17  835  	if (IS_ERR(bridge->reset_gpio)) {
+61c03b631b74a38 Chuhong Yuan  2019-10-17  836  		dev_err(dev, "failed to get reset GPIO\n");
+61c03b631b74a38 Chuhong Yuan  2019-10-17  837  		return PTR_ERR(bridge->reset_gpio);
+61c03b631b74a38 Chuhong Yuan  2019-10-17  838  	}
+61c03b631b74a38 Chuhong Yuan  2019-10-17  839  
+642bb5e88fed89e Mickael Guene 2019-04-09  840  	ret = mipid02_get_regulators(bridge);
+642bb5e88fed89e Mickael Guene 2019-04-09  841  	if (ret) {
+642bb5e88fed89e Mickael Guene 2019-04-09  842  		dev_err(dev, "failed to get regulators %d", ret);
+642bb5e88fed89e Mickael Guene 2019-04-09  843  		return ret;
+642bb5e88fed89e Mickael Guene 2019-04-09  844  	}
+642bb5e88fed89e Mickael Guene 2019-04-09  845  
+6223dafa3c9111d Alain Volmat  2023-11-25  846  	/* Initialise the regmap for further cci access */
+6223dafa3c9111d Alain Volmat  2023-11-25 @847  	bridge->regmap = devm_cci_regmap_init_i2c(client, 16);
+6223dafa3c9111d Alain Volmat  2023-11-25  848  	if (IS_ERR(bridge->regmap))
+6223dafa3c9111d Alain Volmat  2023-11-25  849  		return dev_err_probe(dev, PTR_ERR(bridge->regmap),
+6223dafa3c9111d Alain Volmat  2023-11-25  850  				     "failed to get cci regmap\n");
+6223dafa3c9111d Alain Volmat  2023-11-25  851  
+642bb5e88fed89e Mickael Guene 2019-04-09  852  	bridge->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
+642bb5e88fed89e Mickael Guene 2019-04-09  853  	bridge->sd.entity.function = MEDIA_ENT_F_VID_IF_BRIDGE;
+04d170b288b3404 Alain Volmat  2023-11-25  854  	bridge->sd.internal_ops = &mipid02_subdev_internal_ops;
+642bb5e88fed89e Mickael Guene 2019-04-09  855  	bridge->sd.entity.ops = &mipid02_subdev_entity_ops;
+642bb5e88fed89e Mickael Guene 2019-04-09  856  	bridge->pad[0].flags = MEDIA_PAD_FL_SINK;
+642bb5e88fed89e Mickael Guene 2019-04-09  857  	bridge->pad[1].flags = MEDIA_PAD_FL_SINK;
+642bb5e88fed89e Mickael Guene 2019-04-09  858  	bridge->pad[2].flags = MEDIA_PAD_FL_SOURCE;
+642bb5e88fed89e Mickael Guene 2019-04-09  859  	ret = media_entity_pads_init(&bridge->sd.entity, MIPID02_PAD_NB,
+642bb5e88fed89e Mickael Guene 2019-04-09  860  				     bridge->pad);
+642bb5e88fed89e Mickael Guene 2019-04-09  861  	if (ret) {
+642bb5e88fed89e Mickael Guene 2019-04-09  862  		dev_err(&client->dev, "pads init failed %d", ret);
+04d170b288b3404 Alain Volmat  2023-11-25  863  		return ret;
+04d170b288b3404 Alain Volmat  2023-11-25  864  	}
+04d170b288b3404 Alain Volmat  2023-11-25  865  
+04d170b288b3404 Alain Volmat  2023-11-25  866  	ret = v4l2_subdev_init_finalize(&bridge->sd);
+04d170b288b3404 Alain Volmat  2023-11-25  867  	if (ret < 0) {
+04d170b288b3404 Alain Volmat  2023-11-25  868  		dev_err(dev, "subdev init error: %d\n", ret);
+04d170b288b3404 Alain Volmat  2023-11-25  869  		goto entity_cleanup;
+642bb5e88fed89e Mickael Guene 2019-04-09  870  	}
+642bb5e88fed89e Mickael Guene 2019-04-09  871  
+642bb5e88fed89e Mickael Guene 2019-04-09  872  	/* enable clock, power and reset device if available */
+a74e17ca6443260 Alain Volmat  2024-10-08  873  	ret = mipid02_set_power_on(&client->dev);
+642bb5e88fed89e Mickael Guene 2019-04-09  874  	if (ret)
+642bb5e88fed89e Mickael Guene 2019-04-09  875  		goto entity_cleanup;
+642bb5e88fed89e Mickael Guene 2019-04-09  876  
+642bb5e88fed89e Mickael Guene 2019-04-09  877  	ret = mipid02_detect(bridge);
+642bb5e88fed89e Mickael Guene 2019-04-09  878  	if (ret) {
+642bb5e88fed89e Mickael Guene 2019-04-09  879  		dev_err(&client->dev, "failed to detect mipid02 %d", ret);
+642bb5e88fed89e Mickael Guene 2019-04-09  880  		goto power_off;
+642bb5e88fed89e Mickael Guene 2019-04-09  881  	}
+642bb5e88fed89e Mickael Guene 2019-04-09  882  
+642bb5e88fed89e Mickael Guene 2019-04-09  883  	ret = mipid02_parse_tx_ep(bridge);
+642bb5e88fed89e Mickael Guene 2019-04-09  884  	if (ret) {
+642bb5e88fed89e Mickael Guene 2019-04-09  885  		dev_err(&client->dev, "failed to parse tx %d", ret);
+642bb5e88fed89e Mickael Guene 2019-04-09  886  		goto power_off;
+642bb5e88fed89e Mickael Guene 2019-04-09  887  	}
+642bb5e88fed89e Mickael Guene 2019-04-09  888  
+642bb5e88fed89e Mickael Guene 2019-04-09  889  	ret = mipid02_parse_rx_ep(bridge);
+642bb5e88fed89e Mickael Guene 2019-04-09  890  	if (ret) {
+642bb5e88fed89e Mickael Guene 2019-04-09  891  		dev_err(&client->dev, "failed to parse rx %d", ret);
+642bb5e88fed89e Mickael Guene 2019-04-09  892  		goto power_off;
+642bb5e88fed89e Mickael Guene 2019-04-09  893  	}
+642bb5e88fed89e Mickael Guene 2019-04-09  894  
+a74e17ca6443260 Alain Volmat  2024-10-08  895  	/* Enable runtime PM and turn off the device */
+a74e17ca6443260 Alain Volmat  2024-10-08  896  	pm_runtime_set_active(dev);
+a74e17ca6443260 Alain Volmat  2024-10-08  897  	pm_runtime_get_noresume(&client->dev);
+a74e17ca6443260 Alain Volmat  2024-10-08  898  	pm_runtime_enable(dev);
+a74e17ca6443260 Alain Volmat  2024-10-08  899  
+a74e17ca6443260 Alain Volmat  2024-10-08  900  	pm_runtime_set_autosuspend_delay(&client->dev, 1000);
+a74e17ca6443260 Alain Volmat  2024-10-08  901  	pm_runtime_use_autosuspend(&client->dev);
+a74e17ca6443260 Alain Volmat  2024-10-08  902  	pm_runtime_put_autosuspend(&client->dev);
+a74e17ca6443260 Alain Volmat  2024-10-08  903  
+642bb5e88fed89e Mickael Guene 2019-04-09  904  	ret = v4l2_async_register_subdev(&bridge->sd);
+642bb5e88fed89e Mickael Guene 2019-04-09  905  	if (ret < 0) {
+642bb5e88fed89e Mickael Guene 2019-04-09  906  		dev_err(&client->dev, "v4l2_async_register_subdev failed %d",
+642bb5e88fed89e Mickael Guene 2019-04-09  907  			    ret);
+642bb5e88fed89e Mickael Guene 2019-04-09  908  		goto unregister_notifier;
+642bb5e88fed89e Mickael Guene 2019-04-09  909  	}
+642bb5e88fed89e Mickael Guene 2019-04-09  910  
+642bb5e88fed89e Mickael Guene 2019-04-09  911  	dev_info(&client->dev, "mipid02 device probe successfully");
+642bb5e88fed89e Mickael Guene 2019-04-09  912  
+642bb5e88fed89e Mickael Guene 2019-04-09  913  	return 0;
+642bb5e88fed89e Mickael Guene 2019-04-09  914  
+642bb5e88fed89e Mickael Guene 2019-04-09  915  unregister_notifier:
+3c8c153914812a9 Sakari Ailus  2021-03-05  916  	v4l2_async_nf_unregister(&bridge->notifier);
+3c8c153914812a9 Sakari Ailus  2021-03-05  917  	v4l2_async_nf_cleanup(&bridge->notifier);
+a74e17ca6443260 Alain Volmat  2024-10-08  918  	pm_runtime_disable(&client->dev);
+a74e17ca6443260 Alain Volmat  2024-10-08  919  	pm_runtime_set_suspended(&client->dev);
+642bb5e88fed89e Mickael Guene 2019-04-09  920  power_off:
+a74e17ca6443260 Alain Volmat  2024-10-08  921  	mipid02_set_power_off(&client->dev);
+642bb5e88fed89e Mickael Guene 2019-04-09  922  entity_cleanup:
+642bb5e88fed89e Mickael Guene 2019-04-09  923  	media_entity_cleanup(&bridge->sd.entity);
+642bb5e88fed89e Mickael Guene 2019-04-09  924  
+642bb5e88fed89e Mickael Guene 2019-04-09  925  	return ret;
+642bb5e88fed89e Mickael Guene 2019-04-09  926  }
+642bb5e88fed89e Mickael Guene 2019-04-09  927  
+
 -- 
-2.56.0
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
