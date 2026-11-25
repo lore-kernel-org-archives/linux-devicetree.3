@@ -1,57 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795612582;
-	b=RK6R89Xn5jV6QkVNwSSvvayzPNNCujz6WmSws87qZ5JSt2rETBTO48Rv7a6Yxcyd5RJA
-	 fIt9A4MzrxpTUiDU/Jw2UnBQS4mEn2JtJHEvSXnYyXOKfEiQ/uMtrEUqGaLGhKtkKeeH5
-	 u0fzMrpn+wUXrQEVmckA5sM/OWirZnkc32ox0yikZX0Fk4RFWsG4Js56VaNML/0EZKc1U
-	 AAE9+SUyvjvAHiu0XgVwOGuZJKzCRJniR0R2YhmdCHaGcAnE//myJGZnM72VPRf7kLCYZ
-	 dEjDOZmRh4Oij9qOa2eGGtjL/ojpORSQLWFGKJnCJ4hBzohqkXhBI4LjhhDvJHm8cLQ==
+	t=1795612703;
+	b=ObeoAzzuWDw/ryc6j6Ewmdjd6vCWjWvWaWETOIcr54Ej7s5st+eCzVY9ste38W/HMo43
+	 o1fuSYPhnTccK1E7Hnyt8tNt7vhCB29yLkQuatyUSXBVcBSI18MvhVG9hT26Tp8vWO2ys
+	 viA0Uv/B31C6raXIhSk2hiQQtMxAzQGEQDSvffR60NG0s3N99XMm4XWzLUCyEmFL8ZMnA
+	 jIwrxnUJW3Tyw+o6GCo6W2nxaaFyIf29qPmRvr53bltzOWtJA1JfSoiGiufgBqK3LtMpA
+	 TLIkgjPephnd0Vyb7rmXxy03yTDKVGJrcbNJ9WLBWfAiFAtTJFR/1e3R7yiE2MSNsRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795612582;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=OwnuwFo7LbrdY2thjBeupKTPsMyvEa9mZU7slAlTgjM=;
-	b=SKtxVexI04zemJ0Doa8hwFpUf8YK0r3n5mMTAoEg+A3w9YpdbIu38Rs9SyNqFR+Z64cu
-	 GNNliW+jAHOvwk3yCKYCWTyEUhlFbNo0bQQIAy9bvpkOZpCHBacNsfbcL0tJhtleghCWp
-	 dd07zLPQstfgy8bdaPBTGj2UXzjc4MeAxp8d5bt6NCi4PnyZHoKUiUb/wapbHc72nVDXx
-	 MV2nHzxGtVsynb0MFHWeq7ewaSsWKxHJsy9fyG09EuyHNAoLTiljTwip4XnJnkz3VZ/78
-	 NvNuCx7QBBT+31slQ34GE0Vx45ii6Cm9rbCRxPM+Al6n/fvT5nQ1ifZYjUHGzeQU9pQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795612703;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=D0rA4mbm0SnOvC13pf1fD8JRZYtCZj00L/zRbkMsbxU=;
+	b=3OqHRq1KjPkzxHgQ1hJbj/bMZ5WuyCT+NwlbyQ2jjMUJKEzqgFMzPJ0NKTdEAtWLIAHc
+	 HnnmU/imW9AZA1B1I9aFCpVR1imf5GK0qruWXkC2Ys5XlhFZyEOYM7/OY9a/0ONI3rxNJ
+	 9Vf0z5iI7alTFmhY0gkTzOHF8Z2ip3J1vez8PBFBCAJP6IP8MussvIP+44cmV2HG+gL3w
+	 vTs+48mkmDTtDj6pzNICPm8P9NHPtR0Qi8IyqCos67HGVabpbe0C2KMQD8Z1xg5xBNNjE
+	 3I/PC67AVHKqdgeK3qYiZslDrdutsyNFsjwsdA1x+4nwhXYNMl9aNHulR9hxUmsbiSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BoFNLh4a;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="YsH/mTW8";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=c6dhz6dN;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F14606A31E;
-	Wed, 25 Nov 2026 13:16:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 665A4606A33C
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 13:18:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 665A4606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BoFNLh4a
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A779E1F000C4;
-	Wed, 25 Nov 2026 13:16:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795612581;
-	bh=OwnuwFo7LbrdY2thjBeupKTPsMyvEa9mZU7slAlTgjM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BoFNLh4aI/eezZO6WvWUcbHP877BQ57bJVU/Uipu2K4g2cOyIDyYjoxyDx5HDtOn+
-	 8MZ79jlccKuWMcyEWXgjFHlLR81h7MPaRpNSQwj+BW1iiSxI6lKGEYtWrmqo1jrZb+
-	 Q3QkuCkYnZxuNCEKuHAiBkQtMU00kWZco2FK/6urHhxnzlffX8Hc95OsyaxUvrGZ1+
-	 p4qnH114SQ/uP+/liMqjPmQVUp84cmGdm3+BBYSfm+wJK+ebFHYGLdIBT5oGvUIp8e
-	 Fw50ZBNs67sY0zFlY0w34XVVKnjwhjWs/9DAJ7Q6Y53fuiSRPbNKq7u/VrPFXfPJ8z
-	 iah7U0AhlkrEg==
-Message-ID: <sashiko-outbox-233476@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/4] clk: qcom: Add the Netrani global clock
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: SignKirigami <prcups@krgm.moe>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261125-netrani-clock-v3-v3-2-9b19d320f422@krgm.moe>
-References: <20261125-netrani-clock-v3-v3-0-9b19d320f422@krgm.moe>
- <20261125-netrani-clock-v3-v3-2-9b19d320f422@krgm.moe>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 13:16:21 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YsH/mTW8;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=c6dhz6dN
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AP9nlZY1505248
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 13:18:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=D0rA4mbm0Sn
+	OvC13pf1fD8JRZYtCZj00L/zRbkMsbxU=; b=YsH/mTW8Yfze59pzM5U4jIYv2AR
+	BxHVjutTBhlqU+LBEjrFMFvNOZLZndmn5wfLF0IEWgYaZnnRc2s+QXSaUX0xRHJC
+	LUyNVan2XKBTxTj0+gSXoU7stPJ2/fSrRY8JTiZeDoIL7O6S06vR76kdu25obYEA
+	HGTJ0Ki6JLP2aTfyU/FHA9oquSZR7MHlxHMchdhIdgU0g96vOwF2TByBon7oJgZr
+	0P7YXTRzC5nLQLEM0FJkHQbXDVcUNVuY8/X+9EtlxatAUJmiHwc0UEKgbEGEZCnq
+	8/2mRMF++2pns8NMIrdqc2u3wsUKIa4ZT1PKh/isxQgNjsxl2jS3/hcoFyw==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5qa2abwy-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 13:18:22 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5ee30bf935eso1084599e0c.0
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 05:18:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795612701; x=1796217501; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=D0rA4mbm0SnOvC13pf1fD8JRZYtCZj00L/zRbkMsbxU=;
+        b=c6dhz6dN3FwuJ6WDuZdvcEA7x5ATZMTXQDkK25+dCgcWYQE+KaM1NyxDYuSrrMULLV
+         ZwwMhsYJ4xb7lfZ2/4SpbxAj57UXFEzbQ6/u1wkBpUspgIXZs3/GgOkyocFgdkb4sQW1
+         xGhsBqzlJ6cQEOm3hKxnWHSweZKwCdmjjuFrZSkX05Zugjl0CbA1V+lyTHb/W/97LLUL
+         dtqQ8MM0x1H4XWEs8WBiUhkiakKZlONMEII7CFnxLfkkfFpl1ayJm/ghHORc8lUPyjwy
+         mzBX+kt9ArcdxSXvAbVGWOVG2ZUTpxgLD9yjXvoKUfrPblGaYoCW3n/JA4Kg+5C5WAcy
+         pGZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795612701; x=1796217501;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=D0rA4mbm0SnOvC13pf1fD8JRZYtCZj00L/zRbkMsbxU=;
+        b=kXoRgY0BO0+SdRrrS0A8XGJLteAHl6v+r/d6bBx17QxzaXuc5RR4wuwPX762jgCx9Z
+         PPNPsuOMd8OPd/aCyZSckr0bJClr2y6oQGEzjONJHA83tm+OfZLOnCX0RIuZkL692nFB
+         wPIv+K+pgqTAb9CrFHj/V7Tcv/Ua5nc8A27FqPOkoaVIrmUhjNOrDGDlfmRyNN5jc68o
+         Fpy2eHUHnFTbPhD1LhIWEu7vOJ/SR0UM6PCtMUlCI4N+xXXcHDrAqzYs1Upn27ICc16V
+         UJ9NYJuwO3Sxsv1yqzma0e4lZFGa7THeVxR9z+fK61NhX487zvfQKQdAZ1whvzn7RQ15
+         ggWw==
+X-Forwarded-Encrypted: i=1; AL+hErF3OpiXXQDTHj1KUQQgo7yDgW1RL4kAHDTeeaNQAxPa7rQqhdsfWVMjQAQraqSc+rUs86Q+raVKE6sM@vger.kernel.org
+X-Gm-Message-State: APuU4Z+DAYV97XcW1zKlOVlKKnxV5oVXSWC4hyUmiKVHQC8pdIRTTfJd
+	vBTzeFGvlQkND6V0rqr4rxBFI5tAAPhpU1SHemj0AqwMVeqAVFlOFEmMadesgQhfImribLjYB2s
+	sUMeRvKh712TOeimqPQKm1Kyrxk8gR3ocwnXCmrLy1JLy9ebMz5R5qwg404nUKk3x
+X-Gm-Gg: AZFdTZf4niKxDJ3jGR8q/lYA4SMsSWn8u7fMwNpmGvbBGS8+gFqrtEGj8IXhNedWJHY
+	kR0tnWCbVeANXh12xblXISbenj2SVDeGwIimUuVd7VOESbxJnmVYy2rli8r7tQKuJO9TN57J3e/
+	xayslG8VXJ70djg2JhEOihtoBdlCXtlyatI8lFYRtWN46ZPLBQwKRBUvLLBVQhXx1sAclL/spiO
+	Ehu3PILJKDXK+OqgkQ9oB3mBTq8dx4dNfGCB8I2iukIraH+POqlOeRrGrVtiWcjohvF5cZZwsYP
+	IN5Sq1sg33OQXwNmPHx17aphBS9pLY6/mv/SzeMwMKtbKkvKeWNcXilgqLmmh/XfoMePIw9DK3x
+	0Ts323Sz6NdDDBYZRiETMIpsLXdYWWryf4I32t3E4nbslTf90MxNTaWXQTEkB27YD
+X-Received: by 2002:a05:6122:d03:b0:5e4:f6c8:b0a5 with SMTP id 71dfb90a1353d-5ee8ad0eb56mr9557118e0c.0.1795612701293;
+        Wed, 25 Nov 2026 05:18:21 -0800 (PST)
+X-Received: by 2002:a05:6122:d03:b0:5e4:f6c8:b0a5 with SMTP id 71dfb90a1353d-5ee8ad0eb56mr9557053e0c.0.1795612700624;
+        Wed, 25 Nov 2026 05:18:20 -0800 (PST)
+Received: from debian ([5.133.47.210])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb88f148aasm205035365e9.0.2026.11.25.05.18.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 05:18:18 -0800 (PST)
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+To: andersson@kernel.org, sboyd@kernel.org, bmasney+clk@redhat.com,
+        jbrunet+clk@baylibre.com, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org
+Cc: abel.vesa@oss.qualcomm.com, abelvesa@kernel.org,
+        taniya.das@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Subject: [PATCH v4 1/4] dt-bindings: clock: qcom: Add LPASS AUDIOCC reset controller for Glymur
+Date: Wed, 25 Nov 2026 13:17:54 +0000
+Message-ID: <20261125131757.1163466-2-srinivas.kandagatla@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261125131757.1163466-1-srinivas.kandagatla@oss.qualcomm.com>
+References: <20261125131757.1163466-1-srinivas.kandagatla@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,168 +123,106 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: StyRYxAHKFw--CXuylE-adx8qZnzfUSA
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDA1MiBTYWx0ZWRfX8nH4fVyAkzGD
+ OpN/64RzZ1E5veKAs8cppNXHJekmM/PrsSu2L3f7Kdii4KckEGzFZeqaQFcmFj9ADS4Is1/LR+C
+ A3lj1wU64WEK2bVZpufZbUw4IVtACZw=
+X-Proofpoint-GUID: StyRYxAHKFw--CXuylE-adx8qZnzfUSA
+X-Authority-Analysis: v=2.4 cv=CKu/zhrD c=1 sm=1 tr=0 ts=6b06e01e cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=gEfo2CItAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=peyyOT9P35Ab0jvJzsIA:9
+ a=vmgOmaN-Xu0dpDh8OwbV:22 a=sptkURWiP4Gy88Gu7hUp:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDA1MiBTYWx0ZWRfX33wUGRSwKcIh
+ exmRYxZbFaNP1jJ5e1SaMVW1QRw+SMSrltk+EHvUz9AxYEqi8mjmALaVY9vZ5OK+PzCugZ6VYVu
+ WnATtvYHrwi58Q06IRmli+PEmG63VIizHpRJRNlY2htzk1nXIFrmxoCeEB9cabLdBsNjBAs/wjG
+ 6ydeSd3Gh4I+eL6LvR13oPMLyXIntSZOcZidexR/3c9+tYavbSiiYDSXH3FkorIMdilxedQ7rwm
+ 6BJohhsccdgEd6MEE4Gm9RXogzbCB5Rrx7vbAuGTZn0heeCw+H5oZOeHYt8MJQ0XkPJdY7ZFQhu
+ CPpMleNPVKyaZ70Z0oZ0Jiy6N0cV/WzM6LZnYE8rWBFWjVpif+54+2zFNCTx+MtThSu40DlydxX
+ ujMgFxKlOPvuoWQ/qaZTTZeEum2ptTv5up1kouDjP+cqWB6X/kqegeTjclqWUlSqeI5BZP0PaqX
+ y93ELJ+M5GYdrtF3X0g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-25_03,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0 bulkscore=0
+ spamscore=0 phishscore=0 impostorscore=0 suspectscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611250052
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] clk: qcom: gcc-netrani: inconsistent QUPv3 SE5 div and QSPI0
-  offsets
---
+The LPASS (Low Power Audio Subsystem) Audio clock controller on Glymur
+provides reset support for the SoundWire RX and WSA1..4 masters when
+LPASS is under the control of Q6DSP.
 
-commit b262655da83f0e19b2cd700f2ff0d1064e955f7c
-Author: SignKirigami <prcups@krgm.moe>
+The programming model is a near-exact match for the existing SC8280XP
+LPASS AUDIOCC, so add the qcom,glymur-lpassaudiocc compatible to the
+existing qcom,sc8280xp-lpasscc.yaml rather than creating a new file,
+and add a Glymur reset-ID header for the clients.
 
-clk: qcom: Add the Netrani global clock controller
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+---
+ .../bindings/clock/qcom,sc8280xp-lpasscc.yaml    |  6 ++++--
+ include/dt-bindings/clock/qcom,glymur-lpasscc.h  | 16 ++++++++++++++++
+ 2 files changed, 20 insertions(+), 2 deletions(-)
+ create mode 100644 include/dt-bindings/clock/qcom,glymur-lpasscc.h
 
-This commit adds the global clock controller driver for Qualcomm Netrani,
-including clock topology, reset controls, QUPv3 DFS roots, and PCIe, USB,
-and UFS GDSCs.
+diff --git a/Documentation/devicetree/bindings/clock/qcom,sc8280xp-lpasscc.yaml b/Documentation/devicetree/bindings/clock/qcom,sc8280xp-lpasscc.yaml
+index f235b4e24cc7..a25e043ab894 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,sc8280xp-lpasscc.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,sc8280xp-lpasscc.yaml
+@@ -4,22 +4,24 @@
+ $id: http://devicetree.org/schemas/clock/qcom,sc8280xp-lpasscc.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Qualcomm LPASS Core & Audio Clock Controller on SC8280XP
++title: Qualcomm LPASS Core & Audio Clock Controller on SC8280XP and Glymur
+ 
+ maintainers:
+   - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+ 
+ description: |
+   Qualcomm LPASS core and audio clock control module provides the clocks,
+-  and reset on SC8280XP.
++  and reset on SC8280XP and Glymur.
+ 
+   See also:
+     include/dt-bindings/clock/qcom,lpasscc-sc8280xp.h
++    include/dt-bindings/clock/qcom,glymur-lpasscc.h
+ 
+ properties:
+   compatible:
+     oneOf:
+       - enum:
++          - qcom,glymur-lpassaudiocc
+           - qcom,sc8280xp-lpassaudiocc
+           - qcom,sc8280xp-lpasscc
+       - items:
+diff --git a/include/dt-bindings/clock/qcom,glymur-lpasscc.h b/include/dt-bindings/clock/qcom,glymur-lpasscc.h
+new file mode 100644
+index 000000000000..3006b12e385e
+--- /dev/null
++++ b/include/dt-bindings/clock/qcom,glymur-lpasscc.h
+@@ -0,0 +1,16 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#ifndef _DT_BINDINGS_CLK_QCOM_LPASSCC_GLYMUR_H
++#define _DT_BINDINGS_CLK_QCOM_LPASSCC_GLYMUR_H
++
++/* LPASS AUDIO CC CSR */
++#define LPASS_AUDIO_SWR_RX_CGCR				0
++#define LPASS_AUDIO_SWR_WSA1_CGCR			1
++#define LPASS_AUDIO_SWR_WSA2_CGCR			2
++#define LPASS_AUDIO_SWR_WSA3_CGCR			3
++#define LPASS_AUDIO_SWR_WSA4_CGCR			4
++
++#endif
+-- 
+2.53.0
 
-> diff --git a/drivers/clk/qcom/gcc-netrani.c b/drivers/clk/qcom/gcc-netran=
-i.c
-> new file mode 100644
-> index 0000000000000..a2b09b88adb53
-> --- /dev/null
-> +++ b/drivers/clk/qcom/gcc-netrani.c
-> @@ -0,0 +1,2726 @@
-
-[ ... ]
-
-> +static struct clk_regmap_div gcc_qupv3_wrap0_s5_div_clk_src =3D {
-> +	.reg =3D 0x2774c,
-> +	.shift =3D 0,
-> +	.width =3D 4,
-> +	.clkr.hw.init =3D &(const struct clk_init_data) {
-> +		.name =3D "gcc_qupv3_wrap0_s5_div_clk_src",
-> +		.parent_hws =3D (const struct clk_hw*[]) {
-> +			&gcc_qupv3_wrap0_s5_clk_src.clkr.hw,
-> +		},
-> +		.num_parents =3D 1,
-> +		.flags =3D CLK_SET_RATE_PARENT,
-> +		.ops =3D &clk_regmap_div_ro_ops,
-> +	},
-> +};
-> +
-> +static struct clk_branch gcc_qupv3_wrap0_s5_clk =3D {
-> +	.halt_reg =3D 0x27610,
-> +	.halt_check =3D BRANCH_HALT_VOTED,
-> +	.clkr =3D {
-> +		.enable_reg =3D 0x62008,
-> +		.enable_mask =3D BIT(15),
-> +		.hw.init =3D &(const struct clk_init_data) {
-> +			.name =3D "gcc_qupv3_wrap0_s5_clk",
-> +			.parent_hws =3D (const struct clk_hw*[]) {
-> +				&gcc_qupv3_wrap0_s5_div_clk_src.clkr.hw,
-> +			},
-> +			.num_parents =3D 1,
-> +			.flags =3D CLK_SET_RATE_PARENT,
-> +			.ops =3D &clk_branch2_ops,
-> +		},
-> +	},
-> +};
-> +
-> +static struct clk_branch gcc_qupv3_wrap0_qspi0_clk =3D {
-> +	.halt_reg =3D 0x27744,
-> +	.halt_check =3D BRANCH_HALT_VOTED,
-> +	.clkr =3D {
-> +		.enable_reg =3D 0x62010,
-> +		.enable_mask =3D BIT(24),
-> +		.hw.init =3D &(const struct clk_init_data) {
-> +			.name =3D "gcc_qupv3_wrap0_qspi0_clk",
-> +			.parent_hws =3D (const struct clk_hw*[]) {
-> +				&gcc_qupv3_wrap0_s5_clk_src.clkr.hw,
-> +			},
-> +			.num_parents =3D 1,
-> +			.flags =3D CLK_SET_RATE_PARENT,
-> +			.ops =3D &clk_branch2_ops,
-> +		},
-> +	},
-> +};
-> +
-> +static struct clk_init_data gcc_qupv3_wrap1_s5_clk_src_init =3D {
-> +	.name =3D "gcc_qupv3_wrap1_s5_clk_src",
-> +	.parent_data =3D gcc_parent_data_0,
-> +	.num_parents =3D ARRAY_SIZE(gcc_parent_data_0),
-> +	.flags =3D CLK_SET_RATE_PARENT,
-> +	.ops =3D &clk_rcg2_shared_ops,
-> +};
-> +
-> +static struct clk_rcg2 gcc_qupv3_wrap1_s5_clk_src =3D {
-> +	.cmd_rcgr =3D 0x28618,
-> +	.mnd_width =3D 16,
-> +	.hid_width =3D 5,
-> +	.parent_map =3D gcc_parent_map_0,
-> +	.freq_tbl =3D ftbl_gcc_qupv3_wrap0_s5_clk_src,
-> +	.clkr.hw.init =3D &gcc_qupv3_wrap1_s5_clk_src_init,
-> +};
-> +
-> +static struct clk_regmap_div gcc_qupv3_wrap1_s5_div_clk_src =3D {
-> +	.reg =3D 0x28744,
-> +	.shift =3D 0,
-> +	.width =3D 4,
-> +	.clkr.hw.init =3D &(const struct clk_init_data) {
-> +		.name =3D "gcc_qupv3_wrap1_s5_div_clk_src",
-> +		.parent_hws =3D (const struct clk_hw*[]) {
-> +			&gcc_qupv3_wrap1_s5_clk_src.clkr.hw,
-> +		},
-> +		.num_parents =3D 1,
-> +		.flags =3D CLK_SET_RATE_PARENT,
-> +		.ops =3D &clk_regmap_div_ro_ops,
-> +	},
-> +};
-> +
-> +static struct clk_branch gcc_qupv3_wrap1_s5_clk =3D {
-> +	.halt_reg =3D 0x28610,
-> +	.halt_check =3D BRANCH_HALT_VOTED,
-> +	.clkr =3D {
-> +		.enable_reg =3D 0x62008,
-> +		.enable_mask =3D BIT(27),
-> +		.hw.init =3D &(const struct clk_init_data) {
-> +			.name =3D "gcc_qupv3_wrap1_s5_clk",
-> +			.parent_hws =3D (const struct clk_hw*[]) {
-> +				&gcc_qupv3_wrap1_s5_div_clk_src.clkr.hw,
-> +			},
-> +			.num_parents =3D 1,
-> +			.flags =3D CLK_SET_RATE_PARENT,
-> +			.ops =3D &clk_branch2_ops,
-> +		},
-> +	},
-> +};
-> +
-> +static struct clk_branch gcc_qupv3_wrap1_qspi0_clk =3D {
-> +	.halt_reg =3D 0x28748,
-> +	.halt_check =3D BRANCH_HALT_VOTED,
-> +	.clkr =3D {
-> +		.enable_reg =3D 0x62010,
-> +		.enable_mask =3D BIT(25),
-> +		.hw.init =3D &(const struct clk_init_data) {
-> +			.name =3D "gcc_qupv3_wrap1_qspi0_clk",
-> +			.parent_hws =3D (const struct clk_hw*[]) {
-> +				&gcc_qupv3_wrap1_s5_clk_src.clkr.hw,
-> +			},
-> +			.num_parents =3D 1,
-> +			.flags =3D CLK_SET_RATE_PARENT,
-> +			.ops =3D &clk_branch2_ops,
-> +		},
-> +	},
-> +};
-
-[Severity: Medium]
-Are the register offsets for the SE5 divider and QSPI0 branch clock
-consistent between QUPv3 wrapper 0 and wrapper 1?
-
-Every other register across wrapper 0 (base 0x27000) and wrapper 1 (base
-0x28000) uses identical relative offsets, including the SE5 RCG at +0x618.
-After that 0x12c-byte DFS RCG block, wrapper 0 places
-gcc_qupv3_wrap0_qspi0_clk.halt_reg at +0x744 (0x27744) and
-gcc_qupv3_wrap0_s5_div_clk_src.reg at +0x74c (0x2774c), whereas wrapper 1
-places gcc_qupv3_wrap1_s5_div_clk_src.reg at +0x744 (0x28744) and
-gcc_qupv3_wrap1_qspi0_clk.halt_reg at +0x748 (0x28748).
-
-If the two wrappers share the same register layout (typically QSPI0 CBCR
-at +0x744 and SE5 CDIVR at +0x748), reading the wrong register will cause
-clk_regmap_div_ro_ops to miscalculate the SE5 clock rate and
-clk_branch2_ops to poll the divider register for QSPI0 branch halt status.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-netrani-cl=
-ock-v3-v3-0-9b19d320f422@krgm.moe?part=3D2
