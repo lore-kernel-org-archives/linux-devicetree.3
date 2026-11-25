@@ -1,110 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.71
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795600241;
-	b=mb58IS/94WbCvUu/SDWyvxkX8iSKu70VmIh6dq6sIIqrwTX7DiAv4ULrCFCHToze8AUN
-	 EHtpE+CY+kRt8CRxyiYQ7HY2KAoXmDweSWB/xgFk/TzZLTvjHD7gEs7F+amYN71Z3Y41o
-	 B7havNc0+N2z9RtRAZSJdc/fZWYtXAPQwENHYfWSZcCfUyIfuHU5GMNgmnh0n1cl9zvvt
-	 Roze3w2pVnYGHz7lRTcKC50D86w2HIuD5LB7RQR6yxpt8qF6mqE6orPePj7mml+uafeKs
-	 xW9lxj7jV0JqECCrFK2GV5ruXxnWm4bNoprbQMZM0psgyUzVU7R01qFEoLcsOn97VQA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795600241;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-Originating-IP:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=KbsVFHHNWEIQ8gIVOt5ue3JIGnd5xN+OpcNqAdKpcd8=;
-	b=UgHPHPdLX03oay8l60MWBFrLZn+43Net9saZ/h/UyVG6VzMQhFI3Tn/j3XAAB137WwX7
-	 162NvXifmYt0cCTx4sA3No0FtKnMjhnLvS+KXrL7rwJ2Ri6AlCTRPtxsMGBdp9Y+j/QlI
-	 XqzxGLIy1xCrzNs7wS+UF5+R4q7wCL7nWCbHGv86jOYtOqFIGb3IOH4j/mRj5Z+51+0Cz
-	 zhjmtGGr/tLoEjTi8FIumFBYrHvhmsMg8RzS+oZ+89LzMJ3TFPc5bbkEMvV6wbzMaQONd
-	 fGf8boGQIRBkMq/208VHGiD5Oxj1PzdhVvrc+Ja2oSNcglhC2Le4yTGvcMUfa1+KMLQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bshg.com;
-	spf=pass smtp.mailfrom=bshg.com;
-	dkim=pass header.d=bshg.com header.i=@bshg.com header.a=rsa-sha256 header.s=selector2 header.b=p8TacpzE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.71
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010071.outbound.protection.outlook.com [52.101.69.71])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795600337;
+	b=mGOJQiedQbUZthbYN6QFYksvZsIhP3S3rxMyV7eGZaPc7aRkePS8KNdDILhDHuosaUtn
+	 cBehFVcM5Cph9aKPIt4rxqOYgkkxjt0tJaaZchPXo6cB5c1zEkP3wte+uUG4Vf6XWAlBT
+	 6Zn8sn7p5/hjvcTkqMe0J2CY2Egiu0sN6XjoTXsVjgqR4/3jpArsXCSlXom1jY8uvoU4+
+	 6pKooJaEipb4Hb+mSvWYKDWQcwptvbqinl623e6HNnVjH77DtiN7SNohx97ZfFZ/uAu9p
+	 n+Cfmm1Abo9y4I2MuO8K2rcusKTvig2Q95L0bQ7SRMO7HUlNgoki2F2MJgNG8KBvp2w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795600337;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=UQtEtINa9PCkeAJfrH8v1QZGUwgFpwbuvRFLidulpYI=;
+	b=ngdUcZlByynF49OrtMB/1AbWFNBusi0tZOAXGT5eVKf4Ir4Gvzn8c05+k7Ugp3mdL995
+	 xNwffGli+p17cD2nCpXHuaPvYw8k6yHk36E9txyYbkMJQGH52fkhcVeUV9LH+AqtXkUMM
+	 VSc5iN5AQJQ6IWah0/bXqrbUOaZWSxwl6vQsR0Ay7qW1K+gkeSAcNXrstctsO7+3MUVDR
+	 HfdRSVmc6Zn948AS/U2ZL1rh2t/pGaShXEIKKBfl7SBI4lFHVIPI/ttpMMnPPitz9HdGg
+	 jok7SKDiT6uPhVcpjsIg4lmLkKfDfjFg1bbsUulda7HLlpatHsOp+VYpw25XwzzU/Fw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nx08xx2N;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3FBE606A329
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 09:50:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3FBE606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bshg.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bshg.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE4FA606A321;
+	Wed, 25 Nov 2026 09:52:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bshg.com header.i=@bshg.com header.a=rsa-sha256 header.s=selector2 header.b=p8TacpzE
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cS16PfHT3nSsDyw+7QM3y0A1jyXhMItdFLJdOmcmmd5923lDbLvz69a9fkMtUGqsM1hllqQZX/KRHhdH/6hD/N6syVEU2O2ZUSL4jj+jVDLsLtmUekLhzP5lqzWGOPqm0WVu4A34r/UKibRA9DWQOJEijPwbv+MG+zowzzV70t5HdryPPAoBJfZQxMai3vj0Y27CeiF9QJaAiPgsdr0PIFYLGyF/lsVzk9z1ZS9NrniAAXbca8BWbJs364jMFQ5WkK9tfbUBrkP62z4HzJsJlqViXSxRxPrNFyKIrfrZAERhkiuEvtA5l5VAfFagMrS6am28AJkLS9HnmsKuI0pA6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KbsVFHHNWEIQ8gIVOt5ue3JIGnd5xN+OpcNqAdKpcd8=;
- b=PSVTNIbvOSlYaIJYNsxNSmcVNEtxT14b5P1uybUNMfjNBBNrz13YNxH5GasUUAR+4lgg3eWyDmeKmmGrt0ns8OlDzj4tkMXQZhVSO8EMGOmKGwidqOmP8OGtNd5jFalV+neTy0SVYYwpYdALn2vidHSEIHrHqMXmVprrEE5ELY2pZwsEwe5fUO7qNh8C7HHPPbzzbBserONaRhs2h6O+3HyG2HJaAZ6qp2q9PdB+fD2nmyR2iGI20DBQZuHv53dTWVcWCjRbYD1CKkIsQHY7ko6jkVgDrVoakcbhsEg2+6FuC9lkJGBn3fSJcW5Mot/fJpN4A515YI9aRfP0O6WKtQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 139.15.153.206) smtp.rcpttodomain=kernel.org smtp.mailfrom=bshg.com;
- dmarc=pass (p=reject sp=none pct=100) action=none header.from=bshg.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bshg.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KbsVFHHNWEIQ8gIVOt5ue3JIGnd5xN+OpcNqAdKpcd8=;
- b=p8TacpzErD+LFGW7pwrEmdE5w93YqjxDn9UQyteDnVKh3GZne7zFIV1nKvY0JEWJt+lIhpsLhiHZLCSnoohkA/Jfgl6AbwDA0mR4CZ2yMmz5eJSW2UWiO+aJ0Caj6jWLro8v6CMCPnk/hLb0SgiM7wg6ShrsXpsk/tvR5ljmghns4IQxFXGzVCDhsDNvSfZaIBBEXH8IDa7XTJHNSAo8ot0DiaIrtkUQ4V1R7OreHuVoUzbODZLca4nDbF/agTohUAk20NAlEm89mSVf/ReBy/yn8XUsbM9EqZOpMVIcqqSag6uWBPe1pcYXzSEK6MQZGIHw05/t8pY1R5F1EwDnGg==
-Received: from PAWP194CA0028.EURP194.PROD.OUTLOOK.COM (2603:10a6:102:4c5::20)
- by GVXPR10MB9406.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:2aa::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.6; Wed, 25 Nov
- 2026 09:50:32 +0000
-Received: from MI3PEPF00008482.eurprd02.prod.outlook.com
- (2603:10a6:102:4c5:cafe::a7) by PAWP194CA0028.outlook.office365.com
- (2603:10a6:102:4c5::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.7 via Frontend Transport; Wed, 25
- Nov 2026 09:50:31 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 139.15.153.206) smtp.mailfrom=bshg.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=bshg.com;
-Received-SPF: Pass (protection.outlook.com: domain of bshg.com designates
- 139.15.153.206 as permitted sender) receiver=protection.outlook.com;
- client-ip=139.15.153.206; helo=eop.bosch-org.com; pr=C
-Received: from eop.bosch-org.com (139.15.153.206) by
- MI3PEPF00008482.mail.protection.outlook.com (10.167.240.169) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.662.3 via Frontend Transport; Wed, 25 Nov 2026 09:50:31 +0000
-Received: from RNGMBX3002.de.bosch.com (10.124.11.207) by eop.bosch-org.com
- (139.15.153.206) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Wed, 25 Nov
- 2026 10:50:08 +0100
-Received: from TRTWCN12235.de.bosch.com (10.44.104.101) by smtp.app.bosch.com
- (10.124.11.207) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Wed, 25 Nov
- 2026 10:50:07 +0100
-From: Waldemar Rymarkiewicz <external.Waldemar.Rymarkiewicz@bshg.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, Sascha Hauer
-	<s.hauer@pengutronix.de>
-CC: Shawn Guo <shawnguo@kernel.org>, Waldemar Rymarkiewicz
-	<waldemar.rymarkiewicz@gmail.com>, <devicetree@vger.kernel.org>,
-	<imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>, Kaiwen Zhang
-	<kaiwen.zhang@cn.bosch.com>
-Subject: [PATCH 1/2] arm64: dts: imx8mn-bsh-smm-s2/pro: allow powering off SDIO Wi-Fi card
-Date: Wed, 25 Nov 2026 10:48:24 +0100
-Message-ID: <20261125094825.3873696-2-external.Waldemar.Rymarkiewicz@bshg.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261125094825.3873696-1-external.Waldemar.Rymarkiewicz@bshg.com>
-References: <20261125094825.3873696-1-external.Waldemar.Rymarkiewicz@bshg.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nx08xx2N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 906831F000ED;
+	Wed, 25 Nov 2026 09:52:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795600337;
+	bh=UQtEtINa9PCkeAJfrH8v1QZGUwgFpwbuvRFLidulpYI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=nx08xx2NF1zPsS3CtNubp9nK+oLyGErFpI9Nr+2dmJoJG76Xo48Q4NdKSoYBEBUJN
+	 4hXdyjeC6LRShkL6jCzRQxJm4SecTKs5aOCaYcgTFDqY+hoPN0f6w2UdgETmZXmeJ2
+	 xLLyVmW1t6OpgIWUZelj4QHvkTwoVffCXE5jeXTtvPso1urymnEsO05NruDgTKN768
+	 BJX1MKS+Z5Zpd/i1tzrUwNflP8rGHyomyXCbI9kchPZyBt67O9NqkRQ62R6wv4w5ba
+	 JZTntTm8pHrC4wSUZcXcmKDZxh7XQjVSCXDhRvG6vQzoCbg4mP+DVoJtCth9GP1BYq
+	 BpGopFj8cfMIA==
+Subject:
+ Re: [PATCH net-next v5 3/3] net: phy: dap8211r: add PHY LED control support
+From: netdev-bot+sashiko@kernel.org
+To: a.shimko.dev@gmail.com
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ maxime.chevallier@bootlin.com, pavel@ucw.cz, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-leds@vger.kernel.org,
+ netdev@vger.kernel.org
+Date: Wed, 25 Nov 2026 09:52:16 +0000
+Message-ID: <179560033613.3135.13122318439070700886@kernel.org>
+In-Reply-To: <20261124094914.2993988-4-a.shimko.dev@gmail.com>
+References: <20261124094914.2993988-4-a.shimko.dev@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,60 +66,131 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PEPF00008482:EE_|GVXPR10MB9406:EE_
-X-MS-Office365-Filtering-Correlation-Id: 22d4b6d9-3824-4852-da69-08df4ad98b68
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|23010399003|19092799006|82310400026|7416014|376014|10067099003|56012099006|261026121527099003|261028144727099003|261102123227099003|261026140227099003|261022075727099003|261022105027099003|261021121427099003|261009223027099003|22082099003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	9XnbdmyIa6u2nCIsWlqcc23ItR+8gTE+lBUsOjA4I5lOJMuwqRTY4cgzd8LtztxtygYIm+KTJ2JvLWOEGvRQ7/Zlwgk9y0mfttAxJK+VOO6G95Y3V2+SA/m3bDRkgJJdgxDBK+P+F6eNzBdAsNwARDCwydE/eScc1D9SgOhhkIem20C8KxNhSMQBvI6+Cm4/r0UI2f2mSmhAv6CMR4b5cLICvm8aezRL5DeCLpi9TtMOYJtdlIrKjgpIpiswkixniWb01irL93ad56gMBkaCvEOjVYW8WQAVHaCz/i5y9lw4pZezwjjBb21cpaaWtQZFMg/CID6opMy6SgViv9Xe0C6MKBBSJ5yhd4PNG4Pe0kfIElwyAuNYHu7NOhMjKswyjTFjgO9VCIPdIVvhtGFd50xIoeKvmhpdIIpFlJYVkJuvQsKpJtc3Iv7jYlE7JbmKjUTeKFl5OYK8Le+Pwc4PlZRVM7OYeDvwNkFLtruzCWprsLEn2xPz7P+3wifuQDSheXRO7VIGNG/seZ16WaYmCD0yRi7gRifjqGu8IlZ4tDyyDUsanABn0lsD99HuLcMy8uDE/X/K8vmPME0rYwTE66YJLWAWUHkp/V2imQTq6/qu231YoYWlGMNfcJ+5jPeFoqMfSj2apKmb0drP3p1TdegA3eMZe3Slk9pnBdYhF90rpkpKl93AQ+lhjtXl/J1MElhz/2uyAVK5UwBFA2M2Wg==
-X-Forefront-Antispam-Report:
-	CIP:139.15.153.206;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:eop.bosch-org.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(23010399003)(19092799006)(82310400026)(7416014)(376014)(10067099003)(56012099006)(261026121527099003)(261028144727099003)(261102123227099003)(261026140227099003)(261022075727099003)(261022105027099003)(261021121427099003)(261009223027099003)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	AISmGaKRHxc26ROe3yu7AAl98cObNiMUfmBoEzH+PXvexI89GhhgWLttsJYH2HMS3wsgCzto0taNfkcvfppMcZvux8tl/++hmwkRH9byIevecFUjES4yfTg7t5a5BIE3DrPF7DikGOPwmASim/BnqB2csqqlAYbOc05nDJwGLPC3NBVe3DMutl2n2v5By7IvY2FVNcxsD6k1arS7hB5LIItH+EGDFNfzhKljprl3USGLwYB13vq7JjYT1eh3L7T09KzzeucLBC5FGeuWVHgKuMrwB+iMf4iYtreCxPMWiqvQ8hX0yvdoHEwGLsKUeW22RTB2aLM1RCJc6msl6WURxcjZ80vGJeB3LsAn2Ng7br8Ejibh0uioyHaz614ml+R4Q0aEf+olQHGJU6cdEmNYyNa71tHHO3/RWUC5g+EJlnmqCOg88VSwdgroNRkHjgnm
-X-OriginatorOrg: bshg.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 09:50:31.4548
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 22d4b6d9-3824-4852-da69-08df4ad98b68
-X-MS-Exchange-CrossTenant-Id: 0ae51e19-07c8-4e4b-bb6d-648ee58410f4
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0ae51e19-07c8-4e4b-bb6d-648ee58410f4;Ip=[139.15.153.206];Helo=[eop.bosch-org.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MI3PEPF00008482.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR10MB9406
 
-From: Kaiwen Zhang <kaiwen.zhang@cn.bosch.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Add the cap-power-off-card property to the usdhc2 node so the MMC core
-can power down the onboard SDIO Wi-Fi module via mmc-pwrseq during
-runtime suspend, driver unbind, or card reset instead of leaving
-it continuously powered.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Signed-off-by: Kaiwen Zhang <kaiwen.zhang@cn.bosch.com>
-Signed-off-by: Waldemar Rymarkiewicz <waldemar.rymarkiewicz@gmail.com>
----
- arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2-common.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2-common.dtsi b/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2-common.dtsi
-index d20393c2d901..67c4f3e364eb 100644
---- a/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2-common.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2-common.dtsi
-@@ -263,6 +263,7 @@ &usdhc2 {
- 	mmc-pwrseq = <&usdhc2_pwrseq>;
- 	bus-width = <4>;
- 	non-removable;
-+	cap-power-off-card;
- 	status = "okay";
- 
- 	brcmf: wifi@1 {
+- [Medium] dap8211r_led_hw_control_get()
+  (drivers/net/phy/dap8211r.c:322-369) returns 0 with an incomplete rule…
+
+--
+
+net: phy: dap8211r: add PHY LED control support
+
+This commit adds LED support for the three LEDs on the DAP8211R PHY. It
+adds a dap8211r_write_ext() helper and implements the led_brightness_set,
+led_hw_is_supported, led_hw_control_set and led_hw_control_get callbacks.
+
+> diff --git a/drivers/net/phy/dap8211r.c b/drivers/net/phy/dap8211r.c
+> index 1fe20efd394d7..9b65b5c57de81 100644
+> --- a/drivers/net/phy/dap8211r.c
+> +++ b/drivers/net/phy/dap8211r.c
+
+[ ... ]
+
+> +/**
+> + * dap8211r_led_hw_control_set() - Write the LED control register
+> + * @phydev: PHY device structure
+> + * @index: LED index
+> + * @rules: Bitmask of requested netdev trigger rules
+> + *
+> + * Disables force mode and translates the requested trigger rules into
+> + * the corresponding bit positions of the LED control register and writes
+> + * the resulting value to the PHY.
+> + *
+> + * Note that the ACT_BLINK bit (13) must be set together with TX/RX rules,
+> + * otherwise the LED will not blink on traffic if no other rule (such as
+> + * link or duplex) is active.
+
+[ ... ]
+
+> +	ret = dap8211r_write_ext(phydev, led_reg, led_mode);
+> +	if (ret)
+> +		return ret;
+
+[ ... ]
+
+> +/**
+> + * dap8211r_led_hw_control_get() - Read the current LED configuration
+
+[ ... ]
+
+> + * Return: 0 on success, -EINVAL for an invalid LED index, -EOPNOTSUPP if the
+> + *         current hardware configuration cannot be represented in rules, or a
+> + *         negative error code
+> + */
+> +static int dap8211r_led_hw_control_get(struct phy_device *phydev, u8 index, unsigned long *rules)
+> +{
+
+[ ... ]
+
+> +	led_mode = dap8211r_read_ext(phydev, led_reg);
+> +	if (led_mode < 0)
+> +		return led_mode;
+> +
+> +	if (led_mode & ~DAP8211R_LED_SUPPORTED_MASK)
+> +		return -EOPNOTSUPP;
+
+[ ... ]
+
+> +	if ((led_mode & DAP8211R_LED_RX) &&
+> +	    (led_mode & DAP8211R_LED_ACT_BLINK))
+> +		__set_bit(TRIGGER_NETDEV_RX, rules);
+> +
+> +	if ((led_mode & DAP8211R_LED_TX) &&
+> +	    (led_mode & DAP8211R_LED_ACT_BLINK))
+> +		__set_bit(TRIGGER_NETDEV_TX, rules);
+
+[Severity: Medium]
+Should dap8211r_led_hw_control_get() return -EOPNOTSUPP when LED_n_CON
+holds a state that can't be expressed as rules?
+
+The only check that rejects a state is led_mode & ~DAP8211R_LED_SUPPORTED_MASK.
+That mask includes ACT_BLINK, TX and RX. As a result, two register states
+pass the check, get reported incompletely, and the function still returns 0:
+
+  - RX and/or TX set without ACT_BLINK. For example, LINK_1000 | RX | TX
+    is reported as only TRIGGER_NETDEV_LINK_1000. The comment above
+    dap8211r_led_hw_control_set() describes this as a working hardware
+    mode when a link or duplex rule is active.
+
+  - ACT_BLINK set on its own, which is reported as no rules at all.
+
+The kernel-doc for this function says -EOPNOTSUPP is returned if "the
+current hardware configuration cannot be represented in rules". The
+led_hw_control_get contract in include/linux/phy.h says the same.
+
+netdev_trig_activate() trusts a 0 return:
+
+drivers/leds/trigger/ledtrig-netdev.c:netdev_trig_activate() {
+    ...
+			rc = led_cdev->hw_control_get(led_cdev, &mode);
+			if (!rc)
+				trigger_data->mode = mode;
+    ...
+}
+
+After that, either the NETDEV_REGISTER replay from
+register_netdevice_notifier() or a later NETDEV_UP/CHANGE event runs:
+
+netdev_trig_notify()
+  set_baseline_state()
+    phy_led_hw_control_set()
+      dap8211r_led_hw_control_set()
+        dap8211r_write_ext(phydev, led_reg, led_mode)
+
+This writes the whole register with the reduced rules. Would that clear
+the RX/TX activity bits set by the reset defaults or the bootloader? It
+would also leave sysfs reporting a different mode from the one the LED
+was running before the trigger was activated.
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261124094914.2993988-1-a.shimko.dev%40gmail.com
