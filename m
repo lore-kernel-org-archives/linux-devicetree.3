@@ -1,98 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795639241;
-	b=SqF2X+sO/I/E78LKeyLzrbjP9IxiEYe0Zfsd86l2yFTOhDjNwx6xomc+BB+lqXJ8W+uv
-	 5enrvVDovYe9VV8ARhdK8BewCgFezRwpaD1g12hXhqNw+5g64GlqHmZXNqaSvXkiFAC+4
-	 z1Z6tdy0ouBW7LlQGqJuuDo5cDy0jbLucCS7J9JLM7w4C68iYPw6Ipbr7RbYB6I5tOqcJ
-	 mklBsj6Y3WQ+nAJ3047xKHtaivlqNmkQqg/+dX5XJzH/32Y5vOeNfYV/SppEurG26sC/Z
-	 fqze6N1FUi/i6MMD6KHG7UUq+qQyOV6Yrv56hL8N96Q5dG4kWeJHHXC9gPpxm+54BmA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795639241;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=8hi1KZiya0UHcnzPSX4a+krak37ozdn0IOzf8OkNJyc=;
-	b=bRhGmenIXH7jtzWtKns8Iv/4fZ6Zj6MzfkXm5/llZgSrwM6RU8LSPhBDWqhj0qv8M6zB
-	 ll3Gn1Dx4A95YcztNdEb3w5i2Q9yk+SE+dc7Tf5y6zk40jcqnIdXLpCZ5qPrggrZc7EN8
-	 NvBbTFdmCXsuo9ILx22OKAiTIaXHAuprWZabjVqYziUmv23VJcGmGMosaY8GMMLgAIdqV
-	 c/evdR/56DS8+Wg/HgV8e9M8rTrar+iJjVSXNvbb7pKFYMrB9rKP26952VZKf0enhDaXO
-	 BDbt8mA+GrInFUS3s6bqtFMMB7H7BUCVBXoGg+VXG9Ely2GM1KflqLFHbWUiLkDqeWg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m0+vtZSB;
-	arc=none smtp.remote-ip=209.85.210.52
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795639842;
+	b=c9EfHFAgDJw1G8Dw/MpOoHkSdcDQWenxYu2Ic+6Z8ZcCsE248DYpj0AnpiXPIUsD94Uk
+	 Y5V+e7MiYjU6MVN+ex+OsRxsXP7DqM4n7+w+E8+JfktUjR3QSqjSQ9s7wHRDYb/e+dQ5B
+	 qpUXXAnkjgkoQdYKLGwQYVLbLqwdopB2NHN55bG6Zh9qZwXZx00S+uQKCxq8Qq8dbYaeP
+	 K6QGnLo7d/XoNNSq8imnFdJrYVnPafYn868ayMKexZU3rVbZh8+EVUvKbpKHE8NF1S+0D
+	 Gj32VxJbtSFUkctOqXfBhihIcXQDxGvujxmzaQYTaOYj3DuurqjQuh60pHKgGJN9dNg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795639842;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=grcTAYHKrKdvfPqM1OBzx37QeqeHWeHPrvccffCgy5w=;
+	b=XWzi9z8VnJsCcFfjjOlTLjxSpTzBUHL/nqSxlkyErvNEtDEts5mfjlwhNYf6mS7m3c+B
+	 IpKR8lk9dlALov9vAqSNgG1B8xUxRr9d2b9ZKi0h9EyEPtLbzcE9Xn/IR5vv7fi9ehblx
+	 qrO+hF/x42ju7yc3b3NXkFd33OZQzn7CTUexs/ZNFG7fWN2jiha9eusTPHuIxIHR7HKbU
+	 tqI2kjPoGUxBaqpL3sYkmYLRM7mfQvfFyXOmRzbPds6bqASUuNGy1QWrF89w/kRDh6SwM
+	 ab5UllIr8tWiHVFfXpv8JNudGSNxJgOtWJMbDTK2bb+Zi/sPPxI/Sfpj8O+WWtxMDLA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VSve6+QU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27957606A32E;
+	Wed, 25 Nov 2026 20:50:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VSve6+QU
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795639841;
+	b=mvCJAQlMImFo0Ejiyvnp1GmxgF+FydKXwyOALVot/Gfce4SdAGBbGrvSh6Na8yoF9rdj
+	 EfATAyIGaS1MYUhlJ9l9cMp55UwSalAxL+MXfY7HvWE19GfkBs2LbWk6bXoD2ERqQNArR
+	 NMHWQSLwfdNI+UHDjIWapWdHsY3Zg6qs1j17wW+k0cexfyeKXy4nAhQfYa3bk46ODibLM
+	 03ydBkUGN5WHCTIf+EsDKBdMj0pz1bTEsRQnroJNGf+d1e1pc7dNShJnLS0nV4U4v7wAV
+	 /hs3JuiE9UjcbGTCGn+P+zsJt+0HhYKZiRV3y2HefBO6DYkvIAFr67VUm0dht8siPXw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795639841;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=grcTAYHKrKdvfPqM1OBzx37QeqeHWeHPrvccffCgy5w=;
+	b=dPmdjHV787xIhVE9B2pGek44zxSfjP6T184El9uNwAeZA2lMNS55r9yV3xezVIXLU2r8
+	 WNM7LREVgSGT8avItEDIgTX6W19ByjXMwkOeeke7wM8Y2XpUMxTpm0wAH9Cj/gqr8P+5h
+	 bKoucBglYZTBj4mxJ7NX7ynAxvKToqsDEbXra9KhLuoiRWBICt8Z7gxw9yJpRjfXG1WfA
+	 dp+kHM6knYDBznn++esDp6nFJQyHEgAnRibfCrwnmWlCoH4ZrNIbjKhEpE4kH0gSGLnPz
+	 YVZtkbArs1ATEIBG3uuo9ikYr2++f92DO9Rd7oq1i5/zdxjFN0IhCC+zq2Hht3N6lKQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BE4606A326
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 20:40:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0BE4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m0+vtZSB
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-843cf077f10so8456916a34.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 12:40:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795639240; x=1796244040; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8hi1KZiya0UHcnzPSX4a+krak37ozdn0IOzf8OkNJyc=;
-        b=m0+vtZSBjkmO0Cp6HPWsPVZ8DgZ/OdBhe5BQ+CSFmY04VIIJg8ehOpC9/tlhXKXE2u
-         odQgnaktQjToeATIGYZ7iHTf/3GJi9AAAUSb2KzAr0g+t6x2bxMh/ckd1o7iz6RvF9A0
-         ZLU3BkLdxpavvHb1SII1ZG8vKQ8XhNncxZRp0mClBM5iBu1DfK9OKMm2A95hc5y3eBk2
-         hvkuhs5lGWD2zaW3ZPpsbJ+oGPWNCaCvzKatP09TMYh05GYTPVlYYjTRoqWpBu77JTv+
-         1GmzGYVSWRoNajubCm3B/YI7qxthIXKxh1zGans0TmSyKGDQ+/1c63VhdIdwy4MzSMfJ
-         odeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795639240; x=1796244040;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8hi1KZiya0UHcnzPSX4a+krak37ozdn0IOzf8OkNJyc=;
-        b=K04Cl67xOeM4kZFcvmitKGOKqFuW0K2vLbkOf7mvdmDd8tbYyI4mPZ0eRpQp9VWA4/
-         lbFl7mdDfxGliK09uR/GvBU+V7Z31irRaTiVj1QP1FIHmMPl4WIKh6ckPTayk3etAi0E
-         dKK9CA9XgNRjRuOUBTfbkx0ah5x2W6mX5TnIU1U5lQy16VEgin+XH4W8S17hwPZ85ZVn
-         NfQRUHawN2e19Kx/z9MDTjYy1fihHPmOvIWX5o1yCb/bS9EaDTCXEYwGMfwEipUeTSaI
-         wTwK2RedWp/yPu1mMqjhsX7aLcsoQKfXEOODGx4uNLDw1TEdxjes15Z/E3kLHToULfLR
-         JlLA==
-X-Forwarded-Encrypted: i=1; AL+hErGvDbYbwJWPbi9Qh9uM7rO7RfomcPHXDGvkGaTK0UUk3cdcRsHAvL8zR4ipcZDTEIKy+kn8I9IXmBlk@vger.kernel.org
-X-Gm-Message-State: APuU4Z+6cCeflTO4eqluA3mmbxY9SuVSkXGSVEoamBXs53GZJhDNGIYF
-	Ery+BCaddK9P0qAPNde/t6Rp1vZdCli7dX7Gy8OAhPr2tODplfRh6+L7
-X-Gm-Gg: AZFdTZcpHKdeuhirowTGADi33cC8nc2XigM2cDAJ7YDSEFaEXMG2htfL7R4/V4fmRzj
-	v1xv3oeucGRTSNXd15I1KcQvc8/jaqChPgoY99dBfEmFUM0UEYYgKpd5fwV2mrBjfCzqx+/SNiB
-	n9nRC5g3nsDNQeoVZXJ4/FW4pBa503G/8KCxEqYy7UA7ziYg7B1jJ5SSJxcjBiq+3FBLiw7kof1
-	I4a4G/lz/iFFoezXMaynTdVq44wCnd0gz/p9kShfs61dAuwrzNRBZi4I7EHCk2zEXm9ey5XuyDU
-	Ae7Z0pXE2VDgJsH1Rre4Ov6Yji11Rr01oLhW6qBdpCVn5Z3fTbxG3GV873tTAOHGPbMwjuxXm0b
-	PVsMc2KbXAOtDJDXPoECQfaskvVGbRgaj7VZAzntIxKcS93Ze7CGp5ZkHBtacJyfNCb2Pb4IAcq
-	BAR0NIshwzNPUgyCW8kZIbYeqamj8Vcq+Buz6NHOFWZhDgDyqbw67Ah1lki09eECoFdwecIuF98
-	lAxS10W6ubkK53ALe157hh16INjPv/I9XOPn73lRaKoeKL71Jy2HpNSpakDZfYVtO6Wc48Yamyn
-	KiMX9Mcx7JJakfoMPd+v1xM51V39dfTjgi31BGxtAolfiw==
-X-Received: by 2002:a05:6830:4411:b0:862:bc33:da9d with SMTP id 46e09a7af769-86315939b41mr19156987a34.23.1795639239726;
-        Wed, 25 Nov 2026 12:40:39 -0800 (PST)
-Received: from neuromancer.localdomain ([75.28.21.198])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-863168dd6d8sm13477219a34.10.2026.11.25.12.40.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 12:40:39 -0800 (PST)
-Date: Wed, 25 Nov 2026 14:40:36 -0600
-From: Chris Morgan <macroalpha82@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
-	shawn.lin@rock-chips.com, linux-pm@vger.kernel.org, heiko@sntech.de,
-	conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
-	sre@kernel.org, t.schramm@manjaro.org, xsf@rock-chips.com,
-	Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH V4 1/3] dt-bindings: power: cw2015: add cw2215, cw2217,
- and cw2218
-Message-ID: <awdHxIQ7AMNUtiq_@neuromancer.localdomain>
-References: <20261124191346.434143-1-macroalpha82@gmail.com>
- <20261124191346.434143-2-macroalpha82@gmail.com>
- <179560806608.84329.5895350466243051992.b4-reply@b4>
+	by smtp.kernel.org (Postfix) with ESMTPS id ED8B11F000CF;
+	Wed, 25 Nov 2026 20:50:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795639841;
+	bh=grcTAYHKrKdvfPqM1OBzx37QeqeHWeHPrvccffCgy5w=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=VSve6+QUuFTFyESKWOEvJSyCrhHdrTCL5p8D0qAZdE6E5q1da7GbIZifTT7zVUcQr
+	 Cw/x/0aUIeKZOox5hfmVuRv7AUxfiPN6REphrRZWSCRKyaGdEjyT/TMeumXKwj0veB
+	 XAeeJxa3Q8G/eNHxJ5yUlcIoUK9bBCAv6RC/3Nq8Y5K417BjKaN3fQwZ5/t2XkFKT8
+	 gccFNIzfsvm/8mfQ3V3HguQOwK4ZrVy8JrF0Vn9Pn2AAARNK/uM7tg5d1+fDBtAAZ2
+	 TafzX4WVMFw2hKOOdoXE05T4xXvKQsZuBdV3h1laroCdRQdxFgjpAd0ddzsXM8j4/h
+	 bm5522HPGYgcA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 780754D047;
+	Wed, 25 Nov 2026 20:50:31 +0000 (UTC)
+From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
+Date: Wed, 25 Nov 2026 23:50:30 +0300
+Subject: [PATCH RFC net-next 2/7] net: dsa: add a QCA four-byte CPU tagger
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,78 +82,881 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179560806608.84329.5895350466243051992.b4-reply@b4>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261125-almondplus-offload-rfc-v1-2-703175c6340c@gmail.com>
+References: <20261125-almondplus-offload-rfc-v1-0-703175c6340c@gmail.com>
+In-Reply-To: <20261125-almondplus-offload-rfc-v1-0-703175c6340c@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Florian Fainelli <f.fainelli@gmail.com>, 
+ Simon Horman <horms@kernel.org>, Pablo Neira Ayuso <pablo@netfilter.org>, 
+ Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>, 
+ Hans Ulli Kroll <ulli.kroll@googlemail.com>, 
+ Linus Walleij <linusw@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ Russell King <linux@armlinux.org.uk>, 
+ Christian Marangi <ansuelsmth@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org, 
+ coreteam@netfilter.org, linux-arm-kernel@lists.infradead.org, 
+ linux-doc@vger.kernel.org, Fil Dunsky <filipp.dunsky@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795639829; l=28282;
+ i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
+ bh=3Kun9cJTdqUY3onf9waOp+3LOppqDQ9OpaQL0Li2Yxc=;
+ b=e0DNu40C2Lo12rfQmiJJIKOV01NdPOEvgNcIWjsAy3vA9moPhrxn7m1WDCAw87HTc4ts8Aumu
+ QgzaAFgh9qtAqXzAokMwS8/biaIv4wCjghl8w+hTYxI/uOCCs4P2tuc
+X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
+ pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
+X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
+ auth_id=1085
+X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
+Reply-To: filipp.dunsky@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 25, 2026 at 01:01:06PM +0100, Krzysztof Kozlowski wrote:
-> On 2026-11-24 13:13 -0600, Chris Morgan wrote:
-> > From: Chris Morgan <macromorgan@hotmail.com>
-> > 
-> > Add bindings for the Cellwise cw2215/cw2217/cw2218 i2C interface
-> > battery gauge. It is similar in function to the existing cw2015 but
-> > with a different register layout. Each of the cw2215, cw2217 and cw2218
-> > only really differ in the minor specs and the hardware ID they display
-> > when queried. shunt-resistor-micro-ohms is a property in use for
-> > multiple devices so not appending a vendor prefix to it.
-> > 
-> > Move the minItems and maxItems for the battery profile to a conditional
-> > based on the compatible string, as the new monitors require 80 bytes of
-> > firmware instead of 64 bytes.
-> > 
-> > Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
-> > ---
-> >  .../bindings/power/supply/cw2015_battery.yaml | 41 ++++++++++++++++---
-> >  1 file changed, 35 insertions(+), 6 deletions(-)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/power/supply/cw2015_battery.yaml b/Documentation/devicetree/bindings/power/supply/cw2015_battery.yaml
-> > index f7bde324153d..992cd5f6a216 100644
-> > --- a/Documentation/devicetree/bindings/power/supply/cw2015_battery.yaml
-> > +++ b/Documentation/devicetree/bindings/power/supply/cw2015_battery.yaml
-> > @@ -14,12 +14,13 @@ description: |
-> >    phandle in monitored-battery. If specified the driver uses the
-> >    charge-full-design-microamp-hours property of the battery.
-> >  
-> > -allOf:
-> > -  - $ref: power-supply.yaml#
-> > -
-> >  properties:
-> >    compatible:
-> > -    const: cellwise,cw2015
-> > +    enum:
-> > +      - cellwise,cw2015
-> > +      - cellwise,cw2215
-> > +      - cellwise,cw2217
-> > +      - cellwise,cw2218
-> >  
-> >    reg:
-> >      maxItems: 1
-> > @@ -31,8 +32,6 @@ properties:
-> >        it is to mail two batteries to a test facility of CellWise and receive
-> >        back a test report with the binary blob.
-> >      $ref: /schemas/types.yaml#/definitions/uint8-array
-> > -    minItems: 64
-> > -    maxItems: 64
-> 
-> Nothing improved. Broadest constraints always stay here (explained also
-> in writing bindings).
-> 
-> Best regards,
-> Krzysztof
-> 
-> -- 
-> Krzysztof Kozlowski <krzk@kernel.org>
+From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-I think I get it, sorry for being thick. So this would have 64 as the
-minimum and 80 as the maximum, then further down for the cw2015 we'd
-have 64 as both the min and max, and for the others we'd have 80 as the
-min and max.
+Insert the 0x8100 identifier and the ordinary QCA metadata ahead of the
+inner EtherType. Preserve checksum/header offsets, materialize VLAN
+metadata inside the CPU tag and validate nonlinear receive headers
+before dispatch.
 
-Thank you,
-Chris
+Keep the two-byte format as the default. Add KUnit coverage for tagging,
+VLAN and checksum metadata, source-port dispatch, clones and
+truncated/nonlinear packets. Seven tests passed under UML.
 
-> 
-> _______________________________________________
-> Linux-rockchip mailing list
-> Linux-rockchip@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-rockchip
+Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+---
+ include/net/dsa.h        |  21 +--
+ net/dsa/Kconfig          |  30 +++
+ net/dsa/Makefile         |   2 +
+ net/dsa/tag_qca4.c       | 165 +++++++++++++++++
+ net/dsa/tag_qca4_kunit.h | 469 +++++++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 671 insertions(+), 16 deletions(-)
+
+diff --git a/include/net/dsa.h b/include/net/dsa.h
+index 5d12191b6..7d3c836c2 100644
+--- a/include/net/dsa.h
++++ b/include/net/dsa.h
+@@ -36,6 +36,7 @@ struct tc_action;
+ #define DSA_TAG_PROTO_LAN9303_VALUE		8
+ #define DSA_TAG_PROTO_MTK_VALUE			9
+ #define DSA_TAG_PROTO_QCA_VALUE			10
++#define DSA_TAG_PROTO_QCA4_VALUE 37
+ #define DSA_TAG_PROTO_TRAILER_VALUE		11
+ #define DSA_TAG_PROTO_8021Q_VALUE		12
+ #define DSA_TAG_PROTO_SJA1105_VALUE		13
+@@ -77,6 +78,7 @@ enum dsa_tag_protocol {
+ 	DSA_TAG_PROTO_LAN9303		= DSA_TAG_PROTO_LAN9303_VALUE,
+ 	DSA_TAG_PROTO_MTK		= DSA_TAG_PROTO_MTK_VALUE,
+ 	DSA_TAG_PROTO_QCA		= DSA_TAG_PROTO_QCA_VALUE,
++	DSA_TAG_PROTO_QCA4		= DSA_TAG_PROTO_QCA4_VALUE,
+ 	DSA_TAG_PROTO_TRAILER		= DSA_TAG_PROTO_TRAILER_VALUE,
+ 	DSA_TAG_PROTO_8021Q		= DSA_TAG_PROTO_8021Q_VALUE,
+ 	DSA_TAG_PROTO_SJA1105		= DSA_TAG_PROTO_SJA1105_VALUE,
+@@ -183,15 +185,12 @@ struct dsa_switch_tree {
+ #define dsa_lags_foreach_id(_id, _dst)				\
+ 	for ((_id) = 1; (_id) <= (_dst)->lags_len; (_id)++)	\
+ 		if ((_dst)->lags[(_id) - 1])
+-
+ #define dsa_lag_foreach_port(_dp, _dst, _lag)			\
+ 	list_for_each_entry((_dp), &(_dst)->ports, list)	\
+ 		if (dsa_port_offloads_lag((_dp), (_lag)))
+-
+ #define dsa_hsr_foreach_port(_dp, _ds, _hsr)			\
+ 	list_for_each_entry((_dp), &(_ds)->dst->ports, list)	\
+ 		if ((_dp)->ds == (_ds) && (_dp)->hsr_dev == (_hsr))
+-
+ static inline struct dsa_lag *dsa_lag_by_id(struct dsa_switch_tree *dst,
+ 					    unsigned int id)
+ {
+@@ -579,47 +578,36 @@ static inline bool dsa_is_user_port(struct dsa_switch *ds, int p)
+ #define dsa_tree_for_each_user_port(_dp, _dst) \
+ 	list_for_each_entry((_dp), &(_dst)->ports, list) \
+ 		if (dsa_port_is_user((_dp)))
+-
+ #define dsa_tree_for_each_user_port_continue_reverse(_dp, _dst) \
+ 	list_for_each_entry_continue_reverse((_dp), &(_dst)->ports, list) \
+ 		if (dsa_port_is_user((_dp)))
+-
+ #define dsa_tree_for_each_cpu_port(_dp, _dst) \
+ 	list_for_each_entry((_dp), &(_dst)->ports, list) \
+ 		if (dsa_port_is_cpu((_dp)))
+-
+ #define dsa_switch_for_each_port(_dp, _ds) \
+ 	list_for_each_entry((_dp), &(_ds)->dst->ports, list) \
+ 		if ((_dp)->ds == (_ds))
+-
+ #define dsa_switch_for_each_port_safe(_dp, _next, _ds) \
+ 	list_for_each_entry_safe((_dp), (_next), &(_ds)->dst->ports, list) \
+ 		if ((_dp)->ds == (_ds))
+-
+ #define dsa_switch_for_each_port_continue_reverse(_dp, _ds) \
+ 	list_for_each_entry_continue_reverse((_dp), &(_ds)->dst->ports, list) \
+ 		if ((_dp)->ds == (_ds))
+-
+ #define dsa_switch_for_each_available_port(_dp, _ds) \
+ 	dsa_switch_for_each_port((_dp), (_ds)) \
+ 		if (!dsa_port_is_unused((_dp)))
+-
+ #define dsa_switch_for_each_user_port(_dp, _ds) \
+ 	dsa_switch_for_each_port((_dp), (_ds)) \
+ 		if (dsa_port_is_user((_dp)))
+-
+ #define dsa_switch_for_each_user_port_continue_reverse(_dp, _ds) \
+ 	dsa_switch_for_each_port_continue_reverse((_dp), (_ds)) \
+ 		if (dsa_port_is_user((_dp)))
+-
+ #define dsa_switch_for_each_cpu_port(_dp, _ds) \
+ 	dsa_switch_for_each_port((_dp), (_ds)) \
+ 		if (dsa_port_is_cpu((_dp)))
+-
+ #define dsa_switch_for_each_cpu_port_continue_reverse(_dp, _ds) \
+ 	dsa_switch_for_each_port_continue_reverse((_dp), (_ds)) \
+ 		if (dsa_port_is_cpu((_dp)))
+-
+ static inline u32 dsa_user_ports(struct dsa_switch *ds)
+ {
+ 	struct dsa_port *dp;
+@@ -842,7 +830,6 @@ dsa_tree_offloads_bridge_dev(struct dsa_switch_tree *dst,
+ #define dsa_switch_for_each_bridge_member(_dp, _ds, _bdev) \
+ 	dsa_switch_for_each_user_port(_dp, _ds) \
+ 		if (dsa_port_offloads_bridge_dev(_dp, _bdev))
+-
+ static inline u32
+ dsa_bridge_ports(struct dsa_switch *ds, const struct net_device *bdev)
+ {
+@@ -996,7 +983,6 @@ struct dsa_switch_ops {
+ 			       struct phy_device *phy);
+ 	void	(*port_disable)(struct dsa_switch *ds, int port);
+ 
+-
+ 	/*
+ 	 * Notification for MAC address changes on user ports. Drivers can
+ 	 * currently only veto operations. They should not use the method to
+@@ -1401,10 +1387,12 @@ static inline int dsa_switch_suspend(struct dsa_switch *ds)
+ {
+ 	return 0;
+ }
++
+ static inline int dsa_switch_resume(struct dsa_switch *ds)
+ {
+ 	return 0;
+ }
++
+ #endif /* CONFIG_PM_SLEEP */
+ 
+ #if IS_ENABLED(CONFIG_NET_DSA)
+@@ -1414,6 +1402,7 @@ static inline bool dsa_user_dev_check(const struct net_device *dev)
+ {
+ 	return false;
+ }
++
+ #endif
+ 
+ netdev_tx_t dsa_enqueue_skb(struct sk_buff *skb, struct net_device *dev);
+diff --git a/net/dsa/Kconfig b/net/dsa/Kconfig
+index 4f44bf3ed..99933b270 100644
+--- a/net/dsa/Kconfig
++++ b/net/dsa/Kconfig
+@@ -174,6 +174,36 @@ config NET_DSA_TAG_QCA
+ 	  Say Y or M if you want to enable support for tagging frames for
+ 	  the Qualcomm Atheros QCA8K switches.
+ 
++config NET_DSA_TAG_QCA4
++	tristate "Tag driver for QCA four-byte tags"
++	default n
++	help
++	  QCA switch CPU framing with identifier 0x8100 and two-byte metadata.
++	  Does not enable hardware checksum, GSO, VLAN or NAT offload features.
++	  The ordinary QCA two-byte tagger remains the default.
++	  Select qca4 on the CPU ports only when the switch driver supports it.
++
++config NET_DSA_TAG_QCA4_KUNIT_TEST
++	bool "KUnit tests for QCA four-byte sk_buff operations"
++	depends on KUNIT=y && NET_DSA_TAG_QCA4=y
++	default n
++	help
++	  Exercise real sk_buff allocation, copy-on-write, nonlinear headers,
++	  checksum metadata and source-port dispatch for the four-byte tagger.
++	  These are software tests and do not require a physical QCA switch.
++	  They can run with the standard KUnit test framework.
++
++config NET_DSA_QCA8K_4B_MODE
++	bool "QCA8K four-byte boot format for CS7542 offload"
++	depends on NET_DSA_QCA8K=y && NET_DSA_TAG_QCA4=y
++	depends on !PM && CS7542_FT_LIVE_BRIDGE && MDIO_CS75XX=y
++	default n
++	help
++	  Support the four-byte CPU tag requested through dsa-tag-protocol.
++	  The current implementation supports the CS7542 dual-conduit topology.
++	  Ethernet register access uses MDIO while the four-byte format is active.
++	  Both CPU ports must request the same format before the switch starts.
++
+ config NET_DSA_TAG_RTL4_A
+ 	tristate "Tag driver for Realtek 4 byte protocol A tags"
+ 	help
+diff --git a/net/dsa/Makefile b/net/dsa/Makefile
+index 1f9cc30e9..3d5949e50 100644
+--- a/net/dsa/Makefile
++++ b/net/dsa/Makefile
+@@ -48,3 +48,5 @@ obj-$(CONFIG_NET_DSA_TAG_YT921X) += tag_yt921x.o
+ 
+ # for tracing framework to find trace.h
+ CFLAGS_trace.o := -I$(src)
++
++obj-$(CONFIG_NET_DSA_TAG_QCA4) += tag_qca4.o
+diff --git a/net/dsa/tag_qca4.c b/net/dsa/tag_qca4.c
+new file mode 100644
+index 000000000..413756679
+--- /dev/null
++++ b/net/dsa/tag_qca4.c
+@@ -0,0 +1,165 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Private source-review prototype. No offload feature advertisement. */
++#include <linux/bitfield.h>
++#include <linux/etherdevice.h>
++#include <linux/if_vlan.h>
++#include <linux/unaligned.h>
++#include <linux/dsa/tag_qca.h>
++#include <net/dsa.h>
++#include "tag.h"
++
++#define QCA4_PRIVATE_LEN 4
++#define QCA4_PRIVATE_IDENTIFIER 0x8100
++#define QCA4_PRIVATE_NAME "qca4"
++
++/*
++ * Offsets are absolute from skb head. Pushing the outer tag leaves the real
++ * L3/L4 and CHECKSUM_PARTIAL start at their original bytes; their offsets from
++ * skb->data grow by four. Standard core/conduit features own segmentation and
++ * software checksum fallback. GSO/checksum metadata is not rejected or changed.
++ */
++static int qca4_private_insert(struct sk_buff *skb, unsigned long ports)
++{
++	u16 hdr;
++	u8 *tag;
++
++	if (!ports || ports & ~FIELD_MAX(QCA_HDR_XMIT_DP_BIT))
++		return -EINVAL;
++	if (!pskb_may_pull(skb, ETH_HLEN))
++		return -EINVAL;
++	if (skb_cow_head(skb, QCA4_PRIVATE_LEN))
++		return -ENOMEM;
++	skb_push(skb, QCA4_PRIVATE_LEN);
++	dsa_alloc_etype_header(skb, QCA4_PRIVATE_LEN);
++	tag = dsa_etype_header_pos_tx(skb);
++	hdr = FIELD_PREP(QCA_HDR_XMIT_VERSION, QCA_HDR_VERSION) |
++	      QCA_HDR_XMIT_FROM_CPU | FIELD_PREP(QCA_HDR_XMIT_DP_BIT, ports);
++	/* Same metadata policy as legacy QCA: no new skb-priority mapping. */
++	put_unaligned_be16(QCA4_PRIVATE_IDENTIFIER, tag);
++	put_unaligned_be16(hdr, tag + 2);
++	skb_reset_mac_header(skb);
++	return 0;
++}
++
++static struct sk_buff *qca4_private_xmit(struct sk_buff *skb,
++					 struct net_device *dev)
++{
++	/*
++	 * A pending hardware VLAN tag must be inside QCA metadata, never inserted
++	 * outside it later by the conduit. This standard helper also handles COW and
++	 * header/checksum offsets. No HW VLAN feature is advertised by this tagger.
++	 */
++
++	if (skb_vlan_tag_present(skb)) {
++		skb = __vlan_hwaccel_push_inside(skb);
++		if (!skb)
++			return NULL; /* VLAN helper already freed the original. */
++	}
++	if (qca4_private_insert(skb, dsa_xmit_port_mask(skb, dev))) {
++		kfree_skb(skb);
++		return NULL;
++	}
++
++	return skb;
++}
++
++/*
++ * Conduit eth_type_trans pulled fourteen bytes: identifier is data[-2],
++ * metadata is data[0..1], and inner EtherType is data[2..3]. Do not read a
++ * possibly nonlinear metadata/inner EtherType before the full pull check.
++ */
++static int qca4_private_parse(struct sk_buff *skb, u16 *metadata)
++{
++	unsigned int reason;
++	u8 *tag;
++	u16 hdr;
++
++	if (skb_headroom(skb) < ETH_HLEN ||
++	    !pskb_may_pull(skb, QCA4_PRIVATE_LEN)) {
++		return -EINVAL;
++	}
++	if (skb_cow_head(skb, 0))
++		return -ENOMEM;
++	tag = dsa_etype_header_pos_rx(skb);
++	if (get_unaligned_be16(tag) != QCA4_PRIVATE_IDENTIFIER)
++		return -EPROTO;
++	hdr = get_unaligned_be16(tag + 2);
++	if (FIELD_GET(QCA_HDR_RECV_VERSION, hdr) != QCA_HDR_VERSION)
++		return -EPROTO;
++	reason = FIELD_GET(QCA_HDR_RECV_TYPE, hdr);
++	/*
++	 * These fixed14-byte pseudo-Ethernet formats are disabled in private4 mode.
++	 * Never dispatch them into legacy MDIO/MIB callbacks with the wrong layout.
++	 * Other normal/trap reasons remain valid, including observed flooding0x19.
++	 */
++	if (reason == QCA_HDR_RECV_TYPE_MIB ||
++	    reason == QCA_HDR_RECV_TYPE_RW_REG_ACK) {
++		return -EOPNOTSUPP;
++	}
++	*metadata = hdr;
++	return 0;
++}
++
++static struct sk_buff *qca4_private_rcv(struct sk_buff *skb,
++					struct net_device *conduit)
++{
++	struct net_device *user;
++	u16 metadata;
++	int port;
++
++	if (qca4_private_parse(skb, &metadata))
++		goto drop;
++	port = FIELD_GET(QCA_HDR_RECV_SOURCE_PORT, metadata);
++	user = dsa_conduit_find_user(conduit, 0, port);
++	if (!user)
++		goto drop;
++
++	skb->dev = user;
++	skb_pull_rcsum(skb, QCA4_PRIVATE_LEN);
++	dsa_strip_etype_header(skb, QCA4_PRIVATE_LEN);
++
++	/*
++	 * DSA core pushes ETH_HLEN and invokes user eth_type_trans, exposing only
++	 * the real inner EtherType/VLAN after the complete four-byte tag is gone.
++	 */
++	return skb;
++drop:
++	kfree_skb(skb);
++	return NULL;
++}
++
++/*
++ * Called before rcv(): do not assume the metadata or inner EtherType is
++ * linear or even present. Keep the const skb and its layout unchanged.
++ */
++static void qca4_private_flow_dissect(const struct sk_buff *skb, __be16 *proto,
++				      int *offset)
++{
++	__be16 temporary;
++	const void *inner;
++
++	*offset = QCA4_PRIVATE_LEN;
++	*proto = 0;
++	inner = skb_header_pointer(skb, 2, sizeof(temporary), &temporary);
++	if (inner)
++		*proto = get_unaligned((const __be16 *)inner);
++}
++
++static const struct dsa_device_ops qca4_private_ops = {
++	.name = QCA4_PRIVATE_NAME,
++	.proto = DSA_TAG_PROTO_QCA4,
++	.xmit = qca4_private_xmit,
++	.rcv = qca4_private_rcv,
++	.flow_dissect = qca4_private_flow_dissect,
++	.needed_headroom = QCA4_PRIVATE_LEN,
++	.promisc_on_conduit = true,
++};
++
++MODULE_DESCRIPTION("Private source-review QCA four-byte tag prototype");
++MODULE_LICENSE("GPL");
++MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_QCA4, QCA4_PRIVATE_NAME);
++module_dsa_tag_driver(qca4_private_ops);
++
++#if IS_ENABLED(CONFIG_NET_DSA_TAG_QCA4_KUNIT_TEST)
++#include "tag_qca4_kunit.h"
++#endif
+diff --git a/net/dsa/tag_qca4_kunit.h b/net/dsa/tag_qca4_kunit.h
+new file mode 100644
+index 000000000..cc520b7fb
+--- /dev/null
++++ b/net/dsa/tag_qca4_kunit.h
+@@ -0,0 +1,469 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* Real kernel sk_buff tests; offline QEMU execution only. */
++#include <kunit/test.h>
++#include <linux/highmem.h>
++#include <linux/mm.h>
++#include <net/checksum.h>
++
++struct qca4_test_context {
++	struct dsa_switch ds;
++	struct dsa_switch_tree dst;
++	struct dsa_port cpu, user;
++	struct net_device *conduit, *netdev;
++};
++
++static int qca4_test_init(struct kunit *test)
++{
++	struct qca4_test_context *c =
++		kunit_kzalloc(test, sizeof(*c), GFP_KERNEL);
++	struct dsa_user_priv *p;
++
++	if (!c)
++		return -ENOMEM;
++	c->conduit = alloc_etherdev(0);
++	c->netdev = alloc_etherdev(sizeof(*p));
++	if (!c->conduit || !c->netdev) {
++		if (c->conduit)
++			free_netdev(c->conduit);
++		if (c->netdev)
++			free_netdev(c->netdev);
++		return -ENOMEM;
++	}
++	INIT_LIST_HEAD(&c->dst.ports);
++	c->ds.index = 0;
++	c->ds.dst = &c->dst;
++	c->cpu.ds = &c->ds;
++	c->cpu.dst = &c->dst;
++	c->cpu.type = DSA_PORT_TYPE_CPU;
++	c->cpu.index = 0;
++	c->cpu.conduit = c->conduit;
++	c->cpu.rcv = qca4_private_rcv;
++	c->cpu.tag_ops = &qca4_private_ops;
++	c->conduit->dsa_ptr = &c->cpu;
++	c->user.ds = &c->ds;
++	c->user.dst = &c->dst;
++	c->user.type = DSA_PORT_TYPE_USER;
++	c->user.index = 5;
++	c->user.user = c->netdev;
++	c->user.cpu_dp = &c->cpu;
++	list_add_tail(&c->cpu.list, &c->dst.ports);
++	list_add_tail(&c->user.list, &c->dst.ports);
++	p = netdev_priv(c->netdev);
++	p->dp = &c->user;
++	test->priv = c;
++	return 0;
++}
++
++static void qca4_test_exit(struct kunit *test)
++{
++	struct qca4_test_context *c = test->priv;
++
++	free_netdev(c->netdev);
++	free_netdev(c->conduit);
++}
++
++static struct sk_buff *qca4_test_frame(unsigned int headroom,
++				       unsigned int vlans)
++{
++	struct sk_buff *skb = alloc_skb(headroom + 128, GFP_KERNEL);
++	unsigned int len = 96 + 4 * vlans, network = ETH_HLEN + 4 * vlans;
++	u8 *data;
++
++	if (!skb)
++		return NULL;
++	skb_reserve(skb, headroom);
++	data = skb_put_zero(skb, len);
++	eth_broadcast_addr(data);
++	data[6] = 2;
++	data[11] = 1;
++	put_unaligned_be16(vlans == 2 ? ETH_P_8021AD :
++			   vlans == 1 ? ETH_P_8021Q :
++					ETH_P_IP,
++			   data + 12);
++	if (vlans) {
++		put_unaligned_be16(0xa123, data + 14);
++		put_unaligned_be16(vlans == 2 ? ETH_P_8021Q : ETH_P_IP,
++				   data + 16);
++	}
++	if (vlans == 2) {
++		put_unaligned_be16(0x6000, data + 18); /* Priority tag, VID0. */
++		put_unaligned_be16(ETH_P_IP, data + 20);
++	}
++	data[network] = 0x45;
++	data[network + 9] = IPPROTO_TCP;
++	skb_reset_mac_header(skb);
++	skb_set_network_header(skb, network);
++	skb_set_transport_header(skb, network + 20);
++	skb->protocol = htons(vlans == 2 ? ETH_P_8021AD :
++			      vlans == 1 ? ETH_P_8021Q :
++					   ETH_P_IP);
++	return skb;
++}
++
++static void qca4_test_tx_metadata(struct kunit *test)
++{
++	struct qca4_test_context *c = test->priv;
++	unsigned int vlans, n;
++	static const unsigned int reserves[] = { 0, 2, 16, 32 };
++
++	for (vlans = 0; vlans <= 2; vlans++) {
++		for (n = 0; n < ARRAY_SIZE(reserves); n++) {
++			struct sk_buff *skb = qca4_test_frame(reserves[n],
++							      vlans),
++				       *original;
++			unsigned int net, trans, start, len;
++			u8 bytes[128];
++
++			KUNIT_ASSERT_NOT_NULL(test, skb);
++			skb->ip_summed = CHECKSUM_PARTIAL;
++			skb->csum_start = skb_transport_header(skb) - skb->head;
++			skb->csum_offset = 16;
++			skb->priority = 7;
++			skb_shinfo(skb)->gso_size = 1460;
++			skb_shinfo(skb)->gso_type = SKB_GSO_TCPV4;
++			net = skb_network_offset(skb);
++			trans = skb_transport_offset(skb);
++			start = skb_checksum_start_offset(skb);
++			len = skb->len;
++			memcpy(bytes, skb->data, len);
++			original = skb_clone(skb, GFP_KERNEL);
++			KUNIT_ASSERT_NOT_NULL(test, original);
++			skb = qca4_private_xmit(skb, c->netdev);
++			KUNIT_ASSERT_NOT_NULL(test, skb);
++			KUNIT_EXPECT_EQ(test, skb->len, len + 4);
++			KUNIT_EXPECT_EQ(test, skb_network_offset(skb), net + 4);
++			KUNIT_EXPECT_EQ(test, skb_transport_offset(skb),
++					trans + 4);
++			KUNIT_EXPECT_EQ(test, skb_checksum_start_offset(skb),
++					start + 4);
++			KUNIT_EXPECT_EQ(test, skb->csum_offset, (u16)16);
++			KUNIT_EXPECT_EQ(test, (unsigned int)skb->ip_summed,
++					(unsigned int)CHECKSUM_PARTIAL);
++			KUNIT_EXPECT_EQ(test, skb->priority, 7U);
++			KUNIT_EXPECT_EQ(test, skb_shinfo(skb)->gso_size,
++					(u16)1460);
++			KUNIT_EXPECT_EQ(test, skb_shinfo(skb)->gso_type,
++					SKB_GSO_TCPV4);
++			KUNIT_EXPECT_PTR_EQ(test, skb_mac_header(skb),
++					    skb->data);
++			KUNIT_EXPECT_MEMEQ(test, skb->data, bytes, 12);
++			KUNIT_EXPECT_MEMEQ(test, skb->data + 16, bytes + 12,
++					   len - 12);
++			KUNIT_EXPECT_MEMEQ(test, original->data, bytes, len);
++			KUNIT_EXPECT_EQ(test,
++					get_unaligned_be16(skb->data + 12),
++					0x8100);
++			KUNIT_EXPECT_EQ(test,
++					get_unaligned_be16(skb->data + 14),
++					0x80a0);
++			kfree_skb(original);
++			kfree_skb(skb);
++		}
++	}
++}
++
++static void qca4_test_vlan_metadata(struct kunit *test)
++{
++	struct qca4_test_context *c = test->priv;
++	struct sk_buff *skb = qca4_test_frame(0, 0);
++	unsigned int net, trans, start;
++
++	KUNIT_ASSERT_NOT_NULL(test, skb);
++	skb->ip_summed = CHECKSUM_PARTIAL;
++	skb->csum_start = skb_transport_header(skb) - skb->head;
++	skb->csum_offset = 16;
++	skb_shinfo(skb)->gso_size = 1460;
++	skb_shinfo(skb)->gso_type = SKB_GSO_TCPV4;
++	net = skb_network_offset(skb);
++	trans = skb_transport_offset(skb);
++	start = skb_checksum_start_offset(skb);
++	__vlan_hwaccel_put_tag(skb, htons(ETH_P_8021Q),
++			       0xe000); /* PCP7, VID0 */
++	skb = qca4_private_xmit(skb, c->netdev);
++	KUNIT_ASSERT_NOT_NULL(test, skb);
++	KUNIT_EXPECT_FALSE(test, skb_vlan_tag_present(skb));
++	KUNIT_EXPECT_EQ(test, skb_network_offset(skb), net + 8);
++	KUNIT_EXPECT_EQ(test, skb_transport_offset(skb), trans + 8);
++	KUNIT_EXPECT_EQ(test, skb_checksum_start_offset(skb), start + 8);
++	KUNIT_EXPECT_EQ(test, (unsigned int)skb->ip_summed,
++			(unsigned int)CHECKSUM_PARTIAL);
++	KUNIT_EXPECT_EQ(test, skb->csum_offset, (u16)16);
++	KUNIT_EXPECT_EQ(test, skb_shinfo(skb)->gso_size, (u16)1460);
++	KUNIT_EXPECT_EQ(test, skb_shinfo(skb)->gso_type, SKB_GSO_TCPV4);
++	KUNIT_EXPECT_EQ(test, get_unaligned_be16(skb->data + 12), 0x8100);
++	KUNIT_EXPECT_EQ(test, get_unaligned_be16(skb->data + 14), 0x80a0);
++	KUNIT_EXPECT_EQ(test, get_unaligned_be16(skb->data + 16), ETH_P_8021Q);
++	KUNIT_EXPECT_EQ(test, get_unaligned_be16(skb->data + 18), 0xe000);
++	KUNIT_EXPECT_EQ(test, get_unaligned_be16(skb->data + 20), ETH_P_IP);
++	kfree_skb(skb);
++}
++
++static struct sk_buff *qca4_test_fragment(struct sk_buff *old,
++					  unsigned int linear)
++{
++	struct sk_buff *skb = alloc_skb(32 + linear, GFP_KERNEL);
++	struct page *page;
++	void *mapped;
++	unsigned int bytes = old->len - linear;
++
++	if (!skb)
++		return NULL;
++	page = alloc_page(GFP_KERNEL);
++	if (!page) {
++		kfree_skb(skb);
++		return NULL;
++	}
++	skb_reserve(skb, 16);
++	skb_put_data(skb, old->data, linear);
++	mapped = kmap_local_page(page);
++	memcpy(mapped, old->data + linear, bytes);
++	kunmap_local(mapped);
++	skb_add_rx_frag(skb, 0, page, 0, bytes, PAGE_SIZE);
++	skb_reset_mac_header(skb);
++	return skb;
++}
++
++static void qca4_test_rx_dispatch(struct kunit *test)
++{
++	struct qca4_test_context *c = test->priv;
++	unsigned int vlans, reason, priority, port;
++
++	for (vlans = 0; vlans <= 2; vlans++) {
++		for (reason = 0; reason < 32; reason++) {
++			for (priority = 0; priority < 8; priority++) {
++				for (port = 0; port < 8; port++) {
++					struct sk_buff *skb = qca4_test_frame(16, vlans),
++						       *result;
++					u16 hdr =
++						FIELD_PREP(QCA_HDR_RECV_VERSION,
++							   QCA_HDR_VERSION) |
++						FIELD_PREP(QCA_HDR_RECV_PRIORITY,
++							priority) |
++						FIELD_PREP(QCA_HDR_RECV_TYPE,
++							   reason) |
++						port;
++					bool accept =
++						port == 5 &&
++						reason !=
++							QCA_HDR_RECV_TYPE_MIB &&
++						reason !=
++							QCA_HDR_RECV_TYPE_RW_REG_ACK;
++
++					KUNIT_ASSERT_NOT_NULL(test, skb);
++					KUNIT_ASSERT_EQ(test,
++							qca4_private_insert(skb, BIT(5)),
++							0);
++					put_unaligned_be16(hdr, skb->data + 14);
++					skb->protocol =
++						eth_type_trans(skb, c->conduit);
++					KUNIT_EXPECT_EQ(test, skb->protocol,
++							htons(ETH_P_XDSA));
++					skb->priority = 42;
++					skb->ip_summed = CHECKSUM_COMPLETE;
++					skb->csum = skb_checksum(skb, 0,
++								 skb->len, 0);
++					result = qca4_private_rcv(skb,
++								  c->conduit);
++					if (!accept) {
++						KUNIT_EXPECT_PTR_EQ(test, result, NULL);
++						continue;
++					}
++					KUNIT_ASSERT_NOT_NULL(test, result);
++					KUNIT_EXPECT_PTR_EQ(test, result->dev,
++							    c->netdev);
++					KUNIT_EXPECT_EQ(test, result->priority,
++							42U);
++					KUNIT_EXPECT_EQ(test, csum_fold(result->csum),
++						csum_fold(skb_checksum(result, 0, result->len,
++							0)));
++					KUNIT_EXPECT_EQ(test,
++						(unsigned int)result->ip_summed,
++						(unsigned int)CHECKSUM_COMPLETE);
++					skb_push(result, ETH_HLEN);
++					result->protocol = eth_type_trans(result, c->netdev);
++					KUNIT_EXPECT_EQ(test, result->protocol,
++						htons(vlans == 2 ?
++							      ETH_P_8021AD :
++						      vlans == 1 ? ETH_P_8021Q :
++								   ETH_P_IP));
++					kfree_skb(result);
++				}
++			}
++		}
++	}
++}
++
++static void qca4_test_nonlinear_and_truncated(struct kunit *test)
++{
++	struct qca4_test_context *c = test->priv;
++	struct sk_buff *full, *skb, *result;
++	unsigned int n;
++
++	full = qca4_test_frame(16, 2);
++	KUNIT_ASSERT_NOT_NULL(test, full);
++	skb = qca4_test_fragment(full,
++				 10); /* TX Ethernet header crosses fragment. */
++	KUNIT_ASSERT_NOT_NULL(test, skb);
++	KUNIT_EXPECT_TRUE(test, skb_is_nonlinear(skb));
++	skb = qca4_private_xmit(skb, c->netdev);
++	KUNIT_ASSERT_NOT_NULL(test, skb);
++	KUNIT_EXPECT_EQ(test, get_unaligned_be16(skb->data + 12), 0x8100);
++	kfree_skb(skb);
++	KUNIT_ASSERT_EQ(test, qca4_private_insert(full, BIT(5)), 0);
++	put_unaligned_be16(0xbe45, full->data + 14); /* Actual observed flood metadata. */
++	skb = qca4_test_fragment(full, ETH_HLEN); /* RX metadata+inner EType nonlinear. */
++	KUNIT_ASSERT_NOT_NULL(test, skb);
++	skb->protocol = eth_type_trans(skb, c->conduit);
++	result = qca4_private_rcv(skb, c->conduit);
++	KUNIT_ASSERT_NOT_NULL(test, result);
++	KUNIT_EXPECT_PTR_EQ(test, result->dev, c->netdev);
++	kfree_skb(result);
++	/* Wrong identifier. */
++	put_unaligned_be16(0x0081, full->data + 12);
++	full->protocol = eth_type_trans(full, c->conduit);
++	KUNIT_EXPECT_PTR_EQ(test, qca4_private_rcv(full, c->conduit), NULL);
++	for (n = 0; n < 4; n++) {
++		skb = alloc_skb(ETH_HLEN + n, GFP_KERNEL);
++		KUNIT_ASSERT_NOT_NULL(test, skb);
++		skb_put_zero(skb, ETH_HLEN + n);
++		put_unaligned_be16(0x8100, skb->data + 12);
++		skb_reset_mac_header(skb);
++		skb_pull(skb, ETH_HLEN);
++		KUNIT_EXPECT_PTR_EQ(test, qca4_private_rcv(skb, c->conduit),
++				    NULL);
++	}
++	for (n = 0; n < ETH_HLEN; n++) {
++		skb = alloc_skb(n, GFP_KERNEL);
++		KUNIT_ASSERT_NOT_NULL(test, skb);
++		skb_put_zero(skb, n);
++		KUNIT_EXPECT_PTR_EQ(test, qca4_private_xmit(skb, c->netdev),
++				    NULL);
++	}
++}
++
++static void qca4_test_rx_clone_complete(struct kunit *test)
++{
++	struct qca4_test_context *c = test->priv;
++	struct sk_buff *skb = qca4_test_frame(16, 0), *copy, *result;
++	unsigned int wire_len;
++	u8 before[128];
++
++	KUNIT_ASSERT_NOT_NULL(test, skb);
++	KUNIT_ASSERT_EQ(test, qca4_private_insert(skb, BIT(5)), 0);
++	put_unaligned_be16(0xbe45, skb->data + 14);
++	wire_len = skb->len;
++	memcpy(before, skb->data, wire_len);
++	skb->protocol = eth_type_trans(skb, c->conduit);
++	skb->ip_summed = CHECKSUM_COMPLETE;
++	skb->csum = skb_checksum(skb, 0, skb->len, 0);
++	copy = skb_clone(skb, GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, copy);
++	result = qca4_private_rcv(copy, c->conduit);
++	KUNIT_ASSERT_NOT_NULL(test, result);
++	KUNIT_EXPECT_MEMEQ(test, skb_mac_header(skb), before, wire_len);
++	KUNIT_EXPECT_EQ(test, csum_fold(result->csum),
++			csum_fold(skb_checksum(result, 0, result->len, 0)));
++	KUNIT_EXPECT_EQ(test, (unsigned int)result->ip_summed,
++			(unsigned int)CHECKSUM_COMPLETE);
++	kfree_skb(result);
++	kfree_skb(skb);
++}
++
++static void qca4_test_masks_and_bad_versions(struct kunit *test)
++{
++	struct qca4_test_context *c = test->priv;
++	struct sk_buff *skb;
++	unsigned int mask, version;
++	int ret;
++
++	for (mask = 0; mask <= 255; mask++) {
++		skb = qca4_test_frame(0, 0);
++		KUNIT_ASSERT_NOT_NULL(test, skb);
++		ret = qca4_private_insert(skb, mask);
++		if (!mask || mask > 127) {
++			KUNIT_EXPECT_EQ(test, ret, -EINVAL);
++		} else {
++			KUNIT_EXPECT_EQ(test, ret, 0);
++			KUNIT_EXPECT_EQ(test,
++					get_unaligned_be16(skb->data + 14),
++					0x8080 | mask);
++		}
++		kfree_skb(skb);
++	}
++	for (version = 0; version < 4; version++) {
++		if (version == QCA_HDR_VERSION)
++			continue;
++		skb = qca4_test_frame(16, 0);
++		KUNIT_ASSERT_NOT_NULL(test, skb);
++		KUNIT_ASSERT_EQ(test, qca4_private_insert(skb, BIT(5)), 0);
++		put_unaligned_be16((version << 14) | 5, skb->data + 14);
++		skb->protocol = eth_type_trans(skb, c->conduit);
++		KUNIT_EXPECT_PTR_EQ(test, qca4_private_rcv(skb, c->conduit),
++				    NULL);
++	}
++}
++
++static void qca4_test_flow_dissect(struct kunit *test)
++{
++	static const u8 bytes[] = { 0xbe, 0x45, 0x08, 0x00 };
++	unsigned int length, linear;
++
++	/*
++	 * Every truncated length and every possible split across a page fragment.
++	 * A one-byte reserve also exercises unaligned linear EtherType access.
++	 */
++	for (length = 0; length <= sizeof(bytes); length++) {
++		for (linear = 0; linear <= length; linear++) {
++			struct sk_buff *skb, *full, *clone;
++			unsigned char *data;
++			unsigned int headlen;
++			__be16 proto = htons(0xffff);
++			int offset = -1;
++
++			full = alloc_skb(16, GFP_KERNEL);
++			KUNIT_ASSERT_NOT_NULL(test, full);
++			skb_reserve(full, 1);
++			skb_put_data(full, bytes, length);
++			skb = full;
++			if (linear < length) {
++				skb = qca4_test_fragment(full, linear);
++				kfree_skb(full);
++				KUNIT_ASSERT_NOT_NULL(test, skb);
++			}
++			clone = skb_clone(skb, GFP_KERNEL);
++			KUNIT_ASSERT_NOT_NULL(test, clone);
++			data = clone->data;
++			headlen = skb_headlen(clone);
++			qca4_private_ops.flow_dissect(clone, &proto, &offset);
++			KUNIT_EXPECT_EQ(test, offset, QCA4_PRIVATE_LEN);
++			KUNIT_EXPECT_EQ(test, proto,
++				length == sizeof(bytes) ? htons(ETH_P_IP) : 0);
++			KUNIT_EXPECT_PTR_EQ(test, clone->data, data);
++			KUNIT_EXPECT_EQ(test, clone->len, length);
++			KUNIT_EXPECT_EQ(test, skb_headlen(clone), headlen);
++			KUNIT_EXPECT_MEMEQ(test, skb->data, bytes, headlen);
++			kfree_skb(clone);
++			kfree_skb(skb);
++		}
++	}
++}
++
++static struct kunit_case qca4_private_cases[] = {
++	KUNIT_CASE(qca4_test_flow_dissect),
++	KUNIT_CASE(qca4_test_tx_metadata),
++	KUNIT_CASE(qca4_test_vlan_metadata),
++	KUNIT_CASE(qca4_test_rx_clone_complete),
++	KUNIT_CASE(qca4_test_masks_and_bad_versions),
++	KUNIT_CASE(qca4_test_rx_dispatch),
++	KUNIT_CASE(qca4_test_nonlinear_and_truncated),
++	{}
++};
++
++static struct kunit_suite qca4_private_suite = {
++	.name = "qca4-skb",
++	.init = qca4_test_init,
++	.exit = qca4_test_exit,
++	.test_cases = qca4_private_cases,
++};
++
++kunit_test_suite(qca4_private_suite);
+
+-- 
+2.53.0
+
+
