@@ -1,164 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.39
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795590436;
-	b=L4sNDBSMqv9mhxbJhoozt2p8TF4WP1/uELXIT0zkIyjcoMe7KbGSWNZe/xq5r9AynUCt
-	 a7HLpo6/i8jsl7qlqylLgp8Jpd4EnpoiE6JwwxMSXCwbzeGJOe8UViyJ8iDEbFQbjlPPW
-	 ONEwXdvRq4B1rMDoSTBXNjPa1t/WwXrT+AWYFDVDoa3UmhjXwcFBIhLuVU+CpKtFKTzkA
-	 8qB9WEnfVXG4j7ZFgTCjQKcZtYEtPXitUWjtqrrFZZk2T0hGU5aZcSojpvY3Y4Wof8R6L
-	 BEt4gP2L8m2NZXM54RxHdb76af1f8nMXMMQGJUb3OMAxL4mFtb9eTN/Bfz+Cg/MoypQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795590436;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ld-processed:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=X8ERCvElYiYFighdrAaE9mn7ER/svGyGDs/vSX9CIAk=;
-	b=n66hP9Ueht7hWxX7eCArNqmrGSWwSf8AYhk1ZoiVAIMCk4UrggfEZKP27JcfdWZ2hoRq
-	 NQNYR032sJ2FjS21kCKu9mVVV08XK++9tL1uX0QDYw+akMYBbD8P1E9jXsOtdypO04FgW
-	 wMGQFKuOhddHmKExR+ugFjJCXjHmgBnXlG9mMxg2MhU/pt9ZKBYfwJcbj40mZN9Z+83hv
-	 pz3yTEL0gUALbd1vX9d1u95oHmOcSBalGRWsJkShyRW7/2FdBzZ7QF99oGMPWSDPnLSzv
-	 n+0mCr7ilixuoqVTvf1HWSA1P/WM28m4GOvEnQQ0ILcRyeWZO8Zw+j4bqrh/MYM7BEA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bp.renesas.com;
-	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=qt7Ucvl7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.39
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011039.outbound.protection.outlook.com [40.107.74.39])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795590487;
+	b=4KEKHN7yT//ZRtn09vJFyDq31LZbA6S5/9zRDluh5oKBTTxo873w5o6esuZHoqwnONFG
+	 pClExuOrUQzfBNGoOWdx1EmcFXPNpEqMFH5haV4kYEOqXdJA0X0DQUKDtzRu2mHKcqbVm
+	 PB70+vBE37CveVsAm6lAIq1cpLYlwoUjpojTn+AKUr41kx1FkeoX3YJx057074z8sdyif
+	 IfmAjNl+bje1upjyY+F4YL2O+4Yr0TAqzH0Y+S0sTd72/pVbUon+TbNgPgM/RBqnyeAN8
+	 yMMcgnlfZVkHTJpeR5+w3QEXrWd3cHWaYfNq4KhsnyhJ4QVqltEK+NY7R2OrpWDwxNw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795590487;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=tmUcgq7m+W9QYzw0HuFeUjdIhKs2YAeRPnQeoTFJcp4=;
+	b=BKweXI42b3kdOwxALL/Zf76eEGlqOu9qLvA4JP5E8ci9B/EO2kneGOANjdm0KWGLDOD5
+	 ICps7zFp3kcv/Nsg/t5jDXsQLxFraFY3RbdsG1mdQhkJcBGQfpzcd/evp+zIHqnpxXP2X
+	 rEqzYyAl3cZVsgH2ydjmIifYtWbMdTn/Buw2nLIuy5UevX6Db5vgVlUUeiv0faqBpkP6b
+	 0LNtmAdLbvVZulhM+hRfT1BYA5BfMd9jQpfJlr+7rZYHyvf8G/XfJtkCqSnbzOB0yl7Tw
+	 u2i22gprWtn3re8k14aW28APXX2nGLPZIV1n4OnW+wHj85LZ6SjWq1RVlGI12s1BJHg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S3+ZbNEb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79572606A6A3;
-	Wed, 25 Nov 2026 07:07:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79572606A6A3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8D7606A69B;
+	Wed, 25 Nov 2026 07:08:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=qt7Ucvl7
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Gg7UWrhk9LTygnePALTXPcgyxt+aELoP/LgRIwOzOkNBDzs7iyyaJh/8oA3sfA8hgns1ERCM5DbkoaOTVSt+/gmmffkME6vBEdvIt39zeZgxhts7nsXJLOVf8udaJydTPJ4rJa/cAKjkwcyD+Px0TL3fEaXbrzBFlstYu8+g//e8lgQ7PHlVXCmZfNHvoce++KnsrY13Dq96hYwJr8tLkyw797EOqj5RoL+uIL/3sv7uwzNRF+2tiOrOed/3xs+gi3jedeaA47zNPdoYvpSVDSlLPtMjPAKy6i5phG60nNpKdkUfTH3ueqCf4IbfkWEtnqFfVDuGl/cVeFfeHPXdxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X8ERCvElYiYFighdrAaE9mn7ER/svGyGDs/vSX9CIAk=;
- b=BmeLx87b4wXEMrFC7EUtUlqHQ/9eqpSxY7oaMV/OM9vEheWG0tZ828qW/G9l5DwgrSQ6uvRJ/mzM0ip6t0JtTHo1eBq5ZeF8p8InGiO5cmhy5dGkXPRSGOPSfYor71Y/Nk9qNu1C3+xt47zserOfbPEbzjN3CMLfqOGw5nLZ9R47plFQAvlbrF/vrPX1k73UkTY0qX6eduu+3+2U8jP9rVutDBNsrvQ2bEW8k29C1PHkQdSTmWOZyxqGspzTNDV8HtxV6u0IUMI9UqmjiZZ2/CP6k6VX5wVWzi9ZXIC00Uhg2V+gXKyIOhlxd3/KKbJ8kBaQtx2OVWur/jLZVansnw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X8ERCvElYiYFighdrAaE9mn7ER/svGyGDs/vSX9CIAk=;
- b=qt7Ucvl79ghIaiZEZ/Pt5H0XsJGbNKav0FCEklJ+tRH4WmGi+ABh5ahsyaBSpUA58Tq/db7vdNR2SoQyvR8vcRnVsxuScYVdJl/UWwLlrW9Gtu5lZwyFmBOcN+vlNV3vUi451pbn72m/xu1+rYCbbmvtuYnRhTOjGGcy5IoNbsA=
-Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com (2603:1096:400:e0::9)
- by TYCPR01MB6785.jpnprd01.prod.outlook.com (2603:1096:400:b0::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.6; Wed, 25 Nov
- 2026 07:07:10 +0000
-Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com
- ([fe80::145b:b854:162:2e7f]) by TYYPR01MB6603.jpnprd01.prod.outlook.com
- ([fe80::145b:b854:162:2e7f%5]) with mapi id 15.21.0662.004; Wed, 25 Nov 2026
- 07:07:00 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-CC: Tommaso Merciai <tomm.merciai@gmail.com>, Prabhakar Mahadev Lad
-	<prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
-	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
-	"magnus.damm" <magnus.damm@gmail.com>, Laurent Pinchart
-	<laurent.pinchart+renesas@ideasonboard.com>,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v10 08/12] drm: renesas: rz-du: Separate the DU instance
- from the DRM device
-Thread-Topic: [PATCH v10 08/12] drm: renesas: rz-du: Separate the DU instance
- from the DRM device
-Thread-Index:
- AQHdc2mHvfvfxGybKU23d8MzJCmRZbc78H6ggAESzwCAAALngIAAKXaAgAAOCVCAACsuAIAABMHQgAA0sICAAMXVQA==
-Date: Wed, 25 Nov 2026 07:07:00 +0000
-Message-ID:
- <TYYPR01MB660340BEF9704BB69FE150FC86432@TYYPR01MB6603.jpnprd01.prod.outlook.com>
-References: <cover.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
- <68fcf838eee14c1906f23b2b7c74c560793cd1d4.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
- <OS3PR01MB65968FEBCB08429F11188CE986452@OS3PR01MB6596.jpnprd01.prod.outlook.com>
- <awVW5B4p06FUfBHw@tom-desktop>
- <TYYPR01MB6603AA1B7A48B7D899604EE586442@TYYPR01MB6603.jpnprd01.prod.outlook.com>
- <awV8G86QIth4GtaA@tom-desktop>
- <TYYPR01MB6603A1FB28A473A400A2C49386442@TYYPR01MB6603.jpnprd01.prod.outlook.com>
- <awWsGjt6cW_CSoMH@tom-desktop>
- <OS3PR01MB659637409ADFF9CFC2AD395186442@OS3PR01MB6596.jpnprd01.prod.outlook.com>
- <awXcSSnNeaOQFQZ5@tom-desktop>
-In-Reply-To: <awXcSSnNeaOQFQZ5@tom-desktop>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYYPR01MB6603:EE_|TYCPR01MB6785:EE_
-x-ms-office365-filtering-correlation-id: 4ac8ef4c-24c4-43ee-be98-08df4ac2b3b8
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|376014|366016|23010399003|1800799024|38070700021|10067099003|56012099006|11063799006|261022075727099003|261022105027099003|261028144727099003|261026121527099003|261026140227099003|261021121427099003|261021123027099003|261102123227099003|261009223027099003|18002099003|22082099003|4143699003;
-x-microsoft-antispam-message-info:
- HW+0BoqQrGccnPfflBjDyIVxSxbhwNvhmYekCq30VrtCfJvq0vDiNCKZ5/Rbz8p/RJ2qAhgpQCYxhIWfWRzJUheQtDx8fbByyQgjt8JSIFrQEg7hbPV8StNSC3YselTykmar8EZwwBYG0eOLsY0vE6P4nKZOcUvkW9a7ME00by1Hm8l4cJuVjZsHBp4jFoCkdClLKh34zR07wD8bIKbO+7KCV7e+gccyiddfrKBS2VIBXAbNgnV1pWRIF286XOW3UECEWeLo8dsZvZGnZ5durzAdmxQklS0T+Uko2vI/z6c6foVkrSnANKS1nvGLnVh6Ox2gqWC6cOu4yxPmytzs7/wiT5yIVKanKV6F5hmuf1Uf6APFywO9flkxDbiBwcf9gAFNJZsi0Sftc9fPhLcppZG9AV0vjuTo575ECPiW7rln164CMJoo0VdSDFM8DXNzma2BvLqICCBsNf+i7bjvSwS0QjiKAh+W/L8Z7ass6MzaRroIYQWZ1czmVPO9ViNEY80obxXUEW4rwxadhKwTLQfEhE3GdkbJdr0L/Qcf5r7gL3KOKvtD8dXfLcbP6ekGGuKiWCHaD/bjq4GFqWu4uBqVf66lXBfqed7OGgRvHIlykk+AKV1CR5K6B0l6zuHm6PM4DcElUTjjpdY1pxNa/A3QHkGbtYE5N50S5jjen2UyuaDO49y/WQGWnoUlV7lXOmGrq0O39aEtHzlmHAD+xLQLqwV0vtm0ES3bq+3pTXQ=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYPR01MB6603.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(23010399003)(1800799024)(38070700021)(10067099003)(56012099006)(11063799006)(261022075727099003)(261022105027099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021121427099003)(261021123027099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(4143699003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?+fXFZu2HR7vUDmp81kwIT19tcix7Z1W2q/1wC+3JjolZSyL7s4xXdjIBFzxX?=
- =?us-ascii?Q?QFHLmyS45+4r+uqMnd9WoIdMKG3ddi7MUf8B2lgU0AOlaVd/D1nF/FyRdW39?=
- =?us-ascii?Q?2QmRas1bQyUn8xELbWuiXanGWLBu36PRYWOvP379++33djD0xAXKXr67YGsd?=
- =?us-ascii?Q?H0KXQkJPAA2LKeTQG66Xg3JYd+s+iDCBFdgdZkptCZ1MTHjZPBPIL82gZM5R?=
- =?us-ascii?Q?szEpR4Ce19c4nCDTwtOoChIP38VJ1HgkAEW2txus/qsJTdkYOCXyh92W/t5E?=
- =?us-ascii?Q?eg0OF0+7rVGxHZJm1ooVzRGQziBo61zeZGn3o+UIDq9PRlOA/huwGZs32eIP?=
- =?us-ascii?Q?yO4j7FUWerWErNmjjsbIOMc45tOL9z4OCnJytIW4r5ygRGKiyziWHMP+VInj?=
- =?us-ascii?Q?3WePuwX7IjHVwQ454x3qZe8FulU5clnVRVvFJZwgMJRMdVCWYKlG4hVeWIHB?=
- =?us-ascii?Q?pI3sPx8NGiBc/gtmYNqokxET0YUNvC14uZY7lWiaoyMqL+YucvEHPvZsWjjI?=
- =?us-ascii?Q?Ow35QZm6w7iTTQSMxJ59hXlDwHewY5i2k/iODByhaUDxC9TF4Jxd2U0RgGiX?=
- =?us-ascii?Q?tFUkyuvtBWksL+rBFYjJJHPaB3ji0jNai7EZw+kyqewALgr+DPm40qCloMcq?=
- =?us-ascii?Q?JTNc6suEaMVw0pJESU0spfu6/TGRlHeivg5TK9ZkkcEQunxKrWSu54PiRZVs?=
- =?us-ascii?Q?TAz7qeVjAGtqTJp0ZfWekt2mnmzh7bm0wmQ7tIHm1kw9ui7XjbhaKeUUK8Is?=
- =?us-ascii?Q?5FmMm74ngZW2QFiwkj86z+X1sxAJvtKO6RbJKx/camvPqGKbnovKV3dmZyqh?=
- =?us-ascii?Q?nntgPOWoiGGbVQStFqqQzPEcqk4XrL1UlDocnqw+w7RhARxHdUuoWaceJ6eE?=
- =?us-ascii?Q?4KCBG6JVEKO3o/GY2oa8XB9N2qEC3exvxH/tY4RpvyEc2MCZolKRDDAhQrSt?=
- =?us-ascii?Q?2T90EL8RsVfAJC6bEb5JhL8fO7wqwRuto9iLxKjCKhybTa5lKwmhQ/S6Q1yj?=
- =?us-ascii?Q?uGogCTUHkMXi0p03IEJhkjk9pInCFVrv2/oR86dlJEIhipA3Whou+65Xrhgo?=
- =?us-ascii?Q?l8wgxbik3jb6SkrW2Vw6TGYYIk/Q+PgcJwXkDog/o15q+2bUUcl+0heQeEpa?=
- =?us-ascii?Q?QBUIR00v2wuHMEig/nvhOE1DZBNnMKygREXeNAABtZVdrUcaHtiPQEDfx8LJ?=
- =?us-ascii?Q?ANIhWjb51z7ZUxxGlj6Lzp/NxNAFiIeI0ueF0Bw/hbwPs7+LY5V5G1Yuo90x?=
- =?us-ascii?Q?e9yDNQ7hq/BwNsQqqbZMM30aGLAvLFSxeq+FMGaibUmmLHZPtrAFMv++eSQx?=
- =?us-ascii?Q?arLI2+tG6fmJQfSlDagCe/pmcSlS+wAgJYBhwVShT8ZsiWdXEA54wokf0OLC?=
- =?us-ascii?Q?70duC2kHq0y1j5MseXMANVrfMAmhl2BKXQdY7N5o5vsvhNPzcxQ/rvD9UMJT?=
- =?us-ascii?Q?VIjlST7jVQBJhq0arCdkxNzvjM4evq1mvlWNxbIwgLFsTPEh5maiFGho+bLH?=
- =?us-ascii?Q?HFxGSddDfwxc+QVwXFRDbJA0cdKlXjRrb4CS+dvHZzs0t3nkm1A2xKh7xDJo?=
- =?us-ascii?Q?Ycerr7RQNZin9QsPfjM17QE7c+S1O5j2McoVEBVDR+sCOga5wZHOF4o8eho6?=
- =?us-ascii?Q?zfT7HhOVD6saH53rBtss4nzxGndqbAlX1auO75DUmZ+g+UEhlpk0Gkskx5H6?=
- =?us-ascii?Q?9C9ZSJHTp6lSteh02sOOM0k3UoLPKW24z4UPKJKOolP22T+Arx241/yVtb93?=
- =?us-ascii?Q?1YlngaZFmg=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S3+ZbNEb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EBB21F000CA;
+	Wed, 25 Nov 2026 07:07:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795590486;
+	bh=tmUcgq7m+W9QYzw0HuFeUjdIhKs2YAeRPnQeoTFJcp4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=S3+ZbNEbOdMqdPoDJevxhvINROtm1T+z2QF6gyVXULAHPYnWgnzQ+HCYDlHl4W4ki
+	 tsWyRQygR7/hIHxrX8i23/0n442IIlvIj042ahf6UTqQWrrQrtsjr9ha2vBYHYw8sD
+	 1JoXs2kcN7qLZloILPvn8pTulENH2LU1MlKM0rNRNH5kJeKOZ35cHKEIy6xtG17L7V
+	 2eD/cgFykREnCv4lY/I/C0qV+kv3tUbR2R6Pw0I1raj0P7BsZrAShg+HWEDhL37toA
+	 xlb2+sB4p7miEUa1UKMsjgUuC2J30og0lyx6MMhLSurXYUgOWfCG2+B8nISr0/+9aU
+	 Sn+OEgObJMrzw==
+Message-ID: <72ef7ef8-acc8-4ad5-9c09-76d9e944bf5c@kernel.org>
+Date: Wed, 25 Nov 2026 08:07:57 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -168,231 +51,211 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB6603.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ac8ef4c-24c4-43ee-be98-08df4ac2b3b8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Nov 2026 07:07:00.8642
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Xd2Nf2jo33gXK5ndN+eHumOIVVhpTbXR4WQm+Td5ndh9zWCsUMVMJVxebH+ONKBC9L0k1WP4g5PbLN7Vq+P1SLA1XRN6cJPWQiQhZo42jPw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB6785
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/9] dt-bindings: soc: google: Add Google Tensor CPM
+ binding
+To: Brian Norris <briannorris@chromium.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ulf Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Peter Griffin <peter.griffin@linaro.org>, devicetree@vger.kernel.org,
+ Tudor Ambarus <tudor.ambarus@linaro.org>,
+ =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+ linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>,
+ linux-arm-kernel@lists.infradead.org,
+ Mariano Marciello <mmarciello@google.com>,
+ Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
+ =?UTF-8?Q?Jakub_G=C5=82owacki?= <jglow@google.com>
+References: <20261026214359.3122870-1-briannorris@chromium.org>
+ <20261026144346.2.Ib692ddd35c1dbea1757d9b1db6c1c7e938fc4ea6@changeid>
+ <20261028-rapid-daffodil-rat-0adc6a@quoll> <aulIoq2oVjJ3DVzL@google.com>
+ <d4a430de-715a-4936-8adb-35ff57a52b5f@kernel.org>
+ <avZkfg6WMlMzOxpn@google.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <avZkfg6WMlMzOxpn@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Tommaso,
+On 13/11/2026 02:14, Brian Norris wrote:
+> Hi Krzysztof,
+> 
+> On Thu, Nov 05, 2026 at 07:54:22PM +0100, Krzysztof Kozlowski wrote:
+>> On 03/11/2026 03:36, Brian Norris wrote:
+>>> On Wed, Oct 28, 2026 at 02:19:23PM +0100, Krzysztof Kozlowski wrote:
+>>>> On Mon, Oct 26, 2026 at 02:43:40PM -0700, Brian Norris wrote:
+>>>
+>>>>> --- /dev/null
+>>>>> +++ b/include/dt-bindings/interrupt-controller/irq-cpm-google.h
+>>>>> @@ -0,0 +1,16 @@
+>>>>> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+>>>>> +/*
+>>>>> + * This header provides constants for CPM IRQ.
+>>>>> + *
+>>>>> + * Copyright 2025-2026 Google LLC
+>>>>> + *
+>>>>> + */
+>>>>> +#ifndef _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H
+>>>>> +#define _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H
+>>>>> +
+>>>>> +#define CPM_IRQ_RTC_ALARM_NO			0
+>>>>
+>>>> Keep naming consistent. Clocks has _CLK suffix, so this should not use
+>>>> prefix.
+>>>>
+>>>>
+>>>>> +#define CPM_IRQ_AOC_MIN				7
+>>>>
+>>>> Anyway, ABI constants should be indexed from 0 and incremented by 1.
+>>>
+>>> What do you mean by this? Do I need to make up names for the
+>>> unused IDs between 0 and 7? On an initial search, I don't believe they
+>>> have any meaning at all. Does that mean I should make up some kind of
+>>> "RESERVED_<N>" naming here?
+>>
+>> No, I meant CPM_IRQ_AOC_MIN is 1.
+>>
+>>>
+>>> Between 7 and 156, these are just ... 150 different "service numbers"
+>>> within the AOC (Always On Connectivity) subsystem. I can name them
+>>> AOC_0, AOC_1, ... AOC_149 if that helps.
+>>>
+>>> Or are you suggesting that I pack the actual use cases (so, 0 and 7-157)
+>>> into 0-151? I thought it was valuable to directly use the firmware
+>>> indexing where possible; if I change those, then the indexing loses its
+>>> inherent meaning, and we also have to add another layer of translation.
+>>
+>> We do not use hardware numbers as bindings and ABI, because that's
+>> pointless - no benefits, only risks. Similarly you do not define GIC
+>> interrupt numbers, pinctrl pin numbers, MMIO addresses as bindings. None
+>> of these bind anything between DTS and software, so not a binding.
+> 
+> OK, I see your point about the distinction between hardware numbers and
+> bindings. So are firmware-protocol-defined numbers more like hardware
+> numbers or bindings?
+> 
+>> There are some exceptions like SCMI firmware, but that's not the case here.
+> 
+> It's funny you mention that, because that's exactly what Jerome compared
+> this to in the clk, reset, and pmdomain portions.
+> 
+> These values are used literally in the firmware interface, so I'd
+> consider them very similar to SCMI firmware protocol IDs (and, not that
 
-> -----Original Message-----
-> From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> Sent: 24 November 2026 18:50
-> Subject: Re: [PATCH v10 08/12] drm: renesas: rz-du: Separate the DU insta=
-nce from the DRM device
->=20
-> Hi Biju,
->=20
-> On Tue, Nov 24, 2026 at 04:04:48PM +0000, Biju Das wrote:
-> > Hi Tommaso,
-> >
-> > > -----Original Message-----
-> > > From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > > Sent: 24 November 2026 15:24
-> > > Subject: Re: [PATCH v10 08/12] drm: renesas: rz-du: Separate the DU
-> > > instance from the DRM device
-> > >
-> > > Hi Biju,
-> > >
-> > > On Tue, Nov 24, 2026 at 12:51:18PM +0000, Biju Das wrote:
-> > > >
-> > > > Hi Tommaso,
-> > > >
-> > > > > -----Original Message-----
-> > > > > From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > > > > Sent: 24 November 2026 11:59
-> > > > > Subject: Re: [PATCH v10 08/12] drm: renesas: rz-du: Separate the
-> > > > > DU instance from the DRM device
-> > > > >
-> > > > > Hi Biju,
-> > > > >
-> > > > > On Tue, Nov 24, 2026 at 09:33:13AM +0000, Biju Das wrote:
-> > > > > > Hi Tommaso,
-> > > > > >
-> > > > > > > -----Original Message-----
-> > > > > > > From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > > > > > > Sent: 24 November 2026 09:21
-> > > > > > > Subject: Re: [PATCH v10 08/12] drm: renesas: rz-du: Separate
-> > > > > > > the DU instance from the DRM device
-> > > > > > >
-> > > > > > > Hi Biju,
-> > > > > > > Thanks for your review.
-> > > > > > >
-> > > > > > > On Mon, Nov 23, 2026 at 04:59:32PM +0000, Biju Das wrote:
-> > > > > > > > Hi Tommaso,
-> > > > > > > >
-> > > > > > > > > -----Original Message-----
-> > > > > > > > > From: Tommaso Merciai
-> > > > > > > > > <tommaso.merciai.xr@bp.renesas.com>
-> > > > > > > > > Sent: 13 November 2026 12:20
-> > > > > > > > > Subject: [PATCH v10 08/12] drm: renesas: rz-du: Separate
-> > > > > > > > > the DU instance from the DRM device
-> > > > > > > > >
-> > > > > > > > > On RZ/G3E two DU instances share a DRM device, which can
-> > > > > > > > > only be created once both instances have been probed.
-> > > > > > > > >
-> > > > > > > > > Split the DU device structure: keep the match data and
-> > > > > > > > > the registers in a structure allocated with the platform
-> > > > > > > > > device, and allocate the KMS objects with the DRM device
-> > > > > > > > > in a new
-> > > > > > > > > rzg2l_du_instance_init() helper, as they are released
-> > > > > > > with it.
-> > > > > > > > >
-> > > > > > > > > No functional change intended.
-> > > > > > > > >
-> > > > > > > > > Signed-off-by: Tommaso Merciai
-> > > > > > > > > <tommaso.merciai.xr@bp.renesas.com>
-> > > > > > > > > ---
-> > > > > > > > > v9->v10:
-> > > > > > > > >  - New patch.
-> > > > > > > > >
-> > > > > > > > >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c | 61
-> > > > > > > > > ++++++++++++++------
-> > > > > > > > >  1 file changed, 44 insertions(+), 17 deletions(-)
-> > > > > > > > >
-> > > > > > > > > diff --git
-> > > > > > > > > a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> > > > > > > > > b/drivers/gpu/drm/renesas/rz- du/rzg2l_du_drv.c index
-> > > > > > > > > d3cccbdf9012..d102876c07e1 100644
-> > > > > > > > > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> > > > > > > > > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> > > > > > > > > @@ -162,6 +162,27 @@ static int
-> > > > > > > > > rzg2l_du_pm_resume(struct device
-> > > > > > > > > *dev)  static DEFINE_SIMPLE_DEV_PM_OPS(rzg2l_du_pm_ops,
-> > > > > > > > >  				rzg2l_du_pm_suspend, rzg2l_du_pm_resume);
-> > > > > > > > >
-> > > > > > > > > +/*
-> > > > > > > > > +-------------------------------------------------------
-> > > > > > > > > +----
-> > > > > > > > > +----
-> > > > > > > > > +----
-> > > > > > > > > +----
-> > > > > > > > > +------
-> > > > > > > > > + * DU instance
-> > > > > > > > > + */
-> > > > > > > > > +
-> > > > > > > > > +static int rzg2l_du_instance_init(struct rzg2l_du_device=
- *du,
-> > > > > > > > > +				  struct drm_device *ddev) {
-> > > > > > > > > +	struct rzg2l_du_device *rcdu;
-> > > > > > > > > +
-> > > > > > > > > +	rcdu =3D drmm_kzalloc(ddev, sizeof(*rcdu), GFP_KERNEL);
-> > > > > > > > > +	if (!rcdu)
-> > > > > > > > > +		return -ENOMEM;
-> > > > > > > >
-> > > > > > > > Why there is duplicate allocation of rcdu? One in probe()
-> > > > > > > > and here
-> > > > > > >
-> > > > > > > The two allocations have different lifetimes.
-> > > > > > >
-> > > > > > > The one in rzg2l_du_probe() is tied to the platform device.
-> > > > > > > It holds what is needed before the DRM device exists and
-> > > > > > > outside of the component bind (dev, info, mmio, and
-> > > > > > > ddev/is_master for the master, PM and remove), as on RZ/G3E
-> > > > > the DRM device is only created once both instances have been prob=
-ed.
-> > > > > > >
-> > > > > > > The one in rzg2l_du_instance_init() holds the KMS objects
-> > > > > > > (crtcs, vsps, lvds, index). Their drmm cleanup handlers
-> > > > > > > point into it and run when the DRM device is released, which
-> > > > > > > can happen after the platform device has been unbound,
-> > > > > so it has to be allocated with the DRM device.
-> > > > > >
-> > > > > > Then there is an issue right, platform unbound will unmap mmio
-> > > > > > and other data structures it allocated in rzg2l_du_probe()and
-> > > > > > drm driver is using after that( Use after free Bug)
-> > > > >
-> > > > > Mmmm In theory no.
-> > > > >
-> > > > > The KMS part keeps its own copy of dev, info and mmio, and its
-> > > > > drmm cleanup handlers only drop references, they don't access the=
- hardware.
-> > > >
-> > > > Can you please make sure these variables set to NULL, after
-> > > > Platform unbound?
-> > >
-> > > Please correct me if I'm wrong but IMHO this patch keeps the same
-> > > behaviour as the driver before this series.
-> > >
-> > > Where rcdu is embedded in the DRM device (devm_drm_dev_alloc()) and
-> > > mmio is devm managed. Setting the pointers to NULL would only turn an=
- invalid access into a NULL
-> dereference no?
-> >
-> > Ack.
-> >
-> > But why you need copy? What preventing to use original allocated rcdu
-> > in rzg2l_du_modeset_init_du()?
->=20
-> The copy is needed because the two DUs share one DRM device, which can on=
-ly be created at bind time,
-> once both instances have been probed.
+Sure, where is the source code of the firmware then?
 
-That is ok. Both DU's share 1 DRM device.
+> different to hardware IDs, if you consider the "firmware" as essentially
+> unchangeable). And if I change this to *not* be literal firmware IDs,
+> then Jerome's suggestions on patch 5 (to imitate SCMI, and to defer more
+> control to the firmware) become more difficult.
+> 
+> If I do keep these as literal firmware IDs: does that mean you'd prefer
+> these not be in dt-bindings/? Many of them (especially the IRQ IDs
+> you're pointing at) are not needed at all in the kernel side; they serve
+> more as naming documentation than anything else. I can just inline them
+> into the DTS. But I'd prefer having macro names for LPCM IDs and
+> similar, as it vastly helps DTS readability.
+> 
+>>>
+>>>>> +#define CPM_IRQ_AOC_MAX				156
+>>>>> +#define CPM_IRQ_AP_GDMC_WAKE			157
+>>>>> +
+>>>>> +#endif  /* _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H */
+>>>
+>>>
+>>>>> --- /dev/null
+>>>>> +++ b/include/dt-bindings/soc/google,lga-lpcm.h
+>>>>> @@ -0,0 +1,54 @@
+>>>>> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+>>>>> +
+>>>>> +#ifndef __DT_BINDINGS_SOC_GOOGLE_LGA_LPCM_H
+>>>>> +#define __DT_BINDINGS_SOC_GOOGLE_LGA_LPCM_H
+>>>>> +
+>>>>> +/*
+>>>>> + * LPCM IDs of each SSWRP.
+>>>>> + */
+>>>>> +#define LGA_LPCM_CPM			0
+>>>>
+>>>> What are all these?
+>>>
+>>> The binding doc says:
+>>>
+>>>       Each reset is specified by an LPCM ID (cell 1) and a reset ID (cell 2).
+>>>       See <dt-bindings/soc/google,lga-lpcm.h> for LPCM IDs and
+>>>       <dt-bindings/reset/google,lga-cpm-reset.h> for reset IDs.
+>>>
+>>> and
+>>>
+>>>       Each clock is specified by an LPCM ID (cell 1) and a clock ID (cell
+>>>       2). See <dt-bindings/soc/google,lga-lpcm.h> for LPCM IDs and
+>>>       <dt-bindings/clock/google,lga-cpm.h> for clock IDs.
+>>>
+>>> These are the IDs used in the firmware interface to talk about these
+>>> things, as many of the SoC resources involved (clocks, resets, power
+>>> domains) are grouped in this way (by subsystem (SSWRP / LPCM), and then
+>>> with indexing within each subsystem).
+>>>
+>>> In reading again, I see that the definitions and explanation of these
+>>> terms and the SoC organization are split a bit between the pmdomain
+>>> commit message and the binding doc. Where would you prefer I elaborate
+>>> more? In the binding doc, the comments here, or both?
+>>
+>> I just try to understand their placement. Bindings should not be in the
+>> soc directory, except a few things without clear subsystem owner. If
+>> this applies for both clocks and resets, maybe this could be firmware,
+> 
+> Maybe firmware, maybe power? LPCM is "Local Power and Clock Manager",
+> and I believe there's essentially 1 LPCM (microcontroller) within each
+> top-level power domain.
 
->=20
-> Before this series, the DRM device was allocated in probe with devm_drm_d=
-ev_alloc(), and rcdu was
-> embedded in it.
->=20
+How does it help you to have LPCM ID in the DTS? It's derivative from
+the clock (or could be made derivative)?
 
-OK.
-
-> Now each instance needs its own structure at probe time (dev, info, mmio)=
-, before the DRM device is
-> allocated with devm_drm_dev_alloc() in the master bind, so it is allocate=
-d with devm_kzalloc().
->=20
-
-That is ok.
-
-> The KMS objects (crtcs[], vsps[]) belong to the shared DRM device, so at =
-bind time each instance
-> allocates its own structure for them with drmm_kzalloc(), released with t=
-he DRM device.
-
-Why we need drmm_kzalloc() here? Can't we use pointer allocated with devm_k=
-zalloc()=20
-to avoid another copy?
-
->=20
-> Each instance copies its own dev, info and mmio into that structure, as t=
-hey are used by the KMS code,
-> e.g. rzg2l_du_crtc_set_display_timing()
-> (mmio), rzg2l_du_encoders_init() (info) and rzg2l_du_crtc_create() (dev).
-
-Since each probe's DU allocates rcdu, can't we reuse same rcdu for holding
-dev, info and mmio and pass the pointer to KMS code to reuse mmio,info and=
-=20
-dev in rzg2l_du_crtc_set_display_timing(), rzg2l_du_encoders_init() and
-rzg2l_du_crtc_create()
-
-Is the below code[1] does not work? Do you see any issues?
-
-[1]
-static int rzg2l_du_instance_init(struct rzg2l_du_device *du,
-				  struct drm_device *ddev)
-{
-	du->ddev =3D ddev;
-
-	du->index =3D ddev->mode_config.num_crtc;
-
-	ret =3D rzg2l_du_modeset_init_du(du);
-	if (ret < 0)
-		return ret;
-
-	if (WARN_ON(drm_crtc_index(&du->crtcs[0].crtc) !=3D du ->index))
-		return -EINVAL;
-
-	return 0;
-}
-
-Cheers,
-Biju
+Best regards,
+Krzysztof
