@@ -1,86 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795636890;
-	b=v/AYsq2VKMNoKXNo+MTk8cLVU/9T/34tV5VrR1zxPQd1Gm7LB866MQznoKk2pXeUQUVG
-	 iMZgm8yYSNmQIGshbmBrT9HmfpfPbOi0r7flJlpZZs9386vEXnkN6dN3JDRIf2Ox9fnfe
-	 6F3ajcQXP2dIoX0Npt8y2jT6e3Wb7Vl183YyQHTxTt2Jn3fsg8ztDNgPfm2qJu8bbDnyw
-	 aymJcL6+b94cJjhjOKt5oh+PIodJdXBP0j+59rfjmj2HZWthgOGB2w4f5FPo2WkwmDWtK
-	 6RZV59lZ1EdBMtjwX3vOzknHxHz49V5LT2ACD562Ssc57iOEZPlvTOV/BFfXPBoZ5NQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795636890;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=9JAGDrtifzK74DUHuN7Oz65oLu+qbPYKqrM5bSwvXzc=;
-	b=nbYbBns2j1bkBQsNxMCRGUb4DpmV+NGDtgvhVqEno4vlRspM5ylfYQKSwua0SAD3WZNj
-	 1RJGOepSuZX9npnGfpFI1MDWToeaw3pzCUKk1LuHHPo15TEVuDQI0AmkeM7tvb4riKJlZ
-	 q2aW1As/Cd/mpLqBtOhTWVFFYq9lkYUUjFSBMSp7tLcooPWMlOcCpOwnfZTwK5LYPl3wF
-	 aTHb0jsGytjlopzOYs7VMtf+ohcOxJS2QYTQEQQoUplw6KR6hoYJuwi99lOnIwOXSozfs
-	 gmgbSB+FqnciIqwUPu0+OIoS4jk55T5WVjRo2d5ToRJXDwPelPi5fKkZczlxjr57yWw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=raAkVNO4;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.17
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795637048;
+	b=JS3g6Pp74JZOxVMLFWQdM2TvTUhrRi51Oi5P2pxAhit3SHqClmhBCgUE8ZJiYKGp8ihE
+	 JXOLtRl6nO4FbdH/a9TLx4BN6miS6VMUaisrDmaUq9pc0cToYutGb0YR71PZntg5C2E/s
+	 z7yap4XxTsB8Xv5i0JnTMG7+W5NQOQZOEVVbYB73csFZWQSUipuPkL1wptXmBaJH0Gu3y
+	 VfV5Mm7aJ22eityZCo5TW/1Lx5VV/qthHr1cWzkauUQcwOveiyqzeMacbMQnDbl9ygc/S
+	 X+cyYIHblt+6eSSENCVkrGY7dTWDZBa8cEm8mQ4MOMwl9u//z/OW2OGbBp57MtQet0A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795637048;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=X067xGujr+9o+89isKilc3P7EN6kk6JQeHctQG1v0YQ=;
+	b=vK6slYbW0AV+KvDH4j/ffODv07hJdOW4klmwWNq5zH+G7nu7rYo21TGKI8tNoxiqROoA
+	 A3WNxFk6TyypOrkc5ZdN5+c4MBtd1blMmzbxFieZM+zE3Q2sg0x9ZunizMzrZ1CTg4t2n
+	 MJpyL5K0VCx1vjI1QUQ+FlGvQdMi+W8XBaWIGW9jjW6w9fjkkwhT5i5cgdXB7KspO2lAA
+	 qDiA5C61+fav31rw8AN3nDDo+lQTPXa2/ra9s/0TiONfJy2jhoC94s2eiHiKZcbicO9Uu
+	 EQZ2RXy4IXeWkELRJG4t8MVzyTpAt9Ez+KhpXFHzi0plhWVc+rNWy82oH4cNYGeIoUw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ehofGywm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.17
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013017.outbound.protection.outlook.com [52.101.72.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB27D606A31E
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 20:01:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB27D606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23E2C606A321;
+	Wed, 25 Nov 2026 20:04:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23E2C606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=raAkVNO4
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4bb666304fdso63570025e9.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 12:01:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795636888; x=1796241688; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9JAGDrtifzK74DUHuN7Oz65oLu+qbPYKqrM5bSwvXzc=;
-        b=raAkVNO4Bu1WztYhIBmVvQpMBnofkYMiKZigmahalsSA/4U53tlY0F3DFhooSH9/rP
-         9JlkM/3OZ+M54Qx6tNB2qSmW+W2wZ7dTXEiaqwMTUZd7rL8oaxRvpmajSP3Ve6dqzUVz
-         SxzIdG+R8feKpPR+Q7L/HfKIsmxexDgQJm1NCKS7XqTwGm81dshgzFGkiFSKp2z8Lmps
-         r6oB9RdorlsA/iVd5UbG68sEG6Hb9qZHiVED0sIwTrE1fEBtw+FBhNJC/yP3ja5gLWHq
-         Yd0C37UtNBqBubd4AzKbctlXMwiiVb3wTAQ51yy/UzzUtQvP5atRB6Ik49fiEZRHXarT
-         Q5kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795636888; x=1796241688;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9JAGDrtifzK74DUHuN7Oz65oLu+qbPYKqrM5bSwvXzc=;
-        b=MeF7aAPm/sGCslPPtuKOJ+5Z5KFXar7niGonNloBUXMdPelJ3+ZIl4Fnjw88ynJn/t
-         y5ZhWL3wjzisWXkZ8xFyusUK4+twqqCnidhQd5kOKIAnLbmqg+S+SPuAdmz4u8yGSOMC
-         Eo8VazziAHgCdVQBzaMP8OC8iqc9Hm5aTiiuvcNHizjfvKC1q9SZ4KbiXplhIw93y3OC
-         Vx2neDOxfoH56lHxerMnaujJV5K/yhFdr4Vg6fjL1bJP7tgfRJo9M68OCPs43pb49t8R
-         j1uvSbCm7P9DvwUT+4Qp0keVbYRZE12XdsBlO96kRZLx4P07xh20+dcWMApdb+5oG0rI
-         cYcQ==
-X-Forwarded-Encrypted: i=1; AL+hErHQX84YdHZtThqpEZgsM+PitGgjXbhBsB92PLbvFKVLuFw1z5Zk+NCbiI9Px4JhfJNfpIDqDp8tm/yG@vger.kernel.org
-X-Gm-Message-State: APuU4Z/mpenXuATlLWLPp4GtpnOX8AWE51ROuTKzHpjM2rRWH+oWqUXM
-	i6l/yfSuuMEUG8J7xEF3D/40lMo+kOuFFd3+QTFhZgyHP8KV/pxOd0Qu
-X-Gm-Gg: AZFdTZcn0o7+xD2oZ82lLdx0EdtyJy0lx+LCcY2jHiNIAqYG0MHo8NHLePmwWm1KjRI
-	7To9gAX3RIneqHFfgEQTXWiW/1Vpv+hm8UOQCkOLurpwLhKJvCAMVHtGGNsPfsrsATmJlqyuTgt
-	Hy9Xri1e4tfAxHz7oW4FY8EKsotvwzoQsQWUFQprFHsWcQRUVK6tqw5oIkJbgEXbk1H2UCRT4cd
-	ll/cJjqVwxvHTYBT7dXJu2Ezmp6KaixO44Uxy6X197/kMZh85mKt+lOOsGWgyBlP0NB1ejnvipy
-	CjjJf54/ksDGmfuz0dI5byX+a+myGPYoEBqgqZ5x6A8CBkvxe3o1xBS6I9K8UwuxEnBlA84FDiX
-	Jp1r5lkr9vqz29DzweTdKlwy2D5pWWmYqn5RZpXdccKIUnfTHA3Eycd7t4qowuiH9RfWdMpF9Qa
-	ZQukXXwfXuDw4d2UxQIDaoxXPyFg0236LocNpPtAyoKRI+9g/m83zGe8ad/yJ1u1kIXI08gOWgK
-	Zm8lszU5dG2PGgPBMPqOa9eMCTano9F5k073JPogZ1SX31x3d6kUDHb3/Yh5UdXfvSxtlCfvtEI
-	5eX+5OIPF0zBf3ijFOSgS11SPRcR64egW+/H4gc=
-X-Received: by 2002:a05:600c:4504:b0:4b4:a551:681a with SMTP id 5b1f17b1804b1-4bb887fc396mr389875865e9.3.1795636887762;
-        Wed, 25 Nov 2026 12:01:27 -0800 (PST)
-Received: from ?IPV6:2a02:560:4e7d:300::a1e? ([2a02:560:4e7d:300::a1e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8538b09bsm1001738825e9.4.2026.11.25.12.01.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Nov 2026 12:01:27 -0800 (PST)
-Message-ID: <68a8dc53-9eca-412a-8098-3f69cd7ab95c@gmail.com>
-Date: Wed, 25 Nov 2026 21:01:25 +0100
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ehofGywm
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hxZjb4TzO/pEJmOkZ8uqwBOxCQBJ7YVwViC0OFMVHI3unbF50kyZR2MBAOs5QjAhKjNZ5H8KioV/sAxsjAEEHcIieAhMVsA20GQ3H0w48a/Jzej8GwX3yTEIOh49TihQ9dIHyySJxgdh6l+rW3Q7evTuES1X4ddGlzGzUZnfCY8eS6xFP2laYvNOfKzzwMG4zEaHqpw4GaOm4CLoYZTRuZyoyGLneP13WY/3FvnOyna35crj8s0zELTTZ7mzKaG1No7chgq8ZHmJyVa+CWMjfZyqliipESdfbD7DP4JklxHgDGjHcGcLuI7mZoHO7lXJu/5cN16FyXAYXBkVHCGrvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=X067xGujr+9o+89isKilc3P7EN6kk6JQeHctQG1v0YQ=;
+ b=cXa5zG/SmlywuVAZRgW7CLppumg4BH9CxmbeT4XNwbaSDYbARSCf5Ij7BbfFNIwUL74NU1HiVTzdySqaLcemrvJUuq2bIDAscG05KH0cnydH+5+TIWBv230ao2ZNJpmqwWGX2v28OUioMoj/+EscnvBuqFZDPqOGVh+lHDD8fFwMnzESS0TcP+j3jKDdI069hrRjGE7ncwjPaMc/AF+WBhkGhkh098QVk7GikNJ5CZVTXXeZGA2GubE7YTp/d1k9+ED03hg8a1BnZ1Z4Mm4l+Jcy8xFsNzASDK1XVMW7+VuW8LT4mMvNBlY+1iXBdpHw/Hm1HLe25jqD45c5C7aKMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=X067xGujr+9o+89isKilc3P7EN6kk6JQeHctQG1v0YQ=;
+ b=ehofGywmenx8YI9kF4EIbiFiuVrUNN9ineEyXMTBJ6p+/9uEG9ENBy52lGC/g2XggOeoVtY4LRpGSdBeSKhxqBZ0nTzyElI/13irCK2uDOgFxySalUanWD4EiFW9B69PCULmMbGLMiRN2Brk7hKUNKvwHxQqoLwx+MnLV/GCF/yEM5IHGk6tjCvJ7wtchQs8D1l7Wh0Ppj3dY3H9vUWdeRnaxBh71m5obmiLxhPl9QZM2817CGPIMO3sDrI2rVk3zSAsio7bssHj3Jed7HB7c8N/rRcxOnsxt6nMD3YTie1t93/pdwS9RhhRNOyS6NWzOiACi82aFAmjUwGoGR+wyg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by GV4PR04MB237295.eurprd04.prod.outlook.com (2603:10a6:150:402::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.6; Wed, 25 Nov
+ 2026 20:04:04 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0662.004; Wed, 25 Nov 2026
+ 20:04:03 +0000
+Date: Wed, 25 Nov 2026 15:03:57 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Haoning Cheng <Haoning.CHENG@cn.bosch.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Michael Trimarchi <michael@amarulasolutions.com>
+Subject: Re: [PATCH v3 2/8] ARM: dts: imx: Use minimum NAND ECC strength on
+ BSH boards
+Message-ID: <awc_LcVNuEc2SqTn@lizhi-Precision-Tower-5810>
+References: <20261111-add-bsh-smm-m2-v3-0-4abdf10e9a7f@cn.bosch.com>
+ <20261111-add-bsh-smm-m2-v3-2-4abdf10e9a7f@cn.bosch.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-add-bsh-smm-m2-v3-2-4abdf10e9a7f@cn.bosch.com>
+X-ClientProxiedBy: CPAP307CA0010.DNKP307.PROD.OUTLOOK.COM (2603:10a6:380:3::9)
+ To MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -90,126 +102,106 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Andre Heider <a.heider@gmail.com>
-Subject: Re: [PATCH] riscv: dts: spacemit: k1: fix the EEPROM page size
-To: Anand Moon <linux.amoon@gmail.com>,
- Zixian Zeng <sycamoremoon376@gmail.com>
-Cc: Aurelien Jarno <aurelien@aurel32.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
- Troy Mitchell <troy.mitchell@linux.spacemit.com>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Vivian Wang <wangruikang@iscas.ac.cn>, Junhui Liu
- <junhui.liu@pigmoral.tech>,
- Michael Opdenacker <michael.opdenacker@rootcommit.com>,
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev
-References: <20261123-fix-bpf3-eeprom-v1-1-df8cce6ef2b5@gmail.com>
- <awS2-clBenE1r1a1@aurel32.net>
- <12933da0-9bc8-4f92-96d4-36c5673d3f5e@gmail.com>
- <awXUSuYOUQMPCl-5@aurel32.net>
- <CANAwSgRf0XpWnyDaoiGySFv3NPKCBYn6BODf1M+P4w58BF-duw@mail.gmail.com>
- <CAKyUbwUyYptzZrMFKD-RjmufU7Wni8-w5vQvPyxUgx9BU++vsw@mail.gmail.com>
- <CANAwSgSNuEC72PM=1ai3xj31+=veLkDhAfuNJ3pmCggBtx9v-Q@mail.gmail.com>
-Content-Language: de-DE, en-US
-In-Reply-To: <CANAwSgSNuEC72PM=1ai3xj31+=veLkDhAfuNJ3pmCggBtx9v-Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GV4PR04MB237295:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1869b1d9-cbcb-426e-04e4-08df4b2f4119
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|19092799006|10067099003|56012099006|11063799006|261021121427099003|261102123227099003|261009223027099003|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	8AmExdEHaFQQ9xvNTLzUYNmM6gIdouU44qkA1I504jJbAU/rdyjayGjCJ9gW9scTDWXMeVABAA2cLWZb3QGBJwhKkn5VjJ27qroRQvUcjVvy1t1Xpf/Jon1VDPze1iZ3ep+csYueCq6IxUsXPynQ4Uv4wzKV8nncFa9Uc4mzjc7aFSV6nDsx7bnlLSt2nIIFYBQ7ai6wwiFxbib4Htl5WK06/AaMU3uCdRnr2i0LeNsrcfgqKALcWkJjcUkCF3KZfIbSYqM4vchYrYEOKtW/JaDYz3seh8OrUte6gZ5tsuwDg+WxLEj4J1iDx1wRvBaxxHUeH2ZS9VVtmitpUMGlFZnDrlxYIPZXqitTxMBQUczXzXP1O60GUstfZQFw0rUOgvdYkopTqJO4+ExqV7ZhxI9hYn4Y+PcrdceNbr0uPPdTnjaXuxyseZ0gF56I+5vgZxLfFhIl89mA2eh8MHtgd1iuJjio/S9qXKop9urxiVaN4r47B/5sG4lb1HL9dwc+c8fwejaJ7oa2rgcpVnyp6Wl5J/NykZWidDsdpR5NcmVnQrgbt7WrJfmxNfN5W8+gY5sJOje4ENPM4vM2mKIbUP/ooi0quYVP6Ld1WxmzxrlKAepRCXRDbBqX4j5wcWb+7yJKSeGwK3L/OGq1A3s5E9yyg5qdUAJs/9pJkrSa+Wo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(19092799006)(10067099003)(56012099006)(11063799006)(261021121427099003)(261102123227099003)(261009223027099003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?uq/ommDcRNuZvh1I64iCntpD6KzM9lYdRofOHPkdAn5YRHn7bI9n9Jer5lPm?=
+ =?us-ascii?Q?NI342WKLTvMusUEzRU1e8w1fTZ7T0lRgr5NrLn5WvGAFLRzdQfYEQlJ75i/v?=
+ =?us-ascii?Q?oNhVPalDPBKl7VevWMKG1vaiXVBK/5LgsIwAFI/ROe+tYNqqKikJxacozjDQ?=
+ =?us-ascii?Q?NVXphIhdLGxFFddshW44ny1ScsSW/2fDGTZ+zowOCIn7Z05eFMnCTCNX1cd5?=
+ =?us-ascii?Q?u9wPiuirWga8ZUdb4phBaYhtR1n4GvMGZ81Npy2kafz39SUf/Q170Wc684r+?=
+ =?us-ascii?Q?Ydwzt+8IHW/RMVE2TPaY00FrSzXBz2Gp0fVIzvQCyxAkTU2/NuYnX+Rx/8RZ?=
+ =?us-ascii?Q?NZ7RbG0yxu2kuzJ7diaXv8n4BDFIVUZP+dgxUL137zFp3wYcN2rQ3BWf2pEi?=
+ =?us-ascii?Q?fL96YlbETHAX32CgybSKU1+M2aVwYzqenpTPTeGox61I3+cP5TUEXt8puPb8?=
+ =?us-ascii?Q?pCr6edMxEumYh1ueJpb4pIhPDlTVwufIXDdH5aeS4IYrailf3H5iv+UffqkS?=
+ =?us-ascii?Q?INj7bNGyVYM+kLrgfaJp9W0zJ0qUwpFVpd/s87BEhx/oL6QyMZciHP4CF3Bc?=
+ =?us-ascii?Q?C2FW8InA/gyme3Gsa0izz7guxtIDFGk2YDhezcjQLRO/AeXMDEHlpxW9+cf3?=
+ =?us-ascii?Q?u3LPf1mk4NYDCwrB74uuYkZEzGHYn07TWObQEGhBIO/gbg8iJZ7H0lR77U0r?=
+ =?us-ascii?Q?M2rgjdyV/rBO7aj+c+s3l9najDnt+5kq/GVjByq4noyfOlf4Pxk1WrGaO/js?=
+ =?us-ascii?Q?FOl7bIX8e3LilkfzEK7Nr8ZOsINxhy9z1SdGtC1WmDyZsrdpEvr0au1cNmlu?=
+ =?us-ascii?Q?kRDhA+PUGe9PvtDeXYsTDNEZMIQ9Tv3w+FXU0p7xch3uh+3Q/tnAKq7J9lne?=
+ =?us-ascii?Q?QUBCwI+ePG+Nuvmno1QHQQ2RZhr/SM1JeF7mPOUUd/Lubw8rh9GVzTXQehDM?=
+ =?us-ascii?Q?oIRDJEEuxbYTwq0Tr6IP3wy6euGSVzkise10MDEktZBr4Sakpqk4hgMtH59R?=
+ =?us-ascii?Q?YJLQbmflNPqKJiZ202F+t6qn9SSCv6Qioc1bsjT1CIDCXFVrJlXvcVARW6BN?=
+ =?us-ascii?Q?hvq6tgtovY1kQGft4usIES4X0WO+sdFcgjptqWxo9i1UVIu0ct3YuYSDdQkz?=
+ =?us-ascii?Q?QGS0WS7XPxuyuToLSG/cAcRiqPYO8UC9YA/qR+HYuIJ0pWkcSMBMwxITkQZQ?=
+ =?us-ascii?Q?FPXub2qFzSFN4rjt8qaLCTkEMFFJf+hHp+Z3XFD94HIhZaNtduRdSUWhMxFE?=
+ =?us-ascii?Q?hQxrnJzUF64Md2+JEe0TwYSwTAcZ82YzR4eUmJCdupsJ4CLcs8VGX6d2PFi6?=
+ =?us-ascii?Q?0pK+saokNkVy00G6GyiQ1PdkbgglscXOzwiPcMpEKZykfJI8auOQH/TgFhcA?=
+ =?us-ascii?Q?/u5xbfWVBc6fyFWbJUKJQCu2kEULIAcbMf15qjXFEl+6yELlTm4Uq+ej6Ejj?=
+ =?us-ascii?Q?LewWeHgWRC8jYms0KRx9rZZFw4bELN+zfpf0M3BqfzHRfQ8hKvN5eIUt3ZO3?=
+ =?us-ascii?Q?kjnL6mEAz6glufilRsG0AROZ3odAuGNoa7Eaqc3pMCkc3W+8khM6HY8PxhIe?=
+ =?us-ascii?Q?uT9tRK3SREoGwT5LtzEr/Ay3wO44Ztzypd3EEigEl1Aykn8TbfUYStuyVfOg?=
+ =?us-ascii?Q?x+dlATcNK7CcRNlrkHLUxrrsONeHDXaV53kj1wRIso8C88Kkb3B1M9g/AOx2?=
+ =?us-ascii?Q?WiSub03vTQKnR1IEzo3yz+BIgd5jhyA20iOMKE6ZJWOmCuPyOAUEhVfIB7eY?=
+ =?us-ascii?Q?LC4xPazK7Pg1A/dtxo2tYy2uvnR8/+Nj9QMMoptvC5oU+4NrZhaA?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1869b1d9-cbcb-426e-04e4-08df4b2f4119
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 20:04:03.8539
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XG0Qgn2sb1CY3Sps4oCdNZjWX0/ABk+baRKKOGIFF4tAk2DN8XNQ9q1VO+GrKoi2XEoA11y7OER9e+ySlRZPCLNw3jM0mp8ZfMUOOc133pCpd7Fd5ThLZ8kK8BI9lCXN
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR04MB237295
 
-On 25.11.26 3:21 PM, Anand Moon wrote:
->>> Apologies, this is a different issue.
->>>
->>> I am currently working on enabling multi-DTB support in U-Boot SPL
->>> for SpacemiT K1 boards.
->>>
->>> While investigating the board detection issue, I noticed that the EEPROM
->>> on my Banana Pi BPI-F3 does not contain a Product Name TLV entry.
->>>
->>> alarm@k1:~$ sudo hexdump -C /sys/bus/i2c/devices/2-0050/eeprom
->>> 00000000  54 6c 76 49 6e 66 6f 00  01 00 20 24 06 fe fe fe  |TlvInfo... $....|
->>> 00000010  d5 52 bd 2a 02 00 02 23  0c 39 38 61 39 63 33 61  |.R.*...#.98a9c3a|
->>> 00000020  32 62 64 34 37 fe 04 3b  e3 ff bd ff ff ff ff ff  |2bd47..;........|
->>> 00000030  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
->>> *
->>> 00000100
->>>
->>> Although the EEPROM is readable, the missing Product Name TLV entry
->>> explains why read_product_name() returns `-ENOENT` (-2), assuming the
->>> EEPROM read and validation succeed.
->>>
->>> Consequently, automatic board detection fails, and U-Boot falls back to
->>> CONFIG_DEFAULT_DEVICE_TREE, which may select an incorrect device
->>> tree for the target board.
+On Wed, Nov 11, 2026 at 05:23:18PM +0800, Haoning Cheng wrote:
+> From: Michael Trimarchi <michael@amarulasolutions.com>
+>
+> Configure the GPMI NAND controllers on the BSH SMM-M2 and SMM-S2
+> to use the minimum ECC strength required by the NAND flash.
+>
+> Signed-off-by: Michael Trimarchi <michael@amarulasolutions.com>
+> Signed-off-by: Haoning Cheng <Haoning.CHENG@cn.bosch.com>
+> ---
+>  arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts    | 1 +
+>  arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2.dts | 1 +
 
-I encountered the very same issue [0]. The BPI-CM6 doesn't have a product name in there either, so we just made one up and wrote it to make the detection work... [1].
 
-I'd be surprised if the eeprom is write protected on any board, because the vendor uboot contains code to write a mac if there is none. And I've only seen fe:fe:fe... macs so far, which is the output of the code generating one (iirc, it's been a minute).
+Please use sperate commit for arm64 and arm32 platform. This time I split
+these for you.
 
-In case it helps, here's my collected notes about the topic:
+Frank
 
-musepipro: commit 6bc75cfa56e885c2eab80e215f0a610075505846
-     TlvInfo Header:
-        Id String:    TlvInfo
-        Version:      1
-        Total Length: 58
-     TLV Name             Code Len Value
-     -------------------- ---- --- -----
-     Product Name         0x21  16 k1-x_MUSE-Pi-Pro
-     Serial Number        0x23  17 BPMIMXXXXXXXXXXXX
-     Unknown              0x41   1  0x02
-     Base MAC Address     0x24   6 FE:FE:FE:XX:XX:XX
-     MAC Addresses        0x2A   2 2
-     CRC-32               0xFE   4 0x395ECD34
-     Checksum is valid.
-
-r2s: commit ac436e6879f5bf25e971d80f96f9392b61ff54c6
-     TlvInfo Header:
-        Id String:    TlvInfo
-        Version:      1
-        Total Length: 38
-     TLV Name             Code Len Value
-     -------------------- ---- --- -----
-     Base MAC Address     0x24   6 .....
-     MAC Addresses        0x2A   2 2
-     Product Name         0x21  15 x1_orangepi-r2s
-     Unknown              0x41   1  0x01
-     CRC-32               0xFE   4 0xE5A74B18
-     Checksum is valid.
-
-cm6-io: https://github.com/openwrt/openwrt/pull/23231#issuecomment-5943699070
-     TlvInfo Header:
-        Id String:    TlvInfo
-        Version:      1
-        Total Length: 18
-     TLV Name             Code Len Value
-     -------------------- ---- --- -----
-     Base MAC Address     0x24   6 FE:FE:FE:XX:XX:XX
-     MAC Addresses        0x2A   2 2
-     CRC-32               0xFE   4 0x9775FAA7
-     Checksum is valid.
-
-f3: https://github.com/openwrt/openwrt/pull/23231#issuecomment-6339373545
-     TlvInfo Header:
-        Id String:    TlvInfo
-        Version:      1
-        Total Length: 32
-     TLV Name             Code Len Value
-     -------------------- ---- --- -----
-     Base MAC Address     0x24   6 FE:FE:FE:AD:18:9C
-     MAC Addresses        0x2A   2 2
-     Serial Number        0x23  12 0ca91c835b74
-     CRC-32               0xFE   4 0x85C81AEE
-     Checksum is valid.
-
-     also: commit bfce75e2345fa1ecbf046e696994132f56d6db1c
-         no product name
-
-rv2: ?
-
-milkv: commit 77156216f1d0f57e1cfce3452410db20468edca4
-     only a product name
-
-[0] https://lore.kernel.org/u-boot/d1a8bab8-4d88-48f2-9ddb-89e8c0e323b8@gmail.com/
-[1] https://github.com/openwrt/openwrt/pull/23231#issuecomment-5972395785
+>  2 files changed, 2 insertions(+)
+>
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts b/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts
+> index 2d9f495660c9..aac211a9f9eb 100644
+> --- a/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts
+> @@ -26,6 +26,7 @@ &gpmi {
+>  	pinctrl-names = "default";
+>  	pinctrl-0 = <&pinctrl_gpmi_nand>;
+>  	nand-on-flash-bbt;
+> +	fsl,use-minimum-ecc;
+>  	status = "okay";
+>  };
+>
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2.dts b/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2.dts
+> index 11a1ba5bfdb7..df11f81ac50c 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2.dts
+> @@ -21,6 +21,7 @@ memory@40000000 {
+>  &gpmi {
+>  	pinctrl-names = "default";
+>  	pinctrl-0 = <&pinctrl_gpmi_nand>;
+> +	fsl,use-minimum-ecc;
+>  	status = "okay";
+>  };
+>
+>
+> --
+> 2.43.0
+>
