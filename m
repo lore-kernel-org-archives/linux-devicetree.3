@@ -1,122 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.154.119.183
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795630691;
-	b=eeHG8xlsV2YPU1M0SmWBu6fPzWUQ6ETlDtgHl0QIBX3GrVMWmjytlZP1gNOpcfgl4AuO
-	 hR2qwa0ltqFxzTEj/DTuJRXeKU+BR1fHh0Et224gjqewIizoWVpzi5TnDRgEEsJzi+qP2
-	 kQ8GCAlpT3CGuFteFiiVO1Ym7TCD6l/ozGWG3GeBgFL5qhEgBDGl1/Y0UIOVnKC2Ygjwt
-	 atnRUGaejw21mZPP+5hdpRemWwbzktkE6tVfKn3ArLt1JLboQRUTBTfQmVu4wYehWrYm2
-	 gmgnsfvFUGAdFil/BCWbMVPpmdOP0s19yHq60m/Z159gIZBhtjPIjPkpdlkOwXBZjlg==
+	t=1795630811;
+	b=w/vLb/wll8snb5UsuheOD1T+wY3zX9fCmMGhleA059jVfDLRH0Q5KW3hmNnxz57IUhWC
+	 itM6UOjJqxNkps00PiSD6B7jFxz9SAxWg6fs1ZNea0Lx9ZxnyHtkb553196bgndwwwfQN
+	 aX9rEazShVgEPkWOC4Z9hJ6Wt0QdoBd+OPYpYChanDjE2uBcaAvHBffKxQzSyhXhgSrK5
+	 gWXRiN4kkwx1lEA0tYSdyK+eP58jzhwUf77znnnf1q7azij4HsbAbeYykuMTGawwTODIl
+	 wSFtuWdwDBxtuU06C51iUpbeXwKL/JhQhGvCU3d3HlOwBx4bKo3TtgNSJVBm9ytiwNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795630691;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:Mail-Followup-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:User-Agent;
-	bh=e9zrcR4+b/kS9Qb1mwVlZGZVo3jDZ/rmDsPjIuq74Z8=;
-	b=ddZrEbqEjxU0Ao5BEB13fUxahsPB0S68hIzZK6A/r3+Bs2xWNTsE4/UjMRddGJJeh9Pp
-	 RfpVcIzuSZ3xyiEzeVU7R6gLHJFlpO/Ix2y56GXkUnwoCqlm2rQTQx6z1FvBHjRKjvYYC
-	 4i6jRrXThNj0qEIWfxE04SdzIvuyM16wY3W35A0nuDhQrGLnQ2nHt+a2R7hiXQAUFepQe
-	 h1ESwsCo7vv95+Kzm5XgITB9003UPENsul1rho3VDhLnWxgP1rrU7PuinpLo5IIQ8ncgC
-	 tZvYISGBxSWji3iUX8wyvuhsmM0s39ARSJ1f9E9/CUv1xSoqszhk/KnBbE0+t6/cReA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795630811;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=v58QMw0yjvceZo/hZz9U551vX4wCUdNK8yu0lcIAhxc=;
+	b=QpTFhuK3w2ZkcefM0I+mAdG8NCXj7XZN8iRLX7Ufc0B57gF4G1OzY1Wv79Rr1VC0ObXY
+	 CochsNbu6vNh85QUDpm+HOfZXa0BpQL9I20UiSnh9r3kckTW5yyPT0c4QlaurXfia0uGm
+	 aPoiykSeJ8dY09I7beHy7xzEjSMAt9v4+Op0avIxU2/z4IKjNXosji7pov9IUPX+/Dk8P
+	 Q1JN8VAhRrFHKq0AuJX/6TlwSlSToXnJKZXlrwbFN1CXN4ouGcx6Blg67RKmaj6TPJkPH
+	 pGn1Uk2N+efj9LyxGRlI8nGDcpxH63RjHTUnU1D6eNoAZRc0EEnkvI5BcHpSpw8RyHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aurel32.net;
-	spf=pass smtp.mailfrom=aurel32.net;
-	dkim=pass header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b="kG/VHBsd";
-	arc=none smtp.remote-ip=195.154.119.183
-Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QpYjqAbm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F168B606A323;
-	Wed, 25 Nov 2026 18:18:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F168B606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F9F4606A31E
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 18:20:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=kG/VHBsd
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
-	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
-	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
-	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
-	bh=e9zrcR4+b/kS9Qb1mwVlZGZVo3jDZ/rmDsPjIuq74Z8=; b=kG/VHBsddVEJx97y/LwWQW7+aT
-	SPi2PSd0iwDBudf5aAqJGC5uARR+wieLNmdzaVcmVtiHB91IwYHHeZMVwanKqbctsyFwES3MqDrj5
-	c/GJedWJRnkyhG23qW54+Aap5eXLrDO3Rg3EFuaUGrite6fBoTvwq9FehSfrKRayCg9gsQJwzRZQS
-	zbUZglKHVn1hheZvQoG+5Th5ngdZuWd6kMGA9X+fYlYOmYxckUvSFrzh9wjC+VOyVNmR5iKkOl24v
-	NDDWoPTX3MVWun8wOdTYuwYIVIqK7V1FNrllVYH7vNuAUkrHfIXUu9k+ePEhbRh1aB+Z5K74GPLxq
-	ebdxqljg==;
-Received: from authenticated user
-	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <aurelien@aurel32.net>)
-	id 1xWHYm-0000000ADku-0F4E;
-	Wed, 25 Nov 2026 19:17:36 +0100
-Date: Wed, 25 Nov 2026 19:17:35 +0100
-From: Aurelien Jarno <aurelien@aurel32.net>
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: Jingoo Han <jingoohan1@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Frank Li <Frank.Li@nxp.com>, Sherry Sun <sherry.sun@nxp.com>,
-	Niklas Cassel <cassel@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	LECOINTRE Philippe <philippe.lecointre@thalesgroup.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
-	Randolph Lin <randolph@andestech.com>,
-	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
-	Alex Elder <elder@riscstar.com>, linux-pci@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH v8 0/6] riscv: spacemit: Add PCIe RC controller support
- for K3
-Message-ID: <awcmP-iHD-E8eZRT@aurel32.net>
-Mail-Followup-To: Inochi Amaoto <inochiama@gmail.com>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Frank Li <Frank.Li@nxp.com>, Sherry Sun <sherry.sun@nxp.com>,
-	Niklas Cassel <cassel@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	LECOINTRE Philippe <philippe.lecointre@thalesgroup.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
-	Randolph Lin <randolph@andestech.com>,
-	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
-	Alex Elder <elder@riscstar.com>, linux-pci@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-References: <20261125041523.242588-1-inochiama@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QpYjqAbm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 478F71F000C0;
+	Wed, 25 Nov 2026 18:20:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795630811;
+	bh=v58QMw0yjvceZo/hZz9U551vX4wCUdNK8yu0lcIAhxc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QpYjqAbmPNE5gtJUI0Lv4+dgXhQkrAgvb1bUmZsxgAflE2tSWJmrrGBnIhMiFy7/m
+	 Bb2vyCBzkcnHbcpOvWC9+dUW5JNAZqAqDa90IF96bcymuXcxndAWmhtvfeRHUA8wuA
+	 f7+h8SUGTxdTJLbj5dWTJh5tMFwshVa9CDpRL6In9vpuCFfyQ6NR5B/IS6qFbdWiG6
+	 E9QBgoDrPHmccL0KEjH5vS8g1mNhulAq9XiputtCy9WXbcLjJwd5oDTlUNuRtvo75t
+	 y5eVAcOgz9E7gCbiSDy3P6MfmVVtOoZ9JGmg3VoJ3eZAdjk2WGAc6qPzwmP5EtMi1K
+	 9DJqvk15PwRDQ==
+Message-ID: <sashiko-outbox-233966@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 8/9] arm64: dts: qcom: sdm845-samsung-starqltechn:
+ Update panel compatible
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Heidelberg" <david@ixit.cz>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261125-crosshatch-panel-v4-8-120adc58e737@ixit.cz>
+References: <20261125-crosshatch-panel-v4-0-120adc58e737@ixit.cz>
+ <20261125-crosshatch-panel-v4-8-120adc58e737@ixit.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 25 Nov 2026 18:20:10 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -125,134 +60,60 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261125041523.242588-1-inochiama@gmail.com>
-User-Agent: Mutt/2.4.1 (2026-07-04)
 
-Hi Inochi,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] arm64: dts: qcom: incompatible panel@0 compatible and
+  reset-gpios change
+--
 
-On 2026-11-25 12:15, Inochi Amaoto wrote:
-> The PCIe controller on Spacemit K3 is almost a standard Synopsys
-> Designware PCIe IP with extra control and external MSI controller
-> (IMSIC).
-> 
-> Add binding and driver support for PCIe RC controller support on K3.
-> 
-> Since v5, multiple vendor fix are included in this series, you can find
-> in [1]. And this version required [2] for phy bulk data support.
-> 
-> [1] https://github.com/spacemit-com/linux-6.18/commits/k3-br-v1.0.y/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> [2] https://lore.kernel.org/linux-phy/20260923023304.78428-1-inochiama@gmail.com/
-> 
-> Changed from v7:
-> - https://lore.kernel.org/linux-pci/20260929083755.458238-1-inochiama@gmail.com/
-> 1. rebased to v7.4-rc1
-> 2. Apply Andy, Rob, Aurelien's tags to related patches.
-> patch 1:
-> 1. The const declaration is reserved, as the it hold the pointer of the
->    static const data.
-> patch 6:
-> 1. Add comment to the PCIe topology description to the commit message.
-> 2. Fix some 80 chars line problem.
-> 
-> Changed from v6:
-> - https://lore.kernel.org/linux-pci/20260923015016.64069-1-inochiama@gmail.com/
-> patch 6:
-> 1. Keep PERST# when init failed like the deinit.
-> 
-> Changed from v5:
-> - https://lore.kernel.org/linux-pci/20260907112606.465778-1-inochiama@gmail.com/
-> patch 1:
-> 1. Return ENODATA for no device data found.
-> patch 2:
-> 1. Add power_on/power_off suggested in [2].
-> 2. Add zero phy check in the driver.
-> patch 5:
-> 1. Add K3 device description.
-> patch 6:
-> 1. Update comments.
-> 
-> Changed from v4:
-> - https://lore.kernel.org/linux-pci/20260709040027.958400-1-inochiama@gmail.com/
-> patch 1:
-> 1. fix comments
-> patch 2:
-> 1. Use phy bulk data to simplify the code
-> patch 3:
-> 1. Rebased to latest master
-> patch 6:
-> 1. Apply several fix from the vendor code
-> 2. Use separated init/deinit function for K3.
-> 3. Add some error handle for K3 init function
-> 
-> Changed from v3:
-> - https://lore.kernel.org/linux-pci/20260703020003.485436-1-inochiama@gmail.com/
-> patch 5:
-> 1. Add missing interrupt/interrupt-names check for K1
-> 
-> Changed from v2:
-> - https://lore.kernel.org/linux-pci/20260517014841.254085-1-inochiama@gmail.com/
-> patch 2:
-> 1. Use unify PCIe phy get/enable/exit function for both K1 and K3.
-> patch 3:
-> 1. New patch for updating device id for both K1/K3
-> patch 5:
-> 1. Reuse binding for spacemit,k1-pcie-host
-> patch 6:
-> 1. Multiple cleanup for the logic already generalized in the previous
->    patches.
-> 2. Use generic description for the Kconfig entry.
-> 
-> Changed from v1:
-> patch 1:
-> 1. Remove post_init callback.
-> patch 2:
-> 1. Fix devm_kmalloc_array arguments order and error check.
-> patch 3:
-> 1. Apply Rob's tag.
-> 2. Change check from oneOf to anyOf.
-> 3. Fix spelling mistakes in commit message.
-> patch 4:
-> 1. Add comment about PHY handle.
-> 2. Remove interrupt "app".
-> 3. Fix spelling mistakes in commit message.
-> patch 5:
-> 1. Remove all logic related to link up interrupt.
-> 2. Clean up all unused macros.
-> 3. Fix devm_kmalloc_array arguments order and error check.
-> 4. Remove unnecessary start_link logic.
-> 5. Make all magic number as a macro.
-> 6. Fix spelling mistakes in code and commit message.
-> 
-> Inochi Amaoto (6):
->   PCI: spacemit-k1: Add device data support
->   PCI: spacemit-k1: Add multiple PHY handles support
->   PCI: spacemit-k1: Add device id update helper
->   dt-bindings: PCI: snps,dw-pcie: Add msi-parent for MSI handle check
->   dt-bindings: PCI: spacemit: Introduce Spacemit K3 PCIe host controller
->   PCI: spacemit-k1: Add Spacemit K3 PCIe host controller support
-> 
->  .../devicetree/bindings/pci/snps,dw-pcie.yaml |   7 +-
->  .../bindings/pci/spacemit,k1-pcie-host.yaml   |  55 +++-
->  drivers/pci/controller/dwc/Kconfig            |   4 +-
->  drivers/pci/controller/dwc/pcie-spacemit-k1.c | 235 ++++++++++++++++--
->  4 files changed, 268 insertions(+), 33 deletions(-)
-> 
-> --
-> 2.56.1
+commit fd433e980a7d2d9c4e491b9e6c72d47eb49cfd5c
+Author: David Heidelberg <david@ixit.cz>
 
-Thanks for this new version. I have tested it with the v5 of the "phy: 
-core: Add phy bulk helpers support" patchset. It works all fine.
+arm64: dts: qcom: sdm845-samsung-starqltechn: Update panel compatible
 
-Therefore for patches 1, 2, 3 and 6:
+This commit replaces the panel@0 compatible string with
+"samsung,s6e3ha8-amb577px01" and changes its reset-gpios polarity to
+GPIO_ACTIVE_LOW on Samsung Galaxy S9 (starqltechn).
 
-Tested-by: Aurelien Jarno <aurelien@aurel32.net>
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts b/ar=
+ch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
+> index bd59f1dcd96dc..c156ed3733b4e 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
+> @@ -267,13 +267,13 @@ &mdss_dsi0 {
+>  	status =3D "okay";
+> =20
+>  	panel@0 {
+> -		compatible =3D "samsung,s6e3ha8";
+> +		compatible =3D "samsung,s6e3ha8-amb577px01";
+>  		reg =3D <0>;
+>  		vci-supply =3D <&s2dos05_ldo4>;
+>  		vddr-supply =3D <&s2dos05_buck>;
+>  		vdd3-supply =3D <&s2dos05_ldo1>;
+>  		te-gpios =3D <&tlmm 10 GPIO_ACTIVE_HIGH>;
+> -		reset-gpios =3D <&tlmm 6 GPIO_ACTIVE_HIGH>;
+> +		reset-gpios =3D <&tlmm 6 GPIO_ACTIVE_LOW>;
+>  		pinctrl-0 =3D <&dsi_default &dsi_te>;
+>  		pinctrl-1 =3D <&dsi_suspend &dsi_te>;
+>  		pinctrl-names =3D "default", "suspend";
 
-Regards
-Aurelien
+[Severity: High]
+As reported by Krzysztof Kozlowski on v2 [1], does replacing the
+"samsung,s6e3ha8" compatible string without a fallback and inverting
+reset-gpios to GPIO_ACTIVE_LOW break DTB compatibility for existing
+kernels and DTB consumers?
 
--- 
-Aurelien Jarno                          GPG: 4096R/1DDD8C9B
-aurelien@aurel32.net                     http://aurel32.net
+Any kernel or consumer that only matches "samsung,s6e3ha8" and expects
+GPIO_ACTIVE_HIGH (established in 70005c18c9f7 ("arm64: dts: qcom:
+sdm845-starqltechn: add graphics support")) will fail to bind or reset the
+panel when booted with this DTB.  Earlier patches in this series already
+handle the legacy "samsung,s6e3ha8" compatible and inverted reset polarity
+in drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c via
+broken_reset_polarity.
+
+[1] https://lore.kernel.org/r/20260929-spirited-umber-hedgehog-300ebd@quoll
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-crosshatch=
+-panel-v4-0-120adc58e737@ixit.cz?part=3D8
