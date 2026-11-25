@@ -1,85 +1,84 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1795602843;
-	b=jFTFMpo0z5RfyRgDKDn9K7GcdSDc3p9K0JxZ36VkMY17EdDJurfYyzojTbNCu5xw9Hde
-	 Sq1Ye2VtjIwtPJegTgPL3SlEs8EEA4nhG/yfwMG5CvxRESbQYiQEviJXZKCypwgYA+6V7
-	 r5fqtwtCCsQ03HUjRVXiy8mescdCKLshIIVbURlcgG4LI9WtRA82OEVA85J0t+pM+2QXq
-	 dQQkdVQRmp0Bi/wotDTSyhbGsihH3SE07LLD8Dl0mRSQq9KNNSJJGRyT88KN0BKWDfvQt
-	 y5ZZt0Y0XZANGRSFEqUTqxmtTWCBNBqnqNJIskxG+/Nu9wZmirW8ou7gS7cnoudGFJg==
+	b=uj5NY4iewmfG2FvKTMkeXKDTfvQpxO0zEUHTkohRZxqCGE2+Of6eLIVA3EiD9IoDq0wf
+	 5Eyd5z/BAPdYmPHdXxgaUq2ieGN2vD2dXaZN12CElbtHDEmhcsbAte7rJO0b6eXL96pKC
+	 BKHlIdhNr4X1iuoObR2S+tctsnYZLxLbycW0ly+nC4PWSjThKgOm+INE91MzL2AEsKciZ
+	 Kae0XHC7Qn7Krt8/WlVgzULD2XKzsi1L0abJf9JOYlVm22mkKi/Gm5bh2AEcpYpDYI2cp
+	 Jmxvw5cmX9yCc07jzGKhFBqgBegVrRdkIUlld8RPAMagwckzUKz1Mul2CrUpL0/22lg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795602843;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=BS1rCa3FI650n77A5Y3/Sdio8Hg1/CTebUHGnxXpia4=;
-	b=tcR7wxiqrAFDtXirB+OHcywhzeh2/2oQZoTIB3EPCnS9OAPdGBciNEd/kCF7zhDwKmZF
-	 IurvPK6UoUiO+I6PTjdXLXGsopRwL+iXaMdxu68T2RuNqtCHlJWsIovvt0PBPHwhF3wBS
-	 OSCTG/xjE7tbSkdUignUqevlDnuMigsXWxhBan1CEv+D1djzZOrLrirAz6e8FjEDaTOe3
-	 uqNd0PP+HeukyVBOZjcR3Chq4VU484UQex9vTsRNjNDoc5yro8aDKCOJ/4Z+3UcGKyOIC
-	 S1yDgU/a+YU95EnSer+oSr2v5dxy4ykLJMSitOzhVkkxAKRG533+iuUAh9gln/Pt4RA==
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=/vZ/NUO91U7RmjEEQoND7bMbRcAjPQeJzuPnx5wjuNU=;
+	b=xS7hvi+HLCQNSVdNZt1wRgaYja+7CpTK9/wWmrVGkhFs2kZyCluPLfRqjHTu12b0rlRO
+	 4Nzqgx7fDDKjhZKcQuBQEQu6ZPPaTP3aFUobc571jCyeyo36UmbQlNB5Fpnm0w8y8liMF
+	 of4NT0ssMkCoF0NhjYhLXBiESwYAPJkoant/5711ygw1HejuOlvxjWWxxfMhhPsgjU08A
+	 CsKVoyWni33jbW0BtE6Sy4Me+4d79KaRbINj/6VrpP5x/pd532atPnBoDUVk7s24s2qjG
+	 vJh3pgRex+2HnzLkwC+sRohjCjHMnL/ci8ndaFo/ztFDEZR+23N7Pl+8vTdsYOOpVoA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=PTyokNU0;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=RzNVdPKf;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC51606A326;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC9C606A329;
 	Wed, 25 Nov 2026 10:34:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CC51606A326
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CC9C606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=PTyokNU0
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=RzNVdPKf
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 2C9D220227C;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 0E4AC20220C;
 	Wed, 25 Nov 2026 11:34:00 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1795602840;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BS1rCa3FI650n77A5Y3/Sdio8Hg1/CTebUHGnxXpia4=;
-	b=PTyokNU0llg1CszqXt8VLb1B6/8QDW2HBgk4IdPM7/WQoLiLlH5l/BNqyzXqgQPOvfDGJ7
-	9N0I1g96sij13fR+CXQdQnsw0w7QrkazZRWQkgHSJzeZDKbKr+LoRT45cECnIVmePGRMRZ
-	T5ZutBhQoZs9vrp/cXZ0Q3lFawFSfgE8MSxNGbprADXoBLqmNRGr+16BPOeiIuz7h9sbRi
-	rDxpUNJuZzHrMzIWjISZWdCMfDPPNbQ+xqsIYk8hEG8vDuL2qtPeVLo5c2SeY7+kbfLLac
-	7bY0U86drRKAZqcPOWYI6jUkokSLix9FsPfb4XkGgdKupce/kele86iNWz34hg==
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=/vZ/NUO91U7RmjEEQoND7bMbRcAjPQeJzuPnx5wjuNU=;
+	b=RzNVdPKfVzAoES/QYo3vaq2536/eoZ56Hcse5qvzAHrwxuDS1++EcMAFojo2VklUQm9Gio
+	KBVIFNvceztK5XV6hpQ/hZ7nKrp8U0puDIIgvLx28uYmU6ifwAwBIntuzxqGTHCaGKbqzs
+	joqJqt/OneJb6JNFPgP9518g7LbyZJMRh3KFKp6FrVmwHDuiUTqcd9MIS3NJJq6lcs0ebh
+	vUk3qETvkGVhenAnvQnxnBd4thKF8MMLeEbGZiE6cJDY0hOCCKs9MgIsielcjzuvstoV2O
+	NhYG6QALtIxbNwKV9hGwkPaAjTLHJ+ahk4ttstTLco7vT2dwmK+XC1BBD5WbtA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1795602840;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BS1rCa3FI650n77A5Y3/Sdio8Hg1/CTebUHGnxXpia4=;
-	b=GXuVkTas6W7Bz9KuwRZXJpPAiCqHdIMMiN3cKVqaXFGhpSEBbMx/lWOBmG6Qf1uMfLL7Ke
-	G2P8rSyQr4uvwvB8q3+2gaaPlQI2LmDbmV1JaFFGfFkXUy6WVNM+Hj6vbKqG1F3iG0/oSR
-	XOK9bTBQzUPQ+QIKdHDJ7pQ0TW7T4xGiA5SyhtMN43pP9/sTMySAvrgUavyGUwAAQkKLBK
-	nd3oaFeY/SBKo2ygf8jo2myM32wyuLgamg74u/3XqsWqPPqR6TSxQh1ffFpO930BXR7sle
-	G5xOe4AguiNw3/b4IckS0O74Jmch6qxVNlVAkttuX5dOrihendX4sZP2UJochQ==
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=/vZ/NUO91U7RmjEEQoND7bMbRcAjPQeJzuPnx5wjuNU=;
+	b=DS9rVM3VsRzwqwMCnxcNvzePbFGs0a+/i1VuV0Bi3QBxmp/iy9dY1kfhTSMooxr8kMkDDd
+	GUMpspvZb/Ru89T5sD35OM+P2UAV5E7iR1dYeKCx9WJJVsaAVYFfMVy15dOOY/Vx61JfaS
+	BkZom5Ni2yKvePGAnRD9DrjP8B5Y/hw0k/AxcWoXJ/Xfe8H/gG4DdbXp3SrYZtl35D2q6k
+	yZXt4kvu+iLrQbrNZM/l3a0LfgHB7BoBVk/St1Gmxw+SAu9Yw13HIArIJhNDj0ExKtjELj
+	/H9VfVGiCGBPH03GoFG2HQHa5jc41LUbA8jEG5Bay8hAoDcJY7r+0KrPlrlK1g==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=f.diener@pengutronix.de
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795602840; a=rsa-sha256;
 	cv=none;
-	b=AnLnKIUGcXcrbINj/Z3FWQyWASwcb8iole7MsP3zRFDRPLRvexyz2LstvvN16ueTSbyUf9
-	LCAoqaKG3y1WS/313I38TAMu+A5GIrZRf+awqXU50iaoATlLRc4FZPsFAXEnWaqN6cyitz
-	/kdDcvAhdjJ79ozC+RfUNNvPsW6MnpOxzGYQ/93ES4gydUOlBY5vGgeEhOW7HEqdfJ5rQ+
-	oF3fVULmuz5lt+GZoI/im3w/ezU2vrQNnh9aWMvYl+fxlRUsmfsIYHhc3IayOPv8dOqJoT
-	rmIjSx8sDCeKC5EI/dyYHb53sUiJAydj8LFxCrOAqxzzMK+V+Up4d3s7nwyKRA==
+	b=abO8ki4S/2xozxmRMYPKdTjHiy4sj6ZvjI4uuoluOA4pL/5xUAQn4rFJzEI3aiJfLVYUGy
+	Eac+rfZ39ualJsAJsDCxflk0R3Jwp5WwJdrWUZ//kldJeUCrL3KmPsfG8SNoPI8Zj5rU/P
+	wIPqEbQDDAmaQUbZ6RYENyKc9EhjG/mK2P+RkEkbwE64RWQYFS7fh8kvVajMvsv4byTetf
+	g/bv3lOjuNeMM499H8Q6U21mtXg7zEGZ8gAjQkRryPBObLxeVmrMBVdpxDvMSyeCpa+j/C
+	hXH5YZ4hiCmMQiGWhYmWW5U3zx0Yuzhzax7gIZuHULMLjhVncge/OB3kFkrNDA==
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=[127.0.0.2])
 	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
 	(envelope-from <f.diener@pengutronix.de>)
-	id 1xWAK7-001P9N-1s;
-	Wed, 25 Nov 2026 11:34:00 +0100
+	id 1xWAK7-001P9N-1S;
+	Wed, 25 Nov 2026 11:33:59 +0100
 From: Freimut Diener <f.diener@pengutronix.de>
-Date: Wed, 25 Nov 2026 11:33:57 +0100
-Subject: [PATCH 1/2] dt-bindings: power: rockchip: Allow
- post-init-providers for domains
+Subject: [PATCH 0/2] Describe ROCK 5 GPU and NPU regulators as post-init
+ providers
+Date: Wed, 25 Nov 2026 11:33:56 +0100
+Message-Id: <20261125-rock5t-regulator-deps-v1-0-6a3470ad1855@pengutronix.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,9 +90,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-rock5t-regulator-deps-v1-1-6a3470ad1855@pengutronix.de>
-References: <20261125-rock5t-regulator-deps-v1-0-6a3470ad1855@pengutronix.de>
-In-Reply-To: <20261125-rock5t-regulator-deps-v1-0-6a3470ad1855@pengutronix.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ6CQAxA4auQrm3iVPmJVzEsYKZC0TCkHYwJ4
+ e6OsvwW721grMIGt2ID5beYxDnDnQrwYzcPjBKygc5UOUdX1OifZULlYX11KSoGXgxdIKK6by5
+ 11UBuF+WHfP7fe3vY1n5in34z2PcvNLSp1nkAAAA=
+X-Change-ID: 20261124-rock5t-regulator-deps-1d2227b83768
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
  Midgy Balon <midgy971@gmail.com>, Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
@@ -106,33 +106,36 @@ Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
  Freimut Diener <f.diener@pengutronix.de>
 X-Mailer: b4 0.15.2
 
-A Rockchip power domain can have a supply that is required when
-powering on the domain but is not required to initialize the power
-controller.
+This series addresses failed fw_devlink sync_state-only proxy links
+by describing the GPU and NPU domain supplies as post-init providers
+in the shared ROCK 5B, 5B+ and 5T DTSI.
 
-Allow post-init-providers on power-domain child nodes to describe
-such dependencies.
+Related discussion:
+
+https://lore.kernel.org/aixze8zFboY3huSf@venus
+
+Tested on a ROCK 5T with and without the series. All three device-link
+creation errors disappear, while driver probing, runtime suspend and
+resume, power-domain transitions and regulator reference counts remain
+unaffected for the GPU and all three NPU cores.
+
+The modified binding passes dt_binding_check, and all three affected
+DTBs pass validation against the Rockchip power-controller schema.
 
 Signed-off-by: Freimut Diener <f.diener@pengutronix.de>
 ---
+Freimut Diener (2):
+      dt-bindings: power: rockchip: Allow post-init-providers for domains
+      arm64: dts: rockchip: Mark ROCK 5 domain supplies as post-init
+
  Documentation/devicetree/bindings/power/rockchip,power-controller.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+ arch/arm64/boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi                | 2 ++
+ 2 files changed, 5 insertions(+)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261124-rock5t-regulator-deps-1d2227b83768
 
-diff --git a/Documentation/devicetree/bindings/power/rockchip,power-controller.yaml b/Documentation/devicetree/bindings/power/rockchip,power-controller.yaml
-index b41db576f95de..d2b512dd95f63 100644
---- a/Documentation/devicetree/bindings/power/rockchip,power-controller.yaml
-+++ b/Documentation/devicetree/bindings/power/rockchip,power-controller.yaml
-@@ -147,6 +147,9 @@ $defs:
-           A number of phandles to qos blocks which need to be saved and restored
-           while power domain switches state.
- 
-+      post-init-providers:
-+        $ref: /schemas/post-init-providers.yaml#/properties/post-init-providers
-+
-       "#power-domain-cells":
-         enum: [0, 1]
-         description:
-
--- 
-2.56.0
+Best regards,
+--  
+Freimut Diener <f.diener@pengutronix.de>
 
