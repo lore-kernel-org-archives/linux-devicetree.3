@@ -1,45 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795592630;
-	b=KlavzJL2gT00FmP32JvSLr0X/J0/2VbbLbVxpjoj7kpYO/B7eTfGLW/A5a9Z8Avqi10l
-	 IkdPBp8w/v53vUIiOVgYRjUezNK7Z8C9fkcU+2aSCY25gNe3mG+h9J0265of89NJ9XtqW
-	 ITh9ztSj0kURE+EhsoM7rfSKpw49evNNZkvQizChUU4/9y1YvrNrFZsTi/SSDZNF1gBPW
-	 LeZRXyL47APXn5jY4EUvVYQCe6aYAwVt69DB6bLiBKo9D+t3zLE/tD8YTPEny8VNfL3c4
-	 BSzSpjGEg7Jg4qnS1oZF4x7TNdADS//I/Dxp05sYl5HNgQF7l9oIvZye1ZEZkhPfzGA==
+	t=1795592795;
+	b=ihBiY7enDMRz+M3HJHyw+DZE7XC2k5Ngl8MrX43gdyqDa/xvlAlebXzHlrADrfF/t+BG
+	 P/7ICbP3ho0fmpJPcIxa8zKDI8U6pgWXQ8YYWqW3RuVcsdjX3seWby4rBSMF4OBmKNJOV
+	 b/Iv7ukuFPVHjAw0JUHa21FLTFFEIUlh0uAij3xiliFpoYCJZZbiWkPhfcGLcflWqVSJJ
+	 DXq18EuDTSDQXRFdnYJGS5b59J/I72fv/hfYYz0OqgPVKQNiZT/sU4Pnn91FCtgyNSgOq
+	 7wJOFmUNgGcoAjP5AcSJaVrvimd2nQyI44fQSI8rNkDjhxse/yiqY23QGc49SBL8AEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795592630;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer;
-	bh=vUXThiVJ6bMe52lRwX1g6CBsmoON8XesHCjvBEoaDQA=;
-	b=JDXW7jk6CycNppwASKKnwiWeP/I5n52yomnGEoFuoTBFYF4jog3vYDlUXNhbWEbCMpFZ
-	 kbQphe/yNtQmquQlHAFE/bxObsCafVoln4En+o2+cSczHcEHhJFP804gN0aE0Ld4EN6le
-	 6BR03vL5A7b7yLW5QPZhqCTRLniPho7DxnRQfLLZy3ZfsY1rwM1y9Ua4uGe8kaLDV7PyX
-	 wHalm01MugopnXVaciE11HnD25VfQu3s1xLc24enDZ/wunX64q5qrmBBKNtpEtN3lMNqI
-	 JpfS3h2XSyJ9MhJo9ze6Pldh+6mc0wiAJOYfGhxHEtmI+9jCYB4xAhNovpFsAQ+GVig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795592795;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=wyzL7xSHwG07AHAVXIarfFNMx2ryQoGUjtaQKy+SekM=;
+	b=zmouKDfjdBASTmooyvftqk/ocpFg/DSwV/AbR0Arpl+s9eC0TAJBFwglrGXUl91S1AZc
+	 sfcUD4defhbmrtZeReOiusaVsE7FDi9PkiANUGp4weRvi836nQx3QkstEsYFssjp/alKA
+	 lQdsbm0mW5UPOVxEBIRC9ND0wJztBVISz5zBfwvt80JB/Lsg5h0YNquiiXgwjwUEyLRdt
+	 59EWsl6akmESSJjaqUzYQY/5Z5idPJj8cpApwXZBPqNFR5dHqEj+fA22DzUOg0r71qbD8
+	 mPDaOB4dGQU2YsyfvO7t4H65Vi8oL5cPHcz1W3vEjOZiRi7eLXuKv8CdkN36fGsZqCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i+N+Jel0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uib7j0Nd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38780606A31E;
-	Wed, 25 Nov 2026 07:43:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92828606A69F;
+	Wed, 25 Nov 2026 07:46:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i+N+Jel0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04B591F000C0;
-	Wed, 25 Nov 2026 07:43:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uib7j0Nd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25F261F000CA;
+	Wed, 25 Nov 2026 07:46:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795592629;
-	bh=vUXThiVJ6bMe52lRwX1g6CBsmoON8XesHCjvBEoaDQA=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=i+N+Jel04pnI42CpZWHeFN1FoGpya+vih+ogo2zO2HAttQ88xS5X/gkqMOi4hXRg1
-	 ih7ySjq+dmIS3ApCkUHFnKhxHP1GywJjCrz0ucrlq2Pp9Gs1bQEE/KdQUlhA2Lm6Cq
-	 hI+VrBz9f33wDeiGNkJghRFV3m5AFHL1ibmX8OWnW/C0FOb/hMEfKYk8GpDSU/MT44
-	 kBu9dZzEHu3lQaB54n9TN5O5GFrYpfdgUOyvKSBFo1w0Dz5ixndV5AP5sL+YmWettM
-	 FiDNoUDv65WHXrhIqr3BayR/wyx2fCN6bHMRQ3Sk1Er1mQ7OXMGEumzg7s3NNFZAXT
-	 z4US67F+IOfKQ==
+	s=k20260515; t=1795592795;
+	bh=wyzL7xSHwG07AHAVXIarfFNMx2ryQoGUjtaQKy+SekM=;
+	h=From:Subject:Date:To:Cc;
+	b=Uib7j0NdX1D+qDVQjzoYbda9gGP9cz0zWCeDkmvuoT6VOI47SofU7L02PbTC/F7xT
+	 0O4jz+wXGbw0pMMam7qmq+Q8v+lPFANKN68intuSGbZlXid1sAOHlKdniVUEIFSfdd
+	 D45jGJFEw9NhFbaoPn614zm7LPHSBkHdCAlcUpEIuoe8CNMUJHygEpGYPVO1QcWR3d
+	 z4g+7J0GxFvBmB6r/qO/6j1vUUgzIkEo0vp8PCZlX0Oeoib6ScAXxB7A7Zto0H1Qfj
+	 Jz9HdLkwdHlu6JnRBvpleuNIRJ4qtT3rULHBaUrXAJAH5ezRyEUyEFYjmeFibKOuEj
+	 Nyrm5NhqRpA+A==
+From: Yixun Lan <dlan@kernel.org>
+Subject: [PATCH 0/4] riscv: dts: spacemit: Some minor improvements to K3
+Date: Wed, 25 Nov 2026 07:46:13 +0000
+Message-Id: <20261125-09-k3-dt-minor-misc-v1-0-dd887a8eb326@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,38 +55,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 1/2] dt-bindings: iio: light: add ams OSRAM TCS3430
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Robert Ijtsma <robertijtsma@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>
-In-Reply-To: <20261124-iio-tcs3430-v1-1-0f2a38a6a4c1@gmail.com>
-References: <20261124-iio-tcs3430-v1-0-0f2a38a6a4c1@gmail.com>
- <20261124-iio-tcs3430-v1-1-0f2a38a6a4c1@gmail.com>
-Date: Wed, 25 Nov 2026 08:43:46 +0100
-Message-Id: <179559262610.14607.7329551323239028527.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQqDMBBFryKzdiBJi2KvIi5sMtFRGiWTloJ49
+ 07bzYfH570DhDKTwK06INOLhbekYOsK/DymiZCDMjjjGmvdFU2H6wVDwQenLeuKxxhIXxNd0xK
+ ouWeK/P5V++HP8rwv5Ms3Bef5AUQ9KN53AAAA
+X-Change-ID: 20261124-09-k3-dt-minor-misc-fde2610f267e
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Yixun Lan <dlan@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=849; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=16U7h0aKOarFfxiA3lDLd7920xWf8TsRkzBLdHH6oTo=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBrBpJH5QbFc2ugtaJyOGAfzadyJFj0f9xjO3wvM
+ 2TuMJekOluJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCawaSRxsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
+ maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
+ QACgkQMarqR1lNu+3zKQ//UVzoytlvzLKEn8GUoC5vVljYFBlGqUThDcXrKWXQzBJkaAmxatmNw
+ m89mLvm22ttJbLCptAghfXV0dmJGj9FsEQnlI2/NTAL9Ug2uVe1TOBABEMlICTUA3QpjiuXXTcx
+ LsQalHp9iuRf/p/OFZlAqW3FiWQCGrBW3+UZX6ShRldbz1hrTtgl9d8GR2eu79qmvfr93p5ndHE
+ oy3ebRDs7F8naF6x4B1pcSQdkZv9WHwemsJVAdfc3tVbX/bfyCZK75Z209iwG/I+kFJmx021UdW
+ HvFHv7Rgz+VfJWpJOJyakPEvQTI/gyXzkU93w3Q4UcQ4JhjTXWSXXcO3K/w+HHWaPRQ39wQgVg5
+ niQP2R2G4nUcxAH7aSkxs5Te+71Jpfn8iJUD0GyEEFO7EDoJ3rlrF2/isV6EM8UHgUgTPCBO3ks
+ aYtQO+E9Ij6zuLe+V9TYtQQvVMaNy/7Acw+n59tC2yyidJ4C/ETB9wEAarZ65JJG8frRUUZOESs
+ LHNX+54ft6i4YUT/Ecqg9FfOiLV1kTlWfORKDKPpMrqpZP5MmcIV7JuelWH6DohVh5L6MA81w5b
+ VxPeRR9FDINLmP3ZCLJ4COT6xNIhXXgex3D9Fzl0dqjPNIlyQfben36MBEx51pbQR0XKBM0uS22
+ dFsNHyKos81+r0PiOW0L73fZPckcW8=
+X-Developer-Key: i=dlan@kernel.org; a=openpgp;
+ fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-On 2026-11-24 23:46 +0100, Robert Ijtsma wrote:
-> Add Devicetree binding schema for the ams OSRAM TCS3430 ambient light
-> and CIE 1931 XYZ tristimulus color sensor.
-> 
-> Signed-off-by: Robert Ijtsma <robertijtsma@gmail.com>
-> ---
->  .../devicetree/bindings/iio/light/ams,tcs3430.yaml | 52 ++++++++++++++++++++++
->  MAINTAINERS                                        |  6 +++
->  2 files changed, 58 insertions(+)
+Some misc changes combined in this series, the first three
+patches are quite minor and obvious, the CD pin patch fix
+an issue in U-Boot side which request explicit bias settings.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Yixun Lan <dlan@kernel.org>
+---
+Yixun Lan (4):
+      riscv: dts: spacemit: k3: Rename PMIC node
+      riscv: dts: spacemit: k3: Use Pin Macro
+      riscv: dts: spacemit: k3: Add alias for MicroSD Card
+      riscv: dts: spacemit: k3: Set CD pin bias
+
+ arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts | 1 +
+ arch/riscv/boot/dts/spacemit/k3-com260.dtsi    | 4 ++--
+ arch/riscv/boot/dts/spacemit/k3-pico-itx.dts   | 8 ++++----
+ 3 files changed, 7 insertions(+), 6 deletions(-)
+---
+base-commit: da3f64e708a342ab2804754fa26fb4a132dc1809
+change-id: 20261124-09-k3-dt-minor-misc-fde2610f267e
 
 Best regards,
-Krzysztof
+--  
+Yixun Lan <dlan@kernel.org>
 
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
