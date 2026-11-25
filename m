@@ -1,59 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795634857;
-	b=pgjjWvDat1WeAzAXFLJ1M+X0Z0s35yZ/PxFpXwVaOOp7qPoBxSx+SIcnJ4xyrVhFNCPn
-	 /VTORZy3ZoVDDjz2nqpk/3foTFwzz9HfbhD2XH2bgtH5xIoysmp64z3AMUtlegsJiNGdx
-	 btWiLFprnh3PlCmedOx77dhTJnPykI+svgf0XbTPsx6Vm3777TZhDUuP9Hrz3kOz+1ozv
-	 YJCdrMoemLJrfEdTDa6ckbPsTDyiHmiUe1MHT02bmD/yM4yP4dogdDji7GbSoxjsv3EFF
-	 hzyxS+RS4mZkrwINKxalekYbXJS7LtVMl52JAFepgEwPfBp5cGotOpyydVoFjPDWXWw==
+	t=1795635090;
+	b=Wb8YcK8/ZvvRBxowjp/aNgs8nUiUnJRL1f3x8YX6oHYNDuDGnJXbbd/paxtaNqQUa+pS
+	 NbtigDee0VINfAv6Z/eQQdOqS99OamwmTgx2+5u8/6I8OVSAKV0gDf94byuuJWcuiRCy6
+	 KMkZ18ZjoTu/u0UXS3gmvfGyaQwbH6RmIT1WUXXLUXc6l2evjXF1LtRcOk1Tj/yrPVZrq
+	 pFo8xQpmxhkc1iBuaQGQLQ5n6CpdD38kSpYBPVJI5BuRmaV6jyLpJRKBc45hhezTH9V1x
+	 C8CSu0RhKQH6Aiu8th6+q3/8uW3tUSz1qdrJQvp6cHeO58ySsCjUwudXoUQT3SRFRUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795634857;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Last-TLS-Session-Version;
-	bh=7f2hzo/dOBTufspJmPFdaPlSMDROy4acygZbmp25eMQ=;
-	b=HiAqoHTw+xeyQ1aiCiY4b0GejUS7nIHHYhkjM7Z86CHlPsUqpGL/8Udhq5rcx1n+evQS
-	 iP+fUPAjYShhBazLb/N1g2nmv//VsvzwBNn4PCY5mFD4a+/EMHhC4KLcye350ipEwoASa
-	 sJuym9pudfdQy74nDKsWceqk7+AAbWLm0iB6aRQPXXztF0eYGyfTgfvueoDEeM+KQf/G0
-	 M4w2qjvHLCiHEwoTEHxOVcJLusjCs1s5NBgGaU5LNgJw3T6fUL0R25CCvCT9KS9Ho6ltP
-	 M/zs5A6/4lcoR8sjIbNS5aTVSFy5jrLCVW99Dbh1/zwcJxwvivjI/VyJy9Xc4B9SwcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795635090;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=U1oBw4U+gjNk3iM5j42wuAngnRMfL1HrI9OahKdf/KQ=;
+	b=R7ZWMmK6BmMdPxQILsVBRUdLlAYC9oT0mc+5Ai9SjFSzLhszAzw10meLFGkNYaKOqVjk
+	 kc4rOZv5R7QSIM7sBTs+aKqt9fsuixKEt9KIyLLxdJ8bMuVEFKSrRj9TK5CasXd616T4L
+	 v2wPHDCzKGU2Kzs8P0pBpnQcCjmjvhboYDPSirhdCalj43meKFFd+vdKOResHWig8JrN+
+	 82+XvWv/rnTB6HlAyZdXdmoZumtSbtrv7eTwB8sFBKOq+aAfK4mTAdPNQkucYTy8qrkNV
+	 2uIRBVsvL0Ojj/KMbuFgyXKI418ixOwD7mk4d8z6EGIQ6V6PD8drRseK2KOYNuyk1aQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Yw66vSci;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0nHMyVEo;
+	arc=none smtp.remote-ip=209.85.208.53
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9614C606A321
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 19:27:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9614C606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8476606A323
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 19:31:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8476606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Yw66vSci
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 31F15C69149;
-	Wed, 25 Nov 2026 19:27:43 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 36F9060480;
-	Wed, 25 Nov 2026 19:27:35 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E09FE11E6B117;
-	Wed, 25 Nov 2026 20:27:32 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795634854; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=7f2hzo/dOBTufspJmPFdaPlSMDROy4acygZbmp25eMQ=;
-	b=Yw66vSciQEvlmy3bewq7xbC0cS+Ly+zFl02IZfFNGSuubV19hQzmDgW+bCFm2qz2ArPiit
-	H5RG/aDhCn+kVHLBUtBvWEAgfoWEOPoVKIln2ZJSPgMro5Fd0TtP437tUmMKHRWqy0HHQ/
-	3GOhVT3Ap3IZ6PHGSGumrUoSVgHJyIuOGSxkh6bwmrw/oXXqW3cbd+CDDsuru3h0nfvrIC
-	JzPqI8wjFEyrkEOOLXUgoegNhwtfztzoxlSN76yiYLvrQ8i4SNsfqVamNz5Ee6DLrf26yx
-	NpGBo+z08eA0kUHBlL6+dqj6P1FwK43UAIfOnYcP1fEcAs5PwYrO8f8gs8UdtQ==
-From: Gregory CLEMENT <gregory.clement@bootlin.com>
-Date: Wed, 25 Nov 2026 20:27:12 +0100
-Subject: [PATCH v5 5/5] MAINTAINERS: add EyeQ5 MSI controller entry
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0nHMyVEo
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b8b20b2538so7183145a12.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 11:31:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795635088; x=1796239888; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=U1oBw4U+gjNk3iM5j42wuAngnRMfL1HrI9OahKdf/KQ=;
+        b=0nHMyVEo+cHSBg/yZjo07YS7lm0nSu5aapXced69byeyWvlod6eZOHh3vHqbFwviLr
+         fXpsJZQXB8MYqRvheUfHH+u50BUewnvIXigX2sGoh1oBv0F9raAp1hdMWLRSKGQZGQI1
+         SQQk+CCM8hEOeYgk00xfrypTvmXRqtcUioIBzk0/arl1DHjQmysx9hYsi5u3I063SrFG
+         +8kYHx4giGHRVBYzeGw5tjEcknNPOtd1dXh2UMhaEQzFdLNIZyhcgBRDqr05SI1pzSPq
+         E5lNpN7bzrTvZr0k975+r8Blji+jn/Y2ahr5ord2EOCxrBjaO2ytOiaWdGmorD2eF3Mx
+         PhJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795635088; x=1796239888;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U1oBw4U+gjNk3iM5j42wuAngnRMfL1HrI9OahKdf/KQ=;
+        b=1B6ik9EhfrhAuVNY0RHqH+gXCI1FzhwjBuhtidOTwBn8AVILk/yXtE6SYTDxKS+BlG
+         WSpuxe43bhvAcwKB84F48Rtb0ZCYbtc53ZGF+3sCj04pHTJ7Vzn3ebobKO81czQcPdgG
+         f+lRzJK0/5Q+f3hKPI5DLpIIaPfkiJUaGAs+7y5ZqEgCDI+OHMD/RBK4FBz2Pe6pHZG8
+         HV9XXZZEVLfds8aLZAyp96VeW6MO+OTnYK5PGqZHUFjSoaIA2FzAMiSxUCOn+rC/pTFq
+         aof9bNLxcjkdModM5DAoUfdJaS97itw7cpMLQbmSCz459SfCz3eosqKxnLwUUjXdvyml
+         h1MQ==
+X-Forwarded-Encrypted: i=1; AL+hErER9pwOa4btCLIw2BeYB8D6lt/rKyXt9n4NMJWpfBtn1/pqjgYSMGbk/CqCeLydaM68n2Ry03HrYbVL@vger.kernel.org
+X-Gm-Message-State: APuU4Z+5no8XKKyquwdf5eeXz7xgLk3rSDoINp+Foqe0WhKgWJDt7Xqe
+	XrcUYoK5WoQBV/xNKpMBKRIDyCb2iFrGOYuJXvr5GZhYZqAH0FL5nI0S
+X-Gm-Gg: AZFdTZfaP3CY4/LfMrJezDz/Vih8pB+J3gmkLdXFW3q1m4GuTCC7SO0KmlYjScoDt56
+	FLMFvs7eMvH2sHJIAMoghUIMK7ZkiqrnwYqHOJvW15YsqLWIz7p/imE0fpKFRZQeUwEv4rbJnUo
+	x/KC6Rl0man5Dx3NdVlxU1a0nfkhjPmr4UT+k8XsnlGBUZ1hwhpLsmdrlp5FsjOq2rpzW+0z4a3
+	f2RtBbh/1szcoTDkeYwfoQTyoP6VVtYU/5C6u9jUgJB51Py0CdRHYfetq64ftUy4nlSFf8WeCAj
+	oZh4FqW1W+Nr7sffJf9N8oTfSReUaq8i+16lixWeEmoLrytqrMvu+I+1zTN7ZVvsXZzNOt72Gap
+	ujpunJtW3vqqUAMbrDMvfh8lWercVP1s9TrLX9PagSNlZ2EYo9u+/871QWBvihUUHGM8TmAIPY/
+	RMgVZEwOYNS5K4C/Z2NhnklxlssS4F2G2X20YOto5w2I09BzxW2223hp/3zqpKeMVa84M9DiUSc
+	/DvfumvEGivDIMgZyliQtcNtmle0ll2n4xYTSsnRGdfi/Tfp4kyx5epjbWrR3QykgUsDkLC3mzx
+	36c0bKp5pqnKO+UBKcjDE2IgkJTbqbQGClG6RypsYczJhYE=
+X-Received: by 2002:a05:6402:1f4b:b0:6bb:1203:487e with SMTP id 4fb4d7f45d1cf-6bb12034b21mr4236672a12.6.1795635087911;
+        Wed, 25 Nov 2026 11:31:27 -0800 (PST)
+Received: from localhost.localdomain ([195.155.168.135])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba371072f6sm8924419a12.28.2026.11.25.11.31.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 11:31:26 -0800 (PST)
+From: =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
+To: Alexey Klimov <alexey.klimov@linaro.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Sam Protsenko <semen.protsenko@linaro.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org
+Subject: Re: [PATCH v2 0/5] Exynos850 ADC support and soc thermistor
+Date: Wed, 25 Nov 2026 22:31:23 +0300
+Message-ID: <20261125193122.747908-2-tadilhusrev@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261125-exynos850_adc-v2-0-26de1c6f1717@linaro.org>
+References: <20261125-exynos850_adc-v2-0-26de1c6f1717@linaro.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,51 +111,28 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261125-eyeq5_msi-v5-5-72346cd10736@bootlin.com>
-References: <20261125-eyeq5_msi-v5-0-72346cd10736@bootlin.com>
-In-Reply-To: <20261125-eyeq5_msi-v5-0-72346cd10736@bootlin.com>
-To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
- =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
- Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Gregory CLEMENT <gregory.clement@bootlin.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
 
-Add the EyeQ5 MSI controller binding document and driver.
+On Wed, Nov 25, 2026 at 02:23:32PM +0000, Alexey Klimov wrote:
+> This small series adds support for the ADC block found in the Samsung
+> Exynos850 SoC and enables the Murata NTC thermistor on the WinLink E850-96
+> development board.
 
-Signed-off-by: Gregory CLEMENT <gregory.clement@bootlin.com>
----
- MAINTAINERS | 2 ++
- 1 file changed, 2 insertions(+)
+I tested patches 1-3 on a Samsung Galaxy XCover5 (SM-G525F, Exynos850),
+with an ADC node equivalent to patch 4 (same reg, interrupt and clock)
+and the board's three NTC channels.
+Readings match what I get with the vendor-style sequence (re-init around
+every conversion, SOFT_NON_RESET after reset) to 1-2 LSB on the static
+channels, the NTC channels follow the temperature, and 200 back-to-back
+reads per channel show no stale values. So initialising once at probe
+works fine here.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065d..ca3a32790261d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -18769,12 +18769,14 @@ M:	Gregory CLEMENT <gregory.clement@bootlin.com>
- M:	Théo Lebrun <theo.lebrun@bootlin.com>
- L:	linux-mips@vger.kernel.org
- S:	Maintained
-+F:	Documentation/devicetree/bindings/interrupt-controller/mobileye,eyeq5-msi.yaml
- F:	Documentation/devicetree/bindings/mips/mobileye.yaml
- F:	Documentation/devicetree/bindings/soc/mobileye/
- F:	arch/mips/boot/dts/mobileye/
- F:	arch/mips/configs/eyeq*_defconfig
- F:	arch/mips/mobileye/board-epm5.its.S
- F:	drivers/clk/clk-eyeq.c
-+F:	drivers/irqchip/irq-eyeq5-msi.c
- F:	drivers/phy/phy-eyeq5-eth.c
- F:	drivers/pinctrl/pinctrl-eyeq5.c
- F:	drivers/reset/reset-eyeq.c
+One small thing: channels 8 and 9 always read 0. The downstream driver
+uses 8 channels for this SoC, so MAX_ADC_V2_CHANNELS (10) may expose two
+channels that don't exist.
 
--- 
-2.53.0
+For patches 1-3:
+Tested-by: Adil Hüsrev Tepe <tadilhusrev@gmail.com>
 
+Adil
