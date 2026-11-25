@@ -1,59 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.194.254.142
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795570763;
-	b=c1npwe6Ouedrs2MkFP/kbA300aFBxC+gxc1h7Kn1sop+ffyvxu2xTuM8TfnotuyG/2J6
-	 sjZT9AByJnFk08kelxAq2X/5g/dbrGG0P0dMwgyIbgywaRdh5JHuAxUH8REGsr2QOMNhs
-	 xmea5cv8RwA61hgcMJsigo1mmWokgmTDEEIAf8cLK19fDwtYoDSWXo7uJTr8FJoK30g6Q
-	 UkLMqqnM2yuUW2LY5JDto1SO0v+v86zI4AJbYKTxW9uEQHS2cnjcpp9RID8b5exS9PKr4
-	 xG154ILYG7s7hWlunNjkOnxQZPTyIKwok2K8KzMExGBINTpKBXW9yluqcyrhS4PFeiA==
+	t=1795570767;
+	b=5pDGAqfynTLvIvzJkFkyxYVbLOR5P3b8qgcWOcXXdtxyJbs9CvbvvaYkAO3nYDi3PBxK
+	 Ky3UPpqnBB0pI/vRIjz3MxQQ3Qp3O0kwfVFjeSKEe8R6Wp9Fym3tnOy0l09itN/4O7V0n
+	 rCGeTpGmXwNFbeE6P+6u0lbbE2LmHxu362wlj9yzQ5d3v+8cdkwNjG7Ufh/cyz7jSwjfE
+	 +wnz//8TUWEKDIMiW/2MUNmY3gA5cHcV0pFlG1MaXLfe8jhbsKXalvqv0lVOP73/5WaVl
+	 xD30XY67ev3v4HzkTEPn891WeRLdPDW2JuPJezRofn7Y433WMRF22Hqth07uGWKH6Vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795570763;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795570767;
 	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
 	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:
 	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=pOH/pz5YI6n5r4yeSn21B/P2nSnkvlBqbg8UUHq5vZU=;
-	b=P0Kpe1sxBmmXyewLrWS2i8kvvkfnPY8ZvtomLe2r8xEztqvcu/+TwX1Pr4qcU7mseMtR
-	 2xfqGBWFH6vgZnlyAUnSZ3cqvnOkqVSfOgzyWoSVwDItwiDNYYnxotGbp/lCnviHeve+u
-	 9aHFTeLBD6H0/alvGNDvrCnl+0LuR0Ebq52XMDIwu9TkjoO4IlBOWX5deIqr9+D59T7vF
-	 VG9DhYJnjA76k6pPRTi3WR8P/aCdptaBClu3mflApaiYkDL+EARfjEIEDb7V68sQpX3xr
-	 XzdsgmLHwZ9OCkjggqPJWqONPwjIje08yXQG4bPVK/Fs/wvcB5lCHJRvPDBpZw1SL3w==
+	bh=TtZ7L+0FStK3cBA/dvaUkjGUZLnkhoPuIPbQ7OTOy9M=;
+	b=wi8XWF1MPSR2elEYsUk0d1cjoZRhOlWqlHjTsY9iqnLL9thYwX+f11+3j+1rkLhmkl4X
+	 xOZE6o0sTA2hnP8zFCppZxmHREpp4xcIoK8HUJ89xWUwLh02fPyQ5Il/8oLxXVWm5KaDY
+	 lFiW1YqYe2NqCFmZ7wWrY4OSNYWhg0sU3HhZ0CiNHwc8DXTVxq0vj1Kb3OGfTWd02uRAj
+	 CnVVwUaJ4AAdHW0aoHWZyT/algrqk9VTkqLbPoiGpqQufjTazZ0nmfze9ZIRIpMhdAqH9
+	 Qynqu0zZGuYs35h/crYbvRv/0UqCS6PLYTLeFMELqtX8du/u03PErHLEft0A/RwTNQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=linux.spacemit.com;
 	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=ej2PdTyW;
-	arc=none smtp.remote-ip=18.194.254.142
-Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=yUNz9xZj;
+	arc=none smtp.remote-ip=54.204.34.130
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41AB7606A68F;
-	Wed, 25 Nov 2026 01:39:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41AB7606A68F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D83B9606A695;
+	Wed, 25 Nov 2026 01:39:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D83B9606A695
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=ej2PdTyW
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=yUNz9xZj
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1795570727;
-	bh=pOH/pz5YI6n5r4yeSn21B/P2nSnkvlBqbg8UUHq5vZU=;
+	s=mxsw2412; t=1795570732;
+	bh=TtZ7L+0FStK3cBA/dvaUkjGUZLnkhoPuIPbQ7OTOy9M=;
 	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=ej2PdTyWp2BLpKWOJlrXqbaQlnb8jf47akj+TqjC26FfCIlcH/07fHJj3hIC7P8gf
-	 uiPVmy2QbVL9y4RnD8zBoEr4p2y5MrG/g2qOiX4PbBBuJFoRmt+MXzlgxB/oOjRxXV
-	 Evv6ZgzsD4pyDP/YO1F+PUhIBQ1ejm13oIXNoqUo=
-X-QQ-mid: zesmtpsz6t1795570726t3875f953
-X-QQ-Originating-IP: 1pUHN2W2v/cwes8S0A48xd4P62TBf9qf6ZLNZV/KyCU=
+	b=yUNz9xZj7pPkWYG0E/LmZHN/ACd5ZFyCRqHUPpMJP0gOCcdCyxawPWNaq25YvTbp3
+	 UdG3GUJynDH2UauYSGbBIm7ShjlMIji6IdtTHE7f1M5Z8xo0pA809NZxJrxOcHZPLV
+	 5VcLRFZHT/hPrK4Y4QuWWPAvb+i8MmiuwPoO9g+s=
+X-QQ-mid: zesmtpsz5t1795570731t1cfbf41c
+X-QQ-Originating-IP: qm6/nQPQx3/pNPSzdBkdp0oaDuY6kR+5dIbu/pTJ9oA=
 Received: from = ( [183.48.244.245])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 25 Nov 2026 09:38:43 +0800 (CST)
+	id ; Wed, 25 Nov 2026 09:38:47 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 15465363206099856492
+X-BIZMAIL-ID: 8991991900957459394
 EX-QQ-RecipientCnt: 16
 From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Date: Wed, 25 Nov 2026 01:38:22 +0000
-Subject: [PATCH v3 3/5] riscv: dts: spacemit: Add the K1 APB timer
+Date: Wed, 25 Nov 2026 01:38:23 +0000
+Subject: [PATCH v3 4/5] riscv: dts: spacemit: Add the K3 APB timer
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,7 +65,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-spacemit-soc-timer-v3-3-e6390f3ae4a6@linux.spacemit.com>
+Message-Id: <20261125-spacemit-soc-timer-v3-4-e6390f3ae4a6@linux.spacemit.com>
 References: <20261125-spacemit-soc-timer-v3-0-e6390f3ae4a6@linux.spacemit.com>
 In-Reply-To: <20261125-spacemit-soc-timer-v3-0-e6390f3ae4a6@linux.spacemit.com>
 To: Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
@@ -79,70 +79,72 @@ To: Troy Mitchell <troy.mitchell@linux.spacemit.com>,
 Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-riscv@lists.infradead.org, spacemit@lists.linux.dev
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1252;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1383;
  i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
- bh=MskIDgqPGeV/8XRXVLyf9Iga/gwF4QUehWI17LXRw8Y=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDNlsNqLsAtoNqulCF2yfnZpmX8D/xTC1TI7Raif/gt2Ox
- n2/HbZ1lLIwiHExyIopsnQ/4NlW4BNlWyBQ6Aszh5UJZAgDF6cATER/FcP/NNaXb88c5Ht6S/6I
- WLpuaEZs+dGL0Zl/09bON6jY8++iOyNDW2v2z+K4Z0e2V6mFxKtPOpNwlE88bNYe2cSATI71NVs
- 5AQ==
+ bh=Lakketge+7u3TGaLDJYVC3ImXbq0o9pWuFTAwlnXYmc=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDNlsNqLLYn01Encp7nYufRgnJOm22T1A7vHzqR4CVnOey
+ 24/k/Sro5SFQYyLQVZMkaX7Ac+2Ap8o2wKBQl+YOaxMIEMYuDgFYCJXyxn+8MSosz5ctpZp997s
+ Hbeyg3ln/X/KIer8ctLCEO9bCZ1BYQz/LD7+tWHTfWWoOEX8orpHySTB1qzTKe9PSDAH99hcTVz
+ OCwA=
 X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
  fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NEAuM+RWOySTu/6gG6xcPy8RPcRCS9wqJdwA9O2ucA7v+gN6A2M2gXyx
-	ofw0ZjUm8X4w4+PNDoUg1dlh7IKZ9J+8IBZTC4VfUK5YmFRFQmrObYdLMSSosCXgBixFoRw
-	7E+PvHOsA5cgLemmWkOFK+3PwgqiIWXbfacOSOFf+NDg9V7aQLqYTJkz5t3Cbd/FLsYunFD
-	Np6Ul2mXcSL+cmXHN5cIrZSYeClLFRFyHIU5XROVrFd0h+9J+4lfWbPnmK68AehiSXt0Bzr
-	DdKQk8/HQ5XSH4J5YL4g4KgfQeYQgJbRLl4kgTEw+bLohyKmqfJ0xsiCXppFvJRX5QNC1IZ
-	srPlDWRQlCzUr6OW3N57l6A5YO1XACcqeXaiYlW8VMvPDG8xpa6um+k6Mges0DRtyBmMfYz
-	qTHCdeVesVz3O1qePPOvQM1H46TdQRZvkLnIGlCKC8myDQ9SVFxIDocjTC6xg7t6oFtVddO
-	WjJVhUbh3c0VAXSIaLFLdRxTJhxY5sEenzuiWQPkEbygXT/9qlGHvH7Gr9ycXLs1sCdftpb
-	KBjoGTGnfSTxIpqdEfRC/foPkkuPA28guFGfQoLSXIstzTRDhRquYfyMl7lqBEZXgogjFHv
-	iVcQNxhsTLTYDCgegOx01/ev82gWVIfB0995avisxduqbs4oA0IsdNIaCK8zg+sHtdo4aPW
-	xnd24tWbA6GzZf9sDziYt8OozNzxEcgBSUT0ifAbE5CmReB9MwqANtOMIB4tYZ/v2LqJMPn
-	tOKxTbealQRulR2HKzH9MIZV3OzOivsgW7pw3RZX2PA9KRJTlHNA5zYE1uHiZzKDWXNrIUn
-	EblgxSc2ktaC92Yq//X08ZxWaGz/WUbuPoIfVqjgn9AReCzcEPEK5xYaeKPy0EoEuEuPj66
-	VHA1S51/bjvU9XRZr7Bd8q3MAPO3P4ZokNw18+8vdvcWKp+qbkZ8tkccIxZrWRoZYlqaf2I
-	R+v4tFbwLUjHLX3ZkjVXEjA9SnD74Emn69BW81dxOye9emruucnnMGxL31alICp1GPn3usP
-	tB6tmpmNKvxNHX8NLsI/HwnMBTeZzgFSOJRXdueX6LEmIcGJlYbY1ESMVzDERj+gKGtEtPD
-	HOdm4w4Xa5GD0UdnbCYU88=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-XMAILINFO: NsKw77UaNFtDDD8E2C/5ISDFDXF7k3GigFhCEvYy0va/ahtyjHSS9b1G
+	EdW3YJuKO2wA++hEdm8J8/uE7eJ9CPmAGS+M6r0C7QDn8idcV4axiDW7VA6qyLMGlQRixbJ
+	psTGRNOJcueJHMJrHVtTQtBPoKGJqawEKpxF3oGR9WJx1z4lIyOap8MdPGcw4jPhmpOfop4
+	SlZgpWiTLWyVAneHS/HGJnfmnjj1j4P8XUrgaDaap6kqKae5ykDW/XDqnLcnCUexEoPtQvN
+	786L0Iip1RLJl3G5b9x1LGmVb/QacHQ3GrBlgjhoJb85mpLUwEYNMYiEHzOMRUMLLRsc0Ac
+	jtxHKw59YXhd9TVDEf5OWfTXuULxkIhF64Fk5C2vsaSUt0V9gYR/WRU/Kk5lmshfAj8yb/w
+	Wol9IGtYbxmOM3UY+aMG03/2t4aFG5/oJnQ6UvhoVB2lS0F6JgAMFQ7vQGv7J5I/EcZmT+f
+	SNZ/MkqTrk6Cxp50mKsFG9tLjdJIQeXEpYeb6p/HGbYgQqRZSTdUTQj5oU9gzUEbRwZKgNO
+	V/rtl2JKIpnUMvIKwX64xTqCkamc8NW4GO1RkSDqLbavvUhB4JF8AhckVjpkKaz+B9d3XVO
+	8DlVVGMY2BdbAfe/2GnCSJloiDgIe5TvSKHk/+pTgxBuJsTtH+veppj2O4FXmB4ua6V/aqs
+	EdX1HFenZDOYvrURXDEhT5QGC3M++yBfcAzTOd5f2hFoRtEy4QT77BWL/NVHKuVrMeo3c2w
+	3GgpNYveVWsJVfiv7NjQj2hPgtdz8lThQIxuw7D4QWOLPCNBz4OYCQFyctMf/0B/rhF8FXA
+	/yBZK+mgkt1U5Klb4jgbz57EJFpPhW6TPtB91b6IU3aCq0nBibWSO76ajbLCtp3hZVbSjVT
+	CMmyiuiH+gyaLxt3g1yI6AzbhmiwXo2nPUWO5CR2soOGycxhokOLCk4Ro3CVPMecT/eTMch
+	pQ/V2oxhO1axO6mTwv8O2x/ZkDZPQcjiAd3ahVy329/sgBdf7z3mluL+TDW5xyqtyZ8Qgdk
+	lCchODi/bQY29oFOzO2dybcwK8m40ZCgrCV7UsuibJV/n2QUqPtjJnXj7IcHO3uCSxFyWUp
+	bFTeUkWD0wayTq1wEkX4GsUtegKMEGpxNAINEeP6ZtM
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
 X-QQ-RECHKSPAM: 0
 
-Describe the first APB timer block and its counter 0 interrupt so it can
-provide a shared clockevent. Connect its functional and bus clocks and
-reset, and select the oscillator-derived 1 MHz input for a stable counter
-rate independent of the PLLs.
+Describe the APB timer at 0xd4016000 and its counter 0 interrupt so it can
+provide a shared clockevent. Select the oscillator-derived 1 MHz input
+and connect the functional clock, bus clock and reset.
+
+The register interface is compatible with K1, so use the K1 fallback
+following the K3 compatible.
 
 Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
 ---
- arch/riscv/boot/dts/spacemit/k1.dtsi | 12 ++++++++++++
+ arch/riscv/boot/dts/spacemit/k3.dtsi | 12 ++++++++++++
  1 file changed, 12 insertions(+)
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/spacemit/k1.dtsi
-index 542bfc0d19f5..c3db90f6bf14 100644
---- a/arch/riscv/boot/dts/spacemit/k1.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
-@@ -583,6 +583,18 @@ i2c5: i2c@d4013800 {
- 			status = "disabled";
+diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+index e89d2cc5ca8c..cee313232c11 100644
+--- a/arch/riscv/boot/dts/spacemit/k3.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+@@ -777,6 +777,18 @@ syscon_apbc: system-controller@d4015000 {
+ 			#reset-cells = <1>;
  		};
  
-+		timer0: timer@d4014000 {
-+			compatible = "spacemit,k1-timer";
-+			reg = <0x0 0xd4014000 0x0 0x100>;
-+			interrupts = <23>;
-+			clocks = <&syscon_apbc CLK_TIMERS1>,
-+				 <&syscon_apbc CLK_TIMERS1_BUS>;
++		timer1: timer@d4016000 {
++			compatible = "spacemit,k3-timer", "spacemit,k1-timer";
++			reg = <0x0 0xd4016000 0x0 0x100>;
++			interrupts = <26 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&syscon_apbc CLK_APBC_TIMERS1>,
++				 <&syscon_apbc CLK_APBC_TIMERS1_BUS>;
 +			clock-names = "func", "bus";
-+			assigned-clocks = <&syscon_apbc CLK_TIMERS1>;
++			assigned-clocks = <&syscon_apbc CLK_APBC_TIMERS1>;
 +			assigned-clock-rates = <1000000>;
-+			resets = <&syscon_apbc RESET_TIMERS1>;
++			resets = <&syscon_apbc RESET_APBC_TIMERS1>;
 +		};
 +
- 		syscon_apbc: system-controller@d4015000 {
- 			compatible = "spacemit,k1-syscon-apbc";
- 			reg = <0x0 0xd4015000 0x0 0x1000>;
+ 		uart0: serial@d4017000 {
+ 			compatible = "spacemit,k3-uart", "intel,xscale-uart";
+ 			reg = <0x0 0xd4017000 0x0 0x100>;
 
 -- 
 2.56.0
