@@ -1,90 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795596324;
-	b=iODuguPmKHTqciuL59WjhZSLlInmObDvmS3acoyl0dv4nIaFcAdyIt7FkhH0kEN/rZZw
-	 POoDII4vm4TbIFQoNRb/jm/VtljClkEK7+nUMbTCDDbxZCAELIKoWcDaQwBjonVHL/ANM
-	 lMxZgd5DDGC6zmhzUdlQ6RmYGP2vRD1yoikrWREYhC+n5HDFLeUBGaWbn25f6QsIhChlS
-	 d4qLkLUFUKgbNVFqPYwYD0/GiDPzDvIoIfwQQGo8yAbA6AaYlh1GzR78rGRMpImXBbOj/
-	 D5NLDbHJcu5JWmAm6h2cpwSHcbAZcM0ylZXuekJEyOkt8z0sETqpvxLzlIaN7tFAzmw==
+	t=1795596412;
+	b=0PNv3kMnV9XmLZsdTR8/7mbzI4DkUrb5rmhrRmGR4XxwBY4j954+KigybEWGsMGJw62l
+	 OU53FukC41eepHwU9k7gNt5HKQS2x8jdr2c2sVJpMJO63VzWKVpMONsSYd+2DZGtI/z4K
+	 3/wi4ps9j4oia33AKvt9YDB2D42XT6jm7ETzGH/Sw1Rk1+ecncmoWjcCXSOJ5PFXoW0fg
+	 xFY0IE4nA3N1RjoPnm+9/gekJk4Mwri4XHLsCo0mUF/Rsc/cOaZjsR5wP1aNghVhYQKcX
+	 kGnfxmL0wgCeavJLFv/mX9nILcja9Vhx+zznTecGiIdqBN5VqmypAdXrYvSuhOkeapA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795596324;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795596412;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
 	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=8hnA+onLUda1A0zp7SeLbz5gSaOIOH6AU5jguSzKjPk=;
-	b=E1tmzDB0EaYxi077FA4YfxZ/ijNO2Oq3nkZrgQt9StsSEhcbeEpppd+VwGDCpVDIgjO5
-	 f7DIXhI4lQ1cKM84lXgcBtBE6S0R3TK5iG1BclPDIj/iYika65WVFXTZQW2qox5zXLhpT
-	 a7tyVbf0u7e/iPaAW0oS3h95hKeVhJj4TMDk8sXc324d7uVXs8BA3sUi6fV1I7MAivq5g
-	 EUm6u7vaNh1K+OK+JDZ8EFKpLi2BTiA8Qh5uSyj3NrnSvKjpC+nDxHadMQS5QAYK0kiXZ
-	 EqTI3reE85CgUjSuaVjDNylKWf9BM7nzbk/hj2AhShuEVlW5zPbB7xl1eLY9+R35pIg==
+	bh=yxb7EQsbpqO3H4nS3rf4UMq78ALObXEsUz180cnLRB4=;
+	b=0iTV9FCuXczD+kWBTZtgVCpu9N1Ros86veWmmW7Cw07AGB8YcOGALHXLGs2+qwLrFp3R
+	 1AOuaOclhuM3oQxR28UQE12sql9fmNJyAQ3sEncY0anduXJkxTwjrxYV3t0c+lXaCY6bQ
+	 6kyiLrCZDfAPE5iafhANt2FRPtBLZwIefbn70rDxnSGxRNKNpt2VEhq1+NQzDkoonrFPV
+	 oznYDWWIDGaEe9LFF5zmKIqq2m9AFhappiz5lKOwB5spWzsjrgxMV0kI11FS+0pVXHYC8
+	 wE/zYo7xcKNia6N0KmtZt67kkvMM4GCyQDYbRe4wd29NcBWSVdo87vdllxOE3eV0G4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=PmLGyL5f;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=HCs5D4UO;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BB7B606A321
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 08:45:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BB7B606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14ACB606A326
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 08:46:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14ACB606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=PmLGyL5f
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so43735575e9.3
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 00:45:24 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=HCs5D4UO
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-4a3e706b5dfso3421771f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 00:46:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795596323; x=1796201123; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1795596409; x=1796201209; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8hnA+onLUda1A0zp7SeLbz5gSaOIOH6AU5jguSzKjPk=;
-        b=PmLGyL5fv1es97y0x9Nr6/Xs+qINe30vLqDMczAde/ep+a1PZSCJp8DqdYjTLWi9aY
-         TxJ0keMyAZ6N+Cj2y+7DUUsWm3pwrbNCjlqm6vc/LbgS3TX/OI9320Oi/od5uAnViDCb
-         982ZjQyG6x1Ukmk+6JjiOvcPPQvuGOAsezWvVnc+AyGUlwgqogQ8Ju1LIH0kMYxoorSF
-         XFtiinup+o7iNpUbpMJLZ9ZBq6qAmwUWnmzA0oX8X0dnSWavXi55LA2YXHVJnJuPdI/+
-         RuhqYL/uUD5iTdTize8vq583sPG3nf/pMyWYUBeAmGKgYVobGkGud6TKi8RyRYGNt5gE
-         7cNQ==
+        bh=yxb7EQsbpqO3H4nS3rf4UMq78ALObXEsUz180cnLRB4=;
+        b=HCs5D4UOVsN4uCK96d0/ALHNfx2Pk7+hpvSCNVV9WsdTQ3nOTgOEMWWgKTw9OzyyMz
+         fcQYdOS/BgNvF/Kf0u+letqyupQ8rlBfKqhJx7PFLo8/zBrMkgExNMH73IbnA+Tv7h/n
+         GrEOPiDiWcfW+aJfHtmEsWiQRCjuix4HUHATexIT4/yhmVC308MIuPUHWht7bPiDB1SP
+         mgawjwg8tINKEzk34JZ96qRjTK9m1ih8ruJ65p+DxalOUb78pVed0T+0/ubMHdanGCnW
+         0G8bIj3gnhXF49t4qIguye79XvZ8qDt6B05CFUbw8FovjobdHHt9shr1uX8I7Pyzu4ZU
+         CzKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795596323; x=1796201123;
+        d=1e100.net; s=20260707; t=1795596409; x=1796201209;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8hnA+onLUda1A0zp7SeLbz5gSaOIOH6AU5jguSzKjPk=;
-        b=wVPzrSzBetIuxsebY6PUIjPntkTiPxyAB8bPy9j4KXG80V8/mMYqTUAjMyENtWChtT
-         2Jn3RVb1eTaMYlT9bnKVi8kXfqOQ9qSntSXqVW+ofY2sVdYpoc8SuhWvSIaC2gTYWh/o
-         LSLNo4ZMMnqtAXaLQgCnTYk8NN2gyJX1kQv+ob73Y+ETFSieGz8HwSOn0EfowvFfa85d
-         bxWMilW21PhyZSSxhqLoX/aVm8LL46salyXcuERJxxaGeUENUKGa6Y69138OX8e9h8wi
-         BnOJhJ2UlMdw3rBD2yxUE+uBHleF3GolcBrD8/dTLnKqrYkwEnCYidcJBnxGVtnvM97t
-         GxaQ==
-X-Forwarded-Encrypted: i=1; AL+hErGk29vWhxqIGQlz00a7XmfYtTO1iIuEqAYxwrcgX2PvQ7lr+Z5cW0p8aHMJ0RORa3KWZxcoZ+Becqk5@vger.kernel.org
-X-Gm-Message-State: APuU4Z94TM/4J6D/t6RBsufiaka7IJg/Nj9jRadeaNbFnchgmU65eh/1
-	+hhO3/xfDCn/zLHq39WpFxBQt+3Y+OiUHXC3UUCM6W2Zh9bMBzb/bb1VIBs3CC9sDU94YeYau2Z
-	nWKK6SMPYIA==
-X-Gm-Gg: AZFdTZdSHgsKuCQzRNpVdOxD/5HSACGpXcVeg4XKs3/fILVvvIKn9LSn34H2Vivgg48
-	1imiamlEaQiv/rdJIV6Hq3WSlbq9w82/cAJ/Z0byRHcWXN7f0z4zHd2r7p7aUc6CA5ZXq1DW5k8
-	NOLRvH90lH2AytoMs8uflm5tavyo066uYhyQ3/92z2wy+jPPTVuyrxxd4AzLD5yJl6wyho7S1FH
-	R3FJZiKzblzE6tIah0KcBqbVyjF0R7nRu2mutaSw9baAejn/1OOyentdR/dc8+KNTDZ7+ftU7GW
-	YbKvin7c00dckW9X4HekuvGjPchWP8P0ign78Hm4e0iHfr8pKbJoTBxNNQ6NEeb3s4LsDVfUhaC
-	fuMD0szs49v0MGc2rizR96r/xZv+AtLEzd9QEf6E+1N4L/7kCBnRGf3aE/rwmfzjn2R2ruY3B5I
-	gwQbTU/wsU6zy6uRHPdIofCa0u6mN4XEWzamp/nCP4LDNO0/uMfrhpFZXRljk/CwshCBwknKuSz
-	Lqs2+UO2EimX3iAJTCtYXlZDXxJOFzIoMw+H4TcrXkqXLKaDuDYNiMmZtdOw3raPh5kaOvybssw
-	/feX3nvHTYjbw02IVJ1i6sNZQRgFMU5qtmmLKahR7o6awtYRNfscr0+DICf+7aO0x8JTOPed1mC
-	TChP4Ei2k
-X-Received: by 2002:a05:600c:3b1d:b0:4bb:6991:2330 with SMTP id 5b1f17b1804b1-4bb8881a890mr351422185e9.22.1795596322739;
-        Wed, 25 Nov 2026 00:45:22 -0800 (PST)
+        bh=yxb7EQsbpqO3H4nS3rf4UMq78ALObXEsUz180cnLRB4=;
+        b=tViyg72Lyyo6LFhI3COlxxldv0+Jc2ixNcWhkmfTD7jmcrq0WIW+BtuwhdsgB5KxEu
+         Wa2UG1+qzihXo5HWVZ+mgd2dF+/76UeFem3DM1IUtHArDgDOmWciu4yIoRmzQzibDRH6
+         YeLZ9LUe5C4uHzwMvB5H7WMKcxxvSPPdkxiMmddsWlWwtVhKa/dSWFsYG2M3h83njSIk
+         BFQJyIqOCHVnAJ7OzdH3zDkNFizMo9nneHGfWg+c7pxwwN6bZIF2jezCJ6pYdnYnA9CG
+         76+dp+N84t96ypU6Ksl/fIqtFJlZlxqy+lrDADrQfXnxOEjcYq6EeGtLof46KCMzvdCP
+         /rCg==
+X-Forwarded-Encrypted: i=1; AL+hErFXknHplbfPsnzpXKgYE7pfF25ZZtABg/Ghn4u99yYIvMTqdjIaG1q5pmjzItsFD2RoLR8eAKaWkonZ@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ynykmBmsMer4AwmRHrNPHW02V1GY5/n6f4Dg+XAMHgzL2cELZ
+	cPmN4/dotYp91akhTqv8rijnFHcTWjD1yJEJy1v8ZyPb5l65/0I84YnexarUQhTkV1g=
+X-Gm-Gg: AZFdTZdgrDOcqBjkDMDU3UKWX4FM64KHkRncXPVupc+5H5tVkDGzn3iaOut8SZaVcvj
+	SReYEosiEh1L6VF/kpNVFLV/rny0g8nXTngSlmHtZIZMmXWlrDe2wQyvnz9ErqpGnUUzDDTfsfi
+	rYRPmJ2tEWYn3fnnldWRNSPmI6Fs7zDE7M3UrDkwzqSdu9m23TUkKwOK6Xy6/zR0PZDnsv5b4GN
+	LvuOzfl/I6Fz75MuAkDEQM/A5zfWVa5fNX8mDfITHxxsRA5JrJmSYw9EpUjVghp6IioFVT0nFXi
+	vtcaQv0e7JBo2C84vvb54eCYbKd/H2CAxnIAqHjmZAYOb+mPs1KRGH10w4fumAnnlRZ1oDg7CT3
+	bzhQxF+VKaYeWyvVMuDXqwBk5viifziHqs5GGlh0SF8dGcKf6qwMCyHZZdooRi2rRDKa0Lj0K/9
+	QlRT72QW9FUz7keOqV+YajkRBCig/BYc4S/lYZHSzN6IhnfnyTP+2zEB246AX5yOWo3bnVdiCJF
+	Hwbn1IMHv9cTkLumYoaevaCmZKRs48NUTiSqVIAAs3btEifWV3MaITg5a4P5fiL/D6G7FtjDuN/
+	YEotw2njJX/UeR139jNNv1YePGhmGV0Zea5wy3+SjHcjJoY4LM38DOL4BfH6D6twDu19KMQrIK1
+	H+RK6iXmF
+X-Received: by 2002:a05:6000:2586:b0:4b7:760c:70db with SMTP id ffacd0b85a97d-4b7760c713cmr8367241f8f.4.1795596409091;
+        Wed, 25 Nov 2026 00:46:49 -0800 (PST)
 Received: from ?IPV6:2a01:e0a:106d:1080:f368:ae2e:e717:e970? ([2a01:e0a:106d:1080:f368:ae2e:e717:e970])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6a680355sm27677872f8f.27.2026.11.25.00.45.22
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4b3415763f7sm12637052f8f.9.2026.11.25.00.46.48
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Nov 2026 00:45:22 -0800 (PST)
-Message-ID: <5d181d25-53ac-479b-8966-82096c53cb5f@linaro.org>
-Date: Wed, 25 Nov 2026 09:45:21 +0100
+        Wed, 25 Nov 2026 00:46:48 -0800 (PST)
+Message-ID: <59b8701a-22b5-42e9-b94a-4ed3af6f346f@linaro.org>
+Date: Wed, 25 Nov 2026 09:46:48 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -97,14 +96,14 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 18/19] ASoC: qcom: sdw: allow LPASS_CDC_DMA_WSA_RX0 as
- soundwire dai
+Subject: Re: [PATCH v2 19/19] ASoC: qcom: sc8280xp: allow using the sc8280xp
+ card with lpass-cpu
 To: sashiko-reviews@lists.linux.dev
 Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
  conor+dt@kernel.org
 References: <20261124-topic-sm8650-el2-v2-0-174e159f0f69@linaro.org>
- <20261124-topic-sm8650-el2-v2-18-174e159f0f69@linaro.org>
- <sashiko-outbox-231744@kernel.org>
+ <20261124-topic-sm8650-el2-v2-19-174e159f0f69@linaro.org>
+ <sashiko-outbox-231759@kernel.org>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -131,85 +130,126 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <sashiko-outbox-231744@kernel.org>
+In-Reply-To: <sashiko-outbox-231759@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11/24/26 18:48, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found no new issues
-> in this patch, but noticed 1 related pre-existing issue it does not
+On 11/24/26 18:56, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [Medium] ASoC: qcom: sc8280xp: missing jack cleanup and link exit on
+>    DSP Bypass links
+> It also noticed 1 related pre-existing issue this patch does not
 > introduce:
-> - [Critical] ASoC: qcom: use-after-free in qcom_snd_sdw_startup() [1]
+> - [High] ASoC: qcom: sc8280xp: missing WCD jack cleanup in
+>    sc8280xp_snd_exit() [1]
 > --
 > 
-> commit 7f273de8112390d0dc0ac3f44c88e5ff3276352c
+> commit 30357a271c5bc6a19f163b41e5ab561af21084a8
 > Author: Neil Armstrong <neil.armstrong@linaro.org>
 > 
-> ASoC: qcom: sdw: allow LPASS_CDC_DMA_WSA_RX0 as soundwire dai
+> ASoC: qcom: sc8280xp: allow using the sc8280xp card with lpass-cpu
 > 
-> This commit allows LPASS_CDC_DMA_WSA_RX0 to be initialized as a SoundWire
-> DAI and restricts LPASS CPU DAI ID matching to DSP bypass links so that
-> overlapping DSP DAI IDs are not matched.
+> This commit adds init and ops callbacks for DSP Bypass DAI links in the
+> sc8280xp machine driver and attaches the WCD jack to LPASS CPU TX codec DMA
+> DAIs in qcom_snd_wcd_jack_setup().
 > 
->> diff --git a/sound/soc/qcom/sdw.c b/sound/soc/qcom/sdw.c
->> index 6576b47a4c8c3..669fb63207c91 100644
->> --- a/sound/soc/qcom/sdw.c
->> +++ b/sound/soc/qcom/sdw.c
+>> diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
+>> index ac4dfb2c2182c..4fcccf7ec4965 100644
+>> --- a/sound/soc/qcom/sc8280xp.c
+>> +++ b/sound/soc/qcom/sc8280xp.c
+> 
 > [ ... ]
->> @@ -71,7 +74,7 @@ int qcom_snd_sdw_startup(struct snd_pcm_substream *substream)
->>   	u32 rx_ch_cnt = 0, tx_ch_cnt = 0;
->>   	int ret, i, j;
+> 
+>> @@ -377,6 +378,37 @@ static int nord_snd_init(struct snd_soc_pcm_runtime *rtd)
+>>   	return 0;
+>>   }
 >>   
->> -	if (!qcom_snd_is_sdw_dai(cpu_dai->id))
->> +	if (!qcom_snd_is_sdw_dai(rtd))
->>   		return 0;
->>   
->>   	sruntime = sdw_alloc_stream(cpu_dai->name, SDW_STREAM_PCM);
+>> +static int sc8280xp_lpass_snd_init(struct snd_soc_pcm_runtime *rtd)
+>> +{
+>> +	struct sc8280xp_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
+>> +	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
+>> +	struct snd_soc_card *card = rtd->card;
+>> +
+>> +	switch (cpu_dai->id) {
+>> +	case LPASS_CDC_DMA_WSA_RX0:
+>> +	case LPASS_CDC_DMA_WSA_RX1:
+>> +		/*
+>> +		 * Set limit of -3 dB on Digital Volume and 0 dB on PA Volume
+>> +		 * to reduce the risk of speaker damage until we have active
+>> +		 * speaker protection in place.
+>> +		 */
+>> +		snd_soc_limit_volume(card, "WSA_RX0 Digital Volume", 81);
+>> +		snd_soc_limit_volume(card, "WSA_RX1 Digital Volume", 81);
+>> +		snd_soc_limit_volume(card, "SpkrLeft PA Volume", 17);
+>> +		snd_soc_limit_volume(card, "SpkrRight PA Volume", 17);
+>> +		break;
+>> +	case LPASS_DP_RX:
+>> +		return qcom_snd_dp_jack_setup(rtd, &data->dp_jack[0], 0);
+>> +	default:
+>> +		break;
+>> +	}
+>> +
+>> +	if (data->priv->wcd_jack)
+>> +		return qcom_snd_wcd_jack_setup(rtd, &data->jack, &data->jack_setup);
+>> +
+>> +	return 0;
+>> +}
 > 
-> [Severity: Critical]
-> This problem wasn't introduced by this patch, but can [1]
-> qcom_snd_sdw_startup() leave dangling sruntime pointers in already
-> configured codec DAIs on error?
+> [Severity: High]
+> This problem wasn't introduced by this patch, but sc8280xp_snd_exit() skips
+> headset jack cleanup for WCD jack configurations [1].
 > 
-> The loop below calls snd_soc_dai_set_stream() on each codec_dai, and if
-> snd_soc_dai_get_channel_map(), a later codec_dai, or
-> snd_soc_dai_set_channel_map() fails, the err_set_stream path releases
-> sruntime without clearing the stream pointers on the codecs that were
-> already set up:
+> Both sc8280xp_snd_init() and sc8280xp_lpass_snd_init() initialize data->jack
+> and set data->jack_setup = true for WCD jack configurations, whereas
+> sc8280xp_snd_exit() only calls qcom_snd_headset_jack_cleanup() and clears
+> data->jack_setup when dai_data->jack_setup is SC8280XP_JACK_SETUP_CODEC:
 > 
-> sound/soc/qcom/sdw.c:qcom_snd_sdw_startup() {
+> sound/soc/qcom/sc8280xp.c:sc8280xp_snd_exit() {
 > 	...
-> 	for_each_rtd_codec_dais(rtd, i, codec_dai) {
-> 		ret = snd_soc_dai_set_stream(codec_dai, sruntime,
-> 					     substream->stream);
-> 		if (ret < 0 && ret != -ENOTSUPP) {
-> 			...
-> 			goto err_set_stream;
-> 		} else if (ret == -ENOTSUPP) {
-> 			continue;
-> 		}
-> 
-> 		ret = snd_soc_dai_get_channel_map(codec_dai, &tx_ch_cnt, tx_ch,
-> 						  &rx_ch_cnt, rx_ch);
-> 		if (ret != 0 && ret != -ENOTSUPP) {
-> 			...
-> 			goto err_set_stream;
-> 		}
-> 		...
+> 	dai_data = sc8280xp_get_dai_data(data->priv, cpu_dai->id);
+> 	if (dai_data && dai_data->jack_setup == SC8280XP_JACK_SETUP_CODEC) {
+> 		qcom_snd_headset_jack_cleanup(rtd);
+> 		data->jack_setup = false;
 > 	}
-> 	...
-> err_set_stream:
-> 	sdw_release_stream(sruntime);
-> 
-> 	return ret;
 > }
 > 
-> Subsequent stream accesses or teardown on those codecs will then trigger a
-> use-after-free on the freed sruntime.
+> When a card with a WCD jack unbinds, snd_card_free() frees data->jack.jack
+> while codec components retain &data->jack and data->jack_setup remains true.
+> On rebind, qcom_snd_headset_jack_init() skips creating a new jack and
+> re-registers the dangling data->jack with the codec components, causing a
+> use-after-free on the next headset jack event.
 
-It's not related to this serie, it deserves a separate fix.
+This will deserve a fix in a separate serie.
 
 > 
-> [1] https://sashiko.dev/#/bug/linux-3eb5665f-b54d-4f37-aa26-a95e56e5e77e
+> [ ... ]
+> 
+>> @@ -549,6 +633,10 @@ static void sc8280xp_add_be_ops(struct snd_soc_card *card)
+>>   			link->exit = sc8280xp_snd_exit;
+>>   			link->be_hw_params_fixup = sc8280xp_be_hw_params_fixup;
+>>   			link->ops = &sc8280xp_be_ops;
+>> +		} else if (!link->dynamic) {
+>> +			/* DSP Bypass link, neither a DPCM frontend nor a backend */
+>> +			link->init = sc8280xp_lpass_snd_init;
+>> +			link->ops = &sc8280xp_lpass_ops;
+>>   		}
+>>   	}
+>>   }
+> 
+> [Severity: Medium]
+> Should DSP Bypass links also wire a link->exit callback to call
+> qcom_snd_headset_jack_cleanup() and reset data->jack_setup = false?
+> 
+> Without an exit callback to pair with sc8280xp_lpass_snd_init(), unbinding and
+> rebinding a component on a DSP Bypass card with data->priv->wcd_jack set leaves
+> data->jack_setup true after snd_card_free() frees data->jack.jack, leading to
+> a use-after-free in snd_soc_jack_report() when a jack event is reported.
+
+The current code doesn't clean the jack on exit, this should be fixed globally
+in a separate serie.
+
+> 
+> [1] https://sashiko.dev/#/bug/linux-70cecd60-74fd-40f1-95c8-8dc260e646ac
 > 
 
