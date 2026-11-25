@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795595495;
-	b=OZ7hcMz9PyGo3odmvez0CfigZyeUQgKlzuswZawqBb5Lgiqlaj4Oufmak4NteCudkrfE
-	 6WoJsFryZZNFrLQb5cd4Cjh860S7wwRay78M31J/pWsmdFNRrKo8RvIbXsurPsY4Oz9Rt
-	 m7CB4ndftDTVrzWHQc1dMjdugVV8T1oy40RCYzttkntelNjMtpoyhNDXGJmuwEDefUr4A
-	 tE17vzXdpkBcnc9byyJFsb4ndW4C504t+BDoweBpSwuzXuzH/1p4Ur7IxB5+fRe7soCRn
-	 arrYFGM9ha1wYPSpA6FlRxWxYxBcylkqURbBQclTPP/Erhw2ITmMYFZicHHSyHr2g1Q==
+	t=1795595523;
+	b=zYr767cYyiKyimrUx1Lv48m0QgRNDpreVUg/Kk7mZipZnnY7zS47HnMZxp48KTCEoovK
+	 fGkY6WG37Two938Le4LccYrubnqnxZHQ52gAIbDgKeD1MHOCfk9n0t6mptmRLhuiLJ7fv
+	 NFLJQ7yi9+Z9JaT7wb9g5I6OEVTYnCxtljqdr8hjzv30tgYJObXHHO8zGenQO2BsIsdkF
+	 xcM3NUeDX7IH2VYMlqlBD/mMe9MT+e7+x+czLSgwzJrBR1VXYbOpJTCJhEY9QGK2L0kYW
+	 mWFlhE2mOfdJMj1S5hAwf6qOrjPflF56t//3ISL86+vFQf8xj8dqPARO4IPKDxJv1oQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795595495;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=orkqkN9k0NvO+k3q6u67IvXNksIJl6E1WSlIId6lXvg=;
-	b=CE/hlRc11NPK/Bn50EH6qSSs562cNQn3bcSbTgJq3tG6tbrcC5Qiz5HiECyxup0+BtyP
-	 qvwZ53kDE/sZMobVwu8Nxi1MD00VSIWi4a6Y2AZhuAZjW5uPeRD7kfbBW1OaAw/KpjVLZ
-	 nIN9fM3m7IHlHrMXl0iECZR/tMWxebp4nWpH58X7hNBtANUVAX6mEOC6G6ihI6Epe68Em
-	 FauoP9i4nqrbfcxdC/yT5qieUs1PFIgu5QAmPb1dMiDd5GD7esQEkzihX1tow00/TaHrA
-	 aHcj1W2DRhrD8GeNiTnIHd75NAe3awBDiwJYH3hbkJMyKIly1ZbTokC3NmVm4BlOBQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795595523;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Xhprbp8vYgoK3W8l2CK0jpgqQyaq9WrszZ2gTi+N1FM=;
+	b=er/sJTAqe2xaQshcVchj3kCRVc0dOIiZoUY2Hl/qUsMP62UIYy9UsDwSz2t884Ywh9Bz
+	 Cteh0Afy95TidLz4HUM0U+F1eRqq1IbQ14a3ZBuYJbXrVmqGdU1UKErVX315dDb+Mbdl9
+	 UEDQceumdVpBa2POOUqlInldqrsfL4EfJfO4Kh+SE4oLUi/4Fm0FNqN4LPMSRyhJ+42x4
+	 9hm0St0Zm9qz1YRbjX0/fLwOARkm+NhEFAY16CE3VU9OkYcyWP1pMzqxMjvNj/iZ2LmRN
+	 hbifh1S5IEn+EupW1nsOkT4AZXi01VXwWE88m75YqweiB391bGESMir4DItIwBb++NQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="O/fjzGlN";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=boAdVYoX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 106C0606A31E;
-	Wed, 25 Nov 2026 08:31:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B38606A31E;
+	Wed, 25 Nov 2026 08:32:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O/fjzGlN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C04A1F000CF;
-	Wed, 25 Nov 2026 08:31:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=boAdVYoX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79B881F000C6;
+	Wed, 25 Nov 2026 08:31:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795595494;
-	bh=orkqkN9k0NvO+k3q6u67IvXNksIJl6E1WSlIId6lXvg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=O/fjzGlN6oVvhVvoBqjCKbVNEmy452qiZxK82fL/SIkZ+lx52h8kWBKa6zRgpOSzS
-	 tusHyXoHdckAwHtLoh+p3GjZUskzZqimw0CY7Cd0PS9pOdg4dHaeTeUHJg5Z/fuxlv
-	 nANs5ll3OY5hDUypEmejv/3hZ+RmcGuI98CQPUPeMwEOshNbk3Fm7ipYDg6blMO0lY
-	 yVYhbBp2NjznoH6ciXoid7kcU6Mzf4ehqApTNNhdIxBsbVdIXP2mNzfHc+nWKtDa8e
-	 ZKQ8jf4HkgBGptdtJzZRNNan8iX5+sSLcEivBPbqJ/MSE3pyzyZp/UrDR3S9u95799
-	 imJDBy40J+NPQ==
-Message-ID: <14111935-b991-457f-88d4-f5c06ae68df8@kernel.org>
-Date: Wed, 25 Nov 2026 09:31:31 +0100
+	s=k20260515; t=1795595523;
+	bh=Xhprbp8vYgoK3W8l2CK0jpgqQyaq9WrszZ2gTi+N1FM=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=boAdVYoX6mzVRi523peA0iUwn//soWfCQzl+E94F2K/c/zZRfD3fiEix+n2i3hPES
+	 aXkQyPSDPAxStRt++4P0F7qi9974GWrBGgMaLskiSiUfb8g6C1RbBsYmcGREJtlpHG
+	 NJXGmZ8qL7Fx5S7hEjOUgoCZUSEQyQpJrNvQrwRoUq2nP8evB7moPrYoqosJBT1Ga1
+	 p2fzUN7xQq4fpTwW5jTr6PwuMFmdTlDfJzTxIDJ+9Gqy4xxwFmkxtbHYaRHtXHnVEu
+	 uq/4RbynOG/7r5eaVe7Ft98NQeb0m+cYS6NG6B41b/i9iobv4kYwL2JeyO2soXETeO
+	 l90JcBY8eo3Cg==
+Message-ID: <de65af39-3a9c-4b2e-bb82-2a84b8584731@kernel.org>
+Date: Wed, 25 Nov 2026 09:31:54 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,209 +51,150 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Subject: Re: [PATCH 2/2] iio: light: add ams OSRAM TCS3430 XYZ and ambient
- light sensor driver
-To: robertijtsma@gmail.com, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261124-iio-tcs3430-v1-0-0f2a38a6a4c1@gmail.com>
- <20261124-iio-tcs3430-v1-2-0f2a38a6a4c1@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/9] dt-bindings: soc: google: Add Google Tensor CPM
+ binding
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Brian Norris <briannorris@chromium.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ulf Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Peter Griffin <peter.griffin@linaro.org>, devicetree@vger.kernel.org,
+ Tudor Ambarus <tudor.ambarus@linaro.org>,
+ =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+ linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>,
+ linux-arm-kernel@lists.infradead.org,
+ Mariano Marciello <mmarciello@google.com>,
+ Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
+ =?UTF-8?Q?Jakub_G=C5=82owacki?= <jglow@google.com>
+References: <20261026214359.3122870-1-briannorris@chromium.org>
+ <20261026144346.2.Ib692ddd35c1dbea1757d9b1db6c1c7e938fc4ea6@changeid>
+ <20261028-rapid-daffodil-rat-0adc6a@quoll> <aulIoq2oVjJ3DVzL@google.com>
+ <d4a430de-715a-4936-8adb-35ff57a52b5f@kernel.org>
+ <avZkfg6WMlMzOxpn@google.com>
+ <72ef7ef8-acc8-4ad5-9c09-76d9e944bf5c@kernel.org>
 Content-Language: en-US
-From: Joshua Crofts <crofts@kernel.org>
-In-Reply-To: <20261124-iio-tcs3430-v1-2-0f2a38a6a4c1@gmail.com>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <72ef7ef8-acc8-4ad5-9c09-76d9e944bf5c@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24-Nov-26 23:46, Robert Ijtsma via B4 Relay wrote:
+On 25/11/2026 08:07, Krzysztof Kozlowski wrote:
+> On 13/11/2026 02:14, Brian Norris wrote:
+>> Hi Krzysztof,
+>>
+>> On Thu, Nov 05, 2026 at 07:54:22PM +0100, Krzysztof Kozlowski wrote:
+>>> On 03/11/2026 03:36, Brian Norris wrote:
+>>>> On Wed, Oct 28, 2026 at 02:19:23PM +0100, Krzysztof Kozlowski wrote:
+>>>>> On Mon, Oct 26, 2026 at 02:43:40PM -0700, Brian Norris wrote:
+>>>>
+>>>>>> --- /dev/null
+>>>>>> +++ b/include/dt-bindings/interrupt-controller/irq-cpm-google.h
+>>>>>> @@ -0,0 +1,16 @@
+>>>>>> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+>>>>>> +/*
+>>>>>> + * This header provides constants for CPM IRQ.
+>>>>>> + *
+>>>>>> + * Copyright 2025-2026 Google LLC
+>>>>>> + *
+>>>>>> + */
+>>>>>> +#ifndef _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H
+>>>>>> +#define _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H
+>>>>>> +
+>>>>>> +#define CPM_IRQ_RTC_ALARM_NO			0
+>>>>>
+>>>>> Keep naming consistent. Clocks has _CLK suffix, so this should not use
+>>>>> prefix.
+>>>>>
+>>>>>
+>>>>>> +#define CPM_IRQ_AOC_MIN				7
+>>>>>
+>>>>> Anyway, ABI constants should be indexed from 0 and incremented by 1.
+>>>>
+>>>> What do you mean by this? Do I need to make up names for the
+>>>> unused IDs between 0 and 7? On an initial search, I don't believe they
+>>>> have any meaning at all. Does that mean I should make up some kind of
+>>>> "RESERVED_<N>" naming here?
+>>>
+>>> No, I meant CPM_IRQ_AOC_MIN is 1.
+>>>
+>>>>
+>>>> Between 7 and 156, these are just ... 150 different "service numbers"
+>>>> within the AOC (Always On Connectivity) subsystem. I can name them
+>>>> AOC_0, AOC_1, ... AOC_149 if that helps.
+>>>>
+>>>> Or are you suggesting that I pack the actual use cases (so, 0 and 7-157)
+>>>> into 0-151? I thought it was valuable to directly use the firmware
+>>>> indexing where possible; if I change those, then the indexing loses its
+>>>> inherent meaning, and we also have to add another layer of translation.
+>>>
+>>> We do not use hardware numbers as bindings and ABI, because that's
+>>> pointless - no benefits, only risks. Similarly you do not define GIC
+>>> interrupt numbers, pinctrl pin numbers, MMIO addresses as bindings. None
+>>> of these bind anything between DTS and software, so not a binding.
+>>
+>> OK, I see your point about the distinction between hardware numbers and
+>> bindings. So are firmware-protocol-defined numbers more like hardware
+>> numbers or bindings?
+>>
+>>> There are some exceptions like SCMI firmware, but that's not the case here.
+>>
+>> It's funny you mention that, because that's exactly what Jerome compared
+>> this to in the clk, reset, and pmdomain portions.
+>>
+>> These values are used literally in the firmware interface, so I'd
+>> consider them very similar to SCMI firmware protocol IDs (and, not that
+> 
+> Sure, where is the source code of the firmware then?
 
-...
+And if you do not have the source code, then not a binding, so you won't
+have case like:
+https://lore.kernel.org/all/20261124-qcom-adsp-shared-vmid-fixes-v1-1-f1a808dc41a5@mainlining.org/
 
-> diff --git a/drivers/iio/light/tcs3430.c b/drivers/iio/light/tcs3430.c
-> new file mode 100644
-> index 0000000..138c8ab
-> --- /dev/null
-> +++ b/drivers/iio/light/tcs3430.c
-> @@ -0,0 +1,345 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * IIO driver for ams OSRAM TCS3430 Ambient Light and CIE 1931 XYZ Sensor
-> + *
-> + * Copyright (C) 2026 Robert Ijtsma <robertijtsma@gmail.com>
-> + *
-> + * Datasheet:
-> + *   https://look.ams-osram.com/m/43d518b4cd81e3f2/original/TCS3430-DS000539.pdf
-> + */
-> +
-> +#include <linux/array_size.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/bits.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/device.h>
-> +#include <linux/err.h>
-> +#include <linux/i2c.h>
-> +#include <linux/math64.h>
-> +#include <linux/mod_devicetable.h>
-
-No need for this, the device tables required will be pulled in
-via the respective bus headers.
-
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/pm.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/types.h>
-> +#include <linux/units.h>
-> +
-> +#include <linux/iio/iio.h>
-> +
-
-..
-
-> +static int tcs3430_apply_gain(struct tcs3430_data *data, u8 gain_idx)
-> +{
-> +	u8 cfg1, cfg2;
-> +	int ret;
-> +
-> +	if (gain_idx == 4) {
-> +		cfg1 = FIELD_PREP(TCS3430_CFG1_AGAIN_MASK, 3);
-> +		cfg2 = TCS3430_CFG2_DEFAULT | TCS3430_CFG2_HGAIN;
-> +	} else {
-> +		cfg1 = FIELD_PREP(TCS3430_CFG1_AGAIN_MASK, gain_idx);
-> +		cfg2 = TCS3430_CFG2_DEFAULT;
-> +	}
-> +
-> +	ret = i2c_smbus_write_byte_data(data->client, TCS3430_REG_CFG1, cfg1);
-
-Why not use regmap for read/write operations?
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = i2c_smbus_write_byte_data(data->client, TCS3430_REG_CFG2, cfg2);
-> +	if (ret)
-> +		return ret;
-> +
-> +	data->gain_idx = gain_idx;
-> +	return 0;
-> +}
-> +
-> +static int tcs3430_init_hw(struct tcs3430_data *data)
-> +{
-> +	struct i2c_client *client = data->client;
-> +	int ret;
-> +
-> +	ret = i2c_smbus_write_byte_data(client, TCS3430_REG_ENABLE, 0x00);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = i2c_smbus_write_byte_data(client, TCS3430_REG_ATIME,
-> +					TCS3430_DEFAULT_ATIME_CYCLES - 1);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = tcs3430_apply_gain(data, data->gain_idx);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = i2c_smbus_write_byte_data(client, TCS3430_REG_CFG3,
-> +					TCS3430_CFG3_DEFAULT);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = i2c_smbus_write_byte_data(client, TCS3430_REG_INTENAB, 0x00);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return i2c_smbus_write_byte_data(client, TCS3430_REG_ENABLE,
-> +					 TCS3430_ENABLE_PON |
-> +					 TCS3430_ENABLE_AEN);
-> +}
-> +
-> +static void tcs3430_power_off(void *priv)
-> +{
-> +	struct tcs3430_data *data = priv;
-> +
-> +	i2c_smbus_write_byte_data(data->client, TCS3430_REG_ENABLE, 0x00);
-> +}
-> +
-> +static int tcs3430_read_raw(struct iio_dev *indio_dev,
-> +			    const struct iio_chan_spec *chan,
-> +			    int *val, int *val2, long mask)
-> +{
-> +	struct tcs3430_data *data = iio_priv(indio_dev);
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		guard(mutex)(&data->lock);
-
-cleanup.h magic works thanks to local variables and a scope. When using
-guard() in a switch case it has to be surrounded by brackets to define
-the scope (this is what the email from lkp is warning about).
-
-> +		ret = i2c_smbus_read_word_data(data->client, chan->address);
-> +		if (ret < 0)
-> +			return ret;
-> +		*val = ret;
-> +		return IIO_VAL_INT;
-> +
-> +	case IIO_CHAN_INFO_SCALE: {
-> +		u32 itime_us = TCS3430_DEFAULT_ATIME_CYCLES * TCS3430_ATIME_STEP_US;
-> +		u64 scale_nano;
-> +		u32 rem;
-> +		int gain;
-> +
-> +		scoped_guard(mutex, &data->lock)
-> +			gain = tcs3430_gains[data->gain_idx];
-> +
-> +		scale_nano = div_u64(TCS3430_LUX_FACTOR * NSEC_PER_SEC * USEC_PER_MSEC,
-> +				     (u32)gain * itime_us);
-> +		*val = div_u64_rem(scale_nano, NSEC_PER_SEC, &rem);
-> +		*val2 = rem;
-> +		return IIO_VAL_INT_PLUS_NANO;
-> +	}
-> +
-> +	case IIO_CHAN_INFO_HARDWAREGAIN:
-> +		guard(mutex)(&data->lock);
-
-Same here.
-
-> +		*val = tcs3430_gains[data->gain_idx];
-> +		return IIO_VAL_INT;
-> +
-> +	case IIO_CHAN_INFO_INT_TIME:
-> +		*val = 0;
-> +		*val2 = TCS3430_DEFAULT_ATIME_CYCLES * TCS3430_ATIME_STEP_US;
-> +		return IIO_VAL_INT_PLUS_MICRO;
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-...
-
-> +static int tcs3430_read_avail(struct iio_dev *indio_dev,
-> +			      const struct iio_chan_spec *chan,
-> +			      const int **vals, int *type, int *length,
-> +			      long mask)
-> +{
-> +	if (mask != IIO_CHAN_INFO_HARDWAREGAIN)
-> +		return -EINVAL;
-> +
-> +	*vals = tcs3430_gains;
-> +	*type = IIO_VAL_INT;
-> +	*length = ARRAY_SIZE(tcs3430_gains);
-> +	return IIO_AVAIL_LIST;
-
-For IIO macros we usually use a switch, even if we're only checking
-for one case.
-
--- 
-Kind regards,
-Joshua Crofts
-
+Best regards,
+Krzysztof
