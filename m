@@ -1,77 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795637387;
-	b=F8GkVjD9YyAF/Yei2vmCYZ1HGZfqWIIuNEpAfoWUrWUuyU+VeeLBGQShvyd/vGeSjjfZ
-	 Ru+LfJ9QXk5qtPGUuUlx6s9GtmM4C0fnFrPCfYym1Ik6wSguYSYxzMYyfUxvjNvIgijqk
-	 9urqdEj01Kihb0M9l0U59MpjNYvhkDw+89jEt86jX+bN0+DtjjKaY7bchHXCEgeTy3XLW
-	 +zpJaph6MWbxsZ7w93kBUFHxMpp+DFjA5wWHL4Z1rCd8K+VTSawEBtyG3biB8biv3Bb+8
-	 ajV5oqUDbx8yKtX/QiMhFlnbfqrabPQrezXaAr3nXKIjZoc2wYf3oFJ+ngbEUxr17fw==
+	t=1795638083;
+	b=wK9pHQBB/bfzIaHjE7fJxz8VfMhmZFtRPKrjPbtB2ek0aDS3tON9viXkuuRN9aYdWbQT
+	 FzFVjsTWgmkzteLkulK2J8Ipyv1oRIES6xBzgm01Td2H5rJgH9WQOs1rHWOVhyg70e06K
+	 8ErJO1nX2z6p0W89BMpXqTGhf+FDdhhq3N7U2Gn5aup/Ff0Wbm/qF5B1aVFvIVnr8yi7Z
+	 uPrTQwuUesK6nyxqIw16vVMaXD/mwXTLK8ntxU/p2lZIMAlmm8tLXlDXuTbP2HNDC58wV
+	 FVHFLDt6e55aBMhRXYUVjl7YeWBvpKHZMp7sc0Ak3CZKPzMQ4bkM2uJiA5YiGoBl50Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795637387;
-	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795638083;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=XOx6J9QHFAsKuOFnB4I4H6oCEUTT94WpnmLj3jkDPUY=;
-	b=k4TTKACwFMC3j3Vcgy03Ff/KfjBjfgWc8ex7XaKbxYPuHL5YIT+UcIp/Ijso4pre0oY2
-	 91k/Ja3tEMkYWf31Dlfc/orIjw2VC8HxWn2aO8dQzfecONnjtWKc3V9XI71hiqLwT70L+
-	 JDce6kbGGzxiFwSXSs9pctRWl1jfz/pTjl4lHVZC9kDf+kblj6Jtfz3yC7AcxDAsDpnP6
-	 II9U42pyJCmkJZR38u8PYSbratRQnYVHSwYJs75nU8bGBv7xvBiMgU+MRL/6y/FJWTxL5
-	 dABAiJpjg6lITibr+lYTLGGwYTqerLGxrwL8W7P8KNLz6J+wmuEtpBCsb/JB2W34XaQ==
+	bh=d+X14DANS5O3iOHEYShXxLr7GGZvSrigtM13ny3x+BM=;
+	b=Bi4uDbg424VwFcsm7MkhLiMNjJd3Q1JcQvfukjYdF+dudMX9CocW8WKHXVRT0vZch/iE
+	 bvCAuhAyDV/K7BEtehlZwAbPfgvD3XHxbn7rIJlpQJrAUudpy7jTy/UDGqLMFbNgsUZ3C
+	 IHAOHdAHqlLQtNHOSZ3wS7A4d+jeAiXjiN0r6ZNW8TIz0dbFBYx7adxURii75Obs9xiy2
+	 OK/fkVEUrAOwUhGDg3mdk6ehff/GQEqaM+6YJCxg6ngMjY+Xzv5mKSBueDurS1sJH7AeV
+	 cOfYoIoSo3duOWnzzx2vavCElvho7TnV+/7DtaJNd8t64Ip71Io3pgUkRgyidRgqraA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=d-silva.org;
-	spf=pass smtp.mailfrom=d-silva.org;
-	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=x6VOEvq3;
-	arc=none smtp.remote-ip=119.15.109.137
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b="I/mCq+r9";
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A233606A321;
-	Wed, 25 Nov 2026 20:09:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A233606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06909606A326
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 20:21:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06909606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=x6VOEvq3
-Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id 1A1E540963;
-	Thu, 26 Nov 2026 07:09:39 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1795637379;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XOx6J9QHFAsKuOFnB4I4H6oCEUTT94WpnmLj3jkDPUY=;
-	b=x6VOEvq3go3JNLHycFLj8+pWhe1zzcCpy8ZNCLGJcUkTm6vYc7who2oEtZsTWDr8U2TpHZ
-	5NiFqIVyyHXMRNk9ZrNKoMaa25jFz8bI2T8HOumIO5b767nPr9cI5kfT45fDJqfknM/OkQ
-	E3LBhThNBwkkr0hkpwtJHZy2GZ+zxUwYxcOEG6owU3xG+X0OwO2G1bbHkFAGirXZJYodh4
-	Q6tq//JyZPd7sfZ888ZeAufpxPBTqBUlehLnuEbuCMZm0R/RpYbRAlrxvYDcAojYl0UNMG
-	3YMB6sXktGH1YlgPqvp1GmoYGw+d64MIlfAcNNjlR7NjWjhZ+jmztZugwlcw4Q==
-X-GPT-Reason: legitimate; this is a technical commit message or
-	patch notification related to Linux kernel/hardware development;
-	the mailbox (alastair@d-silva.org) matches the sender (alastair@d-silva.org);
-	the content is a specific technical update regarding SPI0 NOR
-	flash for Orange Pi 4 Pro hardware; there are no phishing indicators,
-	urgency tactics, or suspicious links.
-From: Alastair D'Silva <alastair@d-silva.org>
-To: Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=I/mCq+r9
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=d+X14DANS5O3iOHEYShXxLr7GGZvSrigtM13ny3x+BM=; b=I/mCq+r9+IP4jEUb5srWtPXLUR
+	Q9eUARsmjm6g2+CWrR4LzXL/cuWDw+cMdaFUspq4xmBnQtxROU/EkS56FRkzJTDijZHCRkifgMGCk
+	M1jZSGgaJLSGCuXerVs7Dk+vS/Gk1k0mSzJxX37Wtbdbd+vUqhMIx0e82ED3DB2SusxtRZ6qTsY5B
+	oGNZqwwyBz5Uk/ZU+lDmHK2t9tpinEV8G8FHYX6JqPypnFOftFsG31679JIAYuctlo4nMflug4bA7
+	WooYS6uDmQ2XcTmbFziaYnBTEGTW0Lo7g2eP1riNa9Cj3UlRu5BeRc/c1yjCp8sAVNHsOXdMne/70
+	BnbChMFw==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-sunxi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
+	Conor Dooley <conor+dt@kernel.org>,
+	MidG971 <midgy971@gmail.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Alastair D'Silva <alastair@d-silva.org>
-Subject: [PATCH 2/2] arm64: dts: allwinner: sun60i-a733-orangepi-4-pro: Enable SPI0 NOR flash
-Date: Thu, 26 Nov 2026 07:09:27 +1100
-Message-ID: <20261125200927.515136-3-alastair@d-silva.org>
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH v2] arm64: dts: rockchip: rk3568-rock-3b: describe the Ethernet PHY LEDs
+Date: Wed, 25 Nov 2026 21:21:03 +0100
+Message-ID: <179563805248.3885553.17653076293063984623.b4-ty@b4>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125200927.515136-1-alastair@d-silva.org>
-References: <20261125200927.515136-1-alastair@d-silva.org>
+In-Reply-To: <20261120123250.1417061-1-midgy971@gmail.com>
+References: <20261120123250.1417061-1-midgy971@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -81,66 +66,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-Enable the SPI0 controller and onboard JEDEC SPI NOR flash on Orange
-Pi 4 Pro, supplied by AXP318W BLDO1 (1.8 V).
 
-Assisted-by: LLM
-Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
----
- .../allwinner/sun60i-a733-orangepi-4-pro.dts  | 24 +++++++++++++++++++
- 1 file changed, 24 insertions(+)
+On Fri, 20 Nov 2026 13:32:50 +0100, MidG971 wrote:
+> The ROCK 3B RJ45 jack carries two LEDs wired to the RTL8211F PHY LED
+> pins.  Describe them in the PHY nodes' "leds" subnode (binding:
+> Documentation/devicetree/bindings/net/ethernet-phy.yaml) so that
+> PHYLIB_LEDS instantiates one LED classdev per pin; the RTL8211F
+> driver drives them in hardware via led_hw_control_set (e.g. the
+> netdev trigger with link / rx+tx modes: amber = link, green =
+> activity).
+> 
+> [...]
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-4-pro.dts b/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-4-pro.dts
-index df70967264ed..92f31bf9f64d 100644
---- a/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-4-pro.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-4-pro.dts
-@@ -34,6 +34,10 @@ &mmc0 {
- 	status = "okay";
- };
- 
-+&pio {
-+	vcc-pc-supply = <&reg_bldo1>;
-+};
-+
- &r_i2c0 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&r_i2c0_pins>;
-@@ -56,6 +60,13 @@ reg_dcdc2: dcdc2 {
- 				regulator-boot-on;
- 			};
- 
-+			reg_bldo1: bldo1 {
-+				regulator-name = "vcc-1v8-io";
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+			};
-+
- 			reg_dldo1: dldo1 {
- 				regulator-name = "vcc-sd";
- 				regulator-min-microvolt = <3300000>;
-@@ -76,6 +87,19 @@ reg_swout2: swout2 {
- 	};
- };
- 
-+&spi0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&spi0_pc_pins>, <&spi0_cs0_pc_pin>;
-+	status = "okay";
-+
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
-+		spi-max-frequency = <50000000>;
-+		vcc-supply = <&reg_bldo1>;
-+	};
-+};
-+
- &uart0 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&uart0_pb_pins>;
+Applied, thanks!
+
+[1/1] arm64: dts: rockchip: rk3568-rock-3b: describe the Ethernet PHY LEDs
+      commit: 5c83555aba2bd0835228b2205a00ddcdcb3ec1ed
+
+Best regards,
 -- 
-2.53.0
-
+Heiko Stuebner <heiko@sntech.de>
