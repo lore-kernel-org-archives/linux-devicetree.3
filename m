@@ -1,59 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795570767;
-	b=TxUUiTj1kCQbHZS/3flqrotvQOnd7md2gppUAWb31RjR7mNsYxqqM9pGZUCfJjra/bv9
-	 YtIhLqDY60hTKkd8sEAOz25JHxy2O30YlFeOR7ThDx+eWcV6+Fsjty76zPQyfWLyl4pES
-	 Ad+NHF1D36uMh5QnA5zqtcFsRSwQmUHEcY87X4bteVEuT6L/S4h5GHISa6IaFhQZRdriw
-	 jUbPGH2ykk+1KoUUrJGI2BpZM9z6I2DumRyvquzFthwHjr4ouDtK+Bf5EuJl2qxKfDdW2
-	 F33xZYG5UPo3v9tINZX71WBI2kzKyXaQVQZcw0POUl2Fd6uhefqPjnKuIOawrRHtOCg==
+	t=1795570848;
+	b=Nj0jQCivklA5CfKIZmaauVsxwJbC6I8hQ9R8bHbAW32XZKlTdC8KG5n/2RgJk6qtYdBg
+	 XCL69AjKpQru88eu63SmyaBT14LjY1Ygg/D3v2jG4qlqFxuk/Pg/dWWFreUbYX6h8RrYW
+	 j/Svh6VOwWz4TtdWiQ3RWcdgPcFLrPcLzjhjimoSTFJ+YFccdLtzZAlGWGYKjjht5kV4t
+	 baNl59V2wImQHhB9FhnZVV5ZVI2oh9kmO2ZH84rLJ21xkgcGLSuHwsH2SG5o1LKhSOaoO
+	 cgP+9v7AOicOv/KFQBTGGIbE0jYlgRWcrzL2lh5fnEZzwM0IusQoqJjZr6ZLfCD1RTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795570767;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=k/qijytVFIsC4oBmo7E3xWvc1VpP3rElv6FAFcCDtSk=;
-	b=e0kaLn0vylQpnw9ENUNoeRT8IR7qhi1lSCRNzlyfJIOK7hbjXzze3eMQcAMWl+BdY9mM
-	 pUP3y64EpaITL0k4TsPHHJkAW3QGI7GmNVkQFxGHN6ddd0AEvVBMCUZ2HRCCqCE2DT95b
-	 m7utOlmYytjotHvG/hXPQqEeIY/3VjlovPijjgFJZ0cLGt+As3s9PffAbr82TfDvvJVA3
-	 Ka8iad8S/jKa/8wFRQKzYP2Cm/frtI/g6KaMCqVJwVxT7Cwfmcmkt/HmWMx7rcTratIaR
-	 eQq5JHz3gjUcniIwB3bOT97k/Aw8AG7Pu2cX3ApXelZeyHS890ctl6nOo2oiSTMHDMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795570848;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:References:
+	 Content-Language:Cc:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=lMn+79+xRTKct7sDQLtayoqfdZDNWSUiec9/f2ZPH6M=;
+	b=nKviTKMdu82VGmfNOCWFovevz1q0Q5YJuB/FTfVcFyNUfVjFpMc/4zdyO8dmX9A7ybrZ
+	 VovQCMIe6YHfyd4rTa7nu2g2MUKC5o5dnVpjWWFyP230wUacbre3vCV/ckVab0MtwT5rx
+	 oPIYFQ/XiqHscxtT/lo5gJaQim1oz8Nzl2HvMfJ+KU9ina7sUaNwwyDgHQYGjviYd/+ib
+	 PMHUBAw9dvcaZ5XRphUYThEyhFC8CN67jEBbr4FyUYTwRKtPdWdSEOy7fcQQ8VdEZyrXu
+	 AsH8JWKclAbz+8vOTkr1csNlw8URrfXUvvtxLz/szMWBfl/qp7VIC9zJs36KJArzl7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=OF4axXZG;
-	arc=none smtp.remote-ip=54.206.34.216
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aKLVcUCW;
+	arc=none smtp.remote-ip=209.85.216.49
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF08606A326;
-	Wed, 25 Nov 2026 01:39:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CF08606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70FB3606A31E
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 01:40:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70FB3606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=OF4axXZG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1795570736;
-	bh=k/qijytVFIsC4oBmo7E3xWvc1VpP3rElv6FAFcCDtSk=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=OF4axXZGTF1qfqvRZiz/JtxjxaW8akUj1PWSe0W4qR2PIDuU2rbZoYsDI+m4AInMP
-	 bcTFTAmK/FbqWLiWXmOERBWwY9QSqWq1I4ZP+udyRrRoYueBa42OaAuIOKNIzHPw4H
-	 /gg1Fi1bU23tM6P6FaPYv2SkYTByiXO1txKzlPW8=
-X-QQ-mid: zesmtpsz4t1795570735t6bbabc43
-X-QQ-Originating-IP: 0ipUMo1ro68wul0tWJTxBe0L3A0y0yI1TLXD4IzXO8Q=
-Received: from = ( [183.48.244.245])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 25 Nov 2026 09:38:52 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 7546957723103759865
-EX-QQ-RecipientCnt: 16
-From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Date: Wed, 25 Nov 2026 01:38:24 +0000
-Subject: [PATCH v3 5/5] MAINTAINERS: Add entry for SpacemiT timer
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aKLVcUCW
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3b487f44ee0so1758108a91.0
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 17:40:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795570848; x=1796175648; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lMn+79+xRTKct7sDQLtayoqfdZDNWSUiec9/f2ZPH6M=;
+        b=aKLVcUCWjaGLEkL7rE62+5x2NfqZS8rT3GrXE1OUuvzR1jZo08MDOJR+8g7o05HVVv
+         BPS1pp+bDADkiU6vd90PrPz0d8dlGkasYu+Li/MHmAmtoIIwkGKfIf0fYOHnFZFEPMx7
+         jh9rKU3tyg4MXVP1vd/WfX+vAaYthqeW0uPPFBMrCsoIylEi9WHbFVx/KgAM9ksOCs2g
+         Uc9VMXtYMqqrUSM7cO6VY0Ny6z9WH9fyAfVJO4ZCY3egMNBChA0EEwZKwbKUaAnJ919E
+         9AL9yCJWYjp33eRSEFPeNmvGf+Dhy5/3IlJ9zIaGNz/tj4G8aQQm3KY7TVxsUImztWbq
+         7aOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795570848; x=1796175648;
+        h=content-transfer-encoding:content-type:in-reply-to:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lMn+79+xRTKct7sDQLtayoqfdZDNWSUiec9/f2ZPH6M=;
+        b=NEyCepAPB2NUQ6hGQ3MfNMDdy0xS3OQdkikdroxMSR/VIZTz4KZE2gK+KuOIr4mSEL
+         qecmJQm8Od6lBOGJYS+emH+SKz5oaErWANOXwXZEQ1tMtdRCyhw4occkmTHf9I0vNu2v
+         Ulie1pHg/oDvbXtrKl7E1CgTNNqIXfhhcbge+xHPC4p24Aakms6wdIb5nDeqMlDjyvW3
+         Di0WuVNOI0VxpUuEXl0ySG7rFnl+M0fkkfzZE/hRK5iAoU/u575VfzE6AfYB7N6JTaB4
+         lK5dkIsIyQU5HBXtGJvRDOXq4vT6iW0c2WU7SE1QXLxcLq2BZBTIEDXpD2ibzxBvUBFX
+         AdCw==
+X-Forwarded-Encrypted: i=1; AL+hErE/CF+gtSYEfHhCMxfv086GWUazgzypzRPEeAA+ZLU+vg4+5ZTkOMiWeH9y3d/jDTRucc8z62xIDlfr@vger.kernel.org
+X-Gm-Message-State: APuU4Z99NnBJ6LDGPl+fY9V1AWLFTNOKT5Hwk7yvC15oK7fMskS9iym1
+	Wn1PxXOeMk4RMcp9aYLcp15S3W7u5RN5g8pkH1PxZXxKmVv2GTrT4VU3
+X-Gm-Gg: AZFdTZeRrRI4F1ihi1CyWpeuG87fuQhv5mdOCZaq9ilJNHfmphOjLoDdqxXguq4rJDH
+	Ycum6RQ+Ot9Nh9LVlwB2YyT+szrpYgP+pnT4cUs96V74i5mkkceocqJiAkpotBdHZqLW4Y1ZtSa
+	M1LVbwDhUJSRU6A1vTJAl+dzXCuov2+HDYp83/ESvMjjZteqhEhEll/yNanNr9Ny4d3h/tm/d1R
+	sGf8ZjhwOeZGYuqhUZ0EfdJipy1jtGqs+xim4vOnWkNULAOFd8wWB9gMak9jsYKaE8As39GZkDD
+	wrYlrY+1Sa7vm8Psn24EWLn95gEAvxvyplpXMUNk+gbalbPDwFw55NLK8ggej3EsoaLrWtYt60q
+	NAU8dVGMX+nvNupJSGctI3e+mn9zSIfmSzIXhJclgs9Rwle3p1XKziY/UfF9Dr2nu3hAwsu2FM2
+	+2uOLKQU7l/20Q7wtjjSUnVIjO4jEXw7/xWVrpqK+e9LGjUk6PtLUf4X++nhm7kVSIz7mA/mYuJ
+	+KfLCDXY6iTxqaRwS6h0s0bxf84VTFr5aBuyCuLuf02Q+ai5P0my3gGlSIgQ5nqD8+wlqzkHYCI
+	MeF9i02S0Zhad8E6lq4VfUBGweLEyE5C5fHCPvAPKTMr+yZi1w7JNSf0WGQQXVLi0zs+dDWmwVo
+	5VS7V
+X-Received: by 2002:a17:90b:4acc:b0:3ad:ce34:f63c with SMTP id 98e67ed59e1d1-3b41c9e4b1amr15908819a91.30.1795570847756;
+        Tue, 24 Nov 2026 17:40:47 -0800 (PST)
+Received: from [172.19.1.42] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b4b3c71192sm8761791a91.5.2026.11.24.17.40.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Nov 2026 17:40:47 -0800 (PST)
+Message-ID: <8c25cc7f-5c8f-4bb7-b82f-0f2d1933e334@gmail.com>
+Date: Wed, 25 Nov 2026 09:40:43 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,79 +92,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/3] dt-bindings: iio: adc: Add Nuvoton MA35D1 EADC
+To: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>
+References: <20261117082832.1551574-1-cwweng.linux@gmail.com>
+ <20261117082832.1551574-3-cwweng.linux@gmail.com>
+ <sashiko-outbox-218423@kernel.org>
+Content-Language: en-US
+Cc: krzk+dt@kernel.org, conor+dt@kernel.org, dlechner@baylibre.com,
+ nuno.sa@analog.com, andy@kernel.org,
+ Victor Chernyakin <chernyakin.victor.j@outlook.com>,
+ linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, cwweng@nuvoton.com
+From: Chi-Wen Weng <cwweng.linux@gmail.com>
+In-Reply-To: <sashiko-outbox-218423@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-spacemit-soc-timer-v3-5-e6390f3ae4a6@linux.spacemit.com>
-References: <20261125-spacemit-soc-timer-v3-0-e6390f3ae4a6@linux.spacemit.com>
-In-Reply-To: <20261125-spacemit-soc-timer-v3-0-e6390f3ae4a6@linux.spacemit.com>
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=795;
- i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
- bh=iHFUNkL4vpfnAkYRawlVPY3gFssiqBgZcrn/XNSsq1c=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDNlsNqKcdftf+Hkl39Oz5yqZMU+0xWz5oZfr7GbsU1Zaz
- Lg90vV8RykLgxgXg6yYIkv3A55tBT5RtgUChb4wc1iZQIYwcHEKwESiyxj+2cQxt2pMYI4+9ULU
- N0B74vqyw/4aX1+3+k4Ke6r+galtHyPDpEvbG+aysgpvr95u6P9SacdRtxqO2FX+f5+5uZ3XFX/
- KCAA=
-X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: ORqNQdnYjakCneEckYyMZq2geyR0FvsdiXdGpB1Xyzs1Yi2I1tsake7X
-	mH6xGfMQydNDKRrHEmqR1qvS+afUCD8AjdwTWNVFRbnHgjE3xmkocHit+Yiws6siVr8MYLH
-	c0CLHiQXO9FuLZY+0GUly6VVIfv5Nj0x0ysmRVIHhGfGmzGR1bcENICowW2y4JPlbxwf7ll
-	9JSv1idirHd6bJplU/kcJxZja5249hTwzZdr3+GQcbEYEfOT4jf1BdwEbz09gwVcQKq2xwn
-	jMN3oD501JPMt6Sv5cZ3nxjSjzkdaAX4t1H6UrkX29CtrIqnEAz3euk7lujopb98TB5c5nY
-	/hQJDUSxHhoNwU6EWcHcsuJYaP+oQ0rRTCpTWIPekg0jmyUo8WSDJvfNQ2dqmj0Sw0T4SRv
-	w7/Z76mJmgKIKOaUiGhLhxsytB+cfXJ40rHDawKfINV0AQrfBkDgKrYBvLViEHazaC08y+j
-	SIHilSBQ7vYQ5TLTXVEFaQGy93WxhlL5h07O/aATb+poU/7rjbicUkVmmqx7LGi0RGw02pc
-	eJyijYCN59mCsLoMOwE0ihh0TdbGNTUOtkebpalOPZ+ihwJ0t4jqNM3fwHtGSL7GCx6FRC1
-	SXzUpN/Z28FnogUTPHiCEiu4AstUHoJx8m/4wFsZgDgY53wHfLFpfUJxFXu6dDDMdZZC2de
-	Njg0HRHy2xcyTpeUClEHhWb60JhF5JCM0L//o5nj3UxhUMZ6KbhdV5IQcMChBgCeWxZODtT
-	b9cQrAhSpLMI+utkXh10x1zkR/UivhJv5+Eaiun9mqm3UMRBf7uMfapmrKYVkMl0xPq/NeY
-	gvxSjJ3BFxkLFOY7Aok0F0/NcErxCVcn5NkxrlimXeEePyybfZ2IhwFa5hT7xzn1iqGL2PI
-	d2bkkheFiw2+F7C11H1RMysxT1M/xIiQZVTB/ckZZ5BvISPlIqjLcu+ANNBB3p2k6p2Ob5v
-	wro1T10bbVeHN7d1REtwY4IIghFboD3RIQLGHbROoirDGWERNXQ1f9CmVuVJKb+1SGq/EtU
-	P+eRlKichfNWQpkthUosfPsJgg2WCvutA8NrHKS3Byb/PShriKvwUb492a1TbraO2pUQGDu
-	XzSC3f0vTfC
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
 
-Add a maintainer entry for the SpacemiT K1/K3 timer binding and
-clocksource driver.
+Hi Jonathan, Rob,
 
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
----
- MAINTAINERS | 6 ++++++
- 1 file changed, 6 insertions(+)
+Following Jonathan's earlier comment and the Sashiko review about the 
+internal VBAT channel, I'd like to clarify the intended IIO channel 
+numbering.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065..e607e9cb07a0 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -26372,6 +26372,12 @@ S:	Maintained
- F:	drivers/reset/spacemit/
- F:	include/dt-bindings/reset/spacemit,k3-resets.h
- 
-+SPACEMIT TIMER DRIVER
-+M:	Troy Mitchell <troy.mitchell@linux.spacemit.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/timer/spacemit,k1-timer.yaml
-+F:	drivers/clocksource/timer-spacemit.c
-+
- SPANISH DOCUMENTATION
- M:	Carlos Bilbao <carlos.bilbao@kernel.org>
- R:	Avadhut Naik <avadhut.naik@amd.com>
+The current driver only supports external channels 0-7. The internal 
+VBAT input is not supported yet and does not require a DT child node.
 
--- 
-2.56.0
+Would it make sense to reserve IIO channel specifier 8 for VBAT in the 
+binding, while keeping #io-channel-cells = <1>?
+
+External channel specifiers 0-7 would continue to refer to the 
+corresponding child node reg values. VBAT would use specifier 8 without 
+a child node once driver support is added.
+
+The current binding also requires at least one external channel child 
+node, so a VBAT-only configuration would remain unsupported for now.
+
+Would you prefer to document the reserved VBAT specifier in v6, or leave 
+the binding unchanged until VBAT support is implemented?
+
+Thanks,
+Chi-Wen
 
