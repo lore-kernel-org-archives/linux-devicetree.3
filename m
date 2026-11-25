@@ -1,47 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795632453;
-	b=4WtU6PerPRLykNJS8SuOAVNZTBYd8knk3j0Y19XxdSCzcychEPaUSY5rWlj04RuCCyF8
-	 8BntvvDrNVMXgoYXEDnRnaWcgfvMifykbdqACwMHU2+CuWc//ZH9gttlenlkZwlsQRIPT
-	 EkiXNzIsepAXvfJj82TOs8QwdPnpZ7bJWaokz8wqqS5MERV6ICrGcPliXTbx4iDARsSoY
-	 IoJjITt12cOW1IHjMpp0wXW7n7h8YGW55SCCq4ubbaTOnqXwIaUpePYfFeHFP94qTlKw7
-	 0G6Do6FIX4Uyd7st+KXXzAE3G767sh34/leCPKgtAiK3axtebRTC2B0exmGeVNe7g2Q==
+	t=1795632499;
+	b=AkDDxlU1tXCKQVsI8ecnLmkstZoVfifhPCclBfWKGoW/snbMY3YV6o+iOPO3YWO+ZhRe
+	 Bkvd0GFKXIweh+p2rAOp+eCB9VCCfjjVqsbyPOnAYGz4N1SBC5VvH3OFjY0RqOqE140Be
+	 gcwpuvLnJX3idmOahpDYhGpbdcgyiZt4AUsivTVi3ZDAQvOI2Hgl6eq5MdOAQ3fkDhZ2F
+	 FgKpNXehFpNWtRAHGtg6lz2AjW9m4v6NI6eEvOJu7IMclcSC4rFkA+1V7373b4RtaPjdT
+	 ph8AXHB/Uj9LpbD1bHh1+eFEgxRB6zcoOHEdCBlUnyUcPRzyFhs77usq0Iz/kYZE+Sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795632453;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=LZOQ6Ue7Iy+P9Zd1nzSOWMjTEqLWIQlUC5ckrCFe184=;
-	b=hhssu297F/0AMWTVWGCqDYzpLJR786wAFFr/ftWjio5KYp/+kS6KE0QNMpgr6yYDk7Y2
-	 c5ogjgVxDYjGT3voM7euRaKlOeqTrw15QpLo8qgM3dqCew37AdbZPaTJbvmU8BrPyBz57
-	 8Dn2fvfkIK2f40pEjqk1eoW7xHer/3OkT0f6fOqX+v/dp2Uv1QD1LErXRjfHDWa6FlGXh
-	 dDM0KKfoqh+WhEJHNGNxJ2JWpPxbKlsEIJT76+a5GibXaL1LQcKBSDO+NyQS23yPizSxa
-	 9qI/h+rGQJSG55DDgrRdsxsLJ4+smkjVDCWKwTx7OxzDq9hh6nUu87nLlf/gCw6fkuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795632499;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=VQW/Ymb8D+uLvIjWbZ057G5GtIuukitNqjLkdiNCMvE=;
+	b=B/xjDZuBtvCkbnSjI6voXj5wPkTcJ8emgplzGB2Z/v+0Hy2uylxE5TmimP8EpgWgkDMf
+	 0EL6wRqWpRNLC+kdZuW0/SX3q/Rvdwg06nXN2MR/TFVgXy84UpLFr9ZLGQ2OJhAEz8Y1i
+	 TwFwCayAU7r9tH1XA8IEPfv+zvQE5Uhlm1IHX7V2SgLIC8AefUVtVC9ZgZGixy+EYSEEt
+	 2VdvP95iWgQRXLKU102UjZ4a8OxV2pF07GgRPxwLmZPGEXn26f0TGEFMCK/p+78N3B4SW
+	 TsmPswsJr5Pz8xTuDIw09GHUaZKDFlSDTpEZk9Sj3UBKYRW/cUaWWGmKHb0y2oVmlnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FP3xZXsW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oNnBk9yY;
+	arc=none smtp.remote-ip=209.85.218.45
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF24606A31E;
-	Wed, 25 Nov 2026 18:47:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79E1606A327
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 18:48:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C79E1606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FP3xZXsW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C6C81F000CA;
-	Wed, 25 Nov 2026 18:47:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795632452;
-	bh=LZOQ6Ue7Iy+P9Zd1nzSOWMjTEqLWIQlUC5ckrCFe184=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FP3xZXsW50yVMOgJ+z7zTMloBqiiRwGrlv+x+WrAPCB0NRLhFW/VyW/rgpT0li6tm
-	 E1REzORi1Hux0h3/NXFJZvQTmnGA1bxkhzlL+c4cY/LPNPM3i0mVFCJW8t94B4Z1Jp
-	 MmiPtzlf2KdcxjX/bLVOHsjoVCOMVEVSimc8TV/F8psqZ9RzOMoUAK5SMAff/kgoHU
-	 MLFbwzIlH/aPElX4aqQ4/IEzKI5DrWR3vAjLtcYZu74QCtHJx+shE7UPsJxyOxBl+1
-	 hwL3qREzwB3/VqRbLrKxOzcERWmrb2TGvbW5i3Y0pG1zcNfvKAhvjrDLZGn+vbFU2M
-	 /j82rWf2gPgnQ==
-Message-ID: <3a633b4a-8b48-42d3-b197-05cad11f7f71@kernel.org>
-Date: Wed, 25 Nov 2026 19:47:27 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oNnBk9yY
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c516a194350so100154066b.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 10:48:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795632497; x=1796237297; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VQW/Ymb8D+uLvIjWbZ057G5GtIuukitNqjLkdiNCMvE=;
+        b=oNnBk9yYeUkh5s9pJTjawpl5to9WwX7SUukW3RYanpUXdKryi5g59gdyC013GPo5KJ
+         44RoaPNMbHUir0M+Zhp87TWdQHbZM4kLUCrIT/znmwvN/7W+plDblEnJSJhJVNx59B1B
+         chd0czeEamhlDzqBzlSNWAgl9RqCeMqEu6tglGhHKOhF6wrzB6GX//4va9yD4oR5ChIx
+         6K6UWxCkBgpDnKlJT8uwYLnlEsvzSB8A3x8XJ6Yf8H9wGHX4cfSvnWq7kPdJ2YCYmOg7
+         RA0MMU1tmW9T8fguHCAFFhimvY97TLhouhiNYSJ0/UyZSjdG48daDEwMt3AoiQ+nHBGe
+         C1ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795632497; x=1796237297;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VQW/Ymb8D+uLvIjWbZ057G5GtIuukitNqjLkdiNCMvE=;
+        b=HRMOfoFzxEVKwoO3NVG3QEuroZ/mVpx+M6ybyVcFu0Pz8n7BX6NBiCQRslG1yU6aq6
+         lVnXgpSA1lo25a2y0i993FRgZAg5RsWx4SM8xAWt8tAuf7/nV0ACmPV9o5fhLlWEn6JE
+         U9Th/+igY1yKlhIAZtTmP3q0DDMpCuxpjyFcXrFyr5Mch/0V6Fo7U1r2wRaMd9Ov2a3v
+         FDJXWElvsWL//ZhQ39+2PouzQQzNkxfM4H7nL9+JzYYH61E539fSJdbFcBwdwV1QoCKc
+         eCR83jgFKOYpNN3JNwvmBsp/90Mtvo5Yw5H8T8DHhK58I0lO+Fy6lfq2fToXvA+Kc3Iy
+         16kw==
+X-Forwarded-Encrypted: i=1; AL+hErFevaMQieu5B+/iresQw5OOC0fAz4naIK5Hv6CkmpZ50uZhUIC/SAM1rnbz5HQ921ijomXpuAlVnbXC@vger.kernel.org
+X-Gm-Message-State: APuU4Z/c2vTB9szGEHjKsGYDm+FmOnQz4UoHfgWr+QddxzW7zEZPgaU8
+	LDDzr8dKxBn7Y/9PcD/SrUFyQZpRKrEgzH/Q8U7iSv43rdGtyuPP7mXy
+X-Gm-Gg: AZFdTZe/DSgqT56/J1bBzxY4h8JD6RmJV0wWH8S0vnEyujRPbFZRlGBlaIz5qDKLqc3
+	MhABbrkACuvZPRKUa/WcjlXX1uGYBGWOpmXhx2p4GFfpkbSkAbIX+/9GAs5TiHXJlLLAAPC+I7o
+	IaO5mDFD3BIbHQ9SE7WDCtjtFjwpdkBoCX3nqTjrju/xli/7OuirC0yhOjKHi4jA1tc2wBytD2K
+	L32A/U8qD20qnCxEHPKpIs0I1XbWJdUAqpB6tqoHBuL7VOQx/SrR3k1d7J4BfcieYtKicomMYt1
+	Bs6/OZfGaf4VmagcBSMPU19SGwj+JNMwCn0sVmWL0w4ML/L3aqRN5ZbRhDzj6IXgAIRl7846QMC
+	X++vHuFilLXygCRcLKpgCyylEim9K4iTbXn3Yip+6KpukL+jjYUOazzh0DoCMnyNvZUXrfGVsw2
+	pZogeRYFcj6/lvkISJk+Ur9s+FzZzOQnm8DH1+worvVDJ0nZKXQPbK6Y0j4OQRBm6WGDrK712VE
+	DjdNEDRZgn19FkEcX4eTSJhKXISK/1oVM5SAAXscQBLwGs1ImuuhqX7+h/SZ/Lqg+llmnCggLNP
+	vVPB9DYyFrlVC/I980DFlUmWFKNS4uGUGttxcZ/8HG76Nc+SNyRM1Kgx23s=
+X-Received: by 2002:a17:907:20e4:b0:c40:9b75:84af with SMTP id a640c23a62f3a-c513a5ec7cbmr1173636366b.8.1795632496938;
+        Wed, 25 Nov 2026 10:48:16 -0800 (PST)
+Received: from antoniarch (84-40-239-22.cgnat.inetia.pl. [84.40.239.22])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513afc73d3sm677226666b.64.2026.11.25.10.48.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 10:48:16 -0800 (PST)
+From: Antoni Pokusinski <apokusinski01@gmail.com>
+To: vigneshr@ti.com,
+	andi.shyti@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	aaro.koskinen@iki.fi,
+	andreas@kemnade.info,
+	khilman@baylibre.com,
+	rogerq@kernel.org,
+	tony@atomide.com,
+	jmkrzyszt@gmail.com,
+	sumit.semwal@linaro.org,
+	christian.koenig@amd.com,
+	phasta@kernel.org
+Cc: linux-omap@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	Antoni Pokusinski <apokusinski01@gmail.com>
+Subject: [PATCH v4 0/3] i2c: omap: add support for DMA
+Date: Wed, 25 Nov 2026 19:47:45 +0100
+Message-ID: <20261125184750.57866-1-apokusinski01@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,464 +113,59 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/9] media: synopsys: hdmirx: support an HDMI bridge in
- front of the receiver
-To: Sascha Hauer <s.hauer@pengutronix.de>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>,
- Shreeya Patel <shreeya.patel@collabora.com>
-Cc: Gerald Loacker <gerald.loacker@wolfvision.net>,
- Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, kernel@collabora.com,
- linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
-References: <20261116-hdmirx-media-v4-0-7aee4a0a273e@pengutronix.de>
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20261116-hdmirx-media-v4-0-7aee4a0a273e@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Sascha,
+Hello,
+This patchset introduces support for the TX & RX DMA transfers in the
+am335x/omap I2C controller. I tested this implementation on AM335x 
+(Beaglebone Black) and things seem to work fine.
 
-On 16/11/2026 16:19, Sascha Hauer wrote:
-> The Synopsys HDMI receiver driver assumes the HDMI connector belongs to
-> it: the connector's +5V line arrives on hpd-gpios, and there is nothing
-> between the source and the receiver. On the board this series comes from
-> that is not the case. An HDMI bridge owns the connector, the receiver
-> sits behind it, and the two are described by an OF graph endpoint.
-> 
-> Three things follow from that, and the series is arranged in that order.
-> 
-> Patches 1-2 give the driver a media device and register the video device
-> as an entity with a sink pad. On their own they add a graph with one node
-> in it; they exist so that there is somewhere for the bridge to appear.
-> 
-> Patches 3-4 add the endpoint to the binding and bind the remote subdev
-> through a v4l2 async notifier, linking its source pad to the receiver's
-> sink pad. Such a board cannot provide hpd-gpios, so the binding requires
-> either hpd-gpios or the port. Without an endpoint in the device tree the
-> driver keeps working exactly as before, so boards wired straight to the
-> connector are unaffected.
-> 
-> Patch 5 is fallout from the wait for signal lock, which was bounded by an
-> iteration count whose duration came from the 5V debounce it called
-> each time round. That debounce goes away on a board with no hpd-gpios
-> later in the series, so the wait gets a real timeout first.
-> 
-> Patches 6-9 are the 5V state itself. Patch 6 stops probe requiring an
-> interrupt for hpd-gpios. Patch 7 makes v4l2_device_unregister_subdev()
-> wait for notifications already in flight. Nothing kept a subdev from
-> notifying a v4l2_device that was unbinding it; that is not new with this
-> series, as asynchronously bound subdevs sending V4L2_EVENT_SOURCE_CHANGE
-> race the same way today. Patch 8 adds V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT,
-> and patch 9 has the receiver set v4l2_dev.notify and take the state from
-> whatever is bound in front of it. The notification is only an edge, as
-> the 5V interrupt is with hpd-gpios: the hotplug worker then asks the
-> subdev through g_input_status(), so nothing is cached that could go
-> stale against bind or unbind. Without a det_irq there is nothing to
-> disable across suspend and remove either, so patch 9 disables the
-> hotplug work items themselves instead of cancelling them. Patch 7 is
-> what lets the notify callback read sd->v4l2_dev while the subdev is
-> being unbound.
+Kind regards,
+Antoni Pokusinski
+---
+Changes since v3:
+Some minor changes to fix the issues reported by sashiko:
+* resize_fifo: changed type of the `size` argument from u8 to u16
+* xfer_msg: fixed style of the REVISIT comment
+* xfer_msg: implemented fallback to PIO if DMA transfer setup fails
+* xfer_msg: disable the DMA request as the first step of the cleanup
+            (instead of the last step)
+* probe: introduced intermediate `dma` variable
+* probe: all DMA init errors except EPROBE_DEFER are now treated the
+         same way: dev_warn() + fallback to PIO
 
-So I would like to merge patches 1-6, but take more time reviewing 7-9.
+Changes since v2:
+* dropped patch "i2c: omap: remove unused is_rdr and is_xdr function arguments"
+* added `omap_i2c_disable/enable_pio_irqs()` helper functions
+* probe: added `if (omap->dma)` before the DMA free
+* xfer_data: signal DMA completion in the case of NACK interrupt
+* complete_cmd: signal DMA completion in the case of bus error (e.g. AL)
+* xfer_msg: removed incorrect checks `if (!omap->cmd_err)`
+* xfer_msg: added handling of DMA/IRQ cleanup in the `b_hw && stop` path
 
-So those may or may not go in in time for the next rc1. Would that be
-OK with you? Or do you prefer that I just wait with that?
+Changes since v1:
+* new patch "i2c: omap: remove unused is_rdr and is_xdr ..."
+* probe: added `goto err_dma_free` instead of `return`
+         in the case of failed `i2c_add_numbered_adapter()`
+* changes in XRDY/RRDY, XDR/RDR interrupts management:
+  - init: do not enable the above-mentioned intrerupts
+  - xfer_msg: enable the interrupts before any non-DMA transfer
+  - xfer_msg: disable the interrupts after any non-DMA transfer
+* xfer_msg: added checks on `omap->cmd_err` to catch
+            NACK or AL error occured during DMA transfers
+* general: moved scheme-related macros to the top of the file
 
-I'm not really happy with patches 7 and 9, but I can't put my finger on the
-'why' yet. Well, other than that it feels overly complicated. I think that
-AI did part of the work, since it definitely has that feel: long and somewhat
-rambling commit logs, use of rarely used APIs (scru), etc.
 
-Perhaps look into rewriting the commit logs for 7 and 9, and see if there
-is an easier-to-understand implementation for patch 7. It might also be better
-to move patch 7 to the end since it is really independent of the other changes.
+Antoni Pokusinski (3):
+  dt-bindings: i2c: ti,omap4-i2c: Add DMA properties
+  ARM: dts: am33xx-l4: Add missing DMAs for I2C controllers
+  i2c: omap: add DMA support
 
-Regards,
+ .../devicetree/bindings/i2c/ti,omap4-i2c.yaml |  12 +
+ arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi      |   4 +
+ drivers/i2c/busses/i2c-omap.c                 | 377 ++++++++++++++++--
+ 3 files changed, 370 insertions(+), 23 deletions(-)
 
-	Hans
-
-> 
-> V4L2_CID_DV_RX_POWER_PRESENT is otherwise the only place this state is
-> published - adv7604, adv7842, tc358743 and tda1997x all set that control
-> from their cable detect interrupt and stop there - while a format change
-> already gets an in-kernel notification through v4l2_subdev_notify_event().
-> An earlier version of this series hooked the control with
-> v4l2_ctrl_notify() instead. That reaches into another device's control
-> handler, and the only thing it bought was working with those four
-> drivers unmodified, which turns out to be worth nothing: they are HDMI
-> sinks, so none of them could sit in front of an HDMI receiver anyway.
-> 
-> Nothing in tree sends the new notification yet. The driver for the device
-> on this board does, and the alternative was a mechanism that no in-tree
-> driver could have used either.
-> 
-> There is no in-tree device tree using the new port yet: the board is not
-> upstream, and the device in front of the receiver, a Lontium LT86102UXE
-> 1:2 HDMI splitter, has no driver upstream either. I would rather send the
-> infrastructure for review now than sit on it until the board lands.
-> 
-> The series is based on media next with "media: synopsys: hdmirx: move
-> the reset bulk data out of the driver data" applied, a fix for the patch
-> that led v3 of this series and is in next now:
-> 
-> https://lore.kernel.org/all/20261116-hdmirx-resets-uaf-v1-1-1903146a3118@pengutronix.de/
-> 
-> Build tested for arm64 at each patch with W=1. Tested on that board on
-> v7.4-rc1 plus the board support, with the hdmirx driver, its binding and
-> v4l2-subdev.h identical to this series. v4l2-compliance from v4l-utils
-> git (d2e89246cefc), with the LT86102UXE in front of the receiver and a
-> source connected:
-> 
-> v4l2-compliance 1.33.0-5524, 64 bits, 64-bit time_t
-> v4l2-compliance SHA: d2e89246cefc 2026-10-30 13:45:36
-> 
-> Compliance test for snps_hdmirx device /dev/media2:
-> 
-> Media Driver Info:
->         Driver name      : snps_hdmirx
->         Model            : snps-hdmirx
->         Serial           :
->         Bus info         : platform:fdee0000.hdmi_receiver
->         Media version    : 7.4.0
->         Hardware revision: 0x00000000 (0)
->         Driver version   : 7.4.0
-> 
-> Required ioctls:
->         test MEDIA_IOC_DEVICE_INFO: OK
->         test invalid ioctls: OK
-> 
-> Allow for multiple opens:
->         test second /dev/media2 open: OK
->         test MEDIA_IOC_DEVICE_INFO: OK
->         test for unlimited opens: OK
-> 
-> Media Controller ioctls:
->         test MEDIA_IOC_G_TOPOLOGY: OK
->         Entities: 2 Interfaces: 2 Pads: 3 Links: 3
->         test MEDIA_IOC_ENUM_ENTITIES/LINKS: OK
->         test MEDIA_IOC_SETUP_LINK: OK
-> 
-> Total for snps_hdmirx device /dev/media2: 8, Succeeded: 8, Failed: 0, Warnings: 0
-> --------------------------------------------------------------------------------
-> Compliance test for snps_hdmirx device /dev/video13:
-> 
-> Driver Info:
->         Driver name      : snps_hdmirx
->         Card type        : snps_hdmirx
->         Bus info         : platform:fdee0000.hdmi_receiver
->         Driver version   : 7.4.0
->         Capabilities     : 0x84201000
->                 Video Capture Multiplanar
->                 Streaming
->                 Extended Pix Format
->                 Device Capabilities
->         Device Caps      : 0x04201000
->                 Video Capture Multiplanar
->                 Streaming
->                 Extended Pix Format
-> Media Driver Info:
->         Driver name      : snps_hdmirx
->         Model            : snps-hdmirx
->         Serial           :
->         Bus info         : platform:fdee0000.hdmi_receiver
->         Media version    : 7.4.0
->         Hardware revision: 0x00000000 (0)
->         Driver version   : 7.4.0
-> Interface Info:
->         ID               : 0x03000003
->         Type             : V4L Video
-> Entity Info:
->         ID               : 0x00000001 (1)
->         Name             : stream_hdmirx
->         Function         : V4L2 I/O
->         Pad 0x01000002   : 0: Sink
->           Link 0x02000008: from remote pad 0x1000007 of entity 'lt86102uxe 7-0038' (Video Interface Bridge): Data, Enabled, Immutable
-> 
-> Required ioctls:
->         test MC information (see 'Media Driver Info' above): OK
->         test VIDIOC_QUERYCAP: OK
->         test invalid ioctls: OK
-> 
-> Allow for multiple opens:
->         test second /dev/video13 open: OK
->         test VIDIOC_QUERYCAP: OK
->         test VIDIOC_G/S_PRIORITY: OK
->         test for unlimited opens: OK
-> 
-> Debug ioctls:
->         test VIDIOC_DBG_G/S_REGISTER: OK
->         test VIDIOC_LOG_STATUS: OK
-> 
-> Input ioctls:
->         test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
->         test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
->         test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
->         test VIDIOC_ENUMAUDIO: OK (Not Supported)
->         test VIDIOC_G/S/ENUMINPUT: OK
->         test VIDIOC_G/S_AUDIO: OK (Not Supported)
->         Inputs: 1 Audio Inputs: 0 Tuners: 0
-> 
-> Output ioctls:
->         test VIDIOC_G/S_MODULATOR: OK (Not Supported)
->         test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
->         test VIDIOC_ENUMAUDOUT: OK (Not Supported)
->         test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
->         test VIDIOC_G/S_AUDOUT: OK (Not Supported)
->         Outputs: 0 Audio Outputs: 0 Modulators: 0
-> 
-> Input/Output configuration ioctls:
->         test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
->         test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK
->         test VIDIOC_DV_TIMINGS_CAP: OK
->         test VIDIOC_G/S_EDID: OK
-> 
-> Control ioctls (Input 0):
->         test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
->         test VIDIOC_QUERYCTRL: OK
->         test VIDIOC_G/S_CTRL: OK
->         test VIDIOC_G/S/TRY_EXT_CTRLS: OK
->         test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
->         test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
->         Standard Controls: 5 Private Controls: 3
-> 
-> Format ioctls (Input 0):
->         test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
->         test VIDIOC_G/S_PARM: OK
->         test VIDIOC_G_FBUF: OK (Not Supported)
->         test VIDIOC_G_FMT: OK
->         test VIDIOC_TRY_FMT: OK
->         test VIDIOC_S_FMT: OK
->         test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
->         test Cropping: OK (Not Supported)
->         test Composing: OK (Not Supported)
->         test Scaling: OK (Not Supported)
-> 
-> Codec ioctls (Input 0):
->         test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
->         test VIDIOC_G_ENC_INDEX: OK (Not Supported)
->         test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-> 
-> Buffer ioctls (Input 0):
->         test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
->         test CREATE_BUFS maximum buffers: OK
->         test VIDIOC_REMOVE_BUFS: OK
->         test VIDIOC_EXPBUF: OK
->         test Requests: OK (Not Supported)
->         test blocking wait: OK
-> 
-> Test input 0:
-> 
-> Streaming ioctls:
->         test read/write: OK (Not Supported)
->         test MMAP (no poll, REQBUFS): OK
->         test MMAP (select, REQBUFS): OK
->         test MMAP (epoll, REQBUFS): OK
->         test MMAP (no poll, CREATE_BUFS): OK
->         test MMAP (select, CREATE_BUFS): OK
->         test MMAP (epoll, CREATE_BUFS): OK
->         test USERPTR (no poll): OK (Not Supported)
->         test USERPTR (select): OK (Not Supported)
->                 warn: v4l2-test-buffers.cpp(2223): Cannot test DMABUF, specify --expbuf-device
->         test DMABUF (no poll): OK (Not Supported)
->         test DMABUF (select): OK (Not Supported)
-> 
-> Total for snps_hdmirx device /dev/video13: 60, Succeeded: 60, Failed: 0, Warnings: 1
-> --------------------------------------------------------------------------------
-> Compliance test for snps_hdmirx device /dev/v4l-subdev0:
-> 
-> Driver Info:
->         Driver version   : 7.4.0
->         Capabilities     : 0x00000000
->         Client Capabilities: 0x0000000000000002
-> interval-uses-which Media Driver Info:
->         Driver name      : snps_hdmirx
->         Model            : snps-hdmirx
->         Serial           :
->         Bus info         : platform:fdee0000.hdmi_receiver
->         Media version    : 7.4.0
->         Hardware revision: 0x00000000 (0)
->         Driver version   : 7.4.0
-> Interface Info:
->         ID               : 0x0300000a
->         Type             : V4L Sub-Device
-> Entity Info:
->         ID               : 0x00000005 (5)
->         Name             : lt86102uxe 7-0038
->         Function         : Video Interface Bridge
->         Pad 0x01000006   : 0: Sink
->         Pad 0x01000007   : 1: Source
->           Link 0x02000008: to remote pad 0x1000002 of entity 'stream_hdmirx' (V4L2 I/O): Data, Enabled, Immutable
-> 
-> Required ioctls:
->         test MC information (see 'Media Driver Info' above): OK
->         test VIDIOC_SUDBEV_QUERYCAP: OK
->         test invalid ioctls: OK
-> 
-> Allow for multiple opens:
->         test second /dev/v4l-subdev0 open: OK
->         test VIDIOC_SUBDEV_QUERYCAP: OK
->         test for unlimited opens: OK
-> 
-> Debug ioctls:
->         test VIDIOC_LOG_STATUS: OK (Not Supported)
-> 
-> Input ioctls:
->         test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
->         test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
->         test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
->         test VIDIOC_ENUMAUDIO: OK (Not Supported)
->         test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
->         test VIDIOC_G/S_AUDIO: OK (Not Supported)
->         Inputs: 0 Audio Inputs: 0 Tuners: 0
-> 
-> Output ioctls:
->         test VIDIOC_G/S_MODULATOR: OK (Not Supported)
->         test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
->         test VIDIOC_ENUMAUDOUT: OK (Not Supported)
->         test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
->         test VIDIOC_G/S_AUDOUT: OK (Not Supported)
->         Outputs: 0 Audio Outputs: 0 Modulators: 0
-> 
-> Input/Output configuration ioctls:
->         test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
->         test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
->         test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
->         test VIDIOC_G/S_EDID: OK (Not Supported)
-> 
-> Sub-Device ioctls (Sink Pad 0):
->         Try Stream 0
->         test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK (Not Supported)
->         test Try VIDIOC_SUBDEV_G/S_FMT: OK (Not Supported)
->         test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
->         Active Stream 0
->         test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK (Not Supported)
->         test Active VIDIOC_SUBDEV_G/S_FMT: OK (Not Supported)
->         test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
->         test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
-> 
-> Sub-Device ioctls (Source Pad 1):
->         Try Stream 0
->         test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK (Not Supported)
->         test Try VIDIOC_SUBDEV_G/S_FMT: OK (Not Supported)
->         test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
->         Active Stream 0
->         test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK (Not Supported)
->         test Active VIDIOC_SUBDEV_G/S_FMT: OK (Not Supported)
->         test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
->         test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
-> 
-> Control ioctls:
->         test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
->         test VIDIOC_QUERYCTRL: OK
->         test VIDIOC_G/S_CTRL: OK
->         test VIDIOC_G/S/TRY_EXT_CTRLS: OK
->         test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
->         test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
->         Standard Controls: 3 Private Controls: 3
-> 
-> Format ioctls:
->         test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
->         test VIDIOC_G/S_PARM: OK (Not Supported)
->         test VIDIOC_G_FBUF: OK (Not Supported)
->         test VIDIOC_G_FMT: OK (Not Supported)
->         test VIDIOC_TRY_FMT: OK (Not Supported)
->         test VIDIOC_S_FMT: OK (Not Supported)
->         test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
->         test Cropping: OK (Not Supported)
->         test Composing: OK (Not Supported)
->         test Scaling: OK (Not Supported)
-> 
-> Codec ioctls:
->         test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
->         test VIDIOC_G_ENC_INDEX: OK (Not Supported)
->         test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-> 
-> Buffer ioctls:
->         test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
->         test CREATE_BUFS maximum buffers: OK
->         test VIDIOC_REMOVE_BUFS: OK
->         test VIDIOC_EXPBUF: OK (Not Supported)
->         test Requests: OK (Not Supported)
->         test blocking wait: OK (Not Supported)
-> 
-> Total for snps_hdmirx device /dev/v4l-subdev0: 61, Succeeded: 61, Failed: 0, Warnings: 0
-> 
-> Grand Total for snps_hdmirx device /dev/media2: 129, Succeeded: 129, Failed: 0, Warnings: 1
-> 
-> The series was developed with the help of an AI coding assistant.
-> 
-> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
-> ---
-> Changes in v4:
-> - drop "free the driver data when the last user is gone", Hans applied
->   it from v3.
-> - rebase onto media next
-> - commit messages: the driver data is no longer devm allocated
-> - move the Assisted-by trailers into this cover letter
-> - add v4l2-compliance output (Hans)
-> - pick up Acked-by from Dmitry
-> - Link to v3: https://lore.kernel.org/r/20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de
-> 
-> Changes in v3:
-> - new patch 1: free the driver data from the v4l2_device release callback
->   instead of devres, an open file descriptor keeps the video device alive
->   past unbind. The media device cleanup Sashiko flagged on the old patch
->   1 was the same problem, which predates the series (Sashiko on patch 1)
-> - v4l2-device: wait for the SRCU grace period on every subdev
->   unregistration, not only when the v4l2_device has a notify callback,
->   as the reader dereferences v4l2_dev either way (Sashiko on patch 7)
-> - Link to v2: https://lore.kernel.org/r/20260924-hdmirx-media-v2-0-c12f641d8b0f@pengutronix.de
-> 
-> Changes in v2:
-> - dt-bindings: squash "add the source port" and "make hpd-gpios optional"
->   into one patch and require exactly one of hpd-gpios and port (Conor)
-> - dt-bindings: drop the OS-specific sentence from the port description
->   (Conor)
-> - hdmirx: take graph_mutex around media_create_pad_link() in the async
->   bound callback, the media device is already registered (Sashiko)
-> - new patch 7: v4l2-device: wait for notifications when unregistering a
->   subdev, so a notification cannot outlive the unbind of the receiver
->   (Sashiko on patch 9)
-> - hdmirx: ask the subdev in front for the 5V state on every notification
->   instead of caching what the notification carries, and disable the
->   hotplug work items across probe, suspend and remove instead of gating
->   the workers on a flag and cancelling once more after the notifier is
->   unregistered
-> - Link to v1: https://lore.kernel.org/r/20260923-hdmirx-media-v1-0-ea3d77d4a5f3@pengutronix.de
-> 
-> ---
-> Gerald Loacker (6):
->       media: synopsys: hdmirx: add media device infrastructure
->       media: synopsys: hdmirx: add media entity for video capture device
->       media: synopsys: hdmirx: add async subdevice support
->       media: synopsys: hdmirx: give the signal lock wait a real timeout
->       media: synopsys: hdmirx: skip the 5V detect interrupt without a GPIO
->       media: synopsys: hdmirx: get the 5V state from the upstream subdev
-> 
-> Sascha Hauer (3):
->       dt-bindings: media: snps,dw-hdmi-rx: add a port for a bridge in front
->       media: v4l2-device: wait for notifications when unregistering a subdev
->       media: v4l2-subdev: notify the bridge when the source power changes
-> 
->  .../devicetree/bindings/media/snps,dw-hdmi-rx.yaml |  21 +-
->  Documentation/driver-api/media/v4l2-subdev.rst     |   8 +-
->  drivers/media/platform/synopsys/hdmirx/Kconfig     |   1 +
->  .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 304 ++++++++++++++++++---
->  drivers/media/v4l2-core/v4l2-device.c              |  42 +++
->  include/media/v4l2-device.h                        |  15 +-
->  include/media/v4l2-subdev.h                        |  12 +
->  7 files changed, 355 insertions(+), 48 deletions(-)
-> ---
-> base-commit: 48fe5a7834cc10081887d7bcd9ff0a4cadc3fa8c
-> change-id: 20260904-hdmirx-media-fe7eb952b2be
-> prerequisite-change-id: 20261116-hdmirx-resets-uaf-d6792101954b:v1
-> prerequisite-patch-id: 72d3c6f730c052b1becdc7e253c8f75dda38fbea
-> 
-> Best regards,
+-- 
+2.56.1
 
