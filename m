@@ -1,57 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608197;
-	b=rsstl4fIaXe3PdimmhI7x6k0kScQxKWt8OFSshfXL3x5pdLqH3HEb9jLOhcbaO88A2xC
-	 a+2J4Cg5HyyKNPZKMoQGTgfLvBfnAzfIpqahBtlL3cUZmNypRaIEOJvMr7YPdE4yuz2uf
-	 /Bigxa1XNBLy2oP4P8esu1AvXb/XIZVe0hgfWbqKcbR2TACK1CS3TQprFzy+oCrI0zeNp
-	 GvzBqcShMirf3vvtf1QZJVnIzlU564gpMnopDaEoXCWnwczcFStEua1QP4+SsNvGluKhM
-	 jDOe7wX1AfSrx7kUQsMbJqVar5EHy4M4tQdBZ99rwj9aa5a2hD0YVGuZAZ3BNVMxqjg==
+	t=1795608242;
+	b=vKbWedL7Gjthi62KOwhbw7ZNWG5ih4U57sL5G1F4CQSKPpdoPtCb0kNNpCRcMhIIa3qt
+	 yPG+MoqSbVfSVMkWJ2LFYAWf8NXRDLTGXy3U+F4hwV9tF56j7SL0tESMIAz6uuhVAKEz/
+	 hf9+xv7TH5kJBHJnccQ5iySSFNbGHUXGDX1zROKhmx1bRsOoYgVvO0hqqrTe/hKw7ncMk
+	 nM5ULnLVe+4mEr+U+sEAuQ7wbL4QOvtoRkoAbkAvWR8EWIdx0IWjLedX1Iaxoa83hAeUf
+	 lfJtazqHk1bRQI9MPmITZ+M/StrYW91YEFyk0lNjU8aqwVFCr4AxK56b6Z5RY1ECyRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608197;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=p8XKQgeHzMmIc/Z+ccYjNceoI0YvFR6hWUK/swuAXrA=;
-	b=4RK33GcoNPSZpozq/Ms57hYEFOU+TeGN/3s2TmTYOHbJ6Zn0IsNc7ZDumwjrjlKGLiFr
-	 PrOnkrnDykWu3P8pz3T/KDGmHAuN1OEytIzAOyYli5e76NCbw30kAtyCIRdciLcEDQf72
-	 Ao9C0dtt5kM/M90P5PaCymqqrIxr2yW2PVRVcO1z8lTR9cXNqmedw4Ppovg+MSHObw2k4
-	 TG/JYWmGMqNTMPT9JblQj66MlTHZlYM1StgDACXbYbjm0oymzeRzCJW1nN0GF8RpLkQCD
-	 K4wPTJg/CmI3GfCUMSWkpz1CYZF9hznj2y5G8KmMkCsgNEAf4hz6fqRZfBGlHcH3e1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608242;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer;
+	bh=j7oozhXP7o7JHSAq9seMPaxoR+x+pTI3aXKrd1zOlgw=;
+	b=inJ2hQVqXdeUG9B4L4icvO39VU4Z/XBDpO96ChOq9Mxey52r3CAF0RrLy89eEHmXuNgu
+	 yCfutjo54f3zbQf86m9WCHiRLXGNLqogd6Pt9PtGjGjyE1iAHeTaeQXJ8lYy1xB9s4xwF
+	 MCHtORV4L1vOeshkcKaCRteelfijdugx0ovRuWP1cWIc84ybnjdQyUAQIgfxbPcuZA6F+
+	 Wkj35UgEX6cU6eygS6tuGZ+BIjF9t6CIxfYHYWYvEwThFgsoJ4xhS6cu7QbT8TCpdsUHo
+	 fRBWbPRe0kM0r2vogYfIiWrtbthxpzQNBntLlk485oBCOehjZB58qdeYCEe9g3KXqhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J5mViiQf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jxbVNSeL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD32A606A33B
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 12:03:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC36606A31E;
+	Wed, 25 Nov 2026 12:04:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J5mViiQf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13E521F000E1;
-	Wed, 25 Nov 2026 12:03:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jxbVNSeL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55E931F000C6;
+	Wed, 25 Nov 2026 12:04:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795608197;
-	bh=p8XKQgeHzMmIc/Z+ccYjNceoI0YvFR6hWUK/swuAXrA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=J5mViiQfODWocyqa1kltSGH8TvaQWhoDAVorFHeG6zyxzpzojLwn3YjM90ulqLkll
-	 A861zBIYCJ81XaBj67EEYyDXxaBaoukvTzvEasA32hD5cyIhn8dVDddbmQVZ2v54ux
-	 ixMxw+XYUQ2KMFFw6BSj/NsVmmzlPdSDkgJG4HsXonnS7Tt9H8qsQlQ4nPQQpdPCGS
-	 D9ZlQXnvRVQCdOX5DBMgT/lq7WDOMuTUYH6//CjqnDW+Gasr2s0aNddK/oJ9oaDldt
-	 s6aeB7xnSDN6nH/tgDIBZd5SxNiutp5JqOcZuHsIB/quW68elvSCFBYqicSb9OSY6w
-	 uwgdobGq3XJYg==
-Message-ID: <sashiko-outbox-233329@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] arm64: dts: qcom: pm8550b: add USB VBUS regulator
- and Type-C nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neil Armstrong" <neil.armstrong@linaro.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261125-topic-sm8650-deckard-tcpm-v1-1-4af33e89ea9e@linaro.org>
-References: <20261125-topic-sm8650-deckard-tcpm-v1-0-4af33e89ea9e@linaro.org>
- <20261125-topic-sm8650-deckard-tcpm-v1-1-4af33e89ea9e@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 12:03:16 +0000
+	s=k20260515; t=1795608241;
+	bh=j7oozhXP7o7JHSAq9seMPaxoR+x+pTI3aXKrd1zOlgw=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=jxbVNSeL7KM5rmUQJ3KYbgPsXoY9SwfaKOy6WulxUVchAKgCQjtz4KLtUhqddFJ40
+	 OPgax1yt+sC4l96bi84v//2DqifBOtKrjtVW26KcOP6yZh1ulGmh/FZkJtAdu+seJe
+	 G/E0HrsANHccKroHhB3RtTjZ3/NRxIk+iQiuFzYVgfWhIWklRRM6F7UcpB9jHMQST0
+	 9GOTPhsy0iDGQEWbT57UZXwsjCIyRdHVKUkFzaX1Y6h4Edrvy0R5Yp9/OtzHtjW4+O
+	 Lrblvw9GGrNnfiFuQFeD/Ado5fNfmfCe8If228+Qgh7wyviMubGSNLyBK8PA/NiiR4
+	 teB98pxq/PaeQ==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,63 +48,39 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v8 1/2] dt-bindings: arm: qcom: document the Lenovo
+ Legion Y700 Gen4
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+Cc: andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org, 
+ mitltlatltl@gmail.com, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>
+In-Reply-To: <20261125091309.124354-2-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261125091309.124354-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261125091309.124354-2-xiaqinghuan@mail.ustc.edu.cn>
+Date: Wed, 25 Nov 2026 13:03:59 +0100
+Message-Id: <179560823932.84329.556031734688243707.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] arm64: dts: qcom: pm8550b: unmatched and undocumented
-  compatible on pm8550b_vbus
-- [Low] arm64: dts: qcom: pm8550b: undocumented compatible
-  qcom,pm8550b-typec
---
+On 2026-11-25 17:13 +0800, Qianhui Xu wrote:
+> The Lenovo Legion Y700 Gen4 is an SM8750 tablet that ships with the
+> lenovo,elden board compatible. Add it to the SM8750 section of the
+> Qualcomm board binding.
+> 
+> Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+> ---
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-commit cf2d4fe502182acd6818991415b674bdb540bbb6
-Author: Neil Armstrong <neil.armstrong@linaro.org>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-arm64: dts: qcom: pm8550b: add USB VBUS regulator and Type-C nodes
+Best regards,
+Krzysztof
 
-This commit adds the USB OTG VBUS boost regulator and Type-C port
-controller nodes to pm8550b.dtsi, disabled by default.
-
-> diff --git a/arch/arm64/boot/dts/qcom/pm8550b.dtsi b/arch/arm64/boot/dts/=
-qcom/pm8550b.dtsi
-> index 74d23b8970f4c..feb2395e920a9 100644
-> --- a/arch/arm64/boot/dts/qcom/pm8550b.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/pm8550b.dtsi
-> @@ -45,6 +45,53 @@ pm8550b_temp_alarm: temp-alarm@a00 {
->  			#thermal-sensor-cells =3D <0>;
->  		};
-> =20
-> +		pm8550b_vbus: usb-vbus-regulator@2700 {
-> +			compatible =3D "qcom,pm8550b-vbus-reg";
-> +			reg =3D <0x2700>;
-> +			regulator-min-microamp =3D <1000000>;
-> +			regulator-max-microamp =3D <3000000>;
-> +			status =3D "disabled";
-> +		};
-
-[Severity: High]
-Can any driver bind to pm8550b_vbus without a fallback compatible or a
-matching entry in qcom_usb_vbus_regulator_match[]?
-
-drivers/regulator/qcom_usb_vbus-regulator.c only matches
-"qcom,pm8150b-vbus-reg" and "qcom,pm4125-vbus-reg", and
-"qcom,pm8550b-vbus-reg" is not documented in
-Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml.
-When a board enables pm8550b_vbus and references it as vbus-supply on the
-Type-C connector, no regulator is registered and
-qcom_pmic_typec_port_probe() fails indefinitely with -EPROBE_DEFER.
-
-> +
-> +		pm8550b_typec: typec@2b00 {
-> +			compatible =3D "qcom,pm8550b-typec", "qcom,pm8150b-typec";
-
-[Severity: Low]
-Should "qcom,pm8550b-typec" be added to
-Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml?  That schema
-currently only permits "qcom,pm6150-typec" and "qcom,pm7250b-typec" with
-the "qcom,pm8150b-typec" fallback, so dtbs_check will report a validation
-warning on boards that include pm8550b.dtsi.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-topic-sm86=
-50-deckard-tcpm-v1-0-4af33e89ea9e@linaro.org?part=3D1
+-- 
+Krzysztof Kozlowski <krzk@kernel.org>
