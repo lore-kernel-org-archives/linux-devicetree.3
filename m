@@ -1,60 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795617192;
-	b=0deCn0BcvOoXtPnNk8QQb15vLvZzJBaS9A2zb2UuZawm+CVtZc99K3afUQrmfDyH9cfJ
-	 k9KqZqgnvKkYAvvb0m5weK5DWSTeJ/m5/ISJ/xifOSKWDwGWTrBHV7916g0CTwvUSvg7v
-	 eBX6J7Yff/oV6+ccaKF+xhPoEGqAAuS+H2qWHMyq08DDESSyBKYW2UfL9wmRlM5ILdnsu
-	 Jjhnf1ccF595y/5AZSe91HRGAXzyse959Xt12r0G77zN92jxMbWKveMJaFwukIkhSZvVP
-	 Zi/SsL94VcoeqO315IJN6DrieBK2Ea7siKqmIm+wwSJyLgzcj+O4FYUcb7RvuOf7bhg==
+	t=1795617281;
+	b=T0M2YzaRV+OHO5jL6Xpc6pt0NC9UsUkNWJ35xUygFwubGGHBi3/PUnTDKWyYu1mvlu7S
+	 yxqwBKLrdfclGje1ie8Gce/YaMQZnToh8UNUSjyNZ/PkqRAaEvDZfA/A15oYuPMcCpSAo
+	 D8hFQcJen+MvR4l5/piEjCHKqveEoLjzkovKaloVXOCTw9baNv77kBiteqyOKurThwquH
+	 2hOyF8Aa2zdlYpcJUheloUbNOxiDzpQTm980AymgmLXxkdh5CIittw5bNE9g5Vx3YI1+E
+	 T6NdY4+yPw6kFxzq8oZdwJ6T7B9rhzoLslgquPm1Xej1VTP3aTAmcPo9iKD6N1O/1ZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795617192;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=JTuzeFXaJ0CrgwY+VJsh1Zrm4GF5RUj+OFjSqoSpq5M=;
-	b=zcxjjXF0KZ8LUloafFktBHa9/SVa+soQcJtfKrHEpMFtPyUv23U6X/TBNl8YkZJZpyjz
-	 lJajMHWWmm+h3yjGcg8vv+bEaqG+JiEUuzRL9jmBavbX1uEpKwcJKJHjD36fuDyt8r9QT
-	 T6ksOWHYuTWSDpMg02Itr1uqOasoN+r05VZMFhFoJj7EWlm1rlga8kXJ8IarDQPEr9xAl
-	 D9zk71wdqd5Q7yO3nRmc+rV+XfpIYMJMJg2QKiWnQe42neExGTwImdA20Im9KG5nTDuXS
-	 g1lYslvCungFcnkCaN0yNMam+JBS0AIKLvUW17u1F2wXHiSppdQyasOzhl9Y2oXaiMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795617281;
+	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=cqCiELa6nbsCUzTTz8YpyoZQ75NYLAQuxQban16hB/w=;
+	b=Rlneb8VYfhtyBU64n1XumUuFU5fs1kBwZCAU8j0FUlDMOBWCTehBTqjr+9r+2XmlVI2L
+	 DxDXkhQ3UG+Hs18s6lcNZcTJLcP8Q7G0HK/y/YfkVPtxlGbPmA+JyVQqk+v6EeYiW2y0E
+	 n/GBqmcoF7Gp2KkvNlpwTUR2pO/o6TVKK7nljUjA8JWlrkGssu4CAZua6VDJR6lQpmOwI
+	 o6nT0/NiCL9ElOgpi0IdiNf07fZGhwIQP45qqOEANo2DcjRI0I6b9TDVHJzL+oiDL3uN+
+	 aYcdodJDQVs0dX/WzpQKQ+u1cEuIEJc6w0HYJtuyMKr14XIXsyEGGuPUNhu16mAiqWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.ch;
-	spf=pass smtp.mailfrom=protonmail.ch;
-	dkim=pass header.d=protonmail.ch header.i=@protonmail.ch header.a=rsa-sha256 header.s=protonmail3 header.b=F5CiVjeQ;
-	arc=none smtp.remote-ip=109.224.244.123
-Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
+	dmarc=pass header.from=crapouillou.net;
+	spf=pass smtp.mailfrom=crapouillou.net;
+	arc=none smtp.remote-ip=185.119.170.32
+Received: from aposti.net (aposti.net [185.119.170.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56A12606A321
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 14:33:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56A12606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.ch header.i=@protonmail.ch header.a=rsa-sha256 header.s=protonmail3 header.b=F5CiVjeQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.ch;
-	s=protonmail3; t=1795617186; x=1795876386;
-	bh=JTuzeFXaJ0CrgwY+VJsh1Zrm4GF5RUj+OFjSqoSpq5M=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=F5CiVjeQhxUKomP2szkCl3AxCjmzQtv8kCXXwoN1vs1eV4d1vs8dP9Kui19EugwoB
-	 eQrBWS51mV/XqcTAy0Dfhv3/Br3tnt+ZGb6EwanqMtbonx6/+bMkQyoBYq1YlxqMV1
-	 gFSsJST0bakzUG2SiEdX5dpx0o1b36AL/7yChSu5kP9IGOQvoKqiujybGqYImuEke2
-	 EhM+SxWntECLOcC5a5OogdEdNUkhXhpiG/GHgfaaQr8AnWmtY4+NjpdrA33P3DGQro
-	 WgIWWy7jTNCPC0n0U75GUI0cbSVhffJEzZTVUVAmesWJIZ5pY+DoYljmTDuuyw8EmM
-	 OKZdlsj/WcsKA==
-Date: Wed, 25 Nov 2026 14:32:54 +0000
-To: Echo Zhang <echo.zhang@mediatek.com>
-From: Ben Grisdale <bengris32@protonmail.ch>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, MMDVFS Team <linux-mediatek@lists.infradead.org>, kyrie.wu@mediatek.com, ming-fan.chen@mediatek.com, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [PATCH 4/7] soc: mediatek: mmdvfs: add VCP backend
-Message-ID: <20261125143248.237422bc@ben-desktop>
-In-Reply-To: <20261125060037.649659-5-echo.zhang@mediatek.com>
-References: <20261125060037.649659-1-echo.zhang@mediatek.com> <20261125060037.649659-5-echo.zhang@mediatek.com>
-Feedback-ID: 27291966:user:proton
-X-Pm-Message-ID: 57888eaf1331de2550f94de46d07d4368ce17893
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E214606A335;
+	Wed, 25 Nov 2026 14:34:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E214606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+Message-ID: <a61b9a24e0eaf8240933ad2433e6f1c00855b683.camel@crapouillou.net>
+Subject: Re: [PATCH v5 6/7] pinctrl: ingenic: Handle X2600 Port E Schmitt
+ trigger
+From: Paul Cercueil <paul@crapouillou.net>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>, Linus Walleij	
+ <linusw@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bartosz
+ Golaszewski	 <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
+	letux-kernel@openphoenux.org
+Date: Wed, 25 Nov 2026 15:34:36 +0100
+In-Reply-To: <ec49e1a7da313c8dfe012c17a04d03dc4167ee2a.1795589383.git.hns@goldelico.com>
+References: <cover.1795589383.git.hns@goldelico.com>
+	 <ec49e1a7da313c8dfe012c17a04d03dc4167ee2a.1795589383.git.hns@goldelico.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,114 +55,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, 25 Nov 2026 14:00:09 +0800 "Echo Zhang" <echo.zhang@mediatek.com> w=
-rote:
-
-> Add the VCP transport used by MMDVFS to map AP and firmware shared
-> memory, manage feature power references and send IPI commands.
+Le mercredi 25 novembre 2026 =C3=A0 07:49 +0100, H. Nikolaus Schaller a =C3=
+=A9crit=C2=A0:
+> Port E has two Schmitt trigger configuration bits per pin.
+> Select the lower-hysteresis mode when enabling and read both bits
+> to report firmware-initialized settings.
 >=20
-> Wait for VCP readiness and handle the selected MMUP or VCP READY
-> notification to initialize firmware after boot and resume. Serialize
-> IPI transactions while shared memory and acknowledgment state are in
-> use.
+> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
 
-[...]
+Reviewed-by: Paul Cercueil <paul@crapouillou.net>
 
-> +static void mmdvfs_get_bootmode(void)
-> +{
-> +=09struct device_node *np_chosen;
-> +=09struct tag_bootmode {
-> +=09=09u32 size;
-> +=09=09u32 tag;
-> +=09=09u32 bootmode;
-> +=09=09u32 boottype;
-> +=09} *tag;
+With one question below.
+
+> ---
+>=20
+> Notes:
+> =C2=A0=C2=A0=C2=A0 Changes V5:
+> =C2=A0=C2=A0=C2=A0 - Keep the ingenic_get_pin_config() call and the Port =
+E
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 condition on single lines, as suggested by=
+ Paul Cercueil.
+>=20
+> =C2=A0drivers/pinctrl/pinctrl-ingenic.c | 7 +++++++
+> =C2=A01 file changed, 7 insertions(+)
+>=20
+> diff --git a/drivers/pinctrl/pinctrl-ingenic.c b/drivers/pinctrl/pinctrl-
+> ingenic.c
+> index 88531d472cd2e..d253674accacd 100644
+> --- a/drivers/pinctrl/pinctrl-ingenic.c
+> +++ b/drivers/pinctrl/pinctrl-ingenic.c
+> @@ -69,6 +69,7 @@
+> =C2=A0#define X2000_GPIO_PEPD				0x90
+> =C2=A0#define X2000_GPIO_SR				0xd0
+> =C2=A0#define X2000_GPIO_SMT				0xe0
+> +#define X2600_GPIO_SMT1				0x100
+> =C2=A0
+> =C2=A0#define X2600_GPIO_SHADOW_OFFSET		0x800
+> =C2=A0#define X2600_GPIO_PAGLD			(X2600_GPIO_SHADOW_OFFSET +
+> 0xf0)
+> @@ -4693,6 +4694,8 @@ static int ingenic_pinconf_get(struct pinctrl_dev
+> *pctldev,
+> =C2=A0			return -EINVAL;
+> =C2=A0
+> =C2=A0		arg =3D !!ingenic_get_pin_config(jzpc, pin, reg);
+> +		if (is_soc(jzpc, ID_X2600) && offt =3D=3D 4)
+> +			arg |=3D !!ingenic_get_pin_config(jzpc, pin,
+> X2600_GPIO_SMT1);
+> =C2=A0		break;
+> =C2=A0
+> =C2=A0	case PIN_CONFIG_SLEW_RATE:
+> @@ -4767,6 +4770,10 @@ static void ingenic_set_bias(struct ingenic_pinctr=
+l
+> *jzpc,
+> =C2=A0static void ingenic_set_schmitt_trigger(struct ingenic_pinctrl *jzp=
+c,
+> =C2=A0		unsigned int pin, bool enable)
+> =C2=A0{
+> +	/* Port E uses two bits; select the lower-hysteresis Schmitt mode. */
+> +	if (is_soc(jzpc, ID_X2600) && pin / PINS_PER_GPIO_CHIP =3D=3D 4)
+> +		ingenic_config_pin(jzpc, pin, X2600_GPIO_SMT1, false);
+
+So on port E it will configure both X2600_GPIO_SMT1 and X2000_GPIO_SMT?
+
+Cheers,
+-Paul
+
 > +
-> +=09if (bootmode < UNKNOWN_BOOT)
-> +=09=09return;
-> +
-> +=09np_chosen =3D of_find_node_by_path("/chosen");
-> +=09if (!np_chosen) {
-> +=09=09bootmode =3D NORMAL_BOOT;
-> +=09=09return;
-> +=09}
-> +
-> +=09tag =3D (struct tag_bootmode *)of_get_property(np_chosen, "atag,boot"=
-, NULL);
-> +=09of_node_put(np_chosen);
-> +
-> +=09if (tag)
-> +=09=09bootmode =3D tag->bootmode;
-> +=09else
-> +=09=09bootmode =3D NORMAL_BOOT;
-> +}
-> +
-
-[...]
-
-> +static int
-> +mmdvfs_vcp_send_ipi_impl(struct mmdvfs_device *mmdvfs, void *data, u32 l=
-en,
-> +=09=09=09 const bool vcp)
-> +{
-[...]
-> +=09mmdvfs_get_bootmode();
-> +=09if (bootmode =3D=3D RECOVERY_BOOT) {
-> +=09=09mmdvfs_err(mmdvfs->dev, "IPI skipped: bootmode=3D%d\n", bootmode);
-> +=09=09return -EACCES;
-> +=09}
-> +
-
-Allow me to give my two cents here, even if I am a nobody :)
-
-Android bootmodes. Whilst I do respect the reason for Android bootmodes
-existing, what I do not like to see is people checking for the *Android*
-bootmode in their drivers.
-
-Android kernels these days are *modular* thanks to GKI. I *do not*
-understand why people still check for bootmodes in their drivers when
-there is a much better option of *not loading them* if they are not
-wanted in the current bootmode.
-
-Having your driver depend on the behaviour of one specific userspace is
-terrible. And tracking it in firmware (given that this code is checking
-for an "atag,boot" property presumably added by the bootloader) is even
-worse.
-
-Aside from enabling these questionable bootmode checks in the drivers,
-I have no idea why the bootloader needs to get involved with putting
-non-standard state / boot info inside of /chosen (i.e. that "atag,boot"
-property), when Android solved this problem by using bootargs, and more
-recently, bootconfig.
-
-I will acknowledge that "just not loading modules" does get a bit more
-nuanced if you bring something like udev / Android init into the mix,
-but there are still better solutions to this problem: either gracefully
-handling the state where the hardware isn't ready in your driver, making
-your bootloader set status =3D "disabled"; on the relavent DT node, or
-blocklisting the module from userspace in boot modes where it can't
-work.
-
-Inter-driver dependencies are not a good excuse either (e.g. a core
-clock driver depending on some DVFS driver that is a no-op in recovery,
-forcing you to load it ANYWAY, even if the bootloader doesn't start the
-required firmware on recovery boot). If that is the case, then there is
-some serious refactoring work to do.
-
-First I began seeing these sorts of checks in vendor touch screen
-drivers, but now it seems to be infecting SoC side drivers as well.
-
-*Kernel* drivers should work the same regardless of what *userspace*
-environment is running (with the only real exception being the absence
-of firmware or explicit configurations from userspace). And in situations
-where they genuinely can't work, they should not be loaded at all.
-
-There should be no such thing as "kernel drivers designed for Android",
-only "kernel drivers designed for Linux".
-
-Best regards,
-Ben Grisdale
-
+> =C2=A0	if (is_soc_or_above(jzpc, ID_X2000))
+> =C2=A0		ingenic_config_pin(jzpc, pin, X2000_GPIO_SMT, enable);
+> =C2=A0	else
