@@ -1,57 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795595559;
-	b=WPdgnQ1o++vJdwI92b6Hod4QebjIbGMcld8o5wd8RfSA9jSn9wFnDVrcSeKvQ8S4yd/m
-	 QzmK6F+voo0dw7j4UUh+KPa+z7IWrLHgqV0ZJ1EKIZMfGWg+H4jqRedy+xbXcWfC8U6kY
-	 cBs15OaCZEJyT69UYcwIejzVyWXRdFiIy3bWoTRSXnCW83b3j2Nh3XLGW5WJTuCG8dz30
-	 60ln1NfSKlI1AwphUsHWUQPtKs151fLx26IQto1tNKDm9LPlCdrvyvHynTySDxA7B3ICg
-	 Ycczd3k+ME/r3U21Ij88364gjNqhKtu2cgW50bSjwRZD3YD+7/77iWKUPL9oaTOXWBA==
+	t=1795595563;
+	b=JARxg2PCbRWc/84+sh12/EaC7VzlUeMZo7z95Y9xyaednophpfpLbpASwTs2FQMis8SQ
+	 rKc9olmxau8g2Y53AGjtnI2C2deutuIYovazHTYDHtI7mRqQ3MgfqHWDcU1VcOTzfeFEG
+	 BH2aw/OsWXDlchk0bWQ+R/hHzWduqtXRYIj3y1qGAIr4sLmOzg19sWq6tnLoBHBdQF59X
+	 wU18BoPKveqtS709G4kb6ibtRfGlVZFcrKhRA2hTuYenarCHcpQlehB3A4XKqB3bijVj7
+	 aU1ynU7d7kW1EmiiMtL0Lm+HftjYgFsrKOUbOPTkSHWTlgPvZyVQLWtJfI4y6Wkt8DQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795595559;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=6b0NRppQoIv/gP4EMBgo/e8en9U7x6Fh8pRvjfiuGvI=;
-	b=yGfGMMuQpQFxQvLXZi1T552j1k9unb7fkByaNpD+ajOMlg/U8J1cJwVmsghncZfrtEUT
-	 mmsPs+bcHyNZjJOE6c4Xz15iKieaEvv/lrjhsuFZBcJGLGTVvYGei76Ig+cJS8VcxjZph
-	 w8rLUAW7yobiKousK48W+j+2gLEi3YU3Wvtqj/oM/uth8aMiMgNHwiLRAxfcohAxKxGG7
-	 NFzxIA3xbtdIeHOUf4UfRBd00fWBNF4WWeCKxMEsC+pdXvvgmlgss4zyoW/1K1eWGnUGU
-	 bWVdZVjDwokMyesR9V+BKTipQrh0gFJHpKREhf+STGscqa4py+JCJcfLEjUV091fQ2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795595563;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Z7nVlkXNx7FQmO9ItasInEpMKvgYG91F7qwPmFbmBqU=;
+	b=IyeceELTRQISs4arhDD08eeE57CsAAiPR2okQli2UQcK0EbOaW79Hpgw8Da7s9zK9Ski
+	 pIuQSubTT6Jzeap/u2VpiHU8s8YSkIDuRd72y8gmPsHiXrb1tvdMiUm1HjyofjWoWYIhN
+	 wIMvLM4wdeWTZKn2qs5zMPNvP7vpXx+TG2fLlz0uxbZkTTCzRnG7xV3cJ4u79u5C0whrt
+	 0yZsW765iIg9mT749tQsp17yfdOEekVER7bNQKg3w06lmjPWDSVVxVskWaXm+Qp622PnZ
+	 iLLlQpy0jbj+oTqgBh//ejSwn6fIf1SPiTnnUZ9/nyoYni7KV6d/q8nB0XUzCRcgMyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HyKj33mm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=CGXhQYbR;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1CC7606A323;
-	Wed, 25 Nov 2026 08:32:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE54606A326
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 08:32:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CE54606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HyKj33mm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25CA51F000EB;
-	Wed, 25 Nov 2026 08:32:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795595558;
-	bh=6b0NRppQoIv/gP4EMBgo/e8en9U7x6Fh8pRvjfiuGvI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HyKj33mmJWDJcEP0uwzFLiRrdoq+hjgI8/hxRI+h8H5si8kArzlyTKjp7Saiol4yP
-	 7JXD3GNkhKKkNRmnSgUgIpcz1ESsiNGffbrJkz2k9dmxViOrg0Bw9fun/qXiVBGufx
-	 g5Se1ruW80rgygCbropvX9mwihloeQNy1o6fN3t1hEl9aQWPMtzgjhH/8zMXhBNZSd
-	 7KRNUpExuIqH7evdF/pED8T2tsvGCSzYxgWDzM7fdQwU0KDJU7OGJT+lgFLk4hHA0Q
-	 uiNjESFk849lp17HCpkhtDWn+MiYWkJG7rwp2GLaTUHbaeDxTvXTVOZGd2n0MtgLOK
-	 CvODOcR0nunDQ==
-Message-ID: <sashiko-outbox-232908@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] arm64: dts: imx95: Add ADLINK LEC-iMX95 board
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dinesh kumar v" <dineshkumarv85@gmail.com>
-Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261125082222.136238-4-dineshkumarv85@gmail.com>
-References: <20261125082222.136238-1-dineshkumarv85@gmail.com>
- <20261125082222.136238-4-dineshkumarv85@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 08:32:37 +0000
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=CGXhQYbR
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4bba5e17728so3479845e9.2
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 00:32:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1795595560; x=1796200360; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z7nVlkXNx7FQmO9ItasInEpMKvgYG91F7qwPmFbmBqU=;
+        b=CGXhQYbRvU6BAp0MBowXAqnhc2lvISMyEpD/LU3Amn1yvfstAmkVKlVBbsheSu0/fy
+         sgZDdHk6BAo6afbE7UtCGnO8JTQ5R71SZ74JuCFRePir7wH0ANPaFehNXDFQ/zOVGSxC
+         m+8xGFNngmtrVaJTZB+N4KffvbM/MeV+b1RagGGtbESf0sAem0+Hy0slwv/6Lv/Ls4n0
+         L+/pFEzjCkXziatYZj9dpWuJsXhuZ0FVIaBFfGYfucaVp0IHxv5wqi2iPkRycrNeQUCX
+         ga8pxIhV4QVre3Clj+hHhTZil3hd34srREt0TqeslQSYD2Mtgu/mHgYobQBorl3mmKQJ
+         sSbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795595560; x=1796200360;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z7nVlkXNx7FQmO9ItasInEpMKvgYG91F7qwPmFbmBqU=;
+        b=ys1c1P65so8vZF5REY3z0vMphTSSQPMqPpD+UQ1T9wvfVVGgpMuDrZGaOeiUB2hmUP
+         i9D0cJfzCdQqOKatNJSb8jkga3zS6jVdLl1RAiivq+XWS49ESjBaI6HpqkuHs6pNIpmY
+         XPzlTgUI430zqA9FkQJYQpN1lqkxAtdhmEOticyL8fOjFuI6BPwRao5BVHK5IWoH9j0f
+         kjpHZ6wQ8hE+/o7p4cPPIiJSRbX++yD62lFefNtBzfDxSgT7nosncA9/WkZuAcL8/uzD
+         s6K5L0x40lRS0e8BZs4Xr2tP73kNsu+xGjc9rNJhwIsfqPZM28jiEXxlTBe6kDEefjsY
+         +Jiw==
+X-Forwarded-Encrypted: i=1; AL+hErEWDPfVJuEW+qEyt+KmyS/xzAIPuCR2mHZjOa/JzRnnV7S2o61ZsUCfR4TYHzHCsdhfRelx9im/m6x0@vger.kernel.org
+X-Gm-Message-State: APuU4Z9eXe3tLx5AZxmJx84w9xzQOvODLQsF6MErTUrNdqLUMBQiEyDW
+	6Cpql9jS/i5pDIzL9GLZ8Sx0FYX17dDgvyZSNB//TdP9Rza27YaU45Bi/jWutLEKl+k=
+X-Gm-Gg: AZFdTZcOmQwvlO0BaUGUkp3JJWJEkf81OGLkIaeLjs6AbvDd1qLAV4iKjsEWaMKE6RI
+	CKeR3aQlSYubH5Ky5GsapTl7VNWzT9djjGNo5RWlTLAZY/eKN7ycvswxZYaNSb0lFB7qvBwM+FI
+	s36H620uxH/9vNF+Bu9GZHmwM/4yrRBn0wXkIgptTYM4+Rw92yvzzaj4uF5QvQFY8CHemwm3X84
+	v2GqOlCcz52LXeNoUNZgs8iNrJmr1n9+yypjzEk2t6qwTLtI7G3MKIA8bR+p7/E5YiBTkmYf0LA
+	z4RlUQotVW/3Mg3rLNFaD3pHVvBDxy1laNUYZ3juk9iXt1Fcvhi8eYkeV8F0saLpSclwO24Eu/t
+	PfUcryVp3+qv7J52vwCVOAsasa8ok/sRdwzV9Sp/fpLzSwji2CKrP0yYn4EWqJCQONUvQRYo5p9
+	0PCCXatvLfseyPtL8INsFovvAxSeBs/PeJYwzaIpjgAWAyAjXpUTuARfvD7R166OyDyyj35COIv
+	yG4VSFpqGi6fwoGpyzraq1byiARODaw0fPL21j5BADUV2e+vnhoWApNffXK8UptAJnsNTB4wI5U
+	djYM4Z+SdS13+DZhuejzk2190zC2YIl3mid8e74aygWvaslsFZczgMUbpClUrM8bmLE8XR30tRC
+	Pp0Bs7dH9tAjy9+2gvW8OeWXSePpUOw==
+X-Received: by 2002:a05:600c:530f:b0:4bb:781f:6067 with SMTP id 5b1f17b1804b1-4bb887e21e4mr334917245e9.1.1795595560293;
+        Wed, 25 Nov 2026 00:32:40 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:f368:ae2e:e717:e970? ([2a01:e0a:106d:1080:f368:ae2e:e717:e970])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884c3063sm502783405e9.15.2026.11.25.00.32.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Nov 2026 00:32:40 -0800 (PST)
+Message-ID: <5ffffee4-15f2-477b-b7d1-67649605b412@linaro.org>
+Date: Wed, 25 Nov 2026 09:32:39 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,65 +92,296 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 2/2] clk: qcom: add SM8650 LPASS core & audio clock
+ controllers
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
+ conor+dt@kernel.org
+References: <20261124-topic-sm8650-el2-clks-v2-0-8086440e2c09@linaro.org>
+ <20261124-topic-sm8650-el2-clks-v2-2-8086440e2c09@linaro.org>
+ <sashiko-outbox-231728@kernel.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <sashiko-outbox-231728@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] arm64: dts: imx95-lec: non-standard and inverted usb0 and usb1
-  aliases
---
+On 11/24/26 18:40, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential
+> issues to consider:
+> - [High] clk: qcom: unclocked GDSC MMIO access in lpass_aon_cc on SM8650
+> - [Medium] clk: qcom: MND freq_tbl used on non-MND
+>    lpass_aon_cc_main_rcg_clk_src
+> - [Medium] clk: qcom: MCLK branches parented to 2X RCGs instead of CDIV
+>    dividers
+> - [Low] clk: qcom: stale LPASS HM iface clock description in commit
+>    message
+> --
+> 
+> commit 5b9d49ed39635aa6cd0df792f0d843cc860ce478
+> Author: Neil Armstrong <neil.armstrong@linaro.org>
+> 
+> clk: qcom: add SM8650 LPASS core & audio clock controllers
+> 
+> This commit adds drivers for the SM8650 LPASS HM, core, audio, and AON
+> clock controllers so Linux can manage LPASS clocks and GDSCs without ADSP
+> firmware.
+> 
+>> Add drivers for the SM8650 LPASS HM, core, audio and AON clock
+>> controllers, the HM, audio and AON controllers keeping their iface clock
+>> enabled while in use, LPASS HM's being the GCC LPASS config NoC clock.
+> 
+> [Severity: Low]
+> Is the commit message description of LPASS HM's iface clock still
+> accurate?  Only the audio and AON drivers acquire and manage an "iface"
+> clock via pm_clk_add(); lpass_hm_core_probe() calls qcom_cc_probe()
+> directly without setting up pm_clk.
 
-commit 30ac215ca7d5d81b59baad65006b81ae04ed8102
-Author: Dinesh kumar v <dineshkumarv85@gmail.com>
+Will fix
 
-arm64: dts: imx95: Add ADLINK LEC-iMX95 board support
+> 
+>> diff --git a/drivers/clk/qcom/lpassaudiocc-sm8650.c b/drivers/clk/qcom/lpassaudiocc-sm8650.c
+>> new file mode 100644
+>> index 0000000000000..abd0258d9e72f
+>> --- /dev/null
+>> +++ b/drivers/clk/qcom/lpassaudiocc-sm8650.c
+> [ ... ]
+>> +/* XO only for now: the ADSP plan feeds these from the audio CC DIG PLL */
+>> +static const struct freq_tbl ftbl_lpass_cc_ext_clk_src[] = {
+>> +	F(1536000, P_BI_TCXO, 1, 2, 25),
+>> +	F(2304000, P_BI_TCXO, 1, 3, 25),
+>> +	F(3072000, P_BI_TCXO, 1, 4, 25),
+>> +	F(9600000, P_BI_TCXO, 2, 0, 0),
+>> +	F(19200000, P_BI_TCXO, 1, 0, 0),
+>> +	{ }
+>> +};
+> [ ... ]
+>> +static struct clk_rcg2 lpass_aon_cc_main_rcg_clk_src = {
+>> +	.cmd_rcgr = 0x19000,
+>> +	.mnd_width = 0,
+>> +	.hid_width = 5,
+>> +	.parent_map = lpass_aon_cc_parent_map_0,
+>> +	.freq_tbl = ftbl_lpass_cc_ext_clk_src,
+>> +	.clkr.hw.init = &(const struct clk_init_data){
+>> +		.name = "lpass_aon_cc_main_rcg_clk_src",
+>> +		.parent_data = lpass_aon_cc_parent_data_0,
+>> +		.num_parents = ARRAY_SIZE(lpass_aon_cc_parent_data_0),
+>> +		.ops = &clk_rcg2_ops,
+>> +	},
+>> +};
+> 
+> [Severity: Medium]
+> Should lpass_aon_cc_main_rcg_clk_src use a frequency table without MND
+> entries (such as ftbl_lpass_mclk_clk_src) since its .mnd_width is 0?
+> 
+> Because __clk_rcg2_configure_mnd() only programs M, N, and D when
+> rcg->mnd_width is non-zero, requesting 1.536 MHz, 2.304 MHz, or 3.072 MHz
+> on lpass_aon_cc_main_rcg_clk_src (or via its CLK_SET_RATE_PARENT child
+> branches) matches the fractional M/N entries in ftbl_lpass_cc_ext_clk_src
+> during rate determination, but programs only pre_div = 1 in hardware,
+> leaving the clock running at 19.2 MHz.
 
-This commit adds devicetree support for the ADLINK LEC-iMX95 module and
-the I-Pi SMARC Plus carrier board.
+Will add a table with only 19.2MHz
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx95-lec.dtsi b/arch/arm64/bo=
-ot/dts/freescale/imx95-lec.dtsi
-> new file mode 100644
-> index 0000000000000..079639b8736b1
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx95-lec.dtsi
-> @@ -0,0 +1,631 @@
+> 
+> [ ... ]
+> 
+>> +/* MCLK = RCG / CDIV (reset value: divide by 2), the 2X clocks are the RCG */
+>> +static struct clk_regmap_div lpass_audio_cc_cdiv_rx_mclk_div_clk_src = {
+> [ ... ]
+>> +static struct clk_branch lpass_audio_cc_wsa_mclk_clk = {
+>> +	.halt_reg = 0x2a0d4,
+>> +	.halt_check = BRANCH_HALT,
+>> +	.clkr = {
+>> +		.enable_reg = 0x2a0d4,
+>> +		.enable_mask = BIT(0),
+>> +		.hw.init = &(const struct clk_init_data){
+>> +			.name = "lpass_audio_cc_wsa_mclk_clk",
+>> +			.parent_hws = (const struct clk_hw*[]){
+>> +				&lpass_audio_cc_cdiv_wsa_mclk_div_clk_src.clkr.hw,
+>> +			},
+>> +			.num_parents = 1,
+>> +			.flags = CLK_SET_RATE_PARENT,
+>> +			.ops = &clk_branch2_ops,
+>> +		},
+>> +	},
+>> +};
+>> +
+>> +static struct clk_branch lpass_audio_cc_wsa2_mclk_clk = {
+>> +	.halt_reg = 0x2d004,
+>> +	.halt_check = BRANCH_HALT,
+>> +	.clkr = {
+>> +		.enable_reg = 0x2d004,
+>> +		.enable_mask = BIT(0),
+>> +		.hw.init = &(const struct clk_init_data){
+>> +			.name = "lpass_audio_cc_wsa2_mclk_clk",
+>> +			.parent_hws = (const struct clk_hw*[]){
+>> +				&lpass_audio_cc_wsa_mclk_clk_src.clkr.hw,
+>> +			},
+>> +			.num_parents = 1,
+>> +			.flags = CLK_SET_RATE_PARENT,
+>> +			.ops = &clk_branch2_ops,
+>> +		},
+>> +	},
+>> +};
+>> +
+>> +static struct clk_branch lpass_audio_cc_tx_mclk_wsa_clk = {
+>> +	.halt_reg = 0x2a0f4,
+>> +	.halt_check = BRANCH_HALT,
+>> +	.clkr = {
+>> +		.enable_reg = 0x2a0f4,
+>> +		.enable_mask = BIT(0),
+>> +		.hw.init = &(const struct clk_init_data){
+>> +			.name = "lpass_audio_cc_tx_mclk_wsa_clk",
+>> +			.parent_hws = (const struct clk_hw*[]){
+>> +				&lpass_aon_cc_tx_mclk_clk_src.clkr.hw,
+>> +			},
+>> +			.num_parents = 1,
+>> +			.flags = CLK_SET_RATE_PARENT,
+>> +			.ops = &clk_branch2_ops,
+>> +		},
+>> +	},
+>> +};
+>> +
+>> +static struct clk_branch lpass_audio_cc_tx_mclk_rx_clk = {
+>> +	.halt_reg = 0x2c0e0,
+>> +	.halt_check = BRANCH_HALT,
+>> +	.clkr = {
+>> +		.enable_reg = 0x2c0e0,
+>> +		.enable_mask = BIT(0),
+>> +		.hw.init = &(const struct clk_init_data){
+>> +			.name = "lpass_audio_cc_tx_mclk_rx_clk",
+>> +			.parent_hws = (const struct clk_hw*[]){
+>> +				&lpass_aon_cc_tx_mclk_clk_src.clkr.hw,
+>> +			},
+>> +			.num_parents = 1,
+>> +			.flags = CLK_SET_RATE_PARENT,
+>> +			.ops = &clk_branch2_ops,
+>> +		},
+>> +	},
+>> +};
+>> +
+>> +static struct clk_branch lpass_audio_cc_tx_mclk_wsa2_clk = {
+>> +	.halt_reg = 0x2d00c,
+>> +	.halt_check = BRANCH_HALT,
+>> +	.clkr = {
+>> +		.enable_reg = 0x2d00c,
+>> +		.enable_mask = BIT(0),
+>> +		.hw.init = &(const struct clk_init_data){
+>> +			.name = "lpass_audio_cc_tx_mclk_wsa2_clk",
+>> +			.parent_hws = (const struct clk_hw*[]){
+>> +				&lpass_aon_cc_tx_mclk_clk_src.clkr.hw,
+>> +			},
+>> +			.num_parents = 1,
+>> +			.flags = CLK_SET_RATE_PARENT,
+>> +			.ops = &clk_branch2_ops,
+>> +		},
+>> +	},
+>> +};
+> 
+> [Severity: Medium]
+> Should lpass_audio_cc_wsa2_mclk_clk and the three lpass_audio_cc_tx_mclk_*
+> branches be parented to their CDIV divider clocks rather than directly to
+> the 2X RCG clock sources?
+> 
+> As noted in the CDIV comment above, 1X MCLK branches are divided by CDIV
+> (divide by 2 at reset), which is how lpass_audio_cc_rx_mclk_clk,
+> lpass_audio_cc_wsa_mclk_clk, and lpass_aon_cc_tx_mclk_clk are wired.
+> Parenting lpass_audio_cc_wsa2_mclk_clk directly to
+> lpass_audio_cc_wsa_mclk_clk_src and lpass_audio_cc_tx_mclk_{wsa,rx,wsa2}_clk
+> directly to lpass_aon_cc_tx_mclk_clk_src with CLK_SET_RATE_PARENT causes a
+> 2x rate mismatch in clk_get_rate() and conflicts with sibling 1X MCLK
+> branches sharing those RCGs when clk_set_rate() is called.
 
-[ ... ]
+Will check
 
-> +/ {
-> +	aliases {
-> +		ethernet0 =3D &enetc_port0;
-> +		ethernet1 =3D &enetc_port1;
-> +		gpio0 =3D &gpio1;
-> +		gpio1 =3D &gpio2;
-> +		gpio2 =3D &gpio3;
-> +		gpio3 =3D &gpio4;
-> +		gpio4 =3D &gpio5;
-> +		i2c1 =3D &lpi2c2;
-> +		i2c2 =3D &lpi2c3;
-> +		i2c7 =3D &lpi2c8;
-> +		mmc0 =3D &usdhc1;
-> +		mmc1 =3D &usdhc2;
-> +		rtc0 =3D &rtc_i2c;
-> +		rtc1 =3D &scmi_bbm;
-> +		serial0 =3D &lpuart1;
-> +		serial1 =3D &lpuart2;
-> +		serial2 =3D &lpuart5;
-> +		serial3 =3D &lpuart7;
-> +		spi0 =3D &lpspi6;
-> +		usb0 =3D &usb3_dwc3;
-> +		usb1 =3D &usb2;
-> +	};
+> 
+> [ ... ]
+> 
+>> +static struct gdsc lpass_aon_cc_lpass_audio_hm_gdsc = {
+>> +	.gdscr = 0x11090,
+>> +	.pd = {
+>> +		.name = "lpass_aon_cc_lpass_audio_hm_gdsc",
+>> +	},
+>> +	.pwrsts = PWRSTS_OFF_ON,
+>> +	.flags = RETAIN_FF_ENABLE,
+>> +};
+> [ ... ]
+>> +static int lpass_cc_sm8650_probe(struct platform_device *pdev,
+>> +				 const struct qcom_cc_desc *desc)
+>> +{
+>> +	int ret;
+>> +
+>> +	ret = devm_pm_runtime_enable(&pdev->dev);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = devm_pm_clk_create(&pdev->dev);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = pm_clk_add(&pdev->dev, "iface");
+>> +	if (ret < 0) {
+>> +		dev_err(&pdev->dev, "failed to acquire iface clock\n");
+>> +		return ret;
+>> +	}
+>> +
+>> +	ret = pm_runtime_resume_and_get(&pdev->dev);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = qcom_cc_probe(pdev, desc);
+>> +
+>> +	pm_runtime_put_sync(&pdev->dev);
+>> +
+>> +	return ret;
+>> +}
+> 
+> [Severity: High]
+> Can gdsc_enable() or gdsc_disable() access
+> lpass_aon_cc_lpass_audio_hm_gdsc (offset 0x11090) while lpass_aon_cc is
+> runtime-suspended and its iface clock is disabled?
+> 
+> At the end of lpass_cc_sm8650_probe(), pm_runtime_put_sync() suspends
+> lpass_aon_cc and disables its iface clock (LPASS_CORE_CC_CORE_CLK), which
+> also allows lpass_core_cc to runtime-suspend and power off
+> LPASS_CORE_HM_GDSC.  Because gdsc_enable() and gdsc_disable() do not
+> runtime-resume the GDSC provider device, any genpd power transition that
+> runs while lpass_aon_cc is suspended performs unclocked MMIO on 0x11090
+> and triggers a bus hang or SError.  For example, genpd_power_off_unused()
+> at late_initcall_sync, asynchronous genpd_power_off_work_fn() after a
+> consumer drops its runtime PM supplier link, or system suspend/resume of a
+> virtual genpd device attached via dev_pm_domain_attach_by_name() in
+> lpass_macro_pds_init() can all toggle this GDSC while lpass_aon_cc is
+> runtime-suspended.
+> 
 
-[Severity: Low]
-Should the usb0 and usb1 entries in /aliases be dropped?
-
-Custom non-subsystem aliases are not allowed in devicetree sources, and
-the usb subsystem does not define usbN aliases.  In addition, the board
-comments in imx95-lec-ipi-smarc.dts label &usb2 as the first carrier port
-and &usb3_dwc3 as the second, so usb0 and usb1 are inverted relative to
-the hardware port numbering.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125082222.1362=
-38-1-dineshkumarv85@gmail.com?part=3D3
+It's probably fine, register access doesn't depend on the iface clk
