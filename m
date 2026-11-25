@@ -1,90 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795595927;
-	b=vjwRlYubdVUW2IC8RPoeCivDDisQX9ohQuh+ZDWHGYYPz1qTBedKUXzoDzNrErKEDQwj
-	 UF7tg3BaZLQgNVua0Vn+ICdzMVhdugKvOv2f92PJWo/o5LdKd5Y6YWEn2GsPKscbXCUMq
-	 enMA7A+XPR4EeIbaCQ3O8ckDo7nNds+PmJYSrWLjiaSdRmHW+3l1HyXY/Nm5xErbE5oES
-	 oAmWJ1iK5Cu2opPjL0Hb+gFKwyuAhy2Qb7v7wMgYRnnzULnTigV13lWJAfuPVrtYyvcAY
-	 QbMWM1t0GmM3Vj3//AGXhBYBV6TnCwWWyDrwqWBu1UlxFcnJEX8OexQROmZ8B/W2ZLw==
+	t=1795596025;
+	b=P90PAJIBNf07F130w3gURXCJkTD89iiL9ZVofy5wMgtgXijzHrw+Ww7pfV0NaIyjzOPL
+	 2GV3DDcd6RpaV+dqHKqMoom4r3FUMTGDmzR1dvyTcWsJLMtgE/WqcMEDj97N72OkdbUPB
+	 UWHkzF3cfnyyDvrrajd7Lb+jQFDiTqHvxr+D3RnoEIZ0HK4rNCv/cWYu2lGrw/hZKypHG
+	 vfTvCsHqbXTwWcnKc2ykNLhEeX1/yWJNIhPbjZ4ykB577pbgxozT241SljVKxs3P/L691
+	 3xPMPao5I7aJuWFTHMEZwnGywWKewSXxR7+cI38yXonQVdhshg7GLqShcdUjFe06H/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795595927;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
-	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=50VR4Bii4r0x40VxRkLIljzh8fTduZtxHSfKIR3mJdA=;
-	b=3NKhJo6pCcRnH8l57dXy9xI8wZ4UfLEqWb6NMussX0jKWbUO7Lm4cGeclDVYDxIzFfad
-	 TBOYKezaeeEF4a7r/lxk++aSBQRWV2mapOGFEJizQTVDJNKKBcXML1koYeZJyw5CxBeUM
-	 2FuqZPo0zA9szR41igli9pDEA7dNps/ATvkA2XvK4kckzw/iVDMxkug19CHmEcxidjdnq
-	 d+nmWJSL/2fysaA1jccdBT+0QREF3IoKjZ8W7UUN6IAGgvD9mr5tINoC9inAEJJ3phb/q
-	 395u5jxhor/Wrfsc3J12G+ogTxRmSRgdiELRKTKQymTMWIKbBTmDYruenRUZR2ZyhUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795596025;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:
+	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=+CYlxJv/+7kxW65PjdmkWtemuwvXOPTUbGz8x45rSY0=;
+	b=rCuryfcNDVdSZd5uNs+uCrsojCxUdzyEvtTsJa3gZ6rcRl4Yx2KWi93Orp2ATQbiO8yW
+	 SEKQsq8y5MxsBYVZzz6Dr4iQ0WxjRC1iXZpa41QNJTj8iSzxyNptR3bnmJ40ji2O3SWii
+	 AXxpuiooTx6JsVURDYrLywSSpbm0qDC17ApFaAe61pbhTcgGtqZx+GKEhOlgsJowMrIzs
+	 /EmLtb3O2uZNor+tx2fJV/MCoy+De6RViqqyHPOmc4WhR0ixTOa46MNryLVOuvMkDiNQa
+	 sL9EfasldbXqtpoiuBMvxpudQ0AytCKpz3iYBRtd6KYPJLO4EyvISHc7/705LxvPiuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uXB0uB9r;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CIkcstcG;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28485606A33F
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 08:38:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28485606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685D9606A321;
+	Wed, 25 Nov 2026 08:40:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 685D9606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uXB0uB9r
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-4a9be758734so3410917f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 00:38:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795595925; x=1796200725; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=50VR4Bii4r0x40VxRkLIljzh8fTduZtxHSfKIR3mJdA=;
-        b=uXB0uB9rBS61mYCE8m6Y2IuifItmaCmqaGyCD6s5PyydPTNRjrKOswJNpKzWAjGCbL
-         WebE5b7ecGwKmy3Jiq48lG2n1vuAbv1fo/sJlA+L3pfdRHxPevEpW8YiRsqMGfsin9HP
-         VBfjbaCKfaba6qlxsuy4ZNT2PFo7N8t/o4qFngaEsXTyptDqbU4snsbxibcizetBohGO
-         hJqKr12mT1tzTQbKlOYzKAgGEr8kiRsjMHvnvASSUWbFiVnT6pVZAdwAoA9+6GYuupgP
-         sDozzWJwML8Gp5MNPdRBDz4hO5/X1XHuskXggAbPUC+5LHEq+zJwq0zPyY5ytMbal+0E
-         I4/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795595925; x=1796200725;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=50VR4Bii4r0x40VxRkLIljzh8fTduZtxHSfKIR3mJdA=;
-        b=dWSM+VC2MbuA6yLvMUgtiwCJCgHl8c72p0Y9uZNv3p2U0bnrNA0cw57yIW6bxhN6SU
-         Z9DOdXkCIZ0/AVK/ljc7T9SOSh+kThlo+S9lHms4/G+e/OEohplqmh5HBCmUMi25aOgq
-         De/b50EWWqY6j1mwcnfcibhWg1+GoFyqoOBa0GmMW9qVs2sDKKjPDWmKEGkA6DkPiqDk
-         HVIP27FYvV1ciWcuGYzFkhC97NZ0HEj25UMIkyiDoISpLze5N65r3dpG3wVZJXHkmmoy
-         Vrq14066HYyg7yDtRqWqU6I2N0BrlV1eP4uZS5w7NWzSJdczjP31DPPmQ4uprxbNr90N
-         sDzg==
-X-Forwarded-Encrypted: i=1; AL+hErGI/9MMFrUczawJagH3nhJGcLzodl44H0w8vhIVIRX+WAnbBZ64tR7V8i9JKTv9kY+TzCgiyxjaM3QV@vger.kernel.org
-X-Gm-Message-State: APuU4Z8R91fw8u0IdoeXDZUSgDu1EDzzguHCZTIzfreCEXSV5mkd2kXc
-	+2aXbAo1NOcBmd83Eu1LGPOzO4BFQv5gDToG2TxxAnV3mpzpGPhD9BTQSFl9CgIo1iQq7CkDJbW
-	7KedRe0GIYg==
-X-Gm-Gg: AZFdTZeW5MycMD6h9KHbqhqXXA1ra/Qet+i1cuG+LED25fH1ZOW9LZ0dway0hYuBXvy
-	wOaSTYoqD6L3FaVoxDpdOpXgZWwNjjEtt2JurBKbbL067kXJyqUOwsKmFI+uHGbI7AqoMSdBTpa
-	YRFMvt7aVDs+mp6fapRcTiXmIAFJw/gg3SyutNLGNrvZ3/7UKh33xo7bhsHiw+Hq6SIme1OW5sO
-	Cmin83Mi5Re4CzWtoH6tgSwRPhmADoYP7BX+kUUTzkL0FX6KjOHesInG9L14K4jHa0tvIhQI2bK
-	AoUtx7uL51rGdCFSZ7UIuS8yZgMck1npqEjw5FSoiOhRVP3my7Q5VlbY1I8q28lAgfJQClud809
-	wpyQZqqderB174dq3JnrHgiFo9J6cNISoCBkvBEpy4VTm0KWxzMKatnkfhRltLA1mkrhItn+bZj
-	JGbibAYWNs9uI3q/ty+wn6lP4XAbrAmYYy6aMQAsvWWsbhIolBhG9Qsxva2xWQdk9Rj+QjxwTgc
-	tbk8s/+2oWIqg1eWEW3/sR9i2AOM3i5OGIoS8Mq0kBL47cFSS+CKtZCQqa1fgPcCEJFrFF0qtkR
-	njpKCM8WKAvUxVETzsOa8GwcpTqz/zBEg6L2c6mfjJVrrxwAFr3IXqBVXjHafOjPpQ7SmnQuao7
-	00BV8LHsh2g==
-X-Received: by 2002:a05:6000:200f:b0:4b7:6dcb:e906 with SMTP id ffacd0b85a97d-4b76dcbea3emr7646897f8f.43.1795595925303;
-        Wed, 25 Nov 2026 00:38:45 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:f368:ae2e:e717:e970? ([2a01:e0a:106d:1080:f368:ae2e:e717:e970])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab5ffcad11sm31544013f8f.0.2026.11.25.00.38.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Nov 2026 00:38:45 -0800 (PST)
-Message-ID: <0144c378-919d-4c44-a306-dfadea6a7617@linaro.org>
-Date: Wed, 25 Nov 2026 09:38:44 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CIkcstcG
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AP68oD93807889;
+	Wed, 25 Nov 2026 08:39:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=+CYlxJv/+7k
+	xW65PjdmkWtemuwvXOPTUbGz8x45rSY0=; b=CIkcstcG1eCL95y17AIGDOoLokc
+	+SlodkfUi/veP6fgzhOdGgwKQzkvNX1jCsFvpExb5Wl+07qHJHweyTLqW1cvDaoB
+	EIEZ/2UMozskaUVSgRT2zQUO0A0plMdBNKhlNukBt0pTsNOfvCNsDI8WoHiYVLyo
+	khcYYQy0x/gq9HlK3x/NqI9lfcrDmITRNU5H4/dHLKPBjl5skcwM0AlsJjZEhRYa
+	BXlzJruB4zVENtHeDHWCI/xGUhey69hAbbmGofs2kFmexL4KhEuWSslBoQ1F6azR
+	Kbi/hYAnKOYe09MublFIwg0QCi23M/Rs8uyi08KkXnc5Lx76xFrPlQpWF5A==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5cxkbuc6-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 25 Nov 2026 08:39:55 +0000 (GMT)
+Received: from pps.filterd (apblrppmta02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AP8dqhS1864255;
+	Wed, 25 Nov 2026 08:39:52 GMT
+Received: from hu-devc-blr-u24-a.qualcomm.com (hu-vikrsi-blr.qualcomm.com [10.190.111.249])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 6AP8dqfv1864248
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 25 Nov 2026 08:39:52 +0000 (GMT)
+Received: by hu-devc-blr-u24-a.qualcomm.com (Postfix, from userid 4853235)
+	id 8EA6F248A5; Wed, 25 Nov 2026 14:09:51 +0530 (+0530)
+From: Vikram Singh <vikram.singh3@oss.qualcomm.com>
+To: peterz@infradead.org, mingo@redhat.com, acme@kernel.org,
+        namhyung@kernel.org, mark.rutland@arm.com,
+        alexander.shishkin@linux.intel.com, jolsa@kernel.org,
+        irogers@google.com, adrian.hunter@intel.com, paul.walmsley@sifive.com,
+        palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
+        atishp@rivosinc.com, anup.patel@oss.qualcomm.com, will@kernel.org,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        beeman@rivosinc.com
+Cc: Vikram Singh <vikram.singh3@oss.qualcomm.com>,
+        linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+        Conor Dooley <conor@kernel.org>, devicetree@vger.kernel.org,
+        Rajnesh Kanwal <rajnesh.kanwal49@gmail.com>
+Subject: [PATCH v6 1/7] perf: Increase the maximum number of branches remove_loops() can process.
+Date: Wed, 25 Nov 2026 14:09:36 +0530
+Message-ID: <20261125083942.3695072-2-vikram.singh3@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261125083942.3695072-1-vikram.singh3@oss.qualcomm.com>
+References: <20261125083942.3695072-1-vikram.singh3@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,103 +91,93 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 10/19] ASoC: qcom: lpass-cdc-dma: add support for WSA
- codec DMA
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
- conor+dt@kernel.org
-References: <20261124-topic-sm8650-el2-v2-0-174e159f0f69@linaro.org>
- <20261124-topic-sm8650-el2-v2-10-174e159f0f69@linaro.org>
- <sashiko-outbox-231736@kernel.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <sashiko-outbox-231736@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDAzNCBTYWx0ZWRfX2MwXRxPZzT0M
+ c4BsXPWATTBMTdw+CksLOSPymQWpURtmYPh0nEE+DAymOtUIfUaEZoFmt64ygd7niLTcRKDjb/5
+ edGG1g0YAPEvG3v1dK9MQ3cnDjuYQz+gdRvZQzlMLj6RNZj4lr9YUJeC5mf9vQvRGBUTVVQp0UP
+ VQfpz0FBMJGruLRTxgZT7ryyqlQBng/4AiUdkLm08PnHZgPA340IuYKh3QJplDmjkWJcRFspE9k
+ Eewh5zMXgyopg9Y4Mwt9m2Hf28nxiXS8oN2y1gkhvwGrN+LDiSNuYIxhR3NfUnNUHzIPWF055+T
+ Gffe7VvLWOjSsBirxFSvAOVxQIsJhKgTlC3k2reuK8BV+FDLv5sb4h4dNA9fT41JodcAO8F1OZc
+ 4IdlEi9VrF6yOY3wOd/lSDYzInrmsryCxlnWCiMVy0yPitsTo5yGgcztByYLCCKrrdR65VsOlry
+ lBzkGdTyEhRZ+JI4PGQ==
+X-Proofpoint-GUID: NTR8F6V8MNWl_u_jtgN6ktwiJ-TgThVr
+X-Proofpoint-ORIG-GUID: NTR8F6V8MNWl_u_jtgN6ktwiJ-TgThVr
+X-Authority-Analysis: v=2.4 cv=TLbQ2Fla c=1 sm=1 tr=0 ts=6b069edb cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=Um2Pa8k9VHT-vaBCBUpS:22 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8
+ a=n97FEv7m5ct7woqeUIsA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDAzNCBTYWx0ZWRfX9XnF8OobrHDZ
+ PUlSDz9dwUarRfZ7aWJsBTXUArzoO8syAxs2LU0R7ze7QnhC8/slib5x/bks0rJeMjc72yxHFz5
+ +2P7oSpCTOEpI6yYOdOyBSkzIcPZAgI=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-25_02,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 spamscore=0 clxscore=1015 suspectscore=0
+ malwarescore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611250034
 
-On 11/24/26 18:44, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue to consider:
-> - [Medium] ASoC: qcom: unchecked clk_prepare_enable() in
->    lpass_cdc_dma_daiops_startup()
-> --
-> 
-> commit b77682a3d9ba3fc802985eb7a7f2cb05c5db3350
-> Author: Neil Armstrong <neil.armstrong@linaro.org>
-> 
-> ASoC: qcom: lpass-cdc-dma: add support for WSA codec DMA
-> 
-> This commit adds WSA codec DMA interface handling to the LPASS codec DMA
-> driver, wiring up the WSA DMA control handles, interface types, and
-> codec_mem1 clock in DAI startup and shutdown.
-> 
->> diff --git a/sound/soc/qcom/lpass-cdc-dma.c b/sound/soc/qcom/lpass-cdc-dma.c
->> index 2dc8c75c4bf08..d7f85a4f9d999 100644
->> --- a/sound/soc/qcom/lpass-cdc-dma.c
->> +++ b/sound/soc/qcom/lpass-cdc-dma.c
-> 
-> [ ... ]
-> 
->> @@ -184,6 +211,11 @@ static int lpass_cdc_dma_daiops_startup(struct snd_pcm_substream *substream,
->>   		clk_set_rate(drvdata->va_mem0, CODEC_MEM_HZ_NORMAL);
->>   		clk_prepare_enable(drvdata->va_mem0);
->>   		break;
->> +	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
->> +	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
->> +		clk_set_rate(drvdata->codec_mem1, CODEC_MEM_HZ_NORMAL);
->> +		clk_prepare_enable(drvdata->codec_mem1);
->> +		break;
->>   	default:
->>   		dev_err(soc_runtime->dev, "%s: invalid  interface: %d\n", __func__, dai->id);
->>   		break;
->> @@ -205,6 +237,10 @@ static void lpass_cdc_dma_daiops_shutdown(struct snd_pcm_substream *substream,
->>   	case LPASS_CDC_DMA_VA_TX0 ... LPASS_CDC_DMA_VA_TX0:
->>   		clk_disable_unprepare(drvdata->va_mem0);
->>   		break;
->> +	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
->> +	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
->> +		clk_disable_unprepare(drvdata->codec_mem1);
->> +		break;
->>   	default:
->>   		dev_err(soc_runtime->dev, "%s: invalid  interface: %d\n", __func__, dai->id);
->>   		break;
-> 
-> [Severity: Medium]
-> Should lpass_cdc_dma_daiops_startup() check and return errors from
-> clk_set_rate() and clk_prepare_enable() on drvdata->codec_mem1?
-> 
-> If clk_prepare_enable() fails and startup returns 0, the substream opens
-> with an unclocked LPM memory bank, and lpass_cdc_dma_daiops_shutdown() will
-> later call clk_disable_unprepare(drvdata->codec_mem1) on close, either
-> underflowing the clock refcounts or disabling the shared clock while
-> another WSA stream is using it.
-> 
+RISCV CTR extension supports a maximum depth of 256 last branch records.
+Currently remove_loops() can only process 127 entries at max. This leads
+to samples with more than 127 entries being skipped. This change simply
+updates the remove_loops() logic to be able to process 256 entries.
 
-Ultimately yes, but the actual code doesn't, so this will probably deserve a follow-up fix as it's not related to this serie.
+Co-developed-by: Rajnesh Kanwal <rajnesh.kanwal49@gmail.com>
+Signed-off-by: Rajnesh Kanwal <rajnesh.kanwal49@gmail.com>
+Signed-off-by: Vikram Singh <vikram.singh3@oss.qualcomm.com>
+---
+ tools/perf/util/machine.c | 21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
+
+diff --git a/tools/perf/util/machine.c b/tools/perf/util/machine.c
+index 076d167380f2..f1efd1120a95 100644
+--- a/tools/perf/util/machine.c
++++ b/tools/perf/util/machine.c
+@@ -2334,25 +2334,32 @@ static void save_iterations(struct iterations *iter,
+ 		iter->cycles += be[i].flags.cycles;
+ }
+ 
+-#define CHASHSZ 127
+-#define CHASHBITS 7
+-#define NO_ENTRY 0xff
++#define CHASHBITS 8
++#define NO_ENTRY 0xffU
+ 
+-#define PERF_MAX_BRANCH_DEPTH 127
++#define PERF_MAX_BRANCH_DEPTH 256
+ 
+ /* Remove loops. */
++/* Note: Last entry (i==ff) will never be checked against NO_ENTRY
++ * so it's safe to have an unsigned char array to process 256 entries
++ * without causing clash between last entry and NO_ENTRY value.
++ */
+ static int remove_loops(struct branch_entry *l, int nr,
+ 			struct iterations *iter)
+ {
+ 	int i, j, off;
+-	unsigned char chash[CHASHSZ];
++	unsigned char chash[PERF_MAX_BRANCH_DEPTH];
+ 
+ 	memset(chash, NO_ENTRY, sizeof(chash));
+ 
+-	BUG_ON(PERF_MAX_BRANCH_DEPTH > 255);
++	BUG_ON(PERF_MAX_BRANCH_DEPTH > 256);
+ 
+ 	for (i = 0; i < nr; i++) {
+-		int h = hash_64(l[i].from, CHASHBITS) % CHASHSZ;
++		/* Remainder division by PERF_MAX_BRANCH_DEPTH is not
++		 * needed as hash_64 will anyway limit the hash
++		 * to CHASHBITS
++		 */
++		int h = hash_64(l[i].from, CHASHBITS);
+ 
+ 		/* no collision handling for now */
+ 		if (chash[h] == NO_ENTRY) {
+-- 
+2.43.0
+
