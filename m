@@ -1,68 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795640643;
-	b=zIvW0jfUNEH5pOIdafWi5al/nY6tBL2JcIzqxTPpkU/qqjQSbdc31oyPRgUCu52NnJUg
-	 uTGHNR16QJsfoPrPBSwBmgKlT4MZG/5Bi9Klv251E5hLZ9WSKZDZzlJwGJSMZ+uu7zXCa
-	 NiQ0zbzp355gjUkGVjAU+rjQp9q5anna7WhefJUVdYm80bXaAtHM7tdOU1OwMQVhqzL+z
-	 UsbLxTZ8Ggh5n6/6JWxwP9+Q/ZBUIIEhon5V4YWieoe6v6orf5fsTnQn46Z7ErEBUkSIU
-	 FLIzvUtDi1lQyKftvf11s/BwJBMzY2ozek8lZynrO3xoPVvTWWJg6d0q8k9K3BK+kvg==
+	t=1795640741;
+	b=VcQPeIuhJC00Ya/bEYyQnCiD33xxAEq/JpzkttqpLlNnDuwNmx6JbkWg8Cn7gE0UNpQ3
+	 5h7anNNcxq5o9mYJ/Qg4BIk2Y7Ru40pkLIXRcgg1uFfxWVFXVN3yD7XjhAK8M6nvvAVLG
+	 dPeff5jcgR/iS48XVDgl9UM9f+o3FOfiQLR7UaD/he3FAkuPWPJDLthY3XdC7pfGjtKzS
+	 vtpUUn7BaiyWlb3pysWY3T44/RvhHmHyo00RwhOKa0rzo8BAziBftLWBEsO6PDdBOYFtt
+	 WYwnRB/EDGGlXXcN+qlf9mACKRlF0bzwG9ktFbguToX/NrtWQopOCE8sUARKFb05L2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795640643;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:X-Mailer:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=y3LegPwVKGSVYTYdnNK4I6DxBgHW3VMi3mPtmoy/Eqs=;
-	b=VjF/QreTxaCA+toF5O0Lpvia2zRM4ZE7ZJk7YN4RQX756YwCQdQnX7hOVi/vbIfuLlze
-	 QV1Hd29XKP6cT7byPOkHYwibzUJysZR1cqTr9rTbxiC1KNji8DjFuDL0DE4crCp68eArM
-	 ODX1Rf1wEfNnlCCJRGTC9tvAWlvXoCefLVK99IzdB8nji7u0BPGmx64Cq1pV93KbLj4DY
-	 nCAky7BA+HRrhXRIMh4jMiX6RcW51btg0OBzwS8vGgsyM85jClfBgDPS1brx/yVrU8dIB
-	 C3ZQE26Pj5uF87gQgxpxyi8xEA2Usluhps/B0quCRTrr0yEqKq1FdJ+go86izl/fsiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795640741;
+	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=+7MuY/6UP2Bsh775A7XrC/mnlab/U/JJYl8O0EaI6UA=;
+	b=5LCLoXq1EMQ+zymDEA2+pfTiHoXcNnWDvQDQ+tSdhUquZX3q+nTKn+oi9OfVIzB9DNLj
+	 Ag1pE09latIGJHk9fgh/djynOoby8EhwECpW/QqnzbVp4aI3GenKGdbqXirooetE7Ix1Z
+	 nvT/zrMtXW1oXcsYaLU9wNqPVOxZR+tmMPLs5U8YWud0xh8xsczIYz6Wq3a1a6+GXK+MX
+	 mwYAWv4piwUmWwyfg22GIQ9kvhwjnEWwGF+lu1nDD7vlzdMAI02+Cf22q6f8pzclwDyKY
+	 YWQNdaUu4zElU0EPUHI/jqwfe4vgzabrSl7z/TYqII82dZMSMFQe8U/AzzICdsj9gwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SOZXrH8V;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=d-silva.org;
+	spf=pass smtp.mailfrom=d-silva.org;
+	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=j02+UmPS;
+	arc=none smtp.remote-ip=119.15.109.137
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B488E606A31E;
-	Wed, 25 Nov 2026 21:04:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0303606A321;
+	Wed, 25 Nov 2026 21:05:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0303606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SOZXrH8V
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 379C41F01568;
-	Wed, 25 Nov 2026 21:03:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795640643;
-	bh=y3LegPwVKGSVYTYdnNK4I6DxBgHW3VMi3mPtmoy/Eqs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SOZXrH8VjGGZIEn+RvYNUg6ZSEjUG9EpcRoZMiSGQuyPaJhZaSsg6r/wcq8qNF6+R
-	 HnW3yWDK0j0vr6APaY6FPEO9ruKb/mrj/44NuY/Tr0U6Z+dBaWpcfEiXPty1AoavOF
-	 T7sMDQdGe5rT0aNG1U1EZk4EhLQQIKPnEN+52kx0HHIUPsqkMkSLkN8wU6WgDYpZW5
-	 VdQBJzcchGigtusjm+K66ZwZ1aZFUsE2Y2o82YUxW2IEvGDE02kdMppm5R1HidsvhO
-	 BF+JyIv8KnjGloyUQ9EdElQkgfnELtdaJZFWfo1d3HcX1cSMBa1aS+/AfIID2qrecG
-	 a59w0z21/Tuog==
-Date: Wed, 25 Nov 2026 22:03:55 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-hardening@vger.kernel.org
-Cc: Alejandro Colomar <alx@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, alx+linux-hardening@kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH v7 4/4] device property: Fix fwnode_name_eq() for empty node
- names
-Message-ID: <396395e1d02ca080da67cfd91a1c49058b2676b6.1795639368.git.alx@kernel.org>
-X-Mailer: git-send-email 2.55.0
-References: <cover.1795639368.git.alx@kernel.org>
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=j02+UmPS
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id 4203E4C89A;
+	Thu, 26 Nov 2026 08:05:32 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1795640732;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=+7MuY/6UP2Bsh775A7XrC/mnlab/U/JJYl8O0EaI6UA=;
+	b=j02+UmPSaqgpY9N9yYLyP5D4k9ACgdBnURpGXfJ2NTjIMMmsDjOSOhn0nvp7N3scF20geo
+	d6biDUYWKWaSA3oOOpJSOlXppJYfguRIR7qwORiOKcWeR2n6b7T+eRd3zaIyYAxKnRVYry
+	xNR/6z4/a3p9QSRPJG0Edt1KdF9wE4T6llSiBl9bMxPqApBFpHUxFk1jzar5HwoQM5GwQz
+	uPBUeNP2epTo/YTunxSNwey2bgA3flRNN9bl8chnLuBsvOq5AgtEHS0AX16FuMaj9K6xuo
+	YNTHQHtHo8NjR1Xc/q6YXV4/tfMYI+saS7f0SHKefS+iE6gT+WYZLz1kEevYQA==
+X-GPT-Reason: legitimate; this is a technical software patch submission
+	(Linux kernel style) matching the sender's personal domain
+	(alastair@d-silva.org) and the recipient's personal domain
+	(alastair@d-silva.org); the content is highly specific to hardware
+	driver development (Allwinner A733 TRNG support) rather than marketing
+	or a scam; there are no URLs, sense of urgency, or requests for sensitive
+	information; and the message-ID is consistent with the sender's
+	domain.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S . Miller" <davem@davemloft.net>,
+	Olivia Mackall <olivia@selenic.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>
+Cc: linux-crypto@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Alastair D'Silva <alastair@d-silva.org>
+Subject: [PATCH 0/4] hwrng: sun55i-ce: Add Allwinner A733 CE v5 TRNG support
+Date: Thu, 26 Nov 2026 08:05:28 +1100
+Message-ID: <20261125210532.695823-1-alastair@d-silva.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,112 +83,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fjjisv5scmeduji5"
-Content-Disposition: inline
-In-Reply-To: <cover.1795639368.git.alx@kernel.org>
+Content-Transfer-Encoding: 8bit
 
+This series adds True Random Number Generator (TRNG) support for the
+Allwinner Crypto Engine v5 on A523 and A733 SoCs, and enables it on the
+Xunlong OrangePi 4 Pro.
 
---fjjisv5scmeduji5
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-hardening@vger.kernel.org
-Cc: Alejandro Colomar <alx@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, alx+linux-hardening@kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH v7 4/4] device property: Fix fwnode_name_eq() for empty node
- names
-Message-ID: <396395e1d02ca080da67cfd91a1c49058b2676b6.1795639368.git.alx@kernel.org>
-References: <cover.1795639368.git.alx@kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <cover.1795639368.git.alx@kernel.org>
+Dependencies:
+Patches 3 and 4 depend on the OrangePi 4 Pro bringup series:
+  [PATCH 0/3] arm64: dts: allwinner: Add Xunlong OrangePi 4 Pro support
+  Message-ID: <20261125124407.4098345-1-alastair@d-silva.org>
 
-str_has_prefix() returns the prefix length on match and 0 on mismatch,
-so the mistmatch case can't be told from "empty prefix matched an empty
-string".
+Tested on Xunlong OrangePi 4 Pro (/dev/hwrng).
 
-For instance: the OF root node's name as returned by
-fwnode_get_name() is "" and will return 0 for any name matched against
-it and since len is 0 too, fwnode_name_eq() will return true.
+Alastair D'Silva (4):
+  dt-bindings: crypto: Add Allwinner A523/A733 Crypto Engine
+  hwrng: sun55i-ce - Add Allwinner CE v5 TRNG driver
+  arm64: dts: allwinner: sun60i-a733: Add Crypto Engine node
+  arm64: dts: allwinner: sun60i-a733-orangepi-4-pro: Enable Crypto
+    Engine
 
-Let's use strprefix() instead, which also makes this function simpler.
+ .../crypto/allwinner,sun55i-a523-crypto.yaml  |  68 ++++
+ MAINTAINERS                                   |   7 +
+ .../allwinner/sun60i-a733-orangepi-4-pro.dts  |   4 +
+ .../arm64/boot/dts/allwinner/sun60i-a733.dtsi |  12 +
+ drivers/char/hw_random/Kconfig                |  13 +
+ drivers/char/hw_random/Makefile               |   1 +
+ drivers/char/hw_random/sun55i-ce-trng.c       | 377 ++++++++++++++++++
+ 7 files changed, 482 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/crypto/allwinner,sun55i-a523-crypto.yaml
+ create mode 100644 drivers/char/hw_random/sun55i-ce-trng.c
 
-Fixes: a9c8c738066b7 ("device property: Add fwnode_name_eq()")
-Closes: https://lore.kernel.org/linux-hardening/20261104-fwnode-for-each-pr=
-op-v1-1-6e28fe1c72c4@oss.qualcomm.com/
-Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Message-ID: <avrSUUM3HMgxTNpl@kekkonen.localdomain>
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Message-ID: <nat4ilqmzzpuyrjbuahl367ip22tfnmjorydlppuwqiscxaujo@kf63j4lb3fl=
-k>
-Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Message-ID: <nat4ilqmzzpuyrjbuahl367ip22tfnmjorydlppuwqiscxaujo@kf63j4lb3fl=
-k>
-Signed-off-by: Alejandro Colomar <alx@kernel.org>
----
- drivers/base/property.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+-- 
+2.53.0
 
-diff --git a/drivers/base/property.c b/drivers/base/property.c
-index 51109794d727..7728116e2968 100644
---- a/drivers/base/property.c
-+++ b/drivers/base/property.c
-@@ -692,15 +692,12 @@ const char *fwnode_get_name_prefix(const struct fwnod=
-e_handle *fwnode)
- bool fwnode_name_eq(const struct fwnode_handle *fwnode, const char *name)
- {
- 	const char *node_name;
--	ptrdiff_t len;
-=20
- 	node_name =3D fwnode_get_name(fwnode);
- 	if (!node_name)
- 		return false;
-=20
--	len =3D strchrnul(node_name, '@') - node_name;
--
--	return str_has_prefix(node_name, name) =3D=3D len;
-+	return strprefix(node_name, name) =3D=3D strchrnul(node_name, '@');
- }
- EXPORT_SYMBOL_GPL(fwnode_name_eq);
-=20
---=20
-2.55.0
-
-
---fjjisv5scmeduji5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmsHTTsACgkQ64mZXMKQ
-wqkBnxAAh0WX/H6Enmms6CUV7vEcc/4/NkXCxHtSlwrxno6cATv6nWgEYHHxPKjR
-ftuo75LWWlg27wzrap/CXoNEeSag+hqrshQ6whaUwQP15fL3R3U1LwQyb7XN6CJ8
-ztYt4ZX937mPzy1zALQcnZxnqYF2fZVIZk71OG8VAWBHRQ9QKoYgeJOmvx0PqCdQ
-8fal0/0A9k38mjwTjIQuKRJE5YmUkILz5okSLzB0GBO38Czm3UUPn+nkMvlLCjpZ
-GgZ9ThDvnYKer9KDOHY4n6WEGcNABfApr+nWyP8S62aUIDLesErhAes4wIfuUysG
-h55aaMEmyDhKUqtvVcrf36UyXzKw79WmYCzpLD8Y6vA32wBM3Weq5jahZxA26yBa
-5oilj6vqr5OPc6L0E/JNa3K9Y/eBB2ZyxQ9wCSJccjgVQyFqMZxYM/A156WhpAhG
-hgNDv0Os3RqThGhyf1FVO01P8GfrGNABUoPR+id0Ah+RB48aDlqacIxPKaO0i5rj
-Vsk7LUho4hGKojJ72zLPC8MDbjWB3DX+xdOXwAwQyfYji/oG+I2f8+j+6hQMQpQp
-8fav9x1mysmK1zFtx6JsDA95PsN1Zj0auojciidiyyjbrYd30tR+5d3eIhn+qrbl
-IDTgIcEzqWHtc7SWkXG3H49l8B38QfC2JoMSh0ZH21rOR1y++b0=
-=iRYl
------END PGP SIGNATURE-----
-
---fjjisv5scmeduji5--
