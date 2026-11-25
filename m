@@ -1,60 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795595926;
-	b=262D67FjgfFtGGPDY+E7Zu3f7KwVMfTQEOTd7a9CnBPIoE9C4BXenkB0LGDSS6U2n/IP
-	 y0yBBx6ouILCJ7RccHohKTkP+NCvTddiZNqaE7IeSprzTmWXxVvQ2h+WUuypFTFg6miQF
-	 piBWiLe1ZMwtDo4xEp00hGunIEw90QMhIRJKOOxXGX5bWSnNqu9EaYvt/yCipKeGifBOz
-	 KlIWFh1RegjUXM2jHA1vsJNO2cEAhQ0KLFtIV3OXDZf1Uo8d1mJYgwP0DWV78tkAxOamP
-	 R/Iz5UhaT2JetgF2nDe773GRa4I9/Huv3ydfszniE6fE+gzaVKMy+310OEZBnZyk0Cw==
+	t=1795595927;
+	b=vjwRlYubdVUW2IC8RPoeCivDDisQX9ohQuh+ZDWHGYYPz1qTBedKUXzoDzNrErKEDQwj
+	 UF7tg3BaZLQgNVua0Vn+ICdzMVhdugKvOv2f92PJWo/o5LdKd5Y6YWEn2GsPKscbXCUMq
+	 enMA7A+XPR4EeIbaCQ3O8ckDo7nNds+PmJYSrWLjiaSdRmHW+3l1HyXY/Nm5xErbE5oES
+	 oAmWJ1iK5Cu2opPjL0Hb+gFKwyuAhy2Qb7v7wMgYRnnzULnTigV13lWJAfuPVrtYyvcAY
+	 QbMWM1t0GmM3Vj3//AGXhBYBV6TnCwWWyDrwqWBu1UlxFcnJEX8OexQROmZ8B/W2ZLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795595926;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795595927;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=4YzY4WJKyDUbWHVlGl0s8qGvd0UyDejmOQrF5G0LCls=;
-	b=gJtS7Txu/MYtux9jkY15c2+hXjRkSbuub5+YIjkF0fVoG0sQS77Dk+RmkWpQjb0roon/
-	 XYNmUI0KbTl9Fcki2A7OXae2Xm3jFvF0z7RfYFu/Z+PiFhe5vU9h5tlDdkLUtAIsgzzdf
-	 UCBr6G5xW41jLtmbLHzW2fDuAzaDIs+af4D+nfKzN+e/g3ECQ7UD3JI5g22xLdSRjVDFp
-	 EYj1hPsyH3/MzkA1347hBrQrkek2vNu0K7pvqVSAYEy2kSwWNWNOd6yeRyIRcHQmotmQV
-	 KHZJF7LELhVVPZv3eRR/OuVw9grfKvMOLEFLuCh7P973deFX037UPVLPPENExTHkO3w==
+	bh=50VR4Bii4r0x40VxRkLIljzh8fTduZtxHSfKIR3mJdA=;
+	b=3NKhJo6pCcRnH8l57dXy9xI8wZ4UfLEqWb6NMussX0jKWbUO7Lm4cGeclDVYDxIzFfad
+	 TBOYKezaeeEF4a7r/lxk++aSBQRWV2mapOGFEJizQTVDJNKKBcXML1koYeZJyw5CxBeUM
+	 2FuqZPo0zA9szR41igli9pDEA7dNps/ATvkA2XvK4kckzw/iVDMxkug19CHmEcxidjdnq
+	 d+nmWJSL/2fysaA1jccdBT+0QREF3IoKjZ8W7UUN6IAGgvD9mr5tINoC9inAEJJ3phb/q
+	 395u5jxhor/Wrfsc3J12G+ogTxRmSRgdiELRKTKQymTMWIKbBTmDYruenRUZR2ZyhUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=HdnA5d57;
-	arc=none smtp.remote-ip=79.135.106.30
-Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch [79.135.106.30])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uXB0uB9r;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14D2A606A31E;
-	Wed, 25 Nov 2026 08:38:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14D2A606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28485606A33F
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 08:38:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28485606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=HdnA5d57
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1795595922; x=1795855122;
-	bh=4YzY4WJKyDUbWHVlGl0s8qGvd0UyDejmOQrF5G0LCls=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=HdnA5d576cKuFuxHoiZ4Hu7obya801qlk6sLJXM01eKQLgQOHbkFthulLKoKtONif
-	 h/HGHOfe+j1HTSjWhXkKAnJ+JP+fdDm4dQGLRV5N6GcRbUF0sod8hl6Pmj+jdAIjju
-	 74+14l1hl1dYw04tSZUfs0n6WId4JmAoGNNCtVdkMd5IIj5A8jqePN1dhmPmaw2lF7
-	 yOiyqkZHO4c0LFUH7SAVHn0txg/uwVdnV5YfKLE7z4VBNp++seW9N5tGoW3/Lxn73t
-	 Isw3hdOGJgo07yMcWZHa/fQDtf25ThJPta9wmCoSjsilHW7Pgc8suqHuG+ytKOqzic
-	 3D55QOpJDolqw==
-Date: Wed, 25 Nov 2026 08:38:37 +0000
-To: Echo Zhang <echo.zhang@mediatek.com>
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, MMDVFS Team <linux-mediatek@lists.infradead.org>, kyrie.wu@mediatek.com, ming-fan.chen@mediatek.com, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [PATCH 4/7] soc: mediatek: mmdvfs: add VCP backend
-Message-ID: <qeucziSyhF2pTX6WmMWtCC6hbkD8BswMX4f-7Z5uWErS2OSaeHCBs9zq4xay6j24-RAdQuYERZCgItKMSJLwmbFxY_LslGm3K3mvjdqiKRI=@protonmail.com>
-In-Reply-To: <20261125060037.649659-5-echo.zhang@mediatek.com>
-References: <20261125060037.649659-1-echo.zhang@mediatek.com> <20261125060037.649659-5-echo.zhang@mediatek.com>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: 96f5a9583a374cf2313c4937580c2b1a80dc05fa
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uXB0uB9r
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-4a9be758734so3410917f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 00:38:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1795595925; x=1796200725; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=50VR4Bii4r0x40VxRkLIljzh8fTduZtxHSfKIR3mJdA=;
+        b=uXB0uB9rBS61mYCE8m6Y2IuifItmaCmqaGyCD6s5PyydPTNRjrKOswJNpKzWAjGCbL
+         WebE5b7ecGwKmy3Jiq48lG2n1vuAbv1fo/sJlA+L3pfdRHxPevEpW8YiRsqMGfsin9HP
+         VBfjbaCKfaba6qlxsuy4ZNT2PFo7N8t/o4qFngaEsXTyptDqbU4snsbxibcizetBohGO
+         hJqKr12mT1tzTQbKlOYzKAgGEr8kiRsjMHvnvASSUWbFiVnT6pVZAdwAoA9+6GYuupgP
+         sDozzWJwML8Gp5MNPdRBDz4hO5/X1XHuskXggAbPUC+5LHEq+zJwq0zPyY5ytMbal+0E
+         I4/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795595925; x=1796200725;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=50VR4Bii4r0x40VxRkLIljzh8fTduZtxHSfKIR3mJdA=;
+        b=dWSM+VC2MbuA6yLvMUgtiwCJCgHl8c72p0Y9uZNv3p2U0bnrNA0cw57yIW6bxhN6SU
+         Z9DOdXkCIZ0/AVK/ljc7T9SOSh+kThlo+S9lHms4/G+e/OEohplqmh5HBCmUMi25aOgq
+         De/b50EWWqY6j1mwcnfcibhWg1+GoFyqoOBa0GmMW9qVs2sDKKjPDWmKEGkA6DkPiqDk
+         HVIP27FYvV1ciWcuGYzFkhC97NZ0HEj25UMIkyiDoISpLze5N65r3dpG3wVZJXHkmmoy
+         Vrq14066HYyg7yDtRqWqU6I2N0BrlV1eP4uZS5w7NWzSJdczjP31DPPmQ4uprxbNr90N
+         sDzg==
+X-Forwarded-Encrypted: i=1; AL+hErGI/9MMFrUczawJagH3nhJGcLzodl44H0w8vhIVIRX+WAnbBZ64tR7V8i9JKTv9kY+TzCgiyxjaM3QV@vger.kernel.org
+X-Gm-Message-State: APuU4Z8R91fw8u0IdoeXDZUSgDu1EDzzguHCZTIzfreCEXSV5mkd2kXc
+	+2aXbAo1NOcBmd83Eu1LGPOzO4BFQv5gDToG2TxxAnV3mpzpGPhD9BTQSFl9CgIo1iQq7CkDJbW
+	7KedRe0GIYg==
+X-Gm-Gg: AZFdTZeW5MycMD6h9KHbqhqXXA1ra/Qet+i1cuG+LED25fH1ZOW9LZ0dway0hYuBXvy
+	wOaSTYoqD6L3FaVoxDpdOpXgZWwNjjEtt2JurBKbbL067kXJyqUOwsKmFI+uHGbI7AqoMSdBTpa
+	YRFMvt7aVDs+mp6fapRcTiXmIAFJw/gg3SyutNLGNrvZ3/7UKh33xo7bhsHiw+Hq6SIme1OW5sO
+	Cmin83Mi5Re4CzWtoH6tgSwRPhmADoYP7BX+kUUTzkL0FX6KjOHesInG9L14K4jHa0tvIhQI2bK
+	AoUtx7uL51rGdCFSZ7UIuS8yZgMck1npqEjw5FSoiOhRVP3my7Q5VlbY1I8q28lAgfJQClud809
+	wpyQZqqderB174dq3JnrHgiFo9J6cNISoCBkvBEpy4VTm0KWxzMKatnkfhRltLA1mkrhItn+bZj
+	JGbibAYWNs9uI3q/ty+wn6lP4XAbrAmYYy6aMQAsvWWsbhIolBhG9Qsxva2xWQdk9Rj+QjxwTgc
+	tbk8s/+2oWIqg1eWEW3/sR9i2AOM3i5OGIoS8Mq0kBL47cFSS+CKtZCQqa1fgPcCEJFrFF0qtkR
+	njpKCM8WKAvUxVETzsOa8GwcpTqz/zBEg6L2c6mfjJVrrxwAFr3IXqBVXjHafOjPpQ7SmnQuao7
+	00BV8LHsh2g==
+X-Received: by 2002:a05:6000:200f:b0:4b7:6dcb:e906 with SMTP id ffacd0b85a97d-4b76dcbea3emr7646897f8f.43.1795595925303;
+        Wed, 25 Nov 2026 00:38:45 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:f368:ae2e:e717:e970? ([2a01:e0a:106d:1080:f368:ae2e:e717:e970])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab5ffcad11sm31544013f8f.0.2026.11.25.00.38.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Nov 2026 00:38:45 -0800 (PST)
+Message-ID: <0144c378-919d-4c44-a306-dfadea6a7617@linaro.org>
+Date: Wed, 25 Nov 2026 09:38:44 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,153 +94,103 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 10/19] ASoC: qcom: lpass-cdc-dma: add support for WSA
+ codec DMA
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
+ conor+dt@kernel.org
+References: <20261124-topic-sm8650-el2-v2-0-174e159f0f69@linaro.org>
+ <20261124-topic-sm8650-el2-v2-10-174e159f0f69@linaro.org>
+ <sashiko-outbox-231736@kernel.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <sashiko-outbox-231736@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wednesday, November 25th, 2026 at 8:01 AM, Echo Zhang <echo.zhang@mediat=
-ek.com> wrote:
+On 11/24/26 18:44, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [Medium] ASoC: qcom: unchecked clk_prepare_enable() in
+>    lpass_cdc_dma_daiops_startup()
+> --
+> 
+> commit b77682a3d9ba3fc802985eb7a7f2cb05c5db3350
+> Author: Neil Armstrong <neil.armstrong@linaro.org>
+> 
+> ASoC: qcom: lpass-cdc-dma: add support for WSA codec DMA
+> 
+> This commit adds WSA codec DMA interface handling to the LPASS codec DMA
+> driver, wiring up the WSA DMA control handles, interface types, and
+> codec_mem1 clock in DAI startup and shutdown.
+> 
+>> diff --git a/sound/soc/qcom/lpass-cdc-dma.c b/sound/soc/qcom/lpass-cdc-dma.c
+>> index 2dc8c75c4bf08..d7f85a4f9d999 100644
+>> --- a/sound/soc/qcom/lpass-cdc-dma.c
+>> +++ b/sound/soc/qcom/lpass-cdc-dma.c
+> 
+> [ ... ]
+> 
+>> @@ -184,6 +211,11 @@ static int lpass_cdc_dma_daiops_startup(struct snd_pcm_substream *substream,
+>>   		clk_set_rate(drvdata->va_mem0, CODEC_MEM_HZ_NORMAL);
+>>   		clk_prepare_enable(drvdata->va_mem0);
+>>   		break;
+>> +	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
+>> +	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
+>> +		clk_set_rate(drvdata->codec_mem1, CODEC_MEM_HZ_NORMAL);
+>> +		clk_prepare_enable(drvdata->codec_mem1);
+>> +		break;
+>>   	default:
+>>   		dev_err(soc_runtime->dev, "%s: invalid  interface: %d\n", __func__, dai->id);
+>>   		break;
+>> @@ -205,6 +237,10 @@ static void lpass_cdc_dma_daiops_shutdown(struct snd_pcm_substream *substream,
+>>   	case LPASS_CDC_DMA_VA_TX0 ... LPASS_CDC_DMA_VA_TX0:
+>>   		clk_disable_unprepare(drvdata->va_mem0);
+>>   		break;
+>> +	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
+>> +	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
+>> +		clk_disable_unprepare(drvdata->codec_mem1);
+>> +		break;
+>>   	default:
+>>   		dev_err(soc_runtime->dev, "%s: invalid  interface: %d\n", __func__, dai->id);
+>>   		break;
+> 
+> [Severity: Medium]
+> Should lpass_cdc_dma_daiops_startup() check and return errors from
+> clk_set_rate() and clk_prepare_enable() on drvdata->codec_mem1?
+> 
+> If clk_prepare_enable() fails and startup returns 0, the substream opens
+> with an unclocked LPM memory bank, and lpass_cdc_dma_daiops_shutdown() will
+> later call clk_disable_unprepare(drvdata->codec_mem1) on close, either
+> underflowing the clock refcounts or disabling the shared clock while
+> another WSA stream is using it.
+> 
 
-> Add the VCP transport used by MMDVFS to map AP and firmware shared
-> memory, manage feature power references and send IPI commands.
->=20
-> Wait for VCP readiness and handle the selected MMUP or VCP READY
-> notification to initialize firmware after boot and resume. Serialize
-> IPI transactions while shared memory and acknowledgment state are in
-> use.
->=20
-> Signed-off-by: Echo Zhang <echo.zhang@mediatek.com>
-> ---
-
-...
-
-> diff --git a/drivers/soc/mediatek/mmdvfs/mmdvfs-core.c b/drivers/soc/medi=
-atek/mmdvfs/mmdvfs-core.c
-> index c32fa11557af..3388a5a3a145 100644
-> --- a/drivers/soc/mediatek/mmdvfs/mmdvfs-core.c
-> +++ b/drivers/soc/mediatek/mmdvfs/mmdvfs-core.c
-> @@ -7,22 +7,23 @@
->=20
->  #include <linux/atomic.h>
->  #include <linux/clk-provider.h>
-> +#include <linux/delay.h>
->  #include <linux/device.h>
->  #include <linux/err.h>
->  #include <linux/io.h>
-> +#include <linux/kthread.h>
->  #include <linux/module.h>
->  #include <linux/mutex.h>
-> -#include <linux/notifier.h>
->  #include <linux/of.h>
->  #include <linux/of_address.h>
->  #include <linux/platform_device.h>
-> +#include <linux/remoteproc/mtk_vcp_public.h>
->  #include <linux/sched/clock.h>
->  #include <linux/slab.h>
->  #include <linux/string.h>
-> -#include <linux/suspend.h>
-> -#include <linux/workqueue.h>
->=20
->  #include "mmdvfs-internal.h"
-> +#include "mmdvfs-up-priv.h"
->=20
->  static int mmdvfs_register_device(struct mmdvfs_device *mmdvfs);
->  static void mmdvfs_unregister_device(struct mmdvfs_device *mmdvfs);
-> @@ -34,14 +35,13 @@ struct mmdvfs_device *mmdvfs_find_device_any(void)
->  {
->  =09return mmdvfs_find_device_by_version(MMDVFS_VERSION_HWCCF_DVFS_VOTER)=
-;
->  }
-> -EXPORT_SYMBOL_GPL(mmdvfs_find_device_any);
->=20
->  /**
->   * mmdvfs_get_version - Get MMDVFS voting mechanism type
->   *
->   * Return:
->   *   0 - No hardware voter
-> - *   1 - HWCCF DVFS voter
-> + *   1 - HWCCF DVFS voter (VCP IPI with MMUP SRAM)
->   */
->  u32 mmdvfs_get_version(void)
->  {
-> @@ -96,7 +96,8 @@ static int mmdvfs_validate_topology(struct mmdvfs_devic=
-e *mmdvfs)
->  =09=09=09return -EINVAL;
->  =09=09}
->=20
-> -=09=09if (mux->freq_num =3D=3D 0 || mux->freq_num > MMDVFS_MAX_LEVELS) {
-> +=09=09if (mux->freq_num =3D=3D 0 || mux->freq_num > rc->level_num ||
-> +=09=09    mux->freq_num > MMDVFS_MAX_LEVELS) {
->  =09=09=09mmdvfs_err(mmdvfs->dev,
->  =09=09=09=09   "MUX %d (%s): invalid freq_num: %d\n",
->  =09=09=09=09   i, mux->name, mux->freq_num);
-> @@ -112,10 +113,11 @@ static int mmdvfs_validate_topology(struct mmdvfs_d=
-evice *mmdvfs)
->  =09=09=09}
->=20
->  =09=09=09if (j > 0 && mux->freq[j] <=3D mux->freq[j - 1]) {
-> -=09=09=09=09mmdvfs_warn(mmdvfs->dev,
-> -=09=09=09=09=09    "MUX %d (%s): freq not ascending: freq[%d]=3D%llu <=
-=3D freq[%d]=3D%llu\n",
-> -=09=09=09=09=09    i, mux->name, j, mux->freq[j],
-> -=09=09=09=09=09    j - 1, mux->freq[j - 1]);
-> +=09=09=09=09mmdvfs_err(mmdvfs->dev,
-> +=09=09=09=09=09   "MUX %d (%s): freq not ascending: freq[%d]=3D%llu <=3D=
- freq[%d]=3D%llu\n",
-> +=09=09=09=09=09   i, mux->name, j, mux->freq[j],
-> +=09=09=09=09=09   j - 1, mux->freq[j - 1]);
-> +=09=09=09=09return -EINVAL;
-
-Why this can't be in the previous patch?
-
-...
-
-> diff --git a/drivers/soc/mediatek/mmdvfs/mmdvfs-vcp.c b/drivers/soc/media=
-tek/mmdvfs/mmdvfs-vcp.c
-> new file mode 100644
-> index 000000000000..fc6db1c89294
-> --- /dev/null
-> +++ b/drivers/soc/mediatek/mmdvfs/mmdvfs-vcp.c
-
-...
-
-> +/*
-> + * mmdvfs_get_bootmode - Get system boot mode
-> + *
-> + * Query boot mode from device tree /chosen node
-> + */
-> +static void mmdvfs_get_bootmode(void)
-> +{
-> +=09struct device_node *np_chosen;
-> +=09struct tag_bootmode {
-> +=09=09u32 size;
-> +=09=09u32 tag;
-> +=09=09u32 bootmode;
-> +=09=09u32 boottype;
-> +=09} *tag;
-> +
-> +=09if (bootmode < UNKNOWN_BOOT)
-> +=09=09return;
-> +
-> +=09np_chosen =3D of_find_node_by_path("/chosen");
-> +=09if (!np_chosen) {
-> +=09=09bootmode =3D NORMAL_BOOT;
-> +=09=09return;
-> +=09}
-> +
-> +=09tag =3D (struct tag_bootmode *)of_get_property(np_chosen, "atag,boot"=
-, NULL);
-> +=09of_node_put(np_chosen);
-> +
-> +=09if (tag)
-> +=09=09bootmode =3D tag->bootmode;
-> +=09else
-> +=09=09bootmode =3D NORMAL_BOOT;
-> +}
-
-No. Please don't add your downstream code.
-
-I'll stop here. This patch modifies too many things from the previous
-one, and the series overall needs more cleanup.
-
-Best regards,
-Roman
+Ultimately yes, but the actual code doesn't, so this will probably deserve a follow-up fix as it's not related to this serie.
