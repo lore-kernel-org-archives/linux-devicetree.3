@@ -1,56 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795623398;
-	b=C02kFNNV+/maz+6rN9dZLY/clemTNDNVMhqOTMHJwXiFmktsBSlp/elb+j46vxxgVDrI
-	 w024v3tjWpXuoSqB1cvblTKDVbccwtkT8KtP1/oELJoaNzrCcJ7rPhUQtXgkdkFHA3cx3
-	 lF16Kg8KWs6RrDGDSNXt1KHA79UpXbMtlE5AtPDuYS2wsCtT7v6Khriv9KIfCKzYcIkdY
-	 2oqp35s8k5tK6fpnB7mMPj6fBUs4Ttgsfs2OLySQbq6BrM+irFrgBukO20jUT3V/A9Dzf
-	 1dYmkszuKyzIXhKULcR9ZrKWJXXcnIB/E0DMOBzNtWENuUVLSrKMrzoTYWjK5fTqFOw==
+	t=1795623489;
+	b=CBVLZ5qEWdRE5964jiQVQrfwOpQyEbckLk85yrM/1Szci6cdMMKM5aCeoE/5HFwHAqx8
+	 Gai0W9XxK42NX2b2GAgIVsJUDWLmaIyFoopKMkwzHpiHsXRirZMfIQcIM2yQkPEEMgoeK
+	 zoNUdG6Ic2OOhGlSdZIGjvxeKx0F10qbAaXyN3E2rtNeT1xZsIGD6DoZBC0ph/0CtukJN
+	 nalT6A2CHT2fDLKX4ZnYcSZ1A+UEl/eD3e1BIanZ0PmhwoY6MN+xbhGXcFERsD0KGElbx
+	 6TwKcydA0zfK0obBcTtUI5L2l0/7+Qc/rkKBxjwf2eeBfG55x+izAczr1ULyzXUzuqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795623398;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=pgNpwuNjZPa0FgqgsMQIdcu4qflYj7O8O2CtmNNIw7A=;
-	b=evNp9eo3pnFmt8Ly4E2WOvIt5bwZMijRC89GDrD6Znad6GvQDSNzcVNM0DV/PtHt72uS
-	 lcDJ9w78QFiT0ewl5mur/fDH6uIs0loaOSWrcq2r9Eu8aatadZFtOrchFa0yGAKxsQNFw
-	 qkTl57L7YuAegIcmKrDkRNz33783ge+lYi8CJV/2DgczYvK8q/+D+DPY/pF2pOWaN0hMe
-	 7sYO59QMtD0nnx4blvAwHsqJsT6hDmgfW3/JvGcynpO9ZjTCakfcdM2tYogGOf46liomM
-	 Jrhp0rcjzH2SlMIHCIE2Ypx/reOAfJuRnEJkjhnsseRdqDClsHgS/vTr11ezqSOADHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795623489;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=WwWsoSs2J5qpWhNs56AVQmBfYke5YnSSuODOR4ultkM=;
+	b=MRFYhvTFIMnQxVFY+wjgnTlCN5KOjP5EEoAc6UjzQhnmM/iftDnNBgNYfP4pMwgr4DBY
+	 WHKKqaAwPyKZrzeE0hRQdK1DC/WN1rw2kxFGfxlwOqtxkt0yxQYn3yYgeCAkzjlwJHYy4
+	 VPlaxrcW0sWcjpoCNaJtlhE43B1zYVMG2A/1sRnuRzFMK5388krk/jjvPWwUS9f2e11B0
+	 wX31fsowpENnBdsadADWvqZvHHGlTxCdiPA2w7Kbg5sCTULqxsDkhc7DtFee312Ox6X+T
+	 rJzLXo2QiQQduntFEEC3OmKlVu85LSAMmUYuXNdNhXnTw6L/nYHnkbh0+fGJ4qebcXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SbvYGL84;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=c8vX9bEe;
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE2E6606A321;
-	Wed, 25 Nov 2026 16:16:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC17606A321;
+	Wed, 25 Nov 2026 16:18:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BC17606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SbvYGL84
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 572D61F000C4;
-	Wed, 25 Nov 2026 16:16:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795623398;
-	bh=pgNpwuNjZPa0FgqgsMQIdcu4qflYj7O8O2CtmNNIw7A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SbvYGL84iVbKlLZGVoy9cUJe8rqKbIrYI+Rg0G0sLeD7apbpbmuFMBeHm4rr1QIpS
-	 ytTTPmVjtwefGh4pshGxrZdsDdikbdZ+Bv1aqhno+DzoqPMZG7++nVdcziq2BJeBnw
-	 xoTvgfp9VfrRaomWA7IVsd8/3TVvOy4Cth7X8yOYnQqWnfjcBO4rZqt7aVmg/trSmk
-	 WB3FMYH7w3HN5cmL5dmnNIY0mar9d2LLOQ8j3J4JG8DYD+dHhuzhrA7e8kKY4BJ6zG
-	 LqSrAUAooxvJb/cBt0rr1+NFXQyd9M9UHCobVbsohuCAwFCZsfQWFltbxQBYeUuAIV
-	 jeiDh7bgQZOPg==
-Message-ID: <sashiko-outbox-233736@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] clk: renesas: r9a06g032: Add reset controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kyle Hendry" <khendry@reliablecontrols.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20261125-rzn1-miic-resets-v3-2-f25a4b656d71@reliablecontrols.com>
-References: <20261125-rzn1-miic-resets-v3-0-f25a4b656d71@reliablecontrols.com>
- <20261125-rzn1-miic-resets-v3-2-f25a4b656d71@reliablecontrols.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 16:16:37 +0000
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=c8vX9bEe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795623489; x=1827159489;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=9+tiGBNKlGAcbgLvr/9pQGLti36ZdFJyzGzi5HXaUoE=;
+  b=c8vX9bEeLTML4tMpf8utLXlQtQCgMO3xiimgmpiezaNd8IrXXJ1P12dj
+   qFATB0OFAU+yAEQqT3mjtspPec83HnaenJPf/8RqmwPS9yHItqPqeEW3/
+   QLlYgMky46LwX+hW9ynshf32EdRRF6p4XKuvE6BPTchdmJgvTyee1thkm
+   0ngw4A+PQR/wIgPdgPvteOVlJ1lFF3vugcWhS5EQAkRQlwGaCBoxisQHr
+   exNLkDOeiNHJl2t2u58rot+8vVoPxHatRhJhmxeo79dygH0xEj1tfQOcQ
+   NCIheQ2zlnRKOclJvxGmZ90ad21ELVXcd2jLncm7RmjO6I6uT5qSL2Qb+
+   w==;
+X-CSE-ConnectionGUID: 2Ebr634hQd6ffelAiVwd6Q==
+X-CSE-MsgGUID: 3wariWPMSamUX0l4+6/p0Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4498982"
+X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
+   d="scan'208";a="4498982"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 08:07:03 -0800
+X-CSE-ConnectionGUID: rs80A/RtRHmkmjDfIQjjAQ==
+X-CSE-MsgGUID: DiFJ+MTDSaW9EKAtEObxag==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
+   d="scan'208";a="12375211"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa001.fm.intel.com with ESMTP; 25 Nov 2026 08:03:58 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xWFTP-00000001S0s-3iSt;
+	Wed, 25 Nov 2026 16:03:55 +0000
+Date: Thu, 26 Nov 2026 00:03:08 +0800
+From: kernel test robot <lkp@intel.com>
+To: Hefei <3066883572@qq.com>, dri-devel@lists.freedesktop.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, robh@kernel.org, conor@kernel.org,
+	Hefei <3066883572@qq.com>
+Subject: Re: [PATCH v3 4/6] drm/panel: add VIEWE JD9365TX 7 inch DSI panel
+Message-ID: <20261125235231.H9Nhpv9l-lkp@intel.com>
+References: <tencent_3D3EC29E27E9DF37D4C9F1A60F2F2BA3EF07@qq.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,51 +83,101 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <tencent_3D3EC29E27E9DF37D4C9F1A60F2F2BA3EF07@qq.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] clk: renesas: r9a06g032: missing RESET_CONTROLLER Kconfig
-  selection
---
+Hi Hefei,
 
-commit 7a7dcd672790275a8fba3dc76bd11b687249bdde
-Author: Kyle Hendry <khendry@reliablecontrols.com>
+kernel test robot noticed the following build errors:
 
-clk: renesas: r9a06g032: Add reset controller
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on dtor-input/next dtor-input/for-linus lee-backlight/for-backlight-next lee-backlight/for-backlight-fixes linus/master v7.4-rc4 next-20261124]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-This commit registers a reset controller in the R9A06G032 clock driver to
-expose the timestamp and RGMII/RMII converter reset lines in the
-PWRCTRL_SWITCHCTRL register.
+url:    https://github.com/intel-lab-lkp/linux/commits/Hefei/dt-bindings-input-add-Jadard-JD9365TX-touchscreen-binding/20261125-101123
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/tencent_3D3EC29E27E9DF37D4C9F1A60F2F2BA3EF07%40qq.com
+patch subject: [PATCH v3 4/6] drm/panel: add VIEWE JD9365TX 7 inch DSI panel
+config: hexagon-allmodconfig (https://download.01.org/0day-ci/archive/20261125/20261125235231.H9Nhpv9l-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 2012344e5da8e03ea4b8283ecd6fad6e13f09d64)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261125/20261125235231.H9Nhpv9l-lkp@intel.com/reproduce)
 
-> diff --git a/drivers/clk/renesas/r9a06g032-clocks.c b/drivers/clk/renesas=
-/r9a06g032-clocks.c
-> index 3df3f2b2c6de7..fc4433c3d3272 100644
-> --- a/drivers/clk/renesas/r9a06g032-clocks.c
-> +++ b/drivers/clk/renesas/r9a06g032-clocks.c
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/20261125235231.H9Nhpv9l-lkp@intel.com/
 
-[ ... ]
+All errors (new ones prefixed by >>):
 
-> @@ -1394,6 +1446,13 @@ static int __init r9a06g032_clocks_probe(struct pl=
-atform_device *pdev)
->  	if (error)
->  		return error;
-> =20
-> +	clocks->rcdev.ops =3D &r9a06g032_reset_ops;
-> +	clocks->rcdev.of_node =3D np;
-> +	clocks->rcdev.nr_resets =3D ARRAY_SIZE(r9a06g032_resets);
-> +	error =3D  devm_reset_controller_register(dev, &clocks->rcdev);
-> +	if (error)
-> +		return error;
+   drivers/gpu/drm/panel/panel-viewe-jd9365tx.c:304:8: error: call to undeclared function 'of_drm_get_panel_orientation'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     304 |         ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
+         |               ^
+>> drivers/gpu/drm/panel/panel-viewe-jd9365tx.c:308:2: error: call to undeclared function 'drm_panel_init'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     308 |         drm_panel_init(&ctx->panel, dev, &jd9365tx_funcs, DRM_MODE_CONNECTOR_DSI);
+         |         ^
+   2 errors generated.
 
-[Severity: Medium]
-Should config CLK_R9A06G032 in drivers/clk/renesas/Kconfig select
-RESET_CONTROLLER?
 
-Without that selection, builds with CONFIG_CLK_R9A06G032=3Dy and
-CONFIG_RESET_CONTROLLER=3Dn compile devm_reset_controller_register() to a
-no-op stub that returns 0, leaving the reset controller unregistered so
-consumers such as pcs-rzn1-miic fail to probe with -EOPNOTSUPP.
+vim +/drm_panel_init +308 drivers/gpu/drm/panel/panel-viewe-jd9365tx.c
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-rzn1-miic-=
-resets-v3-0-f25a4b656d71@reliablecontrols.com?part=3D2
+   273	
+   274	static int jd9365tx_probe(struct mipi_dsi_device *dsi)
+   275	{
+   276		struct device *dev = &dsi->dev;
+   277		struct jd9365tx_panel *ctx;
+   278		int ret;
+   279	
+   280		ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
+   281		if (!ctx)
+   282			return -ENOMEM;
+   283	
+   284		ctx->dsi = dsi;
+   285		mipi_dsi_set_drvdata(dsi, ctx);
+   286	
+   287		dsi->lanes = 2;
+   288		dsi->format = MIPI_DSI_FMT_RGB888;
+   289		dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+   290				  MIPI_DSI_MODE_LPM;
+   291	
+   292		ctx->reset = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
+   293		if (IS_ERR(ctx->reset))
+   294			return PTR_ERR(ctx->reset);
+   295	
+   296		ctx->vdd = devm_regulator_get(dev, "vdd");
+   297		if (IS_ERR(ctx->vdd))
+   298			return PTR_ERR(ctx->vdd);
+   299	
+   300		ctx->iovcc = devm_regulator_get(dev, "iovcc");
+   301		if (IS_ERR(ctx->iovcc))
+   302			return PTR_ERR(ctx->iovcc);
+   303	
+   304		ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
+   305		if (ret)
+   306			return ret;
+   307	
+ > 308		drm_panel_init(&ctx->panel, dev, &jd9365tx_funcs, DRM_MODE_CONNECTOR_DSI);
+   309		ctx->panel.prepare_prev_first = true;
+   310	
+   311		ret = drm_panel_of_backlight(&ctx->panel);
+   312		if (ret)
+   313			return ret;
+   314	
+   315		drm_panel_add(&ctx->panel);
+   316	
+   317		ret = mipi_dsi_attach(dsi);
+   318		if (ret < 0) {
+   319			drm_panel_remove(&ctx->panel);
+   320			return ret;
+   321		}
+   322	
+   323		return 0;
+   324	}
+   325	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
