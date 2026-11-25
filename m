@@ -1,60 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795595745;
-	b=v89AV4qyjg+4iOdzGlxcZ4yq3LqOHcCPpN0C8ZisqB/L7GHyxiCm1btO7lw1e5vNARrs
-	 f9fIQVIG/Kyk5YTCKdrfeDIiDkU35Pa5gkhE3orarHguxbNptytV8hpbyg5zTw7e0LlGD
-	 1B8WQ0jnuvcb64moKZTIKdd7PlSf5rGOi00lJLz00qgoR7MpbdQdYa6aZ/SQTYEP60L1b
-	 dqBwTgKLFthoqcebCt7H7zMh3C3/tQ43YC1WjZVxILG8Mj4w2CcVZWG/TqTpmbZvyg2Jm
-	 VXUYp7/kebt2JuokdU1onOEMRRNz3XjerUje77mdEnyrL5Tqppxb6tzPa4pV15I5C+Q==
+	t=1795595805;
+	b=Xqem0RF6m4FjIM1gYYV+UpDV3CZkDnoxsVJMTFokKXRB6X0MEXEjogOD5oP9glF7B99M
+	 7B4TXizBmr464C6DenuR4IlxvTL1pxJ7My5HGX+L4WCrrOYsiyI0BnM1Q3GrWkzZcBnVM
+	 KDFn3E+LuyNRHYnzgyYeD0B9N9IUCuVfKNmPdaTuoF3X4wbZaNoOQpmQqKxF7wcL3DdGA
+	 ZkhwiQn0JcM7wW7mQDHtuy8KguMwDI5GUnVL1Ea8YtDzeY8rIbwzEkTa94ccuX5zI3irV
+	 XkqQNR1gYi8oS5aIQrGqsRNiELs5zFfeyQleLbqwhZjK2bFK7dEYSY5XQL7dGzNEO0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795595745;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=p9rDV1w1n1eUtOZlLwilCxzv/nUYe7BSNP2w6CsXzVY=;
-	b=2lSWhDW5islkALB4hB5MOT+lWiePrQyCF1QpmvKAJSsDL+PcKwH7FP2WdFY+WXzkJw6Q
-	 WkCjDobSW90SrE2+zObqi/WHBSCvLZZEDI4Zvbhrj3pKQGEcqrYp5f1onrqhHM2tjBKBX
-	 2BNMOycHaOjwrUpwtbK/xKnPTC48olTEZ3nIqpcbUcPsSOyFd4hcgnqNg++wTFUGJNDAq
-	 Qyths23FN8RtPipplwXnTGqpQvzstm8EYSkUUEHo4+64nPLc1SGKjs/S604FWLzhIprNv
-	 XY3/46Lpma8zQleiX5vypukyWYK++5kmd3/W0KbF2M+HZwGKpYcM6LozmeqmU9T5UJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795595805;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=2DVHLYVPoozXtWqY5yQquYMdjPPCiVhFcXI6C/fxk7M=;
+	b=swIwncUdyBZufuwMuPGtsHvK2SmBuIfU6jb1WFjgNYS7pkIpHg7E1i0erkh6jApJ18be
+	 J49UUzB9s3SvB6eAAGFUw++DtJa1XMUas8fVePhioDAbrZZVO7/JebP+WkV5EEtISK5gs
+	 vOyJnqzeEXBnbic6bF91fhTu73A/3XZn3bhEtibZY5mqpTGYyiQRfk3KQQn18e2qA8Rgv
+	 Cs5Jk8BG1AHScuCzuX2f/QZNsmis8QeJBZqh7S91BFJzy21gRpC51mSJA2GWSM9HsaTsX
+	 2EcqRiU9/J/TMP2Bpsb8olYe0LZvUYbi8iWE4bAPEi0rezIJvvNSOb0+5c5KXN33IqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=XY20lnH+;
-	arc=none smtp.remote-ip=185.70.43.16
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ONDulkOd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BA60606A331
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 08:35:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BA60606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 154BC606A31E
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 08:36:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=XY20lnH+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1795595741; x=1795854941;
-	bh=p9rDV1w1n1eUtOZlLwilCxzv/nUYe7BSNP2w6CsXzVY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=XY20lnH+D7GdeyZUqXOcKCkr6BiFGJPnxcvmqt4O6Dh5xZF3Q/P4hr2BVK/Q6SxaS
-	 XBhNEsM+jVHC4iV4LAktnZudo1qMCE3UGuL5oU2yJHnsD2bSxJ/YvEUt73gD6N27gs
-	 j/KJN2wg/l/aa6dRxGwbY55Nilsj+jrd0oXJ4+4mNoEWbpkZ9gMIbhA0PzjIvsXPM6
-	 EkwwWsVXgML4xizFPHupNQSsxGZxuBj46ZyGliH/V4xfyuBRaoSFWumTKygyn0LISu
-	 0UJeGaezqcKuep8ZbhAYbRjRXl/ziLbNJUChi64B6zfAvjEcYYjYZChXz3M9/dDr2v
-	 bk+Ku8ywDucdw==
-Date: Wed, 25 Nov 2026 08:35:35 +0000
-To: Echo Zhang <echo.zhang@mediatek.com>
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, MMDVFS Team <linux-mediatek@lists.infradead.org>, kyrie.wu@mediatek.com, ming-fan.chen@mediatek.com, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [PATCH 3/7] soc: mediatek: add MMDVFS core driver
-Message-ID: <0vpkq8QMzkS9rM8xDYoGQbv6SCvX1hOcLEoZdGV5sfYZSfp0taUU5JKnzSQbdC_iMZ8_Fje93Ih5YcskoVnb7k3bUQy5WAyy3B0uiEs5S14=@protonmail.com>
-In-Reply-To: <20261125060037.649659-4-echo.zhang@mediatek.com>
-References: <20261125060037.649659-1-echo.zhang@mediatek.com> <20261125060037.649659-4-echo.zhang@mediatek.com>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: 4a1f33fb2a8211670c97ec8fddb31a18743b042b
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ONDulkOd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 632BE1F000D0;
+	Wed, 25 Nov 2026 08:36:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795595804;
+	bh=2DVHLYVPoozXtWqY5yQquYMdjPPCiVhFcXI6C/fxk7M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ONDulkOdNM8IfdEieJHWIU0fj7RBtOswANBTnMZKIuhiK7TtBB3OYSQRhYdjidgI1
+	 g1H7x/g1NdG5grdzGrtE3qrRBIbVMc1x8cdIVf0Tp+HlLAjusIuKYwNLAh+k29aaGK
+	 7Qh59I5WChtT3zFgES5j8m+esQ5PsToK611R9dCHfyX+44vqqkoLQKypAZC5a2hDze
+	 qLxIpfmoYSxxikR2nAEfhGnEIyRxqLf1eLORe6SKVdb71XrHYDOooVGbRTOi5cnYBU
+	 jYtzwhYrXUWkhcx5jnlFNMFGVz6sGXlTQC1kPrMmOa8i49umIinfiNauWy7/G0CCa1
+	 SfpVnnDqOClBw==
+Message-ID: <sashiko-outbox-232916@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V2 3/3] arm64: dts: qcom: lemans-evk: Add SDHCI support
+ for eMMC via overlay
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Monish Chunara" <monish.chunara@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261125082055.488583-4-monish.chunara@oss.qualcomm.com>
+References: <20261125082055.488583-1-monish.chunara@oss.qualcomm.com>
+ <20261125082055.488583-4-monish.chunara@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 25 Nov 2026 08:36:43 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,495 +60,124 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-On Wednesday, November 25th, 2026 at 8:01 AM, Echo Zhang <echo.zhang@mediat=
-ek.com> wrote:
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] arm64: dts: qcom: lemans-evk-emmc: broken overlay root and
+  dummy regulators
+- [Low] arm64: dts: qcom: lemans-evk-emmc: drive-strength on input-only
+  sdc1_rclk
+- [Low] arm64: dts: qcom: lemans-evk-emmc: unused header includes and
+  style issues
+--
 
-> Add the common MediaTek MMDVFS driver framework.
->=20
-> The core driver handles device probing, SoC data selection, clock provide=
-r
-> registration, power-management notification, and dispatch to the
-> microprocessor transport used for runtime performance voting.
->=20
-> Signed-off-by: Echo Zhang <echo.zhang@mediatek.com>
-> ---
+commit 0884fd1ba1dd2afefa178620baee944918f3c9b0
+Author: Monish Chunara <monish.chunara@oss.qualcomm.com>
 
-...
+arm64: dts: qcom: lemans-evk: Add SDHCI support for eMMC via overlay
 
-> diff --git a/drivers/soc/mediatek/mmdvfs/mmdvfs-core.c b/drivers/soc/medi=
-atek/mmdvfs/mmdvfs-core.c
+This commit adds a devicetree overlay to enable the SDHCI controller for
+eMMC on the lemans EVK board and wires it into the build.
+
+> diff --git a/arch/arm64/boot/dts/qcom/lemans-evk-emmc.dtso b/arch/arm64/b=
+oot/dts/qcom/lemans-evk-emmc.dtso
 > new file mode 100644
-> index 000000000000..c32fa11557af
+> index 0000000000000..52739d39a1ff8
 > --- /dev/null
-> +++ b/drivers/soc/mediatek/mmdvfs/mmdvfs-core.c
-> @@ -0,0 +1,581 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
+> +++ b/arch/arm64/boot/dts/qcom/lemans-evk-emmc.dtso
+> @@ -0,0 +1,64 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
 > +/*
-> + * Copyright (c) 2026 MediaTek Inc.
-> + *
-> + * MediaTek MMDVFS Core Framework
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 > + */
 > +
-> +#include <linux/atomic.h>
-> +#include <linux/clk-provider.h>
-> +#include <linux/device.h>
-> +#include <linux/err.h>
-> +#include <linux/io.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/notifier.h>
-> +#include <linux/of.h>
-> +#include <linux/of_address.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/sched/clock.h>
-> +#include <linux/slab.h>
-> +#include <linux/string.h>
-> +#include <linux/suspend.h>
-> +#include <linux/workqueue.h>
+> +/dts-v1/;
+> +/plugin/;
 > +
-> +#include "mmdvfs-internal.h"
-> +
-> +static int mmdvfs_register_device(struct mmdvfs_device *mmdvfs);
-> +static void mmdvfs_unregister_device(struct mmdvfs_device *mmdvfs);
-> +
-> +struct mmdvfs_device *mmdvfs_find_device_by_version(enum mmdvfs_version_=
-type version);
-> +struct mmdvfs_device *mmdvfs_find_device_any(void);
-> +
-> +struct mmdvfs_device *mmdvfs_find_device_any(void)
-> +{
-> +=09return mmdvfs_find_device_by_version(MMDVFS_VERSION_HWCCF_DVFS_VOTER)=
-;
-> +}
-> +EXPORT_SYMBOL_GPL(mmdvfs_find_device_any);
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/clock/qcom,rpmh.h>
+> +#include <dt-bindings/clock/qcom,sa8775p-gcc.h>
 
-Ambiguous function name. any would mean *any* version, but it uses
-hardware here.
+[Severity: Low]
+This isn't a bug, but none of these three dt-bindings headers are used in
+this file.  Also, qcom,dll-config below uses uppercase hex digits instead
+of lowercase <0x000f64ec>, and the subnodes under &tlmm are indented with
+spaces rather than tabs.
 
 > +
-> +/**
-> + * mmdvfs_get_version - Get MMDVFS voting mechanism type
-> + *
-> + * Return:
-> + *   0 - No hardware voter
-> + *   1 - HWCCF DVFS voter
-> + */
-> +u32 mmdvfs_get_version(void)
-> +{
-> +=09struct mmdvfs_device *mmdvfs;
+> +/ {
+> +	vmmc_sdc1: regulator-l8c {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "vreg-sdc1";
 > +
-> +=09mmdvfs =3D mmdvfs_find_device_any();
-> +=09if (!mmdvfs || !mmdvfs->data)
-> +=09=09return MMDVFS_VERSION_NONE;
+> +		regulator-min-microvolt =3D <2960000>;
+> +		regulator-max-microvolt =3D <2960000>;
+> +	};
 > +
-> +=09return mmdvfs->data->version;
-> +}
-> +EXPORT_SYMBOL_GPL(mmdvfs_get_version);
+> +	vqmmc_sdc1: regulator-s4a {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "vqmmc-sdc1";
 > +
-> +/*
-> + * mmdvfs_validate_topology - Validate RC/MUX/User topology consistency
-> + * @mmdvfs: MMDVFS device structure
-> + *
-> + * Return: 0 on success, -EINVAL if topology validation fails
-> + */
-> +static int mmdvfs_validate_topology(struct mmdvfs_device *mmdvfs)
-> +{
-> +=09struct mmdvfs_data *data =3D mmdvfs->data;
-> +=09int i, j;
-> +
-> +=09if (!data || !data->mux || !data->rc) {
-> +=09=09mmdvfs_err(mmdvfs->dev, "Invalid data structures for validation\n"=
-);
-> +=09=09return -EINVAL;
-> +=09}
-> +
-> +=09for (i =3D 0; i < data->mux_num; i++) {
-> +=09=09struct mmdvfs_mux *mux =3D &data->mux[i];
-> +=09=09struct mmdvfs_rc *rc;
-> +
-> +=09=09if (!mux->name || strlen(mux->name) =3D=3D 0) {
-> +=09=09=09mmdvfs_err(mmdvfs->dev, "MUX %d has empty name\n", i);
-> +=09=09=09return -EINVAL;
-> +=09=09}
-> +
-> +=09=09if (mux->rc >=3D data->rc_num) {
-> +=09=09=09mmdvfs_err(mmdvfs->dev,
-> +=09=09=09=09   "MUX %d (%s) has invalid RC reference: %d (max: %d)\n",
-> +=09=09=09=09   i, mux->name, mux->rc, data->rc_num);
-> +=09=09=09return -EINVAL;
-> +=09=09}
-> +
-> +=09=09rc =3D &data->rc[mux->rc];
-> +
-> +=09=09if (rc->level_num =3D=3D 0 || rc->level_num > MMDVFS_MAX_LEVELS) {
-> +=09=09=09mmdvfs_err(mmdvfs->dev,
-> +=09=09=09=09   "MUX %d (%s): RC %d has invalid level_num: %d\n",
-> +=09=09=09=09   i, mux->name, mux->rc, rc->level_num);
-> +=09=09=09return -EINVAL;
-> +=09=09}
-> +
-> +=09=09if (mux->freq_num =3D=3D 0 || mux->freq_num > MMDVFS_MAX_LEVELS) {
-> +=09=09=09mmdvfs_err(mmdvfs->dev,
-> +=09=09=09=09   "MUX %d (%s): invalid freq_num: %d\n",
-> +=09=09=09=09   i, mux->name, mux->freq_num);
-> +=09=09=09return -EINVAL;
-> +=09=09}
-> +
-> +=09=09for (j =3D 0; j < mux->freq_num; j++) {
-> +=09=09=09if (mux->freq[j] =3D=3D 0) {
-> +=09=09=09=09mmdvfs_err(mmdvfs->dev,
-> +=09=09=09=09=09   "MUX %d (%s): incomplete freq table at level %d/%d (fr=
-eq=3D0)\n",
-> +=09=09=09=09=09   i, mux->name, j, mux->freq_num);
-> +=09=09=09=09return -EINVAL;
-> +=09=09=09}
-> +
-> +=09=09=09if (j > 0 && mux->freq[j] <=3D mux->freq[j - 1]) {
-> +=09=09=09=09mmdvfs_warn(mmdvfs->dev,
-> +=09=09=09=09=09    "MUX %d (%s): freq not ascending: freq[%d]=3D%llu <=
-=3D freq[%d]=3D%llu\n",
-> +=09=09=09=09=09    i, mux->name, j, mux->freq[j],
-> +=09=09=09=09=09    j - 1, mux->freq[j - 1]);
-> +=09=09=09}
-> +=09=09}
-> +
-> +=09=09mmdvfs_dbg(mmdvfs->dev,
-> +=09=09=09   "MUX[%d] validated: name=3D%s, rc=3D%d, freq_num=3D%d (RC le=
-vels=3D%d), freq_min=3D%llu, freq_max=3D%llu\n",
-> +=09=09=09   i, mux->name, mux->rc, mux->freq_num,
-> +=09=09=09   rc->level_num, mux->freq[0],
-> +=09=09=09   mux->freq[mux->freq_num - 1]);
-> +=09}
-> +
-> +=09for (i =3D 0; i < data->user_num; i++) {
-> +=09=09struct mmdvfs_user *user =3D &data->user[i];
-> +
-> +=09=09if (!user->name || strlen(user->name) =3D=3D 0) {
-> +=09=09=09mmdvfs_err(mmdvfs->dev, "User %d has empty name\n", i);
-> +=09=09=09return -EINVAL;
-> +=09=09}
-> +
-> +=09=09if (user->mux >=3D data->mux_num) {
-> +=09=09=09mmdvfs_err(mmdvfs->dev,
-> +=09=09=09=09   "User %d (%s) has invalid MUX reference: %d (max: %d)\n",
-> +=09=09=09=09   i, user->name, user->mux, data->mux_num);
-> +=09=09=09return -EINVAL;
-> +=09=09}
-> +
-> +=09=09mmdvfs_dbg(mmdvfs->dev,
-> +=09=09=09   "User[%d] validated: name=3D%s, id=3D%d, mux=3D%d\n",
-> +=09=09=09   i, user->name, user->id, user->mux);
-> +=09}
-> +
-> +=09mmdvfs_info(mmdvfs->dev, "Topology validation successful\n");
-
-Do we really need these logs? This applies to the rest of the driver
-too.
-
-...
-
-> +/*
-> + * mmdvfs_parse_dt - Parse device tree configuration
-> + * @mmdvfs: MMDVFS device structure
-> + *
-> + * Return: 0 on success, negative error code on failure
-> + */
-> +int mmdvfs_parse_dt(struct mmdvfs_device *mmdvfs)
-> +{
-> +=09struct device_node *node =3D mmdvfs->dev->of_node;
-> +
-> +=09if (!node) {
-> +=09=09mmdvfs_err(mmdvfs->dev, "No device tree node found\n");
-> +=09=09return -ENODEV;
-> +=09}
-> +
-> +=09mmdvfs_info(mmdvfs->dev, "Device tree parsed (hardware attributes)\n"=
-);
-> +
-> +=09return 0;
-
-This is not DT parsing.
-
-> +}
-> +
-> +/*
-> + * mmdvfs_pm_notifier_callback - PM notifier callback for suspend/resume=
- handling
-> + * @nb: Notifier block
-> + * @event: PM event type
-> + * @data: Event data
-> + *
-> + * Return: NOTIFY_DONE
-> + */
-> +static int mmdvfs_pm_notifier_callback(struct notifier_block *nb, unsign=
-ed long event,
-> +=09=09=09=09       void *data)
-> +{
-> +=09struct mmdvfs_data *mdata =3D
-> +=09=09container_of(nb, struct mmdvfs_data, pm_notifier);
-> +=09struct mmdvfs_device *mmdvfs =3D dev_get_drvdata(mdata->dev);
-> +
-> +=09switch (event) {
-> +=09case PM_SUSPEND_PREPARE:
-> +=09=09mmdvfs_dbg(mmdvfs->dev, "System suspending...\n");
-> +
-> +=09=09if (mdata->ops && mdata->ops->suspend_prepare)
-> +=09=09=09mdata->ops->suspend_prepare(mmdvfs);
-> +
-> +=09=09mdata->pm_suspended =3D true;
-> +=09=09break;
-> +
-> +=09case PM_POST_SUSPEND:
-> +=09=09mmdvfs_dbg(mmdvfs->dev, "System resumed\n");
-> +
-> +=09=09mdata->pm_suspended =3D false;
-> +
-> +=09=09if (mdata->ops && mdata->ops->post_suspend)
-> +=09=09=09mdata->ops->post_suspend(mmdvfs);
-> +=09=09break;
-> +
-> +=09default:
-> +=09=09break;
-> +=09}
-> +
-> +=09return NOTIFY_DONE;
-> +}
-> +
-> +/*
-> + * mmdvfs_probe - Main probe function
-> + * @pdev: Platform device
-> + *
-> + * Return: 0 on success, negative error code on failure
-> + */
-> +static int mmdvfs_probe(struct platform_device *pdev)
-> +{
-> +=09struct mmdvfs_device *mmdvfs;
-> +=09struct mmdvfs_data *data;
-> +=09const struct mmdvfs_platform_data *pdata;
-> +=09int ret;
-> +
-> +=09mmdvfs =3D devm_kzalloc(&pdev->dev, sizeof(*mmdvfs), GFP_KERNEL);
-> +=09if (!mmdvfs)
-> +=09=09return -ENOMEM;
-> +
-> +=09data =3D devm_kzalloc(&pdev->dev, sizeof(*data), GFP_KERNEL);
-> +=09if (!data)
-> +=09=09return -ENOMEM;
-> +
-> +=09mmdvfs->dev =3D &pdev->dev;
-> +=09mmdvfs->data =3D data;
-> +=09data->dev =3D &pdev->dev;
-> +
-> +=09mutex_init(&data->lock);
-> +
-> +=09platform_set_drvdata(pdev, mmdvfs);
-> +
-> +=09pdata =3D of_device_get_match_data(&pdev->dev);
-> +=09if (!pdata) {
-
-This is not possible, since you already have mt8196 platform data in
-the table. Drop the check.
-
-> +=09=09mmdvfs_err(mmdvfs->dev, "No matching platform data\n");
-> +=09=09return -ENODEV;
-> +=09}
-> +
-> +=09data->ops =3D pdata->ops;
-> +=09data->version =3D pdata->soc_data->version;
-> +
-> +=09if (data->version =3D=3D MMDVFS_VERSION_HWCCF_DVFS_VOTER) {
-> +=09=09data->hwccf_voter_priv =3D devm_kzalloc(&pdev->dev,
-> +=09=09=09=09=09=09      sizeof(*data->hwccf_voter_priv),
-> +=09=09=09=09=09=09      GFP_KERNEL);
-> +=09=09if (!data->hwccf_voter_priv)
-> +=09=09=09return -ENOMEM;
-> +
-> +=09=09data->hwccf_voter_priv->mmdvfs =3D mmdvfs;
-> +=09}
-> +
-> +=09ret =3D mmdvfs_parse_dt(mmdvfs);
-> +=09if (ret) {
-> +=09=09mmdvfs_err(mmdvfs->dev, "Failed to parse device tree: %d\n", ret);
-> +=09=09return ret;
-
-dev_err_probe
-
-> +=09}
-> +
-> +=09ret =3D mmdvfs_init_from_soc_data(mmdvfs, pdata->soc_data);
-> +=09if (ret) {
-> +=09=09mmdvfs_err(mmdvfs->dev, "Failed to initialize from SoC data: %d\n"=
-, ret);
-> +=09=09return ret;
-
-...same...
-
-> +=09}
-> +
-> +=09if (data->ops && data->ops->init_hw) {
-> +=09=09ret =3D data->ops->init_hw(mmdvfs);
-> +=09=09if (ret) {
-> +=09=09=09mmdvfs_err(mmdvfs->dev, "Failed to initialize hardware: %d\n", =
-ret);
-> +=09=09=09return ret;
-
-here too.
-
-> +=09=09}
-> +=09}
-> +
-> +=09data->init_done =3D true;
-> +
-> +=09ret =3D mmdvfs_register_clocks(mmdvfs);
-> +=09if (ret) {
-> +=09=09mmdvfs_err(mmdvfs->dev, "Failed to register clocks: %d\n", ret);
-> +=09=09goto err_deinit_hw;
-> +=09}
-> +
-> +=09data->pm_notifier.notifier_call =3D mmdvfs_pm_notifier_callback;
-> +=09data->pm_notifier.priority =3D 0;
-> +=09data->pm_suspended =3D false;
-> +=09ret =3D register_pm_notifier(&data->pm_notifier);
-> +=09if (ret) {
-> +=09=09mmdvfs_err(mmdvfs->dev, "Failed to register PM notifier: %d\n", re=
-t);
-> +=09=09goto err_unregister_clocks;
-> +=09}
-> +=09mmdvfs_info(mmdvfs->dev, "PM notifier registered\n");
-> +
-> +=09ret =3D mmdvfs_register_device(mmdvfs);
-> +=09if (ret) {
-> +=09=09mmdvfs_err(mmdvfs->dev, "Failed to register device: %d\n", ret);
-> +=09=09goto err_unregister_pm_notifier;
-> +=09}
-> +
-> +=09mmdvfs_info(mmdvfs->dev, "MMDVFS driver probed successfully\n");
-> +=09return 0;
-> +
-> +err_unregister_pm_notifier:
-> +=09unregister_pm_notifier(&data->pm_notifier);
-> +
-> +err_unregister_clocks:
-> +=09mmdvfs_unregister_clocks(mmdvfs);
-> +
-> +err_deinit_hw:
-> +=09if (data->ops && data->ops->deinit_hw)
-> +=09=09data->ops->deinit_hw(mmdvfs);
-> +
-> +=09return ret;
-> +}
-> +
-
-...
-
-> +struct mmdvfs_device *mmdvfs_find_device_by_version(enum mmdvfs_version_=
-type version)
-> +{
-> +=09struct mmdvfs_device_node *node;
-> +=09struct mmdvfs_device *found =3D NULL;
-> +
-> +=09mutex_lock(&mmdvfs_device_list_lock);
-
-guard(mutex)(&mmdvfs_device_list_lock)
-
-> +=09list_for_each_entry(node, &mmdvfs_device_list, list) {
-> +=09=09if (node->mmdvfs && node->mmdvfs->data &&
-> +=09=09    node->mmdvfs->data->version =3D=3D version) {
-> +=09=09=09found =3D node->mmdvfs;
-> +=09=09=09break;
-> +=09=09}
-> +=09}
-> +=09mutex_unlock(&mmdvfs_device_list_lock);
-> +
-> +=09return found;
-> +}
-> +EXPORT_SYMBOL_GPL(mmdvfs_find_device_by_version);
-> +
-
-...
-
-> diff --git a/drivers/soc/mediatek/mmdvfs/mmdvfs-internal.h b/drivers/soc/=
-mediatek/mmdvfs/mmdvfs-internal.h
-> new file mode 100644
-> index 000000000000..df16e38d78c8
-> --- /dev/null
-> +++ b/drivers/soc/mediatek/mmdvfs/mmdvfs-internal.h
-> @@ -0,0 +1,305 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (c) 2026 MediaTek Inc.
-> + *
-> + * MediaTek MMDVFS (MultiMedia Dynamic Voltage and Frequency Scaling) Dr=
-iver
-> + */
-> +
-> +#ifndef __MMDVFS_H__
-> +#define __MMDVFS_H__
-> +
-> +#include <linux/clk-provider.h>
-> +#include <linux/device.h>
-> +#include <linux/mutex.h>
-> +#include <linux/notifier.h>
-> +#include <linux/platform_device.h>
-> +
-> +struct dentry;
-> +
-> +#define MMDVFS_MAX_LEVELS=09=098
-> +#define MMDVFS_MAX_USERS=09=0964
-> +#define MMDVFS_MAX_MUXES=09=0916
-> +#define MMDVFS_MAX_RCS=09=09=094
-> +
-> +/* MMDVFS voting mechanism types */
-> +enum mmdvfs_version_type {
-> +=09MMDVFS_VERSION_NONE =3D 0,=09=09/* No hardware voter */
-> +=09MMDVFS_VERSION_HWCCF_DVFS_VOTER =3D 1,=09/* HWCCF DVFS voter */
+> +		regulator-min-microvolt =3D <1800000>;
+> +		regulator-max-microvolt =3D <1800000>;
+> +	};
 > +};
 > +
-> +#define MAX_OPP=09=09=09=098
+> +&sdhc {
+> +	vmmc-supply =3D <&vmmc_sdc1>;
+> +	vqmmc-supply =3D <&vqmmc_sdc1>;
+
+[Severity: High]
+Does using / { ... }; in a /plugin/; overlay cause fdtoverlay to drop
+regulator-l8c and regulator-s4a, and shouldn't &sdhc reference the
+existing RPMH regulators &vreg_l8c and &vreg_s4a from lemans-evk.dts
+instead?
+
+In a /plugin/; overlay, dtc only wraps nodes targeted via a reference such
+as &{/} in a fragment@N/__overlay__ node.  Nodes placed under / { ... };
+sit at the root of the .dtbo without an __overlay__ child, so fdtoverlay
+skips them when building lemans-evk-emmc.dtb and leaves vmmc-supply and
+vqmmc-supply with dangling phandles (and runtime overlay application via
+of_overlay_fdt_apply() fails with -ENODEV).  In addition, lemans-evk.dts
+already defines the real RPMH PMIC regulators vreg_l8c and vreg_s4a under
+&apps_rsc; defining dummy regulator-fixed nodes prevents sdhci_msm from
+voting for or controlling the PMIC rails.
+
+[ ... ]
+
+> +&tlmm {
+> +        sdc_rclk: sdc1-rclk-state {
+> +                pins =3D "sdc1_rclk";
+> +                bias-pull-down;
+> +        };
 > +
-> +/* MMDVFS RC domains */
-> +enum mmdvfs_rc_domain {
-> +=09MMDVFS_PWR_VCORE =3D 0,  /* PWR_MMDVFS_VCORE */
-> +=09MMDVFS_PWR_VMM   =3D 1,  /* PWR_MMDVFS_VMM */
-> +=09MMDVFS_PWR_VDISP =3D 2,  /* PWR_MMDVFS_VDISP */
-> +=09MMDVFS_PWR_NUM   =3D 3   /* PWR_MMDVFS_NUM */
-> +};
-> +
-> +/**
-> + * struct mmdvfs_rc - Resource Controller
-> + * @id: RC identifier
-> + * @pa: Physical address base
-> + * @level_num: Number of supported levels
-> + * @rc_base: Virtual address base (mapped from pa)
-> + */
-> +struct mmdvfs_rc {
-> +=09u8 id;
-> +=09u32 pa;
-
-phys_addr_t
-
-> +=09u8 level_num;
-> +=09void __iomem *rc_base;
+> +        sdc_rclk_sleep: sdc1-rclk-sleep-state {
+> +                pins =3D "sdc1_rclk";
+> +                drive-strength =3D <2>;
+> +                bias-bus-hold;
+> +        };
 > +};
 
-...
+[Severity: Low]
+Should drive-strength be removed from sdc_rclk_sleep?
 
-> +/* Logging macros */
-> +#define mmdvfs_dbg(dev, fmt, args...) \
-> +=09dev_dbg(dev, "[mmdvfs] " fmt, ##args)
-> +#define mmdvfs_info(dev, fmt, args...) \
-> +=09dev_info(dev, "[mmdvfs] " fmt, ##args)
-> +#define mmdvfs_warn(dev, fmt, args...) \
-> +=09dev_warn(dev, "[mmdvfs] " fmt, ##args)
-> +#define mmdvfs_err(dev, fmt, args...) \
-> +=09dev_err(dev, "[mmdvfs] " fmt, ##args)
+sdc1_rclk is an input-only return clock strobe pin with no hardware
+drive-strength field.  In drivers/pinctrl/qcom/pinctrl-sa8775p.c:
 
-The driver name is already printed when using dev_* APIs. Use them
-directly.
+drivers/pinctrl/qcom/pinctrl-sa8775p.c:sa8775p_groups[] {
+	...
+	[150] =3D SDC_QDSD_PINGROUP(sdc1_rclk, 0x199000, 15, 0),
+	[151] =3D SDC_QDSD_PINGROUP(sdc1_clk, 0x199000, 13, 6),
+	[152] =3D SDC_QDSD_PINGROUP(sdc1_cmd, 0x199000, 11, 3),
+	[153] =3D SDC_QDSD_PINGROUP(sdc1_data, 0x199000, 9, 0),
+	...
+}
 
-Best regards,
-Roman
+Because sdc1_rclk shares control register 0x199000 with the other SDC1
+pins and has drv_bit set to 0, configuring drive-strength on sdc1_rclk
+writes to bits [2:0] of 0x199000, which is sdc1_data's drive-strength
+field.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125082055.4885=
+83-1-monish.chunara@oss.qualcomm.com?part=3D3
