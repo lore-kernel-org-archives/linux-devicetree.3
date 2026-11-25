@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795596199;
-	b=HGL3oK2dTRxGKdwoZKvLmOL6vmwZ5gYWvA5CJ1cJ7w+CY5lvX43s3orFpJA8HsU2WKPi
-	 bCQZYnVWnuXaYH8Z1OOEa7pH/MGcu7grtOYjGeknzOwcRC2vgL7q0d2+qnv32rnhDbCYa
-	 LvNiJxLJMUv0B0eUWAsn1j/HMut5ifC0P2nw3/FYX7J60K7a/9y/1LxrAPJrIA64a8CaA
-	 hIQL6bm+vFGIn0vjXy5apbAMfTA0MeA/I2tqGeOZmqmM9uMh24fdASVVE3hBumjwAmVbs
-	 BbLl+sp+NZP6dJUqbxIPNLNqJeOUnNssYXuKWumbHq2y9pD9k4p+hzyjE4I0nYgCNXQ==
+	t=1795596205;
+	b=UkDjwet3Sl1dZV+81ayhQPzqZ7l1bRtat6rffQ3Ncj/jBOxQzpX+Zw4EhMxJWQpoqc/a
+	 w2MPgU2KaF4ZLNQS6tg4hw4SzAoGwlmo0cx8RBWXIETRq/JFCHqbblNySksEr1A3Q+y4k
+	 3fZHwsnkc5hNJEe2GXAA/gOfR+GX74qJKGvebHGihuNnGU7VQiu8iaE10pD6qtQ5TH6U7
+	 8Qq+KhJ3HVJZJr+5QgTU+/X+mDdb5aVJwt2VLrMZU1i97uEgzKVT5rW9HoHbLZzhYHVkk
+	 XC7NYiqEqlTIAP8g2iuPVg9j/QtvhlL0Lepilxwxc++w9+pT2kRPf3G/GtkdFLEZbFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795596199;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795596205;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
@@ -17,97 +17,97 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
 	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=ZZ7iECJNO/EY/GoLxR0o/vSFR2eFAIoMyMPvHeXZfmQ=;
-	b=K+jxEwJyN1zmuNge0aUUMRQ3J7JTsAFmna7x/DnlxthDDSOd9Xrf3WiyKx0ST3v+MiyW
-	 1mq/CUEa/8dDw4rHKCRd2DPZUcjv6Dgxc/zcTVTZy9TZL2Qq9OLeRLFTfVLWxUujDnSMZ
-	 5ObxtYkevZiMCA/4LF5N8KmoI7UeYvhaJvJsbv0oCf4x4OH9i9Ue4OMuOIL6evdUIhdDi
-	 Rsfk1mnarGLqIOKndmcSGGP1D6HsLKwRhFclLdJs+Gs7bxZqNNABFJKmxZudob+npETJK
-	 30icnEe+YMghYLzFYsj4cxZ7n4dC2B/ZJqGeEcj00Kc4e36wd2KX5qhoGQ95ZYS/qWw==
+	bh=ZFwa0MO4gFEnpvAeEmEySLh7dBj054jvvE+YExvSwCM=;
+	b=qJpZQc+9gf1X8DkDL1Nh6ptrAtUIz3lM75GJpliM7ZOHoXuEMwH8LVnjbJlN5LclEScs
+	 qQli3Rs+zE4xKIzcy/Fs63Kxul+ABlkwnq0td2JTn+776ue4uIQEuZIKJJoAUphsChrdd
+	 n7Pl3JbcrTD1Mp5MPpkZeibYgrtxKenyoAkPt8BbhmLUe69V2m0XpDti1G6FT0OPGAuxR
+	 gIqNWgeWMfPv2B+/FTq6UfUnrUKZL513x0gDrHTcgjBZ25hCg1ltlfUSHPxx/ldmr0O/V
+	 kgQLxEhtJ+EF5IfPFFnYIqlAeaduYJbyj1eRm3653A6V2aEn4eP6yCbNCoNmCsb2bBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IvJgwvEW;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="WW4eQTj/";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NaL8G4cv;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ap+dOCb6;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D19606A697
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 08:43:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27D19606A697
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A5D606A686
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 08:43:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68A5D606A686
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IvJgwvEW;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WW4eQTj/
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AP68ltL3261011
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 08:43:18 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NaL8G4cv;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ap+dOCb6
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AP7c6xc4006979
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 08:43:24 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ZZ7iECJNO/EY/GoLxR0o/vSFR2eFAIoMyMPvHeXZfmQ=; b=IvJgwvEWmDKQb5uE
-	y5MSPHvwoHpTH4HHfw/wXeFAwnqvrMoCa3nJSGDO1qYY2hh9I9DFZpp4ptw9ha/o
-	TdfGVYSyuUr3OaSmszRQpc7xvXgNYCJLskd4geXkD9nM2PSzIYpDvkgU5383iocG
-	mSmfN4ob2KXA9L9K9DtVjaum49yfA5E5rYLaKf48XS1LLElL4f+nhmbv725IDBto
-	tt1H5xIcqYzMiEW7yo39aFRVaGsf6g5E3dCnC0VJiAiQUDrEl30u1tjmLh4aYz38
-	Hofo5caSr3nY2M7zQsd1g9Pq5NsqRqZ/LOIT11RyZOgT8Q1MYVCUi+TF92QYJ4MG
-	KsJZzQ==
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5egsbaf6-1
+	ZFwa0MO4gFEnpvAeEmEySLh7dBj054jvvE+YExvSwCM=; b=NaL8G4cvrKyYouJt
+	d3p2fvzLOVo4RYT+YXmqTROzbYdOVXA6CvYgFP/4BFYEJZxYxOCI+TYrRNvDOUx0
+	IsLwlSkWN0qmegaanXRmmCSXaJPlwh7ui56dh9IetTYieN/JZCVHmC1ZrD94f1P8
+	awaNnCe4/nxEHDL/qDKVWCaj/zUElRk8Pt5yFbXP099CxooRxrQlak6W8oE/PAkT
+	C5Uv3Xrz2n5oxmoVE4U4cAwKL7q4+9/eA16WiglwJZNSKnsh5lK8X3+A/4ydyOzI
+	yYvJdW9U+sRjI34+QW4WjbKZ9TphCil9FfrPhAdWLVe03ZoL5GG/MFymyZZSaxJX
+	hsP+/w==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5cxkbuta-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 08:43:17 +0000 (GMT)
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1b587ffea77so373904c88.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 00:43:17 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 08:43:23 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3854627c1c8so7848344eec.1
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 00:43:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795596197; x=1796200997; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1795596203; x=1796201003; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZZ7iECJNO/EY/GoLxR0o/vSFR2eFAIoMyMPvHeXZfmQ=;
-        b=WW4eQTj/Zf4JZGnMP4tAcmYseP5YYWrrJoMFpnSwQhdyXf5zU7VnZK3OTUfQV7Ykg3
-         RAxL2ug/96vP6X0b88+A8MxN9cw44f69NWsF6Fb7Pl+Tvro9SUCxGFG9DxdSWJsdD4gL
-         9fYtc48dSw+7TKAwzlKNESjsx8//6J+Pjl6nU/O9ab+LONQykH/mykKf15ZfqA0D0egS
-         WXoXh9Jw6PH4U2TisjosfXthdq7noKbAbFu5qtRRGI+qEEuI/NTDD8IZw4n939w0dIvg
-         XqEDyPdYrFe+oWyTGESwLh6yYt/VWDAI7SCdTMta7p2u12PIG2Z0T9T+MxOhJ2EIxOMp
-         fX5A==
+        bh=ZFwa0MO4gFEnpvAeEmEySLh7dBj054jvvE+YExvSwCM=;
+        b=Ap+dOCb6BB+jOWKQ29QeWVnRivxgOoAmMtz8f/4N6yhBsDmgOvncEXWmjCt2qgRUSF
+         PHEoVmbjCgCVkdkDrsQHORF6aVX/JYQNw1QAuz4XoWa37bxgWphELJ+KcxuVKqITaLcv
+         sKu832qbfIuLectCmF+wcM+7xv6hljf+aNiE8ovfAPPlfkDrDJm6Rat+eHO520v0IR5C
+         +ZK16XRR7WcGeEOrM2BL8imuhCjCagVuC3U4eDGCt7VKl4pRlmMvEJJGmOtRPUtjChMv
+         P2+LI+oJB5COFVRE4Ka7uuXLRvsNQGor9xdqH23LAWpGZfbBO5fut3NuKOisU+JHMZi7
+         NQmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795596197; x=1796200997;
+        d=1e100.net; s=20260707; t=1795596203; x=1796201003;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZZ7iECJNO/EY/GoLxR0o/vSFR2eFAIoMyMPvHeXZfmQ=;
-        b=k30alaIBWw9+awtUuKv4pWZBBR1Xvmbu6UEaXIb2uGQub8kJCyfhED3TnN88BCvtmt
-         mnIHn5tHqflLnbXM6BhZdaGP30mzf2huo5NFXY8uAktBs1rMuoGz+sWUnJCHNLnaZ5cj
-         qm8CcRlXFrM90nCcNFDvZ6GaxTGbJjhoNlZt7x+j+EjLHgr5TaDdpzSsqmW4w1/sMfF8
-         gkogk1ytuIjyqtZ5tfCaggLM8b8VapWRpaQXBNQBmW7PoPitbS4oaflg1+sWcqh/VvrI
-         hshsCUF04Is7nIIhb2rDA0PLlSC1asFhIBgWEJLGV4neNa01XeRYxpkxeuv0dD4QBAk3
-         N9Mg==
-X-Forwarded-Encrypted: i=1; AL+hErGTBrUJ6SS8szUHhDyOH9i0Uly5wyPL8hXbfQqkptAvmSb+8jTUP5LQMQRl2wLNeuT1tSx6sAYfwR+D@vger.kernel.org
-X-Gm-Message-State: APuU4Z9WoQUUcT3cPDezRHD7l3Z4CO7b7QEafdFjvrH4zWDuz5px88lR
-	gIjRasTW2I+ka198asHTZvZNAMBZIPQCzEFc/gzJnfSJh/rzuAXU2od0w8xJu6MpzlCzKH5PQ8U
-	SzPKrB+XjXhIxYgY72fClnO/sID/AsXT4N66+J8XI0ebo6LLwKvDiSzY1zzz0hw1n
-X-Gm-Gg: AZFdTZdB1mR17056u0sCFlCe+fDkCiFQ322S3HjI0IsJjMRmDA+nklW4s1gasJ57+G6
-	BPx9EsKf8bUEETk6u5m/uD+UP2J/Ox3dr0m+mvq2HoX6/N+sGVJWmDtvhdi27/28g0IkfEYJQsW
-	eILb/cv+YkCXaQb8hIkjJAWdHu7CppD+6SD+LTihjjsdn0JXiDohMEMfw5AlpwYqyjQZQ4QrsLx
-	i0pC1YTg2qvEIbHArxXlAAQ+pmMVX4ldg5VxEHr+afmIn4MIR364Ff/M2bJ4R2GkZ6fb7M7LMiB
-	Fbul8CUPJfBCIbf2Zm2Q1g1X8p2S0Pt0p1KT9BSWJpB8zNMSOnDS0yy4ThTXOf52+Xhx0EjfhfV
-	g4lSIVj4tzF/ufc0OMX1GAKG/L2qA8I3j9Su4EYoXx0ci39GeEvwh6Aq9Rhe1Bk3ZpNWXCnx2oI
-	eFGSKH
-X-Received: by 2002:a05:7022:c8d:b0:1b3:b3de:9228 with SMTP id a92af1059eb24-1b5568a4f37mr16029408c88.8.1795596196915;
-        Wed, 25 Nov 2026 00:43:16 -0800 (PST)
-X-Received: by 2002:a05:7022:c8d:b0:1b3:b3de:9228 with SMTP id a92af1059eb24-1b5568a4f37mr16029391c88.8.1795596196431;
-        Wed, 25 Nov 2026 00:43:16 -0800 (PST)
+        bh=ZFwa0MO4gFEnpvAeEmEySLh7dBj054jvvE+YExvSwCM=;
+        b=LQq/vDb6A5bUl/BPoTIKdP9J6MLThY0fgpVCpBQLIcDW/SJQ0zpsiQwxrmdp/ho4g+
+         q3pS9/c8rIZZmbvRjyt95YY6T+RzqHoq4MM0+abdStCNxMWVT0QDa6gTmx5s5Vd+LniQ
+         9jqkBKSAmFikcZ7i+9dy4n5aSivBTLma3Jj8AtlQdsVKpXEijiJ7nt7LRjLdDmSbSrQl
+         wN1a7ZL9WYtznqFy3cxCYXSTGLULVjEmb10DkiEp3iAaZQNJYpkkYniEYZisNH5yoBn9
+         3qzlXksBBMVWbbwA/KqvWrxeEdtwKFwsU30fRhlbKxzPKP+ehgJGvaX6JXiG4ZSjEioX
+         YMUw==
+X-Forwarded-Encrypted: i=1; AL+hErEsvTi8+6YP3TLT1yftKlGahAi7d6pGXy3Is6QmXOOCoZGiiTjMlpQ6QUyeQm1orIJ7JJElC/eb5i3o@vger.kernel.org
+X-Gm-Message-State: APuU4Z87YdrdvJg4LGE4aQw/UG38CfeD/ccOb4NiDuj9nNE9e8CXfkb/
+	PM1H14nSU+pUKAw7RmotB6TuzsmQ46oHyLLSgfqV/5kHHnUrm4NG1z6czYY7QZGdsQ9ArzJQpUH
+	JqZX1061ujYze4Fe/rXAWjMYi/HUfHmUgdTFbH3PwBdoJCCDjaC6dbG8mJxBZOPlB
+X-Gm-Gg: AZFdTZfeNtkT33I4GF7bakEwH5+QT5BYVUPbGJLMCIINbcU04pMpZ1yF9sei1OjP8D/
+	LmDh1S7hpgJRfHt28dwDRNBhUTrVqyX0zguZGQ+i9x50scJnUniXqWNZzUTjEJyjdAJ6uT55ZdL
+	3lpwJIXuvEK8j7zLO9IXQtIsB2cfTbJ2wXi+rLi+d2ERyRANDm4IcqPI3xtWtXYZBkOV2gMTYts
+	NAvwrrXHIh41Uq999Vov5r7xrKym2gEylt7ummmF7pwUlcFFgmfYdx46EpKvudE2r+XwCApVRCq
+	zvVic/aV5tXvpFxBxbnfCqgoUtB3X82fkG7xF7gy6cA6Sl+396quZWDBBDO5T90yhJWZLAsMiDG
+	AaiFrMj0ZxK//BTkjmlrqWbOvDomsBldcNtkKjLkCr+qPKrhHsDsI349tMnVhH67QgYRhzliFrg
+	dmM7qK
+X-Received: by 2002:a05:7022:3a0b:b0:1a2:fa1d:1de5 with SMTP id a92af1059eb24-1b5568d861cmr17358907c88.20.1795596202683;
+        Wed, 25 Nov 2026 00:43:22 -0800 (PST)
+X-Received: by 2002:a05:7022:3a0b:b0:1a2:fa1d:1de5 with SMTP id a92af1059eb24-1b5568d861cmr17358875c88.20.1795596202033;
+        Wed, 25 Nov 2026 00:43:22 -0800 (PST)
 Received: from hu-nihalkum-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b55684c85fsm60290694c88.14.2026.11.25.00.43.11
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b55684c85fsm60290694c88.14.2026.11.25.00.43.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 00:43:16 -0800 (PST)
+        Wed, 25 Nov 2026 00:43:21 -0800 (PST)
 From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Date: Wed, 25 Nov 2026 14:13:00 +0530
-Subject: [PATCH v5 1/3] dt-bindings: media: Add CAMSS device for Hawi and
- Maili
+Date: Wed, 25 Nov 2026 14:13:01 +0530
+Subject: [PATCH v5 2/3] media: qcom: camss: csid: Scale the clocks with the
+ CSI-2 link rate
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -119,7 +119,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-hawi-camss-v5-1-d48c4feb1c2e@oss.qualcomm.com>
+Message-Id: <20261125-hawi-camss-v5-2-d48c4feb1c2e@oss.qualcomm.com>
 References: <20261125-hawi-camss-v5-0-d48c4feb1c2e@oss.qualcomm.com>
 In-Reply-To: <20261125-hawi-camss-v5-0-d48c4feb1c2e@oss.qualcomm.com>
 To: Bryan O'Donoghue <bod@kernel.org>,
@@ -137,384 +137,348 @@ Cc: Suresh Vankadara <svankada@qti.qualcomm.com>,
         linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795596185; l=11612;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795596185; l=10252;
  i=nihal.gupta@oss.qualcomm.com; s=20260608; h=from:subject:message-id;
- bh=UMXZdSAtzUtWtGtRt6fPvenn0fAcrgy7s5Zjj+fIsBk=;
- b=3YLKGF4u/ernvP8zDM5rBqf9wVbs/XsJaHQyOy1uj/z1kB9olOa9bJ3etC0Us5W8ccIqZOP5O
- dDhHkUKJfe/DjNlmy0kH8e1c3uW+tVq9SX3/nQ6AEIrpcJIBRRsvI4N
+ bh=tpveFD6IUE1BcjgC1cRdIYcwyFNUjPZnwFV4YuwTebo=;
+ b=szYJND60yPQMmbvDHj+qskOF1RvoxboTcfZiCFm44NO2JMs2G3iWI7PPksls3mdZvUjzEV2Ye
+ lDwytHVVuy4AhKEpcNMILOyPePGW7RlBtKru2VqKU+wX+XMie6kGq4s
 X-Developer-Key: i=nihal.gupta@oss.qualcomm.com; a=ed25519;
  pk=DIbyFMNwqU/iMvU/0pCQp2wmRVgtHFBT3PcSu+A+Ncw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDAzNCBTYWx0ZWRfXxz6QXT0ICTIj
- C8w2uIEw0HIyPd53fkRIH/XytPkN9B4IP/eg8Ir0+EuqvsMLm/4FARz959BYGipd9Vsl+2Le/mt
- nyXOs5/teOwahydhyglOioaHa0WRAlLGaQSjB6bneYlg+h7VQ7l5tkdDk1pwbt2dr3E/HCGPnZH
- NNeeA70rnZz0PwMX+m/3f0/HPB6hBnrJcP33YqvJJevXiTddYnyWT085f/R6pK95nwg5OJwLpIM
- WnjWIrAxOh+iXjunMHGQIkijYM8HitViYbqbLyRCFmtKZ8TFaTe20p6UOUGUKdxXw1uX2TmVYnt
- rII3h2gUqBTfDsqbhwMLAMGVPW4X/m+EH/nUJzCf5QIc8JL7l3xHx/zO3Orxy+l1Hvgbiqm+YnT
- O8Ex2AaSp2WwwqbF6wpiU1jDfMGEdM0WWU9n2bd1D3y4q8MJv+Ej6CsQzbN0U7jDGUjquk9+g+V
- UKbON+5fDpoG7E6hIcQ==
-X-Proofpoint-GUID: ce8l621YGsau0qCyW0y0WqRUEhLkILxP
-X-Proofpoint-ORIG-GUID: ce8l621YGsau0qCyW0y0WqRUEhLkILxP
-X-Authority-Analysis: v=2.4 cv=Zt54uN7G c=1 sm=1 tr=0 ts=6b069fa5 cx=c_pps
- a=SvEPeNj+VMjHSW//kvnxuw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDAzNCBTYWx0ZWRfX0e4OL34jLgg3
+ z8PSJy5e7miRPxAmbkmLq6pnVL/BO0roFuR5vZrWtsz/KSt6h90l3K3QurcQKxxx4IJULUkuQ+5
+ Hr7Al5IGh6Vi7IN9G5cRwc0bXldX/6W60tjJpaHZInH3V+0o1Befw8QZBileil6YbKEBXvhQzwg
+ dWNIiq3FjRH2pKuJmY66Fd1eES4MsPmaAeMXqCY4HOlyCjc6H7p5HhFw/WsF7GxYflmfXDYWt6h
+ u8CuiBq7jqcUF5eA17cwSzFD0gxulymLmvyExJZFThsfaErLurmVBHTa15WGxgtjAStdS9wfWir
+ KworQQKnnKXrYuJh6XZWWnznv/HmvQBfb98aNjcIIfYcwLcNMFiLPHpdMd7a3hqoNoMu13OE3XI
+ qSpYZMhBxH1WqjPRmYn0de9PgHpU9/TVrvsCJ4ycfEIsOWXbNh8GiIJSy7BscLMhMd8lslx6Zz6
+ Xko/O9I/cBABCKQdeVQ==
+X-Proofpoint-GUID: _wlf2dHwJnzfjuDZbzvd8u-DcuechWeZ
+X-Proofpoint-ORIG-GUID: _wlf2dHwJnzfjuDZbzvd8u-DcuechWeZ
+X-Authority-Analysis: v=2.4 cv=TLbQ2Fla c=1 sm=1 tr=0 ts=6b069fab cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=CXfGsmi0X-KHezRtte0A:9 a=QEXdDO2ut3YA:10
- a=Kq8ClHjjuc5pcCNDwlU0:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDAzNCBTYWx0ZWRfX08vBt+GBdIMt
- mfAivfTonyoAgM4f0druH8a8dv5jYjWzb/nOrVUtP+JlT23zyhqzV9kU2Yo4g8w5OM/F74j6VMO
- CspI4au/gau4QKcnZmqBel8gE9qfyd8=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=1mbsq_4py20XrWrvqusA:9 a=QEXdDO2ut3YA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDAzNCBTYWx0ZWRfXzXnTxYlJ8Q1a
+ YA2SCZ2Pfh1PPD3RfrOOFoJ+GP9vNqAmajiuL+QXg2+Mc7Imboeim5W06c81tmlqJ3ufG/lt8xP
+ eQlu+G/ardnMWDCu9TnZIDS+ab1PdVc=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-25_02,2026-11-23_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0
- suspectscore=0 spamscore=0 phishscore=0 impostorscore=0 bulkscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611250034
+ phishscore=0 impostorscore=0 spamscore=0 clxscore=1015 suspectscore=0
+ malwarescore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611250034
 
-From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-Add bindings for Camera Subsystem (CAMSS) on the Qualcomm Hawi platform.
+Only the gen1 "csiN" clocks are scaled with the link rate of the sensor,
+the CSID core and CSIPHY receive clocks of all the other SoCs are set to
+the first rate of the resource table. A SoC can therefore only be
+described for one sensor bandwidth: the lowest rate first breaks fast
+sensors, the highest one burns power with the slow ones.
 
-The Hawi platform provides:
-- 6 x CSIPHY (CSI Physical Layer)
-- 3 x TPG (Test Pattern Generator)
-- 3 x CSID (CSI Decoder)
-- 2 x CSID Lite
-- 3 x VFE (Video Front End), 5 RDI per VFE
-- 2 x VFE Lite, 4 RDI per VFE Lite
+Compute the minimum rate from the link frequency for all generations.
+The CSIPHY passes each D-PHY lane to the CSID over an 8 bit wide
+interface clocked by the receive clock, so that clock has to run at the
+per lane bit rate divided by 8, which is link_freq / 4. The core clock
+must not be slower, hence the same minimum for it and the cap of the
+receive clock at the core rate. The clocks are matched by suffix and
+voted for with clk_set_rate_range(), as the CSIDs of the recent SoCs
+share them.
 
-Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-Co-developed-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Up to 1.8 Gbps/lane the selected rates are unchanged on every supported
+SoC.
+
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
 ---
- .../devicetree/bindings/media/qcom,hawi-camss.yaml | 317 +++++++++++++++++++++
- 1 file changed, 317 insertions(+)
+ drivers/media/platform/qcom/camss/camss-csid.c | 208 ++++++++++++++++++++-----
+ 1 file changed, 169 insertions(+), 39 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/media/qcom,hawi-camss.yaml b/Documentation/devicetree/bindings/media/qcom,hawi-camss.yaml
-new file mode 100644
-index 0000000000000000000000000000000000000000..22629064ed7132cd19b7b0521ebd7c33d79a1417
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/qcom,hawi-camss.yaml
-@@ -0,0 +1,317 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/qcom,hawi-camss.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
+index 588122beec854ae5b78de9997b68c7a81d4207e1..e6546fa9cf1e96bc9ec65eb1e6e4eb0144cc01fb 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid.c
++++ b/drivers/media/platform/qcom/camss/camss-csid.c
+@@ -16,6 +16,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regulator/consumer.h>
++#include <linux/string.h>
+ #include <media/media-entity.h>
+ #include <media/mipi-csi2.h>
+ #include <media/v4l2-device.h>
+@@ -532,72 +533,197 @@ const struct csid_format_info *csid_get_fmt_entry(const struct csid_format_info
+ 	return &formats[0];
+ }
+ 
++/* Match the core clock of the CSID */
++static bool csid_match_core_clock_name(struct camss_clock *clock)
++{
++	/* "csid", "vfe0_csid", "vfe_lite_csid", ... */
++	if (strends(clock->name, "csid"))
++		return true;
 +
-+title: Qualcomm Hawi and Maili Camera Subsystem (CAMSS)
++	/* Named after the CSI port on the SoCs with a gen1 CSID */
++	return !strcmp(clock->name, "csi0") || !strcmp(clock->name, "csi1") ||
++	       !strcmp(clock->name, "csi2") || !strcmp(clock->name, "csi3");
++}
 +
-+maintainers:
-+  - Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-+  - Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
++/* Match the clock of the CSIPHY to CSID interface */
++static bool csid_match_phy_rx_clock_name(struct camss_clock *clock)
++{
++	/* "csiphy_rx", "csid_csiphy_rx", "vfe0_cphy_rx", ... */
++	return strends(clock->name, "phy_rx");
++}
 +
-+description:
-+  The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
++/* Match a clock whose rate depends on the CSI-2 link rate */
++static bool csid_match_scaled_clock_name(struct camss_clock *clock)
++{
++	return csid_match_core_clock_name(clock) ||
++	       csid_match_phy_rx_clock_name(clock);
++}
 +
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: qcom,hawi-camss
-+      - items:
-+          - const: qcom,maili-camss
-+          - const: qcom,hawi-camss
+ /*
+- * csid_set_clock_rates - Calculate and set clock rates on CSID module
+- * @csiphy: CSID device
++ * csid_get_min_clock_rate - Get the rate the CSI-2 link requires
++ * @csid: CSID device
++ *
++ * The CSIPHY deserialises every D-PHY data lane into bytes and passes them to
++ * the CSID over an interface which is, as per the CSID HPG, 8 bits wide per
++ * lane and clocked by the CSIPHY receive clock. That clock has to run at the
++ * per lane bit rate divided by 8 at the very least. The link frequency is the
++ * DDR clock of the link, i.e. half the per lane bit rate, which makes the
++ * minimum rate link_freq / 4.
++ *
++ * Qualcomm recommends clocking the CSID core at least as fast as the CSIPHY
++ * receive clock feeding it, so the same minimum applies to the core clock.
++ *
++ * C-PHY maps 16 bits onto 7 symbols and needs a different ratio, but CAMSS
++ * does not support it so far.
++ *
++ * Return the minimum rate in Hz, clock margin included, or 0 if the link
++ * frequency of the sensor is not known
+  */
+-static int csid_set_clock_rates(struct csid_device *csid)
++static u64 csid_get_min_clock_rate(struct csid_device *csid)
+ {
+-	struct device *dev = csid->camss->dev;
+ 	const struct csid_format_info *fmt;
+ 	s64 link_freq;
+-	int i, j;
+-	int ret;
++	u64 min_rate;
+ 
+ 	fmt = csid_get_fmt_entry(csid->res->formats->formats, csid->res->formats->nformats,
+-				 csid->fmt[MSM_CSIPHY_PAD_SINK].code);
++				 csid->fmt[MSM_CSID_PAD_SINK].code);
+ 	link_freq = camss_get_link_freq(&csid->subdev.entity, fmt->bpp,
+ 					csid->phy.lane_cnt);
+ 	if (link_freq < 0)
+-		link_freq = 0;
++		return 0;
 +
-+  reg:
-+    maxItems: 14
++	min_rate = link_freq / 4;
++	camss_add_clock_margin(&min_rate);
 +
-+  reg-names:
-+    items:
-+      - const: top
-+      - const: csid0
-+      - const: csid1
-+      - const: csid2
-+      - const: csid_lite0
-+      - const: csid_lite1
-+      - const: tpg0
-+      - const: tpg1
-+      - const: tpg2
-+      - const: vfe0
-+      - const: vfe1
-+      - const: vfe2
-+      - const: vfe_lite0
-+      - const: vfe_lite1
++	return min_rate;
++}
 +
-+  clocks:
-+    maxItems: 26
++/* Get the lowest level of a clock above min_rate, or -EINVAL if there is none */
++static int csid_find_clock_level(struct camss_clock *clock, u64 min_rate)
++{
++	int i;
 +
-+  clock-names:
-+    items:
-+      - const: camnoc_nrt_axi
-+      - const: camnoc_rt_axi
-+      - const: camnoc_dcd_xo
-+      - const: cpas_ahb
-+      - const: cpas_fast_ahb
-+      - const: cpas_mnoc_hf
-+      - const: cpas_mnoc_sf
-+      - const: cpas_vfe0
-+      - const: cpas_vfe1
-+      - const: cpas_vfe2
-+      - const: cpas_vfe_lite
-+      - const: csid
-+      - const: csiphy_rx
-+      - const: gcc_axi_hf
-+      - const: gcc_axi_sf
-+      - const: vfe0
-+      - const: vfe0_fast_ahb
-+      - const: vfe1
-+      - const: vfe1_fast_ahb
-+      - const: vfe2
-+      - const: vfe2_fast_ahb
-+      - const: vfe_lite
-+      - const: vfe_lite_ahb
-+      - const: vfe_lite_cphy_rx
-+      - const: vfe_lite_csid
-+      - const: qdss_debug_xo
++	/* Play safe with the highest level if the link rate is not known */
++	if (!min_rate)
++		return clock->nfreqs - 1;
 +
-+  interrupts:
-+    maxItems: 10
++	for (i = 0; i < clock->nfreqs; i++)
++		if (clock->freq[i] > min_rate)
++			return i;
 +
-+  interrupt-names:
-+    items:
-+      - const: csid0
-+      - const: csid1
-+      - const: csid2
-+      - const: csid_lite0
-+      - const: csid_lite1
-+      - const: vfe0
-+      - const: vfe1
-+      - const: vfe2
-+      - const: vfe_lite0
-+      - const: vfe_lite1
++	return -EINVAL;
++}
 +
-+  interconnects:
-+    maxItems: 2
++/* Lower a level down to max_rate, but never below what min_rate needs */
++static int csid_cap_clock_level(struct camss_clock *clock, int level,
++				u64 min_rate, u64 max_rate)
++{
++	while (level > 0 && clock->freq[level] > max_rate &&
++	       clock->freq[level - 1] > min_rate)
++		level--;
 +
-+  interconnect-names:
-+    items:
-+      - const: ahb
-+      - const: hf_mnoc
++	return level;
++}
 +
-+  iommus:
-+    items:
-+      - description: S1 HLOS IFE and IFE_LITE non-protected stream
++/*
++ * csid_set_clock_rates - Calculate and set clock rates on CSID module
++ * @csid: CSID device
++ */
++static int csid_set_clock_rates(struct csid_device *csid)
++{
++	struct device *dev = csid->camss->dev;
++	u64 min_rate = csid_get_min_clock_rate(csid);
++	u64 core_rate = 0;
++	int i, j;
++	int ret;
 +
-+  power-domains:
-+    items:
-+      - description: IFE0 GDSC - Global Distributed Switch Controller for IFE0.
-+      - description: IFE1 GDSC - Global Distributed Switch Controller for IFE1.
-+      - description: IFE2 GDSC - Global Distributed Switch Controller for IFE2.
-+      - description: Titan GDSC - Global Distributed Switch Controller for the entire camss.
++	/*
++	 * Settle the rate of the core clock first, as the receive clock must
++	 * not outrun it and the clocks are not listed in a fixed order.
++	 */
+ 
+ 	for (i = 0; i < csid->nclocks; i++) {
+ 		struct camss_clock *clock = &csid->clock[i];
+ 
+-		if (!strcmp(clock->name, "csi0") ||
+-		    !strcmp(clock->name, "csi1") ||
+-		    !strcmp(clock->name, "csi2") ||
+-		    !strcmp(clock->name, "csi3")) {
+-			u64 min_rate = link_freq / 4;
+-			long rate;
++		if (!clock->nfreqs || !csid_match_core_clock_name(clock))
++			continue;
+ 
+-			camss_add_clock_margin(&min_rate);
++		j = csid_find_clock_level(clock, min_rate);
++		if (j < 0) {
++			dev_err(dev, "Link rate is too high for the %s clock\n",
++				clock->name);
++			return j;
++		}
+ 
+-			for (j = 0; j < clock->nfreqs; j++)
+-				if (min_rate < clock->freq[j])
+-					break;
++		core_rate = max_t(u64, core_rate, clock->freq[j]);
++	}
+ 
+-			if (j == clock->nfreqs) {
+-				dev_err(dev,
+-					"Pixel clock is too high for CSID\n");
+-				return -EINVAL;
+-			}
++	for (i = 0; i < csid->nclocks; i++) {
++		struct camss_clock *clock = &csid->clock[i];
+ 
+-			/* if sensor pixel clock is not available */
+-			/* set highest possible CSID clock rate */
+-			if (min_rate == 0)
+-				j = clock->nfreqs - 1;
++		if (!clock->nfreqs)
++			continue;
+ 
+-			rate = clk_round_rate(clock->clk, clock->freq[j]);
+-			if (rate < 0) {
+-				dev_err(dev, "clk round rate failed: %ld\n",
+-					rate);
+-				return -EINVAL;
+-			}
++		if (!csid_match_scaled_clock_name(clock)) {
++			/* The remaining clocks run at their lowest level */
+ 
+-			ret = clk_set_rate(clock->clk, rate);
+-			if (ret < 0) {
+-				dev_err(dev, "clk set rate failed: %d\n", ret);
+-				return ret;
+-			}
+-		} else if (clock->nfreqs) {
+ 			clk_set_rate(clock->clk, clock->freq[0]);
++			continue;
++		}
 +
-+  power-domain-names:
-+    items:
-+      - const: ife0
-+      - const: ife1
-+      - const: ife2
-+      - const: top
++		j = csid_find_clock_level(clock, min_rate);
++		if (j < 0) {
++			dev_err(dev, "Link rate is too high for the %s clock\n",
++				clock->name);
++			return j;
++		}
 +
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
++		/*
++		 * There is nothing to gain from running the receive clock
++		 * faster than the core clock, as long as the link rate is
++		 * still covered.
++		 */
++		if (core_rate && csid_match_phy_rx_clock_name(clock))
++			j = csid_cap_clock_level(clock, j, min_rate, core_rate);
 +
-+    description:
-+      CSI input ports.
++		/*
++		 * Vote for the rate as a minimum, as the clock may be shared
++		 * with another CSID which needs it to run faster.
++		 */
++		ret = clk_set_rate_range(clock->clk, clock->freq[j], ULONG_MAX);
++		if (ret < 0) {
++			dev_err(dev, "clk set rate range failed: %d\n", ret);
++			return ret;
+ 		}
+ 	}
+ 
+ 	return 0;
+ }
+ 
++/*
++ * Drop the minimum rates the CSID votes for and take its clocks back to their
++ * lowest level, or to the lowest level the other users of a shared clock need.
++ */
++static void csid_release_clock_rates(struct csid_device *csid)
++{
++	int i;
 +
-+    patternProperties:
-+      "^port@[0-5]$":
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description:
-+          Input ports for receiving CSI data on CSIPHY 0-5.
++	for (i = 0; i < csid->nclocks; i++) {
++		struct camss_clock *clock = &csid->clock[i];
++		long rate;
 +
-+        properties:
-+          endpoint:
-+            $ref: video-interfaces.yaml#
-+            unevaluatedProperties: false
++		if (!clock->nfreqs || !csid_match_scaled_clock_name(clock))
++			continue;
 +
-+            properties:
-+              data-lanes:
-+                minItems: 1
-+                maxItems: 4
++		clk_drop_range(clock->clk);
 +
-+              bus-type:
-+                enum:
-+                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-+                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++		/* Round first, so that the rate respects the other votes */
++		rate = clk_round_rate(clock->clk, clock->freq[0]);
++		if (rate > 0)
++			clk_set_rate(clock->clk, rate);
++	}
++}
 +
-+            required:
-+              - data-lanes
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - clocks
-+  - clock-names
-+  - interrupts
-+  - interrupt-names
-+  - interconnects
-+  - interconnect-names
-+  - iommus
-+  - power-domains
-+  - power-domain-names
-+  - ports
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/qcom,hawi-gcc.h>
-+    #include <dt-bindings/clock/qcom,hawi-camcc.h>
-+    #include <dt-bindings/interconnect/qcom,icc.h>
-+    #include <dt-bindings/interconnect/qcom,hawi-rpmh.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/power/qcom,rpmhpd.h>
-+
-+    soc {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        isp@900b000 {
-+            compatible = "qcom,hawi-camss";
-+
-+            reg = <0x0 0x0900b000 0x0 0x1000>,
-+                  <0x0 0x09253000 0x0 0x5e80>,
-+                  <0x0 0x09263000 0x0 0x5e80>,
-+                  <0x0 0x09273000 0x0 0x5e80>,
-+                  <0x0 0x092d3000 0x0 0x3880>,
-+                  <0x0 0x092e7000 0x0 0x3880>,
-+                  <0x0 0x093fd000 0x0 0x400>,
-+                  <0x0 0x093fe000 0x0 0x400>,
-+                  <0x0 0x093ff000 0x0 0x400>,
-+                  <0x0 0x09151000 0x0 0x20000>,
-+                  <0x0 0x09171000 0x0 0x20000>,
-+                  <0x0 0x09191000 0x0 0x20000>,
-+                  <0x0 0x092dc000 0x0 0x6800>,
-+                  <0x0 0x092f0000 0x0 0x6800>;
-+            reg-names = "top",
-+                        "csid0",
-+                        "csid1",
-+                        "csid2",
-+                        "csid_lite0",
-+                        "csid_lite1",
-+                        "tpg0",
-+                        "tpg1",
-+                        "tpg2",
-+                        "vfe0",
-+                        "vfe1",
-+                        "vfe2",
-+                        "vfe_lite0",
-+                        "vfe_lite1";
-+
-+            clocks = <&camcc CAM_CC_CAMNOC_NRT_AXI_CLK>,
-+                     <&camcc CAM_CC_CAMNOC_RT_AXI_CLK>,
-+                     <&camcc CAM_CC_CAMNOC_DCD_XO_CLK>,
-+                     <&camcc CAM_CC_CAM_TOP_AHB_CLK>,
-+                     <&camcc CAM_CC_CAM_TOP_FAST_AHB_CLK>,
-+                     <&camcc CAM_CC_TITAN_MNOC_HF_CLK>,
-+                     <&camcc CAM_CC_TITAN_MNOC_SF_CLK>,
-+                     <&camcc CAM_CC_CAMNOC_RT_TFE_0_MAIN_CLK>,
-+                     <&camcc CAM_CC_CAMNOC_RT_TFE_1_MAIN_CLK>,
-+                     <&camcc CAM_CC_CAMNOC_RT_TFE_2_MAIN_CLK>,
-+                     <&camcc CAM_CC_CAMNOC_RT_IFE_LITE_CLK>,
-+                     <&camcc CAM_CC_CSID_CLK>,
-+                     <&camcc CAM_CC_CSID_CSIPHY_RX_CLK>,
-+                     <&gcc GCC_CAMERA_HF_AXI_CLK>,
-+                     <&gcc GCC_CAMERA_SF_AXI_CLK>,
-+                     <&camcc CAM_CC_TFE_0_MAIN_CLK>,
-+                     <&camcc CAM_CC_TFE_0_MAIN_FAST_AHB_CLK>,
-+                     <&camcc CAM_CC_TFE_1_MAIN_CLK>,
-+                     <&camcc CAM_CC_TFE_1_MAIN_FAST_AHB_CLK>,
-+                     <&camcc CAM_CC_TFE_2_MAIN_CLK>,
-+                     <&camcc CAM_CC_TFE_2_MAIN_FAST_AHB_CLK>,
-+                     <&camcc CAM_CC_IFE_LITE_CLK>,
-+                     <&camcc CAM_CC_IFE_LITE_AHB_CLK>,
-+                     <&camcc CAM_CC_IFE_LITE_CPHY_RX_CLK>,
-+                     <&camcc CAM_CC_IFE_LITE_CSID_CLK>,
-+                     <&camcc CAM_CC_QDSS_DEBUG_XO_CLK>;
-+            clock-names = "camnoc_nrt_axi",
-+                          "camnoc_rt_axi",
-+                          "camnoc_dcd_xo",
-+                          "cpas_ahb",
-+                          "cpas_fast_ahb",
-+                          "cpas_mnoc_hf",
-+                          "cpas_mnoc_sf",
-+                          "cpas_vfe0",
-+                          "cpas_vfe1",
-+                          "cpas_vfe2",
-+                          "cpas_vfe_lite",
-+                          "csid",
-+                          "csiphy_rx",
-+                          "gcc_axi_hf",
-+                          "gcc_axi_sf",
-+                          "vfe0",
-+                          "vfe0_fast_ahb",
-+                          "vfe1",
-+                          "vfe1_fast_ahb",
-+                          "vfe2",
-+                          "vfe2_fast_ahb",
-+                          "vfe_lite",
-+                          "vfe_lite_ahb",
-+                          "vfe_lite_cphy_rx",
-+                          "vfe_lite_csid",
-+                          "qdss_debug_xo";
-+
-+            interrupts = <GIC_SPI 601 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 603 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 431 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 605 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 376 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 433 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 436 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 457 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 606 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 377 IRQ_TYPE_EDGE_RISING>;
-+            interrupt-names = "csid0",
-+                              "csid1",
-+                              "csid2",
-+                              "csid_lite0",
-+                              "csid_lite1",
-+                              "vfe0",
-+                              "vfe1",
-+                              "vfe2",
-+                              "vfe_lite0",
-+                              "vfe_lite1";
-+
-+            interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+                             &config_noc SLAVE_CAMERA_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
-+                            <&mmss_noc MASTER_CAMNOC_HF QCOM_ICC_TAG_ALWAYS
-+                             &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+            interconnect-names = "ahb",
-+                                 "hf_mnoc";
-+
-+            iommus = <&apps_smmu 0x1800 0x00>;
-+
-+            power-domains = <&camcc CAM_CC_TFE_0_GDSC>,
-+                            <&camcc CAM_CC_TFE_1_GDSC>,
-+                            <&camcc CAM_CC_TFE_2_GDSC>,
-+                            <&camcc CAM_CC_TITAN_TOP_GDSC>;
-+            power-domain-names = "ife0",
-+                                 "ife1",
-+                                 "ife2",
-+                                 "top";
-+
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                port@0 {
-+                    reg = <0>;
-+
-+                    camss_csiphy0_ep: endpoint {
-+                        data-lanes = <1 2 3 4>;
-+                        remote-endpoint = <&csiphy0_out>;
-+                    };
-+                };
-+            };
-+        };
-+    };
+ /*
+  * csid_hw_version - CSID hardware version query
+  * @csid: CSID device
+@@ -707,6 +833,7 @@ static int csid_set_power(struct v4l2_subdev *sd, int on)
+ 
+ 		ret = csid_set_clock_rates(csid);
+ 		if (ret < 0) {
++			csid_release_clock_rates(csid);
+ 			regulator_bulk_disable(csid->num_supplies,
+ 					       csid->supplies);
+ 			pm_runtime_put_sync(dev);
+@@ -715,6 +842,7 @@ static int csid_set_power(struct v4l2_subdev *sd, int on)
+ 
+ 		ret = camss_enable_clocks(csid->nclocks, csid->clock, dev);
+ 		if (ret < 0) {
++			csid_release_clock_rates(csid);
+ 			regulator_bulk_disable(csid->num_supplies,
+ 					       csid->supplies);
+ 			pm_runtime_put_sync(dev);
+@@ -729,6 +857,7 @@ static int csid_set_power(struct v4l2_subdev *sd, int on)
+ 		if (ret < 0) {
+ 			disable_irq(csid->irq);
+ 			camss_disable_clocks(csid->nclocks, csid->clock);
++			csid_release_clock_rates(csid);
+ 			regulator_bulk_disable(csid->num_supplies,
+ 					       csid->supplies);
+ 			pm_runtime_put_sync(dev);
+@@ -739,6 +868,7 @@ static int csid_set_power(struct v4l2_subdev *sd, int on)
+ 	} else {
+ 		disable_irq(csid->irq);
+ 		camss_disable_clocks(csid->nclocks, csid->clock);
++		csid_release_clock_rates(csid);
+ 		regulator_bulk_disable(csid->num_supplies,
+ 				       csid->supplies);
+ 		pm_runtime_put_sync(dev);
 
 -- 
 2.34.1
