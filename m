@@ -1,57 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795653072;
-	b=UrpGVGPnQk4cKp3LnpDutgubhHiThCmg1Kvkmcl3np7lGo0xB8jucs+5e69KVaqObZSn
-	 hBmBNnrGAz2Au3QZWoQSrPdcc3noYp3hGlw55uzcbIIgvnWf2K3f8EgZ/Ku/njhz1yGzu
-	 KAwjX+4FPdEvVDruPwuME2KqsGhyRDxod55ApmRtTpcaE4uPnURWmiv8ASZO5ktMZxCGG
-	 rq52snKKrBgLEV9pH6ZeSjha3KPDMePsrgYPJcZvLNWnJHxSEIV7HXren3k++ff1+tjRC
-	 Pen88VApn4mIA4iwUkNm6NEKUvUU9VQ1BqW7q3loeWsHPL6OX7hUSo1m7uVKtVJVfxA==
+	t=1795653281;
+	b=cou+rGp2ZxUIUkvnt33bBfb8+k/xOHCkq/jeuqPeo7mhZdqfg6h7TmdGSBoL5nE4+pqa
+	 AZ9s9Sbi6qL1rFFePSOCfKTYL8tjLTaUttRIC44P2+z+NSOnzCPpjPsgtJ6xy4RS4ICFf
+	 YxFNhdXOIAFr9ehkZq+ESjHtGz7G4hAABlomyEm/IlIPqSfUp1W/RXVQRVRBK4r7/c9ka
+	 ff2vuUGqZzfgs77pMvD48GBvDf+6E7drNeAtRTrG5xu93Yq2ZXkvP8+sCzCCsB0hnCTCh
+	 0GsmsfyL5gbuzhHjWB/NBDnUBy59TrfcbfDQJF4+jc/NMoXbevYY8T7V4UpnBCaHEvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795653072;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=wQDL8WIIp6PvD1L/Hye/EL9Q8fGh99rL7Ww2AkCXnDA=;
-	b=sP7Pk8pg1BImJAdwtU/TmsiYELkLFMLtDJ7L2eeo7OvCOv9UEC3J70msw5XruXUkm3mL
-	 TWvg4FRzcquABpwXx4mlvHOVSmGYk7BLo91ZgRJu5bkNOrWn2Xp22APJ7ZirKCiHD7FIo
-	 JFXAUnRetH/MQs5PcxmFzGIkEvT94o79+cB4rXtU5wxZ/Pe22LHWd8z5iFJ4q8dz2eUs1
-	 Qwf3XUCT7DKRpET7c5d/p3X+CIW3RcSiBvdetzwOffde0wNhbmAVixF672AAOyxGaje1M
-	 jyoG3QNvWIv4WQA8bzvwHal1Ons4dU0V380P4njEeZIrKZaegqYHo4mVHMDDCpm1j3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795653281;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=5Nw1PUI/8+Dw+uE9Ar24vLwu5Jkm9NnRZmkT/cfK/VY=;
+	b=Cu2Pn4plC/Z6BD4q0wPiirKxcmFu2a/WpBxMOYHxOFk462OFPvfH98Lc2du5niR7+dbr
+	 Dq7ovcZBpmrP9rAdnDBaPzwFuEHGl9SAnU6fz+SKRT50Z3Eua8tWJUCXPBdq5cg+d+CX2
+	 u62j/eIjE3WVGCt5MfEZRc1ALP5zH+5+weZcqcJcoCj0uh7WgypcDUw5OEsH8tZLsTrBn
+	 XRWvP4tAipG7lFHPqQXIL2rJ11IcCV46Gc0qqxcCZMLRgk80XUsBHWbcm3JqRiqXj6ze+
+	 flislYEgekNNDwKCr0Enohq9rStLOBioaHQbJ0IdOA1kkkZDsW1MRIYC8YGW4QThe0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G2RJz0bA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=bQhzdxgG;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CE75606A31E
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 00:31:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2137606A31E
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 00:34:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2137606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G2RJz0bA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 759BE1F000C6;
-	Thu, 26 Nov 2026 00:31:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795653071;
-	bh=wQDL8WIIp6PvD1L/Hye/EL9Q8fGh99rL7Ww2AkCXnDA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=G2RJz0bAzcq+oCYspFRJ0z1fsriCS7qhunGrlPMqD6OvYLzsSo9iYi2bSOy4oVSRY
-	 8KECExrqtCkPDefxMqgdbNAa0jySmKIdj8F+HxsmKLLdG2rdNan2su5zrf3824h6/r
-	 N8OvtU7ue1NHrOpibRFSGHJQgT0r6LK4T9OuMg9LJb62IIbeQAoe/Ey7o4XoTOzXMl
-	 xZnO1Ci7DhgkGRN2bLp79hv5VAize7USNokhXH1rN0wo3cGqkkF6/aNX4EQLks5wfK
-	 1ZUM0Tx3dQMGqOy5aypfhm/eGr/bfK5OIHIWpbXKtAQD5vDVXTn3GL5XPHNmTvtgLC
-	 8ppjFyqVzAtCg==
-Message-ID: <sashiko-outbox-234477@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 2/2] arm64: dts: qcom: sm8750-lenovo-elden: add
- Lenovo Legion Y700 Gen4, a Qualcomm SM8750-based tablet
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261126002157.1954799-3-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261126002157.1954799-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261126002157.1954799-3-xiaqinghuan@mail.ustc.edu.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 00:31:11 +0000
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=bQhzdxgG
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 230B9108AA8;
+	Thu, 26 Nov 2026 01:34:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1795653271;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=5Nw1PUI/8+Dw+uE9Ar24vLwu5Jkm9NnRZmkT/cfK/VY=;
+	b=bQhzdxgGhksJwhez1cJ6RJfzVetdIlhj0vPwN9rwGVYBtPNyApvgg/373hbFxzfNxLfqUE
+	giGcpt/g6Riz6NkXX7MlUou5cdiCVwf1iU4EdubtCMUAMaXIInspO7A/7phxpBwMMXnrni
+	rZkV9tfz8DAZHHEWauVaU9rBP+Tv++S3UYDLeTolvZ+3idCuqEbKUefSgQYP8XNh+ee+cl
+	9tGnoIPIgM5ej/IOTSes+0VBnwrWmuyeId3huadFlb3YCiE4o8SHFW1auHf72LHKc0jLnO
+	wcACDZZYitleGOluF4Jki8+2NRNJjKnkwTglkvLdMZ3J3PcuVQeAzrm3DCSRag==
+Message-ID: <a57373f2-dfb2-4344-8e2c-6621a623d170@nabladev.com>
+Date: Wed, 25 Nov 2026 14:56:36 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,122 +55,29 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V2] ARM: dts: imx6ull-dhcom: Change eMMC pin configuration
+To: Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+ linux-arm-kernel@lists.infradead.org
+Cc: Pascal Zimmermann <pzimmermann@dh-electronics.com>,
+ Conor Dooley <conor+dt@kernel.org>, Fabio Estevam <festevam@gmail.com>,
+ Frank Li <Frank.Li@nxp.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Rob Herring <robh@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ kernel@dh-electronics.com, devicetree@vger.kernel.org, imx@lists.linux.dev
+References: <20261125125621.6734-1-cniedermaier@dh-electronics.com>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <20261125125621.6734-1-cniedermaier@dh-electronics.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Medium] arm64: dts: qcom: missing willsemi,wl2868c binding schema in
-  target tree
-- [Medium] arm64: dts: qcom: missing core boot and power nodes in
-  sm8750-lenovo-elden.dts
-- [Medium] arm64: dts: qcom: missing vin*-supply properties on pmic@2f
-  for active LDOs
---
+On 11/25/26 1:56 PM, Christoph Niedermaier wrote:
+> From: Pascal Zimmermann <pzimmermann@dh-electronics.com>
+> 
+> Tests have shown that, with the current pin configuration of the
+> eMMC (usdhc2 interface) read errors can occur with a certain
+> type of eMMC chips.
 
-commit f756b32431d85db31160b09abd11c951962794a8
-Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-
-arm64: dts: qcom: sm8750-lenovo-elden: add Lenovo Legion Y700 Gen4, a Qualc=
-omm SM8750-based tablet
-
-This commit adds the initial devicetree for the Qualcomm SM8750-based Lenovo
-Legion Y700 Gen4 tablet, including board clocks, reserved GPIOs, and the
-WL2868C camera PMIC on i2c10.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts b/arch/arm6=
-4/boot/dts/qcom/sm8750-lenovo-elden.dts
-> new file mode 100644
-> index 0000000000000..73f4452f46120
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
-> @@ -0,0 +1,129 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) 2026, Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-> + */
-> +
-> +/dts-v1/;
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include "sm8750.dtsi"
-> +
-> +/ {
-> +	model =3D "Lenovo Legion Y700 Gen4";
-> +	compatible =3D "lenovo,elden", "qcom,sm8750";
-> +	chassis-type =3D "tablet";
-
-[ ... ]
-
-> +	/*
-> +	 * VSYS of the camera PMIC is the always-on system rail of the tablet.
-> +	 * The SPMI PMICs that generate it are not described yet, so it is
-> +	 * modelled as a fixed regulator without a voltage constraint.
-> +	 */
-> +	wl2868c_vsys: regulator-vsys {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "wl2868c_vsys";
-> +		regulator-always-on;
-> +	};
-> +};
-
-[Severity: Medium]
-Can this board devicetree boot or operate meaningfully without the core sys=
-tem
-PMICs, RPMh regulators, console output, or boot peripherals?
-
-Unlike the sibling SM8750 boards (sm8750-mtp.dts and sm8750-qrd.dts), this =
-file
-leaves all peripheral controllers disabled except i2c10, omits chosen
-stdout-path, SPMI PMICs, RPMh regulators, storage, USB, and input devices,
-models wl2868c_vsys as an unconstrained fixed regulator placeholder, and
-defines camera_ldo1 through camera_ldo7 with no consumers in the devicetree.
-
-[ ... ]
-
-> +&i2c10 {
-> +	status =3D "okay";
-> +
-> +	pmic@2f {
-> +		compatible =3D "willsemi,wl2868c";
-> +		reg =3D <0x2f>;
-
-[Severity: Medium]
-Does pmic@2f fail make dtbs_check in this tree because
-Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml is not
-present?
-
-Building and validating sm8750-lenovo-elden.dtb reports a schema match fail=
-ure
-on compatible "willsemi,wl2868c" until the regulator binding lands in the t=
-arget
-branch.
-
-> +		reset-gpios =3D <&tlmm 126 GPIO_ACTIVE_LOW>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&camera_pmic_default>;
-> +		vsys-supply =3D <&wl2868c_vsys>;
-> +
-> +		regulators {
-> +			/* Voltages include the offsets programmed by stock firmware. */
-> +			camera_ldo1: ldo1 {
-> +				regulator-name =3D "camera_ldo1";
-> +				regulator-min-microvolt =3D <1128000>;
-> +				regulator-max-microvolt =3D <1128000>;
-> +			};
-
-[Severity: Medium]
-Should pmic@2f specify vin12-supply, vin34-supply, vin5-supply, and vin7-su=
-pply
-for the populated LDO regulators?
-
-The willsemi,wl2868c binding and driver map LDO1/LDO2 to vin12-supply,
-LDO3/LDO4 to vin34-supply, LDO5 to vin5-supply, and LDO7 to vin7-supply, and
-only allow omitting an input supply when the board does not use the outputs=
- it
-feeds.  Without those properties on pmic@2f, the regulator core cannot reso=
-lve
-or enable the parent rails feeding camera_ldo1 through camera_ldo5 and
-camera_ldo7 and falls back to dummy supplies.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126002157.1954=
-799-1-xiaqinghuan@mail.ustc.edu.cn?part=3D2
+Which chips are those ?
