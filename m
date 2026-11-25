@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795612111;
-	b=KmlqrKwiKeUysEgVuIoivEdsdk1/XZ5H6rgtzytR+jYA9pApoPoEzY4hDbVqL0tOGOiX
-	 Aw/UXRNzxAkLuys3rvm5a0xCWjGaZ881aFTLwVREOEvMivbGb6A1HLahZM9cEjK+Fy5bF
-	 rcmuQ2WfHHRqFULerulScpzMDNTmRCh0IFh5+6CbHtzNASs0Fy2HIObpuPO9IpdsmHjFJ
-	 WFnllYLZhGPZ5JI/3ERqiHryVADYwtSJ+yac3EoRcpcgffF+H75Oy6PD+urfFfTvSZL6e
-	 IRnP8zn85Y2tjKwgyJFA8Ix5qudwv654lTiZxIRUKfwVaCKBSYH0RyHVKiFD+DL8e5Q==
+	t=1795612120;
+	b=sxRLCFXWEMFuo2Ax/+esEPF8ZWv2qSorZntptdSpr4pQRyVgLfL+hiq7yq2M7LI+tJmE
+	 khmSTN7sn+PaApDcOuiEOg+8YGhkr1BprsJmfSToyMSXc1pjoUAkOdl5IulPOx/8zRm9Q
+	 rHCVuqGbeZDs9jshxH6EX5q86Tn1OoGr18DCpUuJlLQtsq5tqq5sLDz/uh2ZPldXVjwHf
+	 s0fsBVbaHk8ZeZjLZhxx3gUFtBmc84HWod917CBv5iCR3qpIOKpd7cnLECAWJCfDvXX0G
+	 htNVJq2l4rI8sKbbG66Y4vj7OR5hEcr/HgRj21iu7pdUc9ThpjFsM0386DhUO5WED8g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795612111;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795612120;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ONotlEahceqvdW/gLtVb9KiwJj5aa1h7mJqg2zchc18=;
-	b=XlX1LAtQ/F4cV4bjg3UNvpcaMtmJZKkOIVjcczuMDxKXOVVAhl0pD1MP2UqG6nd8vfKd
-	 70GGFZTmeZvuUmJxjfQqNoMlV8ovuUGODcZ1CeFj61y3dH/ZhujYpVi2OCmjGRDqeMj25
-	 Sg9gT0XIiKMYU8ZxpVhIWo2iVwx4z9p7JpuRbZW48h8B+cdH3blgwCvCm3g9F6nxnHm0/
-	 lVjeS08mLmSc63c1TS0Si/A8h3x/0K4KbSwnv7adSfW+xYa/YOhITlgHKiZwsZBuoRLAh
-	 8Tm3FvErYvBYKxbk0Y1AUnZbpkC2LOmMNujL/xLzjEGI8J2jFqSsuiabaHAPncKpr5w==
+	bh=bC6BOA8lkj4euco4/6Bslnj1/a+liwPShT0rQp2o0u0=;
+	b=hYgttz//9eAWdCqjIG7GfsqKyZk4jAo+8WhOWwgRBAg3iWi+Eex4ttWVU93WBTdtiNeq
+	 lRJHxoQhCcOO3yp8BNM/DR3ujUqWwjm3coe4XcEJhCgc7cdTzJEGCbXCHXqa2aUZxgTtr
+	 v8SvpywVkiUyJnXbJaEWwp+AjFst+rQksocRCtK2rnvuP86xVuzaM+2g+qb87rbrm0P9u
+	 S0bQMYKIWMgPEJ9qsEusM9QqBSsA1UVPwmXH5K1bS7IC+44UpNKekw/UCZlWHHbZxQHVp
+	 bwcWOWZzcOf8S/lmRLYxd4dxtId7Dt+tdxNZR0aVQqKjd87aNepUHBco7N+UNZbbctg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h8kU879l;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I6OYEWOF;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21FB3606A695;
-	Wed, 25 Nov 2026 13:08:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C49606A32C;
+	Wed, 25 Nov 2026 13:08:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h8kU879l
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I6OYEWOF
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795612110;
-	b=zpbniVTClbb1GvTeaXDG8tpoF0LmbNlgQsrBtUzUREmmbWhsmrxTF5YU4HLluJeahuFy
-	 i+iNpnYQ7UdxaKAECYydGtWUh7kw4TExxVt1z/DNrLYhFRDIj/m37eI3c6Bs4Yxcces3S
-	 F3/RFtJn86uXwPa6iLfT5LZt+e8jbUKCqFxVaBcPPmYOCkmL1+t5pAnunlCcGSi7zR1/T
-	 aGZyjUp/JYnXYMj6Z6yaGQvZ3c6woT1rzqyK1w20vkVET3OgFcNg+NM/I9k8tcGoxel1S
-	 u1Rva8gRm6J1PcsMEchW8c0pUMCq8i8LUOec+x2vrXg8sAxgyQKB6y/pCOhYAGtutpg==
+	t=1795612120;
+	b=G4euRiEazQJqfCqNyUcxnd01IXO/tpwydroPDcplpVeyMdmnaqGd6vZ9LcUdcFiIPYwJ
+	 zMN00y+rx9qSN3JAmEdWPIikfcsK8AO611mtSl0mZjfJRR2EBQYl54ERNIc+OUmien/uP
+	 F6T8VRvvtDalPHU63rK/vRxiWpjilhjfDYlVbgGCxpPaszLFth6LCnmlpMG9E67g8+1aL
+	 oAepR56OkLzf8p/4daopTnibhnqBuvTSfh9Lzou+Y/P5glcH9sJPmb8ct/9qC6PePItgk
+	 boSSMYuXHX9Dojy7dcLpn63QwhbT+AcwV4lsnohAWR0VZ9quM63vJHuqBBf/DIjX3/A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795612110;
+	c=relaxed/relaxed; t=1795612120;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ONotlEahceqvdW/gLtVb9KiwJj5aa1h7mJqg2zchc18=;
-	b=wHEO9MJ8qnRvPAAxbC6hludEV5h8QCQaGKZM6LiVCr2mkvOgxOfvL24iMuJSxZ29LElS
-	 kEYlu8A5Conj6e3Jp9tlXJmuRrWnFRa43UAwhm10sBAzUuJqzCz1C0ACWgkWs8WhFfjqZ
-	 EzvB8BDjo5QSVo+bZKWdTsZFHvbk+rW+JnOjK6IaDOgehN5M5YlxdRj766Yg9pqzpygBg
-	 U909CQlfy0g7xzY2MthJUcR6ACuC1szE8wVijurjXXVfA/kcZi2GYk1VXQk3toWiBhf48
-	 wHblDKeZ1ZkJgt64p5wnw1V78JOnTo24dAUgVJ8NLxnQgHT/5GJ4tRiLi0CqBhpf1Vw==
+	bh=bC6BOA8lkj4euco4/6Bslnj1/a+liwPShT0rQp2o0u0=;
+	b=NxMMRlewSIzdqFn78OXIk3ZukxabJSqJmLgYkNg86BgK350pXxMYJrm+6dE6IG8HAqeU
+	 s61WvOBuWZQyzVXsqMIcFPtfnumdazuxYe2ZIFRAR3BJt6FZm7jubazLrmHy2KTgLUSAA
+	 /uk3LjnHRKRUyKJkU7AVtvG1IzhKCy8INC9luich0JqlRja3GABiHIe17W958VLhAH71d
+	 j7KNgy4D+9kMkXxWbrPkn2m8A951M8w2caLLa4R2oXfKMPKe9T++PvsB1mJxpF+uYHo3h
+	 yt8y9/khoRXS2b+zaxRJ0UrYnfxEOap+LACyxb8D27h6oBmcdyrrwzv3JFasknz1Q4Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id AAB181F000D4;
-	Wed, 25 Nov 2026 13:08:19 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 51F6C1F000E6;
+	Wed, 25 Nov 2026 13:08:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795612110;
-	bh=ONotlEahceqvdW/gLtVb9KiwJj5aa1h7mJqg2zchc18=;
+	s=k20260515; t=1795612120;
+	bh=bC6BOA8lkj4euco4/6Bslnj1/a+liwPShT0rQp2o0u0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=h8kU879lRc8nNshFokznjEsV7dpssRl+52MbjF/LDds2bZNG6U7aIZBCaSyk14Jhm
-	 4KAPZI2CFahn0trjVMmQNB4t8dua9T4J0u8AaToYoMg6DpuHskaqpJQAp0lnHUBayl
-	 K1bH6dWLKKOAT5i2q/sPl0WBwmZ9EsvtkHWMxnqRRjfyC/N4101YSH8XX7ZOhrqtja
-	 nQm3Yl6F69rNbaViXtwXCJ3wlJomLVKdUND/IFftEkq5PAp/JK376P8v5tW5xOr0jD
-	 LX24BU5wPkod/gUG4j1pd7VYbfRJIKP2XCN0ZNkb/cKMPJ+PPLuFrDAJm4EmlvIYld
-	 2RcVUL5Vcur1A==
+	b=I6OYEWOFxYvjfUY0UL5lTLq9+2Y16VdmRXx/HIcXeR7KyWvhyNY4ObG9u3o1sKYX0
+	 xhbsDDv4zT3djYCftuyLn8oam9pIevC5JY1j/uLdH4YJfQe1gjR+R0qnK/QWA2lO24
+	 Tyu6IihDjdne6ouhZajVjdwWNOqPzfpdvXSAj4IBLm3J35TeNWyk6y8g+HwsVBg9p+
+	 EoYPJegrJhAcTM3GX7pd54BEaQHY5/wjN22p6RvKoi0H1UnvidyhLy/DjbQQXayn3k
+	 GTKPUh8udWFwBP7fFAPIi6gewB3KUrpBukuNVLYkJSop8VgUesj71H+ubIT0ob2M2P
+	 ACCK7mbLwJXyQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 329984CED5;
+	by lkml.kernel.org (Postfix) with ESMTP id 742204CEDD;
 	Wed, 25 Nov 2026 13:08:19 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Wed, 25 Nov 2026 14:08:14 +0100
-Subject: [PATCH v3 3/5] drm/panel: lg-sw43408: split enable/disable from
- prepare/unprepare
+Date: Wed, 25 Nov 2026 14:08:16 +0100
+Subject: [PATCH v3 5/5] arm64: dts: qcom: sdm845-google: drop panel
+ regulator-always-on
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261125-fix-blueline-panel-v3-3-914b4a30b73e@ixit.cz>
+Message-Id: <20261125-fix-blueline-panel-v3-5-914b4a30b73e@ixit.cz>
 References: <20261125-fix-blueline-panel-v3-0-914b4a30b73e@ixit.cz>
 In-Reply-To: <20261125-fix-blueline-panel-v3-0-914b4a30b73e@ixit.cz>
 To: Abel Vesa <abelvesa@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
@@ -103,21 +103,21 @@ Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
  phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4437; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3724; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=zdOJs/tIhku4VxDIOc1H243ngJpi3Zm+4lt2IgEmTVw=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrBt3Bf171PFCQnMrQaSWl6YXnE+4lvjdQyX06n
- wc5wsUTR5WJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawbdwQAKCRBgAj/E00kg
- cuNXD/4ok4+agFZwcqrAuGR8XEjNPAhQyceNnZ/0Iz3hBcBqg01F8hFfjRTyH0Soh2+FxGfUzgL
- qx0tLQoYYYGaTeoCerCo/qsN7kKHYh/09HrvZ8Y/4z/zedIhJdqJ9CUr5LG4M4VwKIWbP9BEQ40
- oQTK04gykgptY28k5lAboZhvK3tIAoU/4Zsc8hR1D5Kh8D5mQxedbXjnXgznvToUPVPRmNKheG/
- thtjsMX1pwlzMRx1Dbcq/D0y6GbvkgYKPTM7ioquxTP8QTdFt1w1p5pMO8RXWw3hevC2QldreKs
- ISYO6rU6wLUyxurWZf4Cm1GIYAZApbXcBn5LUnPx2gbYtl7AkxU1+V4OXOlnG9iCcKSybsco2+x
- twcr4ChMWQoTylfS8/WDAManw9yEO/MhLMbXF423t9nfTAxCvo+FVng8SN76UAZHy+UwJKRD1j7
- VQw7F/69yRtp+zirFxaEArEvkVQaPfUVkOw3x6jFt/104WW5NRTEGfOeQflFUBoGRrDoCaD5Rsl
- yC1dIx6R+8kO8z86NoNzFrgWql7qvDpPqA5Vpt/uU64WL3OmtJeW4ouaztFPBcws0O1iK31x092
- mQ78CXza/wVbRb0OX4BtW8gIhFQl59hf4eUrc4BunDSeM7U6Gy7vLvIjRM6yluaQ7t5bfB/1Uzl
- UmOSZiuIzOECSew==
+ bh=7MbJWcOA7VgDjyx+wISNbX3wFon6Upjhtfj1PpZjQxE=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrBt3BP5Lf1wO+j5Mx/5MSPqPEcwqPoMlGv/Zcc
+ PrK11+eEfiJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawbdwQAKCRBgAj/E00kg
+ clXoD/41wH4jQ2DlT9BhUtMArglYyo7sqm5aOY7yyZ5mM5eH9losiXE56sS8ihyEO/UZAN5vyDQ
+ QDPdpORQ5pxnA2Mmc1pxQYCl0TeEbjsxXji3wZ0CItqXEk/wettggKnb5hlaBU1z6EiGdp2f7De
+ Mx1IbciyUHEgSW9yzzuv94ZzWIkAVaKEi8gUiMSJBatJn7WFrpQrxD7aEGm2KV5vlsWKB7SqSJW
+ WtS4okXZrAbEGQGFRH+hFgddp0eHGZX3WAEyBgR0NaPt0sUoFMW2QmovUFAeEScVCy+puZdKwe3
+ GLE9pPCZyPRWgEdk2bl1XaxnnZJ+wa/Z724pbryOPx/XGP2Cld7DAgiQaTNYxTvK5Q0puBUoaFx
+ eWFbqdupYvQ9r5fBAt6tFu+0LbK8To9ylptdOYwzFmLIFBfH/saQDQARRgI2gznL3xATV1UDMrA
+ AJECdsfywp8KZqvE189QTe0NBFsktAw71L0A2LmT9dX699c0isV8Ks52dU6+xiIpECizTFSNkUI
+ 00CT5xZYa5XTm+WDFmyDHZWqEsV5erwrwWzHdrPAVkBvdC968m108HfBR0uJhLewZr0V5fW0x1T
+ b8SspazuuKf3Ee33ppR0y8O2/uONXGz/KohqS0E8O833dylOAUCa8kRBRT5hd5w8EVAWcVwaZbv
+ O8PzMa64wMKLTqA==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -127,138 +127,118 @@ Content-Transfer-Encoding: 7bit
 
 From: David Heidelberg <david@ixit.cz>
 
-Separate display blanking (enable/disable) from panel power sequencing
-(prepare/unprepare), matching DRM panel conventions and other SDM845
-AMOLED panel drivers:
+Drop the regulator-always-on workaround from vreg_l14a_1p8 (vddi) and
+vreg_l28a_3p0 (vpnl/vci) now that the LG SW43408 panel driver keeps vpnl
+paired with vddi, allowing both rails to power down on Pixel 3 when
+neither the panel nor the touchscreen requires vddi.
 
-- Move MIPI_DCS_SET_DISPLAY_OFF, MIPI_DCS_ENTER_SLEEP_MODE, and the
-  100 ms sleep into sw43408_disable(), leaving sw43408_unprepare() to
-  handle panel power-down.
-- Move MIPI_DCS_SET_DISPLAY_ON and the 50 ms delay into sw43408_enable().
+Define the supplies on Pixel 3 XL's framebuffer0 node so simpledrm keeps
+the panel powered once regulator late cleanup runs, while intentionally
+leaving them off Pixel 3's framebuffer0 node so simpledrm handover does
+not drop vpnl independently of vddi.
 
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/gpu/drm/panel/panel-lg-sw43408.c | 32 +++++++++++++++++++++++---------
- 1 file changed, 23 insertions(+), 9 deletions(-)
+ arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts   |  2 ++
+ arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi    | 10 ----------
+ arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts |  3 +++
+ 3 files changed, 5 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-lg-sw43408.c b/drivers/gpu/drm/panel/panel-lg-sw43408.c
-index 7f7d7b6b17f61..7123ad18744cf 100644
---- a/drivers/gpu/drm/panel/panel-lg-sw43408.c
-+++ b/drivers/gpu/drm/panel/panel-lg-sw43408.c
-@@ -38,33 +38,38 @@ struct sw43408_panel {
- 	struct drm_dsc_config dsc;
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
+index a000c75494f1c..f916f4dbb89c5 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
+@@ -14,16 +14,18 @@ &battery {
+ 	voltage-min-design-microvolt = <3600000>;
+ 	voltage-max-design-microvolt = <4400000>;
  };
  
- static inline struct sw43408_panel *to_panel_info(struct drm_panel *panel)
- {
- 	return container_of(panel, struct sw43408_panel, base);
- }
- 
--static int sw43408_unprepare(struct drm_panel *panel)
-+static int sw43408_disable(struct drm_panel *panel)
- {
- 	struct sw43408_panel *sw43408 = to_panel_info(panel);
- 	struct mipi_dsi_multi_context ctx = { .dsi = sw43408->link };
--	int ret;
- 
- 	mipi_dsi_dcs_set_display_off_multi(&ctx);
- 
- 	mipi_dsi_dcs_enter_sleep_mode_multi(&ctx);
- 
- 	mipi_dsi_msleep(&ctx, 100);
- 
--	gpiod_set_value(sw43408->reset_gpio, 1);
-+	return ctx.accum_err;
-+}
+ &framebuffer0 {
+ 	width = <1080>;
+ 	height = <2160>;
+ 	stride = <(1080 * 4)>;
 +
-+static int sw43408_unprepare(struct drm_panel *panel)
-+{
-+	struct sw43408_panel *sw43408 = to_panel_info(panel);
- 
--	ret = regulator_bulk_disable(ARRAY_SIZE(sw43408_supplies), sw43408->supplies);
-+	gpiod_set_value(sw43408->reset_gpio, 1);
- 
--	return ret ? : ctx.accum_err;
-+	return regulator_bulk_disable(ARRAY_SIZE(sw43408_supplies),
-+				      sw43408->supplies);
- }
- 
- static int sw43408_program(struct drm_panel *panel)
- {
- 	struct sw43408_panel *sw43408 = to_panel_info(panel);
- 	struct mipi_dsi_multi_context ctx = { .dsi = sw43408->link };
- 	struct drm_dsc_picture_parameter_set pps;
- 
-@@ -97,20 +102,16 @@ static int sw43408_program(struct drm_panel *panel)
- 			       0x00, 0x00, 0x00, 0x19, 0x19, 0x19, 0x19, 0x19,
- 			       0x19, 0x19, 0x19, 0x19, 0x19, 0x19, 0x19, 0x19,
- 			       0x16, 0x16);
- 	mipi_dsi_dcs_write_seq_multi(&ctx, 0xcb, 0x80, 0x5c, 0x07, 0x03, 0x28);
- 	mipi_dsi_dcs_write_seq_multi(&ctx, 0xc0, 0x02, 0x02, 0x0f);
- 	mipi_dsi_dcs_write_seq_multi(&ctx, 0x55, 0x04, 0x61, 0xdb, 0x04, 0x70, 0xdb);
- 	mipi_dsi_dcs_write_seq_multi(&ctx, 0xb0, 0xca);
- 
--	mipi_dsi_dcs_set_display_on_multi(&ctx);
--
--	mipi_dsi_msleep(&ctx, 50);
--
- 	sw43408->link->mode_flags &= ~MIPI_DSI_MODE_LPM;
- 
- 	drm_dsc_pps_payload_pack(&pps, sw43408->link->dsc);
- 
- 	mipi_dsi_picture_parameter_set_multi(&ctx, &pps);
- 
- 	sw43408->link->mode_flags |= MIPI_DSI_MODE_LPM;
- 
-@@ -119,16 +120,27 @@ static int sw43408_program(struct drm_panel *panel)
- 	 * PPS 1 if pps_identifier is 0
- 	 * PPS 2 if pps_identifier is 1
- 	 */
- 	mipi_dsi_compression_mode_ext_multi(&ctx, true,
- 					    MIPI_DSI_COMPRESSION_DSC, 1);
- 	return ctx.accum_err;
- }
- 
-+static int sw43408_enable(struct drm_panel *panel)
-+{
-+	struct sw43408_panel *sw43408 = to_panel_info(panel);
-+	struct mipi_dsi_multi_context ctx = { .dsi = sw43408->link };
-+
-+	mipi_dsi_dcs_set_display_on_multi(&ctx);
-+	mipi_dsi_msleep(&ctx, 50);
-+
-+	return ctx.accum_err;
-+}
-+
- static void sw43408_reset(struct sw43408_panel *ctx)
- {
- 	gpiod_set_value(ctx->reset_gpio, 0);
- 	usleep_range(9000, 10000);
- 	gpiod_set_value(ctx->reset_gpio, 1);
- 	usleep_range(1000, 2000);
- 	gpiod_set_value(ctx->reset_gpio, 0);
- 	usleep_range(9000, 10000);
-@@ -217,18 +229,20 @@ static int sw43408_backlight_init(struct sw43408_panel *ctx)
- 	if (IS_ERR(ctx->base.backlight))
- 		return dev_err_probe(dev, PTR_ERR(ctx->base.backlight),
- 				     "Failed to create backlight\n");
- 
- 	return 0;
- }
- 
- static const struct drm_panel_funcs sw43408_funcs = {
-+	.disable = sw43408_disable,
- 	.unprepare = sw43408_unprepare,
- 	.prepare = sw43408_prepare,
-+	.enable = sw43408_enable,
- 	.get_modes = sw43408_get_modes,
++	/* intentionally no supplies here, see the LG SW43408 driver */
  };
  
- static const struct of_device_id sw43408_of_match[] = {
- 	{ .compatible = "lg,sw43408", }, /* legacy */
- 	{ .compatible = "lg,sw43408-lh546wf1-ed01", },
- 	{ /* sentinel */ }
+ &i2c2 {
+ 	clock-frequency = <1000000>;
+ 
+ 	status = "okay";
+ 
+ 	/* ST,FTS @ 49 */
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+index 3c9656b88b696..c025b2df4ea25 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+@@ -246,21 +246,16 @@ vreg_l13a_2p95: ldo13 {
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+ 		};
+ 
+ 		vreg_l14a_1p8: ldo14 {
+ 			regulator-min-microvolt = <1800000>;
+ 			regulator-max-microvolt = <1800000>;
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+ 			regulator-boot-on;
+-			/*
+-			 * We can't properly bring the panel back if it gets turned off
+-			 * so keep it's regulators always on for now.
+-			 */
+-			regulator-always-on;
+ 		};
+ 
+ 		vreg_l17a_1p3: ldo17 {
+ 			regulator-min-microvolt = <1304000>;
+ 			regulator-max-microvolt = <1304000>;
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+ 		};
+ 
+@@ -308,21 +303,16 @@ vreg_l26a_1p2: ldo26 {
+ 			regulator-boot-on;
+ 		};
+ 
+ 		vreg_l28a_3p0: ldo28 {
+ 			regulator-min-microvolt = <2856000>;
+ 			regulator-max-microvolt = <3008000>;
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
+ 			regulator-boot-on;
+-			/*
+-			 * We can't properly bring the panel back if it gets turned off
+-			 * so keep it's regulators always on for now.
+-			 */
+-			regulator-always-on;
+ 		};
+ 	};
+ 
+ 	regulators-1 {
+ 		compatible = "qcom,pmi8998-rpmh-regulators";
+ 		qcom,pmic-id = "b";
+ 
+ 		vdd-bob-supply = <&vph_pwr>;
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts b/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts
+index 2a81ca1d00b1b..7591c6ebb1cb9 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts
+@@ -19,16 +19,19 @@ &dispcc {
+ 	/* Disable for now so simple-framebuffer continues working */
+ 	status = "disabled";
  };
+ 
+ &framebuffer0 {
+ 	width = <1440>;
+ 	height = <2960>;
+ 	stride = <(1440 * 4)>;
++
++	vddi-supply = <&vreg_l14a_1p8>;
++	vci-supply = <&vreg_l28a_3p0>;
+ };
+ 
+ &mdss {
+ 	/* Disable for now so simple-framebuffer continues working */
+ 	status = "disabled";
+ };
+ 
+ &wifi {
 
 -- 
 2.55.0
