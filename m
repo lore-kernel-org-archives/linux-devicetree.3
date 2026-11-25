@@ -1,57 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795600747;
-	b=eNGYUsy8+qozH1xAZniOE6z89wA8UxRtSL3s8f1DzlCHFYRWf9LYK5pxZAx8YcJ2Qflt
-	 R4Y1PCIs1PHuLEOG1RbYJSUZBzUe9HHwQmCL47qGuN6b80aOEW/ELRLJlW6PUJsOdKl59
-	 ZuFf/NxEUx0RXOzZSJtktLXcN0GTsZGCc9y1oPWPMfk4Icyh86t+OgrynqTQntdJKDJgT
-	 KwcCq6z7nj/C1XupyldYYAm+qbsCpaBxOATo+gK+i2NYLv3PzRqsoQcLFzb2O5lXRtPrN
-	 EIiOxKZ7MwNUvDhQ89hOi8bflgSftrcnmYwwK7awRSP7f63WBF1nQ7FiEeEG3leN9ww==
+	t=1795600754;
+	b=k/wEhwXlAga7Fx7/ebi/tXL8szRtUSk1GtNuzVms0jT6hQj1sBowXiMUvmQEXBl57LnY
+	 7KM1MwXiQZFK3ErCyN60uZxyghwE0bKoo+mK2nBUZ0p5vdP70Sq43nUQiKNtMelr5E/kc
+	 erMppKkuOvBE90FxJF1vqpQSi4og1NqBtPhnapYWUitokJdPbEyjzByj813k+ZV2Q2HY3
+	 UOy8vCIM7aOciK036nV4YmlQ+m2j/4IrYuIcuzN4381mVnrKTBAulgn9Ooobphk2O3qWM
+	 GI6lwXHNfl7ftTH7DDT/N1n1pU8iN3PclF19R6ShSmbs1BxOxkeasU8XdlLklSigL2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795600747;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=d1c/Y23MrHMxdPyS7VmHlasLolRXmNyJUvMgjxxdNAc=;
-	b=uMHNAK/tQW//zEUTh7JIDCtN5guqvTK733ji1yf7Ib1tmob9ArFL3VxJw2Nwk8yW97Vd
-	 9D1+aHVKh9f7n9GDTi9MIeue68jzOQmwPCdw7vweXbGzPltnuXtbqZSZV2qR+CIi1Oi7K
-	 oCry+ADyjWrRl/v/P/xEIlZ4rMO+dVH4X4FNLFx5P/2SD7ek3B2mNsCYB1yuSd5gQnzhi
-	 ruE2g7n54xC39DS6SrBXbrYCaAiv23vXi8+tTvAJXch8eluxB/cP+meI6o8Q6AAkERwZK
-	 DqVywsx3+0Ogwi16utAmjp91SaRkHLF0goy4OmwzJqfW2GRoLtsArbTdzI0j4z51y0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795600754;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=we8IcPRTjFClrRkaAg2Hdk6tYwKt8+t3TVvugBTXnvU=;
+	b=cxTzOcmIFaqWTmrAyP+gl0fJa+nRTOtErxq4gJF/9uu5yNDvgejT+Tu5+h8fWO1V6wsM
+	 VUvlR0U/MVRgBN87+KL2tYvRqgqp9p2c9CZfK8K8FOM77dY33jGMT/9ld3tpngWa0VAKp
+	 Tl8hXe+46vtN7ftoWemMLyqoaR8vgEUBJqqtnO/Y5XB1budtkCUB9Nl6YDK7qm3bsu8gH
+	 fzQR0gdPJzokFTHFkoxVQXa+Ip4oyNlPM4+n8YogMDT78J67bCi7vipVsSlH8CTVyJZCz
+	 PAcYfFPp98+Srgvq21r7JSuBjJfN4oitGfQ7CkYG9udKBUaCSfqQC+hOVo20KQXxoeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="A/ETobGO";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ig4+aNYa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C6A606A321;
-	Wed, 25 Nov 2026 09:59:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45FDB606A31E;
+	Wed, 25 Nov 2026 09:59:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A/ETobGO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 683BC1F000C4;
-	Wed, 25 Nov 2026 09:59:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ig4+aNYa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 032D81F000C0;
+	Wed, 25 Nov 2026 09:59:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795600746;
-	bh=d1c/Y23MrHMxdPyS7VmHlasLolRXmNyJUvMgjxxdNAc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=A/ETobGOO8F5X81jcNkn4ptgYlVDd7PkNkPnG2JhZ9tetyuoQToPM67sK1ScIwMxI
-	 IOxkrRq2cZ9nAVyNQKrtdGVWoEU00sIBYVKOFk8sWRvgF5CnPDYosRMDFhDetYOzaP
-	 E4aC4yCBFVlcWBsv7znx/1v6nsVSIaHeDUPdq9RZwlkqdKG62l9YtpSFXaaoa36gnx
-	 LZjSbCkn4WRvKWvZO2LJiUWwgBuqgoIExtaNSIT5htjxSRxICZPUxKKqTl5wJLCyKf
-	 vB1rdPDUNmK8HcmZ+HBJQBg5PvxqeD2HgVmpbIjnMn9fL3mu43d6QPNx9pLRLRxM+s
-	 HSHYghtDZD7Vw==
-Message-ID: <sashiko-outbox-233084@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: imx8mn-bsh-smm-s2/pro: keep SDIO Wi-Fi
- powered during suspend
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Waldemar Rymarkiewicz" <external.Waldemar.Rymarkiewicz@bshg.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261125094825.3873696-3-external.Waldemar.Rymarkiewicz@bshg.com>
-References: <20261125094825.3873696-1-external.Waldemar.Rymarkiewicz@bshg.com>
- <20261125094825.3873696-3-external.Waldemar.Rymarkiewicz@bshg.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 09:59:05 +0000
+	s=k20260515; t=1795600754;
+	bh=we8IcPRTjFClrRkaAg2Hdk6tYwKt8+t3TVvugBTXnvU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ig4+aNYanWIpF/jiv00PFCH4zEt5ZJSnwIYs4ncviya7wJNubcLV7qYlJlBbSzFYx
+	 LO646LxIW4GOTE/wo5QrIsCvqTr4MGUTQhMskqZYi9QnrKLPaOTCaRl+hzcekezoYH
+	 fTLlZdqf08wCNsuRJrIpiUVK8NlmdpPZ//Cwtr7dXpWBpuMObsXF+glQDPBWw2H118
+	 3bNQd6GVOdxMhM9VTBZ4v8oPI+S48cVBnsvI7ElQh10wubV1JiUNOAyQf2ZdWOeP0b
+	 EYmamQ4/12yEi9CsUZSdADdk9rphc0p/ZFMs0VSGivqKuPNLoK89bYcAgP6zlgKvnJ
+	 lF9N4R9Ce8QCg==
+Message-ID: <ced23ce7-12c1-4e9b-bf0d-34e30ae74572@kernel.org>
+Date: Wed, 25 Nov 2026 10:59:06 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,65 +50,95 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 1/9] dt-bindings: media: qcom,glymur-iris: Add glymur
+ video codec
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261125-glymur-v12-0-5c34dfd73fc2@oss.qualcomm.com>
+ <20261125-glymur-v12-1-5c34dfd73fc2@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261125-glymur-v12-1-5c34dfd73fc2@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] arm64: dts: imx8mn-bsh-smm-s2: cap-power-off-card defeats
-  keep-power-in-suspend
---
+On 25/11/2026 04:24, Vishnu Reddy wrote:
+> Add device tree binding for the Qualcomm Glymur Iris video codec. Glymur
+> is a new generation of video IP that introduces a dual-core architecture.
+> The second core brings its own power domain, clocks, and reset lines,
+> requiring additional power domains and clocks in the power sequence. The
+> current maxItems constraints for clocks, power-domains and non-pixel
+> iommus in the common venus schema were sized for platforms available at
+> the time of authoring. The glymur platform introduces a dual core
+> architecture that requires more clocks and power domains, exceeding these
+> limits. Raise maxItems for clocks, clock-names, power-domains,
+> power-domain-names and non-pixel iommus to accommodate glymur platform.
+> The glymur platform specific schema have fixed constraints for these
+> properties, so the common schema only acts as an upper bound. Since the
+> common schema now only acts as an upper bound, add explicit maxItems
+> overrides for the non-pixel iommus in the qcom,sm8550-iris and
+> qcom,sm8750-iris schemas to keep the fixed constraints as before.
 
-commit 088cbe9bdf022869f185b3a15de5fbebcc1d6394
-Author: Michael Trimarchi <michael@amarulasolutions.com>
+This looks like explanation from LLM pasted here. Using LLM for writing
+commit msgs is a warning sign.
 
-arm64: dts: imx8mn-bsh-smm-s2/pro: keep SDIO Wi-Fi powered during suspend
+Plus it is pretty huge blob of text... I don't get what happened here
+since v8. Our patchqueue is 260 patches long (was 205 yesterday), so any
+reason is an excuse to drop a set.
 
-This commit adds the keep-power-in-suspend property to the usdhc2 node on
-the i.MX8MN BSH SMM S2 and S2 PRO boards.
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2-common.dtsi =
-b/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2-common.dtsi
-> index 8dee56299cff4..917ef96774988 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2-common.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2-common.dtsi
-> @@ -264,6 +264,7 @@ &usdhc2 {
->  	bus-width =3D <4>;
->  	non-removable;
->  	cap-power-off-card;
-> +	keep-power-in-suspend;
-
-[Severity: Medium]
-Does leaving cap-power-off-card set on usdhc2 prevent
-keep-power-in-suspend from keeping the brcmfmac SDIO Wi-Fi card powered
-across suspend?
-
-keep-power-in-suspend only sets MMC_PM_KEEP_POWER in host->pm_caps, while
-mmc_sdio_suspend() checks host->pm_flags, which must be requested by the
-SDIO function driver on each suspend.  In brcmfmac:
-
-drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c:brcmf_ops_sdio_su=
-spend() {
-	...
-	cap_power_off =3D !!(func->card->host->caps & MMC_CAP_POWER_OFF_CARD);
-	...
-	if (sdiodev->wowl_enabled || !cap_power_off) {
-		...
-		sdio_flags =3D MMC_PM_KEEP_POWER;
-		...
-		return sdio_set_host_pm_flags(sdiodev->func1, sdio_flags);
-	} else {
-		/* power will be cut so remove device, probe again in resume */
-		brcmf_sdiod_intr_unregister(sdiodev);
-		err =3D brcmf_sdiod_remove(sdiodev);
-		...
-	}
-}
-
-Because cap-power-off-card sets MMC_CAP_POWER_OFF_CARD, any suspend where
-WoWLAN is not enabled takes the else branch, removes the device without
-setting MMC_PM_KEEP_POWER in host->pm_flags, and causes
-mmc_sdio_suspend() to cut card power and re-initialize the module on
-resume.  Should cap-power-off-card be removed here?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125094825.3873=
-696-1-external.Waldemar.Rymarkiewicz@bshg.com?part=3D2
+Best regards,
+Krzysztof
