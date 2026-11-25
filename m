@@ -1,84 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795602843;
-	b=uj5NY4iewmfG2FvKTMkeXKDTfvQpxO0zEUHTkohRZxqCGE2+Of6eLIVA3EiD9IoDq0wf
-	 5Eyd5z/BAPdYmPHdXxgaUq2ieGN2vD2dXaZN12CElbtHDEmhcsbAte7rJO0b6eXL96pKC
-	 BKHlIdhNr4X1iuoObR2S+tctsnYZLxLbycW0ly+nC4PWSjThKgOm+INE91MzL2AEsKciZ
-	 Kae0XHC7Qn7Krt8/WlVgzULD2XKzsi1L0abJf9JOYlVm22mkKi/Gm5bh2AEcpYpDYI2cp
-	 Jmxvw5cmX9yCc07jzGKhFBqgBegVrRdkIUlld8RPAMagwckzUKz1Mul2CrUpL0/22lg==
+	t=1795602860;
+	b=HQCUJ7WAs/cA4/5TTi9bdMCfcSJK1FZY80m5dytxXsYiRqxCR3wx8u0ISyLrnU7yd//J
+	 LpqU565NHAAn2ifIkaqmbwB6szykOyq6H0YkXtXeBUeC9xD+u27DE/KCwxc3zy9xIh6db
+	 SqdsB2XXPT1uDMlhYEQ9LiV+slyXi7uLW8Cw311Sx/zq71B8EWGL4ZFin2cq6x5QBI514
+	 wh1ygZ0inzVkCGLARe+Ag8YapKWZYL6IZvWJX92aFvdC70mCRqRvV9clBx/CFF6SDx6b9
+	 HxJzBJBx8BX+2yV4nIVv/UtIFyY8x1NIrjZPxwaAS6B0a9dqZURkrVM+pm/Ld18tCOA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795602843;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=/vZ/NUO91U7RmjEEQoND7bMbRcAjPQeJzuPnx5wjuNU=;
-	b=xS7hvi+HLCQNSVdNZt1wRgaYja+7CpTK9/wWmrVGkhFs2kZyCluPLfRqjHTu12b0rlRO
-	 4Nzqgx7fDDKjhZKcQuBQEQu6ZPPaTP3aFUobc571jCyeyo36UmbQlNB5Fpnm0w8y8liMF
-	 of4NT0ssMkCoF0NhjYhLXBiESwYAPJkoant/5711ygw1HejuOlvxjWWxxfMhhPsgjU08A
-	 CsKVoyWni33jbW0BtE6Sy4Me+4d79KaRbINj/6VrpP5x/pd532atPnBoDUVk7s24s2qjG
-	 vJh3pgRex+2HnzLkwC+sRohjCjHMnL/ci8ndaFo/ztFDEZR+23N7Pl+8vTdsYOOpVoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795602860;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=aCqK1uXLPdCs4Ldkr3opqdXBdv0PuoNLOgXFHdY57+E=;
+	b=5pHuhh/1mxg71vEHUVmgh6fGRyMa4lojasijOoll8HpYcZ2+BnqtJdLYY0uYBhM3rT4k
+	 /It9HpyOsLcUfB0t+SglD641Xp+Dps6+Uq0jhoIs5E8AwwCAlP2wMfhJd/aRLhnn/mdXD
+	 tiQx3icGoVrP2MppkxjS9yopDbXowl9aiABYnJBRMqNZiKTzjuVws/8zATl/pgGMkiAQc
+	 B4GtU7PjjW26DGiJgOs3HAjfQRV3c+Ej3NEbFkIHKYPZCn8lcnDJ8JkGZi5XVIr7fJIZj
+	 mBB/ysE0BpavsKKpwIT6/bsQxwOya4cdq2bWWjCEpdaj0d8M3RbHxRfF9gblykB6tQA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=RzNVdPKf;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lV4i1GjC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71918606A32C;
+	Wed, 25 Nov 2026 10:34:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lV4i1GjC
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795602860;
+	b=QmorhgdhUJq+HxjOrX6+ro6UH809pGsL934LliEJJ05rXrHleLWmvx/LbSIbU3tWivEg
+	 zh+caRGnk4UgND5awqrcVkrZZatNcwhokCbLUBkxDpsOTlqexWi7Gdh0dO8Nt9ZncHHqf
+	 jAjvoLlDLoW4tLx1fd1YUnbfizxKLYS5f4Nt4vAifQ2Z12xUfR2MJvjMXMYzLOcFSRIlJ
+	 jyPsbgS5dyHEUHCXye76r44WQWROFF/BSCnjKd2mDTATpdYK+yYoFu5ROMT17s7aJVl2+
+	 szaZfuF2NRLRZfDccBn5ue4dqlrWJ4Af1bC5mwdFHsrxMTw1cIAtLc6AE2Y/XZdXruQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795602860;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=aCqK1uXLPdCs4Ldkr3opqdXBdv0PuoNLOgXFHdY57+E=;
+	b=L7IV/Ke0EuSZo2TkalsM4Y7ckaFEJPYmjagrn5eu3oK5aXLTxbvC5NYveiNzWZzuKpth
+	 hHygkG60pps9YcwqV918hkKGzMWGYyYkETLzDxgigk1qf5PWleOPV7pOksAqv+HhhW+XD
+	 g59SSAXBAz/Ygf89j1FZnjW+6rfiz4qhRE5C7fsajBM38LpSmSP1EXzTj5LI9p42rSzvn
+	 Nm8HGap4Fr90SB/J7R/ZRSw5TtSenddZ5vtKi87o07goxC2IflC73MCDI4Mykfcmq8Mu7
+	 VuESHvAzCNpL/ptOmqDUW1XByENpeTEP2QgtdjgU1h7LFOPud4PjSOWRb9WhvWIIL1Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC9C606A329;
-	Wed, 25 Nov 2026 10:34:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CC9C606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=RzNVdPKf
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 0E4AC20220C;
-	Wed, 25 Nov 2026 11:34:00 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795602840;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=/vZ/NUO91U7RmjEEQoND7bMbRcAjPQeJzuPnx5wjuNU=;
-	b=RzNVdPKfVzAoES/QYo3vaq2536/eoZ56Hcse5qvzAHrwxuDS1++EcMAFojo2VklUQm9Gio
-	KBVIFNvceztK5XV6hpQ/hZ7nKrp8U0puDIIgvLx28uYmU6ifwAwBIntuzxqGTHCaGKbqzs
-	joqJqt/OneJb6JNFPgP9518g7LbyZJMRh3KFKp6FrVmwHDuiUTqcd9MIS3NJJq6lcs0ebh
-	vUk3qETvkGVhenAnvQnxnBd4thKF8MMLeEbGZiE6cJDY0hOCCKs9MgIsielcjzuvstoV2O
-	NhYG6QALtIxbNwKV9hGwkPaAjTLHJ+ahk4ttstTLco7vT2dwmK+XC1BBD5WbtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795602840;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=/vZ/NUO91U7RmjEEQoND7bMbRcAjPQeJzuPnx5wjuNU=;
-	b=DS9rVM3VsRzwqwMCnxcNvzePbFGs0a+/i1VuV0Bi3QBxmp/iy9dY1kfhTSMooxr8kMkDDd
-	GUMpspvZb/Ru89T5sD35OM+P2UAV5E7iR1dYeKCx9WJJVsaAVYFfMVy15dOOY/Vx61JfaS
-	BkZom5Ni2yKvePGAnRD9DrjP8B5Y/hw0k/AxcWoXJ/Xfe8H/gG4DdbXp3SrYZtl35D2q6k
-	yZXt4kvu+iLrQbrNZM/l3a0LfgHB7BoBVk/St1Gmxw+SAu9Yw13HIArIJhNDj0ExKtjELj
-	/H9VfVGiCGBPH03GoFG2HQHa5jc41LUbA8jEG5Bay8hAoDcJY7r+0KrPlrlK1g==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=f.diener@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795602840; a=rsa-sha256;
-	cv=none;
-	b=abO8ki4S/2xozxmRMYPKdTjHiy4sj6ZvjI4uuoluOA4pL/5xUAQn4rFJzEI3aiJfLVYUGy
-	Eac+rfZ39ualJsAJsDCxflk0R3Jwp5WwJdrWUZ//kldJeUCrL3KmPsfG8SNoPI8Zj5rU/P
-	wIPqEbQDDAmaQUbZ6RYENyKc9EhjG/mK2P+RkEkbwE64RWQYFS7fh8kvVajMvsv4byTetf
-	g/bv3lOjuNeMM499H8Q6U21mtXg7zEGZ8gAjQkRryPBObLxeVmrMBVdpxDvMSyeCpa+j/C
-	hXH5YZ4hiCmMQiGWhYmWW5U3zx0Yuzhzax7gIZuHULMLjhVncge/OB3kFkrNDA==
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=[127.0.0.2])
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
-	(envelope-from <f.diener@pengutronix.de>)
-	id 1xWAK7-001P9N-1S;
-	Wed, 25 Nov 2026 11:33:59 +0100
-From: Freimut Diener <f.diener@pengutronix.de>
-Subject: [PATCH 0/2] Describe ROCK 5 GPU and NPU regulators as post-init
- providers
-Date: Wed, 25 Nov 2026 11:33:56 +0100
-Message-Id: <20261125-rock5t-regulator-deps-v1-0-6a3470ad1855@pengutronix.de>
+	by smtp.kernel.org (Postfix) with ESMTPS id 47D9F1F008B2;
+	Wed, 25 Nov 2026 10:34:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795602860;
+	bh=aCqK1uXLPdCs4Ldkr3opqdXBdv0PuoNLOgXFHdY57+E=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=lV4i1GjCT7MVEeZP9EKvEKwENMcSxmXaxIL7oX6NTKHU7JPBaNW+rarO5wnZWTBOb
+	 lGGBXbqLsSIkjqP5dClO8OqRsok18vrI5f842QQVPq3Z6QKj7ksdau5a+tPeoX7Ss+
+	 FW1jXDhZxBBrfAH4szLYxNXHXW25tuxMgqU89kJulTCcr99ucB88uosUN64i8jU52r
+	 2t19TZu7Q8GHxHwFI9jSQe1mX6/0QK36PZvxc0tFjmeQv+y31ZgB8plKZ+XjyFKVGs
+	 8YLs8VManh7WD9jg17w7+TDafGg1GJCBFSdQT8o2mat1kBMsLZAT8ycq6h8R7qtg4S
+	 x+BiNOWXh6C4w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C6F404CE50;
+	Wed, 25 Nov 2026 10:34:09 +0000 (UTC)
+From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
+Date: Wed, 25 Nov 2026 13:34:10 +0300
+Subject: [PATCH v4 2/6] dt-bindings: pinctrl: Add Cortina Systems CS7542
+ pin mux
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,53 +84,149 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ6CQAxA4auQrm3iVPmJVzEsYKZC0TCkHYwJ4
- e6OsvwW721grMIGt2ID5beYxDnDnQrwYzcPjBKygc5UOUdX1OifZULlYX11KSoGXgxdIKK6by5
- 11UBuF+WHfP7fe3vY1n5in34z2PcvNLSp1nkAAAA=
-X-Change-ID: 20261124-rock5t-regulator-deps-1d2227b83768
+Message-Id: <20261125-cs7542-syscon-v4-2-3337bb0d3b48@gmail.com>
+References: <20261125-cs7542-syscon-v4-0-3337bb0d3b48@gmail.com>
+In-Reply-To: <20261125-cs7542-syscon-v4-0-3337bb0d3b48@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Midgy Balon <midgy971@gmail.com>, Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
- Diederik de Haas <diederik@cknow-tech.com>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Elaine Zhang <zhangqing@rock-chips.com>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Freimut Diener <f.diener@pengutronix.de>
-X-Mailer: b4 0.15.2
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-gpio@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795602848; l=3414;
+ i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
+ bh=GXF3eV4Di05M7txSyaOSbXKuZUwi57EYWkuShSLxJwk=;
+ b=pAWFBWv4AImGwJ4AUClltaW/LmOcv8n8fPdvAKH7T07b5F02HYkqOM/eiyHX/CqsaatHb/T20
+ OjpwlcGQkgkDrmSTRi0HIPBha1tVzOsQn52mVBb7r9Pu1sFeaIqQU4z
+X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
+ pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
+X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
+ auth_id=1085
+X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
+Reply-To: filipp.dunsky@gmail.com
+Content-Transfer-Encoding: 7bit
 
-This series addresses failed fw_devlink sync_state-only proxy links
-by describing the GPU and NPU domain supplies as post-init providers
-in the shared ROCK 5B, 5B+ and 5T DTSI.
+From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-Related discussion:
+Describe the GPIO and UART mux functions and reference the child
+schema from the global control block.
 
-https://lore.kernel.org/aixze8zFboY3huSf@venus
-
-Tested on a ROCK 5T with and without the series. All three device-link
-creation errors disappear, while driver probing, runtime suspend and
-resume, power-domain transitions and regulator reference counts remain
-unaffected for the GPU and all three NPU cores.
-
-The modified binding passes dt_binding_check, and all three affected
-DTBs pass validation against the Rockchip power-controller schema.
-
-Signed-off-by: Freimut Diener <f.diener@pengutronix.de>
+Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 ---
-Freimut Diener (2):
-      dt-bindings: power: rockchip: Allow post-init-providers for domains
-      arm64: dts: rockchip: Mark ROCK 5 domain supplies as post-init
+ .../bindings/pinctrl/cortina,cs7542-pinctrl.yaml   | 84 ++++++++++++++++++++++
+ .../soc/cortina/cortina,cs7542-syscon.yaml         |  4 ++
+ 2 files changed, 88 insertions(+)
 
- Documentation/devicetree/bindings/power/rockchip,power-controller.yaml | 3 +++
- arch/arm64/boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi                | 2 ++
- 2 files changed, 5 insertions(+)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261124-rock5t-regulator-deps-1d2227b83768
+diff --git a/Documentation/devicetree/bindings/pinctrl/cortina,cs7542-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/cortina,cs7542-pinctrl.yaml
+new file mode 100644
+index 000000000..cd5c81a0d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pinctrl/cortina,cs7542-pinctrl.yaml
+@@ -0,0 +1,84 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pinctrl/cortina,cs7542-pinctrl.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Cortina Systems CS7542 pin multiplexer
++
++maintainers:
++  - Fil Dunsky <filipp.dunsky@gmail.com>
++
++description:
++  The pin multiplexer is a child of the CS7542 global control syscon.
++  Five 32-bit registers select GPIO mode when a pin's bit is set, or the
++  peripheral signal when it is clear. Pin numbers match the five GPIO
++  banks, from gpio0 to gpio159. Initially only GPIO mode and the UART
++  signals on gpio72 through gpio77 are supported. Other peripheral
++  routes and electrical configuration are not described here.
++
++allOf:
++  - $ref: pinctrl.yaml#
++
++properties:
++  compatible:
++    const: cortina,cs7542-pinctrl
++
++patternProperties:
++  '-pins$':
++    type: object
++    $ref: pinmux-node.yaml#
++    additionalProperties: false
++
++    properties:
++      function:
++        enum: [gpio, uart]
++
++      pins:
++        items:
++          pattern: '^gpio([0-9]|[1-9][0-9]|1[0-5][0-9])$'
++        minItems: 1
++        maxItems: 160
++
++    required:
++      - function
++      - pins
++
++    allOf:
++      - if:
++          properties:
++            function:
++              const: uart
++        then:
++          properties:
++            pins:
++              items:
++                enum: [gpio72, gpio73, gpio74, gpio75, gpio76, gpio77]
++
++required:
++  - compatible
++
++additionalProperties: false
++
++examples:
++  - |
++    syscon@f0000000 {
++        compatible = "cortina,cs7542-syscon", "syscon", "simple-mfd";
++        reg = <0xf0000000 0x100>;
++        #clock-cells = <1>;
++
++        pinctrl {
++            compatible = "cortina,cs7542-pinctrl";
++
++            reset-pins {
++                function = "gpio";
++                pins = "gpio37";
++            };
++
++            aux-uarts-pins {
++                function = "uart";
++                pins = "gpio72", "gpio73", "gpio74", "gpio75",
++                       "gpio76", "gpio77";
++            };
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/soc/cortina/cortina,cs7542-syscon.yaml b/Documentation/devicetree/bindings/soc/cortina/cortina,cs7542-syscon.yaml
+index 561bb7b63..fe839e46e 100644
+--- a/Documentation/devicetree/bindings/soc/cortina/cortina,cs7542-syscon.yaml
++++ b/Documentation/devicetree/bindings/soc/cortina/cortina,cs7542-syscon.yaml
+@@ -38,6 +38,10 @@ properties:
+   "#reset-cells":
+     const: 1
+ 
++  pinctrl:
++    type: object
++    $ref: /schemas/pinctrl/cortina,cs7542-pinctrl.yaml#
++
+ required:
+   - compatible
+   - reg
 
-Best regards,
---  
-Freimut Diener <f.diener@pengutronix.de>
+-- 
+2.53.0
+
 
