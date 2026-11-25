@@ -1,57 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795602836;
-	b=JnoPJUh9qB1fGIp1FJ3a47mzJu+fziUzHinh/fnmF4z+gWI9ebOwLs9qPQUf11oOoBiV
-	 rjtB0vU4i9Wj0gpoa7mIvvCcY9JvMjrWgRH3wd9+6i6m5c6PHq24k23wcH6hHcXRf/UB/
-	 B01kpyRvqi/biLDIRdEf/cG+9rOtpH1n6AGPDwouMoEvmwMJPKV3rGeHMAStTcOV+ysu/
-	 7687yzQus+b1KXH67uWDpW6j03Tw9nSo2DhTzhYwK5yHiaSLen+Kd/D1hLi+nO52dOwR2
-	 632xllSH3BgagEjHAH73g6EncMUUBDmnjogj08X5dqg2xXsnIsoAFbNkntYOAgTiKGA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795602836;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=kYDz4r5v/tphdF/Ao+TCT+QxjDTtHHzMc9B6pugbZ4k=;
-	b=onN/c5CMN1GqKCK2xP6+vSwg9Hpq8xhPp5aPGEXRsI7uIiG4UZ23FJZKAAfKXsOay5ap
-	 wL8ZsH4NMnyhY8A42cmRbTfWQgofPqjd+u34j03V/hnEtrEYu+IeMCat28yOq5tejovwI
-	 Lfe6jScck8Xnmp1+0Cpu1Elj5Q7MBhI0nk49az4x3YyMxTlqu8k01ndjJAK432aGlseLD
-	 CEdIPaniiNL7vI4n5KFDGvqEMUWUd8JYAt+p85DbnIBed71t3Yk9ez2y45mJp4Mrf5rZu
-	 XcKwF5QUy38Zn3TB7T9QHBc5qlL2smLtQ3NBb5m+9JAluSaCl7ILNQcWPCaznVAJYfQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=moSqeZ5u;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795602843;
+	b=ocraBGpUiAfJbozlJ1E/E1KgXHIUscXZyJGgPF0zBPobV34sZK0uuTJ3YpB63UsrMi7L
+	 55B1+JwFMhYUkRFxUvyTBFRFB1FLhEu3UK9RpPuzlpXxh+Vi5R6tXp+3/HAQIAKhL72Mq
+	 MLZ78rx1yGIUJ4zea6LZOLl7eOXOL9PyfeyxvzHP+Y3bi1T8L4W7P35Np5qmz+fb9xJfr
+	 QnoCLJEN0m4v3z9KSTIX5vvdxefcqt9HD2xhl71s6AJnJQ/vpT84/oz+oPOg6Rid/gjEI
+	 xzE1uEhg/qzJOWLsbwZdlbMyBC0HFCH5R5bVp4AW4TYfKZ84XvozjD7qSxNto95u1Vw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795602843;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer;
+	bh=Dux1zJGa62f9xbjo84Vj+UwdderRbp1DFisvELsP2Ng=;
+	b=MpEQECJ0FOgVFLukHlqUjIz15Eg1abJLm0fG70aiaQJA2EJEmpodqbfSlZtApUqwAqKm
+	 bqAYOSLuUTE5CCM8vN4XVi3MQThyRrCLD+duwA8wG3ghOjuhS6eiunV9GS7P/QHukQ2hf
+	 SIuoczmyAt3D70Mh3gFAsb10N0SYR97HEfvrMoN+nmZHmuZiE2XRa6gaMfe8fluwxuvwa
+	 /Jq5rEYyPGHRaBLY8+h5nTSzpKoTGu0zEwyJICds3aI/YX/xJvO6/nKPUmUEn5YEVmnkX
+	 qPa3osCWMGSepRWtweGbI9CKYyLTC6ZhTSpllvmaEwWKsXcAG4ZoO3HjvP0t1Q4JFCA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Rk3AVr1U;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3FB7606A329
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 10:33:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD96606A32A;
+	Wed, 25 Nov 2026 10:34:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CD96606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=moSqeZ5u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB8371F00A19;
-	Wed, 25 Nov 2026 10:33:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795602836;
-	bh=kYDz4r5v/tphdF/Ao+TCT+QxjDTtHHzMc9B6pugbZ4k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=moSqeZ5u6saX47ZTKBEH1vto/56JpTM0KmSvuYUrhK1YfVzcqbyfwNb0xanBC2j4W
-	 7OXHY2daJHOBpTE+5vUJlWhjMSHVGQuRKhgIariDwClLNiZ0glhy0vQeV0JA+664cd
-	 Cd5qYGMW1jbg10dizpozyK4/D3urpjnpUreYG7QSlUW+hS8cJEiYqWLOKJ6Rvsmz+6
-	 z9q7+N5W79Yk40KK5kOjtqvp3qOifbFdB3FEwPmXY/cYn6QdrDS563KkxCf8+qzNxC
-	 OQjiTMhQnXQFU/aw2QUrPsznA2Lm6UxKPyLFcQJFTQUpDs4jvsPttijJVooHm8Uq9u
-	 eAm/2tGpbSunw==
-Message-ID: <sashiko-outbox-233129@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6/6] iio: adc: ad7793: add firmware support and drop
- platform data
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?TnVubyBTw6E=?= <nuno.sa@analog.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261125-iio-adi-legacy-platdata-v1-6-54e4c8830b57@analog.com>
-References: <20261125-iio-adi-legacy-platdata-v1-0-54e4c8830b57@analog.com>
- <20261125-iio-adi-legacy-platdata-v1-6-54e4c8830b57@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 10:33:55 +0000
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Rk3AVr1U
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 4D5922004F5;
+	Wed, 25 Nov 2026 11:34:00 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795602840;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Dux1zJGa62f9xbjo84Vj+UwdderRbp1DFisvELsP2Ng=;
+	b=Rk3AVr1U48GCmhw4djHMbEqg6kG7+o+u6aB7GAaq9IU0BEQlTpb61ZlRat4U8lAs1qoZ0P
+	QJgvTHAc4wVGEKlihzMAXYwCcPy2gbcit2sXeZNxWWR4fn/IxmWRCv4NcdYhb4LL057HDK
+	QLyiK6rBTq7VnDzf84f89qpreag1icN/vkcxGlxyPmP2aGMocd3tcpZJnoAJcDIXlFHESQ
+	ptYOKyGrhfHPJ9mQhjMs5cBnv7FyYpQsP8S1YquFada64crSdYmEkSy09+XT3Ep9x/+Irp
+	iUJyAyDE/nlKMZ2l1pqpb379NUZHwfy6aifW8L/KgInK70GBy2ZrkFM17/W3PQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795602840;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Dux1zJGa62f9xbjo84Vj+UwdderRbp1DFisvELsP2Ng=;
+	b=QVm9SxnFBlbh3bihbIVI9mkzDgBowJ6NocYYuZiVnl4S5QZx2qirjohwtteqVIpBavcZZ/
+	+wnFhmLs3VcU+cIR6gYHTGLhpwfKQ/puHrzB2+LLU1WXBn24qx3X/7f7vcgbTmc9ugNorg
+	74H8OIl5jah8hjvdaIIizKr7e5OtK93qVGyrND39fj53lsAnhAXyXpvRqYQAcx5IK2RS0q
+	42kmEL1UPqib/VcJGPU0DEJZ/0mPsLv3Cmam9sW6PmaKEPNGBGPF5ty7OFiY1U8/pRRseK
+	7YVAF1jV0y1co3DtX27pHmFyur7DHFV31Zr6KVqVteiDQ7L0gciXStf5irsVEg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=f.diener@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795602840; a=rsa-sha256;
+	cv=none;
+	b=fDiVgO61VnTx/fA+e9RWFwPvFfk0AlLW2v3ZgO1sqmK4wGtXd0RwYAxvgqrsTc0lSfTudj
+	BPGts/d5hPjAmwpaORQyUEfRKu7KW8oOrKEqSH8QzcJCNBh5E0TYLjQLALcCPtDQWT+rTt
+	sKWYSh/Z+Er3ZzAJZBYIcoHk1uLPzSY+5toS1zUS32ZOHf5k3fytAYx82/dCuCi92NnxWr
+	ODK9MbrF4BZiVtiqnQbu8sE6mqt5wtI1ta/tIU65WR0dCQd5leNntirRgKRQ88v5GlB2RG
+	KmsFfc94wI/aUWR09HRFKZw5OoLkdL/180bxQWKdIbOwDwfVhDBphBU7d03CHQ==
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=[127.0.0.2])
+	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
+	(envelope-from <f.diener@pengutronix.de>)
+	id 1xWAK7-001P9N-2J;
+	Wed, 25 Nov 2026 11:34:00 +0100
+From: Freimut Diener <f.diener@pengutronix.de>
+Date: Wed, 25 Nov 2026 11:33:58 +0100
+Subject: [PATCH 2/2] arm64: dts: rockchip: Mark ROCK 5 domain supplies as
+ post-init
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,97 +88,73 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261125-rock5t-regulator-deps-v1-2-6a3470ad1855@pengutronix.de>
+References: <20261125-rock5t-regulator-deps-v1-0-6a3470ad1855@pengutronix.de>
+In-Reply-To: <20261125-rock5t-regulator-deps-v1-0-6a3470ad1855@pengutronix.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Midgy Balon <midgy971@gmail.com>, Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
+ Diederik de Haas <diederik@cknow-tech.com>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Elaine Zhang <zhangqing@rock-chips.com>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Freimut Diener <f.diener@pengutronix.de>
+X-Mailer: b4 0.15.2
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] iio: adc: ad7793: unused OF match data and NULL deref in
-  ad7793_probe()
---
+The GPU and NPU power domains reference regulators that themselves
+depend on the Rockchip power-domain controller through their
+respective bus controllers.
 
-commit dd1daa501ec1006036cacb4fca5f16bb30f78354
-Author: Nuno S=C3=A1 <nuno.sa@analog.com>
+Since all power domains are provided by a single device, fw_devlink
+attempts to create cyclic sync_state-only proxy links on behalf of
+the power-domain child nodes, resulting in the following messages
+during boot:
 
-iio: adc: ad7793: add firmware support and drop platform data
+    rockchip-pm-domain fd8d8000.power-management:power-controller: Failed to create device link (0x180) with supplier spi2.0 for /power-management@fd8d8000/power-controller/power-domain@12
+    rockchip-pm-domain fd8d8000.power-management:power-controller: Failed to create device link (0x180) with supplier 1-0042 for /power-management@fd8d8000/power-controller/power-domain@8
 
-This commit replaces ad7793_platform_data with firmware property parsing,
-enables the AVDD/DVDD supplies, and adds an OF match table.
+These are sync_state-only proxy links, not probe-ordering links.
 
-> diff --git a/drivers/iio/adc/ad7793.c b/drivers/iio/adc/ad7793.c
-> index b0f44c144f20e..f3e3ca724ec2c 100644
-> --- a/drivers/iio/adc/ad7793.c
-> +++ b/drivers/iio/adc/ad7793.c
+The Rockchip power-domain driver does not require the regulators
+to register the domains. It acquires them lazily and enables them
+when powering on the corresponding domains.
 
-[ ... ]
+Mark the regulators as post-init providers in the shared ROCK 5B,
+5B+ and 5T DTSI to describe this dependency and avoid the failed
+proxy-link creation attempts.
 
-> @@ -798,15 +1025,14 @@ static int ad7793_probe(struct spi_device *spi)
-> =20
->  	ad_sd_init(&st->sd, indio_dev, spi, &ad7793_sigma_delta_info);
-> =20
-> -	if (pdata->refsel !=3D AD7793_REFSEL_INTERNAL) {
-> -		ret =3D devm_regulator_get_enable_read_voltage(dev, "refin");
-> -		if (ret < 0)
-> -			return ret;
-> +	ret =3D devm_regulator_bulk_get_enable(dev, ARRAY_SIZE(supplies),
-> +					     supplies);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to enable supplies\n");
-> =20
-> -		vref_mv =3D ret / 1000;
-> -	} else {
-> -		vref_mv =3D 1170; /* Built-in ref */
-> -	}
-> +	ret =3D ad7793_parse_fw(dev, &cfg, &vref_mv);
-> +	if (ret)
-> +		return ret;
-> =20
->  	st->chip_info =3D
->  		&ad7793_chip_info_tbl[spi_get_device_id(spi)->driver_data];
+Keep the domain-supply references intact. Testing on the ROCK 5T
+shows that the messages disappear while GPU and NPU runtime power
+management behaviour remains unchanged.
 
-[ ... ]
+Signed-off-by: Freimut Diener <f.diener@pengutronix.de>
+---
+ arch/arm64/boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> @@ -842,9 +1068,24 @@ static const struct spi_device_id ad7793_id[] =3D {
->  };
->  MODULE_DEVICE_TABLE(spi, ad7793_id);
-> =20
-> +static const struct of_device_id ad7793_of_match[] =3D {
-> +	{ .compatible =3D "adi,ad7785", .data =3D &ad7793_chip_info_tbl[ID_AD77=
-85] },
-> +	{ .compatible =3D "adi,ad7792", .data =3D &ad7793_chip_info_tbl[ID_AD77=
-92] },
-> +	{ .compatible =3D "adi,ad7793", .data =3D &ad7793_chip_info_tbl[ID_AD77=
-93] },
-> +	{ .compatible =3D "adi,ad7794", .data =3D &ad7793_chip_info_tbl[ID_AD77=
-94] },
-> +	{ .compatible =3D "adi,ad7795", .data =3D &ad7793_chip_info_tbl[ID_AD77=
-95] },
-> +	{ .compatible =3D "adi,ad7796", .data =3D &ad7793_chip_info_tbl[ID_AD77=
-96] },
-> +	{ .compatible =3D "adi,ad7797", .data =3D &ad7793_chip_info_tbl[ID_AD77=
-97] },
-> +	{ .compatible =3D "adi,ad7798", .data =3D &ad7793_chip_info_tbl[ID_AD77=
-98] },
-> +	{ .compatible =3D "adi,ad7799", .data =3D &ad7793_chip_info_tbl[ID_AD77=
-99] },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, ad7793_of_match);
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi
+index b8d90936fc204..002dac5f28fbd 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi
+@@ -504,10 +504,12 @@ &pcie3x4 {
+ 
+ &pd_gpu {
+ 	domain-supply = <&vdd_gpu_s0>;
++	post-init-providers = <&vdd_gpu_s0>;
+ };
+ 
+ &pd_npu {
+ 	domain-supply = <&vdd_npu_s0>;
++	post-init-providers = <&vdd_npu_s0>;
+ };
+ 
+ &pinctrl {
 
-[Severity: High]
-Can ad7793_probe() dereference NULL when a device matches via
-ad7793_of_match?
+-- 
+2.56.0
 
-ad7793_of_match stores struct ad7793_chip_info pointers in .data, while
-ad7793_id stores enum indices in .driver_data, and ad7793_probe() still
-looks up st->chip_info and indio_dev->name by unconditionally
-dereferencing spi_get_device_id(spi).  If a device matches through
-ad7793_of_match without a matching spi->modalias in ad7793_id (such as via
-ACPI PRP0001 or a fallback compatible string), spi_get_device_id(spi)
-returns NULL and crashes in ad7793_probe().
-
-Should ad7793_id also point to ad7793_chip_info_tbl entries (with the chip
-name stored in struct ad7793_chip_info) so ad7793_probe() can use
-spi_get_device_match_data(spi)?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-iio-adi-le=
-gacy-platdata-v1-0-54e4c8830b57@analog.com?part=3D6
