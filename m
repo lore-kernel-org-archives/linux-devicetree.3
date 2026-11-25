@@ -1,78 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795622062;
-	b=aeWhE59f5LzNtby6QIWeDOof2yb/w6hoyt651BpRmQtHnHuqvE7Jsrj7Gv0SJa5eDNeR
-	 bD9C8/R74fNLyB7EPP/LLOtshB00AUQo6RzS6XKwOr6Iwr1qLK4MWZw9e4knWt8XKDyHr
-	 OVo/CirCIj7e/nOwMzeLCO0OJM6tIzqqrBJB0aj9WNRtwnLo3JduzzQ0zwYIADOQLxkJ2
-	 Wu0C253XnGWx/pxKFE5ezx1WtVnDO0XikTXLDNW/PpSVxqNI3smAaRyyz9KsIs9hUfOCe
-	 O1dwYy+sbI+jCh2FM2rI3Iemqkn3zIRhKs0upJrAt/VWhdVcdUe6gfTtuCa4gVbxuXQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795622062;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Tg7Y6fsUTdK0KtqMbKOQDO0R7PtYKluU/YHBu4uWNu4=;
-	b=y+fcjvaWLIrRHMezTmN3rA+VHnVPKAz9Skoex5IRI+O5PbChJle4LRJzmnOmy+g5FHmw
-	 3Fnh6vCIN9sK0N3mvPkPCLrUC7aLBwFZUEhADdOxtrIhfxOuhpRxMugs/IDSgIYP4TOve
-	 WLX+QqyqYBOZBHFlp2PjDzGorUcWSxSOREEVouH1niR63J0VHjk/QltUzRs++AGQLlX6S
-	 a6hk5yFcSKoIcFeSQZqZ6dOnviIA3voTg3RiMr2S7vODzxMuoIUrLVfzhVVLEk+SpKYVX
-	 wmPO/YZpr888qg121uotU/25tNSF5nT6Y49kf3Z4kIcUGA/1vqkAiFYlfCLliKXteJA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VoxlA5/F";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61FB6606A68E;
-	Wed, 25 Nov 2026 15:54:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VoxlA5/F
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795622062;
-	b=rTvofHR7rmRx0CPzDk+dVF61exLVoE+Vx/GIPTdntGNFn/kYtmtCHIz8Tb3wyNeIeia8
-	 x38sMbaDfeBMicNKmrxEShIYDPLJlVMTcohtSdt0TnTKRXcMaAAJFCtiTOxsyhHSDznNV
-	 JihLDnjNBrH4kKa51qYqv9LWydq6fHKDmTNTsYUWDtMf99b6eHAaLZ1JLl/sUb7vDgiDS
-	 p7S5UVdS42iWFH7t0uzy9ZkK1K/3zm0cEeUR1u1NSj+A1G0RRYv3JPbVM2cZI9T5BY1Re
-	 PAZbbDXX9h4e4I/e0SC32PHO8ZFUoRleqW90Gho2yayZsMa8x2YLhF3XH94HyWaBpdg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795622062;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Tg7Y6fsUTdK0KtqMbKOQDO0R7PtYKluU/YHBu4uWNu4=;
-	b=bqaAhsxN5fCJmucDytYiLk7IwRMk1KEZUDPkAsv+x658pstvzCJTkrUgBeXg/6P5ZiHV
-	 cock75eDeR2rpbrNZJTib0MsbtDMOS4neSnt60H+RNQ5Yj0zwiU4AQgHNuMVV2wU65wBv
-	 2qHqCrYSewYiXvK9d/mVyIl63rGyyXnZyge5TnnTwYt7WZ8/cyxJU5BICnUfZBSttyh8N
-	 lnuV218aZUw5OytOFDzmCtQSdMNptzqGqxmIM4Y4IrpmZD+CGLoiO3PyatKrHLC5a1laT
-	 d5pIFD0XBtZqxbLMclX/T4n9fJ9Oj9dosJo4Gh0z+eUnyk45EZv3+r6KXNk0eiXDR9Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795622153;
+	b=ZVSepyqfY8M3snuVe1ohbslcisPMxMUPARXbStfDDEuGFUldrdcwUAYNWmiOjd/Ng5XL
+	 D0VU3tv7Q8RfBkyOPRirFhZ3W7rdoVARI76xmGHYACni6Q7zM0SYA4eGKAfVuf1HRXfXE
+	 tgyX0rJf0h2/eKOdg2TXU5JK4dxQTi2i/Ow0vu6BP/tzrUg6dLlmN0ZqcI7ne0OshTfpm
+	 A+7ngErjPKPE14fB8imaQsIupJd6qulNTIcSeYazwBVSez0zbZNv2sm6Al+tRdmMy/M8l
+	 WqzD0qLVspl8T6RS+I6u5DFMIn8iTKgFnAkqA6/7ZCiLq59r3VQg+yr9dy0kJDQ6KGw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795622153;
+	h=DMARC-Filter:DKIM-Signature:Feedback-ID:X-Pm-Original-To:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=2TWoWAsm1Apa3orL/Yt0L4YfqkBPFNcm/0g6RUQ3LYQ=;
+	b=1cfjDYABp88w/pbSwUGv8MAaEErNizavX1BYFgunL6dWQ4evC+wCmqrSlH9d+AYZfjsf
+	 NvDxiAXKo5KtJI3W1Wo7dN84szGYu0bcd9uiHIsDarcQRaRNsXcAEVNnjTUe1+eUruJiE
+	 DMPlxJXat+vrvYCW3+tXut48wE8HeFqvvnzIVOfmoUHZj/oyHNLMjVYhY4Ypv+mJVDpjw
+	 XnOczg5hG2d5XaIuCT3a7yhTknBjMA8BfJWqqZM2+Y5Ao12zjA5YfiAuGZuF2kFxY97p3
+	 /8rdqEZUtwTBYGwvWVLePsCozLecBgzSrWXleI8d0UDLADakaLKqWD15JSSLf6t/V9w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=mentallysanemainliners.org;
+	spf=pass smtp.mailfrom=mentallysanemainliners.org;
+	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b=gU46oP6B;
+	arc=none smtp.remote-ip=34.202.193.197
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 375DA1F000E0;
-	Wed, 25 Nov 2026 15:54:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795622062;
-	bh=Tg7Y6fsUTdK0KtqMbKOQDO0R7PtYKluU/YHBu4uWNu4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=VoxlA5/FuUQHLyRKNnHjlbJ+9xmcuJ5Ly4T/Xf0sL5OVLAG+n5mehazaPui3yUxVx
-	 6Ew93Jy/SjCK/kmJgr9vUY2kJyT0Pwz0nmR3lzAyJuBmb/gp7HdHhwcCgjezi/EVv0
-	 jmMRzqTcjzmeo45cHHq01KB6wLxF9HELBs1n92eXJu16X5NTeVKTXEJvwxI6kCOHRz
-	 ZDkqVUOzl17Bl5A9EEd4xThvZYCZEnGiD0MFQ6NVdUwXROrD7zfe+8nIe559hgPK24
-	 JKxqYoIVuc20z9+ovgR7QqQUIdnev1SeN32ooLJq5mc+We4OWeyAGBSG4QR9i/0jCU
-	 1S1zPuZSM87iw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B44F84CF48;
-	Wed, 25 Nov 2026 15:54:08 +0000 (UTC)
-From: Kyle Hendry via B4 Relay <devnull+khendry.reliablecontrols.com@kernel.org>
-Date: Wed, 25 Nov 2026 07:53:44 -0800
-Subject: [PATCH v3 2/3] clk: renesas: r9a06g032: Add reset controller
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3CE0606A33F
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 15:55:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3CE0606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mentallysanemainliners.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mentallysanemainliners.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b=gU46oP6B
+DKIM-Signature: a=rsa-sha256; b=gU46oP6B9c4ypb6Im7yWc5TxHA9zpsJAykGWLcCYUKNxyioQJFo72y4uY+uWPDrzoGz2sZ2sSqIox7MDXPhmIblfpqZHbyJcF56flo9yb4N7w2lZJd4mMnKzRWlss556gu77NU16hJ8AjeQcTH4cVEUm7Ei7jVUhWQiX38He76YCq7QNcDTbtxoYhCI5nh1xjXVzJ43fgF+6/dg2wn12ln5JKFCLwTgtBb1RvZYWEg+FzHNOLP2NPtPXkLi0Xr0c+Q4NKqTWtglz59bxbndl/VkJ9ZbLBZVFT72tk509S8omYPM5HalNXtpZ2B4eOtGvCJU4RjM2SZZ1aWYQO+BIjQ==; s=purelymail2; d=purelymail.com; v=1; bh=TnfnPC1swyrjuv/n2UWWnJpupbzh/7OS04oP4lB/JOM=; h=Feedback-ID:Received:Message-ID:Date:Subject:To:From;
+Feedback-ID: 68229:10037:null:purelymail
+X-Pm-Original-To: devicetree@vger.kernel.org
+Authentication-Results: purelymail.com; auth=pass
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -532728891;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Wed, 25 Nov 2026 15:54:27 +0000 (UTC)
+Message-ID: <f7a64060-9e98-422a-ae2a-1eeebf8469e0@mentallysanemainliners.org>
+Date: Wed, 25 Nov 2026 15:54:15 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,149 +52,80 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261125-rzn1-miic-resets-v3-2-f25a4b656d71@reliablecontrols.com>
-References: <20261125-rzn1-miic-resets-v3-0-f25a4b656d71@reliablecontrols.com>
-In-Reply-To: <20261125-rzn1-miic-resets-v3-0-f25a4b656d71@reliablecontrols.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Kyle Hendry <khendry@reliablecontrols.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795622048; l=3636;
- i=khendry@reliablecontrols.com; s=20260813; h=from:subject:message-id;
- bh=8ZpDxQOtHtigAsvBd6sduY/iCNGxQHa4R86Sa1oElX8=;
- b=3IWaBuVyNriTbMUZ8sKQJUQtljALgnBry5hL/52CYiCLzk6EwoKVjIm9FC3NbsraltXKoTDYG
- rb7Vf5AztoyCWbJm3aIirjfqWD4Q34ya2EyHu3cF79GHAnapzkv1aVr
-X-Developer-Key: i=khendry@reliablecontrols.com; a=ed25519;
- pk=gbK6oghz3qBlBiaGCsEzALLOtj5VklmsuolHQNhDV5M=
-X-Endpoint-Received: by B4 Relay for khendry@reliablecontrols.com/20260813
- with auth_id=946
-X-Original-From: Kyle Hendry <khendry@reliablecontrols.com>
-Reply-To: khendry@reliablecontrols.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/2] Add USB support for Exynos7885 and enable USB and
+ FG on gta3xllte
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, Henri Ommer <henri@ommer.net>,
+ David Virag <virag.david003@gmail.com>
+References: <20261124-gta3xllte-usb-battery-v2-0-80bdcb1753bb@mentallysanemainliners.org>
+Content-Language: en-US
+From: Umer Uddin <umer.uddin@mentallysanemainliners.org>
+In-Reply-To: <20261124-gta3xllte-usb-battery-v2-0-80bdcb1753bb@mentallysanemainliners.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-From: Kyle Hendry <khendry@reliablecontrols.com>
+On 24/11/2026 17:14, Umer Uddin via B4 Relay wrote:
+> Hi guys, this patch series enables USB and FG on gta3xllte. All is tested.
+>
+> DT changes were tested with make dtbs_check W=1, and the dt styling check
+> scripts with --mode strict flags, both of which returned no warnings.
+>
+> Please note this patch now depends on David Virag's changes for USB[1].
+>
+> Best regards,
+> Umer
+>
+> [1] https://lore.kernel.org/linux-samsung-soc/20261123092244.1792040-1-virag.david003@gmail.com/T/#t
+>
+> Signed-off-by: Umer Uddin <umer.uddin@mentallysanemainliners.org>
+> ---
+> Changes in v2:
+> - Drop patches that are being picked up updated and corrected by David
+> - Link to v1: https://patch.msgid.link/20261119-gta3xllte-usb-battery-v1-0-0cf5f763522e@mentallysanemainliners.org
+>
+> To: Rob Herring <robh@kernel.org>
+> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> To: Conor Dooley <conor+dt@kernel.org>
+> To: Peter Griffin <peter.griffin@linaro.org>
+> To: Alim Akhtar <alim.akhtar@samsung.com>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-samsung-soc@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+>
+> ---
+> Umer Uddin (2):
+>        arm64: dts: exynos: exynos7885-gta3xllte: Enable USB support
+>        arm64: dts: exynos: exynos7885-gta3xllte: Enable FuelGauge support
+>
+>   .../arm64/boot/dts/exynos/exynos7885-gta3xllte.dts | 50 ++++++++++++++++++++++
+>   1 file changed, 50 insertions(+)
+> ---
+> base-commit: 9b369f9debe1253032abb90a9469fe44146835d1
+> change-id: 20261119-gta3xllte-usb-battery-b95e4d89ae85
+>
+> Best regards,
+> --
+> Umer Uddin <umer.uddin@mentallysanemainliners.org>
 
-The rzn1 system controller has two resets that need to be cleared for the
-mii converter to work. They are not directly associated with any clocks
-so they need a reset controller to set them.
+Hi, dependency has changed, it has now changed to David's V3[1], since 
+this patch
 
-They are documented in the PWRCTRL_SWITCHCTRL (0x4000C188) register as:
+still will apply fine on top of his V3, I am unsure if I need to resend it.
 
-Bit 3: RSTN_CLK25 - Active low Reset for Timestamp signal selection logic
-Bit 4: RSTN_ETH - Active low Reset for RGMII/RMII Converter (50 MHz).
 
-Add a reset controller and add resets for those bits.
-
-Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
----
- drivers/clk/renesas/r9a06g032-clocks.c | 59 ++++++++++++++++++++++++++++++++++
- 1 file changed, 59 insertions(+)
-
-diff --git a/drivers/clk/renesas/r9a06g032-clocks.c b/drivers/clk/renesas/r9a06g032-clocks.c
-index 3df3f2b2c6de..fc4433c3d327 100644
---- a/drivers/clk/renesas/r9a06g032-clocks.c
-+++ b/drivers/clk/renesas/r9a06g032-clocks.c
-@@ -21,6 +21,7 @@
- #include <linux/pm_clock.h>
- #include <linux/pm_domain.h>
- #include <linux/reboot.h>
-+#include <linux/reset-controller.h>
- #include <linux/slab.h>
- #include <linux/soc/renesas/r9a06g032-sysctrl.h>
- #include <linux/spinlock.h>
-@@ -675,10 +676,16 @@ static const struct r9a06g032_clkdesc r9a06g032_clocks[] = {
- 		RB(0xec, 16), RB(0xec, 17), RB(0xec, 18), RB(0xec, 19)),
- };
- 
-+static const struct regbit r9a06g032_resets[] = {
-+	[R9A06G032_RST_TS]	= RB(0x188, 3),
-+	[R9A06G032_RST_MIIC]	= RB(0x188, 4),
-+};
-+
- struct r9a06g032_priv {
- 	struct clk_onecell_data data;
- 	spinlock_t lock; /* protects concurrent access to gates */
- 	void __iomem *reg;
-+	struct reset_controller_dev rcdev;
- };
- 
- static struct r9a06g032_priv *sysctrl_priv;
-@@ -1307,6 +1314,51 @@ static void __init r9a06g032_init_h2mode(struct r9a06g032_priv *clocks)
- 	writel(usb, clocks->reg + R9A06G032_SYSCTRL_USB);
- }
- 
-+static inline
-+struct r9a06g032_priv *priv_from_rcdev(struct reset_controller_dev *resetdev)
-+{
-+	return container_of(resetdev, struct r9a06g032_priv, rcdev);
-+}
-+
-+static int r9a06g032_reset_set(struct reset_controller_dev *rcdev,
-+				bool set, unsigned long id)
-+{
-+	struct r9a06g032_priv *priv = priv_from_rcdev(rcdev);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&priv->lock, flags);
-+	clk_rdesc_set(priv, r9a06g032_resets[id], set);
-+	spin_unlock_irqrestore(&priv->lock, flags);
-+
-+	return 0;
-+}
-+
-+static int r9a06g032_reset_assert(struct reset_controller_dev *rcdev,
-+					unsigned long id)
-+{
-+	return r9a06g032_reset_set(rcdev, false, id);
-+}
-+
-+static int r9a06g032_reset_deassert(struct reset_controller_dev *rcdev,
-+					unsigned long id)
-+{
-+	return r9a06g032_reset_set(rcdev, true, id);
-+}
-+
-+static int r9a06g032_reset_status(struct reset_controller_dev *rcdev,
-+					unsigned long id)
-+{
-+	struct r9a06g032_priv *priv = priv_from_rcdev(rcdev);
-+
-+	return !clk_rdesc_get(priv, r9a06g032_resets[id]);
-+}
-+
-+static const struct reset_control_ops r9a06g032_reset_ops = {
-+	.assert = r9a06g032_reset_assert,
-+	.deassert = r9a06g032_reset_deassert,
-+	.status = r9a06g032_reset_status,
-+};
-+
- static int __init r9a06g032_clocks_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -1394,6 +1446,13 @@ static int __init r9a06g032_clocks_probe(struct platform_device *pdev)
- 	if (error)
- 		return error;
- 
-+	clocks->rcdev.ops = &r9a06g032_reset_ops;
-+	clocks->rcdev.of_node = np;
-+	clocks->rcdev.nr_resets = ARRAY_SIZE(r9a06g032_resets);
-+	error =  devm_reset_controller_register(dev, &clocks->rcdev);
-+	if (error)
-+		return error;
-+
- 	error = r9a06g032_add_clk_domain(dev);
- 	if (error)
- 		return error;
-
--- 
-2.53.0
-
+[1] 
+https://lore.kernel.org/linux-samsung-soc/20261125145458.2594179-1-virag.david003@gmail.com/T/#t
 
