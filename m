@@ -1,100 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795617693;
-	b=vATtovw4P8yj5hAjULi1N0sRAgvsGImCvM8yUlQe4dcuzmwqonDAhEeeD5W/tPPArsf/
-	 gGhjS5DYvgsI567caIiIm9j41RUett0LXLhdO4gcrvn93MN/TrRjjipLXfDYP8QElJ/Bb
-	 EgVKqDKaCzYWUCxDMUAougZBgQ5J5z2+n5tlGeTfFxkt/326w1G4/pNxYWQ/WNXl+nLru
-	 NgBDQliPuCd6PaSerz4/METYt8eEA5ZKm9ApBzPpwChc/wi/wdlJEuLZ+1m5RBRsHcsTn
-	 LiWru7EcYjC5UmtY6Mu+CJrxSlFzEOsdBQdvby90OI1ZhtHmQG2x7aAvyxsvhT7QYDw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795617693;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795617716;
+	b=VER7ayxVufURBeBVNA7JcShHjR2J6cXXIvHcXgEIJiEB1EjWXHCbe3gkZ87K7JfUqkaA
+	 tO5jx5oKRsfxURqj2Q0hLBLicMifpgwZbVRhTfWyksHhh7zRmggESLle0OrwTQlODIVWZ
+	 2bCbfrv0DFwr5eiIHJaJ0LAykLH5kDpBf9hTTmXPcdhN7vWhDW7xeuN2VLgS0/NULKtQD
+	 KAYo/4CslN0WD4eu609MOorj2bwcDjycr0D7R4aSfybZttmkAsLqw63uqpGdFqvavjzKA
+	 j2dRA2vPIforkEX5N7wxeBJbxTL+CUloaevdNRzPiclMMrpJ+7Yxm1vhRW0zfvujkrg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795617716;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=RiFQrHYbOebwg4aSZm1pD7p5ODz57pewOJXxwjk/IsY=;
-	b=w81rKFNhwaUaOHPx3XAEbrOeOLONIlK7VdL4n/HKmXaK4yNig9a1QeCIfau1+AzD91VT
-	 EYTaDs2brml77CU3QjM8GdrubEWOw9ltM+oHi9XrkE1SEYs4gpNJE9HzniZNZZNABMYcM
-	 zBitnp1NXjmpo92vvsiuwEK1Js9aHyKPajuuyEjft7PbR43SAjgZvLtKutRQjnFUTLq4P
-	 IEhVpBPwxwkDBJOMIN/s6fjhvDUI+G0zHWyRYRxahezcPWMBHpLP6Xn7tpKb6iUaoeXrD
-	 oDMZ8P89gn7hKv69pB7B/sA8A43/mgR2+I3MSiCUu+7nFLCNeBDpDPzJuTeCsoauHeA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lRNsOJqb;
-	arc=none smtp.remote-ip=209.85.218.43
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=mLjx3CTEUXIT2f/3aLm5eAmD1Nrm0DwEfALNNSAoscU=;
+	b=4UL8cDBMGTM+uRGaGKqeHFDXnMxcSiOFsAtx982MdsP46EvtacectcgNx99/YhYAkWFO
+	 qQrpAvWvnXXG6D2tYfBmLB30+2LzngBMOl5nyCZ2dwAZq/GuyCXHmSaWIkSXvUKOPMlZj
+	 EkzANOnYf+4zFN5kyvVtGnLj1Gv54gnkGn8V8m/ylRdb21kqLDwcCl48ly3cdZv+G9oYA
+	 pk4K0ztJMcLdVXrnCEk65U6jq0r7uDFH4AIAhlkxzy1+NSPlhyZ57QRrTVvKy/Zivcd0H
+	 PiLAGg8DksiSZT8qWGVEz7rbAyYYf0iu1N3hJVmRXNeajynkxPe4NFG0l3p8hBP8g/A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=flipper.net;
+	spf=pass smtp.mailfrom=flipper.net;
+	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=odAjoK9l;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.43
 Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33B01606A338
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 14:41:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33B01606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8071606A31E
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 14:41:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8071606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lRNsOJqb
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c50d3ac6b51so1252248466b.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 06:41:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=odAjoK9l
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c51373ae637so82964766b.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 06:41:55 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795617714; cv=none;
+        d=google.com; s=arc-20260327;
+        b=syWIu8EUYITSAQRL+2Ty4MIVf5Qhtr8AAx6V7XuHT4Ms4opWDItnnvO+nJiFMc0Fwb
+         lD3Wg2DwYtp871/HzHMPfbgPctwLDLQKCW3YSg1UnIfDszrO3WZrvp1Zzk/YLpMEssnR
+         iLqfWCT26asB/a4q35iqK3/VFZcIylGjzU5gstviERktSIKGiUUvOp4E+DZ2snvXTBqD
+         8TE3raP9eCtJiOUylhAHtLHnYKHbxvyyp8Be6QSIoUFFegEnlE/MppCD17Ns4t0PWdU+
+         mqdKw0UEbUorCfTiYvKdhhj6EnNzbnmNf0xmVSBKsgcHIT7GB+cLqEzQM2mRDg1D5nKs
+         l4jA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=mLjx3CTEUXIT2f/3aLm5eAmD1Nrm0DwEfALNNSAoscU=;
+        fh=AUcWHNX6RXmWdKvE4TQlRcx1ukPMhNemU/0P7Dwt5vo=;
+        b=abFZuni4TwkcCqJWQc37ZQKi+5MsANq3OZfjYJwrUGohhgEo0mpQ+ezomxzqgK+ro9
+         +d8Nb43ZVoUMfRUHTD78JWEiY6U/aONnSzcnLGaaGlmhl/iVg1gLnXi1PFtRR9q3FUyx
+         srmNTXUWvQwVJi07U3uVf7S4I8BRiFTTYO7U5hmLYzbkpD3JyiN+GD726fPfbSf1tWdW
+         VqYm66u4SjZ+D97vALn+3XewGH3dCICDXQw8ZYyAoGzb6IWzB5cUKaHJqbWT3YOsNr5Y
+         GNtJe63HnPBlMPWm5CmVEmT3CWWc4rvDqWU7jj35eQLKGbI9AcMVU212myXxxGshHWI0
+         scfQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795617691; x=1796222491; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=flipper.net; s=google; t=1795617714; x=1796222514; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=RiFQrHYbOebwg4aSZm1pD7p5ODz57pewOJXxwjk/IsY=;
-        b=lRNsOJqbLooDIrdaILNRYzBksZoVQm+MOGWWmHhZTKPuzlOd4BrJtS/qiEiyblwJPB
-         3UqD+vZlNF9kJPrul8t7hiVfBg6OTgjBjTKw4AgyoDLH+B9bXC4UxWP+vyXTRnc5c1s6
-         OYY3SpDnVP/9dLXd69kKn2ORDPIllG3IRc+sGuul+uh6Qa0/WGSm+xC1ndI3ZhhSv5NL
-         vHClbFZLRToGsOtloVhH/iRiZ4QVP95kW5/flAVApjY59rAqq87veOKyL7OxLfI7C83i
-         DEVja0SLspaqRCObDoUYxbQPfXtweKFb4tKh0r4fvFVuM1Z4wowpt9/XcaBKg0FvbgcM
-         7k5A==
+        bh=mLjx3CTEUXIT2f/3aLm5eAmD1Nrm0DwEfALNNSAoscU=;
+        b=odAjoK9l/53NSwRmFiM24jvPCeeXxp/4vOc3k3GMNxbsBQBZi6TJxTLdHUroGvseN3
+         vK+7WVGukF1Pw8D8F3SHepUtK9+iku92Ic62HRdxe+CE1Xt6C1n/QKzfSoNlyVrD/HHx
+         1XBF76bqvwnNeSYplJwR4LfoEdgs8W2rAbHYNLe7KCxulvyoD33XQpFdv5HkF3lHN/pR
+         c3KGrr1LXL6Th9ppIfY3ZwS7hLZJYIqUSXgBaNWlnvK/lDcgEGoMz9BQ1z74C4UAPLic
+         dN9BXhAuvPxQNHoogynsDFop0FHAmOfWCSunp+TpXx0NdRPykNVSHPUgQ4abiLX9lPax
+         0p4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795617691; x=1796222491;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1795617714; x=1796222514;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RiFQrHYbOebwg4aSZm1pD7p5ODz57pewOJXxwjk/IsY=;
-        b=KLLzo+Xsdh2YQ7oRxNoOFnfaanyia5l8XP/GQGoSFAecteI+MK6/pLRvBR1fFZxIGo
-         YI8Fz5walajpA4ZjbWDtGJW2n+EoekRmJfxuYYjMI3PufkdCKTJpc0T1bl13NZsIjis6
-         OR3l9g45zsAFj7eupjCWRQdK1x/RfaxeDajiplixJEKdLu2lp3AGfg8xJeJiwP81fiRx
-         CQZ4GVWcs4M227y7D/LuZDU1OnLL1XRxicDd28muvUzRC4metliQNw4qGgwL1x+cNoIn
-         pL+F3DYEF1WpXYKxHgp3PzQAdGiWut+HLhwecv+x6uJ2mZx44+BGQFdeDkkg2JabrOSW
-         Vz/Q==
-X-Forwarded-Encrypted: i=1; AL+hErHmRF3ih28Ef3xP7dschERQj1nUiMr3C/zj26ugFcHNAJzxODgp6WRMUQ5lAg+5vBFHvDiaRmFx6mK7@vger.kernel.org
-X-Gm-Message-State: APuU4Z/XpPCwMl6xOgxtuh92Gp3ot0Ql/gu8sUgllX90KSXhibxFiitG
-	ZU57Wn3ed+p//61RDsI25Diautg92J9QyFegi0kSVi4dCA8AwIPR0UmX
-X-Gm-Gg: AZFdTZf4tiGhgFIaFVWRjxLHNGylexu5om/v/MN3uuV0oza8d+lO/RzIS1DQanhg9Rr
-	Hnla+UBdUh0Q+Y5X4B6QxCtoKWgpQBMNWXZB8xjIXiE+1N6ZScofquB63/fOqtF8XtIGkKm8tdg
-	5QJN1wD9Ru5tbeq0Gob6haps+AwrmuP8rv7sSzTgpFYB1sb2TizW749+424VYyhMopZT/IqkDXX
-	LdJv4QMIX3o1Qgcbt0eikp94aPBuqGxoW4NE33ginphVEZVEgbRo7DfiJWZ9y3+HITsZgjBP259
-	VWbRGG9WbfGrW4uMRtEf+3+5PSsKJ2pNQROFOnijjU9ahCsHN6wZIK659w/AUray0wcTvs4rdwr
-	IE0nkHHba646kyXRissGOkPiu2tbLk9ho8qxBs+gKV72BM5gfxXfb2Yd+cwwwKA60ectp3ZxEQk
-	3v21BFvDU8dZn5/0bV0L94nmUe3KRxLwhGIaRNsL7AqYIH1otRWE+3UK2o3JZ7iVKkyQIPM/wCF
-	Lw1Zao+Iw2eUUV5BYF06qwxDDi/W3jBTot22XZlBvbMKQPR+n6TP5QTrLyO0mLqvBKCknM4zg/J
-	Mtjol2GSvQ1+yQXMp85Smo+4G9YZbmiupXnfPc6XPAGWkX4=
-X-Received: by 2002:a17:907:1c93:b0:c51:9d9c:c720 with SMTP id a640c23a62f3a-c519d9cc960mr349270766b.13.1795617691492;
-        Wed, 25 Nov 2026 06:41:31 -0800 (PST)
-Received: from localhost.localdomain ([195.155.168.135])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513afe85fdsm653474766b.69.2026.11.25.06.41.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 06:41:31 -0800 (PST)
-From: =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Sebastian Reichel <sre@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Kaustabh Chakraborty <kauschluss@disroot.org>,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] power: supply: s2mu106-fuelgauge: add standalone driver
-Date: Wed, 25 Nov 2026 17:41:29 +0300
-Message-ID: <20261125144128.3951630-2-tadilhusrev@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261123-tasteful-famous-dragon-00ee8d@quoll>
-References: <20261117104328.1176951-1-tadilhusrev@gmail.com> <20261117104328.1176951-3-tadilhusrev@gmail.com> <20261123-tasteful-famous-dragon-00ee8d@quoll>
+        bh=mLjx3CTEUXIT2f/3aLm5eAmD1Nrm0DwEfALNNSAoscU=;
+        b=Qkk8PDopY0n0F+ucVF+C+gE4wswGOInMu32jsBjNJKEb6oZc/4EY8dh2Q4dKykzOBZ
+         vDTqTiMjG/ex4fcZ+ilL+A0hAZfJNiBOz3DWvefW5cMKuU3VCSLcAfHcz2ALy/PfnD9P
+         +TnU1DobAJ/aNcDnp/PKNGbwuliJLP0jWlN8lyyMGkZvAejde9Rg7uyexxkRAKF0LOA0
+         f/f9X/fH3DbBQPUqSSH1rsMOVE/srYn8yycyd2Oxwx0QmIDYH56fpXROEo82gytl21Bk
+         +tMuACBWvNVVMeDPdqXofQ5YiqnCxHyNxM+FKd5m9HpOk0sVCwFhgJv0E5aDsqiSsEbi
+         jMWg==
+X-Forwarded-Encrypted: i=1; AL+hErEfPycg8aLkwUU2uXBvttbLNPGc8mlURk/QzsvchvF1dwo/sqJlY5LFRZYQQPhGm2iNdyshIFOqT3Xq@vger.kernel.org
+X-Gm-Message-State: APuU4Z8dZ+1zPBzS2g0UD3Za9tcOcTARp1LDLGVTu0XigVVP+HWtK+fJ
+	Be2LUlYEbhhlTXKKsp/AjMNCr2ZJLsJ4cNk7fVAVLs646pxIke4z/Ig5ctYCVW45Mc7368ydTLh
+	GfohqfAufRlmGfiJ7idcBDm4S523LiTKYD2+hyehmiw==
+X-Gm-Gg: AZFdTZf6+PptuiW+fmdC4CKZt/52pDQe47W7M8XvwGG4FWDknwnuUr+IYJaFtN34f2i
+	ciHBhH1D8+7JgeT3BuOismnDmW6I0OAWaNIs6dG1KwobMbEX2OZFnkWzTTcxFKhnpxof7i/tAiz
+	fHbl7aMiIqixNIleLO+Dzmrep24uJhgG9TbAZwx4CBc3t+obww7hQOOv/s5RzQec4B6rQES6Qp6
+	SyEz6eaowWPhigEVli/9+XmqFjGdn6U8k/dCdLl43gcO7v+RDH0+Tq9yGiP1KqrU+KGKt6P01Z0
+	MVKkeexlnXh/By6r9R8PPafjlGKnpMupazz7GLNdG2voqGQfEO28QTLAlQQoJkyU6UQ733GVwFn
+	m5zDsXkqtX33DcbqralOJztn0DWKwlp2GDRU7XEBDr1mGzQoX4PWdbveJn2P1zTHrwaTixhxDon
+	dVa8nqWGnnFuU34g==
+X-Received: by 2002:a05:6938:e04f:20b0:c2e:8eb7:53dd with SMTP id
+ a640c23a62f3a-c513ab1349cmr1102866166b.42.1795617714171; Wed, 25 Nov 2026
+ 06:41:54 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,24 +105,68 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261124-rk3576-otp-cpuid-mac-v4-0-d403b8a25113@flipper.net>
+ <20261124-rk3576-otp-cpuid-mac-v4-3-d403b8a25113@flipper.net>
+ <0aH4P5VH9HNiTXpCUTaTlvGaoUDQBnvv-0cSXtipSDkLOGjzGy96jDqsVtU0DJTWrocgoMcGFEgd0JUlF5mljVvCzGKVz4yUgDQ0s6HaDLg=@protonmail.com>
+ <2f8da604-36af-4944-8168-02b046e97699@lunn.ch>
+In-Reply-To: <2f8da604-36af-4944-8168-02b046e97699@lunn.ch>
+From: Alexey Charkov <alchark@flipper.net>
+Date: Wed, 25 Nov 2026 18:41:42 +0400
+X-Gm-Features: Aa3M54p30Iatdogoy58JfnAd55Gl1tkvrMVT9GbSbV-cJhdMvMKH6OgZsz2cLWQ
+Message-ID: <CAKTNdwG1sSBVKcKpHBj24nFCdc6WVKabV5=K4sJFucWpTLqRQQ@mail.gmail.com>
+Subject: Re: [PATCH v4 3/5] nvmem: rockchip-otp: Derive MAC addresses from the
+ CPU ID
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Ryan Leung <untilscour@protonmail.com>, Srinivas Kandagatla <srini@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Willem de Bruijn <willemb@google.com>, Simon Horman <horms@kernel.org>, 
+	Ricardo Pardini <ricardo@pardini.net>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 23, 2026 at 01:30:48PM +0100, Krzysztof Kozlowski wrote:
-> Even less relevant, drop. AI usage goes to changelog.
+On Wed, Nov 25, 2026 at 6:21=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wrote:
+>
+> > > +static int rockchip_otp_cpuid_pp(void *priv, const char *id, int ind=
+ex,
+> > > +                            unsigned int offset, void *buf, size_t b=
+ytes)
+> > > +{
+> > > +   char cpuid[ROCKCHIP_CPUID_LEN * 2];
+> > > +   u8 digest[SHA256_DIGEST_SIZE];
+> > > +   u8 *mac =3D buf;
+> > > +
+> > > +   if (!id || strcmp(id, "mac-address"))
+> > > +           return 0;
+>
+> I don't know OTP drivers. But to me, a function called
+> rockchip_otp_cpuid_pp() which does not actually return the CPU ID is
+> architecturally wrong.
 
-Will do.
+There is precedent for this at least in IMX [1], [2]. To me the
+interpretation is "Rockchip CPU ID used as a MAC address base with
+offset X", which is exactly what the derivation does. IMO, this is
+less clunky than the alternatives (e.g., a custom NVMEM layout which I
+used in v1-v2; a "virtual" NVMEM driver referencing the real cell and
+returning the processed one, which Ryan proposed in v2 discussion, or
+caller-side processing).
 
-> Drop, drivers should be silent on success.
+[1] https://elixir.bootlin.com/linux/v7.4-rc1/source/drivers/nvmem/imx-ocot=
+p.c#L224-L238
+[2] https://elixir.bootlin.com/linux/v7.4-rc1/source/drivers/nvmem/imx-ocot=
+p-ele.c#L115-L129
 
-Ack.
+> I would probably not mangle the CPU ID in the OTP driver, but in the
+> MAC driver. The MAC driver should ask for the CPU ID and then hash it.
 
-> Why do you need a new driver instead of integrating it into existing
-> s2mu005?
+This would then tie the address derivation logic to a specific MAC
+driver, rather than to the platform, and it won't work for boards
+using other MACs (such as PCIe connected ones).
 
-I don't. Kaustabh said the same on the earlier series, so the next
-version goes back to s2mu005-battery.c, with S2MU106 as its own match
-entry that skips the average-monitoring registers it doesn't have. This
-standalone series can be dropped.
-
-Adil
+Best regards,
+Alexey
