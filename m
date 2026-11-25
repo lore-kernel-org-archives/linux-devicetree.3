@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795639844;
-	b=t7a2gdZ/BWXl9j07g68NDlHbs5Oac3cYtG8+f1uAO6QfhHMuXqhCOyZVlzt/96dHtiOX
-	 ysHT8snXExH+J+i6qHErOEVYJuJrRcQSMK50cVC0VzwN08s5NLHpoKWRT1OulWh6h7+LM
-	 xX2PpNS1sxSpeCXwg+hE4hl+Tx33bFEGc2ApX/kR0gBjKWRnBLq039tDczJsWA6uc382p
-	 hCPVjytvZ2BgB0+vtkZTVgUz5ANSaBPCxK0PaKEqPdHAMOw4K4FAUb5TyGp2cj7Fsp1Oe
-	 +oeHhB4Nwqa0pQI1axixypdrSPB04hJxpXwRRAtjjZa35vLhDWMarjR3BzyXf9iGZCQ==
+	t=1795639835;
+	b=VoJIjP56LtwVgFlTE+xgHUUGojQvzbnAy4y7KDyVjXikTTrzGYgsb1baGtydMss/r8UM
+	 6Fa97z+SAkzS05ZGvrGDx+IejccwHsh53MuFedE+9bdfjxAsQbJ/Kyo4nJc0wsN+/tO5r
+	 eGbe7SSyIY2j5ztxcUuzTW8d6q3/B/MarbfiIxxLiZACpcYyIH/odpzNTPPcFK5shjs2q
+	 FOlCL3g0YmmH+E8xGlIwF/j+TPVzL0/RyzBK0fbSqvIXdPOrpQgw6prKgAF9oLoFfYutw
+	 Atof0RICHm0K2t8HZDEqNAM1GlVZk8gxL3vORRybK2HxBJ12QStp+552NJtN/KccP4A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795639844;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795639835;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SCS78tpTYdTFhdyY+WipXI86/bzTlAX6cWgOZmmc0+Y=;
-	b=B9/8Ca0UTQ6y1Z0kKDs1R1n1i2mpY0xSLBkhk1O6HTmUtEz1k7oLTNNpfpSjDws27gSm
-	 NARaCINmOU4olLPA3DoY4tlgeJqb0I8n5qmRIxSQk8efv1X6aQlsF+764k1TdAwtmXhqP
-	 pKiE57SSQ2ZEKscpKNgxUQUCtp2QxVGiM99v1n64w277KQB2eUCLqGKZntIr9Zx1nlU7k
-	 0lYrOY5N6s1ZnIQIKP2sm5Lodv6qYwzSdYCD0mfD8TLpLV2bin1KsXExwpKh8G4P4OONe
-	 zVpc/3thhgDdAhd2wijkgOb06Q4x17gx6i6CC69L/rx5x8xlkq18GwWXuW+HjL96pDA==
+	bh=jtR2BCwBiiOXE/nYUDE0bn3/rGtsWTBfFTX/QPsmJxQ=;
+	b=D0e7kM+Z7J8bQNS92iH8uJJdehnL+labBhKqO0iZky2WbKcmaRJOy2f+PTczmZVT9ksL
+	 k5cC0K7jH9Ex0vm9TehZm7uoelE42uhhPai7LZCVpWrgOEObhs3Zz1EZJPv29QTsLp3VL
+	 dL2Te6yPVSd4/k4xoGv9et+o+jvNUP0pGdnRBmMZchhB8uQHNUOSFcbDS/lgsZTcbOUaV
+	 Npk3fhv0E9qxXHC9fzcMU7ocLOjYp6UC94UkMRqPBVPP2sS85yn9n11rB4RiqX5ygVmbm
+	 5um6jiZH7nzSzhzNXhtIy9+WDisttBhRVePkz0+hqSOYgFOIVPTj7I3RP7Wlcdu2pBw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fuqrY/1J";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="oOlGNqW/";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A3A0606A33D;
-	Wed, 25 Nov 2026 20:50:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D1D606A321;
+	Wed, 25 Nov 2026 20:50:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fuqrY/1J
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oOlGNqW/
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795639844;
-	b=M8OdzpVPNbBifoJGuEnBZo7GeRWD3GGHstOGQOAFJK0h8CKTsFFuVo7gucrXGrXOIAPE
-	 px9j0K+7V8TEsEdAALMYUq0Ism94pF0ZVkvujvk2o2lecQWvA1BPYlwV57qjkpae24L/W
-	 vwIhytXTtKkjFB+X4ZIKc3dus2IaC5JjISTk2xbWFxRJUvW1ez9/y3IWCA7p4ClDW+Clz
-	 pe1LaQOc6MSf0Zg4DcQ/32i/YNnRnmofV0LlJsrZK5xHYy7xN9ftwSZcPusAB6x4bcWUo
-	 srRe1xBdF20QazOOTR3duPeVVTelSQowxvBGCQU6yqbdspYv24CbvApNTUnYWe76qhA==
+	t=1795639835;
+	b=DWXa2kU026xFwUE/9vAnx6RGsV98Jr+ehrLO30WViEQuzfEep44gb4qEw8U3e1MOU5ut
+	 l7vp0pGSDrsmH3+oJ3EzK4AP6Xp0UlqGkXZngg152x2kXsiBhRoAyHLZ4forzRC5pRA+F
+	 Gidvo9nOXJ2cY/JRMf+BRy01cOf2VmKqFyE5ZIR0H0LNaH1Wz97JVCrTOcWTMXeWPm5Sg
+	 zkyrhTVluD/iLyepbRLPDbjd3znOWh2wihI9+L+fDDnZzI9IV0O+qrRIghT98Ou6PA4tL
+	 8+zODFwQ2vs+hmWNefTBD6lmb3Ogf/3a2u2SW4ercLqq0RASg+zP/2mrj82edEOwqyg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795639844;
+	c=relaxed/relaxed; t=1795639835;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SCS78tpTYdTFhdyY+WipXI86/bzTlAX6cWgOZmmc0+Y=;
-	b=tzyFOaGvdjQrgFnS1y7GAwS0GGvU+ggqopGjlZkwXVfvy9jKb0oMlfTQbc/or9CIOR/H
-	 otYxsIxo1khRxENz0ROLxZGXwSXGERynxsJqRS9Vbeu8LQr5kvN6ys0Rkoe4JPJqBLLlF
-	 UpRDvoinRjaraInyIUgURnbN5zu6vh30gRO/zO2tYmcYc98sg/1Y/43kATZSqUAGn2m8L
-	 8du892oTkStDd1qYdbAj2fWI7M6sIOoJH3Ke4ONrtwqkFigZyl6zkdZkauQWDbfD7FZS6
-	 i8FhkU+uDCqDUKHIdNtHyuPr8QSgkp3I8XZfkMyuPe9Tq/5L1mrT5yquQ5+5xrMxWPg==
+	bh=jtR2BCwBiiOXE/nYUDE0bn3/rGtsWTBfFTX/QPsmJxQ=;
+	b=igwR/j4o001Yz+WM7W6bp2iuGzIel7U4Nl6TfqK9jXuiH27Z81zcvz1OUr4UhN35gnmg
+	 Yfsm1fUOR85Illeveoc0jWGk4MhRxy9fcXuJZRchZxRAdfzPQ6vksc5NOyw/w0XtY6KNz
+	 U2DsTW2PtDp3SZM/tTJ8Hjy6usSCjaEwYFiv27P9Vj5wu906gpzdv0FWi8P/HTXEPKghw
+	 MnuPYSZLPz7VianWFInwJ+uxE9CLcUL10NEXvyOB5SwsoOZe77uF55DZF3Kof5ufrkiR5
+	 9qnfxLgQ7tBG7LJCudXYt8G7yDPWKCZU6gm9lArS0FEIh8aQdd8HIroY4gP52gR6Zvg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 196D31F000D0;
-	Wed, 25 Nov 2026 20:50:32 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id D60FB1F000CA;
+	Wed, 25 Nov 2026 20:50:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795639843;
-	bh=SCS78tpTYdTFhdyY+WipXI86/bzTlAX6cWgOZmmc0+Y=;
+	s=k20260515; t=1795639835;
+	bh=jtR2BCwBiiOXE/nYUDE0bn3/rGtsWTBfFTX/QPsmJxQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=fuqrY/1J+N86QGm+UDK8BRcrKRMiVAz3w+BNeQcLi7GkdrEBSvhFwhng2ZBG+UeF1
-	 gNZdhfXaB+L6FtI+9PI3u0SVV1VTSPdTqWe0G/WW57q2t2Pkf73HhxzQ8lq+XrYExA
-	 7mfzn+hZBHz4hGVoVvDacJNDfCCC1J+8vrRzyNUwb/I35sQMy7l14EJlHDLq+4D3yI
-	 D3xH+RGXp9N7Yxu748cTkY6pqNQQ5y8c0CYvCHPcSbv9BM7k75nvUtueQUYLDpaHOw
-	 s2+zkDKryrXDfoW2B3npOWymsuW8sJ17LnffU52GXGd2hqQ94yQ0Iqiy01WdInMhO9
-	 96RmypVysF/Ng==
+	b=oOlGNqW/wuKrPdxb8Ew1Lkl6eUy1HyTQ2+tc8RDGsN2YOeb/+0/Xle7IRQmsq3bxo
+	 C7VylX0dYkyAMWrIqplK1/IYUsIJ1qZm4/yfKrGAbSrSJhmreIuBut0HqEVriJyEzt
+	 eKOx0d+pGjWPc04WDXCT1ctLCdBMkx06Y0AQYNlwak6JWwZmQRx5aYqtPu4IY3e2v5
+	 VpT8w0L4qCJHZUayMCjopoJAEMBwz2NOdZwUEdHIvKFP2+M7N64FwR1VlhloKeyNVn
+	 43HnbfpSkOw8t1MiDletp0PAiGWFTiaxHclvThB0aqZjft7jIkQeWnvRL+hUTpCwvk
+	 cbzoon8h0xBjw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 98B644D04B;
+	by lkml.kernel.org (Postfix) with ESMTP id 594504D03C;
 	Wed, 25 Nov 2026 20:50:31 +0000 (UTC)
 From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Wed, 25 Nov 2026 23:50:31 +0300
-Subject: [PATCH RFC net-next 3/7] netfilter: flowtable: expose route MTU
- and established TCP context
+Date: Wed, 25 Nov 2026 23:50:29 +0300
+Subject: [PATCH RFC net-next 1/7] dt-bindings: net: dsa: allow the QCA
+ four-byte tag protocol
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261125-almondplus-offload-rfc-v1-3-703175c6340c@gmail.com>
+Message-Id: <20261125-almondplus-offload-rfc-v1-1-703175c6340c@gmail.com>
 References: <20261125-almondplus-offload-rfc-v1-0-703175c6340c@gmail.com>
 In-Reply-To: <20261125-almondplus-offload-rfc-v1-0-703175c6340c@gmail.com>
 To: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
@@ -105,11 +105,11 @@ Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
  coreteam@netfilter.org, linux-arm-kernel@lists.infradead.org, 
  linux-doc@vger.kernel.org, Fil Dunsky <filipp.dunsky@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795639829; l=3324;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795639829; l=758;
  i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=mLPX1GTSxAne24R9ema/fFYxL0PzB5MRcuwULUd51Mo=;
- b=rfU8dFYcmkSUrzpN97eeL+cHaJoM5iboEZOVkw9d79W6LC4hom5cr3RET0XMqIiSwzQUGGHxF
- cdZ5VuOWBsRAVu8duOnmoDJkv4Lt3juxAipUir/lRCKJoeFM83M22VU
+ bh=wkWk664vl65KKLXoTZskWR/R2hKT7/ZFZXG8a8vLUkk=;
+ b=/eO4EXD1n36cNyH3ASrEAiKexWlKJjTPGD8kpZhI/7Ia3+/vWyKH6iBhrle27HletfgHHNBVX
+ gpEUi5XwYYBDCMK0lIDc8Hybti2nuEAwSXdBZnU7RwLpRbJDx8PeB1N
 X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
  pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
 X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
@@ -120,97 +120,27 @@ Content-Transfer-Encoding: 7bit
 
 From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-Carry the direction route MTU in the classifier request. Snapshot
-established TCP state under the conntrack lock, rejecting dying and
-closing flows. The CS7542 backend needs these facts to install its
-length and TCP exception guards; flower rewrites alone do not supply
-them.
-
-This is an RFC interface proposal. Other flower users leave the added
-fields zero.
+The CS7542 parser needs an EtherType identifier ahead of the QCA
+metadata. Allow CPU ports to select that format through the existing DSA
+property.
 
 Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 ---
- include/net/flow_offload.h            |  5 +++++
- net/netfilter/nf_flow_table_offload.c | 25 ++++++++++++++++++++++++-
- 2 files changed, 29 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/net/dsa/dsa-port.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/include/net/flow_offload.h b/include/net/flow_offload.h
-index 70a02ee14..0f9783b5c 100644
---- a/include/net/flow_offload.h
-+++ b/include/net/flow_offload.h
-@@ -699,8 +699,13 @@ struct flow_cls_offload {
- 	struct flow_rule *rule;
- 	struct flow_stats stats;
- 	u32 classid;
-+	u16 nf_route_mtu;
-+	bool nf_tcp_established;
- };
- 
-+#define NF_FLOW_CLS_HAS_ROUTE_MTU 1
-+u16 nf_flow_offload_route_mtu(const struct flow_cls_offload *cls);
-+
- enum offload_act_command  {
- 	FLOW_ACT_REPLACE,
- 	FLOW_ACT_DESTROY,
-diff --git a/net/netfilter/nf_flow_table_offload.c b/net/netfilter/nf_flow_table_offload.c
-index 436585922..686781363 100644
---- a/net/netfilter/nf_flow_table_offload.c
-+++ b/net/netfilter/nf_flow_table_offload.c
-@@ -13,6 +13,7 @@
- #include <net/netfilter/nf_conntrack.h>
- #include <net/netfilter/nf_conntrack_acct.h>
- #include <net/netfilter/nf_conntrack_core.h>
-+#include <net/netfilter/nf_conntrack_l4proto.h>
- #include <net/netfilter/nf_conntrack_tuple.h>
- 
- #define NF_FLOW_RULE_ACTION_MAX	24
-@@ -885,6 +886,16 @@ static int nf_flow_offload_alloc(const struct flow_offload_work *offload,
- 	return 0;
- }
- 
-+/* The flowtable records the route MTU independently for each direction. */
-+u16 nf_flow_offload_route_mtu(const struct flow_cls_offload *cls)
-+{
-+	if (!cls || cls->command != FLOW_CLS_REPLACE || !cls->rule)
-+		return 0;
-+
-+	return cls->nf_route_mtu;
-+}
-+EXPORT_SYMBOL_GPL(nf_flow_offload_route_mtu);
-+
- static void nf_flow_offload_init(struct flow_cls_offload *cls_flow,
- 				 __be16 proto, int priority,
- 				 enum flow_cls_command cmd,
-@@ -896,6 +907,7 @@ static void nf_flow_offload_init(struct flow_cls_offload *cls_flow,
- 	cls_flow->common.extack = extack;
- 	cls_flow->command = cmd;
- 	cls_flow->cookie = (unsigned long)tuple;
-+	cls_flow->nf_route_mtu = tuple->mtu;
- }
- 
- static int nf_flow_offload_tuple(struct nf_flowtable *flowtable,
-@@ -914,8 +926,19 @@ static int nf_flow_offload_tuple(struct nf_flowtable *flowtable,
- 
- 	nf_flow_offload_init(&cls_flow, proto, priority, cmd,
- 			     &flow->tuplehash[dir].tuple, &extack);
--	if (cmd == FLOW_CLS_REPLACE)
-+	if (cmd == FLOW_CLS_REPLACE) {
- 		cls_flow.rule = flow_rule->rule;
-+		if (flow->tuplehash[dir].tuple.l4proto == IPPROTO_TCP &&
-+		    flow->ct) {
-+			spin_lock_bh(&flow->ct->lock);
-+			cls_flow.nf_tcp_established =
-+				nf_conntrack_tcp_established(flow->ct) &&
-+				!nf_ct_is_dying(flow->ct) &&
-+				!test_bit(NF_FLOW_TEARDOWN, &flow->flags) &&
-+				!test_bit(NF_FLOW_CLOSING, &flow->flags);
-+			spin_unlock_bh(&flow->ct->lock);
-+		}
-+	}
- 
- 	down_read(&flowtable->flow_block_lock);
- 	list_for_each_entry(block_cb, block_cb_list, list) {
+diff --git a/Documentation/devicetree/bindings/net/dsa/dsa-port.yaml b/Documentation/devicetree/bindings/net/dsa/dsa-port.yaml
+index 480120469..30c6f70c9 100644
+--- a/Documentation/devicetree/bindings/net/dsa/dsa-port.yaml
++++ b/Documentation/devicetree/bindings/net/dsa/dsa-port.yaml
+@@ -53,6 +53,7 @@ properties:
+     enum:
+       - dsa
+       - edsa
++      - qca4
+       - ocelot
+       - ocelot-8021q
+       - rtl8_4
 
 -- 
 2.53.0
