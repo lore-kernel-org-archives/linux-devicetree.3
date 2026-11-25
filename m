@@ -1,57 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795566487;
-	b=tk7YXOe4rhJOXWw9YPvd6ieDtA0YtpQlf4nrHj8WWFzNShCz3VNjhysQQT5A2D8rgN0o
-	 auR63cL165ETLN0avNbhe0kkJnjGb3G2gdr2GMZQ85F0L/m3ow+GwBZDAJjTzSYv4kXdT
-	 f2o3TfexF5m1aCoR3YQcVPv+QbJt4XRSxgcuT8gBPSNUOBEOWHNhRcfqSLXzcV29PpUyZ
-	 lr4yqRDzYKrI7C6u7K0VWuCeXiZIUh9ZCM4XzJ9Ggz82MZVesW2pMhNvKDK2U5s3xD6bO
-	 DjzMQFfBKzOAb64VxElxjemcgRzdIImSoVWVM0nDuke7UORiycR5cZWEx6J3cgUIhqQ==
+	t=1795566497;
+	b=QZF/kM9Ejdb7u40Z1sxWwIAKuouYfFFd+VUb+OaQXxieL75xKeHwl4Jdwwkt9Uukux3j
+	 i45jxSQ55RknHy1Syq5Se0EUDWcz7G0QFDZwYkxMQSNE2FXnA5laeQqasqCjNPUrNi8Nv
+	 UvkIXPKnnCmnEp5v6mrnB2w6P725k2Xr7K0puGJQ4Y0hy7EgqDQLvKH7lgWtDVdJiMF2y
+	 le/xE0Xm984/dLH7xZHa436sMT9f3kpDv7h85uW0qQ9Bk8+GLXy8Q8+NXD/uaPF9smC5s
+	 p9iWmeWJZ4QQf9wlTgAW8ywxyQFCvXaRD3V+SGTPqmOZcgr4SEMW8a0YHzhfKiHjQTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795566487;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=45XYvXCnsTztfQJbckdOLzVgr9QtBfYxpIN2pBuk+co=;
-	b=g0ZrtIftw6uuku2b2dUhaNe7KMuFKlYDxvWBBZF4UR1eOEJVCRP5GXeXfGL6Tn36ZRH2
-	 H0H3pM+KffN9wXxZgOZfFNlBxWaSbqA9Uchx0DXbYDYs0m8ERjfd5IZUn/uJoRGskSDM9
-	 F2OhnvZNRL+LahUnR8yv34PbxA8LZguTr1xH5yFZegl8L/igQaYA8mAhJIiyeYyThO+df
-	 PpDZvUNmXKiyp9NMsdl5uKP+BEgD9DyTNMiTj2BeQcSfpYArpgc9DSNaTa7R0YRONUclF
-	 ZAc/gSFXhjvN5zVkXwXOZrqUUr1l0aFWoV2YfAVWCNR93AXBN/RH9tzRxnGfKvfz/yg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795566497;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=4cYK1lEzGFvAYvDZ/avImi3mF1WEUIb3JoIJl5AZEJ4=;
+	b=mSM58L586hZuPPm7wELbPezAvQC0ftTGZRmulyelBQjEmNANmttazuAENf10cYlnW20w
+	 2oQad+g59DwEs2dkn+QeF22C3KjZdIWLjGwkzH/OOGoK9m63rmjsLfUD8QyHNs4pb0kfN
+	 v22MMR3BmqkHjSsXYODUPexc0o88Y8Bgy9IbOQOcG6VYOxp6p8v6VGDjnZOr0MfyO73jB
+	 rCLpN9F+3NirsgsO5D3UY5ptaDFDuYGKzTRHWH0fFarsAEvbYJMvzbZ5VrUEudNkyh7SG
+	 r9aYktLFm9bqKiZw18T4ezGmnBJA8Fc9HvmmzFnOC2fsjrpU/aownziqmxSXH7YRGQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mXnpKpIm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Bg76va/U";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3940606A31E
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 00:28:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FCE2606A31E;
+	Wed, 25 Nov 2026 00:28:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mXnpKpIm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FAB91F000C4;
-	Wed, 25 Nov 2026 00:28:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bg76va/U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62B811F000C4;
+	Wed, 25 Nov 2026 00:28:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795566487;
-	bh=45XYvXCnsTztfQJbckdOLzVgr9QtBfYxpIN2pBuk+co=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mXnpKpImFz2pcqBjHafud6WD94ZHOtfoocmrzxkw8NZTdFH2kjYuEdebsltmMJp7T
-	 rEIicILNqlQuMebovHXAjzCIo8Qq5ICLBga7sOVnuonSXYlZSgoVmHZv+igygJrhTy
-	 1IH8/veav+GnoETefrf31WdA59JD0WihYKCNbKJMqfIIjxsOe5/L3CcWUMZRuGNJzH
-	 tDWIQTtqNAwiUfQYZgClUbHjW6TwYTeIWB0cW//Yh13F3o85BNrj3lJBHTOxwZbce2
-	 ZOvoqXL2lDe14GXgLTBDzTYlECwZaIGMK6Tpg/tF0uAu71g/ESwZtCTLtka0SM68gL
-	 DMQ7APZBZogzQ==
-Message-ID: <sashiko-outbox-232292@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] misc: fastrpc: query the dsp capabilities during
- probe time
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Anandu Krishnan E" <anandu.e@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261125-fastrpc-hpass-support-v1-3-cb1d46b29e3b@oss.qualcomm.com>
-References: <20261125-fastrpc-hpass-support-v1-0-cb1d46b29e3b@oss.qualcomm.com>
- <20261125-fastrpc-hpass-support-v1-3-cb1d46b29e3b@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 00:28:06 +0000
+	s=k20260515; t=1795566497;
+	bh=4cYK1lEzGFvAYvDZ/avImi3mF1WEUIb3JoIJl5AZEJ4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Bg76va/UXXf+7TnAoEKv76ySXVUwHA/njtFfkdkEXayn1Uw3hmPMk393MKQcN9l7z
+	 5aXvOmh1eYNtyTYzOklkeOra795PEm/s7IEcwPdbjxSECyk/zHccrKQXuxGtxlNypk
+	 J/rp10/mCpp/lA7/ioBRlTv17a27suzPIvxqRmKgxlFrd0lm3dHfXQjoQRl/6ZwnBs
+	 /WQlXsy7lP+jLwIqs2b6CSTZczfQSIGW7bk5WulKfNl2U1lpNowCUDRlLtCJ+1n0nZ
+	 A9nO/LseZIAZ+O5WCAe5Vb7TKG2jAxrP0nEaPTUszQx53F3ExImEM5Smv+bikN8fvQ
+	 cvugdxjifom3A==
+Subject: Re: [PATCH net-next v3 1/5] net: hix5hd2_gmac: Use devm_ managed
+ netdev and MDIO bus
+From: netdev-bot+sashiko@kernel.org
+To: mmyangfl@gmail.com
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, shenjian15@huawei.com,
+ shaojijie@huawei.com, devicetree@vger.kernel.org
+Date: Wed, 25 Nov 2026 00:28:15 +0000
+Message-ID: <179556649591.3135.5859948318668585825@kernel.org>
+In-Reply-To: <20261124002442.19414-2-mmyangfl@gmail.com>
+References: <20261124002442.19414-2-mmyangfl@gmail.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,323 +63,118 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [High] misc: fastrpc: NULL deref and teardown race in
-  fastrpc_cap_query_work()
-- [High] misc: fastrpc: leak of ctx, DMA buf, fl, and cctx in
-  fastrpc_cap_query_work()
-- [Medium] misc: fastrpc: race duplicating ADSP sessions after
-  misc_register()
-- [Medium] misc: fastrpc: misuse of WQ_MEM_RECLAIM on per-channel cap_wq
-  in probe()
-It also noticed 1 related pre-existing issue this patch does not
-introduce:
-- [High] misc: fastrpc: NULL pointer dereference in
-  fastrpc_remote_heap_alloc() [1]
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
+
+Low priority / nit picks for your consideration:
+
+- [Low] On a probe failure, the MDIO bus is now torn down after the MAC
+  clocks are already off.
+
 --
 
-commit 5d26fca6a35553f861e698fe1de404c633098aee
-Author: Anandu Krishnan E <anandu.e@oss.qualcomm.com>
+net: hix5hd2_gmac: Use devm_ managed netdev and MDIO bus
 
-misc: fastrpc: query the dsp capabilities during probe time
+This commit switches hix5hd2_gmac to devm_alloc_etherdev(),
+devm_mdiobus_alloc() and devm_of_mdiobus_register(). It drops the
+manual free_netdev() and mdiobus_unregister()/mdiobus_free() calls from
+the probe error path and from hix5hd2_dev_remove().
 
-This commit moves the DSP capability query to an asynchronous per-channel
-workqueue at probe time and registers the FastRPC device nodes once the
-query completes.
+> diff --git a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
+> index 12a5657653f85..d129aeceb641e 100644
+> --- a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
+> +++ b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index c515097c3d3ba..59ef755feeaf0 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
 [ ... ]
-> @@ -2704,6 +2708,159 @@ static int fastrpc_init_reserved_mem(struct fastr=
-pc_channel_ctx *cctx,
->  				  cctx->vmperms, cctx->vmcount);
+
+> @@ -1189,21 +1189,21 @@ static int hix5hd2_dev_probe(struct platform_device *pdev)
+>  	snprintf(bus->id, MII_BUS_ID_SIZE, "%s-mii", dev_name(&pdev->dev));
+>  	priv->bus = bus;
+>  
+> -	ret = of_mdiobus_register(bus, node);
+> +	ret = devm_of_mdiobus_register(dev, bus, node);
+>  	if (ret)
+> -		goto err_free_mdio;
+> +		goto out_disable_clk;
+
+[ ... ]
+
+> @@ -1269,16 +1269,10 @@ static int hix5hd2_dev_probe(struct platform_device *pdev)
+>  	hix5hd2_destroy_hw_desc_queue(priv);
+>  out_phy_node:
+>  	of_node_put(priv->phy_node);
+> -err_mdiobus:
+> -	mdiobus_unregister(bus);
+> -err_free_mdio:
+> -	mdiobus_free(bus);
+>  out_disable_clk:
+>  	clk_disable_unprepare(priv->mac_ifc_clk);
+>  out_disable_mac_core_clk:
+>  	clk_disable_unprepare(priv->mac_core_clk);
+> -out_free_netdev:
+> -	free_netdev(ndev);
+>  
+>  	return ret;
 >  }
-> =20
-> +static int fastrpc_register_devices(struct fastrpc_channel_ctx *cctx,
-> +				    struct rpmsg_device *rpdev)
-> +{
-> +	struct device *rdev =3D &rpdev->dev;
-> +	int err, i;
-> +
-> +	switch (cctx->domain_id) {
-> +	case ADSP_DOMAIN_ID:
-> +	case MDSP_DOMAIN_ID:
-> +	case SDSP_DOMAIN_ID:
-> +	case HPASS_DOMAIN_ID:
-> +		cctx->unsigned_support =3D false;
-> +		err =3D fastrpc_device_register(rdev, cctx, cctx->secure, cctx->domain=
-);
-> +		if (err)
-> +			goto err_depopulate;
-> +		break;
-[ ... ]
-> +	/* Duplicate the last session so multiple processes can share
-> +	 * the same compute bank.
-> +	 */
-> +	if (cctx->domain_id =3D=3D ADSP_DOMAIN_ID && cctx->sesscount > 0) {
-> +		struct fastrpc_session_ctx *last_sess;
-> +		struct fastrpc_session_ctx *dup_sess;
-> +		unsigned long flags;
-> +
-> +		spin_lock_irqsave(&cctx->lock, flags);
-> +		last_sess =3D &cctx->session[cctx->sesscount - 1];
-> +		for (i =3D 0; i < FASTRPC_DUP_SESSIONS; i++) {
-> +			if (cctx->sesscount >=3D FASTRPC_MAX_SESSIONS)
-> +				break;
-> +			dup_sess =3D &cctx->session[cctx->sesscount++];
-> +			memcpy(dup_sess, last_sess, sizeof(*dup_sess));
-> +		}
-> +		spin_unlock_irqrestore(&cctx->lock, flags);
-> +	}
 
-[Severity: Medium]
-Can an open() right after fastrpc_device_register() cause memcpy() to mark
-all duplicated ADSP sessions as used?
+[Severity: Low]
+Does this change when the MDIO bus is torn down, relative to the clocks,
+if hix5hd2_dev_probe() fails?
 
-Before this patch, fastrpc_device_register() ran before
-fastrpc_cb_devices_create(), so cctx->sesscount was 0 when the miscdevice
-appeared.  Now cctx->sesscount is already populated when
-fastrpc_device_register() exposes the device node:
+Before this patch, a failure after of_mdiobus_register() ran
+mdiobus_unregister() while mac_ifc_clk and mac_core_clk were still
+enabled. Now the error path disables both clocks and returns. Devres then
+runs devm_mdiobus_unregister() -> mdiobus_unregister() with the clocks
+off.
 
-CPU0 (kworker)                    CPU1 (userspace open)
-fastrpc_register_devices()
-  fastrpc_device_register()
-    misc_register()
-                                  fastrpc_device_open()
-                                    fastrpc_session_alloc()
-                                      session[sesscount - 1].used =3D true
-  spin_lock_irqsave(&cctx->lock)
-  last_sess =3D &cctx->session[cctx->sesscount - 1]
-  memcpy(dup_sess, last_sess, ...)
-    /* copies used =3D true into all 4 dup_sess slots */
+These failures take that path:
 
-Those duplicated session slots have no owning fastrpc_user and remain
-unallocatable for the lifetime of the channel.  Duplicating the ADSP
-sessions before calling fastrpc_device_register() avoids exposing the
-partially initialized session table.
+- missing phy-mode or phy-handle
+- platform_get_irq() errors, including -EPROBE_DEFER
+- devm_request_irq() failure
+- descriptor queue allocation failure
+- register_netdev() failure
 
-[ ... ]
+If the bus scan found a PHY and bound it to a driver, mdiobus_unregister()
+calls phy_remove() through device_del(). phy_remove() can do MDIO I/O:
 
-> +static void fastrpc_cap_query_work(struct work_struct *work)
-> +{
-> +	struct fastrpc_channel_ctx *cctx =3D
-> +		container_of(work, struct fastrpc_channel_ctx, cap_query_work);
-> +	struct rpmsg_device *rpdev =3D cctx->rpdev;
-> +	struct device *rdev =3D &rpdev->dev;
-> +	u32 *dsp_attributes;
-> +	struct fastrpc_user *fl;
-> +	unsigned long flags;
-> +	int err;
-> +
-> +	fl =3D kzalloc_obj(*fl);
-> +	if (!fl)
-> +		goto register_devices;
-> +
-> +	spin_lock_init(&fl->lock);
-> +	mutex_init(&fl->mutex);
-> +	INIT_LIST_HEAD(&fl->pending);
-> +	INIT_LIST_HEAD(&fl->maps);
-> +	INIT_LIST_HEAD(&fl->mmaps);
-> +	INIT_LIST_HEAD(&fl->user);
-> +	fl->cctx =3D cctx;
-> +	fl->pd =3D ROOT_PD;
-> +	kref_init(&fl->refcount);
-> +	fastrpc_channel_ctx_get(cctx);
-> +
-> +	fl->sctx =3D fastrpc_session_alloc(fl);
-> +	if (!fl->sctx) {
-> +		dev_warn(rdev, "no session for capability query, skipping\n");
-> +		fastrpc_user_put(fl);
-> +		goto register_devices;
-> +	}
-> +
-> +	dsp_attributes =3D kzalloc_objs(*dsp_attributes, FASTRPC_MAX_DSP_ATTRIB=
-UTES);
-> +	if (!dsp_attributes)
-> +		goto err_cleanup_register;
-> +
-> +	/* Linked into cctx->users so fastrpc_rpmsg_remove() can abort us
-> +	 * via fastrpc_notify_users() instead of waiting out the timeout.
-> +	 */
-> +	spin_lock_irqsave(&cctx->lock, flags);
-> +	if (!cctx->rpdev) {
-> +		spin_unlock_irqrestore(&cctx->lock, flags);
-> +		goto err_cleanup_noreg;
-> +	}
+phy_remove()
+    phy_leds_unregister()
+        led_classdev_unregister()
+            led_set_brightness(LED_OFF)
+    phydev->drv->remove()
 
-[Severity: High]
-This problem wasn't introduced by this patch, but fastrpc_rpmsg_remove()
-clears cctx->rpdev without waiting for in-flight invocations [1],
-which can cause a NULL pointer dereference in fastrpc_remote_heap_alloc().
+The LED_OFF write happens unless the DT sets retain-state-shutdown.
 
-fastrpc_internal_invoke() checks fl->cctx->rpdev locklessly and does not
-hold the lock across argument allocation:
+Those accesses go through hix5hd2_mdio_read() and hix5hd2_mdio_write().
+Both poll the MAC register window in priv->base:
 
-CPU0                              CPU1
-fastrpc_internal_invoke()
-  if (!fl->cctx->rpdev)
-                                  fastrpc_rpmsg_remove()
-                                    spin_lock_irqsave(&cctx->lock, ...)
-                                    cctx->rpdev =3D NULL
-                                    spin_unlock_irqrestore(&cctx->lock, ...)
-  fastrpc_get_args()
-    fastrpc_remote_heap_alloc()
-      rdev =3D &fl->cctx->rpdev->dev
-      __fastrpc_buf_alloc(..., rdev, ...)
-        <-- NULL pointer dereference
-
-> +	list_add_tail(&fl->user, &cctx->users);
-> +	spin_unlock_irqrestore(&cctx->lock, flags);
-> +
-> +	err =3D fastrpc_get_info_from_dsp(fl, dsp_attributes, FASTRPC_MAX_DSP_A=
-TTRIBUTES);
-> +
-> +	spin_lock_irqsave(&cctx->lock, flags);
-> +	list_del(&fl->user);
-> +	spin_unlock_irqrestore(&cctx->lock, flags);
-> +
-> +	if (err =3D=3D -EPIPE) {
-> +		/* Channel is going away; remove() will tear it down. */
-> +		goto err_cleanup_noreg;
-> +	}
-
-[Severity: High]
-Can a concurrent fastrpc_rpmsg_remove() trigger a NULL pointer dereference
-or register device nodes on a removed channel in fastrpc_cap_query_work()?
-
-fastrpc_rpmsg_remove() sets cctx->rpdev =3D NULL and calls
-fastrpc_notify_users() once before waiting in
-cancel_work_sync(&cctx->cap_query_work).  At the top of
-fastrpc_cap_query_work(), rpdev =3D cctx->rpdev is read without holding
-cctx->lock or checking for NULL:
-
-CPU0                              CPU1 (kworker)
-fastrpc_rpmsg_remove()
-  spin_lock_irqsave(&cctx->lock)
-  cctx->rpdev =3D NULL
-  spin_unlock_irqrestore(&cctx->lock)
-  cancel_work_sync(&cctx->cap_query_work)
-                                  fastrpc_cap_query_work()
-                                    rpdev =3D cctx->rpdev  /* NULL */
-                                    fastrpc_session_alloc() -> NULL
-                                    goto register_devices
-                                    fastrpc_register_devices(cctx, NULL)
-                                      fastrpc_device_register(NULL, ...)
-                                        <-- NULL pointer dereference
-
-Even when cctx->rpdev is non-NULL at the locked check before
-fastrpc_get_info_from_dsp(), dropping cctx->lock allows
-fastrpc_rpmsg_remove() to clear cctx->rpdev and run fastrpc_notify_users()
-before fastrpc_context_alloc() adds ctx->node to fl->pending;
-fastrpc_invoke_send() then dereferences cctx->rpdev->ept while cctx->rpdev
-is NULL.
-
-Also, if fastrpc_rpmsg_remove() clears cctx->rpdev after
-fastrpc_get_info_from_dsp() has already returned (for example with 0 or
--ETIMEDOUT), err is not -EPIPE, so fastrpc_cap_query_work() falls through
-to register_devices and registers the miscdevices during teardown.
-
-[ ... ]
-
-> +err_cleanup_register:
-> +	kfree(dsp_attributes);
-> +	fastrpc_session_free(cctx, fl->sctx);
-> +	fl->sctx =3D NULL;
-> +	fastrpc_user_put(fl);
-> +	goto register_devices;
-> +
-> +err_cleanup_noreg:
-> +	kfree(dsp_attributes);
-> +	fastrpc_session_free(cctx, fl->sctx);
-> +	fl->sctx =3D NULL;
-> +	fastrpc_user_put(fl);
-> +	return;
-
-[Severity: High]
-Does fastrpc_cap_query_work() leak the invoke context, its DMA buffer, fl,
-and cctx when fastrpc_get_info_from_dsp() fails with -ETIMEDOUT or -EPIPE?
-
-fastrpc_context_alloc() takes a reference on fl (released only in
-fastrpc_context_free()) and a reference on cctx, and fastrpc_invoke_send()
-takes a second reference on ctx for the rpmsg reply callback:
-
-drivers/misc/fastrpc.c:fastrpc_internal_invoke() {
+hix5hd2_mdio_wait_ready() {
     ...
-bail:
-	if (err !=3D -ERESTARTSYS && err !=3D -ETIMEDOUT) {
-		/* We are done with this compute context */
-		spin_lock(&fl->lock);
-		list_del(&ctx->node);
-		spin_unlock(&fl->lock);
-		fastrpc_context_put(ctx);
+	for (i = 0; readl_relaxed(base + MDIO_SINGLE_CMD) & MDIO_START; i++) {
+		if (i == timeout)
+			return -ETIMEDOUT;
+		usleep_range(10, 20);
 	}
     ...
 }
 
-On -ETIMEDOUT, fastrpc_internal_invoke() leaves ctx on fl->pending without
-dropping its reference.  fastrpc_user_put(fl) here only drops fl->refcount
-from 2 to 1 because ctx still holds a reference to fl, while fl->pending is
-only drained in fastrpc_user_free(), leaving fl and ctx in a reference
-cycle.  In addition, fastrpc_session_free(cctx, fl->sctx) releases the
-session back to the pool for reuse while ctx->buf is still mapped on that
-session's IOMMU context bank.
+With the MAC block unclocked, could these accesses time out (up to 10000
+iterations per access)? Could they read a stale ready value and lose the
+write, or stall the bus on some SoCs?
 
-On -EPIPE from fastrpc_notify_users(), fastrpc_internal_invoke() removes
-ctx from fl->pending and calls fastrpc_context_put(ctx) once, dropping
-ctx->refcount from 2 to 1.  Because the channel is being removed and the
-rpmsg callback will not run, the second reference taken by
-fastrpc_invoke_send() is never dropped, so ctx, ctx->buf, fl, and cctx are
-never freed.
+Before this patch, hix5hd2_dev_remove() already called
+mdiobus_unregister() with the clocks off, because probe and ndo_stop
+both disable them. The new ordering only affects the unwind after a
+failed probe.
 
-[ ... ]
+The same ordering is still there after the later patch in this series,
+"net: hix5hd2_gmac: Support fixed-link". Its out_phy_node and
+out_disable_clk labels disable the clocks while devres still holds the
+registered bus.
 
-> @@ -2804,31 +2933,27 @@ static int fastrpc_rpmsg_probe(struct rpmsg_devic=
-e *rpdev)
-> =20
->  	err =3D fastrpc_cb_devices_create(rpdev);
->  	if (err)
-> -		goto err_deregister_fdev;
-> -
-> -	if (data->domain_id =3D=3D ADSP_DOMAIN_ID && data->sesscount > 0) {
-> -		struct fastrpc_session_ctx *last_sess;
-> -		struct fastrpc_session_ctx *dup_sess;
-> -		unsigned long flags;
-> +		goto err_unmap_heap;
-> =20
-> -		spin_lock_irqsave(&data->lock, flags);
-> -		last_sess =3D &data->session[data->sesscount - 1];
-> -		for (i =3D 0; i < FASTRPC_DUP_SESSIONS; i++) {
-> -			if (data->sesscount >=3D FASTRPC_MAX_SESSIONS)
-> -				break;
-> -			dup_sess =3D &data->session[data->sesscount++];
-> -			memcpy(dup_sess, last_sess, sizeof(*dup_sess));
-> -		}
-> -		spin_unlock_irqrestore(&data->lock, flags);
-> +	/* Probe returns immediately; the capability query and device node
-> +	 * registration happen asynchronously on this channel's own queue.
-> +	 */
-> +	data->cap_wq =3D alloc_ordered_workqueue("fastrpc_cap_wq_%s",
-> +					       WQ_HIGHPRI | WQ_MEM_RECLAIM,
-> +					       domain);
-
-[Severity: Medium]
-Should this workqueue be allocated without WQ_MEM_RECLAIM, or use a shared
-system workqueue instead?
-
-WQ_MEM_RECLAIM spawns a dedicated rescuer kthread per channel that stays
-alive until fastrpc_rpmsg_remove(), and requires the work item not to enter
-direct memory reclaim.  fastrpc_cap_query_work() is not part of a memory
-reclaim path and performs GFP_KERNEL allocations in kzalloc_obj(),
-dma_alloc_coherent(), and misc_register().  Queuing cap_query_work on
-system_highpri_wq (or system_dfl_wq) would run queries for different
-domains concurrently without a per-channel workqueue or rescuer kthread.
-
-[1] https://sashiko.dev/#/bug/linux-94614a33-7b4b-4011-a75a-fc1470b783b0
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-fastrpc-hp=
-ass-support-v1-0-cb1d46b29e3b@oss.qualcomm.com?part=3D3
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261124002442.19414-1-mmyangfl%40gmail.com
