@@ -1,95 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795605545;
-	b=yoQHg9c+2y5ZyWPYC2b8LQLY//Vu7MyvMlMfZ2PpgnHuKcs7BJ7qZQ8c3iJZ1tcCFw0J
-	 7zm3KwR+lt4Ul7EffuLxiRGGb528wxfkkRXaOcA/D3BtFem+XtD/fvx19ry4XINvpOQrR
-	 u4wAPHdkzYHYTXj6t9BdbLsnRbtKnd4C3+dRpNi6cNrNNdNCL6hIWUdfwyiz+KE9Mz1Cs
-	 sPHXFgy/CrfGcukXrjeX5PLtxtU0RpqJZobuYlof1h0KP3Rh0XmDzCXTthp0D8U/LBPLL
-	 SlnloO+0mR8DpwzYTEppSxhJ7lkqbu+piO+chrNFLAIRLwoZpbyPdK1UiQ6uKgNzuLQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795605545;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=GxX/KRbPOCkNcpI6+Rv+y3C1vdctOR1gnbhti2p7x78=;
-	b=cdC0h8+23ElJ/qUZfh2xEsmxWrQYsHicKBSBkQEv8FxF2uPOZxW7jy77M8g16mwpIfpn
-	 EHFRo8W2MzsEL+u9ZqND7gIeoEYTnkulb/usJOiET5hPteiMW6uJzaJNxbFYMND2Z61Ys
-	 yurme5fr4LTL5RIkAYcCra2Z2+kQGNdyJL3yaCZvwmrOzfqZ+uY8IjmG8qJ10n1y+oOSk
-	 e0OhnDl3md5aUTS97wl4G37moLyLFd1MzN5rmV54/ephwNO0aGsPOospaT8mOfSoEcosS
-	 ZJrjUHmgxAW3r7N2OKelg7E8O6hQi/+naNWEaObKLboJcJ8Mkendu1y4PagshEwlpEA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ND8caDPt;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795605561;
+	b=5qcUBh8ipsQEGjNyMzk7XbX+RYIzEd2N9CNRJIav5wxZYB4MFG6vmNdsWIvjs9Wn7EDh
+	 ajRTc2jY8r6nkICnV+Ch7uv7I238f8RgAxmZqOrARK+740mR9HM/bjjHJL4uvqp0CEA5l
+	 rZaFKqlhMRBDUKLqkP5yxOgploG/X4NRFnQBYBa7iSguuAJ6S2NEvXsBmiHJFC5I1V5Gr
+	 3NnUSYFwEr2xjErrEJ8xQqfEdiiatSDduFcj0MhaL8WwfLbLT8ICM9jSDOj4BCYHOJGI2
+	 ynoVegePiRb6ck9ouQXvBKFLE2cvQywL3WUYT1btJs5ALE6TYKaC9C34sQMnmfjcJqg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795605561;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=zuwArTIXOeerY6ZEsKaeabgGF34VA3gXqMaQydU/3xg=;
+	b=M0mkG/qCujy8n+G2kagOg/sqGsJgat3LMMXsyGfd5wtDiKC9t+2Ywucw8VD/rUtjP8iV
+	 TfqTf3XvpUoluH0o6TFqEK+ZB0v37BjNZ35yc/nObuXBHyBhA3vmt0L2ms8TWEkNZhFVN
+	 Q1IqE6hMtTJRLX3Q1+MITZ7PfwZGeZl7wlithMZTK1erDIpivVAoI680j1opfSq9WX58Q
+	 XduWSRsNGmPHeSfNEND+uxEPhhuVC6ayD+IgpZr4jJ8gusx7XXcLaGn0KWbqFT7SXlRa8
+	 tuDk17Ge6wg3w4aaOQltRMafcGGMD9Za7W518B2JcYAAMoC0Yq2Av/zBxVhQlOBl94g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gmYrjQY7;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A4D606A31E;
-	Wed, 25 Nov 2026 11:19:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08A4D606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA6E606A31E;
+	Wed, 25 Nov 2026 11:19:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FA6E606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ND8caDPt
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D3653200037;
-	Wed, 25 Nov 2026 12:19:01 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795605541;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GxX/KRbPOCkNcpI6+Rv+y3C1vdctOR1gnbhti2p7x78=;
-	b=ND8caDPtAtwSt2twEzOI9yd23v7XoHTcw3Lw75soG+EgPPdsxEsyeKFRqw3o2OJj0+TUzj
-	J7IXvqEPYXLVGxpJlClodDCtLA2Y9/UttaL24O1/4duPyQ+7hR3bNCNIkjGiDqS45AZXfS
-	TUHYz92xXymEQ8g2KPiD/+7n8xWLJOmbbgZl4oFmj9YwMTjhB+n41JgdrrZML7GKeFPByK
-	s/K0GIj0CK201ZobwEdkLq81BLSrr4fsV+OoHH1L+i+QLcXFjV6AI2aOnjKz8f0fONFT68
-	UEWBflYzR5ksPTXOE7wnfq9Z0Bebnb6vyUTQgS3lmINxpglpduxf/s19eQXfEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795605541;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GxX/KRbPOCkNcpI6+Rv+y3C1vdctOR1gnbhti2p7x78=;
-	b=WqiiQewmo0FmvuOi0s68OfMRBs5PYHt+D0x6sC1rdx4AkWRlZtMV64ly3nChAwtay3i/D/
-	KZJz1SF/34GeiOLX27KgTSmP/CugUidVkWK/hNpS2ehhf9Dpdn9y7rK5jev4imffiavUeJ
-	VzH3GikUFg4kM3UArUrG/h36XsQDQ1ueUSDxIXiY204waLoiJ9e5EXQA6vhujtXvzmKPI7
-	Bs2oexxvGf7WgaWws0aHWLw9VJA+eLcjAWBAK525+27boroqvCgErmBZchsgDP7MES3NQe
-	GkiH4OGKDI+R0WZsoLnesFC0Izz1MmsRNusgtCaKWk0eAQJEftIWcnt/vfdJIw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795605541; a=rsa-sha256;
-	cv=none;
-	b=E2vdOFTcAHnNOSiEGiSk+Zlfwi6N+BNzk23sLgZZBZE2o101/3UN2MYavVsFgkGXjKO4z+
-	Vaf7P2AvBz33O15djLWn3mVB4diMO0ILb08HR6gxkbYzL4Z8NrgZfTSbUuAz6IOOUe20XI
-	dl4PExN2wBA6VO4Nf2F6MFLdODSeJAbqT6IXtbkkU15DA6ckZJzRLWAYFiJwViV6XzSJxC
-	hPwf0Blh0g/gS8XQLaUkHj7ReYhNppFrt318xWzAtaqm8xN31Zt2BJiRPopdX6pvFAgzaw
-	5/T8K7EUz5bVaTSl9Xlky/A6hkZ5U/NkzTXDYUVLIE2YFLbrzDH5rgJAemGUgg==
-Message-ID: <3b8b8d154a841d80de20d31c32b2fb4faba11480.camel@pengutronix.de>
-Subject: Re: [PATCH v4 4/6] reset: Add Cortina Systems CS7542 global reset
- controller
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: filipp.dunsky@gmail.com, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Stephen Boyd	 <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet	 <jbrunet+clk@baylibre.com>, Linus Walleij
- <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Date: Wed, 25 Nov 2026 12:19:01 +0100
-In-Reply-To: <20261125-cs7542-syscon-v4-4-3337bb0d3b48@gmail.com>
-References: <20261125-cs7542-syscon-v4-0-3337bb0d3b48@gmail.com>
-	 <20261125-cs7542-syscon-v4-4-3337bb0d3b48@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gmYrjQY7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795605560; x=1827141560;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=V8g/GOZVVfOotdBnNwGUmBWfGRAM3Wnv7Uxvic56ZSs=;
+  b=gmYrjQY78M8Fvg1hjKD6TAAXVGwgKeIUZBm/2CCCocCgFfgudKOe5tmt
+   YLC7nJcsIzdhPIBlo7OcghnNy+/4HwLny/JESrvf/Kt4bUODpTyUWrBuZ
+   BsoDT7CV1My4pkibsXRNIT+96DYLvN+30dlwHE1JOKj8yQgg+YZFYCNbr
+   3tv31Fm4VIcUWmZ3X2VmLoqudyHqSuONns/iUlDOReC5xwXQYcUuWHtUk
+   Jz2hD+kb4SvPAcn582vkQfzECXDUsj2LF5VzoorNudNv/aMOjsiOWWIO6
+   scVljsK+CoM5qFpTOXBugnlf4N6tVLlZSHQ1VYAAIKH1e/qrbkUrHA1vb
+   w==;
+X-CSE-ConnectionGUID: YnXe5cPLSe6+0eQfRGr96w==
+X-CSE-MsgGUID: UqcxgmsmQKSRd9qtAJgskA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4397075"
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
+   d="scan'208";a="4397075"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 02:38:43 -0800
+X-CSE-ConnectionGUID: SVSECUOjQDGk+7f+44+6Gw==
+X-CSE-MsgGUID: qM9l6YSTTjyIcAd72af3hQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
+   d="scan'208";a="11730544"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.73])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 02:38:40 -0800
+Date: Wed, 25 Nov 2026 12:38:38 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux@analog.com,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [PATCH 3/6] iio: adc: ad7266: drop platform data support
+Message-ID: <awa6rrFP3-dCpIC6@ashevche-desk.local>
+References: <20261125-iio-adi-legacy-platdata-v1-0-54e4c8830b57@analog.com>
+ <20261125-iio-adi-legacy-platdata-v1-3-54e4c8830b57@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -99,48 +86,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261125-iio-adi-legacy-platdata-v1-3-54e4c8830b57@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mi, 2026-11-25 at 13:34 +0300, Fil Dunsky via B4 Relay wrote:
-> From: Fil Dunsky <filipp.dunsky@gmail.com>
->=20
-> Use the shared syscon regmap to control three PCIe and seven network
-> engine reset signals. PCIe consumers supply their own assert and
-> recovery timing. Verify level transitions of the network resets before
-> the consumer releases DMA buffers. Reject the unassigned group ID to
-> preserve exclusive ownership of the underlying lines.
->=20
-> The clock provider registers early for timers. Match the platform
-> device for the same syscon when reset consumers can probe.
->=20
-> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
-> ---
->  drivers/reset/Kconfig        |  10 ++++
->  drivers/reset/Makefile       |   1 +
->  drivers/reset/reset-cs7542.c | 134 +++++++++++++++++++++++++++++++++++++=
-++++++
->  3 files changed, 145 insertions(+)
->=20
-[...]
-> diff --git a/drivers/reset/reset-cs7542.c b/drivers/reset/reset-cs7542.c
-> new file mode 100644
-> index 000000000..b86c82554
-> --- /dev/null
-> +++ b/drivers/reset/reset-cs7542.c
-> @@ -0,0 +1,134 @@
-[...]
-> +static int cs7542_reset_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct cs7542_reset *rst;
-> +
-> +	/* Clock-only descriptions also use this syscon. */
-> +	if (!of_property_present(dev->of_node, "#reset-cells"))
-> +		return 0;
-> +
-> +	rst =3D devm_kzalloc(dev, sizeof(*rst), GFP_KERNEL);
+On Wed, Nov 25, 2026 at 10:19:19AM +0000, Nuno Sá wrote:
+> There are no in-tree users of struct ad7266_platform_data. Without it,
+> the driver already falls back to a fixed address, differential mode
+> and the 0V - VREF input range.
+> 
+> Drop the platform data header and move the range and mode enums into
+> the driver. The code for the address GPIOs, the pseudo differential and
+> single-ended modes and the 0V - 2VREF range is kept so it can be
+> enabled again should someone need it and add firmware properties for
+> it.
 
-devm_kzalloc_obj()
+...
+
+> +	/*
+> +	 * The address GPIOs, the other sample modes and the 0V - 2VREF range
+> +	 * could only be selected through platform data, which had no users.
+> +	 * Keep the support around in case someone needs it and adds firmware
+> +	 * properties for it.
+> +	 */
+
+Same comment about the comment.
+
+...
+
+> +	if (!st->fixed_addr) {
+> +		for (i = 0; i < ARRAY_SIZE(st->gpios); ++i) {
+> +			st->gpios[i] = devm_gpiod_get(&spi->dev,
+>  						      ad7266_gpio_labels[i],
+>  						      GPIOD_OUT_LOW);
+> +			if (IS_ERR(st->gpios[i]))
+> +				return PTR_ERR(st->gpios[i]);
+>  		}
+
+Side note: Have you considered switching to GPIO array APIs?
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-regards
-Philipp
