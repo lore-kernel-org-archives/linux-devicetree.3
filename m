@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795644637;
-	b=YjBi7dCYgPfSNyFYp8RZ9MP1HJ772TbolHkVOivs7PrTNjokMiaUxUgZPTY7HsUAZnHS
-	 FW+MHJedg/eMT2dhhuaaK35mdiLaDroZYAej8bxNu5r9GukByAVh6gKlxX85s5XfSUjKd
-	 gx7H14jget1LQttyNbOxa1LPLREX4wUPmyq62bpbrpyiEPvCvLeW5EqQcV2nNHK28V7pZ
-	 MYDX/oiNB1t4WsRX7nN/O2d7xnZlFE+m2LHhEDWZmDzbamZiPu067jiz5I+6Whs5/pKTK
-	 AOmdxP8D3x0ZXZpWzQFE/Mxy+Q/Und6ThkyM6bdfycOSVwvUETleQkU9U9Rw7nDeztQ==
+	t=1795644639;
+	b=4cF3h5AilYNdIrBTCySCZRvj45JzsdDJWr5FAN6YpmY3PF8ssU8DXL9ng1dpkG42G390
+	 wt0pNtCEPQOQ+DkfjXNBAgTshb6A0FwCElZqq1tlJ+YQu8LigQxYhhmi+rDmUNc+DS7Aa
+	 JyhIJKwZzK/d7MjwV3wmmHRbf5w7i85Sg7MXb4Rv4iyqzJLUBCDlRqxqxsOStqtfIHBsW
+	 dpeM9XPYEIyZ3nqZ/HS0nMEp/9aXhIOVCPswdhDy0PmKeUhLb/fC+zuzhg715XpMBhAY3
+	 s1PmJVyzgkKoYkO+4fdq1sp9FOFtjPDuKY787nyo5D9mZitmYRd25t6/rfQ1ld8kr/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795644637;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795644639;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=iBNb9+0I716M3d6AdJlmzqJPBMjgCZ+sCVMfiwm1LR8=;
-	b=cdh8bSzZKs1XbYCnuXoKNxrile4S2ZbZhD0GHhfJBVMXlDiyBmBS7MYK8COayQ3tNIwe
-	 CWhIYBgBl8OrnV8iI6gusjM0j/UQ1kztyIbpI+/mvIFVIrh60PVyP4HrS7ldX0cu1vKLJ
-	 mAvEr7gAZgGI6c28BQJdPxvFW5Ky1DKTN6lrTuEM02T5jZVgzmCX+RdbKV+u6penKrNAv
-	 38pSNZRz/cmHONqIaY7WUTxZvKzqI9w0LJjv16456YanQIcj4aAuGGx6F8/nQ2Dizv3+5
-	 nkS8RPjZXLBtm86RiYVWv05RlRQtPfHwShkd3ojNsypu+pV5MMd9CI2nZm7KGhx1s+g==
+	bh=VNaCYiHVpb2CzKkqWD5JKKy7PO3iyY44NCCg1E1LIy8=;
+	b=d9OdKSv9B40n4iyHRqs4wCGwSHjZ4V2Bl+CWOi/YKmWFwfMeWJtXTgDCKAzL3vmAp8o7
+	 LGyXP89g2P33dn4NztwOfcBGrd6Cu0DlOfKuCNebq9ET9fVbG/xaPXwgsjgCOXNimKx2a
+	 jimrwJp72IjijgDBf94Y+rRDdC9t8VJMi+xB8uY1mLJ0in8n17ePliOpHfXbSYUo/mZuS
+	 uydKsEpIfWheYP7Q6jrcDn2wCLqNoyj8yyda20GLeMxkmFHskShOYbwsNcJXCFj5kNcEI
+	 yUsRPaM34wjDgWqOCp+xYo6sU64cqoPLFvfJEBKTy4z1tmTvmFmpUuAVRdplbbEcdHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jzVtUB/g";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ahXjUPTa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C591C606A323
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 22:10:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C047606A31E
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 22:10:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jzVtUB/g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BA981F000C4;
-	Wed, 25 Nov 2026 22:10:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ahXjUPTa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 888C01F000ED;
+	Wed, 25 Nov 2026 22:10:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795644637;
-	bh=iBNb9+0I716M3d6AdJlmzqJPBMjgCZ+sCVMfiwm1LR8=;
+	s=k20260515; t=1795644638;
+	bh=VNaCYiHVpb2CzKkqWD5JKKy7PO3iyY44NCCg1E1LIy8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jzVtUB/gTZeu75hdRTcO+H0CT7Dl+4XONCxTG3Q5nI3cOkxXCNYDLDc7JD+8k+DcR
-	 j6pJMk85Nv5rofLFZtwXrfnc4cLUAqmTu+bo34wke7eF13Eb7eoHdYkTnA+d2LeU3i
-	 XGHeA/LamIgU3qxc8DsQ/SN5MgHkfGe8YiJs12KmuCm5UJQW5xx6VS1lyy+jbtr1p4
-	 2QikRQEaR6tWqUFZVlcrWzfk3/mKY3TGWwMQKHh5QBICd3xF+0OSJqgWaaogPlD4mf
-	 zyeTe7pedngBDKwgcRg6CkWu8YIWrwFzhUQWFVzrwYZNiv9IeGlvgS9CZuEGgO61lP
-	 1VIgztNnhkzWQ==
-Message-ID: <sashiko-outbox-234227@kernel.org>
+	b=ahXjUPTaKT/q9azQiyFrf+TIBkomfetf62XkISV7hNcWdume5vqkGytADDnPz65TQ
+	 Xdmhor6sxHaAK3CokhbRQrjZDTAl9bCDF//7vRwKIizLvhuPFspEipQbqBq1GBDIrl
+	 fgCnwlxiYUXf0RFbqXowK8fZpwiZ/JtwPFnZivPVPB7EGLATqaNCde/2uU4Jr/qW9P
+	 uooDsaXp+T2IEZOXZoRIHRi+ZM/W/HYa4vMe2bja59K9SajKDJklICMYMYesM6e5I1
+	 ECocgtXwRqQq3+zgUHX1PdP2q49r/sLm9RzC7F7aHRHCAj0YOsxFj+1RYLpl4snMOj
+	 Ajw/ehAvLuDkg==
+Message-ID: <sashiko-outbox-234235@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v12 07/15] net: ethernet: oa_tc6: Support for
- hardware timestamp
+Subject: Re: [PATCH net-next v12 15/15] net: ethernet: onsemi: s2500: Add
+ driver support for S2500
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Selvamani Rajagopal" <Selvamani.Rajagopal@onsemi.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124-s2500-mac-phy-support-v12-7-3575855d99f9@onsemi.com>
+In-Reply-To: <20261124-s2500-mac-phy-support-v12-15-3575855d99f9@onsemi.com>
 References: <20261124-s2500-mac-phy-support-v12-0-3575855d99f9@onsemi.com>
- <20261124-s2500-mac-phy-support-v12-7-3575855d99f9@onsemi.com>
+ <20261124-s2500-mac-phy-support-v12-15-3575855d99f9@onsemi.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 22:10:36 +0000
+Date: Wed, 25 Nov 2026 22:10:38 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,209 +61,90 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Medium] net: oa_tc6: waiting_tx_skb queued for TX timestamp after
-  NETDEV_DOWN
-- [Medium] net: oa_tc6: unacknowledged TTSC bits wedge TX timestamping
-  and config
-- [Medium] net: oa_tc6: unrestored INT_MASK0 on error in
-  oa_tc6_set_hwtstamp_settings()
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] net: onsemi: s2500: unlocked stats_last_update read and update
+  race in s2500_update_stats()
 --
 
-commit f233edafb90d63378a53bf6ad12696e270fe67d4
+commit 9d3f5419946ef1ff66db03059d964b7e06436b9d
 Author: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
-net: ethernet: oa_tc6: Support for hardware timestamp
+net: ethernet: onsemi: s2500: Add driver support for S2500
 
-This commit adds hardware TX and RX timestamping support, PTP clock
-registration helpers, and ethtool timestamp callbacks to the OA TC6
-MAC-PHY framework.
+This commit adds a network driver for the onsemi S2500 10BASE-T1S
+MAC-PHY using the OPEN Alliance TC6 framework, including ethtool
+statistics and register dump support, multicast filtering, and PTP clock
+support.
 
-> diff --git a/drivers/net/ethernet/oa_tc6/oa_tc6_main.c b/drivers/net/ethe=
-rnet/oa_tc6/oa_tc6_main.c
-> index 341d13c97f91f..22aaecd814ecd 100644
-> --- a/drivers/net/ethernet/oa_tc6/oa_tc6_main.c
-> +++ b/drivers/net/ethernet/oa_tc6/oa_tc6_main.c
-> @@ -49,6 +62,236 @@ static int oa_tc6_get_parity(u32 p)
-
-[ ... ]
-
-> +/* Pause new timestamp requests while an off request is pending. */
-> +static void oa_tc6_req_tx_hwtstamp(struct oa_tc6 *tc6, struct sk_buff *s=
-kb)
-> +{
-> +	u8 tsc;
-> +
-> +	lockdep_assert_held(&tc6->tx_skb_lock);
-> +
-> +	if (!skb || !(skb_shinfo(skb)->tx_flags & SKBTX_HW_TSTAMP))
-> +		return;
-> +
-> +	if (tc6->ts_cfg.tx_type !=3D HWTSTAMP_TX_ON ||
-> +	    (tc6->ts_cfg_req &&
-> +	     tc6->ts_cfg_new.tx_type !=3D HWTSTAMP_TX_ON))
-> +		return;
-> +
-> +	tsc =3D tc6->ttsc_current_id;
-> +	if ((tc6->ttsc_pending | tc6->ttsc_held) &
-> +	    BIT(tsc - OA_TC6_TTSCA_REG_ID)) {
-> +		tc6->tx_hwtstamp_err++;
-> +		return;
-> +	}
-> +
-> +	tc6->ttsc_pending |=3D BIT(tsc - OA_TC6_TTSCA_REG_ID);
-> +	tc6->ttsc_current_id =3D oa_tc6_next_tsc(tsc);
-> +	oa_tc6_tsinfo_tx(skb)->tsc =3D tsc;
-> +	skb_shinfo(skb)->tx_flags |=3D SKBTX_IN_PROGRESS;
-> +}
-
-[ ... ]
-
-> +static void oa_tc6_cleanup_tx_tstamp_skbs(struct oa_tc6 *tc6, bool hold)
-> +{
-> +	struct sk_buff *skb, *tmp;
-> +
-> +	spin_lock_bh(&tc6->tx_skb_lock);
-> +	list_for_each_entry_safe(skb, tmp, &tc6->ttsc_skb_list, list) {
-> +		list_del(&skb->list);
-> +		dev_kfree_skb(skb);
-> +
-> +		/* The frame was transmitted, only its timestamp is lost. */
-> +		tc6->tx_hwtstamp_lost++;
-> +	}
-> +
-> +	/* A frame still being sent can also produce a capture after close. */
-> +	if (hold)
-> +		tc6->ttsc_held |=3D tc6->ttsc_pending;
-> +	tc6->ttsc_pending =3D 0;
-> +	spin_unlock_bh(&tc6->tx_skb_lock);
-> +}
-> +
-> +/* Release timestamp skbs on down, but keep their capture registers
-> + * unavailable until the corresponding TTSC events are acknowledged.
-> + */
-> +static int oa_tc6_netdev_event(struct notifier_block *nb, unsigned long =
-event,
-> +			       void *ptr)
-> +{
-> +	struct oa_tc6 *tc6 =3D container_of(nb, struct oa_tc6, netdev_nb);
-> +
-> +	if (event =3D=3D NETDEV_DOWN &&
-> +	    netdev_notifier_info_to_dev(ptr) =3D=3D tc6->netdev)
-> +		oa_tc6_cleanup_tx_tstamp_skbs(tc6, true);
-> +
-> +	return NOTIFY_DONE;
-> +}
-
-[Severity: Medium]
-Can an unacknowledged capture bit in tc6->ttsc_pending or tc6->ttsc_held
-permanently wedge TX timestamping and block disabling HWTSTAMP_TX_ON?
-
-The MAC-PHY only sets OA_TC6_STATUS0_TTSCAx when a frame is transmitted on
-the wire.  When an interface goes down, ndo_stop() stops the PHY and
-disables MAC TX before NETDEV_DOWN runs oa_tc6_cleanup_tx_tstamp_skbs(),
-which moves tc6->ttsc_pending into tc6->ttsc_held.  If a frame already
-transferred to the MAC-PHY buffer was not yet transmitted on the wire (or
-if a multi-chunk ongoing_tx_skb is later dropped by
-oa_tc6_cleanup_ongoing_tx_skb(), which only clears tc6->ttsc_pending), the
-TTSC interrupt never arrives and that bit remains set in tc6->ttsc_held.
-
-Once any bit in tc6->ttsc_pending or tc6->ttsc_held is stuck,
-oa_tc6_req_tx_hwtstamp() returns early when tc6->ttsc_current_id reaches
-that register without advancing tc6->ttsc_current_id to the other capture
-registers, so all subsequent TX timestamp requests fail.  At the same time,
-oa_tc6_hwtstamp_req_process() waits for !(tc6->ttsc_pending |
-tc6->ttsc_held) before turning TX timestamping off, causing every later
-HWTSTAMP_TX_OFF request in oa_tc6_hwtstamp_set() to fail with -ETIMEDOUT.
-
-[ ... ]
-
-> @@ -1102,6 +1397,7 @@ static u16 oa_tc6_prepare_spi_tx_buf_for_tx_skbs(st=
-ruct oa_tc6 *tc6)
->  			spin_lock_bh(&tc6->tx_skb_lock);
->  			tc6->ongoing_tx_skb =3D tc6->waiting_tx_skb;
->  			tc6->waiting_tx_skb =3D NULL;
-> +			oa_tc6_req_tx_hwtstamp(tc6, tc6->ongoing_tx_skb);
->  			spin_unlock_bh(&tc6->tx_skb_lock);
->  		}
->  		if (!tc6->ongoing_tx_skb)
-
-[Severity: Medium]
-Can a packet sitting in tc6->waiting_tx_skb when the interface goes down be
-queued onto tc6->ttsc_skb_list after NETDEV_DOWN cleanup has already run?
-
-CPU0                                  CPU1 (threaded IRQ)
-oa_tc6_start_xmit()
-  tc6->waiting_tx_skb =3D skb
-__dev_close_many()
-  clear __LINK_STATE_START
-  ndo_stop()
-NETDEV_DOWN
-  oa_tc6_netdev_event()
-    oa_tc6_cleanup_tx_tstamp_skbs()
-                                      oa_tc6_prepare_spi_tx_buf_for_tx_skbs=
-()
-                                        tc6->ongoing_tx_skb =3D tc6->waitin=
-g_tx_skb
-                                        oa_tc6_req_tx_hwtstamp()
-                                          sets ttsc_pending, SKBTX_IN_PROGR=
-ESS
-                                      oa_tc6_add_tx_skb_to_spi_buf()
-                                        oa_tc6_queue_tx_tstamp_skb()
-                                          list_add_tail(..., &tc6->ttsc_skb=
-_list)
-                                          <-- queued after NETDEV_DOWN clea=
-nup
-
-Because oa_tc6_req_tx_hwtstamp() does not check netif_running(tc6->netdev)
-and NETDEV_DOWN does not drop or flush tc6->waiting_tx_skb, the skb (and
-its socket reference held via SKBTX_IN_PROGRESS) stays stranded on
-tc6->ttsc_skb_list while the interface is down, and its new
-tc6->ttsc_pending bit blocks HWTSTAMP_TX_OFF in
-oa_tc6_hwtstamp_req_process().
-
-> diff --git a/drivers/net/ethernet/oa_tc6/oa_tc6_tstamp.c b/drivers/net/et=
-hernet/oa_tc6/oa_tc6_tstamp.c
+> diff --git a/drivers/net/ethernet/onsemi/s2500/s2500_ethtool.c b/drivers/=
+net/ethernet/onsemi/s2500/s2500_ethtool.c
 > new file mode 100644
-> index 0000000000000..aaffa18c4128e
+> index 0000000000000..77d7d172efe0d
 > --- /dev/null
-> +++ b/drivers/net/ethernet/oa_tc6/oa_tc6_tstamp.c
-> @@ -0,0 +1,304 @@
-
+> +++ b/drivers/net/ethernet/onsemi/s2500/s2500_ethtool.c
 [ ... ]
-
-> +	ret =3D oa_tc6_write_register(tc6, OA_TC6_REG_INT_MASK0, irqm);
-> +	if (ret) {
-> +		dev_err(&tc6->spi->dev, "failed to write IRQM register\n");
-> +		return ret;
+> +void s2500_update_stats(struct s2500_info *priv, u64 *buf)
+> +{
+> +	u32 regs[S2500_NUM_STAT_REGS];
+> +	bool have_regs =3D false;
+> +	u32 addr;
+> +
+> +	if (!time_is_after_jiffies(priv->stats_last_update +
+> +				   S2500_STATS_CACHE_PERIOD)) {
+> +		addr =3D FIELD_PREP(S2500_REG_MMS_MASK, OA_TC6_MAC_MMS1) |
+> +				  S2500_REG_MAC_STOCTETSTXL;
+> +		have_regs =3D !oa_tc6_read_registers(priv->tc6, addr, regs,
+> +						   S2500_NUM_STAT_REGS);
 > +	}
 > +
-> +	ret =3D oa_tc6_write_register(tc6, OA_TC6_REG_CONFIG0, cfg0);
-> +	if (ret) {
-> +		dev_err(&tc6->spi->dev, "failed to write CFG0 register\n");
-> +		return ret;
-> +	}
-> +	spin_lock_bh(&tc6->tx_skb_lock);
-> +	tc6->ts_cfg =3D *ts_cfg;
-> +	spin_unlock_bh(&tc6->tx_skb_lock);
+> +	if (!have_regs && !buf)
+> +		return;
 > +
-> +	return 0;
+> +	spin_lock_bh(&priv->stats_lock);
+> +	if (have_regs) {
+> +		priv->stats_last_update =3D jiffies;
+> +		s2500_accumulate_stats(priv, regs);
+> +	}
+> +	if (buf)
+> +		memcpy(buf, priv->stats_data, sizeof(priv->stats_data));
+> +	spin_unlock_bh(&priv->stats_lock);
 > +}
 
-[Severity: Medium]
-If writing OA_TC6_REG_CONFIG0 fails after OA_TC6_REG_INT_MASK0 has been
-updated, does this leave OA_TC6_INT_MASK0_TTSCA_MASK out of sync with
-tc6->ts_cfg?
+[Severity: Low]
+Can concurrent calls to s2500_update_stats() from s2500_stats_work() and
+an ethtool statistics callback race on priv->stats_last_update and the
+clear-on-read hardware counters?
 
-When disabling HWTSTAMP_TX_ON, a failure on the OA_TC6_REG_CONFIG0 write
-leaves TTSC interrupts masked in OA_TC6_REG_INT_MASK0 while
-tc6->ts_cfg.tx_type remains HWTSTAMP_TX_ON.  oa_tc6_req_tx_hwtstamp() will
-continue queueing TX skbs for timestamps that never interrupt, and a retry
-of oa_tc6_hwtstamp_set() with HWTSTAMP_TX_ON cannot unmask the interrupts
-because oa_tc6_hwtstamp_post() sees that the requested config already
-matches tc6->ts_cfg and returns 0 early.
+struct s2500_info documents that stats_lock protects both stats_data and
+stats_last_update, but s2500_update_stats() reads priv->stats_last_update
+without holding stats_lock or using READ_ONCE() while another context can
+write it under stats_lock, causing a data race.
+
+Because nothing serializes the cache-expiry check, the clear-on-read SPI
+register read, and the counter accumulation, an ethtool query can also
+observe a stale snapshot after the work item has already cleared the
+hardware counters:
+
+kworker                           CPU0 (ethtool)
+s2500_stats_work()
+  s2500_update_stats(priv, NULL)
+    !time_is_after_jiffies(...)
+                                  s2500_get_eth_mac_stats()
+                                    s2500_update_stats(priv, st)
+                                      !time_is_after_jiffies(...)
+    oa_tc6_read_registers(...)
+      (clears HW counters, holds delta)
+                                      oa_tc6_read_registers(...)
+                                        (reads 0)
+                                      spin_lock_bh(&priv->stats_lock)
+                                      memcpy(buf, priv->stats_data, ...)
+                                        <-- misses kworker's cleared delta
+                                      spin_unlock_bh(&priv->stats_lock)
+    spin_lock_bh(&priv->stats_lock)
+    s2500_accumulate_stats(priv, regs)
+    spin_unlock_bh(&priv->stats_lock)
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-s2500-mac-=
-phy-support-v12-0-3575855d99f9@onsemi.com?part=3D7
+phy-support-v12-0-3575855d99f9@onsemi.com?part=3D15
