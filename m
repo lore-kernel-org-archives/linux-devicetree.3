@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795592389;
-	b=ouIa1vW6bY6aJNZlDODMEIX9ubv+dhCSAZN2yjHsXkggQaDO++e4NolWKp+wv+6GBuwC
-	 AwgLuetA3FzHtE+ZHkmn8/jVT9yGF63HW6KbSniYTQ0ugiiy59Q+P0Cd1XZqEhJFI66AQ
-	 INBm8DIkyqv6SPJjj0YWdUBbJuUmiNumNab80wsKPYI/63RzXY3hJXLQn8R5R4AKL23+3
-	 nTVfvBCpKncYPE2+ei2ZjlLY2lEqy4Kfw6+TiM8EC3c2dB8J5jno2Tx1LbgLa8NmZgnfZ
-	 /qoDMmFZrugqNHnYaEj9ATbnqhk0lAQ7q/NU8RE8CKXmQPD4Cd2mnmgSXeFQTR3Iuww==
+	t=1795592465;
+	b=PXGeRGRDvBYI3jNUQBQQUiDqIbvYFOF6uG5O+nnUqeGdXD+UG6zjmnM47GPpE3nWcg6f
+	 gsszXNzjnw5KCzy8GtJ3vKYix0rCtQzHK3iOEXX23MVHbjU9+roloa9eYQwE34HF5Tx8G
+	 anOrTrnEe8ROJN0wylYMIBuLQmzCoSXQi7VqoaBWqBHmb43LObBxm42YUhmux8Tx0wPvv
+	 bj3Tycqa8qDSJG8Id7yfbLJrEsWfTQRO1N0Jfjv0B1ZzkwCr0+Y6B/bpf8/TzXtfGTYGc
+	 ffCJGx6dH35B9fCV7Tloy2aZXvzGBwF8mdDOsUwLww3TR8wooIdnXSfgNeLGbRe4mDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795592389;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795592465;
 	h=Received:DKIM-Signature:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
 	 Date:Message-Id:X-Mailer;
-	bh=ThS4InShu4hUZ3Rp8BUX3cJKRp3s6rD/v/JuasiFrEg=;
-	b=ZLJok2226Ffu0MMlsMczQxpini30F7LE0zxSuAAib6R15ZaAaGu+7xl8NG6JP4KG+4gB
-	 QxVgh31u3T7qPJyLl2wdbK/m8ZRjNxga+Fd9hWIjysFN634ejQfdWeM1ZE0PN4K1Vfb/Z
-	 A7alpR62tzXnepiCJ4wtZRGdAhIWjD4LKsGOn979oUw9wnbZ5FdyDvqz9hEko3Hk+y9U1
-	 PZIQhHNUVzMFEQ9vGf04y+nyLxVN/CHEYfOzddCcj+dQFD3k1/hFlYdK56XG4Tv+pBxn/
-	 HTCEOj5NeaWD3Ra2jb82g9t5jIef6y4Igw7op69ZO1dRohixiffRCrRPKH7ZCeoD+WA==
+	bh=qzlaI5M+ETRsxiBn4jEpaxr3LhkDBBe4J2eZBN8UmVY=;
+	b=yXK5arTXE2xhFRFnV+ks4A3kF8rBBtWlcH2n5yrlUSYDiN9NAAbfGH0ElJ03sM54CP5T
+	 hNW1NMSPk8oRtS+/7SIvQxuQc5YbMediHLJRpmj9E3VSED0wc+DxrWJr6LUwH9Modr42J
+	 RtuhseSKMFr+xqwWxHRfEsjnL/T1qQxcDJZtxXaa/ggIwQfPWwkRxlpShro+HFOKGnwug
+	 YEWqDfCvdRh+U6PytL7F3iK/RrcsehxkHco7SXtBQKjesaObWI+vOmbvMkn7Uz1My0ju+
+	 vVvc+APRohssPwmKTVY0L0D5t36H1rlNrG8ePeJEdrVYEeZsoD962ksrhjyJ7Z578sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NWBfFAfv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QfhxJecb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A043E606A32A;
-	Wed, 25 Nov 2026 07:39:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F3B606A31E;
+	Wed, 25 Nov 2026 07:41:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NWBfFAfv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 285A71F000D4;
-	Wed, 25 Nov 2026 07:39:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QfhxJecb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AB971F000E0;
+	Wed, 25 Nov 2026 07:41:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795592388;
-	bh=ThS4InShu4hUZ3Rp8BUX3cJKRp3s6rD/v/JuasiFrEg=;
+	s=k20260515; t=1795592464;
+	bh=qzlaI5M+ETRsxiBn4jEpaxr3LhkDBBe4J2eZBN8UmVY=;
 	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=NWBfFAfvi0wuW6waQ8cyvo8+o2wdh55l7+wYVhJX7XPqXQKXwg8SChmAf96i1JMNu
-	 qzJywMbYV1PDBP3C8yNz4+AIG/jyOlnoZ9qpvqOacaEd10kgBrVSwHwkxxKUCh+Rzj
-	 +RS8JfZbuTI39cfr2gUFekBrvS7+OAL8bSn5aBK9vf2RK3d7fZB7vGll5MIO+rUXSI
-	 c1TZRZvfQaXSE2JesFF/55g3sfCLdVgTwLi5SFNW1rosRb111tP4nMSypsIAUNBKmJ
-	 yEg4MxMAO9yhmo098f9wEkvdhHEdZvVqJ/KwEVeOskS2FzYQQd41QI64eULbTq3ZQW
-	 yb4yw0N5Mq74w==
+	b=QfhxJecb5e99+42ceEafq0/AOPWgjFeZMWj/9dLc3FQsAqTc8A4i7CEHPY5X/ucgk
+	 csmSohahbKUNkqWPnhuRCZMwxnCLhPa1+MeUxSlD9bbARAIhQFbkZxLueBdcVDtFs9
+	 coTTeElW+SlMO2Z6KjYRfrUPHy+UHjnkcNkst9lJG3Sl6TF1Ru2bmLF8/00MsEUTFJ
+	 66Adqok3gXuRfktQMPJUnEwMyENI52cB4cv6G0hxhah+1XaE6Qh193ldzuN/c83syP
+	 j9/8m78zStLeRLosyhI3fyaWD7+hNrLU8qbsKsHjoar8sSyC151jvownKrMvcOuG5W
+	 vgqDa4klCNFzQ==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,42 +51,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 09/11] dt-bindings: pinctrl: qcom,sm6115-tlmm: add the
- egpio function
+Subject: Re: [PATCH net-next 1/3] dt-bindings: net: qcom,ipa: add
+ qcom,sc8180x-ipa compatible
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, 
- Sean Parker <sean.parker@viasat.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Stanislav Zaikin <zstaseg@gmail.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Abel Vesa <abel.vesa@oss.qualcomm.com>, 
- Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, 
- Jingyi Wang <jingyi.wang@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Iskren Chernev <me@iskren.info>, 
- Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, 
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+To: Robert Ijtsma <robertijtsma@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Alex Elder <elder@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Krzysztof Kozlowski <krzk@kernel.org>
-In-Reply-To: <20261124-qcom-pinctrl-egpio-v1-9-34f2c06b2658@oss.qualcomm.com>
-References: <20261124-qcom-pinctrl-egpio-v1-0-34f2c06b2658@oss.qualcomm.com>
- <20261124-qcom-pinctrl-egpio-v1-9-34f2c06b2658@oss.qualcomm.com>
-Date: Wed, 25 Nov 2026 08:39:45 +0100
-Message-Id: <179559238579.14607.14926385503041137696.b4-reply@b4>
+In-Reply-To: <20261125-qcom-ipa-sc8180x-v1-1-48a889acbe6b@gmail.com>
+References: <20261125-qcom-ipa-sc8180x-v1-0-48a889acbe6b@gmail.com>
+ <20261125-qcom-ipa-sc8180x-v1-1-48a889acbe6b@gmail.com>
+Date: Wed, 25 Nov 2026 08:41:01 +0100
+Message-Id: <179559246149.14607.2485247869587675507.b4-reply@b4>
 X-Mailer: b4 0.17-dev
 
-On 2026-11-24 15:29 +0100, Bartosz Golaszewski wrote:
-> The sm6115 TLMM driver supports the egpio function but it's missing from
-> the binding. Add it.
+On 2026-11-25 00:01 +0100, Robert Ijtsma wrote:
+> Document the Qualcomm SC8180X (IPA v4.1) compatible string in the
+> Qualcomm IPA binding.
 > 
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Signed-off-by: Robert Ijtsma <robertijtsma@gmail.com>
 > ---
->  Documentation/devicetree/bindings/pinctrl/qcom,sm6115-tlmm.yaml | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
+>  Documentation/devicetree/bindings/net/qcom,ipa.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Same here and in other bindings.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
