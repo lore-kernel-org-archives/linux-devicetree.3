@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.31
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795638404;
-	b=4vA1hTlatc7LkrTD4CGBC68a79C99S/tCIwVhsIqa5L2P63uQIwzj5GVUzKjQ1psOHJt
-	 0VakIhu3x1KwORvkYYHtJgxIFo4ni4eMI/7h5dKn9iDQ/XiiVX4WYu5oBT52U/SCMZYdP
-	 TOgEQEcuRG/RXqRgcoUWAZuzDMS0jXxUHqzr2kkQsgt3iPvIjxkuNjrOJdEE+N8q2rG9J
-	 G7XBCZYKfzfwvlM8f8erN8emEqCGBmVQG2k26uM4kjSgjzun+rSrb9ISLz95N0d7aiCcO
-	 tuSkMmN2B/HJZO4PUry3YLiM0GWRVUnoR8Nm8dDp/dg2MwXX3PEWJ9//pEbQF/ghT6Q==
+	t=1795638481;
+	b=4vmBnxuLeljGOHkwMJOucJhqtOJKcAuFZ4uIZWQOWy1ckr2SQSWWAJ/WtBz3SGIO/IT0
+	 /C+ECcVOViv1K2wtpwY+mYQdy4ITQg5Ld833m5zmET5dhVDpmESD3HEVqWfh/kJj6LnR/
+	 AcHT/Fz6buhqcSKt01XWiaipXlI3VlR5q4kCRl5n244lu91Y5bHCWBZIdPGct2cARfLc8
+	 oXMObFpL7kyDB0l6VnhMKpwWcHx9htWJa1A/YEznrvb+P5TjFAITzcBBsBwhzGy7eiO8k
+	 SF3pmcJLtWhdirmSPssQ82Mi1tnzjP8DBNF3VRyJsbJ95IiV9SJWV3Cy3oG2jPCk8Kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795638404;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=dyItsAdwCo4xMj3bus0BCLCIqJPEYeY2E2MYEhkeGY0=;
-	b=SDoJzUbUTIdXZ/QlVG2x/LfwtLKM3AF2FVCtIPnoSJYTah/uei5+HK5gQEREbcHssT4w
-	 K5P2vZXR7BZJBKU1J4xkuPQANUX5vqwNKLbwjO/GMbJmRkY2AVFI/AK4QbhZaZR0HXs8Q
-	 M3PIg+HsMeJ4EpRTGts481BItvQkv26xTgAxRDAOKle82yI2wGx/EMKoi2yo9FcG+XYqa
-	 Bey9PP8/SpHnfBMZTBat9CMruI8O4S0dzMc4tuPJFUtJC0KefcPDznTMgbfgU1C5mu5hY
-	 WBHSoYfI1uqlgrcMqc0W0tLY6VYFa6qoFkQnCFIlzob9ipB7raZoeBhiJPapalfIAxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795638481;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=4HY163TzF+6S9HpTSrCmsZ8TjdMQQ/SNXL77ezblEqI=;
+	b=S8bzzj/g+z4nDYBmDBZw8ZGL+0bIdpU8seORHF1itA62lUp3D3SLrzgUSOdj7XsoYzR5
+	 pilxmAa1lPtFUa28bIiZ8FUGR3+EIN8zkyEbnvZbO7H/iwyiKxonGeyYb+8P3h7wXpqI7
+	 Paox5wPGiXdjSfOuGzmzKbQ3X/TLTaZEu1bENF7QrwCKdEpFbP2AWSIdQ9wvNQG5sdIO9
+	 Cc2e8qEJ5iDbKl9wxetAPTs8pwbp2yIk6hTdJiZnGn7likqRXu0T/x5LKkCEB1eKd2PGu
+	 4389PjPZeUNsm9h+xh147CCY+azdGeNSjHiACjOvWYdVo9Lle1VRwssuMsKWx1WyrXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=w+r1rJX8;
-	arc=none smtp.remote-ip=79.135.106.31
-Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch [79.135.106.31])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PdmW+Bgq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F9D606A323
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 20:26:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45F9D606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32771606A321;
+	Wed, 25 Nov 2026 20:28:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=w+r1rJX8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1795638400; x=1795897600;
-	bh=dyItsAdwCo4xMj3bus0BCLCIqJPEYeY2E2MYEhkeGY0=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=w+r1rJX8pk6m7kRJ7LnO+M/5aEticPshtEPxzXCH7DoKPTB/igFWWyttAXpehAcyy
-	 3gzrXEgb1l4yWHYkMvdSTq+Btv2PsRlwgyq2abwyY52SI0be70pgU0nRwDh7XbQrAf
-	 qLvmCjc9Zl9Sk/wv6nQL8g2MGj8128zNWS1rMN23pxV4ZOLavVzN2s2FC4UIyTJ/FH
-	 h/7zadZw4alrwMik9AMRrFueJlSase7iaFq2on5bm/4KJUmHWl9kHd0pGxuVHsNO+j
-	 jIJJmK9nF9lQE14I9EJgONbrGjdQOKcLT6oMIxKfSaDf34qVSs5ZY4BGbuezpX8+qP
-	 6RUBOCYxpsV0w==
-Date: Wed, 25 Nov 2026 20:26:34 +0000
-To: nabige.aala@oss.qualcomm.com
-From: Victor Mora <vjmoralesmora@protonmail.com>
-Cc: abhinav.kumar@linux.dev, airlied@gmail.com, andersson@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, jesszhan0024@gmail.com, krzk+dt@kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, lumag@kernel.org, maarten.lankhorst@linux.intel.com, mahadevan.p@oss.qualcomm.com, mani@kernel.org, marijn.suijten@somainline.org, mripard@kernel.org, neil.armstrong@linaro.org, quic_khsieh@quicinc.com, ritesh.kumar@oss.qualcomm.com, robh@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run, shengchao.guo@oss.qualcomm.com, simona@ffwll.ch, tzimmermann@suse.de, vkoul@kernel.org
-Subject: Re: [PATCH v3 09/11] phy: qcom: edp: Generalize power-on path for per-SoC overrides
-Message-ID: <20261125202615.74643-1-vjmoralesmora@protonmail.com>
-Feedback-ID: 122405522:user:proton
-X-Pm-Message-ID: 29c171b79d6c124dc6a3f80b30588bf4c7651e30
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PdmW+Bgq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F0871F000CA;
+	Wed, 25 Nov 2026 20:28:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795638480;
+	bh=4HY163TzF+6S9HpTSrCmsZ8TjdMQQ/SNXL77ezblEqI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PdmW+BgqL6O1VjoCezkC3rMbdDResXYHaijZdhf3wpFUl3h+TYC1piOcC3sfkiwxR
+	 zsb3V47icKE3xhIHtUaxeZ8mAITWMLlI5FKEG1iS4sz7+fj/u8lswdYoiDTqB9AL94
+	 JvNqJkYYjI+mT6YWwQN8XRZUS4xQc4tGErL8spsyEDfePw2VpbmVDVWrcH531jU6om
+	 IA+ynQOeJzNnxCwpAoP1Aqrll5cCXQL/LWTwawEjEp1fFPi/AvdPrlCGrmdqVrsVnC
+	 9/zimyh9OweHcJhbKTDGWc+f//bH1zhUBlc4Rd7mHvLjeP9SIUJUUwFycLRqn0qYpE
+	 IzEPmI9re8blA==
+Message-ID: <sashiko-outbox-234134@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: qcs6490-rb3gen2: add TC9564
+ clock node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alex Elder" <elder@riscstar.com>
+Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261125202141.1288493-4-elder@riscstar.com>
+References: <20261125202141.1288493-1-elder@riscstar.com>
+ <20261125202141.1288493-4-elder@riscstar.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 25 Nov 2026 20:28:00 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,32 +60,69 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-Hi Nabige, Ritesh,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] arm64: dts: qcom: clock-25000000 under pcie@0,0 shifts tc9563
+  port indexing
+--
 
-On Mon, Nov 16, 2026 at 06:46:48PM +0530, Nabige Aala wrote:
->  static struct qcom_edp_phy_cfg glymur_phy_cfg =3D {
-> @@ -1087,6 +1124,8 @@ static struct qcom_edp_phy_cfg glymur_phy_cfg =3D {
->       .dp_swing_pre_emph_cfg =3D &dp_phy_swing_pre_emph_cfg_v8,
->       .edp_swing_pre_emph_cfg =3D &edp_phy_swing_pre_emph_cfg,
->       .ver_ops =3D &qcom_edp_phy_ops_v8,
-> +     .phy_status_reg =3D DP_PHY_STATUS,
+commit c4e2dd0c5c7aea169ea475dfdf59cb2e475d33be
+Author: Alex Elder <elder@kernel.org>
 
-On my Glymur-based laptop (Lenovo IdeaPad Slim 5 13Q8Y11, X2P-42-100),
-the eDP panel only works when the PHY status is read from 0x114
-(QSERDES_V8_DP_PHY_STATUS in phy-qcom-qmp-dp-phy-v8.h) instead of
-0x0e0. With 0x0e0 the panel stays black.
+arm64: dts: qcom: qcs6490-rb3gen2: add TC9564 clock node
 
-Could Glymur use 0x114 here? I'm happy to send a follow-up patch on top
-of this series if you'd prefer.
+This commit adds a devicetree node for the Toshiba TC9564 clock and reset
+controller along with a 25 MHz fixed-clock node supplying it.
 
-This was tested together with a v8 PLL fix I sent separately:
-https://lore.kernel.org/r/20261125-glymur-edp-pll-v1-1-068a4d95a12f@protonm=
-ail.com
+> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/bo=
+ot/dts/qcom/qcs6490-rb3gen2.dts
+> index 682bcbc0b466b..b327f64885ef2 100644
+> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+> @@ -890,6 +890,13 @@ pcie@0,0 {
+>  		pinctrl-0 =3D <&tc9563_resx_n>;
+>  		pinctrl-names =3D "default";
+> =20
+> +		tc9564_xo_board: clock-25000000 {
+> +			compatible =3D "fixed-clock";
+> +			#clock-cells =3D <0>;
+> +			clock-frequency =3D <25000000>;
+> +			clock-output-names =3D "tc9564_xo_board";
+> +		};
+> +
+>  		pcie1_switch0_dsp1: pcie@1,0 {
+>  			reg =3D <0x20800 0x0 0x0 0x0 0x0>;
+>  			#address-cells =3D <3>;
 
-Thanks,
-Mora, Victor
+[Severity: High]
+Does placing clock-25000000 as the first child of pcie@0,0 shift the
+downstream port indexing in the tc9563 power control driver?
 
+Both tc9563_pwrctrl_probe() and tc9563_pwrctrl_parse_reset_line() map the
+direct children of the pci1179,0623 node positionally to TC9563_DSP1,
+TC9563_DSP2, and TC9563_VDSP:
+
+drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c:tc9563_pwrctrl_probe() {
+	...
+	port =3D TC9563_USP;
+	for_each_child_of_node_scoped(node, child) {
+		if (++port >=3D TC9563_MAX)
+			break;
+
+		ret =3D tc9563_pwrctrl_parse_device_dt(child, &tc9563->cfg[port]);
+	...
+}
+
+With clock-25000000 ahead of pcie@1,0, pcie@2,0, and pcie@3,0, the driver
+treats clock-25000000 as TC9563_DSP1, shifts pcie@1,0 and pcie@2,0 into
+TC9563_DSP2 and TC9563_VDSP (misassociating per-port settings, reset
+GPIOs, and the integrated Ethernet endpoint), and stops before reaching
+pcie@3,0.  It also violates Documentation/devicetree/bindings/pci/toshiba,t=
+c9563.yaml,
+which only permits pcie@[1-2],0 and pcie@[3],0 child nodes.  Should
+tc9564_xo_board live under the root /clocks node instead?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125202141.1288=
+493-1-elder@riscstar.com?part=3D3
