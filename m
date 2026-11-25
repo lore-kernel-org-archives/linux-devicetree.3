@@ -1,47 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795617144;
-	b=mQUiyT97A7j07jrKCf41fGQNnmUZmSVqWYuhUU9ALQg/ONNBOEUF3ZMhaobyAoBcq5tF
-	 E0SzMeSfu59wFXgZgr6y1PAW/sHwAZCexUhDcPl5YTYvHprSALV2Nmay5dh2a3Jotr5XF
-	 BW+Y/7a5RFvELX+8LEIqql9KCycvu7mv7hIHcoou0NNy+HU+4q2EESJaGQF9r31Vletkm
-	 dVJzFCEyIg7tq43NWJI4zIv+4/8qvR1ltEEpAMaMic0Whl0IEkqRjl0GYzt+6PI0IeVs8
-	 q3nVK5g2JS1Mn5Dg9W9B0H88AGsFdn3qbhtD3MF8AbaN0aZXzhA9nyeu08a8ArLWjsg==
+	t=1795617192;
+	b=0deCn0BcvOoXtPnNk8QQb15vLvZzJBaS9A2zb2UuZawm+CVtZc99K3afUQrmfDyH9cfJ
+	 k9KqZqgnvKkYAvvb0m5weK5DWSTeJ/m5/ISJ/xifOSKWDwGWTrBHV7916g0CTwvUSvg7v
+	 eBX6J7Yff/oV6+ccaKF+xhPoEGqAAuS+H2qWHMyq08DDESSyBKYW2UfL9wmRlM5ILdnsu
+	 Jjhnf1ccF595y/5AZSe91HRGAXzyse959Xt12r0G77zN92jxMbWKveMJaFwukIkhSZvVP
+	 Zi/SsL94VcoeqO315IJN6DrieBK2Ea7siKqmIm+wwSJyLgzcj+O4FYUcb7RvuOf7bhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795617144;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795617192;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=iqIBYKdAwsyESmO2lR9a06vZxhGrpB8ZFTJay9yz+LU=;
-	b=Ym48Vhvqm5eXXTP6pV6i/3V2bAxiro+pz5zhfvNdv5knR01FEBg6chiDcIHe5Fo0mVwR
-	 +fmmm05fhUBfJts7uQVsZRgKu0xHOHKyB0t7peKhOP4IU+bgRKWqn3vZDfR0V97NOCMMT
-	 aN32/hVdT0XDknaDEdOUTFRkFlOHFSQT1C7JjqdRpImQ3ajG2VFKcra004keIFS+Yua+l
-	 kTTKAiQn1FdACFzxaQ0riy4vD1urBjP0xxiK0Qu1/d0b7lsXfPk+F2Vb6tq8+aghwRkkL
-	 AsYTg/Ggl7nMgdHZyAPtreHXhRcdSDzzAt9aBpM20NzDkmfTAhW8TSWeSv4g9pMiKEg==
+	bh=JTuzeFXaJ0CrgwY+VJsh1Zrm4GF5RUj+OFjSqoSpq5M=;
+	b=zcxjjXF0KZ8LUloafFktBHa9/SVa+soQcJtfKrHEpMFtPyUv23U6X/TBNl8YkZJZpyjz
+	 lJajMHWWmm+h3yjGcg8vv+bEaqG+JiEUuzRL9jmBavbX1uEpKwcJKJHjD36fuDyt8r9QT
+	 T6ksOWHYuTWSDpMg02Itr1uqOasoN+r05VZMFhFoJj7EWlm1rlga8kXJ8IarDQPEr9xAl
+	 D9zk71wdqd5Q7yO3nRmc+rV+XfpIYMJMJg2QKiWnQe42neExGTwImdA20Im9KG5nTDuXS
+	 g1lYslvCungFcnkCaN0yNMam+JBS0AIKLvUW17u1F2wXHiSppdQyasOzhl9Y2oXaiMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nDdCGWcV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=protonmail.ch;
+	spf=pass smtp.mailfrom=protonmail.ch;
+	dkim=pass header.d=protonmail.ch header.i=@protonmail.ch header.a=rsa-sha256 header.s=protonmail3 header.b=F5CiVjeQ;
+	arc=none smtp.remote-ip=109.224.244.123
+Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0648B606A33F;
-	Wed, 25 Nov 2026 14:32:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56A12606A321
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 14:33:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56A12606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nDdCGWcV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 749081F000C4;
-	Wed, 25 Nov 2026 14:32:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795617143;
-	bh=iqIBYKdAwsyESmO2lR9a06vZxhGrpB8ZFTJay9yz+LU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nDdCGWcVlg/Qg/5rHJtRVXgh/YB1pU8C/TW2fK8r1CTPgJZeZ6ERDtQfwcRSKvpLD
-	 DIVBETx8i+t5F0Wk9B4rx3J2QSRLIC8MKd93mGOcCitxa3egVjLtIeqaM2DgXshM5c
-	 xKLLXoSVocnalQp45slqlRYL4jGeFPkEARwTvS8xVfqeUIigzv5mNZ1SrKR7BI1cDw
-	 Ii48Gda723bb+S8LsP8m/l05yOPigGFD2rIXTjkOY1LGT5XWTLWFi6mjp8AYkrgOPJ
-	 Zi1RdGAWEpqIybWWdjyr4UqWHOMcDm08+rJ9/RKr/jyA5VEGJgZP6i6RE0Cm5P1ga1
-	 HAF0uECA33fmQ==
-Message-ID: <a2683841-a169-4cba-81fa-823553f37159@kernel.org>
-Date: Wed, 25 Nov 2026 15:32:17 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=protonmail.ch header.i=@protonmail.ch header.a=rsa-sha256 header.s=protonmail3 header.b=F5CiVjeQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.ch;
+	s=protonmail3; t=1795617186; x=1795876386;
+	bh=JTuzeFXaJ0CrgwY+VJsh1Zrm4GF5RUj+OFjSqoSpq5M=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=F5CiVjeQhxUKomP2szkCl3AxCjmzQtv8kCXXwoN1vs1eV4d1vs8dP9Kui19EugwoB
+	 eQrBWS51mV/XqcTAy0Dfhv3/Br3tnt+ZGb6EwanqMtbonx6/+bMkQyoBYq1YlxqMV1
+	 gFSsJST0bakzUG2SiEdX5dpx0o1b36AL/7yChSu5kP9IGOQvoKqiujybGqYImuEke2
+	 EhM+SxWntECLOcC5a5OogdEdNUkhXhpiG/GHgfaaQr8AnWmtY4+NjpdrA33P3DGQro
+	 WgIWWy7jTNCPC0n0U75GUI0cbSVhffJEzZTVUVAmesWJIZ5pY+DoYljmTDuuyw8EmM
+	 OKZdlsj/WcsKA==
+Date: Wed, 25 Nov 2026 14:32:54 +0000
+To: Echo Zhang <echo.zhang@mediatek.com>
+From: Ben Grisdale <bengris32@protonmail.ch>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, MMDVFS Team <linux-mediatek@lists.infradead.org>, kyrie.wu@mediatek.com, ming-fan.chen@mediatek.com, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH 4/7] soc: mediatek: mmdvfs: add VCP backend
+Message-ID: <20261125143248.237422bc@ben-desktop>
+In-Reply-To: <20261125060037.649659-5-echo.zhang@mediatek.com>
+References: <20261125060037.649659-1-echo.zhang@mediatek.com> <20261125060037.649659-5-echo.zhang@mediatek.com>
+Feedback-ID: 27291966:user:proton
+X-Pm-Message-ID: 57888eaf1331de2550f94de46d07d4368ce17893
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,104 +64,114 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: pinctrl: qcom: Add qcom,remote-owned for
- ownership update
-To: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Prasad Sodagudi <quic_psodagud@quicinc.com>,
- Rajendra Nayak <quic_rjendra@quicinc.com>, linux-arm-msm@vger.kernel.org,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261106-egpio_fix-v1-0-569d220a4748@oss.qualcomm.com>
- <20261106-egpio_fix-v1-1-569d220a4748@oss.qualcomm.com>
- <20261110-modest-significant-ostrich-8dd408@quoll>
- <396403af-1505-44b7-bf21-8c656c64c936@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <396403af-1505-44b7-bf21-8c656c64c936@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 25/11/2026 12:35, Pankaj Patil wrote:
-> On 11/10/2026 6:58 PM, Krzysztof Kozlowski wrote:
->> On Fri, Nov 06, 2026 at 01:29:41PM +0530, Pankaj Patil wrote:
->>> Add "qcom,remote-owned" boolean flag for egpio capable pins since they can
->>> be owned by remote island io independently of the selected mux function
->>> even if function is non-egpio.
->>>
->>> Presently egpio is treated as a mux function level decision where as
->>> hardware programming guide(hpg) specifies it as pin conf level decision
->>> i.e setting egpio bit is independent of selected mux function, the
->>> driver/apps claims the ownership of the pin if it's egpio capable in
->>> case of mux function being specified as anything other than egpio.
->>
->> I don't understand this. If the pin is not owned by Linux, then simply
->> do not list it. What is the point of listing a pin configuration which
->> should be skipped?
->>
->> Best regards,
->> Krzysztof
->>
-> 
-> The pin is not owned by linux but is still being used and driven by
+On Wed, 25 Nov 2026 14:00:09 +0800 "Echo Zhang" <echo.zhang@mediatek.com> w=
+rote:
 
-If it is not used and driven by Linux, then it also CANNOT be configured
-by Linux. Otherwise how do you imagine for example that remote island
-operating on unconfigured pin, before Linux boots?
+> Add the VCP transport used by MMDVFS to map AP and firmware shared
+> memory, manage feature power references and send IPI commands.
+>=20
+> Wait for VCP readiness and handle the selected MMUP or VCP READY
+> notification to initialize firmware after boot and resume. Serialize
+> IPI transactions while shared memory and acknowledgment state are in
+> use.
 
-> linux for it's intended function specified via function= property, which
-> would mean the required mux config for the function selection has to be
-> executed in Linux
-> This property simply allows a second driver/peripheral to use the same
-> gpio since it's allowed by hardware
+[...]
 
+> +static void mmdvfs_get_bootmode(void)
+> +{
+> +=09struct device_node *np_chosen;
+> +=09struct tag_bootmode {
+> +=09=09u32 size;
+> +=09=09u32 tag;
+> +=09=09u32 bootmode;
+> +=09=09u32 boottype;
+> +=09} *tag;
+> +
+> +=09if (bootmode < UNKNOWN_BOOT)
+> +=09=09return;
+> +
+> +=09np_chosen =3D of_find_node_by_path("/chosen");
+> +=09if (!np_chosen) {
+> +=09=09bootmode =3D NORMAL_BOOT;
+> +=09=09return;
+> +=09}
+> +
+> +=09tag =3D (struct tag_bootmode *)of_get_property(np_chosen, "atag,boot"=
+, NULL);
+> +=09of_node_put(np_chosen);
+> +
+> +=09if (tag)
+> +=09=09bootmode =3D tag->bootmode;
+> +=09else
+> +=09=09bootmode =3D NORMAL_BOOT;
+> +}
+> +
+
+[...]
+
+> +static int
+> +mmdvfs_vcp_send_ipi_impl(struct mmdvfs_device *mmdvfs, void *data, u32 l=
+en,
+> +=09=09=09 const bool vcp)
+> +{
+[...]
+> +=09mmdvfs_get_bootmode();
+> +=09if (bootmode =3D=3D RECOVERY_BOOT) {
+> +=09=09mmdvfs_err(mmdvfs->dev, "IPI skipped: bootmode=3D%d\n", bootmode);
+> +=09=09return -EACCES;
+> +=09}
+> +
+
+Allow me to give my two cents here, even if I am a nobody :)
+
+Android bootmodes. Whilst I do respect the reason for Android bootmodes
+existing, what I do not like to see is people checking for the *Android*
+bootmode in their drivers.
+
+Android kernels these days are *modular* thanks to GKI. I *do not*
+understand why people still check for bootmodes in their drivers when
+there is a much better option of *not loading them* if they are not
+wanted in the current bootmode.
+
+Having your driver depend on the behaviour of one specific userspace is
+terrible. And tracking it in firmware (given that this code is checking
+for an "atag,boot" property presumably added by the bootloader) is even
+worse.
+
+Aside from enabling these questionable bootmode checks in the drivers,
+I have no idea why the bootloader needs to get involved with putting
+non-standard state / boot info inside of /chosen (i.e. that "atag,boot"
+property), when Android solved this problem by using bootargs, and more
+recently, bootconfig.
+
+I will acknowledge that "just not loading modules" does get a bit more
+nuanced if you bring something like udev / Android init into the mix,
+but there are still better solutions to this problem: either gracefully
+handling the state where the hardware isn't ready in your driver, making
+your bootloader set status =3D "disabled"; on the relavent DT node, or
+blocklisting the module from userspace in boot modes where it can't
+work.
+
+Inter-driver dependencies are not a good excuse either (e.g. a core
+clock driver depending on some DVFS driver that is a no-op in recovery,
+forcing you to load it ANYWAY, even if the bootloader doesn't start the
+required firmware on recovery boot). If that is the case, then there is
+some serious refactoring work to do.
+
+First I began seeing these sorts of checks in vendor touch screen
+drivers, but now it seems to be infecting SoC side drivers as well.
+
+*Kernel* drivers should work the same regardless of what *userspace*
+environment is running (with the only real exception being the absence
+of firmware or explicit configurations from userspace). And in situations
+where they genuinely can't work, they should not be loaded at all.
+
+There should be no such thing as "kernel drivers designed for Android",
+only "kernel drivers designed for Linux".
 
 Best regards,
-Krzysztof
+Ben Grisdale
+
