@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.81.229.115
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795612325;
-	b=C4LrnbOSwlWRbTtducJkvIWB7wMqMaDoFGO8OazfgeN+ORq4lOv/am+11HImx0svCyF1
-	 cFqwViTUBIcUij7kqrOFfmYHFYtWB4HSYFvfiWSstboa26h6dA2sZ5CEl29xnpUEcAmf0
-	 lR1J15kEVMpSgvZJlhcvMslLDo5omF/c/jsDT1UVEVUf00qN5DevksT750+bUXmSN/R6A
-	 fZE0rKiM5mZeHazn5Yse9ZPTBxmVstiz7w6I1hoYvUUaX1jrHKpdq47pcI5Hg+3Cx4AVZ
-	 xXuYs7mgp2ULvKoEgLunZSPmPgRqAi5QbrV5ba6YtK4prinQ516F+DdraPosHDUjciw==
+	b=z+gf3lkMxRilO2+tzwewLRN+LH/QAGoXckgWAN3QNMPs0gARt2ur1M2+fUsAIRZdJDd4
+	 piuH6ulqgNPnWViSwtwFQ6NY8MNQ/KE3/6Ss2Aad0PPFbAQqCpu4rK6D5pX1oXksB/d2q
+	 95lsu3dfRLSPHeEqkLgF2a/kvGdUWaWKfTqqUAFpbILfDEyaXv9rL9utXZKnMTviLhOcx
+	 hJNw/WYmoGrMlzJJm1HNbo0qMv9A0xtphDHHrrxCOoY5GAUZmQoM9wbisrxR3kf/D6Kbm
+	 PJvHcBQ+pc1a09ckgOp1ozMDtV9edvFEDTnXx3yvuzSkhowRODuPVGpKrGqJRVFyHMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795612325;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Developer-Signature:X-Developer-Key;
-	bh=0qNRbsSam6uMz1bB2zIu/O5SW5C6QVHg6ITH+0RRZ6w=;
-	b=oZGxm7eJMwuN+FRPmHZPYmkl0klFSP+vaysi9UEovxWjx/0aruUBLLvU4MO9d43JnVvN
-	 nQlY9W2nJmdatJJdDalZjzbam1wts0jp73YQuYCHYc/8lmknRdfiUlY8rKlXSvEQF3rSt
-	 OXM2Z/mhBtfzae9swlAj8Tfd/Ed+91dVFGdN7OWkwMz4W8ZtQN3y1XBsz7Siy9n0QbBt1
-	 J8DDKmPlbWW8Hs0IICN8oR9ML0JBpcJ5f8XGRLfEUYYw1bv+UtD/MS1ifuSJvj5qZ1rPw
-	 Fb4okrdVCG0Pdt0M4XzQ0hPUC10pl4rDJfcv44sEVzdoviMCdrefbvT9OVYKAIw/TNg==
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key;
+	bh=h75aEkUrkcxTbFO0cw5uCyPfhp/ssg9PnW+LsVNZA04=;
+	b=D9wi9MJflhwkWhq1C16csAAFOXiLPObfFEx84GBgNz3x5koooo6abzgRHtbRmsiq9HDk
+	 GQy8F+vYmJ512sSBlWuT5doMtD93K4dsDzvMRhIZHZIbgv7PUPJK+jvah2cBnASM1T6GC
+	 F0B4kg7gD7RVwWzplBF14P8rnDGwI4PDsO+pLi3q0TwjZBbS26IB+xYzoSpeykUB7oe5b
+	 Uf5Ex0NqBwSDO++mewHRtG1a/Hs+Db1AY5bgMzkeVTifFR49eiegKh5LZ1gWb4Rz1qpkB
+	 B+jEIm+N2Lcf26OWwzmkMzGlctqqvV/C/Gg01wlAZnrQGsnZdZcPrtpgdnS8OQjmSbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chaosmail.tech;
 	spf=pass smtp.mailfrom=chaosmail.tech;
-	dkim=pass header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b=mLpvQ6rZ;
+	dkim=pass header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b=utb6nBNx;
 	arc=none smtp.remote-ip=77.81.229.115
 Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12233606A31E;
-	Wed, 25 Nov 2026 13:12:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12233606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AD12606A329;
+	Wed, 25 Nov 2026 13:12:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AD12606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b=mLpvQ6rZ
-Received: by chaosmail.tech (Postfix) id 6D4DA1C84A7;
-	Wed, 25 Nov 2026 13:11:55 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b=utb6nBNx
+Received: by chaosmail.tech (Postfix) id 0EF4D1C9FFA;
+	Wed, 25 Nov 2026 13:11:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
-	s=mail; t=1795612316;
+	s=mail; t=1795612317;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=0qNRbsSam6uMz1bB2zIu/O5SW5C6QVHg6ITH+0RRZ6w=;
-	b=mLpvQ6rZuIG1kXE2m8uVZDPO5SDV7Qwzkir60q2RouAiSs/bHT54Az3iRjzn4+gI1nL7l/
-	dAqE6xYyLbq46hZJRXATbPmdoS17Y50xNs9ACOfQRacVZtI27QyhxkUTH/eGMzJBWq7f0D
-	KgTFXaHxD3u4NAZr6PaVoFaP1brn8bA=
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=h75aEkUrkcxTbFO0cw5uCyPfhp/ssg9PnW+LsVNZA04=;
+	b=utb6nBNxCO1iQD13lcYGX+SR/KB+yCFQkdoAAbNoV0F2wcTylLVsvpdA59iZhwt+lPbNBn
+	LtOj7XCwVh131NmvLuYtsCAPt8NmacGZ+m6VUYho7f0eoKLvUX5GWMyWueCx7nDzJQ6V6D
+	yPS6BNdIoIZ/K0PbhW/3EwDOuECJpFY=
 From: Sasha Finkelstein <k@chaosmail.tech>
-Subject: [PATCH v3 0/5] phy: apple: atc: Add M3 support
-Date: Wed, 25 Nov 2026 14:11:44 +0100
-Message-Id: <20261125-t8122-phy-v3-0-196e20b3537e@chaosmail.tech>
+Date: Wed, 25 Nov 2026 14:11:46 +0100
+Subject: [PATCH v3 2/5] soc: apple: tunable: Allow passing NULL to
+ tunable_apply
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,11 +60,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/22OQQ7CIBBFr9KwFgODVXTlPYwLmIJgtG0KEpumd
- xfqpokuf/Lem5lIMIM3gZyqiQwm+eC7Ng+xqQg61d4M9U3eBBjsOWeSRskBaO9GqlHwI0ONFnc
- k8/1grH8vrcv1u8NL3w3GEiiE8yF2w7gcS7xw/7qJU0YRDlJoULVQ8pw/6cJT+cc2GnSkxBOs9
- CyudMi6bGqUtrGCa/Wjz/P8AR+YnPD4AAAA
-X-Change-ID: 20261108-t8122-phy-bc3190cbcfc4
+Message-Id: <20261125-t8122-phy-v3-2-196e20b3537e@chaosmail.tech>
+References: <20261125-t8122-phy-v3-0-196e20b3537e@chaosmail.tech>
+In-Reply-To: <20261125-t8122-phy-v3-0-196e20b3537e@chaosmail.tech>
 To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
  Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
  Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -71,61 +70,38 @@ To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
  Conor Dooley <conor+dt@kernel.org>
 Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Sasha Finkelstein <k@chaosmail.tech>, 
- Ramzi Abdiche <abdicheramzi@gmail.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795612315; l=1826;
+ linux-kernel@vger.kernel.org, Sasha Finkelstein <k@chaosmail.tech>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795612315; l=686;
  i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
- bh=waPGOD2xSosSdMrFUP3y7HhHynHugsWaholoSPFixrY=;
- b=sjkcCppqltoziHPpY4ybetWs9dkRwRu2hG/yslTXTJtiZEoPtSk2ql6IGNZw05qoAoQwgfiKs
- fFa11zLRTplAevaek/wayozmqyKnCKtDfO+WvEtxDhDyi6zP4Gf83B7
+ bh=6r5CB8eIrYPysJHrZefwLcauhrBv1L4lVD2FHBotaw0=;
+ b=7Hl3SSsNqQXTfHDPCF0hI7xu+JIZKPPdwv08gGMbeUKegkr4xT3fwDlP/Hr9tKYjcernMLIhr
+ 4JQJjPbMVfnBChztXLSPhC6GaEI+QDEWuH9MkIo7i2kpmLKblCWqueu
 X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
  pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
 
-The M3 series introduced a new Type-C phy. Add support for initializing
-and configuring it. This is one of the puzzle pieces needed for
-USB3/TB/DP support on those devices.
+Make it easier to have optional tunables by tolerating NULL entries and
+doing nothing when one is passed
 
-To simplify the merge strategy, the device tree entries will be sent
-in a future patch series.
-
+Acked-by: Sven Peter <sven@kernel.org>
 Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
 ---
-Changes in v3:
-- Fix a git surgery fail
-- Fix reliance on transitive includes
-- Sink defines into .c files where possible
-- Merge atcphy_dp_ops into atcphy_hw
-- Link to v2: https://patch.msgid.link/20261122-t8122-phy-v2-0-8d5c8fdf31ba@chaosmail.tech
+ drivers/soc/apple/tunable.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Changes in v2:
-- Split atc.c into generation-specific files
-- Improve error handling
-- dt-binding fixes
-- Link to v1: https://patch.msgid.link/20261108-t8122-phy-v1-0-c2783b2a53a8@chaosmail.tech
+diff --git a/drivers/soc/apple/tunable.c b/drivers/soc/apple/tunable.c
+index 659323839171..e89e8f9bb455 100644
+--- a/drivers/soc/apple/tunable.c
++++ b/drivers/soc/apple/tunable.c
+@@ -63,6 +63,8 @@ void apple_tunable_apply(void __iomem *regs, struct apple_tunable *tunable)
+ {
+ 	size_t i;
+ 
++	if (!tunable)
++		return;
+ 	for (i = 0; i < tunable->sz; ++i) {
+ 		u32 val, old_val;
+ 
 
----
-Ramzi Abdiche (1):
-      phy: apple: atc: Add T8122 DisplayPort support
-
-Sasha Finkelstein (4):
-      dt-bindings: phy: atcphy: Add M3 series
-      soc: apple: tunable: Allow passing NULL to tunable_apply
-      phy: apple: atc: Add initial M3 series support
-      phy: apple: atc: Split generation-specific code
-
- .../devicetree/bindings/phy/apple,atcphy.yaml      |   9 +-
- drivers/phy/apple/Makefile                         |   2 +-
- drivers/phy/apple/atc-t8103.c                      | 273 ++++++++
- drivers/phy/apple/atc-t8122.c                      | 713 +++++++++++++++++++++
- drivers/phy/apple/atc.c                            | 654 +++----------------
- drivers/phy/apple/atc.h                            | 340 ++++++++++
- drivers/soc/apple/tunable.c                        |   2 +
- 7 files changed, 1443 insertions(+), 550 deletions(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261108-t8122-phy-bc3190cbcfc4
-
-Best regards,
---  
-Sasha Finkelstein <k@chaosmail.tech>
+-- 
+2.56.1
 
