@@ -1,56 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=60.244.123.138
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795587306;
-	b=R6Pwndzi6Y6uBa3Uokm7DabeZFOWZJJHKMPHsJqFub/ipn+tBw1csjJfQxDejmZm5Gx0
-	 ZPbTC7rfShmpd0R/+C9r+DFDwjJbS7fTftkcCX4BW5yPz38dhB4JXZqF23JxniBI+LyBL
-	 6zJ4/oqdkCa6onDN7X0WX10GU6uypnwcGm6KSYLm72vzbcB53eBPuCbFuDl+megsdiMs4
-	 0VOwCVFTQnfK2bZwFinFST3Xt+7/mgCQNi1AbayMyiXDk0Bz4glLpJnqNhNlTeWGyySCn
-	 pwp+9m0wc0cTcGPLFrnLwuIa9Fy6wDF7NghO5fYG+9EwgUGyhpt6ChGyfPvR61YF2OA==
+	t=1795587388;
+	b=dbJ3KBG4xxysYNGY1kC0tRzd/AN10705i91a/Piilvtqx+MgyarTvIqVavpE1TFHnXZm
+	 PQ55l2+b6OzfEs6yD8tEdZdu9UsNNe3mkzR/nXHrHXjQKSv8Gya0D4+/PyKOdDaFdyUKo
+	 z8bldoJgv6U/U4+ySoVeVIbb99JXOKigz4rh3ieh2dtJO3TYMdHbNOtyogijSmQ5DUmqf
+	 ULpsjv9IFh3OZIec8MqYsdmSY5sxro1sjBv4T1u4eO0yI5+/ImgxgR4rd2yvhQ//V5/J0
+	 R13wxoS7AWzJ2LSyc8e40yb8H2QW3g8Qtx908LqRb9IQ6MHKDyNOnDDkiCunJcTl7tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795587306;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=diju7nMZ7RrO2JwXNL2Gmfo1/V8+vpxgCV8IBGHDJ9c=;
-	b=H2sZJnAK1SMXyeHb3URI8Cwet+FPmw9Z7wjZA/Xgcp0SuZHbn7hJik4G/cMcW+eUSEoK
-	 NGQTBr/TFYGt7c/nsDslIAn8Od+bEw7xA2BNcicWxWuVsfZAl9sdqXNUEOkcGZ9J2f5PV
-	 e0X4bVKwyRWE2n5mUBBNpNIV+yY2bJn7ggYmlpWEJak60ax43sSy8Y6DynMVAm7qa2VxD
-	 KMqCOlctADjm7Ykvjf9TOtqyYBFx97GhlmRi8GSOS0uaBzVarASGxRkZ5r7f1Gtd2Q963
-	 beWmoJyTUX3IJBe/jk/RiuDCggikuK+PdTm7LKdI1Kg0gdgw0SNgbFw7Gc+9peGrRbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795587388;
+	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
+	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-MTK;
+	bh=YUv16SrYzKKD3UA4yBxILMFKnt2taw8dsCdRPnHsbeY=;
+	b=oRmNBgmw+HJ+NbKTcAp2Q4+/6t9qmgxCYMgyo8OanO6FL5tvh/ZD3pJNcpfLAdxeOxse
+	 QfIg8aoNVZOeqeV21MPRY7fohj3hh34fmMiXbfvNZpgBHV8jIdoxZF6Ea3hnIQa3s8k0y
+	 MfT1I8oGHD7vTXFkNAdd2//icqHqrDL3sKTt7zkXH7jD+mj99j7P1Hh1FjaWBvn8mG98F
+	 8JiJwrekL5Ix6k1eYzb8uJZ5WlOjBpIts4vPX3j+oVi8y4OIbR2HgmkV/o8x03FCuaKQs
+	 BG4ShX+G6OdUGNrGFNvfxsWtzoheXI6zNLRv/1KuL/uCFWX1KCoqgI5VFWzyd1x3OrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C7bqcdRi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mediatek.com;
+	spf=pass smtp.mailfrom=mediatek.com;
+	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=sGES3IRD;
+	arc=none smtp.remote-ip=60.244.123.138
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2C7606A32C;
-	Wed, 25 Nov 2026 06:15:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA05E6070A15;
+	Wed, 25 Nov 2026 06:16:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA05E6070A15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C7bqcdRi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 172C01F000C4;
-	Wed, 25 Nov 2026 06:15:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795587306;
-	bh=diju7nMZ7RrO2JwXNL2Gmfo1/V8+vpxgCV8IBGHDJ9c=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=C7bqcdRiixqj5KE0M4SyYeII4UbsBBJPVAPDQceV7uRJF13j+TwsiDXy5obPcyhOx
-	 Y5f9EdpqiGNZM7CwfeAzkoBmdb2XxOPnpqJP+NBYqgHBuV+gyzCxvW2W6Twipog0yO
-	 ZWRbK5Bqv6YMR7L4JaBN6y4dSvkWUS81RK7vklwrnzfNEEkmp4tF36uxXwmNi0jszm
-	 AkV+pgRvqnmQwG07Sc0fDthS96i8UsNMjtjIM8BpEzhWieIeQs9wY5gDWaXIzcvSzd
-	 rcAc6aEtAjShBunr7gx10dXecvWRfK26ml2bPVyEhFBaCPHIr89RlMGZ4YCb1/hTru
-	 y/7Psu089YD5w==
-Message-ID: <sashiko-outbox-232653@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/7] soc: mediatek: mmdvfs: add MT8196 support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Echo Zhang" <echo.zhang@mediatek.com>, devicetree@vger.kernel.org, linux-clk@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261125060037.649659-6-echo.zhang@mediatek.com>
-References: <20261125060037.649659-1-echo.zhang@mediatek.com>
- <20261125060037.649659-6-echo.zhang@mediatek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 06:15:05 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=sGES3IRD
+X-UUID: bcf27350e89711f1b1788b6acf885367-20261125
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=YUv16SrYzKKD3UA4yBxILMFKnt2taw8dsCdRPnHsbeY=;
+	b=sGES3IRDyBleRMHP/1SQNRUCoPj8967R1F9UY4FfD0woq0fUXulkKYL55cHeurCg+aI6p3IXydKg1tLzhVtmfxBlJ+sM2xGp1oFIRbwTbhSna+P6u2fh+XCz84fmnIAAReUaDqbBlO2ppISslgY9rpvg4kE3dBbRfYmUR3GCtbw=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.21,REQID:2da48395-06e6-493d-bd1d-8727a87f69b9,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:b0318ac,CLOUDID:3af9f2bd-9e04-43bc-9c07-a2d8d8315d7e,B
+	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
+	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
+	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: bcf27350e89711f1b1788b6acf885367-20261125
+Received: from mtkmbs14n1.mediatek.inc [(172.21.101.75)] by mailgw01.mediatek.com
+	(envelope-from <kyrie.wu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1822242111; Wed, 25 Nov 2026 14:16:23 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 25 Nov 2026 14:16:22 +0800
+Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
+ mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.56 via Frontend Transport; Wed, 25 Nov 2026 14:16:21 +0800
+From: Kyrie Wu <kyrie.wu@mediatek.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>, Bin Liu <bin.liu@mediatek.com>,
+	kyrie wu <kyrie.wu@mediatek.corp-partner.google.com>, Hans Verkuil
+	<hverkuil@kernel.org>, irui wang <irui.wang@mediatek.com>, Nicolas Dufresne
+	<nicolas.dufresne@collabora.com>, <linux-media@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
+CC: Kyrie Wu <kyrie.wu@mediatek.com>
+Subject: [PATCH v20 01/15] media: mediatek: jpeg: fix jpeg cores' amounts setting
+Date: Wed, 25 Nov 2026 14:16:04 +0800
+Message-ID: <20261125061618.2544386-2-kyrie.wu@mediatek.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261125061618.2544386-1-kyrie.wu@mediatek.com>
+References: <20261125061618.2544386-1-kyrie.wu@mediatek.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,271 +88,143 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issues to consider:
-- [High] soc: mediatek: mmdvfs: wrong bitmask in mt8196_hwccf_vote()
-  prepare poll
-- [Medium] soc: mediatek: mmdvfs: spurious update in mt8196_hwccf_vote()
-  on zero delta
-- [Medium] soc: mediatek: mmdvfs: premature devm_kfree() in
-  mt8196_deinit_hw()
-- [Medium] soc: mediatek: mmdvfs: 5-second udelay() spin in
-  mt8196_hwccf_vote()
-- [Low] soc: mediatek: mmdvfs: wrong comment in mt8196_hwccf_vote() and
-  unused macros
---
+Different ICs have different amounts of cores,
+use a variable to set the cores' amounts.
 
-commit ed153f3d0764b28cb3e0456d69d5fe0a30a25f4f
-Author: Echo Zhang <echo.zhang@mediatek.com>
+Fixes: 934e8bccac95 ("mtk-jpegenc: support jpegenc multi-hardware")
+Fixes: 0fa49df4222f ("media: mtk-jpegdec: support jpegdec multi-hardware")
+Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+ .../platform/mediatek/jpeg/mtk_jpeg_core.c    | 19 ++++++++++++++-----
+ .../platform/mediatek/jpeg/mtk_jpeg_core.h    |  2 ++
+ .../platform/mediatek/jpeg/mtk_jpeg_dec_hw.c  |  2 ++
+ .../platform/mediatek/jpeg/mtk_jpeg_enc_hw.c  |  2 ++
+ 4 files changed, 20 insertions(+), 5 deletions(-)
 
-soc: mediatek: mmdvfs: add MT8196 support
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+index e01dd4d80..3caee184f 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+@@ -1294,6 +1294,7 @@ static int mtk_jpeg_probe(struct platform_device *pdev)
+ 	struct mtk_jpeg_dev *jpeg;
+ 	struct device_node *child;
+ 	int num_child = 0;
++	int hw_max;
+ 	int ret;
+ 
+ 	jpeg = devm_kzalloc_obj(&pdev->dev, *jpeg);
+@@ -1302,6 +1303,7 @@ static int mtk_jpeg_probe(struct platform_device *pdev)
+ 
+ 	mutex_init(&jpeg->lock);
+ 	spin_lock_init(&jpeg->hw_lock);
++	atomic_set(&jpeg->hw_rdy, 0);
+ 	jpeg->dev = &pdev->dev;
+ 	jpeg->variant = of_device_get_match_data(jpeg->dev);
+ 
+@@ -1325,7 +1327,14 @@ static int mtk_jpeg_probe(struct platform_device *pdev)
+ 		for_each_child_of_node(pdev->dev.of_node, child)
+ 			num_child++;
+ 
+-		atomic_set(&jpeg->hw_rdy, num_child);
++		hw_max = jpeg->variant->cap_q_default_fourcc == V4L2_PIX_FMT_JPEG ?
++			 MTK_JPEGENC_HW_MAX : MTK_JPEGDEC_HW_MAX;
++		if (num_child > hw_max)
++			return dev_err_probe(jpeg->dev, -EINVAL,
++					     "Too many JPEG cores: %d (max %d)\n",
++					     num_child, hw_max);
++
++		jpeg->max_hw_count = num_child;
+ 		atomic_set(&jpeg->hw_index, 0);
+ 
+ 		jpeg->workqueue = alloc_ordered_workqueue(MTK_JPEG_NAME,
+@@ -1462,7 +1471,7 @@ static int mtk_jpegenc_get_hw(struct mtk_jpeg_ctx *ctx)
+ 	int i;
+ 
+ 	spin_lock_irqsave(&jpeg->hw_lock, flags);
+-	for (i = 0; i < MTK_JPEGENC_HW_MAX; i++) {
++	for (i = 0; i < jpeg->max_hw_count; i++) {
+ 		comp_jpeg = jpeg->enc_hw_dev[i];
+ 		if (comp_jpeg->hw_state == MTK_JPEG_HW_IDLE) {
+ 			hw_id = i;
+@@ -1509,7 +1518,7 @@ static int mtk_jpegdec_get_hw(struct mtk_jpeg_ctx *ctx)
+ 	int i;
+ 
+ 	spin_lock_irqsave(&jpeg->hw_lock, flags);
+-	for (i = 0; i < MTK_JPEGDEC_HW_MAX; i++) {
++	for (i = 0; i < jpeg->max_hw_count; i++) {
+ 		comp_jpeg = jpeg->dec_hw_dev[i];
+ 		if (comp_jpeg->hw_state == MTK_JPEG_HW_IDLE) {
+ 			hw_id = i;
+@@ -1592,7 +1601,7 @@ static void mtk_jpegenc_worker(struct work_struct *work)
+ 		jpeg_work);
+ 	struct mtk_jpeg_dev *jpeg = ctx->jpeg;
+ 
+-	for (i = 0; i < MTK_JPEGENC_HW_MAX; i++)
++	for (i = 0; i < jpeg->max_hw_count; i++)
+ 		comp_jpeg[i] = jpeg->enc_hw_dev[i];
+ 	i = 0;
+ 
+@@ -1688,7 +1697,7 @@ static void mtk_jpegdec_worker(struct work_struct *work)
+ 	struct mtk_jpeg_fb fb;
+ 	unsigned long flags;
+ 
+-	for (i = 0; i < MTK_JPEGDEC_HW_MAX; i++)
++	for (i = 0; i < jpeg->max_hw_count; i++)
+ 		comp_jpeg[i] = jpeg->dec_hw_dev[i];
+ 	i = 0;
+ 
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h
+index 02ed0ed5b..6be5cf30d 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h
+@@ -212,6 +212,7 @@ struct mtk_jpegdec_comp_dev {
+  * @reg_decbase:	jpg decode register base addr
+  * @dec_hw_dev:	jpg decode hardware device
+  * @hw_index:		jpg hw index
++ * @max_hw_count:	jpeg hw-core count
+  */
+ struct mtk_jpeg_dev {
+ 	struct mutex		lock;
+@@ -234,6 +235,7 @@ struct mtk_jpeg_dev {
+ 	void __iomem *reg_decbase[MTK_JPEGDEC_HW_MAX];
+ 	struct mtk_jpegdec_comp_dev *dec_hw_dev[MTK_JPEGDEC_HW_MAX];
+ 	atomic_t hw_index;
++	u32 max_hw_count;
+ };
+ 
+ /**
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
+index 74df7fbad..3c22417f4 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
+@@ -668,6 +668,8 @@ static int mtk_jpegdec_hw_probe(struct platform_device *pdev)
+ 	platform_set_drvdata(pdev, dev);
+ 	pm_runtime_enable(&pdev->dev);
+ 
++	atomic_inc(&master_dev->hw_rdy);
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
+index cbea791e6..708f3fbc6 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
+@@ -389,6 +389,8 @@ static int mtk_jpegenc_hw_probe(struct platform_device *pdev)
+ 	platform_set_drvdata(pdev, dev);
+ 	pm_runtime_enable(&pdev->dev);
+ 
++	atomic_inc(&master_dev->hw_rdy);
++
+ 	return 0;
+ }
+ 
+-- 
+2.51.0.windows.2
 
-This commit adds MT8196 MMDVFS platform data, OPP table parsing, and HWCCF
-DVFS voter support for multimedia clock muxes.
-
-> diff --git a/drivers/soc/mediatek/mmdvfs/mmdvfs-mt8196.c b/drivers/soc/me=
-diatek/mmdvfs/mmdvfs-mt8196.c
-> new file mode 100644
-> index 0000000000000..1075884791e45
-> --- /dev/null
-> +++ b/drivers/soc/mediatek/mmdvfs/mmdvfs-mt8196.c
-> @@ -0,0 +1,637 @@
-
-[ ... ]
-
-> +/* HWCCF timing constants */
-> +#define MTK_WAIT_HWV_PREPARE_CNT	200
-> +#define MTK_WAIT_HWV_PREPARE_US		1
-> +#define MTK_WAIT_HWV_DONE_CNT		5000000
-> +#define MTK_WAIT_HWV_DONE_US		1
-> +#define MT8196_HWV_LEVELS		7
-> +
-> +/* HWCCF DVFS Voter control bits */
-> +#define HWCCF_VOTER_ENABLE		BIT(0)
-> +#define HWCCF_VOTER_REQ_VALID		BIT(1)
-> +#define HWCCF_VOTER_ACK_VALID		BIT(2)
-
-[ ... ]
-
-> +/*
-> + * mt8196_hwccf_vote - perform HWCCF DVFS voter operation
-> + * @mmdvfs: MMDVFS device structure
-> + * @user: user structure
-> + * @level: target performance level (higher value =3D higher performance)
-> + *
-> + * Implement HWCCF DVFS voter logic using the standard voting sequence:
-> + *
-> + * 1. WRITE: issue vote to SET/CLEAR register based on OPP delta
-> + * 2. PREPARE: poll hwv_set_ofs until HW accepts (200us timeout)
-> + * 3. DONE: poll hwv_sta_ofs until operation completes (5s timeout)
-> + *
-> + * OPP encoding uses cumulative bitmasks where index =3D level_num - 1 -=
- level.
-> + *
-> + * Return: 0 on success, negative error code on failure
-> + */
-> +static int mt8196_hwccf_vote(struct mmdvfs_device *mmdvfs,
-> +			     struct mmdvfs_user *user, u8 level)
-> +{
-> +	struct mt8196_mmdvfs_data *mt8196_data =3D mmdvfs->data->platform_data;
-> +	struct mmdvfs_data *data =3D mmdvfs->data;
-> +	struct mmdvfs_mux *mux;
-> +	struct mmdvfs_rc *rc;
-> +	u32 mask, opp_mask;
-> +	u32 val =3D 0, orig =3D 0, renew =3D 0;
-> +	u8 index;
-> +	int i =3D 0, ret =3D 0;
-
-[ ... ]
-
-> +	index =3D level;
-> +	mask =3D GENMASK(6, 0) << mux->shift;
-> +	opp_mask =3D GENMASK(index, 0) << mux->shift;
-
-[Severity: Low]
-This isn't a bug, but the function header comment above states that
-"index =3D level_num - 1 - level", whereas the implementation uses
-"index =3D level" directly.  Also, HWCCF_VOTER_ENABLE,
-HWCCF_VOTER_REQ_VALID, and HWCCF_VOTER_ACK_VALID are unused.
-
-> +
-> +	/* Phase 1: Read current setting and calculate delta */
-> +	ret =3D regmap_read(mt8196_data->hwv_regmap, mux->hwccf.hwv_set_ofs, &o=
-rig);
-> +	if (ret) {
-> +		dev_err(mmdvfs->dev, "Failed to read HWV set register: %d\n", ret);
-> +		goto hwv_fail;
-> +	}
-> +
-> +	val =3D orig & mask;
-> +	val ^=3D opp_mask;
-> +
-> +	/* Write to SET or CLEAR register based on delta direction */
-> +	if (val > opp_mask)
-> +		ret =3D regmap_write(mt8196_data->hwv_regmap, mux->hwccf.hwv_clr_ofs, =
-val);
-> +	else
-> +		ret =3D regmap_write(mt8196_data->hwv_regmap, mux->hwccf.hwv_set_ofs, =
-val);
-> +
-> +	if (ret) {
-> +		dev_err(mmdvfs->dev, "Failed to write HWV register (ofs=3D0x%x): %d\n",
-> +			val > opp_mask ? mux->hwccf.hwv_clr_ofs : mux->hwccf.hwv_set_ofs, ret=
-);
-> +		goto hwv_fail;
-> +	}
-> +
-> +	/* Write UPDATE register to trigger hardware processing. */
-> +	if (mux->hwccf.hwv_upd_id !=3D 0xFF) {
-> +		ret =3D regmap_write(mt8196_data->hwv_regmap,
-> +				   mux->hwccf.hwv_upd_ofs,
-> +				   BIT(mux->hwccf.hwv_upd_id));
-> +		if (ret) {
-> +			dev_err(mmdvfs->dev, "Failed to write HWV update register (ofs=3D0x%x=
- bit=3D%u): %d\n",
-> +				mux->hwccf.hwv_upd_ofs, mux->hwccf.hwv_upd_id, ret);
-> +			goto hwv_fail;
-> +		}
-> +	}
-
-[Severity: Medium]
-Should mt8196_hwccf_vote() return 0 early when val =3D=3D 0?
-
-Every mux in mt8196_mux_user_map is shared across multiple users, and
-mmdvfs_set_rate() only skips calling hw_vote() when the calling user's own
-user->level is unchanged.  When a user updates its vote while another user
-on the same mux already holds an equal or higher vote, aggregated_level
-matches what is already in hwv_set_ofs, so val is 0.  Without an early
-return, this writes 0 to hwv_set_ofs, pulses BIT(mux->hwccf.hwv_upd_id) in
-hwv_upd_ofs to trigger a hardware update transaction, and then exits Phase
-3 without waiting because (renew & 0) =3D=3D 0 is always true.
-
-> +
-> +	/* Phase 2: Poll until hardware accepts the vote (200us timeout) */
-> +	i =3D 0;
-> +	while (1) {
-> +		ret =3D regmap_read(mt8196_data->hwv_regmap, mux->hwccf.hwv_set_ofs, &=
-renew);
-> +		if (ret) {
-> +			dev_err(mmdvfs->dev, "Failed to read HWV set status: %d\n", ret);
-> +			goto hwv_fail;
-> +		}
-> +
-> +		if ((renew & opp_mask) =3D=3D opp_mask)
-> +			break;
-> +
-> +		if (i < MTK_WAIT_HWV_PREPARE_CNT) {
-> +			udelay(MTK_WAIT_HWV_PREPARE_US);
-> +			i++;
-> +		} else {
-> +			dev_err(mmdvfs->dev,
-> +				"HWV prepare timeout(%d loops, %dus): renew=3D0x%x opp_mask=3D0x%x m=
-ask=3D0x%x\n",
-> +				i, i * MTK_WAIT_HWV_PREPARE_US, renew, opp_mask, mask);
-> +			dev_err(mmdvfs->dev,
-> +				"  mux_id=3D%u shift=3D%u hwv_set_ofs=3D0x%x renew&mask=3D0x%x\n",
-> +				user->mux, mux->shift, mux->hwccf.hwv_set_ofs, renew & mask);
-> +			ret =3D -ETIMEDOUT;
-> +			goto hwv_fail;
-> +		}
-> +	}
-
-[Severity: High]
-Should the Phase 2 condition check (renew & mask) =3D=3D opp_mask instead of
-(renew & opp_mask) =3D=3D opp_mask?
-
-When lowering a mux OPP level, the lower bits in opp_mask were already set
-in hwv_set_ofs by the previous higher level, while the upper bits in val
-are being cleared via hwv_clr_ofs.  Masking renew with opp_mask ignores
-those upper bits, so (renew & opp_mask) =3D=3D opp_mask succeeds on the fir=
-st
-read before the hardware voter clears the upper bits or latches the
-downward vote, allowing Phase 3 to read pre-transition DONE bits in
-hwv_sta_ofs and return before the transition completes.
-
-> +
-> +	/* Phase 3: Poll until operation completes (5s timeout) */
-> +	i =3D 0;
-> +	while (1) {
-> +		ret =3D regmap_read(mt8196_data->hwv_regmap, mux->hwccf.hwv_sta_ofs, &=
-renew);
-> +		if (ret) {
-> +			dev_err(mmdvfs->dev, "Failed to read HWV status: %d\n", ret);
-> +			goto hwv_fail;
-> +		}
-> +
-> +		if ((renew & val) =3D=3D val)
-> +			break;
-> +
-> +		if (i < MTK_WAIT_HWV_DONE_CNT) {
-> +			udelay(MTK_WAIT_HWV_DONE_US);
-> +			i++;
-> +		} else {
-> +			dev_err(mmdvfs->dev,
-> +				"HWV done timeout(%d loops, %dms): renew=3D0x%x val=3D0x%x\n",
-> +				i, i * MTK_WAIT_HWV_DONE_US / 1000, renew, val);
-> +			ret =3D -ETIMEDOUT;
-> +			goto hwv_fail;
-> +		}
-> +	}
-
-[Severity: Medium]
-Can this Phase 3 loop use a sleeping poll such as
-regmap_read_poll_timeout() or a bounded microsecond timeout instead of
-spinning with udelay(1) for up to 5 seconds?
-
-mt8196_hwccf_vote() is called from mmdvfs_set_rate() in sleepable process
-context while holding mux->lock and the global clock framework
-prepare_lock.  If the hardware voter is slow or times out waiting for
-hwv_sta_ofs, 5,000,000 iterations of udelay(1) monopolize the CPU for 5
-seconds without yielding and block all clock prepare and rate operations
-system-wide.
-
-[ ... ]
-
-> +/*
-> + * mt8196_deinit_hw - Deinitialize hardware
-> + */
-> +static void mt8196_deinit_hw(struct mmdvfs_device *mmdvfs)
-> +{
-> +	struct mmdvfs_data *data =3D mmdvfs->data;
-> +
-> +	if (data->platform_data) {
-> +		devm_kfree(mmdvfs->dev, data->platform_data);
-> +		data->platform_data =3D NULL;
-> +	}
-> +
-> +	dev_info(mmdvfs->dev, "MT8196 HWCCF DVFS Voter deinitialized\n");
-> +}
-
-[Severity: Medium]
-Can calling devm_kfree() in mt8196_deinit_hw() cause a use-after-free in a
-concurrent mt8196_hwccf_vote()?
-
-mmdvfs_probe() registers the user clocks via devm_clk_hw_register() after
-mt8196_init_hw() allocates data->platform_data with devm_kzalloc(), and
-mmdvfs_remove() invokes deinit_hw() before devres unregisters those clock
-providers:
-
-CPU0                                  CPU1
-mmdvfs_set_rate()
-  mutex_lock(&mux->lock)
-  mt8196_hw_vote()
-    mt8196_hwccf_vote()
-      mt8196_data =3D
-        mmdvfs->data->platform_data
-                                      mmdvfs_remove()
-                                        mt8196_deinit_hw()
-                                          devm_kfree(...,
-                                            data->platform_data)
-      regmap_read(
-        mt8196_data->hwv_regmap, ...)
-        <-- use-after-free
-
-Dropping the manual devm_kfree() lets devres free data->platform_data on
-device release after the devm-managed clocks have been unregistered.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125060037.6496=
-59-1-echo.zhang@mediatek.com?part=3D5
