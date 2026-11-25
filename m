@@ -1,66 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.240
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795574559;
-	b=dCoqng7yVZnpGsgHYWKWO+RxnU1qqRLMxTOAhPVUhGMWIEru0Ol4BYNSWvkpZQc1gWgZ
-	 DGbCJyflF93L+B0vbVwnT61IuzfxDgAKanXoQMkOSY3f7nA0b01aVUmuDDX4XRzhAbvV3
-	 pwpVOHYw7MjFtGSsnx7jRlUGnzpW5Hsuhy0CeLmwZwAeXpbyduqMtlpUSESBEJ+SiBgs6
-	 m2FO0HLpH85Zh9ADMsLHEvF+lrvpfLWBqXu+ucWvpkAGKSiU2x6fhvNEDJbSSVVh/wVFG
-	 Y+NH1KHb6ysnqSZy6LoLVr/rjmmpv2MQnZHcPUj4Ufn2MpRhbJS753seBnhMsEo/5tw==
+	t=1795574556;
+	b=ORHp0X4ARDr64vRdpMurlhZm799qx6HzadBBn6yp44i36H0NnMPDDXPA6hMGfZiTUC2t
+	 bTUyEiwqESYYetIzvTNN3v2rn06m18SiWk+i+/t2z0atL1H9S49J2v9Bu9ALedY5s3YFM
+	 uoN6yZ+uASKd/8t02LZ7Vv4l4Y8QvmK8oaWDr9l8uKTpLdJuNkISmJIa6fj7yQ+yQDmW7
+	 eSU/YdPnAwbNvJBak8KIJUTq+btEykgjvVtHDV6fHFMprG0khI88IcTvUHZd/sgiP4F6P
+	 0giZLNPvT+t/gINsqFqw7pFhspwz4sLPgCty0AzYFXYTo/LR3Ed1Wik5uIJGLdGgjBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795574559;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795574556;
 	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
 	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=fbu9uDIZ7L32gOC7ibbK3yEo/s2Yqhso0UM/iF/DqSw=;
-	b=LatmMX8S95NBqCAHPkzbJw3GSh+7g09gYY9COm1lSvMVQjy98Cqn3cTx6umkUsnwamlU
-	 wZ6K0dDb/PFJT2U/lBt3YVHlG15Pwk+4VFkubmQURUSh+HluFLSMbYFX5e6lbH+fQiTpo
-	 /00gWMDniX1L+XRvs/Z9EhKcqtoj9g7sU1/P7BQ6/XIBP/v5O4jn9ZoGjAkkvzUSD0Iui
-	 F+PsNFIs/ARzjSfY8zQrBPFMG2FIRBFg9YQVrb/Y3Cd0Jm6BFQJRmw/xDIE0tvlzeAVS5
-	 /XA2aC5jBGmGSbvsazTWCp4tvCUcbAYieY+rHoacHiHcm4Ia35FidjUYtgd0/+9gBmQ==
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=lp0oHscFRzcaU+tigkhoLnkTa9Tl8okogNrxOKQol5E=;
+	b=ZXdCRapPWoNkG1osiuF+k5bTGjwRBq2NlmuZv7u3i800pN4Ubdur5R78SXz+2OTOBQK4
+	 kfXFdHih2b1Zy8FJSaAyfszO9gODlvTbxyuikYuhCOI9EaQuoo7W/OmEApRWfRG1oaz23
+	 +F9TB7nT/JwiwrCez3jlw2JDBHm0mnzfnY2NaHtivGKSd0XeIwflnkHz1F6aU1zLNyRdH
+	 WCkKfdV7yn1wWCEkClO1Uhp+LjVGZEgRhJ4sbw/MjJc7wuuBChYb0WbbAQiB0/kNgZdjO
+	 W1N6VmZsxWpgpCtl1D/h5VZvWTyqKSiry+/A7kQTjK5pDC4ggdp26kSQL76cmAf3atg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=qq.com;
 	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Fph5A+JP;
-	arc=none smtp.remote-ip=203.205.221.240
-Received: from out203-205-221-240.mail.qq.com (out203-205-221-240.mail.qq.com [203.205.221.240])
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=xv5n8o+7;
+	arc=none smtp.remote-ip=162.62.58.216
+Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1268606A690;
-	Wed, 25 Nov 2026 02:42:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1268606A690
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37959606A326;
+	Wed, 25 Nov 2026 02:42:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37959606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Fph5A+JP
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=xv5n8o+7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1795574555; bh=fbu9uDIZ7L32gOC7ibbK3yEo/s2Yqhso0UM/iF/DqSw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Fph5A+JPDd8nSfjTO+kTXuC1m8dUE20cYF5fnk0OpVrA9NmzWQAFcZCpJlll7OEkv
-	 BTlFn8NcpbC0savwSckoUSEx6yYGwSodVmQM8LChT3jZ6XgloQn2tYccg4GWYMH88C
-	 ddxsKPTga/a7vK9HuYzdCAIELhXdjBuJEIoSHxuQ=
+	t=1795574549; bh=lp0oHscFRzcaU+tigkhoLnkTa9Tl8okogNrxOKQol5E=;
+	h=From:To:Cc:Subject:Date;
+	b=xv5n8o+78YUrfPz5d77NiEDiRaTJ5QvMlGnJZ7qtjsv/Anpz/LoXnvgoOAxC1kcgb
+	 AChP4SwRochcrkSbrggi1632r3SJFFqV0KZCr57/n2eGf6wQhR9m6uR6jvKKLu4EYe
+	 fo8STPjEHy4n05xLa3Bc/6XPfap2v7iDxJZiRCz0=
 Received: from HF ([113.90.236.90])
 	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
 	id A9B394D4; Wed, 25 Nov 2026 10:42:27 +0800
-X-QQ-mid: xmsmtpt1795574553t13bnoa9a
-Message-ID: <tencent_7F6A3DBDFF7EA3F68F5B7D5C58F57FBB120A@qq.com>
-X-QQ-XMAILINFO: MzNwb/pqyJTk3v8LTyckX8ntDCs5L5+2jfyDrScMMZwM5NUat3vq4vxDCsZ/v8
-	 LZ7hLj5OIFT9h5Mrb1WnP/Eg2mXzTaEFsj9KoFegYos80Ya23iHAuxvZTSgwHgo0j/Ta39SXUUG1
-	 GFY/9K788R+teW/+uoLdRpH1WtcgUcaVSwJHt1PrG5jnpGrVXS1HeqvzvScudadkxFcra3tk60pt
-	 mc9vBNW+9LYqPrRPh91nTLzX2TuYyCPXDRv8dgst6k0Eo/ePMTkiUweXay5xyNMbWC/bV5+U/BtG
-	 4Wd3tLnyxgmqq5K3JzJj1QamWv/tphS96jSXJ0qFt4DR1cmIkYflVq26/ycviW5z93ZK8jXG9NeY
-	 lkb7t8INaoK5rZv/V6aFWh272xZ95bTMx45omTN3DeuMyflNaLd2lBScNHCDuLh/xHxrbuaWF02d
-	 ozF25QVdh9pjmuWFD00D3YL8plc85EG4CMn1mXnvQvatLG5+pcBiP2yfloFZuPZ9vLQNziNSd49B
-	 kGi0PPTNTnIRnyxTvkpT6BVpN4hw3zJQzPf6ukfVYLhsvCM2lVtEzngBRZwSeeJ8q7VIENNWqGUE
-	 k3ZelSTDBE6fxsXx3wnXxyLuifLCJQN3e3+7SDaPA1xz2hRfeGxn38emU9wtqMhJre+vBpEYRa4V
-	 UVfKNqtyOp/rf3Cj7Jaxzh1xW6vTdQ8bW46xC5oALuJo2qfX/LYoL+BPSPrj7l01xyC6Xi8bTEsG
-	 PAK7KoodBehwzzmDDiBX5bp2uXmQkUsEMjxDLiGJrY0KPFkQbV0cPt13XP+JMOGTr2wXxvwBg8Hi
-	 DPG4JBhkzsVNTomuFF1j+2A2BDJqcqhkInCUohztoI8v7yhGj6VqQsPM7vz2Poqo34z9JnqjSqIt
-	 8tF+za0FBbuuZ5klYbsXSbX1n0eJdWpl2nxZ/5hKdcnRnhm+nvdo2S/+PQncmXLzFCHJ44Guf5jq
-	 nQlB+m9vWYOoQY6d+rn+tT2NwrCz7EBVl9/ws3s9/lt7XcymXHrBxp21PUzFGrow/XT9faNUrQtL
-	 8ADpo+4U+HSIehTip8MOBxKR2Hu8p/zr9LL0VspApQCD044K+2kDn46Z0Wea9RnCxh0ONLunGnmI
-	 ccWl8h
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-mid: xmsmtpt1795574547tbybluce3
+Message-ID: <tencent_2C38BE3108839F007E855001C6AF3E8CAC09@qq.com>
+X-QQ-XMAILINFO: NhKbcYr69dwuCE11zu1dK8szOBK5LZCf/A3r6KsSRqvNDwjcHRxmHYe1VEz4x1
+	 Cmmyp7JW0SNo8qs973wUtSMaoIOMlsp2sAH4BU5zrls4CB8owldVeNLN1Qsw9vGXr3mxKWCC8rm3
+	 9U7a5iAIguQ5xw/akvdI5M6veeonVNNgeCgQ73WvI17l9UkOHpOgPsj1H3HmFSMuv8Nk+F2fCiC5
+	 u3dm4FTgpQhti6E7bO6mno/ig3b9APT+3ZVhjllDJgoEGT46fW7HZjCI9MfhiEQdwcpR1MbRFxNm
+	 3aDCMWLdwrtuiMjNBC2c+hvl2OWyZJ5NgBwy4OfhNqvGGw02aQZR1ZmAp1z88B3EOSkJZkz3Kqh6
+	 rRivuwlurRlCgmy0gYdpBs/ya0yxhQoPeytLqifXzzpRCPt3rv5JRDrkHXQNh9qderkp5BOwzJDv
+	 y8S/KBqu6bfBSWuuC53yaxLwYjXNGM1ZrQZ31j6e1s8LC1LHoAyS2QfYcd1UlnXkg7PWf68ka6JD
+	 8/7lNejAAJ5ACpQqP+ohlvRAhwVNEqWuqnrsMqn6IXgYanL11xzesj+1DGGeMPYu6GbAqiD6nz44
+	 avgk6k0o8OyTWqGISBVgLD2VCuR/uUA1aa82yNIiOzhbvOaCiWmrgM0/z/LT3nA26/CYizKl2CCr
+	 bbaiig7YPeQxBmpLeE0fMp+1OzTHQCIFvZK4NgYIrH+mk6w5ytOq9VB9WLmf4JNNsphPZ00pGEay
+	 knVfNGcvAr6lrRyExE/VyIDcca+Xggmhdp54xzj1xGBnFhKDTVq3Mgyb1NtVseJj4V3G9dPvPIO6
+	 QtHUoEr0t4gBc2IfPChXmB4wMwjoZ3Bz/n9P9PgXfn2qc0TE7REtRqSPIqqFX8PW5NSMF9ve0n9Y
+	 d7EeUw2qmdjWC3aZcbYs51ylcDw0WSFNP59gK+lizoxEnrpdFKjs1qmwxKYDH0xLRnKar9R+NbMs
+	 x1r50uHQHGeT+kwQtPgMJSJvZVLGAXPA2GhTdbNj/labMDkRp07VgwOZmhdVi12Emxm8Xe/mbYlD
+	 dRHQn0586tySWKQJeBaDxDYvZVHa6BQ63ndAZjxsDoae29Gjo1Cl37K4XMyOcNe6LL6xsaJvQEvf
+	 wTt+0hP/raNYiwHHQ=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
 From: Hefei <3066883572@qq.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-input@vger.kernel.org,
@@ -69,12 +68,10 @@ Cc: linux-input@vger.kernel.org,
 	robh@kernel.org,
 	conor@kernel.org,
 	Hefei <3066883572@qq.com>
-Subject: [PATCH v4 6/6] backlight: add VIEWE 7KF82 I2C backlight driver
-Date: Wed, 25 Nov 2026 10:42:26 +0800
-X-OQ-MSGID: <20261125024226.1293-7-3066883572@qq.com>
+Subject: [PATCH v4 0/6] Add VIEWE 7" JD9365TX MIPI-DSI panel support
+Date: Wed, 25 Nov 2026 10:42:20 +0800
+X-OQ-MSGID: <20261125024226.1293-1-3066883572@qq.com>
 X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261125024226.1293-1-3066883572@qq.com>
-References: <20261125024226.1293-1-3066883572@qq.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -86,132 +83,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Drive the VIEWE 7KF82 backlight MCU over I2C (register 0x86).
-The MCU has no public discrete part number on the FPC silk.
+Hi,
 
-Signed-off-by: Hefei <3066883572@qq.com>
----
- drivers/video/backlight/Kconfig        |  7 +++
- drivers/video/backlight/Makefile       |  1 +
- drivers/video/backlight/viewe_bl_i2c.c | 82 ++++++++++++++++++++++++++
- 3 files changed, 90 insertions(+)
+This series adds support for the VIEWE 7KF82 7" 720x1280 in-cell MIPI-DSI
+panel based on Jadard JD9365TX (2-lane video mode), plus the companion
+I2C touchscreen and I2C backlight MCU used on the same FPC.
+
+This is a different programming model from the existing JD9365DA driver
+(panel-jadard-jd9365da-h3.c): page select uses 0xDE (not 0xE0), bring-up
+uses 0xDF unlock, and lane config is via 0xCC rather than 0x80.
+
+Tested on Raspberry Pi 4 and Raspberry Pi 5 with a downstream dtoverlay
+(not included here):
+  https://github.com/raspberrypi/linux/pull/7633
+
+Changes in v4:
+- register the viewe vendor prefix; rename schemas to match compatible
+- panel: use devm_drm_panel_alloc; drop undocumented extra compatible;
+  fix Kconfig/Makefile alphabetical order
+- touch: probe-time hw init; fixed-slot reporting; optional reset-gpios;
+  get_unaligned helpers; optional supplies in the binding
+- backlight: parse default-brightness; sync HW at probe; SMBus write;
+  BL_CORE_SUSPENDRESUME; unique backlight device name
+
+Please prefer this v4 over earlier revisions.
+
+Thanks,
+Hefei
+
+Hefei (6):
+  dt-bindings: display: add VIEWE 7KF82 JD9365TX panel
+  dt-bindings: input: add Jadard JD9365TX touchscreen
+  dt-bindings: backlight: add VIEWE 7KF82 I2C backlight
+  drm/panel: add VIEWE JD9365TX 7 inch DSI panel
+  Input: add Jadard JD9365TX in-cell touchscreen driver
+  backlight: add VIEWE 7KF82 I2C backlight driver
+
+ .../bindings/display/panel/viewe,7kf82.yaml   |  67 ++++
+ .../input/touchscreen/jadard,jd9365tx.yaml    |  63 ++++
+ .../leds/backlight/viewe,7kf82-backlight.yaml |  46 +++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ drivers/gpu/drm/panel/Kconfig                 |  11 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ drivers/gpu/drm/panel/panel-viewe-jd9365tx.c  | 340 +++++++++++++++++
+ drivers/input/touchscreen/Kconfig             |  12 +
+ drivers/input/touchscreen/Makefile            |   1 +
+ drivers/input/touchscreen/jadard_jd9365tx.c   | 356 ++++++++++++++++++
+ drivers/video/backlight/Kconfig               |   7 +
+ drivers/video/backlight/Makefile              |   1 +
+ drivers/video/backlight/viewe_bl_i2c.c        |  82 ++++
+ 13 files changed, 989 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/viewe,7kf82.yaml
+ create mode 100644 Documentation/devicetree/bindings/input/touchscreen/jadard,jd9365tx.yaml
+ create mode 100644 Documentation/devicetree/bindings/leds/backlight/viewe,7kf82-backlight.yaml
+ create mode 100644 drivers/gpu/drm/panel/panel-viewe-jd9365tx.c
+ create mode 100644 drivers/input/touchscreen/jadard_jd9365tx.c
  create mode 100644 drivers/video/backlight/viewe_bl_i2c.c
 
-diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
-index 7b836f9..8ea7332 100644
---- a/drivers/video/backlight/Kconfig
-+++ b/drivers/video/backlight/Kconfig
-@@ -501,6 +501,13 @@ config BACKLIGHT_LED
- 	  If you have a LCD backlight adjustable by LED class driver, say Y
- 	  to enable this driver.
- 
-+config BACKLIGHT_VIEWE_I2C
-+	tristate "VIEWE I2C backlight"
-+	depends on I2C
-+	help
-+	  Backlight driver for VIEWE DSI panels. Brightness is written to
-+	  the panel MCU at I2C address 0x45, register 0x86.
-+
- endif # BACKLIGHT_CLASS_DEVICE
- 
- endmenu
-diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
-index bcb568a..b82d959 100644
---- a/drivers/video/backlight/Makefile
-+++ b/drivers/video/backlight/Makefile
-@@ -61,3 +61,4 @@ obj-$(CONFIG_BACKLIGHT_WM831X)		+= wm831x_bl.o
- obj-$(CONFIG_BACKLIGHT_ARCXCNN) 	+= arcxcnn_bl.o
- obj-$(CONFIG_BACKLIGHT_RAVE_SP)		+= rave-sp-backlight.o
- obj-$(CONFIG_BACKLIGHT_LED)		+= led_bl.o
-+obj-$(CONFIG_BACKLIGHT_VIEWE_I2C)	+= viewe_bl_i2c.o
-diff --git a/drivers/video/backlight/viewe_bl_i2c.c b/drivers/video/backlight/viewe_bl_i2c.c
-new file mode 100644
-index 0000000..fe9ed47
---- /dev/null
-+++ b/drivers/video/backlight/viewe_bl_i2c.c
-@@ -0,0 +1,82 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2026 VIEWE
-+ *
-+ * I2C backlight for VIEWE 7KF82 DSI modules (MCU @0x45, register 0x86, 0..255).
-+ */
-+
-+#include <linux/backlight.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/property.h>
-+
-+#define VIEWE_BL_REG		0x86
-+#define VIEWE_BL_MAX		255
-+#define VIEWE_BL_DEFAULT	200
-+
-+static int viewe_bl_update_status(struct backlight_device *bd)
-+{
-+	struct i2c_client *client = bl_get_data(bd);
-+
-+	return i2c_smbus_write_byte_data(client, VIEWE_BL_REG,
-+					 backlight_get_brightness(bd));
-+}
-+
-+static const struct backlight_ops viewe_bl_ops = {
-+	.options = BL_CORE_SUSPENDRESUME,
-+	.update_status = viewe_bl_update_status,
-+};
-+
-+static int viewe_bl_probe(struct i2c_client *client)
-+{
-+	struct backlight_properties props = {
-+		.type = BACKLIGHT_RAW,
-+		.max_brightness = VIEWE_BL_MAX,
-+	};
-+	struct backlight_device *bd;
-+	u32 brightness = VIEWE_BL_DEFAULT;
-+	int error;
-+
-+	device_property_read_u32(&client->dev, "default-brightness", &brightness);
-+	if (brightness > VIEWE_BL_MAX)
-+		brightness = VIEWE_BL_MAX;
-+	props.brightness = brightness;
-+
-+	bd = devm_backlight_device_register(&client->dev, dev_name(&client->dev),
-+					   &client->dev, client, &viewe_bl_ops,
-+					   &props);
-+	if (IS_ERR(bd))
-+		return PTR_ERR(bd);
-+
-+	error = backlight_update_status(bd);
-+	if (error)
-+		return error;
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id viewe_bl_of_match[] = {
-+	{ .compatible = "viewe,7kf82-backlight" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, viewe_bl_of_match);
-+
-+static const struct i2c_device_id viewe_bl_id[] = {
-+	{ .name = "7kf82-backlight" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, viewe_bl_id);
-+
-+static struct i2c_driver viewe_bl_driver = {
-+	.driver = {
-+		.name = "viewe_bl_i2c",
-+		.of_match_table = viewe_bl_of_match,
-+	},
-+	.probe = viewe_bl_probe,
-+	.id_table = viewe_bl_id,
-+};
-+module_i2c_driver(viewe_bl_driver);
-+
-+MODULE_AUTHOR("Hefei <3066883572@qq.com>");
-+MODULE_DESCRIPTION("VIEWE 7KF82 I2C backlight");
-+MODULE_LICENSE("GPL");
 -- 
 2.55.0.windows.5
 
