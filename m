@@ -1,59 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.190.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795566501;
-	b=KRYt+P9IbPHMn2nuTfHGYVqTeWebyxVE1L5TvCibgBXhGIRMMQDq0PID/RblksBiJE1X
-	 pWEGRums9aaNkIZqpQcdKm+IoDe056Eyis+Y7gbsDwNVHYVTL4PVWx4jCKtsXCuOaiOow
-	 vmf6Mh719QgIPU7/+PUBkLWXcWAgrI2uBYPezJ4HodQUaK94TD0BXZenUXPDbup7oilIm
-	 41g6CeVcsHf0Tpf8p1wAkJdNZrMOgqaH1Bu+aCYFOoUoFvnUjqpanS9Rf+YTiC9xdVSw7
-	 cfhCwvXiRcDnrqh2yv6pVcNRqo08xhUEsL6ivTc+Uc5y+rzW2DIMrfsFUge+un1TeOA==
+	t=1795566650;
+	b=h1G2hWQ7NSedpp/tS/pjVRMysBFTP0Sknfo0BL/gYTr8d/RE7ENpVuru5iFK2VnxHpjS
+	 yKwtGqer9Ue55rNBw1IOEb+GsicXUlMaYtIVMpMi3HodEc7N4znem9MYgnq9yuUhcKrK6
+	 jRdkv+XOb/7Qr4g1YI29Nzsx5RU6oAVwi8rqoqNcIlHZFD6N9vOs2iGtw71zt62RnvK9N
+	 Jsa/73Bq/xsgDoDeKaIYic0yCqatmYlnAvIAwgl8F1a0NgDV0fXFEtGB+eIkmYT4cmgoW
+	 FgHqmfBHuuWgG5N5TA0rIG902f0si/3TajG/RN6JGw3LXGYcIZRHr42VyGUonCj94RA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795566501;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=0Ogcn6Yj5HjgRG7LSf4omg5LzaKmfYWDCA7gXIBMrao=;
-	b=Ddf2RzmT199jTkTQW/GlmM8Th7FOIRIJB8wZYi9VeA4Es6oqXIPvyxq6JWoivndpjMub
-	 Z1xtKNJcrCi5i+R0v+6PKP/BFL48I4huQ2qPQ/UyLSDimO8M7JfVB4yGBn96l4AzhneAD
-	 UC7kkkNXTZREbvRzQ+PY/5ZY/k6dxiiVUre7iGrhWEeVwzy0OOJ8v6xu1CPGv9DBkx1Mj
-	 sezWnINE/fKgK9Ew1e8QKF4D9UddZ91Ui0GOH9tNOUVWUtaMykT4x4B+8WyjSATYqBpV1
-	 WnmkrUTkm6jL+2dG9+un+FpLaw6IS41fm1UrfQ3JrNO2YI4u6KuBOpLi4fzIKaHcYZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795566650;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
+	bh=opO6KqrLeZU2YFUSJAKWKg1/ArS9FwTmKWO3coNyByA=;
+	b=jTIzJkSwr2IpFth10akiLuiGuTvxjPrZy60WOvTnqbxZgx7rxFqcGbmnI3s3gD8iL+87
+	 uHfdLg3taa9WqoCt6K+iJCSTl22pzxCynGOB9s7hnIgh0bA6L2QT1qat+NKsuzuP1B+/z
+	 MWijQmR1BWiIQ6LlSlF3Xwf1yd5g38K80EOOL95Ae+iZ5sTE+QAQ5/5wCkny7Rs00nAUA
+	 ysD/9CEkQlnQuAHsI1nyhKvXVcZHcDR9L3k1LtTPPtFSMgdDGHCFa6/uPLqxXBLdN0LMq
+	 Rv9uPpnXnjd7FptpQDZiz30kcKyI784YOusUh0yEuoxUOQ3a2egT1rImEC4tmepMPhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FdX7KFWk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=netfilter.org;
+	spf=pass smtp.mailfrom=netfilter.org;
+	dkim=pass header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=rLL1wP2W;
+	arc=none smtp.remote-ip=217.70.190.124
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEED1606A335;
-	Wed, 25 Nov 2026 00:28:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id EAE1C606A31E;
+	Wed, 25 Nov 2026 00:30:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAE1C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FdX7KFWk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABE681F000C6;
-	Wed, 25 Nov 2026 00:28:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795566501;
-	bh=0Ogcn6Yj5HjgRG7LSf4omg5LzaKmfYWDCA7gXIBMrao=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=FdX7KFWkdk6F3TEUkK51puLe42nJTvz8ze8Cw4uOcEn6+3T6teai6aklDGrDvmlhf
-	 JRlVKrGazV4ZMO/adLV8UBL51u98CZt5m5qbWlU+DTLCLhTj39JxvZDM4T90R4fR0u
-	 hvE6R6C8I+BfoIfmgAIikClNvwz93CY+6i1EC9HlSZo195Ad3oBMjUF1YTWxJtbLE8
-	 qINMda980WwczCA4wyo7Bu99qT+0jP64Fe96A4xgDGip7zi2w0H8dyr+C/0igUbXgf
-	 K4AiKlNx3jv/7WOm3fjvFRBWbAv98q2kVMnB49kO2TPkHKEdk1midmGQbwmooqeLjh
-	 Kjs7PG2IPE2nw==
-Subject: Re: [PATCH net-next v3 5/5] net: hix5hd2_gmac: Support fixed-link
-From: netdev-bot+sashiko@kernel.org
-To: mmyangfl@gmail.com
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, shenjian15@huawei.com,
- shaojijie@huawei.com, devicetree@vger.kernel.org
-Date: Wed, 25 Nov 2026 00:28:20 +0000
-Message-ID: <179556650026.3135.16586116032189589789@kernel.org>
-In-Reply-To: <20261124002442.19414-6-mmyangfl@gmail.com>
-References: <20261124002442.19414-6-mmyangfl@gmail.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=rLL1wP2W
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1795566647;
+	bh=opO6KqrLeZU2YFUSJAKWKg1/ArS9FwTmKWO3coNyByA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=rLL1wP2WAiEAH+1CzJfQMLdmOeZ3TwhZfbvAbLLd2Ki9tOUStpQdz6SyBW6BN3nap
+	 sq8dLhfJoCTe9aq5TFnkDw0mFXYul9OsjPwvTm3tgkcLc0Gnu2fKLmtw+UDWSSvBwy
+	 1H+O/GjncKALc449Sz3B/omNJrQBz+gi4eczr1nWVoC59kU8fnEpojCAY8QEwMT7xu
+	 c748JkTW+s1xwjcIIgMEi2/3o9GsqovIFM3tUayLdO+AB4xgS4ICwhg5dAFYHV4psh
+	 LNFshBpcvPhnnwwJD6ytopeGZggf3kp2siaE6Ai3YOA1kidDBMpONjWYkgxAFbVz16
+	 g6uVosNgxT2cQ==
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 4C65E6007A;
+	Wed, 25 Nov 2026 01:30:47 +0100 (CET)
+Date: Wed, 25 Nov 2026 01:30:44 +0100
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: netdev@vger.kernel.org,
+	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Jonas Gorski <jonas.gorski@gmail.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+	"open list:NETFILTER" <netfilter-devel@vger.kernel.org>,
+	"open list:NETFILTER" <coreteam@netfilter.org>
+Subject: Re: [PATCH net-next 6/9] net: flow_offload: allow drivers to
+ validate and invalidate cached paths
+Message-ID: <awYsNPjUfgpDAgMr@chamomile>
+References: <20261116222519.1416501-1-florian.fainelli@broadcom.com>
+ <20261116222519.1416501-7-florian.fainelli@broadcom.com>
+ <awI-mtwn3ohPw-fF@chamomile>
+ <b5a899c1-c1b8-409e-8b50-ca722c229f5b@broadcom.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,142 +84,117 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <b5a899c1-c1b8-409e-8b50-ca722c229f5b@broadcom.com>
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Hi Florian,
 
-Low priority / nit picks for your consideration:
+On Mon, Nov 23, 2026 at 08:10:16AM -0800, Florian Fainelli wrote:
+> 
+> 
+> On 11/21/2026 5:00 PM, Pablo Neira Ayuso wrote:
+> > On Mon, Nov 16, 2026 at 02:25:16PM -0800, Florian Fainelli wrote:
+> > [...]
+> > > +static int nf_flow_offload_validate(unsigned long cookie)
+> > > +{
+> > > +	struct flow_offload *flow = nf_flow_offload_cookie_flow(cookie);
+> > > +	unsigned int dir;
+> > > +
+> > > +	for (dir = 0; dir < FLOW_OFFLOAD_DIR_MAX; dir++) {
+> > > +		struct flow_offload_tuple *tuple = &flow->tuplehash[dir].tuple;
+> > > +		struct flow_offload_tuple *other = &flow->tuplehash[!dir].tuple;
+> > > +		struct dst_entry *dst = tuple->dst_cache;
+> > > +		struct neighbour *neigh;
+> > > +		u8 mac[ETH_ALEN];
+> > > +		bool valid;
+> > > +
+> > > +		if (!dst)
+> > > +			return -EOPNOTSUPP;
+> > > +		/* This is the actual route selected with the packet's policy
+> > > +		 * context, including mark, DSCP and the reverse lookup's oif.
+> > > +		 */
+> > > +		if (!dst_check(dst, tuple->dst_cookie))
+> > > +			return -ESTALE;
+> > > +		if (tuple->xmit_type != FLOW_OFFLOAD_XMIT_DIRECT)
+> > > +			continue;
+> > > +		/* A stacked path may have a different final Ethernet neighbour.
+> > > +		 * Do not mistake that unsupported context for a stale owner.
+> > > +		 */
+> > > +		if (dst->dev->ifindex != tuple->out.ifidx)
+> > > +			return -EOPNOTSUPP;
+> > > +		neigh = dst_neigh_lookup(dst, &other->src_v4);
+> > > +		if (!neigh)
+> > > +			return -ESTALE;
+> > > +		neigh_ha_snapshot(mac, neigh, dst->dev);
+> > > +		valid = (READ_ONCE(neigh->nud_state) & NUD_VALID) &&
+> > > +			ether_addr_equal(mac, tuple->out.h_dest);
+> > > +		neigh_release(neigh);
+> > > +		if (!valid)
+> > > +			return -ESTALE;
+> > > +	}
+> > > +	return 0;
+> > 
+> > This validation to catch for stale entries looks very similar to what
+> > I'm working on. I guess there is a chance to consolidate all this in
+> > common infrastructure for both software and hardware modes.
+> 
+> Excellent, happy to point you to an off the shelf device where you could be
+> testing this on, if you would like to?
 
-- [Low] hix5hd2_dev_probe()
-  (drivers/net/ethernet/hisilicon/hix5hd2_gmac.c) now uses…
-- [Low] The series' binding text (hisilicon,hisi-gmac-v1.yaml, `mdio`
-  description) says: "With a fixed link, the MDIO bus is not registered…
+I have a setup with Banana pi r64 and openwrt, I have this large
+series of backports to synchronize with with current upstream trees:
 
---
+patches/generic-backport/951-netfilter-flowtable-inline-vlan-encapsulation-in-xmi.patch
+patches/generic-backport/952-netfilter-flowtable-inline-pppoe-encapsulation-in-xm.patch
+patches/generic-backport/953-netfilter-flowtable-remove-hw_ifidx.patch
+patches/generic-backport/953-netfilter-flowtable-use-tuple-address-to-calculate-n.patch
+patches/generic-backport/954-netfilter-flowtable-Add-IPIP-rx-sw-acceleration.patch
+patches/generic-backport/955-netfilter-flowtable-Add-IPIP-tx-sw-acceleration.patch
+patches/generic-backport/956-netfilter-always-set-route-tuple-out-ifindex.patch
+patches/generic-backport/957-netfilter-Add-ctx-pointer-in-nf_flow_skb_encap_proto.patch
+patches/generic-backport/958-netfilter-Introduce-tunnel-metadata-info-in-nf_flowt.patch
+patches/generic-backport/959-netfilter-flowtable-Add-IP6IP6-rx-sw-acceleration.patch
+patches/generic-backport/960-netfilter-flowtable-Add-IP6IP6-tx-sw-acceleration.patch
+patches/generic-backport/961-netfilter-flowtable-dedicated-slab-for-flow-entry.patch
+patches/generic-backport/962-netfilter-nf_flow_table_ip-reset-mac-header-before-v.patch
+patches/generic-backport/963-netfilter-replace-skb_try_make_writable-by-skb_ensur.patch
+patches/generic-backport/964-netfilter-flowtable-fix-inline-vlan-encapsulation-in.patch
+patches/generic-backport/965-netfilter-fix-inline-pppoe-encapsulation-i.patch
+patches/generic-backport/966-flowtable-use-skb_pull_rcsum-to-pop-vlan-p.patch
+patches/generic-backport/967-netfilter-flowtable-avoid-num_encaps-underflow-on-br.patch
+patches/generic-backport/967-netfilter-flowtable-bail-out-if-forward-path-cannot-.patch
+patches/generic-backport/968-netfilter-flowtable-fix-and-simplify-IP6IP6-tunnel-h.patch
+patches/generic-backport/969-netfilter-flowtable-use-dst-in-this-direction-when-p.patch
+patches/generic-backport/970-netfilter-flowtable-Validate-iph-ihl-in-nf_flow_ip4_.patch
+patches/generic-backport/971-netfilter-flowtable-IPIP-tunnel-hardware-offload-is-.patch
+patches/generic-backport/972-netfilter-flowtable-support-IPIP-tunnel-with-direct-.patch
+patches/generic-backport/973-netfilter-flowtable-use-correct-direction-to-set-up-.patch
+patches/generic-backport/974-netfilter-flowtable-tear-down-flow-entries-with-stal.patch
+patches/generic-backport/975-netfilter-flowtable-consolidate-net_device-field-in-.patch
+patches/generic-backport/976-netfilter-flowtable-consolidate-flowtable-device-che.patch
+patches/generic-backport/977-net-dsa-stop-at-the-user-device-in-.fill_forward_pat.patch
+patches/generic-backport/978-net-do-not-advance-stack-index-from-dev_fwd_path.patch
+patches/generic-backport/979-net-pass-dst-via-net_device_path-in-dev_fill_forward.patch
+patches/generic-backport/980-netfilter-flowtable-release-tunnel-route-on-error-wh.patch
+patches/generic-backport/981-net-pass-net_device_path_ctx-to-dev_fill_forward_pat.patch
+patches/generic-backport/982-net-remove-WARN_ON_ONCE-from-the-dev_fill_forward_pa.patch
+patches/generic-backport/982-0001-netfilter-flowtable-generalize-pending-status-bit.patch
+patches/generic-backport/983-netfilter-nft_meta-add-double-tagged-vlan-and-pppoe-.patch
+patches/generic-backport/984-net-netfilter-add-ether_type-to-net_device_path_ctx-.patch
+patches/generic-backport/985-netfilter-flowtable-rename-tun.l3_proto-to-tun.inner.patch
+patches/generic-backport/986-netfilter-flowtable-rename-ctx.tun.proto-to-ctx.tun..patch
+patches/generic-backport/987--netfilter-flowtable-store-ethertype-in-flowtable-con.patch
+patches/generic-backport/987-netfilter-flowtable-move-ipv4-and-ipv6-xmit-path-to-.patch
+patches/generic-backport/988-netfilter-flowtable-detach-layer-2-encapsulation-par.patch
 
-net: hix5hd2_gmac: Support fixed-link
+I guess this should be fine for testing this patch, maybe there is a
+better way.
 
-When the MAC node has no phy-handle but of_phy_is_fixed_link() returns
-true, this commit registers a fixed PHY from the MAC DT node. For a fixed
-link, MDIO bus registration is skipped unless an mdio child node is
-present. phy-handle takes precedence over managed = "in-band-status".
+I still have to automate testing more classic scenarios in the real
+hardware, such as PPPoE (I have configuration to make this local),
+vlan, ipip tunnels, wireguard, etc.
 
-> diff --git a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
-> index a176870079e96..b787b7777e924 100644
-> --- a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
-> +++ b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
-> @@ -1176,37 +1176,52 @@ static int hix5hd2_dev_probe(struct platform_device *pdev)
->  		hix5hd2_phy_reset(priv);
->  	}
->  
-> -	bus = devm_mdiobus_alloc(dev);
-> -	if (bus == NULL) {
-> -		ret = -ENOMEM;
-> +	priv->phy_node = of_parse_phandle(node, "phy-handle", 0);
-> +
-> +	/* In the case of a fixed PHY, the DT node associated
-> +	 * to the PHY is the Ethernet MAC DT node.
-> +	 */
-> +	if (!priv->phy_node && of_phy_is_fixed_link(node)) {
-> +		ret = of_phy_register_fixed_link(node);
-> +		if (ret < 0)
-> +			goto out_disable_clk;
-> +		priv->phy_node = of_node_get(node);
-> +	} else if (!priv->phy_node) {
-> +		netdev_err(ndev, "not find phy-handle\n");
-> +		ret = -EINVAL;
->  		goto out_disable_clk;
->  	}
+If there's anything else I'm missing, please, let me know.
 
-[Severity: Low]
-Is this condition broader than intended? of_phy_is_fixed_link() also
-returns true for any managed value other than "auto":
-
-drivers/net/mdio/of_mdio.c:of_phy_is_fixed_link() {
-    ...
-	err = of_property_read_string(np, "managed", &managed);
-	if (err == 0 && strcmp(managed, "auto") != 0)
-		return true;
-    ...
-}
-
-Before this patch, a MAC node with managed = "in-band-status" and no
-phy-handle failed probe with "not find phy-handle". Now it probes and goes
-through of_phy_register_fixed_link(), which checks in-band-status first:
-
-drivers/net/mdio/of_mdio.c:of_phy_register_fixed_link() {
-    ...
-	if (of_property_read_string(np, "managed", &managed) == 0 &&
-	    strcmp(managed, "in-band-status") == 0) {
-		/* status is zeroed, namely its .link member */
-		goto register_phy;
-	}
-    ...
-}
-
-That registers a fixed PHY with link=0. It also skips any fixed-link
-subnode, so the speed and duplex given there are ignored.
-
-hix5hd2 is a plain phylib MAC. It connects with of_phy_connect() in
-hix5hd2_net_open(), and hix5hd2_adjust_link() is the only place that
-programs port speed and duplex. The driver has no in-band status reader
-and never calls fixed_phy_set_link_update() or fixed_phy_change_carrier().
-Would the link ever come up for such a node?
-
-The binding in this series only exempts fixed-link from the phy-handle
-requirement. The commit message only says phy-handle takes precedence
-over in-band-status.
-
-Should managed = "in-band-status" without a phy-handle be rejected here?
-Another option is to check for a fixed-link description explicitly.
-
-[ ... ]
-
->  	mdio_np = of_get_child_by_name(node, "mdio");
-> -	ret = devm_of_mdiobus_register(dev, bus, mdio_np ?: node);
-> +	if (mdio_np || priv->phy_node != node) {
-> +		bus = devm_mdiobus_alloc(dev);
-
-[ ... ]
-
-> +		ret = devm_of_mdiobus_register(dev, bus, mdio_np ?: node);
-> +		if (ret) {
-> +			of_node_put(mdio_np);
-> +			goto out_phy_node;
-> +		}
-> +	}
-
-[Severity: Low]
-What happens with a MAC node that has both a phy-handle and a fixed-link
-subnode, but no mdio child?
-
-phy-handle takes precedence, so priv->phy_node points at the PHY node and
-priv->phy_node != node is true. The bus is then registered on the MAC
-node itself. __of_mdiobus_register() finds the fixed-link child, which has
-no reg, and scans every address:
-
-drivers/net/mdio/of_mdio.c:__of_mdiobus_register() {
-    ...
-			/* be noisy to encourage people to set reg property */
-			dev_info(&mdio->dev, "scan phy %pOFn at address %i\n",
-				 child, addr);
-    ...
-}
-
-The fixed-link node has no compatible, so it counts as a PHY, and
-of_mdiobus_register_phy() is tried on it at each free address. This
-produces the "scan phy fixed-link at address X" output that the commit
-message says this change avoids.
-
-The binding text in this series says:
-
-    With a fixed link, the MDIO bus is not registered unless this node is
-    present.
-
-The binding does not forbid combining phy-handle with fixed-link. Should
-the binding description or this condition be changed so they agree for
-this case?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261124002442.19414-1-mmyangfl%40gmail.com
+Thanks.
