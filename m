@@ -1,100 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795607453;
-	b=XOL1Kf0Dwr76rk6Qz1Tb0KtUqk5N5m6jo9ukmI5N+aA4g4TIYMp+18Ch4FdxVgzHuCyF
-	 eUv+xnRvaM2Nq7yQEqhl5oZySHCBBEeC2k0Nn2OxWNwrKK4pd+kyyF930UpVrzABAtWdI
-	 Lc63qBAo5T/ZbyGSf0hDFB5qSEjgkgubNmagASdtNV1fh9l2xj5sd5ke2bPE/kRg+B7b7
-	 25aypU81sMlKT4aTiGZpcnYDqniro9DDbhWYpb4UrhhvYBR/IxNVj45Cn/TfTPNIYag+3
-	 ql6WlbqDxOB3lYgo/1kJnTfkuhVRZupTbcsWT9OvaiWmghSPerUfaFO9HDyDK6ZGtRg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795607453;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=AK/FrytH2tf+B+57Lq9wnH5wu00oxO/OQC1ZXkryskE=;
-	b=Ny2d6HahiMZUn5MIf9PRC/S5j7nRwH0EXK7rNacgCuBZ8u1NPfRhIhTVCwpyQ0Y141Px
-	 QDyeJiRIgCGml3XrN+b2VdrcU7gH0Xe7Tp5CJa2jYoQeeGobtzjmgd83MKCzde3xyE2UR
-	 qO9o2ChAyG1AkuLJkzNTSh4rbjnfJhj4mUgXRGFshaFeNxxW3+sTXZkYe997qfpMmKVX5
-	 7zMkd16Zv54tIWDhlhv5kMfngG/4iYHjTWyx3gAm3vs23olKRORsTQSDZ0ny6QYMlhQ4N
-	 XBPxzEsk0BLxOEZwZDOVk8kPic9yssqKo9+ilf/lgmhQWeX63MBnNQzoiNFg7BWM10g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cCKrplZv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795607608;
+	b=eceH+dIRXThuXsvBtMcetcwf/QG/XxXDo+0SNxReK1ARuhlp1IdQzdZTLC30SJtaTW3S
+	 U+uFOKqPXaeZNKc561vwESMwObcsI+3RcsL8+qDQEzO0cJGku4Jzmkyg6f8OPNjUSJrsb
+	 h0LHdVZ7Xvhc8/Oi/TOj/0RgJ5TfVF5fRxlG1sn+qNN3JPoCqbhLsPKqj6MasNTmQrx/J
+	 wCSL36xx67uBhZ1BBDKdOU7OLDDe1WKSNEtTUkWPty78NO/r273yBwa5wMYP1kKfWa5eH
+	 tfy2w4FBLrKHVpeOg34bKn2ThtGB+yWa3l4a0P1BVdM+UmthtRJv4Q6lhye7u/LRtMg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795607608;
+	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=mlkDCg9kprZ62DwlXQd8yd+ADgwJpdD1CpbOrg8ZjiY=;
+	b=OqR+FwsHHF7Ifbz848AF4pOjSuosND+F0YJzOXktLRtxXh3EuDbXqxTLyB3fIGCFMGSs
+	 rpGTYxXfZgehqGgoqD3wWf6tO3d9G9n1v5/iadwNR7+m1OCAAUwXaNHe9JGiSo38WE2bS
+	 0FRMtUc4B0jhKBOTaDK69hFzsoFfpl5gvB3LXBs0xHY03ABjEgs6ArED07x2xP5ywO436
+	 m15ncaTF5inFvz58x4vg+dRbemA8wTa7LyVe6F0Vx3AvrXCTY4RXlb8/RWGStbxnLViLh
+	 9B/c4DLko32oCZS2OFUgl+H/i2WGTrT7QwJfcjc2eBD3ILacERVzv9rR0FPhRlTDkvA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=d-silva.org;
+	spf=pass smtp.mailfrom=d-silva.org;
+	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=C8qj2Rj+;
+	arc=none smtp.remote-ip=119.15.109.137
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7461D606A334
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 11:50:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7461D606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE6FC606A332;
+	Wed, 25 Nov 2026 11:53:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE6FC606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cCKrplZv
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c506a231b88so770543966b.3
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 03:50:53 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795607452; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NzhMxhVSIrFE+Do1l0IzcxgkkhKPTs1J5+P6J57nki/hYV/DCfpsQTD8K9/t2a5tpd
-         xYD7/gp/uUOhMdPzkYQ/bklKVuHvjI3HnPcMrYmSqQsiBA7DOT4il4ruro4aT1s2Uo4C
-         I+WW+8OAIxXcVD1uyY1Xvy8Ma3UT6fvgmzHFq5C2VRYOmedD4S6/TsZA7CqcTb2OgKmU
-         RiPYXTOfQyzNF9Y+bipYIkwnOCtW/lIs5OLZo5pMLbSQHVKNcbJ/3bLjI6lehgiEoaDh
-         esylkb3vi3d81DP2CGqVvvwIzfAebAzt4dC2yOO4WyHACrsebX5s+C350DcSTTmLiRp6
-         SZqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=AK/FrytH2tf+B+57Lq9wnH5wu00oxO/OQC1ZXkryskE=;
-        fh=oFVldEV3PcN45KIEPvDBK4NBsJkargjCGqSEU4gIEEg=;
-        b=lv/h73/CgyS5Mcs5XZMmrqVD1pimAB38jXPEqxQJI/FjhWP9usWKLmEwSy0rw2eZ7c
-         AQ5Z6JivrjkVswTYzZjDagp37liGJjhyMoPgpFZidt/7VQixW6vFnMBxWB347DYo5fmc
-         DIoTwfeIEh/rCzpSXmYEY5MGNnwEV6vyCNWWiCdpCPU3xzt6DZpzwKu12iswdGYpJAFc
-         l3nBLTnTW6fBkJkChLEa6zxjNlklE/eRQmk/bMjp1Uww4E91UAyYAJfQZBvLoQrqpCdS
-         wzyPyeaAvZOINF4hlckJ7oy3Hiu0a9nebAYxR6Q1GNo5+PA6RDk6621cPmwulQhNqRl8
-         GMag==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795607452; x=1796212252; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AK/FrytH2tf+B+57Lq9wnH5wu00oxO/OQC1ZXkryskE=;
-        b=cCKrplZvKmTmChiU/HWkkzSUlDXxoFNlvdQW5t4JT7LvZaH0zotWEszT5kKBJmcN0m
-         vPomZV2tFWvlHcSrTbIAZuo5IG+DDIIhkqdzaluUlsEaQbjEEHWkEha+8MbbvKJfHpNJ
-         bXl3xKAlMN3VvWpQbWEtysh7LbJqy03KCAvbBb4/lPCY56uKVSlnQ/rDAF0EPCdFR7da
-         whyxBm9WY9e0pNEXmVJmY3HAxKfEu64s8CS2jmMBv4BH0cWdBkWz2XGF5xzGEM5kJXEv
-         Equ5HQ0aYS3C+qnGSq1ascS5uzpxPVUWCGsWcVKOYAfoIori+vEAGi22Mpu0Ajet8D72
-         wlgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795607452; x=1796212252;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AK/FrytH2tf+B+57Lq9wnH5wu00oxO/OQC1ZXkryskE=;
-        b=Z3XwzzMIuXFvXJG9oA+D5iU++19bu4NLaHtggsi1VbfJtF/Ymdm4EEqOL4FQhUfrVp
-         TODB7hAjXzMVlZwiMNjLLSnAsT8Ygl4hIkLEGIlMTyb0tOdrun6lTIXVvkJg1Zy9hbGL
-         RdsnLhnAR6fD6v4YjzcX7D7L42MP7KMqAkxuy22hI023fFvAZ38hi2D8sZD7czH8rXQu
-         WJbHg41xE/kzGP5JR+FkyGBYf+Y2IWQzFGBFkWU5gmom47kHoTMLDB9aG+945pbbnsfy
-         BA4J3J2zP/IWp+bSG+3ZqjB6oS260wrgM6in+J7WYvjw9ANcIp3FmwtLR/QPPRXyrnfQ
-         SboA==
-X-Forwarded-Encrypted: i=1; AL+hErHqUSnASf3mxE6VlENGl2u9OS2INd8cR+2QrkGwSRCaE+VuHaHp7rmqtgZeCIJ1m+2myOHbPFoPqSzQ@vger.kernel.org
-X-Gm-Message-State: APuU4Z/JhRnEirGce+ORYKEx4Sknm1SnqCPhZ8vX+2MVFH3xiaWnQdZg
-	yR+RB8f4pLSEznwyj0DAGsuFLO83Z6YxGJ0eu+dnMi7AxxZaf83SuUHVmAQ5rTHeEnniS9QZ8/Z
-	Fwpss9qK7RKBCQVxK9A1fxWgnxGQECaU=
-X-Gm-Gg: AZFdTZdHz+JUV4O0S1Y2Aaec4CAwPimt5HxSXvJFgJ+Xdcol8+Jee6gLCjSrAtR8dc0
-	LpInsT+eK1QGbUSDQJkGlRNLllps3Z74cpflAej0GmhozZpfXpeXjdG7I6IxeA0O468rBPQTPrJ
-	e7OT/3NjukR3zZQzhU/e1u4EqWXoMy8K8T/fCRmOsBD/+k0/AusBKNXI9DjrgreiYHy78IWx3rP
-	Ayj/tqvK/ltZtjbUfHvToP5th5MplTxYx0uzToThx6v2mHr71x/2jwjJ/7WWBaImfVDPUwG4SjU
-	TS7X9pM5IGVTR1W5uA6871a0jo4EsIeCiX7GKflDfC+oBDMSrpecFMA9yx7gIoXmmHspXPdwQh7
-	lywzbo2KONCztiaitcG1/V1PqhIiyNJX4DnR3AEg=
-X-Received: by 2002:a17:907:ba01:b0:c50:521f:13de with SMTP id
- a640c23a62f3a-c513a897601mr1361763166b.35.1795607451572; Wed, 25 Nov 2026
- 03:50:51 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=C8qj2Rj+
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id 32D4E45844;
+	Wed, 25 Nov 2026 22:53:20 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1795607600;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mlkDCg9kprZ62DwlXQd8yd+ADgwJpdD1CpbOrg8ZjiY=;
+	b=C8qj2Rj+fzKog24buY1PaEC/j3+RQMketNzOBNyqLPWLhq3UVkUmXjPujBBBfT32+Ki+0s
+	2Y6k9BKv4Xh6Cgdk4eNvSDniSQhzK5oRY5aaw8V03U/XkGaHoA8oZcgvXvXzrrwIhtpckP
+	D7e+5pVv+l6s9ImcAxTvntnCi3d2XynmKc4m8EmxMU3tg72jdrGMswbwvB8ygFYJyyf1aJ
+	HUapdsxbhWcfElKIXpTDoNlNeqEAEO3kDjc6dUakyf3z4+fSNGVWbQdDDxumfm/rnqxnz7
+	PKxPPKekc+UHvNn7g/4bNwrBoIOeaE/YpnGdebkwT26eR7KAiLcsSJcNrm1rdw==
+X-GPT-Reason: The email is classified as personal/professional
+	correspondence because it appears to be a direct reply to a technical
+	discussion. The sender domain (d-silva.org) matches the recipient's
+	known personal mailbox (alastair@d-silva.org), the subject line
+	refers to a specific technical patch (clk: sunxi-ng: a733), and
+	there are no phishing indicators, urgency tactics, or external URLs
+	present.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: Junhui Liu <junhui.liu@pigmoral.tech>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Richard Cochran <richardcochran@gmail.com>
+Cc: linux-clk@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Andre Przywara <andre.przywara@arm.com>,
+	netdev@vger.kernel.org,
+	Alastair D'Silva <alastair@d-silva.org>,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>,
+	Norman Herms <dockseed@proton.me>,
+	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+Subject: Re: [PATCH v7 7/8] clk: sunxi-ng: a733: Add bus clock gates
+Date: Wed, 25 Nov 2026 22:53:20 +1100
+Message-ID: <20261125115320.3692954-1-alastair@d-silva.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261112-a733-clk-v7-7-db7c5451ffa2@pigmoral.tech>
+References: <20261112-a733-clk-v7-7-db7c5451ffa2@pigmoral.tech>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,59 +100,32 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261124094914.2993988-1-a.shimko.dev@gmail.com>
- <20261124094914.2993988-4-a.shimko.dev@gmail.com> <977f8fec-4cae-4003-b878-a7eb5aeee48c@lunn.ch>
-In-Reply-To: <977f8fec-4cae-4003-b878-a7eb5aeee48c@lunn.ch>
-From: Artem Shimko <a.shimko.dev@gmail.com>
-Date: Wed, 25 Nov 2026 14:50:39 +0300
-X-Gm-Features: Aa3M54oKEgG2JL9N45FOQuqjvfRbhcjaW8XTghdzQJCbxKeIwx-6DyB-aMwShTI
-Message-ID: <CAOPX746TNm7m6d6G-WyUzDptEVRJR0AuUzKa_Hg=P7s8CchhHw@mail.gmail.com>
-Subject: Re: [PATCH net-next v5 3/3] net: phy: dap8211r: add PHY LED control support
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net, 
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, maxime.chevallier@bootlin.com, 
-	pavel@ucw.cz, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-leds@vger.kernel.org, netdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Andrew,
+Hi Junhui,
 
-On Wed, Nov 25, 2026 at 12:47=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote=
-:
->
-> On Tue, Nov 24, 2026 at 12:49:12PM +0300, Artem Shimko wrote:
-> > Add support for hardware-controlled LEDs and brightness on the DAP8211R
-> > PHY. The chip exposes three LEDs that can be programmed to react to lin=
-k,
-> > speed, duplex, and TX/RX activity or be driven via the force mode.
-> >
-> > Add the dap8211r_write_ext() helper to access extended registers via th=
-e
-> > PHY indirect access registers, and implement callbacks for:
-> > led_brightness_set(), led_hw_is_supported(), led_hw_control_set(),
-> > led_hw_control_get().
-> >
-> > Signed-off-by: Artem Shimko <a.shimko.dev@gmail.com>
->
-> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
->
+On Thu, 12 Nov 2026, Junhui Liu wrote:
+> static SUNXI_CCU_GATE_HWS(ahb_msi_lite0_clk, "ahb-msi-lite0", ahb_hws,
+> 			  0x5c0, BIT(16), 0);
+> ...
+> static SUNXI_CCU_GATE_HWS(mbus_msi_lite0_clk, "mbus-msi-lite0", mbus_hws,
+> 			  0x5e0, BIT(29), 0);
 
-Thank you for the review!
+While bringing up GMAC0 on the OrangePi 4 Pro with this v7 CCU series,
+link-up and DMA broke as soon as clk_disable_unused() ran.
 
-Sashiko AI flagged a Medium issue in dap8211r_led_hw_control_get():
-the function returns 0 even when LED_x_CON holds a state that cannot
-be expressed as rules (TX/RX without ACT_BLINK, or ACT_BLINK without
-TX/RX). I'd like to send a v6 that adds:
+ahb-msi-lite0 (0x5c0, BIT(16)) and mbus-msi-lite0 (0x5e0, BIT(29)) gate
+the shared MSI-Lite0 bus fabric used by GMAC0 and other masters, whereas
+bus-msi-lite0 is only its register configuration clock. Referencing
+ahb-msi-lite0 and mbus-msi-lite0 only in gmac0 does not model the
+shared fabric, and gating them off breaks GMAC0 DMA.
 
-if (!!(led_mode & DAP8211R_LED_ACT_BLINK) !=3D
-   !!(led_mode & (DAP8211R_LED_RX | DAP8211R_LED_TX)))
-return -EOPNOTSUPP;
+Could you please mark ahb_msi_lite0_clk and mbus_msi_lite0_clk with
+CLK_IS_CRITICAL, matching ahb_store_clk and mbus_store_clk in this
+driver?
 
-May i keep your Reviewed-by tag on
-v6, given that this is a small, targeted fix?
+Tested on OrangePi 4 Pro (Allwinner A733).
 
---
-Best regards,
-artem
+Thanks,
+Alastair
