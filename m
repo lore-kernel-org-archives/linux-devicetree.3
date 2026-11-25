@@ -1,82 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795632499;
-	b=AkDDxlU1tXCKQVsI8ecnLmkstZoVfifhPCclBfWKGoW/snbMY3YV6o+iOPO3YWO+ZhRe
-	 Bkvd0GFKXIweh+p2rAOp+eCB9VCCfjjVqsbyPOnAYGz4N1SBC5VvH3OFjY0RqOqE140Be
-	 gcwpuvLnJX3idmOahpDYhGpbdcgyiZt4AUsivTVi3ZDAQvOI2Hgl6eq5MdOAQ3fkDhZ2F
-	 FgKpNXehFpNWtRAHGtg6lz2AjW9m4v6NI6eEvOJu7IMclcSC4rFkA+1V7373b4RtaPjdT
-	 ph8AXHB/Uj9LpbD1bHh1+eFEgxRB6zcoOHEdCBlUnyUcPRzyFhs77usq0Iz/kYZE+Sw==
+	t=1795632501;
+	b=hmNcp1QdhBEIGyG2kotEu+XMvLb9w5AVRdFlHO0QCecU3n0uXopwwxhEc5xmtpM5GMZB
+	 582DJ7lIWzYkblXd5ee88Pcdq4c6tWbuXqEhXBkw6qHx2aYOrjRb8N2h5lNUKgG3tMGN0
+	 guoe+W+VjLdSOD4C3D7PGtjbwDnI5Xz04+N3WoITotPW0+l280OxUOa/HwYO0OZgn40Df
+	 fiZP6zrCB5TW5gtqIrxvUgzmqVeUMtUpN4RMKQRrrgj55TRd/wT92Mo5IPfv5XGnH/UYp
+	 QC7LYJZcg2972s5aSsaqraTLBFf7CRrDyOzcsMQQDhGx6OW7PajIUWyZ9xOdeoxm3mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795632499;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795632501;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=VQW/Ymb8D+uLvIjWbZ057G5GtIuukitNqjLkdiNCMvE=;
-	b=B/xjDZuBtvCkbnSjI6voXj5wPkTcJ8emgplzGB2Z/v+0Hy2uylxE5TmimP8EpgWgkDMf
-	 0EL6wRqWpRNLC+kdZuW0/SX3q/Rvdwg06nXN2MR/TFVgXy84UpLFr9ZLGQ2OJhAEz8Y1i
-	 TwFwCayAU7r9tH1XA8IEPfv+zvQE5Uhlm1IHX7V2SgLIC8AefUVtVC9ZgZGixy+EYSEEt
-	 2VdvP95iWgQRXLKU102UjZ4a8OxV2pF07GgRPxwLmZPGEXn26f0TGEFMCK/p+78N3B4SW
-	 TsmPswsJr5Pz8xTuDIw09GHUaZKDFlSDTpEZk9Sj3UBKYRW/cUaWWGmKHb0y2oVmlnQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=XRZdj8OAA5IgBUgIXtKpGdWFleIEtSggcmllPJz2aKU=;
+	b=WqFtwZZ1/wmUHJpGHF4uEqPFRZYfFYltHCFKp3DHOdmDKRglv3PMMX/neZWBbkDo2/bH
+	 KUHipJf5tnRDtnF13deikz3VK50TvwMlQPWQb4tQcrcJyT5BJGf6hYx0TZiQByd13by6P
+	 aMDd0E/W/4b7F5EycnhHRM+AIHvQz5KLM2HxZ9GWcT3U5xcwfEni+wnkMyzUE6UzWffM8
+	 RYHlRmiakaegm2wWSOKSiZZS0sAWdylncDvS4FfxwUyeE4Gr7YDWLNpXLmmBJak3/nSvM
+	 B7iFqua+V+jBAhO0lx3HfxQVPFtXXYLOvAgk0m84wdiZeL+JsXZGHImgOOPSv++4Jcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oNnBk9yY;
-	arc=none smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lM6jPvTR;
+	arc=none smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79E1606A327
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 18:48:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C79E1606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E600606A33E
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 18:48:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E600606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oNnBk9yY
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c516a194350so100154066b.3
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 10:48:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lM6jPvTR
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c505b2e1cb9so1129457566b.2
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 10:48:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795632497; x=1796237297; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VQW/Ymb8D+uLvIjWbZ057G5GtIuukitNqjLkdiNCMvE=;
-        b=oNnBk9yYeUkh5s9pJTjawpl5to9WwX7SUukW3RYanpUXdKryi5g59gdyC013GPo5KJ
-         44RoaPNMbHUir0M+Zhp87TWdQHbZM4kLUCrIT/znmwvN/7W+plDblEnJSJhJVNx59B1B
-         chd0czeEamhlDzqBzlSNWAgl9RqCeMqEu6tglGhHKOhF6wrzB6GX//4va9yD4oR5ChIx
-         6K6UWxCkBgpDnKlJT8uwYLnlEsvzSB8A3x8XJ6Yf8H9wGHX4cfSvnWq7kPdJ2YCYmOg7
-         RA0MMU1tmW9T8fguHCAFFhimvY97TLhouhiNYSJ0/UyZSjdG48daDEwMt3AoiQ+nHBGe
-         C1ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795632497; x=1796237297;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1795632498; x=1796237298; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VQW/Ymb8D+uLvIjWbZ057G5GtIuukitNqjLkdiNCMvE=;
-        b=HRMOfoFzxEVKwoO3NVG3QEuroZ/mVpx+M6ybyVcFu0Pz8n7BX6NBiCQRslG1yU6aq6
-         lVnXgpSA1lo25a2y0i993FRgZAg5RsWx4SM8xAWt8tAuf7/nV0ACmPV9o5fhLlWEn6JE
-         U9Th/+igY1yKlhIAZtTmP3q0DDMpCuxpjyFcXrFyr5Mch/0V6Fo7U1r2wRaMd9Ov2a3v
-         FDJXWElvsWL//ZhQ39+2PouzQQzNkxfM4H7nL9+JzYYH61E539fSJdbFcBwdwV1QoCKc
-         eCR83jgFKOYpNN3JNwvmBsp/90Mtvo5Yw5H8T8DHhK58I0lO+Fy6lfq2fToXvA+Kc3Iy
-         16kw==
-X-Forwarded-Encrypted: i=1; AL+hErFevaMQieu5B+/iresQw5OOC0fAz4naIK5Hv6CkmpZ50uZhUIC/SAM1rnbz5HQ921ijomXpuAlVnbXC@vger.kernel.org
-X-Gm-Message-State: APuU4Z/c2vTB9szGEHjKsGYDm+FmOnQz4UoHfgWr+QddxzW7zEZPgaU8
-	LDDzr8dKxBn7Y/9PcD/SrUFyQZpRKrEgzH/Q8U7iSv43rdGtyuPP7mXy
-X-Gm-Gg: AZFdTZe/DSgqT56/J1bBzxY4h8JD6RmJV0wWH8S0vnEyujRPbFZRlGBlaIz5qDKLqc3
-	MhABbrkACuvZPRKUa/WcjlXX1uGYBGWOpmXhx2p4GFfpkbSkAbIX+/9GAs5TiHXJlLLAAPC+I7o
-	IaO5mDFD3BIbHQ9SE7WDCtjtFjwpdkBoCX3nqTjrju/xli/7OuirC0yhOjKHi4jA1tc2wBytD2K
-	L32A/U8qD20qnCxEHPKpIs0I1XbWJdUAqpB6tqoHBuL7VOQx/SrR3k1d7J4BfcieYtKicomMYt1
-	Bs6/OZfGaf4VmagcBSMPU19SGwj+JNMwCn0sVmWL0w4ML/L3aqRN5ZbRhDzj6IXgAIRl7846QMC
-	X++vHuFilLXygCRcLKpgCyylEim9K4iTbXn3Yip+6KpukL+jjYUOazzh0DoCMnyNvZUXrfGVsw2
-	pZogeRYFcj6/lvkISJk+Ur9s+FzZzOQnm8DH1+worvVDJ0nZKXQPbK6Y0j4OQRBm6WGDrK712VE
-	DjdNEDRZgn19FkEcX4eTSJhKXISK/1oVM5SAAXscQBLwGs1ImuuhqX7+h/SZ/Lqg+llmnCggLNP
-	vVPB9DYyFrlVC/I980DFlUmWFKNS4uGUGttxcZ/8HG76Nc+SNyRM1Kgx23s=
-X-Received: by 2002:a17:907:20e4:b0:c40:9b75:84af with SMTP id a640c23a62f3a-c513a5ec7cbmr1173636366b.8.1795632496938;
-        Wed, 25 Nov 2026 10:48:16 -0800 (PST)
+        bh=XRZdj8OAA5IgBUgIXtKpGdWFleIEtSggcmllPJz2aKU=;
+        b=lM6jPvTRh8qC2tVEZxJ68Vw2DXnOsWAPa/Hxyo3vQhA2zAFe/MejY0hAD0zdt/076P
+         FRh1bvwBu2AMN0W9nu0BQy3ySoAq7UjjWTuteT5cGjB5LQfTcDnDidmoBlJBCbWVQi0H
+         U8RkDKgN1kbmwcXHqPweWxaMcn9IErDkmuE8kCSBog3R+w77Ml3s8pXsI8RTvXeATNNK
+         foTTKZwypSgexu8jk9H1TcGqgQq/kEUeYS2i6OO6Zsn4SjEECE1JypvAdZbuI8Tj2v0i
+         YShrmZYhrR53MZHuohEChrnpTslc2OFjcXWzQ7BwquGlMo94uuGZ1iiNFsAj7u++Y57q
+         VXMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795632498; x=1796237298;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XRZdj8OAA5IgBUgIXtKpGdWFleIEtSggcmllPJz2aKU=;
+        b=cIQHqAxcJJ/illZjNJcUoe4nmQGfJx+H6lEe3EAUM5fR/zBDivol0ZmvbkCEeRBEg2
+         0Lld0bUvJHd1++tWSL7klMYWHAyycDKYVGHM7Gmo9yX4VYBqvbh3z0Q40H7c2flxseKx
+         y+XyuIJ0jXEGf/zldQ1T9rwCGkmDrUJdxdqV+H0lf5o4C+Qp0iHG0IQpV/qsgsASYFip
+         UWBz0jedrSWTcVzmRjRnTgaH5mROmY/4hgdo+hMFopFL0US0RhNAXHa0y8tWnUzMupk4
+         fuG/hlnbCM+SSQVJcS5WzcS6Kk9k49aVmrN6jZi23w9kwS5rGeUZtH2sDMNmfKL7LWD3
+         laRA==
+X-Forwarded-Encrypted: i=1; AL+hErFX8aF/ZeD5rj/pqI/1eJAo0QokZvZHVIbTxQd9LJGDRD0L3cN4DYDMgaJx4fdYrep+OBwo7fxc97UE@vger.kernel.org
+X-Gm-Message-State: APuU4Z/byMwh91fZsK6J4AUc5XQanAXJTXsRDTytFll8qbikgVUxXj+9
+	7u6LVIZ2BOuknMR/NRzxTDSQfkI118Q0jg8yUu7wx56BJWEKtSrptyq7
+X-Gm-Gg: AZFdTZfqR6dYNHvFW+hahDw3Jcfba53v12s4ygRscCVQoEyLrd6Ed/z+QKwqD0a+tII
+	Tw5yKox5OwspfZUw5nrfgscUOG8vn9RfGMqy4ENexcfJfMM1x0X3hVtd7QLaCiVeRYB2/CQ1vKo
+	S7L5/RldMWkpOWWGTA41zAUitc8dXbMXyibtvX0AgGkDo+FGVVQBQZ4fd269BkF+EZxRIyAgJUT
+	6lTzt9KmElLQhRcV79v2yY+4xWxacReI2d0Yfx9ZeZYoi+gg+tfqxlcajGSKF+FRkwh0JzGFoHa
+	8Od7DEDViml8+2dLDv7g3uQTmUFKKcAb/mHY11ZD+2ibpPFIET6ebqVhRT5aisE9FiTZCqBm1Cv
+	/v7eywHHvHOzFgaRf87FZCKOjlimGsbcJQZNRG9oMAZZLa3yUisPoeJ2bQ08jvsRhzA2QofzjFk
+	EaVOmdbI3VEqBnzA5+ZjhRg/khiUCIaQvfkWmG2UMDB3O3ffuT+m0CEfmo/CuWcatIpzndkwJqm
+	J40QdRy79qRw3Yu+qDkQ6SsEyB6m+mbXCLv4vFdQoRdGL3vHdg9ZSkY4pUYtgVUhrot2d/1dWxM
+	xw7yAcvIuwE/EYffVUGTmCynjnXhq0wVebSimatYB1bQGjb9lmZ8Kj+pbNmJkCCPJkdEmg1QNGQ
+	FIMye
+X-Received: by 2002:a17:906:5492:b0:c51:caa:607 with SMTP id a640c23a62f3a-c513ab0c394mr1129231566b.19.1795632498494;
+        Wed, 25 Nov 2026 10:48:18 -0800 (PST)
 Received: from antoniarch (84-40-239-22.cgnat.inetia.pl. [84.40.239.22])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513afc73d3sm677226666b.64.2026.11.25.10.48.15
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513afc73d3sm677226666b.64.2026.11.25.10.48.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 10:48:16 -0800 (PST)
+        Wed, 25 Nov 2026 10:48:18 -0800 (PST)
 From: Antoni Pokusinski <apokusinski01@gmail.com>
 To: vigneshr@ti.com,
 	andi.shyti@kernel.org,
@@ -99,11 +101,14 @@ Cc: linux-omap@vger.kernel.org,
 	linux-media@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
 	linaro-mm-sig@lists.linaro.org,
-	Antoni Pokusinski <apokusinski01@gmail.com>
-Subject: [PATCH v4 0/3] i2c: omap: add support for DMA
-Date: Wed, 25 Nov 2026 19:47:45 +0100
-Message-ID: <20261125184750.57866-1-apokusinski01@gmail.com>
+	Antoni Pokusinski <apokusinski01@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v4 1/3] dt-bindings: i2c: ti,omap4-i2c: Add DMA properties
+Date: Wed, 25 Nov 2026 19:47:46 +0100
+Message-ID: <20261125184750.57866-2-apokusinski01@gmail.com>
 X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125184750.57866-1-apokusinski01@gmail.com>
+References: <20261125184750.57866-1-apokusinski01@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,57 +120,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hello,
-This patchset introduces support for the TX & RX DMA transfers in the
-am335x/omap I2C controller. I tested this implementation on AM335x 
-(Beaglebone Black) and things seem to work fine.
+Document the TX and RX DMA request channels featured
+by the OMAP I2C controller.
 
-Kind regards,
-Antoni Pokusinski
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
 ---
-Changes since v3:
-Some minor changes to fix the issues reported by sashiko:
-* resize_fifo: changed type of the `size` argument from u8 to u16
-* xfer_msg: fixed style of the REVISIT comment
-* xfer_msg: implemented fallback to PIO if DMA transfer setup fails
-* xfer_msg: disable the DMA request as the first step of the cleanup
-            (instead of the last step)
-* probe: introduced intermediate `dma` variable
-* probe: all DMA init errors except EPROBE_DEFER are now treated the
-         same way: dev_warn() + fallback to PIO
+ .../devicetree/bindings/i2c/ti,omap4-i2c.yaml        | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-Changes since v2:
-* dropped patch "i2c: omap: remove unused is_rdr and is_xdr function arguments"
-* added `omap_i2c_disable/enable_pio_irqs()` helper functions
-* probe: added `if (omap->dma)` before the DMA free
-* xfer_data: signal DMA completion in the case of NACK interrupt
-* complete_cmd: signal DMA completion in the case of bus error (e.g. AL)
-* xfer_msg: removed incorrect checks `if (!omap->cmd_err)`
-* xfer_msg: added handling of DMA/IRQ cleanup in the `b_hw && stop` path
-
-Changes since v1:
-* new patch "i2c: omap: remove unused is_rdr and is_xdr ..."
-* probe: added `goto err_dma_free` instead of `return`
-         in the case of failed `i2c_add_numbered_adapter()`
-* changes in XRDY/RRDY, XDR/RDR interrupts management:
-  - init: do not enable the above-mentioned intrerupts
-  - xfer_msg: enable the interrupts before any non-DMA transfer
-  - xfer_msg: disable the interrupts after any non-DMA transfer
-* xfer_msg: added checks on `omap->cmd_err` to catch
-            NACK or AL error occured during DMA transfers
-* general: moved scheme-related macros to the top of the file
-
-
-Antoni Pokusinski (3):
-  dt-bindings: i2c: ti,omap4-i2c: Add DMA properties
-  ARM: dts: am33xx-l4: Add missing DMAs for I2C controllers
-  i2c: omap: add DMA support
-
- .../devicetree/bindings/i2c/ti,omap4-i2c.yaml |  12 +
- arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi      |   4 +
- drivers/i2c/busses/i2c-omap.c                 | 377 ++++++++++++++++--
- 3 files changed, 370 insertions(+), 23 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml b/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml
+index 58d32ceeacfc..ff946fdfaad3 100644
+--- a/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml
++++ b/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml
+@@ -37,6 +37,16 @@ properties:
+   clock-names:
+     const: fck
+ 
++  dmas:
++    items:
++      - description: TX DMA channel phandle
++      - description: RX DMA channel phandle
++
++  dma-names:
++    items:
++      - const: tx
++      - const: rx
++
+   power-domains: true
+ 
+   ti,hwmods:
+@@ -93,4 +103,6 @@ examples:
+         #address-cells = <1>;
+         #size-cells = <0>;
+         mux-states = <&i2c_mux 1>;
++        dmas = <&edma 58 0>, <&edma 59 0>;
++        dma-names = "tx", "rx";
+     };
 -- 
 2.56.1
 
