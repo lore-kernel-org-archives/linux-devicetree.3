@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795599289;
-	b=lh5lEkG5frun31XRL25/izJVSvmQ4SgdZGiBqMukp+HNZfZ7bHidW2G0+BmN1radvN44
-	 PNnWnxjTpaCdpVc3zsYfSKsHxeWJ8VmpLSWibCdegw31rVDGLiF6qOCF3VKyUuUJZq9Gy
-	 ZJJoon03Aco2QlpmU8BNP7kfUDsZEL2onYasRvhr7mRV4ResikfvwiXU1e9ivMb5utZRg
-	 Er8q04XKTWsN8lkZJ6s3NvhMhHg9G2BuOlIL1+TkZt8aNQeHqg41hQ+iA53PoPAe/uLbN
-	 Dx5Go4YfhZ0fEtN5IQwQfmZIHNLk6xYH/HUpazni8wweVit76jBg0xjyd4R291OazHA==
+	t=1795599298;
+	b=xMPbUp0Ja9UpDEeJfInnmAkPuRmbnK3R0+SjEMG24vUM1ROuzIKGvhtcIQmOmprYPsKc
+	 BJ9dWYdGwNYTdmES8kQ9g3Sc9OivM5zdvKhjZ5EElCuK9UE8GG+Cg/PAKk8oSD6iAgzIn
+	 1AFjQJCEjmvADNY9gFifHPrIYRcvMKqlftDSIx5/ldLmedRhUoH6SkpL91sRCK/HBoFBI
+	 dl4QrgoCpz6VVNzbBNVEusQO79QEBk+pAAQCu8tfn5schAy/39tC04vma5WtSkqruopk/
+	 b6Z3biNbh1FCtSk5fdTt+mk8HIc+MJr9/1Ad/c6n6zuZ4R3woaoOtYkqanjM1O42s3A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795599289;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795599298;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=FPW2O/CZksG07s1KEeo2I5JR2fFDL0AqSEPRwnJ+rAw=;
-	b=kG9GVb6x8JxoNrmqw28iCMhFZeZNXfADe9lvzQMJGxqrvvJTCjSJdSyQNQJtSC9lELFB
-	 p0Mqo7QYsGi4b3Xynkb8aD6mjNZtpWkT977Fm/CAm3SRjD47RyDh7pTpns5klm9TzCw2J
-	 GfhfcLz2dTR87sPXymN979DIxnfEfJEyPjoXNXxSBwVZ9EkSWeWMX8j6/S3d3yIYiSHzF
-	 BJzCiitUNv/lIyMdyME7wJotG4fdca2ke0FD9qVRhhugHh3XV3lyHqquInutjIiIgEoYc
-	 +4uPOORgg1FSHYalXbSi2Yr/KvxyYs2naeJ/+zAW3B6JLEBQK1g+5sCaB3PGFSCMIgA==
+	bh=HWRMjyr4aTvyFi5GN7IakCtRgzjaHqdEoK8cA44KoW8=;
+	b=qQfTkMVJiImPfUkXwAeAJh3Jj0K9gGYByMWPTGi/DhyLGcVfhDXrPL1PrrXeTLfl8Feo
+	 V3NIS5Ak6XnrE+UaZCdNyWdmkgKyrndmXDbZ0ODLNzGCwukxDxy0LjCEfUZE5iTGt5hm4
+	 s2R5/hTA/0/1v93euQPJJWEbTOmcKSn4KOPpLpAJFPT49lqNVTQhZk21/Mnb/wPyjreYD
+	 enOi3hItfFXtdChYbKPyGs5QcfM9/6PyYjKLQlLcS/IXCHHwlzQTI7kNgeXaVkYq75XHA
+	 Cgkv+h8OvouOKDQLDzCloGrgxI+mH84q+s2Y4CCElVG6yxnVPzZrJ+8F/TsYrxlYTJQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WClvNEeu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m0ozc40m;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28F65606A339;
-	Wed, 25 Nov 2026 09:34:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA5F606A32E;
+	Wed, 25 Nov 2026 09:34:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WClvNEeu
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m0ozc40m
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795599288;
-	b=F6sSTVMoPwAuetQzUHUeTV1YZHKOkTB4OZvHvoAAuJ65SfY71FtGcLN/0E1mxBXjFzsd
-	 6TP2gy1SVNV/bsUVWTgApXdswjc8sSkc/BzExp5dD+pRZgg2gJ1lyHPfvP0Y4KRjcweww
-	 RGk4QHJlfhjyPwxOjNC+K4N3IYMvXgwI/3GUNvIwTqyVmAY6yyhaFAfVVwY5gb8R1reKo
-	 Djuf3lBOShUxEqfK+BNf1/GQ42+x6M35zvd1F1uMnESnQWndWczjfV0QZEisna895DjOJ
-	 6EyNZvSrsQk5AucqvzBXwnNG7sxjjzKOV2zc4qsI1uFIvynVmyTqfDs0ArF59gJQykg==
+	t=1795599298;
+	b=sat5UDWXkGJTQcsVa6++G2sEeYHbnfMJytpd34gc2wyW94KtsvA7GCW41oLjMHX93oSs
+	 6s8gAPm1ISRVJZ25SQnUUjTWs1ek7LOa4IfFVbTxbdEY+7dUgLeXL87bhkrCuzo1/T8W0
+	 NInHLbeOZlRWb2wuGB9BsRL/251CFq36eLRWhcog9TpDNCKSrhQ02+BosRk0BM2EmBNAH
+	 KAiecgSHoX/ykYwjd/He+w0q4Ij+V2pDH0uX5HJ3OujDHjwqGywOr3N/mM+7f7mOYtqSx
+	 fSF6KBK4Op0aloDqSW7em6BhEvFjeih+4ZMN1ODR2UNRuo7EfO08NFjQubLfAG+/yhQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795599288;
+	c=relaxed/relaxed; t=1795599298;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=FPW2O/CZksG07s1KEeo2I5JR2fFDL0AqSEPRwnJ+rAw=;
-	b=ABAyZ3YxknMTPTz+QL+MCbNcVh3oAlzL54tM8Vng7oFr73MTPAG6iQxDCyJmlSQX1yAj
-	 GefpdTSelpfpngIEGIw/N8FJ7QKdDwZZlQJ28CsPTNcc43y5OxokvFKIvSibv2GhD7qQ2
-	 qz7rwXEv4HuYufYIzZzjstnXAJ6V5aEBgJM9aOSrGvOYs6/SsD5yh08cH5lEXLnfHe3tO
-	 U11AHC3q/lDT0sffH1ZBHucqH5SBthfDkYCB65sFW0sIdTztTYP5qDXK08wGCzG5ZubUu
-	 sj4ju0BjvbvT4FX2/Zn2PcCjOYiX+vdNcOUAy70IpCkZSj6bzjC/iZgaOcMevVUqFgA==
+	bh=HWRMjyr4aTvyFi5GN7IakCtRgzjaHqdEoK8cA44KoW8=;
+	b=FQoU7N22c4/FnlGY73gl95eCw21lWm5fI7tNQUDKDTDdwXP0vHDrJ+yxDO5vw3xb52I8
+	 Mtnzn54ptkCISWGPxDwIFFvC4wSfEX4gXwJDIHy6No4KVx6z3S+RkFJGE+y4VIJsU0wue
+	 7KJRQmdgdXc9J6MrNNelp3aIQ/6MFF00K38dQYBjnayfPFC0Aio+FtvxEd4jlEVpsggWL
+	 39HPJ5Pl2FDG+hz40CqaAV+r0seEKatmuJe8EMgzBhR5GtMIR1Pv8KIrbIm2C//QUdnLq
+	 ec0tAt9YywrN8RcB8WhuWyLUmU3qvI2anYiAhZBS3+gwtpNDQ7/9VroBieeDH4TqBxA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 369111F000D1;
-	Wed, 25 Nov 2026 09:34:37 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 410091F000E0;
+	Wed, 25 Nov 2026 09:34:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795599288;
-	bh=FPW2O/CZksG07s1KEeo2I5JR2fFDL0AqSEPRwnJ+rAw=;
+	s=k20260515; t=1795599298;
+	bh=HWRMjyr4aTvyFi5GN7IakCtRgzjaHqdEoK8cA44KoW8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=WClvNEeu4R4e79Exo+1TmvDr1NaEyRokfzKKYRko5BeGZjUKilF2+PWME/pL2QO7a
-	 nFBc/8fjkeemYy+Yvmuo5FNPX6Nz9f7vM39XsjGL6jGtwKfLLWeKnQxblHnFFj718P
-	 6vhA8WZk0S42AVOVYfoDZzKoJEFcQFwqRsgaoeUzNL6m9bicI0KEVsh3JK3Q1nQG+2
-	 bhsUwBnNx91euH+WHS2E+812zGXTGqAxsR0weY/tRiBycwSRBwNU8wVzfAne5e7C0O
-	 fXdvPj+9NZyypAvkNbWlA8hvXIJAa60gq7Gn4xzWhn8XcHFYVjTHikYaM3UCRed9FP
-	 ufJR9/aOwKwVQ==
+	b=m0ozc40mX3AJRm+v4BGwRwdGwKLcFj2pvT37QMzuGh5eDWiyWBENml8B5qfDua3NH
+	 Eiqxv3grx7mBbGbMJCVP6sw+aZpGLf4Rg2iOnzsc+h1HOH82LjcqjbM3pIgAQFNiWq
+	 WoPOaQhoRH9RKbmsYoQYGj2h7I9HGvYRV/W+Z6lI0dt5NxPgq8yO8spMSjVKfm2/I8
+	 7yz+I6zq0F+0lK7qW/xpHNV1L23sWy5NewGee0JwXDUQ7cuTRYJb2bOVb7jG3bQ14G
+	 6mBIfTjJ4uA466r/Aed1vMUYN6E8TPER4Vtt4elFrymPazloargLWZ0OxYxuOc1TFD
+	 MnynckoheZ3XA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B4BFD4CDFE;
+	by lkml.kernel.org (Postfix) with ESMTP id DA9054CE02;
 	Wed, 25 Nov 2026 09:34:36 +0000 (UTC)
 From: Jan Petrous via B4 Relay <devnull+jan.petrous.oss.nxp.com@kernel.org>
-Date: Wed, 25 Nov 2026 10:33:46 +0100
-Subject: [PATCH RFC v4 04/15] net: pcs: xpcs: allow a PCS to opt out of
- soft reset and EEE
+Date: Wed, 25 Nov 2026 10:33:47 +0100
+Subject: [PATCH RFC v4 05/15] net: pcs: xpcs: let a glue driver declare the
+ PCS and PMA IDs
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261125-s32g_serdes-v4-4-3bfe0589be8d@oss.nxp.com>
+Message-Id: <20261125-s32g_serdes-v4-5-3bfe0589be8d@oss.nxp.com>
 References: <20261125-s32g_serdes-v4-0-3bfe0589be8d@oss.nxp.com>
 In-Reply-To: <20261125-s32g_serdes-v4-0-3bfe0589be8d@oss.nxp.com>
 To: Vincent Guittot <vincent.guittot@linaro.org>, 
@@ -119,11 +119,11 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
  linux-pci@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
  "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795599274; l=2142;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795599274; l=8166;
  i=jan.petrous@oss.nxp.com; s=20240922; h=from:subject:message-id;
- bh=XscJymCuOoPX6VkV4O1nIKYSBnUzCtjWiHRRdPqdbMk=;
- b=iE2FYHKkZBcU6n24n7zNpgnccWxNcvMAikDlY+jLN6198179BHbRw1XeT2teHMY9FSK6wFUv8
- dIL2U1KySspC9q2iEtKQHhV1fidG8GKop8Oba4PFSWj7J2idWFs6aFx
+ bh=zziN4zs/7ymNjszoLkejUNsWyE3XxA4CiFWejqEcbqo=;
+ b=scXVFDYUJxKNAR4oSt+ORbnE77rK6LcKU2QkpL+LI6Bu5ZW8rWDeu9fvBSbtIPStTKlooa+lc
+ RFs/CL67YSpD7/vhrJt/vK16qaUyu2WdE6o5xcWP76wAefCzLFzKiqW
 X-Developer-Key: i=jan.petrous@oss.nxp.com; a=ed25519;
  pk=Ke3wwK7rb2Me9UQRf6vR8AsfJZfhTyoDaxkUCqmSWYY=
 X-Endpoint-Received: by B4 Relay for jan.petrous@oss.nxp.com/20240922 with
@@ -134,77 +134,240 @@ Content-Transfer-Encoding: 7bit
 
 From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
 
-Add a quirks mask to struct dw_xpcs_desc, with two flags:
+pcs-xpcs selects its description entry by the PCS ID read from the
+device. An XPCS integrated with a vendor PMA reports the generic
+DesignWare PCS ID, so the entry cannot tell such an integration from a
+plain XPCS. Glue drivers have answered this so far by returning a
+synthetic PCS ID from their MDIO bus emulation.
 
- - DW_XPCS_QUIRK_NO_SOFT_RESET: no soft reset in pcs_pre_config(). When
-   the XPCS shares its PMA with another controller, the reset belongs
-   to a bring-up sequence owned by the platform.
+The core already takes declared IDs through struct dw_xpcs_info, which
+pcs-xpcs-plat passes for PMA generations it cannot read from the
+device, but only from the platform data of an MDIO device the creator
+registered itself.
 
- - DW_XPCS_QUIRK_NO_EEE: VR_MII_EEE_MCTRL0/1 are not implemented and
-   must not be written.
+Let a glue driver declare them instead:
 
-No entry sets a quirk yet, so there is no functional change.
+ - xpcs_create_pcs_mdiodev_info() creates the PCS like
+   xpcs_create_pcs_mdiodev() and takes a struct dw_xpcs_info;
+
+ - with both IDs declared, no ID register is read. A glue whose
+   register window is not clocked when it creates the PCS needs that;
+
+ - a description entry may name a PMA ID. It then matches only that
+   PMA, and takes precedence over an entry for the same PCS ID that
+   matches any PMA.
+
+No entry names a PMA yet and no existing caller declares both IDs, so
+there is no functional change.
 
 Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
 ---
- drivers/net/pcs/pcs-xpcs.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ drivers/net/pcs/pcs-xpcs.c   | 95 ++++++++++++++++++++++++++++++++++----------
+ include/linux/pcs/pcs-xpcs.h |  2 +
+ 2 files changed, 75 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
-index 6466e0ff2a98..442c64a731b7 100644
+index 442c64a731b7..3b5857dc44f3 100644
 --- a/drivers/net/pcs/pcs-xpcs.c
 +++ b/drivers/net/pcs/pcs-xpcs.c
-@@ -158,10 +158,20 @@ struct dw_xpcs_compat {
- 	int (*pma_config)(struct dw_xpcs *xpcs);
- };
- 
-+/*
-+ * The integration owns the PCS reset sequence: skip the soft reset in
-+ * pcs_pre_config(). Only for PCS without Clause 73, whose fault recovery
-+ * still resets.
-+ */
-+#define DW_XPCS_QUIRK_NO_SOFT_RESET	BIT(0)
-+/* VR_MII_EEE_MCTRL0/1 are not implemented */
-+#define DW_XPCS_QUIRK_NO_EEE		BIT(1)
-+
+@@ -170,6 +170,8 @@ struct dw_xpcs_compat {
  struct dw_xpcs_desc {
  	u32 id;
  	u32 mask;
++	/* Match only this PMA ID; 0 matches any PMA */
++	u32 pma;
  	const struct dw_xpcs_compat *compat;
-+	unsigned int quirks;
+ 	unsigned int quirks;
  };
+@@ -1366,6 +1368,11 @@ static int xpcs_read_ids(struct dw_xpcs *xpcs)
+ 	int ret;
+ 	u32 id;
  
- static const struct dw_xpcs_compat *
-@@ -729,6 +739,9 @@ static void xpcs_pre_config(struct phylink_pcs *pcs, phy_interface_t interface)
- 		dev_err(&xpcs->mdiodev->dev, "switch interface failed: %pe\n",
- 			ERR_PTR(ret));
- 
-+	if (xpcs->desc->quirks & DW_XPCS_QUIRK_NO_SOFT_RESET)
-+		xpcs->need_reset = false;
++	/* Both IDs declared by the creator, nothing to read */
++	if (xpcs->info.pcs != DW_XPCS_ID_NATIVE &&
++	    xpcs->info.pma != DW_XPCS_PMA_ID_NATIVE)
++		return 0;
 +
- 	if (!xpcs->need_reset)
- 		return;
+ 	/* First, search C73 PCS using PCS MMD 3. Return ENODEV if communication
+ 	 * failed indicating that device couldn't be reached.
+ 	 */
+@@ -1530,22 +1537,36 @@ static const struct phylink_pcs_ops xpcs_phylink_ops = {
  
-@@ -1318,6 +1331,9 @@ static void xpcs_disable_eee(struct phylink_pcs *pcs)
+ static int xpcs_identify(struct dw_xpcs *xpcs)
  {
- 	struct dw_xpcs *xpcs = phylink_pcs_to_xpcs(pcs);
++	const struct dw_xpcs_desc *match = NULL;
+ 	int i, ret;
  
-+	if (xpcs->desc->quirks & DW_XPCS_QUIRK_NO_EEE)
-+		return;
+ 	ret = xpcs_read_ids(xpcs);
+ 	if (ret < 0)
+ 		return ret;
+ 
++	/* An entry for the PMA ID takes precedence over one for any PMA */
+ 	for (i = 0; i < ARRAY_SIZE(xpcs_desc_list); i++) {
+ 		const struct dw_xpcs_desc *entry = &xpcs_desc_list[i];
+ 
+-		if ((xpcs->info.pcs & entry->mask) == entry->id) {
+-			xpcs->desc = entry;
+-			return 0;
++		if ((xpcs->info.pcs & entry->mask) != entry->id)
++			continue;
 +
- 	xpcs_config_eee(xpcs, false);
++		if (entry->pma) {
++			if (entry->pma == xpcs->info.pma) {
++				match = entry;
++				break;
++			}
++		} else if (!match) {
++			match = entry;
+ 		}
+ 	}
+ 
+-	return -ENODEV;
++	if (!match)
++		return -ENODEV;
++
++	xpcs->desc = match;
++
++	return 0;
  }
  
-@@ -1325,6 +1341,9 @@ static void xpcs_enable_eee(struct phylink_pcs *pcs)
- {
- 	struct dw_xpcs *xpcs = phylink_pcs_to_xpcs(pcs);
- 
-+	if (xpcs->desc->quirks & DW_XPCS_QUIRK_NO_EEE)
-+		return;
-+
- 	xpcs_config_eee(xpcs, true);
+ static struct dw_xpcs *xpcs_create_data(struct mdio_device *mdiodev)
+@@ -1602,11 +1623,10 @@ static void xpcs_clear_clks(struct dw_xpcs *xpcs)
+ 	clk_bulk_put(DW_XPCS_NUM_CLKS, xpcs->clks);
  }
  
+-static int xpcs_init_id(struct dw_xpcs *xpcs)
++static int xpcs_init_id(struct dw_xpcs *xpcs, const struct dw_xpcs_info *info)
+ {
+-	const struct dw_xpcs_info *info;
+-
+-	info = dev_get_platdata(&xpcs->mdiodev->dev);
++	if (!info)
++		info = dev_get_platdata(&xpcs->mdiodev->dev);
+ 	if (!info) {
+ 		xpcs->info.pcs = DW_XPCS_ID_NATIVE;
+ 		xpcs->info.pma = DW_XPCS_PMA_ID_NATIVE;
+@@ -1617,7 +1637,8 @@ static int xpcs_init_id(struct dw_xpcs *xpcs)
+ 	return xpcs_identify(xpcs);
+ }
+ 
+-static struct dw_xpcs *xpcs_create(struct mdio_device *mdiodev)
++static struct dw_xpcs *xpcs_create(struct mdio_device *mdiodev,
++				   const struct dw_xpcs_info *info)
+ {
+ 	struct dw_xpcs *xpcs;
+ 	int ret;
+@@ -1630,7 +1651,7 @@ static struct dw_xpcs *xpcs_create(struct mdio_device *mdiodev)
+ 	if (ret)
+ 		goto out_free_data;
+ 
+-	ret = xpcs_init_id(xpcs);
++	ret = xpcs_init_id(xpcs, info);
+ 	if (ret)
+ 		goto out_clear_clks;
+ 
+@@ -1653,16 +1674,8 @@ static struct dw_xpcs *xpcs_create(struct mdio_device *mdiodev)
+ 	return ERR_PTR(ret);
+ }
+ 
+-/**
+- * xpcs_create_mdiodev() - create a DW xPCS instance with the MDIO @addr
+- * @bus: pointer to the MDIO-bus descriptor for the device to be looked at
+- * @addr: device MDIO-bus ID
+- *
+- * Return: a pointer to the DW XPCS handle if successful, otherwise -ENODEV if
+- * the PCS device couldn't be found on the bus and other negative errno related
+- * to the data allocation and MDIO-bus communications.
+- */
+-struct dw_xpcs *xpcs_create_mdiodev(struct mii_bus *bus, int addr)
++static struct dw_xpcs *xpcs_create_mdiodev_info(struct mii_bus *bus, int addr,
++						const struct dw_xpcs_info *info)
+ {
+ 	struct mdio_device *mdiodev;
+ 	struct dw_xpcs *xpcs;
+@@ -1671,7 +1684,7 @@ struct dw_xpcs *xpcs_create_mdiodev(struct mii_bus *bus, int addr)
+ 	if (IS_ERR(mdiodev))
+ 		return ERR_CAST(mdiodev);
+ 
+-	xpcs = xpcs_create(mdiodev);
++	xpcs = xpcs_create(mdiodev, info);
+ 
+ 	/* xpcs_create() has taken a refcount on the mdiodev if it was
+ 	 * successful. If xpcs_create() fails, this will free the mdio
+@@ -1683,6 +1696,20 @@ struct dw_xpcs *xpcs_create_mdiodev(struct mii_bus *bus, int addr)
+ 
+ 	return xpcs;
+ }
++
++/**
++ * xpcs_create_mdiodev() - create a DW xPCS instance with the MDIO @addr
++ * @bus: pointer to the MDIO-bus descriptor for the device to be looked at
++ * @addr: device MDIO-bus ID
++ *
++ * Return: a pointer to the DW XPCS handle if successful, otherwise -ENODEV if
++ * the PCS device couldn't be found on the bus and other negative errno related
++ * to the data allocation and MDIO-bus communications.
++ */
++struct dw_xpcs *xpcs_create_mdiodev(struct mii_bus *bus, int addr)
++{
++	return xpcs_create_mdiodev_info(bus, addr, NULL);
++}
+ EXPORT_SYMBOL_GPL(xpcs_create_mdiodev);
+ 
+ struct phylink_pcs *xpcs_create_pcs_mdiodev(struct mii_bus *bus, int addr)
+@@ -1697,6 +1724,30 @@ struct phylink_pcs *xpcs_create_pcs_mdiodev(struct mii_bus *bus, int addr)
+ }
+ EXPORT_SYMBOL_GPL(xpcs_create_pcs_mdiodev);
+ 
++/**
++ * xpcs_create_pcs_mdiodev_info() - create a DW xPCS PCS with declared IDs
++ * @bus: MDIO bus of the PCS
++ * @addr: MDIO address of the PCS
++ * @info: PCS and PMA IDs; an ID left native is read from the device
++ *
++ * For a glue driver that knows the integration of its XPCS. With both IDs
++ * declared, no ID register is read. @info is copied.
++ *
++ * Return: the phylink PCS, or an ERR_PTR() as for xpcs_create_mdiodev().
++ */
++struct phylink_pcs *xpcs_create_pcs_mdiodev_info(struct mii_bus *bus, int addr,
++						 const struct dw_xpcs_info *info)
++{
++	struct dw_xpcs *xpcs;
++
++	xpcs = xpcs_create_mdiodev_info(bus, addr, info);
++	if (IS_ERR(xpcs))
++		return ERR_CAST(xpcs);
++
++	return &xpcs->pcs;
++}
++EXPORT_SYMBOL_GPL(xpcs_create_pcs_mdiodev_info);
++
+ /**
+  * xpcs_create_fwnode() - Create a DW xPCS instance from @fwnode
+  * @fwnode: fwnode handle poining to the DW XPCS device
+@@ -1719,7 +1770,7 @@ struct dw_xpcs *xpcs_create_fwnode(struct fwnode_handle *fwnode)
+ 	if (!mdiodev)
+ 		return ERR_PTR(-EPROBE_DEFER);
+ 
+-	xpcs = xpcs_create(mdiodev);
++	xpcs = xpcs_create(mdiodev, NULL);
+ 
+ 	/* xpcs_create() has taken a refcount on the mdiodev if it was
+ 	 * successful. If xpcs_create() fails, this will free the mdio
+diff --git a/include/linux/pcs/pcs-xpcs.h b/include/linux/pcs/pcs-xpcs.h
+index 36073f7b6bb4..f46434958383 100644
+--- a/include/linux/pcs/pcs-xpcs.h
++++ b/include/linux/pcs/pcs-xpcs.h
+@@ -58,6 +58,8 @@ struct dw_xpcs *xpcs_create_fwnode(struct fwnode_handle *fwnode);
+ void xpcs_destroy(struct dw_xpcs *xpcs);
+ 
+ struct phylink_pcs *xpcs_create_pcs_mdiodev(struct mii_bus *bus, int addr);
++struct phylink_pcs *xpcs_create_pcs_mdiodev_info(struct mii_bus *bus, int addr,
++						 const struct dw_xpcs_info *info);
+ void xpcs_destroy_pcs(struct phylink_pcs *pcs);
+ 
+ #endif /* __LINUX_PCS_XPCS_H */
 
 -- 
 2.55.0
