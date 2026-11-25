@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.174
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.172
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795589417;
-	b=0CSexHLIu/8ThAMMrHTCSdDh13qtOItHdCZCFA3iVGmeWzEDPmOB/NVXK49zFfYPPGSb
-	 jZ18ZOnJ67kphn/NNj2m9yubsi0ImFP00AhxBcfWtgBOqQ1gcjIoHttRxQEkwkQyev2bT
-	 WrvHIpRVne4PAooedV25hWRqrf+2Yn+P16dR97lvM595LV8ttuRLXM0WgI2D8NMsgamPU
-	 7kqRC2Gqyc+z8UT8/cYjvf01cVKRrA0M0t1dr86o7IqVsJ74pN4iRhQ7Vb9MLillNugJT
-	 kfPnOgOF+qgmS+kzhCynv8EJ/GbkZucmZjRnYYA0+vPNDUlMoosu1UX/hXWRkeDDy9A==
+	t=1795589412;
+	b=VOxT5XJ0Qxag1UnmZ+ou9TaQA3f9CqOzrX01Y1G9uGFL9ifW+ZddWlinmWAZ6fuL17O6
+	 aD0HFlYPBvDvvzZWASTOUQp3yTc1zcXvON7/It+MAmLfF/8SM4KM8UAQJxTSsDjYYkIic
+	 i2q0cwVB/sU9Sf4f+KL2pFGqEQGKUijgjKMva9mbtMa2pBIvzdOT7UhKYp1Kgo3bpceMT
+	 NqieLv3bZb5TUVW68uPsp1qxGUvNgnH0t5CdQAqs0uq3v18xP9Nlf8dVPtLr7OkGSFuTR
+	 KFxZYH+teBX+QG5colvYx2CeXkuo4WIqgXjep4k+jU6hR7/G+pT4uyrXjqyC1mhzgjA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795589417;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795589412;
 	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
 	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding:Content-Type;
-	bh=EqcWIe2Khd+m+f6IwwQVpjPcxJ6mmX/6B97P0wgMpYs=;
-	b=1jGZh5eBaEKGgLXgR7jcIr5zSsoijoPd5avKFXCyUapXHTNN3YrNSnV6zXdiuavrO1aI
-	 Sf4zMDAZO75ESt8jTyzzDEXpAIhdNN3CvERl7CJAJ9lccCuOaPCD3PUqUX7/IZuImGBLm
-	 i8HX1xGJlIAynAJQTLDEdu32BF6tbUqQCN89EHxKCmULhbgag95mOsjtzDHjXCYcGtFj1
-	 UbwfiE/eRm0GGygYlnmQEiUU/Vg1vmG/jbnn0K9KMEpkiUuXsK6s3w7KeiZW6FaNtMwZA
-	 YdHGNUWyf412cjSadIxAaTqF3NqawfVkCISUVCYN+N2uqmN5kr49PBOviLToMXfkhyA==
+	bh=Lh3fm0/0UUeE8v/7u7dxJVz5Pyfun/QiXrKMT9B1VcY=;
+	b=AIcz9pe9Kb3iQ1M3sRt93DsONxKgdadWTe/hO7qIiaK/J0wy2EVEh5iRUYHFw+pFjUqv
+	 lHiv+KBSED0KKVCQ87+0DbF48abdPvnWBCcvjtlCI1wWAL0mRVjDomAuLMDry20leRnua
+	 zxMu5sf8I5Y1ZkeMJSbUVjhGKgthWfpimCFkdNNQ0sv9ReHDYwmRsc5Qebf+uDizE0hlA
+	 weczHQWmwiO5McsMEfRRUt91pX5eqNdcJJ99GdaC5QANCEuOevWqiHdxt9OfEPXOJbsW1
+	 IZtV00jOI8mHHYi54njLfuH4pk9vwdEFi7tTYRywLhvi9jO4pPeX7BbpJGy3szn8tmQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=goldelico.com;
 	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=jmLCgURs;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=u08RzOEb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.174
-Received: from mo4-p03-ob.smtp.rzone.de (mo4-p03-ob.smtp.rzone.de [81.169.146.174])
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=CTiFbzyW;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=AO6wHWfK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.172
+Received: from mo4-p03-ob.smtp.rzone.de (mo4-p03-ob.smtp.rzone.de [81.169.146.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4315606A692;
-	Wed, 25 Nov 2026 06:50:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4315606A692
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8032606A31E;
+	Wed, 25 Nov 2026 06:50:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8032606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=jmLCgURs;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=u08RzOEb
-ARC-Seal: i=1; a=rsa-sha256; t=1795589389; cv=none;
+	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=CTiFbzyW;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=AO6wHWfK
+ARC-Seal: i=1; a=rsa-sha256; t=1795589388; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=EVnnXcN4FSs11NlDIqOS1M3PtVdftBIsq9MndOtbAMwMo076MacF01bb49MRuclRZq
-    IhLVYeRJjsIWlvdbQjuVCOCYzOZGKWTp4Ink4+wym19no0N49r+so3aj6M5aughSeaT8
-    /08Bi9eiMm9nZT5d+Qd6sb4DauDMKM67eU5asDn9RZyMijyG/AfghDuynVmw9jvkymgi
-    KLbuLJLtR/2/vCmOZOJXYbL1Hr1lAvFXCLbM0L48HoXxnTcp0uET1jtWG9SLHxr+cqPS
-    rDcxhYhwvUmzd/AItlYhBMcwyn0IeE7WJ/S3XPmZhJcdqAnw4YhrayqtYDroL6+CnMUZ
-    FoLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1795589389;
+    b=pYXqif4yQCbNLt3wfphhyKEYoBBRkwmB/KEtF5pX1lLgkNfyWBrZrDDxUY5TKOTsS/
+    3AVxm28pXWL5ufeUAg4oxn4C8PIGIpgFa46zm62sv0mdEroqtrtdL9bOg0dujn6ocZpy
+    +i4KR+ZrtxVoIo8TvAi3P2pdzX5W8s24g5HqFJ8/iyV0lzTOsjkp5xNjlFv2yqAGKPD2
+    hYW9egKy/ed3yGZLcFl0EdnTfqFe5tw6QK8LeJmofjT06oVfEfuU+5zsaU0tKJMFqlpK
+    dnS0U11wwjLHCF1E+3DHAtq76sxDLnKaYv6fTMje7ct7HMErEbjQEfUrGzTtkgfhFUIj
+    nomg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1795589388;
     s=strato-dkim-0002; d=strato.com;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=EqcWIe2Khd+m+f6IwwQVpjPcxJ6mmX/6B97P0wgMpYs=;
-    b=YaW29X0nahATGgCm0N0w2I4+daqEXH+yWgPnYI6jJc8Boemd+fwA8q2ypm077HFb/2
-    SVkWkJcWv8/euBy4x9h2qxTsUvT9mXjQTPSbLKUEfSqdAu6rdEQGHvCiYG3V6wjLZ8tY
-    Jbi5KCrxdDmzEDSZtcMJT6pDFaYYdZROdUr+r++X1TIJBrqZA5NVz6Oemm095xJ2hdia
-    TKAn4+fz9tcH6T2SoA3zsOd6FYeWtOtO6oG//UeweXSzSZIc5I79lZ7yH1kjVcHeLbvT
-    hniOmXTG5P233VXI+HkWqsJIjkP+TPT7saFgZmrpJSLwVlRSAhP36A9ytn9T1VUkLxs3
-    qIEQ==
+    bh=Lh3fm0/0UUeE8v/7u7dxJVz5Pyfun/QiXrKMT9B1VcY=;
+    b=KfoHd9KRLnDfzmlsCbrNb6wATdVvVqyLCCeMqriri812DF72k4cqo+UYsmBIfbLl8r
+    mVxqA3/H5WeiqtJa0S9uc31Yy6UxLwe6bqlRXB7LIZ0grumD5l7Fq2N+2v1POLvfMTvq
+    paDnFBURbXGepcU5h0l1+g82j+sT5UrJwAwIJJJInbqmOBdZdqeGj2WXZc8Bdu3wpem4
+    I7FC+wbs0NMt9Yq4Pt+m1Z6hfndrkhBltYm8dQGpzrfglcLeLsTsGio8vnVyD1Y+eDUe
+    4vtxUT8HO9EG7p63SRBSFDkedXPur7QMuUF4Jghbt9RoORkXB+3xv1QVQwegJfcxXOcW
+    aW/Q==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
 X-RZG-CLASS-ID: mo03
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1795589389;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1795589388;
     s=strato-dkim-0002; d=goldelico.com;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=EqcWIe2Khd+m+f6IwwQVpjPcxJ6mmX/6B97P0wgMpYs=;
-    b=jmLCgURs2oPVlk5Ik8NsSnUj7keVWp52odShEmoMiWubYlwFi8QFsjvpihvT1y8mD5
-    zETGd5iMo3yK91ADPTd6TbK/sOMjTdRQ87TtrzYCzA/6EWpqPlmPJqE0zVqG67jrL9o0
-    iB+J04ypU+5JmiFVoPYTYg4DD0DdiceIIUdFWu9/eJl3jEpmCHIBy5xLUb1MDUtwumZp
-    kV4irscEdBfEV1IJJ0JoYMVitR/s+pDI8kyXPmsO/10UtPhShKt77PAUsnl/+cy5k1K3
-    v9/9r9FMK9tZvXZ9q3268y8DcSDQUW/AmeTX2Yf7Nbkkl27xcCjVS/zjkRM5UExurRrC
-    wtmA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1795589389;
+    bh=Lh3fm0/0UUeE8v/7u7dxJVz5Pyfun/QiXrKMT9B1VcY=;
+    b=CTiFbzyWSTTTb6QQy8f9zLs+n8UztuCevT/eB/AHLqzdYeXDm51QpGm/ZNvdJVyqLc
+    Azb3P/2xgZnymdQBACHHpsFD+aJr+J0gzA0Y8E/20N/Bo8Wdr7gwbl3XSUIKmVz3UpkX
+    +7P0i+j8jcG7MUZo1sLcjtQERYIvFOCbJrZq9QnQI+oTULHhp/O5IYpjNkAhaUHuKMnl
+    7eWLs7fXpx97rLadDJ19wRzLUg1+E6FbBAtbODWMwMjvH5mNKvnZBbTa4eEsieLR10n/
+    TcjVgenwxE6//1Clf/p6qmov86hmLNvkfZ8cNNPHIG/cFzlDB/pHGDIAYn3jMaKM3Png
+    M9Mg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1795589388;
     s=strato-dkim-0003; d=goldelico.com;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=EqcWIe2Khd+m+f6IwwQVpjPcxJ6mmX/6B97P0wgMpYs=;
-    b=u08RzOEbyntIyWEy7Flx2USIRPt7Qp3WgBCnwEWeL5fLVUpLL/pTjTOSUjcoIyIfnn
-    NByxnQwEWTCI1ch7uMAQ==
+    bh=Lh3fm0/0UUeE8v/7u7dxJVz5Pyfun/QiXrKMT9B1VcY=;
+    b=AO6wHWfKxcF0hwvd/ZIMX5SyYna6XABqqsQrHAwWDthCL4zPL0x+B50Zgr1iKnfRZU
+    Yh06ViE/n8M41Ijcy5BA==
 X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrS25oMlMiNMn5e/Npe6SVDIvzG+5uG4p/zkDZq"
 Received: from iMac.fritz.box
     by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a22AP6nm5px
+    with ESMTPSA id Qb56a22AP6nl5pv
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
 	(Client did not present a certificate);
-    Wed, 25 Nov 2026 07:49:48 +0100 (CET)
+    Wed, 25 Nov 2026 07:49:47 +0100 (CET)
 From: "H. Nikolaus Schaller" <hns@goldelico.com>
 To: Linus Walleij <linusw@kernel.org>,
 	Rob Herring <robh@kernel.org>,
@@ -95,10 +95,11 @@ Cc: linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-mips@vger.kernel.org,
 	letux-kernel@openphoenux.org,
-	"H. Nikolaus Schaller" <hns@goldelico.com>
-Subject: [PATCH v5 4/7] pinctrl: ingenic: Add X2600 register and GPIO IRQ support
-Date: Wed, 25 Nov 2026 07:49:40 +0100
-Message-ID: <3bc16a8db9bd914856d8c167734ac74d8bc7fd75.1795589383.git.hns@goldelico.com>
+	"H. Nikolaus Schaller" <hns@goldelico.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v5 3/7] dt-bindings: pinctrl: ingenic: Add X2600 support
+Date: Wed, 25 Nov 2026 07:49:39 +0100
+Message-ID: <53973400fc3fb6373c6d1feaaa11ccbf961c34a7.1795589383.git.hns@goldelico.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <cover.1795589383.git.hns@goldelico.com>
 References: <cover.1795589383.git.hns@goldelico.com>
@@ -114,129 +115,59 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="us-ascii"
 
-Support the X2600 GPIO register layout with a 0x1000 bank stride,
-per-port shadow registers and load registers. The GPIO interrupt
-acknowledgement uses the existing JZ4770 flag-clear register path.
+Add the pinctrl and GPIO compatible strings for the Lumissil
+X2600 SoC.
 
+The X2600 has five GPIO ports with 32 GPIO number slots per port.
+The programming manual lists 113 implemented GPIO pins.
+
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
 ---
 
 Notes:
     Changes V5:
-    - Separate shadow-register base address calculation from
-      SET/CLEAR register selection and consolidate the regmap_write()
-      calls in ingenic_shadow_config_pin() and
-      ingenic_gpio_shadow_set_bit(), as suggested by Paul Cercueil.
-    
-    Changes V4:
-    - Simplify the GPIO port index used for the legacy global shadow-load register.
-      (suggested by Paul Cercueil)
+    - Restore Conor Dooley's Acked-by from v1 and v2,
+      as requested by Rob Herring
 
- drivers/pinctrl/pinctrl-ingenic.c | 51 +++++++++++++++++++++++--------
- 1 file changed, 38 insertions(+), 13 deletions(-)
+ .../devicetree/bindings/pinctrl/ingenic,pinctrl.yaml   | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/pinctrl/pinctrl-ingenic.c b/drivers/pinctrl/pinctrl-ingenic.c
-index 7f65f3abf05f5..2d494227d9dbb 100644
---- a/drivers/pinctrl/pinctrl-ingenic.c
-+++ b/drivers/pinctrl/pinctrl-ingenic.c
-@@ -70,6 +70,9 @@
- #define X2000_GPIO_SR				0xd0
- #define X2000_GPIO_SMT				0xe0
+diff --git a/Documentation/devicetree/bindings/pinctrl/ingenic,pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/ingenic,pinctrl.yaml
+index 84e960255a36d..15966f6a79f15 100644
+--- a/Documentation/devicetree/bindings/pinctrl/ingenic,pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/ingenic,pinctrl.yaml
+@@ -19,10 +19,10 @@ description: >
+   pin within that GPIO port. For example PA0 is the first pin in GPIO port A,
+   and PB31 is the last pin in GPIO port B. The JZ4730, the JZ4740, the JZ4725B,
+   the X1000 and the X1830 contains 4 GPIO ports, PA to PD, for a total of 128
+-  pins. The X2000 and the X2100 contains 5 GPIO ports, PA to PE, for a total of
+-  160 pins. The JZ4750, the JZ4755 the JZ4760, the JZ4770 and the JZ4780 contains
+-  6 GPIO ports, PA to PF, for a total of 192 pins. The JZ4775 contains 7 GPIO
+-  ports, PA to PG, for a total of 224 pins.
++  pins. The X2000, the X2100 and the X2600 contains 5 GPIO ports, PA to PE, for a
++  total of 160 GPIO numbering slots. The JZ4750, the JZ4755 the JZ4760, the JZ4770 and the JZ4780
++  contains 6 GPIO ports, PA to PF, for a total of 192 pins. The JZ4775 contains
++  7 GPIO ports, PA to PG, for a total of 224 pins.
  
-+#define X2600_GPIO_SHADOW_OFFSET		0x800
-+#define X2600_GPIO_PAGLD			(X2600_GPIO_SHADOW_OFFSET + 0xf0)
-+
- #define REG_SET(x)					((x) + 0x4)
- #define REG_CLEAR(x)				((x) + 0x8)
+ maintainers:
+   - Paul Cercueil <paul@crapouillou.net>
+@@ -46,6 +46,7 @@ properties:
+           - ingenic,x1830-pinctrl
+           - ingenic,x2000-pinctrl
+           - ingenic,x2100-pinctrl
++          - ingenic,x2600-pinctrl
+       - items:
+           - const: ingenic,jz4760b-pinctrl
+           - const: ingenic,jz4760-pinctrl
+@@ -86,6 +87,7 @@ patternProperties:
+           - ingenic,x1830-gpio
+           - ingenic,x2000-gpio
+           - ingenic,x2100-gpio
++          - ingenic,x2600-gpio
  
-@@ -114,6 +117,7 @@ enum jz_version {
- 	ID_X1600,
- 	ID_X2000,
- 	ID_X2100,
-+	ID_X2600,
- };
- 
- struct ingenic_chip_info {
-@@ -164,7 +168,8 @@ static const unsigned long enabled_socs =
- 	IS_ENABLED(CONFIG_MACH_X1600) << ID_X1600 |
- 	IS_ENABLED(CONFIG_MACH_X1830) << ID_X1830 |
- 	IS_ENABLED(CONFIG_MACH_X2000) << ID_X2000 |
--	IS_ENABLED(CONFIG_MACH_X2100) << ID_X2100;
-+	IS_ENABLED(CONFIG_MACH_X2100) << ID_X2100 |
-+	IS_ENABLED(CONFIG_MACH_X2600) << ID_X2600;
- 
- static bool
- is_soc(const struct ingenic_pinctrl *jzpc, enum jz_version version)
-@@ -3544,20 +3549,25 @@ static void ingenic_gpio_set_bit(struct ingenic_gpio_chip *jzgc,
- static void ingenic_gpio_shadow_set_bit(struct ingenic_gpio_chip *jzgc,
- 		u8 reg, u8 offset, bool set)
- {
--	if (set)
--		reg = REG_SET(reg);
-+	u32 reg_base;
-+
-+	if (is_soc_or_above(jzgc->jzpc, ID_X2600))
-+		reg_base = jzgc->reg_base + X2600_GPIO_SHADOW_OFFSET;
- 	else
--		reg = REG_CLEAR(reg);
-+		reg_base = REG_PZ_BASE(jzgc->jzpc->info->reg_offset);
-+
-+	reg = set ? REG_SET(reg) : REG_CLEAR(reg);
- 
--	regmap_write(jzgc->jzpc->map, REG_PZ_BASE(
--			jzgc->jzpc->info->reg_offset) + reg, BIT(offset));
-+	regmap_write(jzgc->jzpc->map, reg_base + reg, BIT(offset));
- }
- 
- static void ingenic_gpio_shadow_set_bit_load(struct ingenic_gpio_chip *jzgc)
- {
--	regmap_write(jzgc->jzpc->map, REG_PZ_GID2LD(
--			jzgc->jzpc->info->reg_offset),
--			jzgc->gc.base / PINS_PER_GPIO_CHIP);
-+	if (is_soc_or_above(jzgc->jzpc, ID_X2600))
-+		regmap_write(jzgc->jzpc->map, jzgc->reg_base + X2600_GPIO_PAGLD, 1);
-+	else
-+		regmap_write(jzgc->jzpc->map, REG_PZ_GID2LD(jzgc->jzpc->info->reg_offset),
-+			     jzgc->gc.base / PINS_PER_GPIO_CHIP);
- }
- 
- static void jz4730_gpio_set_bits(struct ingenic_gpio_chip *jzgc,
-@@ -3852,16 +3862,31 @@ static inline void ingenic_shadow_config_pin(struct ingenic_pinctrl *jzpc,
- 		unsigned int pin, u8 reg, bool set)
- {
- 	unsigned int idx = pin % PINS_PER_GPIO_CHIP;
-+	unsigned int offt = pin / PINS_PER_GPIO_CHIP;
-+	u32 reg_base;
- 
--	regmap_write(jzpc->map, REG_PZ_BASE(jzpc->info->reg_offset) +
--			(set ? REG_SET(reg) : REG_CLEAR(reg)), BIT(idx));
-+	if (is_soc_or_above(jzpc, ID_X2600))
-+		reg_base = (offt * jzpc->info->reg_offset) + X2600_GPIO_SHADOW_OFFSET;
-+	else
-+		reg_base = REG_PZ_BASE(jzpc->info->reg_offset);
-+
-+	reg = set ? REG_SET(reg) : REG_CLEAR(reg);
-+
-+	regmap_write(jzpc->map, reg_base + reg, BIT(idx));
- }
- 
- static inline void ingenic_shadow_config_pin_load(struct ingenic_pinctrl *jzpc,
- 		unsigned int pin)
- {
--	regmap_write(jzpc->map, REG_PZ_GID2LD(jzpc->info->reg_offset),
--			pin / PINS_PER_GPIO_CHIP);
-+	unsigned int offt = pin / PINS_PER_GPIO_CHIP;
-+
-+	if (is_soc_or_above(jzpc, ID_X2600)) {
-+		u32 target_load_reg = (offt * jzpc->info->reg_offset) + X2600_GPIO_PAGLD;
-+
-+		regmap_write(jzpc->map, target_load_reg, 1);
-+	} else {
-+		regmap_write(jzpc->map, REG_PZ_GID2LD(jzpc->info->reg_offset), offt);
-+	}
- }
- 
- static inline void jz4730_config_pin_function(struct ingenic_pinctrl *jzpc,
+       reg:
+         items:
 -- 
 2.56.0
 
