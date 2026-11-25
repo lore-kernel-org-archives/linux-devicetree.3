@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795599292;
-	b=2/BUcICtY31IbGzUTBPt/xre4TT4mMe56hy/gVd2QVdk1S27KN0Qx8uji7zP9PQ2opln
-	 5YbYgZxpbaY/uL9mHZB/3jEVPjUdC1s9a+ONL6vKqxhVkHSQpMa8h72tcQVNwX6bUEG3v
-	 CV2wewcVLpN7hGov2pXLkMbK38yGwhZ/wtNuSjPrtX2mKMO551Qlw2zgNRxdNErkRNfPq
-	 g2hWc0NT15SCRsXw4ab0s0/QX5P8j1FjNqs5GVMdOQC11/r33IYCCOL9TwWQnEj1rS3wX
-	 fASgBKGiumm3PBstHEECjQGWt/FejQ+bXcM2YQwasVCDBlnxr+Thb69Lz8uzCfxu9aQ==
+	t=1795599289;
+	b=lh5lEkG5frun31XRL25/izJVSvmQ4SgdZGiBqMukp+HNZfZ7bHidW2G0+BmN1radvN44
+	 PNnWnxjTpaCdpVc3zsYfSKsHxeWJ8VmpLSWibCdegw31rVDGLiF6qOCF3VKyUuUJZq9Gy
+	 ZJJoon03Aco2QlpmU8BNP7kfUDsZEL2onYasRvhr7mRV4ResikfvwiXU1e9ivMb5utZRg
+	 Er8q04XKTWsN8lkZJ6s3NvhMhHg9G2BuOlIL1+TkZt8aNQeHqg41hQ+iA53PoPAe/uLbN
+	 Dx5Go4YfhZ0fEtN5IQwQfmZIHNLk6xYH/HUpazni8wweVit76jBg0xjyd4R291OazHA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795599292;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795599289;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=iuNi0U87BKz/2WbFki1kVDGDkTecmSYTtLyfcIq6jsg=;
-	b=323FUowopLimWF3epbsQm8vMIhAo9IT1M6XYNTMfjHLqiilhMSdz+TUyiubARxX6F24K
-	 UwVHFDtaFrzbj/O3a7cmeV4igcboGV4mqVDoIA77spdiLPKlleEQxNWcc2LI8fKbw4Ven
-	 DuCm6epNroinK3qzciCDQFXeh36/DCtHpgWFaQVYQeDlrzIoNmZFtdhRf1xOe5WsfqQXP
-	 2TQTdbHTZFyGdT92vFuQsIWPJ+wTRdPg3apb76K8gcs/Lz4QV30X+94V/e67vp98SuO2X
-	 N7bLt7Wtwxts1jRR33eECPCKANG/NcDPUCYm3JI6u8cVwnULNwF/SObIS7EdOebNOrw==
+	bh=FPW2O/CZksG07s1KEeo2I5JR2fFDL0AqSEPRwnJ+rAw=;
+	b=kG9GVb6x8JxoNrmqw28iCMhFZeZNXfADe9lvzQMJGxqrvvJTCjSJdSyQNQJtSC9lELFB
+	 p0Mqo7QYsGi4b3Xynkb8aD6mjNZtpWkT977Fm/CAm3SRjD47RyDh7pTpns5klm9TzCw2J
+	 GfhfcLz2dTR87sPXymN979DIxnfEfJEyPjoXNXxSBwVZ9EkSWeWMX8j6/S3d3yIYiSHzF
+	 BJzCiitUNv/lIyMdyME7wJotG4fdca2ke0FD9qVRhhugHh3XV3lyHqquInutjIiIgEoYc
+	 +4uPOORgg1FSHYalXbSi2Yr/KvxyYs2naeJ/+zAW3B6JLEBQK1g+5sCaB3PGFSCMIgA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WvOETUsy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WClvNEeu;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C074B606A6AE;
-	Wed, 25 Nov 2026 09:34:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28F65606A339;
+	Wed, 25 Nov 2026 09:34:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WvOETUsy
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WClvNEeu
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795599292;
-	b=OyTCpfXhqDrfVVpWgcNnlGWPN6BzYLZ04qIjwXqx0rm0kh8NLBeCuf71Rpn81p/mSX+X
-	 wuiRkqpKZ0Py96S9muyIbshRElcIm1oDDpYYMAdJZKUt6IrbBtwXcg2EUhHIPalPn+ivU
-	 aI/F5TIvUjohsIHu0ltV24bBa3izCb8lpk7hzVJIZnwmeZMkWdk5h+90hGq5FrgAFAMit
-	 5OidjHXJbfQI+OY/0G8OCxfpfQoQgG6U+9kuYY/BxENwb4kHLc2cjm+ZMNgk531a6BGLH
-	 J/hYaIChf3Ap7oCwEqISen1oqdlGDz6HV5TbKZpKaF12yby82t/UY3XelO8kaenNj9Q==
+	t=1795599288;
+	b=F6sSTVMoPwAuetQzUHUeTV1YZHKOkTB4OZvHvoAAuJ65SfY71FtGcLN/0E1mxBXjFzsd
+	 6TP2gy1SVNV/bsUVWTgApXdswjc8sSkc/BzExp5dD+pRZgg2gJ1lyHPfvP0Y4KRjcweww
+	 RGk4QHJlfhjyPwxOjNC+K4N3IYMvXgwI/3GUNvIwTqyVmAY6yyhaFAfVVwY5gb8R1reKo
+	 Djuf3lBOShUxEqfK+BNf1/GQ42+x6M35zvd1F1uMnESnQWndWczjfV0QZEisna895DjOJ
+	 6EyNZvSrsQk5AucqvzBXwnNG7sxjjzKOV2zc4qsI1uFIvynVmyTqfDs0ArF59gJQykg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795599292;
+	c=relaxed/relaxed; t=1795599288;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=iuNi0U87BKz/2WbFki1kVDGDkTecmSYTtLyfcIq6jsg=;
-	b=uScNYOnPodLtEH7Tqulk6Y+oeQ7ewZEY3ezojtE0v6sCL2ZcSI2fF/w1GtEUyWzipOqd
-	 jet39nF7DogtfCWjLKLlKTEM1WB1vVf+e+iGFp9cekV7Y1S31rr+4cHBaEbJP4Bb5Vb6W
-	 54E8kpgBqjDaHL7T/g9I+N3n4Z1DMGo9fVhYjQRSCCw11bUPPjlVLx2xf0wcAc46RJ1sO
-	 S1w2A93mI4QSUdtx4BXt7Sl8U20toRIn3/hMvwG60k9anklcdaOfxr1aYUAu0zPyFVGS9
-	 EZXUYW2LFTxoPzCmY2Wgbdwbc7UKVyS0hW94O1I6iTOfD1DDI5P+JOeyGc62XPEoMZw==
+	bh=FPW2O/CZksG07s1KEeo2I5JR2fFDL0AqSEPRwnJ+rAw=;
+	b=ABAyZ3YxknMTPTz+QL+MCbNcVh3oAlzL54tM8Vng7oFr73MTPAG6iQxDCyJmlSQX1yAj
+	 GefpdTSelpfpngIEGIw/N8FJ7QKdDwZZlQJ28CsPTNcc43y5OxokvFKIvSibv2GhD7qQ2
+	 qz7rwXEv4HuYufYIzZzjstnXAJ6V5aEBgJM9aOSrGvOYs6/SsD5yh08cH5lEXLnfHe3tO
+	 U11AHC3q/lDT0sffH1ZBHucqH5SBthfDkYCB65sFW0sIdTztTYP5qDXK08wGCzG5ZubUu
+	 sj4ju0BjvbvT4FX2/Zn2PcCjOYiX+vdNcOUAy70IpCkZSj6bzjC/iZgaOcMevVUqFgA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id CC82A1F000C4;
-	Wed, 25 Nov 2026 09:34:36 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 369111F000D1;
+	Wed, 25 Nov 2026 09:34:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795599292;
-	bh=iuNi0U87BKz/2WbFki1kVDGDkTecmSYTtLyfcIq6jsg=;
+	s=k20260515; t=1795599288;
+	bh=FPW2O/CZksG07s1KEeo2I5JR2fFDL0AqSEPRwnJ+rAw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=WvOETUsyGn0+zMrOeJ5dPvmjwX06qwNJHczQr/dnyrcvph8rwhN2zmOkBqlaxpbZl
-	 KmYLBC3CgFMUkqR+qAm16nfRa97MAchP35gMwhHvIapSc3jjNQOieqTLVkAJwuphQR
-	 nuh7VmONdKpBGpznRNSDt4fLCbJBHim/81rrmkEEGLI8BuLUfkXZn2zvm27h1dk/q5
-	 /18tcsJSEuKsE14yjtwCvvavoR6TMAFLDS8yyTqjB4GrjuKcBIaF7sogzsl/zLq9zg
-	 h/YP18bLX6Y2pnicf0svOP/T0X4DyyF8pC9EC1eynmmLX8CrCP22UioEmegsgVgx1Z
-	 CkIsfXk7qyo7Q==
+	b=WClvNEeu4R4e79Exo+1TmvDr1NaEyRokfzKKYRko5BeGZjUKilF2+PWME/pL2QO7a
+	 nFBc/8fjkeemYy+Yvmuo5FNPX6Nz9f7vM39XsjGL6jGtwKfLLWeKnQxblHnFFj718P
+	 6vhA8WZk0S42AVOVYfoDZzKoJEFcQFwqRsgaoeUzNL6m9bicI0KEVsh3JK3Q1nQG+2
+	 bhsUwBnNx91euH+WHS2E+812zGXTGqAxsR0weY/tRiBycwSRBwNU8wVzfAne5e7C0O
+	 fXdvPj+9NZyypAvkNbWlA8hvXIJAa60gq7Gn4xzWhn8XcHFYVjTHikYaM3UCRed9FP
+	 ufJR9/aOwKwVQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 56F1D4CDCB;
+	by lkml.kernel.org (Postfix) with ESMTP id B4BFD4CDFE;
 	Wed, 25 Nov 2026 09:34:36 +0000 (UTC)
 From: Jan Petrous via B4 Relay <devnull+jan.petrous.oss.nxp.com@kernel.org>
-Date: Wed, 25 Nov 2026 10:33:43 +0100
-Subject: [PATCH RFC v4 01/15] dt-bindings: phy: Add NXP S32G SerDes
- subsystem
+Date: Wed, 25 Nov 2026 10:33:46 +0100
+Subject: [PATCH RFC v4 04/15] net: pcs: xpcs: allow a PCS to opt out of
+ soft reset and EEE
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261125-s32g_serdes-v4-1-3bfe0589be8d@oss.nxp.com>
+Message-Id: <20261125-s32g_serdes-v4-4-3bfe0589be8d@oss.nxp.com>
 References: <20261125-s32g_serdes-v4-0-3bfe0589be8d@oss.nxp.com>
 In-Reply-To: <20261125-s32g_serdes-v4-0-3bfe0589be8d@oss.nxp.com>
 To: Vincent Guittot <vincent.guittot@linaro.org>, 
@@ -119,11 +119,11 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
  linux-pci@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
  "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795599274; l=6931;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795599274; l=2142;
  i=jan.petrous@oss.nxp.com; s=20240922; h=from:subject:message-id;
- bh=pFftY5ppzmA4Tf+cdOjE2ihm8f1VwzEk/60Lo7i4qIc=;
- b=3bbfmg5c+OccNyS5LG7aiWzBtkz3ffrgYWf1bz6LgNqobSpPjIII0BxLOhGI4WGU8p53GT5j2
- qgJ69HhmkMqBBh/mo0uRkTkydQRVj6DUsFHSHSpqfMVkDzSq1f8AbqX
+ bh=XscJymCuOoPX6VkV4O1nIKYSBnUzCtjWiHRRdPqdbMk=;
+ b=iE2FYHKkZBcU6n24n7zNpgnccWxNcvMAikDlY+jLN6198179BHbRw1XeT2teHMY9FSK6wFUv8
+ dIL2U1KySspC9q2iEtKQHhV1fidG8GKop8Oba4PFSWj7J2idWFs6aFx
 X-Developer-Key: i=jan.petrous@oss.nxp.com; a=ed25519;
  pk=Ke3wwK7rb2Me9UQRf6vR8AsfJZfhTyoDaxkUCqmSWYY=
 X-Endpoint-Received: by B4 Relay for jan.petrous@oss.nxp.com/20240922 with
@@ -134,187 +134,77 @@ Content-Transfer-Encoding: 7bit
 
 From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
 
-The S32G SerDes subsystem multiplexes two lanes between a PCIe PHY and
-two DesignWare XPCS instances. Describe it with one node per SerDes,
-which is a four-cell PHY provider: <lane type instance max-speed>.
+Add a quirks mask to struct dw_xpcs_desc, with two flags:
 
-There is no mode property. SS_RW_REG_0[SUBSYS_MODE] follows from the
-phys references of the consumers: a PCIe root port references its
-lanes with PHY_TYPE_PCIE, an Ethernet controller references its lane
-with PHY_TYPE_SGMII, the XPCS instance it is wired to and the highest
-speed the lane is wired for, and takes the PCS from the SerDes node
-through pcs-handle. Each mode described here has a unique lane mux. A
-lane that no consumer references takes the function it has in the
-first matching mode.
+ - DW_XPCS_QUIRK_NO_SOFT_RESET: no soft reset in pcs_pre_config(). When
+   the XPCS shares its PMA with another controller, the reset belongs
+   to a bring-up sequence owned by the platform.
 
-The XPCS instance is a cell rather than derived from the MAC: the mux
-is programmed at SerDes probe, before any MAC exists, and "XPCS0 alone
-on lane 1" (mode 1 with the PCIe lane idle) and "XPCS1 alone on lane 1"
-(mode 2) are different routings of the same pins. The cell layout is
-final.
+ - DW_XPCS_QUIRK_NO_EEE: VR_MII_EEE_MCTRL0/1 are not implemented and
+   must not be written.
 
-The speed is a cell for the same reason. The 3.125 Gbit/s
-configurations select other SUBSYS_MODE values, reference clocks and
-PCIe speeds, all decided at SerDes probe, and the MAC's phy-mode does
-not tell: an in-band SGMII link to a 2.5G PHY is "sgmii" and moves to
-2500BASE-X at runtime. Only the 1.25 Gbit/s modes are described, so
-1000 is the only accepted speed; 2500 comes with the 3.125 Gbit/s
-modes without a change of #phy-cells.
+No entry sets a quirk yet, so there is no functional change.
 
-The mode tables differ per SoC and per SerDes instance, so S32G2 and
-S32G3 have no common fallback, and each instance has its own compatible
-with the per-SoC one as fallback.
-
-Co-developed-by: Vincent Guittot <vincent.guittot@linaro.org>
-Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
 Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
 ---
- .../devicetree/bindings/phy/nxp,s32g-serdes.yaml   | 137 +++++++++++++++++++++
- 1 file changed, 137 insertions(+)
+ drivers/net/pcs/pcs-xpcs.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/phy/nxp,s32g-serdes.yaml b/Documentation/devicetree/bindings/phy/nxp,s32g-serdes.yaml
-new file mode 100644
-index 000000000000..a06becfcc4e4
---- /dev/null
-+++ b/Documentation/devicetree/bindings/phy/nxp,s32g-serdes.yaml
-@@ -0,0 +1,137 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/phy/nxp,s32g-serdes.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
+index 6466e0ff2a98..442c64a731b7 100644
+--- a/drivers/net/pcs/pcs-xpcs.c
++++ b/drivers/net/pcs/pcs-xpcs.c
+@@ -158,10 +158,20 @@ struct dw_xpcs_compat {
+ 	int (*pma_config)(struct dw_xpcs *xpcs);
+ };
+ 
++/*
++ * The integration owns the PCS reset sequence: skip the soft reset in
++ * pcs_pre_config(). Only for PCS without Clause 73, whose fault recovery
++ * still resets.
++ */
++#define DW_XPCS_QUIRK_NO_SOFT_RESET	BIT(0)
++/* VR_MII_EEE_MCTRL0/1 are not implemented */
++#define DW_XPCS_QUIRK_NO_EEE		BIT(1)
 +
-+title: NXP S32G2xxx/S32G3xxx SerDes PHY subsystem
+ struct dw_xpcs_desc {
+ 	u32 id;
+ 	u32 mask;
+ 	const struct dw_xpcs_compat *compat;
++	unsigned int quirks;
+ };
+ 
+ static const struct dw_xpcs_compat *
+@@ -729,6 +739,9 @@ static void xpcs_pre_config(struct phylink_pcs *pcs, phy_interface_t interface)
+ 		dev_err(&xpcs->mdiodev->dev, "switch interface failed: %pe\n",
+ 			ERR_PTR(ret));
+ 
++	if (xpcs->desc->quirks & DW_XPCS_QUIRK_NO_SOFT_RESET)
++		xpcs->need_reset = false;
 +
-+maintainers:
-+  - Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>
-+  - Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
-+  - Jan Petrous <jan.petrous@oss.nxp.com>
+ 	if (!xpcs->need_reset)
+ 		return;
+ 
+@@ -1318,6 +1331,9 @@ static void xpcs_disable_eee(struct phylink_pcs *pcs)
+ {
+ 	struct dw_xpcs *xpcs = phylink_pcs_to_xpcs(pcs);
+ 
++	if (xpcs->desc->quirks & DW_XPCS_QUIRK_NO_EEE)
++		return;
 +
-+description: |
-+  The SerDes subsystem multiplexes two lanes between one PCIe controller PHY
-+  and two Synopsys DesignWare XPCS (Ethernet PCS) instances, behind a shared
-+  2-lane combo PHY. The routing is selected by SS_RW_REG_0[SUBSYS_MODE].
-+  The 1.25 Gbit/s modes are:
+ 	xpcs_config_eee(xpcs, false);
+ }
+ 
+@@ -1325,6 +1341,9 @@ static void xpcs_enable_eee(struct phylink_pcs *pcs)
+ {
+ 	struct dw_xpcs *xpcs = phylink_pcs_to_xpcs(pcs);
+ 
++	if (xpcs->desc->quirks & DW_XPCS_QUIRK_NO_EEE)
++		return;
 +
-+  Mode  Lane0   Lane1   PHY refclk (MHz)  Description
-+  ------------------------------------------------------------
-+  0     PCIe    PCIe    100               PCIe x2
-+  1     PCIe    XPCS0   100               PCIe x1 + SGMII
-+  2     PCIe    XPCS1   100               PCIe x1 + SGMII
-+  3     XPCS0   XPCS1   100 or 125        dual SGMII, 1.25 Gbit/s
-+
-+  The mode is not a property. It follows from the phys references of the
-+  consumers: each one names the lane, the PHY type and, for an XPCS lane,
-+  the XPCS instance and the highest speed the lane is wired for. Each mode
-+  has a unique lane mux. A lane that no consumer references takes the
-+  function it has in the first matching mode of the table.
-+
-+  A PCIe root port references one lane per link width. An Ethernet MAC
-+  references its lane with phys and takes its PCS from the same SerDes
-+  node through pcs-handle.
-+
-+  Which MAC an XPCS instance feeds is fixed by the SoC integration. On S32G3
-+  SerDes_0, XPCS0 feeds GMAC0 and XPCS1 feeds PFE_MAC2; on SerDes_1 they feed
-+  PFE_MAC0 and PFE_MAC1.
-+
-+  The mode tables differ per SoC and per SerDes instance: on S32G3 the
-+  3.125 Gbit/s dual-XPCS mode exists on SerDes_1 only, and on S32G2 only
-+  SerDes_1 reaches 3.125 Gbit/s. S32G2 and S32G3 therefore have no common
-+  fallback, and each instance has its own compatible, with the per-SoC one
-+  as fallback.
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - items:
-+          - enum:
-+              - nxp,s32g2-serdes0
-+              - nxp,s32g2-serdes1
-+          - const: nxp,s32g2-serdes
-+      - items:
-+          - enum:
-+              - nxp,s32g3-serdes0
-+              - nxp,s32g3-serdes1
-+          - const: nxp,s32g3-serdes
-+
-+  reg:
-+    maxItems: 4
-+
-+  reg-names:
-+    items:
-+      - const: ss-pcie
-+      - const: pcie-phy
-+      - const: xpcs0
-+      - const: xpcs1
-+
-+  clocks:
-+    minItems: 4
-+    maxItems: 5
-+
-+  clock-names:
-+    minItems: 4
-+    items:
-+      - const: axi
-+      - const: aux
-+      - const: apb
-+      - const: ref
-+      - const: ext
-+    description:
-+      The combo PHY reference can be taken from the internal reference
-+      clock ("ref") or from the external reference pad ("ext"). A board
-+      that routes the external pad lists both; the external reference is
-+      then the one used.
-+
-+  resets:
-+    maxItems: 2
-+
-+  reset-names:
-+    items:
-+      - const: serdes
-+      - const: pcie
-+
-+  '#phy-cells':
-+    const: 4
-+    description: |
-+      The first cell is the lane, 0 or 1. The second cell is the PHY type,
-+      PHY_TYPE_PCIE or PHY_TYPE_SGMII from dt-bindings/phy/phy.h. The third
-+      cell is the XPCS instance, 0 or 1, and the fourth the highest
-+      Ethernet speed the lane is wired for, in Mbit/s: 1000 for a 1.25
-+      Gbit/s lane, 2500 for a 3.125 Gbit/s one. Both are 0 for
-+      PHY_TYPE_PCIE.
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - clocks
-+  - clock-names
-+  - resets
-+  - reset-names
-+  - '#phy-cells'
-+
-+additionalProperties: false
-+
-+examples:
-+  # Consumers select the mode. PCIe x1 on lane 0 plus 1G SGMII on lane 1 via
-+  # XPCS0 (mode 1) is, on the PCIe root port and the MAC:
-+  #   phys = <&serdes0 0 PHY_TYPE_PCIE 0 0>;
-+  #   phys = <&serdes0 1 PHY_TYPE_SGMII 0 1000>; pcs-handle = <&serdes0>;
-+  - |
-+    serdes0: serdes@40480000 {
-+        compatible = "nxp,s32g3-serdes0", "nxp,s32g3-serdes";
-+        reg = <0x40480000 0x108>,
-+              <0x40483008 0x10>,
-+              <0x40482000 0x800>,
-+              <0x40482800 0x800>;
-+        reg-names = "ss-pcie", "pcie-phy", "xpcs0", "xpcs1";
-+        clocks = <&clks 1>, <&clks 2>, <&clks 3>, <&clks 4>;
-+        clock-names = "axi", "aux", "apb", "ref";
-+        resets = <&scmi_reset 1>, <&scmi_reset 0>;
-+        reset-names = "serdes", "pcie";
-+        #phy-cells = <4>;
-+    };
+ 	xpcs_config_eee(xpcs, true);
+ }
+ 
 
 -- 
 2.55.0
