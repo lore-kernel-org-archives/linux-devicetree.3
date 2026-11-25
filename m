@@ -1,65 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795618380;
-	b=jIrVQ11Xy2NxsrC2RbdDTlX+kLOrT8NTcjF1PUYsCxUQ2P/SRCKTbr8BcWfIbLg0b2nM
-	 nMGT7rzgntNZNlF6AHwFQh70WHJ+9mKLoSyCWGaCBm/7t2n0GNBPOScYiUV98VnIB6FaD
-	 PVTcimYWQui1nqHv5Kbsvs2Z5NRlA8lPvC6KDM0lVgdqOZJRXhIWR1OWAhZ39Dcf+21UI
-	 lJkcR1iP6LBr/WJ0oMFvJA259uN4Tvc7cKFnvJpq4Y9owIqG+ZZO83JguyFnUNEBN+2o3
-	 3GB+9MMXk0le8OfocR/JRZzzdbBVVy6c7Hc1j2Q20hEY30mLnA54qkvp5sTxbjGzKOA==
+	t=1795618434;
+	b=qUGB0g8jLaiUVS7JqmgcTccL0QPdqfWs85GewS5KkPZTivoxjlK9ztcEOjbnmvJDKKML
+	 s0/pvUhqm6R5EtwjCw1OWilZyw6Lr1V6JIuG66cysTdY7sR9AExZKiWzsez6YQ0EWkE3/
+	 PFl4on19IXfBUQA5gqEq/24JPC2ro4XtTmf0NNIezyQE/Rr5F26fcvlEm/hMlW3qV2bSp
+	 cpF9/1mpY79YMf6+MW7H++5Tsg15mHAjGfOB9cqQ/CNKwHLAKewzQ5DD/0rNVfkOLKsO2
+	 pMYH3ZD/Kq7K04r4eoAMcfxarsflAmWrqZxn7ddUWyxS84wZ8MogjakXiy6xlFznYNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795618380;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Noo/1qHPis8a4ZHqIhQBRWowzWTBe2fSXWZTT6D4Yww=;
-	b=rlB230qvSxZzN/QEhAimT3DHY2d1poEQmoctrJ8gQxngS2SCy0WRTzLRAt1oauSQQjOX
-	 WMnTmbUsQoOwuWnp7TjYZ3wByFCtX7Lyu43t73Ny2xpy553cm3OVQa4BWRWgG7RYcs9Ir
-	 y68H38iQP0kFVVhopjMitg/xqp6MoVPtM6+8+u8pmkAYnoY3LMwuDbtSjC/5o+aFmdSeM
-	 mRJKpA8jfEyNbT6xP3eREpmK5Mds79K3YISp6D2dUt4F0x/lstbnhU+PWzHPr7os0D6lV
-	 +0tIC4zlJh65f40D1LWrKXWYQS/XnOe/zNvU88z1JAdk6kCpygztIjoXtSHpk3ajMLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795618434;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=jyTslH/h8L0C8HCIteQbCN/1sF3Ppecw+tHudhxEPjo=;
+	b=Z/E+R0tsuIyDJz8j8XWVM23CPnYpGu0Y3NVgbhGTHHm8DffC3+YZ12y8iEhitD8naIEH
+	 toFjxX0rhK7XLu8rTRFhCFKQC9J+jxo8dZEE6Tvbb8sETdJYYOSMADtH3rqosHncvvxrS
+	 BznDJnyjEUFo0pAjpJ6bs1wEIp2y57s/7VNmqYlMEGPTWOCcP1CLQS5YX2PugH2OxvO5u
+	 qkHCeMaZk+9YRzl85ow0B4pWGDwV0qRU5yGAN5qQSo5eA2lf67H7hUirO3iv6Xbx49cpn
+	 vkaHDVA3OJuHObXIbJBt8r/Tjs7KWsuuQIwCkcSDbctn1mn1heue/3lqH2Eu/PkK/Kw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QpjZ6tOI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.222.180
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F00E606A327;
-	Wed, 25 Nov 2026 14:53:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QpjZ6tOI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B54D1F000F2;
-	Wed, 25 Nov 2026 14:52:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795618380;
-	bh=Noo/1qHPis8a4ZHqIhQBRWowzWTBe2fSXWZTT6D4Yww=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=QpjZ6tOIlUhf+kQlKZgHLxYc2XlcmBaIfPkRV1LIW1ys2U5rcZAujgkg2H5gV/4AM
-	 UrnSWvJXDyp/05FTYBkD9R9jSI3uzxxh9YOuNivFJe0w7W4t6HFQzQGxwS1sueI2/e
-	 4A3X09csZMChHfVemR3ARVz9gcosJmopth4sAp3aDEvljqiwounqI5SC7WIDvOYSwc
-	 Qn4XBn15u+NExx01d+6LUqzqVNOFUvXhpDPZAUnPMI3R/RT/mioKPLRiCmBFRif1mW
-	 ZP5DYr/p68hTyp5g61kQA0opzo3ZwejEk3aS4qyAk1hxceeC2doZsic7/j0nI3KZJK
-	 yZJ7PrxiCOEsg==
-Subject: Re: [PATCH v8 4/4] arm64: dts: amlogic: t7: khadas-vim4: enable the
- ethernet port
-From: netdev-bot+sashiko@kernel.org
-To: tanure@linux.com
-Cc: xianwei.zhao@amlogic.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
- khilman@baylibre.com, jbrunet@baylibre.com,
- martin.blumenstingl@googlemail.com, maxime.chevallier@bootlin.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Date: Wed, 25 Nov 2026 14:52:58 +0000
-Message-ID: <179561837863.3135.7453763060716815613@kernel.org>
-In-Reply-To: <20261121213102.143130-5-tanure@linux.com>
-References: <20261121213102.143130-5-tanure@linux.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CFA1606A32E
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 14:53:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CFA1606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-9495d543c42so595557385a.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 06:53:54 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795618433; x=1796223233;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jyTslH/h8L0C8HCIteQbCN/1sF3Ppecw+tHudhxEPjo=;
+        b=A8e5Z0bBOZpbiDH/nEX8/+znQrePr3rw3cROeHeUwin0Q2T4DiriN3fwB1CU7wo9Z3
+         eoUFNBKwSxQsbYPN0Av+XbuCLoLjjehetsIPjWdHNfVCl4W3HvrBoB5UV4XVbkhjr2k4
+         uwXtIz05/W0Zdkz1I6yLkxyraEo8Pcc23Bg0R2sXouNArnbSRfkaNFPs7a02SVyC43ib
+         EcoSsUuk456BEoyuv+E1WnCLJXzrqL/Yjvaa3HidXmzLve/c0LubGDZar/M9GzeSS9lv
+         PuKUWq+nXbbJGFJe8N0x7BSAcZZ2G8ZPdloRsUgN2r2jhDvIXzkWIXA5o4otR/SAbLbs
+         f6wg==
+X-Forwarded-Encrypted: i=1; AL+hErE/StakbLg8a/7yRD9pX+2abJx1L3lRgc08+SvM3ijYWpNzyzsyedI5Mq6oWNe209kuFlunQtFOV59j@vger.kernel.org
+X-Gm-Message-State: APuU4Z9TgNM9676a+GSJormxWBm9JmK/+lThIDdggi1JwFYxnrDE0WDh
+	GNTd6k5tusv14VBC73mVqfSZqM76SU0EzHWJm34UPgdj8fz4byGVDc17bim2CF/b
+X-Gm-Gg: AZFdTZcM3ATDkHKerO5B2k1Pjy0EjOMZ5RW3+6FEgQ5WmzEqRxp8NGE7IDmMsBkjMc/
+	/H1TGH8iVQP7zFAnJYlyl2sNEgTto0jOTmH/w1VdtCHlwJyxSMYKn1acta+9JGnhPuRcR84AmH1
+	MLAJ+KtIKLVqz6j73TS77NJVI33ec3DfVf/AeL4FkmaYAxA7u8GodmZkFtzHADXdnuQQqROMP5m
+	z+1MWJJcEsppJqy/0/wZ+ZdJO1z9JgUYnD1TKmaOF5ZqCI6emsLXoSuOgGUGpm+8ydUijwV28nI
+	Oe+PkIOTn6wxv7s5/jDCpudLIlwWwEKhQ3kfoFlJZxOtbXewM6nJ/GoZCha7gEBkCciDSOJ84Vh
+	N3rZJ/KvyDD9gSPJDheh9HcMxkXoAkHBsoi59rbw8gYV6oRkMkj55fX1tN2DTRjzJS/fyj0/WFp
+	n12yihZyvitLPhUCS93Gys9kz7hNG7hLqPW1muUk+MQFq1dySt1BAqNuhDn10E794eAjUdGeEV6
+	KGf28+RdD2jOPo+qcQzN7YyWuoYCf5397H72MeMqkP7yMojQA8fBwI525doRmtQSTzMhk9zpPC/
+	lsPysWp3wCL13LClWiuDZPwN994CnpbGzWPSgv5HETxdx5m2ceAqcP8OGw0TMq0VWTplGsk=
+X-Received: by 2002:a05:620a:4626:b0:93f:1936:b229 with SMTP id af79cd13be357-949bab30868mr3319479485a.77.1795618433428;
+        Wed, 25 Nov 2026 06:53:53 -0800 (PST)
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com. [209.85.222.180])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb397b4bsm1334807685a.21.2026.11.25.06.53.53
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Nov 2026 06:53:53 -0800 (PST)
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93f1e5d7450so553887585a.2
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 06:53:53 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHcVA6UpGu3HlEJvunaI5Zs7uMwE94BQ28y0MAhkDKz0hb7O1P4RYBYBXUXVkicnaoC9KufEDo7vNvL@vger.kernel.org
+X-Received: by 2002:a05:6122:1daa:b0:5ea:389c:520b with SMTP id
+ 71dfb90a1353d-5ee8af0b136mr10546236e0c.8.1795618054600; Wed, 25 Nov 2026
+ 06:47:34 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,113 +80,68 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <cover.1795029012.git.geert+renesas@glider.be> <1e9c5ac3-d82b-4af9-9946-0302cadf7404@baylibre.com>
+ <20261119234759.GB2324725@killaraus.ideasonboard.com> <19c3745a-6308-46ff-bb37-3acc88fe22e2@baylibre.com>
+ <awAqqg6F2Z1t55x2@ninjato>
+In-Reply-To: <awAqqg6F2Z1t55x2@ninjato>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 25 Nov 2026 15:47:23 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdWLn444XFOUV75J22dNSnMkcjefusMomnp1dqRe3tsggg@mail.gmail.com>
+X-Gm-Features: Aa3M54pxTFdlXtNPAY9vlRQdDdU5I_xDDti_PqZ4BrybSMWjBRbxoSvFUUiO_NA
+Message-ID: <CAMuHMdWLn444XFOUV75J22dNSnMkcjefusMomnp1dqRe3tsggg@mail.gmail.com>
+Subject: Re: [PATCH v5 00/15] R-Car X5H Ironhide CPG/MDLC SCMI remapping support
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Kevin Hilman <khilman@baylibre.com>, 
+	Vinod Koul <vkoul@kernel.org>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+	Paul Elder <paul.elder+renesas@ideasonboard.com>, 
+	Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
+	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Hi Wolfram,
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+On Fri, 20 Nov 2026 at 12:10, Wolfram Sang
+<wsa+renesas@sang-engineering.com> wrote:
+> > I don't think SCMI itself introduce instability.
+> > It only defines the protocol, and each firmware choose its ids.
+> > Could you tell me what you mean by instability?
+>
+> Let me try to reword:
+>
+> In the past, we wanted to support all kinds of firmware. Sadly, each new
+> firmware introduced different IDs here and there. So, we came up with
+> some stable IDs ourselves and mapped them to the IDs per firmware. This
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+For core clocks, we came up with our own IDs, just like in other DT
+bindings where there is no simple mapping to hardware.
+For power domains and resets, the IDs are derived from the hardware
+documentation (register and bitfield indices) (augmented with a few
+power domain IDs that have no simple mapping to hardware).
 
-- [Medium] The commit says it enables the Khadas VIM4 ethernet port.
+> is a n:1-mapping of firmware IDs to our stable IDs.
 
---
+Unfortunately this is not 100% true:
+  - There may be multiple SCMI IDs corresponding to a single physical
+    resource,
+  - We are still discovering missing SCMI IDs for some resource.
 
-arm64: dts: amlogic: t7: khadas-vim4: enable the ethernet port
+Gr{oetje,eeting}s,
 
-This patch enables the T7 ethernet MAC and the MDIO multiplexer on the
-Khadas VIM4. It also describes the RTL8211F RGMII PHY at address 1 on the
-external MDIO bus, with its interrupt on GPIOH_6. With phy-mode =
-"rgmii-id", the PHY adds both RGMII delays.
-
-> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-> index 0fa83362b4179..7b86ab2579aaa 100644
-> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-
-[ ... ]
-
-> @@ -256,6 +257,28 @@ xtal: xtal-clk {
->  	};
->  };
->  
-> +&ethmac {
-> +	status = "okay";
-> +	pinctrl-0 = <&eth_pins>, <&eth_rgmii_pins>;
-> +	pinctrl-names = "default";
-> +	phy-mode = "rgmii-id";
-> +	phy-handle = <&external_phy>;
-> +};
-> +
-> +&eth_phy {
-> +	status = "okay";
-> +};
-
-[Severity: Medium]
-Can any driver at this revision bind to the ethmac node this enables?
-
-The node in amlogic-t7.dtsi has:
-
-arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi:
-		ethmac: ethernet@fdc00000 {
-			compatible = "amlogic,t7-dwmac", "snps,dwmac-5.10a";
-
-The amlogic,t7-dwmac string appears only in amlogic-t7.dtsi. The Amlogic
-glue driver's match table, meson8b_dwmac_match[] in dwmac-meson8b.c, ends
-at g12a:
-
-	{
-		.compatible = "amlogic,meson-g12a-dwmac",
-		.data = &meson_g12a_dwmac_data,
-	},
-	{ }
-
-dwmac_generic_match[] in dwmac-generic.c ends at snps,dwmac-4.10a, plus
-snps,dwmac and the snps,dwxgmac entries. Under drivers/, the only place
-that names snps,dwmac-5.10a is stmmac_gmac4_compats[] in
-stmmac_platform.c. That list detects the core version. It is not an
-of_match_table.
-
-If nothing probes ethmac, its mdio0 child bus is never registered. The
-eth_phy mux enabled just above binds through the amlogic,g12a-mdio-mux
-fallback and has mdio-parent-bus = <&mdio0>. So mdio_mux_init() would
-defer on every attempt:
-
-drivers/net/mdio/mdio-mux.c:mdio_mux_init() {
-    ...
-		parent_bus = of_mdio_find_bus(parent_bus_node);
-		if (!parent_bus) {
-			ret_val = -EPROBE_DEFER;
-			goto err_parent_bus;
-		}
-    ...
-}
-
-Wouldn't that leave ext_mdio and external_phy unregistered, so that
-phy-handle never resolves?
-
-Also, nothing would program the PRG_ETH glue window, which is the second
-reg region at 0xfe024000. That window holds the RGMII mode select, the
-clkin0/clkin1 TX clock mux and the MAC-side delays.
-
-Nothing would claim the pipeline clock (CLKID_SYS_AMPIPE_ETH) either. The
-previous patch in the series, "arm64: dts: amlogic: t7: add the ethernet
-controller", says this gate is otherwise turned off as unused. It also
-says the port keeps the bootloader's delays unless the controller
-programs them.
-
-amlogic,meson-dwmac.yaml does not document amlogic,t7-dwmac, so
-dtbs_check would report the now-enabled node as undocumented.
-
-Does this patch depend on a separate glue driver and binding series? If
-so, could the commit message name that prerequisite, or could this patch
-be sent together with it?
-
-[ ... ]
+                        Geert
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261121213102.143130-1-tanure%40linux.com
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
