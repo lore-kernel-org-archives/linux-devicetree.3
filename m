@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795597298;
-	b=NEkvxBchdcQijrYBBkFN24rfYCGKMFbA/NVH/VxQoOQOyGMmbZuXuNw5A1xnYuL2kl9i
-	 V5Gs33k0MWj9P7B5Y1dECnxTlpOHQ1f+o7PmCG+amsys1kBV6h3Rvcgx1naz6Lvuc6tsp
-	 PBN40kVhMxwM0qbAHdvZnyyjbjTABr0h5cfIlqz5wgBzV82BLoh2/NK4UvHpjicKVo7GS
-	 1V9pdpi/bql9q/YQIeQlSRuV2iP9oEFsVpiUOBL5Ml41tjnQOVXz6J0A0H3hbWxxV4Jfb
-	 AlnZ67sK57hEPqPccW9+PFdu7jI5BUincuzDGU7EC6JnwCuwvRtcdw8axfc0IkIrDsQ==
+	t=1795597759;
+	b=T9mpp2IIuc3Hrj+CCAJKnTdb/3Uj4Z/kgZmguFAlsgXRs7DT6gg1TuSTWTGJScZwfkgL
+	 Uq6dKT0IVly51kt0hZxwcQsktrRWV7OieefQZ9i6UdyoEUrTAFGwuOsZKvwMco99FbkhK
+	 QEwOJp9wRMyOMrLlR9caS+Y1VByQIswVVGxssCMEiK48gnRAQeVr0iEx76ZIc63rnASDE
+	 SMTuqQk9DjK68nSktVCP3gtJ3JpoF89w2i+6kyEA4/vjiUBe/RgnjrYqNRtDixJWiRARn
+	 qK8NEvSoVEYOVHi4Du5CVhQe/9fIQHC9gmiVtzq/sxsgOGe/ziNBGtWgxWJh3+kUFqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795597298;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795597759;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=MI6w+xLkq+kgc7RpcEMajWtW3ubEnAx8egyV+jmxVZw=;
-	b=xqYpqrowzZvnwD6swt+xMGnw1VAO1dvZ8cOY0/X5u+SV4ZNbrtZ4T2rRudYpJk1ICpFs
-	 7lg/tdIvyRyPKd6jaBGnTsnlSGQ+3bKCbaly8Ks8KMKK1fCLDiaYwQEr8Z2DZd+0RjQdq
-	 bJBMx/AvDLlaDIUWpz2tO/J6Qs+WT4SOb3ItHKfPSa/DOzv78YO0WhRbKIrLEBlIL7cua
-	 /Cr2FZXUwYEa8IZlpEKZJ7N6h3Ruq6DObdm9ohhgk7U5g0GTM8hQIvSy0zSJ37HER8Vm7
-	 p99NxS5CQibV6j7qvZqLE0rDZ0Xcd51Zx/Ttb3ruoZZl6B1HbD6AE5Dltk7JjJ+z8vw==
+	bh=n+cRyADkKae7vFxhgwT7HPOEUWx6kLcWNYERewf8uLo=;
+	b=sQQYYAdoe6P1LsbYCWMQ/R+fcyk/JclQnXP/p63cNs9NMuHhpnnKbmkWkp8jJjZaoQNn
+	 0Niw2V5v7LFxKU/0XstFISaZleFIq5eBI5+P1iJ124GP4pjYzHuBsM1YmppVuVobwSdWD
+	 rSzStprEcjMaGH+DeMEkVm7zrosw714vQUbVUGYqbC7cOqNBInojfYvRy52IYFA2RhFd+
+	 DR+be0NbHMgRb+997i+MIfL3yFbDz6vhBwcXUt/8ZpLayxNEN0gD86o4liOhbsJgH6bvj
+	 bk1tN5q0tft3sX4anPiQJolGG2bZs7XHLhOna/00HkZd6M2VvTbIgiwkjrbHtkQgi8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J74eo1q0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DLR8pVn3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAFD4606A31E;
-	Wed, 25 Nov 2026 09:01:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A54EA606A321;
+	Wed, 25 Nov 2026 09:09:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J74eo1q0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24D101F000C4;
-	Wed, 25 Nov 2026 09:01:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DLR8pVn3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A9891F000ED;
+	Wed, 25 Nov 2026 09:09:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795597298;
-	bh=MI6w+xLkq+kgc7RpcEMajWtW3ubEnAx8egyV+jmxVZw=;
+	s=k20260515; t=1795597759;
+	bh=n+cRyADkKae7vFxhgwT7HPOEUWx6kLcWNYERewf8uLo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=J74eo1q0XaLoLF2BxFEEO0RcEujzPN7OacguwsHORt7D2UdXBgEwlvX4wCL14RnD5
-	 IAiM2wM+fTiEpg25yv3MY2XYNSPedkJcQhhMyP/arsEIGya1A+pHtM9+5c8t7hdRqb
-	 zuoL9QjyeywEokxDmvCYblA+f2CRj9J/fRfc2kfq74n3yEq3b55oiqZJ/XUs5f/HyQ
-	 puBTBHeaXcaKzakjb+5DWGSBVmaczf7XVRPWSEsWzmDSyq2Hz7cO5oA+Y0kYUZuJWa
-	 Bsh4c8taTaxLeBmFDX1WeASdT3rNDhTNaXv24BzA0LGZq/iQF2L9QdUAVnyVKl55wB
-	 TmIJt0/PqQMuw==
-Message-ID: <sashiko-outbox-232966@kernel.org>
+	b=DLR8pVn3JWXkWL0kkURL6E7cY5WfcANT3V92UikEF7yLPex1AQsP4YCuXy+Kiyywi
+	 P4qQX7ICcFyfJ7hdWlSt396dNOBZB7RNkplFutPY0JvRWNyFeM1UwYqCOBjyUAPzzj
+	 vWygGZxcN81NF9vol9tDx7RIz/jh4nVBYkQkwNOLDxykh88imxIF2jrGWP2RdbrJjM
+	 dNoU4q8T188tf0H7lJb3JBv1Q6NLwMjU1BzAX8HMrmywu/YDT5LmP9/ktFdpvbixHi
+	 lm624ZLcu9b/8hYgHt+hNgta4NP0mLQr84Fu+g6S2nOh0deM5Avg6aerkRipmWfbs2
+	 L4EEYgEc2J0MQ==
+Message-ID: <sashiko-outbox-232973@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 6/7] riscv: pmu: Integrate CTR Ext support in
- riscv_pmu_dev driver
+Subject: Re: [PATCH v6 5/7] riscv: pmu: Add driver for Control Transfer
+ Records Ext
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Vikram Singh" <vikram.singh3@oss.qualcomm.com>
 Cc: linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261125083942.3695072-7-vikram.singh3@oss.qualcomm.com>
+In-Reply-To: <20261125083942.3695072-6-vikram.singh3@oss.qualcomm.com>
 References: <20261125083942.3695072-1-vikram.singh3@oss.qualcomm.com>
- <20261125083942.3695072-7-vikram.singh3@oss.qualcomm.com>
+ <20261125083942.3695072-6-vikram.singh3@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 09:01:37 +0000
+Date: Wed, 25 Nov 2026 09:09:18 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,345 +61,564 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 9 potential
+Thank you for your contribution! Sashiko AI review found 14 potential
 issues to consider:
-- [Critical] riscv: pmu: perf_ctx_data type confusion and OOB write in
-  CTR callbacks
-- [High] riscv: pmu: duplicate cpuhp_state_add_instance() in
-  pmu_sbi_device_probe()
+- [Critical] riscv: pmu: perf_ctx_data type confusion and missing RCU in
+  CTR task context
 - [High] riscv: pmu: NULL event->ctx->task dereference in
-  riscv_pmu_ctr_add()
-- [Medium] riscv: pmu: IRQ cleanup bypassed on error in
-  pmu_sbi_device_probe()
-- [Medium] riscv: pmu: per-CPU branch_records leak in
-  branch_records_alloc()
-- [Medium] riscv: pmu: broken CTR state in pmu_sbi_ctr_stop() and
-  pmu_sbi_ovf_handler()
-- [Medium] riscv: pmu: premature -EOPNOTSUPP in pmu_sbi_event_map()
-  before type check
-- [Medium] riscv: pmu: section mismatch calling __init
-  check_available_filters()
-- [Medium] riscv: pmu: missing inline on riscv_pmu_ctr_add() and del()
-  header stubs
+  riscv_pmu_ctr_add() and del()
+- [High] riscv: pmu: inverted CTRDATA_CCV check and cycle truncation in
+  ctr_get_cycles()
+- [High] riscv: pmu: missing SxCSRIND check and hardcoded CSR_SIREG* in
+  CTR helpers
+- [High] riscv: pmu: unmerged CSR_CTRCTL without filtering and hardirq
+  pr_warn()
+- [High] riscv: pmu: PERF_SAMPLE_BRANCH_HV rejected when H extension is
+  absent
+- [Medium] riscv: pmu: missing CTR reset in riscv_pmu_ctr_restore() and
+  unpaused save
+- [Medium] riscv: pmu: 32-bit truncation of CSR_CTRCTL filter bits on
+  CONFIG_32BIT
+- [Medium] riscv: pmu: reserved SCTRDEPTH_MASK write and unclamped
+  ctr_get_depth()
+- [Medium] riscv: pmu: broken !CONFIG_RISCV_CTR stubs and guards in
+  riscv_pmu.h
+- [Medium] riscv: pmu: section mismatch and unsafe CSR probing in
+  riscv_pmu_ctr_init()
+- [Medium] riscv: pmu: call and return inhibit bits left set for
+  CTRCTL_RASEMU
+- [Medium] riscv: pmu: early return and HV kernel enable in
+  branch_type_to_ctr()
+- [Low] riscv: pmu: redundant CSR_ISELECT writes in get/set_ctr_regset()
 --
 
-commit e9fe3c69a6f658642dd8da7db09d885c5571874f
+commit d1deee5d4cfeac01fee55cdd3cfa24ef329d2acc
 Author: Vikram Singh <vikram.singh3@oss.qualcomm.com>
 
-riscv: pmu: Integrate CTR Ext support in riscv_pmu_dev driver
+riscv: pmu: Add driver for Control Transfer Records Ext
 
-This commit integrates Control Transfer Record (CTR) extension support
-into the RISC-V SBI PMU driver to enable branch stack sampling on PMU
-events.
+This commit adds a driver for the RISC-V Control Transfer Records (CTR)
+extension to support hardware branch stack sampling in perf.
 
-> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
-> index b14b3acf75674..637b9d97e20a4 100644
-> --- a/drivers/perf/riscv_pmu_sbi.c
-> +++ b/drivers/perf/riscv_pmu_sbi.c
-> @@ -678,6 +678,9 @@ static int pmu_sbi_event_map(struct perf_event *event=
-, u64 *econfig)
->  	 */
->  	flush_work(&check_std_events_work);
+> diff --git a/drivers/perf/Kconfig b/drivers/perf/Kconfig
+> index 245e7bb763b99..063339ad7691b 100644
+> --- a/drivers/perf/Kconfig
+> +++ b/drivers/perf/Kconfig
+> @@ -129,6 +129,17 @@ config ANDES_CUSTOM_PMU
 > =20
-> +	if (needs_branch_stack(event) && !riscv_pmu_ctr_valid(event))
-> +		return -EOPNOTSUPP;
-> +
->  	return riscv_pmu_get_event_info(type, config, econfig);
->  }
+>  	  If you don't know what to do here, say "Y".
 > =20
+> +config RISCV_CTR
+> +       bool "Enable support for Control Transfer Records (CTR)"
+> +       depends on PERF_EVENTS && RISCV_PMU
+> +       default y
 
 [Severity: Medium]
-Should this check come after riscv_pmu_get_event_info() verifies that
-event->attr.type belongs to this PMU?
+Should RISCV_CTR depend on 64BIT, or access the upper half of CSR_CTRCTL
+via CSR_CTRCTLH on 32-bit builds?
 
-Returning -EOPNOTSUPP before riscv_pmu_get_event_info() can return
--ENOENT for an unhandled event type causes perf_init_event() to abort
-iterating through other registered PMUs when an event with branch filters
-not in allowed_filters targets another PMU.
+On CONFIG_32BIT=3Dy, csr_read() and csr_write() cast values to a 32-bit
+unsigned long, truncating bits 33..47 (CTR_BRANCH_FILTERS_INH) in
+riscv_pmu_ctr_enable() and check_available_filters().
 
-> @@ -827,10 +830,14 @@ static void pmu_sbi_reset_scounteren(void *arg)
-> =20
->  static void pmu_sbi_ctr_add(struct perf_event *event, int flags)
->  {
-> +	if (needs_branch_stack(event))
-> +		riscv_pmu_ctr_add(event);
->  }
-> =20
->  static void pmu_sbi_ctr_del(struct perf_event *event, int flags)
->  {
-> +	if (needs_branch_stack(event))
-> +		riscv_pmu_ctr_del(event);
->  }
+[ ... ]
+
+> diff --git a/drivers/perf/riscv_ctr.c b/drivers/perf/riscv_ctr.c
+> new file mode 100644
+> index 0000000000000..649b68247ff56
+> --- /dev/null
+> +++ b/drivers/perf/riscv_ctr.c
+> @@ -0,0 +1,608 @@
+
+[ ... ]
+
+> +static inline u64 get_ctr_src_reg(unsigned int ctr_idx)
+> +{
+> +	return csr_indirect_read(CSR_SIREG, CTR_ENTRIES_FIRST, ctr_idx);
+> +}
+> +
+> +static inline void set_ctr_src_reg(unsigned int ctr_idx, u64 value)
+> +{
+> +	return csr_indirect_write(CSR_SIREG, CTR_ENTRIES_FIRST, ctr_idx, value);
+> +}
+> +
+> +static inline u64 get_ctr_tgt_reg(unsigned int ctr_idx)
+> +{
+> +	return csr_indirect_read(CSR_SIREG2, CTR_ENTRIES_FIRST, ctr_idx);
+> +}
+> +
+> +static inline void set_ctr_tgt_reg(unsigned int ctr_idx, u64 value)
+> +{
+> +	return csr_indirect_write(CSR_SIREG2, CTR_ENTRIES_FIRST, ctr_idx, value=
+);
+> +}
+> +
+> +static inline u64 get_ctr_data_reg(unsigned int ctr_idx)
+> +{
+> +	return csr_indirect_read(CSR_SIREG3, CTR_ENTRIES_FIRST, ctr_idx);
+> +}
+> +
+> +static inline void set_ctr_data_reg(unsigned int ctr_idx, u64 value)
+> +{
+> +	return csr_indirect_write(CSR_SIREG3, CTR_ENTRIES_FIRST, ctr_idx, value=
+);
+> +}
 
 [Severity: High]
-Can riscv_pmu_ctr_add() and riscv_pmu_ctr_del() dereference a NULL
-event->ctx->task on per-CPU events?
+Should these helpers pass CSR_IREG, CSR_IREG2 and CSR_IREG3 instead of
+hardcoding S-mode CSR_SIREG*, and should riscv_pmu_ctr_init(),
+riscv_pmu_ctr_starting_cpu() and riscv_pmu_ctr_dying_cpu() check
+riscv_isa_extension_available(NULL, SxCSRIND)?
 
-Nothing in event initialization rejects a per-CPU event (pid =3D=3D -1, whe=
-re
-event->ctx->task is NULL) configured with PERF_SAMPLE_BRANCH_USER |
-PERF_SAMPLE_BRANCH_CALL_STACK, and both helpers dereference
-event->ctx->task without a NULL check:
-
-drivers/perf/riscv_ctr.c:riscv_pmu_ctr_add() {
-    ...
-	if (branch_user_callstack(event->attr.branch_sample_type) &&
-	    event->ctx->task->perf_ctx_data)
-		task_context(event->ctx->task->perf_ctx_data)->callstack_users++;
-    ...
-}
-
-In addition, when CONFIG_RISCV_CTR is disabled, the stub definitions of
-riscv_pmu_ctr_add() and riscv_pmu_ctr_del() in
-include/linux/perf/riscv_pmu.h are missing the inline keyword:
-
-include/linux/perf/riscv_pmu.h:
-static void riscv_pmu_ctr_add(struct perf_event *event) { }
-static void riscv_pmu_ctr_del(struct perf_event *event) { }
-
-This triggers -Wunused-function warnings in translation units that include
-the header without calling them.
+csr_indirect_read() and csr_indirect_write() write CSR_ISELECT, which maps
+to CSR_MISELECT under CONFIG_RISCV_M_MODE.  Also, neither cpufeature.c nor
+the CTR init and hotplug paths verify that SxCSRIND is present before
+accessing indirect CSRs, which will trap with an illegal instruction
+exception if SxCSRIND is absent.
 
 [ ... ]
 
-> @@ -864,6 +875,9 @@ static void pmu_sbi_ctr_stop(struct perf_event *event=
-, unsigned long flag)
->  	struct cpu_hw_events *cpu_hw_evt =3D this_cpu_ptr(pmu->hw_events);
->  	struct riscv_pmu_snapshot_data *sdata =3D cpu_hw_evt->snapshot_addr;
-> =20
-> +	if (needs_branch_stack(event) && flag !=3D RISCV_PMU_STOP_FLAG_RESET)
-> +		riscv_pmu_ctr_disable(event);
-> +
->  	if ((hwc->flags & PERF_EVENT_FLAG_USER_ACCESS) &&
->  	    (hwc->flags & PERF_EVENT_FLAG_USER_READ_CNT))
->  		pmu_sbi_reset_scounteren((void *)event);
-> @@ -896,7 +910,7 @@ static void pmu_sbi_ctr_stop(struct perf_event *event=
-, unsigned long flag)
->  static void pmu_sbi_sched_task(struct perf_event_pmu_context *pmu_ctx, s=
-truct task_struct *task,
->  			       bool sched_in)
->  {
-> -	/* Call CTR specific Sched hook. */
-> +	riscv_pmu_ctr_sched_task(pmu_ctx, task, sched_in);
->  }
-> =20
->  static int pmu_sbi_find_num_ctrs(void)
-> @@ -1179,6 +1193,12 @@ static irqreturn_t pmu_sbi_ovf_handler(int irq, vo=
-id *dev)
->  		hw_evt->state |=3D PERF_HES_UPTODATE;
->  		perf_sample_data_init(&data, 0, hw_evt->last_period);
->  		if (riscv_pmu_event_set_period(event)) {
-> +			if (needs_branch_stack(event)) {
-> +				riscv_pmu_ctr_consume(cpu_hw_evt, event);
-> +				perf_sample_save_brstack(&data, event,
-> +							 &cpu_hw_evt->branches->branch_stack, NULL);
-> +			}
-> +
->  			/*
->  			 * Unlike other ISAs, RISC-V don't have to disable interrupts
->  			 * to avoid throttling here. As per the specification, the
-
-[Severity: Medium]
-Can pmu_sbi_ctr_stop() and pmu_sbi_ovf_handler() leave CTR disabled,
-frozen, or recording kernel branches when multiple events or multi-part
-sample periods are active?
-
-In pmu_sbi_ctr_stop(), riscv_pmu_ctr_disable() unconditionally clears
-CSR_CTRCTL even if other active branch-sampling events remain on the CPU
-(cpu_hw_evt->ctr_users > 1).
-
-In pmu_sbi_ovf_handler(), hardware sets SCTRSTATUS_FROZEN on any LCOFI
-because CTRCTL_LCOFIFRZ is enabled, but SCTRSTATUS_FROZEN is only cleared
-inside riscv_pmu_ctr_consume().  If a co-scheduled non-branch counter
-overflows or riscv_pmu_event_set_period() returns 0 on an intermediate
-overflow, SCTRSTATUS_FROZEN stays set when pmu_sbi_start_overflow_mask()
-restarts the counters.  Conversely, when riscv_pmu_ctr_consume() does run
-inside the loop, ctr_read_entries() re-enables CTR_BRANCH_ENABLE_BITS and
-clears SCTRSTATUS_FROZEN before perf_event_overflow() and
-pmu_sbi_start_overflow_mask() without resetting the CTR FIFO, so CTR
-records kernel branches while counters are still stopped and corrupts the
-buffer for any subsequent overflowed counter in the same interrupt.
-
-[ ... ]
-
-> @@ -1367,7 +1391,30 @@ static void riscv_pmu_destroy(struct riscv_pmu *pm=
-u)
->  		cpuhp_state_remove_instance(CPUHP_AP_PERF_RISCV_STARTING, &pmu->node);
->  }
-> =20
-> -static void pmu_sbi_event_init(struct perf_event *event)
-> +static int branch_records_alloc(struct riscv_pmu *pmu)
+> +static inline unsigned int ctr_get_cycles(u64 ctr_data)
 > +{
-> +	struct branch_records __percpu *tmp_alloc_ptr;
-> +	struct branch_records *records;
-> +	struct cpu_hw_events *events;
-> +	int cpu;
+> +	const unsigned int cce =3D FIELD_GET(CTRDATA_CCE_MASK, ctr_data);
+> +	const unsigned int ccm =3D FIELD_GET(CTRDATA_CCM_MASK, ctr_data);
 > +
-> +	if (!riscv_pmu_ctr_supported(pmu))
+> +	if (ctr_data & CTRDATA_CCV)
 > +		return 0;
 > +
-> +	tmp_alloc_ptr =3D alloc_percpu_gfp(struct branch_records, GFP_KERNEL);
-> +	if (!tmp_alloc_ptr)
-> +		return -ENOMEM;
+> +	/* Formula to calculate cycles from spec: (2^12 + CCM) << CCE-1 */
+> +	if (cce > 0)
+> +		return (4096 + ccm) << (cce - 1);
 > +
-> +	for_each_possible_cpu(cpu) {
-> +		events =3D per_cpu_ptr(pmu->hw_events, cpu);
-> +		records =3D per_cpu_ptr(tmp_alloc_ptr, cpu);
-> +		events->branches =3D records;
-> +	}
+> +	return FIELD_GET(CTRDATA_CCM_MASK, ctr_data);
+> +}
+
+[Severity: High]
+Is the CTRDATA_CCV check inverted here?  Per the CTR specification,
+CTRDATA_CCV is the Cycle Count Valid bit (1 when valid), so this returns 0
+for every valid cycle count and decodes invalid ones.
+
+Also, when cce >=3D 5, (4096 + ccm) << (cce - 1) exceeds 16 bits, and
+assigning it to the 16-bit entry->cycles bitfield in capture_ctr_flags()
+truncates the upper bits instead of clamping to U16_MAX.
+
+> +static inline unsigned int ctr_get_type(u64 ctr_data)
+> +{
+> +	return FIELD_GET(CTRDATA_TYPE_MASK, ctr_data);
+> +}
 > +
-> +	return 0;
+> +static inline unsigned int ctr_get_depth(u64 ctr_depth)
+> +{
+> +	/* Depth table from CTR Spec: 2.4 sctrdepth.
+> +	 *
+> +	 * sctrdepth.depth       Depth
+> +	 * 000			- 16
+> +	 * 001			- 32
+> +	 * 010			- 64
+> +	 * 011			- 128
+> +	 * 100			- 256
+> +	 *
+> +	 * Depth =3D 16 * 2 ^ (ctrdepth.depth)
+> +	 * or
+> +	 * Depth =3D 16 << ctrdepth.depth.
+> +	 */
+> +	return 16 << FIELD_GET(SCTRDEPTH_MASK, ctr_depth);
 > +}
 
 [Severity: Medium]
-Does branch_records_alloc() leak tmp_alloc_ptr if a later step in
-pmu_sbi_device_probe() fails?
+Can ctr_get_depth() return more than MAX_BRANCH_RECORDS (256), and should
+riscv_pmu_ctr_init() and riscv_pmu_ctr_starting_cpu() write SCTRDEPTH_MAX
+(0x4) instead of SCTRDEPTH_MASK (0x7) to CSR_SCTRDEPTH?
 
-Only the per-CPU virtual pointers per_cpu_ptr(tmp_alloc_ptr, cpu) are
-saved in events->branches, while the __percpu base pointer tmp_alloc_ptr
-needed by free_percpu() is discarded on return and never freed by any
-error unwind label or teardown helper.
+Values 0x5..0x7 are reserved in sctrdepth.depth.  Writing 0x7 is not
+guaranteed by WARL rules to select 256, and if CSR_SCTRDEPTH reports a
+value above 4, ctr_get_depth() returns up to 2048 and overflows
+cpuc->branches->branch_entries[256] and task_ctx->store[256].
 
+> +static inline struct riscv_perf_task_context *task_context(void *ctx)
+> +{
+> +	return (struct riscv_perf_task_context *)ctx;
+> +}
 > +
-> +static int pmu_sbi_event_init(struct perf_event *event)
->  {
->  	/*
->  	 * The permissions are set at event_init so that we do not depend
-> @@ -1379,6 +1426,11 @@ static void pmu_sbi_event_init(struct perf_event *=
-event)
->  		event->hw.flags |=3D PERF_EVENT_FLAG_USER_ACCESS;
->  	else
->  		event->hw.flags |=3D PERF_EVENT_FLAG_LEGACY;
+> +/* Reads CTR entry at idx and stores it in entry struct. */
+> +static bool get_ctr_regset(struct ctr_regset *entry, unsigned int idx)
+> +{
+> +	entry->src =3D get_ctr_src_reg(idx);
 > +
-> +	if (branch_sample_call_stack(event))
-> +		event->attach_state |=3D PERF_ATTACH_TASK_DATA;
+> +	if (!ctr_record_valid(entry->src))
+> +		return false;
 > +
-> +	return 0;
->  }
+> +	entry->src =3D entry->src;
+> +	entry->target =3D get_ctr_tgt_reg(idx);
+> +	entry->ctr_data =3D get_ctr_data_reg(idx);
+> +
+> +	return true;
+> +}
+> +
+> +static void set_ctr_regset(struct ctr_regset *entry, unsigned int idx)
+> +{
+> +	set_ctr_src_reg(idx, entry->src);
+> +	set_ctr_tgt_reg(idx, entry->target);
+> +	set_ctr_data_reg(idx, entry->ctr_data);
+> +}
 
-[Severity: Critical]
-Does setting PERF_ATTACH_TASK_DATA cause riscv_pmu_ctr_sched_task(),
-riscv_pmu_ctr_add(), and riscv_pmu_ctr_del() to write struct
-riscv_perf_task_context into the struct perf_ctx_data wrapper?
+[Severity: Low]
+Each call to get_ctr_*_reg() and set_ctr_*_reg() saves IRQs and writes
+CSR_ISELECT, even though selecting CTR_ENTRIES_FIRST + idx once in
+CSR_ISELECT exposes source, target and data across CSR_IREG, CSR_IREG2 and
+CSR_IREG3 simultaneously.  get_ctr_regset() also has a redundant
+entry->src =3D entry->src assignment.
 
-When PERF_ATTACH_TASK_DATA is set, attach_perf_ctx_data() stores a 40-byte
-struct perf_ctx_data wrapper in task->perf_ctx_data and places the PMU's
-struct riscv_perf_task_context allocation from pmu->task_ctx_cache in
-task->perf_ctx_data->data.  However, riscv_pmu_ctr_add(),
-riscv_pmu_ctr_del(), and riscv_pmu_ctr_sched_task() access
-task->perf_ctx_data directly without rcu_read_lock()/rcu_dereference() and
-without dereferencing ->data:
-
-drivers/perf/riscv_ctr.c:riscv_pmu_ctr_sched_task() {
-    ...
-	/* Save branch records in task_ctx on sched out */
-	task_ctx =3D pmu_ctx ? task->perf_ctx_data : NULL;
-	if (task_ctx) {
-		if (sched_in)
-			riscv_pmu_ctr_restore(task_ctx);
-		else
-			riscv_pmu_ctr_save(task_ctx, rvpmu->ctr_depth);
-		return;
-	}
-    ...
-}
-
-When a task monitored with PERF_SAMPLE_BRANCH_USER |
-PERF_SAMPLE_BRANCH_CALL_STACK schedules out, riscv_pmu_ctr_save() writes
-up to 6168 bytes into the 40-byte struct perf_ctx_data slab object,
-corrupting its ctx_cache and data pointers and adjacent slab objects.
-
-> =20
->  static void pmu_sbi_event_mapped(struct perf_event *event, struct mm_str=
-uct *mm)
-> @@ -1516,9 +1568,16 @@ static int pmu_sbi_device_probe(struct platform_de=
-vice *pdev)
->  		pmu->pmu.capabilities |=3D PERF_PMU_CAP_NO_EXCLUDE;
->  	}
->  	irq_requested =3D (ret =3D=3D 0);
-> -
->  	pmu->pmu.attr_groups =3D riscv_pmu_attr_groups;
->  	pmu->pmu.parent =3D &pdev->dev;
-> +	ret =3D riscv_pmu_ctr_init(pmu);
-> +	if (ret)
-> +		goto out_free;
+> +static u64 branch_type_to_ctr(int branch_type)
+> +{
+> +	u64 config =3D CTR_BRANCH_FILTERS_INH | CTRCTL_LCOFIFRZ;
+> +
+> +	if (branch_type & PERF_SAMPLE_BRANCH_USER)
+> +		config |=3D CTRCTL_U_ENABLE;
+> +
+> +	if (branch_type & PERF_SAMPLE_BRANCH_KERNEL)
+> +		config |=3D CTRCTL_KERNEL_ENABLE;
+> +
+> +	if (branch_type & PERF_SAMPLE_BRANCH_HV) {
+> +		if (riscv_isa_extension_available(NULL, H))
+> +			config |=3D CTRCTL_KERNEL_ENABLE;
+> +	}
+> +
+> +	if (branch_type & PERF_SAMPLE_BRANCH_ANY) {
+> +		config &=3D ~CTR_BRANCH_FILTERS_INH;
+> +		return config;
+> +	}
 
 [Severity: Medium]
-Does calling riscv_pmu_ctr_init() from pmu_sbi_device_probe() cause a
-section mismatch with check_available_filters()?
+Does setting CTRCTL_KERNEL_ENABLE for PERF_SAMPLE_BRANCH_HV record host
+kernel branches even when PERF_SAMPLE_BRANCH_KERNEL is excluded?
 
-pmu_sbi_device_probe() and riscv_pmu_ctr_init() live in .text, whereas
-check_available_filters() in drivers/perf/riscv_ctr.c is marked __init, so
-probing the driver after init memory is freed will execute freed
-.init.text.
+Also, returning early on PERF_SAMPLE_BRANCH_ANY skips the
+PERF_SAMPLE_BRANCH_CALL_STACK check below, leaving CTRCTL_RASEMU unset when
+both flags are specified.
 
+[ ... ]
+
+> +	if (branch_type & PERF_SAMPLE_BRANCH_CALL_STACK)
+> +		config |=3D CTRCTL_RASEMU;
+
+[Severity: Medium]
+Does PERF_SAMPLE_BRANCH_CALL_STACK also need to clear CTRCTL_INDCALL_INH,
+CTRCTL_DIRCALL_INH and CTRCTL_RET_INH?
+
+When userspace enables LBR call-stack mode (such as perf record
+--call-graph lbr), it sets PERF_SAMPLE_BRANCH_CALL_STACK without separate
+call or return filter flags, so leaving those inhibit bits set in config
+suppresses all call and return records.
+
+[ ... ]
+
+> +bool riscv_pmu_ctr_valid(struct perf_event *event)
+> +{
+> +	u64 branch_type =3D event->attr.branch_sample_type;
 > +
-> +	ret =3D branch_records_alloc(pmu);
-> +	if (ret)
-> +		goto out_ctr_finish;
+> +	if (branch_type & ~allowed_filters) {
+> +		pr_debug_once("Requested branch filters not supported 0x%llx\n",
+> +			      branch_type & ~allowed_filters);
+> +		return false;
+> +	}
 > +
->  	bitmap_copy(pmu->cmask, cmask, RISCV_MAX_COUNTERS);
->  	pmu->ctr_add =3D pmu_sbi_ctr_add;
->  	pmu->ctr_del =3D pmu_sbi_ctr_del;
-> @@ -1535,6 +1594,10 @@ static int pmu_sbi_device_probe(struct platform_de=
-vice *pdev)
->  	pmu->csr_index =3D pmu_sbi_csr_index;
->  	pmu->sched_task =3D pmu_sbi_sched_task;
-> =20
-> +	ret =3D cpuhp_state_add_instance(CPUHP_AP_PERF_RISCV_STARTING, &pmu->no=
-de);
-> +	if (ret)
-> +		goto out_ctr_finish;
-> +
->  	ret =3D riscv_pm_pmu_register(pmu);
->  	if (ret)
->  		goto out_destroy;
+> +	return true;
+> +}
 
 [Severity: High]
-Does this register &pmu->node with CPUHP_AP_PERF_RISCV_STARTING twice in
-pmu_sbi_device_probe()?
+Does rejecting PERF_SAMPLE_BRANCH_HV when the H extension is absent break
+default branch sampling on non-H systems?
 
-pmu_sbi_device_probe() already registers &pmu->node after
-register_sysctl():
+When userspace does not specify branch privilege bits, perf_copy_attr()
+automatically sets PERF_SAMPLE_BRANCH_HV whenever !attr->exclude_hv, so
+check_available_filters() omitting PERF_SAMPLE_BRANCH_HV on systems without
+H causes riscv_pmu_ctr_valid() to reject standard commands like perf record
+-j any.
 
-drivers/perf/riscv_pmu_sbi.c:pmu_sbi_device_probe() {
-    ...
-	register_sysctl("kernel", sbi_pmu_sysctl_table);
+[ ... ]
 
-	ret =3D cpuhp_state_add_instance(CPUHP_AP_PERF_RISCV_STARTING, &pmu->node);
-	if (ret)
-		goto out_unregister;
-    ...
-}
-
-Calling cpuhp_state_add_instance() twice with the same struct hlist_node
-runs pmu_sbi_starting_cpu() twice on all present CPUs (the first time
-before SBI PMU snapshot shared memory is set up) and links pmu->node.next
-to itself in __cpuhp_state_add_instance_cpuslocked(), corrupting the
-hotplug state's hlist into a circular loop.
-
-> @@ -1592,6 +1655,9 @@ static int pmu_sbi_device_probe(struct platform_dev=
-ice *pdev)
->  		riscv_pmu_irq =3D 0;
->  	}
-> =20
-> +out_ctr_finish:
-> +	riscv_pmu_ctr_finish(pmu);
+> +static void riscv_pmu_ctr_restore(void *ctx)
+> +{
+> +	if (task_context(ctx)->stack_state =3D=3D CTR_STATE_NONE ||
+> +	    task_context(ctx)->callstack_users =3D=3D 0) {
+> +		return;
+> +	}
 > +
->  out_free:
->  	free_percpu(pmu->hw_events);
->  	kfree(pmu_ctr_list);
+> +	riscv_pmu_ctr_reset();
+> +	__riscv_pmu_ctr_restore(ctx);
+> +
+> +	task_context(ctx)->stack_state =3D CTR_STATE_NONE;
+> +}
+> +
+> +static void __riscv_pmu_ctr_save(void *ctx, unsigned int depth)
+> +{
+> +	struct riscv_perf_task_context *task_ctx =3D ctx;
+> +	struct ctr_regset *dst;
+> +	unsigned int i;
+> +
+> +	for (i =3D 0; i < depth; i++) {
+> +		dst =3D &task_ctx->store[i];
+> +		if (!get_ctr_regset(dst, i))
+> +			break;
+> +	}
+> +
+> +	task_ctx->num_entries =3D i;
+> +
+> +	task_ctx->ctr_status =3D csr_read(CSR_SCTRSTATUS);
+> +}
 
 [Severity: Medium]
-Does jumping to out_ctr_finish or out_free after pmu_sbi_setup_irqs()
-leave riscv_pmu_irq registered while freeing pmu->hw_events?
+When riscv_pmu_ctr_restore() returns early because stack_state is
+CTR_STATE_NONE or callstack_users is 0, riscv_pmu_ctr_sched_task() returns
+immediately without calling riscv_pmu_ctr_reset().  Doesn't that leave the
+previous task's CTR records in hardware for the incoming task?
 
-out_ctr_finish and out_free are placed below the irq_requested teardown
-block in out_destroy, so if riscv_pmu_ctr_init(), branch_records_alloc(),
-or cpuhp_state_add_instance() fails, free_percpu(pmu->hw_events) frees the
-per-CPU dev_id token while the per-CPU IRQ and its mapping remain
-registered.
+Also, unlike ctr_read_entries(), __riscv_pmu_ctr_save() and
+__riscv_pmu_ctr_restore() read and write CTR registers without clearing
+CTR_BRANCH_ENABLE_BITS in CSR_CTRCTL, so branches taken inside the
+save/restore loops can clobber the CTR entries when kernel recording is
+enabled.
+
+[ ... ]
+
+> +void riscv_pmu_ctr_sched_task(struct perf_event_pmu_context *pmu_ctx, st=
+ruct task_struct *task,
+> +			      bool sched_in)
+> +{
+> +	struct riscv_pmu *rvpmu =3D to_riscv_pmu(pmu_ctx->pmu);
+> +	struct cpu_hw_events *cpuc =3D this_cpu_ptr(rvpmu->hw_events);
+> +	void *task_ctx;
+> +
+> +	if (!cpuc->ctr_users)
+> +		return;
+> +
+> +	/* Save branch records in task_ctx on sched out */
+> +	task_ctx =3D pmu_ctx ? task->perf_ctx_data : NULL;
+> +	if (task_ctx) {
+> +		if (sched_in)
+> +			riscv_pmu_ctr_restore(task_ctx);
+> +		else
+> +			riscv_pmu_ctr_save(task_ctx, rvpmu->ctr_depth);
+> +		return;
+> +	}
+> +
+> +	/* Reset branch records on sched in */
+> +	if (sched_in)
+> +		riscv_pmu_ctr_reset();
+> +}
+> +
+> +static inline bool branch_user_callstack(unsigned int br_type)
+> +{
+> +	return (br_type & PERF_SAMPLE_BRANCH_USER) &&
+> +		(br_type & PERF_SAMPLE_BRANCH_CALL_STACK);
+> +}
+> +
+> +void riscv_pmu_ctr_add(struct perf_event *event)
+> +{
+> +	struct riscv_pmu *rvpmu =3D to_riscv_pmu(event->pmu);
+> +	struct cpu_hw_events *cpuc =3D this_cpu_ptr(rvpmu->hw_events);
+> +
+> +	if (branch_user_callstack(event->attr.branch_sample_type) &&
+> +	    event->ctx->task->perf_ctx_data)
+> +		task_context(event->ctx->task->perf_ctx_data)->callstack_users++;
+> +
+> +	perf_sched_cb_inc(event->pmu);
+> +
+> +	if (!cpuc->ctr_users++)
+> +		riscv_pmu_ctr_reset();
+> +}
+> +
+> +void riscv_pmu_ctr_del(struct perf_event *event)
+> +{
+> +	struct riscv_pmu *rvpmu =3D to_riscv_pmu(event->pmu);
+> +	struct cpu_hw_events *cpuc =3D this_cpu_ptr(rvpmu->hw_events);
+> +
+> +	if (branch_user_callstack(event->attr.branch_sample_type) &&
+> +	    event->ctx->task->perf_ctx_data)
+> +		task_context(event->ctx->task->perf_ctx_data)->callstack_users--;
+
+[Severity: Critical]
+Isn't task->perf_ctx_data an RCU-protected pointer to struct perf_ctx_data,
+whose ->data member holds the struct riscv_perf_task_context allocated from
+pmu->task_ctx_cache?
+
+Passing task->perf_ctx_data directly to task_context(),
+riscv_pmu_ctr_save() and riscv_pmu_ctr_restore() without rcu_dereference()
+or dereferencing cd->data treats the 40-byte struct perf_ctx_data wrapper
+as a 6168-byte struct riscv_perf_task_context.  Updating callstack_users
+corrupts cd->rcu_head, and __riscv_pmu_ctr_save() writes up to 256
+ctr_regset entries past the end of struct perf_ctx_data into adjacent slab
+objects.
+
+[Severity: High]
+Can event->ctx->task be NULL in riscv_pmu_ctr_add() and
+riscv_pmu_ctr_del()?
+
+For per-CPU events (pid =3D=3D -1) configured with PERF_SAMPLE_BRANCH_USER |
+PERF_SAMPLE_BRANCH_CALL_STACK, event->ctx->task is NULL, so dereferencing
+event->ctx->task->perf_ctx_data causes a NULL pointer dereference when the
+event is scheduled.
+
+> +
+> +	perf_sched_cb_dec(event->pmu);
+> +	cpuc->ctr_users--;
+> +	WARN_ON_ONCE(cpuc->ctr_users < 0);
+> +}
+> +
+> +void riscv_pmu_ctr_enable(struct perf_event *event)
+> +{
+> +	u64 branch_type =3D event->attr.branch_sample_type;
+> +	u64 ctr;
+> +
+> +	ctr =3D branch_type_to_ctr(branch_type);
+> +	csr_write(CSR_CTRCTL, ctr);
+> +}
+> +
+> +void riscv_pmu_ctr_disable(struct perf_event *event)
+> +{
+> +	/* Clear CTRCTL to disable the recording. */
+> +	csr_write(CSR_CTRCTL, 0);
+> +}
+
+[Severity: High]
+What happens when multiple CTR events are active on the same CPU?
+riscv_pmu_ctr_enable() overwrites CSR_CTRCTL with a single event's filter
+and riscv_pmu_ctr_disable() zeroes CSR_CTRCTL even when other CTR events
+are still active.  Because ctr_read_entries() does not filter entries in
+software by privilege or branch type (and branch_type_to_ctr() clears
+CTRCTL_EXCINH, CTRCTL_INTRINH and CTRCTL_TRETINH even without
+PERF_SAMPLE_BRANCH_KERNEL), kernel branch addresses recorded for one event
+can be copied into a concurrent user-only event's sample buffer.
+
+Also, in ctr_set_perf_entry_type(), CTRDATA_TYPE_CO_ROUTINE_SWAP maps to
+PERF_BR_UNKNOWN and triggers an un-ratelimited pr_warn() in hardirq context
+(up to 256 times per PMU overflow interrupt) whenever userspace executes
+coroutine-swap jalr instructions under PERF_SAMPLE_BRANCH_ANY |
+PERF_SAMPLE_BRANCH_TYPE_SAVE.
+
+> +
+> +/*
+> + * Check for hardware supported perf filters here. To avoid missing
+> + * any new added filter in perf, we do a BUILD_BUG_ON check, so make sure
+> + * to update CTR_ALLOWED_BRANCH_FILTERS or CTR_EXCLUDE_BRANCH_FILTERS
+> + * defines when adding support for it in below function.
+> + */
+> +static void __init check_available_filters(void)
+> +{
+> +	u64 ctr_ctl;
+> +
+> +	/*
+> +	 * Ensure both perf branch filter allowed and exclude
+> +	 * masks are always in sync with the generic perf ABI.
+> +	 */
+> +	BUILD_BUG_ON(CTR_PERF_BRANCH_FILTERS !=3D (PERF_SAMPLE_BRANCH_MAX - 1));
+> +
+> +	allowed_filters =3D PERF_SAMPLE_BRANCH_USER      |
+> +			  PERF_SAMPLE_BRANCH_KERNEL    |
+> +			  PERF_SAMPLE_BRANCH_ANY       |
+> +			  PERF_SAMPLE_BRANCH_HW_INDEX  |
+> +			  PERF_SAMPLE_BRANCH_NO_FLAGS  |
+> +			  PERF_SAMPLE_BRANCH_NO_CYCLES |
+> +			  PERF_SAMPLE_BRANCH_TYPE_SAVE;
+> +
+> +	csr_write(CSR_CTRCTL, ~0);
+> +	ctr_ctl =3D csr_read(CSR_CTRCTL);
+> +	csr_write(CSR_CTRCTL, 0);
+
+[ ... ]
+
+> +int riscv_pmu_ctr_init(struct riscv_pmu *riscv_pmu)
+> +{
+> +	size_t size =3D sizeof(struct riscv_perf_task_context);
+> +
+> +	if (!riscv_isa_extension_available(NULL, SxCTR) ||
+> +	    !riscv_isa_extension_available(NULL, SSCOFPMF))
+> +		return 0;
+> +
+> +	riscv_pmu->pmu.task_ctx_cache =3D
+> +		kmem_cache_create("ctr_task_ctx", size, sizeof(u64), 0, NULL);
+> +	if (!riscv_pmu->pmu.task_ctx_cache)
+> +		return -ENOMEM;
+> +
+> +	check_available_filters();
+> +
+> +	/* Set depth to maximum. */\n> +	csr_write(CSR_SCTRDEPTH, SCTRDEPTH_MAS=
+K);
+> +	riscv_pmu->ctr_depth =3D ctr_get_depth(csr_read(CSR_SCTRDEPTH));
+
+[Severity: Medium]
+Calling __init check_available_filters() from non-__init
+riscv_pmu_ctr_init() causes a section mismatch warning and will execute
+freed .init.text if PMU probe is deferred or rebound after boot.
+
+In addition, check_available_filters() and riscv_pmu_ctr_init() write ~0 to
+CSR_CTRCTL (temporarily setting CTRCTL_U_ENABLE and CTRCTL_KERNEL_ENABLE)
+and probe per-CPU CSRs in preemptible context without disabling preemption
+or calling riscv_pmu_ctr_reset().  check_available_filters() also checks
+whether each filter's own inhibit bit is writable rather than the
+complement inhibit bits that branch_type_to_ctr() relies on, and
+riscv_pmu_ctr_valid() never checks that at least one branch type filter is
+set in branch_type.
+
+[ ... ]
+
+> diff --git a/include/linux/perf/riscv_pmu.h b/include/linux/perf/riscv_pm=
+u.h
+> index 448e0589875e5..f61e1fd364040 100644
+> --- a/include/linux/perf/riscv_pmu.h
+> +++ b/include/linux/perf/riscv_pmu.h
+> @@ -108,6 +108,44 @@ int riscv_pmu_get_hpm_info(u32 *hw_ctr_width, u32 *n=
+um_hw_ctr);
+>  int riscv_pmu_get_event_info(u32 type, u64 config, u64 *econfig);
+>  #endif
+> =20
+> +static inline bool riscv_pmu_ctr_supported(struct riscv_pmu *pmu)
+> +{
+> +	return !!pmu->ctr_depth;
+> +}
+> +
+>  #endif /* CONFIG_RISCV_PMU */
+> =20
+> +#ifdef CONFIG_RISCV_CTR
+> +
+> +bool riscv_pmu_ctr_valid(struct perf_event *event);
+> +void riscv_pmu_ctr_consume(struct cpu_hw_events *cpuc, struct perf_event=
+ *event);
+> +void riscv_pmu_ctr_sched_task(struct perf_event_pmu_context *pmu_ctx, st=
+ruct task_struct *task,
+> +			      bool sched_in);
+> +void riscv_pmu_ctr_add(struct perf_event *event);
+> +void riscv_pmu_ctr_del(struct perf_event *event);
+> +void riscv_pmu_ctr_enable(struct perf_event *event);
+> +void riscv_pmu_ctr_disable(struct perf_event *event);
+> +void riscv_pmu_ctr_dying_cpu(void);
+> +void riscv_pmu_ctr_starting_cpu(void);
+> +int  riscv_pmu_ctr_init(struct riscv_pmu *riscv_pmu);
+> +void riscv_pmu_ctr_finish(struct riscv_pmu *riscv_pmu);
+> +
+> +#else
+> +
+> +static inline bool riscv_pmu_ctr_valid(struct perf_event *event) { retur=
+n false; }
+> +static inline void riscv_pmu_ctr_consume(struct cpu_hw_events *cpuc,
+> +					 struct perf_event *event) { }
+> +static inline void riscv_pmu_ctr_sched_task(struct perf_event_pmu_contex=
+t *,
+> +					    struct task_struct *task, bool sched_in) { }
+> +static void riscv_pmu_ctr_add(struct perf_event *event) { }
+> +static void riscv_pmu_ctr_del(struct perf_event *event) { }
+
+[Severity: Medium]
+Does this build when CONFIG_RISCV_CTR=3Dn or CONFIG_RISCV_PMU=3Dn?
+
+In the !CONFIG_RISCV_CTR stubs, riscv_pmu_ctr_sched_task() omits the first
+parameter name (which fails under -std=3Dgnu11), and riscv_pmu_ctr_add() and
+riscv_pmu_ctr_del() are missing inline (triggering -Wunused-function
+warnings).  Also, placing this block outside #ifdef CONFIG_RISCV_PMU
+references struct cpu_hw_events and struct riscv_pmu when they have not
+been declared.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125083942.3695=
-072-1-vikram.singh3@oss.qualcomm.com?part=3D6
+072-1-vikram.singh3@oss.qualcomm.com?part=3D5
