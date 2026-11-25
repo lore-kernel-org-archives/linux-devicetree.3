@@ -1,101 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795584591;
-	b=tf8fjOlYHcq0UHTsDKGrSi3+JGIv1SKVKY9wBc8t+k7T491dNXJtU7fhV3fJfr2WwA9Y
-	 4T7HzGx5accNJEPAPCP9k51Wqrj8cp204deOLtCDA+H6scuVrudW3EVTSmtwzyLo+cXOU
-	 q6TrrHjSGmb0ciXTDcGmRT/nfNVQs/MwZzQZFwc6VZq6b4MsepI6DerxhCZFN501/NWHu
-	 4SSBPZzWOyciZfjcQclKU5wz72gChhKFaB7GEPvLk9/g8twjiQXpUbD9tAP+CT20JjYe/
-	 3nvjdUXw1Fv9RjXlcIFXvlhaATXCqJelomPPOcwP9v+9t0nFkOPCJU2NbhiSSMKKNJQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795584591;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=z31507qutrSHsDuMlMYuZrOSlqTz0X7hfxnmDVf3XDU=;
-	b=GHtDYQfPaOpkcdjNbmNIF73SHTLizw0RALIr1wR1pLDEgO1XdtbIJ/QB3BA5TNJV2Q/y
-	 KjKhEEDwBFuJxVB8K6rihl4cyJ6pTrk/ZiMoesRIXGiWQL6c4mTHJvlQtsMTYZygtrLI/
-	 dy2XdRhvZxVQZR8piZrVcYwUTpJYxAjA6obr6PpJmL3zAcU5tko6KkSBMjQ8O10H6ICDy
-	 yqb1fwb2MJpY6wBDiSOOUKYvYemr3c1o1c4PGaz+/kieHdiKctEL1xxiC3qqfzkFxjrHA
-	 xUwYft5xBFpgYxDYRmIvOG+Vv31uS6tML6RGcOKizExpG/+Es+nM4uFpJeTQALDawkg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Vu1ZMuzN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.46
-Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com [209.85.217.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795584674;
+	b=JbncBdAzDAxWp/roCmeeqYXsxFesYbf5+Xw+o4YRMSH9JFuh5hTDekOD9I+XPRzs78UM
+	 bUTXdtgeZKDLU0ai0MnVSRW2Wx2WazDqDNwVOsG3ks4PBs+9V3AN7T9T5kS2Ird5m0W6J
+	 q1Uq77/VwcasFxDWpzEH5S2leRdzUETSOft85MbF6mQtM8wK4RyxMu2emDYI61C2dfvSN
+	 0qg+AfsXc+2DRa2ZQB8JMTX7i1DajJiiP0F6KEGuizPgLYIccbl4JcYjhpOpY4LHht7CG
+	 XNNa0stNo6WYr0j75lBSC94iMoKd3XvWXXjPANkV5Q6iYTef817v+wDvYfgm3TxQrrQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795584674;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=eIAhBu5Bmeq0m//pVVYoXwX5xWDaT5pLP0CDoa8Q3NI=;
+	b=IwxJsQhXu5BEB9SBnGJks8Xb93B7qVqJiV9LTgm6id5BamxAeD6PWH7DPaSctN9n/1b9
+	 y+vv6zEbSh319cev4Kw9LxjfN2chwBtWRo0l/fWYaGdFG5rvqK7O3U4fFhDNHoPCbkGak
+	 T0a1M8r8HQM7/AKs96cvZvTJASWZkPxCAbp4nuMe5vS5wDzfZHOJYDDKa3drNclkKRJUC
+	 5zzUBn46DYZ0bFNOcMKH6SpT4jDp3+oXuFGSHjjFdOHSFjU3NKXhIvHOY+Cx3/KE2xNvp
+	 dHsxSBVTYlI1ThcvAc5PAdV2wg/2chOtVQORu/m446QCc9k+yfhZquRopOYUYRldwEQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="MEIdCMK/";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Zn+qX8o8;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42FA8606A31E
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 05:29:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42FA8606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41504606A326
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 05:31:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41504606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Vu1ZMuzN
-Received: by mail-vs1-f46.google.com with SMTP id ada2fe7eead31-7d2d95c5d81so3704993137.0
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 21:29:51 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795584590; cv=none;
-        d=google.com; s=arc-20260327;
-        b=m+Jx9sG8AbHRpmiD+FQklkrbyChqvFpbI/K2smQoZMJ1JV/R6YGa6mm+ALpTTjsaDT
-         PSe0MxJ9Bi/Qmcx8igZd9gfgimXlTuzCmOg18OWUD7Q/nqcrAwbEq4Y5whFRFuI60Ano
-         i9qcIG1hv5XyqbC4rIvX7j7vBZqxdm/Q7MxlpIuny27rUPkYkWwpmJQnWK5Xw288bmq9
-         h8uUIvpCzGFL+Qr1jEnD8U3vyxEoNHI/DJkCavr2ysXA2m4eQavidlK1SdngwWxdVVUe
-         QX1BSG8Xl78L0jimNa8LWDi4v/tkDYg7VlEMTgzzQkfE3ZMegfN0yhGiLQLSWfYD6JyX
-         9MJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=z31507qutrSHsDuMlMYuZrOSlqTz0X7hfxnmDVf3XDU=;
-        fh=KdVYSIUw7d/hgoT9Wr/xCuVVBwL3R/5cKXm+QogWzI8=;
-        b=T4bisvyPI6MjMU8+hfJOOV5W52jGy+vbZAEK4s+4gGeACU+BCBBvSCqA8D0f/lg4Y9
-         tFOXXqswNMZQ991KU91EEVnjfc9294SA5c16xRC+B3PMxmjPCY7q3nlfwvDXYv2rFst3
-         Viqwaxfij5MB+nEiHnIBkR0W9MKjIMfySiFQ4AO8WVidQgPLPf6fjjcBg1ZJwbiWoXPi
-         w1NmX+SEgmr0H84K4k0limFEGUKSvMAaHMtu+iXa7C0p7rpp+Qqwj/gyxwWWIlOBEQ2e
-         k84tYO3cV54eEdze6WS99Dz5BooLUWz69FobEkJqfgzPtVEWlLr9E4h5S5Q3e58GYjY1
-         7I9Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MEIdCMK/;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Zn+qX8o8
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AP2B2MI1096782
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 05:31:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	eIAhBu5Bmeq0m//pVVYoXwX5xWDaT5pLP0CDoa8Q3NI=; b=MEIdCMK/LuwkdpNR
+	93/yWb4TDT0kAnXFt/vUOMBUYgatoskzQlslxdeF4IrVukwHLxB/eXSEYnERiSqa
+	xuHc/9NsyTf1vjDwS1B3bSsb2HOEdycYrMscWTk0i9XYG6uGcsN076kwgfp6REoS
+	D6Qit8k47rVADKbX6R0KMP/Vr1+ZVSBOkBjbyd8kZCRv7kShCGFxhVzp9grCim1F
+	V1+kf35DEd8tWwJRp4GUe/IGj/Li1uYrox7P1sK3RL52CbWW1AFnhYy+fRjUEUdh
+	L8Hemk6cEWwgL0iueBe/HxvxhGPwMJnWTV3an6kZ+a7qr9EtfMZMsWyrNaN2Qnuu
+	y1TUKQ==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5efftkgf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 05:31:11 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cddf142187aso2579920a12.2
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 21:31:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795584590; x=1796189390; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=z31507qutrSHsDuMlMYuZrOSlqTz0X7hfxnmDVf3XDU=;
-        b=Vu1ZMuzNjD/jmZHcDQuYuXLVaA8JKz5bT+Q+Iv6B/Wj/gNGG5S7G3BAFrKYj/DbVvw
-         u41eU3ziEv0qrdbe6M7e3glHTKrvbxBUhEXkALZ1rmakvwJ1zzwmhqJvXx2jCLpwki3H
-         /5UWWQVCCk5ssGKumQYeB0XhMpG2D8V76OdhjE42DUT00b8d0y49pp078JtqUgC49+RE
-         50PuIRhnGNmQphEph6bhlRGClu7Uy2H04a7FtgxS7P3iBs9FzLLPKJ/rTpYN8nPGogtl
-         6ZeVyILHiUVnvZC8obTw3Txg0JJcbUfVRAIWhYJ7B6071xn3f169NY4lN3RS/8J3vPxU
-         /46w==
+        d=oss.qualcomm.com; s=google; t=1795584671; x=1796189471; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eIAhBu5Bmeq0m//pVVYoXwX5xWDaT5pLP0CDoa8Q3NI=;
+        b=Zn+qX8o8ljDRGcebLRYsy585B8hV1Q/agiRR568uBQJnTJnYfCFGr/7E3GvuWZpKyD
+         jA4cbStfA8o7EuZw1FeJ+ymRBfwV0Ij6ZPVlUviLId5Yk9g9GlhOveqgyQHR5QJoc/fM
+         kIf+f5LZNY1tXZF+eDm+Ql04MFaTRm/F+9LvVyz2Jv4sGypgPAYj4xZFTw8j5Qa9h7Cs
+         GT4pTF6pC2nbLef9lpQWcGiWMlta2NlPXHpLkcs/LnV3YlbrgTOHzryY85/fBwveBH2Y
+         tmOXmujNNKoDNiJ71LWqDDwbRfDl4Z5L6HzFL4l/GgapADpT1Iz1kCZ5+cYPggKYhZsZ
+         5qmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795584590; x=1796189390;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z31507qutrSHsDuMlMYuZrOSlqTz0X7hfxnmDVf3XDU=;
-        b=FuuMNS6pGo6J0XmvONWWU0iikr0DNCtUvm2ddxqnjETPKF64EJkDFpwiCqQrrLS67T
-         fdFWXNbsXYYQXaV6P960hjIceaaa8NA7lSDDlJqnHfSG1oSrsfQcnRssnGS6x2JT8QZZ
-         HtCL9C14I/24lZ32s5MQ0okqT8T2UROg91/0zDurbdfvZp2EfletqIMA7ilrP/7TK1l5
-         VRaHlc/lOshZZxd7YAD4wAT+sgEvqZV0husaaavS9YWZm8ev4SdMeXcV5XfQ1CK9USiS
-         ezVexExOWjn7LDEw0u2nhjbVGv/GMkqAxksv12kdqp4sZgbsSsOqfEE/RF++BP4O3s+z
-         SAug==
-X-Forwarded-Encrypted: i=1; AL+hErFYGJqxzVNFBGgpOPIVPgpHXauhKF/6HSJRPSg6rDRzM+wK2mS4Mr1lHIWGdjMr//Ei8vg6tL+D3Ev9@vger.kernel.org
-X-Gm-Message-State: APuU4Z93ZqCdXyOq2RLpZdF+KY36GPTo5yjRQCMiKcoPZDqPbNRjy2Ow
-	7rDaNmme3jfW2qotW/kkMvl1nHx1C6/MpnRtXjkDknWAabO/MJTv20HcxxdOcfhwROfK0JloA/2
-	UfCjpVjTxFJoWvmDvveukJzEZCaXCWGqsI1KKZd5L
-X-Gm-Gg: AZFdTZetzp/UbMAEBxzlsnuOLY6qL78SgH9q3MfJ/5a/Kcn8dGFa6BZlTqE4UJI2+g+
-	M7B8WGk0IG47O9agRdqeLDpdCoKJ1dR+fQ0ZlGGSZCY3fxlXc0/XaVumu9KGnfraNCt2zThudDb
-	EPmVlmC/c5aQtqqDCuE97pFMNPoBzBvEBb2HhMcsSs0N88IozQONcvUcT7aCKt60j/yljMf9mm6
-	23fj2QRkXK+OhPVVnQciEIpcxvYwXtBL4RFKKHYDjs4bFFsPSuYTYp2+F481XUYa0iDro1WxlhP
-	zptTYE+ADxQ/BrXsOa5mSo6Mc7v+gzOfJSCvrb1T3vmO/8LhiF83E6zzmk+5wCnvZCPtO/tiSHT
-	Nu6+4A4WCZveWjYH70EM1geOH0VdO9MrsrNJtJ57HUdxYitBib+0SkQlaa32XqyGxpFLt57adZF
-	IpWw9Qk0jhrAL7HtI4kH49HVT7OkPWFJy77E0EzmMvs/LdLsSqqVJDkeGq9vZub9V4CiuAOqLA
-X-Received: by 2002:a05:6102:4488:b0:7cb:bb7b:77e4 with SMTP id
- ada2fe7eead31-7d7393b30c6mr5630777137.3.1795584589058; Tue, 24 Nov 2026
- 21:29:49 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795584671; x=1796189471;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eIAhBu5Bmeq0m//pVVYoXwX5xWDaT5pLP0CDoa8Q3NI=;
+        b=rBEkYFQOmtPj0smYun0Oeu/9ubPhf/xBZtVNwyq0HJ6xk8rOT7fxSjpUNklaK4MCKj
+         h1tEZ84v+dtSBQiIG9fE7IUkn2dXcrxuv79+BGx/jCCST3qCUU29/Mb4Z65rUUbcuK7a
+         fHURJJqKQZ+eVv3sg37q8nNQGPz7uHyDOqfWnmrduHW5WNOJAFdH/ZbIvBEOaSXETqM4
+         ow+6qM1nGe4ezgEE9SoQqVwQ5aI7yjs8sQrP1wN+eW0zGgMuEbF9zeNH78UZwTyNayxL
+         vSv0T4TtBx75XHmgbeE5vpRCaFXxjK+tB0KYvbYgoEKAjKshXoGhZ3Dh6Y6WGWQR7VoM
+         q0bw==
+X-Forwarded-Encrypted: i=1; AL+hErE9D0td4XPEDkpmFkw0WAgVS9ZjZCN1piMabz+lbIItx47IIqeecINHbAueKiSHF9c81eZJyzgh6a/V@vger.kernel.org
+X-Gm-Message-State: APuU4Z+77yTVjnt8Jj4fLjhtcB5Dxcr3hgGDaB0Haa2CmqQPVLjJF7Gs
+	0QW2yTeuftgDl2UAlsFJq/wEldUVvymCWM+PSh8d/gGyO2Pve1gAFgw1H+5sxxynPlGGH2uJInN
+	dqffqixkcJDpXeedjPsJpmbtC5Zl3m1f0Ov3P/KUDfSnDgVcMvvhSSuq7j/3yNiPP
+X-Gm-Gg: AZFdTZcDUB5oOhN1yT7VV17v9c4ggfsUk74o1m7RWVecepUG3eEsQUCJaYAEPRNoyEw
+	VR1OIR0ND0H0/R9bRu9pIYnjAmDFtxo97iHZuudbN7rV+ZP62Fat0g5izEZeMWaPT7CMqfEZe4y
+	7r9j3OxS4lukUZzTYDy6gdU0/DqminqgxKSwGkF0eHNTrl1b9ukTVD5v/E+x8nljtUhMq18XBF2
+	MdR8YyD6ZP4BfyglTN0l6fwv6KD1NIKU6MB3sme4qhWU+cg9qjdm1apAehCOjOFQ1hNLtBItxnU
+	Yf0zd/xw7XCLUJMm/Dtmg3NbJAf7QEKYtyrKbAcgqjwtujz1cMwux8mBJMZOvOVuAFlBANUYUXO
+	sXm8Kv1Z+dODY0w5Qi5y3zFJLk7zCbL6ttTcnbu7Vcf5X16VVnSLNbAkE1nF85xuDJ4VHVnt6rr
+	2A4HEW
+X-Received: by 2002:a17:90b:180b:b0:3b4:1336:4f53 with SMTP id 98e67ed59e1d1-3b41c7d5c11mr14553297a91.1.1795584671018;
+        Tue, 24 Nov 2026 21:31:11 -0800 (PST)
+X-Received: by 2002:a17:90b:180b:b0:3b4:1336:4f53 with SMTP id 98e67ed59e1d1-3b41c7d5c11mr14553265a91.1.1795584670520;
+        Tue, 24 Nov 2026 21:31:10 -0800 (PST)
+Received: from [10.218.31.125] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405d135e9sm28528572a91.4.2026.11.24.21.31.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Nov 2026 21:31:10 -0800 (PST)
+Message-ID: <45453937-5fce-42c7-ac1f-66aa94dec646@oss.qualcomm.com>
+Date: Wed, 25 Nov 2026 11:01:03 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,256 +114,97 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261118101913.3135869-3-amitamishra@google.com> <20261123154945.3083888-1-praan@google.com>
-In-Reply-To: <20261123154945.3083888-1-praan@google.com>
-From: Amita Mishra <amitamishra@google.com>
-Date: Wed, 25 Nov 2026 10:59:36 +0530
-X-Gm-Features: Aa3M54pSWQSSH-CwFoe9S0jqnWcBEelhF7YQ6aGMTLjqJveDGr8T5HV3QQARPWM
-Message-ID: <CANLJkh0O=_hYhjv1QJKVfoLFp75RCgKRGHuKh2ubDA8EUExGsw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] perf/smmuv3: Add runtime PM support
-To: Pranjal Shrivastava <praan@google.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, mark.rutland@arm.com, robh@kernel.org, 
-	robin.murphy@arm.com, will@kernel.org, iommu@lists.linux.dev, 
-	smostafa@google.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/2] Shikra: Fix qce configuration
+From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Wenjia Zhang <wenjia.zhang@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+References: <20261116-shikra_qce_fix-v3-0-9ae31470ef48@oss.qualcomm.com>
+ <f3ee6297-fb83-4b1c-b083-f3b15fa082b5@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <f3ee6297-fb83-4b1c-b083-f3b15fa082b5@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=eo5KXYpX c=1 sm=1 tr=0 ts=6b06729f cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=jYJX1yTOf0vTYKAZykEA:9 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDAyMSBTYWx0ZWRfX41vvH2Li30WV
+ YGxzDDXtUOBRz1zswgKu0T8QhP+LCILjcfEKPep4T3unK3hdEp3GA9Ol9mLsKfDHrjp9Qee0X7x
+ qK20dhDeqASK8YfeNphfRTTtIMkggRPowNGicm6Bs7OOulhqqufPvl/jQtrRCQyjXZ87tJo8Z0h
+ o7WVXGurMEFlEv+lO2UPBQ5mQdcmQulbwrMc163zQv+TVMqz1lWM/37mI3VQBqxlAHK1mFyhCS7
+ vbUpMj1Y9x+PCUutBSBeu0lxiI3L1VyA/Ml7nusWLNU5N0ZzD+PuadYT08kJmrnlQvEm/TvKztH
+ ItVF3vEfL45ScBYxvO9bf3ejj2ssBtJ4aL1QMZlCQ8h105lZ5yyPvnU8pQaCH5zHBlCj9g+3N/f
+ 4/IlK9hkAGvRajurjJS47AAwmIhBps6aLjw2MjuKWqOVTI6pTdfuSMVrCn6IepOSLRh7foIUv8T
+ bmxe86txHpe130THteg==
+X-Proofpoint-GUID: fTpCriqFOxLTs6it-zCouPhO8s_aVWLy
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDAyMSBTYWx0ZWRfXyeQjALFg6bNx
+ utgu/Jvzrb2hkpsnvcoHL2Hkmtvm9RxQxyIsFPEvDobnNOil+M5vRNgCOSPYcnzbVV9ZIBBNR9V
+ DNhitWwRG/s/vrcE5GcOaUonup5R658=
+X-Proofpoint-ORIG-GUID: fTpCriqFOxLTs6it-zCouPhO8s_aVWLy
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-25_01,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
+ phishscore=0 impostorscore=0 suspectscore=0 clxscore=1015 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611250021
 
-Hi Pranjal,
+On 24-11-2026 13:55, Kuldeep Singh wrote:
+> On 16-11-2026 14:29, Kuldeep Singh wrote:
+>> Herbert/Bjorn,
+>> This patch series fixes QCE on Shikra and targetted for v7.4.
+>> Shikra crypto qce binding was consumed in v7.3 but DTS node got merged
+>> in v7.4-rc1. It's important to merge this fix in v7.4 to avoid breaking
+>> backward compatibility.
+>> This series updates shikra fallback compatible and hence, both patches
+>> should go from same tree to pass make dtbs_check otherwise patches from
+>> individual tree will break dtbs_check checker. If dtbs_checker is not
+>> blocker, then patches can go from individual tree.
+>>
+>> Bjorn, will you be able to pick both?
+>>
+>> The patch series fix description as follows:
+>> Shikra require explicit clock which is omitted with current binding
+>> description.
+>> Also, one more reason to update shikra-QCE is, clk-smd-rpm was doing proxy
+>> voting and crypto was consuming it. With proxy vote removal, qce need to
+>> vote for it's own clocks explicitly which is already being done for
+>> agatti target. Adapt same mechanism to Shikra QCE too.
+>>
+>> Validations:
+>> - Qce probe and kcapi_convenience.sh tests.
+>> - Correct clk_summary output as prepare_count and enable_count are 0.
+>>
+>> Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+> 
+> Hi Bjorn/Konrad, Can you please review and comment for this series?
+> It's important for QCE to vote for it's own clocks as dropping proxy
+> clock voting(patch in review) will result in QCE issues further.
+> This series fixes that.
 
-Thanks for the thorough review and for adding iommu@lists.linux.dev -- I'll
-make sure to include it on v2.
+I mistakenly replied to v3 instead of v4[1].
+Kindly review v4 for latest.
 
-On Mon, Nov 23, 2026 at 03:49:45PM +0000, Pranjal Shrivastava wrote:
-> On Wed, Nov 18, 2026 at 10:19:13AM +0000, Amita Mishra wrote:
-> > On SoCs where an SMMUv3 PMCG resides in a switchable power domain,
-> > probing the PMCG attaches and powers on the domain, but without runtime
-> > PM support the domain remains permanently powered on even when no perf
-> > events are active.
->
-> I'm interested to know which PMCGs are these? Upstream arm-smmu-v3
-> doesn't have runtime PM yet, thus, a PMCG that shares its SMMU's power
-> domain gains nothing from this today: the SMMU keeps the domain on anyway
->
-> With my arm-smmu-v3 runtime PM series [1], the SMMU lets go of the domain
-> once it has no active clients, and then a PMCG without runtime PM would b=
-e
-> the one keeping it on, the two series seem to fit together. For TBU PMCGs
-> in a subsystem's domain this matters either way.
->
-> I'm wondering if you have PMCGs in power-domains that are neither tied to
-> the SMMU power-domain and nor it's clients' power-domain?
-> (That'd be a bit odd but possible).
+[1]
+https://lore.kernel.org/linux-arm-msm/20261120-shikra_qce_fix-v4-0-5249e31394ce@oss.qualcomm.com/
 
-They are the two cases you mentioned -- TBU PMCGs residing in switchable
-subsystem/client power domains (which already use runtime PM today), and
-TCU PMCGs sharing the SMMU power domain (which pair with your arm-smmu-v3
-runtime PM series). There isn't a separate third power domain.
+-- 
+Regards
+Kuldeep
 
-> Which makes me question whether the PMCG needs runtime PM at all. It's
-> a profiling tool, and I'd be surprised if production devices that use
-> runtime PM keep PMCG events open. Without events nothing needs the PMCG
-> powered, so all this buys is not pinning the domain while the driver is
-> probed but unused..
->
-> Do you probe the PMCGs on production devices? If they're only used for
-> profiling and not in-field, not loading the driver there (or leaving the
-> node disabled) avoids the problem without runtime PM in the driver.
-
-Yes -- the same SoC DT and kernel image are used across production and
-profiling/debug builds, and we want PMCGs available on demand for profiling
-without maintaining separate DTs or manually toggling drivers/nodes. Today,
-simply having the node enabled and probed pins the attached subsystem/SMMU
-power domain on permanently even when no perf events are ever opened, which
-causes power regressions on idle devices.
-
-On holding the runtime PM reference for the lifetime of an event
-(event_init -> destroy): fair point about disabled events and the observer
-effect on TBU TLB/config-cache misses while profiling. Because perf's
-->add()/->start()/->pmu_enable() callbacks run in atomic context, taking th=
-e
-reference in ->event_init() and dropping it in ->destroy() (similar to
-drivers/gpu/drm/xe/xe_pmu.c) was the cleanest way to keep the PMCG powered
-whenever events exist while allowing idle systems with no open events to
-power-gate.
-
-> > @@ -975,15 +1040,45 @@ static void smmu_pmu_remove(struct platform_devi=
-ce *pdev)
-> >
-> >      perf_pmu_unregister(&smmu_pmu->pmu);
-> >      cpuhp_state_remove_instance_nocalls(cpuhp_state_num, &smmu_pmu->no=
-de);
-> > +    if (pdev->dev.pm_domain)
-> > +        pm_runtime_disable(&pdev->dev);
-> >  }
->
-> Events hold a module reference and bind/unbind is suppressed, so this
-> only runs with no events, i.e. normally with the PMCG runtime-suspended.
-> devres then frees the IRQ: free_irq() -> msi_domain_deactivate() ->
-> smmu_pmu_write_msi_msg() writes to the unpowered PMCG, since the PM
-> domain is only detached after devres in device_unbind_cleanup().
-[...]
-> > +static int smmu_pmu_runtime_resume(struct device *dev)
-> > +{
-> > +    struct smmu_pmu *smmu_pmu =3D dev_get_drvdata(dev);
-> > +
-> > +    smmu_pmu_reset(smmu_pmu);
-> > +    return 0;
-> > +}
->
-> Sashiko flagged this too: after a power-off the IRQ configuration is
-> gone, and smmu_pmu_reset() doesn't put it back.
-[...]
-> This is the same problem I had to solve for the SMMU in [1]: patches
-> 7-8 make the genirq/msi core cache the message in
-> irq_chip_write_msi_msg() and add msi_device_domain_restore_msi_msgs(),
-> and arm_smmu_resume_msis() in patch 9 clears the IRQ_CFG0 registers and
-> then calls it (a no-op for wired IRQs).
-
-Agreed on both MSI issues -- I'll fix them in v2. Since
-msi_device_domain_restore_msi_msgs() isn't in mainline yet, would you
-prefer that v2 stays standalone by caching the single msi_msg locally in
-struct smmu_pmu (clearing SMMU_PMCG_IRQ_CFG0 and restoring on resume, and
-skipping MMIO in smmu_pmu_write_msi_msg() while suspended), or should this
-wait/build on top of your genirq/msi patches from [1]?
-
-> Minor: an autosuspend delay would avoid powering the domain on and off
-> for every event open/close.
-
-Sounds good, I can add autosuspend support in v2 as well.
-
-Regards,
-Amita
-
-
-On Mon, Nov 23, 2026 at 9:19=E2=80=AFPM Pranjal Shrivastava <praan@google.c=
-om> wrote:
->
-> On Wed, Nov 18, 2026 at 10:19:13AM +0000, Amita Mishra wrote:
->
-> Hi Amita,
->
-> +iommu@lists.linux.dev
-> Please CC the iommu list as well.
->
-> > On SoCs where an SMMUv3 PMCG resides in a switchable power domain,
-> > probing the PMCG attaches and powers on the domain, but without runtime
-> > PM support the domain remains permanently powered on even when no perf
-> > events are active.
->
-> I'm interested to know which PMCGs are these? Upstream arm-smmu-v3
-> doesn't have runtime PM yet, thus, a PMCG that shares its SMMU's power
-> domain gains nothing from this today: the SMMU keeps the domain on anyway
->
-> With my arm-smmu-v3 runtime PM series [1], the SMMU lets go of the domain
-> once it has no active clients, and then a PMCG without runtime PM would b=
-e
-> the one keeping it on, the two series seem to fit together. For TBU PMCGs
-> in a subsystem's domain this matters either way.
->
-> I'm wondering if you have PMCGs in power-domains that are neither tied to
-> the SMMU power-domain and nor it's clients' power-domain?
-> (That'd be a bit odd but possible).
->
-> [...]
->
-> > +    /* The same condition smmu_pmu_probe() enables runtime PM on. */
-> > +    if (dev->pm_domain) {
-> > +        int ret =3D pm_runtime_resume_and_get(dev);
-> > +
-> > +        if (ret < 0)
-> > +            return ret;
-> > +        event->destroy =3D smmu_pmu_event_destroy;
-> >      }
->
-> This keeps the domain powered for as long as the event exists, even
-> while it is disabled or not scheduled. I'd be surprised if the
-> production devices that use runtime PM keep a PMCG event open requiring
-> this?
->
-> For a PMCG in the SMMU's domain, with [1] that means a perf event keeps
-> the domain on while the SMMU itself is suspended (SMMUEN=3D0, GBPA=3DAbor=
-t).
-> The SMMU only suspends once all its clients are idle, so apart from
-> cycles there's nothing meaningful to count.
->
-> For a TBU PMCG, it keeps the subsystem's domain powered, which changes
-> what's being measured: the TBU's TLBs and config caches survive what
-> would otherwise be power-offs, so tlb_miss and config_cache_miss can
-> under-report compared to the unmonitored system.
->
-> Which makes me question whether the PMCG needs runtime PM at all. It's
-> a profiling tool, and I'd be surprised if production devices that use
-> runtime PM keep PMCG events open. Without events nothing needs the PMCG
-> powered, so all this buys is not pinning the domain while the driver is
-> probed but unused..
->
-> Do you probe the PMCGs on production devices? If they're only used for
-> profiling and not in-field, not loading the driver there (or leaving the
-> node disabled) avoids the problem without runtime PM in the driver.
->
-> If we do need it, a couple of issues with the implementation below:
->
-> [...]
->
-> > @@ -975,15 +1040,45 @@ static void smmu_pmu_remove(struct platform_devi=
-ce *pdev)
-> >
-> >      perf_pmu_unregister(&smmu_pmu->pmu);
-> >      cpuhp_state_remove_instance_nocalls(cpuhp_state_num, &smmu_pmu->no=
-de);
-> > +    if (pdev->dev.pm_domain)
-> > +        pm_runtime_disable(&pdev->dev);
-> >  }
->
-> Events hold a module reference and bind/unbind is suppressed, so this
-> only runs with no events, i.e. normally with the PMCG runtime-suspended.
-> devres then frees the IRQ: free_irq() -> msi_domain_deactivate() ->
-> smmu_pmu_write_msi_msg() writes to the unpowered PMCG, since the PM
-> domain is only detached after devres in device_unbind_cleanup(). Wired
-> interrupts are fine, and the CPU hotplug path Sashiko mentioned
-> shouldn't rewrite the message with a GICv3 ITS parent, so in practice
-> this is MSIs plus module unload.
->
-> With the MSI message cached by the core (see below),
-> smmu_pmu_write_msi_msg() could simply skip the MMIO while the PMCG is
-> suspended and leave it to resume. Note it would have to check
-> pm_runtime_status_suspended(), since runtime PM is already disabled by
-> the time devres runs. Alternatively, keep the PMCG resumed across the
-> devres teardown.
->
-> [...]
->
-> > +static int smmu_pmu_runtime_resume(struct device *dev)
-> > +{
-> > +    struct smmu_pmu *smmu_pmu =3D dev_get_drvdata(dev);
-> > +
-> > +    smmu_pmu_reset(smmu_pmu);
-> > +    return 0;
-> > +}
->
-> Sashiko flagged this too: after a power-off the IRQ configuration is
-> gone, and smmu_pmu_reset() doesn't put it back. With MSIs, overflow
-> interrupts stop arriving and counters wrap unnoticed. With a wired
-> interrupt on an MSI-capable PMCG, IRQ_CFG0 comes back UNKNOWN, so an
-> overflow can send an MSI write to a garbage address, which is exactly
-> why probe clears it.
->
-> This is the same problem I had to solve for the SMMU in [1]: patches
-> 7-8 make the genirq/msi core cache the message in
-> irq_chip_write_msi_msg() and add msi_device_domain_restore_msi_msgs(),
-> and arm_smmu_resume_msis() in patch 9 clears the IRQ_CFG0 registers and
-> then calls it (a no-op for wired IRQs). The PMCG resume needs the same:
->
->     writeq_relaxed(0, smmu_pmu->reg_base + SMMU_PMCG_IRQ_CFG0);
->     msi_device_domain_restore_msi_msgs(dev, MSI_DEFAULT_DOMAIN);
->
-> Minor: an autosuspend delay would avoid powering the domain on and off
-> for every event open/close.
->
-> Thanks,
-> Praan
->
-> [1] https://lore.kernel.org/all/20260929034510.2023173-1-praan@google.com=
-/
