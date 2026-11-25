@@ -1,66 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795572703;
-	b=Er4yjgk9QQzZdruhwN6cx3j0MU2WbiCtrocBfw2Xm3sy1l3IePmDTtghaL96uYSxhfGz
-	 rmT7LEzH07gHmI19IgSxPUZzjhllJKarsqhr3IKyDpSTlttUDniox/+SBjEL6NIRGDMdi
-	 H9I3sZAFZs+KTDwoiMwSXABzXHKHNdl05Al0ntLp9stI9veeTy4xRfVvmGtBwyg3MW4+l
-	 mhqSkJ6WI3kkWgXsvQ6mm2211GjnMIFAsFg95Xt0Q3Yoqzt3d5aw7uvjFub+81h2OvdOi
-	 PVrljRROfrYafYxgKbbCgNNExSnCvH60XjXkfeAK69oz9qPvXsVMk0jLqL4Z9iNQrwQ==
+	t=1795572706;
+	b=w9Ub3QF/Rg760pSluG7qUhXxeBLvcBa6jmSwYZR/Ed5Nh1yU6emBSWOsDrROfRW/SwgP
+	 4GHxBzATUxnCp3gwB31F9DVbNq4ULTxXXS1H8e2cOw/lagit16wO7dGXKWGLoBg+xRgtj
+	 XQxyG98Mu70dJVHKlqIE7sQa2MIK4kzu2XE+fy7h0/CJ40pMCq7RbQWbAPxEsH4RQg0EX
+	 iJ5QmAeQ4qr6fQy6DnFYGuT8Q7bBdYWY72g4hRGSJbQn9VsHgK5ZkSWsmq9GGJAxFduUM
+	 7IXu6xB2xjqpiFB4nWR/cZ1woo2VRH66zc/kp4d3va7Wg/Jg8QniWr5OTVhXkWE2K+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795572703;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795572706;
 	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
 	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=20kNoUMxW91vz0XqN1haUqjZP6QNbU/Y2tpc4VAQ6Ys=;
-	b=F1a6iq8TGrWMmo/RxxVhzoW5X/dfRRcM7q5V93xSiNk3lf3hK7aRGlhR//CxviCRjir9
-	 LJNMJwGyHeO+ZPqGaFswuy0oY7AWLS5TiWRkpIrlqlF/a66xRQejhvPpD7jfwYdaP5xEm
-	 xXAi0n6rZbbGdK0rMu6Tjtc/Uv9E4IAdQRd6sT4h6qw2esTs2RYmnpIiOhA2gyq+er8R2
-	 V3ArEVxEYQdn+8KpbgyjX+MdinDFQfzK1EMnJOqe+JF6QJWu2yKSQEU/VUfYkcqL9Slid
-	 Voa8J3AyOxj9bvJ1ZBIrLrbNhl7pEObPbh8N6HYrJxiW89biW7yHYdrHAtusE2qpB5w==
+	bh=7y7dH4WUNtr/PIZY2/5kJQDiGnwhxF0x9PeMyzylV7Y=;
+	b=ZSn0qypFM1kHL57WDBNlx8jx2R0TVQt0EgvWVgs2BhiwixuHG9TOPk1fYbfq696TcBhE
+	 Y2obVNgJevj39u0M2Ox4hqimTsVSdBMwcpKBKosycakJJIUzYylZt1nkChWq3eAm4X1qh
+	 KWMmca5atNtsg8UpusQX15Amxp/Y2i3r7ZPPTNQagjBILZEiprsmOUZv447QavHo7fAdC
+	 cDr56AAryx94vREiS3curYtWyZ/iEWHKPZd91QG+CyG6MQzV94mNVKkXteabpjPcLyiJz
+	 GtyBuUHRZ9Agk7TZgfQGeCRXLjCIU+VIDkHfzxRSalvnGYWOqBTHMnH0oI2595Nioqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=qq.com;
 	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=AvKhdGyv;
-	arc=none smtp.remote-ip=43.163.128.43
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.43])
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=siLdBvYy;
+	arc=none smtp.remote-ip=162.62.58.216
+Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BC39606A326;
-	Wed, 25 Nov 2026 02:11:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BC39606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8DC8606A686;
+	Wed, 25 Nov 2026 02:11:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8DC8606A686
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=AvKhdGyv
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=siLdBvYy
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1795572694; bh=20kNoUMxW91vz0XqN1haUqjZP6QNbU/Y2tpc4VAQ6Ys=;
+	t=1795572695; bh=7y7dH4WUNtr/PIZY2/5kJQDiGnwhxF0x9PeMyzylV7Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AvKhdGyvS8Z5jZDwxYVFzR73T/zso6QMIFAJlxe6qFjwCBCXxUGfOwZj0DGuM4enL
-	 hR0T6q9Ke0kfzrX58XLkp/ZWgYC+6sQZaU/QLOdfiNJlLZDYVE5Br0JrNg3oFqeX18
-	 FWwytLBSNYdNoYYqLwzIdp9UaTCS9yq/WxPIM2tY=
+	b=siLdBvYyULeukLSglTtjmQSczuEaebo9uqRQakCWp1vUlceRDuUa8cw2gOKQk8viy
+	 kcu0vlBVp7+Uu7dxFDFGIOH12EUk6Glt9i2ZB8tosGr84D4LSwGwl7lPf4lcnJ5iSY
+	 KGyEO5NKiBmg07iri7iXDGYrxBO066FvzHRqXmr0=
 Received: from HF ([113.90.236.90])
 	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
 	id 2DCBA053; Wed, 25 Nov 2026 10:11:28 +0800
-X-QQ-mid: xmsmtpt1795572692twzwizpjb
-Message-ID: <tencent_3D3EC29E27E9DF37D4C9F1A60F2F2BA3EF07@qq.com>
-X-QQ-XMAILINFO: NzfRu9/IBdiGCtilTrSwEiD4yhFwiKU6iC+lL1ZMes1c6JRhlBda6xO2Z2BFB/
-	 Cv61b/1Q3IAK7daJAOVMCTX8d5IxMmgHwFUb4UoTmFV8OZLYfS8xGfDl7YhdoJ5CL+DQBEZI8UFu
-	 ro1TRUps3eiZMrN26ZgEjc21jfJ8bLWpZgbJZIeorHBNDHnJghnpYMKhiTIW832tYbLdChu2xRmj
-	 NiEQd+rbUlaypfmLRP6nclqr2deFcsDOnCc/PvqSfaH+65/ltq4rZb5soNrLm9htgxby+7ZQ/sLo
-	 R25CXTNlSCULT1KJ56Rc8fddWFrJOWJKn7n8qiolx65o7NHIeDQ+cJ4OPkzlucSVfQwt3+hCP9gm
-	 j4rR4jhp5gVuu92hx4WJUgIZMMhT3qTudccbgl2ouViQYyWDLl7r7qHrlHGeUTFMwKuu6MIWLdQb
-	 a0VJVyPorbKfczyGVYmcUIZURf1/FkAlkLX/rg01/XSj3gmIB//Ko9LzgOxR27+A9cIWNY8ePYlM
-	 beHBvc7KcWcbduEO/7lfkWxcEVIzL6IQwFM85R0PGUjffnSaVbrkvsuv7DuFxr8ZqPqzbBzk9UJq
-	 93BiBzQQoST4TfZoN/Nb9nxJtR4FgpK5NbMLe35B8a9Z7u72Z63ew60/tqkfbtk2W2rmH6+w2VwF
-	 /bCMbXqL1iITW8vYnqYKSG4tKYPy/e78uB/p5uiINcjIQoiL4LToLkQfoyIXTSNJHZXLJt47GYqi
-	 TOuoe7fnyAlhcHhyFMEKCM+EMMU0O7ddGtO7PHodSh7YXfz/CG+eWi3sOxAjv1VlBF9R8bH73oaJ
-	 O6cXP7uyEBTdjtColnlP2hrUqkBzs7F+wARgZNiSn12cCYD3FWYEcwaLQ4Dli6J4Wrxz/xEg7LvU
-	 siZnrrb54MbgiMgeZoaPxbu0bwDMWo/ym1ezOPyxklb+AZoSmNTEtxQMDoJs5NOnc9zYRiw99oFG
-	 CYY0Pq7N6ULdawlhY2ipCue0nMo9CRZc8J4sJPQSWSqWGMe3lE1iC+ze6DcRZdhUW3MobOaZwb6p
-	 quXHwCqUoZvq7iGWcXJNTYiX5ljB7RUPeE0VWoFYcK1rnbY8JXyFr0l+G4cv6qBh2nEsXKiyaUCP
-	 cowTsJiB8NXoRmurLJnMkcv71/O0DbXj6Hracj8d4PxyB5haVNODxsqt9mgQ==
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-mid: xmsmtpt1795572693t20um6aq7
+Message-ID: <tencent_03FEA6A02E8E137CCC5AC97E6F118A3CC10A@qq.com>
+X-QQ-XMAILINFO: NP9KN8CSKc3GwswOazQ6es5d9nuND3e17iAb0/SHsxwVNu0szaxo+CUl/jwXnk
+	 TcUsA275TLOibm9Mtkm0ERLKrdj9Ew5MsjAT7hIB8oLo/zXzv9raJuGU1sUkAQjY0hhckEmM0bxf
+	 1fuziPKEjXx+NFGHw2sBF0DUATLay1glYABlptRNPJXdqsdYHYB3yo58OV/XGXe4p4k7GPEnLswg
+	 7Xwkcg1qvKiEIN8X/PVs2Sjb9uZnhXBIHyvDoWU7FeHEquihKD/6OJxyXvWhOZck2egZXjXr4hiK
+	 dZXdO86Ev5W8WqiT/jx9J8zFdtiK53unoijzGvrtHT6YHhtxgJjsA1w8iozXU47GnjFFqpZuKHIw
+	 yRGglGHIfckxl7xYNyiNcrPW7O8+UeuT85Gd7V1n6LcB7n7o97ooB77eGJitVvDvobJvhA7waiNL
+	 xnmq08qaCt7oYTQAnSXDlWv9EHVAcWy4gSAiff13mGXBcgAiUZ8Nc3D3bn3M8TWwctuf9GZ2jM0f
+	 lI8n3iojHqduiISOoN4FQBHeEfvhEUVAkS448t3QEzMk8w9bjaH4QxxVxW7n+CBK9o/k5i6LJtPs
+	 1VlyznFRQaVZ6RNSBQZR4TOSkgSkrPWX0WT8MdCL+c7rzXK06b+cf6dXOv2GABfF7P6sq30sxPSt
+	 Eu8cTKRhREztfvR21SrM14HR1nth1en6KU531Qb3qVd4g4K3Z1xnYPg9SSdIeOMrIeRQCYodXD0d
+	 wLaMUuuhGHRq0g4zY7uWDI6QkkBHx1XrP4yYKmjz4sUxwPgOhpERS2cQArSb5du8b2wwnw+0kjDJ
+	 /dVIYdPaDMi5skVAnGrdMjMvWzQgJ+A1QjwpOpa1HQAgcMCdAOsKyMYFcek15u6GgW4TOXmLd43u
+	 +rlBHe/P8ke0452nar3Wt2+ZUI1e7F/UjgQT3Y2pMfw/Dtb0LoJMUfCFYgqKfbpjR32V4B8qG3GS
+	 Cxws6UsfW+sUNc9i1Pxoqx1sbs3QZwBCADaDvkxdcaEVP9Ldfqg8RhuJ9Nj65v1hgdo4hQh3UpUv
+	 8M/QxsFwYPahdOaEq/K51r5tFJmV8XUJ1qPQtbwrSqvv4Zuf3dw/KM7ephYa73/0xQLt9tsVAPWy
+	 /Mq4dqBkRrA/Xh5WzxPBmhssp4rwKUqnSD6429+vDl3M0YxDSw1qx1ztDtG37tvCyHSxkL
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
 From: Hefei <3066883572@qq.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-input@vger.kernel.org,
@@ -69,9 +69,9 @@ Cc: linux-input@vger.kernel.org,
 	robh@kernel.org,
 	conor@kernel.org,
 	Hefei <3066883572@qq.com>
-Subject: [PATCH v3 4/6] drm/panel: add VIEWE JD9365TX 7 inch DSI panel
-Date: Wed, 25 Nov 2026 10:11:25 +0800
-X-OQ-MSGID: <20261125021127.1430-5-3066883572@qq.com>
+Subject: [PATCH v3 5/6] Input: add Jadard JD9365TX in-cell touchscreen driver
+Date: Wed, 25 Nov 2026 10:11:26 +0800
+X-OQ-MSGID: <20261125021127.1430-6-3066883572@qq.com>
 X-Mailer: git-send-email 2.55.0.windows.5
 In-Reply-To: <20261125021127.1430-1-3066883572@qq.com>
 References: <20261125021127.1430-1-3066883572@qq.com>
@@ -88,404 +88,425 @@ Content-Transfer-Encoding: 8bit
 
 Signed-off-by: Hefei <3066883572@qq.com>
 ---
- drivers/gpu/drm/panel/Kconfig                |  11 +
- drivers/gpu/drm/panel/Makefile               |   1 +
- drivers/gpu/drm/panel/panel-viewe-jd9365tx.c | 353 +++++++++++++++++++
- 3 files changed, 365 insertions(+)
- create mode 100644 drivers/gpu/drm/panel/panel-viewe-jd9365tx.c
+ drivers/input/touchscreen/Kconfig           |  12 +
+ drivers/input/touchscreen/Makefile          |   1 +
+ drivers/input/touchscreen/jadard_jd9365tx.c | 373 ++++++++++++++++++++
+ 3 files changed, 386 insertions(+)
+ create mode 100644 drivers/input/touchscreen/jadard_jd9365tx.c
 
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 3100640..ad1eee3 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -324,6 +324,17 @@ config DRM_PANEL_INNOLUX_P079ZCA
- 	  24 bit RGB per pixel. It provides a MIPI DSI interface to
- 	  the host and has a built-in LED backlight.
+diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
+index e2ee722..da425c8 100644
+--- a/drivers/input/touchscreen/Kconfig
++++ b/drivers/input/touchscreen/Kconfig
+@@ -540,6 +540,18 @@ config TOUCHSCREEN_IPROC
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called bcm_iproc_tsc.
  
-+config DRM_PANEL_VIEWE_JD9365TX
-+	tristate "VIEWE 7\" JD9365TX DSI panel"
-+	depends on OF
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
++config TOUCHSCREEN_JADARD_JD9365TX
++	tristate "Jadard JD9365TX in-cell touchscreen"
++	depends on I2C
 +	help
-+	  Say Y here to enable the VIEWE 7" 720x1280 Jadard JD9365TX
-+	  MIPI-DSI panel.
++	  Say Y here if you have a Jadard JD9365TX in-cell touchscreen.
++	  The driver polls over I2C when no interrupt line is wired.
 +
 +	  If unsure, say N.
 +
- config DRM_PANEL_JADARD_JD9365DA_H3
- 	tristate "Jadard JD9365DA-H3 WXGA DSI panel"
- 	depends on OF
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index 75f6bf2..2933489 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -33,6 +33,7 @@ obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9881C) += panel-ilitek-ili9881c.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9882T) += panel-ilitek-ili9882t.o
- obj-$(CONFIG_DRM_PANEL_INNOLUX_EJ030NA) += panel-innolux-ej030na.o
- obj-$(CONFIG_DRM_PANEL_INNOLUX_P079ZCA) += panel-innolux-p079zca.o
-+obj-$(CONFIG_DRM_PANEL_VIEWE_JD9365TX) += panel-viewe-jd9365tx.o
- obj-$(CONFIG_DRM_PANEL_JADARD_JD9365DA_H3) += panel-jadard-jd9365da-h3.o
- obj-$(CONFIG_DRM_PANEL_JDI_LT070ME05000) += panel-jdi-lt070me05000.o
- obj-$(CONFIG_DRM_PANEL_JDI_LPM102A188A) += panel-jdi-lpm102a188a.o
-diff --git a/drivers/gpu/drm/panel/panel-viewe-jd9365tx.c b/drivers/gpu/drm/panel/panel-viewe-jd9365tx.c
++	  To compile this driver as a module, choose M here: the
++	  module will be called jadard_jd9365tx.
++
+ config TOUCHSCREEN_S6SY761
+ 	tristate "Samsung S6SY761 Touchscreen driver"
+ 	depends on I2C
+diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
+index 58094f2..5846f4d 100644
+--- a/drivers/input/touchscreen/Makefile
++++ b/drivers/input/touchscreen/Makefile
+@@ -59,6 +59,7 @@ obj-$(CONFIG_TOUCHSCREEN_IMAGIS)	+= imagis.o
+ obj-$(CONFIG_TOUCHSCREEN_IMX6UL_TSC)	+= imx6ul_tsc.o
+ obj-$(CONFIG_TOUCHSCREEN_INEXIO)	+= inexio.o
+ obj-$(CONFIG_TOUCHSCREEN_IPROC)		+= bcm_iproc_tsc.o
++obj-$(CONFIG_TOUCHSCREEN_JADARD_JD9365TX) += jadard_jd9365tx.o
+ obj-$(CONFIG_TOUCHSCREEN_LPC32XX)	+= lpc32xx_ts.o
+ obj-$(CONFIG_TOUCHSCREEN_MAX11801)	+= max11801_ts.o
+ obj-$(CONFIG_TOUCHSCREEN_MXS_LRADC)     += mxs-lradc-ts.o
+diff --git a/drivers/input/touchscreen/jadard_jd9365tx.c b/drivers/input/touchscreen/jadard_jd9365tx.c
 new file mode 100644
-index 0000000..b511dd6
+index 0000000..2030157
 --- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-viewe-jd9365tx.c
-@@ -0,0 +1,353 @@
++++ b/drivers/input/touchscreen/jadard_jd9365tx.c
+@@ -0,0 +1,373 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright (C) 2026 VIEWE
 + *
-+ * DRM panel driver for VIEWE 7" 720x1280 Jadard JD9365TX (module 7KF82).
-+ * 2-lane MIPI-DSI video mode. Optional reset-gpios; many FPCs use POR only.
++ * Jadard JD9365TX in-cell touchscreen (I2C @0x68, polling).
++ * Typical DSI FPC has no interrupt line.
 + */
 +
 +#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/input.h>
++#include <linux/input/mt.h>
++#include <linux/input/touchscreen.h>
 +#include <linux/module.h>
 +#include <linux/of.h>
++#include <linux/property.h>
 +#include <linux/regulator/consumer.h>
++#include <linux/slab.h>
 +
-+#include <video/mipi_display.h>
++#define JD_CHIP_ID			0x9084
++#define JD_CHIP_ID_ALT			0x9032
++#define JD_SOC_CHIP_ID2			0x40008076
++#define JD_ERAM_BASE			0x20011000
++#define JD_SECTION_READY_VAL		0xA55A
++#define JD_MAX_DSRAM_NUM		25
++#define JD_ESRAM_COORD_IDX		1
++#define JD_ESRAM_SECTION_NUM		6
++#define JD_DEFAULT_COORD_ADDR		0x20011120
++#define JD_TOUCH_DATA_SIZE		78
++#define JD_FINGER_DATA_SIZE		5
++#define JD_FINGER_NUM_ADDR		0
++#define JD_TOUCH_COORD_INFO_ADDR	3
++#define JD_MAX_POINTS			10
++#define JD_DEFAULT_POLL_MS		16
 +
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+
-+#define JD9365TX_DISPOFF_DELAY_MS	80
-+#define JD9365TX_SLPIN_DELAY_MS		200
-+#define JD9365TX_DISPON_DELAY_MS	20
-+
-+struct jd9365tx_panel {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi;
-+	struct gpio_desc *reset;
++struct jadard_tp {
++	struct i2c_client *client;
++	struct input_dev *input;
++	struct touchscreen_properties prop;
 +	struct regulator *vdd;
 +	struct regulator *iovcc;
-+	enum drm_panel_orientation orientation;
++	u32 coord_addr;
++	u16 touch_data_size;
++	u16 max_points;
++	u16 abs_x_max;
++	u16 abs_y_max;
++	unsigned int poll_interval_ms;
++	bool ready;
 +};
 +
-+struct jd9365tx_cmd {
-+	u8 len;
-+	u8 data[64];
-+	u16 delay_ms;
-+};
-+
-+#define JD_CMD(...) {					\
-+	.len = sizeof((u8[]){ __VA_ARGS__ }),		\
-+	.data = { __VA_ARGS__ },			\
-+	.delay_ms = 0,					\
-+}
-+
-+#define JD_CMD_DELAY(ms, ...) {				\
-+	.len = sizeof((u8[]){ __VA_ARGS__ }),		\
-+	.data = { __VA_ARGS__ },			\
-+	.delay_ms = (ms),				\
-+}
-+
-+static const struct jd9365tx_cmd jd9365tx_7kf82_init[] = {
-+	JD_CMD(0xDF, 0x90, 0x84, 0x14),
-+	JD_CMD(0xDE, 0x00),
-+	JD_CMD(0xBB, 0x46, 0x55, 0xB5, 0x22, 0x22, 0x55),
-+	JD_CMD(0xDE, 0x02),
-+	JD_CMD(0xB7, 0x16, 0x00, 0x6E, 0x44, 0x77),
-+	JD_CMD(0xDE, 0x00),
-+	JD_CMD(0xB3, 0x00, 0x01, 0x50, 0x50, 0x3C, 0x3C, 0xA0, 0x00, 0x20, 0xB6),
-+	JD_CMD(0xBC, 0x0C, 0x28, 0x88),
-+	JD_CMD(0xBD, 0x00, 0x5C, 0x56),
-+	JD_CMD(0xBF, 0x10, 0x35, 0xC3),
-+	JD_CMD(0xC0, 0xBD, 0xBD),
-+	JD_CMD(0xC3, 0x03, 0x09, 0x00, 0x04, 0x2B, 0xE2),
-+	JD_CMD(0xC4, 0x05, 0xE3, 0x0D, 0xD1, 0x05, 0x2C, 0x06, 0x51, 0x06, 0x51, 0x06, 0x51, 0x00, 0xE0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xE0),
-+	JD_CMD(0xC5, 0x01, 0x00, 0x8C, 0x00, 0x5E, 0x01, 0x7D, 0x09, 0x60, 0x02, 0xD0, 0x05, 0x00, 0x00, 0x00, 0x02, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x01, 0x0E, 0x01, 0x92, 0x02, 0x00, 0x02, 0xB0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00),
-+	JD_CMD(0xC6, 0x00, 0xE4, 0x00, 0xC8, 0x00, 0x1D, 0x28, 0x82, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00, 0x01),
-+	JD_CMD(0xC8, 0x20, 0x80, 0xB4),
-+	JD_CMD(0xCB, 0x7C, 0x66, 0x57, 0x42, 0x32, 0x2A, 0x1B, 0x1F, 0x0A, 0x26, 0x27, 0x25, 0x44, 0x32, 0x41, 0x35, 0x35, 0x2B, 0x1E, 0x14, 0x06, 0x7C, 0x66, 0x57, 0x42, 0x32, 0x2A, 0x1B, 0x1F, 0x0A, 0x26, 0x27, 0x2D, 0x4C, 0x3A, 0x41, 0x35, 0x35, 0x2B, 0x1E, 0x14, 0x06),
-+	/* 2-lane: 0x31, 4-lane: 0x33 */
-+	JD_CMD(0xCC, 0x31),
-+	JD_CMD(0xCD, 0x23, 0x0E, 0x23, 0x0E, 0x23, 0x0E, 0x23, 0x0E, 0x23, 0x23, 0x22, 0x22),
-+	JD_CMD(0xCE, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA),
-+	JD_CMD(0xCF, 0x40, 0x00, 0x00, 0x3F, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3F, 0xFF, 0xFF, 0x00, 0x00, 0x00),
-+	JD_CMD(0xD0, 0x00, 0x3F, 0x3F, 0x64, 0x64, 0x3F, 0x3F, 0x3E, 0x3E, 0x2A, 0x2B, 0x3F, 0x3F, 0x1F, 0x1D, 0x1B, 0x19, 0x17, 0x15, 0x13, 0x11, 0x01, 0x03),
-+	JD_CMD(0xD1, 0x00, 0x3F, 0x3F, 0x64, 0x64, 0x3F, 0x3F, 0x3E, 0x3E, 0x2A, 0x2B, 0x3F, 0x3F, 0x1E, 0x1C, 0x1A, 0x18, 0x16, 0x14, 0x12, 0x10, 0x00, 0x02),
-+	JD_CMD(0xD2, 0x00, 0x3F, 0x3F, 0x24, 0x24, 0x3F, 0x3F, 0x3E, 0x3E, 0x2A, 0x2B, 0x3F, 0x3F, 0x10, 0x12, 0x14, 0x16, 0x18, 0x1A, 0x1C, 0x1E, 0x02, 0x00),
-+	JD_CMD(0xD3, 0x00, 0xBF, 0xBF, 0xA4, 0xA4, 0xBF, 0x3F, 0x3E, 0x3E, 0x2A, 0x2B, 0x3F, 0x3F, 0x11, 0x13, 0x15, 0x17, 0x19, 0x1B, 0x1D, 0x1F, 0x03, 0x01),
-+	JD_CMD(0xD4, 0x00, 0x60, 0x0C, 0x01, 0x03, 0x20, 0x04, 0x00, 0x00, 0x00, 0x07, 0x00, 0x05, 0x1D, 0x01, 0x23, 0x45, 0x60, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x05, 0x20, 0x05, 0x22, 0x01, 0x03, 0x80, 0x0A, 0x00, 0x0A, 0x05, 0x24, 0x05, 0x24, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00, 0x20, 0x00),
-+	JD_CMD(0xD5, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3E, 0x00, 0x00, 0x00, 0x0A, 0x78, 0x00, 0x00, 0x05, 0xE6, 0xF7, 0xA0, 0x0F, 0x08, 0x08, 0x10, 0x00, 0x2F, 0x04),
-+	JD_CMD(0xD7, 0x00, 0x09, 0x7D, 0x09, 0x7D, 0x09, 0x7D, 0x09, 0x7D, 0x09, 0x7D, 0x09, 0x7D, 0x09, 0x7D),
-+	JD_CMD(0xDE, 0x01),
-+	JD_CMD(0xC7, 0x14, 0x14, 0x04, 0x04, 0x47),
-+	JD_CMD(0xCD, 0x30, 0x53),
-+	JD_CMD(0xCE, 0x09, 0x00, 0xE0, 0x00, 0xE0),
-+	JD_CMD(0xDE, 0x02),
-+	JD_CMD(0xB3, 0x4A, 0xA3, 0xE2, 0x2F, 0x43),
-+	JD_CMD(0xB4, 0x7F),
-+	JD_CMD(0xBB, 0x00, 0x7D, 0x00, 0x00, 0x00, 0x00, 0x00, 0x41, 0x40, 0x43, 0x04),
-+	JD_CMD(0xBD, 0x1B),
-+	JD_CMD(0xBF, 0x0F, 0x03),
-+	JD_CMD(0xC1, 0x50, 0x40, 0x00, 0x00, 0x00, 0x02, 0x02, 0x02, 0x02, 0x00, 0x00, 0x00, 0x00),
-+	JD_CMD(0xC2, 0x02, 0x42, 0x50, 0x00, 0x02, 0xE0, 0x31),
-+	JD_CMD(0xC3, 0x20, 0xFF),
-+	JD_CMD(0xC4, 0x00, 0x11, 0x07, 0x00, 0x0E, 0x01, 0x08),
-+	JD_CMD(0xC6, 0x4A, 0x00),
-+	JD_CMD(0xE5, 0x00, 0x70, 0x70, 0x19, 0xC8, 0x09, 0x00, 0x42, 0x01, 0x30, 0x05, 0x00, 0x00, 0x05, 0x07),
-+	JD_CMD(0xE6, 0x10, 0x0F, 0x88, 0x00, 0x00),
-+	JD_CMD(0xE9, 0x10, 0xA0, 0xA0),
-+	JD_CMD(0xEC, 0x10, 0x77, 0x0D),
-+	JD_CMD(0xDE, 0x03),
-+	JD_CMD(0xD1, 0x00, 0x00, 0x39, 0xFF, 0x08),
-+	JD_CMD(0xED, 0x00),
-+	JD_CMD(0xDE, 0x00),
-+	/* TEAR_ON; Sleep Out / Display On follow in prepare() */
-+	JD_CMD_DELAY(30, 0x35),
-+};
-+
-+static inline struct jd9365tx_panel *to_jd9365tx(struct drm_panel *panel)
++static int jd_bus_write(struct i2c_client *client, const u8 *cmd, u8 cmd_len,
++			const u8 *data, u16 data_len)
 +{
-+	return container_of(panel, struct jd9365tx_panel, panel);
++	u8 buf[64];
++	struct i2c_msg msg;
++	int ret;
++
++	if (cmd_len + data_len > sizeof(buf))
++		return -EINVAL;
++
++	memcpy(buf, cmd, cmd_len);
++	if (data_len)
++		memcpy(buf + cmd_len, data, data_len);
++
++	msg.addr = client->addr;
++	msg.flags = 0;
++	msg.len = cmd_len + data_len;
++	msg.buf = buf;
++
++	ret = i2c_transfer(client->adapter, &msg, 1);
++	return ret == 1 ? 0 : (ret < 0 ? ret : -EIO);
 +}
 +
-+static int jd9365tx_send_cmds(struct mipi_dsi_device *dsi,
-+			      const struct jd9365tx_cmd *cmds,
-+			      unsigned int count)
++static int jd_bus_read(struct i2c_client *client, const u8 *cmd, u8 cmd_len,
++		       u8 *data, u16 data_len)
 +{
++	struct i2c_msg msg[2];
++	int ret;
++
++	msg[0].addr = client->addr;
++	msg[0].flags = 0;
++	msg[0].len = cmd_len;
++	msg[0].buf = (u8 *)cmd;
++	msg[1].addr = client->addr;
++	msg[1].flags = I2C_M_RD;
++	msg[1].len = data_len;
++	msg[1].buf = data;
++
++	ret = i2c_transfer(client->adapter, msg, 2);
++	return ret == 2 ? 0 : (ret < 0 ? ret : -EIO);
++}
++
++static int jd_enter_backdoor(struct i2c_client *client)
++{
++	const u8 cmd[5] = { 0xF2, 0xAA, 0xF0, 0x0F, 0x55 };
++	const u8 data = 0x68;
++
++	return jd_bus_write(client, cmd, sizeof(cmd), &data, 1);
++}
++
++static int jd_read_reg(struct i2c_client *client, u32 addr, u8 *rdata, u16 rlen)
++{
++	u8 cmd[6];
++
++	cmd[0] = 0xF3;
++	cmd[1] = (addr >> 24) & 0xFF;
++	cmd[2] = (addr >> 16) & 0xFF;
++	cmd[3] = (addr >> 8) & 0xFF;
++	cmd[4] = addr & 0xFF;
++	cmd[5] = 0x03;
++
++	return jd_bus_read(client, cmd, sizeof(cmd), rdata, rlen);
++}
++
++static int jd_get_chip_id(struct i2c_client *client, u16 *id)
++{
++	u8 rbuf[2];
++	int ret;
++
++	ret = jd_read_reg(client, JD_SOC_CHIP_ID2, rbuf, sizeof(rbuf));
++	if (ret)
++		return ret;
++
++	*id = (u16)((rbuf[1] << 8) | rbuf[0]);
++	return 0;
++}
++
++static bool jd_section_ready(struct i2c_client *client)
++{
++	u8 rbuf[2];
++	unsigned int waited = 0;
++
++	do {
++		msleep(2);
++		if (jd_read_reg(client, JD_ERAM_BASE, rbuf, sizeof(rbuf)))
++			return false;
++		waited += 2;
++		if (((rbuf[1] << 8) | rbuf[0]) == JD_SECTION_READY_VAL)
++			return true;
++	} while (waited < 100);
++
++	return false;
++}
++
++static int jd_resolve_coord_addr(struct jadard_tp *ts)
++{
++	u32 esram_num_addr = JD_ERAM_BASE + 4 + JD_MAX_DSRAM_NUM * 8;
++	u32 esram_sec_addr = esram_num_addr + 4;
++	u8 buf[JD_ESRAM_SECTION_NUM * 8];
++	u32 addr, len;
++	int ret;
++
++	ret = jd_read_reg(ts->client, esram_sec_addr, buf, sizeof(buf));
++	if (ret)
++		return ret;
++
++	addr = buf[JD_ESRAM_COORD_IDX * 8 + 0] |
++	       (buf[JD_ESRAM_COORD_IDX * 8 + 1] << 8) |
++	       (buf[JD_ESRAM_COORD_IDX * 8 + 2] << 16) |
++	       (buf[JD_ESRAM_COORD_IDX * 8 + 3] << 24);
++	len = buf[JD_ESRAM_COORD_IDX * 8 + 4] |
++	      (buf[JD_ESRAM_COORD_IDX * 8 + 5] << 8) |
++	      (buf[JD_ESRAM_COORD_IDX * 8 + 6] << 16) |
++	      (buf[JD_ESRAM_COORD_IDX * 8 + 7] << 24);
++
++	if (addr < JD_ERAM_BASE || addr >= JD_ERAM_BASE + 0x1000 ||
++	    len == 0 || len > JD_TOUCH_DATA_SIZE)
++		return -EINVAL;
++
++	ts->coord_addr = addr;
++	ts->touch_data_size = (u16)len;
++	return 0;
++}
++
++static int jd_hw_init(struct jadard_tp *ts)
++{
++	u16 chip_id = 0;
++	int ret;
++
++	ret = jd_enter_backdoor(ts->client);
++	if (ret)
++		return ret;
++
++	ret = jd_get_chip_id(ts->client, &chip_id);
++	if (ret)
++		return ret;
++
++	if (chip_id != JD_CHIP_ID && chip_id != JD_CHIP_ID_ALT)
++		return -ENODEV;
++
++	if (jd_section_ready(ts->client) && !jd_resolve_coord_addr(ts))
++		return 0;
++
++	ts->coord_addr = JD_DEFAULT_COORD_ADDR;
++	ts->touch_data_size = JD_TOUCH_DATA_SIZE;
++
++	return 0;
++}
++
++static void jd_report_touches(struct jadard_tp *ts, const u8 *buf)
++{
++	u8 finger_num = buf[JD_FINGER_NUM_ADDR];
 +	unsigned int i;
-+	int ret;
++	bool any = false;
 +
-+	for (i = 0; i < count; i++) {
-+		const struct jd9365tx_cmd *cmd = &cmds[i];
++	if (finger_num > ts->max_points)
++		finger_num = ts->max_points;
 +
-+		if (cmd->len) {
-+			ret = mipi_dsi_dcs_write_buffer(dsi, cmd->data, cmd->len);
-+			if (ret < 0) {
-+				dev_err(&dsi->dev,
-+					"DCS write 0x%02x failed: %d\n",
-+					cmd->data[0], ret);
-+				return ret;
-+			}
++	for (i = 0; i < ts->max_points; i++) {
++		const u8 *c = buf + JD_TOUCH_COORD_INFO_ADDR +
++			      i * JD_FINGER_DATA_SIZE;
++		u16 x = (c[0] << 8) | c[1];
++		u16 y = (c[2] << 8) | c[3];
++		u8 w = c[4];
++		bool down = false;
++
++		if (i < finger_num &&
++		    x <= ts->abs_x_max && y <= ts->abs_y_max &&
++		    x != 0xFFFF && y != 0xFFFF)
++			down = true;
++
++		input_mt_slot(ts->input, i);
++		input_mt_report_slot_state(ts->input, MT_TOOL_FINGER, down);
++
++		if (down) {
++			touchscreen_report_pos(ts->input, &ts->prop, x, y, true);
++			input_report_abs(ts->input, ABS_MT_TOUCH_MAJOR, w);
++			any = true;
 +		}
-+		if (cmd->delay_ms)
-+			msleep(cmd->delay_ms);
 +	}
-+	return 0;
++
++	input_mt_sync_frame(ts->input);
++	input_report_key(ts->input, BTN_TOUCH, any);
++	input_sync(ts->input);
 +}
 +
-+static void jd9365tx_panel_reset(struct jd9365tx_panel *ctx)
++static void jd_poll(struct input_dev *input)
 +{
-+	if (!ctx->reset)
-+		return;
-+
-+	gpiod_set_value_cansleep(ctx->reset, 1);
-+	msleep(20);
-+	gpiod_set_value_cansleep(ctx->reset, 0);
-+	msleep(20);
-+}
-+
-+static int jd9365tx_prepare(struct drm_panel *panel)
-+{
-+	struct jd9365tx_panel *ctx = to_jd9365tx(panel);
-+	struct mipi_dsi_device *dsi = ctx->dsi;
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
++	struct jadard_tp *ts = input_get_drvdata(input);
++	u8 buf[JD_TOUCH_DATA_SIZE];
 +	int ret;
 +
-+	ret = regulator_enable(ctx->iovcc);
++	if (!ts->ready) {
++		ret = jd_hw_init(ts);
++		if (ret)
++			return;
++		ts->ready = true;
++	}
++
++	ret = jd_read_reg(ts->client, ts->coord_addr, buf, ts->touch_data_size);
++	if (!ret)
++		jd_report_touches(ts, buf);
++}
++
++static void jadard_tp_disable_regulators(void *data)
++{
++	struct jadard_tp *ts = data;
++
++	regulator_disable(ts->iovcc);
++	regulator_disable(ts->vdd);
++}
++
++static int jadard_tp_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct jadard_tp *ts;
++	struct input_dev *input;
++	u32 val;
++	int ret;
++
++	ts = devm_kzalloc(dev, sizeof(*ts), GFP_KERNEL);
++	if (!ts)
++		return -ENOMEM;
++
++	ts->client = client;
++	ts->max_points = JD_MAX_POINTS;
++	ts->abs_x_max = 719;
++	ts->abs_y_max = 1279;
++	ts->poll_interval_ms = JD_DEFAULT_POLL_MS;
++	ts->touch_data_size = JD_TOUCH_DATA_SIZE;
++
++	ts->vdd = devm_regulator_get(dev, "vdd");
++	if (IS_ERR(ts->vdd))
++		return PTR_ERR(ts->vdd);
++
++	ts->iovcc = devm_regulator_get(dev, "iovcc");
++	if (IS_ERR(ts->iovcc))
++		return PTR_ERR(ts->iovcc);
++
++	ret = regulator_enable(ts->vdd);
 +	if (ret)
 +		return ret;
 +
-+	ret = regulator_enable(ctx->vdd);
++	ret = regulator_enable(ts->iovcc);
 +	if (ret) {
-+		regulator_disable(ctx->iovcc);
++		regulator_disable(ts->vdd);
 +		return ret;
 +	}
 +
-+	msleep(150);
-+
-+	jd9365tx_panel_reset(ctx);
-+
-+	ret = jd9365tx_send_cmds(dsi, jd9365tx_7kf82_init,
-+				 ARRAY_SIZE(jd9365tx_7kf82_init));
++	ret = devm_add_action_or_reset(dev, jadard_tp_disable_regulators, ts);
 +	if (ret)
-+		goto err_power;
++		return ret;
 +
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 120);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, JD9365TX_DISPON_DELAY_MS);
-+	if (dsi_ctx.accum_err)
-+		goto err_power;
++	if (!device_property_read_u32(dev, "poll-interval", &val) &&
++	    val >= 8 && val <= 100)
++		ts->poll_interval_ms = val;
 +
-+	return 0;
++	if (!of_property_read_u32(dev->of_node, "touchscreen-size-x", &val) && val)
++		ts->abs_x_max = val - 1;
 +
-+err_power:
-+	gpiod_set_value_cansleep(ctx->reset, 1);
-+	regulator_disable(ctx->vdd);
-+	regulator_disable(ctx->iovcc);
-+	return ret ? ret : dsi_ctx.accum_err;
-+}
++	if (!of_property_read_u32(dev->of_node, "touchscreen-size-y", &val) && val)
++		ts->abs_y_max = val - 1;
 +
-+static int jd9365tx_disable(struct drm_panel *panel)
-+{
-+	struct jd9365tx_panel *ctx = to_jd9365tx(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, JD9365TX_DISPOFF_DELAY_MS);
-+	return 0;
-+}
-+
-+static int jd9365tx_unprepare(struct drm_panel *panel)
-+{
-+	struct jd9365tx_panel *ctx = to_jd9365tx(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, JD9365TX_SLPIN_DELAY_MS);
-+
-+	if (ctx->reset) {
-+		gpiod_set_value_cansleep(ctx->reset, 1);
-+		msleep(20);
-+	}
-+
-+	regulator_disable(ctx->vdd);
-+	regulator_disable(ctx->iovcc);
-+	msleep(20);
-+
-+	return 0;
-+}
-+
-+/* 800 * 1510 * 50 / 1000 = 60400 */
-+static const struct drm_display_mode jd9365tx_7kf82_mode = {
-+	.clock		= 60400,
-+	.hdisplay	= 720,
-+	.hsync_start	= 720 + 20,
-+	.hsync_end	= 720 + 20 + 20,
-+	.htotal		= 720 + 20 + 20 + 40,
-+	.vdisplay	= 1280,
-+	.vsync_start	= 1280 + 200,
-+	.vsync_end	= 1280 + 200 + 2,
-+	.vtotal		= 1280 + 200 + 2 + 28,
-+	.width_mm	= 87,
-+	.height_mm	= 155,
-+	.type		= DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-+};
-+
-+static int jd9365tx_get_modes(struct drm_panel *panel,
-+			      struct drm_connector *connector)
-+{
-+	struct jd9365tx_panel *ctx = to_jd9365tx(panel);
-+	struct drm_display_mode *mode;
-+
-+	mode = drm_mode_duplicate(connector->dev, &jd9365tx_7kf82_mode);
-+	if (!mode)
++	input = devm_input_allocate_device(dev);
++	if (!input)
 +		return -ENOMEM;
 +
-+	drm_mode_set_name(mode);
-+	mode->type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
-+	drm_mode_probed_add(connector, mode);
++	input->name = "Jadard JD9365TX Touchscreen";
++	input->id.bustype = BUS_I2C;
++	input->dev.parent = dev;
 +
-+	connector->display_info.width_mm = mode->width_mm;
-+	connector->display_info.height_mm = mode->height_mm;
-+	drm_connector_set_panel_orientation(connector, ctx->orientation);
-+	return 1;
-+}
++	__set_bit(EV_ABS, input->evbit);
++	__set_bit(EV_KEY, input->evbit);
++	__set_bit(BTN_TOUCH, input->keybit);
 +
-+static enum drm_panel_orientation
-+jd9365tx_get_orientation(struct drm_panel *panel)
-+{
-+	struct jd9365tx_panel *ctx = to_jd9365tx(panel);
++	input_set_abs_params(input, ABS_MT_POSITION_X, 0, ts->abs_x_max, 0, 0);
++	input_set_abs_params(input, ABS_MT_POSITION_Y, 0, ts->abs_y_max, 0, 0);
++	input_set_abs_params(input, ABS_MT_TOUCH_MAJOR, 0, 255, 0, 0);
 +
-+	return ctx->orientation;
-+}
++	touchscreen_parse_properties(input, true, &ts->prop);
 +
-+static const struct drm_panel_funcs jd9365tx_funcs = {
-+	.prepare = jd9365tx_prepare,
-+	.disable = jd9365tx_disable,
-+	.unprepare = jd9365tx_unprepare,
-+	.get_modes = jd9365tx_get_modes,
-+	.get_orientation = jd9365tx_get_orientation,
-+};
-+
-+static int jd9365tx_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	struct jd9365tx_panel *ctx;
-+	int ret;
-+
-+	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
-+	if (!ctx)
-+		return -ENOMEM;
-+
-+	ctx->dsi = dsi;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+
-+	dsi->lanes = 2;
-+	dsi->format = MIPI_DSI_FMT_RGB888;
-+	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-+			  MIPI_DSI_MODE_LPM;
-+
-+	ctx->reset = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ctx->reset))
-+		return PTR_ERR(ctx->reset);
-+
-+	ctx->vdd = devm_regulator_get(dev, "vdd");
-+	if (IS_ERR(ctx->vdd))
-+		return PTR_ERR(ctx->vdd);
-+
-+	ctx->iovcc = devm_regulator_get(dev, "iovcc");
-+	if (IS_ERR(ctx->iovcc))
-+		return PTR_ERR(ctx->iovcc);
-+
-+	ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
++	ret = input_mt_init_slots(input, ts->max_points, INPUT_MT_DIRECT);
 +	if (ret)
 +		return ret;
 +
-+	drm_panel_init(&ctx->panel, dev, &jd9365tx_funcs, DRM_MODE_CONNECTOR_DSI);
-+	ctx->panel.prepare_prev_first = true;
++	input_set_drvdata(input, ts);
++	ts->input = input;
++	i2c_set_clientdata(client, ts);
 +
-+	ret = drm_panel_of_backlight(&ctx->panel);
++	ret = input_setup_polling(input, jd_poll);
 +	if (ret)
 +		return ret;
 +
-+	drm_panel_add(&ctx->panel);
++	input_set_poll_interval(input, ts->poll_interval_ms);
 +
-+	ret = mipi_dsi_attach(dsi);
-+	if (ret < 0) {
-+		drm_panel_remove(&ctx->panel);
-+		return ret;
-+	}
-+
-+	return 0;
++	return input_register_device(input);
 +}
 +
-+static void jd9365tx_remove(struct mipi_dsi_device *dsi)
-+{
-+	struct jd9365tx_panel *ctx = mipi_dsi_get_drvdata(dsi);
-+
-+	mipi_dsi_detach(dsi);
-+	drm_panel_remove(&ctx->panel);
-+}
-+
-+static const struct of_device_id jd9365tx_of_match[] = {
-+	{ .compatible = "viewe,7kf82" },
-+	{ .compatible = "jadard,jd9365tx-7kf82" },
++static const struct of_device_id jadard_tp_of_match[] = {
++	{ .compatible = "jadard,jd9365tx" },
 +	{ }
 +};
-+MODULE_DEVICE_TABLE(of, jd9365tx_of_match);
++MODULE_DEVICE_TABLE(of, jadard_tp_of_match);
 +
-+static struct mipi_dsi_driver jd9365tx_driver = {
-+	.probe = jd9365tx_probe,
-+	.remove = jd9365tx_remove,
-+	.driver = {
-+		.name = "panel-viewe-jd9365tx",
-+		.of_match_table = jd9365tx_of_match,
-+	},
++static const struct i2c_device_id jadard_tp_id[] = {
++	{ "jd9365tx", 0 },
++	{ }
 +};
-+module_mipi_dsi_driver(jd9365tx_driver);
++MODULE_DEVICE_TABLE(i2c, jadard_tp_id);
++
++static struct i2c_driver jadard_tp_driver = {
++	.driver = {
++		.name = "jadard-tp-jd9365tx",
++		.of_match_table = jadard_tp_of_match,
++	},
++	.probe = jadard_tp_probe,
++	.id_table = jadard_tp_id,
++};
++module_i2c_driver(jadard_tp_driver);
 +
 +MODULE_AUTHOR("Hefei <3066883572@qq.com>");
-+MODULE_DESCRIPTION("VIEWE 7\" JD9365TX MIPI-DSI panel");
++MODULE_DESCRIPTION("Jadard JD9365TX in-cell touchscreen");
 +MODULE_LICENSE("GPL");
 -- 
 2.55.0.windows.5
