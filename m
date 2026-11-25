@@ -1,60 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625279;
-	b=FyfnxovOMWzfQXNsfPEbJ01ujgr3vc1CG8n2EV1od1sx6TKQH2OV6ksCwsBmGe9QQQKH
-	 Ojkh9K1esTQTTd3mn4cmgvkS/f4p7NlrhJ7FS2nu6qR7l3Wc2vhTH5mREuZ4WoDraOJjv
-	 sqdypvPFggYdzQK7EjoXUCe5H20cRZtCiyxhuW9MkjtI7iP9g+mXqoYff1OYAhBIgfrQE
-	 0b4ilpnMS442Gvl/Ky/slC1CkxBzanvHbX/ZNYokEiBsiKAF/GqOGTXu2nyBzjB9Ei7qm
-	 iWTy2ATmumOsxi4W9ou8ngp7nWLaygntEi+WuTq0vCUlNeTOfq6cye7yTevqyZCUq4A==
+	t=1795625790;
+	b=G14Dv/ktIT1L/0EI1cb5bQDf8Yo36KY30ATa3tGhtfvNaO0JCIxl98dLXyuSC5Bme4r5
+	 Ixank8APBznX/qCndePi6FDARIhmLLNF2Jqxb+Kc7P5oeFttjloP3UXVBYv82WIa953mu
+	 sH6zPEPbwsV2OYQtR128LadFPMnb7ueYfvHo1kRk96MoixgoR9+EPXSsgNi/R16N7S+/I
+	 vSnaEDrtErVWDBFcfzXNrMTynsFjqso0oq+ZCYRSkGmF99KLHCK9+6AztVJb/S+JcwzFL
+	 +j7PX1qE8IhQaa7kkVswIcl6bw2ul5k+4EanoBa8Td4o8M/fe4/jTT926zLKwFU17sg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625279;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=7TatMQsD+nKk2SlAoHDqVLWs4KiHkC+B/2mGwzcyZ3E=;
-	b=ixlcG3rrGYDTYSojFb8rQHYdhyHNtAxJzt+G7Ee3jxxq3AqEVR2tRhTz9elXu835bPgD
-	 vVW5KKjIsm1zR3VZlaPmSdot/+sEG9pm1bkXmifnZ7yPjDABUMdY5XPMhnSzZGv5nG2rb
-	 IfvK4ew9sZj6SilazkIsmgVXxiDXMHsgOJIHXfYKAGNR9qgRHyjUtzK68RODjKSsuUrUx
-	 iNaVuASXzQQM9Wc0PJ31l2PrU8cY5SmqVouS7/LfZiPkAG6r1fHZgjhDCNqit40RycwjY
-	 N3Ln0u5EDdSWohPdk4WD88GG6lTYXHbhg9qW/yu19mKDPOQvhlJPkBhZmqV3b7KfKaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625790;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=/KcILltQBoAou7W2+XQ9IkERjy/Lp2MpSgOSIAqYW+I=;
+	b=F/NzThelLl9Hdy94+6CV+a3fWDyuksvdeEx8d9+gaqV/eagrCJJ+TrclRcijONhG16T7
+	 a+8i72syIloUcuZmCXRTlB+YsdBz7NO4DOYut34lS8askwgzakrVsAvwQmXU5Dnj3uUWG
+	 IhwVzAv6ctoGeqVfOhc264UZGpHRmSUrE/6ROHudszGrXVN89ipVXb4Zz4bDpRWqt6jrd
+	 Dih+JwheSe+vxYnUy3lXYBYgh4eUdmbEPQL+vZKh+LEYqsWpQH84R6kIJcdZSoBth7g2G
+	 jKy7/HvbezquyRlAkDJvupcKEcJib8KiluhYLqEy3uaUnxleRPsVx4/SsJKRD28791g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=EpN4216W;
-	arc=none smtp.remote-ip=210.118.77.11
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=fail header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.222.179
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50154606A321;
-	Wed, 25 Nov 2026 16:47:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50154606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=EpN4216W
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261125164755euoutp01a5a5fab61dd9798e759be69e5b9e0235~rV6zDc7Lk0384803848euoutp01t;
-	Wed, 25 Nov 2026 16:47:55 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261125164755euoutp01a5a5fab61dd9798e759be69e5b9e0235~rV6zDc7Lk0384803848euoutp01t
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1795625276;
-	bh=7TatMQsD+nKk2SlAoHDqVLWs4KiHkC+B/2mGwzcyZ3E=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=EpN4216Wld6F8bjjy70JLDrBUDUtE6rusAEz54jLTD3XLo2dUxl4yXXaT+DeXIusV
-	 jYQiUTmMqF955Qs375ei7zjQB+xf20y3Zoo9JdFKubXAw0PUTGsZet5P46/scw/Yfp
-	 E0IVKOHx3TmBqWcPJ4keVQVXch7GmomOtUXCwOe0=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261125164755eucas1p24d5d6bb83e752fd082cddf5be8b0dfd1~rV6yfXVA43152031520eucas1p2P;
-	Wed, 25 Nov 2026 16:47:55 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261125164753eusmtip18d3c6a9329085828572b3a1b4e8ce215~rV6wxHev50383403834eusmtip1t;
-	Wed, 25 Nov 2026 16:47:53 +0000 (GMT)
-Message-ID: <74cccd59-ef2c-4334-aa75-b187379e66a6@samsung.com>
-Date: Wed, 25 Nov 2026 17:47:53 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A32BE606A31E
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 16:56:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A32BE606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93f3c616c84so471941085a.1
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 08:56:29 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795625788; x=1796230588;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/KcILltQBoAou7W2+XQ9IkERjy/Lp2MpSgOSIAqYW+I=;
+        b=Rn7PYBx8h4moOXJooL1Rv55hRqCB15t/dUY4GTfJHP8mKwExpSNV4g95rRqoKqA3c3
+         hAClGtbI2KQNpU/Fbq956B7/ENn0UAeZGFTciOR3eV5ctomFBXLtDu8G/0Pp+xDTOf6L
+         d5QmQy3Gibh3QnDhRmjEI4vZcrbGCXeo9TixJe0gOViiEZ2fWd28p/uZu6HKLi4Kwugw
+         Pb5iT1xOXeBqkCJmfDb/W+xaPRDPnJne24rO/J+S1qaZDNwUaTqyEpl6YlVrt6AVjT1p
+         /9z/njujLdyEwvPhjU9UZOFRpapO+7wPA6EhsjAM8F8SAv5Q+VkNpaYFvMGCtkRkQ+9l
+         R/GQ==
+X-Forwarded-Encrypted: i=1; AL+hErFOciqG4fVaV7ynD7CedZMRtvZlBi2sLnCiRT3B5gtQJdOcyRxsdp8tgEgR99rNWJriVdbeKEd1CeZf@vger.kernel.org
+X-Gm-Message-State: APuU4Z/yLRzGxNfJ2j9/8cp6O4i1joQYFBRtWJZPOUCXWXZE/zSssVOS
+	zuucKr2jzM60bZRd/OtUBl9u/GItBAfSZkLqBqXD+4E1dhX+c4mSiLTIZCEc/CIn
+X-Gm-Gg: AZFdTZeidNM1YIOvg9Z51ZvdHpWOmiAGHRQAxGXNsHgg+SD2m4x1oE+jh70YWsOKOrM
+	DXtBiGv1+q8HBsit31o9KxiAKrhwcViVzPtss10cZ3x42COYyJSmCPFzUH2UMKySTQ1uEL8XUau
+	xevGbwygJDTl2MrPSa/C52xv5MZXnDINe/qs8dc/qzWpW+9zs0mFdo4RrR4KOUP4JozTQcrx17L
+	l4Vtg8Q22pwgHB47AfCmnIBJpU0x2ZqukrVh++LW5+KCWR97Wk/E80gv7hb05TktlIYJeEnyiRo
+	pm1OottTNFvPNuT/a51Zr3q5nS/2eK2iTENATVTt7N0reOcavmkEKkMHWF85VFT6nndKqKhswO5
+	9urMgEdxDn3Cbd12mFBvQmA9iGiFnTNmjY6dqk/ljhiepmjVwpt4NVit+zMdthm98KhhjmTLX5c
+	zNbm69uSL93twL1UNjuo+WEEl81HOQOeuxmaTgRo3Q7yU+K97sFxV4aKTwp0dLSJu9FBYD7w8D8
+	2VrmQyfgpwjRLVxXfkUFfaE5RN9EmGeD5p4szlMd/bM3Dd+ECqfKZIFt8BYDAw9tBE65Deqr70+
+	McaIz7i/+JZJf26xP+L3+ZrqH06EVsx2xHBQ0TLj0LrZwy3VkdRvnxF+W/ZIA+IuAiQ=
+X-Received: by 2002:a05:620a:44c4:b0:949:68b6:db42 with SMTP id af79cd13be357-949ba966a29mr3472963485a.23.1795625788521;
+        Wed, 25 Nov 2026 08:56:28 -0800 (PST)
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com. [209.85.217.42])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-94a0189dbcesm310892685a.13.2026.11.25.08.56.28
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Nov 2026 08:56:28 -0800 (PST)
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-74ab99038afso3924041137.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 08:56:28 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEKu94peJ1uAkez+FOlVykfCsvO23eQRGiaHzdLTlv8S10aeWKD0XS7vwtJr7COTONOnkpFK0Cc2ZWY@vger.kernel.org
+X-Received: by 2002:a05:6102:578a:b0:7cc:2f04:a078 with SMTP id
+ ada2fe7eead31-7d7396c2b24mr10563851137.37.1795625787958; Wed, 25 Nov 2026
+ 08:56:27 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,104 +80,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 04/18] dt-bindings: display: starfive: Add
- starfive,jh7110-hdmi-subsystem
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Robert Foss
-	<rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
-	<luca.ceresoli@bootlin.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Philipp Zabel
-	<p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
-	<hal.feng@starfivetech.com>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
-	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
-	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
-	Belhachemi <db@domibel.de>, Andy Yan <andyshrk@163.com>, David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Yakir Yang
-	<kuankuan.y@gmail.com>, Dmitry Baryshkov
-	<dmitry.baryshkov@oss.qualcomm.com>, Conor Dooley <conor@kernel.org>,
-	William Qiu <william.qiu@starfivetech.com>, Xingyu Wu
-	<xingyu.wu@starfivetech.com>, Sandy Huang <hjc@rock-chips.com>, Manivannan
-	Sadhasivam <mani@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
-	linux-riscv@lists.infradead.org, Marek Szyprowski
-	<m.szyprowski@samsung.com>, Maud Spierings <maud_spierings@murena.io>,
-	Graham Markall <hello@big-grey.co.uk>, Icenowy Zheng
-	<zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>, Joshua
-	Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
-	<u.kleine-koenig@baylibre.com>, Cristian Ciocaltea
-	<cristian.ciocaltea@collabora.com>, Conor Dooley
-	<conor.dooley@microchip.com>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <20261125-tasteful-brown-galago-a6725e@quoll>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261125164755eucas1p24d5d6bb83e752fd082cddf5be8b0dfd1
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261124155406eucas1p23a523deb496c21cbf3da3724812a8101
-X-EPHeader: CA
-X-CMS-RootMailID: 20261124155406eucas1p23a523deb496c21cbf3da3724812a8101
-References: <20261124-jh7110-clean-send-v8-0-de92635dd857@samsung.com>
-	<CGME20261124155406eucas1p23a523deb496c21cbf3da3724812a8101@eucas1p2.samsung.com>
-	<20261124-jh7110-clean-send-v8-4-de92635dd857@samsung.com>
-	<20261125-tasteful-brown-galago-a6725e@quoll>
+References: <20261120-paul-v7-3-rc1-edac-v9-0-470f2e6928cd@bootlin.com> <20261120-paul-v7-3-rc1-edac-v9-2-470f2e6928cd@bootlin.com>
+In-Reply-To: <20261120-paul-v7-3-rc1-edac-v9-2-470f2e6928cd@bootlin.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 25 Nov 2026 17:56:16 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdXwTWXN4XepPPrKUTJXRk4pQ+MzGbDADe1Z7FSB7q11pQ@mail.gmail.com>
+X-Gm-Features: Aa3M54ojpcJtUnDseL85QBstdnKjfhN6BZ1wTiGKwa4bXu6gXK1ydb3RLzGiqBk
+Message-ID: <CAMuHMdXwTWXN4XepPPrKUTJXRk4pQ+MzGbDADe1Z7FSB7q11pQ@mail.gmail.com>
+Subject: Re: [PATCH v9 2/3] EDAC/cadence: Add Cadence DDR EDAC driver
+To: Paul Louvel <paul.louvel@bootlin.com>
+Cc: Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-edac@vger.kernel.org, devicetree@vger.kernel.org, 
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Miquel Raynal <miquel.raynal@bootlin.com>, 
+	Herve Codina <herve.codina@bootlin.com>, Wolfram Sang <wsa+renesas@sang-engineering.com>
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Paul,
 
+On Fri, 20 Nov 2026 at 17:09, Paul Louvel <paul.louvel@bootlin.com> wrote:
+> Add the Cadence EDAC driver found on Renesas RZ/N1x SoC.
+> The memory controller supports ECC, software scrubbing, and SECDED.
+>
+> Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
 
-On 11/25/26 08:31, Krzysztof Kozlowski wrote:
-> On Tue, Nov 24, 2026 at 04:52:40PM +0100, Michal Wilczynski wrote:
->> Add the dt-binding for the StarFive JH7110 HDMI subsystem.
->>
->> The JH7110 HDMI IP is a monolithic block containing both the digital
->> controller and analog PHY in a single register space. This binding
->> defines the parent device, which holds the shared register map, and its
->> two children: the PHY and the controller.
->>
->> The two have separate resources. The PHY takes the 24 MHz reference
->> clock and provides both the pixel clock, which the VOUT clock generator
->> routes on to the display controller, and the phy the controller uses.
->> The controller takes its clocks from the VOUT clock generator. What
->> they share is the register space, which the parent maps.
->>
->> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
->> Acked-by: Conor Dooley <conor.dooley@microchip.com>
->> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
->> ---
->>  .../starfive/starfive,jh7110-hdmi-subsystem.yaml   | 95 ++++++++++++++++++++++
->>  1 file changed, 95 insertions(+)
->>
-> 
-> DT bot reports here a lot of failures. I don't see immediate problem,
-> but something feels odd.
-> 
-> E.g. https://protect2.fireeye.com/v1/url?k=1f5c925f-40c75c3b-1f5d1910-000babda0201-32d14b792e1191ed&q=1&e=0335675f-d64b-42b3-b953-cd282e903fa2&u=https%3A%2F%2Fgitlab.com%2Frobherring%2Flinux-dt-review%2F-%2Fjobs%2F18332570769%2Fartifacts%2Fraw%2Fbuild-15017782.log
-> (see rest on DT patchwork)
-> 
-> Best regards,
-> Krzysztof
-> 
-> 
+Thanks for your patch!
 
-Hi,
+> --- /dev/null
+> +++ b/drivers/edac/cadence_edac.c
 
-Thanks for checking. For patches 4,6 same as in v6 [1], these come from
-dependencies missing in the bot tree.
+> +static int cdns_setup_mc(struct platform_device *pdev, void __iomem *io_base)
+> +{
 
-The dependency is in the cover b4 prerequisite trailers and Rob
-mentioned in v6 that he would look at why the bot did not pick it up.
+> +       edac_mc_chipset_printk(mci, KERN_DEBUG, DRV_NAME, "ECC %s\n",
+> +                              (!priv->ecc_enabled) ? "disabled" : "enabled");
 
-For Patch 3 a comment in its example points at the hdmi-subsystem
-binding by path, and that file only comes in patch 4.
-I'll fix that in v9, and also note the dependency in patches 4 and 6
-themselves under ---.
+Inverse logic is harder to read.  And we have a helper for that:
 
-[1] -  https://lore.kernel.org/all/20261029183041.GA4029917-robh@kernel.org/
+    str_enabled_disabled(priv->ecc_enabled)
 
-Best regards,
+Gr{oetje,eeting}s,
+
+                        Geert
+
 -- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
