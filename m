@@ -1,111 +1,113 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795577096;
-	b=kXwR2rdlcbiQljM3Tjd6X9L/ypz4ANyCZ6RGe7JNfH4HcRHOR9aj6/lDnqACytT5R/SS
-	 HnQTsmrlCVuTKsKXHKY/LhPc+b4AyhnQUVCbTVq2KBGmucokD+5LWIIe5dxM0IVja55nr
-	 FLaks1b/Ym3Il3dWTLmTkotcaSj72w2JDmR39ual3Z3QXkDG5B8/ncun55655UA/8c5fp
-	 Js6eoVuzUuTPRtWRlZuApRji6+V4/OElTRc35ylYX3OFy7yqJQA9gfbbBnZq2NZKgFVDr
-	 Y2TStnUxkm9I5bl3tTSv9eYGN1/rQJlSZ9zQmb1zRIYIEnl6NeNNCpc13ZSkwY2kqIw==
+	t=1795577101;
+	b=LgGzoYlRjgdFeR/EFZ7unyRZBEwAvUefVlPBBtOq49cHtSDDNxS2qFcEEpm+T1c7dmEz
+	 Ji8pQcJf5LF0PJdd8xQRrEFbMYOwJRC49hcx+OD/whmYpyri8IiILwc9UJP8cdP5qFKCp
+	 1/vj0REXA642efS6TscayIfFB2xG7tAiSVx0+B+UVfqccJs+JFJhfijK8NticSTbA1c7K
+	 seAWP/roejxOxUSN2bZKKw8Ne0hPE6avVG8zjH9gFtiVr4uAAMEB/1vCrjvEkiAbVYM1V
+	 OoJTSpRNPvMwZ2o1k1wrGF7d7dguBd+GQvxPd/YLqrUwXudZAZ6roU4uefHOe9poRRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795577096;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795577101;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
-	 Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=0nyNvRPyvRlCibHwspR4g76SunM75HIc6k9JPpTvtAg=;
-	b=uDwsbRamXjXvsfehJjAcdUvEvkhZX9P0Qhd6+BUyeg1PEuLwK6vI6fTrcBCr3fhyVt7e
-	 sGVHfw0/L3SjhaR7uImz2HOOSJA+EB25TrHA2KfHQul7m+Gs2B6ll3FP4dZjbw4EcVx2w
-	 e0B5G5900r/3B25OimCL22lKE1l6d5LKXQn/LeNUEuX+gm/nVufJQLeedMHcZJnD87Iqs
-	 3uRu/Y3oi0NWwDvEsZP39ob5k3D2IzqH/D52NS321ZAheWiqn/ti6uzR9PY6oOpBIwPEM
-	 Bt6ZLTfD7Z5mwagXrsjae7p67hBHE7jomQucnesTt3IF1OVbH7t5Ac81zKl2xvNephg==
+	bh=U/lLHAG9L55IesgzDJmUcBxHasnZ0LHm1rImvp+HR6I=;
+	b=NZDKsG1SaSFt4s1OreFOf6/W2M45n7bRS2IQ5LvVAF2zgkasKNtDRugWTF2tqr+nE/v4
+	 Rn+VpIuJdh08lxZd8p8lpxbIygF7H7LdWSh3bepq/AQ+tBS22hPap73ySEutNAv5+G5qa
+	 n7IgNb/QjCuI6y9rRfsYAz2cW6Xfnn9oamcmiXlrA5y5tE1AHeX+diLGx8lofY/Q3t4sv
+	 Z7swfr9Kw4uO7CbLkHBcXpc8XbTejRhNmk3Ru4Qy+7PdNhfBi/t73bMQsa6ojWK4jlQCj
+	 FkMOe8vmYZFNBZKF29yKESoRBAeM2SxShIDlT8LO+ChA1JTjUqNUY50Ql6BOJw3E6cQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fBVszIZh;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jQ29X0yW;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Cwf5v+gs;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bbuIcCBv;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E1CA606A32A
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 03:24:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E1CA606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC668606A323
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 03:25:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC668606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fBVszIZh;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jQ29X0yW
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AP2AvmP1342533
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 03:24:54 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Cwf5v+gs;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bbuIcCBv
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AP2ArWA3973980
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 03:25:00 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=0nyNvRPyvRlCibHwspR4g7
-	6SunM75HIc6k9JPpTvtAg=; b=fBVszIZhwzoWTtoqlPc6Y2hu9EWxZw74d6yJfi
-	qMbTYOiL41xN/K28QOojoditj37lfO6VOeGHr3FIcWDaExMnAfXEkDgLf8L346q0
-	rucekM/TGof2CuDpMsi26mgMBCmAyc04C6s4dpK4DA0G8zPYg0eUxzbhdkeqxFnx
-	yfw3hLqS6poc7/z/oM34AIAKpXsaLx3U7sKG/HijPlItpH9kwMG0iTS8pD2etFZQ
-	zGsf6ozC5gXSweWCrKN/s5V+v4DRRmAZyr7E/qXFasQ2a9U0378PcCmIqxir9Iax
-	d2+osL45mVETqzDO2mLYNEq0TtGsIO9nOEOKqLCZd4QFfs2w==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5nu68crc-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	U/lLHAG9L55IesgzDJmUcBxHasnZ0LHm1rImvp+HR6I=; b=Cwf5v+gsK6jYVmO+
+	HJMSRR7+vmifr1VSsv6mX5G2ypFk+RtC9dPpdcB7hhdUBWjeVpa229//tgOK/MaY
+	qXNiuPEZZ0Ye5qwW2Hrh+bh1HluEYE3sdwIKw+oDGGuiLlkIiw99PfiEqa3jBy0K
+	MjkxCEMpItG+rzRE8V5IS6suVa2AH6CX9hpBJrvKrd++QLHqUUmXDW83O89VdkW4
+	e2aD2uLVjW/JF+98dezAGEApYk+BVckfN1xcjdYMKYgEbF3BRxn9wTKXfuWM3Th/
+	MRIeNq79tGWYVLVIRNCSa4Zcl5HWCAU9kpD78Al48uz4y+raiISWlqYj5SHNkhCf
+	OzWFQg==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5n6rrghn-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 03:24:54 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8b852fdd55aso104648b3a.0
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 19:24:54 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 03:24:59 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8a0619b1fe5so4370205b3a.3
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 19:24:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795577094; x=1796181894; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=0nyNvRPyvRlCibHwspR4g76SunM75HIc6k9JPpTvtAg=;
-        b=jQ29X0yW3ZuowRceDghYS0dZUH+SpRTG2XquHoYjpV+Z2fvCHh90xUBgpfbyB4Ny/L
-         6TUF8nbaHhbrYGc+2s8rxcu/t845HFKaxVMxXV89TJx9pAc9QZhwkogKi2VGUrFL3O/C
-         l++ywGhxA4VekzMk67weWy4CDspR17+nD9lTEQz4GZzWyXKwTvurKrB5trmIJ2mOwqQS
-         Zkd3GhucerRpUEk+nvm6ojNTQgPlCRyo8iAZcRhRRVQQTNOcmfOzg239myuSaZfq5hNx
-         Y0UmKMUlMo3w2SAI5LsjagSLqpACiS/AAdAZtIzNw0qy+pFmWQAtMsYdhZrLV2PClKlG
-         zy1g==
+        d=oss.qualcomm.com; s=google; t=1795577099; x=1796181899; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=U/lLHAG9L55IesgzDJmUcBxHasnZ0LHm1rImvp+HR6I=;
+        b=bbuIcCBvn0MXXDGy/vF4wjJjMIj94hKsUyCMMhl4/pNPcTi33edyQKk5C+1001ZPRz
+         JxlnECP4E1J5rF3OL6eEOF+awkv3JAQe/EsaaLvO+7HmlJQIPrsbNLcgEiVI5xV7hP5c
+         7ZU6dI0Gzy0+BjS/6lnTD7zwfz69C4sHBAKDdxwBAaHlJXy80L5yq82r7ok7+oKb6oof
+         J5bwbSB4y3lU0HH05Hd7x0lrxKMYcOEXbxZngGc5Bh4tggYHxvFQuMx0rhrTd6hT3XDk
+         Mec/ViRgpMjYFBuCNQlDDmkDaiqwUtnTZ84BBOf06HdrR/iJONARbPkUwLnc0NiFKrbF
+         sqJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795577094; x=1796181894;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=0nyNvRPyvRlCibHwspR4g76SunM75HIc6k9JPpTvtAg=;
-        b=q0W5BhHvvzSEowYyhnxd42YG/M8XEy1rLpT5BVd0vC5WiKwQ3ffE5WTnl+1CgZNejf
-         IsG9Ptf/w4AUIS3zC4iFmn2lhIvcf6Nf1Ztrs0chWW2CBHgumvJiw7BgMz99lM7MwxJn
-         5ibpB6xG8rTHRPz72Oq812YFBVvU94YunXQ/Qfq0pswAM2Sf1ID39AkgxRBVdTY2c7a4
-         N5p2y/V/t5EmpQsb7FK017Mze5zdwJRY/D3PSqM6ZPLpFwZeNfNISBzCJ11all172dkF
-         DYzfsO+1WPLpSxwhnWqH2od55oqNf3g7z4BVc+vZRYFoj+8GlOumFLKYl/Y2jHZhSyMY
-         Fplw==
-X-Forwarded-Encrypted: i=1; AL+hErEnkBeXD6db+dEO7oj94WkH2Zqa0ewSwfmypx8QpfYhTEJb7K31Zy33aMprK5i0dU2g9588UqqC8NT1@vger.kernel.org
-X-Gm-Message-State: APuU4Z8syeAS/m/VMIvLM9SMMr6nVgUCyLDhsTBj5M8hB6mVVlx5SEYN
-	EmOdlB6RrWXXEKYQSqKu+x4aYHisExI0VeqrZs0GR74KNUV1JJJbjOSwbRLEDAdQxNLEFfx9HYe
-	ZpqLlcXuKNdATuER1hNylmx428aBnikMYoC2qfk7bsPF40Zo8oMhAoZXjDq1N7yGM
-X-Gm-Gg: AZFdTZcVZ9ROc/f4xYQszCggNM0IdcTSuxACDnPSQjgAPSbGzJ2iNFE9234WOfFjQpV
-	+ujAivPaZOHPmv3nEacrARTKNc5pkY/7+s0OWMvMaZUL2cm1cFeJywthd2gbuud2aHSRzdca2mR
-	yAOSSCUJvot4rPsUQjyHvgCVCD8tNNq3CGeqdX4ZKahhxgKfoxgxYqiiWQW0obTJmluCM6jazPq
-	bKjrDnc4IGG8Ens5Ln+vEN11Un8NDRJWoP+R6PpAhwe0kk1y24eNSNqXlBx3e4w6cFoFpbBqqky
-	5jRpX1dr60k+p15BGe015jcN8qm1Aafu4V/5IHfAT/e1EbgCl7ahQNZzokPh4c0uzyRUD4AQZbq
-	TONywD21YHzNgVdvU9nuwdujPwk+0IERVIkBuO68D78JE7AtTLwV0GbP8qOgs1Nwjx088Mngswt
-	UZQmoolx8=
-X-Received: by 2002:a05:6a00:4605:b0:878:3783:8a88 with SMTP id d2e1a72fcca58-8c87d22886dmr17405153b3a.52.1795577093465;
-        Tue, 24 Nov 2026 19:24:53 -0800 (PST)
-X-Received: by 2002:a05:6a00:4605:b0:878:3783:8a88 with SMTP id d2e1a72fcca58-8c87d22886dmr17405114b3a.52.1795577092853;
-        Tue, 24 Nov 2026 19:24:52 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795577099; x=1796181899;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U/lLHAG9L55IesgzDJmUcBxHasnZ0LHm1rImvp+HR6I=;
+        b=nmOLs4WENPZcIMovfvMwOSxmgnS03xvhmAImnjZhCLTa+Yni9VOfvB1QLNIHj5yLLB
+         +AJUH6sajz4Kn2kdJXvUK89JNvuzQbxDSiZTHp/lmWrBIV6cW1+gXR8sVJmJ33KwvNry
+         +sIXghuPOyVrdRgKeVY5QJ2kV+Cr3CuXmiRGAOo6GMhYeczzbBDKJg4EjwNUQgJcGBAy
+         nGp8VjE2m5AUDdt0AH+a2G8dZEHbBJ3mZbFKcAltG6oL6ZUZkmAvd+BCNOLsWRJdyNjA
+         hIHU1TiiPEy9wsklDAI6E/y8OH8WWJexU6hqSyUp5JbgZfDpB731K/yojXJwss/LY7pY
+         FbqQ==
+X-Forwarded-Encrypted: i=1; AL+hErGJw7gx63MXUZPN6jGTqgQ6ZbG4bSkjP4DQ5Y3iuuXskgGyj2oFDarxubp/9CPuzy13jMlvCAQBue7J@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ggCVhzGYGJaJpHMNvdm5bzVtVlTfHiSDEBngn3xxhG/imeyU0
+	7IftpJDpZej6QS6E33l4RIYOHmaYO1HEDRo2Vi3lh8+DIWvqSEtJMsgske1yJNTWZkGZEuGm390
+	wYe8bLeqmNf6Yr8EQrQrNoedWAwfg0orlCm+O9unUybw7iWsoiLo8UkBrEacqHl76KwV+nfUM
+X-Gm-Gg: AZFdTZfdmITo/sZvANr+5DJ+tBa3JRmMH9qc6OyIZ43mcJWbFlGXnTRh2UDskswvxPT
+	eTyQgOMHyAUAzj0Shr4jQE/F+K1oBJh5nNuUyrPhgQM1FutA3UUVf1sigvKQocPZ3NCPDb0fe7R
+	tZrz6t+j2EzEpuobjG4IdW/UW7DS6tlWKTeddUW0lVrttw5sCVvv0b3oxMcTXutEQ3iVm4mF/h5
+	r0Fm7aDRQtp1ngy7ews1iGsj64E2c5Sy2wI2b/RRcXWB9+abvPYhQ/ioXzMvW2Xx7OO+vnIM70s
+	AmWqlizLsZ4KOvOL/R+qvr5zGyURN5J09tEgza4gtTgQLuQUsH66z4nG+9yIKOnQMLS9T6D8gQN
+	FEvaJoAGQ20LwYWdL+QWjxQIh11NwB3MQAICuhNPBXYnIHwKZ90UIG/3Ne9faKA8tvy1qJu98HN
+	oXDkbT4+4=
+X-Received: by 2002:a05:6a00:f8a:b0:8a0:20e0:b11f with SMTP id d2e1a72fcca58-8c87bac549fmr12678585b3a.20.1795577099019;
+        Tue, 24 Nov 2026 19:24:59 -0800 (PST)
+X-Received: by 2002:a05:6a00:f8a:b0:8a0:20e0:b11f with SMTP id d2e1a72fcca58-8c87bac549fmr12678564b3a.20.1795577098531;
+        Tue, 24 Nov 2026 19:24:58 -0800 (PST)
 Received: from hu-bvisredd-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8cbe173453dsm4762399b3a.25.2026.11.24.19.24.46
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8cbe173453dsm4762399b3a.25.2026.11.24.19.24.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 19:24:52 -0800 (PST)
+        Tue, 24 Nov 2026 19:24:58 -0800 (PST)
 From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Subject: [PATCH v12 0/9] media: iris: Add support for glymur platform
-Date: Wed, 25 Nov 2026 08:54:07 +0530
-Message-Id: <20261125-glymur-v12-0-5c34dfd73fc2@oss.qualcomm.com>
+Date: Wed, 25 Nov 2026 08:54:08 +0530
+Subject: [PATCH v12 1/9] dt-bindings: media: qcom,glymur-iris: Add glymur
+ video codec
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,14 +118,10 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIANhUBmsC/42P3W7CMAyFX6XK9YzyQ+sGTdPeY0IoqV0WRFtIS
- LUJ8e5LgUsudmPLR8ffsa8icQycxKa6ishzSGEay6D0WyW6bzfuGQIVQWipG2kVwv74O+QIjUa
- Sa2ulZCmK+RS5Dz930tf2MafsD9xdlu2nI/I5l4jLwyYGTsndEzbV+xKglJbgiHZhGoa8i0t+g
- rkFCWTlum0sGo/mc0ppdc7u2BXbqpSPhf+CpiyEGBKUR+jIkEcfRoLZFF6tad2gU8ZK/DevXDe
- f8vO6MM1udyeHcQ8zFqiuHaLSprT+NdS7xLAo4bKpDFHboZUOPUqNzhPVTcumIV9zq/vescMOU
- Wxvtz/KAMejqgEAAA==
-X-Change-ID: 20260917-glymur-627d049900e0
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261125-glymur-v12-1-5c34dfd73fc2@oss.qualcomm.com>
+References: <20261125-glymur-v12-0-5c34dfd73fc2@oss.qualcomm.com>
+In-Reply-To: <20261125-glymur-v12-0-5c34dfd73fc2@oss.qualcomm.com>
 To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
         Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
         Abhinav Kumar <abhinav.kumar@linux.dev>,
@@ -139,645 +137,365 @@ To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
 Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
         linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795577086; l=24418;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795577086; l=10072;
  i=busanna.reddy@oss.qualcomm.com; s=20260216; h=from:subject:message-id;
- bh=t0muWNYT0GAoeGfhSC0ZbrIyBEWAEOValMPYMvANHcI=;
- b=IDpx1mI9Ce9R42H0biV1Nvc4Aiv0FW8UaOX5U3kAFmWGvraRfwPNaKMpPQIcBt46tDjbX0QgI
- uWlBqjQqwh3CZU/e8wE6e1r1zCtcel241N06q2w5xalPwH+h8Ko9PbS
+ bh=ujN05qv+l6TqatJsM3ww30Ll5RqgXo1HPijIqiykUgc=;
+ b=TOkXF6RnbxMeSfKsBfmXcbBnTxd1cheNQ3rAP5NWNJprQ6Sdh1cBVOaEi60bU/bg1VAnty71W
+ G77spvQ0dJYDlhdXy9L0Cm9IfAUc6/Ulsq3vj7RComAGqni52k1f3NW
 X-Developer-Key: i=busanna.reddy@oss.qualcomm.com; a=ed25519;
  pk=9vmy9HahBKVAa+GBFj1yHVbz0ey/ucIs1hrlfx+qtok=
-X-Proofpoint-ORIG-GUID: 2LtDVW-DDqhNJgIKIDclMIZzUae5xnt0
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDAxMyBTYWx0ZWRfX/rq7+k0kEjxd
- ig5t7Z0z4Kc16LFaqMk7QwqnBhDNNT3kmt+ZJPDL++5O2ROnmjpK99Haj917eZYUGQdgMJ65VmQ
- cw8YoObfMaMzwqANnn8cXsc6VK3WH+o=
-X-Proofpoint-GUID: 2LtDVW-DDqhNJgIKIDclMIZzUae5xnt0
-X-Authority-Analysis: v=2.4 cv=Vra2kO2n c=1 sm=1 tr=0 ts=6b065506 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDAxMyBTYWx0ZWRfXyqms5mGVNbUP
+ HNsR1ohBPv5y7FmmkVASNnJ1l9SWEvrBJ9BcO32kpv1QlwQY6ppVo+OgEpHzfL1ePJHTEh0oaYe
+ gIX+1t+H1sLoR8SqSsxB8qraM9zUny4Gl2TtWonOs/qkctPM2rhX1XPOOTu9zbMp92r9FZOj2iu
+ 4wnOw2wjwKTr/5MEfKo66s6kc+zfA/L2pewS0D5LkOTmyqHyS658HXH7GVPhMfGOFEfgKfhsvz5
+ uRPABEpaUNgyR3XOlEzmxaC61wzAJ4fvPBkVa8YUUO0PnZHP6VmQBvymAHl7U6OCbB04h1JD1Mn
+ hI5UoIUqwV1wFRkBEANL+iWOYFG9BacOg7rpdOtiJFIQGMU8jTEaAIO2+E9MsX14QEWYG0abqyX
+ Ku0e0EsQPK6HH6UlOGqGyJDLdIdL8QfKTMbYd8uMs/O2a1N6zBdGfnALHI9gi7P+dj9WYG+bO4X
+ xHo5QZe/q21YOp327nA==
+X-Authority-Analysis: v=2.4 cv=Voa2kO2n c=1 sm=1 tr=0 ts=6b06550b cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=apL-334RAAAA:8 a=e5mUnYsNAAAA:8 a=bC-a23v3AAAA:8
- a=EUspDBNiAAAA:8 a=mrPm6b2eORdxlkHJHlwA:9 a=hlxqA-UbdR87cjVc:21
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=2VI0MkxyNR6bbpdq8BZq:22
- a=eWIHaOtA_ULHaMmHwLHW:22 a=Vxmtnl_E_bksehYqCbjh:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDAxMyBTYWx0ZWRfXzoyarKXBDMhN
- WpralCQP086t3zFzwj4Slb1CFqUqlwFyUoFmR2Av7AEBvPCCcZXsmgc0DPVvoGAQWQIGUVUH2/u
- EGsF+3L03ywk80mNtL0nR1OzgFbExQjFZXZnaK+yNaru7Obn6HdKtKcMombfivG4JNYv8etd8/w
- /QNUDDtb3tZxDKp7oAcm3KjhDzLPnwn1MivIvO2DiQLsllwczhyN7YIZyXW/prEOixrdyWZWHwU
- 87FbpUmALOkbeDbKkPpu0wr3Vr1g8tobQdUcAKJkk7BPzaZ55eVsI8vlA574Ae3jANKWM69ibrj
- Y/Wc8PY03lclTH7Yu3B5QVvflYxHh2VEJZCZ/uXWx/CQSCQarVTyu1WGn74P5hyySp/8YOUO3gN
- z2322JyIbxAViIHl/kj/++F5AVT7sj4gKh0aJ+dAVOmU4QdKx6ejFxF0RCOmmXniXe0eGNgKYWi
- 86kO+Anxbt0HztzOl6w==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=dj5hHLeW_VTS2ukcrJ0A:9 a=QEXdDO2ut3YA:10
+ a=IoOABgeZipijB_acs4fv:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-GUID: I5_0HdhEVvhhlFgdsQDaud-hgNaInDUV
+X-Proofpoint-ORIG-GUID: I5_0HdhEVvhhlFgdsQDaud-hgNaInDUV
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDAxMyBTYWx0ZWRfX/NIu1kSC3Za9
+ 32SB0l/kLb/EU8/LMh1A70EtIXCXRQj+59udJTigta6SZg6IbR5G+B7vIHIya4W9R+evICAYnDO
+ Ei+rYTuQMEo9lt/8q+zKGGodWba4eCM=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-25_01,2026-11-23_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 clxscore=1015 adultscore=0 phishscore=0
- bulkscore=0 spamscore=0 priorityscore=1501 impostorscore=0 lowpriorityscore=0
+ impostorscore=0 malwarescore=0 clxscore=1015 bulkscore=0 lowpriorityscore=0
+ adultscore=0 spamscore=0 priorityscore=1501 suspectscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611250013
 
-Glymur is a new generation video codec that supports dual hardware cores
-along with additional power domains and clocks.
-This series adds platform specific support in the iris driver to handle
-the extra cores, power domains, and clock requirements introduced by
-glymur. Add support for firmware loading through context bank firmware
-device.
-
-v4l2-compliance report for decoder including streaming tests:
-
-v4l2-compliance 1.33.0-5441, 64 bits, 64-bit time_t
-v4l2-compliance SHA: 4310f15610f4 2026-01-18 22:09:17
-
-Compliance test for iris_driver device /dev/video0:
-
-Driver Info:
-        Driver name      : iris_driver
-        Card type        : Iris Decoder
-        Bus info         : platform:aa00000.video-codec
-        Driver version   : 7.1.0
-        Capabilities     : 0x84204000
-                Video Memory-to-Memory Multiplanar
-                Streaming
-                Extended Pix Format
-                Device Capabilities
-        Device Caps      : 0x04204000
-                Video Memory-to-Memory Multiplanar
-                Streaming
-                Extended Pix Format
-        Detected Stateful Decoder
-
-Required ioctls:
-        test VIDIOC_QUERYCAP: OK
-        test invalid ioctls: OK
-
-Allow for multiple opens:
-        test second /dev/video0 open: OK
-        test VIDIOC_QUERYCAP: OK
-        test VIDIOC_G/S_PRIORITY: OK
-        test for unlimited opens: OK
-
-Debug ioctls:
-        test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
-        test VIDIOC_LOG_STATUS: OK (Not Supported)
-
-Input ioctls:
-        test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
-        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-        test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
-        test VIDIOC_ENUMAUDIO: OK (Not Supported)
-        test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
-        test VIDIOC_G/S_AUDIO: OK (Not Supported)
-        Inputs: 0 Audio Inputs: 0 Tuners: 0
-
-Output ioctls:
-        test VIDIOC_G/S_MODULATOR: OK (Not Supported)
-        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-        test VIDIOC_ENUMAUDOUT: OK (Not Supported)
-        test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
-        test VIDIOC_G/S_AUDOUT: OK (Not Supported)
-        Outputs: 0 Audio Outputs: 0 Modulators: 0
-
-Input/Output configuration ioctls:
-        test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
-        test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
-        test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
-        test VIDIOC_G/S_EDID: OK (Not Supported)
-
-Control ioctls:
-        test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
-        test VIDIOC_QUERYCTRL: OK
-        test VIDIOC_G/S_CTRL: OK
-        test VIDIOC_G/S/TRY_EXT_CTRLS: OK
-        test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
-        test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
-        Standard Controls: 12 Private Controls: 0
-
-Format ioctls:
-        test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
-        test VIDIOC_G/S_PARM: OK (Not Supported)
-        test VIDIOC_G_FBUF: OK (Not Supported)
-        test VIDIOC_G_FMT: OK
-        test VIDIOC_TRY_FMT: OK
-        test VIDIOC_S_FMT: OK
-        test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
-        test Cropping: OK
-        test Composing: OK
-        test Scaling: OK (Not Supported)
-
-Codec ioctls:
-        test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
-        test VIDIOC_G_ENC_INDEX: OK (Not Supported)
-        test VIDIOC_(TRY_)DECODER_CMD: OK
-
-Buffer ioctls:
-        test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
-        test CREATE_BUFS maximum buffers: OK
-        test VIDIOC_REMOVE_BUFS: OK
-        test VIDIOC_EXPBUF: OK
-        test Requests: OK (Not Supported)
-        test blocking wait: OK
-
-Test input 0:
-
-Streaming ioctls:
-        test read/write: OK (Not Supported)
-the input file is smaller than 7077888 bytes
-        Video Capture Multiplanar: Captured 465 buffers
-        test MMAP (select, REQBUFS): OK
-the input file is smaller than 7077888 bytes
-        Video Capture Multiplanar: Captured 465 buffers
-        test MMAP (epoll, REQBUFS): OK
-the input file is smaller than 7077888 bytes
-        Video Capture Multiplanar: Captured 465 buffers
-        test MMAP (select, CREATE_BUFS): OK
-the input file is smaller than 7077888 bytes
-        Video Capture Multiplanar: Captured 465 buffers
-        test MMAP (epoll, CREATE_BUFS): OK
-        test USERPTR (select): OK (Not Supported)
-        test DMABUF: Cannot test, specify --expbuf-device
-
-Total for iris_driver device /dev/video0: 54, Succeeded: 54, Failed: 0, Warnings: 0
-
-v4l2-compliance report for encoder including streaming tests:
-
-v4l2-compliance 1.33.0-5441, 64 bits, 64-bit time_t
-v4l2-compliance SHA: 4310f15610f4 2026-01-18 22:09:17
-
-Compliance test for iris_driver device /dev/video1:
-
-Driver Info:
-        Driver name      : iris_driver
-        Card type        : Iris Encoder
-        Bus info         : platform:aa00000.video-codec
-        Driver version   : 7.1.0
-        Capabilities     : 0x84204000
-                Video Memory-to-Memory Multiplanar
-                Streaming
-                Extended Pix Format
-                Device Capabilities
-        Device Caps      : 0x04204000
-                Video Memory-to-Memory Multiplanar
-                Streaming
-                Extended Pix Format
-        Detected Stateful Encoder
-
-Required ioctls:
-        test VIDIOC_QUERYCAP: OK
-        test invalid ioctls: OK
-
-Allow for multiple opens:
-        test second /dev/video1 open: OK
-        test VIDIOC_QUERYCAP: OK
-        test VIDIOC_G/S_PRIORITY: OK
-        test for unlimited opens: OK
-
-Debug ioctls:
-        test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
-        test VIDIOC_LOG_STATUS: OK (Not Supported)
-
-Input ioctls:
-        test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
-        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-        test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
-        test VIDIOC_ENUMAUDIO: OK (Not Supported)
-        test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
-        test VIDIOC_G/S_AUDIO: OK (Not Supported)
-        Inputs: 0 Audio Inputs: 0 Tuners: 0
-
-Output ioctls:
-        test VIDIOC_G/S_MODULATOR: OK (Not Supported)
-        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-        test VIDIOC_ENUMAUDOUT: OK (Not Supported)
-        test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
-        test VIDIOC_G/S_AUDOUT: OK (Not Supported)
-        Outputs: 0 Audio Outputs: 0 Modulators: 0
-
-Input/Output configuration ioctls:
-        test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
-        test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
-        test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
-        test VIDIOC_G/S_EDID: OK (Not Supported)
-
-Control ioctls:
-        test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
-        test VIDIOC_QUERYCTRL: OK
-        test VIDIOC_G/S_CTRL: OK
-        test VIDIOC_G/S/TRY_EXT_CTRLS: OK
-        test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
-        test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
-        Standard Controls: 43 Private Controls: 0
-
-Format ioctls:
-        test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
-        test VIDIOC_G/S_PARM: OK
-        test VIDIOC_G_FBUF: OK (Not Supported)
-        test VIDIOC_G_FMT: OK
-        test VIDIOC_TRY_FMT: OK
-        test VIDIOC_S_FMT: OK
-        test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
-        test Cropping: OK
-        test Composing: OK (Not Supported)
-        test Scaling: OK (Not Supported)
-
-Codec ioctls:
-        test VIDIOC_(TRY_)ENCODER_CMD: OK
-        test VIDIOC_G_ENC_INDEX: OK (Not Supported)
-        test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-
-Buffer ioctls:
-        test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
-        test CREATE_BUFS maximum buffers: OK
-        test VIDIOC_REMOVE_BUFS: OK
-        test VIDIOC_EXPBUF: OK
-        test Requests: OK (Not Supported)
-        test blocking wait: OK
-
-Test input 0:
-
-Streaming ioctls:
-        test read/write: OK (Not Supported)
-        Video Capture Multiplanar: Captured 61 buffers
-        test MMAP (select, REQBUFS): OK
-        Video Capture Multiplanar: Captured 61 buffers
-        test MMAP (epoll, REQBUFS): OK
-        Video Capture Multiplanar: Captured 61 buffers
-        test MMAP (select, CREATE_BUFS): OK
-        Video Capture Multiplanar: Captured 61 buffers
-        test MMAP (epoll, CREATE_BUFS): OK
-        test USERPTR (select): OK (Not Supported)
-        test DMABUF: Cannot test, specify --expbuf-device
-
-Total for iris_driver device /dev/video1: 54, Succeeded: 54, Failed: 0, Warnings: 0
-
-Fluster test report:
-
-77/135 while testing JVT-AVC_V1 with
-GStreamer-H.264-V4L2-Gst1.0.JVT-AVC_V1
-The failing tests are:
-- 52 test vectors failed due to interlaced clips: Interlaced decoding
-is not supported.
-- cabac_mot_fld0_full
-- cabac_mot_mbaff0_full
-- cabac_mot_picaff0_full
-- CABREF3_Sand_D
-- CAFI1_SVA_C
-- CAMA1_Sony_C
-- CAMA1_TOSHIBA_B
-- cama1_vtc_c
-- cama2_vtc_b
-- CAMA3_Sand_E
-- cama3_vtc_b
-- CAMACI3_Sony_C
-- CAMANL1_TOSHIBA_B
-- CAMANL2_TOSHIBA_B
-- CAMANL3_Sand_E
-- CAMASL3_Sony_B
-- CAMP_MOT_MBAFF_L30
-- CAMP_MOT_MBAFF_L31
-- CANLMA2_Sony_C
-- CANLMA3_Sony_C
-- CAPA1_TOSHIBA_B
-- CAPAMA3_Sand_F
-- cavlc_mot_fld0_full_B
-- cavlc_mot_mbaff0_full_B
-- cavlc_mot_picaff0_full_B
-- CVCANLMA2_Sony_C
-- CVFI1_Sony_D
-- CVFI1_SVA_C
-- CVFI2_Sony_H
-- CVFI2_SVA_C
-- CVMA1_Sony_D
-- CVMA1_TOSHIBA_B
-- CVMANL1_TOSHIBA_B
-- CVMANL2_TOSHIBA_B
-- CVMAPAQP3_Sony_E
-- CVMAQP2_Sony_G
-- CVMAQP3_Sony_D
-- CVMP_MOT_FLD_L30_B
-- CVNLFI1_Sony_C
-- CVNLFI2_Sony_H
-- CVPA1_TOSHIBA_B
-- FI1_Sony_E
-- MR6_BT_B
-- MR7_BT_B
-- MR8_BT_B
-- MR9_BT_B
-- Sharp_MP_Field_1_B
-- Sharp_MP_Field_2_B
-- Sharp_MP_Field_3_B
-- Sharp_MP_PAFF_1r2
-- Sharp_MP_PAFF_2r
-- CVMP_MOT_FRM_L31_B
-3 test case failed due to unsupported bitstream.
-num_slice_groups_minus1 greater than zero is not supported.
-- FM1_BT_B
-- FM1_FT_E
-- FM2_SVA_C
-2 test case failed because SP_SLICE type is not supported.
-- SP1_BT_A
-- sp2_bt_b
-1 test case failed due to unsupported profile.
-- BA3_SVA_C
-
-140/147 testcases passed while testing JCT-VC-HEVC_V1 with
-GStreamer-H.265-V4L2-Gst1.0
-1 test case failed due to unsupported bitstream.
-- TSUNEQBD_A_MAIN10_Technicolor_2
-4 testcase failed due to unsupported resolution.
-- PICSIZE_A_Bossen_1
-- PICSIZE_B_Bossen_1
-- WPP_D_ericsson_MAIN10_2
-- WPP_D_ericsson_MAIN_2
-2 testcase failed due to CRC mismatch.
-- VPSSPSPPS_A_MainConcept_1
-This fails with software decoder as well. Refer the below link for the
-discussion happened for earlier platform.
-https://lore.kernel.org/all/63ca375440c4ff2f55ea0aa4e19458f775552d88.camel@ndufresne.ca/
-- RAP_A_docomo_6
-This was discussed on bug report
-https://gitlab.freedesktop.org/gstreamer/gstreamer/-/issues/4392
-Based on above discussion, the initial error frames need to be dropped in
-the firmware or driver. Discussion ongoing with video firmware team on a
-way to handle such case. This issue is not specific to this platform, and
-its there on other platforms also.
-
-235/305 testcases passed while testing VP9-TEST-VECTORS with GStreamer-VP9-V4L2-Gst1.0
-64 testcases failed due to unsupported resolution
-- vp90-2-02-size-08x08.webm
-- vp90-2-02-size-08x10.webm
-- vp90-2-02-size-08x16.webm
-- vp90-2-02-size-08x18.webm
-- vp90-2-02-size-08x32.webm
-- vp90-2-02-size-08x34.webm
-- vp90-2-02-size-08x64.webm
-- vp90-2-02-size-08x66.webm
-- vp90-2-02-size-10x08.webm
-- vp90-2-02-size-10x10.webm
-- vp90-2-02-size-10x16.webm
-- vp90-2-02-size-10x18.webm
-- vp90-2-02-size-10x32.webm
-- vp90-2-02-size-10x34.webm
-- vp90-2-02-size-10x64.webm
-- vp90-2-02-size-10x66.webm
-- vp90-2-02-size-16x08.webm
-- vp90-2-02-size-16x10.webm
-- vp90-2-02-size-16x16.webm
-- vp90-2-02-size-16x18.webm
-- vp90-2-02-size-16x32.webm
-- vp90-2-02-size-16x34.webm
-- vp90-2-02-size-16x64.webm
-- vp90-2-02-size-16x66.webm
-- vp90-2-02-size-18x08.webm
-- vp90-2-02-size-18x10.webm
-- vp90-2-02-size-18x16.webm
-- vp90-2-02-size-18x18.webm
-- vp90-2-02-size-18x32.webm
-- vp90-2-02-size-18x34.webm
-- vp90-2-02-size-18x64.webm
-- vp90-2-02-size-18x66.webm
-- vp90-2-02-size-32x08.webm
-- vp90-2-02-size-32x10.webm
-- vp90-2-02-size-32x16.webm
-- vp90-2-02-size-32x18.webm
-- vp90-2-02-size-32x32.webm
-- vp90-2-02-size-32x34.webm
-- vp90-2-02-size-32x64.webm
-- vp90-2-02-size-32x66.webm
-- vp90-2-02-size-34x08.webm
-- vp90-2-02-size-34x10.webm
-- vp90-2-02-size-34x16.webm
-- vp90-2-02-size-34x18.webm
-- vp90-2-02-size-34x32.webm
-- vp90-2-02-size-34x34.webm
-- vp90-2-02-size-34x64.webm
-- vp90-2-02-size-34x66.webm
-- vp90-2-02-size-64x08.webm
-- vp90-2-02-size-64x10.webm
-- vp90-2-02-size-64x16.webm
-- vp90-2-02-size-64x18.webm
-- vp90-2-02-size-64x32.webm
-- vp90-2-02-size-64x34.webm
-- vp90-2-02-size-64x64.webm
-- vp90-2-02-size-64x66.webm
-- vp90-2-02-size-66x08.webm
-- vp90-2-02-size-66x10.webm
-- vp90-2-02-size-66x16.webm
-- vp90-2-02-size-66x18.webm
-- vp90-2-02-size-66x32.webm
-- vp90-2-02-size-66x34.webm
-- vp90-2-02-size-66x64.webm
-- vp90-2-02-size-66x66.webm
-2 testcases failed due to unsupported format.
-- vp91-2-04-yuv422.webm
-- vp91-2-04-yuv444.webm
-2 testcase failed due to unsupported resolution after DRC.
-- vp90-2-21-resize_inter_320x180_5_1-2.webm
-- vp90-2-21-resize_inter_320x180_7_1-2.webm
-1 testcase failed with CRC mismatch.
-- vp90-2-22-svc_1280x720_3.ivf
-This VP9 bitstream contains 20 superframes, and each superframe consists
-of three subframes in the following order:
-• 180p subframe
-• 360p subframe
-• 720p subframe
-Each superframe is submitted to the driver and firmware as a single input
-buffer, with one common timestamp attached to it. For every such input
-buffer, the hardware decoder produces three corresponding output buffers,
-one for each resolution (180p, 360p, and 720p), and all three output
-buffers carry the same timestamp. When these output buffers are returned
-to the client (GStreamer, in this case), the first buffer returned is
-displayed, while the remaining two buffers are dropped due to having
-identical timestamps. As a result, only one frame per superframe is
-rendered. Here the expectation of the test result is with 720p, last
-decoded frame in each super frame.
-Discussion ongoing with firmware team and gst maintainer on how to handle
-this case. This is not specific to glymur, and its there for the other
-platforms also.
-1 testcase failed due to unsupported stream.
-- vp90-2-16-intra-only.webm
+Add device tree binding for the Qualcomm Glymur Iris video codec. Glymur
+is a new generation of video IP that introduces a dual-core architecture.
+The second core brings its own power domain, clocks, and reset lines,
+requiring additional power domains and clocks in the power sequence. The
+current maxItems constraints for clocks, power-domains and non-pixel
+iommus in the common venus schema were sized for platforms available at
+the time of authoring. The glymur platform introduces a dual core
+architecture that requires more clocks and power domains, exceeding these
+limits. Raise maxItems for clocks, clock-names, power-domains,
+power-domain-names and non-pixel iommus to accommodate glymur platform.
+The glymur platform specific schema have fixed constraints for these
+properties, so the common schema only acts as an upper bound. Since the
+common schema now only acts as an upper bound, add explicit maxItems
+overrides for the non-pixel iommus in the qcom,sm8550-iris and
+qcom,sm8750-iris schemas to keep the fixed constraints as before.
 
 Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 ---
-Changes in v12:
-- Rebased the series and resolved merge conflicts.
-- Renamed the power-domain names with the "iris" prefix.
-- Added a core bridge reset before moving the vcodec to hardware mode.
-- Updated the commit descriptions for patches #2 and #6.
-- Removed properties from the required list that are already available in the inherited
-  common schema.
-- Moved the core load check to the end to ensure that core_id is unset in failure case.
-- Link to v11: https://patch.msgid.link/20260917-glymur-v11-0-e0c8bc914742@oss.qualcomm.com
-
-Changes in v11:
-- Rebased on v4 sub node series (Dmitry)
-- Dropped the patches which are added into sub node series.
-- Added poll wait timeout logic during poweroff vcodec (Sashiko)
-- Link to v10: https://lore.kernel.org/all/20260726-glymur-v10-0-de451559e88b@oss.qualcomm.com
-
-Changes in v10:
-- Dropped reviewed-by tag for dt-binding patch (Krzysztof)
-- Updated commit description (Bryan)
-- Updated firmware name (Dmitry)
-- Removed comment in dt node (Konrad)
-- Fixed sashiko-bot reported issues some which are seems valid.
-- Link to v9: https://patch.msgid.link/20260715-glymur-v9-0-8cf2cbe12a07@oss.qualcomm.com
-
-Changes in v9:
-- Dropped iris VPU bus patches (iris-vpu-bus support and its iommu_buses
-registration)
-- The below listed patches are added, those patches are derived from the provided
-link and updated the code based on review comments:
-Link: https://lore.kernel.org/all/20260709-vpu_iommu_iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com/
-- media: iris: Add hooks to initialize and tear down context banks
-- media: iris: Add helper to create a context bank device
-- media: iris: Add helper to select relevant context bank device
-- media: iris: Skip DMA mask setting to core device when IOMMU is not mapped
-- media: iris: Add hooks for pixel and non-pixel context banks
-- Replaced the iommus and iommu-map properties with pixel, non-pixel and
-firmware context bank subnodes in dt-bindings and dtsi
-- Updated the vcodec poweroff sequence with proper polling logic.
-- Renamed the PAS API usage to the new qcom_pas_* API (qcom_scm_pas_* -> qcom_pas_*)
-- Updated the reg address in dt node to 8 hex digits with a leading zero (Konrad)
-- Link to v8: https://lore.kernel.org/r/20260610-glymur-v8-0-1c79b9d51fc0@oss.qualcomm.com
-
-Changes in v8:
-- Extracted register addresses to separate variables in power sequence (Dmitry)
-- Fixed sashiko-bot reported issues some which are seems valid.
-- Link to v7: https://lore.kernel.org/r/20260603-glymur-v7-0-afaa55d11fe0@oss.qualcomm.com
-
-Changes in v7:
-- Replaced enum-indexed clock and power domain tables with per-block structures (Dmitry)
-- Combined venus common schema update patch and glymur video binding patch (Krzysztof)
-- Updated CPU_CS_SCIACMDARG3 write value as zero specific to glymur platform (Dmitry)
-- Updated the clock and reset names (Dmitry)
-- Link to v6: https://lore.kernel.org/r/20260515-glymur-v6-0-f6a99cb43a24@oss.qualcomm.com
-
-Changes in v6:
-- Rename function names in iris_vpu_bus (Dmitry)
-- Update the venus-common schema (Dmitry, Krzysztof)
-- Add dual core related functions into platform specific vpu ops (Dmitry)
-- Update power domain enum names (Vikash)
-- Remove unused macro
-- Link to v5: https://lore.kernel.org/r/20260509-glymur-v5-0-7fbb340c5dbd@oss.qualcomm.com/
-
-Changes in v5:
-- Remove clocks, clock-names, power-domains from the required list in
-venus-common schema (Krzysztof)
-- Update core selection logic (Vikash)
-- Add macros for power status bits instead of magical values (Vikash)
-- Add new config for iris vpu bus instead of using the iris driver
-config.
-- Re-arrage the patches (Krzysztof)
-- Link to v4: https://lore.kernel.org/r/20260505-glymur-v4-0-17571dbd1caa@oss.qualcomm.com
-
-Changes in v4:
-- Update existing venus common binding.
-- Update glymur DT binding required properties.
-- Patches are rebased and resolved merge conflicts.
-- Link to v3: https://lore.kernel.org/r/20260428-glymur-v3-0-8f28930f47d3@oss.qualcomm.com
-
-Changes in v3:
-- Drop generic dma context bus and moved to iris vpu bus (Greg)
-- Update commit message for platform data patch (Dmitry)
-- Link to v2: https://lore.kernel.org/r/20260423-glymur-v2-0-0296bccb9f4e@oss.qualcomm.com
-
-Changes in v2:
-- Update the clock and reset names in DT binding (Krzysztof)
-- Update firmware device names (Mukesh, Konrad)
-- Update the selection of core for dual core platforms
-- Add new generic dma context bus instead of own iris vpu bus (Dmitry)
-- Add patch to get power domain type to look up pd_devs index
-- Update glymur platform data (Dmitry)
-- Link to v1: https://lore.kernel.org/r/20260414-glymur-v1-0-7d3d1cf57b16@oss.qualcomm.com
-
----
-Mukesh Ojha (1):
-      media: iris: Enable Secure PAS support with IOMMU managed by Linux
-
-Vishnu Reddy (8):
-      dt-bindings: media: qcom,glymur-iris: Add glymur video codec
-      media: iris: Replace enum-indexed clock and power domain tables with per-block structures
-      media: iris: Add power sequence for glymur
-      media: iris: Handle CPU_CS_SCIACMDARG3 register write via program bootup registers hook
-      media: iris: Add support to select core for dual core platforms
-      media: iris: Add platform data for glymur
-      arm64: dts: qcom: glymur: Add iris video node
-      arm64: dts: qcom: glymur-crd: Enable iris video codec node
-
- .../bindings/media/qcom,glymur-iris.yaml           | 215 ++++++++++++++++++++
+ .../bindings/media/qcom,glymur-iris.yaml           | 215 +++++++++++++++++++++
  .../bindings/media/qcom,sm8550-iris.yaml           |   6 +
  .../bindings/media/qcom,sm8750-iris.yaml           |   6 +
  .../bindings/media/qcom,venus-common.yaml          |  11 +-
- arch/arm64/boot/dts/qcom/glymur-crd.dtsi           |  10 +
- arch/arm64/boot/dts/qcom/glymur.dtsi               | 120 +++++++++++
- drivers/media/platform/qcom/iris/Makefile          |   1 +
- drivers/media/platform/qcom/iris/iris_common.c     |  10 +
- drivers/media/platform/qcom/iris/iris_common.h     |   1 +
- drivers/media/platform/qcom/iris/iris_core.h       |  32 ++-
- drivers/media/platform/qcom/iris/iris_firmware.c   |  66 +++++-
- drivers/media/platform/qcom/iris/iris_hfi_common.h |   1 +
- .../platform/qcom/iris/iris_hfi_gen2_command.c     |  19 ++
- .../platform/qcom/iris/iris_hfi_gen2_defines.h     |   1 +
- drivers/media/platform/qcom/iris/iris_instance.h   |   2 +
- .../platform/qcom/iris/iris_platform_common.h      |  47 ++---
- .../platform/qcom/iris/iris_platform_glymur.c      |  79 ++++++++
- .../platform/qcom/iris/iris_platform_glymur.h      |  15 ++
- .../platform/qcom/iris/iris_platform_sc7280.h      |  28 ++-
- .../platform/qcom/iris/iris_platform_sm8250.h      |  26 ++-
- .../platform/qcom/iris/iris_platform_sm8550.h      |  26 ++-
- .../platform/qcom/iris/iris_platform_sm8750.h      |  29 ++-
- .../media/platform/qcom/iris/iris_platform_vpu2.c  |  20 +-
- .../media/platform/qcom/iris/iris_platform_vpu3x.c |  70 +++++--
- .../platform/qcom/iris/iris_platform_vpu_ar50lt.c  |  37 ++--
- .../platform/qcom/iris/iris_platform_x1p42100.h    |  27 ++-
- drivers/media/platform/qcom/iris/iris_power.c      |  28 ++-
- drivers/media/platform/qcom/iris/iris_probe.c      | 153 ++++++++++++--
- drivers/media/platform/qcom/iris/iris_resources.c  |  81 ++++----
- drivers/media/platform/qcom/iris/iris_resources.h  |   8 +-
- drivers/media/platform/qcom/iris/iris_utils.c      |  58 ++++--
- drivers/media/platform/qcom/iris/iris_utils.h      |   3 +-
- drivers/media/platform/qcom/iris/iris_vb2.c        |  10 +-
- drivers/media/platform/qcom/iris/iris_vidc.c       |   6 +-
- drivers/media/platform/qcom/iris/iris_vpu3x.c      | 225 ++++++++++++++++++---
- drivers/media/platform/qcom/iris/iris_vpu4x.c      | 137 ++-----------
- drivers/media/platform/qcom/iris/iris_vpu_ar50lt.c |  70 +------
- drivers/media/platform/qcom/iris/iris_vpu_common.c | 102 +---------
- drivers/media/platform/qcom/iris/iris_vpu_common.h |   3 +
- .../platform/qcom/iris/iris_vpu_register_defines.h |  13 ++
- 40 files changed, 1277 insertions(+), 525 deletions(-)
----
-base-commit: 3dd8c790a7b7027abdd568e36db5e82ffaea7c77
-change-id: 20260917-glymur-627d049900e0
-prerequisite-message-id: <20261120-add_iommu_ranges-v8-0-d90486973b73@oss.qualcomm.com>
-prerequisite-patch-id: 99bdcac6ebf8b12961e5288bad65e7cd62888f91
-prerequisite-patch-id: 5ea5af6f15d0c88dab1b192d74ef4cd938e69227
-prerequisite-patch-id: 792dd9c2022019b38a169cb1e6ab84d87316b833
-prerequisite-patch-id: cda71b749bf72bc68adae87d8a34bbbb9aecc5f7
-prerequisite-message-id: <20261119-iris-handle-unbind-v3-0-52d467a13907@oss.qualcomm.com>
-prerequisite-patch-id: ea985fc3b351931adea7940855e5219be3a2bed0
-prerequisite-patch-id: 5b6c27159dcaa5c06b59ed92ad39824e002a9f93
-prerequisite-patch-id: d9bd004033c1a7b4f02f5fc1390a5e21ee6b38c7
-prerequisite-patch-id: a2ea5644cca938dfb766227030f1200fe9e08cdc
-prerequisite-message-id: <20261120-vpu_iommu_iova_handling-v7-0-25a771235a7f@oss.qualcomm.com>
-prerequisite-patch-id: e1330b5a848460d14cd6574877fcf607d269d9a1
-prerequisite-patch-id: 20d099e89443a097b9ec5b297f0129d9874ca54b
-prerequisite-patch-id: 2a36ab03d78d8e9c19c900e203b05739a9fd1123
-prerequisite-patch-id: dfda0feb821780a590738c201122de76d537e599
-prerequisite-patch-id: b8676ee747123905b4a1818b6e6c41df0ab2b103
-prerequisite-patch-id: 54d5a2f9c8c8e18e9bdf0e60035324c4966182fc
-prerequisite-patch-id: e34741f76b6919db19236ead27c966b789736e66
-prerequisite-patch-id: 359d24229ad496633892e70b1cf88c2d88dfad24
-prerequisite-patch-id: f6d197d4cffc20ab304ee3c206dd8061d37af192
-prerequisite-patch-id: 3e5fe6ef2271be5263a4bf7ffbd77b0996037b27
-prerequisite-patch-id: e051524017c9f39f8593fb9d2e982e6a4c39fb35
-prerequisite-patch-id: 1b4863f7a7f3a8390c825d76805e8e99de97a2a7
+ 4 files changed, 233 insertions(+), 5 deletions(-)
 
-Best regards,
---  
-Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+diff --git a/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml b/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml
+new file mode 100644
+index 000000000000..9c34829a451b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml
+@@ -0,0 +1,215 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/qcom,glymur-iris.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm Glymur SoC Iris video encoder and decoder
++
++maintainers:
++  - Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
++
++description:
++  The Iris video processing unit on Qualcomm Glymur SoC is a video encode and
++  decode accelerator.
++
++properties:
++  compatible:
++    const: qcom,glymur-iris
++
++  clocks:
++    maxItems: 9
++
++  clock-names:
++    items:
++      - const: core_iface
++      - const: core
++      - const: vcodec0_core
++      - const: vcodec0_iface
++      - const: core_freerun
++      - const: vcodec0_core_freerun
++      - const: vcodec1_iface
++      - const: vcodec1_core
++      - const: vcodec1_core_freerun
++
++  dma-coherent: true
++
++  interconnects:
++    maxItems: 2
++
++  interconnect-names:
++    items:
++      - const: cpu-cfg
++      - const: video-mem
++
++  non-pixel:
++    type: object
++    properties:
++      iommus:
++        maxItems: 3
++
++  operating-points-v2: true
++  opp-table:
++    type: object
++
++  power-domains:
++    maxItems: 5
++
++  power-domain-names:
++    items:
++      - const: venus
++      - const: vcodec0
++      - const: mxc
++      - const: mmcx
++      - const: vcodec1
++
++  resets:
++    maxItems: 6
++
++  reset-names:
++    items:
++      - const: core_bus
++      - const: vcodec0_bus
++      - const: core
++      - const: vcodec0_core
++      - const: vcodec1_bus
++      - const: vcodec1_core
++
++required:
++  - compatible
++  - dma-coherent
++  - interconnects
++  - interconnect-names
++  - power-domain-names
++  - resets
++  - reset-names
++
++allOf:
++  - $ref: qcom,venus-common.yaml#
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/power/qcom,rpmhpd.h>
++
++    video-codec@aa00000 {
++        compatible = "qcom,glymur-iris";
++        reg = <0x0aa00000 0xf0000>;
++
++        clocks = <&gcc_video_axi0c_clk>,
++                 <&videocc_mvs0c_clk>,
++                 <&videocc_mvs0_clk>,
++                 <&gcc_video_axi0_clk>,
++                 <&videocc_mvs0c_freerun_clk>,
++                 <&videocc_mvs0_freerun_clk>,
++                 <&gcc_video_axi1_clk>,
++                 <&videocc_mvs1_clk>,
++                 <&videocc_mvs1_freerun_clk>;
++        clock-names = "core_iface",
++                      "core",
++                      "vcodec0_core",
++                      "vcodec0_iface",
++                      "core_freerun",
++                      "vcodec0_core_freerun",
++                      "vcodec1_iface",
++                      "vcodec1_core",
++                      "vcodec1_core_freerun";
++
++        dma-coherent;
++
++        interconnects = <&hsc_noc_master_appss_proc &config_noc_slave_venus_cfg>,
++                        <&mmss_noc_master_video &mc_virt_slave_ebi1>;
++        interconnect-names = "cpu-cfg",
++                             "video-mem";
++
++        interrupts = <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH>;
++
++        memory-region = <&video_mem>;
++
++        operating-points-v2 = <&iris_opp_table>;
++
++        power-domains = <&videocc_mvs0c_gdsc>,
++                        <&videocc_mvs0_gdsc>,
++                        <&rpmhpd RPMHPD_MXC>,
++                        <&rpmhpd RPMHPD_MMCX>,
++                        <&videocc_mvs1_gdsc>;
++        power-domain-names = "venus",
++                             "vcodec0",
++                             "mxc",
++                             "mmcx",
++                             "vcodec1";
++
++        resets = <&gcc_video_axi0c_clk_ares>,
++                 <&gcc_video_axi0_clk_ares>,
++                 <&videocc_mvs0c_freerun_clk_ares>,
++                 <&videocc_mvs0_freerun_clk_ares>,
++                 <&gcc_video_axi1_clk_ares>,
++                 <&videocc_mvs1_freerun_clk_ares>;
++        reset-names = "core_bus",
++                      "vcodec0_bus",
++                      "core",
++                      "vcodec0_core",
++                      "vcodec1_bus",
++                      "vcodec1_core";
++
++        #address-cells = <1>;
++        #size-cells = <1>;
++        dma-ranges = <0x0 0x0 0xffe00000>;
++
++        non-pixel {
++            iommus = <&apps_smmu 0x1940 0x0000>,
++                     <&apps_smmu 0x1944 0x0000>,
++                     <&apps_smmu 0x19e0 0x0000>;
++            iommu-ranges = <0x25800000 0xda600000>;
++        };
++
++        pixel {
++            iommus = <&apps_smmu 0x1943 0x0000>;
++        };
++
++        video-firmware {
++            iommus = <&apps_smmu 0x19e2 0x0000>;
++        };
++
++        iris_opp_table: opp-table {
++            compatible = "operating-points-v2";
++
++            opp-240000000 {
++                opp-hz = /bits/ 64 <240000000 240000000 360000000>;
++                required-opps = <&rpmhpd_opp_svs>,
++                                <&rpmhpd_opp_low_svs>;
++            };
++
++            opp-338000000 {
++                opp-hz = /bits/ 64 <338000000 338000000 507000000>;
++                required-opps = <&rpmhpd_opp_svs>,
++                                <&rpmhpd_opp_svs>;
++            };
++
++            opp-366000000 {
++                opp-hz = /bits/ 64 <366000000 366000000 549000000>;
++                required-opps = <&rpmhpd_opp_svs_l1>,
++                                <&rpmhpd_opp_svs_l1>;
++            };
++
++            opp-444000000 {
++                opp-hz = /bits/ 64 <444000000 444000000 666000000>;
++                required-opps = <&rpmhpd_opp_svs_l1>,
++                                <&rpmhpd_opp_nom>;
++            };
++
++            opp-533333334 {
++                opp-hz = /bits/ 64 <533333334 533333334 800000000>;
++                required-opps = <&rpmhpd_opp_svs_l1>,
++                                <&rpmhpd_opp_turbo>;
++            };
++
++            opp-655000000 {
++                opp-hz = /bits/ 64 <655000000 655000000 982000000>;
++                required-opps = <&rpmhpd_opp_nom>,
++                                <&rpmhpd_opp_turbo_l1>;
++            };
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
+index 6ee9d23554cf..81d35be565f9 100644
+--- a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
++++ b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
+@@ -81,6 +81,12 @@ properties:
+   iommus:
+     maxItems: 2
+ 
++  non-pixel:
++    type: object
++    properties:
++      iommus:
++        maxItems: 1
++
+   dma-coherent: true
+ 
+   memory-region:
+diff --git a/Documentation/devicetree/bindings/media/qcom,sm8750-iris.yaml b/Documentation/devicetree/bindings/media/qcom,sm8750-iris.yaml
+index b6d5ded1aae6..6c1ed1b9fdde 100644
+--- a/Documentation/devicetree/bindings/media/qcom,sm8750-iris.yaml
++++ b/Documentation/devicetree/bindings/media/qcom,sm8750-iris.yaml
+@@ -43,6 +43,12 @@ properties:
+   iommus:
+     maxItems: 2
+ 
++  non-pixel:
++    type: object
++    properties:
++      iommus:
++        maxItems: 1
++
+   operating-points-v2: true
+   opp-table:
+     type: object
+diff --git a/Documentation/devicetree/bindings/media/qcom,venus-common.yaml b/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
+index 6c205077bea4..2283a5112e1e 100644
+--- a/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
++++ b/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
+@@ -20,11 +20,11 @@ properties:
+ 
+   clocks:
+     minItems: 3
+-    maxItems: 7
++    maxItems: 9
+ 
+   clock-names:
+     minItems: 3
+-    maxItems: 7
++    maxItems: 9
+ 
+   firmware-name:
+     maxItems: 1
+@@ -44,11 +44,11 @@ properties:
+ 
+   power-domains:
+     minItems: 1
+-    maxItems: 4
++    maxItems: 5
+ 
+   power-domain-names:
+     minItems: 1
+-    maxItems: 4
++    maxItems: 5
+ 
+   '#address-cells':
+     const: 1
+@@ -67,7 +67,8 @@ properties:
+ 
+     properties:
+       iommus:
+-        maxItems: 1
++        minItems: 1
++        maxItems: 3
+       iommu-ranges:
+         maxItems: 1
+     required:
+
+-- 
+2.34.1
 
