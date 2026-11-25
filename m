@@ -1,96 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795605460;
-	b=LLTjMz+ALVZKXY/x/pF0SS9ijGMTfenupwlRjkqJ8aGFw7qZuQn+2pU6oLlmSmAnUJbB
-	 zc7hbVaylCoMs4D1MLgcmIKs9XwdmGoE+7mdXO27Q45o2s5qWNChtmPk/05lIc/xnDBB7
-	 BSidW1Wgu97SV4KDIoLzmSwvdw8V0Bnh2DPDKfpdeR8wTtCpCi3sTI2BM9+UClSYWjirx
-	 5CgWs3vc3aDF9JgXIMTPsHyoaMO2ZTzHaE4k3UmSjjOGwWQZUEG8z/vf0w3YFiA/+BTTt
-	 nA1eG7aYPeRshI26TD8U5UkalSy2WSwRzMpuPzfZnBcS9zTBWXoM3xjBLQsQ34kN53g==
+	t=1795605511;
+	b=GoLp/UD2lORjRObV8K5LvZsgsUaKPU3rTN79ZvJrsi6+WmO8n+Frb5N7RR8Lcxrye+1m
+	 1LxKGyRklTUb4IeBMn7Xgolv7EHfTm+Zy0TWOx8YSTG2E+/n7WC2RO6zKg/JTxDLw1A4J
+	 H3Dc4gHmei/fQbgyjAF5xMkWfOJnkp8AvUjuAPg+MuMf+/yyxRs7AphTe5zQ9ytTI+Fwj
+	 JhZ/zJtZmV1aFeKBA1FuHUAIolTg6te+yoGdh0m/h6bL3ot5tHAoNqIRFizXuggo2N9gG
+	 CkU+OuDCUU0xyUWn939izm4411GI8C5Czn/1KSGR3jL0AoruKu57XZw28j0AJom/vNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795605460;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=fxRUQxNACXipbKVSVCcm8+n4+a6NGsD8TgB0HuHTvI8=;
-	b=WBvfg1mHLbz26Yf9sIWzRL86M99vdmEBhRbitB5RLr38/Ykn1h2ziMlJvklZ3VXOGHsU
-	 oPqZk7U8nXp39SqdmJnp7sCf47tnZisNMgHL5+RhDH6YGJ3/TuiprNQW+Il8ch2KyWnIk
-	 hp8Wb1xy40duizIWL8HtUl/Dvon1yeMiR4OP+IikwDRjCGO/Rwat2mbA03OZ4b5f0qB8W
-	 wIALYHwrEcNsvdr5ruJ3/r/uVfbpLJLY4xwFG5JOgjP9akEgj5b6YPBbV2K6ZdIUsuE1V
-	 xAv6uTR4iUBGca/rPFZfG2bbq0djEyj5PWSWGCm6OqD+AG5QD/TF12lxOs3dgJMCDBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795605511;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=AnUA3yLSgJJ1Fx5OkSb9Yc89LoJrMBxd+X4QC+HsqIo=;
+	b=NM7ElFv6QwKce5UwCnCkCLbE3VKviejAeBxATDaw0pByYhfltx88g215NXrHjw9nQ41X
+	 X7vZkV/17bnRN9lnknucFset5XJnlxUYHaT3QCWTLFxuwNVNFSGYMaQd6C1VitleMCwRT
+	 hx+E8MKlNEuwhlqkDW7myOqySM1BWsuI46jBVBVwuRaes5mBhemEij0M2FP62873cC7zc
+	 f7oTIIQV8xz8xWMb6LFZ9+Wp/I1QFLHixtjcLuXXT55KNJaBnCpoe3CmMU0HQNI5zyjRt
+	 kD1jvP0Ph0kCZP5LQ4Cu958uNVZqbXh2xyUA9tXpjvNmXyUvFKpak6maPtR/Anhz7wQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KYdOc0fw;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZlV+dnJm;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE996606A321
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 11:17:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE996606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A519606A31E;
+	Wed, 25 Nov 2026 11:18:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A519606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KYdOc0fw
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-490c3ae81d3so3524902f8f.2
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 03:17:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795605458; x=1796210258; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fxRUQxNACXipbKVSVCcm8+n4+a6NGsD8TgB0HuHTvI8=;
-        b=KYdOc0fw0XfpgWsOReTkFfKlAQWYh5bjBxSLc6c+GDe/HrXiZr1FoXzYrJn0x5py9p
-         AroMR5c/ME3gJGrcz0A5Oy90P/yN1qKQf+pJgegmVWq0JBN7WgoskahOmvdspM7u/oN1
-         2shHaODP3Gfc4taLmjHi8c7MKuvFK8/8mNcmZAh7rEmYK42dXcpRftLiZepXPNOOJIcM
-         Ss1S590je9bVFOygYEZLwpCpT8h5UZWjrPmKx5x9AjgmJQUJoiDb2jUFfi2B3pQjFlGq
-         ECu+PVX0diYk0dQl4mCVLw+KOT60043XRMvLPRiIOVD0+UN99u8rQbIZ9Xh4AsM6/7q7
-         T+CQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795605458; x=1796210258;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fxRUQxNACXipbKVSVCcm8+n4+a6NGsD8TgB0HuHTvI8=;
-        b=AUfO3WUFNt38mNvHc+cFXocl5XAFn22VVvrLWQau6aPWaNRPGg/iw91F6Nk8m8QgUs
-         mIQgr3fG0QI6B/2qtUn13YF4JWpM4uTGNK4+318JOUofmVUFYTmBktsL9trwe2BF0aMO
-         z5vyYYFSQoe4o+JTakCWIUpSIAHVjaKbUxVOk/NSubeXeFMcjL46eqw8mpyOZxZDGXBP
-         uZbiDCPPIvORPoC5KhcsFypRO13LGOv+P9yMGRf9ps2XlIgoI03ybf28p21WRUM2659R
-         Tb+2uelrnX7mN6+kX+yBrGz/nga8fw0H7DBrDePr2LwGr2U+uoV/PeFKUBgOlWWmTv32
-         DKgQ==
-X-Gm-Message-State: APuU4Z9D1sOUL4mBjnKeRmo1wOGBOfrNWJ6j990yHwQESEvEOedF8XNG
-	QRI5j081puw5AwT83eFoCzowm7rs8gbiXjIVdwtvixu7gwaWn/bUkEgf
-X-Gm-Gg: AZFdTZfIx+05J3adej05CdiQGd2wvt3Tsz8gTh/s117vgH5rRoXThDseffBRQ1haafo
-	OnxNeSzBPqIv2mhcqbMPiWW5vvJvN8Pt4tPbcLgkf4OC5br8erlrURpJOcH3Oz/u/cFGqLGs4ns
-	pnEO+F5VUPIVjIEOLsiPehGACH6FXxIy2FKDcif/4IYkhAFq2n6uK2cYpnAtFLtwkpSqqXq0umB
-	fM8IfLyj4qv0qPEEbDMpi55YYVQ9mb8gCE86fdtE9zYNPuTJxSBMexpe8UHN0DyKgeMInr7uDsU
-	0eKvczhUcZzrV85TMZVmodVr7CUZc9c5Zh6oGXu/UpiW3WQue52LDOhzDY56QzbU2z6Qu2JYSf/
-	pBqxhLptiMsh7XNuUz4IRW3S0pcTtnp9ql1e9F0JzJwmaZZ+iok2GWOmIPsHpVNkX8+izqSz1Yw
-	0CLsaBWrv7SgfFrEWBNzzCudpqhQhs3ZW6OtK1qs8/9L4NIIPiZGkJU0gHvKv3xiftgKBF24Cr7
-	SqftbI2QiqWNF1NK3Ri0cHzh0SCVXj4RY1A167DsWoIqMF40qjldBIw0weq2aOReGRYFDuBE0jm
-	mObyAgPH4ZOBTXwuH3rqDD//skcTA0uCGQLfN+TJ4FNE6gfwil0JbM8=
-X-Received: by 2002:a05:600c:a085:b0:4bb:7bee:5496 with SMTP id 5b1f17b1804b1-4bb8880f04dmr378366175e9.13.1795605458098;
-        Wed, 25 Nov 2026 03:17:38 -0800 (PST)
-Received: from [127.0.1.1] (ip-024-180.users.dtel.ru. [91.210.24.180])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853c9170sm579874685e9.14.2026.11.25.03.17.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 03:17:37 -0800 (PST)
-From: Fil Dunsky <filipp.dunsky@gmail.com>
-To: sashiko-bot@kernel.org
-Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v4 3/6] clk: Add Cortina Systems CS7542 clocks
-In-Reply-To: <sashiko-outbox-233158@kernel.org>
-References: <20261125-cs7542-syscon-v4-0-3337bb0d3b48@gmail.com>
- <20261125-cs7542-syscon-v4-3-3337bb0d3b48@gmail.com>
- <sashiko-outbox-233158@kernel.org>
-Date: Wed, 25 Nov 2026 14:17:21 +0300
-Message-ID: <179560544103.3.15793449705570350216@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZlV+dnJm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795605510; x=1827141510;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=I8QD6T/3tUNqz0NFMagJLrl2o0L2hn8M90Kc08uS81c=;
+  b=ZlV+dnJmiCdXt9DVfh0J9AtCIc5lQ/D4yylGBxTtih0Wua3gdDCL9Y4C
+   NLYolL4RQPmQx/CdO7sEC+0F2W14CwOS32unWrZyW0jcxYUukEBwSZuV4
+   pVtcHv9SdM2t37r0fn16junQ27jjjRB7YZFwjAkLss+37/J8HXLMj3X5E
+   UgtI9D2pvtrY9fmnQsCTsbGaU6iXZeu8NEfEtsL+hVYF7DS9zB5brp50W
+   UdZI6UtIlGwuOrNUd3R8qvyobLvFHdkAeBhKltbgpnLMIzbAR+MEGqqHm
+   0qkoGu9qHjejV5yFKqU713PAM/7Mr7dB4K8djtiUnVTQawitpSDFSfdlR
+   Q==;
+X-CSE-ConnectionGUID: RduSvEHOSxu71jRY0hI25w==
+X-CSE-MsgGUID: 1zhhUbWZS56+KFD5QlxU6Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4396766"
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
+   d="scan'208";a="4396766"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 02:35:22 -0800
+X-CSE-ConnectionGUID: 2kt/ocwaTnOlf2I5DpQp1w==
+X-CSE-MsgGUID: Qhb1zdaUT3CST1PO8wSFUQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
+   d="scan'208";a="11712095"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.73])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 02:35:19 -0800
+Date: Wed, 25 Nov 2026 12:35:16 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux@analog.com,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [PATCH 2/6] iio: adc: ad7887: drop platform data support
+Message-ID: <awa55IsQZJnkJ5lX@ashevche-desk.local>
+References: <20261125-iio-adi-legacy-platdata-v1-0-54e4c8830b57@analog.com>
+ <20261125-iio-adi-legacy-platdata-v1-2-54e4c8830b57@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -100,16 +86,38 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261125-iio-adi-legacy-platdata-v1-2-54e4c8830b57@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thanks, confirmed. clk_core_is_prepared() stores this callback's result
-in a bool, so a negative regmap error is treated as prepared.
+On Wed, Nov 25, 2026 at 10:19:18AM +0000, Nuno Sá wrote:
+> There are no in-tree users of struct ad7887_platform_data, and the
+> driver works fine without it. Its only knob, en_dual, selects dual
+> channel mode, where the AIN1/VREF pin is used as a second input.
+> 
+> Drop the platform data header and default to single channel mode, which
+> is what the driver does when no platform data is given. The dual
+> channel code is kept so it can be enabled again should someone need it
+> and add a firmware property for it.
 
-I have changed cs7542_gate_is_prepared() to return
-regmap_test_bits(...) > 0. The actual callback failed with the posted
-code and passed with the fix for all negative Linux errnos, zero and
-one under GCC and Clang. Both ARM compiler builds passed as well.
+...
 
-The fix is queued for v5 while the combined v4 review continues.
+> +	/*
+> +	 * Dual channel mode could only be enabled through platform data, which
+> +	 * had no users. Keep the support around in case someone needs it and
+> +	 * adds a firmware property for it.
+> +	 */
 
-Thanks,
-Fil
+This patch removed the platform_data, hence the first sentence in this comment
+at least confusing. Just drop it?
+
+> +	bool en_dual = false;
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
