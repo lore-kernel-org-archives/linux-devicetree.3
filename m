@@ -1,55 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795564374;
-	b=LvgCFPNj05uM7HojnDMJtIGsT84LTjMG3nmBpyhWDhxy3YOYrbcZ2AcUvtUiPgPZTnhP
-	 2V+BzbiNC3SQ/EN1jiNtmvuaYTpOTwvOldCqtQ0IsxktGTtFX9PqNuH+kXzRiGnyBmiyy
-	 8UpQzVMZNz596VNvbEtB+Tsjj9vvIlrWhD0p37x/Gd7HmRHmhivOHjXfUK+0OtgjR4en5
-	 b6J7ZDXCNOp4PzXOffY0RDb9RBzhugD4OMR7p/SsDbn+bHRdhzB9NDoyuctqzGsovuvmm
-	 84NXUarvfYziFSq4xwcFLMcYETN8VaaMu4O0P7hZBZ8MRrjTtyRdG5BR4fL7mVa9zsA==
+	t=1795564899;
+	b=yHgCODoIZttxZPG716AdcZstIMvHVlqWc8WkE9xSNyKxO+kpB3bU/gbRw7Zb4N13XPZu
+	 NIS2jxKeq/OE04iB4dkdbrNIKy+7E206bIhCAyPvTpOftQW4DJIEKRgIcYvH05weotRNn
+	 JffZYDfu7mnafWCbm4yDw7BZMgvHqeNxHGz7PrZM/xGdOwnRQb+SzN++y49Nc7CmtrEIA
+	 y/NUjpEZgeju90PEir5Q2zcOKP2ILwyQFpQzEyDwxIMeuJjvLHictqfIyMxl0Nhr2oGLB
+	 1jwIYjKgKa6cUUbWoTudtKpJJgzUPh2Eon8VRzsLT3JSCu7ktVIqPFOurxG20dlTffw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795564374;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=FdmbSo5Y/+1WVcBaZi3UOeVDRS7HdI9UnXMTYxRF8pM=;
-	b=ib0VyTUighAa+y5YonSlv8Pu2ZcaLhDCSGaIt3ClwB2leVINvfYkkjT9yaU3y2tlZmDu
-	 Zq8gGDORojEbM7dNJNtGx/TOmIJgDAmnc/xcREJs6gU8kokSW4+tbH+6w2GpvDQB+9/4A
-	 qJ7zwUNxxgb1beb9afBiGXEElU7rh1fWSKfWn+HJ7tzZNxO7o3Tc9v+9Acw4W/HNmWTGz
-	 rAr0GjDH/rO4jzOfJTuQCqW1kT7RkeLevWwCXfBlq8NUS+DcLzaQNjbAl/tj/TRJ7GHwM
-	 Bff7hGpODfAgORnwwkmlvaxNqdCiNw4ePmo2JhJM4bTk0DCwz6ynUnGMqRLPg/sW6Dw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795564899;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=8DK3yldnIUojdVzCr2+XwiNL7LP7CGhb9/YkbV+PBQY=;
+	b=YMAiYN2qdDf099+QgcYOMYZWT7ZvfhqcVllsxDnfPvHfmDsJCaXf4mB1Irb2Vk/T2lOF
+	 0aAAIs6W62NsomlrRHLPgH5UCMVq3LR5i9XBkaedu2Vxs9f92asbH8ZXuJqPdLsqU/XB5
+	 01GJGCY+EvBKpAUR8d/QorkLivbBJ7fJ0d7sFIROe/CU6cvVb9YQbanZxsrTXenR7tebg
+	 mx/74NnSSvL8mYNf5aMewbcQqlwcc7u/ADxvixWQCnUG4r+NHSK/rNXqjOkvNRO4uJuAj
+	 X1frpnitHpLeFjzvWk0Nw6na3MR++pzIcRIZcptRWLj4JKeCgiuoKk6I8DkrbJDF9FA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jy1KLICg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=jZqCF521;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51CCB606A326
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 23:52:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD230606A333
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 00:01:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD230606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jy1KLICg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 220F51F000EF
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 23:52:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795564374;
-	bh=FdmbSo5Y/+1WVcBaZi3UOeVDRS7HdI9UnXMTYxRF8pM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=jy1KLICgiWSXqsqyyn/gjKmfh+rsCDzaG2EVfNWUB4gbGN8xmKT6uSv5yG+2iL1G7
-	 IK3zduScRh3Q4Zuq4FZneQ9tmRu1TiDvJln8Te05PBA79SXVpiyXqG8mF9i3SwLHvk
-	 Oo8sB4hdZxHtCrY9Yp/82RTOL5ehb+IOdHnv7vuI+nTa+CypiHlDIRHTzAW0fd85Wb
-	 kGQeDv0vEfxPIYQoKOwKqTq61J+hvj7UQXwjN02iepCKKWyx6iMZPrcx5PhnfGSIwv
-	 GOBypqMenmIXZEadzSQwUM1+/LKppHQa8uUZJVDduDzJvol8Tl2PH8TZBl1ISExNwK
-	 9DbZFcLqMeomQ==
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5c14f3dab66so4643581e87.0
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 15:52:54 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGpgR4AhLoBq2z3PiRtvknfJwR3KbtYaK18GA5WHRqjw3tT3iMZLKf9gNtm19xrVgmKhgyPNgsXAvzH@vger.kernel.org
-X-Gm-Message-State: APuU4Z/j6KEecu1ggxriZEOVcYgVYhsktS2YZEBSZIZmjThooKYMZmB0
-	RtIU/SjmTAELnrgzoB/EvTGpSQcLCLRkpFPc3e63Wr4zTxZZfDWcUFEuO1eseIxUMyiA3ZaqzPS
-	fnxVno1Tb+884uIjeuotHEhq0EvJzi0E=
-X-Received: by 2002:a05:6512:3c86:b0:5bf:a34f:14ce with SMTP id
- 2adb3069b0e04-5c1b7bcb80cmr4369964e87.11.1795564372635; Tue, 24 Nov 2026
- 15:52:52 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=jZqCF521
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-38190551625so10321932eec.1
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 16:01:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1795564898; x=1796169698; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8DK3yldnIUojdVzCr2+XwiNL7LP7CGhb9/YkbV+PBQY=;
+        b=jZqCF521yDr09fUmzi6RgygaLzmw94KaaOKAsaY89oBxs5KQC7DkwM/NuNnQC9xAQP
+         EBFLieZm4OZnZCHp6SACkT2ki+diJp/jYfgr4rMm5srpcb6TGFVh44XYpWVz894XA+zV
+         NslcaQ6iro3zpioeo7TmXCxnby9VDCBgIBWO4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795564898; x=1796169698;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8DK3yldnIUojdVzCr2+XwiNL7LP7CGhb9/YkbV+PBQY=;
+        b=ASkAP0/GLCeTbEdjfrzekn1jde2P+ofZxY3NePbu2Q1UQUzMTZAbkC9/ErdScymFVl
+         jWtYLQzPe5bM7J2OYwwSEq1A3ZnEWOxvguz8a3TOq3ivMZTQETEcIksEGR302VgDHg8p
+         sXTy0WcpNeSIejBjqo0EYmoiSkyEQbylcbAto9HJ5yfFHvcioi9a92+aFcey9YomzdIf
+         KvXd+eV/lEL4aynQD1Kyjhh0UCdjDwNdNIQpsS1/PApSvPxN4pkZzvXnmhtTLN51ZbXa
+         2HTilfL9Q4bGN9lHtFNwQd+Y/5nJy9puUxBfxYyyz9T3KdnJgPyJ8yICYBKRwjlOmgWW
+         WItg==
+X-Forwarded-Encrypted: i=1; AL+hErFsl8yQjDfdNPhBNyhyN64KiKlMzVrnwOkAWGtqq2+iK5VEV09Li5lQit50/EjU8CoTcQdUILqjsXsJ@vger.kernel.org
+X-Gm-Message-State: APuU4Z8iJw+VEAFEIZC5MxFfdrclJHqlMk8mt9CaRjWIQ29hiFZOq7ih
+	JCNU+PpPt9rADPikW3POiCmkRifxBQsOmTtVxoulYKk5DawN8NhVLwXwuoM1Llpb+w==
+X-Gm-Gg: AZFdTZdA0X0xj2NOjvEO5i5hBmovqZN0DdyAu0YfK5mLTToYas0eXb5hyL+3PbuMsyn
+	fNI4Qy7eHo3e8/ol/xXdhW+yCPsITcyzZGa3+W8kF0+9izKwCqfbRjTBd78HzgFMy8CjI+6ysfS
+	KaEwJOdf58Uu/TNB+t7XWhazT9CM1Js7kGeN9Xx/o+AHm4H1K32JZW1pf22NeRWrdViVjpmfjfV
+	b4neJyD/Uxm0Gc9c4gxoAnyDReCCvfiblcNhtM0JrRfXrd3AmwUzEEWB42Dvw0RHDKKOFB+Lt/3
+	SRUn1jH3yh2I/SDe/1jhE+W1Hz3Dig6hYiwbEHCKH6Ff7/ePFAS8zwTcqoFs5CttrsJRIc6qr8U
+	qVqHp50srcwzcIN8cnFMyuYh0cy5Gz5r0K17lURlvMKScgdElvnmmzJfetHoXUiCO6lOiLbELw2
+	Ma9Y+LFxqHnW8aLdJ2Kq2fPlYxKv44n9DYx+ROwYaQcjYWzCRJ0dpm7hn3xZtz5szNryGJu7zqu
+	jN9ExUWVABAH6RMp9UAZLlFVIjEJVuqfrIMZdsHvqOvb5gK6krTEc17w2Zfk3ZeshrAGtgqpWfo
+	JTut0Y12bvtPICZF0h8BvlwHUnXeHEUu9XBcO5EQCaqVl1uWWgpFtInrqMfW/tYY5bPg
+X-Received: by 2002:a05:7300:601e:b0:386:1e2e:ce0a with SMTP id 5a478bee46e88-3861e2ed1bcmr15600970eec.27.1795564896357;
+        Tue, 24 Nov 2026 16:01:36 -0800 (PST)
+Received: from localhost ([2a00:79e0:2e7c:8:ea9b:d8a3:ba44:2d0a])
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-385665f21aesm59652400eec.4.2026.11.24.16.01.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Nov 2026 16:01:35 -0800 (PST)
+Date: Tue, 24 Nov 2026 16:01:33 -0800
+From: Brian Norris <briannorris@chromium.org>
+To: Peter Griffin <peter.griffin@linaro.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>,
+	linux-arm-kernel@lists.infradead.org,
+	Mariano Marciello <mmarciello@google.com>,
+	Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
+	Jakub =?utf-8?B?R8WCb3dhY2tp?= <jglow@google.com>
+Subject: Re: [PATCH 3/9] soc: google: Add CPM over MailBox Array driver
+Message-ID: <awYlXdfJcciCy1Cn@google.com>
+References: <20261026214359.3122870-1-briannorris@chromium.org>
+ <20261026144346.3.I7bc547c83b7bf677a62670099f481a91ac737073@changeid>
+ <CADrjBPqnRrFeYT9J6NGxy+Xzy1PTZEz+BMs1_u2md7Ra6xPPDQ@mail.gmail.com>
+ <awXf86suGgKeazZx@google.com>
+ <CADrjBPqG_TLwgOTzQ-o5pM7k1DzkeVxNkV2xDHsU4OBAyYOofQ@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,169 +109,39 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261015142552.4128028-1-ryan.roberts@arm.com> <20261015142552.4128028-14-ryan.roberts@arm.com>
-In-Reply-To: <20261015142552.4128028-14-ryan.roberts@arm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 25 Nov 2026 00:52:40 +0100
-X-Gmail-Original-Message-ID: <CAD++jLmpMQ1KExszFo-So-dQ2rxDiG2fo1GYGV_T0VPQM2b=MQ@mail.gmail.com>
-X-Gm-Features: Aa3M54pFqitfpRija09wdUEiLNXZP7zwbQjloIBuStVWLIh0bhqixHx00fUO9n0
-Message-ID: <CAD++jLmpMQ1KExszFo-So-dQ2rxDiG2fo1GYGV_T0VPQM2b=MQ@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 13/15] misc/arm-cla: Add stage-2 MTC and VM context switch
-To: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jean-Philippe Brucker <jpb@kernel.org>, Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CADrjBPqG_TLwgOTzQ-o5pM7k1DzkeVxNkV2xDHsU4OBAyYOofQ@mail.gmail.com>
 
-Hi Ryan, Jean-Philippe,
+On Tue, Nov 24, 2026 at 10:31:11PM +0000, Peter Griffin wrote:
+> On Tue, 24 Nov 2026 at 19:05, Brian Norris <briannorris@chromium.org> wrote:
+> > On Tue, Nov 24, 2026 at 12:28:24PM +0000, Peter Griffin wrote:
+> > > Should we also have "depends on OF"?
+> >
+> > Why, precisely? It's not actually a compilation dependency (I tested),
+> > although it's needed at runtime. It doesn't seem like this is
+> > consistently done simply for runtime dependencies, and instead work has
+> > generally been done to ensure everything builds fine and fails closed
+> > without CONFIG_OF.
+> >
+> > Anyway, it's a bit academic, since ARCH_GOOGLE (ARM64) selects OF.
+> 
+> I was thinking more if COMPILE_TEST=y && CONFIG_OF=n &&
+> CONFIG_WERROR=y is set. I'm not sure if 0-day performs such a build. I
+> guess since no 0-day failure has been reported in this thread, perhaps
+> it isn't required.
 
-On Thu, Oct 15, 2026 at 4:27=E2=80=AFPM Ryan Roberts <ryan.roberts@arm.com>=
- wrote:
+Yeah, I can't tease out any warnings/errors. I had to resort to arm(32)
+to get such a config, and I can't even fail with W=1 (I end up hitting
+arch/arm/kernel/signal.c -Werror=unused-but-set-variable
+warnings->errors first, but...):
 
-> From: Jean-Philippe Brucker <jpb@kernel.org>
->
-> Add functions to switch the guest MTC. Reset the accelerators and CLA
-> registers on switch. No save/restore of accelerators at the moment, we
-> only restore the kernel's PL0CTL.
->
-> Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
-(...)
+  $ grep -e '\<CONFIG_COMPILE_TEST\>' -e '\<CONFIG_OF\>' -e '\<CONFIG_WERROR\>' .config
+  CONFIG_COMPILE_TEST=y
+  CONFIG_WERROR=y
+  # CONFIG_OF is not set
 
-> +/**
-> + * struct cla_regs_pl1 - Saved CLA register state (PL1)
-> + * @pl0ctrl: Host PL0 control register
-> + *
-> + * Most registers are simply reset when transitionning to and from VMs, =
-since we
-> + * don't support shared assignment.
-> + */
-> +struct cla_regs_pl1 {
-> +       u64 pl0ctrl;
-> +};
-> +
+  $ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- W=1 ./drivers/soc/google/google-cpm-mba.o
+  [success]
 
-> +enum cla_ctx_type {
-> +       CLA_CTX_PL0,
-> +       CLA_CTX_PL1,
-> +};
-
-Please add authoritative definitions of the these two context states
-here so we know exactly what they are for.
-
->   * Mutable, written by domain reassignment, device work, and CPU hotplug=
-:
->   * @regs:              State for each device in domain.
->   * @asid:              Pinned ASID of live context.
-> + * @guest_mmu:         Stage 2 translation configuration.
-
-Since they are now in a union there is some information missing here,
-asid for PL0, guest_mmu for PL1?
-
->   */
->  struct cla_ctx {
->         struct kref refcnt;
-> @@ -191,7 +220,10 @@ struct cla_ctx {
->         refcount_t users;
->         struct list_head queue_node;
->         void **regs;
-> -       unsigned int asid;
-> +       union {
-> +               unsigned int asid;
-> +               struct kvm_arch_guest_mmu *guest_mmu;
-> +       };
->         wait_queue_head_t waitq;
->  };
-
-(...)
-
->  /**
->   * cla_ctx_create - Create a context or increase its user count
->   * @domain: CLA domain
-> @@ -48,8 +79,12 @@ struct cla_ctx *cla_ctx_create(struct cla_domain *doma=
-in,
->         INIT_LIST_HEAD(&ctx->queue_node);
->         init_waitqueue_head(&ctx->waitq);
->
-> -       mmgrab(key->mm);
-> -       get_file(key->file);
-> +       if (cla_ctx_is_pl0(ctx)) {
-> +               mmgrab(key->mm);
-> +               get_file(key->file);
-> +       } else {
-> +               WARN_ON(!cla_ctx_get_pl1(ctx));
-> +       }
-
-This WARN_ON looks more like an assert() of some kind?
-Since it's an enum and assigned from those everywher
-this is basically a check for memory corruption...?
-
-Well maybe better safe than sorry.
-
-If you want to employ this pattern, and especially if there
-will be PL2, PL3 etc in the future, do a switch?
-
-switch (ctx->key.type) {
-case CLA_CTX_PL0:
-    mmgrab(key->mm);
-    get_file(key->file);
-    break;
-case CLA_CTX_PL1:
-    break;
-default:
-    WARN_ON(1); /* Should never happen */
-    break;
-}
-
-So you would then use that pattern also here:
-
-> -       mmdrop(key->mm);
-> -       fput(key->file);
-> +       if (cla_ctx_is_pl0(ctx)) {
-> +               mmdrop(key->mm);
-> +               fput(key->file);
-> +       } else {
-> +               cla_ctx_put_pl1(ctx);
-> +       }
-
-And here:
-
-> -       mmdrop(ctx->key.mm);
-> -       fput(ctx->key.file);
-> +       if (cla_ctx_is_pl0(ctx)) {
-> +               mmdrop(ctx->key.mm);
-> +               fput(ctx->key.file);
-> +       } else {
-> +               cla_ctx_put_pl1(ctx);
-> +       }
-
-
->  #define cla_kernel_mtc \
->         (cla_kernel_pl =3D=3D 2 ? CLA_MTC_REGIDX_PL2 : CLA_MTC_REGIDX_PL1=
-)
->
-> +/**
-> + * struct cla_mtc_s2 - Stage 2 MTC configuration for the host or a VM.
-> + * @hcr: HCR_EL2 register value.
-> + * @vttbr: VTTBR_EL2 register value.
-> + * @vtcr: VTCR_EL2 register value.
-> + */
-> +struct cla_mtc_s2 {
-> +       u64 hcr;
-> +       u64 vttbr;
-> +       u64 vtcr;
-> +};
-
-At this point I have no idea what "stage 1" and "stage 2" is, but I just
-assume it is something everyone working on virtualization knows about.
-Maybe it could be explained briefly in the commit message for the
-rest of us?
-
-Yours,
-Linus Walleij
+Brian
