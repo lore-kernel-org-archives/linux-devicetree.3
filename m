@@ -1,93 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.34.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795569257;
-	b=CkDz5Sil08CxvV4J96YVNOTHYvgC6LZm51xqNMfC3E0wY4FjNVY0gcFT8pPFna9YrBlG
-	 re9VX60mgukjRrAMKUsHA4jDv186k2+3Ws0RFVZqdNaphoaGTbkl5xHsdemt1vPj6f3JT
-	 GJag2CLXDSx/gPCOTB70fUkfngaW5laOA/hV+sAtrRdZtkHPubS0SLlMtBnJpLFWEERmZ
-	 gVs3gdw9USeFz+eG3aYShig7cTQW2hgOWHys9ePmHqUN81J7j5WFHCEjauqt7MYroyEU2
-	 HPYDMlJwFDcpRWTfdxiXF/qbXYiL8f6802eSJctvFFhKzvWVfsHQwZ0VPyeeZXyzNog==
+	t=1795570754;
+	b=BhI/zmqZ3ZZRI0swVMVSgXIoqq4WEtSWC76Oe6wT4lGP5QPZyEUSlpqNr/K2Ea2SKMZR
+	 bsDoOfIGa5W+xlD8VZYdP49mnrumc3NwacgKlItvJFkdMyiONUrpxHhHGEZIAGvBQHgfB
+	 XTWibG82cHcd9LS5bdseJPRAX6adlPZhXCvFD57/zlo9m7qse3V8MssIcjBGAjq4SjHE/
+	 ay8GwsRSNqeYXyes4dN/EpKqu0DOrt+FFj3Nxl6ul/7eBxBg5jRyP5uhIr/pA4wUr89ob
+	 8f7yuVCSn3JxgCCMYHQOI5q2hA/WbU/lFCC52QVkQU1LGRmeoGJUQ5mjC90fAwOKDRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795569257;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=LHJCgD46BHZFlg4y5YlSWkbsWdLocvFadLaw/xj7LI4=;
-	b=DB9FvBnNzV1Ph5FLqh6n87cEOyql8hDPSsNlD02Dtw6JYynRVRpCDO5Lnw8uTt8w+W6b
-	 h6jYJVXap079GnZumUDYnt0L/DPL4Orsch4VRSXaBQ7aYBgoYnEgrZfHFt7FAFPlpPD1c
-	 fzIPZl34hifj7bOSznoIDePJO5QLDnaTNnB71wOO6ua7NPBysUzE0kqbRK3kEGFc08ZNN
-	 uBE9EW1vopojK6JdWj/KkMswKwJ2yFgaFzJ7RzEbfwTF4Fd1tfGj+CztUZSMCxz3MZe0/
-	 mFOWP+wq5sCPMPol8ePdvoQXn0Ab6hu4uXA++0XS0WmGvdBF6aJXENYxPSra3bp1s4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795570754;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=5FN8m7PE/nm8LadW/EpmCHNTSgvk1Y0b2hsF8AG+DuU=;
+	b=0vb5KCj+HffS7J0jNJW/9HjDhBV5ZQQPKR3e8LEwk3o47Q9US1HjI6YBGfcsZVJErKxA
+	 hDGFwof31tT25StR5cL/stwsWGBLDVgdh65zNFLZape72rjoBPPX6/nV04R0+EeubIEm3
+	 JiiG99fy16tGX++ARPQsmza4aNOLzR8aD6OjrWUkw0hM8LkoKT839EhrfF2owtrZh5UFV
+	 rMN0IG1FRN5nhuvUDNmCLqfXHMyLWuSmMRlD3UfXiCfKkydBRWB+LuFvBzuOlc5K2mYQO
+	 x8poWIdYSK/xcgz49mkjwxAGzunoWV+pYw5hQwuev/uyaA7ROf9ycE9gmzNEM4Y8EjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="d53/3epU";
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b="HO/nv7kU";
+	arc=none smtp.remote-ip=54.206.34.216
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A468E606A31E;
-	Wed, 25 Nov 2026 01:14:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A468E606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6C6B606A331;
+	Wed, 25 Nov 2026 01:39:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6C6B606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=d53/3epU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795569256; x=1827105256;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=RVmXkbcmTdebG9jhnv0WvsAA9iprgh7mGs8s+3jbhGE=;
-  b=d53/3epUKkKU3pioyqR4EFGmAFM/7EGa9k37aFudHu3SIjtQi/JseU0U
-   6RWGSndylYAOdm04XxeeFNMX+gH09JaksMZ7GyUDt5oInWxVyFa2kld/Y
-   hSExVIn9fQB1pn48QQJCY2WrACZmm+1yd/gTYIvzhbpobcBHpbSFWyRlW
-   8VUCOoP5TKuP4rSlM/5owQVUkhN4/FrOldwDhoGLdtjldqp8MLjCI573w
-   ZMdsriltDAf0W3llIgHEjSGKkRI4otab7bk4bzj85X1n+UJabqgWfIcs+
-   3mzb3l3RjxP6817orG4uPoPpLhn4PSCXR0wI7aF68Tnd+Fb89Ddw3s6Sd
-   g==;
-X-CSE-ConnectionGUID: 6Dhtfkb0RleXWErNQizxUA==
-X-CSE-MsgGUID: fRmKtfwPQ/OhV3bPajszFA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4407644"
-X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
-   d="scan'208";a="4407644"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Nov 2026 17:14:15 -0800
-X-CSE-ConnectionGUID: jG7m6XPJRU2lvktZFwp+qw==
-X-CSE-MsgGUID: n10h878PTsu3/lG5PSLd1w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
-   d="scan'208";a="13400136"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa012.fm.intel.com with ESMTP; 24 Nov 2026 17:14:11 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xW1aI-00000001QbG-3geK;
-	Wed, 25 Nov 2026 01:14:06 +0000
-Date: Wed, 25 Nov 2026 09:13:43 +0800
-From: kernel test robot <lkp@intel.com>
-To: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Paul Burton <paulburton@kernel.org>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Joseph Telaak <joseph@telaak.dev>
-Subject: Re: [PATCH v5 6/6] reset: Add Siflower SF19A2890 peripheral reset
- driver
-Message-ID: <20261125084324.IBaFeULM-lkp@intel.com>
-References: <20261123-sf19a2890-sysm-v5-6-4ba44a0db17d@telaak.dev>
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=HO/nv7kU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1795570719;
+	bh=5FN8m7PE/nm8LadW/EpmCHNTSgvk1Y0b2hsF8AG+DuU=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To;
+	b=HO/nv7kUcuOj7xtV3DkQyU0zVwublzXg/qXr4Gi3ousfRddqwJn5QS9G/myX517P2
+	 dhfXZW4658GvuBqh1lB2GLRwgrYdY7x2hfo3wtqHoXVFY0zVk8cel1QZSlMjHKMw/5
+	 t0l0/6Cxr2WuSewVX4vRvx8dQJLOlAbzKU5jZY/8=
+X-QQ-mid: esmtpsz19t1795570717t0832536d
+X-QQ-Originating-IP: G2lbJzosbw7PNVaRZUJ76xE9em2WMqpBtM/JQ8J8JzE=
+Received: from = ( [183.48.244.245])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 25 Nov 2026 09:38:34 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 13276682170173551916
+EX-QQ-RecipientCnt: 16
+From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Date: Wed, 25 Nov 2026 01:38:20 +0000
+Subject: [PATCH v3 1/5] dt-bindings: timer: Add SpacemiT K1 timer
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -97,57 +63,143 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261123-sf19a2890-sysm-v5-6-4ba44a0db17d@telaak.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261125-spacemit-soc-timer-v3-1-e6390f3ae4a6@linux.spacemit.com>
+References: <20261125-spacemit-soc-timer-v3-0-e6390f3ae4a6@linux.spacemit.com>
+In-Reply-To: <20261125-spacemit-soc-timer-v3-0-e6390f3ae4a6@linux.spacemit.com>
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2545;
+ i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
+ bh=YTzIYqz5yG8XkouJ9NazRxZn63OsQlQGGOsumRdwLmQ=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDNlsNqIy38Q6o97PaXhybLdUQtbLdq8ZPekumt+00iLOO
+ DEH2ql0lLIwiHExyIopsnQ/4NlW4BNlWyBQ6Aszh5UJZAgDF6cATKTrJiPDweVX0yc/CXiesW/a
+ W/apW63VDr9p4mRuDm65LNDA8PGZHCPDtUWXN8yyDf23fPme6z5TDXfofbqSyTbpVd7vE626X5n
+ P8gMA
+X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
+ fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: OG3x6VvIxJM5LdQGB9pjaKV99f1J9HauilPBEbbS0YZIoHM8NCJpJrDu
+	+O91+TY6l/UBZ5RdnQp1pmQMwR30qniwYZ3AuHCQEGJCfA1Lk55rkk5Ow3wwYHwVM4QZ13s
+	ZIhNihUu6cw+yfDunrlh3HKhOd2ZkFR481GUGYq1RcIjuuuXWA15Ev9tjRpfFISruf4zBqG
+	RHuKbV+fReHietGkKT4d6fAfQSMu3D4IWPhZi9MQFR0UKKcrxkTpSBrn1NnM0miSF8BtQz3
+	VmXNC1AgYSuH76+dBdRWnmvNCtU0KTEkvHqvr0YiM6SFrLormo0v3JjULxgfuM0bb8ysBEW
+	wxrU/jLTTGnPMaD1UsOgMFZJyvzjaPTFbphcOzWn/JBzvXOUB77lEhJNUfffvp6uKBJ/W03
+	kS4UZ8XXzuD6Sjrih4bSzbSbz3njoimeF/hi+WlajFdaVPAG02RJmr8l2NimPCc0QvJUyhi
+	oUfwQWTMv9U4V4xkPb7DpA2FJrK+6ENFj7eZcbfmy/G0ZnxYtSN4R6m4mNorCfQ/PlvxB/9
+	+ToLqjRcH1Y/JXdwDBxqChNUX/lkoa7xvtUZBYyff489AHY2rbBWFSZvSlJclnfeSnnSEN1
+	1GjwcTzsnTJoo6M4JItbnaoZE073H0sHNJel2VYrivdy0RR7HB+MzX7aVATQglJjSkc1Xp6
+	bCqMBWU34j1zY/FWzXLIqYE9IRS78FC+igUUIL+s4IZIjyIprrKbikAWt/HspT1h7OKvJmv
+	ZU62pvn+nh5Fk8jEdCifMVolM6kcL0OCq5XDdN8PX9B9wBal/sHwJ2cyLgyh3g5MlzzzKNu
+	9aDQ89uMBkkBiWzXpmREuFIPuhQEMo0B9I/398iAUzjm740OqoKHMGtYamTyV9bIztCMdn6
+	JOUWD+KmST9MK3e6IQlMGrbQYez8fIF+yK5a1UV5h7dwI4QlDA05oNNv2WL0KsToThtIFld
+	TlKelprn3X5H+p2IR0LwSLXT9+wUfQWHFe5gC5aAUwhLt+yi+m5JrlVd+GuhJ6GJT5TdiKS
+	4kIEYufIiivJTEgytQM0SedG+rkP362altA2HZIA/GAiXyC1YB6PxB1Oc/ARyBvA0SU6Caz
+	pXPB8f3riSKaZc31tAY7o6Q7s9NHakJ+g==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-Hi Joseph,
+The SpacemiT timer block provides three 32-bit counters, each with three
+match comparators and an interrupt output. Describe its register range,
+interrupts, functional and bus clocks, and reset.
 
-kernel test robot noticed the following build warnings:
+K3 uses the same register interface, so describe its timer with a
+SoC-specific compatible followed by the K1 fallback.
 
-[auto build test WARNING on fc1f8f0ceb3b949b58c2f7819976644f5cf84249]
+Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+---
+ .../bindings/timer/spacemit,k1-timer.yaml          | 71 ++++++++++++++++++++++
+ 1 file changed, 71 insertions(+)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Joseph-Telaak-via-B4-Relay/MIPS-Add-support-for-Siflower-MIPS-SoCs/20261123-234121
-base:   fc1f8f0ceb3b949b58c2f7819976644f5cf84249
-patch link:    https://lore.kernel.org/r/20261123-sf19a2890-sysm-v5-6-4ba44a0db17d%40telaak.dev
-patch subject: [PATCH v5 6/6] reset: Add Siflower SF19A2890 peripheral reset driver
-config: hexagon-randconfig-1001-20261125 (https://download.01.org/0day-ci/archive/20261125/20261125084324.IBaFeULM-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 2012344e5da8e03ea4b8283ecd6fad6e13f09d64)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261125/20261125084324.IBaFeULM-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/20261125084324.IBaFeULM-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> drivers/reset/reset-sf19a2890-periphcrm.c:130:34: warning: unused variable 'sf19a2890_periphrst_ids' [-Wunused-const-variable]
-     130 | static const struct of_device_id sf19a2890_periphrst_ids[] = {
-         |                                  ^~~~~~~~~~~~~~~~~~~~~~~
-   1 warning generated.
-
-
-vim +/sf19a2890_periphrst_ids +130 drivers/reset/reset-sf19a2890-periphcrm.c
-
-   129	
- > 130	static const struct of_device_id sf19a2890_periphrst_ids[] = {
-   131		{ .compatible = "siflower,sf19a2890-gmac-crm", .data = &sf19a2890_gmac_rst },
-   132		{ .compatible = "siflower,sf19a2890-gpio-crm", .data = &sf19a2890_single_rst },
-   133		{ .compatible = "siflower,sf19a2890-i2c-crm", .data = &sf19a2890_single_rst },
-   134		{ .compatible = "siflower,sf19a2890-pwm-crm", .data = &sf19a2890_single_rst },
-   135		{ .compatible = "siflower,sf19a2890-rf-crm", .data = &sf19a2890_wlan_rst },
-   136		{ .compatible = "siflower,sf19a2890-spi-crm", .data = &sf19a2890_spi_rst },
-   137		{ .compatible = "siflower,sf19a2890-timer-crm", .data = &sf19a2890_single_rst },
-   138		{ .compatible = "siflower,sf19a2890-uart-crm", .data = &sf19a2890_uart_rst },
-   139		{ .compatible = "siflower,sf19a2890-usb-crm", .data = &sf19a2890_usb_rst },
-   140		{ .compatible = "siflower,sf19a2890-wdt-crm", .data = &sf19a2890_single_rst },
-   141		{ .compatible = "siflower,sf19a2890-wlan24-crm", .data = &sf19a2890_wlan_rst },
-   142		{ .compatible = "siflower,sf19a2890-wlan5-crm", .data = &sf19a2890_wlan_rst },
-   143		{ /* sentinel */ }
-   144	};
-   145	
+diff --git a/Documentation/devicetree/bindings/timer/spacemit,k1-timer.yaml b/Documentation/devicetree/bindings/timer/spacemit,k1-timer.yaml
+new file mode 100644
+index 000000000000..b71785b8aa94
+--- /dev/null
++++ b/Documentation/devicetree/bindings/timer/spacemit,k1-timer.yaml
+@@ -0,0 +1,71 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/timer/spacemit,k1-timer.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: SpacemiT K1 timer
++
++maintainers:
++  - Troy Mitchell <troy.mitchell@linux.spacemit.com>
++
++description:
++  The timer block contains three 32-bit up counters, each with three match
++  comparators and an interrupt output. Each counter can use the functional
++  clock or the internal 32.768 kHz clock and supports free-running and
++  periodic operation.
++
++properties:
++  compatible:
++    oneOf:
++      - const: spacemit,k1-timer
++      - items:
++          - const: spacemit,k3-timer
++          - const: spacemit,k1-timer
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    minItems: 1
++    items:
++      - description: Counter 0 interrupt
++      - description: Counter 1 interrupt
++      - description: Counter 2 interrupt
++
++  clocks:
++    items:
++      - description: Functional clock
++      - description: APB bus clock
++
++  clock-names:
++    items:
++      - const: func
++      - const: bus
++
++  resets:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++  - resets
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/spacemit,k1-syscon.h>
++
++    timer@d4014000 {
++        compatible = "spacemit,k1-timer";
++        reg = <0xd4014000 0x100>;
++        interrupts = <23>;
++        clocks = <&syscon_apbc CLK_TIMERS1>,
++                 <&syscon_apbc CLK_TIMERS1_BUS>;
++        clock-names = "func", "bus";
++        resets = <&syscon_apbc RESET_TIMERS1>;
++    };
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.56.0
+
