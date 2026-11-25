@@ -1,48 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795565331;
-	b=X90mYGPP1ujDWwFFb1EOCtE7cz0KfS1FwJcAZO2qsoQcES91GSbdyc/eyVAzClS0cqk9
-	 4guimuljPQmkYkmm5n9lU80H0nkY/bvTYrkAI97mO6nf54sW1g2f6jjUOKsUG/yFOB0NU
-	 mq9EGkqn6WFX6F+oHvicS0V2S2Q1SolzElg3R3ScZutlamaJLrElw+B4yOUBJYHWQaQ0V
-	 LzmsY3ceGekNO9Ctb/uAK+GkQqJwHqIfnubkLGezR0dQln6g9U0pl8VosUrI+P0EG4HpP
-	 3cOhhKF9ScWSjWt5tTRXm7Hn847HIdBLZ/Smlxt45Q/Pdutc74EF1QuC57zaDkGX1qg==
+	t=1795566279;
+	b=Jigr7P2gW92gbvLXWyegVi8weBljh9eqb5qpk/Lu/gRBjeXqKDb7I+AJlcjtvjI5KrqZ
+	 ALVsCVy1dUE6FwyZfuOSL7nB2sRHahe2DmhXFM4YgGhUPBOLTXs5gkeBvfR2BunTf/oJw
+	 1AXUUmr0i4rCjWnD8pQGujiUbI/eLUnFKPOK4fkExuTmskDGzPGwRgMMhTGkyMYef0d8v
+	 EFZzGBOBAuHfyW2OlC5uTzwW9aINQYgjqF3AYufMl3T+8lucnI6ADKNNVV/1XbLRnnttL
+	 SM81CJwexxk7DFXnf+OZ9CnIbo/a/wCWqZ5lWJodsbMUy3pNH98VZQwtiZaLh5InnqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795565331;
-	h=DMARC-Filter:DKIM-Signature:Feedback-ID:X-Pm-Original-To:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=JWO5eOPOWxAZPbt93E7PWjAf1XN4ASjz7QmgH9tcpEc=;
-	b=WSlEObK6EcODO7fuHtA5sBkSQ8dmEMRwo746P4WYFu4bcNFRglW52DQU3rSgShN5iDGF
-	 TlnMrdZHER6T3Ikph8keEX1lX7uj4nTerZIzp8pL1t3KUT/NMNKJ+6lE27DV83LOEn15v
-	 OWAiE2VEwQZWyJs1q+KQK2bmdi39jqJ8LdODdo3blmvBv6NFgMRQ521JFncVP12Jp97F3
-	 aidQGM3uGKN+E4iaXNkQ84LaAacjwIeOfppq96XZHi3lLpWYNq/wf0G/ynAhQDWWGvBDe
-	 SGNBNLsFqVQaTIU+xDsB07UVd8muTqRc4KaIOr5ivQSzS2Ry5RcOczA6UmZOTWVxqEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795566279;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=6k6AfQb1gBjvFlGEX0pSJGZhr+4funoFozcLk5duaa0=;
+	b=ERJ661tLsyn+0RoSHwZtvpoZBoxPziF/cv36hP430i9HDgFx41vZAf+YW77j4vxf3np/
+	 yUVRdYM44+ah3rTJy2cQihwI4PA31ThSWqaAstx388euSAtkugtgdlEvpfdeFpWGymGHc
+	 VRFrSCWKRCuAzNu4vSdDbwc+nNhVfdBUWOPN4It1QXgdij9JswA5EjQQFjXYr8USKL4Ys
+	 W4mknJi2YQqwWyprG9f3p5dxgBzuNH8HEddun4vfl49loy1EgEjuJNYUqORn8ssXB6R2Q
+	 CaxriCt+Fle3DwdDc9bc+2PXo9HA6N9PidEorqvrWVYx+Z/c8f3obseAoVwYkN+m3mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mentallysanemainliners.org;
-	spf=pass smtp.mailfrom=mentallysanemainliners.org;
-	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b=RN0C6Ro7;
-	arc=none smtp.remote-ip=34.202.193.197
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cZq5Qeq1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16771606A31E
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 00:08:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16771606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mentallysanemainliners.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mentallysanemainliners.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7094C606A31E
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 00:24:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b=RN0C6Ro7
-DKIM-Signature: a=rsa-sha256; b=RN0C6Ro7mR3xUBlTXWHMW8JzTNvfK1fed5xacdf71IeJEJwD3NWiUDgYMAhQp03XnNzPUO8oIKZAE3DwICH3FqBFfIMReUZPT/8RlV/qw8UBDW+4p/6iu/cxDyMK/21KDinJKBDaXxUEnuRXbL2GJ/+pJ62PvN5j3+1am3bJJpyWnOSe7UsfUlGuEErYZE1gI2GIWP/9J9+nuC4PrwKgGO1UU0Cdoy1TjbCN/13uMwHsNfTwoauw+t4u1EQoxgZMYdH4l0IdFQ2kc+C0dL3rGcb3EvvMUq6lyN7gIne+5lSu5TDMAK5EpABZ3GfHW3KOk41jJKMu9AKT/SIdxqu4Pw==; s=purelymail2; d=purelymail.com; v=1; bh=Z5AUULqU4STKqrKUgodGKeg+HOQYh1gNqO/mS1n3Tic=; h=Feedback-ID:Received:Message-ID:Date:Subject:To:From;
-Feedback-ID: 68229:10037:null:purelymail
-X-Pm-Original-To: devicetree@vger.kernel.org
-Authentication-Results: purelymail.com; auth=pass
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1592599783;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Wed, 25 Nov 2026 00:06:31 +0000 (UTC)
-Message-ID: <9bc95b2c-9b63-4b2a-b692-287e9cbe7d67@mentallysanemainliners.org>
-Date: Wed, 25 Nov 2026 00:06:27 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cZq5Qeq1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8A611F000C4;
+	Wed, 25 Nov 2026 00:24:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795566279;
+	bh=6k6AfQb1gBjvFlGEX0pSJGZhr+4funoFozcLk5duaa0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cZq5Qeq1uFyssgLJOfkIjn57ty4rDulKObXLQNOT6ADti4RtXBf5r/BSsDxAy5IDt
+	 lN5n0cVmJlmnbIoLzOljSugG9CKsbByFX7Z7o2NAHu1ipLiQihjqgZ11kH2xdEBE6k
+	 y5wuKjOm/6imN20sFyf0LWh6yQknFrmXLNGviGrk0tKtBZszshLZZe6fsqWvOo/Ajh
+	 GSsuJ9X6COSrt/oerXV4ooWhm0HPmhBRe0PmncqqD1Qafrdgbtr7fKkHxOy54P+cEV
+	 WHXeS5c8IKcO092UPaxUCo501cViYL9/CmVzjtL7G3HGwc5rXE1+jauRgeCJpEevBQ
+	 orgYSqI0mEN5w==
+Message-ID: <sashiko-outbox-232275@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/4] misc: fastrpc: add HPASS domain
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Anandu Krishnan E" <anandu.e@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261125-fastrpc-hpass-support-v1-2-cb1d46b29e3b@oss.qualcomm.com>
+References: <20261125-fastrpc-hpass-support-v1-0-cb1d46b29e3b@oss.qualcomm.com>
+ <20261125-fastrpc-hpass-support-v1-2-cb1d46b29e3b@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 25 Nov 2026 00:24:37 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,84 +59,67 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/5] Add USB support to Exynos7885
-To: David Virag <virag.david003@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>
-Cc: linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Krzysztof Kozlowski
- <krzk@kernel.org>, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org
-References: <20261123092244.1792040-1-virag.david003@gmail.com>
-Content-Language: en-US
-From: Umer Uddin <umer.uddin@mentallysanemainliners.org>
-In-Reply-To: <20261123092244.1792040-1-virag.david003@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found no new issues
+in this patch, but noticed 1 related pre-existing issue it does not
+introduce:
+- [Critical] misc: fastrpc: use-after-free due to dangling dma_mask in
+  fastrpc_rpmsg_probe() [1]
+--
 
-On 23/11/2026 09:22, David Virag wrote:
-> This set of patches adds support for USB on the Exynos7885 SoC.
->   
-> The Exynos7885 has a DWC3 compatible USB controller and an Exynos USB
-> PHY that theoretically supports USB3 SuperSpeed, but is not implemented
-> in any known device. The vendor kernel also stubs out USB3 functions, so
-> we do not support it.
->
-> This is a v2 of a previous set [1], which was split into a clk patchset
-> I did submit back in 2024 and eventually it got applied, and this set,
-> which I never ended up submitting until now.
->
-> This version fixes some things noted by Krzysztof Kozlowski, and also
-> contains a change made by Umer Uddin, as he recently tried to resubmit
-> my old patches from github [2], fixing some things up, but missing the
-> previous remarks.
->
-> [1] https://lore.kernel.org/linux-samsung-soc/20240804215458.404085-1-virag.david003@gmail.com/
-> [2] https://lore.kernel.org/linux-samsung-soc/20261119-gta3xllte-usb-battery-v1-0-0cf5f763522e@mentallysanemainliners.org/
->
-> Changes in v2:
-> - Clk changes not included as they are already applied
-> - Add Reviewed-by: tags where appropriate
-> - Use samsung,exynos850-dwusb3 fallback compatible for dwusb3
-> - Use unsigned long for set_ref_clk_rate
-> - (from Umer Uddin:) Error-check clk_set_rate, and fail if returns an
->    error.
-> - Keep dt nodes ordered by unit address.
->
-> David Virag (5):
->    dt-bindings: phy: samsung,usb3-drd-phy: Add Exynos7885 support
->    dt-bindings: usb: samsung,exynos-dwc3: Add Exynos7885 support
->    phy: exynos5-usbdrd: support Exynos7885 USB PHY
->    arm64: dts: exynos: Enable USB in Exynos7885
->    arm64: dts: exynos: exynos7885-jackpotlte: Enable USB support
->
->   .../bindings/phy/samsung,usb3-drd-phy.yaml    |  2 ++
->   .../bindings/usb/samsung,exynos-dwc3.yaml     |  3 ++
->   .../boot/dts/exynos/exynos7885-jackpotlte.dts | 20 +++++++++++
->   arch/arm64/boot/dts/exynos/exynos7885.dtsi    | 36 +++++++++++++++++++
->   drivers/phy/samsung/phy-exynos5-usbdrd.c      | 26 ++++++++++++++
->   include/linux/soc/samsung/exynos-regs-pmu.h   |  3 ++
->   6 files changed, 90 insertions(+)
->
->
-> base-commit: 5d7b9f865597a74b323d512619c42f3e07ae043a
+commit 45628114d33912de02c404c2680ce4e7336df5df
+Author: Anandu Krishnan E <anandu.e@oss.qualcomm.com>
 
-Thank you for submitting the fixed work. All works on gta3xllte.
+misc: fastrpc: add HPASS domain
 
+This commit adds HPASS_DOMAIN_ID for the High Performance Audio Subsystem
+(HPASS), maps the "hpass" devicetree label to it, and enables reserved
+remote heap memory and device registration for the domain.
 
-Tested-by: Umer Uddin <umer.uddin@mentallysanemainliners.org>
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index 9e760f68bcaf2..c515097c3d3ba 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
 
+[ ... ]
 
-Best regards,
+> @@ -2761,6 +2765,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device =
+*rpdev)
+>  	case ADSP_DOMAIN_ID:
+>  	case MDSP_DOMAIN_ID:
+>  	case SDSP_DOMAIN_ID:
+> +	case HPASS_DOMAIN_ID:
+>  		/* Unsigned PD offloading is only supported on CDSP and GDSP */
+>  		data->unsigned_support =3D false;
+>  		err =3D fastrpc_device_register(rdev, data, secure_dsp, domain);
 
-Umer
+[Severity: Critical]
+This problem wasn't introduced by this patch, but can fastrpc_rpmsg_probe()
+leave a dangling rdev->dma_mask pointer [1]?
 
+drivers/misc/fastrpc.c:fastrpc_rpmsg_probe() {
+    ...
+	rdev->dma_mask =3D &data->dma_mask;
+	dma_set_mask_and_coherent(rdev, DMA_BIT_MASK(32));
+    ...
+	err =3D fastrpc_cb_devices_create(rpdev);
+	if (err)
+		goto err_deregister_fdev;
+    ...
+err_free_data:
+	kfree(data);
+	return err;
+}
+
+fastrpc_rpmsg_probe() points rdev->dma_mask at data->dma_mask inside the
+heap-allocated fastrpc_channel_ctx.  If fastrpc_cb_devices_create() fails
+or the driver is later unbound via fastrpc_rpmsg_remove() ->
+fastrpc_channel_ctx_put(), data is freed while rpdev->dev lives on with
+rdev->dma_mask still pointing into the freed object, causing a
+use-after-free on any subsequent probe or DMA API access on the device.
+
+[1] https://sashiko.dev/#/bug/linux-3d83ea49-16e6-4a33-9f74-77e4b19335b8
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-fastrpc-hp=
+ass-support-v1-0-cb1d46b29e3b@oss.qualcomm.com?part=3D2
