@@ -1,102 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.21
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795628448;
-	b=jkR7bFkmA+/U4m0q7Fi3VY4lYUHfdYAzE7RrziaeqPwzlYb+eEjgsw+MA2iAhIaG4I7a
-	 cbgUXBgCGAp9IRTz8B/aCf5Fu+Fp8g40pvKWDr0BtVqLr649BwjSqDfNhy64UjFGEuSCL
-	 bHEaXDfctePa9qm/KrhMb5/lxnwndndjxDBfMq8TtnscJHP6seZkHaxNXvUEOsRPDJsbn
-	 gc79drX0QJvZzZf//55ClixBAloy4yrUdrdQZzq1OJIC1+gvbSAXoObwkAi8Qg1rpYzpA
-	 RIDimKgSkwa69Ah6RoM2Caz8NoTrGVHWfaB75DJMxRys64kQgGBJXjJYEgyZwiXmW8Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795628448;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=izFC9U20qO8V9TKSl0ze+pwRHokeJqrGaaR5RSL0x18=;
-	b=2z9g0N2/aYrpnO4M7NwLMrcqfhLLoTKvQBIteu5qtbUNXegRq4r3YIv0TGWXdlvcKAA5
-	 8f2gTkL61j0WxTdC4PPIfyBZn+yTndYyN2jLpxwu4abI52Z3g004+jP9WIfdOWjWJV9Zg
-	 SsAwTqFfynduLv80syJ7gEuH/J8rN+J0WxCX/rD+EzeZQGBsFGNcc7yFjIR2d8fNKN7dY
-	 rlCM3cDBcdknkpEjf/iq135BTKu7oNDiTokEIlHRuwMefuryowxPUjTDeACUjd2Iop60/
-	 CYfBt00eeOGJgVd+ll/7Uywk6jLj45/jApImtNZuShtKvraMsVfayy9g9PLsEbFaQFA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=EKtQQUX4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.21
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013021.outbound.protection.outlook.com [40.107.162.21])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795628474;
+	b=SrMGjOTuBft/4rM3MvSXPGGxmPIW9qwrzrbF+X+FEj8P6eih8KtaukIHgZfKix3LbE1W
+	 IO0SvtqUTK/J2obRim+/FB/b0kKuE98qS3cJdgOZSDQbCvA9PYzppWtt8+B5noeAYP6uk
+	 VJ19KbiKuRr6X7PKWHKAp4MpVJYq6rZfwah09iPaT5TO1XD28h+fVSleuLHoXjixp7T7u
+	 vsgu3jw9tRgCqas9xfAVKdmY5btiO5NIn7ZfMbiHj5R6AyVkErQDhFQJspTnJX17M6X19
+	 qOD1uj3hNKMKdFM9JGe9aXS7CLsOfSdScI/LTHkLJHDq6dZ2yo0VfYl3lbM+ohwkxDw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795628474;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=erAEA25th+KOHMa1v7FaF8fZBgd6XaRDc38NojJlE54=;
+	b=2FJtaKHTuYGV5Q8CUalf0bMj8/AhcCdXc1H5GQe60qNZj5abweRTMpA7wLAVv6weUg7m
+	 r0XoYQAYDQ8lXK7rWVyDJ8Oid+K9qoU6BZlczGaDWiZf8MFPRJkXhhvEmITR/Wj0vdl8K
+	 Fi/Rdm85cIlZIX6wJZvR3ohnaSd9OaAjo7ZiohY0lavaPJsmtJEdEL+tvmEaap0bucxHv
+	 tUHTE4OfHKeJN3X1RgnNUfIS1nEdIOw2+GPfpgjRUcRx93KQpLOLR6GlXARKq9pgDyC09
+	 jF/SvZ2005aws+HtbYntbpx81DY8EyqzrBYhHvSAJnfYQqxqPOhZGpPbeJiIm5Y5now==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cx9aUz7G;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B663E606A31E
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 17:40:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B663E606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A1E4606A323;
+	Wed, 25 Nov 2026 17:41:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=EKtQQUX4
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IucPkh+eQV+AV5bpQJolkkZmFSIP2LQuOprioUhS/XtQD6kqXfLZnrR1n0RTuXFDqU+kwZ3etryyEntW8Wpv0cf4/BoywT/gnQQ0WnEogKlKqzPKcSjjUzMdqv/MuqgMLyOc2N0GsjvHvsARgFgRhpNR0NTnfLXy31sty0EQO2mpP8UiXPRdqEJFO7Q/jAeA9cFVvyo5irM6ZmuV424X6zYjLMcaBVKuBLAXn7OBdrH7GbevPGhwJmiBEube/1UghFEJw4N7Ff5jI+bVtstJWu1drdKaFw0t7pH5z+1rDaWH55glBstb/m5UVc7h8jw/q2bImR62sCnihafiIeeEDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=izFC9U20qO8V9TKSl0ze+pwRHokeJqrGaaR5RSL0x18=;
- b=YHi7aszte53311c585cUiOidVfP/TCJmaU7rwcjNvmuNQiealV3+E8tnKV89iVqLQde9hd3h7omsOHn3ib4FROMDaIGW1CioJPREXO/oUY5+MAVEa0Scv4SraVfZM0Ygf8sIQKpx2Lj97FXouWzJyt3JnjqdyWOUagUdN5HI9tUb/kxUwGFSp0sKyuGhO1nXFozp2tDLDp6aXtsOsSBIdBBtXxLZQRFMNR5ghosuJQo5TGoYN3ndDAIcJRfbf7qNvep71epLIU+XEKbW5BwmKq2AHdf4oT1Im18sJJXv5GamK3kN5GenS98TtkpmN8kIZgB3wSxbgMTsiZH2FZIBuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=izFC9U20qO8V9TKSl0ze+pwRHokeJqrGaaR5RSL0x18=;
- b=EKtQQUX4STYo+4xGmrBJYZ4aQ7IViWAYEy+3BmZvtniyQdITyv8jMOF9LeWiOcvDmVdWO8ZwzYIsH2xIsSYhSqPdL508OJL+sx+QCYaGpZYqjg9w5rK6TDWxqUKSuo2eOOlwXAT367C4xjpgAX+w1ZbGQC0Hhejpn9ZXI6G53jw3+VFlAn+U1iNk1h1ZJUMMT+jzCpyL/avAZZbwtWlsMDDEJNeOdPO01AGhYmh9wWZlAf05HKAe/yqMMZ34rKHS0u01zGvtfeBwxt8ZHaP/QALqgbsnQESXHrFdvfrJ3uF3W+CgX88Q1ugJk2VYtpXmHW19T6eFbnlNAIyH3HEVMQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by VI3PR04MB354279.eurprd04.prod.outlook.com (2603:10a6:800:378::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Wed, 25 Nov
- 2026 17:40:45 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0662.004; Wed, 25 Nov 2026
- 17:40:44 +0000
-From: Frank.Li@oss.nxp.com
-To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	michael@amarulasolutions.com,
-	linux-amarula@amarulasolutions.com,
-	Conor Dooley <conor+dt@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cx9aUz7G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CD6C1F000CF;
+	Wed, 25 Nov 2026 17:41:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795628473;
+	bh=erAEA25th+KOHMa1v7FaF8fZBgd6XaRDc38NojJlE54=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cx9aUz7Gkn8V5RpWI9TdDq2zUqUtUAll1kuVlmMGILqbE/6zoEFpRZeC8Afzdjine
+	 Q7v1lsr28rQVHbclQCWtu+anvy9yS0gPSuKSmU9Za8LJHM83uiOrz0SJvrF9ne5JI/
+	 4bmVzFyCOvtNNNSKUCxmeN5QlsJKV2nOplJzjh8q6+0bSl4VHuhbdGKK84++UTJbCs
+	 E4jfDhRECorKXTSygQE+PBZzzDWGyAfdrsVLmLcx0ellyl5K9pdxzQ4W+HG4Ng93L1
+	 a9gwfFF32NFalDF3EGvrTUa664VrGFt4yYEar7iA0MLmLgkCKdYkO5fx39uU/RFq41
+	 3rDzZt4Wq+orQ==
+Date: Wed, 25 Nov 2026 17:41:08 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux@analog.com,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH] arm64: dts: imx8mn-bsh-smm-s2/pro: add boot phase properties
-Date: Wed, 25 Nov 2026 12:40:37 -0500
-Message-ID: <179562843097.3106533.201263696828395400.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261120161159.1944199-1-dario.binacchi@amarulasolutions.com>
-References: <20261120161159.1944199-1-dario.binacchi@amarulasolutions.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH8PR05CA0009.namprd05.prod.outlook.com
- (2603:10b6:510:2cc::26) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [PATCH 5/6] dt-bindings: iio: adc: add AD7793 and similar ADCs
+Message-ID: <20261125-whenever-spinning-36a6dc477a00@spud>
+References: <20261125-iio-adi-legacy-platdata-v1-0-54e4c8830b57@analog.com>
+ <20261125-iio-adi-legacy-platdata-v1-5-54e4c8830b57@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,90 +63,350 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|VI3PR04MB354279:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6d1b4a1d-b21b-4770-ce7c-08df4b1b3bc1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|19092799006|7416014|376014|1800799024|260925021911599003|260925022911599003|260925021311599003|56012099006|11063799006|10067099003|261022075727099003|261026121527099003|261009223027099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	cjgaW06E/+vxQfY/IebT7uEjQr59smioMRchxUI7m2kaO9BXdPh9sBfehMyfQgger8VnB7cmF6heFiI0LXc2MSiTihbp4O0baqxBnBexAKYRO8HLoWor/ZPzp+be5+9AaMit6/Qbpy5dtoQafSXAlSsr5+9tByEMTjPpvaIeswDyIZFB2xQ64CJP/HMuRZx0+hCr9VjUZcQs6rvIslgnCae/j/k2KCrjUr11Qno9/S07f90WcXmmtOH1RdP/ZPrHH8bYy4GrQqhVW1bLKl9XNDIiR8L4uGMX8uxOHTlDBAGu56wavcnP2F+YMLN6HPBMJcxJQ0KBZykS6S122iASKuYFR/TfJ08hz1LHUtsR1V3pbDxjfSpFwhTp/7VYNCFeoMEG7nxLFIRX9SqUPH+8YiRZoRLXXknmDpHfERASkkoJhej2GvhEselYGYrLpVjsjP8vFM6BQMrLiXwtWP0JcpiO++DpYEdGgHC6DtEUOPzONg/yVNDbiPv01mNSpRa3uhf06FOgLBm9aQeEphgHJm9OUqHqM+/as/jqxyp8mDW/dVhmcOh9h87DypeqYmhI9l2oDMbjiqeAleJ2LcfgkbTRB+tz/vjutuWjTI7k9731r5o8ObstBOeZrASVuvRPtFfhMlfmgiCgpNBtyy8K2R3X+HVjXp3CCxNjJ1r50Ew=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(19092799006)(7416014)(376014)(1800799024)(260925021911599003)(260925022911599003)(260925021311599003)(56012099006)(11063799006)(10067099003)(261022075727099003)(261026121527099003)(261009223027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dENQRHhWYnVTWldQYThNRys4ZkU0eXFPc0IwTXBVb2QrRWZxOUxxL1VISFBP?=
- =?utf-8?B?UEJWOUJpRTMyZVVzNW1RNXB0NjYxNVdEMVdYbE03NFlxLy9pQ1VlZ1lZeFY0?=
- =?utf-8?B?MXFxVzVJM0dOOWd2NG9LVVZ4UmJQQkxTSE9aelRUamduTVVMeVJLc09IMDFr?=
- =?utf-8?B?eWNFRUFiLzNYUUZSWFZEWGJZbUdUTEliMmhLVFd6bkVlbFNzdkNFbTFkZFdC?=
- =?utf-8?B?UFVJYkFzZExJaU9wd1FkZkx0ZVNaUXY4U05oRktXR1YzcW81M0x0aU03Qmtj?=
- =?utf-8?B?WWx0UXVuLy95eTZvVDRQcVdWcTg5bnhnUGs3T3J0Z0x1b1hSaGRzaGZMRjRG?=
- =?utf-8?B?bVh0STFkVkNrMm5HaXFhbmR5dzV4bnB1RDR4TVRzRHd4d2hneDgrem5nSjc1?=
- =?utf-8?B?Zkw2anc5WG1WcE1sdmRYV1poV1JvRVBEZGl3T1BIcndIWCsvc0dVS05xMlZ2?=
- =?utf-8?B?OEdWNTJrSlJnTHEwS0Z1d0QxYXhkdGE1ZTJYNElUeGNwR0xYRExEazlTZVdW?=
- =?utf-8?B?bTN5NE9LTWdoOXQ3bnNzY3pSYXI2eUp2NFdvYkNlanpFQmIvYlA3MkpnTThH?=
- =?utf-8?B?KzdZa1hMMlA0YVNTRmNwWmJBL0x6TzY1K29tYWFIYVE0NWZiTk9aRWdsZzlE?=
- =?utf-8?B?RjA4NncwYm8yeG41MWRaUit2ME0rWTR4dDVhL3FWYUtPRVpLZFlYSlUremhS?=
- =?utf-8?B?T3hqT0pDdWU0ZmZ0UWxZUUFYTWZ0V0FMSTdjUi9QUHdBSTMzWDd3QklNbERN?=
- =?utf-8?B?WkNqRHpreFkyMUVib28vdmtrTzFSMnZtVUpBRXd0cVhiVmR6TjBQWGdjeHdk?=
- =?utf-8?B?Zk9uY0RVa1NuTS9jV3ErVmtoRDZmd2F6RE1qWnZnZG9EakZJVGhRMnhxVTVu?=
- =?utf-8?B?WTAvaEkrcVNQL0x2UDdXVWdYWnNVOEY4TlFlaGphUWVFclplNk8wSSs4S2VD?=
- =?utf-8?B?c2paSWk4Y2Myck9QVmtlakFCa3F1QThjWFN0VENBNEhnTkFmMkNqVVIrOERB?=
- =?utf-8?B?RGt1SW9hb2dscHcvN3VlRFB4b0pEUlZKdEJRbndYV2l5dEhqL3JGd0RzSVRl?=
- =?utf-8?B?MTRSR1ZSb3B0ODdQREdhM0VLV21hYVhWVzNpcmQ0UUl3UDA1d3h6MmF4VWJP?=
- =?utf-8?B?bVgvNDk3OGd2U00wYy9hQmd3bDRybnZNWUNaWEliM0tQVk1hb29CeHE5S201?=
- =?utf-8?B?TGdaQVB5VUgyNlg3U3RzUVhxRFVkdmQ2UUZQdzAzU0RqenJrejZlQkxlcWR1?=
- =?utf-8?B?YTlwSysxWEZzRkFqS2tQWGxhODNabE9qUFdhUTNJb3c2dUZtSzJSUDRZUVNh?=
- =?utf-8?B?S1UxQ0pqZW5wTHhHK3BsWUZHZ21kLzdNVUhaZzNYQ0ZMamhsRkFVV215NlYv?=
- =?utf-8?B?L3llRXZrTEswZk8xcWtaeWdPYkJicVJKSVF3UHBWNElvdUFianlUN2poWUM5?=
- =?utf-8?B?N2J0TGZPN2svd1VnSnhCLzNHN1JQcWk0WVE1UmhEVXRLRlRLVnNUZE1PODZR?=
- =?utf-8?B?SUtrYWdxbyt5MTRxVTM3akIrTmtCL0N5SUdpWVpEWjBLMGlUWjF4cmFVbTlX?=
- =?utf-8?B?aysrMDBuZ0gxb1ZjVDh3TTNCNzlaOHJFdy96dmJjU1FIOUJzZ3pKbWV3Rk5k?=
- =?utf-8?B?UWVKdjlyV0dwQkFvRjIydjM3ZHRHREJLTncwU3diYnd6dkUzZzVYemlKTXpY?=
- =?utf-8?B?RVJkYzVyTGNzaGJaMXRDWUZJeDJxK09nOC95aGpyMVdSS3ZhMFFTM1NNYVkv?=
- =?utf-8?B?Vm80L1FYQVBNamtXaXNuVTZ3bWdjaWgya1RWWFdkdnVTLzdwWXV5bkpsMWhp?=
- =?utf-8?B?dk40WlAvSmJyY2hacjZVMlZvNWhhQithUWc4eHZLT2hndHI4aTV0aHdiL2Y2?=
- =?utf-8?B?dHdXZ29yc0RDWmZsRmFVOFN2L3lZVkFGTTdvRUswdkJxU0FxZCt3amV2OTNT?=
- =?utf-8?B?a01tWDhMUkZSejdUdVpOS1BWamg0NGhvN0RSY2wrNlNwRU4rQnJXLzlEYTNs?=
- =?utf-8?B?SnhTampPSjhudXdWd3htVkFMbFlVMXJVU1c3UHBIZXRLeHpwYm50dklNaGVO?=
- =?utf-8?B?Z2JXWW5NQW5ZRGR2TXBxak5MS0lWTjZham9oeFRxQmFSejZsYWROenlNVjdO?=
- =?utf-8?B?Q0Q2U2RNbzNlV25TVnZhZk95M1hWVlNLNmhPaGtHRWN3cVhsUTVlQzByQXl4?=
- =?utf-8?B?SHVTM09pYUttUHJFb2hpUHkxeDI1bFU0eTQ4MnRRaDcwVUFtY2dmLysxOWZ3?=
- =?utf-8?B?c0FTQ3U5S3dtNnBWNDZUTTU2dDY2ZVI5VVVGSzFlR01OVGFDWFRveXJld3Zo?=
- =?utf-8?B?L0crWnJvd240aE8ydXlvUU83d0JJNHliQ0VwRTdnUTZwYlNtOG1EZWhiaStx?=
- =?utf-8?Q?dMpecNsNFV2SdlpSdrSUcQ+GHz4VLL0dHVSs3?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d1b4a1d-b21b-4770-ce7c-08df4b1b3bc1
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 17:40:44.9409
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: O6PJmf0anYz7vsG8Z1/aKGfvYkpRBa+ljQ+6mbNN1tLUr6wJfFPaPrZ8s9NU+puD6+qPQ6R+awiDICcF92QB23rjV6qqX+jIA0pHzJ1PeeSz2HjLLUKos6EiNNsoq2kG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI3PR04MB354279
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="WPSmGh/W8R/DGKZI"
+Content-Disposition: inline
+In-Reply-To: <20261125-iio-adi-legacy-platdata-v1-5-54e4c8830b57@analog.com>
 
-From: Frank Li <Frank.Li@nxp.com>
+--WPSmGh/W8R/DGKZI
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Nov 25, 2026 at 10:19:21AM +0000, Nuno S=E1 wrote:
+> Add a binding for the AD7785, AD7792, AD7793, AD7794, AD7795, AD7796,
+> AD7797, AD7798 and AD7799 low power sigma-delta ADCs. The driver has
+> supported these parts for a long time, but only through platform data.
+>=20
+> The ADC reference is described by which supplies are present: REFIN
+> (REFIN1 on the AD7794/AD7795), then REFIN2, and otherwise the internal
+> 1.17 V reference. In the same way, an external clock on the CLK pin is
+> used if one is given, and the internal 64 kHz clock otherwise.
+>=20
+> The remaining properties describe how the analog front end is wired:
+> the input buffer (enabled by default, as it is at power-up), unipolar
+> or bipolar coding, the burnout current sources, the bias voltage
+> generator and the excitation current sources.
+>=20
+> Signed-off-by: Nuno S=E1 <nuno.sa@analog.com>
+> ---
+>  .../devicetree/bindings/iio/adc/adi,ad7793.yaml    | 236 +++++++++++++++=
+++++++
+>  MAINTAINERS                                        |  10 +
+>  2 files changed, 246 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad7793.yaml b/=
+Documentation/devicetree/bindings/iio/adc/adi,ad7793.yaml
+> new file mode 100644
+> index 000000000000..c4a0be06e5c0
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad7793.yaml
+> @@ -0,0 +1,236 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/adc/adi,ad7793.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Analog Devices AD7793 and similar sigma-delta ADCs
+> +
+> +maintainers:
+> +  - Michael Hennerich <michael.hennerich@analog.com>
+> +  - Nuno S=E1 <nuno.sa@analog.com>
+> +
+> +description:
+> +  Low power, low noise sigma-delta ADCs with an SPI interface.
+> +
+> +  https://www.analog.com/media/en/technical-documentation/data-sheets/AD=
+7785.pdf
+> +  https://www.analog.com/media/en/technical-documentation/data-sheets/AD=
+7792_7793.pdf
+> +  https://www.analog.com/media/en/technical-documentation/data-sheets/AD=
+7794_7795.pdf
+> +  https://www.analog.com/media/en/technical-documentation/data-sheets/AD=
+7796_7797.pdf
+> +  https://www.analog.com/media/en/technical-documentation/data-sheets/AD=
+7798_7799.pdf
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - adi,ad7785
+> +      - adi,ad7792
+> +      - adi,ad7793
+> +      - adi,ad7794
+> +      - adi,ad7795
+> +      - adi,ad7796
+> +      - adi,ad7797
+> +      - adi,ad7798
+> +      - adi,ad7799
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  spi-cpol: true
+> +
+> +  spi-cpha: true
+> +
+> +  interrupts:
+> +    description: Interrupt connected to the DOUT/RDY pin.
+> +    maxItems: 1
+> +
+> +  rdy-gpios:
+> +    description:
+> +      GPIO reading the DOUT/RDY line. DOUT/RDY also toggles during SPI
+> +      transfers, which usually triggers spurious interrupts. Reading thi=
+s GPIO
+> +      allows to tell those apart from real conversion done events.
+> +    maxItems: 1
+> +
+> +  avdd-supply: true
+> +
+> +  dvdd-supply: true
+> +
+> +  refin-supply:
+> +    description:
+> +      External reference applied between REFIN(+) and REFIN(-), or betwe=
+en
+> +      REFIN1(+) and REFIN1(-) on the AD7794 and AD7795. If present, it i=
+s used
+> +      as the ADC reference. If neither refin-supply nor refin2-supply are
+> +      present, the internal 1.17 V reference is used.
+> +
+> +  refin2-supply:
+> +    description:
+> +      External reference applied between REFIN2(+) and REFIN2(-). Used a=
+s the
+> +      ADC reference if refin-supply is not present.
+> +
+> +  clocks:
+> +    description:
+> +      External clock connected to the CLK pin. Either 64 kHz, or 128 kHz=
+ in
+> +      which case it gets divided by 2 internally. If not present, the in=
+ternal
+> +      64 kHz clock is used.
+> +    maxItems: 1
+> +
+> +  bipolar:
+> +    description: see Documentation/devicetree/bindings/iio/adc/adc.yaml
+> +    type: boolean
 
-On Fri, 20 Nov 2026 17:11:53 +0100, Dario Binacchi wrote:
-> Add boot phase properties to the resources needed during the boot
-> process.
-> 
-> The BSH SMM S2 and S2PRO need UART, watchdog, PMIC, GPIO and boot
-> device access.
-> 
-> Tested on BSH SMM S2PRO with U-Boot v2027.01-rc1.
-> 
-> [...]
+This is odd, why not ref the file normally?
 
-Applied, thanks!
+> +
+> +  adi,buffer-disable:
+> +    description:
+> +      Operate the analog inputs in unbuffered mode. Unbuffered mode allo=
+ws the
+> +      inputs to go from 30 mV below GND to 30 mV above AVDD, while buffe=
+red
+> +      mode needs 100 mV of headroom to the supply rails but tolerates so=
+urce
+> +      impedances in front of the inputs. Buffered mode is always used fo=
+r gains
+> +      higher than 2.
+> +    type: boolean
 
-[1/1] arm64: dts: imx8mn-bsh-smm-s2/pro: add boot phase properties
-      commit: bd92a5150437411c2d13542b54f0db46a1205f58
+What determines if the gain is higher than 2?
 
-Best regards,
--- 
-Frank Li <Frank.Li@nxp.com>
+> +
+> +  adi,burnout-currents-enable:
+> +    description:
+> +      Enable the 100 nA burnout current sources in the signal path, whic=
+h allow
+> +      to detect an open circuit on the selected analog input. They can o=
+nly be
+> +      enabled when either the buffer or the in-amp is active.
+
+The former should be somewhat enforceable with the binding, what
+determins this in-amp's setting?
+
+> +    type: boolean
+> +
+> +  adi,vbias-pin:
+> +    description:
+> +      Negative analog input (AINx(-)) to bias to AVDD / 2 with the bias =
+voltage
+> +      generator.
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    enum: [ain1, ain2, ain3]
+> +
+> +  adi,vbias-boost-enable:
+> +    description:
+> +      Increase the current of the bias voltage generator, reducing its p=
+ower-up
+> +      time.
+> +    type: boolean
+> +
+> +  adi,excitation-current-microamp:
+> +    description:
+> +      Enables the excitation current sources IEXC1 and IEXC2. Both are a=
+lways
+> +      enabled together and set to this same value. Where each one is con=
+nected
+> +      is given by adi,excitation-pins.
+> +    enum: [10, 210, 1000]
+> +
+> +  adi,excitation-pins:
+> +    description:
+> +      Output pins the excitation current sources IEXC1 and IEXC2 are rou=
+ted
+> +      to, in that order. The default routes IEXC1 to IOUT1 and IEXC2 to =
+IOUT2.
+> +      Both sources can be routed to the same pin, which then outputs twi=
+ce the
+> +      configured current. This is not allowed when
+> +      adi,excitation-current-microamp is 1000.
+> +    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+> +    minItems: 2
+> +    maxItems: 2
+> +    items:
+> +      enum: [iout1, iout2]
+> +    default: [iout1, iout2]
+> +
+> +dependencies:
+> +  adi,vbias-boost-enable: [ 'adi,vbias-pin' ]
+> +  adi,excitation-pins: [ 'adi,excitation-current-microamp' ]
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - avdd-supply
+> +  - dvdd-supply
+> +
+> +allOf:
+> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +  - if:
+> +      properties:
+> +        adi,excitation-current-microamp:
+> +          const: 1000
+> +      required:
+> +        - adi,excitation-current-microamp
+> +    then:
+> +      properties:
+> +        adi,excitation-pins:
+> +          oneOf:
+> +            - items:
+> +                - const: iout1
+> +                - const: iout2
+> +            - items:
+> +                - const: iout2
+> +                - const: iout1
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - adi,ad7785
+> +              - adi,ad7792
+> +              - adi,ad7793
+> +    then:
+> +      properties:
+> +        refin2-supply: false
+> +        adi,vbias-pin:
+> +          enum: [ain1, ain2]
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - adi,ad7796
+> +              - adi,ad7797
+> +              - adi,ad7798
+> +              - adi,ad7799
+> +    then:
+> +      properties:
+> +        refin2-supply: false
+> +        adi,vbias-pin: false
+> +        adi,vbias-boost-enable: false
+> +        adi,excitation-current-microamp: false
+> +        adi,excitation-pins: false
+> +      required:
+> +        - refin-supply
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - adi,ad7796
+> +              - adi,ad7797
+> +    then:
+> +      properties:
+> +        adi,buffer-disable: false
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - adi,ad7798
+> +              - adi,ad7799
+> +    then:
+> +      properties:
+> +        clocks: false
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    spi {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        adc@0 {
+> +            compatible =3D "adi,ad7793";
+> +            reg =3D <0>;
+> +            spi-max-frequency =3D <5000000>;
+> +            spi-cpol;
+> +            spi-cpha;
+> +            interrupts =3D <25 IRQ_TYPE_EDGE_FALLING>;
+> +            interrupt-parent =3D <&gpio>;
+> +            avdd-supply =3D <&avdd>;
+> +            dvdd-supply =3D <&dvdd>;
+> +            refin-supply =3D <&vref>;
+> +            adi,vbias-pin =3D "ain2";
+> +            adi,excitation-current-microamp =3D <210>;
+> +        };
+> +    };
+> +...
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 658895c3b0fa..e55236f4accb 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -1731,6 +1731,16 @@ W:	https://ez.analog.com/linux-software-drivers
+>  F:	Documentation/devicetree/bindings/iio/adc/adi,ad7780.yaml
+>  F:	drivers/iio/adc/ad7780.c
+> =20
+> +ANALOG DEVICES INC AD7793 DRIVER
+> +M:	Michael Hennerich <Michael.Hennerich@analog.com>
+> +M:	Nuno S=E1 <nuno.sa@analog.com>
+> +L:	linux-iio@vger.kernel.org
+> +S:	Supported
+> +W:	https://ez.analog.com/linux-software-drivers
+> +F:	Documentation/devicetree/bindings/iio/adc/adi,ad7793.yaml
+> +F:	drivers/iio/adc/ad7793.c
+> +F:	include/linux/platform_data/ad7793.h
+> +
+>  ANALOG DEVICES INC AD8366 DRIVER
+>  M:	Michael Hennerich <Michael.Hennerich@analog.com>
+>  M:	Rodrigo Alencar <rodrigo.alencar@analog.com>
+>=20
+> --=20
+> 2.56.0
+>=20
+
+--WPSmGh/W8R/DGKZI
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCawcdtAAKCRB4tDGHoIJi
+0i0uAP0SufCE3ii+9E6g3cLh257vwsUw0GvJyavRtpoJ22BJ3QEA7KE86xqFH43v
+q94l6ls00ot37MbFF1HdLO16+tbFXww=
+=nsiV
+-----END PGP SIGNATURE-----
+
+--WPSmGh/W8R/DGKZI--
