@@ -1,56 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795641087;
-	b=JXVQyQGTHRFGg059IZ+ucKrZnq3YiGJFSezZhV9PLWnHuU3KzWRmMGB9eQ03gxchA+d+
-	 viugiWJglt0NMwIn+vp4ClXnvQifNxQj83VQd5mVfpw66893NTCQtJqhKPXGWV6cTwOuT
-	 roAyLZUIa4D8n7tCgABD94ZY0BvDa+FGJgbXppehqu1aBRCGDmXMe8tTq6jMgwag5bf1H
-	 s4dLrjEG+wHnOOJo0y8HMQwkX71aH6EjgZRT47ji7jwofZ+G/VzuSIn2+ookUWHN8tOoj
-	 vrXnOGOPkTiK8hHBfNSYa7mIMAAl8C1X+rJaoe3JKCz+x1IVa5FOcU08OD0pVj+rDDg==
+	t=1795641198;
+	b=vfLDURH1rtZvXdQGQ+NCFs0emcdCRsemnzTBYwUyvvGZaE4yadqNQFNUi/y9r4nUYP1q
+	 0/O8guKxoFJRarD7PK82QfqpVbcj1kwMWWzypFAaadtg0uc3ggnK34imDMGJpxMaqpapp
+	 YytNx8YYMeunBKgSJfyLck/Eqh8u3PalO0HgGHPmmMa/fhDB5BhHpY45gHF8ixymcm+hh
+	 5mX9DrcCk5iSJ5wfNC6hLKansu5hvk7/zYrNRHRCeyVE0pYIshrpUHKWXyQuSl0f28+K6
+	 cX42RqdxCD5ajiGFLkPthqDh8X/oohcpQUOTazPdqcuFHDWC2BuiIZ97gjE7p5M750w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795641087;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=rB+N5Sq9zOKruKzHQCCYevF/57RUJ74rFAesj5ohSyI=;
-	b=G4e0zsxsIFTTzqxW3HG3+hx4uTvGGRTkVRKvnzWoA7Akciuo+6FLi+zsDfJDBpQaFSVm
-	 mQoq3dUNMMG3iTwvW9R58izjvXRMSU+1yKndovdAt+W3jy9nOnFhW0JJJTPSdzMDsBX6f
-	 0EpcvIh+wfjOnK3Ixeh75/gM5SWsWxZY9O93O5PKCXUWT/k2n/Q02Z3XDOyXVw3US0iDH
-	 jgL8cKqpUt4iLQhM2+B9/cu62KjbNgYxaLXAC95FM0XMQvtlJZ0n8vxmRKi+59G79pL8q
-	 70wYqlPcD6kGQrPj3sLpQ8hgkCs51I+gXPrqlSVgyBRaowR1RSwsbxBuz1TYudEE3mA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795641198;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=iGd5SoNcIdPRf+X5W5xhsxkWslmG4vdZNOWfyt5Bu4A=;
+	b=1rPvYk76AZgwSUmIYf4AFAIn1g7YOvs3TT5+QUeuandUUp5gnCFsXqm5zKZIQ8c/Lz58
+	 ZKi6src9RuPy5+CYzcbGzhnOmR4AohX6RhKAk/Ad63FUJ9YSQfJ3kWnQ2gNQA00Xu2Fer
+	 TQ+Ix8znDtKmcK8W3jopJ3FioFIZovsmASRMXkY6kLPTNa5Hgq5vd9S6QzjLqM8KzfyT+
+	 mwql+T3lwQukiCQaCHYMf0h2t0cDnFN9B5OGQwuTsIxxABcUoXISN9U5fpNwTCAFg4QnU
+	 TBoUwUBSqRmOpHQwrRwObvcFC6CpmoU2KGBpD23gfgoxS7ZzPAPxDgBTcnuFlIXY2xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RgY/+s2b";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=zAKRTYQ6;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C682606A321;
-	Wed, 25 Nov 2026 21:11:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5AC9606A31E;
+	Wed, 25 Nov 2026 21:13:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5AC9606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RgY/+s2b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A36181F000C6;
-	Wed, 25 Nov 2026 21:11:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795641087;
-	bh=rB+N5Sq9zOKruKzHQCCYevF/57RUJ74rFAesj5ohSyI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RgY/+s2b4yWvDxJ3BeAyr9EdrClgP+lmhTSblCT5Rd/s3WlHzCah0MDm/2sXFt2Gl
-	 +xK6EwEZi8w5Ux2X/wyR8PkiUVT/Q2k4DkWeFyjsA/FIpaBmgXlQgRPQ/0WoCzsNvj
-	 ZAXWE+BChNQLSG/8mZYyeRqHAWuuXc3AewKIiB1Qpg5y2ttQqhP2DkhQ1nAIsPRvBm
-	 GWLFD+vwa/7bjNDiDKweHG+xQOYpEWVIFRPq54irnSgUJxMxUw3hGozA30E6OE7v6V
-	 U6FUjOCGPsHwkcVkbqUBlqJoK1TdCRRSs4fDpsf3m3idDLtfUR4ypGxwgqUjV/otJW
-	 yRHK9F0t0ic9Q==
-Message-ID: <sashiko-outbox-234163@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/4] string: Add strprefix()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alejandro Colomar" <alx@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <b32d70163fb454fee2667548c63c4d4d3b19d7bb.1795639368.git.alx@kernel.org>
-References: <cover.1795639368.git.alx@kernel.org>
- <b32d70163fb454fee2667548c63c4d4d3b19d7bb.1795639368.git.alx@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 21:11:26 +0000
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=zAKRTYQ6
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=iGd5SoNcIdPRf+X5W5xhsxkWslmG4vdZNOWfyt5Bu4A=; b=zAKRTYQ6dAHp1kq+pIly9jqUl+
+	mEfRqkks+O56nq3eMEHQc4ydoYu24dc1XcS/SZPd/jR8qtTbDI6QbV3uZG5uOLwn/s6jT1+L7wL+6
+	vp0TrImF9NpiAGtTpQggHoMn0A+hGncgB3/nn/bIcLDyIHQSX4Bkger/UkLN9+zvnAsQ=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xWKIZ-001RBD-5P; Wed, 25 Nov 2026 22:13:03 +0100
+Date: Wed, 25 Nov 2026 22:13:03 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: filipp.dunsky@gmail.com
+Cc: Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Simon Horman <horms@kernel.org>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
+	Hans Ulli Kroll <ulli.kroll@googlemail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Russell King <linux@armlinux.org.uk>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH RFC net-next 5/7] net: dsa: qca8k: select the four-byte
+ format before port activation
+Message-ID: <7feee622-0c4f-4c7c-a473-02e0bb5cbf10@lunn.ch>
+References: <20261125-almondplus-offload-rfc-v1-0-703175c6340c@gmail.com>
+ <20261125-almondplus-offload-rfc-v1-5-703175c6340c@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,63 +82,21 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261125-almondplus-offload-rfc-v1-5-703175c6340c@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] string: kernel-doc parse failure on strprefix() due to
-  __nonnull_args()
---
+On Wed, Nov 25, 2026 at 11:50:33PM +0300, Fil Dunsky via B4 Relay wrote:
+> From: Fil Dunsky <filipp.dunsky@gmail.com>
+> 
+> Select the requested format from the CPU ports before DSA chooses its
+> tagger. Stop packet actors and verify the switch header state before
+> opening user ports. Use MDIO for management and preserve both conduit
+> MTUs.
 
-commit d8e472e1906ee21263f127c3c8452f752cbf8121
-Author: Alejandro Colomar <alx@kernel.org>
+Confused. What has the QCA driver got to do with this?
 
-string: Add strprefix()
+I think it is time for a big picture architecture email.
 
-This commit introduces strprefix() to return a pointer after a matched
-prefix or NULL on mismatch, and adds KUnit tests for it.
-
-> diff --git a/include/linux/string.h b/include/linux/string.h
-> index 9b3e578d9aca1..a6a1953c52e35 100644
-> --- a/include/linux/string.h
-> +++ b/include/linux/string.h
-> @@ -557,16 +557,34 @@ void memcpy_and_pad(void *dest, size_t dest_len, co=
-nst void *src, size_t count,
->  	       sizeof(*(obj)) - offsetof(typeof(*(obj)), member));	\
->  })
-> =20
-> +/**
-> + * strprefix - string prefix
-> + * @s: The string to be tested
-> + * @prefix: The string to see if @s starts with
-> + *
-> + * This function determines whether the string pointed to by @s
-> + * starts with the sequence of characters
-> + * (excluding the terminating null character)
-> + * in the string pointed to by @prefix.
-> + *
-> + * Returns:
-> + * *  @s + strlen(@prefix) if @s starts with @prefix
-> + * *  NULL if @s does not start with @prefix
-> + */
-> +__nonnull_args(1, 2)
-> +static inline char *strprefix(const char *s, const char *prefix)
-> +{
-> +	size_t len =3D strlen(prefix);
-> +	return strncmp(s, prefix, len) =3D=3D 0 ? (char *) s + len : NULL;
-> +}
-
-[Severity: Low]
-Does __nonnull_args(1, 2) cause kernel-doc to fail when parsing
-strprefix()?
-
-CTransforms.function_xforms in tools/lib/python/kdoc/xforms_lists.py does
-not strip __nonnull_args, so running scripts/kernel-doc on
-include/linux/string.h (included by Documentation/core-api/kernel-api.rst)
-treats __nonnull_args as the function identifier, emits prototype mismatch
-warnings, and omits strprefix() from the generated documentation.  Either
-__nonnull_args could be added to CTransforms.function_xforms or
-__attribute__((nonnull(1, 2))) could be used as in strends() below.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795639368.gi=
-t.alx@kernel.org?part=3D2
+  Andrew
