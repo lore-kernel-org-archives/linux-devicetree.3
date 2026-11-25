@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795602307;
-	b=rVWiCWieBfHdPddKPFoJGS7vpGV3nhsoshaZJycF2mVpfRd9AaG0sTptrtuwzncqWsOv
-	 +Mw4y6yQOaFaZCcPPuTFGioOt0EMapCORgfTgEh6USTSAWqpG8k0Wa81EjmVDvV5Dz1vj
-	 el5LkikZEbLyNI0JcwMOz+SosxqkLNuv1dtpYDNug+zDhwje2TDZrb6hvTD3PmdO2b9L6
-	 HzjgwmtOb+Imtzldn/A6G0nbP7Mkv7A9ObnJ6gehG9qMen7plIvCU/Mg5+Ux+fa4WP+pN
-	 8nM6L5ogTIJojRSOh+GnuACZFKo2CP+dmt3ZNgH+MtLJAITH1jnEy6gS6HY4YSRL5+Q==
+	t=1795602420;
+	b=VZaJg/4GsMZioyrstxzNkbQNJk8UtOp/5lOH07pRb/uUfC8/bkDQ0gHRmQ8hMC6fO5gH
+	 7bHqMP9/skioEuRjKkykIPuzkLzrz87lbWDDjJ9Wvl0Xd8pDd9ZsLLcDc5Pcp29FkWkLj
+	 EivmvT17Wb7FPGr5ZHP5ZKodgY18AazfepzSM8mbQYOaxjST8Oe6615aF4QxW+9wnQBIS
+	 T9Awfetj/qPFedPfjqqsbK2lvIXu79NliR0g+MA137G9TnZoa7GD37yV8/OcxmQi3183g
+	 +S2aQBsxCd80b399yioxf8vtE13FktJJk/ejQQgXQPWzhmt/SBRT2FKhqUL7MKwn2Bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795602307;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=fhACSDdImz0e4S0mOF6nbVER1JybejzenYhirq8T1sI=;
-	b=jVKzT98f7nm6nzK9x76QBhaaTVf9YU1xopRZKh5aJ3oMEEYIc+MqTO1VkGykpwPRWIdS
-	 zUFuTbWIn1bdNZLYdpSka8BQ2UnImvsPL3ZQXOi1hRt73OH8phPDN0Wy4U6xZFD39DTiv
-	 bSBcVVfdj8jcGMzo85L9LyPdBBned/5FixGujCUBuTVpACEgsdROzdwol5dXEAHCiIoSn
-	 kwkXr/CYvv+RFrwFHa0Df04tQblgQsfq4VeCrg8EQgKkz0e72LFf/AzyPRZnhLGyDw0fh
-	 /MKj/NEuvxi8w/35kX29PhfpbJRMGMfgtGE9g52mGG6IimE/EG1+zRRQqkoxloAzkDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795602420;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=usb6Z06Hk8KYQV8odRZafo7lcqGHFhPDFCx6kFOexg8=;
+	b=Q5doac+vDhOcj4eNRxM69pSijwO71MWjz/eXUnEjNL50aMPsdg9Y+Fl9FwWb3p7SCHXW
+	 3Yo9jubVifut2Xbb5CKKBBRtXZ3KMIj8O8BkP0ZyNsmG0HG5bF6rvmBp2/uAUtLo8FA3F
+	 t9DGTWI4Fw8i/COraall5XaeGbQ3tkGPsuJJOnKpqslBJnG0Cfz9C3T9MUPCpQxSCr5Cz
+	 dnKiKw1HzXFlRBRy4MAg00ZsvRx5SMAPY1LT2EpKHkZULJz32vtpChJm3TnFRIBJ3kh3k
+	 1dgtj/uYuIHmjcfBCvVNhNPDuQPt0LYZ4Rbr/4ua7P/j1KqVvywQEV5I+xc7qiFUTPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nWkwdqye;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O4uHgzXP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FA88606A68E
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 10:25:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8E9B606A327
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 10:27:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nWkwdqye
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7964D1F000C0;
-	Wed, 25 Nov 2026 10:25:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O4uHgzXP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 049D61F000EE
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 10:27:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795602306;
-	bh=fhACSDdImz0e4S0mOF6nbVER1JybejzenYhirq8T1sI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nWkwdqye0oRKkFwg/vRtmtyif5AJ8t2hrJgV+ftqHRpWLExTmHdZ3a3klnd8wNft0
-	 mh4CnfpXLSJrQik4PgwW70IgyZZOnrskLAV89yQ/BYvF53nxvUt+D6sgWZcx3X3cML
-	 dMtyD9FKg/g/dq2mHkM1dcN4K4wzQGrM7we1Xu42gFZd6fUeKMb8UUr5SCGl5nMB94
-	 C6ufjzdJMTz67aGWm981pkeLNkaJ89dz5FvWPLwxKXtAA1flQwcJ88bDRaMyugQ7R7
-	 fgPlxn9coKQuEIgJfGZkZntO6KF3haXk178nP4qaTYdRvvq2ofp5DiutlqRPpd5J+O
-	 /HTu4n3Q32lyw==
-Message-ID: <sashiko-outbox-233116@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/6] iio: adc: ad7887: fix on-chip reference enable
- logic
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?TnVubyBTw6E=?= <nuno.sa@analog.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261125-iio-adi-legacy-platdata-v1-1-54e4c8830b57@analog.com>
-References: <20261125-iio-adi-legacy-platdata-v1-0-54e4c8830b57@analog.com>
- <20261125-iio-adi-legacy-platdata-v1-1-54e4c8830b57@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 10:25:06 +0000
+	s=k20260515; t=1795602420;
+	bh=usb6Z06Hk8KYQV8odRZafo7lcqGHFhPDFCx6kFOexg8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=O4uHgzXPpddrs5gBqi8u9B2aC0SyE1KCf5EIAftXmQf0Yz2Bd+cgo1AM8A56/XQ9b
+	 QsOVezx8SE9qn+lvrJWJL1PlTp4gI/ODzeAfNUdCBjt4Yzly+8YEdh5lAto1BeiBtW
+	 /7CFZIny7BW8SPGrIJQECs6/L+Gmln25txeh1jerNuB2R5ZuT5WsODPt16jq9ZSXN1
+	 TAdyxky7rcl0q80azCDqg0LQDzoEB1/CSIuA4WL/UAjvZTNT3qWM2GLj5N0aZvZz1R
+	 L8ZFxRiK9+1MKiLQyRnSM6v7F5pPkCH2LHiOaGB1sMe/Gxk8SHMRpzsNCp05SnHtNB
+	 EfR1nLIQmF2Pg==
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5c0a520df2eso5584778e87.0
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 02:26:59 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHiesgqXHaaT5fvUsnZvKUGd1QArk4vQXX9+3qFpAVgUtdQBkePNIX9Op65xEknXOH4gQluaZtGDoO2@vger.kernel.org
+X-Gm-Message-State: APuU4Z9gGN//Sh1u+uLD4ktYq+sn+PrxFftUC7oOJxaLZjPRix5Bg6O0
+	2dzlvz3VO1nAlJwgaL8y+wV1HuIA5PizEEZ1O224eWes6Vh4p8RxowA2kV2ArQjOgURfVwvStlF
+	ykh+VhJuLU+xlD0LTE5LpkH+MZQnuzDQ=
+X-Received: by 2002:a05:6512:104d:b0:5c1:5a83:2fd7 with SMTP id
+ 2adb3069b0e04-5c1bc907072mr5199313e87.66.1795602418769; Wed, 25 Nov 2026
+ 02:26:58 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,64 +58,55 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+In-Reply-To: <20261015142552.4128028-1-ryan.roberts@arm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 25 Nov 2026 11:26:46 +0100
+X-Gmail-Original-Message-ID: <CAD++jLm6VvPYB5UQS8Zm73pYifr7Oi=xX3S4Wt5c3WE7uMv+fQ@mail.gmail.com>
+X-Gm-Features: Aa3M54rtYXT0tNMww-_rAs-DbnpD3x58pzG3L6crqferpf2a4MJ3rhFXSlspZ40
+Message-ID: <CAD++jLm6VvPYB5UQS8Zm73pYifr7Oi=xX3S4Wt5c3WE7uMv+fQ@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 00/15] Arm Core Local Accelerator Driver
+To: Ryan Roberts <ryan.roberts@arm.com>, Arnd Bergmann <arnd@arndb.de>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>, 
+	Oliver Upton <oupton@kernel.org>, Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jean-Philippe Brucker <jpb@kernel.org>, Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found no new issues
-in this patch, but noticed 1 related pre-existing issue it does not
-introduce:
-- [High] iio: adc: ad7887: wrong rx_buf offset for CH1 in ad7887_probe()
-  [1]
---
+Hi Ryan, Jean-Philippe,
 
-commit e57544891ed7d42b994441cf2725e2d373e5b02b
-Author: Nuno S=C3=A1 <nuno.sa@analog.com>
+regarding this patch set I looked into historical precursors and
+ongoing developments that could benefit from the same infrastructure.
 
-iio: adc: ad7887: fix on-chip reference enable logic
+1. Apple AMX: there is no ongoing effort for this accelerator but it
+exists in all Apple silicon. This accelerator appears to be synchronous
+using extended instructions and is just "some different SVE" and would
+be handled the same way as these.
 
-This commit fixes the AD7887_REF_DIS condition in ad7887_probe() so the
-on-chip 2.5 V reference is disabled only when an external vref regulator is
-present.
+2. The PowerPC Cell SPU (Playstation 3)
 
-> diff --git a/drivers/iio/adc/ad7887.c b/drivers/iio/adc/ad7887.c
-> index 827d0c2598ba6..980e6a3030479 100644
-> --- a/drivers/iio/adc/ad7887.c
-> +++ b/drivers/iio/adc/ad7887.c
-> @@ -271,7 +271,7 @@ static int ad7887_probe(struct spi_device *spi)
->  	/* Setup default message */
-> =20
->  	mode =3D AD7887_PM_MODE4;
-> -	if (!st->reg)
-> +	if (st->reg)
->  		mode |=3D AD7887_REF_DIS;
->  	if (pdata && pdata->en_dual)
->  		mode |=3D AD7887_DUAL;
+This is more interesting: the Cell has accelerator cores that execute
+entire litte programs (shaders?) on behalf of the CPU. These are
+however not poilled like the CLA, but signal completion using a
+mailbox interrupt. The accelerators are
 
-[Severity: High]
-This problem wasn't introduced by this patch, but in dual-channel mode does
-st->xfer[3].rx_buf point to the wrong offset in st->data [1]?
+What is interesting with the SPU is that it communicates by creating
+a custom filesystem (spufs) mounted at /spu, so this is apparently
+another design venue to consider.
 
-drivers/iio/adc/ad7887.c:ad7887_probe() {
-    ...
-	if (pdata && pdata->en_dual) {
-		...
-		st->xfer[3].rx_buf =3D &st->data[1];
-		st->xfer[3].tx_buf =3D &st->tx_cmd_buf[2];
-		st->xfer[3].len =3D 2;
+I think Arnd Bergmann has worked extensively on the SPU so he will
+likely be able to provide input on lessons learned, do's and dont's
+when it comes to this and other accelerators.
 
-		spi_message_init(&st->msg[AD7887_CH1]);
-		spi_message_add_tail(&st->xfer[3], &st->msg[AD7887_CH1]);
-    ...
-}
+My superficial appraisal is that the CLA is probably executing smaller
+jobs, snippets of work rather than entire little programs/shaders like
+the SPU does, so it is conceptually different, but may provide
+additional ideas anyway. Arnd?
 
-Because indio_dev->available_scan_masks is not set, IIO buffer demuxing is
-not used and a single active channel sample must be placed at &st->data[0].
-When buffered capture is enabled with only channel 1 active,
-ad7887_ring_preenable() selects st->msg[AD7887_CH1], so
-ad7887_trigger_handler() writes the conversion result to &st->data[1] while
-iio_push_to_buffers_with_timestamp() pushes the stale or zero sample at
-&st->data[0] to userspace.
-
-[1] https://sashiko.dev/#/bug/linux-f8b2934e-4d1f-49d5-b745-1e7bf0447de1
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-iio-adi-le=
-gacy-platdata-v1-0-54e4c8830b57@analog.com?part=3D1
+Yours,
+Linus Walleij
