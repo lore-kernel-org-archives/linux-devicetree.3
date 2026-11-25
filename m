@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795566498;
-	b=ycfPFSZzLfNFciXqkSKR64GrvigIW1AvpEyV/YiuMLjk7edpb9rCJ7RuZ8iMaq4U1s9D
-	 osFnLZ3oyZOFhak1bFpPfAtb52EGXwsziH/XBJP0A5Cc9HCC+D4Ey4dxVg2aOkBEMFf8Y
-	 b4TsExKNYt6s/ie7sMNpSvhaP6EIFhXXxoASO/nCXsQxRMsHrf67i3wfzsUtFyHg83E+i
-	 jWsA7OiFiUb2brG4MMaUfX9r+/HLOYkJ7T6to5kedGFxJlZIZpkm6yuXXZ/ri8nrGbqKv
-	 0Z2skxj0OQVEFLzx2pnvsoJ3fMOMKFrWBUMPGnBf1TnhU4ebec37/w5fmoS37eLYUDA==
+	t=1795566500;
+	b=Da01C6xa9HX1MovrFo/56OQ6Sqqy18XBQeL0ey9yQsnYPsH12vuEVX9oqWQxgYpnRNfn
+	 tss52iHuM5LNP0bizPtw3qBPnzL9KlNmWYkdHmftULRV+nRGY2vc/CjvoDd0FbZFgC7zR
+	 dmObeQ/datSnoNNKJy8G4INTEklmiVV9rAPdHNNBTnd8KqnKLrqEr3qZM/tErQY80map1
+	 /O2eFOQm2eSf4ImhLI9khjim3DvAfiFK1P8eJI6OllOeBLRnWwPLBKc+5B1GiElK8PRsG
+	 FTDAj5xuJ5l+Y3NSHl5rmO11+cLLVyetLHWful72alnZMXD/2TdV93MMM0KVNiqTK0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795566498;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795566500;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=5a10cI1NNFwvgv0ajxBZX9RkTJkKO0tcJCd7rfmnHMM=;
-	b=ZZetLd8cKc6RdaG1MPGcBTnxEAGeQd6hpQwTEQSTO5HQC9gppKjtz34skCYUD7DJI+v2
-	 fuqcq+/MAPnJE2NDeTHbBG8cRiwguyUEGxM1vPRWre2H6LQ+Kk2v1EkDbVmsETMnfhgP/
-	 AHxF7NuNnRDBgMT47Eov1yyLhWPlnqS4KfiU8msU20e10LBlQjPdsPfxiCy5Ueh7QMKfT
-	 CT3IX3gPsr8pzzDFQ1t4Sr8Aj6tAaw5iFA9UN/KpLmjQbci5kD+2UMacMoljcS7vQGNIi
-	 dGl093Y1QALXC8RBTBG3QiM4VbkIAHnroNUrWqgzeY3HEKUbHZGRSbmEBkkvraM4vhw==
+	bh=uvcjdmGM+uH5QS9jgj3sj273EnYOZjoyvThLyjhPeyM=;
+	b=wMzDshwGSyYJXBLrhuZhv+1v6WyPIYFil7+qfLgV6debx/GKARkeRoTu4AAzvbld+Mg0
+	 KixppezBp1QCExJN1D4tE8swvF1AHLxIIGYZB10sh62RvDKvXY8J6s37RGfTEvdQ1q2jX
+	 yiP6SIl+TXXmQcFVy8Ww6UbJR/nOaV6Q4BXwoHvjwJB1oPRSByR5mC+bTLMEZbkYoiam6
+	 389sVkeXgX1Hpse4BgU4LcHYXBM7E+DV1oXNCBqpYfL8J3Q5hl/Q+w6jdRvHnWAIW8vT6
+	 Zl8y/tJJLwS/zv026vlzGbIEa1c2NY4WnX33wDsxEib4Lt1te1nSADmDDJwIdyjkhwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=knB6QgT4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b4VDwVPM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E09606A323;
-	Wed, 25 Nov 2026 00:28:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 807C3606A32D;
+	Wed, 25 Nov 2026 00:28:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=knB6QgT4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C05C81F000C6;
-	Wed, 25 Nov 2026 00:28:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b4VDwVPM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B4C71F000C6;
+	Wed, 25 Nov 2026 00:28:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795566498;
-	bh=5a10cI1NNFwvgv0ajxBZX9RkTJkKO0tcJCd7rfmnHMM=;
+	s=k20260515; t=1795566500;
+	bh=uvcjdmGM+uH5QS9jgj3sj273EnYOZjoyvThLyjhPeyM=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=knB6QgT4a1UZ0lm/BWaHGvQeRHbHE/envNasEl94wwCI9cA6HF4Wfa2l3x+ou8gaS
-	 scckdpSImxoAi/FbBzOzmGYcVu2qrNUpPq+6R/w6xRoagvqBeLUp/N2xUD8nrgHLNd
-	 8rXk7j7JVAmzM6gRtptuXpjilJbyGfPwkybG3Av3tC+J0rloZDHQhlEYMYHvYN01Gp
-	 QbkSM/7sLVIh+T0/x2dvyIaeCPMIEZvVFlJ30REfLu30ypl/8NjwQEczswll0Lh7mQ
-	 4gdudGFq1ggcOHAOiSB2xnA14YBAYlGkZ9q1QQFSShJzCiU4BEqEhW8R/q3XOvL06S
-	 WaNIxs/TtOXPQ==
-Subject: Re: [PATCH net-next v3 3/5] net: hix5hd2_gmac: Use mdio child node
- for MDIO bus if it exists
+	b=b4VDwVPMFFeP3ecq2qCD8/Hm9cShfOKBK5OfgDN+XQXw6k3aRwzyS8d4i+Y0PiQ0h
+	 l05IgkqmJv7Ipt3NUBlyez82hBuFX7eH5qpf6f20DRjSXL1Vac8XcPg+hAiRGfAfap
+	 swI6U0rGWssJKQC4SCc94eFPrWmv1KAezLmoGjRHJmpSKT3caP2oYIoHBK9BSJ9Wgo
+	 LayzOn/2H8YACucE0yE2r/hw/dCHZHk5v38XZu9WVCFGcnO6ml4/pYS756QvHhgVC6
+	 uj8NOuu2tMLw9tTIXWifXKcp6vfAnz317qlN6aVSXhTp7JIZR0JP+EPrd/OxlKHFvn
+	 qqL+VQpGipCvw==
+Subject: Re: [PATCH net-next v3 4/5] dt-bindings: net: hisilicon,hisi-gmac-v1:
+ Allow fixed-link
 From: netdev-bot+sashiko@kernel.org
 To: mmyangfl@gmail.com
 Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
  edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
  krzk+dt@kernel.org, conor+dt@kernel.org, shenjian15@huawei.com,
  shaojijie@huawei.com, devicetree@vger.kernel.org
-Date: Wed, 25 Nov 2026 00:28:17 +0000
-Message-ID: <179556649734.3135.14403923700572284098@kernel.org>
-In-Reply-To: <20261124002442.19414-4-mmyangfl@gmail.com>
-References: <20261124002442.19414-4-mmyangfl@gmail.com>
-X-sashiko-severity: Medium
+Date: Wed, 25 Nov 2026 00:28:18 +0000
+Message-ID: <179556649875.3135.7423931333453595592@kernel.org>
+In-Reply-To: <20261124002442.19414-5-mmyangfl@gmail.com>
+References: <20261124002442.19414-5-mmyangfl@gmail.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
@@ -65,81 +65,85 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] In hix5hd2_dev_probe()
-  (drivers/net/ethernet/hisilicon/hix5hd2_gmac.c), the patch finds the…
+- [Low] In Documentation/devicetree/bindings/net/hisilicon,hisi-
+  gmac-v1.yaml, this patch states a rule only in the free-text…
 
 --
 
-net: hix5hd2_gmac: Use mdio child node for MDIO bus if it exists
+dt-bindings: net: hisilicon,hisi-gmac-v1: Allow fixed-link
 
-This commit makes hix5hd2_dev_probe() look for an "mdio" child of the MAC
-node. If one exists, the MDIO bus is registered against that child instead
-of the MAC node itself, following the earlier macb change.
+This patch makes phy-handle required only when no fixed-link is present.
+It also adds a sentence to the mdio property description saying that, with
+a fixed link, the MDIO bus is only registered when an mdio child node is
+present.
 
-> diff --git a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
-> index d129aeceb641e..a176870079e96 100644
-> --- a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
-> +++ b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
+> diff --git a/Documentation/devicetree/bindings/net/hisilicon,hisi-gmac-v1.yaml b/Documentation/devicetree/bindings/net/hisilicon,hisi-gmac-v1.yaml
+> index a715298259552..c283c1b6ac723 100644
+> --- a/Documentation/devicetree/bindings/net/hisilicon,hisi-gmac-v1.yaml
+> +++ b/Documentation/devicetree/bindings/net/hisilicon,hisi-gmac-v1.yaml
+> @@ -13,6 +13,13 @@ maintainers:
+>  allOf:
+>    - $ref: /schemas/net/ethernet-controller.yaml#
+>    - $ref: /schemas/net/mdio.yaml#
+> +  - if:
+> +      not:
+> +        required:
+> +          - fixed-link
+> +    then:
+> +      required:
+> +        - phy-handle
+>  
+>  properties:
+>    compatible:
 
 [ ... ]
 
-> @@ -1189,7 +1190,9 @@ static int hix5hd2_dev_probe(struct platform_device *pdev)
->  	snprintf(bus->id, MII_BUS_ID_SIZE, "%s-mii", dev_name(&pdev->dev));
->  	priv->bus = bus;
->  
-> -	ret = devm_of_mdiobus_register(dev, bus, node);
-> +	mdio_np = of_get_child_by_name(node, "mdio");
-> +	ret = devm_of_mdiobus_register(dev, bus, mdio_np ?: node);
-> +	of_node_put(mdio_np);
->  	if (ret)
->  		goto out_disable_clk;
+> @@ -58,7 +65,8 @@ properties:
+>      unevaluatedProperties: false
+>      description:
+>        Node containing PHY children. If this node is not present, then PHYs will
+> -      be direct children.
+> +      be direct children. With a fixed link, the MDIO bus is not registered
+> +      unless this node is present.
 
-[Severity: Medium]
-What happens here when the mdio child exists but has status = "disabled"?
+[Severity: Low]
+Should this rule be enforced by the schema, rather than stated only in the
+description?
 
-of_get_child_by_name() ignores the status property. In that case mdio_np
-is non-NULL and the disabled node is passed to devm_of_mdiobus_register().
-__of_mdiobus_register() then rejects it:
+The top-level allOf still includes mdio.yaml. Its '@[0-9a-f]+$'
+patternProperties allows MDIO device nodes directly under the ethernet
+node. The new if/then block only decides whether phy-handle is required.
 
-drivers/net/mdio/of_mdio.c:__of_mdiobus_register() {
+That means a node with fixed-link and direct children such as
+ethernet-phy@N or switch@N, but no mdio subnode, still passes
+dt_binding_check.
+
+Later in the series, "net: hix5hd2_gmac: Support fixed-link" makes
+hix5hd2_dev_probe() skip MDIO bus registration in that case:
+
+drivers/net/ethernet/hisilicon/hix5hd2_gmac.c:hix5hd2_dev_probe() {
     ...
-	/* Do not continue if the node is disabled */
-	if (!of_device_is_available(np))
-		return -ENODEV;
+	if (mdio_np || priv->phy_node != node) {
     ...
 }
 
-The -ENODEV goes back through the goto out_disable_clk path, and the whole
-Ethernet device fails to probe.
+The driver then ignores those direct children without any warning.
 
-Before this patch the MAC node was always passed in. Its child scan uses
-for_each_available_child_of_node(), so a disabled child was just skipped.
+Would an "if: required: [fixed-link]" / "then:" block work here, one that
+disallows '@[0-9a-f]+$' children directly on the ethernet node?
 
-The same lookup is still there at the end of the series. After "net:
-hix5hd2_gmac: Support fixed-link", any non-NULL mdio_np forces bus
-registration:
+Also, the new sentence describes Linux driver behaviour ("the MDIO bus is
+not registered") rather than the hardware. The GMAC's MDIO controller and
+lines exist whether or not the MAC link is fixed.
 
-	mdio_np = of_get_child_by_name(node, "mdio");
-	if (mdio_np || priv->phy_node != node) {
-
-So a fixed-link MAC with a disabled mdio child would also fail probe with
--ENODEV. That doesn't match the binding text "With a fixed link, the MDIO
-bus is not registered unless this node is present."
-
-Would of_get_available_child_by_name() work better here? Other net drivers
-such as rzn1_a5psw, owl-emac, ibm emac and mtk_star_emac use it for the
-same lookup, and it would treat a disabled mdio child as absent.
+Could the text be reworded as a description rule instead? For example: with
+fixed-link, MDIO devices must be placed under the mdio node.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261124002442.19414-1-mmyangfl%40gmail.com
