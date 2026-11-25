@@ -1,61 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795631037;
-	b=WKrk8rtAsseJtwF0u1szjpkBDN9623r2Jnm92I/t4zn1UyX0Fba1sggBI9RZ8vZ1h58L
-	 SKPf7FHciUoPm32rr6pW6EUtRaNkTinlck4pio9YNqiOrnFy/wAubffRvPgyZlXmmpx7b
-	 LjUkhsqpghZTeyRGRcFvLimd6gtc2kBgwfb6aXlbJSWbE5d9ttd0bC9cdYBCLy8qUeHF6
-	 xNgrSu2MMZZ5PPYfFB9JqyKKwvebbpNvihZ3ke6l+0rBV2qPEibQwjq1q/4uDq72NShIQ
-	 VYT1WvK0otYb47NyC5CUsVGnZvmfI8lEvBJSzWMkGTTeWuTEHEUG7n8bM/b1rmvy7aQ==
+	t=1795631242;
+	b=x0W5S/lhl4o7Ui3CMfGEqQm3ZjzP6/szhNP6iRn7hcb2If8RW2vzxGh2JeR/ADPwvP/p
+	 VUvOjLrrwR1bKjyY8Q5j/FxCl0eM04ckFfsBuIhMQoTHd2FIOxCwffPBQgBUs477mVMvu
+	 FYXzZ1sVFgfRjNgYUTBe4dp5ZJv1oJx4/PAm/OQPok2QWsPHBoi6A11JAVRuhATk3DdJL
+	 8lToTkavZWWYvRoitZ79IrH8jexAkGVuDiSbWdljVWgtrryexlWQnzgulnRpDCjQO2rqU
+	 i8E5ZtBNOPqpY2rv3TwcpC8WMpnPjAglBh+MdA311TmH6N37iuD0C1aRAg0dU0VPLUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795631037;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=TB+00NTJ8YI7Y5l9Rr385lbT8RbGXWXYwnFdxTz8nKw=;
-	b=I59hIcAmfQT2VCkE2Y5uT6DqgpXDIbwPK7NWQcavNc4/GFomn1Stkq8vqmlN+QXqraPR
-	 SyBdqPvjpB2wYhdUuEQbfLOORRVNuf2elmwCNAkkJbUhmz1LvL3BbqlQrommPk+cmqh/U
-	 GtkP93b1BYlX0Uv8J9EHEx7OroLFReFTbYkzYAw+BXYqSCF7reOBE/JYLW0OPXNKGpb8q
-	 ucDE1NZmfSj0Ih+B0OdHthkMUf31VJsuVdj4LVMBY5/PQwoUml5q4getI1dHkc4PFbYz7
-	 F34dYOXAINI2UMyyvHi7Ld8OBAuQ3RVMEGvXfL5uJUTxCl9Mu3Ye7QOKJSnO+TyzLoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795631242;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Q/Ht4mTVsZ8VXLHmxE/9TQE6M9RVX4AerJ+ZRy/407k=;
+	b=Sj9mbSooWSS949BKwdAETCsyb+mfy3A8EUPGKq8CNA/OlJlYTbeq0oDoQGaT4hCPTSum
+	 Jg3Wd0qVSLM9hCXFOKcSzKnKWgp277SirK4AWd9jN4iAO6oIDVBaS5GSjsr2kwN4OvJgg
+	 ZMW+Cu1AXDmWd/efkk2UmiUjdxi4FwwpLz2WIrZZVxutKQZ0dVOIooAhrSBm+6LYC7+Qx
+	 S1EJZUgSYxpHW5+RMBYZOyNeDN694ojC4LmcIjxyAEBlF+80A9U7xv+jfNWfGynrjIn1p
+	 D/v+FFBNi9EmBzdKMixRFb17YdYgS2xQzsWSfQDeC/ukkto54shOCw7wEQ78fUJoaoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bz8kOoAG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ixit.cz;
+	spf=pass smtp.mailfrom=ixit.cz;
+	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=YyQbI+96;
+	arc=none smtp.remote-ip=84.42.129.46
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB51C606A6A4;
-	Wed, 25 Nov 2026 18:23:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7909A606A32E
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 18:27:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7909A606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bz8kOoAG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64B201F000D4;
-	Wed, 25 Nov 2026 18:23:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795631036;
-	bh=TB+00NTJ8YI7Y5l9Rr385lbT8RbGXWXYwnFdxTz8nKw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Bz8kOoAGqPJ/JyMejI8bUJg4uJiVHVqtA0+VIu73mQG8tW0ozRru6pkHQ2ss05KXN
-	 +IKzLMd8AUZ+Ah1rUUBzoUl+tomWn9Ext5Ca8LEIMCZpyphy15ioBlBzaEQvd8q06Q
-	 sxiFlC0lSA81Wg3V8eeX12JoSiygQli3aamGuHW1/OSDahjh3ZTgovFhdGw8wy9fht
-	 zZV4GdLkuwk6pnBJK30JnSYzfHb9T1rDP/qggqM6ZVuz9lxWn9dhgXbc2yVO8+eMU3
-	 GVOykE2LAp4VNWAvUhkK87xbLN2MNsWuNqQ4SXUBSHmGQf6pjWos8Wv6knY/2/8lAi
-	 yIQe5A1j9X9xw==
-Date: Wed, 25 Nov 2026 18:23:52 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Matthias Kaehlcke <mka@chromium.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Anand Moon <linux.amoon@gmail.com>, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Han Gao <rabenda.cn@gmail.com>
-Subject: Re: [PATCH 1/3] dt-bindings: usb: vialab,vl817: use
- unevaluatedProperties
-Message-ID: <20261125-savings-stung-e41cfcdc7842@spud>
-References: <20261124-vl817-uneval-prop-v1-0-137c093fb300@iscas.ac.cn>
- <20261124-vl817-uneval-prop-v1-1-137c093fb300@iscas.ac.cn>
- <20261124-rehab-overlord-9b7f44ee7e0f@spud>
- <f818f0facb3af35e31b8346546c1aa23b10bd529.camel@iscas.ac.cn>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=YyQbI+96
+Received: from [IPV6:2a02:830a:f787:8f00:f33c:cbcd:417b:d2b9] (unknown [IPv6:2a02:830a:f787:8f00:f33c:cbcd:417b:d2b9])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 3185553401F6;
+	Wed, 25 Nov 2026 19:27:19 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1795631239;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Q/Ht4mTVsZ8VXLHmxE/9TQE6M9RVX4AerJ+ZRy/407k=;
+	b=YyQbI+96AQykSTN2+2red/GURWvIOEle1Nwbrx80ac2UEOe6m4DXx70HBcxxZcsdHsnvJ6
+	xQa+Q492OWqpzUMAu2wf9dZUhGNXkDW75kyziM7eEjwFMModDY0JanP6/nN/86/qC00Kq8
+	uondbQah5GuEKvk+YXhQAAt8ZBWkU30=
+Message-ID: <91d61e88-f9f7-464a-9151-4b2f2216411c@ixit.cz>
+Date: Wed, 25 Nov 2026 19:27:18 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,98 +60,125 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vM6FGX+N7kRbpXgy"
-Content-Disposition: inline
-In-Reply-To: <f818f0facb3af35e31b8346546c1aa23b10bd529.camel@iscas.ac.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 8/9] arm64: dts: qcom: sdm845-samsung-starqltechn:
+ Update panel compatible
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+References: <20261125-crosshatch-panel-v4-0-120adc58e737@ixit.cz>
+ <20261125-crosshatch-panel-v4-8-120adc58e737@ixit.cz>
+ <sashiko-outbox-233966@kernel.org>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
+ 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
+ lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
+ 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
+ dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
+ F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
+ NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
+ 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
+ AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
+ k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
+ ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
+ AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
+ AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
+ afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
+ loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
+ jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
+ ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
+ VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
+ W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
+ zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
+ QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
+ UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
+ zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
+ 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
+ IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
+ jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
+ FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
+ aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
+ NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
+ AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
+ hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
+ rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
+ qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
+ 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
+ 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
+ 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
+ NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
+ GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
+ yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
+ zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
+ fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
+ ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
+In-Reply-To: <sashiko-outbox-233966@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---vM6FGX+N7kRbpXgy
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 25/11/2026 19:20, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [High] arm64: dts: qcom: incompatible panel@0 compatible and
+>    reset-gpios change
+> --
+> 
+> commit fd433e980a7d2d9c4e491b9e6c72d47eb49cfd5c
+> Author: David Heidelberg <david@ixit.cz>
+> 
+> arm64: dts: qcom: sdm845-samsung-starqltechn: Update panel compatible
+> 
+> This commit replaces the panel@0 compatible string with
+> "samsung,s6e3ha8-amb577px01" and changes its reset-gpios polarity to
+> GPIO_ACTIVE_LOW on Samsung Galaxy S9 (starqltechn).
+> 
+>> diff --git a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
+>> index bd59f1dcd96dc..c156ed3733b4e 100644
+>> --- a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
+>> +++ b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
+>> @@ -267,13 +267,13 @@ &mdss_dsi0 {
+>>   	status = "okay";
+>>   
+>>   	panel@0 {
+>> -		compatible = "samsung,s6e3ha8";
+>> +		compatible = "samsung,s6e3ha8-amb577px01";
+>>   		reg = <0>;
+>>   		vci-supply = <&s2dos05_ldo4>;
+>>   		vddr-supply = <&s2dos05_buck>;
+>>   		vdd3-supply = <&s2dos05_ldo1>;
+>>   		te-gpios = <&tlmm 10 GPIO_ACTIVE_HIGH>;
+>> -		reset-gpios = <&tlmm 6 GPIO_ACTIVE_HIGH>;
+>> +		reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
+>>   		pinctrl-0 = <&dsi_default &dsi_te>;
+>>   		pinctrl-1 = <&dsi_suspend &dsi_te>;
+>>   		pinctrl-names = "default", "suspend";
+> 
+> [Severity: High]
+> As reported by Krzysztof Kozlowski on v2 [1], does replacing the
+> "samsung,s6e3ha8" compatible string without a fallback and inverting
+> reset-gpios to GPIO_ACTIVE_LOW break DTB compatibility for existing
+> kernels and DTB consumers?
 
-On Wed, Nov 25, 2026 at 03:32:10AM +0800, Icenowy Zheng wrote:
-> =E5=9C=A8 2026-11-24=E4=BA=8C=E7=9A=84 18:16 +0000=EF=BC=8CConor Dooley=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > On Tue, Nov 24, 2026 at 04:31:01PM +0800, Icenowy Zheng wrote:
-> > > Currently the VL817 binding has additionalProperties set to false
-> > > instead of unevaluatedProperties, which disallows properties document=
-ed
-> > > in the parent schema.
-> >=20
-> > This is not quite true though, they're permitted if the binding contains
-> > "foo: true" etc - which this one does.
-> >=20
-> > > Change it to unevaluatedProperties, which is the better practice for
-> > > derived schemas.
-> >=20
-> > Not really, it's fine to do addtionalProps: false + foo: true if only
-> > a subset of the inherited properties are valid.
->=20
-> The main meaning here is to allow downstream nodes described in the usb-
-> hub.yaml file, especially downstream device nodes (which was a regular
-> expression match in usb-hub.yaml).
->=20
-> I don't think it wise to duplicate that regular expression in all hub
-> binding files.
->=20
-> However maybe I should change the commit message?
+The only consumer here is Samsung S9 (Korea version), all known distributions 
+building kernels together with DTB, thus in this scenario it doesn't matter.
 
-Please, and include the reason you've given here.
+When old DT will be booted, the new kernel is able to handle it too with old 
+compatible and workaround for reversing polarity inside the driver.
 
-> > IMO this series should be two patches, or maybe even just one that
-> > changes the ref (as your patch 2 does) and sets the then derived
-> > property to true. Otherwise, this should be two patches, with patch 3
-> > split into whichever of patch 1 and 2 is relevant.
->=20
-> I'm okay to just drop patch 3; in fact I send it as a split patch just
-> because I'm feeling that it's not so needed.
->=20
-> In addtion I'm also okay to squash patch 1 and 2.
+For booting old kernel with new DTBs, display will not bind (since the new 
+compatible), but that's not going to happen with current usage pattern.
 
-Yeah, you can probably just do the whole thing in one go.
+> 
+> Any kernel or consumer that only matches "samsung,s6e3ha8" and expects
+> GPIO_ACTIVE_HIGH (established in 70005c18c9f7 ("arm64: dts: qcom:
+> sdm845-starqltechn: add graphics support")) will fail to bind or reset the
+> panel when booted with this DTB.  Earlier patches in this series already
+> handle the legacy "samsung,s6e3ha8" compatible and inverted reset polarity
+> in drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c via
+> broken_reset_polarity.
+> 
+> [1] https://lore.kernel.org/r/20260929-spirited-umber-hedgehog-300ebd@quoll
+> 
 
->=20
-> Thanks,
-> Icenowy
->=20
-> >=20
-> > >=20
-> > > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> > > ---
-> > >  Documentation/devicetree/bindings/usb/vialab,vl817.yaml | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/usb/vialab,vl817.yaml =
-b/Documentation/devicetree/bindings/usb/vialab,vl817.yaml
-> > > index c815010ba9c2e..d0484e48e319c 100644
-> > > --- a/Documentation/devicetree/bindings/usb/vialab,vl817.yaml
-> > > +++ b/Documentation/devicetree/bindings/usb/vialab,vl817.yaml
-> > > @@ -40,7 +40,7 @@ required:
-> > >    - vdd-supply
-> > >    - peer-hub
-> > > =20
-> > > -additionalProperties: false
-> > > +unevaluatedProperties: false
-> > > =20
-> > >  examples:
-> > >    - |
-> > >=20
-> > > --=20
-> > > 2.56.0
-> > >=20
-> > >=20
->=20
-
---vM6FGX+N7kRbpXgy
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCawcnuAAKCRB4tDGHoIJi
-0mdBAQCMJAB1PANs5IFLdU2153Z5C6uqCxk18PrgCZjz1yApTwEA2uY6P1smeIT5
-KWFGDaM0Rr2e+Z+ECb52aFcvqFdxwAo=
-=KTU3
------END PGP SIGNATURE-----
-
---vM6FGX+N7kRbpXgy--
