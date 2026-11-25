@@ -1,80 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795566650;
-	b=h1G2hWQ7NSedpp/tS/pjVRMysBFTP0Sknfo0BL/gYTr8d/RE7ENpVuru5iFK2VnxHpjS
-	 yKwtGqer9Ue55rNBw1IOEb+GsicXUlMaYtIVMpMi3HodEc7N4znem9MYgnq9yuUhcKrK6
-	 jRdkv+XOb/7Qr4g1YI29Nzsx5RU6oAVwi8rqoqNcIlHZFD6N9vOs2iGtw71zt62RnvK9N
-	 Jsa/73Bq/xsgDoDeKaIYic0yCqatmYlnAvIAwgl8F1a0NgDV0fXFEtGB+eIkmYT4cmgoW
-	 FgHqmfBHuuWgG5N5TA0rIG902f0si/3TajG/RN6JGw3LXGYcIZRHr42VyGUonCj94RA==
+	t=1795566801;
+	b=iRPpgn6Y7aqRL2nFvwM5FSrNarZ3PJwV4IOj8BCMtQdCbL5eXkz5jZ6GaGQTgFRVGIf0
+	 kN5E7XHPbP5Nl/jbcOq5RC+qGQIIfu+xPMHwMd65lAXthU9uo43q/k8ZcAJ6bhxqgtAWY
+	 OwssO60SUfcxPsIUjvwaMQWsWBt4l3uhB5XFyUqKaDFczafKJm3pnqlPiXuv86BJSEETb
+	 zPpBZ1kN82bYpgAM+7TKstR+e8qMEQya3C99yJNb93Z5av8PGcXxSbqEFrhBoGI6s5WGH
+	 zxIH2Wu3wH9Qed5AiveZGH8sAoHOFaqOFxb/ab80+h+3p6oZUCbh5Bod/v10P6vSxlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795566650;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
-	bh=opO6KqrLeZU2YFUSJAKWKg1/ArS9FwTmKWO3coNyByA=;
-	b=jTIzJkSwr2IpFth10akiLuiGuTvxjPrZy60WOvTnqbxZgx7rxFqcGbmnI3s3gD8iL+87
-	 uHfdLg3taa9WqoCt6K+iJCSTl22pzxCynGOB9s7hnIgh0bA6L2QT1qat+NKsuzuP1B+/z
-	 MWijQmR1BWiIQ6LlSlF3Xwf1yd5g38K80EOOL95Ae+iZ5sTE+QAQ5/5wCkny7Rs00nAUA
-	 ysD/9CEkQlnQuAHsI1nyhKvXVcZHcDR9L3k1LtTPPtFSMgdDGHCFa6/uPLqxXBLdN0LMq
-	 Rv9uPpnXnjd7FptpQDZiz30kcKyI784YOusUh0yEuoxUOQ3a2egT1rImEC4tmepMPhw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795566801;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=yXutiY4wAsWVrAmyrBgblgr1VSZYUu14hZX1/vO7UHE=;
+	b=cnXSiPoMd6YsOIzGjlVI/WzXJ4jNU5th5F7pO2oxX5+R2lu0ZfCKSVfewzuw0hELEXvA
+	 t5HxEZsDsj5cYm+GpNvQnvtjcieWmhHsy78dg86Rw9NJEZ4+oPkG/t3kbYLsEO2rCiRr8
+	 Zgjj/RjPFGDbS+1MnjseMxIoUOiTJL2+uzP49U+Y8rJaBRMMU5gyB4QsquXIkrEcLw9N3
+	 iyDZKAP/KKOowJMLTioQaXrDzXh00xj4ZfHPg3GE8yK4lfbxMQhH4+VB2k5jzl8wC7oIK
+	 38B3Y+fzEZt4OCWDS26oEdaXj2BOAyaMS8w2QQFUfsZqA1wDwdPzsrBvgpasa3apPrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=netfilter.org;
-	spf=pass smtp.mailfrom=netfilter.org;
-	dkim=pass header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=rLL1wP2W;
-	arc=none smtp.remote-ip=217.70.190.124
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="jAgkj/z+";
+	arc=none smtp.remote-ip=209.85.208.50
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id EAE1C606A31E;
-	Wed, 25 Nov 2026 00:30:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAE1C606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7859A606A31E
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 00:33:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7859A606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=rLL1wP2W
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1795566647;
-	bh=opO6KqrLeZU2YFUSJAKWKg1/ArS9FwTmKWO3coNyByA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rLL1wP2WAiEAH+1CzJfQMLdmOeZ3TwhZfbvAbLLd2Ki9tOUStpQdz6SyBW6BN3nap
-	 sq8dLhfJoCTe9aq5TFnkDw0mFXYul9OsjPwvTm3tgkcLc0Gnu2fKLmtw+UDWSSvBwy
-	 1H+O/GjncKALc449Sz3B/omNJrQBz+gi4eczr1nWVoC59kU8fnEpojCAY8QEwMT7xu
-	 c748JkTW+s1xwjcIIgMEi2/3o9GsqovIFM3tUayLdO+AB4xgS4ICwhg5dAFYHV4psh
-	 LNFshBpcvPhnnwwJD6ytopeGZggf3kp2siaE6Ai3YOA1kidDBMpONjWYkgxAFbVz16
-	 g6uVosNgxT2cQ==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 4C65E6007A;
-	Wed, 25 Nov 2026 01:30:47 +0100 (CET)
-Date: Wed, 25 Nov 2026 01:30:44 +0100
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: netdev@vger.kernel.org,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Jonas Gorski <jonas.gorski@gmail.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
-	"open list:NETFILTER" <netfilter-devel@vger.kernel.org>,
-	"open list:NETFILTER" <coreteam@netfilter.org>
-Subject: Re: [PATCH net-next 6/9] net: flow_offload: allow drivers to
- validate and invalidate cached paths
-Message-ID: <awYsNPjUfgpDAgMr@chamomile>
-References: <20261116222519.1416501-1-florian.fainelli@broadcom.com>
- <20261116222519.1416501-7-florian.fainelli@broadcom.com>
- <awI-mtwn3ohPw-fF@chamomile>
- <b5a899c1-c1b8-409e-8b50-ca722c229f5b@broadcom.com>
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=jAgkj/z+
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b87a1a2babso11145089a12.0
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 16:33:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1795566800; x=1796171600; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yXutiY4wAsWVrAmyrBgblgr1VSZYUu14hZX1/vO7UHE=;
+        b=jAgkj/z+aNjrtmwqAk5XFZObJEzoEOjdEA1IYA/SEm8x2Qmjyo7A48oxA+WcRHXr79
+         liLV0WMr2KbZ4+NnN66Cc3ua8LzrV3tjpa1O+5xMWVdSZd4AUAGyl8TjqR6n1UtEJP23
+         IUibRbZNrIH3beKDQJz7l+KeZuR1PZ90x4rmU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795566800; x=1796171600;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yXutiY4wAsWVrAmyrBgblgr1VSZYUu14hZX1/vO7UHE=;
+        b=KPvWypRVjF0+BwuydCfx2qtIYaIXoVwAnsgQgJlm+PIzESrqo5IJqJTUC+RSsbE8T9
+         ZVmHXj3vapvHF0mSaRG7SoOvmFqi3Ji49ypdQvcOf93fm9yCyAhIJ7hEKs1LgiLh3eaI
+         SfAAGqI8KyPLKRRyP8sozX4XXSWg+SjdLMKDCddHLDp2bOeo9U7mupMlAQPvSWmggSJU
+         rkwH8I4Hq6DuRAzy0pAK4YvrnJSCsjfkIaw4McISA5jPuz6izmlVbf/A7w7YnJ+7Zdi+
+         D/uZ4P9j2B4xYDLGHdqI6rCLQNBUvx56P8um0PPaFF+V7AbfBxXBK29HdtkvLFN4wR07
+         6ylA==
+X-Forwarded-Encrypted: i=1; AL+hErEa/spQL7hVuH3bCFY/nyIDVmZjhM75rvkOtCyfv0eUcNt4vZcbgHchj/W/f3AFRnLe22QVxv5nEoq0@vger.kernel.org
+X-Gm-Message-State: APuU4Z8dsR3KGMpxMaAYEA730QEWuzihUY3SIZba+Fpw8XU4D+RT/o0/
+	Podkep+GhIKSiHEQ+Dtaz0tres9/29t9jOlypgexxej4+RApsBxusT/syJeQ1aHIUmGo37z4KEs
+	UUhL15NCg
+X-Gm-Gg: AZFdTZeglUU19+41Wj+OwRV4AQtUBmLwVT59fWeEUKkxAy4O+f+YpiFxc427w3M3Esw
+	NOKC2QSF3s0Iwa7uC0PBPMyIbus0uxPdgnn5ebBwucE6JIdR2HpXytDZ0vZwW5FtSKxSmJ1EvKk
+	0AYpSJ++NRE5WXN+tmcjSe7MrTv0OwGdwwk+Offheu1s65aXTdTNWwvY663jZ3nY7imJWeA0bZG
+	Z0Ve9TcYint94ChnvQ2kxEZ+LYUXmBxYr/4+/0+dYFYy2ZIm76Lid7bHDMN+wPOQ7C608MRQ4dL
+	DU07fK7FTa7WgZWQeWvWTo/pjif1BeaC3wsXgqECFHF6MeY70V2lWjkcEOEVXpZbYqPkuPGZUJo
+	sv2UjvgIhU8JiXgTscuXfDUvIb9EUND/NAplCT7OPG81bNouUVQgQ9FPnH/qsKsS4gObfWk+ELp
+	5dqqcQm359EEbyDStp4jrAeANtzW4eJLyWEdV2wH/2+tG8jRsn1WTqkOHq7v/pkIZlm/fftCtNF
+	D8RU2lqzscCg+29TWXp7U8bsOv5megnnHJUEb8ue9SatRLMb8NAmDkWSVHVMRl43sUi2OnPKdcT
+	yOPv1Owllb3EkQz/40GHZttUpIuFLfZtSxAVLbWuuTHUfHlSMKQZM2yV7skgWwkzyVyu
+X-Received: by 2002:a05:6402:1c08:b0:6ba:be00:b9b2 with SMTP id 4fb4d7f45d1cf-6babe00bc52mr3697034a12.10.1795566799764;
+        Tue, 24 Nov 2026 16:33:19 -0800 (PST)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com. [209.85.128.45])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba3711ad52sm7599260a12.35.2026.11.24.16.33.17
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Nov 2026 16:33:18 -0800 (PST)
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so66703785e9.1
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 16:33:17 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFsuK7xWpkQ0OHpkFw22mMD/Ybx6082hz0iG3MOKRaiedn2MzbwpQCoAyr/7ds0jQtejYD6JKVsWCqe@vger.kernel.org
+X-Received: by 2002:a05:600c:12cb:b0:4a2:1104:7ca7 with SMTP id
+ 5b1f17b1804b1-4bb861576bemr256892195e9.11.1795566796722; Tue, 24 Nov 2026
+ 16:33:16 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,117 +94,98 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <b5a899c1-c1b8-409e-8b50-ca722c229f5b@broadcom.com>
+References: <20261115180147.1208082-1-vamshigajjela@google.com> <20261115180147.1208082-2-vamshigajjela@google.com>
+In-Reply-To: <20261115180147.1208082-2-vamshigajjela@google.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 24 Nov 2026 16:33:04 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=WG=29qgrTHARxHRpwNNedqQAg9qGRV1upDObekVLazbg@mail.gmail.com>
+X-Gm-Features: Aa3M54r4HJHXbXXsTl81DElUvLOJMM_DwqBh6af4oogcdFGi5xYSj3tXIA83QFQ
+Message-ID: <CAD=FV=WG=29qgrTHARxHRpwNNedqQAg9qGRV1upDObekVLazbg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: spmi: Add Google LGA SPMI controller
+To: vamshi gajjela <vamshigajjela@google.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Peter Griffin <peter.griffin@linaro.org>, 
+	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Jim Wylder <jwylder@google.com>, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Florian,
+Hi,
 
-On Mon, Nov 23, 2026 at 08:10:16AM -0800, Florian Fainelli wrote:
-> 
-> 
-> On 11/21/2026 5:00 PM, Pablo Neira Ayuso wrote:
-> > On Mon, Nov 16, 2026 at 02:25:16PM -0800, Florian Fainelli wrote:
-> > [...]
-> > > +static int nf_flow_offload_validate(unsigned long cookie)
-> > > +{
-> > > +	struct flow_offload *flow = nf_flow_offload_cookie_flow(cookie);
-> > > +	unsigned int dir;
-> > > +
-> > > +	for (dir = 0; dir < FLOW_OFFLOAD_DIR_MAX; dir++) {
-> > > +		struct flow_offload_tuple *tuple = &flow->tuplehash[dir].tuple;
-> > > +		struct flow_offload_tuple *other = &flow->tuplehash[!dir].tuple;
-> > > +		struct dst_entry *dst = tuple->dst_cache;
-> > > +		struct neighbour *neigh;
-> > > +		u8 mac[ETH_ALEN];
-> > > +		bool valid;
-> > > +
-> > > +		if (!dst)
-> > > +			return -EOPNOTSUPP;
-> > > +		/* This is the actual route selected with the packet's policy
-> > > +		 * context, including mark, DSCP and the reverse lookup's oif.
-> > > +		 */
-> > > +		if (!dst_check(dst, tuple->dst_cookie))
-> > > +			return -ESTALE;
-> > > +		if (tuple->xmit_type != FLOW_OFFLOAD_XMIT_DIRECT)
-> > > +			continue;
-> > > +		/* A stacked path may have a different final Ethernet neighbour.
-> > > +		 * Do not mistake that unsupported context for a stale owner.
-> > > +		 */
-> > > +		if (dst->dev->ifindex != tuple->out.ifidx)
-> > > +			return -EOPNOTSUPP;
-> > > +		neigh = dst_neigh_lookup(dst, &other->src_v4);
-> > > +		if (!neigh)
-> > > +			return -ESTALE;
-> > > +		neigh_ha_snapshot(mac, neigh, dst->dev);
-> > > +		valid = (READ_ONCE(neigh->nud_state) & NUD_VALID) &&
-> > > +			ether_addr_equal(mac, tuple->out.h_dest);
-> > > +		neigh_release(neigh);
-> > > +		if (!valid)
-> > > +			return -ESTALE;
-> > > +	}
-> > > +	return 0;
-> > 
-> > This validation to catch for stale entries looks very similar to what
-> > I'm working on. I guess there is a chance to consolidate all this in
-> > common infrastructure for both software and hardware modes.
-> 
-> Excellent, happy to point you to an off the shelf device where you could be
-> testing this on, if you would like to?
+On Sun, Nov 15, 2026 at 10:02=E2=80=AFAM vamshi gajjela
+<vamshigajjela@google.com> wrote:
+>
+> From: Vamshi Gajjela <vamshigajjela@google.com>
+>
+> Document the device tree bindings for the SmartDV Technologies MIPI SPMI
+> master controller integrated in Google Tensor SoCs starting with the G5
+> generation (codename: laguna, canonically written as "lga").
+>
+> Signed-off-by: Vamshi Gajjela <vamshigajjela@google.com>
+> ---
+>  .../bindings/spmi/google,lga-spmi.yaml        | 56 +++++++++++++++++++
+>  MAINTAINERS                                   |  6 ++
+>  2 files changed, 62 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/spmi/google,lga-spm=
+i.yaml
+>
+> diff --git a/Documentation/devicetree/bindings/spmi/google,lga-spmi.yaml =
+b/Documentation/devicetree/bindings/spmi/google,lga-spmi.yaml
+> new file mode 100644
+> index 000000000000..60d1e1769cf2
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/spmi/google,lga-spmi.yaml
+> @@ -0,0 +1,56 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/spmi/google,lga-spmi.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Google Tensor G5 (Laguna) SmartDV SPMI Controller
+> +
+> +maintainers:
+> +  - Vamshi Gajjela <vamshigajjela@google.com>
+> +
+> +description:
+> +  SmartDV Technologies MIPI System Power Management Interface (SPMI) mas=
+ter
+> +  controller integrated in Google Tensor SoCs starting with the G5 gener=
+ation
+> +  (laguna / lga), supporting MIPI SPMI Specification versions 1.0 and 2.=
+0.
+> +
+> +allOf:
+> +  - $ref: spmi.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: google,lga-spmi
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - resets
 
-I have a setup with Banana pi r64 and openwrt, I have this large
-series of backports to synchronize with with current upstream trees:
+Could you remove the "-resets" from required? It looks like for at
+least one of the IP blocks on LGA the reset isn't exposed to the main
+Application Processor. I wouldn't expect this to be controversial, and
+probalby Krzysztof wouldn't even mind you carrying his "Reviewed-by"
+tag with that change (though he could reply and clarify if he doesn't
+agree). ;-)
 
-patches/generic-backport/951-netfilter-flowtable-inline-vlan-encapsulation-in-xmi.patch
-patches/generic-backport/952-netfilter-flowtable-inline-pppoe-encapsulation-in-xm.patch
-patches/generic-backport/953-netfilter-flowtable-remove-hw_ifidx.patch
-patches/generic-backport/953-netfilter-flowtable-use-tuple-address-to-calculate-n.patch
-patches/generic-backport/954-netfilter-flowtable-Add-IPIP-rx-sw-acceleration.patch
-patches/generic-backport/955-netfilter-flowtable-Add-IPIP-tx-sw-acceleration.patch
-patches/generic-backport/956-netfilter-always-set-route-tuple-out-ifindex.patch
-patches/generic-backport/957-netfilter-Add-ctx-pointer-in-nf_flow_skb_encap_proto.patch
-patches/generic-backport/958-netfilter-Introduce-tunnel-metadata-info-in-nf_flowt.patch
-patches/generic-backport/959-netfilter-flowtable-Add-IP6IP6-rx-sw-acceleration.patch
-patches/generic-backport/960-netfilter-flowtable-Add-IP6IP6-tx-sw-acceleration.patch
-patches/generic-backport/961-netfilter-flowtable-dedicated-slab-for-flow-entry.patch
-patches/generic-backport/962-netfilter-nf_flow_table_ip-reset-mac-header-before-v.patch
-patches/generic-backport/963-netfilter-replace-skb_try_make_writable-by-skb_ensur.patch
-patches/generic-backport/964-netfilter-flowtable-fix-inline-vlan-encapsulation-in.patch
-patches/generic-backport/965-netfilter-fix-inline-pppoe-encapsulation-i.patch
-patches/generic-backport/966-flowtable-use-skb_pull_rcsum-to-pop-vlan-p.patch
-patches/generic-backport/967-netfilter-flowtable-avoid-num_encaps-underflow-on-br.patch
-patches/generic-backport/967-netfilter-flowtable-bail-out-if-forward-path-cannot-.patch
-patches/generic-backport/968-netfilter-flowtable-fix-and-simplify-IP6IP6-tunnel-h.patch
-patches/generic-backport/969-netfilter-flowtable-use-dst-in-this-direction-when-p.patch
-patches/generic-backport/970-netfilter-flowtable-Validate-iph-ihl-in-nf_flow_ip4_.patch
-patches/generic-backport/971-netfilter-flowtable-IPIP-tunnel-hardware-offload-is-.patch
-patches/generic-backport/972-netfilter-flowtable-support-IPIP-tunnel-with-direct-.patch
-patches/generic-backport/973-netfilter-flowtable-use-correct-direction-to-set-up-.patch
-patches/generic-backport/974-netfilter-flowtable-tear-down-flow-entries-with-stal.patch
-patches/generic-backport/975-netfilter-flowtable-consolidate-net_device-field-in-.patch
-patches/generic-backport/976-netfilter-flowtable-consolidate-flowtable-device-che.patch
-patches/generic-backport/977-net-dsa-stop-at-the-user-device-in-.fill_forward_pat.patch
-patches/generic-backport/978-net-do-not-advance-stack-index-from-dev_fwd_path.patch
-patches/generic-backport/979-net-pass-dst-via-net_device_path-in-dev_fill_forward.patch
-patches/generic-backport/980-netfilter-flowtable-release-tunnel-route-on-error-wh.patch
-patches/generic-backport/981-net-pass-net_device_path_ctx-to-dev_fill_forward_pat.patch
-patches/generic-backport/982-net-remove-WARN_ON_ONCE-from-the-dev_fill_forward_pa.patch
-patches/generic-backport/982-0001-netfilter-flowtable-generalize-pending-status-bit.patch
-patches/generic-backport/983-netfilter-nft_meta-add-double-tagged-vlan-and-pppoe-.patch
-patches/generic-backport/984-net-netfilter-add-ether_type-to-net_device_path_ctx-.patch
-patches/generic-backport/985-netfilter-flowtable-rename-tun.l3_proto-to-tun.inner.patch
-patches/generic-backport/986-netfilter-flowtable-rename-ctx.tun.proto-to-ctx.tun..patch
-patches/generic-backport/987--netfilter-flowtable-store-ethertype-in-flowtable-con.patch
-patches/generic-backport/987-netfilter-flowtable-move-ipv4-and-ipv6-xmit-path-to-.patch
-patches/generic-backport/988-netfilter-flowtable-detach-layer-2-encapsulation-par.patch
-
-I guess this should be fine for testing this patch, maybe there is a
-better way.
-
-I still have to automate testing more classic scenarios in the real
-hardware, such as PPPoE (I have configuration to make this local),
-vlan, ipip tunnels, wireguard, etc.
-
-If there's anything else I'm missing, please, let me know.
-
-Thanks.
+-Doug
