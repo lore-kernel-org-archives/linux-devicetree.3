@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795592465;
-	b=PXGeRGRDvBYI3jNUQBQQUiDqIbvYFOF6uG5O+nnUqeGdXD+UG6zjmnM47GPpE3nWcg6f
-	 gsszXNzjnw5KCzy8GtJ3vKYix0rCtQzHK3iOEXX23MVHbjU9+roloa9eYQwE34HF5Tx8G
-	 anOrTrnEe8ROJN0wylYMIBuLQmzCoSXQi7VqoaBWqBHmb43LObBxm42YUhmux8Tx0wPvv
-	 bj3Tycqa8qDSJG8Id7yfbLJrEsWfTQRO1N0Jfjv0B1ZzkwCr0+Y6B/bpf8/TzXtfGTYGc
-	 ffCJGx6dH35B9fCV7Tloy2aZXvzGBwF8mdDOsUwLww3TR8wooIdnXSfgNeLGbRe4mDQ==
+	t=1795592630;
+	b=KlavzJL2gT00FmP32JvSLr0X/J0/2VbbLbVxpjoj7kpYO/B7eTfGLW/A5a9Z8Avqi10l
+	 IkdPBp8w/v53vUIiOVgYRjUezNK7Z8C9fkcU+2aSCY25gNe3mG+h9J0265of89NJ9XtqW
+	 ITh9ztSj0kURE+EhsoM7rfSKpw49evNNZkvQizChUU4/9y1YvrNrFZsTi/SSDZNF1gBPW
+	 LeZRXyL47APXn5jY4EUvVYQCe6aYAwVt69DB6bLiBKo9D+t3zLE/tD8YTPEny8VNfL3c4
+	 BSzSpjGEg7Jg4qnS1oZF4x7TNdADS//I/Dxp05sYl5HNgQF7l9oIvZye1ZEZkhPfzGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795592465;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795592630;
 	h=Received:DKIM-Signature:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
 	 Date:Message-Id:X-Mailer;
-	bh=qzlaI5M+ETRsxiBn4jEpaxr3LhkDBBe4J2eZBN8UmVY=;
-	b=yXK5arTXE2xhFRFnV+ks4A3kF8rBBtWlcH2n5yrlUSYDiN9NAAbfGH0ElJ03sM54CP5T
-	 hNW1NMSPk8oRtS+/7SIvQxuQc5YbMediHLJRpmj9E3VSED0wc+DxrWJr6LUwH9Modr42J
-	 RtuhseSKMFr+xqwWxHRfEsjnL/T1qQxcDJZtxXaa/ggIwQfPWwkRxlpShro+HFOKGnwug
-	 YEWqDfCvdRh+U6PytL7F3iK/RrcsehxkHco7SXtBQKjesaObWI+vOmbvMkn7Uz1My0ju+
-	 vVvc+APRohssPwmKTVY0L0D5t36H1rlNrG8ePeJEdrVYEeZsoD962ksrhjyJ7Z578sw==
+	bh=vUXThiVJ6bMe52lRwX1g6CBsmoON8XesHCjvBEoaDQA=;
+	b=JDXW7jk6CycNppwASKKnwiWeP/I5n52yomnGEoFuoTBFYF4jog3vYDlUXNhbWEbCMpFZ
+	 kbQphe/yNtQmquQlHAFE/bxObsCafVoln4En+o2+cSczHcEHhJFP804gN0aE0Ld4EN6le
+	 6BR03vL5A7b7yLW5QPZhqCTRLniPho7DxnRQfLLZy3ZfsY1rwM1y9Ua4uGe8kaLDV7PyX
+	 wHalm01MugopnXVaciE11HnD25VfQu3s1xLc24enDZ/wunX64q5qrmBBKNtpEtN3lMNqI
+	 JpfS3h2XSyJ9MhJo9ze6Pldh+6mc0wiAJOYfGhxHEtmI+9jCYB4xAhNovpFsAQ+GVig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QfhxJecb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i+N+Jel0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F3B606A31E;
-	Wed, 25 Nov 2026 07:41:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38780606A31E;
+	Wed, 25 Nov 2026 07:43:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QfhxJecb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AB971F000E0;
-	Wed, 25 Nov 2026 07:41:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i+N+Jel0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04B591F000C0;
+	Wed, 25 Nov 2026 07:43:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795592464;
-	bh=qzlaI5M+ETRsxiBn4jEpaxr3LhkDBBe4J2eZBN8UmVY=;
+	s=k20260515; t=1795592629;
+	bh=vUXThiVJ6bMe52lRwX1g6CBsmoON8XesHCjvBEoaDQA=;
 	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=QfhxJecb5e99+42ceEafq0/AOPWgjFeZMWj/9dLc3FQsAqTc8A4i7CEHPY5X/ucgk
-	 csmSohahbKUNkqWPnhuRCZMwxnCLhPa1+MeUxSlD9bbARAIhQFbkZxLueBdcVDtFs9
-	 coTTeElW+SlMO2Z6KjYRfrUPHy+UHjnkcNkst9lJG3Sl6TF1Ru2bmLF8/00MsEUTFJ
-	 66Adqok3gXuRfktQMPJUnEwMyENI52cB4cv6G0hxhah+1XaE6Qh193ldzuN/c83syP
-	 j9/8m78zStLeRLosyhI3fyaWD7+hNrLU8qbsKsHjoar8sSyC151jvownKrMvcOuG5W
-	 vgqDa4klCNFzQ==
+	b=i+N+Jel04pnI42CpZWHeFN1FoGpya+vih+ogo2zO2HAttQ88xS5X/gkqMOi4hXRg1
+	 ih7ySjq+dmIS3ApCkUHFnKhxHP1GywJjCrz0ucrlq2Pp9Gs1bQEE/KdQUlhA2Lm6Cq
+	 hI+VrBz9f33wDeiGNkJghRFV3m5AFHL1ibmX8OWnW/C0FOb/hMEfKYk8GpDSU/MT44
+	 kBu9dZzEHu3lQaB54n9TN5O5GFrYpfdgUOyvKSBFo1w0Dz5ixndV5AP5sL+YmWettM
+	 FiDNoUDv65WHXrhIqr3BayR/wyx2fCN6bHMRQ3Sk1Er1mQ7OXMGEumzg7s3NNFZAXT
+	 z4US67F+IOfKQ==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,33 +51,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH net-next 1/3] dt-bindings: net: qcom,ipa: add
- qcom,sc8180x-ipa compatible
+Subject: Re: [PATCH 1/2] dt-bindings: iio: light: add ams OSRAM TCS3430
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Robert Ijtsma <robertijtsma@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Alex Elder <elder@kernel.org>, 
- linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, 
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Krzysztof Kozlowski <krzk@kernel.org>
-In-Reply-To: <20261125-qcom-ipa-sc8180x-v1-1-48a889acbe6b@gmail.com>
-References: <20261125-qcom-ipa-sc8180x-v1-0-48a889acbe6b@gmail.com>
- <20261125-qcom-ipa-sc8180x-v1-1-48a889acbe6b@gmail.com>
-Date: Wed, 25 Nov 2026 08:41:01 +0100
-Message-Id: <179559246149.14607.2485247869587675507.b4-reply@b4>
+In-Reply-To: <20261124-iio-tcs3430-v1-1-0f2a38a6a4c1@gmail.com>
+References: <20261124-iio-tcs3430-v1-0-0f2a38a6a4c1@gmail.com>
+ <20261124-iio-tcs3430-v1-1-0f2a38a6a4c1@gmail.com>
+Date: Wed, 25 Nov 2026 08:43:46 +0100
+Message-Id: <179559262610.14607.7329551323239028527.b4-reply@b4>
 X-Mailer: b4 0.17-dev
 
-On 2026-11-25 00:01 +0100, Robert Ijtsma wrote:
-> Document the Qualcomm SC8180X (IPA v4.1) compatible string in the
-> Qualcomm IPA binding.
+On 2026-11-24 23:46 +0100, Robert Ijtsma wrote:
+> Add Devicetree binding schema for the ams OSRAM TCS3430 ambient light
+> and CIE 1931 XYZ tristimulus color sensor.
 > 
 > Signed-off-by: Robert Ijtsma <robertijtsma@gmail.com>
 > ---
->  Documentation/devicetree/bindings/net/qcom,ipa.yaml | 1 +
->  1 file changed, 1 insertion(+)
+>  .../devicetree/bindings/iio/light/ams,tcs3430.yaml | 52 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  6 +++
+>  2 files changed, 58 insertions(+)
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
