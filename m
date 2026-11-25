@@ -1,57 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795588191;
-	b=RF2KWT4k16V0R6F9GWQrI8Gv1DIumbPkM9t77pcweYTQ7t595GaLbSYI8AW78PRFo8LF
-	 umC6eZsPpsN27Eg5l+bu9f+z+6Jws78zM8oVKinrQ3CeKWU/1vBh0LXsqEe52iO6O3DuZ
-	 fmIN5zk8to6r+zGtVHhJvVwqt3rlvz1oe2LlQWBckDXb4k8IX6R77gUhRiscYKIShJCOX
-	 YZZsLOUqy9XlF6tjzQCBmj/I5KoK9LYwM09plOuwoRZvZeEY7UmDk+LrEC6v6FeCUHB2o
-	 uWDFLrYWpFDrxxN/SeSzuCouLD4QUPMewjn3ZexfC/UeaReRJ2fNHg4zrYBOFJL6U3g==
+	t=1795588205;
+	b=SvNu5UPMAT5uT3nzQ+4ITbevAdQ9KnKTeOWTrnRnzQ0dag0/DyoX6mnh8u2z/hbNnSu5
+	 h+CQ3QXKELaQe1cjb9VLjVSevk2AdJHRpxZGhqkbN4B++6EI1nNPPLCOTnSQiCGiYMeui
+	 z2GMCUkqbQUKnyPrPsBKCf1e11QzXYayUZgCnlxOtlEfsUFETedfGZSmA2JGdj9bTBWUq
+	 aq3kv+osLsELhGkQn8hPoBSZY64JFVLWgGTPk/UELnQV6SS6KK3rvR7imOUmbUbw5wvX9
+	 UANC8pxlpsX2l9Gva1z1/0PMkJHIxFzETKiaKO8yDhSdHTBZGTkChg6z8b30I34/aIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795588191;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=3TN+IsnHlB0CzVPzXNNISjaNL0ZyQ9j5CrLpr/ajdfE=;
-	b=L+ynslOiUsXsjNkMSkcUvdEu7uubdzLxpoilDSFJq92MMJ8yFwEnUUZuBehdpkBiDcxe
-	 0uPJLzQqcu1l5CaF5GM/hktwRVBnG0DowqVIByP3dB8lA8J3zZF+NC3YEz9x39fbHTEOW
-	 dts8JdovCTeeSYqRJql63J74FwQFEcvn7NCc69lRDJzBK0vO62FRRf5b7iWYRAyGbwcbu
-	 ZOpYSUrTmusiGLsMkNtSDg8zRFfnWLgvwlFH7+0lAwXuWDszGP+Kxdh6aIzfmiACQMa+u
-	 9NR1hjJAKnlGJbvmRPYIq6hme8xgyBXaK9A0naEAE+ILP78KZfFYl6juhratUWLBODw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795588205;
+	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=SXTRDOXzAHUSWSl+Ai9JHB2q0oBka0VriYkwNpTKYKQ=;
+	b=TylGlSGCd6U6H984BZjr7OP7fZCeWUvfrwJkeMMKCNLYk/7iAKGfa7nyGeKly4hiecZX
+	 R28oQE89W43sxOVBMJsm1VJV3U/jr7Hx69B3Oo+dahsvs9tWNggg8e1yD99pfPPU4cIER
+	 XHhbbAzxKdKLZZVQaTqNB+Zr5CLd4z5pM9w1M2kDSqLro6Hl4SGlWJic7w/0qOyi1Es/+
+	 SqOOdIkiI8XQW5AtcJFGNfOkUWpkPv8DPtf0uyxyD86B3vXEn1RbcatSUYctqCl0XNJvy
+	 BKCu/V14jS0aHTgzk4LrkTShoYXtLHFPXBUh2mgoD/kv3D88IzF2eR28zIazCAzX+gQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FiuGXTDV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=d-silva.org;
+	spf=pass smtp.mailfrom=d-silva.org;
+	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=CdXKfPYY;
+	arc=none smtp.remote-ip=119.15.109.137
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A70606A323
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 06:29:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9EDC606A32A;
+	Wed, 25 Nov 2026 06:30:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9EDC606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FiuGXTDV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5120F1F000C0;
-	Wed, 25 Nov 2026 06:29:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795588191;
-	bh=3TN+IsnHlB0CzVPzXNNISjaNL0ZyQ9j5CrLpr/ajdfE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FiuGXTDVLVbRAUcdvp1KvZJ07AiS2gklrr6Ndb1KwaoDqyZ1xJFs6NFPVcQUUHol4
-	 RQUCv97rzQpU1COCZCW72GTjlTwAymOJW/NEKqHp5eDlGhPnovZQZ6kMve8FHdG65U
-	 V+zok+ztg2xuZtP+pzXBseoPBprn2+nlOw7ZgSTDV8bseC8rkzQH+GjoNGg5hmyOGt
-	 GwIvaX68HTDhWt8HLLph5zlCw3rV9yyn44Iprh9Pc3i/u+BBvQiPlorFwCqd5sD7LY
-	 BLdLef4Rqi40GbmPDTUD0ZOPochHrhi7RiNMgjyekdaJbJGfGgjJuLekYDWR6IhIrG
-	 6DYlhWhloOW5A==
-Message-ID: <sashiko-outbox-232700@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v20 01/15] media: mediatek: jpeg: fix jpeg cores'
- amounts setting
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kyrie Wu" <kyrie.wu@mediatek.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261125061618.2544386-2-kyrie.wu@mediatek.com>
-References: <20261125061618.2544386-1-kyrie.wu@mediatek.com>
- <20261125061618.2544386-2-kyrie.wu@mediatek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 06:29:50 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=CdXKfPYY
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id 060184C89A;
+	Wed, 25 Nov 2026 17:29:49 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1795588189;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=SXTRDOXzAHUSWSl+Ai9JHB2q0oBka0VriYkwNpTKYKQ=;
+	b=CdXKfPYY7vWtoBevximD0MhqDEw04bj+8tHBAbkGUu4t6QVOiQ+gXd/fqzJin9OnfczbAa
+	MV9IDkhaDTNLsAsIz9cqrjJZu3KOMwU44vghIwhWucmg8rNH+8lyYUpRs/A0/AIKmKi7Eo
+	Icr5+kbPULm2pgPX4/rAowLWwzqiSYB/M/o/1B+bj+t/WmUarxEE2Q7ShHvaZPci/vZu6K
+	nO/bRgOHqkLCYiW3aKQBu1BVa/t8Ogw9L1COCQxkS606S2mk63X3k56Tptrn5Kuiikqjw0
+	0seIhxUTEXW4GDHjWJ2SJKCFBgEoGqGFmm2s+eSXdKt8jsv5FcNeoz8+mJxhDw==
+X-GPT-Reason: This is a legitimate technical communication. The
+	email is classified as personal/professional correspondence because
+	the sender (alastair@d-silva.org) is a known entity matching the
+	recipient's domain context, and the content is a standard Linux
+	kernel patch submission regarding Allwinner A733 hardware support.
+	The presence of specific technical diffs, links to lore.kernel.org,
+	and the absence of any marketing, urgency, or phishing tactics confirms
+	its legitimacy as a developer's contribution.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: Lee Jones <lee@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof Wilczynski <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>
+Cc: mfd@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Enzo Adriano <enzo.adriano.code@gmail.com>,
+	Junhui Liu <junhui.liu@pigmoral.tech>
+Subject: [PATCH 0/5] Add Allwinner A733 (sun60i) PCIe and Combo PHY support
+Date: Wed, 25 Nov 2026 17:29:43 +1100
+Message-ID: <20261125062948.1234677-1-alastair@d-silva.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,155 +89,50 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] media: mediatek: jpeg: child probe in mtk_jpeg_probe() before
-  bounds check
-- [High] media: mediatek: jpeg: NULL deref in get_hw() when max_hw_count
-  > probed
---
+Add Devicetree bindings, drivers, and SoC Devicetree nodes for the
+Allwinner A733 (sun60i) Cadence Combo PHY 1 and DesignWare PCIe Root
+Complex controller.
 
-commit cfc2baea3485ec02d134ce90cc368bfa48a69866
-Author: Kyrie Wu <kyrie.wu@mediatek.com>
+Tested on Orange Pi 4 Pro with a Micron NVMe SSD (1344:5410) on both
+cold boot (no bootloader PCIe init) and warm boot (after U-Boot pci
+enum):
+- PCIe Gen3 x1 (8.0 GT/s) link up via mainline dw_pcie_setup_rc()
+- 8 MSI queues and Root Port PME/AER on legacy INTx
+- Root filesystem mounted and booted from /dev/nvme0n1p1
 
-media: mediatek: jpeg: fix jpeg cores' amounts setting
+Patch 5 depends on:
+- "[PATCH v4 0/3] arm64: dts: allwinner: add A733/Cubie A7S support"
+  https://lore.kernel.org/all/cover.1795034153.git.enzo.adriano.code@gmail.com/
+- "[PATCH v7 0/8] clk: sunxi-ng: Add support for Allwinner A733 CCU"
+  https://lore.kernel.org/all/20261112-a733-clk-v7-0-db7c5451ffa2@pigmoral.tech/
 
-This commit tracks the number of JPEG hardware core child nodes in
-jpeg->max_hw_count instead of iterating over the fixed MTK_JPEGENC_HW_MAX
-and MTK_JPEGDEC_HW_MAX limits, and increments jpeg->hw_rdy as each child
-core probes.
+Alastair D'Silva (5):
+  dt-bindings: phy: allwinner,sun60i-a733-combophy: Add binding
+  phy: allwinner: Add Allwinner A733 Cadence Combo PHY driver
+  dt-bindings: PCI: allwinner,sun60i-a733-pcie: Add binding
+  PCI: sunxi: Add Allwinner A733 DesignWare PCIe host controller driver
+  arm64: dts: allwinner: sun60i-a733: Add PCIe and Combo PHY nodes
 
-> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
-rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> index e01dd4d80722c..3caee184ff5ed 100644
-> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> @@ -1294,6 +1294,7 @@ static int mtk_jpeg_probe(struct platform_device *p=
-dev)
->  	struct mtk_jpeg_dev *jpeg;
->  	struct device_node *child;
->  	int num_child =3D 0;
-> +	int hw_max;
->  	int ret;
-> =20
->  	jpeg =3D devm_kzalloc_obj(&pdev->dev, *jpeg);
-> @@ -1302,6 +1303,7 @@ static int mtk_jpeg_probe(struct platform_device *p=
-dev)
-> =20
->  	mutex_init(&jpeg->lock);
->  	spin_lock_init(&jpeg->hw_lock);
-> +	atomic_set(&jpeg->hw_rdy, 0);
->  	jpeg->dev =3D &pdev->dev;
->  	jpeg->variant =3D of_device_get_match_data(jpeg->dev);
-> =20
-> @@ -1325,7 +1327,14 @@ static int mtk_jpeg_probe(struct platform_device *=
-pdev)
->  		for_each_child_of_node(pdev->dev.of_node, child)
->  			num_child++;
-> =20
-> -		atomic_set(&jpeg->hw_rdy, num_child);
-> +		hw_max =3D jpeg->variant->cap_q_default_fourcc =3D=3D V4L2_PIX_FMT_JPE=
-G ?
-> +			 MTK_JPEGENC_HW_MAX : MTK_JPEGDEC_HW_MAX;
-> +		if (num_child > hw_max)
-> +			return dev_err_probe(jpeg->dev, -EINVAL,
-> +					     "Too many JPEG cores: %d (max %d)\n",
-> +					     num_child, hw_max);
-> +
-> +		jpeg->max_hw_count =3D num_child;
->  		atomic_set(&jpeg->hw_index, 0);
-> =20
->  		jpeg->workqueue =3D alloc_ordered_workqueue(MTK_JPEG_NAME,
+ .../devicetree/bindings/mfd/syscon.yaml       |   1 +
+ .../pci/allwinner,sun60i-a733-pcie.yaml       | 187 +++++++
+ .../phy/allwinner,sun60i-a733-combophy.yaml   |  84 +++
+ MAINTAINERS                                   |  16 +
+ .../arm64/boot/dts/allwinner/sun60i-a733.dtsi |  76 +++
+ drivers/pci/controller/dwc/Kconfig            |  15 +
+ drivers/pci/controller/dwc/Makefile           |   1 +
+ drivers/pci/controller/dwc/pcie-sunxi.c       | 505 ++++++++++++++++++
+ drivers/phy/allwinner/Kconfig                 |  13 +
+ drivers/phy/allwinner/Makefile                |   1 +
+ drivers/phy/allwinner/phy-sun60i-combophy.c   | 372 +++++++++++++
+ 11 files changed, 1271 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pci/allwinner,sun60i-a733-pcie.yaml
+ create mode 100644 Documentation/devicetree/bindings/phy/allwinner,sun60i-a733-combophy.yaml
+ create mode 100644 drivers/pci/controller/dwc/pcie-sunxi.c
+ create mode 100644 drivers/phy/allwinner/phy-sun60i-combophy.c
 
-[Severity: High]
-Does the num_child > hw_max check and atomic_set(&jpeg->hw_index, 0) run
-too late when devm_of_platform_populate() is called earlier in
-mtk_jpeg_probe()?
+-- 
+2.53.0
 
-When the child driver is already registered (such as when built as a
-module, since mtk_jpeg.ko depends on mtk-jpeg-enc-hw.ko and
-mtk-jpeg-dec-hw.ko), devm_of_platform_populate() synchronously runs
-mtk_jpegenc_hw_probe() or mtk_jpegdec_hw_probe() before reaching the
-multi_core block:
-
-drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c:mtk_jpegdec_hw_probe=
-() {
-    ...
-	i =3D atomic_add_return(1, &master_dev->hw_index) - 1;
-	master_dev->dec_hw_dev[i] =3D dev;
-	master_dev->reg_decbase[i] =3D dev->reg_base;
-    ...
-}
-
-If num_child > hw_max, the child probes write out of bounds into
-dec_hw_dev[] or enc_hw_dev[] before the bounds check in mtk_jpeg_probe()
-is reached.  In addition, resetting jpeg->hw_index to 0 after
-devm_of_platform_populate() means that if one child probes synchronously
-(taking slot 0) and a second child defers probe, the deferred child will
-also receive index 0 when it later probes, overwriting slot 0 and leaving
-slot 1 NULL.
-
-> @@ -1462,7 +1471,7 @@ static int mtk_jpegenc_get_hw(struct mtk_jpeg_ctx *=
-ctx)
->  	int i;
-> =20
->  	spin_lock_irqsave(&jpeg->hw_lock, flags);
-> -	for (i =3D 0; i < MTK_JPEGENC_HW_MAX; i++) {
-> +	for (i =3D 0; i < jpeg->max_hw_count; i++) {
->  		comp_jpeg =3D jpeg->enc_hw_dev[i];
->  		if (comp_jpeg->hw_state =3D=3D MTK_JPEG_HW_IDLE) {
->  			hw_id =3D i;
-> @@ -1509,7 +1518,7 @@ static int mtk_jpegdec_get_hw(struct mtk_jpeg_ctx *=
-ctx)
->  	int i;
-> =20
->  	spin_lock_irqsave(&jpeg->hw_lock, flags);
-> -	for (i =3D 0; i < MTK_JPEGDEC_HW_MAX; i++) {
-> +	for (i =3D 0; i < jpeg->max_hw_count; i++) {
->  		comp_jpeg =3D jpeg->dec_hw_dev[i];
->  		if (comp_jpeg->hw_state =3D=3D MTK_JPEG_HW_IDLE) {
->  			hw_id =3D i;
-> @@ -1592,7 +1601,7 @@ static void mtk_jpegenc_worker(struct work_struct *=
-work)
->  		jpeg_work);
->  	struct mtk_jpeg_dev *jpeg =3D ctx->jpeg;
-> =20
-> -	for (i =3D 0; i < MTK_JPEGENC_HW_MAX; i++)
-> +	for (i =3D 0; i < jpeg->max_hw_count; i++)
->  		comp_jpeg[i] =3D jpeg->enc_hw_dev[i];
->  	i =3D 0;
-> =20
-> @@ -1688,7 +1697,7 @@ static void mtk_jpegdec_worker(struct work_struct *=
-work)
->  	struct mtk_jpeg_fb fb;
->  	unsigned long flags;
-> =20
-> -	for (i =3D 0; i < MTK_JPEGDEC_HW_MAX; i++)
-> +	for (i =3D 0; i < jpeg->max_hw_count; i++)
->  		comp_jpeg[i] =3D jpeg->dec_hw_dev[i];
->  	i =3D 0;
-> =20
-
-[Severity: High]
-Can mtk_jpegenc_get_hw() and mtk_jpegdec_get_hw() dereference a NULL
-comp_jpeg pointer when jpeg->max_hw_count exceeds the number of probed
-child cores?
-
-jpeg->max_hw_count is set from for_each_child_of_node(), which counts all
-DT child nodes including disabled ones, whereas enc_hw_dev[i] and
-dec_hw_dev[i] are only populated as each child finishes probing.  If a
-child node is disabled, fails or defers probe, or has not bound yet when a
-V4L2 job runs, mtk_jpegenc_worker() and mtk_jpegdec_worker() call
-mtk_jpegenc_get_hw() / mtk_jpegdec_get_hw() before waiting on
-jpeg->hw_rdy, and iterating up to jpeg->max_hw_count hits a NULL
-enc_hw_dev[i] or dec_hw_dev[i] and dereferences comp_jpeg->hw_state.
-
-Even if a child finishes probing while the worker is waiting on
-jpeg->hw_wq, comp_jpeg[] in the worker is snapshotted before the
-retry_select loop, so comp_jpeg[hw_id] remains NULL and crashes at
-pm_runtime_resume_and_get(comp_jpeg[hw_id]->dev).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125061618.2544=
-386-1-kyrie.wu@mediatek.com?part=3D1
