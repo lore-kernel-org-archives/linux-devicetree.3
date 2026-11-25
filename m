@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795566497;
-	b=QZF/kM9Ejdb7u40Z1sxWwIAKuouYfFFd+VUb+OaQXxieL75xKeHwl4Jdwwkt9Uukux3j
-	 i45jxSQ55RknHy1Syq5Se0EUDWcz7G0QFDZwYkxMQSNE2FXnA5laeQqasqCjNPUrNi8Nv
-	 UvkIXPKnnCmnEp5v6mrnB2w6P725k2Xr7K0puGJQ4Y0hy7EgqDQLvKH7lgWtDVdJiMF2y
-	 le/xE0Xm984/dLH7xZHa436sMT9f3kpDv7h85uW0qQ9Bk8+GLXy8Q8+NXD/uaPF9smC5s
-	 p9iWmeWJZ4QQf9wlTgAW8ywxyQFCvXaRD3V+SGTPqmOZcgr4SEMW8a0YHzhfKiHjQTw==
+	t=1795566498;
+	b=ycfPFSZzLfNFciXqkSKR64GrvigIW1AvpEyV/YiuMLjk7edpb9rCJ7RuZ8iMaq4U1s9D
+	 osFnLZ3oyZOFhak1bFpPfAtb52EGXwsziH/XBJP0A5Cc9HCC+D4Ey4dxVg2aOkBEMFf8Y
+	 b4TsExKNYt6s/ie7sMNpSvhaP6EIFhXXxoASO/nCXsQxRMsHrf67i3wfzsUtFyHg83E+i
+	 jWsA7OiFiUb2brG4MMaUfX9r+/HLOYkJ7T6to5kedGFxJlZIZpkm6yuXXZ/ri8nrGbqKv
+	 0Z2skxj0OQVEFLzx2pnvsoJ3fMOMKFrWBUMPGnBf1TnhU4ebec37/w5fmoS37eLYUDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795566497;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795566498;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=4cYK1lEzGFvAYvDZ/avImi3mF1WEUIb3JoIJl5AZEJ4=;
-	b=mSM58L586hZuPPm7wELbPezAvQC0ftTGZRmulyelBQjEmNANmttazuAENf10cYlnW20w
-	 2oQad+g59DwEs2dkn+QeF22C3KjZdIWLjGwkzH/OOGoK9m63rmjsLfUD8QyHNs4pb0kfN
-	 v22MMR3BmqkHjSsXYODUPexc0o88Y8Bgy9IbOQOcG6VYOxp6p8v6VGDjnZOr0MfyO73jB
-	 rCLpN9F+3NirsgsO5D3UY5ptaDFDuYGKzTRHWH0fFarsAEvbYJMvzbZ5VrUEudNkyh7SG
-	 r9aYktLFm9bqKiZw18T4ezGmnBJA8Fc9HvmmzFnOC2fsjrpU/aownziqmxSXH7YRGQA==
+	bh=5a10cI1NNFwvgv0ajxBZX9RkTJkKO0tcJCd7rfmnHMM=;
+	b=ZZetLd8cKc6RdaG1MPGcBTnxEAGeQd6hpQwTEQSTO5HQC9gppKjtz34skCYUD7DJI+v2
+	 fuqcq+/MAPnJE2NDeTHbBG8cRiwguyUEGxM1vPRWre2H6LQ+Kk2v1EkDbVmsETMnfhgP/
+	 AHxF7NuNnRDBgMT47Eov1yyLhWPlnqS4KfiU8msU20e10LBlQjPdsPfxiCy5Ueh7QMKfT
+	 CT3IX3gPsr8pzzDFQ1t4Sr8Aj6tAaw5iFA9UN/KpLmjQbci5kD+2UMacMoljcS7vQGNIi
+	 dGl093Y1QALXC8RBTBG3QiM4VbkIAHnroNUrWqgzeY3HEKUbHZGRSbmEBkkvraM4vhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Bg76va/U";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=knB6QgT4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FCE2606A31E;
-	Wed, 25 Nov 2026 00:28:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E09606A323;
+	Wed, 25 Nov 2026 00:28:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bg76va/U
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62B811F000C4;
-	Wed, 25 Nov 2026 00:28:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=knB6QgT4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C05C81F000C6;
+	Wed, 25 Nov 2026 00:28:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795566497;
-	bh=4cYK1lEzGFvAYvDZ/avImi3mF1WEUIb3JoIJl5AZEJ4=;
+	s=k20260515; t=1795566498;
+	bh=5a10cI1NNFwvgv0ajxBZX9RkTJkKO0tcJCd7rfmnHMM=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Bg76va/UXXf+7TnAoEKv76ySXVUwHA/njtFfkdkEXayn1Uw3hmPMk393MKQcN9l7z
-	 5aXvOmh1eYNtyTYzOklkeOra795PEm/s7IEcwPdbjxSECyk/zHccrKQXuxGtxlNypk
-	 J/rp10/mCpp/lA7/ioBRlTv17a27suzPIvxqRmKgxlFrd0lm3dHfXQjoQRl/6ZwnBs
-	 /WQlXsy7lP+jLwIqs2b6CSTZczfQSIGW7bk5WulKfNl2U1lpNowCUDRlLtCJ+1n0nZ
-	 A9nO/LseZIAZ+O5WCAe5Vb7TKG2jAxrP0nEaPTUszQx53F3ExImEM5Smv+bikN8fvQ
-	 cvugdxjifom3A==
-Subject: Re: [PATCH net-next v3 1/5] net: hix5hd2_gmac: Use devm_ managed
- netdev and MDIO bus
+	b=knB6QgT4a1UZ0lm/BWaHGvQeRHbHE/envNasEl94wwCI9cA6HF4Wfa2l3x+ou8gaS
+	 scckdpSImxoAi/FbBzOzmGYcVu2qrNUpPq+6R/w6xRoagvqBeLUp/N2xUD8nrgHLNd
+	 8rXk7j7JVAmzM6gRtptuXpjilJbyGfPwkybG3Av3tC+J0rloZDHQhlEYMYHvYN01Gp
+	 QbkSM/7sLVIh+T0/x2dvyIaeCPMIEZvVFlJ30REfLu30ypl/8NjwQEczswll0Lh7mQ
+	 4gdudGFq1ggcOHAOiSB2xnA14YBAYlGkZ9q1QQFSShJzCiU4BEqEhW8R/q3XOvL06S
+	 WaNIxs/TtOXPQ==
+Subject: Re: [PATCH net-next v3 3/5] net: hix5hd2_gmac: Use mdio child node
+ for MDIO bus if it exists
 From: netdev-bot+sashiko@kernel.org
 To: mmyangfl@gmail.com
 Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
  edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
  krzk+dt@kernel.org, conor+dt@kernel.org, shenjian15@huawei.com,
  shaojijie@huawei.com, devicetree@vger.kernel.org
-Date: Wed, 25 Nov 2026 00:28:15 +0000
-Message-ID: <179556649591.3135.5859948318668585825@kernel.org>
-In-Reply-To: <20261124002442.19414-2-mmyangfl@gmail.com>
-References: <20261124002442.19414-2-mmyangfl@gmail.com>
-X-sashiko-severity: Low
+Date: Wed, 25 Nov 2026 00:28:17 +0000
+Message-ID: <179556649734.3135.14403923700572284098@kernel.org>
+In-Reply-To: <20261124002442.19414-4-mmyangfl@gmail.com>
+References: <20261124002442.19414-4-mmyangfl@gmail.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
@@ -65,116 +65,81 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-- [Low] On a probe failure, the MDIO bus is now torn down after the MAC
-  clocks are already off.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] In hix5hd2_dev_probe()
+  (drivers/net/ethernet/hisilicon/hix5hd2_gmac.c), the patch finds the…
 
 --
 
-net: hix5hd2_gmac: Use devm_ managed netdev and MDIO bus
+net: hix5hd2_gmac: Use mdio child node for MDIO bus if it exists
 
-This commit switches hix5hd2_gmac to devm_alloc_etherdev(),
-devm_mdiobus_alloc() and devm_of_mdiobus_register(). It drops the
-manual free_netdev() and mdiobus_unregister()/mdiobus_free() calls from
-the probe error path and from hix5hd2_dev_remove().
+This commit makes hix5hd2_dev_probe() look for an "mdio" child of the MAC
+node. If one exists, the MDIO bus is registered against that child instead
+of the MAC node itself, following the earlier macb change.
 
 > diff --git a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
-> index 12a5657653f85..d129aeceb641e 100644
+> index d129aeceb641e..a176870079e96 100644
 > --- a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
 > +++ b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
 
 [ ... ]
 
-> @@ -1189,21 +1189,21 @@ static int hix5hd2_dev_probe(struct platform_device *pdev)
+> @@ -1189,7 +1190,9 @@ static int hix5hd2_dev_probe(struct platform_device *pdev)
 >  	snprintf(bus->id, MII_BUS_ID_SIZE, "%s-mii", dev_name(&pdev->dev));
 >  	priv->bus = bus;
 >  
-> -	ret = of_mdiobus_register(bus, node);
-> +	ret = devm_of_mdiobus_register(dev, bus, node);
+> -	ret = devm_of_mdiobus_register(dev, bus, node);
+> +	mdio_np = of_get_child_by_name(node, "mdio");
+> +	ret = devm_of_mdiobus_register(dev, bus, mdio_np ?: node);
+> +	of_node_put(mdio_np);
 >  	if (ret)
-> -		goto err_free_mdio;
-> +		goto out_disable_clk;
+>  		goto out_disable_clk;
 
-[ ... ]
+[Severity: Medium]
+What happens here when the mdio child exists but has status = "disabled"?
 
-> @@ -1269,16 +1269,10 @@ static int hix5hd2_dev_probe(struct platform_device *pdev)
->  	hix5hd2_destroy_hw_desc_queue(priv);
->  out_phy_node:
->  	of_node_put(priv->phy_node);
-> -err_mdiobus:
-> -	mdiobus_unregister(bus);
-> -err_free_mdio:
-> -	mdiobus_free(bus);
->  out_disable_clk:
->  	clk_disable_unprepare(priv->mac_ifc_clk);
->  out_disable_mac_core_clk:
->  	clk_disable_unprepare(priv->mac_core_clk);
-> -out_free_netdev:
-> -	free_netdev(ndev);
->  
->  	return ret;
->  }
+of_get_child_by_name() ignores the status property. In that case mdio_np
+is non-NULL and the disabled node is passed to devm_of_mdiobus_register().
+__of_mdiobus_register() then rejects it:
 
-[Severity: Low]
-Does this change when the MDIO bus is torn down, relative to the clocks,
-if hix5hd2_dev_probe() fails?
-
-Before this patch, a failure after of_mdiobus_register() ran
-mdiobus_unregister() while mac_ifc_clk and mac_core_clk were still
-enabled. Now the error path disables both clocks and returns. Devres then
-runs devm_mdiobus_unregister() -> mdiobus_unregister() with the clocks
-off.
-
-These failures take that path:
-
-- missing phy-mode or phy-handle
-- platform_get_irq() errors, including -EPROBE_DEFER
-- devm_request_irq() failure
-- descriptor queue allocation failure
-- register_netdev() failure
-
-If the bus scan found a PHY and bound it to a driver, mdiobus_unregister()
-calls phy_remove() through device_del(). phy_remove() can do MDIO I/O:
-
-phy_remove()
-    phy_leds_unregister()
-        led_classdev_unregister()
-            led_set_brightness(LED_OFF)
-    phydev->drv->remove()
-
-The LED_OFF write happens unless the DT sets retain-state-shutdown.
-
-Those accesses go through hix5hd2_mdio_read() and hix5hd2_mdio_write().
-Both poll the MAC register window in priv->base:
-
-hix5hd2_mdio_wait_ready() {
+drivers/net/mdio/of_mdio.c:__of_mdiobus_register() {
     ...
-	for (i = 0; readl_relaxed(base + MDIO_SINGLE_CMD) & MDIO_START; i++) {
-		if (i == timeout)
-			return -ETIMEDOUT;
-		usleep_range(10, 20);
-	}
+	/* Do not continue if the node is disabled */
+	if (!of_device_is_available(np))
+		return -ENODEV;
     ...
 }
 
-With the MAC block unclocked, could these accesses time out (up to 10000
-iterations per access)? Could they read a stale ready value and lose the
-write, or stall the bus on some SoCs?
+The -ENODEV goes back through the goto out_disable_clk path, and the whole
+Ethernet device fails to probe.
 
-Before this patch, hix5hd2_dev_remove() already called
-mdiobus_unregister() with the clocks off, because probe and ndo_stop
-both disable them. The new ordering only affects the unwind after a
-failed probe.
+Before this patch the MAC node was always passed in. Its child scan uses
+for_each_available_child_of_node(), so a disabled child was just skipped.
 
-The same ordering is still there after the later patch in this series,
-"net: hix5hd2_gmac: Support fixed-link". Its out_phy_node and
-out_disable_clk labels disable the clocks while devres still holds the
-registered bus.
+The same lookup is still there at the end of the series. After "net:
+hix5hd2_gmac: Support fixed-link", any non-NULL mdio_np forces bus
+registration:
+
+	mdio_np = of_get_child_by_name(node, "mdio");
+	if (mdio_np || priv->phy_node != node) {
+
+So a fixed-link MAC with a disabled mdio child would also fail probe with
+-ENODEV. That doesn't match the binding text "With a fixed link, the MDIO
+bus is not registered unless this node is present."
+
+Would of_get_available_child_by_name() work better here? Other net drivers
+such as rzn1_a5psw, owl-emac, ibm emac and mtk_star_emac use it for the
+same lookup, and it would treat a disabled mdio child as absent.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261124002442.19414-1-mmyangfl%40gmail.com
