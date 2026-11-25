@@ -1,49 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.203.31.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795610263;
-	b=t8zYv877dk92pcAlJhYI/vDd7E1pGviPiFT2sl+9PIw72yplRVzJukR1TepETsL7jbfZ
-	 VAUF6efAx9LuhYz3/o3umxdz9gUY8s3GVqpap2vFHj6ZxMrhIdoxfahp+WsqLqIS6b6Rb
-	 QR8iWZHbA8r1m8FA5WX2tvG1YjaQUvd0WaTv0FIottwRuvyqN/E+wcgejd+joaPbxV3PB
-	 mlj9nA66CCjbDjBHH15xeX08EfZYexGKqWkMfU/5Ianu1aduS02u75ubKZzzIy/3+taM+
-	 8spvTLLvP4lpdjBpr6rCEfKAMVPKBcH1XjHuRfEmmHluc+NA3NFSCRSkeL6Zl8xaV2Q==
+	t=1795610281;
+	b=25TMkP62EVm6mrOwIqHQRuhmPvUkUIOFuymGLQlTaKvOwlKvAh9G7UAb3/P3w+sb11e1
+	 gKSDkQn9t8ALucIqvGBbzL8bUUGe0AR1b5Gp0z3judrACAJ3ZG4Ms9kgob5LGECGB+yyg
+	 OekJfaiZD2S/9vQ8p0+D9NLV3YBTntKmc504fstxkig8ewNUZuwupK6GiTfdJVd4czKOR
+	 bljULjN562heLvyYcoW0y9YK4hj5sgS3hLYFVJyw8wsQbeYbQlq4a29fovjlM0e6QzdJ2
+	 o6QLy5+JUlAtKcWrKaUynHZLcbnC2ztUSG9/OivzYbtKEvjcGebwKPEmARSzBeV2L9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795610263;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=G7AsAEDdOBnVd9KUjVpeq3cjk4Ls80bxfCH/t3XgpMg=;
-	b=dt6HI4MWvQRLrAuT8nmSEJTy5QIlbMyZENXHLoSDLzb6WYdO7D6Ax1U+Kjnn+JlXTVyG
-	 lQQrjkMo53082hswBufD4oZMsiuI5D4Oo36UpNIn4aFnPg8hewkDO4KBnrKhor/WYnX1C
-	 8Gu5fJfzWxYRtUBtTJIf/ahomkIRlReA1ZKvFOQUhEBgx8YVYpF7fOYNKGtxxS0uB64O1
-	 1W4D3Jd3FM4MUbqIBmdEot5n3ygZgx2fQMWRpGWoGBqGSORP0YlCchjCfJ56yR6Hp5wqg
-	 cvNV7JA82HPPkhtP9KjXfqLjWOPR0A1yyoMZ7edA06UANEBmnUrbn6pzkV8Wi5uPaSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795610281;
+	h=DMARC-Filter:DKIM-Signature:From:To:CC:Subject:Date:Message-ID:
+	 X-klartext:MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=n//DTZBcx/4hfvqlbxCdXzZBUWO1eReKPjxq+SXr1Kk=;
+	b=0NApgdIiG0QbqFXtHNjPdsDJSP+AO306xktvoOVJIPrRLamO7FXGGeeJuo39j+m92FiM
+	 0wD7BGpW3K39p8uO6yBu5WfRpbZmGyoomWB3g49mouguyRhjn22wnQuYsiso+UplcFxAB
+	 mnbV3/OaCXtl4SLeuLmGByM/Jp5GRIR8v6rUsapte/plfvdoGTWV4BzU1IPkhXFiy7UCw
+	 guAcsGqzV4dKJ1Xvras4h+Y5T2U6/de+IrxYRF5yj6oglieN3pTcKPuhuE54JMlvuh6cj
+	 OLgtz2PDNee95grY9nMr/P+HsZ+riHfb3s88TsbomGjxDh6yv+69KZ30Earm0x2te2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=UbdeepJf;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED2AA606A321;
-	Wed, 25 Nov 2026 12:37:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED2AA606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=dh-electronics.com;
+	spf=pass smtp.mailfrom=dh-electronics.com;
+	dkim=pass header.d=dh-electronics.com header.i=@dh-electronics.com header.a=rsa-sha256 header.s=dhelectronicscom header.b=uOGHznIT;
+	arc=none smtp.remote-ip=116.203.31.6
+Received: from mx3.securetransport.de (mx3.securetransport.de [116.203.31.6])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CEDA6606A31E
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 12:38:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEDA6606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dh-electronics.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dh-electronics.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=UbdeepJf
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 540672F;
-	Wed, 25 Nov 2026 04:37:39 -0800 (PST)
-Received: from [10.2.201.43] (e140322.arm.com [10.2.201.43])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A9A3C3F86C;
-	Wed, 25 Nov 2026 04:37:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795610262; bh=G7AsAEDdOBnVd9KUjVpeq3cjk4Ls80bxfCH/t3XgpMg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=UbdeepJf2a97ZoRIAuLhvBknVVrSLrfFM/ZbdGmv+Jxof+CrvN+c9LMzpN6MLGAss
-	 n19b0Ywfr3OekQkNeGhPjMwt1iBizh+6wMGUBDYF6PfD/ZoDloOreQ98MusyRVfXqv
-	 nCIPt9GDEHoo1WJg/YAY6zibre2mqMZs+bZgbeDA=
-Message-ID: <d28fbb7a-7d8f-4073-966b-a4627d55718a@arm.com>
-Date: Wed, 25 Nov 2026 12:37:39 +0000
+	dkim=pass (2048-bit key) header.d=dh-electronics.com header.i=@dh-electronics.com header.a=rsa-sha256 header.s=dhelectronicscom header.b=uOGHznIT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dh-electronics.com;
+	s=dhelectronicscom; t=1795610213;
+	bh=n//DTZBcx/4hfvqlbxCdXzZBUWO1eReKPjxq+SXr1Kk=;
+	h=From:To:CC:Subject:Date:From;
+	b=uOGHznITf9fa4EOweyKuhzhXoiR7raT+f1wfVZIv7Pn8kfHdrayQ/PkxCsarQI2xj
+	 2lwuxw8hmWNs2KjuASIizA3apdopog14vFgks+zWWu0EcIvRzFRIbaazufQfKzEwYa
+	 0rfyqUc4MZUHRgom5hMHhvPXUzAtazGEL5gn+gcXhTLZ5IxOwBGnN3Sn0MXnHlGeAx
+	 nlwuIY1Nh0XVHxZNzxaSB+cRCLqplkkPWPOCRZ2ylo+3AHMQOu5MXce5bi4iYaCF7U
+	 krgEo8ZQdRtJEHX3cqkeZGoAIzHDRniLmiHhWd5EgzR8Rtqo1NCkOK5OONOBxo/X6Y
+	 lMK8oZPI4W5fA==
+From: Christoph Niedermaier <cniedermaier@dh-electronics.com>
+To: <linux-arm-kernel@lists.infradead.org>
+CC: Christoph Niedermaier <cniedermaier@dh-electronics.com>, Pascal Zimmermann
+	<pzimmermann@dh-electronics.com>, Conor Dooley <conor+dt@kernel.org>, Fabio
+ Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Marek Vasut <marex@nabladev.com>, Rob Herring
+	<robh@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+	<kernel@dh-electronics.com>, <devicetree@vger.kernel.org>,
+	<imx@lists.linux.dev>
+Subject: [PATCH] ARM: dts: imx6ull-dhcom: Change eMMC pin configuration
+Date: Wed, 25 Nov 2026 13:35:20 +0100
+Message-ID: <20261125123520.6040-1-cniedermaier@dh-electronics.com>
+X-klartext: yes
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,46 +61,71 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 07/28] media: mali-vpu: implement TRY_FMT and S_FMT
- ioctls
-To: Nicolas Dufresne <nicolas@ndufresne.ca>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Rathinavel Sankaralingam <rath.sankaralingam@arm.com>,
- Shobhit Pandey <shobhit.pandey@arm.com>
-References: <20261119153758.1426673-1-charvi.mehta@arm.com>
- <20261119153758.1426673-8-charvi.mehta@arm.com>
- <3415e7b52c3d05214ec125b2b4f8612129c53ae0.camel@ndufresne.ca>
- <162bf4ec-c23a-49c6-ad7d-7485a5cce2b7@arm.com>
- <87e98f2bca7ceb60fe0b786a2bf63711ada2572c.camel@ndufresne.ca>
-Content-Language: en-US
-From: Charvi Mehta <charvi.mehta@arm.com>
-In-Reply-To: <87e98f2bca7ceb60fe0b786a2bf63711ada2572c.camel@ndufresne.ca>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
+From: Pascal Zimmermann <pzimmermann@dh-electronics.com>
 
-On 11/24/26 17:39, Nicolas Dufresne wrote:
->>> This is suspicious, the vb queue already do some locking in most of the vidioc
->>> call.
->> Both queues assign `&sess->vq_lock` to `vb2_queue::lock`, but
->> `video_device::lock`
->> is unset. The V4L2 core acquires it for queue-management ioctls marked
->> INFO_FL_QUEUE, but not for G_FMT, TRY_FMT or S_FMT.
->>
->> video_device::lock is unset, as this driver uses per-session locking and
->> format ioctls are not required to be serialized among different sessions.
->> The explicit locks therefore protect format access against queue operations
->> and asynchronous firmware updates, which use the same mutex. They do not
->> reacquire a lock already held by the ioctl core.
-> I missed that in the review, please document carefully your locking somewhere in
-> text.
-The session mutex is already documented in mali-vpu-session.h. I’ll expand
-that description to cover format state and asynchronous firmware updates.
+Tests have shown that, with the current pin configuration of the
+eMMC (usdhc2 interface) read errors can occur with a certain
+type of eMMC chips. Tests conducted with all eMMC chip types
+used in the DHCOM i.MX6ULL SoM showed that there were no issues
+with the pin configuration currently used in the U-Boot. That is
+why this configuration is being adopted in Linux as well.
 
-Regards,
-Charvi
+Co-developed-by: Pascal Zimmermann <pzimmermann@dh-electronics.com>
+Signed-off-by: Pascal Zimmermann <pzimmermann@dh-electronics.com>
+Co-developed-by: Christoph Niedermaier <cniedermaier@dh-electronics.com>
+Signed-off-by: Christoph Niedermaier <cniedermaier@dh-electronics.com>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Fabio Estevam <festevam@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Marek Vasut <marex@nabladev.com>
+Cc: Pascal Zimmermann <pzimmermann@dh-electronics.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: kernel@dh-electronics.com
+Cc: devicetree@vger.kernel.org
+Cc: imx@lists.linux.dev
+---
+ .../boot/dts/nxp/imx/imx6ull-dhcom-som.dtsi   | 22 +++++++++----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
+
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-dhcom-som.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ull-dhcom-som.dtsi
+index a74f5273f9b3..97d4de84b2ac 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx6ull-dhcom-som.dtsi
++++ b/arch/arm/boot/dts/nxp/imx/imx6ull-dhcom-som.dtsi
+@@ -568,17 +568,17 @@ MX6UL_PAD_GPIO1_IO05__GPIO1_IO05	0x120b0
+ 
+ 	pinctrl_usdhc2: usdhc2-grp {
+ 		fsl,pins = <
+-			MX6UL_PAD_NAND_RE_B__USDHC2_CLK		0x10069
+-			MX6UL_PAD_NAND_WE_B__USDHC2_CMD		0x17059
+-			MX6UL_PAD_NAND_DATA00__USDHC2_DATA0	0x17059
+-			MX6UL_PAD_NAND_DATA01__USDHC2_DATA1	0x17059
+-			MX6UL_PAD_NAND_DATA02__USDHC2_DATA2	0x17059
+-			MX6UL_PAD_NAND_DATA03__USDHC2_DATA3	0x17059
+-			MX6UL_PAD_NAND_DATA04__USDHC2_DATA4	0x17059
+-			MX6UL_PAD_NAND_DATA05__USDHC2_DATA5	0x17059
+-			MX6UL_PAD_NAND_DATA06__USDHC2_DATA6	0x17059
+-			MX6UL_PAD_NAND_DATA07__USDHC2_DATA7	0x17059
+-			MX6UL_PAD_NAND_ALE__USDHC2_RESET_B	0x17059 /* SD2 Reset */
++			MX6UL_PAD_NAND_RE_B__USDHC2_CLK		0x1f019
++			MX6UL_PAD_NAND_WE_B__USDHC2_CMD		0x1f019
++			MX6UL_PAD_NAND_DATA00__USDHC2_DATA0	0x1f019
++			MX6UL_PAD_NAND_DATA01__USDHC2_DATA1	0x1f019
++			MX6UL_PAD_NAND_DATA02__USDHC2_DATA2	0x1f019
++			MX6UL_PAD_NAND_DATA03__USDHC2_DATA3	0x1f019
++			MX6UL_PAD_NAND_DATA04__USDHC2_DATA4	0x1f019
++			MX6UL_PAD_NAND_DATA05__USDHC2_DATA5	0x1f019
++			MX6UL_PAD_NAND_DATA06__USDHC2_DATA6	0x1f019
++			MX6UL_PAD_NAND_DATA07__USDHC2_DATA7	0x1f019
++			MX6UL_PAD_NAND_ALE__USDHC2_RESET_B	0x1f019 /* SD2 Reset */
+ 		>;
+ 	};
+ };
+-- 
+2.30.2
+
