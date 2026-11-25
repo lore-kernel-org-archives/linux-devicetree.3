@@ -1,110 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795623660;
-	b=mMwHKgP7btkZPZMDCN7UFMymQUtcDNNv9rWJDTQZO7ogU5cW5LXL2O7gOq5UBEb0RYeQ
-	 G1XCRb5qtO6u56B9qybPCi854xMobBjaBFoWVPNTDTFSxFYjSqZfOi8PInuwZxHLO8UFd
-	 3IwDO3UxKA2qwQM6jy68DP9AaxYNdEalhjTPSQJ0ktqgtZcbMKEGK8wM7LyjVn9/m2/zt
-	 zf+4wRZ5we7B7qWlcmyUtf9oDXRjn+iQr5hLwvriAmtoQMzY7VZEi5+oxf/Wz4YeEHjWn
-	 f4lNy2rlEGdmv81/vsoVBACcjiRxpc/8yQoRk2a4W8IJ7sMAO375NWlTrvCHEtE9r4g==
+	t=1795623997;
+	b=GonJ/ctn6O4dMMebvWHeh3Ms+n/cU5NZdv3VshHRbAz24tF5BovjuO8iBgKzEPMSVc/q
+	 mLsw3/zmVDBRZ9EtLwWioABFCwR79zkGaae65kEPGAduK8yUKKvJjvfJF9zu83lJmCCjZ
+	 VjddVV9/o1NjuhUPToHOMfRdK4ynHMk/lo9YDVXmUOx4OHKOGeje/3QULSsnaA9U68zJD
+	 BGrfVg7DPLLPC6am1oV0flXYCI99gJT8ab8zppOWysQ8qV99+NIsuzBTTY4xuj8DAG7vW
+	 drks5QyqfEMkE1vWwFD/cF8o1YUhaanPi+BaIeoQyq0S5Dlurpnapx4d+ZaDB/TQz1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795623660;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=0s6fmlzONGCK6lmJzVfynVtJ2jjFF8VyCT3dCxeu9Vc=;
-	b=DdV+9CfBfLLwTlSyTd05FYLt2tjsaRr2aBdhxWpQXmfpNjbcwPofb+yVxcqj5znQXM1H
-	 1joW5NiCgpddz0D0LuLG2aH73BX9WLkWQxnbANtEU+ydovD7pZOo0/OCSQEfoHMgNzI/C
-	 eO7W7PZ2YwG2/Wym8OvXvPPFinX9JWipzwsQMHuWPxKMQY9ktZtMIgFuYA8pLMqBQDh/o
-	 BIWJsS+FA3xhSUGWiG2bGp1mmYM5JA305HhSh97WRvJubvwWd9pXUX2SC+ZtYlDmpE9QX
-	 knoYFnqY6PyoBzU8sjh7cbFTsFiMnZzmcZ9EYRzDgas98bYw31PvAPVmXOrDmfUXgQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795623997;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=gQ4dWEwpgcq8XaO874dWWeVVziSNkBxKz3Y1ekE3l2k=;
+	b=FOslp2TGnTfvQoLQd8V7WhaFtiZH1pL+612LZG+7ev3wpmDDOHdUbFGNktJHGAfABer3
+	 VjMivDoCugqKHAffhEpb7kA38r01EE0m1OX0G0ZShZmG2EQD9dQRXqO6iKlUs6pbVhsVd
+	 UIau7JNIQ/bu8YNs5H5SYZSgptOa+xN+HYROs2pb9ZXLqM88QDdnOahq+tMK9iOrvhfgH
+	 kUm/Eg8AopIJyotbQ/UODlEDxNJpS7eNKoNGbj4JbiPpO4qDD/EgeKVkLCFH6QHI7QQTU
+	 7p75YHTP1RXvVrXxVhPMQ0dwHPtJuHfZKNEjHQOadQBaei0QLgQj8G04eTdABHOpFJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=RYHkCrYI;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ixit.cz;
+	spf=pass smtp.mailfrom=ixit.cz;
+	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=w22kui8A;
+	arc=none smtp.remote-ip=84.42.129.46
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02301606A6B6
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 16:20:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02301606A6B6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64EDF606A321
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 16:26:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64EDF606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=RYHkCrYI
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-4a2f4ca0dcfso3433984f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 08:20:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1795623658; x=1796228458; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0s6fmlzONGCK6lmJzVfynVtJ2jjFF8VyCT3dCxeu9Vc=;
-        b=RYHkCrYIwR6AofqMN7x9sFOrMv6j/xwBfJ2B6o1RKohEr8/S7q6t6mJ213sAn/Rlfs
-         sy9EsJlw7BdKC6EWddNnXAQb+tJvOLOY0VEG8ADIvwfzXAei+AX33B8vK1sJCKA0tpXY
-         K+wnXJ7s2LO2xVngWfRlSNKySOCDe/+sqI0BZOipT8UroTxiQAOVlCocCbjCCUwa+gqA
-         neQXCdOBr0EXeKAhazZx9egdnG7Ev/85uRJSS5idEGS5qlH9hEglPa39iPKFMrwRpVb/
-         XUe/+bcS7f64/uibxk6T7oPBHZznYFoskelcjILT8MOPxDebIt8qPboxlnrvmmuFi1jB
-         ZqrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795623658; x=1796228458;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0s6fmlzONGCK6lmJzVfynVtJ2jjFF8VyCT3dCxeu9Vc=;
-        b=idq3L6WnzFF97826RRFxYuViIWgLsWiN839ckQ16gMWStdihT3mt52pYkaOdgl8syn
-         90dAsCp8VcxmGb1cEXrUMOnGp6kQDyzEJT66vNdq9gtEfgMDspFgQxBoMzkwM2/vYmD4
-         iRHs/rTgXRiFxR7xViwgyI7bw8pAr99jZV0Z1YY0mlB7Kc+2JBOLihL7FTYMJy5mWdlp
-         g51At60AY0SPVJSXBMzg/WlA0ugc6SkWEyQ1xCh5OHe6s9Ajvu3gUYsP41rerQr+djiV
-         okWmA6wZKiUUqJlKs76+cG/UsMZG2IPLc7VUvKs/YTBv3pgv9vUL0l8J510/T2v06FlK
-         ij9w==
-X-Forwarded-Encrypted: i=1; AL+hErEf5glz6W4coMG+/PFzxv4UUVYMaDpJYLHhlgssi0pKMD7udvEYDDnMlpRbpcmq2rTzL+SWysMcLxMb@vger.kernel.org
-X-Gm-Message-State: APuU4Z8aGsh/vTd0MMq0UiKzH7rCy9G1Nb739QpmjwfLTutkDEFhsFCk
-	vI7tx4NU+e6Pqf52yRxuSOFuzyqtCKRQbJTGRDpMdiOMM9tcDQfIe/AtD3RznPD7OCk=
-X-Gm-Gg: AZFdTZcVExEqyPou4tagPI5jIjoMa9MFklW7D5/HqbpE+9qEpr3/xA4Y42PPc/zNDNK
-	lreIbTcWLwpoEyJcel/8fAMzdk7E3VXn3amQeETunU0XEDhM4DA7zQrwT0gZDaPGcvv9U0fYVdw
-	w0Jdso6/c7q/ULMfiwvNHH0xT5DHCXUJHahBoBHeJ+2XsVPkSFU955M2ayW/dlK0Yt1Fujv8Vbk
-	Bi0/s5eQsh0TRdF/WFDMGycTlWYwMvf7dZpIoDlUVM3OFwD7Z8jZpz36xj5izUL2Bl6j2wgZfFp
-	70Cvsh6Ei09yUNAQFk3s3miJoihElOKTJM2efXBGZJTecD0x8lUGQlFUs7JzFSy8Ja+K0CCpqsP
-	N+x1bcWO0ghCi8kTb6Xwpb7DM11aNjhPvzcZ6a+VOTZmLXwK+aoLvvbfyYWsF+ocwoQLbzffS2f
-	B9MQ2bBETZTXV7QuUfKGO8vdEzEm/kIIj106P7e6stYT1EBabceyWiSt45ioMbYwjsfpcUUjolG
-	4+wAh0zn7Lvcn6kESi0ZJbl6zn0SKx0JDRt/KMy+ygvgZ9WQxqvQ0YDi7L6bYJvSnZQNZUqSItu
-	qdX+tQhE+MykmPE+aurUsFTMDaxj4GQv5rEbKix4iO875CvIsg==
-X-Received: by 2002:a05:600c:3b1a:b0:4a7:8fe8:130c with SMTP id 5b1f17b1804b1-4bb8881d4damr384617425e9.28.1795623658289;
-        Wed, 25 Nov 2026 08:20:58 -0800 (PST)
-Received: from localhost ([195.94.148.180])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853ca452sm515826755e9.15.2026.11.25.08.20.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 08:20:58 -0800 (PST)
-From: Andrea della Porta <andrea.porta@suse.com>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	linux-pwm@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	florian.fainelli@broadcom.com,
-	rjui@broadcom.com,
-	sbranden@broadcom.com,
-	bcm-kernel-feedback-list@broadcom.com,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: naush@raspberrypi.com,
-	svarbanov@suse.de,
-	gary@garyguo.net,
-	linux@roeck-us.net,
-	linux-hwmon@vger.kernel.org,
-	krzysztof.kozlowski@oss.qualcomm.com,
-	Andrea della Porta <andrea.porta@suse.com>
-Subject: [PATCH v14 3/3] pwm: rp1: Register auxiliary device for the fan tachometer
-Date: Wed, 25 Nov 2026 17:24:52 +0100
-Message-ID: <20261125162453.23573-4-andrea.porta@suse.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261125162453.23573-1-andrea.porta@suse.com>
-References: <20261125162453.23573-1-andrea.porta@suse.com>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=w22kui8A
+Received: from [IPV6:2a02:830a:f787:8f00:8bb2:f125:24d:78cd] (unknown [IPv6:2a02:830a:f787:8f00:8bb2:f125:24d:78cd])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id D94B953401EE;
+	Wed, 25 Nov 2026 17:26:33 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1795623993;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=gQ4dWEwpgcq8XaO874dWWeVVziSNkBxKz3Y1ekE3l2k=;
+	b=w22kui8AP7h1bSN0+oVLvRo4iHTS0y6Af5439ZvMzPC8i0/P3ePdpL49wFeS+CNFrq0WH5
+	dZ+Sb6daiR9ydJU+CQvq+CbH40XOau/G3Yxu0ilTshNr2ydmD5JhmBVyK9WTN1lj+3q/uE
+	eKBvRYk1ymSL1d8feF819qdYWOsximM=
+Message-ID: <8488344d-85d0-40a8-a526-a17fe69cb00a@ixit.cz>
+Date: Wed, 25 Nov 2026 17:26:33 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,189 +60,122 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/5] drm/panel: lg-sw43408: keep VPNL paired with VDDI
+ and reset deasserted
+To: sashiko-reviews@lists.linux.dev,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ robh@kernel.org, conor+dt@kernel.org
+References: <20261125-fix-blueline-panel-v3-0-914b4a30b73e@ixit.cz>
+ <20261125-fix-blueline-panel-v3-4-914b4a30b73e@ixit.cz>
+ <sashiko-outbox-233481@kernel.org>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <sashiko-outbox-233481@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On the Raspberry Pi 5, the firmware running on the RP1 Cortex-M core
-measures the fan tachometer pulses and periodically writes the computed
-RPM value into the phase register of PWM channel 2, inside the RP1 PWM
-controller register block.
+On 25/11/2026 14:19, sashiko-bot@kernel.org wrote:
 
-The Linux PWM framework has no abstraction to report such a value, and
-the reading belongs to the hwmon subsystem. Following the auxiliary bus
-model, let the PWM driver instantiate a "fan" auxiliary device
-(pwm_rp1.fan.<id>) to which the hwmon driver can bind, without needing
-any additional DT node.
+[...]
 
-The way the tachometer value is obtained (the register is shared with
-the channel phase control) is an implementation detail of the PWM
-driver, so provide rp1_pwm_read_tachometer(), exported in the 'RP1_PWM'
-symbol namespace, for the auxiliary driver to use, as documented in
-Documentation/driver-api/auxiliary_bus.rst.
+>> +static const struct dev_pm_ops sw43408_pm_ops = {
+>> +	LATE_SYSTEM_SLEEP_PM_OPS(sw43408_suspend_late, NULL)
+>> +};
+> 
+> [Severity: High]
+> Does sw43408_pm_ops also need an early resume callback to re-enable vpnl
+> when vddi turns back on during system resume?
+> 
+> During system suspend, DRM unprepares the panel in .prepare
+> (dpu_pm_ops.prepare -> msm_kms_pm_prepare()), stmfts_suspend() drops the
+> touchscreen's vddi vote in .suspend, and sw43408_suspend_late() then sees
+> regulator_is_enabled(vddi) == 0 and disables vpnl.
+> 
+> On resume, stmfts_resume() unconditionally re-enables vddi during the
+> .resume phase, while DRM does not resume the panel until .complete (or not
+> at all during resume if the display was blanked before suspend).  That
+> leaves the panel in the vddi-on, vpnl-off state across .resume, and when
+> sw43408_prepare() later runs, vddi is already held enabled by stmfts so
+> regulator_enable(vddi) does not power-cycle vddi to recover the DDIC.
+> 
 
-The auxiliary device is destroyed first in .remove(), so that the hwmon
-driver is unbound before the PWM controller resources are released.
+I ran automated stress testing for all states, and it seems it's necessary here.
+Report below the line.
 
-Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
+ From maintainer point view, if there would be need to make it bulletproof I can 
+explore Option 1/2 to address it, but hardware-wise it seems to be not required.
+
+I can send v4 with more verbose explanation within the commit msg / code, if needed.
+
+David
+
 ---
- MAINTAINERS                               |  1 +
- drivers/pwm/Kconfig                       |  5 +++
- drivers/pwm/pwm-rp1.c                     | 49 +++++++++++++++++++++++
- include/soc/bcm2835/raspberrypi-pwm-rp1.h | 12 ++++++
- 4 files changed, 67 insertions(+)
- create mode 100644 include/soc/bcm2835/raspberrypi-pwm-rp1.h
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 5c7b280a2bdb..26f8520c02ee 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23382,6 +23382,7 @@ L:	linux-pwm@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
- F:	drivers/pwm/pwm-rp1.c
-+F:	include/soc/bcm2835/raspberrypi-pwm-rp1.h
- 
- RC-CORE / LIRC FRAMEWORK
- M:	Sean Young <sean@mess.org>
-diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
-index 523789e82355..7b271a16a483 100644
---- a/drivers/pwm/Kconfig
-+++ b/drivers/pwm/Kconfig
-@@ -641,9 +641,14 @@ config PWM_RASPBERRYPI_RP1
- 	tristate "RP1 PWM support"
- 	depends on MISC_RP1 || COMPILE_TEST
- 	depends on HAS_IOMEM
-+	select AUXILIARY_BUS
- 	help
- 	  PWM framework driver for Raspberry Pi RP1 controller.
- 
-+	  The driver also registers an auxiliary device that allows the
-+	  companion hwmon driver (SENSORS_RP1_FAN) to report the fan speed
-+	  measured by the RP1 firmware.
-+
- config PWM_SAMSUNG
- 	tristate "Samsung PWM support"
- 	depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS || COMPILE_TEST
-diff --git a/drivers/pwm/pwm-rp1.c b/drivers/pwm/pwm-rp1.c
-index 30ab06b4cb75..9afe3706e624 100644
---- a/drivers/pwm/pwm-rp1.c
-+++ b/drivers/pwm/pwm-rp1.c
-@@ -38,6 +38,7 @@
-  *   channel. As a result, phase control will be ignored for now.
-  */
- 
-+#include <linux/auxiliary_bus.h>
- #include <linux/bitfield.h>
- #include <linux/bits.h>
- #include <linux/clk.h>
-@@ -49,6 +50,7 @@
- #include <linux/pwm.h>
- #include <linux/units.h>
- #include <linux/spinlock.h>
-+#include <soc/bcm2835/raspberrypi-pwm-rp1.h>
- 
- #define RP1_PWM_GLB_CTRL			0x000
- #define RP1_PWM_GLB_CTRL_CHANNEL_ENABLE(chan)	BIT(chan)
-@@ -79,12 +81,16 @@ enum rp1_pwm_ctrl_mode {
- 
- #define RP1_PWM_NUM_PWMS			4
- 
-+/* Channel whose phase register is used by the firmware to report the fan RPM */
-+#define RP1_PWM_FAN_TACH_CHAN			2
-+
- struct rp1_pwm {
- 	void __iomem *base;
- 	struct clk *clk;
- 	unsigned long clk_rate;
- 	bool clk_enabled;
- 	spinlock_t lock; /* sync for RP1_PWM_GLB_CTRL RMW access */
-+	struct auxiliary_device *fan_adev;
- };
- 
- struct rp1_pwm_waveform {
-@@ -286,6 +292,32 @@ static const struct pwm_ops rp1_pwm_ops = {
- 	.write_waveform = rp1_pwm_write_waveform,
- };
- 
-+/**
-+ * rp1_pwm_read_tachometer() - read the fan speed reported by the RP1 firmware
-+ * @adev: the "fan" auxiliary device registered by this driver
-+ * @rpm: where to store the fan speed, in RPM
-+ *
-+ * Meant to be called only by the driver bound to the auxiliary device
-+ * created by rp1_pwm_probe(), which carries the controller private data as
-+ * platform data. The auxiliary device is unregistered before the PWM
-+ * controller resources are released, so that data is guaranteed to be
-+ * valid for as long as the auxiliary driver is bound.
-+ *
-+ * Return: 0 on success, negative errno otherwise.
-+ */
-+int rp1_pwm_read_tachometer(struct auxiliary_device *adev, u32 *rpm)
-+{
-+	struct rp1_pwm *rp1 = dev_get_platdata(&adev->dev);
-+
-+	if (!rp1->clk_enabled)
-+		return -EBUSY;
-+
-+	*rpm = readl(rp1->base + RP1_PWM_PHASE(RP1_PWM_FAN_TACH_CHAN));
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_NS_GPL(rp1_pwm_read_tachometer, "RP1_PWM");
-+
- static int rp1_pwm_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -347,8 +379,23 @@ static int rp1_pwm_probe(struct platform_device *pdev)
- 		goto err_disable_clk;
- 	}
- 
-+	/*
-+	 * The fan tachometer is exposed to the hwmon subsystem through an
-+	 * auxiliary device. The chip id is unique, so it is used to avoid
-+	 * name clashes if more than one RP1 PWM controller is enabled.
-+	 */
-+	rp1->fan_adev = auxiliary_device_create(dev, KBUILD_MODNAME, "fan",
-+						rp1, chip->id);
-+	if (!rp1->fan_adev) {
-+		ret = dev_err_probe(dev, -ENODEV,
-+				    "Failed to register fan auxiliary device\n");
-+		goto err_remove_chip;
-+	}
-+
- 	return 0;
- 
-+err_remove_chip:
-+	pwmchip_remove(chip);
- err_disable_clk:
- 	clk_disable_unprepare(rp1->clk);
- 
-@@ -360,6 +407,8 @@ static void rp1_pwm_remove(struct platform_device *pdev)
- 	struct pwm_chip *chip = platform_get_drvdata(pdev);
- 	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
- 
-+	/* Unbind the fan driver before tearing down the PWM controller */
-+	auxiliary_device_destroy(rp1->fan_adev);
- 	pwmchip_remove(chip);
- 
- 	if (rp1->clk_enabled) {
-diff --git a/include/soc/bcm2835/raspberrypi-pwm-rp1.h b/include/soc/bcm2835/raspberrypi-pwm-rp1.h
-new file mode 100644
-index 000000000000..290a052480bc
---- /dev/null
-+++ b/include/soc/bcm2835/raspberrypi-pwm-rp1.h
-@@ -0,0 +1,12 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+
-+#ifndef __SOC_RASPBERRY_PWM_RP1_H__
-+#define __SOC_RASPBERRY_PWM_RP1_H__
-+
-+#include <linux/types.h>
-+
-+struct auxiliary_device;
-+
-+int rp1_pwm_read_tachometer(struct auxiliary_device *adev, u32 *rpm);
-+
-+#endif /* __SOC_RASPBERRY_PWM_RP1_H__ */
--- 
-2.51.0
+     Good catch to check the resume path, but hardware testing on Pixel 3
+     shows no resume callback is needed here.
 
+     The non-recoverable DDIC state occurs when vpnl is dropped while vddi
+     remains powered ((VDDI=ON, VPNL=ON) -> (VDDI=ON, VPNL=OFF)), not when
+     powering up from a cold both-rails-off state with vddi rising ahead of
+     vpnl.
+
+     I explicitly tested the exact rail sequence on Pixel 3:
+     1. Both vddi (ldo14) and vpnl (ldo28) off, reset deasserted (the state
+        left by sw43408_suspend_late()).
+     2. Re-enabled vddi alone via stmfts while vpnl remained off, and held
+        (VDDI=ON, VPNL=OFF, reset=HIGH) for 6 seconds.
+     3. Ran sw43408_prepare() with vddi still continuously held on by stmfts
+        (no vddi power cycle).
+
+     The panel recovered cleanly and lit up normally.
+
+     Also note that an early resume callback (.resume_early) would run before
+     stmfts_resume() re-enables vddi, so enabling vpnl there would either see
+     regulator_is_enabled(vddi) == 0 (no-op) or unconditionally power up
+     3.0 V vpnl before 1.8 V vddi (reversing the power-on sequence and
+     leaving vpnl enabled when no shared consumer brings vddi up).
