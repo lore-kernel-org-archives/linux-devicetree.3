@@ -1,68 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625229;
-	b=bc9yUoqwcgqw02qIc7gUlmqdbBWbwm+paWu/+y22W3Y7kG0AEiEx/fsN8rJ+VBSfs34H
-	 FsjZgOdONFDUIDo3YmRB9b3edRHdv0Q0PmVKFla0ZBNOyORZ369bcY6BcbjGNM4u3+7kb
-	 c0p2EcNisGje6uXNXU7rR6Tur7bvg5ksq5uhsl7oo5NGMzilbArjCF9In1ZK7mZ//0LWy
-	 RpJBFrkRRKtmZUOT36/jWcsTfvBDlhFwR/8kFQE41yOOUZZm5/dmbH/Pzhp44pdKdLVFW
-	 ywQL/7FY1IcIAU4z/eE8YFAk+cIEfM7PByPpzg2DZ7v0U9W0GHqeK3nIU8nByn4DATQ==
+	t=1795625279;
+	b=FyfnxovOMWzfQXNsfPEbJ01ujgr3vc1CG8n2EV1od1sx6TKQH2OV6ksCwsBmGe9QQQKH
+	 Ojkh9K1esTQTTd3mn4cmgvkS/f4p7NlrhJ7FS2nu6qR7l3Wc2vhTH5mREuZ4WoDraOJjv
+	 sqdypvPFggYdzQK7EjoXUCe5H20cRZtCiyxhuW9MkjtI7iP9g+mXqoYff1OYAhBIgfrQE
+	 0b4ilpnMS442Gvl/Ky/slC1CkxBzanvHbX/ZNYokEiBsiKAF/GqOGTXu2nyBzjB9Ei7qm
+	 iWTy2ATmumOsxi4W9ou8ngp7nWLaygntEi+WuTq0vCUlNeTOfq6cye7yTevqyZCUq4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625229;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2soaXjuh6WRTXowbhNMNIHhfnZfKrjV28fZXYvBHPj4=;
-	b=piIoa7oaOynBnFdm2swyCkN1hOnhd7gvELHYbo84rxMm2yhFxtl48krV0GevCemRsC0u
-	 CvOKcrJt6qcP582T8kwNaomfG6pIELP0MX2UjsRcoA4E6xnD0eOdh18d+VxwNNzK3Cuen
-	 Nhsz3RL56hS6hyeo7jbwCbLfaoBqNOropWq+ROJBEbiMkpAM39ALYoJ+WI+QCIV++o9A7
-	 aZmrpMeOKXiObGME511U6RO63bLBtvC6DX3n05iNj8TVx9p8uiJVzKttM1Q+nmGnKbMGi
-	 ibih5Thzd/CyrITy4yGUtLmZopLIfVfuEYyzrn9e6SFdEn1cA1RDsWAPZiANVPi4Kvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625279;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=7TatMQsD+nKk2SlAoHDqVLWs4KiHkC+B/2mGwzcyZ3E=;
+	b=ixlcG3rrGYDTYSojFb8rQHYdhyHNtAxJzt+G7Ee3jxxq3AqEVR2tRhTz9elXu835bPgD
+	 vVW5KKjIsm1zR3VZlaPmSdot/+sEG9pm1bkXmifnZ7yPjDABUMdY5XPMhnSzZGv5nG2rb
+	 IfvK4ew9sZj6SilazkIsmgVXxiDXMHsgOJIHXfYKAGNR9qgRHyjUtzK68RODjKSsuUrUx
+	 iNaVuASXzQQM9Wc0PJ31l2PrU8cY5SmqVouS7/LfZiPkAG6r1fHZgjhDCNqit40RycwjY
+	 N3Ln0u5EDdSWohPdk4WD88GG6lTYXHbhg9qW/yu19mKDPOQvhlJPkBhZmqV3b7KfKaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hogNfQ+F;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=EpN4216W;
+	arc=none smtp.remote-ip=210.118.77.11
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77379606A31E;
-	Wed, 25 Nov 2026 16:47:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50154606A321;
+	Wed, 25 Nov 2026 16:47:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50154606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hogNfQ+F
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 304AC1F000D3;
-	Wed, 25 Nov 2026 16:47:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795625229;
-	bh=2soaXjuh6WRTXowbhNMNIHhfnZfKrjV28fZXYvBHPj4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hogNfQ+F+Y4E2RslqNtzTCLa+aPXk9fgHufUng+80Kqyh61plChu/GSQXSpLCoux6
-	 LK/tUBibRHPDslb/35oQkMMiLrJYZXd42lc25Hxnscz1JofWCzPpclgnQuxc3IkhbD
-	 FfCaQnqRhwzBbOeVJeOz3vqzYPNpU8P6FBeR6rpzppKHLbbdcL8QJCanlVZmc7XvYr
-	 eqOBO6FwPjchWi1edSyv37dKhRIfheADUxa1+F6MPMQ6X1kWt40dbq5dq7/rn9bQB9
-	 fEx/TGsl/3gT6z/fEHYZAoSKPLy+IiMxfc/53pdYzWsr3GvXvXwYUlv/26fOljb2HZ
-	 9Rlpjb+5FPyRQ==
-Date: Wed, 25 Nov 2026 17:47:00 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andy@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v6 04/19] device property: Fix fwnode_name_eq() for empty
- node names
-Message-ID: <awcQVdF5A8ZrbbeC@devuan>
-References: <cover.1794667407.git.alx@kernel.org>
- <7fc1321995f1aec9d7b92c6a89047cc9fb28c52a.1794667407.git.alx@kernel.org>
- <nat4ilqmzzpuyrjbuahl367ip22tfnmjorydlppuwqiscxaujo@kf63j4lb3flk>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=EpN4216W
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261125164755euoutp01a5a5fab61dd9798e759be69e5b9e0235~rV6zDc7Lk0384803848euoutp01t;
+	Wed, 25 Nov 2026 16:47:55 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261125164755euoutp01a5a5fab61dd9798e759be69e5b9e0235~rV6zDc7Lk0384803848euoutp01t
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1795625276;
+	bh=7TatMQsD+nKk2SlAoHDqVLWs4KiHkC+B/2mGwzcyZ3E=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=EpN4216Wld6F8bjjy70JLDrBUDUtE6rusAEz54jLTD3XLo2dUxl4yXXaT+DeXIusV
+	 jYQiUTmMqF955Qs375ei7zjQB+xf20y3Zoo9JdFKubXAw0PUTGsZet5P46/scw/Yfp
+	 E0IVKOHx3TmBqWcPJ4keVQVXch7GmomOtUXCwOe0=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261125164755eucas1p24d5d6bb83e752fd082cddf5be8b0dfd1~rV6yfXVA43152031520eucas1p2P;
+	Wed, 25 Nov 2026 16:47:55 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261125164753eusmtip18d3c6a9329085828572b3a1b4e8ce215~rV6wxHev50383403834eusmtip1t;
+	Wed, 25 Nov 2026 16:47:53 +0000 (GMT)
+Message-ID: <74cccd59-ef2c-4334-aa75-b187379e66a6@samsung.com>
+Date: Wed, 25 Nov 2026 17:47:53 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,119 +64,104 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pgohlg3lnyvn34uw"
-Content-Disposition: inline
-In-Reply-To: <nat4ilqmzzpuyrjbuahl367ip22tfnmjorydlppuwqiscxaujo@kf63j4lb3flk>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 04/18] dt-bindings: display: starfive: Add
+ starfive,jh7110-hdmi-subsystem
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Robert Foss
+	<rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+	<luca.ceresoli@bootlin.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, Philipp Zabel
+	<p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
+	<hal.feng@starfivetech.com>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
+	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
+	Belhachemi <db@domibel.de>, Andy Yan <andyshrk@163.com>, David Airlie
+	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Yakir Yang
+	<kuankuan.y@gmail.com>, Dmitry Baryshkov
+	<dmitry.baryshkov@oss.qualcomm.com>, Conor Dooley <conor@kernel.org>,
+	William Qiu <william.qiu@starfivetech.com>, Xingyu Wu
+	<xingyu.wu@starfivetech.com>, Sandy Huang <hjc@rock-chips.com>, Manivannan
+	Sadhasivam <mani@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+	linux-riscv@lists.infradead.org, Marek Szyprowski
+	<m.szyprowski@samsung.com>, Maud Spierings <maud_spierings@murena.io>,
+	Graham Markall <hello@big-grey.co.uk>, Icenowy Zheng
+	<zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>, Joshua
+	Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+	<u.kleine-koenig@baylibre.com>, Cristian Ciocaltea
+	<cristian.ciocaltea@collabora.com>, Conor Dooley
+	<conor.dooley@microchip.com>
+Content-Language: en-US
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <20261125-tasteful-brown-galago-a6725e@quoll>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261125164755eucas1p24d5d6bb83e752fd082cddf5be8b0dfd1
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261124155406eucas1p23a523deb496c21cbf3da3724812a8101
+X-EPHeader: CA
+X-CMS-RootMailID: 20261124155406eucas1p23a523deb496c21cbf3da3724812a8101
+References: <20261124-jh7110-clean-send-v8-0-de92635dd857@samsung.com>
+	<CGME20261124155406eucas1p23a523deb496c21cbf3da3724812a8101@eucas1p2.samsung.com>
+	<20261124-jh7110-clean-send-v8-4-de92635dd857@samsung.com>
+	<20261125-tasteful-brown-galago-a6725e@quoll>
 
 
---pgohlg3lnyvn34uw
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andy@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v6 04/19] device property: Fix fwnode_name_eq() for empty
- node names
-Message-ID: <awcQVdF5A8ZrbbeC@devuan>
-References: <cover.1794667407.git.alx@kernel.org>
- <7fc1321995f1aec9d7b92c6a89047cc9fb28c52a.1794667407.git.alx@kernel.org>
- <nat4ilqmzzpuyrjbuahl367ip22tfnmjorydlppuwqiscxaujo@kf63j4lb3flk>
-MIME-Version: 1.0
-In-Reply-To: <nat4ilqmzzpuyrjbuahl367ip22tfnmjorydlppuwqiscxaujo@kf63j4lb3flk>
 
-Hi Bartosz,
+On 11/25/26 08:31, Krzysztof Kozlowski wrote:
+> On Tue, Nov 24, 2026 at 04:52:40PM +0100, Michal Wilczynski wrote:
+>> Add the dt-binding for the StarFive JH7110 HDMI subsystem.
+>>
+>> The JH7110 HDMI IP is a monolithic block containing both the digital
+>> controller and analog PHY in a single register space. This binding
+>> defines the parent device, which holds the shared register map, and its
+>> two children: the PHY and the controller.
+>>
+>> The two have separate resources. The PHY takes the 24 MHz reference
+>> clock and provides both the pixel clock, which the VOUT clock generator
+>> routes on to the display controller, and the phy the controller uses.
+>> The controller takes its clocks from the VOUT clock generator. What
+>> they share is the register space, which the parent maps.
+>>
+>> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+>> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+>> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+>> ---
+>>  .../starfive/starfive,jh7110-hdmi-subsystem.yaml   | 95 ++++++++++++++++++++++
+>>  1 file changed, 95 insertions(+)
+>>
+> 
+> DT bot reports here a lot of failures. I don't see immediate problem,
+> but something feels odd.
+> 
+> E.g. https://protect2.fireeye.com/v1/url?k=1f5c925f-40c75c3b-1f5d1910-000babda0201-32d14b792e1191ed&q=1&e=0335675f-d64b-42b3-b953-cd282e903fa2&u=https%3A%2F%2Fgitlab.com%2Frobherring%2Flinux-dt-review%2F-%2Fjobs%2F18332570769%2Fartifacts%2Fraw%2Fbuild-15017782.log
+> (see rest on DT patchwork)
+> 
+> Best regards,
+> Krzysztof
+> 
+> 
 
-> Date: 2026-11-25 17:10:35+0100
-> From: Bartosz Golaszewski <brgl@kernel.org>
->
-> On Sat, Nov 14, 2026 at 04:22:16PM +0100, Alejandro Colomar wrote:
-> > str_has_prefix() returns the prefix length on match and 0 on mismatch,
-> > so the mistmatch case can't be told from "empty prefix matched an empty
-> > string".
-> >=20
-> > For instance: the OF root node's name as returned by
-> > fwnode_get_name() is "" and will return 0 for any name matched against
-> > it and since len is 0 too, fwnode_name_eq() will return true.
-> >=20
-> > Let's use strprefix() instead, which also makes this function simpler.
-> >=20
-> > Fixes: a9c8c738066b7 ("device property: Add fwnode_name_eq()")
-> > Closes: https://lore.kernel.org/linux-hardening/20261104-fwnode-for-eac=
-h-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/
-> > Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> > Signed-off-by: Alejandro Colomar <alx@kernel.org>
-> > ---
->=20
-> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
->=20
-> This series has grown substantially since v1. My GPIO series[1] depends on
-> fwnode_name_eq() working correctly so I would really appreciate it if we
-> could queue the bits and pieces fixing fwnode_name_eq() separately and so=
-oner
-> rather than later (it should also be backported to stable).
+Hi,
 
-I agree.  The const-preserving macro can be left for later.  And the
-global replacements can also be left for later (Andy asked to see them,
-but didn't require that we have them in the same patch set, so we can
-now remove them from this patch set).
+Thanks for checking. For patches 4,6 same as in v6 [1], these come from
+dependencies missing in the bot tree.
 
-And strsuffix() is only for symmetry, but can also be left for later.
-Same with streq(3).
+The dependency is in the cover b4 prerequisite trailers and Rob
+mentioned in v6 that he would look at why the bot did not pick it up.
 
-I'll send a small revised patch set that is minimal for this fix.
+For Patch 3 a comment in its example points at the hdmi-subsystem
+binding by path, and that file only comes in patch 4.
+I'll fix that in v9, and also note the dependency in patches 4 and 6
+themselves under ---.
 
-Thanks!
+[1] -  https://lore.kernel.org/all/20261029183041.GA4029917-robh@kernel.org/
 
-
-Have a lovely day!
-Alex
-
->=20
-> Thanks
-> Bartosz
->=20
-> [1] https://lore.kernel.org/all/20261120-fwnode-for-each-prop-v3-0-808e30=
-4dc73e@oss.qualcomm.com/
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-
---pgohlg3lnyvn34uw
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmsHEP4ACgkQ64mZXMKQ
-wqm4Ww//RWo5b1PWZXxaXDJWbLwrZWPs81SQr8o7iw3WZRt+45HdbIfKHPubIlWF
-LPU7zcEQ2VffBb/ifYDwuxbPuFpfX8/W6i/PiPh2DSKnxnOB5OmFj3qzCL2wjLl4
-/Y95eCc0sWU9fN2V8IE3qo3p5RWn2uPdzeO1mOKw2LQ0QOF06M8cYuW8aLUi0svy
-LpkSuPhBd0M5hQhMyVVLBy5mn783osV62jcHHlaxGoO/s67RJq4RBP574xghxJHr
-dTgu7eUcKx58W6QKGiVdQo7pKLo+1GzQkpBk77qQYNbUiEwPPJXCfyMvcyp0B4Q3
-3GwEe2LKayXym/8eiBIy1GZRHQoqpKqsxzdJiyFWuGiBkeRWVOI8LhJB/WbeAeZ7
-T1IboelZnHAFQsiH74rx9TDGH1a6aQEI8yFwV7tpODQ1PwT9uA0xNG+7Q7RPkKS9
-rqauqhT1k0wodX8qaisDB4UKMWYmKO2SXArW3ihN6tZSz9cy7lOovhuIzYt5JXR9
-i9VwgNq23/9pKcvFWgrjO/M+BUNu6ck8IiimI98xFAMSkCJvNgHE5MC9vF8vmVCq
-O+rcZENNhcfdbQqaZdfL+CLJPd5F+lNG8PM+jYSuuJD/RK4WgOXuXgDpAw2/BKDJ
-Qp+6+pD+4jMQ2zZKxQUwoAsBzspMdwYUb6UpL7MnSsg76iOEGFc=
-=/wuZ
------END PGP SIGNATURE-----
-
---pgohlg3lnyvn34uw--
+Best regards,
+-- 
+Michal Wilczynski <m.wilczynski@samsung.com>
