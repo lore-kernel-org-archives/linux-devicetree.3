@@ -1,68 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795585617;
-	b=zSnd3RXhAthXxBJkO/yu4K/TOP8SY0sQDeglyOjLcpkzjId6WDZeIUhp2IqAoQ0KafkK
-	 YahS5MZa6mXF/I6sEqKEUqJjxFy0qRWqTL5g7x1oaT9JlxNaiSQ5xWTsLbz7D4ISXLHud
-	 YtrtzggGN12t0Sjr+ubQDnaiaE2cISKTqLJtrfQeyymmNkNzugAtAZwG00deNGZnSUaFt
-	 4d344vfN4eM7UUqwYFN68qDuHBrusO+KiQJTHH8qLmfZi2ifpnqKJtQWiFyJw0wuUQRtE
-	 yZoHOjV5HHtx+2kKWIpSzy5kZ/JySHf4duzZ53SFh/LqXmH/Llm7jHTlS2rTPdmM+ew==
+	t=1795586453;
+	b=aRlUIYugh6kdGexEXx/v8l2Dj1b6ogciLKCAZpyXkrMV4QVp2m53lZI3SAwrHQ+UEdAD
+	 /rozjXE3lzD6NDvXsO9ExxuqUpTWcjzQr/Zd59xVImjrgwxjrAo28bgCUuF+eQV2072DQ
+	 jl2s4sJbd+L39EPz2aghvbFyPgpq9jpU9/yYoFk5Bzm7ewTTSQrbv30khJVTEkX9f2D/p
+	 NG2oN0w+R/oDHG89pk4Fz/QJatwXYZDmgfuuvD0BZbn6YtBp1lXhqgY2Qw6sTDoGZMdJe
+	 3GQBaDtaXDMYNSJnLX8wLdtYrLufngtMBmyQyryIw9MIFTLUcaEVHY3XkGMdv6YIFWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795585617;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=NZvMNl2rNVFYgW+nN3Oiao9vOrIiaQuXf3slC6NOLHc=;
-	b=A8qmBDqOr++oEz3ktUcR9wjE6TB/c9uR8nDqWItoHlWk91P0JhnjWASs4IhmzV/Wd0u+
-	 WaNNaV6loCYjx7q2bEpXKZmZa2dkCO7udfnF9OkJtgdwHvgjItlUnEPYiwMq2XxeJEC/Y
-	 hkqz/3uev1mIM1Liqo8cAJ2MpM8Ddyd3KIFiw/nCQiYy+XY352bzX4hGkHA3CN8dXxq1x
-	 DIZeAUinAbjjZ8LcoF7vAbz/9LB2qbnpD9xaZeo4jQPZ+noAeS0xa5RokS9m/n2wArFvJ
-	 cC9KqaqONPdT7VQGrhqblrfqe+Fpki4jF+Codgi01fb/sWVclbsUgo2oN79ydomCxvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795586453;
+	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
+	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
+	 Received:Received:From:To:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=OQ8eDMcUmdXK5He2mvO2Ew0LR++K/A/qA850U/+NkVc=;
+	b=idjdgOJX6xK6r1wUBHqJEvPW740u8rcJxLHcSN0LU2lHVKKWQ0BmNx4Z8+48sootkTnf
+	 UMg3jXNRWtox3xaCO0JqRqnkRCN8Ch4r3TjGotjex+TRNJ/kdL2e5OU+HtskcEBKuE6D6
+	 55loXCEIfXGJBWrpTIN73fC2//d8KhWUTy2wZHMbC0G34g5Rwd9wjXPIQ9RG/Hbr+e1tt
+	 AAwmK1u3Gd3HJpjnMJ1EB0AE2LrMNCYvgoJbpxoHZji443fQM5l3cUBhNZuFzyzqKxQBs
+	 RlITuwOtlMv4O0yTTZJ5AOKq4LWaE1EAOUNf1OEf7FKDhGAw/dOBbeoym24ynG15mVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BZSS3Xjb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mediatek.com;
+	spf=pass smtp.mailfrom=mediatek.com;
+	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=LhgaupVj;
+	arc=none smtp.remote-ip=210.61.82.184
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802B9606A31E;
-	Wed, 25 Nov 2026 05:46:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF47606A31E;
+	Wed, 25 Nov 2026 06:00:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACF47606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BZSS3Xjb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A44C1F000C0;
-	Wed, 25 Nov 2026 05:46:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795585617;
-	bh=NZvMNl2rNVFYgW+nN3Oiao9vOrIiaQuXf3slC6NOLHc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BZSS3XjbHJB70TEIMIH5E5DolRbuhiUDofhGwQDDGnX93idGLqQZZGdbFWY9kiojd
-	 3RD6bhErUoAk01krQmpoCoLon20uuKYR1REPuvhYrtTx32WyEmfp/ouz/XYlf/k/3z
-	 qcHQNRu4k3CWr7jazMBR02BZ88SwHGSZ+R7OHW6LNPLo1rBYIsGUj41qHu21kfcQ6M
-	 Su71AKROPAUHYdDVxOrKLdccHe1untKHTQrmR1lqr2y7KY2t0XoeBK2vGy4xVe5aTg
-	 vwX+muJOS2QQbseq7smY6qzMmD2MHvRRTLchrHy/QoCa/gcagnqX95jtwPikAkEMTg
-	 QzTYZZotfiRKg==
-Date: Wed, 25 Nov 2026 05:46:52 +0000
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Josef Schlehofer <pepe.schlehofer@gmail.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
-	Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
-	Marc Zyngier <maz@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/3] watchdog: max63xx_wdt: Add support for specifying
- WDI logic via GPIO
-Message-ID: <awZ2TJRVus2R-ePn@google.com>
-References: <20261124050118.87944-1-pepe.schlehofer@gmail.com>
- <20261124050118.87944-3-pepe.schlehofer@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=LhgaupVj
+X-UUID: 8dbd8388e89511f18dc8c9802ae25ab1-20261125
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:To:From; bh=OQ8eDMcUmdXK5He2mvO2Ew0LR++K/A/qA850U/+NkVc=;
+	b=LhgaupVjGQwjbqLhYKwr6pJeANpRf/BeFwXLwtzhvMi5JB7Eal0zzyVfFH0ITNNl3rHZj4GHAfPPrQZYGHieuE/IjyvpuR+5IbYykgHHmIAHM5UO0lCOGOjrQQ+Eb6P0tl8k5HuWjGoXpuZLJU1wyTrdl7WJHNMGI2Oydv3WU6A=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.21,REQID:4e2de29e-fdee-4669-a441-f87b9d658868,IP:0,U
+	RL:0,TC:0,Content:0,EDM:-25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:b0318ac,CLOUDID:23d4f2bd-9e04-43bc-9c07-a2d8d8315d7e,B
+	ulkID:nil,BulkQuantity:0,SF:102|136|836|865|888|898,TC:-5,Content:0|15|50|
+	99,EDM:2|-100,IP:nil,URL:99|1,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0,
+	OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 8dbd8388e89511f18dc8c9802ae25ab1-20261125
+Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by mailgw02.mediatek.com
+	(envelope-from <echo.zhang@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1657262601; Wed, 25 Nov 2026 14:00:45 +0800
+Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
+ MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 25 Nov 2026 14:00:43 +0800
+Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
+ mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.56 via Frontend Transport; Wed, 25 Nov 2026 14:00:42 +0800
+From: Echo Zhang <echo.zhang@mediatek.com>
+To: Echo Zhang <echo.zhang@mediatek.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
+	<jbrunet+clk@baylibre.com>, Nathan Chancellor <nathan@kernel.org>, Nick
+ Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, MMDVFS Team
+	<linux-mediatek@lists.infradead.org>, <kyrie.wu@mediatek.com>,
+	<ming-fan.chen@mediatek.com>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-clk@vger.kernel.org>, <llvm@lists.linux.dev>
+Subject: [PATCH 0/7] soc: mediatek: add MMDVFS support for MT8196
+Date: Wed, 25 Nov 2026 14:00:05 +0800
+Message-ID: <20261125060037.649659-1-echo.zhang@mediatek.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,26 +88,84 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261124050118.87944-3-pepe.schlehofer@gmail.com>
+Content-Type: text/plain
 
-On Tue, Nov 24, 2026 at 06:01:17AM +0100, Josef Schlehofer wrote:
-> From: Pali Rohár <pali@kernel.org>
-> 
-> On some boards the WDI (watchdog input) pin of the chip is connected to
-> a GPIO, and only the SET pins are mapped to the register.
-> 
-> Take the GPIO from the optional wdi-gpios property. When it is present,
-> ping the watchdog through it instead of the register.
-> 
-> Signed-off-by: Pali Rohár <pali@kernel.org>
-> [pepe.schlehofer@gmail.com: use wdi-gpios, request the GPIO as an output
->  with devm_gpiod_get_optional(), ping without the lock, include
->  linux/delay.h, update the header comment]
-> Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+This series adds support for the MediaTek Multimedia Dynamic Voltage and
+Frequency Scaling (MMDVFS) controller on MT8196. The controller provides
+virtual clocks for multimedia hardware blocks and coordinates their
+performance requests with platform voltage resources. The driver
+aggregates consumer rate requests and programs the MT8196 hardware clock
+control fabric (HWCCF) voter. Its VCP/MMUP backend coordinates shared
+memory and IPI communication with firmware.
 
-The patch looks good to me,
+The series introduces the clock IDs and device tree bindings, followed by
+the common clock provider, VCP backend and MT8196 topology and voting
+data. It also adds a read-only debugfs status view and a MAINTAINERS entry.
 
-Reviewed-by: Tzung-Bi Shih <tzungbi@kernel.org>
+This series depends on Xiangzhi Tang's MediaTek VCP remoteproc series,
+which provides the public VCP API used by MMDVFS:
+https://lore.kernel.org/r/20260427111446.22955-1-xiangzhi.tang@mediatek.com
+
+Patch layout:
+  1/7: Define the MT8196 MMDVFS clock IDs used by DT consumers.
+  2/7: Document the common MMDVFS and MT8196 DT bindings.
+  3/7: Add the common driver, virtual clock provider and vote handling.
+  4/7: Add the VCP/MMUP shared-memory and IPI backend.
+  5/7: Add MT8196 topology data and HWCCF voting operations.
+  6/7: Add a read-only debugfs status view.
+  7/7: Add the MMDVFS files and contacts to MAINTAINERS.
+
+Validation: the two MMDVFS bindings passed dt_binding_check. Each driver
+commit built cumulatively with arm64 Clang on top of the VCP dependency.
+The production changes were also ported to the MT8196 sapphire validation
+tree, retaining its older VCP API compatibility and separate internal test
+hooks. Its full package build and board boot passed. The status interface
+reported initialization with three resource controllers, seven muxes. The
+user, vote_step and force_step test completed with zero functional failures;
+
+Echo Zhang (7):
+  dt-bindings: clock: mediatek: add MT8196 MMDVFS clock IDs
+  dt-bindings: soc: mediatek: add MMDVFS binding
+  soc: mediatek: add MMDVFS core driver
+  soc: mediatek: mmdvfs: add VCP backend
+  soc: mediatek: mmdvfs: add MT8196 support
+  soc: mediatek: mmdvfs: add read-only status debug
+  MAINTAINERS: add MediaTek MMDVFS entry
+
+ .../soc/mediatek/mediatek,mmdvfs.yaml         |   60 +
+ .../soc/mediatek/mediatek,mt8196-mmdvfs.yaml  |   87 ++
+ MAINTAINERS                                   |   11 +
+ drivers/soc/mediatek/Kconfig                  |   19 +
+ drivers/soc/mediatek/Makefile                 |    1 +
+ drivers/soc/mediatek/mmdvfs/Makefile          |   10 +
+ drivers/soc/mediatek/mmdvfs/mmdvfs-clk.c      |  447 +++++++
+ drivers/soc/mediatek/mmdvfs/mmdvfs-core.c     |  651 ++++++++++
+ drivers/soc/mediatek/mmdvfs/mmdvfs-debug.c    |  200 +++
+ drivers/soc/mediatek/mmdvfs/mmdvfs-internal.h |  361 ++++++
+ drivers/soc/mediatek/mmdvfs/mmdvfs-mt8196.c   |  637 ++++++++++
+ drivers/soc/mediatek/mmdvfs/mmdvfs-up-priv.h  |   57 +
+ drivers/soc/mediatek/mmdvfs/mmdvfs-up.c       |  275 +++++
+ .../soc/mediatek/mmdvfs/mmdvfs-vcp-memory.h   |  104 ++
+ drivers/soc/mediatek/mmdvfs/mmdvfs-vcp.c      | 1075 +++++++++++++++++
+ .../clock/mediatek,mt8196-mmdvfs.h            |   74 ++
+ include/soc/mediatek/mmdvfs.h                 |   90 ++
+ 17 files changed, 4159 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/soc/mediatek/mediatek,mmdvfs.yaml
+ create mode 100644 Documentation/devicetree/bindings/soc/mediatek/mediatek,mt8196-mmdvfs.yaml
+ create mode 100644 drivers/soc/mediatek/mmdvfs/Makefile
+ create mode 100644 drivers/soc/mediatek/mmdvfs/mmdvfs-clk.c
+ create mode 100644 drivers/soc/mediatek/mmdvfs/mmdvfs-core.c
+ create mode 100644 drivers/soc/mediatek/mmdvfs/mmdvfs-debug.c
+ create mode 100644 drivers/soc/mediatek/mmdvfs/mmdvfs-internal.h
+ create mode 100644 drivers/soc/mediatek/mmdvfs/mmdvfs-mt8196.c
+ create mode 100644 drivers/soc/mediatek/mmdvfs/mmdvfs-up-priv.h
+ create mode 100644 drivers/soc/mediatek/mmdvfs/mmdvfs-up.c
+ create mode 100644 drivers/soc/mediatek/mmdvfs/mmdvfs-vcp-memory.h
+ create mode 100644 drivers/soc/mediatek/mmdvfs/mmdvfs-vcp.c
+ create mode 100644 include/dt-bindings/clock/mediatek,mt8196-mmdvfs.h
+ create mode 100644 include/soc/mediatek/mmdvfs.h
+
+-- 
+2.45.2
+
