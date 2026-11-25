@@ -1,85 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795644917;
-	b=foZOVasQS2/EZjid8afMG/1NK7aAjkf75o1bctxQVqNq4a+UV3usw1Ks0mwcv3xaecIF
-	 qpHpcto/FpWBW/uctEK8tb7uwzMEVPCJqgkv4aveqkM/zKlmpqANbD/OG8FeSc7oXgQaS
-	 xO88JO1ErPSlyS07CpBugE40hpFUiK0w563pzBIVipzLVipW+SGX6DPRR/XUUTcf8ZouY
-	 0zqJ1fCNCyzpZqp37no1FUF6L+N8vhnEwYtH1dzWAQ18wFuf91O9DMNhhxR8MIyJrxJg4
-	 +ikzwmt0M26TDCAVkzXcCHYdB5kYS4ho/DSRBR3G4UFjMEnzwO+Mv4QsFG3gdiw08Qw==
+	t=1795645104;
+	b=Ihkdg6a4sie7ICNqzG/SJL+tqDqcVvnpj5M0k1x5OKEp5tJs3bfpfQdvl/wSxrHEbVC9
+	 FYPWG2kILa/5vACif5j2XQ5QTJ3CE3m+OnHFiQtB/6vF4ZeqOKzA3KjigLoLGVNlGvNmZ
+	 TUbut6GBzHGJBTcF0x/saV/2ioJeNsfQcNAzvCP/vS3LjP+vVnDOFndqiz+7/4D9Ujeue
+	 X/rixKhig0mhamNQzl+zmXDpIkgJSL92ZAHEZ+rEj5QRrG+hxkUT3pPh06ESC9ReKRgdp
+	 hrEavHhlQc9AJ8B/BNwKSJWSUWqOuusrCEQLXPTxxsFIrl0OjgfECFgSOzqg0CrFcRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795644917;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=ni8H7Ap+HCHG0QQIQxl79mCC54GcejU+9kKv4fWZ8x0=;
-	b=CVJqi9CZxX+wF2VsaczefIUM43JEP5DEPg7mnDozyg4ppHL6HSQiEGdaDBvNm28LhfV+
-	 oh7U1zuTBQNaUr8e1yrZlmT70bY20j56zXAYCyZhq46NYHJW/ucBjDfCowdqQi7gUQBvc
-	 dS5FbxFfod0UBusF12FvthfTW5ngTJcSP5nBCgElnJ7PRy426C5xtabdZtktJqZ10pJqk
-	 S8MXMrfPHi9SU8DrKlHjGgwaw3NdDRd3bS5IM9forycBzlkUYeZQ/LAZ9tYdclgOZGuBK
-	 GrmduWjNCM1dzTe6NcAwDU7/iMBynGd+c/hzu1717H8KwSoVmbp6Ab50BFEKBKyuM7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795645104;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=xtBf/yWLHGPRxddLFR7vrkNg0MkmjCSVdxTFGDzFQgM=;
+	b=0vMP9b8Kh8b22BCW0wNWYyOodY2wO3lKXtPBJGEjL9CkKjdDFM2A5nkfOgLQFcKsgKai
+	 o2+HeW1zxP8CKzJp6UR31fgWZp3MK8T/Z03+GuoaZh0uK7IkIHrFIPfOYg/MLQossiTXL
+	 qAVQkBOQ4qQ9k+45jNMqyNnYFSyV+BMHRhMwh+40VXmmSz26YLtUVRHM0oGjXLW6ANGcy
+	 insW4OyurJNyzcQHMzaTnqpgZMUzhBo+RT+OGsG5+y4hQAwfeiUnUo2J3tVl912Y4YrUP
+	 rZSfBw4Tj0A8jv8ll8Ckb39qDA23PVFzIWR7HpwOMbisL3MpjQzwCemWBUM3LyOQz2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=iHyirvab;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CLH5G0oM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B673606A31E;
-	Wed, 25 Nov 2026 22:15:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B673606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDF26606A323;
+	Wed, 25 Nov 2026 22:18:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=iHyirvab
-Received: from killaraus.ideasonboard.com (KD106184139166.ec-userreverse.dion.ne.jp [106.184.139.166])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 82515153F;
-	Wed, 25 Nov 2026 23:12:32 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1795644753;
-	bh=OggzM8lGNFtq1hPtvltuDCL/vSTbieC7jAHyiV1fkmo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iHyirvabuaE3TVwnRQbirNpfnfPyOZnZmb9URm+Kj2204fNQfd5I1nJcfFpDq7bG6
-	 1wcnhQ1L7lx7UpizCZoIZwu7/QEVSvSIGaxE2yuV2OCoc09FPWoYg90DX/yLyNA0Cq
-	 ZgYJLo1G4mKY3mHqLlX5dL0VArUlBnJoySGAKuD0=
-Date: Thu, 26 Nov 2026 07:15:02 +0900
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: =?utf-8?Q?Cl=C3=A9ment?= Le Goffic <clegoffic@baylibre.com>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Kevin Hilman <khilman@baylibre.com>, Vinod Koul <vkoul@kernel.org>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Paul Elder <paul.elder+renesas@ideasonboard.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v5 00/15] R-Car X5H Ironhide CPG/MDLC SCMI remapping
- support
-Message-ID: <20261125221502.GD3581@killaraus.ideasonboard.com>
-References: <cover.1795029012.git.geert+renesas@glider.be>
- <1e9c5ac3-d82b-4af9-9946-0302cadf7404@baylibre.com>
- <20261119234759.GB2324725@killaraus.ideasonboard.com>
- <19c3745a-6308-46ff-bb37-3acc88fe22e2@baylibre.com>
- <awAqqg6F2Z1t55x2@ninjato>
- <d94ad9ca-afdd-4301-a69c-0bbad5b334fa@baylibre.com>
- <20261123103633.GB2959742@killaraus.ideasonboard.com>
- <fc13a7a8-b825-400c-9ea0-ceb2670dc478@baylibre.com>
- <20261123160550.GA3050935@killaraus.ideasonboard.com>
- <27796cff-eef5-46ce-8079-93a0a8d40db5@baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CLH5G0oM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F5B51F000CF;
+	Wed, 25 Nov 2026 22:18:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795645104;
+	bh=xtBf/yWLHGPRxddLFR7vrkNg0MkmjCSVdxTFGDzFQgM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CLH5G0oM2JLxV/KchDGhSFf/Fq5APGHb9tbSqagYg6FBqtQjMrkOah46W7W0stvww
+	 IqvBmvN03Uz+8K8ZBD0ZUzgToREH6mftcH8vUhMBHajoIY7F0IiplTwt4Q3Oq/XYSy
+	 uLtq40uN1LwxlgfAXtIDRIV2MvbUoRTmkQ7SAd9P5FpQZAX6/YQGDATkBioYmrvoLj
+	 aQpucgH0Qakl0Dx9pg+jyg6Haklkj5UMU5U2O+/DELsV/abDAe6F/6rY/g8ayzSpNx
+	 pFaZp4VAZtuy0J8TCDoU/am1/zj8kTI/CwgWZ63rOsYEunBziTRmV5135hf+d16nUr
+	 r2XRmeu69lwgg==
+Date: Wed, 25 Nov 2026 23:18:16 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v7 4/4] device property: Fix fwnode_name_eq() for empty
+ node names
+Message-ID: <awddHt_xvc-lIygA@devuan>
+References: <cover.1795639368.git.alx@kernel.org>
+ <396395e1d02ca080da67cfd91a1c49058b2676b6.1795639368.git.alx@kernel.org>
+ <awdaYz9NNVv5fHv9@ashevche-desk.local>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,74 +72,119 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="7ejnb7qdmhqer45z"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <27796cff-eef5-46ce-8079-93a0a8d40db5@baylibre.com>
+In-Reply-To: <awdaYz9NNVv5fHv9@ashevche-desk.local>
 
-On Mon, Nov 23, 2026 at 08:09:05PM +0100, Clément Le Goffic wrote:
-> On 11/23/26 5:05 PM, Laurent Pinchart wrote:
-> > v5 supports one firmware version at the moment, and the driver would get
-> > support for new firmware versions when/if needed.
-> 
-> This is where I disagree: I don't think a SoC driver should follow the
-> SDK versions.
 
-In theory, I agree. In practice, I don't see how that's avoidable.
+--7ejnb7qdmhqer45z
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v7 4/4] device property: Fix fwnode_name_eq() for empty
+ node names
+Message-ID: <awddHt_xvc-lIygA@devuan>
+References: <cover.1795639368.git.alx@kernel.org>
+ <396395e1d02ca080da67cfd91a1c49058b2676b6.1795639368.git.alx@kernel.org>
+ <awdaYz9NNVv5fHv9@ashevche-desk.local>
+MIME-Version: 1.0
+In-Reply-To: <awdaYz9NNVv5fHv9@ashevche-desk.local>
 
-We routinely have drivers that follow hardware revisions. There's
-nothing controversial there, when hardware behaviour differs between
-revisions, drivers have to adapt. It would be great if every single IP
-core in every SoC was perfect in its first revision, but bugs happen,
-and we have to deal with them.
+Hi Andy,
 
-With SCMI, firmware will also not have a stable interface, and it will
-be worse than hardware. A hardware bug is way more costly to fix, so the
-QA process is more strict. Firmware are too easy to update, so they're
-simply less stable.
+> Date: 2026-11-26 00:00:03+0200
+> From: Andy Shevchenko <andriy.shevchenko@intel.com>
+>
+> On Wed, Nov 25, 2026 at 10:03:55PM +0100, Alejandro Colomar wrote:
+> > str_has_prefix() returns the prefix length on match and 0 on mismatch,
+> > so the mistmatch case can't be told from "empty prefix matched an empty
+> > string".
+> >=20
+> > For instance: the OF root node's name as returned by
+> > fwnode_get_name() is "" and will return 0 for any name matched against
+> > it and since len is 0 too, fwnode_name_eq() will return true.
+> >=20
+> > Let's use strprefix() instead, which also makes this function simpler.
+>=20
+> ...
+>=20
+> > Message-ID: <avrSUUM3HMgxTNpl@kekkonen.localdomain>
+> > Message-ID: <nat4ilqmzzpuyrjbuahl367ip22tfnmjorydlppuwqiscxaujo@kf63j4l=
+b3flk>
+> > Message-ID: <nat4ilqmzzpuyrjbuahl367ip22tfnmjorydlppuwqiscxaujo@kf63j4l=
+b3flk>
+>=20
+> What is this?
 
-We have two options to deal with that: either we handle that instability
-in every leaf driver, or we handle it in a central place. The latter
-seems a much better solution to me.
+git-am(1) has --message-id and the corresponding am.messageId, which
+stores the Message-ID from the email header field from which the patch
+is taken, to document where the patch was taken from.  It is stored by
+git-am(1) right below the last trailer tag from the patch (which should
+be the 'Signed-off-by' of the author), and before the 'Signed-off-by'
+appended by git-am(1) itself.
 
-> > I have yet to see any vendor who can provide 100% stability guarantees
-> > for SCMI firmware interfaces. In theory, sure. In real life, I just
-> > don't buy it.
-> 
-> I agree that while an SCMI firmware is in development, its ids can
-> change between versions. To keep the ids of a released firmware
-> stable, I see three rules:
-> - an id always names the same resource, ids are never swapped,
-> - an id is never dropped: when a resource goes away, the firmware
->   keeps its id reserved and denies access to it, as SCMI 4.0 section
->   3.2.1 describes,
-> - new ids are only added at the end
-> 
-> I think upstream should only support a firmware that follows these
-> rules, with its ids in the DT.
-> 
-> For firmware still in development, I agree with what Cristian wrote on
-> the RFC[1]: "fix your firmwares AND/OR apply quirks in the meantime".
-> 
-> Any other view on this is welcome.
+	$ MANWIDTH=3D64 man git-am | grep -A5 messageId
+	     am.messageId
+		 Add a Message-ID trailer based on the email header to
+		 the commit when using git=E2=80=90am(1) (see git=E2=80=90interpret=E2=80=
+=90
+		 trailers(1)). See also the --message-id and
+		 --no-message-id options.
 
-It's not a matter of "in development". Software is always in
-development. Don't get me wrong, I agree that we should minimize
-breaking changes in SCMI firmware, but we can't avoid them, or even
-minimize them enough, without a QA cost that nobody seems willing to
-pay. Where's the stable SCP firmware for X5H ?
+It's useful to document where those tags come from, in case it's
+historically useful.
 
-The way to go in my opinion is minimizing firmware breakages *and*
-having a remapping driver. Those are not mutually exclusive.
+I've extended its use to other tags I take from emails.
 
-> > We can agree to disagree on this, no issue.
-> 
-> Sure, I think we both already know we disagree on this :-)
-> Thanks for taking the time to discuss it
-> 
-> [1] https://lore.kernel.org/r/aekXUvIPb8nkhdKu@pluto
+> Is it documented tag nowadays?
 
--- 
-Regards,
+It is not documented in the kernel, AFAIK.  It is documented in
+git-am(1).  I included it, because I find it useful.  Feel free to drop
+it if it's not wanted (I can remove in in v8 if it's not wanted).
 
-Laurent Pinchart
+
+Have a lovely night!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--7ejnb7qdmhqer45z
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmsHXqIACgkQ64mZXMKQ
+wqlH4Q/+K4tq4+xqA+hdgLFU9RuoGu9qlZ9RqtFtH9W87MQooPrhhUG7AbFMBC9u
+ucTzbnIgGovA2AO7MQsbTJL5+N9firrgftdeDosezvTNFc5p/znYPlW3P5bcrESz
+cS2Auvzbd6s5aqhWgHVxeUNGf5fwQ9QOdkz0Am3ULMnNUXfr/c9KvASfJPO0Qlcj
+NfJTuGv98uzzIeQN54tNftEOnbzqjM+hTGyc0LNUSyh3Fo8pIomM/hL6y36ViS2v
+xgSGxJ+VDq86TbKtvZMgh/JuA2zJ9Mr8SCIGcUWKQMSz0eksGP/MdtDN/q89yUoI
+4u5E7iDcPR/OvgA6MvDIQMlS+LXrSSKAJKrKO+uYO7ee8y0VcmhkSmb6hXnPDpd4
+t89hd/ds+h+MHWdbJhxQCnoEbvWPUnS5bvM5Ez17vLt0LaH0P9WeWNnDsbLRAjvn
+Vr5cSqAHwvQuFCxgoaGhiRhVNtVj6oLf2EqGCSYpXlyjfirNxp+Mhi2x7/xC/szg
+r7LECWvqGXnMh8nZ4b7Ha8dAnETqGLFKwp8X4+3fo/8k0ldmu4VHKhmPWd5FqtsQ
+WgN091lpGuSXNAzGUZLcr1u5FcJG2dTc97jSOk+n9nFnjHHSagJ/S0yhOLywhFok
+BHSOGIKbY88h/xhKT+v6p2wCllPZO4wmjNUaLiQCx3IAcTYt5pg=
+=huBL
+-----END PGP SIGNATURE-----
+
+--7ejnb7qdmhqer45z--
