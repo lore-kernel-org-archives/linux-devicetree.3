@@ -1,90 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.202.128.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795566801;
-	b=iRPpgn6Y7aqRL2nFvwM5FSrNarZ3PJwV4IOj8BCMtQdCbL5eXkz5jZ6GaGQTgFRVGIf0
-	 kN5E7XHPbP5Nl/jbcOq5RC+qGQIIfu+xPMHwMd65lAXthU9uo43q/k8ZcAJ6bhxqgtAWY
-	 OwssO60SUfcxPsIUjvwaMQWsWBt4l3uhB5XFyUqKaDFczafKJm3pnqlPiXuv86BJSEETb
-	 zPpBZ1kN82bYpgAM+7TKstR+e8qMEQya3C99yJNb93Z5av8PGcXxSbqEFrhBoGI6s5WGH
-	 zxIH2Wu3wH9Qed5AiveZGH8sAoHOFaqOFxb/ab80+h+3p6oZUCbh5Bod/v10P6vSxlA==
+	t=1795567824;
+	b=A93h1CKyOuc2F9lAS9wxZkUoJIh94R8JJrb30p4QWDUPi0Ey6ycwkpMDKt87UNRaGNgX
+	 fVP8VMEJg8wjKTaW75rDZM4UY3iYM60K17YNtPISLEk0DbtPYiAxziiQXMzbAMEhuVFh2
+	 Y9RZV6Ok9u9thlkbXGJpkA63+WeBJ7faC/4vZp797dm/CFCMDPwYN8gsuZ6ToxWxHPZ3o
+	 D9YJ8Te87DvaYowRFDOQxF1+vQChN829bZwGYuaYvIEraqcV4y8BQsbQhwWKvi5UJ2LuM
+	 9VTe1mnM5iKRVHN2vr5yfr0IjR3b4y+GbpxOKm3jvKREKrRh3laL6nLVhz/aNvoIRFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795566801;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=yXutiY4wAsWVrAmyrBgblgr1VSZYUu14hZX1/vO7UHE=;
-	b=cnXSiPoMd6YsOIzGjlVI/WzXJ4jNU5th5F7pO2oxX5+R2lu0ZfCKSVfewzuw0hELEXvA
-	 t5HxEZsDsj5cYm+GpNvQnvtjcieWmhHsy78dg86Rw9NJEZ4+oPkG/t3kbYLsEO2rCiRr8
-	 Zgjj/RjPFGDbS+1MnjseMxIoUOiTJL2+uzP49U+Y8rJaBRMMU5gyB4QsquXIkrEcLw9N3
-	 iyDZKAP/KKOowJMLTioQaXrDzXh00xj4ZfHPg3GE8yK4lfbxMQhH4+VB2k5jzl8wC7oIK
-	 38B3Y+fzEZt4OCWDS26oEdaXj2BOAyaMS8w2QQFUfsZqA1wDwdPzsrBvgpasa3apPrw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795567824;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=JuUwzHWhZZaMYBjv7XG6XqaquyoaNPEepSOTGWcwgfM=;
+	b=Wt/16dqzLxEpFRFYfLw00hA0DZjoOzIGZw/9ICU71yD+WbCQBb5mvBlnKxoHhmcVsZ8s
+	 k87ybpWC+MFLH6qwkxvqyNC9ltZOooYepx8jBHmLTW3eWdn9yf7L+wMw/gDWQJtcn2/IA
+	 FUsBGfiJPy7ncTJPsLMJmLNX2T8ZdRZTt885mXhM9BBGxgQqk/ZKAxs1kct5omEzsjryy
+	 fbaQUoZgKU6ySVVyRtmOPoKmjfqRuWOSgM0iji3pPRDrOAyELOe2/lnENN/M0rVsCIuom
+	 Duo8akv5kyu3cHIfwdQSwdKJO/2rqV2gAXQVc6MrA+Sqi0gdHAFnFatV9BwnOXu+bJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="jAgkj/z+";
-	arc=none smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=freeshell.de;
+	spf=pass smtp.mailfrom=freeshell.de;
+	dkim=pass header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=g3+MPGUM;
+	arc=none smtp.remote-ip=116.202.128.144
+Received: from freeshell.de (freeshell.de [116.202.128.144])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7859A606A31E
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 00:33:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7859A606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CCFB606A31E;
+	Wed, 25 Nov 2026 00:50:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CCFB606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=jAgkj/z+
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b87a1a2babso11145089a12.0
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 16:33:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1795566800; x=1796171600; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yXutiY4wAsWVrAmyrBgblgr1VSZYUu14hZX1/vO7UHE=;
-        b=jAgkj/z+aNjrtmwqAk5XFZObJEzoEOjdEA1IYA/SEm8x2Qmjyo7A48oxA+WcRHXr79
-         liLV0WMr2KbZ4+NnN66Cc3ua8LzrV3tjpa1O+5xMWVdSZd4AUAGyl8TjqR6n1UtEJP23
-         IUibRbZNrIH3beKDQJz7l+KeZuR1PZ90x4rmU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795566800; x=1796171600;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yXutiY4wAsWVrAmyrBgblgr1VSZYUu14hZX1/vO7UHE=;
-        b=KPvWypRVjF0+BwuydCfx2qtIYaIXoVwAnsgQgJlm+PIzESrqo5IJqJTUC+RSsbE8T9
-         ZVmHXj3vapvHF0mSaRG7SoOvmFqi3Ji49ypdQvcOf93fm9yCyAhIJ7hEKs1LgiLh3eaI
-         SfAAGqI8KyPLKRRyP8sozX4XXSWg+SjdLMKDCddHLDp2bOeo9U7mupMlAQPvSWmggSJU
-         rkwH8I4Hq6DuRAzy0pAK4YvrnJSCsjfkIaw4McISA5jPuz6izmlVbf/A7w7YnJ+7Zdi+
-         D/uZ4P9j2B4xYDLGHdqI6rCLQNBUvx56P8um0PPaFF+V7AbfBxXBK29HdtkvLFN4wR07
-         6ylA==
-X-Forwarded-Encrypted: i=1; AL+hErEa/spQL7hVuH3bCFY/nyIDVmZjhM75rvkOtCyfv0eUcNt4vZcbgHchj/W/f3AFRnLe22QVxv5nEoq0@vger.kernel.org
-X-Gm-Message-State: APuU4Z8dsR3KGMpxMaAYEA730QEWuzihUY3SIZba+Fpw8XU4D+RT/o0/
-	Podkep+GhIKSiHEQ+Dtaz0tres9/29t9jOlypgexxej4+RApsBxusT/syJeQ1aHIUmGo37z4KEs
-	UUhL15NCg
-X-Gm-Gg: AZFdTZeglUU19+41Wj+OwRV4AQtUBmLwVT59fWeEUKkxAy4O+f+YpiFxc427w3M3Esw
-	NOKC2QSF3s0Iwa7uC0PBPMyIbus0uxPdgnn5ebBwucE6JIdR2HpXytDZ0vZwW5FtSKxSmJ1EvKk
-	0AYpSJ++NRE5WXN+tmcjSe7MrTv0OwGdwwk+Offheu1s65aXTdTNWwvY663jZ3nY7imJWeA0bZG
-	Z0Ve9TcYint94ChnvQ2kxEZ+LYUXmBxYr/4+/0+dYFYy2ZIm76Lid7bHDMN+wPOQ7C608MRQ4dL
-	DU07fK7FTa7WgZWQeWvWTo/pjif1BeaC3wsXgqECFHF6MeY70V2lWjkcEOEVXpZbYqPkuPGZUJo
-	sv2UjvgIhU8JiXgTscuXfDUvIb9EUND/NAplCT7OPG81bNouUVQgQ9FPnH/qsKsS4gObfWk+ELp
-	5dqqcQm359EEbyDStp4jrAeANtzW4eJLyWEdV2wH/2+tG8jRsn1WTqkOHq7v/pkIZlm/fftCtNF
-	D8RU2lqzscCg+29TWXp7U8bsOv5megnnHJUEb8ue9SatRLMb8NAmDkWSVHVMRl43sUi2OnPKdcT
-	yOPv1Owllb3EkQz/40GHZttUpIuFLfZtSxAVLbWuuTHUfHlSMKQZM2yV7skgWwkzyVyu
-X-Received: by 2002:a05:6402:1c08:b0:6ba:be00:b9b2 with SMTP id 4fb4d7f45d1cf-6babe00bc52mr3697034a12.10.1795566799764;
-        Tue, 24 Nov 2026 16:33:19 -0800 (PST)
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com. [209.85.128.45])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba3711ad52sm7599260a12.35.2026.11.24.16.33.17
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Nov 2026 16:33:18 -0800 (PST)
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so66703785e9.1
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 16:33:17 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFsuK7xWpkQ0OHpkFw22mMD/Ybx6082hz0iG3MOKRaiedn2MzbwpQCoAyr/7ds0jQtejYD6JKVsWCqe@vger.kernel.org
-X-Received: by 2002:a05:600c:12cb:b0:4a2:1104:7ca7 with SMTP id
- 5b1f17b1804b1-4bb861576bemr256892195e9.11.1795566796722; Tue, 24 Nov 2026
- 16:33:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=g3+MPGUM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
+	s=s2025; t=1795567765;
+	bh=JuUwzHWhZZaMYBjv7XG6XqaquyoaNPEepSOTGWcwgfM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=g3+MPGUMqcE0pyupobLlvRPp5zb6Ms/XBPfIcuRfmmP7LWJTRk+LMu6bIQWCHbbNw
+	 0vDeuPs09oionSBocXBZKwXpxzs0Cz9aNw0QeEmqH+5Lhnpb52GhCnlv840DDmbGbM
+	 4VIbEFXLtZwsMmKFC7xXW/yVvnDgFYQVfo5dCoOzmrRvvMfcznQECjx9edTvDTvUDr
+	 391/O69rjbk8gKGDcUwtjtwFQy917q4QvPZtNiBDvtzj5+8HE9EhjTySEuRAD1fvfw
+	 w9JQYe4VEDtQPsVLSAiYCgYp5iDMBGZn9XdsAlf5DnQJF/LIDhl7OP9jlYlvDmhaSl
+	 6rYkvr2lkvr4w==
+Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
+	(Authenticated sender: e)
+	by freeshell.de (Postfix) with ESMTPSA id 93A9EB22081B;
+	Wed, 25 Nov 2026 01:49:22 +0100 (CET)
+Message-ID: <311a1481-0849-4865-88f4-636f13c2c6dc@freeshell.de>
+Date: Tue, 24 Nov 2026 16:49:14 -0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,98 +58,91 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261115180147.1208082-1-vamshigajjela@google.com> <20261115180147.1208082-2-vamshigajjela@google.com>
-In-Reply-To: <20261115180147.1208082-2-vamshigajjela@google.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 24 Nov 2026 16:33:04 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=WG=29qgrTHARxHRpwNNedqQAg9qGRV1upDObekVLazbg@mail.gmail.com>
-X-Gm-Features: Aa3M54r4HJHXbXXsTl81DElUvLOJMM_DwqBh6af4oogcdFGi5xYSj3tXIA83QFQ
-Message-ID: <CAD=FV=WG=29qgrTHARxHRpwNNedqQAg9qGRV1upDObekVLazbg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: spmi: Add Google LGA SPMI controller
-To: vamshi gajjela <vamshigajjela@google.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Peter Griffin <peter.griffin@linaro.org>, 
-	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Tudor Ambarus <tudor.ambarus@linaro.org>, Jim Wylder <jwylder@google.com>, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/2] riscv: dts: spacemit: mark K1 boot nodes
+ bootph-pre-ram
+To: Yixun Lan <dlan@kernel.org>, Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, devicetree@vger.kernel.org,
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261024092558.143621-1-alan.tseng.cs@gmail.com>
+ <20261124231909-GKB245721@kernel.org>
+Content-Language: en-US
+From: E Shattow <e@freeshell.de>
+In-Reply-To: <20261124231909-GKB245721@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi,
+Hi Yixun,
 
-On Sun, Nov 15, 2026 at 10:02=E2=80=AFAM vamshi gajjela
-<vamshigajjela@google.com> wrote:
->
-> From: Vamshi Gajjela <vamshigajjela@google.com>
->
-> Document the device tree bindings for the SmartDV Technologies MIPI SPMI
-> master controller integrated in Google Tensor SoCs starting with the G5
-> generation (codename: laguna, canonically written as "lga").
->
-> Signed-off-by: Vamshi Gajjela <vamshigajjela@google.com>
-> ---
->  .../bindings/spmi/google,lga-spmi.yaml        | 56 +++++++++++++++++++
->  MAINTAINERS                                   |  6 ++
->  2 files changed, 62 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/spmi/google,lga-spm=
-i.yaml
->
-> diff --git a/Documentation/devicetree/bindings/spmi/google,lga-spmi.yaml =
-b/Documentation/devicetree/bindings/spmi/google,lga-spmi.yaml
-> new file mode 100644
-> index 000000000000..60d1e1769cf2
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/spmi/google,lga-spmi.yaml
-> @@ -0,0 +1,56 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/spmi/google,lga-spmi.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Google Tensor G5 (Laguna) SmartDV SPMI Controller
-> +
-> +maintainers:
-> +  - Vamshi Gajjela <vamshigajjela@google.com>
-> +
-> +description:
-> +  SmartDV Technologies MIPI System Power Management Interface (SPMI) mas=
-ter
-> +  controller integrated in Google Tensor SoCs starting with the G5 gener=
-ation
-> +  (laguna / lga), supporting MIPI SPMI Specification versions 1.0 and 2.=
-0.
-> +
-> +allOf:
-> +  - $ref: spmi.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: google,lga-spmi
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - resets
+On 11/24/26 15:19, Yixun Lan wrote:
+> Hi Hung-Chun, 
+> 
+> On 17:25 Sat 24 Oct     , Hung-Chun Tseng wrote:
+>> On the SpacemiT K1 the BootROM loads the next boot stage into SRAM, and
+>> that stage sets up DRAM. This series marks the nodes it needs for that
+>> bootph-pre-ram: the SoC clocks, UART, boot media and the two I2C buses
+>> in k1.dtsi, and the board EEPROM (which holds the DRAM configuration),
+>> the PMIC rails and the SPI NOR in the board files.
+>>
+>> The vendor confirmed that the BootROM itself does not access the
+>> EEPROM [1]. It is tagged because bootph-pre-ram covers the phase that
+>> sets up SDRAM, and DRAM cannot be trained without it.
+>>
+>> Testing: all K1 DTBs build, and dtbs_check is clean for them with and
+>> without this series.
+>>
+>> I used Claude to help read the U-Boot SPL and the device trees. I
+>> checked the changes and ran dtbs_check myself.
+>>
+>> Changes in v3:
+>> - Reword both commit messages to describe the hardware instead of what
+>>   an SPL does, and drop the U-Boot paragraph from patch 1 (E)
+>> - Tag i2c2 in k1.dtsi too, as every K1 board has the EEPROM there
+>> - Tag eeprom@50 on the OrangePi RV2 and R2S, missed in v2 (Sashiko)
+>> - Drop the Assisted-by tags, see commit 1e035297ffda
+>> - Keep E's Reviewed-by on both patches, as the changes are the ones
+>>   discussed on v2
+>> - Link to v2: https://lore.kernel.org/all/20261017180141.3477743-1-alan.tseng.cs@gmail.com/
+>>
+>> Changes in v2:
+>> - Tag i2c8 in k1.dtsi instead of in every board file (Yixun)
+>> - Rebase onto the spacemit dt-for-next branch
+>> - Link to v1: https://lore.kernel.org/all/20261012235624.77993-1-alan.tseng.cs@gmail.com/
+>>
+>> [1] https://lore.kernel.org/all/20261021083425-GKA125937@kernel.org/
+>>
+>> Hung-Chun Tseng (2):
+>>   riscv: dts: spacemit: k1: mark boot-critical SoC nodes bootph-pre-ram
+>>   riscv: dts: spacemit: mark K1 board boot devices bootph-pre-ram
+>>
+> I'd not put this series on hold, we generally could address other
+> remains of issue/improvement later. so with
+> 
+> Reviewed-by: Yixun Lan <dlan@kernel.org>
 
-Could you remove the "-resets" from required? It looks like for at
-least one of the IP blocks on LGA the reset isn't exposed to the main
-Application Processor. I wouldn't expect this to be controversial, and
-probalby Krzysztof wouldn't even mind you carrying his "Reviewed-by"
-tag with that change (though he could reply and clarify if he doesn't
-agree). ;-)
+With regard to mainline U-Boot use of devicetree-rebasing there is a
+robust method in U-Boot build system for overrides such that we may
+adopt these proposed changes there before they are accepted in Linux.
 
--Doug
+With changes-requested all addressed for v4 I expect the shape of this
+will be good and it is not holding back anything in Linux kernel. The
+hold is only due having to ask for what the closed-source BootROM is
+doing and waiting for this confirmation now instead of having access to
+see its code directly. There are intellectual property warnings
+published by SpacemiT prohibiting reverse-engineering the BootROM so it
+cannot be expected to proceed any more quickly than asking and waiting
+for a reply.
+
+If you would like to abandon the approach I suggest of considering the
+effects of BootROM peripheral configuration as a hardware environment
+needing device tree description and bootph-pre-ram hints for
+constrained-memory SPL, then that topic can also be discussed. Please be
+clear what your expectations are, thanks!
+
+-E
+
+[...]
