@@ -1,47 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795643187;
-	b=MzMBf1VpzzEzfAaEMapQuPHXD1sJVqoj+LDLVouBCJcmxq9SX4Fo90aCVBnG8h47YSny
-	 fPc8q1l0sZwrc8yD9ohVPGW6oarh+mr/xRMZ1xfWCnuucuxD1WzWnqfTrIguLM4a2zDZO
-	 c931/fuHUuqkPsECbTFYR/mzb/m8kH+54WRiaxOM1Z/LuyMEUQYOL/MxIigxdJQMt6B7X
-	 dx75fz8NHXVkLIxZJqktEa/KEB8aLPSie8wXUPW6ol+K47aTSHJRntUr9kSjtFg2fxMv9
-	 h68LcY8wmI0/iAiKaHsgY1hY9+DvK2jZs2nAMBaTpt3tMSe4WlxYEIr6ed6TPyKlOoA==
+	t=1795643510;
+	b=etJSKx7Dv4NLl3ujyKlRA6UQzq//m5AC9rachXVU/MIBn1BsAq5i7VYFzqC3Hw6lY20q
+	 I7okas/R3gP3+4e8UtHvVscaCYWEwVHucG7OswgHAutyMHO+/pwQnfB8FJKClEoHHMg/u
+	 2lOqSOxgZPB6suYEqomviclhAdaRTrU+MuJgHMKCEtsI6XTvSC/Nkv5cqSEcrnBY5RJmL
+	 hazrZkNvxSMM5rYeEbbWCg0iRJyHJBOiCcPt65Cn1b6xCBelFnsCKWqpGRHFCrzw5mb5F
+	 vtqTNDnbbVdApWxIvzf8Iq2E+ZMA3MT/VtIMDGkn16ikIkSKPmfKqXa75nD98ZaDngQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795643187;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=sKGIq+btLwQ1Z2Nr5Fhq2wgssMh/R3J6vidIxhGeHDA=;
-	b=sSwBksuRyJBSMCMDS6RbRnTEkKTepH4lH3UlJksfr54e4LGibxEPPkw6NGA3OOSjgVX7
-	 nrtK7rI/wG9geboDafEwY8HvHe5r2dNZdZz8HizJ9q7QzSqqKyJ5+ZvMr+n2Ic4cytNB3
-	 8h3/1oUt5tup6eyb2yWWI4hb64efihb8s7N0oP1p4oVD7hhN4Bx8ShOLFFO5gyTNgnJP1
-	 CDSAYlnVqHLoMe42BVX9R/yPjcpU2ZVDVDHUPH4dxOXBlKFGUFfcvn0yjwTdaCmjBBnTB
-	 me3VhHkvPrATA2DAzUXN3AxWpjavHMwzDgNsaL8zsYOJjazgcHZGE34U2KTCcojjHcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795643510;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=rbSy8/naK9NpKBKilS5D0FxnjU7qPGsjWJMaC5SsXmI=;
+	b=NaxczYnEMCaNInotBQXFK9AGXOsY/2mJSFx0TLQBBdJXin3wwRBKY6ljhiyP+/RjGOWN
+	 +KuP6fTzwkbCd1E9lhnsASP4gHrkVIg4gorzGhEBCLXHxYmF7rjf58pH7IIR05O5b7VuK
+	 AiCZzzLue60hwb+y1vSCgwCqQtAO8B24NSh1kUz+IFpPrN0v5qf5d7drAbwp2ANF5CdOw
+	 zYOw2gZyD3bYOC22jQtXhjCt1eWuYjxdXzMeavy+/hkM8OEeTjhp7OMlray0PoY2cGLdO
+	 1SgqGfyTX5KJ0UX/5cS5smwVGknF0XzWGQER2O+yD2ea5Cv/4j97dF3BFAuoYkrBpNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gPDZu7hl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=riscstar.com;
+	spf=pass smtp.mailfrom=riscstar.com;
+	dkim=pass header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=RvkMU6aH;
+	arc=none smtp.remote-ip=209.85.161.49
+Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9EA0606A31E;
-	Wed, 25 Nov 2026 21:46:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A06A606A326
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 21:51:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A06A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gPDZu7hl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9308A1F000C6;
-	Wed, 25 Nov 2026 21:46:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795643187;
-	bh=sKGIq+btLwQ1Z2Nr5Fhq2wgssMh/R3J6vidIxhGeHDA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=gPDZu7hlMCcYvLcY7ml5FrSK6dQiOgJwMpHETbh5/v2jJjapoY6+mdfOSOWIUYW+y
-	 xXBALBF7gp+5wNhFItKfxJBkW7Uisnt5zIyCEPURZXH+DyfOEFAdIbQ/4QhPbahw9P
-	 Fl6PGUc0fhdjtzPpR7aFzaVJJDlOZPRr5uFhnXAOdPdVmNn+gyIguy0qiTrm5xqCQk
-	 1FhED0CKA7y1rt5WMGPSo6n0VhfsPg7Gw8OAfYhgbgZ043UkPftfrTn/inap0V5IS0
-	 TYY0o41CEDihxaTN/b9tfBRpcJqZxsCO4tiQI29TnoXoOpoWvd1NMlAwm4g9OPhzs+
-	 axVrEVf9F8u+g==
-Message-ID: <67c6c65f-0958-44fc-b258-f33857f1cc17@kernel.org>
-Date: Wed, 25 Nov 2026 22:46:23 +0100
+	dkim=pass (2048-bit key) header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=RvkMU6aH
+Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-6df7f544919so3802314eaf.1
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 13:51:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar.com; s=google; t=1795643508; x=1796248308; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rbSy8/naK9NpKBKilS5D0FxnjU7qPGsjWJMaC5SsXmI=;
+        b=RvkMU6aHw3UFU7F0s3LawFuMMWucgrJOewAmTNt/s9mU1jocAFjNJMZKtPkXuvf+r6
+         3Y1gMKTzSvrCakTTvX1dK5xqZ8bWJeGZJ2cAKfIvX0GRIA6CK00CzxZpH2mgs+RjwMlp
+         /J928Qpmpf9szu6sskdshfNebwQGfXIM0ijz7JGjMOYZ90oMGk6HmqfozgFQYYsjC7+Z
+         Pi1R4SLtvkJ49mAZH827Axk/UVcNrNf/Qm4qAYl0gpum9z2+bGTOAaekxeFK56P3SYJS
+         EC2MUyaS7hqQErt+f03GVz84MxOh0BOA7wKgIXz5xT9Fw7bT22bUKp+Qu+sJrZdcsFau
+         Dobw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795643508; x=1796248308;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rbSy8/naK9NpKBKilS5D0FxnjU7qPGsjWJMaC5SsXmI=;
+        b=urnoeDULdOY/Iz6W0b/1n0pTn1fQaYYPuCMHAjo1bqt3pGcki0ax2imkSHlXDr898Q
+         +IbQAp0i3FQ9Ey7UQYiPnmYoNqKPEEc2fXalgEHJ45iN19X/voIE9YffSDXZepO6uq/4
+         sz3oWOU9VnMgkYqjofhv2g6LT0VahOfVEcoXDdDqGjQAlhAtIRkmKospBMSLvZej3hZE
+         mXhc0icDukwSUajS8EGfluoNpw23xBDcKkdVpd0mrJ7yQVpAFZ1uRXOIrsZpIm1Nhplm
+         tQv9hmhB7Y/bQ+9znn2/MzBhdIqhDnYD23xB429rEhymTZHrXy1tlxiTRWnpL21JSjUx
+         2Srw==
+X-Gm-Message-State: APuU4Z+vwbRPQOzMnO+q9RbXyIqXrx/9RPOqcZciLuredAUDVpcp4KwZ
+	nm6BLbDxLDeYTOWZ83KPVqG78hMxSlXibWOXHqxofPwRv88XxigVLa7sIxDVZnu0foo=
+X-Gm-Gg: AZFdTZc3Su1V8D6ro9iI+ieYjEV3yMVA3M2GacPrKUNXGAYTYr79A5CqUxKBl43cgfI
+	bmf7aH98HwIUdQ+ZVsKTA/pD2jscY2y0JSqWW+5r4kKZrySNfqrtFMDDog6Z31+fEh83cZTzo74
+	9vBqV095pLxzC7cfQSGdXpts9Uo0jAVcuFudl1aLcNEeRzz7V5BJm1Fchd8uK+Lu5XsBIIioCoo
+	MI1YN7gDVCV4oRg9EkLB6Rlg96DiELn7E0P8mI/v3AMGCUVMOCuBe2y7fKqxGhv93hiG0tPVDe2
+	9oyD40YBo/ir66gQaIJsJhLfsg39LnbUVsjSYlE2KxR+wZgKFcbFk3tk+l0zht06rWtPCAHX87M
+	eFz05WmyD2DasNfwwRYKDc1GLX+I6z0y0mglrB5QH/UvQ1LwaPnO+SOfUOP6tGi+/ykICoev52r
+	2gMaY5cqD8cjtohWsPwHTwE0omIOBAI7gfpT2VjT7T7U+8wFKbBX4szPEHha16caGUi0xWlp1a6
+	mRkE715ahiNNr0CWOa/PB1MlcX5bOTLxZW9FIHA3GvxOAHRE3TGYR4/V6dMCvn/08AdZylDZHq5
+	8dsCGB/peiIDdHE5zPCV8BpUB3HE6NJg
+X-Received: by 2002:a05:6820:1391:b0:71b:8969:9d1d with SMTP id 006d021491bc7-71b8969a594mr465740eaf.31.1795643508188;
+        Wed, 25 Nov 2026 13:51:48 -0800 (PST)
+Received: from [172.22.22.28] ([76.156.233.211])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b38015c46sm12670866eaf.4.2026.11.25.13.51.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Nov 2026 13:51:47 -0800 (PST)
+Message-ID: <d5abcbbb-e533-4a44-a26a-1ca17e37d7f6@riscstar.com>
+Date: Wed, 25 Nov 2026 15:51:47 -0600
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,97 +91,112 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: mahua-lenovo-thinkpad-t14s-gen7:
- Describe the Embedded Controller
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>, Sebastian Reichel
- <sre@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20261123-t14s-gen7-ec-v2-0-3420a6202366@oss.qualcomm.com>
- <20261123-t14s-gen7-ec-v2-4-3420a6202366@oss.qualcomm.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20261123-t14s-gen7-ec-v2-4-3420a6202366@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: qcs6490-rb3gen2: add TC9564
+ clock node
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org,
+ conor+dt@kernel.org
+References: <20261125202141.1288493-1-elder@riscstar.com>
+ <20261125202141.1288493-4-elder@riscstar.com>
+ <sashiko-outbox-234134@kernel.org>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <sashiko-outbox-234134@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
+On 11/25/26 2:28 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [High] arm64: dts: qcom: clock-25000000 under pcie@0,0 shifts tc9563
+>    port indexing
+> --
 
-On 23-Nov-26 10:35, Abel Vesa wrote:
-> The ThinkPad T14s Gen 7 has its embedded controller at 0x28 on QUP
-> i2c9 (ACPI \_SB.IC10). It uses a different command protocol than the
-> Gen 6 one, so describe it with the Gen 7 compatible. Its interrupt is
-> GPIO 66, as on the Gen 6, but the firmware describes it as edge
-> triggered, active low. Using a level trigger makes the handler fire
-> continuously while the EC holds the line low, with no event pending.
+This was a great catch on a seemingly unrelated problem.
+
+I will consider how to address it.  Off hand I can think
+of two options, but I'm sure there are others:
+- Move the tc9564_xo_board *after* the downstream ports
+   (after the end of the pcie@3,0 node).  In this case I
+   would add a clear comment in the DTS file explaining
+   why this is necessary.
+- Make the logic in "pci-pwrctrl-tc9563.c" more robust,
+   possibly by skipping nodes that aren't of type "pci"
+   (or possibly "pciex"?).
+I think the second option is better, but I'm open to
+other suggestions.
+
+However, at the very end of this message there is another
+observation that might make the above moot.  I think this
+clock node should probably be defined closer to the root
+of the tree.  I'll verify that and will fix it.
+
+> commit c4e2dd0c5c7aea169ea475dfdf59cb2e475d33be
+> Author: Alex Elder <elder@kernel.org>
 > 
-> This provides the EC hotkeys, LEDs and keyboard backlight.
+> arm64: dts: qcom: qcs6490-rb3gen2: add TC9564 clock node
 > 
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Thanks, patch looks good to me:
-
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-
-Regards,
-
-Hans
-
-
-
-> ---
->  .../qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts   | 24 ++++++++++++++++++++++
->  1 file changed, 24 insertions(+)
+> This commit adds a devicetree node for the Toshiba TC9564 clock and reset
+> controller along with a 25 MHz fixed-clock node supplying it.
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts b/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
-> index 9bda86f82a99..7e7e9b861899 100644
-> --- a/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
-> +++ b/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
-> @@ -735,6 +735,24 @@ ptn3222_fpr: redriver@4f {
->  	};
->  };
->  
-> +&i2c9 {
-> +	clock-frequency = <400000>;
-> +
-> +	status = "okay";
-> +
-> +	embedded-controller@28 {
-> +		compatible = "lenovo,thinkpad-t14s-gen7-ec";
-> +		reg = <0x28>;
-> +
-> +		interrupts-extended = <&tlmm 66 IRQ_TYPE_EDGE_FALLING>;
-> +
-> +		pinctrl-0 = <&ec_int_n_default>;
-> +		pinctrl-names = "default";
-> +
-> +		wakeup-source;
-> +	};
-> +};
-> +
->  &lpass_vamacro {
->  	pinctrl-0 = <&dmic01_default>;
->  	pinctrl-names = "default";
-> @@ -1007,6 +1025,12 @@ edp_bl_reg_en: edp-bl-reg-en-state {
->  		bias-disable;
->  	};
->  
-> +	ec_int_n_default: ec-int-n-state {
-> +		pins = "gpio66";
-> +		function = "gpio";
-> +		bias-disable;
-> +	};
-> +
->  	kybd_default: kybd-default-state {
->  		pins = "gpio67";
->  		function = "gpio";
+>> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+>> index 682bcbc0b466b..b327f64885ef2 100644
+>> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+>> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+>> @@ -890,6 +890,13 @@ pcie@0,0 {
+>>   		pinctrl-0 = <&tc9563_resx_n>;
+>>   		pinctrl-names = "default";
+>>   
+>> +		tc9564_xo_board: clock-25000000 {
+>> +			compatible = "fixed-clock";
+>> +			#clock-cells = <0>;
+>> +			clock-frequency = <25000000>;
+>> +			clock-output-names = "tc9564_xo_board";
+>> +		};
+>> +
+>>   		pcie1_switch0_dsp1: pcie@1,0 {
+>>   			reg = <0x20800 0x0 0x0 0x0 0x0>;
+>>   			#address-cells = <3>;
 > 
+> [Severity: High]
+> Does placing clock-25000000 as the first child of pcie@0,0 shift the
+> downstream port indexing in the tc9563 power control driver?
 
+I think it currently does.
+
+> Both tc9563_pwrctrl_probe() and tc9563_pwrctrl_parse_reset_line() map the
+> direct children of the pci1179,0623 node positionally to TC9563_DSP1,
+> TC9563_DSP2, and TC9563_VDSP:
+> 
+> drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c:tc9563_pwrctrl_probe() {
+> 	...
+> 	port = TC9563_USP;
+> 	for_each_child_of_node_scoped(node, child) {
+> 		if (++port >= TC9563_MAX)
+> 			break;
+
+If the second option above is chosen, this function
+should be updated the same way.
+
+> 		ret = tc9563_pwrctrl_parse_device_dt(child, &tc9563->cfg[port]);
+> 	...
+> }
+> 
+> With clock-25000000 ahead of pcie@1,0, pcie@2,0, and pcie@3,0, the driver
+> treats clock-25000000 as TC9563_DSP1, shifts pcie@1,0 and pcie@2,0 into
+> TC9563_DSP2 and TC9563_VDSP (misassociating per-port settings, reset
+> GPIOs, and the integrated Ethernet endpoint), and stops before reaching
+> pcie@3,0.  It also violates Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml,
+> which only permits pcie@[1-2],0 and pcie@[3],0 child nodes.  Should
+> tc9564_xo_board live under the root /clocks node instead?
+
+The 25 MHz oscillator comes from *outside* the TC9564 chip,
+not under the upstream PCIe switch port.
+
+For this reason, it should be defined somewhere on the board,
+not within the TC9564 chip.
+
+I will investigate the right way to represent this and will
+correct it.
+
+					-Alex
