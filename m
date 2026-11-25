@@ -1,97 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606703;
-	b=J1FX9TMg6QpC8rLbCC9tsqpyrYWnVTa3X8i4Y+6cpph/fJFTS3mWs6QBCZiyxtOQG9ks
-	 pZsRy3NoEcf1RQDoVIsrfMNKGEHn8fyAUrWxLK6f2xeTbz3kdkUOkwfHG/a6bQa4RXIOu
-	 iDegmrxdf0MzFLizVB0R0UqNxJ9EmenAmLPdWe3WzOxsN+heACF5ZYE1CA6zgjaNeIXqx
-	 5sMly14hSAAjwx/PuJySBMpV3h9i0n1OVC5jPiRG/Wm5mhTWLkNCHh6TudITdapwJJmig
-	 Z8XN/sfjdRq/P3bCjn7h3DnmADJBJvSdUWVRh501NSH4gjKVIXjzE/bl3redeEoiE0Q==
+	t=1795606715;
+	b=xY71TIydPH6o8hjBcUfD+bGSRwJ+oiTXRLRz8kk4+7MyjovVSYzqk2P4uZjzlyX0YW/e
+	 CYZRmLTH205NgHF1iSvfYmXE+xJt1mtcylFtCJkyRae5bQr8MtOFminwj4bwj/+Nv3I+T
+	 Okcc1n6vcqDXIE0ufWisLHUbvjMdEZJCSN4toIxJUPKJviNjuA+lgz2LcGh0dRNef1u5W
+	 F9e3l/iWR20JGQ99XKInZfzwzxc0Y/JY3PKg9I7hqvDsbgOnOSL35JbThiMvwBzqkFsUs
+	 VXpFXBkeElJseEbK7AU5Fwz72dlM0QfqsqlpKpa3gUuH2lUkuw6ori0bpBRQrQf6cCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606703;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=s2BIBd5zd4VkMYRFZWl5QkRuLP5x9yc/zhRV4K5hm78=;
-	b=j93WF2VCIrkjlvQ6hLJ0xi8ZT5av57YnwmC5FoBK2vMoGEWvGsa4+LSaikmZj1MHNXE1
-	 j5JZY/KQ0CYguq9nW70qWNwcds4/0izHwneddQb0fimbqe+mddLj7mmaILFLFQfqCJzOE
-	 foXVlvRdRXyLnsbUy+8LUXH8WtOTHDkDR5AqcdiZHQxLMXvEQz8YWwyJqhioL+QMCAWPq
-	 M40Jqg5biaPnPJPAiWR47BUXs5PqXObfgSRQYVGKI/lffuxvLa73iuL/h4F4GoNeZ1Ktp
-	 gu5JibglrP53r2u1UQEtihySwNbvJPqztZAPLKPy+Pur82RN3pfYtr22/g3XFJoZb8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606715;
+	h=DMARC-Filter:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=ZfR/6lnsUE/pnRQi/PbCLWIsXUsmgZSZZiyw7HHwysA=;
+	b=axc4hfUG0LQ8FHRbyZMtDp61v+BAe94MV82CoqDebtPs5rdCsvSadxXR6OOvswGjp/Rn
+	 HxYryEb+CWcY3cp4XnAMc4BcyoiKlUie1zkwQVKYpKZVm+CXBbRDDHhLolUsqfh7fGnWa
+	 GuIwi1xK78R+bt1569G9BLx7sfMYEvfpfHzVYUgGjaoi+W2QBHtF3UhTwWp87BOU6AGeO
+	 BAHpJATSZMVFPEX+crBCiOCE4S41MadZJdJsTqfFvIQ2lmXeLvxuiqkggkskgWDjGm+gl
+	 frYkqpVZ/k6ppHJRNO5Fd+h2k5oFA4VQuc2b2n77LXZjYktdB0BDpJVjFxF6H25NYLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=KSxpaI54;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=kemnade.info;
+	spf=pass smtp.mailfrom=kemnade.info;
+	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=cy7vHFNh;
+	arc=none smtp.remote-ip=178.238.236.174
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A29B606A321
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 11:38:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A29B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BCFC606A321;
+	Wed, 25 Nov 2026 11:38:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BCFC606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=KSxpaI54
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4bb5b8ef642so50335745e9.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 03:38:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1795606700; x=1796211500; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s2BIBd5zd4VkMYRFZWl5QkRuLP5x9yc/zhRV4K5hm78=;
-        b=KSxpaI54cIcKWf5gI0gybRkbKbqSsHskJJaBtu8FGJyA041yqykOD7fQ7w3lxItY7U
-         U6CzI1hyJ6Cd0TwEeIMuK2GqFa7ZGy6jeJYyriiT9Pm1rEEm9+AD0ZzBiYOLhYoxJ+dd
-         hKnF2s1f+5La/ykPimDFzAdMVZ6pZWXxNM7ay5wXp7vTEJZsy3bWMvF40GmEyWrpCWly
-         geI2oIjjuq6B1hzzAHee75BiFkBTh21rh6ALomuOeq4UHC59IrsGSuy/ihOHZw2OWVEN
-         NN7m6KUEML1LnrZHyGTzVkBPtKTkPsyBhX+8XMjy6wD2emnylX0cmeoEtgnBbjNh69G6
-         MNpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795606700; x=1796211500;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s2BIBd5zd4VkMYRFZWl5QkRuLP5x9yc/zhRV4K5hm78=;
-        b=g3MoEaSJgwMzkJaaDaBNtkmv75l2IAYxTKuZ0tEgM3xMGhFYR/8/h75lVoZfnlLDuT
-         zjXRaXZvSzh+bkQi/yzqXrNORZqTFNADk6qj+cAyW883lZq+WODGo9NNwv2ff+0zd/1H
-         VTRD83zwj7rnodJ27f5deB2r2zEwLOxZfnNgtHhcGnKWREuBWGPZELmAbSjPxnpLUUjr
-         55pqAz9IKF/7JsI5I9WSVHQbxy7eUqp/p+r/60movOmI1zM5LvpHiv0dLA1CtQjJ+m+V
-         cl9khjfIwQWow2VUNFnjXhIuwslteLjduJAz5XjKsJqfAoilTgNgBd9LTvbqDKSqHcZC
-         XKnQ==
-X-Forwarded-Encrypted: i=1; AL+hErGJ21e+Xcf/KbC5ABL6aYAwf21fQBJuLgIMg/ySZAPhadUw2wjAF9AHhEiGnlf1zCWWT7fPifZi0uUH@vger.kernel.org
-X-Gm-Message-State: APuU4Z/yk3SozMHw2lJgXhC89+iacZQGGU63ti/Tf/YbnB0Di3Qoj8oE
-	GhPUk6QrWAEawUs2MdSeD/WnF/R/iYq9yyQW6rwbkJfv9sMFut854VcDAuUg4+SJg5HNxew61x3
-	4wQFz
-X-Gm-Gg: AZFdTZd2t3rmiuIw1uqBa9b5L7CJBBgo40VecsGi/MFaOrOuUYS9PmPf/UgcGl4mbs+
-	M6FwRuH2i4YgX9Ea8BbtQ0kQNl1/e6Oc/7iXCTaY0CBEQLk/6mo7Sg3R42L8IxvuKGCukm1DZE6
-	DsVMWYWB+h4RlYKhHlZwxzFxFV7A3SfiFxTThW8e7nxgr8w8ZFcq/T2Twj93dldE+lo30voBL83
-	RKXls9O5unQfk+5nLkhJywiHPKJMxgowUNYpBnVr8ocw7N78Zs5GoxSniDFO0+D1gxoHxVg0cOi
-	hnXpUdAydVfaGRD2vxFtrF2rPrHbXJWeyVi+McA4JyLkupAxioLKrBVEPVWUgrGyBZ8mQUL0hai
-	ijl0pCyVNAJu3udZp0RwAmYb/juNxyhpW0kKwdh8k3VDyQE58PtuMDhVputkObHRxJkUhMxZvbE
-	SX6J4209NyugQ50EL6p1GqSWwYP12Hq7WuvfskqroDwPcrH/0oOwuJpflvIXDNWxLAT/joluPly
-	NaoqlRRbADhLg/tGNS+XHfO/3DFZMuL6BMBb3BhD+eAz/6kuDRqE6cXWAuujym5xte6DUdnjRvx
-	yCVXX4iwCq+mwxRUvMmh/IbaS7X0YnNNg3/YQfiWNqfZ9/IwD8Q7RRZdDsrXhuZuKrz09+eZDHd
-	EDX51NNkuefSxNaClgRM9W2I=
-X-Received: by 2002:a05:600c:1911:b0:4ba:38a9:85e3 with SMTP id 5b1f17b1804b1-4bb8880eecbmr389740405e9.12.1795606700561;
-        Wed, 25 Nov 2026 03:38:20 -0800 (PST)
-Received: from localhost (p200300f65f19a9043ef7230869dfba63.dip0.t-ipconnect.de. [2003:f6:5f19:a904:3ef7:2308:69df:ba63])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4bb9067846esm334115195e9.4.2026.11.25.03.38.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 03:38:19 -0800 (PST)
-Date: Wed, 25 Nov 2026 12:38:18 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: armandas.kvietkus@proton.me
-Cc: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] power: supply: Add Maxim DS28E16 battery cycle
- counter driver
-Message-ID: <awbIT7KY-jYiaTBe@monoceros>
-References: <20261124-ds28e16-v1-0-bed431df0578@proton.me>
- <20261124-ds28e16-v1-2-bed431df0578@proton.me>
+	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=cy7vHFNh
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=Cc:To:In-Reply-To:References:Subject:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=ZfR/6lnsUE/pnRQi/PbCLWIsXUsmgZSZZiyw7HHwysA=; t=1795606714; x=1796816314; 
+	b=cy7vHFNhBcTO4lOMVOOWJQRSLbI36ymlJOhbURxnSkoGLZguTsia+N4GyBQCONqX931/23ey8XH
+	VC+gjVr3Fv9YuiMqHXIKp4A7tFTlY5kBGB7yanXi5kBggSZ0iN2WfrgwrhJJbg85SWNzwlioT1BrK
+	8411xrSyPJWvVi0g8W0x+CsuiLT1hS6E9jKC3MlEykn7Ymx8Ft7iQgzHNxmezDHdgDsJQgNL0pc7i
+	KzW4d9BmWzjh17qSfFFrTmZXUcluYGCzHdmKkiVQwvCzBSvJEnnBs7aD1Z8XsuoTR43VURFd6QRPC
+	R/hPAw88hwf8nS8jD7wwLa3iDM5IlJYSCzlw==;
+From: Andreas Kemnade <andreas@kemnade.info>
+Date: Wed, 25 Nov 2026 12:37:21 +0100
+Subject: [PATCH v2 2/2] ARM: dts: st: stm32mp15xx-dhsom: fix bridge reset
+ polarity
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,45 +55,72 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jjrec77j6abl6thu"
-Content-Disposition: inline
-In-Reply-To: <20261124-ds28e16-v1-2-bed431df0578@proton.me>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261125-tc3-reset-v2-2-32eefcaf1460@kemnade.info>
+References: <20261125-tc3-reset-v2-0-32eefcaf1460@kemnade.info>
+In-Reply-To: <20261125-tc3-reset-v2-0-32eefcaf1460@kemnade.info>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Christoph Niedermaier <cniedermaier@dh-electronics.com>, 
+ Marek Vasut <marex@nabladev.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ kernel@dh-electronics.com, linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
+ Andreas Kemnade <andreas@kemnade.info>
+X-Mailer: b4 0.17-dev-1b309
+X-Developer-Signature: v=1; a=openpgp-sha256; l=987; i=andreas@kemnade.info;
+ h=from:subject:message-id; bh=GLBUHsrqFLUlRWZt8GXXwr1nDsTd3sjuIa8AxQT8QUI=;
+ b=owEBbQKS/ZANAwAKAYRhRfpAKNzxAcsmYgBrBsicxJ39BdQawPVS1vsqyb5pVVpsEPBznjhCy
+ lM2FgQvhcKJAjMEAAEKAB0WIQTY6xCZL0TEE1XHfFiEYUX6QCjc8QUCawbInAAKCRCEYUX6QCjc
+ 8X6uD/9Scm2vnKjdVnjiK5Wq/OAU/DMB13MUnnPQJBPhn+RvKcdBp1h/Bl4EO4jPp4H4/GoiKve
+ vD0lq7mk5bkSwVuIs2Prj/GRLhLE6+689XkMZeMnn/4EMC5KojJKgllX4fsxY/bm3hD7Opy0nI3
+ iIh3JeJisk29PvsHfXFjBhMmZyZg4r32CRZ05Mobm4JXdbEuVkk5pKW+r6n7XcGbdJdr6IDaw0c
+ cOVlrOPiJ3+MdZmXv/o3Is+prFMav19unYmeqVgHmb6DF1WbxCAMI2dSP+hkHviyqyYWYaiykSG
+ HWEEhIABxryHExQPvnGtLaN0qiJbLAg6aAm4B4iLe1Mb1M1TmnR2HNYMBPzPBlvPR11vxPfllYx
+ qvzn+vIyJ/T83NAGMyHxx+KGqun/XBG33sH19RzTmV77MfBfOT9JB53BfWpXY+EPdUFbM4grLfx
+ fnrNweEdrr/aOIaI5Bi4HVGpU3ADxNV4VvY7YVN56SGRm4TOE0SD6yIHb1vDRVN1XBtpu9gqrsu
+ xt/l6fQD9/9o4SAlFtWM879aOj4U4r6GG406AalpbLhdTAz5AyLJEqr0YZ2JVFm8JAqQfK5w/bm
+ Q780iaMF1ec4FyGszAoWNk/IyRfXKRqVxumnvmUtkBitCLKy1DqlZP3ZZNGZ8YcORRNI7ImFDSW
+ v41YspPCfrD4cCw==
+X-Developer-Key: i=andreas@kemnade.info; a=openpgp;
+ fpr=EEC0DB858E66C0DA70620AC07DBD6AC74DE29324
 
+Reset is active low. It is apparently set to active high to work around
+a driver bug but not to indicate an additional inverter in the signal
+path. Correcly describe the hardware.
 
---jjrec77j6abl6thu
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 2/2] power: supply: Add Maxim DS28E16 battery cycle
- counter driver
-MIME-Version: 1.0
+Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
+---
+ arch/arm/boot/dts/st/stm32mp15xx-dhsom-overlay-panel-dsi-rpi7inch.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Hello,
+diff --git a/arch/arm/boot/dts/st/stm32mp15xx-dhsom-overlay-panel-dsi-rpi7inch.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-dhsom-overlay-panel-dsi-rpi7inch.dtsi
+index 518c269a1dba1..6342a6e757c12 100644
+--- a/arch/arm/boot/dts/st/stm32mp15xx-dhsom-overlay-panel-dsi-rpi7inch.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp15xx-dhsom-overlay-panel-dsi-rpi7inch.dtsi
+@@ -35,7 +35,7 @@ &dsi {
+ 	bridge@0 {
+ 		compatible = "toshiba,tc358762";
+ 		reg = <0>;
+-		reset-gpios = <&attiny 0 GPIO_ACTIVE_HIGH>;
++		reset-gpios = <&attiny 0 GPIO_ACTIVE_LOW>;
+ 		vddc-supply = <&attiny>;
+ 		status = "okay";
+ 
 
-On Tue, Nov 24, 2026 at 06:43:21PM +0100, Armandas Kvietkus via B4 Relay wrote:
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/platform_device.h>
+-- 
+2.47.3
 
-Please don't include <linux/mod_devicetable.h> as this file will go away
-soon. With <linux/platform_device.h> already providing of_device_id
-<linux/mod_devicetable.h> can just be dropped.
-
-Best regards
-Uwe
-
---jjrec77j6abl6thu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmsGyKYACgkQj4D7WH0S
-/k5AewgArBYfMFatnNpL8Psvv6tkIFRXFQrumMJZWzm4TrNGgZ0ChTINBtd3d+lq
-eqw4N7FpU0I0B4hHymNl941aCVGDe2ChNrN2Vj57ZJ6kNh+XTomH5r+t9wGiYKNi
-MZN+bNJdFCE+TSaeTTfkFzCmC0V6A/49lGho05mZSMOZaS8uOaLgvFQ5nE+eExZZ
-o7Ynyh+REbs0ZriffD7bKmsvAuvRwXualNrIxDqg7/b3sEvknF4q6ibG59zVnv91
-UGWjbKo1NNDayvISHATU2tiZdXL/ABRCIUPz5YxQA2uULskx/y6b67213Mv/B+QI
-F+Z+tiGP82oeKZyu4hdSbd3Fk1APsw==
-=Up78
------END PGP SIGNATURE-----
-
---jjrec77j6abl6thu--
