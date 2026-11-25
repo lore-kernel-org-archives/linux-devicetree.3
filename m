@@ -1,81 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795614989;
-	b=159LYYzHgq9XOtSPTeHzdlhv2xkOxC/M13Jqu6bpiAr/pO5FJY7TuGIzwFnybK00bT6A
-	 cp/KM/Bx/P36r+GLxCNQZXB30EJXoUVnw05E6lsyPvtSFmQD4I60oLoBG4wT6Mw02dpx0
-	 s9OdWMYT1wVHyJ0dGSCVJPAn5jBjK/5ojTq29gvaxjYPW3ClsR2SMdVMOW2JYKoJ7RIVQ
-	 buD2sapwuAfsYxoVtYq27VEWR8AM+qGGWjF89HarvgGlEaaIxc8epe5Zn0/AK9S1HQtg9
-	 fGWjKxECexWpIJ3lnquPZpQIA1zXsmPHHg4twkO7d5sPydmaFNjwFNzxlIoVHMFWLow==
+	t=1795615039;
+	b=l+1HuFyvrbrCDGy/SA/7LEgzNoPJpC54VMfBzA31JQjd8fZqmowWK/nYi51ko73YEOLy
+	 gnQEoNHq3QhUt4hTs1VeFYsLkSXOOdVZOAJmB0JrrU4l5eO92mYkz/wSTe5WR7q3BqlHJ
+	 hDIj3JKGUcsRr/f+1dVRem1Ll1fMlIPAyoLQEqY7EK8Z0kFuI1Pj38v0KLMIv4/TuO04b
+	 O/MpfTfLS1pbGxClS36ce1OltFdHmbu+FsoVfaUMq7kE2GuUiV56nXaKuKt/ygneS7keO
+	 gqP/LCj8bCD2f8dpDhFkDDFr5RhoahnnSZEUy/aI752fbU6BqpZB8Xyhy5NEOIkOkdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795614989;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=0aBqMxJDgvMz7i6AIJn4XzKKfdX+IDbRJyfCRCeiBUk=;
-	b=ardaFRcW6/tINL8FBN2vkln6yP/so1VCBdK6QP+dDv/74eodhfwgCasi8tY9aPQdrQJH
-	 jwFr8s/wGMMyXG1sSwDzCtf0nTUfEgosFf7MZj3LFkftZQbwIciLvJKLm++lMLjZXZ0Um
-	 vEHP3g5p2Kc8VZoy8gnPGsPBjQq7LUj3VYHVZt+7bQN3aG1/REKh3Xkennz0df9VUdRZh
-	 m5FiSttb0r/k1sBkOEi9UaSLsfuj6cL4pHeRNQpomNG+dSEjjk9v/wfGZdwnMXlANW/6n
-	 5t4dm928ClxKdUPQC0sC++gMUI8MR3EMxHQlkxqEC5L8JjHoyWXW8G9KiVSrP/DQ6qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795615039;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=0GJWek9ysI/dnWdEkThevMWsXP8r/NzutxoOXo5TZM0=;
+	b=nSSUL8PPF2qUPrVtX8vuxZLOsDxdu4mSWgWeG60Kt9I2N9saMtYjno0M84p9nMgkrEtf
+	 bkItJ0sPo/vsje15OH7oebR49mSeFadEr/EHbi8/CwDZDxzrMmnYfBh7DB6mzz5t4icdR
+	 kG9s6K1TLR+tBgfLEzWW3YoB5b+6PYC2HSYGpVx9B/UETZ8mfQ2UVB3MaynwM0O70EtZh
+	 WMpI/vbDA0bqGiFOwyoEnVO3VCMDogvsJpCe4Kz4JdaE31W8OhdQu4nuvkZm58+7MVoku
+	 ch4pSSqV3GfbV9tRE7JZL5Krhyrvo2uSzKclgB17wJZhcPQob2mZF9LkRR5hKnetLsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bVCKhqj2;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H2R18SQ0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C26606A31E;
-	Wed, 25 Nov 2026 13:56:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4C26606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CF3C606A338
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 13:57:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bVCKhqj2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795614989; x=1827150989;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=q2j7sJN2VX0ocB6DN0v8l2ZUgx6RTf6tkLY8172U/34=;
-  b=bVCKhqj2hhnUvVmFqZw/DFQs+rmYx3526Kqus0Yf9hwG8nCyHpguTFEF
-   ZwsUES+uVS3UTlbN+8BuiKpeI8rm/XbzhBmOSbkbSLmlqoxm6v8oXcyzc
-   u5e46HbO5ZwJE4HT+9rypwUXy/tDyeiUAY39jZbCYQSgCJPynhg8nzy2H
-   L7VCOK6Y40tzruCswBtoaDCvRLN0HdGbpSdc1OONEwQhxMJGdt1xfQuXB
-   JfGb2zTvnGLGrR5U/QGmDBDCa1NOrPeO8EIlZidmAI18a1ZIkLR5WwKhf
-   nYxe0DvSanBi5v+wcc6EXI9IHj2CdsI5I+FQ2N4NprS8pRFKM+GiounkN
-   A==;
-X-CSE-ConnectionGUID: rNJWgOHGSbW/+XoGVDhXtQ==
-X-CSE-MsgGUID: n+A+upzWRyKnEjg0y7D4dA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4372742"
-X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
-   d="scan'208";a="4372742"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 05:56:28 -0800
-X-CSE-ConnectionGUID: CkpgHFkZQ5eqf98NxGmH0w==
-X-CSE-MsgGUID: FiWqEJ7oSZ6BoW8opDBKgA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
-   d="scan'208";a="11870000"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.73])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 05:56:24 -0800
-Date: Wed, 25 Nov 2026 15:56:22 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: Gerard Marull-Paretas <gerard@teslabs.com>, dlechner@baylibre.com,
-	nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, jic23@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com
-Subject: Re: [PATCH 0/2] iio: adc: stm32: describe the STM32H7 temperature
- sensor calibration
-Message-ID: <awbpBtAeQl4i-YVy@ashevche-desk.local>
-References: <20261124202220.23721-1-gerard@teslabs.com>
- <89f43760-01c7-43e8-9682-b7363ffc931f@foss.st.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H2R18SQ0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C9211F000CA;
+	Wed, 25 Nov 2026 13:57:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795615038;
+	bh=0GJWek9ysI/dnWdEkThevMWsXP8r/NzutxoOXo5TZM0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=H2R18SQ0t+J+JbsHcnVZOTmrk6o/Vz+K83k4IzgEbFfsjzteRS+O6A09hKUpR7ZPb
+	 WgqzH3mbnjP2NIU7bA6hmrjIyU4q08Y8Hct8QcQwyZU1mAtNE1E8dGA+5hhW4uqNsL
+	 lZ1C/mtQ0yybn5dEdLzJwr9s4vstaeEXeIWJekgahYY7qtVm5urJrTPLUnwwKCxGlA
+	 EYfdaaPAyJ1oiha47re7Kv/XtDbE8YWuc5rm+13UpAf4iybAYol3vevyjZ4t1kcsUj
+	 9uxmpFbYD4yWR50Q5L0t6swDuv3kBOdaTTPJEgQRfwHfBinKtFr4PajzbfnoTBg1+8
+	 C4ti4lMBoZLpQ==
+Message-ID: <sashiko-outbox-233511@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: hwlock: st,stm32-hwspinlock: add mailbox
+ cells and interrupt
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Gerard Marull-Paretas" <gerard@teslabs.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261125135231.98914-1-gerard@teslabs.com>
+References: <20261125135231.98914-1-gerard@teslabs.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 25 Nov 2026 13:57:18 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,29 +59,64 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <89f43760-01c7-43e8-9682-b7363ffc931f@foss.st.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Nov 25, 2026 at 01:56:35PM +0100, Fabrice Gasnier wrote:
-> On 11/24/26 21:22, Gerard Marull-Paretas wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: hwlock: interrupts placed before clocks in
+  properties
+--
 
-...
+commit 94e93b8064cef375edbe40c9efd2a2628ce5d7ac
+Author: Gerard Marull-Paretas <gerard@teslabs.com>
 
-> The DT is deprecated and are going to be removed [1].
-> 
-> [1] https://lore.kernel.org/linux-arm-kernel/2afd5f78-0174-4955-8c1b-be18aea3800b@app.fastmail.com/
-> 
-> So I'm not sure the dt-bindings update is useful.
+dt-bindings: hwlock: st,stm32-hwspinlock: add mailbox cells and interrupt
 
-But as long as the code supporting old DT is in kernel, the update needs to
-those versions, no?
+This commit adds the #mbox-cells and interrupts properties to the
+st,stm32-hwspinlock DT binding schema so hardware semaphores can be
+described as inter-core doorbells.
 
--- 
-With Best Regards,
-Andy Shevchenko
+> diff --git a/Documentation/devicetree/bindings/hwlock/st,stm32-hwspinlock=
+.yaml b/Documentation/devicetree/bindings/hwlock/st,stm32-hwspinlock.yaml
+> index 829d1fdf4c674..3b8d872b7c21d 100644
+> --- a/Documentation/devicetree/bindings/hwlock/st,stm32-hwspinlock.yaml
+> +++ b/Documentation/devicetree/bindings/hwlock/st,stm32-hwspinlock.yaml
+> @@ -9,16 +9,30 @@ title: STMicroelectronics STM32 Hardware Spinlock
+>  maintainers:
+>    - Fabien Dessenne <fabien.dessenne@foss.st.com>
+> =20
+> +description: |
+> +  Hardware semaphores, which also ring doorbells between the cores of a
+> +  multi-core part: releasing a semaphore raises the interrupt of each co=
+re
+> +  that enabled it, and the core taking the doorbell clears it in its
+> +  interrupt status.
+> +
+>  properties:
+>    "#hwlock-cells":
+>      const: 1
+> =20
+> +  "#mbox-cells":
+> +    const: 1
+> +    description: The semaphore ringing the doorbell.
+> +
+>    compatible:
+>      const: st,stm32-hwspinlock
+> =20
+>    reg:
+>      maxItems: 1
+> =20
+> +  interrupts:
+> +    maxItems: 1
+> +    description: The interrupt of the semaphores for the CPU the descrip=
+tion is for.
+> +
+>    clocks:
+>      maxItems: 1
 
+[Severity: Low]
+Should interrupts be placed after clock-names to follow the canonical DT
+binding property order (compatible, reg, clocks, clock-names, interrupts)?
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125135231.9891=
+4-1-gerard@teslabs.com?part=3D1
