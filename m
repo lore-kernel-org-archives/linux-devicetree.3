@@ -1,45 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795613854;
-	b=uLXk3SiqW7JWR6RWBFNyw+blTNKp6lEyxJAKV8l1nq64jnPmgRWfv1/tQP380RMiD3o2
-	 bOHOOhNIxOz/LaJWW1JF8BZOmpyo7b2jJUkwf2x//HHogVLTX6rfsU638v6wTh6mZ6/bF
-	 ldeUaeZzWKL8vk0N79fNOTeA9CMEUZk+kdw3A2p2UxTuW+fCg+1dWuorLRQUHWPRZnzev
-	 r7N2z9ofXZX1GB4nvUnX0j2FJSIZreefLIheuimo2WOKUdIwAc06XMIyy30q19RZPTkeK
-	 SNyS5Af5+0vKHOxEHuzTVQIMVDkv6tWOE4pk/z/f+6SJQF0MEMnaayg8XmWogfX3uZA==
+	t=1795614178;
+	b=b5KaQ45cnnUG+HP2w50ykoJJ/AyJY8S2kIhnXol+vOCvFTVpVjshScZPILSb9aUBiGeV
+	 7GLyq1pKhcnY2SPDt2ji9qkNeBHxwA1p0Ka34KIMxfjpPETpwqPNXsXatQ1MrdmLmOEzP
+	 Tk7i1zqAmaFkxcQVHOdH0XNq4011AFx0+t/+sEvq8/fsoFw0al4FzgksDLZlT7ZInCins
+	 pyThRmkZRFWZ84c352GCWYT1X7p1VF1NZ2h8s0LVsDoyAMjsqgTwPR/fwEAFO4wdHV8Fo
+	 dd+y69qWgNH379jfHBccfOXKxQ+nKTMvrf2zbDFRpKA8BFBizbtMpsm96HyYZnNc7vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795613854;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer;
-	bh=zSOmY8Gy8e5lYgsKCLO/qRks5rr/DxPaHmfpdFVxrjs=;
-	b=BpQL6R7w23BiHo5YCnfa/BZh0r/50lvJKLFTa562lhtzVSiHV6E1toPxVqBmsYz3Gl2n
-	 mIMAWNCL1APuXWDUN9tOJfge1ka5cwKuf+zfpmDKcrHpeyEiYxq600fkM4fRSdE91fLkd
-	 MtjRXm3U++fWsev84cLQJMGf2BETqIgLRj1axpVZymTKdnxk3veZ5j3jAaaWORusghAvB
-	 bC5BnG1G0x+31RGKwAkJJ/g8Oba5IhKGga9XKzI+oSqWkYlydhZBXf6Wd242pMicOyEQy
-	 PXYsS+OU+nG54JDbQ1jNOPe2JZs8EYLpAmDz/emAIxW+ux66fh6sjVmZwBURm/mOPxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795614178;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=94dBN4nZvz5K10Z7Qo1dDIzvMLLzg6fHXCl3rR87xXY=;
+	b=lef4DS6WF2iUYG/bX1tcpNsr00jDO7aSLHTn7h9MTECTQQ/+4ktJangW5o3jZkphXd/k
+	 u4PX7rzuJG3Wf7IKX7bex2ZFWCDoFn6nHNwM3ligY/O2vJEUF7Aymk7r9AocJCrEn+Waa
+	 LoAH+Z+c0WxUdA7kzZJCEnkX1Y5N5/jtXg63s1Sh7fgenJWDDSW1zHJHIuZLMGcdzXgXk
+	 JGY3I5pQQ2Ojj1itUWNZvfWGhnlGCEu7vbvB1O7DnlJGGiMcz2nYG+TIxo5OPNUm94Lzr
+	 iKQGlxeBJE1LTuHbLhBIC8j12KjcG6M1fp4te4oXL66G1kQh5QTCNak7eF/QqIM0DWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EXaUOyPu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2101B606A333;
-	Wed, 25 Nov 2026 13:37:33 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YPiVF8ZR;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8CD61606A321;
+	Wed, 25 Nov 2026 13:42:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CD61606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EXaUOyPu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A33B61F000C0;
-	Wed, 25 Nov 2026 13:37:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795613853;
-	bh=zSOmY8Gy8e5lYgsKCLO/qRks5rr/DxPaHmfpdFVxrjs=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=EXaUOyPusUq/AJoUUXm//v0oKLMF+1aMfPX8gIS7gjQOUdIpYjk5+KUKcPcnhB3MY
-	 6gTmU16p2Pps8Te4FQ0rN89jd3Y3MkOq4YdFFZz5hHZmlXzP8uMp7hQ0QlBv/v5UrF
-	 nrZvwC39sJ88YBj/RKOVCfCexdCtKZg3ZIHcrC3lcarozW64BTRhNrST37M2NAdSCf
-	 IVRhcW0eluFFy1pXI0TtkZvM7sU1832mrcQTneg8IUOjMmX0A3e3aL2IHjgcpFBdXl
-	 Z5ksKSDE04+rz7OBvAm+ukCV8k8VX3736k4q7b+KJIxUTTJpMz5oN6RaGcyvhwgo8l
-	 a9nWjJx7FaM6Q==
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YPiVF8ZR
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 976C52F;
+	Wed, 25 Nov 2026 05:42:53 -0800 (PST)
+Received: from [10.2.201.43] (e140322.arm.com [10.2.201.43])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DAD333F86F;
+	Wed, 25 Nov 2026 05:42:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795614176; bh=AxfncaFQ0kh4IU5ZveyAnWcDrnSS3uLL80mDJJw2xIk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=YPiVF8ZRRPQKPaa9SH+gqmtoz8+gCL8DOq/QMmfQjL+1u6VNmkZobG/pLQNX+ZnH+
+	 prgpb7+SyN5LwjvQxYqzndoPdTZ4ejRPdtfvZGAiGuCJAo45azE86Fpwgw90Pv+aJB
+	 CXbJXc+zOphgmQXGn/04YL8t/bFZrtppdVZjQ7to=
+Message-ID: <c6b27e99-bbd9-4dcd-ae35-3c31222475f5@arm.com>
+Date: Wed, 25 Nov 2026 13:42:53 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -49,63 +53,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 10/28] media: mali-vpu: add firmware cache
+ infrastructure
+To: Nicolas Dufresne <nicolas@ndufresne.ca>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Rathinavel Sankaralingam <rath.sankaralingam@arm.com>,
+ Shobhit Pandey <shobhit.pandey@arm.com>
+References: <20261119153758.1426673-1-charvi.mehta@arm.com>
+ <20261119153758.1426673-11-charvi.mehta@arm.com>
+ <0fe8752a8e772928ed9c86b022b4770a5c65a05f.camel@ndufresne.ca>
+Content-Language: en-US
+From: Charvi Mehta <charvi.mehta@arm.com>
+In-Reply-To: <0fe8752a8e772928ed9c86b022b4770a5c65a05f.camel@ndufresne.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v4 8/8] dt-bindings: stm32: use reference manual names
- for ETR and STM bus clocks
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Gabriel FERNANDEZ <gabriel.fernandez@foss.st.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <ecbfc73c-2961-4e05-870c-cffae1d4cf60@foss.st.com>
-References: <20261106-ups_mp25_clk_update-v4-0-9e32b817c38d@foss.st.com>
- <20261106-ups_mp25_clk_update-v4-8-9e32b817c38d@foss.st.com>
- <179553246414.44164.14668877546162285849.b4-review@b4>
- <ecbfc73c-2961-4e05-870c-cffae1d4cf60@foss.st.com>
-Date: Wed, 25 Nov 2026 14:37:29 +0100
-Message-Id: <179561384966.84329.10896464850349756791.b4-reply@b4>
-X-Mailer: b4 0.17-dev
 
-On 2026-11-24 17:17 +0100, Gabriel FERNANDEZ wrote:
-> Hi Krzysztof,
-> 
-> 
-> On 11/24/26 16:01, Krzysztof Kozlowski wrote:
-> >> The bus clocks of the STM and of the ETR are identified by CK_BUS_STM500,
-> >> CK_SCMI_STM500 and CK_SCMI_ETR. Now that their kernel clocks are
-> >> described as CK_KER_STM and CK_KER_ETR, and as the RCC bus clock of the
-> >> ETR is already CK_BUS_ETR, these names are confusing. They also differ
-> >> from the reference manual and from the STM32MP21 binding, which uses
-> >> CK_BUS_STM, CK_SCMI_BUS_ETR and CK_SCMI_BUS_STM for the same clocks.
-> >>
-> >> Use CK_BUS_STM, CK_SCMI_BUS_ETR and CK_SCMI_BUS_STM, with unchanged
-> >> values, and keep the old names as deprecated aliases so that the
-> >> existing users are not affected.
-> >>
-> >> No functional change.
-> > That's ABI break, so clearly not true. Users of this ABI - this header -
-> > did compile before, now they don't.
-> Thanks for the review. Existing users should still compile: the patch keeps
-> the three old names as aliases at the end of the header:
-> 
-> +/* Deprecated identifiers, kept for backward compatibility */
-> +#define CK_BUS_STM500        CK_BUS_STM
-> +#define CK_SCMI_ETR        CK_SCMI_BUS_ETR
-> +#define CK_SCMI_STM500        CK_SCMI_BUS_STM
 
-Did not scroll that far, that's fine.
+On 11/19/26 21:34, Nicolas Dufresne wrote:
+>> +	n = snprintf(name, name_sz, "arm/mali-vpu/v%u/%s%s.fwb",
+>> +		     key->fw_ver_major, codec, role_str);
+> Your firmware will have to be published into linux-firmware project for your
+> driver to be accepted upstream. Depending on the state, feedback and clarity of
+> your driver, I may or may not ask to ship some HW to verify your work. No
+> immediate action needed. Since you only offered a generic DT binding, its not
+> clear what upstream SoC can actually make use of this driver. Some information
+> about this would be appreciated in your next cover letter.
+I am in the process of submitting the H.264 decoder firmware blob to 
+linux-firmware.
+Testing is currently supported on FPGA platforms and software simulation 
+models.
+A possible SoC integration of a related variant is also being verified. 
+This work lays the
+groundwork for the next generation of the IP, which is intended for SoC 
+integration and
+is expected to reuse most of the driver with minor variant-specific changes.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
-
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
+Regards,
+Charvi
