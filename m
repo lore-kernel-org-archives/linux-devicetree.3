@@ -1,45 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795621008;
-	b=OAMlKeorIh4wmQ8dhf+E7G4g+7NuAHT8kIhdKVNZJaDZVUC4AG3+ClaDcAAx/y2hRBR9
-	 CklIMeCKLXBnYHBkVYNnuRbHOO6WEsaiTtpmHSb+FvpXa0Gk1DXKY+t36lqGTDZfXJvtK
-	 SFahGmzF5BHsH5OPs3P7yohsZUrYJ3IGFw4sJMvzP7qPg3Wkj4vKcXXEl2+dBss9gY2bq
-	 q4wJLeRze0LRNYw2KdYX4t/LGnDRTB1UwEA8UEr6yhCHpViVboUU9Qw+thc4V3PvQqw2I
-	 rmxgV0dST+9mYmT8QZ92ngb931gKk9+fNvId8Lc1xrmcFqxMdjE6zLN6GwcBjFlCleA==
+	t=1795621201;
+	b=jHa4NmUCk2j9/Rc7OoYnQkPJuDUyE5ZG1TWjZhQftv5TwdelM2bipIMDtaR07sKrmnfM
+	 GvPlbR+4qD1oA4+X6wqQPIJdGHucQa6OWpc0yZKUDFOkFS/ZtnmFmahq2kFQC1bdWfIwG
+	 fGjgIHLh0Ynk1omW7m1VGyHdTWdYyWN222tJTy1K+egaD7sEXNH0NdNtESdTjtiR5gAOu
+	 f10EpOspgpO231QVXIVkgvqvpNnj/AdR7tr5icwkT3bW3q53pFL2BcUX63433sv6eqqOG
+	 b9R1G+B2kxPvPzKvC3FbWWe0GE+PNFlsydEED5AkPo49+veVGiuUX6mLDnL1qG7b9Lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795621008;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=E4gahwPKY0YwK67Ml2QTBETBsr9zPWMHQsnmRG4ecuk=;
-	b=VHeflg3wmz4Xr+Jw/kXufGN6wqAcgxXnIvVlwp3DDCvgpvPF1L0StX0rbngIGF3n85hD
-	 u/MNEmE2pdLMP5UIkIK+byQiLXTLJ/k8ztK212hnTupfQzjP4VfeZy9EsEcNAVTKcdQuz
-	 mP4QoLdHLfmtW5cLsaNUKEUrsXjXSZsg7/QbPm7H8PPy2BOajdadkvlpRZoPfq94JgoxH
-	 6HSgR7s0e1XshhWR7DKhAN70h6RKK0z/uFrM5aRsb7uZNSlOdDPn8WlK3RkjFaPjH3Ztt
-	 PcBYUYmZp1ko2J1zwRkvcmNQEmpo8kc8xdecRMbDSVn5Tz4nrqbQ9SkzvfHqZNPbutw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795621201;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=gqUeEhyGjKq93ahPeMI4CffMFtMuuHUd8X1hC7MuE8c=;
+	b=YifWL31KjPlO1sE5VvsaD+YH19AjjrXjjIhRiZjVH5UormkGbZoiVyVsDC2UbnyBxdvl
+	 C23YsiI2/ykYzbXHRAdLhEnVuVUQK2Ngc8SIn301pCEOgaWYp+h1FcMD96exO6a6Q/rBL
+	 ncqo8VxiMZspi7PDoAbVGJYJv8WBTic1BSDNKXe828Xd0XS6akC5KXbj3zvML0IEslzSK
+	 drgd+HxI+AQbhySTk8L6cI+cuKihrJTb227aDfsH3uLb9XKaUDur++ITtnZNQA9QOPdZb
+	 VQ+PU0cGiTFS6JAaL9+ug8rIfG+48HAFaZY46gg/bRUYRq0dnRalWp3gmfoBghjOmOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iJsa1Ph6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=RjxdsfKw;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C28C9606A695;
-	Wed, 25 Nov 2026 15:36:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76C4606A33D
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 15:40:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D76C4606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iJsa1Ph6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA7A81F000D2;
-	Wed, 25 Nov 2026 15:36:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795621008;
-	bh=E4gahwPKY0YwK67Ml2QTBETBsr9zPWMHQsnmRG4ecuk=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=iJsa1Ph6Lye8Kxltg2vx087a/5J4RHKTfD6GWrcsAiXCLSCCDyc2Osclsbv2u4Gz6
-	 gzPl5LIExg0ABFVCuLmjfPIfGu/cr18Twx8HJZ7aOBGG1O5uU05AHowHJMa8XL3hiB
-	 Ljdyo+kuWwYcSweCv5J3YItc6gzVJjrrbdUheGDDn3zHz4USa6B3VRvmfAt+PtEQVa
-	 LW3kjRPdh8Rem0j8tHFdBtAvDn7aEMW3SR76E61r/KB6s7IvIM6f1xkFiXiILA8DnA
-	 v6imJSFC2MKJ0ydJqgl+xvVlFcBxiRBQB1NruNfOTFYzezfdr032SFjR+aQBxCSfdz
-	 SCwEhzzppq+dA==
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=RjxdsfKw
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so40421925e9.0
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 07:40:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1795621199; x=1796225999; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gqUeEhyGjKq93ahPeMI4CffMFtMuuHUd8X1hC7MuE8c=;
+        b=RjxdsfKwvvddGpQSiNhRsMhHqK+KznqtEzdvJlHNkNxRcNDDOnVVWr0obg9T1+w5YF
+         IXSVqRD72Kt14j7/vOch3js9XRZ+MOQav6q+WBeAvgDXBYU5UAlDmPZTqqj8maE6QTzk
+         RH8OhZMEzGRWmI13DO0mVDzTjznLEvNsLJudBVG0o/2U0CAzCh/p18Eis767vb0mWFkt
+         wOdRWWP4FXylRdYfohZkobSdmX/jcRRrz2lvpCrUBmEAS1NrPXbhC2X+VCfPh1YPFPHV
+         tgqR26Le1ES5fcDtsnSZid+RMgOyE6a704dSJca23QAMgNQkjO3J1mJm4VtXdQs4IgSd
+         E3Tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795621199; x=1796225999;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gqUeEhyGjKq93ahPeMI4CffMFtMuuHUd8X1hC7MuE8c=;
+        b=avdkBadLgSa8z2NutIh4sYOgfuO+qpoRSOMMI+U815r8lVt8cYn2HmXN6a0gbHQr20
+         2OgykbZVeQ7GzoYC0Y3TTwnM1XbCw0MwH8daU77FtOOfeZLtFVa8ha7K3JDFnXZJ0Pr8
+         2+I9FFsH7FyujFrGYO03BFPzGukc5v/iCXKEiXzZjG8zs2eWy9ZO2jXa4A6qM2JkFQZp
+         lmEyz8RG+fd3R+Qwjw0+xf4mXxH+9Z/eMG0x1/oos/bWO4IxZqLHH6NDyansPPrTRacy
+         Oab8TsiTpD1UuGForc5wixvt/fxfoJv+aMviPL6e5sSZNLftv/Ay1roeBGjJ7St7NNQQ
+         MHjA==
+X-Gm-Message-State: APuU4Z9mFYozPj7Z5v0TGO8vBl8SRwOC38iOOcdoX1UT/i6Nx133ynzE
+	r76Cj0T8FwFKZNglkwauuJWKdhptgzJ6EvUIvOo7K/lAGsheritHur81+4gmbeN1W7s=
+X-Gm-Gg: AZFdTZfPveKFNdlxtLeDO5+k7RUk6Wv3zHJQPcVEQ2ybgBihYuXmWjSX88UFWMNJtii
+	X5EEkyALj6pctrY/mTGLCjPznb6Mxq/GEHl+2LFerf4Fgc6EekTzCPWEVCVy7KerC+2yH2cCFUF
+	uH3pX5DCg/d5a1LA47Rm1ogE5EsX48jGgk5vBkZK+TjqBN58L3aOJPYtEtZO1FXi63cgsgmU+dA
+	VrYzgihuBgXSu+L9seZi/SulGgrn3s2+01CdYrMaf02GR6AmhgQvtu9M5nqzjjuvDoRNWhZK+fK
+	eZb+3rz2wrUHYtaM2CCaa94ofBybxZeaq2ImRcGUO/BcvyZsQyMDR0z0blXoyHHlG2PNA8g2sna
+	b1wp0vox2vBLYw3ctTfQLRM0PA93ADV8oGgNZap6lKcgEbZwjZ+vvaLY2LGFTN1fegMEH0/Rgi0
+	c3p5Zniygvxxx2Fh3WjyFnQgdBXgCWGB2GfBTU4ATqfbsFsiJp6jt3rS/p0r5ce0FnXXVGKlqE2
+	xF4rw+x++4it4+Y45gqau5JD97kxCKX3ME64fXFK7Cp+VzWBaD64Yb+xyEfJkbk/pa3QCylbRSZ
+	L3+4gKlOyTvNH29cWXNjyryLqwof3g5TV/YDnw==
+X-Received: by 2002:a05:600c:3ba9:b0:4a2:1050:aff with SMTP id 5b1f17b1804b1-4bb8881c741mr427623865e9.6.1795621199120;
+        Wed, 25 Nov 2026 07:39:59 -0800 (PST)
+Received: from [10.229.50.9] ([90.82.202.178])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4b3415763f7sm14255031f8f.9.2026.11.25.07.39.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Nov 2026 07:39:58 -0800 (PST)
+Message-ID: <8a9a4fe1-0fa5-4c48-aa88-f61b3a01739f@linaro.org>
+Date: Wed, 25 Nov 2026 16:39:57 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -49,117 +89,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/5] drm/panel: lg-sw43408: use the full DCS brightness
+ range
+To: david@ixit.cz, Abel Vesa <abelvesa@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Casey Connolly <casey.connolly@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Vinod Koul <vkoul@kernel.org>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org
+References: <20261125-fix-blueline-panel-v3-0-914b4a30b73e@ixit.cz>
+ <20261125-fix-blueline-panel-v3-1-914b4a30b73e@ixit.cz>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Content-Language: en-US
+In-Reply-To: <20261125-fix-blueline-panel-v3-1-914b4a30b73e@ixit.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 8/8] clk: clocking-wizard: Use separate
- notifier_block for each clock
-From: Brian Masney <masneyb@kernel.org>
-To: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
-Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, git@amd.com, 
- shubhrajyoti.datta@gmail.com, Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Brian Masney <masneyb@kernel.org>
-In-Reply-To: <20261124035613.1968260-9-shubhrajyoti.datta@amd.com>
-References: <20261124035613.1968260-1-shubhrajyoti.datta@amd.com>
- <20261124035613.1968260-9-shubhrajyoti.datta@amd.com>
-Date: Wed, 25 Nov 2026 10:36:33 -0500
-Message-Id: <179562099317.458327.8068874764407758762.b4-review@b4>
-X-Mailer: b4 0.17-dev-8145e
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2787; i=masneyb@kernel.org;
- s=20250903; h=from:subject:message-id;
- bh=eaOLuiMerQksPgxnTMm1NlWOcHllakrAf02cjhklA2A=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLLZGVoPy995/E0xrb3yToHo+oqub9WRSq65vhmLz0o3W
- iYmaqp0lLIwiHExyIopsizJNSqISF1le++OJgvMHFYmkCEMXJwCMBGFmYwMfdHXd960OcD/NPO4
- 9pVHGkVxjO5GB2dwFm2o0Iy3i1vqzchwR4bl/3SRZ2nTHaIk+ZfoXtZ7/iZ1ybtZVd+FJII2sdx
- hBQA=
-X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
-Hi Shubhrajyoti,
 
-> A struct notifier_block has a single 'next' pointer, so registering the
-> same instance to two different notification chains corrupts the linked
-> lists. Use a dedicated nb_axi for the s_axi_aclk notifier chain.
+
+On 11/25/26 14:08, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
 > 
-> Signed-off-by: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
-
-Same as previous patch. Needs a Fixes and Cc stable.
-
+> The vendor changed the value multiple times. Last value for production
+> devices was 900. HBM can go up to 1023, but keep value safe for now.
+> 
+> Fixes: 069a6c0e94f9 ("drm: panel: Add LG sw43408 panel driver")
+> Signed-off-by: David Heidelberg <david@ixit.cz>
 > ---
-> (no changes since v3)
+>   drivers/gpu/drm/panel/panel-lg-sw43408.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> Changes in v3:
-> - New patch: split the shared notifier_block into per-clock callbacks
->   to avoid corrupting the notifier chains
+> diff --git a/drivers/gpu/drm/panel/panel-lg-sw43408.c b/drivers/gpu/drm/panel/panel-lg-sw43408.c
+> index 822318f546ef3..92cab6478ea61 100644
+> --- a/drivers/gpu/drm/panel/panel-lg-sw43408.c
+> +++ b/drivers/gpu/drm/panel/panel-lg-sw43408.c
+> @@ -197,17 +197,18 @@ static const struct backlight_ops sw43408_backlight_ops = {
+>   };
+>   
+>   static int sw43408_backlight_init(struct sw43408_panel *ctx)
+>   {
+>   	struct device *dev = &ctx->link->dev;
+>   	const struct backlight_properties props = {
+>   		.type = BACKLIGHT_PLATFORM,
+>   		.brightness = 255,
+> -		.max_brightness = 255,
+> +		/* HBM can go up to 1023, stay safe for now */
+> +		.max_brightness = 900,
+>   	};
+>   
+>   	ctx->base.backlight = devm_backlight_device_register(dev, dev_name(dev), dev,
+>   							     ctx->link,
+>   							     &sw43408_backlight_ops,
+>   							     &props);
+>   
+>   	if (IS_ERR(ctx->base.backlight))
 > 
->  drivers/clk/xilinx/clk-xlnx-clock-wizard.c | 42 +++++++++++++++++-----
->  1 file changed, 33 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/clk/xilinx/clk-xlnx-clock-wizard.c b/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
-> index 046efa5c77c9..f71e464e0fca 100644
-> --- a/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
-> +++ b/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
-> @@ -133,7 +133,8 @@ enum clk_wzrd_int_clks {
->  /**
->   * struct clk_wzrd - Clock wizard private data structure
->   *
-> - * @nb:			Notifier block
-> + * @nb:			Notifier block for clk_in1
-> + * @nb_axi:		Notifier block for s_axi_aclk
->   * @base:		Memory base
->   * @clk_in1:		Handle to input clock 'clk_in1'
->   * @axi_clk:		Handle to input clock 's_axi_aclk'
-> @@ -144,6 +145,7 @@ enum clk_wzrd_int_clks {
->   */
->  struct clk_wzrd {
->  	struct notifier_block nb;
-> +	struct notifier_block nb_axi;
->  	void __iomem *base;
->  	struct clk *clk_in1;
->  	struct clk *axi_clk;
-> @@ -191,6 +193,7 @@ struct versal_clk_data {
->  };
->  
->  #define to_clk_wzrd(_nb) container_of(_nb, struct clk_wzrd, nb)
-> +#define to_clk_wzrd_axi(_nb) container_of(_nb, struct clk_wzrd, nb_axi)
->  
->  /* maximum frequencies for input/output clocks per speed grade */
->  static const unsigned long clk_wzrd_max_freq[] = {
-> @@ -1160,6 +1163,30 @@ static struct clk_hw *clk_wzrd_register_divider(struct device *dev,
->  
->  static int clk_wzrd_clk_notifier(struct notifier_block *nb, unsigned long event,
->  				 void *data)
-> +{
-> +	unsigned long max;
-> +	struct clk_notifier_data *ndata = data;
-> +	struct clk_wzrd *clk_wzrd = to_clk_wzrd_axi(nb);
-> +
-> +	if (clk_wzrd->suspended)
-> +		return NOTIFY_OK;
-> +
-> +	max = WZRD_ACLK_MAX_FREQ;
-> +
-> +	switch (event) {
-> +	case PRE_RATE_CHANGE:
-> +		if (ndata->new_rate > max)
-> +			return NOTIFY_BAD;
-> +		return NOTIFY_OK;
-> +	case POST_RATE_CHANGE:
-> +	case ABORT_RATE_CHANGE:
-> +	default:
-> +		return NOTIFY_DONE;
-> +	}
-> +}
-> +
-> +static int clk_wzrd_clk_notifier_in1(struct notifier_block *nb, unsigned long event,
 
-After this change, clk_wzrd_clk_notifier() and
-clk_wzrd_clk_notifier_in1() can be combined with a common helper.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Brian
-
--- 
-Brian Masney <masneyb@kernel.org>
+Thanks,
+Neil
