@@ -1,45 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608191;
-	b=LfhBXdYHygcapbbpKxmQodMOTe+OAF0wbTkBiUcL3mrVQw0ljCChGgT7DKmu7+MmVqmD
-	 rO7hrwqazGDCBbbybmAzkOrF2F4V8s1x7eRlXNfWkdBdFO/6qGbhDLVlKg6D8cZk2iN4t
-	 XTcFnxReL9lEVyQPeYu+rv+yhofIiv3IEmSq6FyDw+rh1sHNf4sxprWEE+pMIkByP9FVX
-	 1Wglb9iYxemH4/RstpKLULVNxvbG/2B9kjWmkxeOktIBF/perQ7Q7lawGCXYrzHk0uMEM
-	 RSDP7tP/kcj/AfcYfR8iWw/gHSJVaLS3L9Wbfnbt7UB9RQ6zE2qW6hdby2UPPGQu95A==
+	t=1795608197;
+	b=rsstl4fIaXe3PdimmhI7x6k0kScQxKWt8OFSshfXL3x5pdLqH3HEb9jLOhcbaO88A2xC
+	 a+2J4Cg5HyyKNPZKMoQGTgfLvBfnAzfIpqahBtlL3cUZmNypRaIEOJvMr7YPdE4yuz2uf
+	 /Bigxa1XNBLy2oP4P8esu1AvXb/XIZVe0hgfWbqKcbR2TACK1CS3TQprFzy+oCrI0zeNp
+	 GvzBqcShMirf3vvtf1QZJVnIzlU564gpMnopDaEoXCWnwczcFStEua1QP4+SsNvGluKhM
+	 jDOe7wX1AfSrx7kUQsMbJqVar5EHy4M4tQdBZ99rwj9aa5a2hD0YVGuZAZ3BNVMxqjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608191;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer;
-	bh=5OUKSo1BdTv2vj4HJJC6NpSYtqPSKygauh8XRXOSz5Q=;
-	b=nhTTKD6dsx0EiZ/RZWd0abcaITMrhCe8JHDTrMXZ9t85MZMKNiH4YA8IfgYFcplDogKZ
-	 IJyNO8DqiZj2j01VeFJFG4Rr1EnJXfh6RuFQ87dA+fs5Fc3chULTHniRHbSjeaJULqVz1
-	 xutldVU7+7extXrqC41anvo3ib4kVzPLvlse36JcCvGrKbW3ssnkVv6ml5lgP/t9ckqSa
-	 CxZgk21jaeshI1Nm+apsxucL0oEwzgsUe+soYQ1u5IpF9juzsD79iHTieK8Xw1ET4W9Td
-	 Fk6ZsuPM7/pOav7VICmr9xZlYiIVAHBZOsmCPcePVmi7qH2qZAFWrIebyvHBXstP8iQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608197;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=p8XKQgeHzMmIc/Z+ccYjNceoI0YvFR6hWUK/swuAXrA=;
+	b=4RK33GcoNPSZpozq/Ms57hYEFOU+TeGN/3s2TmTYOHbJ6Zn0IsNc7ZDumwjrjlKGLiFr
+	 PrOnkrnDykWu3P8pz3T/KDGmHAuN1OEytIzAOyYli5e76NCbw30kAtyCIRdciLcEDQf72
+	 Ao9C0dtt5kM/M90P5PaCymqqrIxr2yW2PVRVcO1z8lTR9cXNqmedw4Ppovg+MSHObw2k4
+	 TG/JYWmGMqNTMPT9JblQj66MlTHZlYM1StgDACXbYbjm0oymzeRzCJW1nN0GF8RpLkQCD
+	 K4wPTJg/CmI3GfCUMSWkpz1CYZF9hznj2y5G8KmMkCsgNEAf4hz6fqRZfBGlHcH3e1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S5z3frW1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J5mViiQf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB493606A321;
-	Wed, 25 Nov 2026 12:03:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD32A606A33B
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 12:03:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S5z3frW1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A49F31F000C6;
-	Wed, 25 Nov 2026 12:03:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J5mViiQf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13E521F000E1;
+	Wed, 25 Nov 2026 12:03:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795608191;
-	bh=5OUKSo1BdTv2vj4HJJC6NpSYtqPSKygauh8XRXOSz5Q=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=S5z3frW1W8SoN8WLcNRa12JyNL8xh/j6i66ENf1EIaBdX5ImdRiJB7js8ifAimvxB
-	 AZlwUQtBYO+L671k0ydoQXxcHAKwAnWzY4aDKbwr0Oa9SX0Cz4pqPILayKpxxC5op5
-	 f/YlmHzTfFgDI2Kn3Ii6vwDbhkKzGrrqFJQVn5udIv7aIt1y5wNysI4Pqd2qvIUXVK
-	 z0i0ztzAMqux3fInd/tpF7WlQnGsQaDrYDBYgZhfH/gewDXCvpmx+xWswIv3aZ5xAZ
-	 P0z2NdXkuWiQ6PaloyHgvtkUJbR78PKkGez6zd3wzjYBVBqRIjc4czFQu20A7v3xef
-	 y6tpPgFsuh0hw==
+	s=k20260515; t=1795608197;
+	bh=p8XKQgeHzMmIc/Z+ccYjNceoI0YvFR6hWUK/swuAXrA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=J5mViiQfODWocyqa1kltSGH8TvaQWhoDAVorFHeG6zyxzpzojLwn3YjM90ulqLkll
+	 A861zBIYCJ81XaBj67EEYyDXxaBaoukvTzvEasA32hD5cyIhn8dVDddbmQVZ2v54ux
+	 ixMxw+XYUQ2KMFFw6BSj/NsVmmzlPdSDkgJG4HsXonnS7Tt9H8qsQlQ4nPQQpdPCGS
+	 D9ZlQXnvRVQCdOX5DBMgT/lq7WDOMuTUYH6//CjqnDW+Gasr2s0aNddK/oJ9oaDldt
+	 s6aeB7xnSDN6nH/tgDIBZd5SxNiutp5JqOcZuHsIB/quW68elvSCFBYqicSb9OSY6w
+	 uwgdobGq3XJYg==
+Message-ID: <sashiko-outbox-233329@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] arm64: dts: qcom: pm8550b: add USB VBUS regulator
+ and Type-C nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Neil Armstrong" <neil.armstrong@linaro.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261125-topic-sm8650-deckard-tcpm-v1-1-4af33e89ea9e@linaro.org>
+References: <20261125-topic-sm8650-deckard-tcpm-v1-0-4af33e89ea9e@linaro.org>
+ <20261125-topic-sm8650-deckard-tcpm-v1-1-4af33e89ea9e@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 25 Nov 2026 12:03:16 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -48,53 +60,63 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v8 2/2] arm64: dts: qcom: sm8750-lenovo-elden: add
- Lenovo Legion Y700 Gen4, a Qualcomm SM8750-based tablet
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-Cc: andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org, 
- mitltlatltl@gmail.com, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, devicetree@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>
-In-Reply-To: <20261125091309.124354-3-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261125091309.124354-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261125091309.124354-3-xiaqinghuan@mail.ustc.edu.cn>
-Date: Wed, 25 Nov 2026 13:03:08 +0100
-Message-Id: <179560818867.84329.911396338614062552.b4-reply@b4>
-X-Mailer: b4 0.17-dev
 
-On 2026-11-25 17:13 +0800, Qianhui Xu wrote:
-> The Lenovo Legion Y700 Gen4 (TB322FC) is an SM8750 tablet.  Add its
-> devicetree with the board compatible, the chassis type, the GPIOs the boot
-> firmware reserves and the board clocks, which the SM8750 dtsi consumes: the
-> XO and sleep clocks and the two divided CXO derivatives, as on the other
-> SM8750 boards.
-> 
-> The camera devices are powered by a WL2868C camera PMIC on i2c10: LDO1
-> feeds the rear sensor DVDD, LDO2 the front sensor DVDD, LDO3 the front
-> sensor AVDD, LDO4 the rear sensor AVDD, LDO5 the VCM VDD, LDO7 the DOVDD of
-> both sensors and the VCM VDDIO, all at fixed voltages including the offsets
-> programmed by the stock firmware.  LDO6 is not wired out on this board.
-> 
-> This is one logical action - "add this new hardware" - so the board and the
-> regulators it carries are described in a single commit.
-> 
-> Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-> ---
-> Changes in v8:
-> - No change to the device tree itself; the series is now two patches, with
->   the board binding entry first.  See the cover letter.
->
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] arm64: dts: qcom: pm8550b: unmatched and undocumented
+  compatible on pm8550b_vbus
+- [Low] arm64: dts: qcom: pm8550b: undocumented compatible
+  qcom,pm8550b-typec
+--
 
-Your changelog or cover letter should be explicit about waiting on
-bindings, instead of wall of text.
+commit cf2d4fe502182acd6818991415b674bdb540bbb6
+Author: Neil Armstrong <neil.armstrong@linaro.org>
 
-Best regards,
-Krzysztof
+arm64: dts: qcom: pm8550b: add USB VBUS regulator and Type-C nodes
 
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
+This commit adds the USB OTG VBUS boost regulator and Type-C port
+controller nodes to pm8550b.dtsi, disabled by default.
+
+> diff --git a/arch/arm64/boot/dts/qcom/pm8550b.dtsi b/arch/arm64/boot/dts/=
+qcom/pm8550b.dtsi
+> index 74d23b8970f4c..feb2395e920a9 100644
+> --- a/arch/arm64/boot/dts/qcom/pm8550b.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/pm8550b.dtsi
+> @@ -45,6 +45,53 @@ pm8550b_temp_alarm: temp-alarm@a00 {
+>  			#thermal-sensor-cells =3D <0>;
+>  		};
+> =20
+> +		pm8550b_vbus: usb-vbus-regulator@2700 {
+> +			compatible =3D "qcom,pm8550b-vbus-reg";
+> +			reg =3D <0x2700>;
+> +			regulator-min-microamp =3D <1000000>;
+> +			regulator-max-microamp =3D <3000000>;
+> +			status =3D "disabled";
+> +		};
+
+[Severity: High]
+Can any driver bind to pm8550b_vbus without a fallback compatible or a
+matching entry in qcom_usb_vbus_regulator_match[]?
+
+drivers/regulator/qcom_usb_vbus-regulator.c only matches
+"qcom,pm8150b-vbus-reg" and "qcom,pm4125-vbus-reg", and
+"qcom,pm8550b-vbus-reg" is not documented in
+Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml.
+When a board enables pm8550b_vbus and references it as vbus-supply on the
+Type-C connector, no regulator is registered and
+qcom_pmic_typec_port_probe() fails indefinitely with -EPROBE_DEFER.
+
+> +
+> +		pm8550b_typec: typec@2b00 {
+> +			compatible =3D "qcom,pm8550b-typec", "qcom,pm8150b-typec";
+
+[Severity: Low]
+Should "qcom,pm8550b-typec" be added to
+Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml?  That schema
+currently only permits "qcom,pm6150-typec" and "qcom,pm7250b-typec" with
+the "qcom,pm8150b-typec" fallback, so dtbs_check will report a validation
+warning on boards that include pm8550b.dtsi.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-topic-sm86=
+50-deckard-tcpm-v1-0-4af33e89ea9e@linaro.org?part=3D1
