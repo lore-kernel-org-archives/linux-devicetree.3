@@ -1,86 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795587402;
-	b=fmVBh0USSg8C5t0UitnHkOJfn1HABZC0zcXwHFPdhoE9WVRcBfLuM6ZV2lmBOrES9mCu
-	 qN1xVN3fzW0yErY+HcKY0LlUPzE/k7IqR8tk+5hvazhfjihzTuAAl7k2N6zxzfeHxv5xk
-	 V4h8+D5NeNICLlDHVYQrglXAJltTfcF4w7su455Bh9U2000525jQH78/im1FP1rLi1fvD
-	 1TO1w8saIB89oGJULZcuadg4CORhgN9mDA6pgusOPCO/S6RifDx4HcWUzQLYbdN2l2cv2
-	 Iz7IZpcKr8VGl4+51UThoAZA74eKOt9qRfoVbf/GRTqCngsCIHV9oH+bYqrVhQjlA+g==
+	t=1795587538;
+	b=ZfIZCbm84hGYuGAlkKG8gbxXXGG9/F8o6SHlijmOj7kHpDvlYjJaN7uYfrNDrSXtmCd+
+	 ESGGtBJ8cWboyo2/ouYMbpMtP8B4EZ/4x4TLm29a1Bi5rYUQkV1PqmGDaG/zaDf+syzxm
+	 bRqe97qRpzrIpaImeMB7U6IOPm9TKFGH857OeYdleAV+uabPXneKRX2iCgbRX0Y7hCIch
+	 W1E1wxubhSnlZF88kbq2z5js1nuUs6YEk+BOR6YaHkSXzMOkHRwEVG8R+ATPzFRpApco7
+	 DmicWunxJSCnI7m0kQ866zbPW/WUAEX6nExza1rw1ZLRBWPekowyymHdmE5t6YDhx3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795587402;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-MTK;
-	bh=c3gyfKO88CZuf9rB0Bz5BvNgk9YZ8G3lXKfFA9Y6H8A=;
-	b=yfD5u69GOg4DX8TcuM/Tx+Ey3OuU3t3f/nYzxo3MpyTXut9z2lo0pWIx9a8V4+s38ggB
-	 G3Xz2KnG4rC0uaFb/r/zp3MvvF8dED1/m4MmhP+9zESLMwin+OzBSEEoD4fwHNEcTaGsh
-	 zhbxQD0tm5OgOb6jGWOWiBeg2FZe+dJcz7C2GFNC/KuFKTXOSjWGWyiRdAPU53w2FTNsG
-	 WZ/6+VZzilAaMQj8X+3P8BRzDcBkPElS2ZVOU9rXjEia6Jej/a0mVEGoUJx02sGTWySQR
-	 uFCFAXo0kw219N8kjU/MjT3IgOBUMTVKxBB+bGsHMgk8yh/m4PxpQD8dnSjc9vxh4tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795587538;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=eUqQ+xkonxgNvemknNBIJXUyl79Er6aQ0iwMEjOwX90=;
+	b=c6vcWD82RNqi8xaSRmRka8Elj97zfaDNqSyvWP/SUdG389g9ZD0ZYC91N2RfI+Ry/qBO
+	 19PelpBxBakjfUlKn+l/mruXx1i6CMfoJw5+5+KT1ZmJm18xk9k4Pxk5p7g+MP6j6WwML
+	 5/qHEnqSGBAU+kwMXK2Wwcg1atz6iC6ivHMR5jpiZk9nOMknpymap8RLTpUvyBRKE92gR
+	 zqfBcuhauyp5ZIVYcvROzU8DPa8Y1CtRkrXlDNF9gHHvpx7Cs/Wg+IwZKHeBstzTryr/+
+	 u7I41r7cnHn0h9/sF4QIuCrc/i9dI18cqf5GRVt3fLQYlIsQR/MmJ0a+RHq/kmpXNpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=FwA1LrRG;
-	arc=none smtp.remote-ip=60.244.123.138
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eswPSzhZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8423606D6DB;
-	Wed, 25 Nov 2026 06:16:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8423606D6DB
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2526C606A682;
+	Wed, 25 Nov 2026 06:18:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=FwA1LrRG
-X-UUID: c36d48cce89711f1b1788b6acf885367-20261125
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=c3gyfKO88CZuf9rB0Bz5BvNgk9YZ8G3lXKfFA9Y6H8A=;
-	b=FwA1LrRGAN3kaeAZOxxghNGwjinrNos6X1KbQLlAyXreIRbDF+LueR4ktmoQdTq2cBgqbfKQpw7klU1LPc3yWYb/qgESX+7yDMafqZtN/URdBhdSoOmywIj1X6nuaRmcKRZRAcLO5lLA5TMqaY6gm9dDL+96LkZFWUFPdD1bagk=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:d610b5d3-6055-4994-899a-42815274cb05,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:b0318ac,CLOUDID:65937e4e-207c-4400-a70f-7c2d09e2f912,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
-	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
-	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: c36d48cce89711f1b1788b6acf885367-20261125
-Received: from mtkmbs14n2.mediatek.inc [(172.21.101.76)] by mailgw01.mediatek.com
-	(envelope-from <kyrie.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 2127451462; Wed, 25 Nov 2026 14:16:34 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 25 Nov 2026 14:16:33 +0800
-Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
- mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.56 via Frontend Transport; Wed, 25 Nov 2026 14:16:32 +0800
-From: Kyrie Wu <kyrie.wu@mediatek.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, Bin Liu <bin.liu@mediatek.com>,
-	kyrie wu <kyrie.wu@mediatek.corp-partner.google.com>, Hans Verkuil
-	<hverkuil@kernel.org>, irui wang <irui.wang@mediatek.com>, Nicolas Dufresne
-	<nicolas.dufresne@collabora.com>, <linux-media@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
-CC: Kyrie Wu <kyrie.wu@mediatek.com>, Krzysztof Kozlowski
-	<krzysztof.kozlowski@linaro.org>
-Subject: [PATCH v20 12/15] media: dt-bindings: mediatek,jpeg: Add mediatek, mt8196-jpgenc compatible
-Date: Wed, 25 Nov 2026 14:16:15 +0800
-Message-ID: <20261125061618.2544386-13-kyrie.wu@mediatek.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261125061618.2544386-1-kyrie.wu@mediatek.com>
-References: <20261125061618.2544386-1-kyrie.wu@mediatek.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eswPSzhZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 573B51F00344;
+	Wed, 25 Nov 2026 06:18:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795587537;
+	bh=eUqQ+xkonxgNvemknNBIJXUyl79Er6aQ0iwMEjOwX90=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eswPSzhZaKYTEveg9Dx1kBZG7JZQLk/GUsPICNECbtYPlfK2vVVqUDZ5b0+A64NsD
+	 CHKEUVpvR+Ycx9EhGX3PWXRFhGVQ1SgVTfrWdkg9hyz08lUi1+FoZwKXPv2ha7weEM
+	 OX5bvi/Qi2YLElz/rA1zBxdQeGid4Zks0Cn6sLEKIwxeVJSBPoffBUjyhzhro3SRsZ
+	 6NjJK2AnauHLFRjbuwI6npsUCQPLmTlmXpN9r0g6/0QE7L7FX3VTyGS5ijKeyb2QVA
+	 4Gh64szfff9D/X1Pj825egWbuEYwA4kx+8AjxgU9yPymM7ioL+inODy6+18G4tKbnK
+	 nwhU+qd9fZzkg==
+Message-ID: <sashiko-outbox-232656@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/7] soc: mediatek: add MMDVFS core driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Echo Zhang" <echo.zhang@mediatek.com>, devicetree@vger.kernel.org, linux-clk@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261125060037.649659-4-echo.zhang@mediatek.com>
+References: <20261125060037.649659-1-echo.zhang@mediatek.com>
+ <20261125060037.649659-4-echo.zhang@mediatek.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 25 Nov 2026 06:18:53 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,49 +59,195 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
 
-Compared to the previous generation IC, the MT8196 uses SMMU
-instead of IOMMU and supports features such as dynamic voltage
-and frequency scaling. Therefore, add "mediatek,mt8196-jpgenc"
-compatible to the binding document.
+Thank you for your contribution! Sashiko AI review found 5 potential
+issues to consider:
+- [High] soc: mediatek: mmdvfs: dependency on undefined Kconfig symbol
+  MTK_VCP_RPROC
+- [High] soc: mediatek: mmdvfs: premature MT8196 symbol references cause
+  link failure
+- [Medium] soc: mediatek: mmdvfs: UAF and teardown order bug in
+  mmdvfs_remove()
+- [Medium] soc: mediatek: mmdvfs: clocks remain active during
+  deinit_hw() teardown
+- [Low] soc: mediatek: mmdvfs: duplicate enum and declarations across
+  headers
+--
 
-Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- .../bindings/media/mediatek,mt8195-jpegenc.yaml           | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+commit 5b3edaa4a79dffb92cf9cae0a066c56967485e24
+Author: Echo Zhang <echo.zhang@mediatek.com>
 
-diff --git a/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegenc.yaml b/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegenc.yaml
-index 596186497..e2d772ea0 100644
---- a/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegenc.yaml
-+++ b/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegenc.yaml
-@@ -14,7 +14,9 @@ description:
- 
- properties:
-   compatible:
--    const: mediatek,mt8195-jpgenc
-+    enum:
-+      - mediatek,mt8195-jpgenc
-+      - mediatek,mt8196-jpgenc
- 
-   power-domains:
-     maxItems: 1
-@@ -44,7 +46,9 @@ patternProperties:
- 
-     properties:
-       compatible:
--        const: mediatek,mt8195-jpgenc-hw
-+        enum:
-+          - mediatek,mt8195-jpgenc-hw
-+          - mediatek,mt8196-jpgenc-hw
- 
-       reg:
-         maxItems: 1
--- 
-2.51.0.windows.2
+soc: mediatek: add MMDVFS core driver
 
+This commit adds the common MediaTek MMDVFS driver framework, including
+device probing, SoC topology validation, clock provider registration,
+power-management notification, and exported consumer helpers.
+
+> diff --git a/drivers/soc/mediatek/Kconfig b/drivers/soc/mediatek/Kconfig
+> index d7293977f06e8..bb273a4461f0a 100644
+> --- a/drivers/soc/mediatek/Kconfig
+> +++ b/drivers/soc/mediatek/Kconfig
+> @@ -60,6 +60,25 @@ config MTK_REGULATOR_COUPLER
+>  	default ARCH_MEDIATEK
+>  	depends on REGULATOR
+> =20
+> +config MTK_MMDVFS
+> +	tristate "MediaTek MMDVFS support"
+> +	depends on ARCH_MEDIATEK || COMPILE_TEST
+> +	depends on MTK_VCP_RPROC
+
+[Severity: High]
+Is MTK_VCP_RPROC defined anywhere in the Kconfig tree?  Because that symbol
+does not exist, CONFIG_MTK_MMDVFS and CONFIG_MTK_MMDVFS_MT8196 can never be
+enabled, and the IS_ENABLED(CONFIG_MTK_VCP_RPROC) guard in
+include/soc/mediatek/mmdvfs.h always selects the no-op inline stubs instead
+of the public declarations.
+
+> diff --git a/drivers/soc/mediatek/mmdvfs/mmdvfs-clk.c b/drivers/soc/media=
+tek/mmdvfs/mmdvfs-clk.c
+> new file mode 100644
+> index 0000000000000..114f3148cf461
+> --- /dev/null
+> +++ b/drivers/soc/mediatek/mmdvfs/mmdvfs-clk.c
+[ ... ]
+> +/*
+> + * mmdvfs_unregister_clocks - Unregister clock providers
+> + * @mmdvfs: MMDVFS device structure
+> + */
+> +void mmdvfs_unregister_clocks(struct mmdvfs_device *mmdvfs)
+> +{
+> +	if (mmdvfs && mmdvfs->dev)
+> +		mmdvfs_dbg(mmdvfs->dev, "MMDVFS clocks unregistered\n");
+> +}
+
+[Severity: Medium]
+Can clock consumers still call mmdvfs_set_rate() -> data->ops->hw_vote()
+while or after data->ops->deinit_hw() tears down the hardware?
+
+mmdvfs_register_clocks() registers the clocks and OF provider with
+devm_clk_hw_register() and devm_of_clk_add_hw_provider(), while
+mmdvfs_unregister_clocks() only logs a debug message and leaves
+data->init_done set to true.  When mmdvfs_remove() or the
+err_unregister_clocks path in mmdvfs_probe() calls
+mmdvfs_unregister_clocks() followed by data->ops->deinit_hw(), the devres-
+managed clock provider remains active until mmdvfs_remove() or
+mmdvfs_probe() returns.
+
+> diff --git a/drivers/soc/mediatek/mmdvfs/mmdvfs-core.c b/drivers/soc/medi=
+atek/mmdvfs/mmdvfs-core.c
+> new file mode 100644
+> index 0000000000000..c32fa11557aff
+> --- /dev/null
+> +++ b/drivers/soc/mediatek/mmdvfs/mmdvfs-core.c
+[ ... ]
+> +/* Platform data definitions for device match table */
+> +#if IS_ENABLED(CONFIG_MTK_MMDVFS_MT8196)
+> +static const struct mmdvfs_platform_data mmdvfs_mt8196_pdata =3D {
+> +	.soc_data =3D &mmdvfs_mt8196_soc_data,
+> +	.ops =3D &mmdvfs_mt8196_ops,
+> +};
+> +#endif
+
+[Severity: High]
+Does enabling CONFIG_MTK_MMDVFS_MT8196 at this commit fail to link due to
+undefined references to mmdvfs_mt8196_soc_data and mmdvfs_mt8196_ops?
+
+drivers/soc/mediatek/Kconfig already exposes CONFIG_MTK_MMDVFS_MT8196 here,
+but drivers/soc/mediatek/mmdvfs/Makefile only links mmdvfs-core.o and
+mmdvfs-clk.o until commit "soc: mediatek: mmdvfs: add MT8196 support" adds
+mmdvfs-mt8196.c, breaking bisectability when CONFIG_MTK_MMDVFS_MT8196 is
+selected.
+
+[ ... ]
+
+> +struct mmdvfs_device *mmdvfs_find_device_by_version(enum mmdvfs_version_=
+type version)
+> +{
+> +	struct mmdvfs_device_node *node;
+> +	struct mmdvfs_device *found =3D NULL;
+> +
+> +	mutex_lock(&mmdvfs_device_list_lock);
+> +	list_for_each_entry(node, &mmdvfs_device_list, list) {
+> +		if (node->mmdvfs && node->mmdvfs->data &&
+> +		    node->mmdvfs->data->version =3D=3D version) {
+> +			found =3D node->mmdvfs;
+> +			break;
+> +		}
+> +	}
+> +	mutex_unlock(&mmdvfs_device_list_lock);
+> +
+> +	return found;
+> +}
+> +EXPORT_SYMBOL_GPL(mmdvfs_find_device_by_version);
+[ ... ]
+> +int mtk_mmdvfs_camera_notify(bool enable)
+> +{
+> +	struct mmdvfs_device *mmdvfs;
+> +
+> +	mmdvfs =3D mmdvfs_find_device_any();
+> +	if (!mmdvfs || !mmdvfs->data || !mmdvfs->data->ops ||
+> +	    !mmdvfs->data->ops->camera_notify)
+> +		return -EOPNOTSUPP;
+> +
+> +	return mmdvfs->data->ops->camera_notify(mmdvfs, enable);
+> +}
+> +EXPORT_SYMBOL_GPL(mtk_mmdvfs_camera_notify);
+
+[Severity: Medium]
+Can concurrent callers of mtk_mmdvfs_camera_notify() and the other exported
+helpers race with mmdvfs_remove() and hit a use-after-free?
+
+CPU0                                    CPU1
+mtk_mmdvfs_camera_notify()
+  mmdvfs =3D mmdvfs_find_device_any()
+    lock(&mmdvfs_device_list_lock)
+    found =3D node->mmdvfs
+    unlock(&mmdvfs_device_list_lock)
+                                        mmdvfs_remove()
+                                          data->ops->deinit_hw(mmdvfs)
+                                          mmdvfs_unregister_device(mmdvfs)
+                                        devres_release_all()
+                                          /* frees mmdvfs and mmdvfs->data =
+*/
+  mmdvfs->data->ops->camera_notify(...) <-- use-after-free
+
+mmdvfs_find_device_by_version() drops mmdvfs_device_list_lock and returns a
+raw pointer to devm-allocated memory without taking a reference or holding a
+lock across the callback.  In addition, mmdvfs_remove() runs
+data->ops->deinit_hw(mmdvfs) before mmdvfs_unregister_device(mmdvfs) unlinks
+the device from mmdvfs_device_list, and mmdvfs_probe() has no teardown
+callback for state allocated by data->ops->probe() if
+mmdvfs_validate_topology() or data->ops->init_hw() fails.
+
+> diff --git a/drivers/soc/mediatek/mmdvfs/mmdvfs-internal.h b/drivers/soc/=
+mediatek/mmdvfs/mmdvfs-internal.h
+> new file mode 100644
+> index 0000000000000..df16e38d78c89
+> --- /dev/null
+> +++ b/drivers/soc/mediatek/mmdvfs/mmdvfs-internal.h
+> @@ -0,0 +1,305 @@
+[ ... ]
+> +/* MMDVFS voting mechanism types */
+> +enum mmdvfs_version_type {
+> +	MMDVFS_VERSION_NONE =3D 0,		/* No hardware voter */
+> +	MMDVFS_VERSION_HWCCF_DVFS_VOTER =3D 1,	/* HWCCF DVFS voter */
+> +};
+[ ... ]
+> +/* Platform-specific operations */
+> +u32 mmdvfs_get_version(void);
+> +int mtk_mmdvfs_enable_ccu(const bool enable, const u8 idx);
+> +int mtk_mmdvfs_camera_notify(bool enable);
+> +int mtk_mmdvfs_camsv_dc_enable(const u8 idx, const bool enable);
+> +int mtk_mmdvfs_genpd_notify(u8 idx, bool enable);
+> +int mtk_mmdvfs_set_avs(u8 idx, u32 aging, u32 fresh);
+> +int mmdvfs_set_lp_mode(bool enable);
+
+[Severity: Low]
+Should mmdvfs-internal.h include <soc/mediatek/mmdvfs.h> instead of
+redefining enum mmdvfs_version_type and redeclaring these public API
+functions?  Any file that includes both headers will fail to compile due to
+the duplicate enum definition.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125060037.6496=
+59-1-echo.zhang@mediatek.com?part=3D3
