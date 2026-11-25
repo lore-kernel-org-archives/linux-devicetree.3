@@ -1,105 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795614904;
-	b=k4TSMzrTIe/54UYg33mEs8kYHHF6V3mkzJ/gSIS1hqDMAVX4NzAN1qHGf33CKGfAHjpS
-	 4G6n/lRfHY9eBXNurFFOIFul+XqAuaBnIQZQzziHgFiSEDqdYVmofKilEqFipeMSRMoSB
-	 vegAMCPEjgST77T4zAy11zkTcAyK2/Lewk1juDJlF1Bz+LQZnsv2Ym/qfhpyAGNm43LOq
-	 MfmVojXrnUEVkRlDZs+YTt4D9JoF08sGYbdabCgwrKGa5PiCY7sfeAuyGNUV0LU7+75eG
-	 g/x0nK5UuqnVnr8NF5vJ3gt0E9l1u5Za8fc8T6G557zDM4bUKp4tPzCLA3qRD3bs9bg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795614904;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795614918;
+	b=YjgdWSb+NKO/9QhfXoYpXnfHEW41IEfdkIoBXi6aNclDQAyaEN2BHKtnpRWo9W+h4nrC
+	 AvAGbLp14Ls1RjFdnbq+EGTManHl76duyqHYf75MPtbcKVPK1+AQ3luM4mggsSlxam/zN
+	 ibEUf6+ssB0iKl9zRzeamlE7HjzE/7vQ5qKFArOSemNqe5xmlp2++VxJizf3l1lEerntB
+	 wJwHy5C0dUY/aXRv9UiA7O25KbF/2HlCIyGs1bDXvFoIC4Xm3VULQ4jtYmbKXXtXr44jW
+	 29efGKMUdyG4nlxPcqBpKg7d0UbIE8zPqyOA/83F4OQxNBiU106guhUho90pan7wnuw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795614918;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=kdlCDf2dlFxOjylVGdoM/KhHearUI/+HreUvx630OTI=;
-	b=hhOiIyD/pGGTcGVJifDlUsXaYfdUr5V2XbfjwiFivDLFg4BWXVWT3CwFdxkbnM6OTSET
-	 0mre3WhZ4PN4uVTawnA0GiUp2LO9ZHYmRBO2BfLgE993x6idua5ChgTpYKbXSXKf1pvAF
-	 j2xd6Tw4dC76XkL/iYmGF6XD/Y0Whs2GIjdXB1nQwEfGFYUe1VYkbsM3GBBWW985khX2Z
-	 SF8GpUso1IE+6m45FT0MmK7wKbnr07/V8BeGkVgu+In21YLo1wdF8Xdy3lTTVxK3NRRqe
-	 bv86L8Rmokv9SQ739zs8Mj78Jy8zWRjyKRNhAA0ZEhCSSWvKMTnja/uaj+n/ujE1JzA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=teslabs.com;
-	spf=fail smtp.mailfrom=teslabs.com;
-	dkim=pass header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=AP2C8OHG;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=FCuANSuXIYamXWDtNf7w7lG6eHXyutyXEO9DVfxIUGI=;
+	b=YIFmGs0dNij7saMc8tvw1IpHcxBFichzqcv7nsWsSU0nD0iClIyXhqXu0XzhOD5lb0OS
+	 D2eGK1Ehk7PtEACDfY9mVqpOct5jul7Zkeh/9s9OFvRCprh4TFaIYdduKABfG6Of3Ad2N
+	 +GztyrGT5QnzNdqYP6fqMuv6X0Yzlno0swHt7IfywsSn6eqsJQlCo/lM0ntMucISeYzTk
+	 s5LxuYFnvsLQBNxQL7DvHZ4RFe/edRZoWM+lGFNXjuiYTMp6qXS6VUJKoeB/5Y+3C+ypC
+	 fCzkf5Th+XYm8WanVpqrE3i4dChlYZ8w+zm3zEyu4M8y08HgsQcVF4XOJpDceQ1mIoQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=flipper.net;
+	spf=pass smtp.mailfrom=flipper.net;
+	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b="s6M/SDal";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944C6606A321
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 13:55:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 944C6606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=teslabs.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=teslabs.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D72F0606A31E
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 13:55:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D72F0606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=AP2C8OHG
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so57553785e9.2
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 05:55:04 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=s6M/SDal
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c4d5b2db4bbso1110302366b.0
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 05:55:17 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795614916; cv=none;
+        d=google.com; s=arc-20260327;
+        b=W2X8z2DO/ImMs4n0+e1fhaNIR1hqyJmwWtWEMilSqL2tj31p3kVjWcxfJ0wlChBgly
+         sqgEmaBqal6V9ZBNLWtyY83PD8R0aIyMeY2BxtlbVTyJKT6QXPf+r1QkMSnOTIFa8/pA
+         v+HhlgpCAUQxbr4rSUgUTB62/iSkLsx8LvxMIr1Xqxgw3mbZ5UL6B1X0myFQ1iiypEGN
+         bOyls/GxMklc1MWhHLl2Sr+e2591t/EnHIBosbmsHk9OwCC4if8Ib5pmS2BDc3xM8hk+
+         jQhSonZGf0Ws5cUNj/eObyDHCB79ntP2MoevIY3Av2GNaS7qLaDjKz1SQGDB7ECGnB0g
+         tFIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=FCuANSuXIYamXWDtNf7w7lG6eHXyutyXEO9DVfxIUGI=;
+        fh=3hXagfkh6eT3x3RWQBgtbVzeba2VRwJcHHlYs7zk/tA=;
+        b=oseSBESP3+17ysQP3yFEFkHafa4ovICaApaYuhqbOXMBMlk5clzVilo9GWXUEjTXcc
+         nskTcDMgkrHVDK7jvFk6EeHBn/F5ZYrQJPurzcCjrhIKy9x0j0oXFfwGUwx/KutPgSIh
+         Ra5VLHa3fMyHa/WNS4Lgq2QLIeWbylugzrqI8YroWGCejiX6GLjrODohAk/1/XX9X+bo
+         9jT0M6nOjQI1EDPG7vzNQqZwOV8nZoicFrzJlHP8VX8OIkf1vH2IFR7ejpfed9IcgWlD
+         OcRb9Uytx3GBQYEDoyJ4dwFeqU0aZBWTrwpyt0fT8WSA0J7dL0hQSMct/Lz9VLborvTR
+         fg3g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=teslabs-com.20260707.gappssmtp.com; s=20260707; t=1795614903; x=1796219703; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kdlCDf2dlFxOjylVGdoM/KhHearUI/+HreUvx630OTI=;
-        b=AP2C8OHGOl0DwkmI5Sp2NUj7zGMD39QQo6CwIEJJPM4DnRxUp9DuhQO+kVMWFqX1eW
-         8ouMbFbawn0PB4Whn4akvv6M6cFSkVu2LSD7vl+5Kglbs2aHR8iKOmwOOqBSwKhcQucu
-         XN1OX6tmqEHc+qyZM7KKhUhKpKCDIk22QX2iiFx5BlkVzv3f4Xcmn9lRfxmDtpH/ZEQI
-         uvjJ9vHWIq1ytBPHXzwYockTaWaLwH0nB0hfvcclFww2HPmVUZJhiLybtT+ZjU6IMsX9
-         C4IAvrEJPrn6n/TdFeD85cmg+WNo29CCk/L3LrBIQv453qWeD61l/d5bHXA30/PsGkgt
-         UFTQ==
+        d=flipper.net; s=google; t=1795614916; x=1796219716; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FCuANSuXIYamXWDtNf7w7lG6eHXyutyXEO9DVfxIUGI=;
+        b=s6M/SDalISUI+jHyF1ygvsSJMXSzjcqCmvFuiNVEBqojZZqJk0awSxIA+xKTcFGZAg
+         5PuEJlfkmW1iIPTOzc8HZx5zIx/PbL4NiHhDaxPQgE02vkGvH9r/JpOB7eMQDd8xb+Yy
+         jKfzzwex9hReuI3uPx7ExJ7Akd3T9UGzK2V6LwBQwvQaC7Ybz8HjdVvTojvo096o5x6u
+         I9kLHc8YxNpkEIXaNvShw7u90i/sMbVsdkfOXOeF3HfUe8Gp4ZcCJCmmzGvtqunMqrQs
+         AWomcXaWWanscLtu8670AAkTPyfDJXcTOmKPn8shjYR28fEG29qlUU22w4QDNcHb3vRc
+         Ddgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795614903; x=1796219703;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kdlCDf2dlFxOjylVGdoM/KhHearUI/+HreUvx630OTI=;
-        b=KShB/3oyb4x8vmDiT3vceq4+GJIS6yE8aOvjUK17zuzHT9pvhMgW2lkddu8ZHG0kqL
-         pGMcwQrmhBb8c4OSUml2B73OnOcYoMxEj0luamHQHwk+3MEDPUgJsTdXurVyzXW+SjsV
-         24JR/JWLsEJsteaOnrr4cjtBlTw4tXxIpgelPa06y6dhfxo1iw/AnnJjQWB6KAuXzaI5
-         ZEXGFjxYnl1OwGw+i60Wei/X+KHNav0m9vT8rtnGHaKLCaT+5CgDjX8G8FQPsv2CNb+S
-         It73pxoMxw/APVAg0r3VQW+HCL7eGbjQWcTxp5Tg0up09Cqs6zHxgrITBOhlDFXw5UYP
-         JxMQ==
-X-Forwarded-Encrypted: i=1; AL+hErFL1HccduqMbDV5CLyhkBsUx/qwYOVliniHkXti7eeJ6LpWx4zhxilkQd7LWkRijazTuIcnXwJ0Dj+8@vger.kernel.org
-X-Gm-Message-State: APuU4Z8v95jErj377lxmWoosRqFWbp9Rw6ilfYl69IObt4+6AhRwtONz
-	pU38bAgx3UYKnaVkJuITmENYGKG6yRqHlJR6jKlQBs9WjK4WjcoKGLY+C+XPU9eebpM=
-X-Gm-Gg: AZFdTZdVqX2Ia6Z42SUfm7d++Ilp0UTR1JZTsPqrd+NqedmKyhSss8W553/P7XSS6Fo
-	6+4qWisQ24oEMBRzT/e4kjxko97OWOfULaWZxoo2TMWAKRQV/ujDDFuq3npkKKEvReWamkJLYWk
-	hINqFklpnGArevNyb5qkHabJa0CcXbTTVrxJERgCp+vovZaCnyTolFW9IgTegi+OjbUtqrcPNmc
-	fv+yMUyPN0Ch3bqfaLlJN0k3G3yosJLtkQXfP92M51TJd0hysAf1e51RJiNIiFmqVwbkWvu1lZV
-	uMF2CAwItsBr3SyBdFvSdcv2Wb+2HbO+BvhUsjSX+IAE+SwwcKxNCnkdHs2IWIS1XYuPqANDPii
-	3v6SDMND+dCa+XNLsS3wFHdl5WwaV8eYgy4FbzFGj7QX6nWu+Bhxl91en/UNynkXEHu51EZ9yYi
-	TJ8W7ouGI/fIAitVSH+z77ec1CJO/TTde+RceSh6h11ciOTb+Y/f8RpLGufZ0T2X1FS48ZeAgx1
-	AileUleIZWTzX4W08SiQcEwb7BuzP7+pyJsWNjtQ8i7A/Zm0AR7QS1EzDlGScTTwpEVC6S6PRLu
-	VNa2ESfv89yK9k48K/nshVF0jd4d7ktomg/Rm5zQo/3TFSBDdQnJdPcT6WohzaljsNgB4irC+Z4
-	PfeaEg4Kgmmg=
-X-Received: by 2002:a05:600c:8210:b0:4a2:1a:a116 with SMTP id 5b1f17b1804b1-4bb887865b5mr359907805e9.0.1795614902892;
-        Wed, 25 Nov 2026 05:55:02 -0800 (PST)
-Received: from localhost.localdomain ([139.47.121.129])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8538b2c5sm515864135e9.5.2026.11.25.05.55.01
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 25 Nov 2026 05:55:02 -0800 (PST)
-From: Gerard Marull-Paretas <gerard@teslabs.com>
-To: fabrice.gasnier@foss.st.com
-Cc: jic23@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
-	dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/2] iio: adc: stm32: describe the STM32H7 temperature sensor calibration
-Date: Wed, 25 Nov 2026 14:55:00 +0100
-Message-ID: <20261125135500.5306-1-gerard@teslabs.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <89f43760-01c7-43e8-9682-b7363ffc931f@foss.st.com>
-References: <20261124202220.23721-1-gerard@teslabs.com> <89f43760-01c7-43e8-9682-b7363ffc931f@foss.st.com>
+        d=1e100.net; s=20260707; t=1795614916; x=1796219716;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FCuANSuXIYamXWDtNf7w7lG6eHXyutyXEO9DVfxIUGI=;
+        b=1pLjfxrTljODmY5NLUpHRnyx7loqEiDHUydmeRVby2cQGabxk+3D0A2YO+LzB574nP
+         YIQD28cvPah/ls29RoWuL82q0ztKnmIt8Hg+E0mv7TGwu3uMwjdM/a5AjgdB7IOlq8Dh
+         9rwfgonTr+lZKTxdMiJVm4ho6QGN602Ebca/sbAaZQMzgrsxHcWzUqjXnFTtVl5r7YUO
+         g7XI7LbKKMT8SKJDbJWHo3YoInQnSZMEq3kGfidnl5/NOfLwtA1Wrv8zCdNFehQ5ueRm
+         MZd0f8BaCHEB0unonR9kcNArEDlbRRooDxhsmz8XnEuiv2bm+mSQ1CmeGS0kX2dJCyxi
+         5pNA==
+X-Forwarded-Encrypted: i=1; AL+hErHTvBOh9xlYrbrRBTJdMNY471a/EtO9YZ8dbkSdb6eTLDvOZvmo0fvNRR+UJXQiV4F0Boey4WwhascJ@vger.kernel.org
+X-Gm-Message-State: APuU4Z/1ipxEUOL/2pg1hlXW0w+oMybfqEtKm/Brydi2hZH4IuSeLUJ1
+	FSDxYQaNkS/+62n2BYmCA9lZndQW7xrhLsQqDx8yuQ9UqThieN+Q4EnarQTy/iJGkhxUhrnpxCE
+	v+XoLi9ue1R4bznR9kqjpYjaI+tIQT3EsI1OEDnp4tQ==
+X-Gm-Gg: AZFdTZdRT4tmWQhZz0XDsgkbQQS0chGFWzZg0A+NCUwkmKRDwdEBC8Mmr5eaK74Yhvu
+	F5Pl3bAevel+2hI+ZrQu7Mzxlor0i3oSsuMs22khhqe844TDSPyMOiWzUWA8mTXGxv6WgwA2R1c
+	aPiMc1rcwIprXkPKPHB6FDrH0iFuHb1sOPd88K5rx2+U4hgiXJv4oTBGQuq19mwQ4ZNSNHO2xuo
+	Z2j0O1UIROvZhMA15UA/kyK9IdzBCPRc/aCK9P6TWHpWXJG/xmrHNyw6MrYAG9f9dkJWSIAmjKr
+	Abb0sk18vXwHPI4WLM6guoCI4gd17pt/dZWz/ujaEAqMtNkntHH5GZKu+lBfAK3B2S/rLoJcovr
+	LOavTgQ/qmZxlaVhOVkpaUXRb8Xmt/i2WGmXlB8S9WrjPSQqtAn/mnA==
+X-Received: by 2002:a17:907:6d26:b0:c51:50c9:741c with SMTP id
+ a640c23a62f3a-c5150c98208mr1275142566b.10.1795614916108; Wed, 25 Nov 2026
+ 05:55:16 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,24 +104,66 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261124-rk3576-otp-cpuid-mac-v4-0-d403b8a25113@flipper.net>
+ <20261124-rk3576-otp-cpuid-mac-v4-3-d403b8a25113@flipper.net> <0aH4P5VH9HNiTXpCUTaTlvGaoUDQBnvv-0cSXtipSDkLOGjzGy96jDqsVtU0DJTWrocgoMcGFEgd0JUlF5mljVvCzGKVz4yUgDQ0s6HaDLg=@protonmail.com>
+In-Reply-To: <0aH4P5VH9HNiTXpCUTaTlvGaoUDQBnvv-0cSXtipSDkLOGjzGy96jDqsVtU0DJTWrocgoMcGFEgd0JUlF5mljVvCzGKVz4yUgDQ0s6HaDLg=@protonmail.com>
+From: Alexey Charkov <alchark@flipper.net>
+Date: Wed, 25 Nov 2026 17:55:04 +0400
+X-Gm-Features: Aa3M54pv9ze0w4z1urAY277TKJgQi-9HwT3ngn04WBh3FoiAC5gcBe50J9g0GsQ
+Message-ID: <CAKTNdwFwuG9bWStnuttiXY0o_iqMX3Eu_0DhFtxXt09Bp3Dz4A@mail.gmail.com>
+Subject: Re: [PATCH v4 3/5] nvmem: rockchip-otp: Derive MAC addresses from the
+ CPU ID
+To: Ryan Leung <untilscour@protonmail.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, 
+	Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+	Russell King <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Willem de Bruijn <willemb@google.com>, Simon Horman <horms@kernel.org>, 
+	Ricardo Pardini <ricardo@pardini.net>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/25/26 13:56, Fabrice Gasnier wrote:
-> The DT is deprecated and are going to be removed [1].
+Hi Ryan,
+
+On Wed, Nov 25, 2026 at 5:49=E2=80=AFPM Ryan Leung <untilscour@protonmail.c=
+om> wrote:
 >
-> [1] https://lore.kernel.org/linux-arm-kernel/2afd5f78-0174-4955-8c1b-be18aea3800b@app.fastmail.com/
+> Hi Alexey,
 >
-> So I'm not sure the dt-bindings update is useful.
+> On Tuesday, November 24th, 2026 at 8:04 PM, Alexey Charkov <alchark@flipp=
+er.net> wrote:
+>
+> > Rockchip bootloaders derive stable Ethernet MAC addresses from the CPU
+> > ID in the OTP memory and patch them into the device tree they pass on.
+> > Kernels started any other way, e.g. straight from the SPL in Falcon
+> > mode, end up with random addresses which change on every boot, even
+> > though the CPU ID is just as readable from Linux.
+> >
+> > Implement the derivation for cells marked as "rockchip,cpuid", handing
+> > the result to consumers which ask for the cell as "mac-address", such a=
+s
+> > of_get_mac_address(). Leave the CPU ID unchanged for any other reader,
+> > so that the same cell keeps serving the ID itself.
+[...]
+>
+> Perhaps "rockchip,cpuid" could include a mention of "mac" somewhere?
 
-Hi Fabrice,
+I deliberately avoided that because, at the hardware level, the OTP
+cell contains a CPUID, not an address. The special treatment applies
+only when the CPUID is used for MAC address derivation - which IMO is
+better captured in the binding description. Let's see what the
+maintainers have to say though.
 
-Thanks, I wasn't aware of the removal. I'll drop the dtsi patch then.
+> Tested-by: Ryan Leung <untilscour@protonmail.com> # RK3528 NanoPi R28S
+>
+> I tested on FriendlyELEC NanoPi R28S (RK3528) with index of 100 and the M=
+AC address was exactly as expected.
 
-The binding itself stays, as it covers the STM32MP1 ADCs too, and it is
-used outside Linux: PebbleOS describes the STM32H747 with it, so the
-temperature sensor calibration cells would still be useful there. Would
-you be fine taking patch 1 alone? If so I'll send a v2 with just the
-binding.
+Thanks a lot for testing!
 
 Best regards,
-Gerard
+Alexey
