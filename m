@@ -1,81 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795574564;
-	b=1MkJ1sLmkPKeWd/pdFdNQ2I1pCaWxEdOImsxZTuqJ4J3vMY1WNeit4/9OeMYBHtvFg4p
-	 2QogIckXU77yts0PqUQL8ve02AoSdOn2sHVuHa8etineNedHAKA2OEAUao1/ZpjpLRIeo
-	 FfpN5Jl9Kga1wG3z4cSJgejjQGThFFs86GibQ8S6uruQ57s7SrX/dplUcx1y3uL3z5LG/
-	 r+9/m1l1UcF6+JrPxz5mNBLxp/OmoQ0v1QZezqsOh/cjPXLRefQ8IR00UQVC+J+r4+pvm
-	 fdJrPxaaxCUM5p6Uu1UFhYB9JSLZc8yc5yewvb3ZsozXbScllgiwz3BUHPEx2j73v+Q==
+	t=1795574983;
+	b=LsrKxR/c/Lwqi9fSTvw5LvQAnyFo6DOgEK1zgt1gmvi/b/mvfU33jxoldDzAUqnb0ZY+
+	 jTdwV9uV8KKYVTOHw5BKSj523DB39Sa9WAEd88KtsVl20F2OROyxK8aq2/tX1g9AAthUX
+	 n8cIA1YfOkqGk26ZeT+Q4J0H7UJtD/Neu/a0yoRMXFGRPhFstbQ6sXOVjxUlWTe4ElVfF
+	 dJGHPTGFvQaBQittxum1QMioMdCiU2UZdoio6wzwVhdk6CChRJpgqaHoa4hQVt7BiQ/cx
+	 +eJkmZtW5B7VH8QNV9LHyfo2DRiYgmLoRhFMWK9M9CYzsx19XRL8rJLw+CtP75C7/mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795574564;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=o2ZBOBSK4J6IpmVXYBOJZpEDX+16cuL5L8cVT4NeqK0=;
-	b=PGBTcg8SlkcfUcHUtwQSDMzveuou/iJUQ6G9nJc7hXFFIyEa72lacxqy2mocD+lg4EH7
-	 EngrRn4mB1Wh4ZBk5T3WWWLD11YPntlCubzj9Zmsw7uS2Tc42ltfvDyVRsRTwueGRnTv8
-	 TIbS5OtWvxkfaeBTHCDc1SQfrQfuYCn3V1vdRtpS6oEZEUkXvYltPUxRwPAfjuCCqqtRW
-	 XxZXaSsVH7ZNPOI5yF8CDEosMQHUsyx4jEOczVMNZ0GZoRBHAqyLzr1Li3MSRWqK6ymdX
-	 SzQQkCYV3rVIWMa0OmcgiRRoRqj4HRy05sCNoTngAqSpAkTf6DTncCMuVAAF8lvpSqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795574983;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=c9glRbfTcVHBbunDTcByHsHQ4ZaWeP9mFG4ZNiO80p8=;
+	b=FYO+kkxj1h2tgtgHSgjP3d1N289YovHPV06sEID50uqlpWcCqFTgJgN+yClcgDXt+lLg
+	 x2ptlS/b/0rjYY53C6jpblA/SOOHJ31XLF33OvAvSwg5bHFs6sVr8e5vp2DWKyUPzAGW0
+	 IrAqeepGxRL216RSvQt8zFs2gFtobgGSNivtUnZDIgrcKv/Qcps41vDsHDY0vkptTiMNm
+	 KDgHTWOOjL+GEE8jPVfzc3B8TjkDsnBwaTB01R91YQ1wHf86PN2jgwcscZeHfBJuoMn9I
+	 K4iglT7mA9NUtbGXEMs5HQbtWXea2SPzjX5h4Y5LgMKgmyEh9sg9oT6gXYTRUmy628Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="OfmTAq/h";
-	arc=none smtp.remote-ip=162.62.57.64
-Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fVaJtRIy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FE9606A33A;
-	Wed, 25 Nov 2026 02:42:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2FE9606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C3E606A321;
+	Wed, 25 Nov 2026 02:49:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=OfmTAq/h
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1795574552; bh=o2ZBOBSK4J6IpmVXYBOJZpEDX+16cuL5L8cVT4NeqK0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OfmTAq/hSZktBWJJmk23Z6EkJvP4bDGrZj5BydV9eVSJ7QJyPqxxCKWfqP292eYQ7
-	 BfuMexWS15UrZIDkywllQKX9Wer9/lqb9kJiR22yNMAUhbTjL5tKHLQgoRnEPrjPnV
-	 aZ8Vzavf/oZh54XSpXui6YDMryy5ZdvF1v7THy4E=
-Received: from HF ([113.90.236.90])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id A9B394D4; Wed, 25 Nov 2026 10:42:27 +0800
-X-QQ-mid: xmsmtpt1795574550t42d4g49m
-Message-ID: <tencent_65A800E3961F185694DF3284554F14BFAD08@qq.com>
-X-QQ-XMAILINFO: OZ2MtRmBbS53QTDtoG5ja4yZCowRkSPMV0ca++xAPCZicfMbsGLt0mtfiHI0l0
-	 P8fziz7431EAbSkLp3CkSId1EGarw1icPIYsvmAIneV6NrB/r2uIZHog7eSWglwKDSHQJxiOouVU
-	 CZgF5WBXuFv+WUOOPOzkY3zL2JAFDwXpqnkydbNOEBJOedEFXMlLayOgnyK9jTGKZCZYmwvCbFrl
-	 Wu9Ct9Ko092srZiSUrK4pJgmvnohLlznQivhwTy9SfMQmblhWwwbNooiz4v3YDjLWgEJjQidBmXA
-	 rX4j7+a3j2p25Vv9e3gvpIvx4kZLlIU5NPW07kDfWNR/+pUwomgfO64xRuIGHINuV4/xoi8JZcTR
-	 foOi+9Xlzfz4lgOJFzV5QJWpWAuQVAgK71yL/7C6C1GDE6bBHCp4M+DVP2WEiTFkeXeRvklN66NX
-	 lZcVQcl3RTGwLsOvQZcvKHRuB/9PAx1wrbZhYC4IBmKTDgzBQOdwppYfUiW7edN/UFk6hZq8cZ2u
-	 EmxxsDljrsd0aHP+UXk4RQHNbTuZAzmwFV0fY4szBF0K+2rTWRhSTH5MVlkpscfRaBjUTaMwi86X
-	 9IX8be6W/8XTsZRmOdmWvdOxbVxhM8e2i4lgPNG8ZFviajMYyUKAaKKzDlmxCjO9rRBwgFsIFiHA
-	 q5WlIstrNeKXiAtAc0DrAi6okPhGTJNalAnA05UL5+bNahJhHQaj/vC9FhxtVZHr6YEAHVi8fuWd
-	 L8we/qPa/uur2mhIVj3ZgI86CN8dbBRBNkkcIi7UKf6abVZsFsAXyWNxW/99cB3rTEDE/UzddrWX
-	 +gh8010csdFoo6V6y960DkDcSUEOXuS6HLs+wC08uc+FRd3+vKIXq3ItfwgvtCOJ2GCQ400jIx1L
-	 2XZg/7aSbaseGBk/bMqBfFf8p4OftaQH5ghWxS5f5B9yaKq7Uei8cnlr48B/IGZ64k+fpx/4B3p0
-	 WrsAcr3iX0Fv2LYQh0AvqUe1B74UJS7aAMxOh0HMSLNimHkRq0cAwq2IIU4oQSE+39FUpbgE1p/1
-	 TvUy2LTh86e+GsujQ2yCBV0aYNrWsrQtgAa+Biq3cSJeh/9gOvBoOqpxpFVYFbDmZ94PUbsDQ0Eb
-	 jZlRPECH4oWH8SuaFwaSWvL64AVqH8dPdc3tiN7mPJQVPF+TzOGrgFHUVWpN6x5jg0O2MaGWWsNs
-	 egAyr525SVseM7Fg==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-From: Hefei <3066883572@qq.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org,
-	conor@kernel.org,
-	Hefei <3066883572@qq.com>
-Subject: [PATCH v4 3/6] dt-bindings: backlight: add VIEWE 7KF82 I2C backlight
-Date: Wed, 25 Nov 2026 10:42:23 +0800
-X-OQ-MSGID: <20261125024226.1293-4-3066883572@qq.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261125024226.1293-1-3066883572@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fVaJtRIy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 020C31F000C0;
+	Wed, 25 Nov 2026 02:49:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795574982;
+	bh=c9glRbfTcVHBbunDTcByHsHQ4ZaWeP9mFG4ZNiO80p8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fVaJtRIy5Jh60gB2f8edRDN8SFcdWN/NrNVNKZ8CBfkA0X0hpEbo1lVRJgo6bJN8h
+	 LOnEoOphsIwc5zmZHVDQHd2FxsNTI2kjaKyRgrxXZNDRzXFn5HMya0WllE+wNWYUaM
+	 VSY5jPvrl5tnlsN33bPSQO6zZ1BJF7M7y1DgfjEq8WeCQ8BrtgRYPmY9AjaxbGIpmm
+	 eek9UtQfjav51Ufff4/upVjAV53DvZ/hEXgzWtcgiegkGa5BzqeF/20lF3tSSxyqzs
+	 xrfrS4EDwUsdl4CaBYSJF9vKiFMLiJsGgD3fI9VV5fETITZh30mTJL9G4EgpAeujze
+	 ubRrFMCx35h5w==
+Message-ID: <sashiko-outbox-232421@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 5/6] Input: add Jadard JD9365TX in-cell touchscreen
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Hefei <3066883572@qq.com>, dri-devel@lists.freedesktop.org
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
+In-Reply-To: <tencent_05AAFCF8CA47B5D5ED770621DB13E46F1406@qq.com>
 References: <20261125024226.1293-1-3066883572@qq.com>
+ <tencent_05AAFCF8CA47B5D5ED770621DB13E46F1406@qq.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 25 Nov 2026 02:49:41 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,70 +60,113 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Document the I2C backlight MCU on the VIEWE 7KF82 module
-(address 0x45, register 0x86, brightness 0..255).
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] Input: jadard_jd9365tx: wrong supply array type in
+  jadard_tp_probe()
+- [Low] Input: jadard_jd9365tx: u32 overflow in jd_resolve_coord_addr()
+  bounds check
+--
 
-Signed-off-by: Hefei <3066883572@qq.com>
----
- .../leds/backlight/viewe,7kf82-backlight.yaml | 46 +++++++++++++++++++
- 1 file changed, 46 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/leds/backlight/viewe,7kf82-backlight.yaml
+commit 57a37b18fbb37602183e66793eebea170b919dc2
+Author: Hefei <3066883572@qq.com>
 
-diff --git a/Documentation/devicetree/bindings/leds/backlight/viewe,7kf82-backlight.yaml b/Documentation/devicetree/bindings/leds/backlight/viewe,7kf82-backlight.yaml
-new file mode 100644
-index 0000000..e65aa4c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/leds/backlight/viewe,7kf82-backlight.yaml
-@@ -0,0 +1,46 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/leds/backlight/viewe,7kf82-backlight.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: VIEWE 7KF82 I2C panel backlight
-+
-+maintainers:
-+  - Hefei <3066883572@qq.com>
-+
-+description: |
-+  I2C backlight MCU used on the VIEWE 7KF82 DSI module. Protocol is device
-+  address 0x45, register 0x86, brightness 0..255. A discrete MCU part number
-+  is not exposed on the FPC silk; the binding is therefore keyed to the
-+  module.
-+
-+allOf:
-+  - $ref: common.yaml#
-+
-+properties:
-+  compatible:
-+    const: viewe,7kf82-backlight
-+
-+  reg:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        backlight@45 {
-+            compatible = "viewe,7kf82-backlight";
-+            reg = <0x45>;
-+            default-brightness = <200>;
-+        };
-+    };
-+...
--- 
-2.55.0.windows.5
+Input: add Jadard JD9365TX in-cell touchscreen driver
 
+This commit adds a polling I2C touchscreen driver for the Jadard JD9365TX
+in-cell touch controller.
+
+> diff --git a/drivers/input/touchscreen/jadard_jd9365tx.c b/drivers/input/=
+touchscreen/jadard_jd9365tx.c
+> new file mode 100644
+> index 0000000000000..3312119d7b696
+> --- /dev/null
+> +++ b/drivers/input/touchscreen/jadard_jd9365tx.c
+> @@ -0,0 +1,356 @@
+
+[ ... ]
+
+> +struct jadard_tp {
+> +	struct i2c_client *client;
+> +	struct input_dev *input;
+> +	struct touchscreen_properties prop;
+> +	struct gpio_desc *reset;
+> +	struct regulator *vdd;
+> +	struct regulator *iovcc;
+> +	u32 coord_addr;
+> +	u16 touch_data_size;
+> +	u16 max_points;
+> +	unsigned int poll_interval_ms;
+> +};
+
+[ ... ]
+
+> +static int jd_resolve_coord_addr(struct jadard_tp *ts)
+> +{
+> +	u32 esram_num_addr =3D JD_ERAM_BASE + 4 + JD_MAX_DSRAM_NUM * 8;
+> +	u32 esram_sec_addr =3D esram_num_addr + 4;
+> +	u8 buf[JD_ESRAM_SECTION_NUM * 8];
+> +	u32 addr, len;
+> +	int ret;
+> +
+> +	ret =3D jd_read_reg(ts->client, esram_sec_addr, buf, sizeof(buf));
+> +	if (ret)
+> +		return ret;
+> +
+> +	addr =3D get_unaligned_le32(&buf[JD_ESRAM_COORD_IDX * 8]);
+> +	len =3D get_unaligned_le32(&buf[JD_ESRAM_COORD_IDX * 8 + 4]);
+> +
+> +	if (addr < JD_ERAM_BASE ||
+> +	    addr + len > JD_ERAM_BASE + 0x1000 ||
+> +	    len < JD_REPORT_MIN_SIZE || len > JD_TOUCH_DATA_SIZE)
+> +		return -EINVAL;
+
+[Severity: Low]
+Can the 32-bit addition addr + len wrap around here?  If the controller
+returns a corrupted section descriptor with addr near U32_MAX and len in
+[JD_REPORT_MIN_SIZE, JD_TOUCH_DATA_SIZE], addr + len wraps to a small
+value below JD_ERAM_BASE + 0x1000 and jd_resolve_coord_addr() accepts an
+invalid coordinate address instead of falling back to
+JD_DEFAULT_COORD_ADDR.  Checking len first and testing
+addr > JD_ERAM_BASE + 0x1000 - len avoids the overflow.
+
+[ ... ]
+
+> +static int jadard_tp_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev =3D &client->dev;
+> +	struct jadard_tp *ts;
+> +	struct input_dev *input;
+> +	struct regulator_bulk_data supplies[2];
+> +	u32 val;
+> +	int error;
+> +
+> +	ts =3D devm_kzalloc(dev, sizeof(*ts), GFP_KERNEL);
+> +	if (!ts)
+> +		return -ENOMEM;
+> +
+> +	ts->client =3D client;
+> +	ts->max_points =3D JD_MAX_POINTS;
+> +	ts->poll_interval_ms =3D JD_DEFAULT_POLL_MS;
+> +	ts->touch_data_size =3D JD_TOUCH_DATA_SIZE;
+> +	ts->coord_addr =3D JD_DEFAULT_COORD_ADDR;
+> +
+> +	supplies[0].supply =3D "vdd";
+> +	supplies[1].supply =3D "iovcc";
+> +	error =3D devm_regulator_bulk_get_enable(dev, ARRAY_SIZE(supplies),
+> +					       supplies);
+
+[Severity: High]
+Does passing struct regulator_bulk_data * to
+devm_regulator_bulk_get_enable() fail to build with
+-Werror=3Dincompatible-pointer-types?  devm_regulator_bulk_get_enable()
+takes a const char * const * array of supply names, so if built without
+that error it also reads uninitialized stack memory
+(supplies[0].consumer) as the second supply name pointer.  Using static
+const char * const supplies[] =3D { "vdd", "iovcc" } fixes this, and the
+unused vdd and iovcc fields in struct jadard_tp can be dropped as well.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/tencent_7B5CDF8F847=
+44FFBBFCFA89FE3651F675608@qq.com?part=3D5
