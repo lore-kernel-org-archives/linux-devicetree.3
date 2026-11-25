@@ -1,60 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795631260;
-	b=2FLlc7GuESH9ZhkJg1xt9lFOyPAGAj+ZTERqWaDIydanguugjAHEIg0Sic6RP6oyn5SL
-	 6n1B18Cb84LI8FlImg4csLliMZsAx3DNfiktZCkXabqUJgyhrbr8YyQqDd5IYKW4T1mKo
-	 c/U4uKwFmAsnKXXBuxsVwxy9IHM6oaUsakdOD6uytbs3xsxrVnpCIY/0UmX/na3/dc2jK
-	 4SdrBdu5xz+XPwtsIiOBtZdAm73gM6LatTIpiXNgxQEr98Ec1tBj0FQ+7Lm04J7bBhquA
-	 lXSCnodib8evKwDOtMSPnSNAhrNf+eMpJUgIlfMy9PAlallm5mrJFFT071Y7Lw7wCwQ==
+	t=1795631328;
+	b=AsfZtmnXRKyhULs09RMn6PDZHCrbEc9yzFnUdYhDy4saB0rt2OXwjPjfI2vTWZkxdoT1
+	 weVMvagX5OJCNdjb1Pmc17stiEFfGGfA2UiOb9ejGveGCgjEMhyMDNep+m21s2F3onKR2
+	 ytzedvQ4SwROy6zGVJ4fvdoirBRkLH1YzU4axE/VLFFY0cTftXG4qKfcaCixjae08vOWW
+	 NZ//ctlSTrF0mZLvf5Bf+PdVhICOeeLp7+iptG97YXTxSYzBhDqa4BWqVO4sVROiLW4Gw
+	 3TZ/NgP1ELQ4ZpPwBeI0kogRCdxIFV5KLeXZLJPdi/sxtlJXcokZ2AFqcQnSrTYcSJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795631260;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=wDMirRJrf1Hevbb2RQb7Ux8WrGtymI5eyuYh769zW+c=;
-	b=UFQu9EEr8VZ4W56+WKdrvUujH5D4dLbwe/H4VHy4lyaT+2RVk56pjUtELAF9wsTbxhwd
-	 bhhf2hXcA4uCqM4y87TO7Be833acGKlBzbRzQCm+Lkpj5kodXpAiATUG+L0487kR0jjb7
-	 cKt3xlw2xhtf4ItHb6WLQA0eG1uTbYog96yfjU9R27uyg1dTLYzLacDLzOu6tLh5zlfrH
-	 42PwkJoIofCLr7IwC7GWHKCJw69c5KtrDHyCF9TqTv3k5Q6vZ8Ace6U4/Z7szHrEP0i4I
-	 ApyQa7fX+jOmfb5VEQVDaO49Kj6lh4yxOhxR14DNcltUnByKGuhQDKRRKJEnGcZfx1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795631328;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=s89ULcfJlcdzCl5MhVyPCLu49hljGSQBZ02EqlEm4lQ=;
+	b=VEr2yH2/k/9k8576Had7zTQh7OLR8ZoANiJhlemGIZiwo/vI/0US71ln7GV2pM+KmW35
+	 546qLrfd6z4vf/EhbSjS+JCxk+NP8jCmL5bT5TdUYnnZkXk9hQs4taQdQ5ZjQ5glNnJnm
+	 WbgC5G1NyUZLgZEI5zZOdAST9ZPTgoh2l+KVO4XTIvjISX7AnnnPI+evl0AUl4XHIern2
+	 JyXUVBNhc+yIaiz8Ks0n9NyhIfBv7EvzwJqyB9zc5StFWF0gvMrVQrxuFvtTfWAyoyXkq
+	 gqIH9JEhQYDJPMGJkGcXuNtLle2o3V/2x090wyuoTrBzpGXWsk97DlS6yK1f8EGbFfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YcLS4gK6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z09Id4Z8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80B5606A321
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 18:27:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 225D5606A31E
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 18:28:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YcLS4gK6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A64DD1F000C0;
-	Wed, 25 Nov 2026 18:27:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z09Id4Z8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F292D1F000CA
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 18:28:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795631260;
-	bh=wDMirRJrf1Hevbb2RQb7Ux8WrGtymI5eyuYh769zW+c=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YcLS4gK6gUvui0t7Lm4APRAWDz6ourODTKFb2qUnrlms7kkARWsDDEOFoLLger7fU
-	 c8EDp3xKb/IEyPnjNYpvlGxnDIcxf2M5h/tQPDQBxhQdDF/xJhdSpJxfxdGcCfMeTO
-	 2nZvPTGa8J2aaojfrPRZjsPikyb2NiLOFuW0ebm5qmNjFh/C+J+xpqq4Ux0m/Xx52W
-	 aaPxBKBGMll5Hzv3NdJAIBTu+OHnxj/wPylCkhtIjQZKWAHS/SvRViliKEQjui0p1l
-	 My50XEw7cVas6JFAc+PS0zJNyxBuy7dt6PwwFwdUwTwKO8xZfV10LkDA+QKYqOjyRF
-	 VGxwZmJjsDXFA==
-Message-ID: <sashiko-outbox-233989@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] mtd: rawnand: Add Cortina CS7542 controller
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fil Dunsky" <filipp.dunsky@gmail.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Richard
- Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>
-Cc: linux-mtd@lists.infradead.org, devicetree@vger.kernel.org
-In-Reply-To: <20261125-b4-cs7542-nand-v3-2-0b6d141c102e@gmail.com>
-References: <20261125-b4-cs7542-nand-v3-0-0b6d141c102e@gmail.com>
- <20261125-b4-cs7542-nand-v3-2-0b6d141c102e@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 18:27:39 +0000
+	s=k20260515; t=1795631328;
+	bh=s89ULcfJlcdzCl5MhVyPCLu49hljGSQBZ02EqlEm4lQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Z09Id4Z8vbGXWMkS1WR7gKdR39oEkIz1JoFK6v2fcJ3HDWZQEH5Wg2j4BlMbe5Tiw
+	 Op07GQ7ZOBQPpPQ33dWnYZbQlClfUZwMO0/aaeAbFHLbf2VuNc/CGRuOxL1ldqWzpj
+	 99zYPOLVb2nNRTZejieDWlitrmHVwPhj8LRvDufiId/Sh/nJe7+/4//2GKErIvO2YK
+	 MEfTnlSx07Bzs1TEaYccXsWLnUbFHIHvis66TU2ZakXfOkROUwV11u3zZPDyeqv6U9
+	 dqbIX3OHFGaCGCsAYinLTu5QObKclEib2rFg46AGmWpBgO5YmZfUL2Q7K9SxTy1YxL
+	 TFYxMI+cYPOQw==
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5c31cdbeec9so1639672e87.2
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 10:28:47 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFtduKpKNpVC4Sw6fN0u3VoofGQzTKIXLAa1cxHusviwsMoYhXJs7ndfiDyZFd5MXnoIPKeN6ubk6zU@vger.kernel.org
+X-Gm-Message-State: APuU4Z9BUszFIzO9X7E/GcjOlbX8coEJD6sz58UKZdb/DEmiGyauIvpC
+	QUkL5c4TIOkIjCvNOUtTZxj9NNARW8m3YHr1qv78by7rnXx6U9P8RPfnt4ByPl7KhbwKuqb7nG7
+	xpvkAWHiBUeRu4UGhEb7RpaHmlhADZUs=
+X-Received: by 2002:a05:6512:a85:b0:5b7:f75a:ea68 with SMTP id
+ 2adb3069b0e04-5c1bc7df486mr4990618e87.35.1795631326771; Wed, 25 Nov 2026
+ 10:28:46 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,92 +58,44 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261124094059.3882014-1-john@phrozen.org>
+In-Reply-To: <20261124094059.3882014-1-john@phrozen.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 25 Nov 2026 19:28:33 +0100
+X-Gmail-Original-Message-ID: <CAD++jLm7b_Q8aN5E7zjEU8CPknKYy0ui_LE+jPYJji-YzAWxJw@mail.gmail.com>
+X-Gm-Features: Aa3M54q4ONvPZcrPiz4EM8PUlUrVb5r4XA_5oO6TkamikfKXWeoyqqveph49Ceg
+Message-ID: <CAD++jLm7b_Q8aN5E7zjEU8CPknKYy0ui_LE+jPYJji-YzAWxJw@mail.gmail.com>
+Subject: Re: [PATCH v4 0/9] pinctrl: airoha: add AN7589 support
+To: John Crispin <john@phrozen.org>
+Cc: Lorenzo Bianconi <lorenzo@kernel.org>, Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Ahmed Naseef <naseefkm@gmail.com>, 
+	Benjamin Larsson <benjamin.larsson@genexis.eu>, Christian Marangi <ansuelsmth@gmail.com>, 
+	devicetree@vger.kernel.org, lei.dong@airoha.com, Linqi.zhang@airoha.com, 
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, mfd@lists.linux.dev, 
+	Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>, Rajeev.kumar@airoha.com, 
+	upstream@airoha.com, Weifeng.xu@airoha.com, zhengping.zhang@airoha.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] mtd: rawnand: cs752x: missing NF_ACCESS_EXTADDR in
-  cs752x_nand_pio()
---
+On Tue, Nov 24, 2026 at 10:41=E2=80=AFAM John Crispin <john@phrozen.org> wr=
+ote:
 
-commit 1051502b252c0a23ea44bbf5fb9e41fc5ab64277
-Author: Fil Dunsky <filipp.dunsky@gmail.com>
+> Patch 5 adds the IOMUX to the syscon compatibles. Patch 6 adds the
+> binding for the pin controller. Patch 7 adds the binding for the GPIO
+> system controller it sits under, which also holds the PWM controller.
+> Patch 8 moves the GPIO register offsets to the common header, so the
+> AN7589 data can describe its own register table, with no functional
+> change. Patch 9 adds the AN7589 pin data.
+(...)
+> - Split the bindings in three: the syscon compatible (patch 5), the
+>   pin controller (patch 6) and the GPIO system controller (patch 7)
+>   (Lee, Conor).
 
-mtd: rawnand: Add Cortina CS7542 controller support
+Once Lee merges patch 5 with the syscon bindings I can merge
+the rest to the pinctrl tree.
 
-This commit adds a raw NAND controller driver for the Cortina Systems
-CS7542 SoC using programmed I/O and the on-host Hamming ECC engine.
-
-> diff --git a/drivers/mtd/nand/raw/cs752x_nand.c b/drivers/mtd/nand/raw/cs=
-752x_nand.c
-> new file mode 100644
-> index 0000000000000..81b5511484d97
-> --- /dev/null
-> +++ b/drivers/mtd/nand/raw/cs752x_nand.c
-> @@ -0,0 +1,814 @@
-
-[ ... ]
-
-> +static void cs752x_setup_page_regs(struct cs752x_nand_host *h, int page,
-> +				   bool write, bool oob_required)
-> +{
-> +	struct nand_chip *chip =3D &h->chip;
-> +	struct mtd_info *mtd =3D nand_to_mtd(chip);
-> +	u32 cmd, addr1, addr2, cnt;
-> +
-> +	cnt =3D NF_CNT_DATA(mtd->writesize - 1);
-> +	cnt |=3D NF_CNT_OOB(oob_required ? mtd->oobsize - 1 : NCNT_EMPTY_OOB);
-> +
-> +	cnt |=3D NF_CNT_CMD(NCNT_CMD_2);
-> +	cmd =3D write ? mk_nf_command(NAND_CMD_SEQIN, NAND_CMD_PAGEPROG, 0) :
-> +		      mk_nf_command(NAND_CMD_READ0, NAND_CMD_READSTART, 0);
-> +	cnt |=3D NF_CNT_ADDR(mk_nf_addr(chip, page, &addr1, &addr2, 0));
-> +
-> +	fl_writel(h, FLASH_NF_COUNT, cnt);
-> +	fl_writel(h, FLASH_NF_COMMAND, cmd);
-> +	fl_writel(h, FLASH_NF_ADDRESS_1, addr1);
-> +	fl_writel(h, FLASH_NF_ADDRESS_2, addr2);
-> +	fl_writel(h, FLASH_NF_ACCESS,
-> +		  NF_ACCESS_WIDTH32 |
-> +		  NF_ACCESS_EXTADDR(((u64)page << chip->page_shift) >> 27));
-> +}
-
-[ ... ]
-
-> +static int cs752x_nand_pio(struct cs752x_nand_host *h,
-> +			   const struct cs752x_nand_op *p, u8 *buf,
-> +			  unsigned int len, bool write)
-> +{
-> +	u32 value;
-> +	unsigned int i, step =3D write && len ? sizeof(u32) : 1;
-> +	int ret;
-> +
-> +	ret =3D check_flash_ctrl_status(h);
-> +	if (ret)
-> +		return ret;
-> +	reset_ecc_bch_registers(h);
-> +	fl_writel(h, FLASH_NF_COUNT,
-> +		  NF_CNT_OOB(NCNT_EMPTY_OOB) |
-> +		  NF_CNT_DATA(len ? len - 1 : NCNT_EMPTY_DATA) |
-> +		  NF_CNT_ADDR(p->naddrs ? p->naddrs - 1 : NCNT_EMPTY_ADDR) |
-> +		  NF_CNT_CMD(p->ncmds - 1));
-> +	fl_writel(h, FLASH_NF_COMMAND, p->command);
-> +	fl_writel(h, FLASH_NF_ADDRESS_1, lower_32_bits(p->address));
-> +	fl_writel(h, FLASH_NF_ADDRESS_2, upper_32_bits(p->address));
-> +	fl_writel(h, FLASH_NF_ACCESS, write && len ? NF_ACCESS_WIDTH32 : NF_ACC=
-ESS_WIDTH8);
-
-[Severity: Medium]
-Should cs752x_nand_pio() also set NF_ACCESS_EXTADDR() in FLASH_NF_ACCESS
-for row-addressed operations, or is NF_ACCESS_EXTADDR() unused for
-register-PIO transfers?
-
-cs752x_setup_page_regs() sets NF_ACCESS_EXTADDR(((u64)page <<
-chip->page_shift) >> 27) to select the 128 MiB bank for full-page PIO
-reads and writes, whereas cs752x_nand_pio() always leaves
-NF_ACCESS_EXTADDR() at 0.  If the controller uses NF_ACCESS_EXTADDR()
-during register-PIO transactions, exec_op commands such as block erases or
-OOB accesses at flash offsets >=3D 128 MiB will target bank 0 instead.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-b4-cs7542-=
-nand-v3-0-0b6d141c102e@gmail.com?part=3D2
+Yours,
+Linus Walleij
