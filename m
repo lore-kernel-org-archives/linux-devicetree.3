@@ -1,49 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795649500;
-	b=YkeKvPxXq6rCfcezw4UgRVRigdeo20xGpAeoNvzj4RkzqBW//FOrbrNpSc8wdic5IFTD
-	 xAkmAI6i3fCMKjiqAs/2E+2QL8TZd3xCdsKu9wVrzpvucKBh7MovsgErVJby/uRZevyiH
-	 PiKlzPoqxcJCQ8CzYZGWIXVV25WyQvdbp16NoNC98uUZzuefRw4bPeNdyPfKUJgImn8Rq
-	 EOwkRCywjoDeEndnijQlK+VbIoMR6fRlmVXD/nPEgsBm/+5cuNadbCx2R1Q7lRP0bUI6q
-	 EW9wLO5HxrdT1FELAYsm7eRFv6DqPC0Gx7BKtqQzNFU8tiHKUyH5jTzV3ShQiBLkiNA==
+	t=1795649501;
+	b=zOVHKD7zsCOdHlxbYN4RZZZUBHrj/aCgSeiHWQpfA2PN+kl+6DzB7oy92DuoYNJIb6al
+	 S9lKgTpf9nvmg8IN7p9NK+HFZ/iWhzlBEOwkuQlnvi4/s2z3Hx9ae415apC/zvZCzAR0L
+	 EjivtdeTpaKK7XI1eOkwJZBiljA70LZavSnL2zts0pYKvdxgcx+KRwOqjQPTln2aIVOxo
+	 11MxaSsHeooDnrmRu8qtEdwik688glywNbVp1iHDO3gLRLtYEWwBoIzgrMzRcL49KuUZq
+	 VmpO26CdQwIXLTOEe4yi3EUpnOuyVrROFbbGcAbXzWFWiLtEVJiESui42jKgfCrfDgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795649500;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=FvvNDtfsIabNA/On19BazK/OQL2ez6R5Vi/Cev7mYvk=;
-	b=UhPt3U2bVAelEnMGkJ6986ZvaHkvvYQ69bVTp0cU2mi46T2J5tipsfrT4extHBvXJRZG
-	 FWGm+lRudcBpDTuN6Y26TOp3icbEAGuc6RTInGNFen8Thlx3HRmW6Kxewn1g3G8brZQou
-	 rrY7kFcozjrmJMEviTKoXhFDZ2qBlNVyPnxZeG0dKF0AOmVFELQyrmgbFeaymbwWhgymK
-	 uuFG1XeYF9aSnE6T39x0xD/5oll5ASX2X5TEJYLHC0yhb0BXqSl4NJw+k73gYTgICha5B
-	 8MR64fifPSSAhX8Vmms1XlXEuvsRkY0QFaEatGPaBNQTHbbe3G6LRWgtZ9NeddiH9Og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795649501;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=JKnAC/v/PE5Id4vZjvScRbgOEIeYezkg5HQc5ebkHqc=;
+	b=Kk4a16GxfDYkD+RjXONIi9CLMGAz+UTF6cPHj4zr3MYsZwKUex1tT3FPIt8Q50db1url
+	 kwMnPlVzTAg3SgxkmUfk6rh9uWWmJ9cxwhe1QGdPKDKzpoIGM6srbUyTFSWUQCEkgyvQv
+	 vDVhUrySltzBVMcZ+GHcvJD7o3++hrRM8+2mpVep2teVilY6rLdl8njvN11vy6s+zm737
+	 zAb3kUNdnjU+LPnz7t0c9lbZ1wjrRwkCSZic3K8tEYTMxFtYzMZO9jtf78t1W0IyqGMgw
+	 QggAc/bLle0lqNPV5HiqjfFYjQvpLXgEiQqZULyfJnzFZ7mHsl0l2ygaAP2KM9XcFPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=O+8QmB4X;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 274E7606A683;
-	Wed, 25 Nov 2026 23:31:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 274E7606A683
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Uic/IL3O";
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 167F8606A339
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 23:31:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 167F8606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=O+8QmB4X
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1344B1596;
-	Wed, 25 Nov 2026 15:31:35 -0800 (PST)
-Received: from [10.43.3.73] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 19F6A3F86F;
-	Wed, 25 Nov 2026 15:31:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795649497; bh=g4SLH4ntJ/Uj2nuvXWB8FADSkntEV5OWw71EFBWI27c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=O+8QmB4X04m2jcI9M7lf3p+aZQGd5zPftioIuuFIPcj3BZHatl8xM9lk3BdvUiu9E
-	 z+TbsQ1kjBzDZCqKqL1lK6RSPzZMdGwT9ACOiJeF5tCv1iLjx3REEREY6m2s/OJ5Vj
-	 G8HlgVQwQTcQ/2tvEAzqVA9VVjpPwGC9RWVIHAQM=
-Message-ID: <b9220cf0-ad6b-4719-aa67-154666c788ea@arm.com>
-Date: Wed, 25 Nov 2026 23:31:30 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Uic/IL3O
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-491846221ffso5492027f8f.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 15:31:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795649499; x=1796254299; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JKnAC/v/PE5Id4vZjvScRbgOEIeYezkg5HQc5ebkHqc=;
+        b=Uic/IL3OYcJCF3ErHoq9kSyVfw0xGqQq4NuKPNIwtz/iisnqLAP3ebjNiV28ib1PKd
+         Bt8MGWRBB2uNTXeWS6SPxuf7DHhqhaQ8hZZI+Kg/uuzkDC2UTDY6kX108rnGBf1Omiyx
+         frhK5ZRCDQ64QeccyxSsIKs5GTFR1czynldvh1KTaKhtLG5k1DZCrSlBg6vAAD5XgaUG
+         0bOGXc89zHMjs+T88OWCek/1k+AkleTCYELY3GY0KNcOnSCl+e5CuDsmBAhQ2DKY81th
+         SKy3tfKICuqIbkSFODfgYs4B5gnpw/Jbpm07Ee9r/VpoazYXfXV5vF2AB4ohauK7nN5w
+         029A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795649499; x=1796254299;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JKnAC/v/PE5Id4vZjvScRbgOEIeYezkg5HQc5ebkHqc=;
+        b=OjjKpvHVPgJzS/LvWAGZB/MMb84wyp94kOaK9dF7h4D1IaAjuGMzNhU/RjUq4b0nkF
+         ZBsXdDdQQn79juQ7B9GPTXouhSKRj5HL8oehb+/LnaVPrIoX6EDmuot+rJTXE5zZBus7
+         KgWByLbZB8bUIG/Qps8ISpfVXBlgI78v6j3e37krjaICJ3EsJTWBJPqOqGjA8MISuojl
+         r4CWTjY1DAaULshHg/+hW53aIDgqhau0DZqAp9ntjmLoJ/5vr4zkyctapyeD2Ol0rOdE
+         sBO8LVmt4JKBmnhEo3LKHE3D6yx4VcIWo6ygAQgHME1gj85Oxjc2vgiDh9rPsaji/coG
+         Eh5A==
+X-Gm-Message-State: APuU4Z/LQ+MA6J8jdZUwPprBN3X89lw1TO5vSBuYADrCaH+QNAB0SGtp
+	Jf1YtT1c2qUFmtYlBLT+0EzS6NdOfghWKBcdV3Qcy0TCXUxesWWUdZl9
+X-Gm-Gg: AZFdTZcTc6Ejj+FmfDJnL6e1+XfsCEtulg3k9CbS9dermVCmSF/FkEqHsb9MMjxkl6T
+	r+uKR8E7yyxA+QD1Ymrz5ruZF15IQfXeqS8O9dxLRxZaFuCezPQz+g8qjy074u+Rh+tbfzJcETL
+	vCcIHKLkIlCQMsw+xe6Nijb++OZ27FONKR7TAozD7TGX3dWOdtwvgFG1LuIFO0m1YjTGUFlPNfJ
+	Na27bTI8sWMeu7XnA7+Fpe+VNIVm3x95hkn+Nih77viL//rK9SWvEQzE+VpGZ8xyGMSCeoig4ZB
+	tTuLhu4VG3/VsduyXmIIkD0HgGH667BIpGBBJqZNQEoyncFAt6Nky2SKLu9G+Cesv7L9Soh3F0y
+	HoTZmNW4wAoosp9SrgnwyBEYrvVb2wX/2+zsTx8GakC+ywg8K51oO0ZCGi3c4OmN1J3d7r7qNUL
+	Gt3FX5I/l0vD1VMgf3uTo9hyMvKx154XbMzhgd16W3upMR74bDqqt8xqsKy81+SWdbp/kC3m3k7
+	Mj00Y3KZiQpsn1aEdMhUNW5Q82KcIL2Qv01E3/ZzCkwhKOcRFAvZ/TsUOw/AQeOXwrak+Efpc5E
+	q2FSXq79XLmBlH3qSssJaZhH9+bPXTLtlAvsuifB2EjK/I2hOOfe6/oocGKVbtFKFhWtNXsfOyt
+	qdRTlmA7Ykw==
+X-Received: by 2002:a5d:6f07:0:b0:4af:7577:65c0 with SMTP id ffacd0b85a97d-4af75776767mr27523078f8f.5.1795649499471;
+        Wed, 25 Nov 2026 15:31:39 -0800 (PST)
+Received: from localhost (bl20-90-91.dsl.telepac.pt. [2.81.90.91])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab658e2d1bsm38590936f8f.8.2026.11.25.15.31.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 15:31:39 -0800 (PST)
+From: =?UTF-8?q?V=C3=ADtor=20Hugo=20Silva?= <vitorhg20080@gmail.com>
+To: linux-riscv@lists.infradead.org
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	linux-serial@vger.kernel.org
+Subject: [PATCH RFC 12/19] serial: esp32: Rearm TX interrupts when the FIFO is full
+Date: Wed, 25 Nov 2026 23:30:13 +0000
+Message-ID: <20261125233020.1380594-13-vitorhg20080@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125233020.1380594-1-vitorhg20080@gmail.com>
+References: <20261125233020.1380594-1-vitorhg20080@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,88 +104,62 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/7] pinctrl: sunxi: add support for the Allwinner A733
-To: Alastair D'Silva <alastair@d-silva.org>, Linus Walleij
- <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, Yixun Lan <dlan@gentoo.org>,
- Enzo Adriano <enzo.adriano.code@gmail.com>,
- Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-References: <20260910133519.459011-8-andre.przywara@arm.com>
- <20261125115703.3724690-1-alastair@d-silva.org>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20261125115703.3724690-1-alastair@d-silva.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Alastair,
+When transmission starts with a full FIFO, the driver can leave
+queued data waiting with the TX interrupt disabled. Rearm the
+interrupt whenever there is data ready to send, including a pending
+high-priority character.
 
-On 11/25/26 12:57, Alastair D'Silva wrote:
-> Hi Andre,
-> 
-> Two issues showed up while testing this A733 pinctrl series on the
-> OrangePi 4 Pro:
+Hold the port lock in the TX interrupt handler as required by
+uart_port_tx_limited().
 
-While it's the right idea to reply to the patch that introduces some 
-problematic behaviour, there are other things to consider here:
-> 1. PIO_POW_MOD_SEL (0x0040) on A733 uses 2 bits per bank instead of
+Tested on a Waveshare ESP32-P4-Module-DEV-KIT. Verified that serial
+output completed during SDMMC reads.
 
-But we know that for a while now...
+AI assisted with driver development.
 
->     1 bit. With BIAS_VOLTAGE_PIO_POW_MODE_SEL, banks are written at the
->     wrong bit offset and left misconfigured (for example, bank H stays in
->     1.8V mode when supplied at 3.3V, breaking RGMII Gigabit TX).
->     Adding a 2-bit variant (writing 0b01 per bank with mask
->     0x3U << (2 * bank)) enables hardware auto-detect from PIO_POW_VAL
->     and fixes 3.3V RGMII TX (also addressed in Vinicius Pedrosa's
->     follow-up series).
+Signed-off-by: Vítor Hugo Silva <vitorhg20080@gmail.com>
+---
+ drivers/tty/serial/esp32_uart.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-Yes, Vinicius did the right thing, since this patch you reply to here 
-has already been merged. If you want to support his series, please reply 
-to the specific patch *there*, ideally with a Reviewed-by:, or at least 
-with a Tested-by.
-Replying to this old patch here is then not too useful.
-
-> 
-> 2. PA has 0 pins on A733, so PB..PK are hardware banks 1..10 while
->     irq_banks = 10 maps logical IRQ banks 0..9. Without .irq_bank_map
->     and sunxi_irq_hw_bank_num() in sunxi_irq_base_reg(), logical IRQ
->     bank 0 (PB) accesses PA's IRQ registers (0xc0) instead of PB's
->     (0x140). Adding:
->       static const unsigned int a733_irq_bank_map[] = {
->               1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
->       };
->     and using sunxi_irq_hw_bank_num(pctl->desc, bank) inside
->     sunxi_irq_base_reg() fixes the bank offset.
-
-Again this is an issue we know about for a while, and for which patches 
-are on the list. Please look at them, they solve this problem in a 
-different way.
-> Also, in patch 4/7, sunxi_grp_config_reg() takes an unused
-> `const struct sunxi_pinctrl *pctl` parameter that can be dropped.
-
-This again is an issue in a patch that is already merged. If you want 
-that fixed, you need to send a patch on top of v7.4-rc1, and send it 
-with a Fixes: tag, so that this can be remedied before the release.
-If you just want to report this issue, do this as a reply to that 
-specific patch, with the original patch text cited, and your report 
-inline, directly after the problematic line. After all we have this well 
-hung email patch submission system, to make this very clear and 
-transparent.
-
-Cheers,
-Andre
-
-> 
-> Tested on OrangePi 4 Pro (Allwinner A733).
-> 
-> Thanks,
-> Alastair
+diff --git a/drivers/tty/serial/esp32_uart.c b/drivers/tty/serial/esp32_uart.c
+index 304e1345518b..002d6fdbd875 100644
+--- a/drivers/tty/serial/esp32_uart.c
++++ b/drivers/tty/serial/esp32_uart.c
+@@ -354,14 +354,14 @@ static void esp32_uart_transmit_buffer(struct uart_port *port)
+ 	unsigned int pending;
+ 	u8 ch;
+ 
+-	if (tx_fifo_used >= ESP32_UART_TX_FIFO_SIZE)
+-		return;
+-
++	tx_fifo_used = min_t(u32, tx_fifo_used, ESP32_UART_TX_FIFO_SIZE);
+ 	pending = uart_port_tx_limited(port, ch,
+ 				       ESP32_UART_TX_FIFO_SIZE - tx_fifo_used,
+ 				       true, esp32_uart_put_char(port, ch),
+ 				       ({}));
+-	if (pending) {
++
++	/* Rearm TX even if the FIFO had no room for queued data. */
++	if (port->x_char || (pending && !uart_tx_stopped(port))) {
+ 		u32 int_ena;
+ 
+ 		int_ena = esp32_uart_read(port, UART_INT_ENA_REG);
+@@ -372,7 +372,11 @@ static void esp32_uart_transmit_buffer(struct uart_port *port)
+ 
+ static void esp32_uart_txint(struct uart_port *port)
+ {
++	unsigned long flags;
++
++	uart_port_lock_irqsave(port, &flags);
+ 	esp32_uart_transmit_buffer(port);
++	uart_port_unlock_irqrestore(port, flags);
+ }
+ 
+ static irqreturn_t esp32_uart_int(int irq, void *dev_id)
+-- 
+2.56.1
 
