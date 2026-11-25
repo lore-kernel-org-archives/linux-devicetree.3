@@ -1,111 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.147
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1795603003;
-	b=3wST0BjclcFjMeCaV2wPOfQJiymJ8Ig+v8dpF7dKcKqHOtWT7+H1ctYVKe/wdkWWNlX+
-	 oeagL7nHhNmH+UeraTIioAx2hQYosPSnr2ozJB7N1N4Jvqo37jJPlmpBWUriWbXQpEYaG
-	 BumiTxZA9u0gVkH7YFLXrWXIMWQTNYSu8wPOcirrgcouC9DW+/Qvl0uionnlXouEmXGcF
-	 daeToJW31QC0JypUR9v/TRHxeLIiBKQYRE3k1QWZ4hTu1kE/bDlCkbBbUWC5dLbwdi//O
-	 mmuZaF36HGTIpJOLMV+EOEsECffX9VXtcEcCY0+RzInnD+iHkBO5wKjsvxgao10Bl/w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=AY0MaC6WpaapTsrOtGHXBfz6oke7JNkcHocXvaI69To+2LIKNXw2dOXM4/DTO+iOd+dT
+	 g8GZN6Y1qnM9BX/pJXDz1oklNl6PTETw5ksqauXoVT/HnZCW+rlcxe7UKEkPI2WP5l2y9
+	 YF27bdx6hiokd2tESnjaJuBDcI0nqxDt1g7jgVqVwercqlnsSTslzlfLHdD3n8vvXdiqx
+	 I4SWseRqmtbmFXcpKOLBYDin197iMgURplh6rriatzM9B82su+PuNtSfHJLWJVwyej6o3
+	 2goxIekT0HBKrQzg0vZLMn9fOGjTyEc+OFSi1RH5FOoxyjT4tS1K6PrYe0O9yzoL5GA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795603003;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=9QNZIgRLGXJkL1hUhl0BYMvpVZ296Sq+L6zrN27AYSk=;
-	b=ZAgIE57qmHB6Tm3W6DEr++hpa++Z/jARE/3WBe6ekZ9wUYcdYxn2HOo774O7td+Ew11C
-	 6IMqG/BttA2fFS8ebUOdpbpiMMxFFkaF6s4Prrck3DLTEj4f1gkD8Oyd3rWdQy3rgvvtA
-	 jpzkIvERcDJMYnUTfUJEtZq/0MNgSr+8ax6I3mqYljmWSFYSXpNZ4Egfj6/ku7dRcnV9l
-	 ojleloTfCp5zzQ9roo9aFJV9yzmnswqPYmXnoed6+y+A4FrkiHrf5/gk3LaMyMLngpyhT
-	 P9M7bLBFtIrBXuqH42M2t23Rq7KcSG/HLzGvuYHhkvqKLGOjWNN8RDZ0rwi8i4Sy3iQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm3 header.b=ioCyNiQs;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=oYSQRy4V;
-	arc=none smtp.remote-ip=103.168.172.147
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=4Omsk3aCF2GLKrO6+1yETWUmtvbvNI+t02oC5/uK2gs=;
+	b=bzzAi0gFO1o9K5AwLVPH4GW39Cf0j8zpY3BZQmGuehrcB3++Ewo1SB3uT6wL9Z6M+/TN
+	 lDlbvVj4HTWdz/b57ZVKSFqmO6TllPwdWEojrTBdZHnR0jFG39qQh0bPtklmSW4U9u631
+	 AcOVGVNfl18qISbsrmmXV7MGAU84D+BqIeSZc/eGYe02omXGVqDSat9a7ptyF2Q9C5X1b
+	 Mn+Vd/fl4RVDHnaABdXqYrKsw4FJ5mmqMlAm9X6aqlsWl2uPWqsUaYDuQw95Vawht8JxA
+	 fJaAa/9/RHwLO6TSSgvQ9JJKPajh+YkRGlym8cqCKVc5TKDjdsf/yAY8Q02XsFCvESQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OyicAg7O;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C19D606A32E;
+	Wed, 25 Nov 2026 10:36:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OyicAg7O
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795603003;
+	b=V0lPG1WaMQXR9LznYbJTIv0uCl/Vl+6vysZ61Emg25Fgyzs7Ft1grufXt1Tl3CWguRJa
+	 YB/Dnc7Ae0TRdwRW+EQ3ajjDWX6MC531AJ5je5mhqEbXnDhWVIw5hpL2qEqs9NliaddGi
+	 R7hdrvlSnv1AcLCsOZuPCZVJT/TdlbiWBtPmxoAc8EH6JFex/N0SzbUXRTUYCSfpkAC8e
+	 j53pQqbvVkVmQv7KPstyDo2IFaYL3xHejRcqRiQIurPOKkrCQeWtkd9LpFbhJTwZYi6BI
+	 4NydwZr8scN0G64JRs+lGtPRVdjhXIt44gR3QT7+Ehy3KGuyKikkbUcmvvoth8kNYsg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795603003;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=4Omsk3aCF2GLKrO6+1yETWUmtvbvNI+t02oC5/uK2gs=;
+	b=UdWw6SPtjpyafHohDQ4P+kEWSz0svn8uEdSjFqJ6oGE/XldZdiw8jzS1YorFlbAYt8+A
+	 NyzbbOEGLzzXh/k8/KeGd4Z/E2mJIeAbkPtxRzIWWAJxsatq84aoEshwVpkOpEem/mNUT
+	 btFte86vS6iAkdHoVgJA8pF5MtZzNtlfJyhz2ziFXIDewUHVDYqQb4Zx5fVYAY3P9Gjw3
+	 UPWyA4QLuM6GuLyrLhBZD8SYV8cJPTCRP24FWSw4f8ob7NSXWhMMtLnMU3osBnYnzIv9L
+	 46PMOSYLv4+EYud6VJ3fe/wZiZ8/XVOWnacpfdFM2Bz6mATCTlzpZzWL5gE1UrSCsnA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A080606A33F
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 10:36:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A080606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm3 header.b=ioCyNiQs;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=oYSQRy4V
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.phl.internal (Postfix) with ESMTP id 350FFEC0BC9
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 05:36:41 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Wed, 25 Nov 2026 05:36:41 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1795602996;
-	 x=1795689396; bh=9QNZIgRLGXJkL1hUhl0BYMvpVZ296Sq+L6zrN27AYSk=; b=
-	ioCyNiQsP2P96haN1ZZCB3Usw4sFY9sZlQ8nqYzitKMCP6U399+jVTfPpDmQAScG
-	loVBq7ssE6f14AYQyorsF8XYWh0Vlkbtwcfb8fgHNMaW/LdAs1PAfiytZftd+iKG
-	ysTavQVbRiT6QpfgdoDm4CYl5Jdl3wEZC/FjZfQODEcS5FxL3NddLr1foxWdi961
-	pFlfa1fISM+V91YzO4a74c3iBsZlDGq+xQSTr3O8V1BZz+9FmPppsP8EnFS+8Lf+
-	77wjuzr4FzeLI7Oepr9Krjv9wLcgBCnWuXNvXEspYH++vuWzeQ3ucdeKWvHM+mGK
-	bcFhgjIuAJqK4SETSw/sTA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1795602996; x=
-	1795689396; bh=9QNZIgRLGXJkL1hUhl0BYMvpVZ296Sq+L6zrN27AYSk=; b=o
-	YSQRy4VDfwJlpegDuc1Wno2pRIUJT3kNk5imGi6c0f8bgxljDgOXud8zG6OQZYFN
-	7keOMtjH8o2q5hWr2rCo2XC4Tt7F7k7CCsrUsbA35GuWGy64UyemL0OJ83YPfhIO
-	tj+AzyVDGko68boATBLf1GPgk7r0/HoZTAF2ykbqKHwGCE3AD7kHYa32ZuaHJVzz
-	nPUUv4vox44d/4l+Kl7lhC28Ax8rJ0Th5P9v07CIGc9CXk++XvmwubF4fKR5QZ3y
-	uz7t3fA9yuRm+XPQQZJMB4p+8FAs5+50EVkJpybmg5SwaXN71aDhcItPySvmgmo6
-	jfVOApwKtROVg76NIWxnw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1795602996; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
-	s=fm3:rsa-sha256:sZmvNSh/muPYryJ7GMBSNKFzmQ9j3/T9QTblSnjBRxpbn1W
-	GsSf5/mLqrlS8EkFiVjeSdp4RI+xrD5q+aCu7vB17Dd3ezhO4dylEHyblQdXGLAw
-	Ycevumxrecwf6+2UX4hweZBQfzX9XRoJrDqL5nSHwyE66hQtK71Nzr3zu9/dLlmT
-	jy5qLvxM1lvT3RxePEdajKkutG5yBNndoOtlGwMdjPvc9hUFk+N6eFCcDp3Ofk2R
-	QyuggqWwm4mHu+MS17DVYyQIugcKm9yoTT+HlxUKvod4EGNZ9ae7tetpo8darTGo
-	MfZpNrMIskuaDSh1XwOSRTWnSaMkSsTqAds/2Ww==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:cVSzvAOp4X3DHKrub80zsHXdJaYAJflynbLeHX1rZLM=:9QNZIgRLGXJkL1hUhl0BYMvpVZ296Sq+L6zrN27AYSk=;
-X-ME-Sender: <xms:MboGa2JLPzSCjkiU263n_uGpLc5smlCekbAW2vv7N-B-oMu5eShJng>
-    <xme:MboGa4_4k3KkgpbYY0OkoZRri15Kiqxs6xBTQdN98tiMvy18y3LsUS7kfudPWP8St
-    zlV3VYwUnBz5Xhfy5pSF0n8JpeS8GVZ-iAfNGZ07XfGe0CSxnQSZdmc>
-X-ME-Proxy-Cause: dmFkZTEkvU7L6hjSdEUQ8q2Kk8p+X2SghwVfdiQt8PKN5pWJiAPuNOFL4WmhIWneIK+YI6
-    hj8n6g2vmyNJjQ7xrwAnH9cKUMPq7ol4gnacMft7OYGtXJF1GYgGCyskDwQLy9bRpwjYUq
-    ZwQKZbdmsQatPAx6kycpSoVM2Il46y3stk99PFLSXMHjtOSFw2x9iu7ghmKG6pD16U3XzJ
-    fMxIMzNE9873gj3ddgEziM+NXPAkfsydhMUQUisR8HS6nh9xlkWXdmDEatn3pdLhkENUzn
-    wuVJZDLpIpEQHiSa8k4wf6M/KXsflOU56ZFFzqfgoG/zvzOuONjZ07LCjDpSZHTK7ePOAl
-    oRfyYW/OisZfPnzFa8L8NZ0hrN1ooXYKh417CeH/hYDkYKd+OXVWjPDrqOjA2HPTmdHQzq
-    B0n2w1vZYLGqLDXRIQg38d07Kmza/YNJYI0N9Moxl99QplZmUuv1Jr6gdNsn/P2sZ8WNF9
-    PfrkeIX5JYen5phByoW79NgTWKDm08vyBx1xkt+BuuvFNQXlVbgSc2SzgcmCPwrHtKu+tf
-    jkR4/bXtaqIEcPcjAYxhr3GPEvflOrDZMHegfYIywE8COh0B749DdcZCVATP0pmC2lBSjh
-    Scx8f7zdCSyDji/XWrpyf8zGwL2/FdlsDzV7JTBDb+bPEkEWf5tGBwX3z4zA
-X-ME-Proxy: <xmx:M7oGayGLYMzFoBRg6XLxMzXn3IbTyoCC1IaInS8-CC2lNR-TCTjLpg>
-    <xmx:M7oGa5th8fQjQaMT13nEF7pf1MSAMnoLXNv2ETPwUh7JkErf290lgg>
-    <xmx:M7oGa4bySwodY98W9ShidkV6FxpPoq_14xVQZxPBG6bEzMiuSKIlEg>
-    <xmx:M7oGa55GMMue_GYI3PQc_9MgwYjuO3CaAktFImgtQXEEaDI1wFWnBQ>
-    <xmx:NLoGa6ej-NqGaxUOjM4J3KieJ9pwa2zEIsSxuPl1hxSChHdfs-NHNrxR>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 6A9FD32A0099; Wed, 25 Nov 2026 05:36:33 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	by smtp.kernel.org (Postfix) with ESMTPS id A5FCA1F000C6;
+	Wed, 25 Nov 2026 10:36:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795603003;
+	bh=4Omsk3aCF2GLKrO6+1yETWUmtvbvNI+t02oC5/uK2gs=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=OyicAg7OvxFCey622RAph9RI5fpVKTraJAQ23MYwNUaTiQdW6QYHs1/SUJfsitTsQ
+	 FlixvhJkZJKT6hFJSo5J6AcBYF0pIljP8bQ9PLWx4o4YzeSbEZnhY7BpcT5UMOFI6+
+	 TP3PGt+oDdRdGw5ztjw0ZMdEUZXsqh7x6nI6bzYOCiKixPKM1+5YyHJVcSEe5WzHXX
+	 rhHMK8TweAiLlkXHOgbKX95r0GpUQcrNeAUkM6XcRIOm9/oL5jk0L52u5dXRj/0ITN
+	 /h0UKwvQsfdD+k/jADmfzT6uELq8Y2TzGMBNPSMXDqOV/I0XLvLReHgXdBGZ1pGm7d
+	 KYNAYM0eKi4Sg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 18FA64CE4C;
+	Wed, 25 Nov 2026 10:36:32 +0000 (UTC)
+From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
+Subject: [PATCH net-next v2 0/3] net: cortina: Add CS7542 network engine
+ support
+Date: Wed, 25 Nov 2026 13:36:30 +0300
+Message-Id: <20261125-b4-cs7542-ethernet-v2-0-d0ea3c6eb375@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,48 +84,141 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AhgfpmuO-5-Z
-Date: Wed, 25 Nov 2026 11:36:02 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Cc: linux@analog.com, "Michael Hennerich" <Michael.Hennerich@analog.com>,
- "Jonathan Cameron" <jic23@kernel.org>,
- "David Lechner" <dlechner@baylibre.com>, "Andy Shevchenko" <andy@kernel.org>,
- "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>
-Message-Id: <f18b118e-9c5e-4cd8-8466-bb3852a80e56@app.fastmail.com>
-In-Reply-To: <20261125-iio-adi-legacy-platdata-v1-0-54e4c8830b57@analog.com>
-References: <20261125-iio-adi-legacy-platdata-v1-0-54e4c8830b57@analog.com>
-Subject: Re: [PATCH 0/6] iio: adc: drop platform data from some ADI ADC drivers
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32QTW6EMAxGr4KybiryBwFVVe9RzSJxnCHVAG2SQ
+ TMacfcGSqWuurRsv+/ZD5IwBkykrx4k4hJSmKdS8KeKwGCmM9LgSk14zRvGuKBWUkitkpxiHjB
+ OmKnqgClnocUWSVn8jOjDbYe+k21gwlsmp59OutoPhLwxj9mIX9eSm48FaxJSmMcx5L6yjem8E
+ RJQMt2CbTonQGltpLXeg2CAJVn7DTViSmYX7quXw1f9yqZ7gnmii6Q1FUK01tZOWKnfzqMJl+e
+ S97obDiHlOd73fyxsF/rv9IUVnndWoQbuVP2HR07run4DvRG3aGABAAA=
+X-Change-ID: 20261123-b4-cs7542-ethernet-59c15dbc7e7e
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
+ Hans Ulli Kroll <ulli.kroll@googlemail.com>, 
+ Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795602990; l=5902;
+ i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
+ bh=hzfTSEncl8+6lQFtXl+HvtjdqGsPTGMtg6pa3a7jny0=;
+ b=0ioYPAfU7bBMgacGabqirz3qfnCgZP6w9zOFbJdu1Kz6Kej95t+FkeymnfMXfAz/EdfRpFL3+
+ yYK4yjei4ysDY0MQsawJPbe6Bvbr62Lfl1aUGdsdkth6w2DdQOOVlh/
+X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
+ pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
+X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
+ auth_id=1085
+X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
+Reply-To: filipp.dunsky@gmail.com
 
-On Wed, Nov 25, 2026, at 11:19, Nuno S=C3=A1 wrote:
-> The ad7266, ad7887, ad7791 and ad7793 drivers can still only be
-> configured through platform data headers, and nothing in tree uses them
-> anymore. This series removes them.
+Add the CS7542 CPU network datapath with phylink for three GMACs.
+Almond+ connects two GMACs to QCA8337 CPU ports handled by DSA. Use the
+global reset controller's seven exclusive lines, including the shared
+LSO/SSP DMA block. The reset provider binds to the existing syscon.
 
-As far as I can tell, there have never been any upstream users
-of the platform data for any of these drivers.
+Apply the combined CS7542 global controls series to Linux v7.4-rc4
+first. Its clock and reset patches describe the NI, FE, TM, SCH, QM,
+DMA and NI-XRAM reset IDs. The board DTS is posted separately.
 
-> The ad7266, ad7887 and ad7791 drivers already work without platform
-> data, so the headers are just dropped and the drivers keep the
-> configuration they use today when no platform data is given. The
-> ad7793 driver refuses to probe without platform data, so it gets a
-> binding and firmware properties instead.
->
-> Patch 1 fixes an issue in ad7887 found while looking at the driver: the
-> on-chip reference gets disabled exactly when the driver relies on it.
->
-> For ad7266 and ad7887, the code for the modes that could only be
-> selected through platform data (address GPIOs, other sample modes and
-> input range on ad7266, dual channel mode on ad7887) is kept, so that
-> someone needing it can easily add firmware properties for it. I'm like=
-ly
-> being optimistic and odds are it will be just dead code so I'm glad to
-> drop all of it if that's the feedback I get.
+Use normal NAPI weight64 and the supported external-DDR QM/TM setup,
+with no module parameters. Preserve scatter-gather TX, multi-buffer RX,
+tracked DMA ownership and bounded initialization. Require the verified
+64 MiB no-map queue-manager reservation; NAND uses PIO and a separate
+SSP DMA consumer cannot run concurrently.
 
-The patches all look good to me, thanks for cleaning these up!
+Attempt and check every protective assertion without rolling back
+already asserted controls. Preserve the first reset error, and retain
+all active DMA allocations if any line cannot be confirmed asserted.
+Serialize shared NI register updates and stop scheduler initialization
+on its first command failure before publishing DMA buffers.
 
-Acked-by: Arnd Bergmann <arnd@arndb.de>
+Validation includes actual-source reset/cleanup/error models, shared NI
+RMW interleavings and scheduler command failures, ARM builds and binding
+examples.
+
+A separate combined Almond+ Linux v7.4-rc4 RAM kernel with private
+log-only instrumentation passed two network-engine probe/removal epochs.
+The trace checked all seven reset lines and their readbacks. Twenty-nine
+exclusive-acquisition negative tests returned -EBUSY in a private test
+module; they are intentional test warnings, not ordinary driver activity.
+The external host matched 600 UDP echoes (six payload sizes, 0..1400
+bytes) and 20 ICMPv6 replies. A distinct CPU-port scatter-gather/jumbo
+fixture completed 448 frames. These are separate trace, host functional
+and fixture observations, not a throughput or hardware-offload result.
+The composed kernel also contained PCIe/PHY and other board drivers;
+this is not a standalone provider-only hardware test. Watchdog expiry
+returned to normal firmware. Protected-region hashes and flash layout
+matched. Concurrent unrelated settings activity is excluded from any
+unchanged-settings claim.
+No checksum/NAT offload or performance capability is added.
+
+The additional MAC-deferral/unwind correction is tested separately on
+the host with actual-source fault models, not on the board. The hardware
+evidence above describes the preceding source revision; its successful
+factory-address path and packet datapath are unchanged by this error-path
+correction. Missing NVMEM now defers before registering reset cleanup;
+a late defer is returned instead of assigning a random address.
+
+Additional local review corrections are tested with focused actual-source
+fault/ownership models and ARM compilation. They have not yet been run
+on the board: count bounded RX fragments independently of delivery
+eligibility, schedule an initial masked NAPI poll on open, and retain
+completion reaping for outstanding TX while all ports are closed.
+No hardware offload capability or packet-MAC rewrite is added.
+
+Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+---
+Changes in v2:
+- Use the common parent provider and all seven exclusive reset lines;
+  remove the virtual reset child, duplicate provider and consumer hook.
+- Assert and verify every line without protective-assert rollback;
+  retain active DMA allocations on any error and deassert in reverse order.
+- Use rgmii-id in the binding example for switch-inserted RX/TX delays.
+- Remove module parameters and unused internal-buffer mode; retain the
+  previous default external-DDR initialization policy.
+- Use NAPI weight64, plain static MMIO helpers and goto-based open cleanup;
+  retain the lock-protected publication and stopping gates.
+- Serialize shared NI RMW and stop on the first scheduler command error.
+- Keep MAC preflight before hardware cleanup registration and preserve
+  a late NVMEM probe defer instead of replacing it with a random MAC.
+- Recycle bounded RX fragments also when the frame is dropped.
+- Poll already queued RX after open and retain safe closed-port TX reaping.
+- Review Sashiko 231860: existing NI/SCH/NAPI fixes address the older v1;
+  temporary BM initialization bypass clearing follows the vendor sequence.
+- Link to v1: https://lore.kernel.org/all/20261123-b4-cs7542-ethernet-v1-0-fdb5e8c2d508@gmail.com/
+
+---
+Fil Dunsky (3):
+      dt-bindings: net: Add Cortina CS7542 network engine
+      net: cortina: Add CS7542 CPU network datapath
+      MAINTAINERS: Add CS7542 network engine support
+
+ .../bindings/net/cortina,cs7542-ethernet.yaml      |  160 ++
+ MAINTAINERS                                        |    7 +
+ drivers/net/ethernet/cortina/Kconfig               |   14 +
+ drivers/net/ethernet/cortina/Makefile              |    3 +
+ drivers/net/ethernet/cortina/cs752x_fe.c           |  477 +++++
+ drivers/net/ethernet/cortina/cs752x_ne.c           | 1869 ++++++++++++++++++++
+ drivers/net/ethernet/cortina/cs752x_ne.h           |   13 +
+ drivers/net/ethernet/cortina/cs752x_sch_tm.c       |  687 +++++++
+ 8 files changed, 3230 insertions(+)
+---
+base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
+change-id: 20261123-b4-cs7542-ethernet-59c15dbc7e7e
+prerequisite-message-id: <20261125-cs7542-syscon-v4-0-3337bb0d3b48@gmail.com>
+prerequisite-patch-id: a9208276c628f8741a807d0e5c5945d4bf211c8a
+prerequisite-patch-id: 65d46bb3caaa8518ee561f65d3f603ade396fff9
+prerequisite-patch-id: a0ed5fbcfa308b16eaf265371a6697ad0aea6802
+prerequisite-patch-id: bb8ffd99cb30e5a0b47881f6ba19a36329d5f4f2
+prerequisite-patch-id: 7fbe9405265ef3d1ec62811415a46c0061afd7c8
+prerequisite-patch-id: 01ece2c91e080d5cae6af81944159373776484ca
+
+Best regards,
+--  
+Fil Dunsky <filipp.dunsky@gmail.com>
+
+
