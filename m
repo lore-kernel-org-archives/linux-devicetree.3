@@ -1,56 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795623997;
-	b=GonJ/ctn6O4dMMebvWHeh3Ms+n/cU5NZdv3VshHRbAz24tF5BovjuO8iBgKzEPMSVc/q
-	 mLsw3/zmVDBRZ9EtLwWioABFCwR79zkGaae65kEPGAduK8yUKKvJjvfJF9zu83lJmCCjZ
-	 VjddVV9/o1NjuhUPToHOMfRdK4ynHMk/lo9YDVXmUOx4OHKOGeje/3QULSsnaA9U68zJD
-	 BGrfVg7DPLLPC6am1oV0flXYCI99gJT8ab8zppOWysQ8qV99+NIsuzBTTY4xuj8DAG7vW
-	 drks5QyqfEMkE1vWwFD/cF8o1YUhaanPi+BaIeoQyq0S5Dlurpnapx4d+ZaDB/TQz1g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795623997;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=gQ4dWEwpgcq8XaO874dWWeVVziSNkBxKz3Y1ekE3l2k=;
-	b=FOslp2TGnTfvQoLQd8V7WhaFtiZH1pL+612LZG+7ev3wpmDDOHdUbFGNktJHGAfABer3
-	 VjMivDoCugqKHAffhEpb7kA38r01EE0m1OX0G0ZShZmG2EQD9dQRXqO6iKlUs6pbVhsVd
-	 UIau7JNIQ/bu8YNs5H5SYZSgptOa+xN+HYROs2pb9ZXLqM88QDdnOahq+tMK9iOrvhfgH
-	 kUm/Eg8AopIJyotbQ/UODlEDxNJpS7eNKoNGbj4JbiPpO4qDD/EgeKVkLCFH6QHI7QQTU
-	 7p75YHTP1RXvVrXxVhPMQ0dwHPtJuHfZKNEjHQOadQBaei0QLgQj8G04eTdABHOpFJQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ixit.cz;
-	spf=pass smtp.mailfrom=ixit.cz;
-	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=w22kui8A;
-	arc=none smtp.remote-ip=84.42.129.46
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.24
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795624358;
+	b=tYzjl7IQfej/l0lHFfUNiD9/KpJTKAi9F7dKWg3NX3CAMK2XQ2OumyXkjGg8s5lZZiic
+	 gVkHsyIv5XRp+gP8nLsLFP9X5pKIRoYyvm6JuCpT428eZp/WdTmUlwG/2rYjm+0fHs0MM
+	 PcLJ39xLa+K3WMxt5qXW63yNM0CuCarwpmwFxAi7JiFYrGfmfJ/Sa26oV/9YDbtHIKWLA
+	 PbDaNq0p9Vk8UdbW6E8uNDVX7lPI6bJjmwU3EmTlyrJI8dYsRSwAkmTWrqSWLoyaDoi7X
+	 QPxNn50HZ5TVIK4qXjmww7Z1Hq4oH82BT3jFZpD627md1rRu7KGRU1H3jPj7a2u2wrw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795624358;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=XBDrLAxJ/0gY83X+GTbCxPKiwrBVv2YxhFcNVdxK9PA=;
+	b=4GM4W7zGK2FOZpna/C8Yc92hYbbZZbatnPpZub37J9c140wkBPeLRtCURBV1LM1swJKQ
+	 tCUYuhRaF3kvOtothUAO5MNfAXCDqPzjRfn3NmaDrIAECMd2d/+0IqhZvjuohMX2KPWZc
+	 0uzR0cLjSofeKYrX6l9cqoCAM5NZOBc5umX2wwdcYo12MBZVRcYLP0/5kD3I52X2LDyX6
+	 4ingVzV1s9xvfsoMEOFjECk5Ps+a5TYD1NDUEAt7mDFP146inLOTi4CrIRKiCMr+yINAX
+	 86Nr4pQ3KLDnkB6faF3qzgFcFEad4dpr9Kq+P+S4mjQZpfGy+HJuNw6QQYexRMX0rCQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=j1T7dK6Y;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.24
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010024.outbound.protection.outlook.com [52.101.69.24])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64EDF606A321
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 16:26:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64EDF606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52CA0606A339
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 16:32:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52CA0606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=w22kui8A
-Received: from [IPV6:2a02:830a:f787:8f00:8bb2:f125:24d:78cd] (unknown [IPv6:2a02:830a:f787:8f00:8bb2:f125:24d:78cd])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id D94B953401EE;
-	Wed, 25 Nov 2026 17:26:33 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1795623993;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=gQ4dWEwpgcq8XaO874dWWeVVziSNkBxKz3Y1ekE3l2k=;
-	b=w22kui8AP7h1bSN0+oVLvRo4iHTS0y6Af5439ZvMzPC8i0/P3ePdpL49wFeS+CNFrq0WH5
-	dZ+Sb6daiR9ydJU+CQvq+CbH40XOau/G3Yxu0ilTshNr2ydmD5JhmBVyK9WTN1lj+3q/uE
-	eKBvRYk1ymSL1d8feF819qdYWOsximM=
-Message-ID: <8488344d-85d0-40a8-a526-a17fe69cb00a@ixit.cz>
-Date: Wed, 25 Nov 2026 17:26:33 +0100
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=j1T7dK6Y
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=h+KMYrQcZerEeBxxh5FYT27/BlQ+/HWM4ojOd7Rmh5n2ujjZwerbPQp7/jasdZVr/RNweDtdsnMwv0C9HXgHgRQCdmW2ZB2F10uMWtXaMFlL7iAxa2vSiZqSFbvMdfjzQFYd28XuZs/4e4KJdVb0YBg8++JOcbltKg1W+/9hN+E31JJP1/je2npfKk4UQmAHZtSfVPF3srI1OPM4TGjq2FtOOeKCSzEh9tspMcU9Ih5G+DXZLqY+HzbmLWcmTADAA7lYIWQdGYy0IizmQqQZYxWcLDhXrC8gsHZL4Tu6EeEFTRY4RyFXV7tTlhWmiEwCB4MwNgBtF7mZ/HduFOs2IQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XBDrLAxJ/0gY83X+GTbCxPKiwrBVv2YxhFcNVdxK9PA=;
+ b=abgrCExvgAOmT4Q9fEXrng22Np0l0DCWEY/yfhfgQae3tZH89POtdkJeqE8EqD5ZAOfcz1r4GCQA5qC5YhiAjO0OrDPHrqq0BjMMGcGWvLjk7/mkq05MCXEMe1E2x1EryaH38kh3lqPHJ747sFUKHbWCSPPUOFe68InZ+uFFSq8/whvLJbM4IyCnTxHWYcfzXSiH9gNUmlzTSn4/qxh7iwnlgEitr8LEubcDg8HRtBfIpgYn5DXPBmqFpV6Z7xzVLOJ2e/1fUqXYDVODVQ4iPhAi9XzdjMEycRVecDMUlzzpDh8oySg4abXHmY0lNFnsOl/SCyR938O36wMD9Gu6Cg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XBDrLAxJ/0gY83X+GTbCxPKiwrBVv2YxhFcNVdxK9PA=;
+ b=j1T7dK6YQiu/XPWyE9nbRdrC7kEFCP2i3Cp5Qfui2nYL5Jbb2GeWL2Huj++u2hvQQG3Y/IkCRmqPxwNGD2aXWMtU3QnED4u7t4NEBZmPaJsogcscgvfP82R2wmlh0TlAEN4RwLAtHSJcsbELWY676sk1Ig8qblN00aTyZ+apt6Og5j7RabWFk9br0DW1DlbmBZs2Nz8XuWvMps/xP56FrbAsPD2Buo1dH+YK3wV0G0NH7i+SiFZ1OTJ/hbAOwA8yqNcz8gaRGno1Xw7BlzqbiCIiwVnM4d4Vj40zwZJl/m6685L9/PkhneOEOMvpw1acTUEqJ4uoYVksUxQhJoTHvw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by GV1PR04MB10425.eurprd04.prod.outlook.com (2603:10a6:150:1d3::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.6; Wed, 25 Nov
+ 2026 16:32:33 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0662.004; Wed, 25 Nov 2026
+ 16:32:26 +0000
+Date: Wed, 25 Nov 2026 10:32:18 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Dinesh kumar v <dineshkumarv85@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>, imx@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	kernel@pengutronix.de, festevam@gmail.com
+Subject: Re: [PATCH v4 3/3] arm64: dts: imx95: Add ADLINK LEC-iMX95 board
+ support
+Message-ID: <awcNkgqB2YsIOusn@SMW015318>
+References: <20261125113845.297658-1-dineshkumarv85@gmail.com>
+ <20261125113845.297658-4-dineshkumarv85@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261125113845.297658-4-dineshkumarv85@gmail.com>
+X-ClientProxiedBy: CPAP307CA0004.DNKP307.PROD.OUTLOOK.COM
+ (2603:10a6:380:3::17) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,122 +101,187 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/5] drm/panel: lg-sw43408: keep VPNL paired with VDDI
- and reset deasserted
-To: sashiko-reviews@lists.linux.dev,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- robh@kernel.org, conor+dt@kernel.org
-References: <20261125-fix-blueline-panel-v3-0-914b4a30b73e@ixit.cz>
- <20261125-fix-blueline-panel-v3-4-914b4a30b73e@ixit.cz>
- <sashiko-outbox-233481@kernel.org>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <sashiko-outbox-233481@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GV1PR04MB10425:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7934d6e3-cddf-41cb-1955-08df4b11b107
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|19092799006|23010399003|376014|7416014|366016|18002099003|22082099003|4143699003|11063799006|10067099003|56012099006|261026140227099003|261022075727099003|261022105027099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info:
+	rMKQYOHKfyT3MEfgIdDhTbucbvwWA/e9pFGx34UgcqLk+7daY0Q7zJgUsXarLf0fSrJLgnNdkfv4Bu/cKKqdZaBWRUPoWnmVDmge5Q8F/WQAAYP87AMJw2u0Qd9MGYW0bwFDkl77rdNaikDn0EXjXRTmHphz7UaO7ufuCEeWCAMwFBbwXL88lUTcjtopCIVfcM0GC2Z5hK5Buq7pESeDmdBEGtmdWZU0786Bl4pE9WzmVcjDoTnbB/9wcKHCB2nu+GkhlrmMsGT7HIys0RkUhQuusAa5Fwd/BjloconfwTydar1lm+oGinZuPY4zMCdaB+VlgPN/rQXOK7N467J0TcSgPEJQM2ME5FRLD37hsV3E1vAHOmwDn2xMkUrSqfJvZMbvL2aS8dBCPxFs3uibXIv1Ggoois6J5W00jo8NxfwFLW/A/e/uBPPWu0a8x0s8FI7wo+PtxnwdXhLy4YXnGzTNu2clhDrCs5De7cv+PIPB0q32oJkVRfBaKZ71mvSz0RLfH5Yb0gFtugK20QVgsatHbp6rwOaDa145iFSV0vUMCROaWCsmihmAya0v+YTxPQPOQbqYDqzIAu038l0piYrOl/Z96XMTjxmdo105h6TCH6MgioCSKEdgVX8q7hvjua/iujGkbJ3Lra2Xys3Jx9hEZm1krv/FxeH+LdrAf1I=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(23010399003)(376014)(7416014)(366016)(18002099003)(22082099003)(4143699003)(11063799006)(10067099003)(56012099006)(261026140227099003)(261022075727099003)(261022105027099003)(261028144727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?tCAcztSzpRGHys4K/LHNSOiwwtJLtIInEIyG+hGtCGnFeE6LZHeur40xeK0i?=
+ =?us-ascii?Q?fxnjLv/v677XPEVAcg7/xJQ/ApOR5tLOD69IL2IfafBne6tnU/SXvLe8mETD?=
+ =?us-ascii?Q?2JGjfDeMlYfSazK61UxzE3ERZ/5fuPokCRlat+bezebwvsTU5uuh4/jQDCXh?=
+ =?us-ascii?Q?cm2pRoDoFb0cCMtN5pxWG8Ox3lgcGF6/1fXHDP+LENkX4eyhLqfni4W/vK6f?=
+ =?us-ascii?Q?6EkXB0+VHnScXh1C3+PvRfYzVjYfrV8QMW9C6m7Lo02mIzGGnTENomlMmrUR?=
+ =?us-ascii?Q?bs5lkkknfxETFxTjfHzrqzeHu7qXkgN/xtHEuYrtdZFslvOW1RedpA3DUO8d?=
+ =?us-ascii?Q?rBxTtO+BO1emWmapqQDO+yqP47MvmZowJO7ootD84J91p4bz8Q8GFckzYYo2?=
+ =?us-ascii?Q?p6aZL3YLAe3a/jym1BUvGxab7TGYDgt5MnTpAo4LWRAWnXK8LFzd0r2Q7Y8o?=
+ =?us-ascii?Q?bnFOY7V2bEYplyrKZHD0rG+hrvmZMsmzQuP9na5XjHxQuyu9/pbVvm3UdzMB?=
+ =?us-ascii?Q?QYSzyRlTmIaPv7n5NyBOVx5Rn8kvdG6MhvadrePJcO6nrgWcupxFSjakq0GA?=
+ =?us-ascii?Q?vyPMR18zLM/lyaYO9u4mXtZb1HwCLn4CNN9qf9udToD0b7iHq7CjbnxjYAYm?=
+ =?us-ascii?Q?MK2QhmudaFsTXT0foLJAXoWsQYF4oCFX3ygTjdWB4FLqlZaMU1FLLHHwfUOA?=
+ =?us-ascii?Q?pir2VkjeT1NynpmPEIq6H3DNVU6UkX7YcCRxFNgFpIRDmYeJdl9rC0xsPfOS?=
+ =?us-ascii?Q?aA1zEt8OcSnd2+3+5VhWGyU7FmHua9lIgLo/Z7kFAn2BOXUjnryeuwd7k2in?=
+ =?us-ascii?Q?t7rVk0qFZ1JfmtkcsULqXyq9okqQrnaM1AFA3s7pjX8oYH3x4bh0CLVRkvSU?=
+ =?us-ascii?Q?k5NHBY2YUd8ZN69tdqlFQSyiWBAWuS+cnkWW/skHw11LIw6Ufw5cE5v+hu8F?=
+ =?us-ascii?Q?MEXBHa2FpTMr2qfkZN47urI8HkKmPyX0on0RmAr3McP5DBnU3UjxRbRW8oiV?=
+ =?us-ascii?Q?WAyW6vbmtvjLOMC9WkauRioJog7WFaOcpslwJ89wrLJnFaI3bgMaZ7rds2uX?=
+ =?us-ascii?Q?doQ0fEwWzU3julsp0+gFb+37vfEttojjZoTXYn0GWMZ119JwQhGi2ZTf37DJ?=
+ =?us-ascii?Q?T7jeBPL5WSiw6basWJxGmjIzuEA7T0zwhLcVtrAysou7WS84+QWwSBJ2ipE5?=
+ =?us-ascii?Q?nJfdEu5iZxAnTyk9c2cGbXY7SRLy2HVx1k4bTR+0jjuHYa5Q4qoaJ7Y0XoH2?=
+ =?us-ascii?Q?qttPfhSESArOwsbJ4vlvKP1D0H/grEMqkfiQeJgta/CaWOjFA4l3PK656ESU?=
+ =?us-ascii?Q?e7SIOVFf7m9JkrOgXb040A+qjVJwyW1jaBNKcp0UGz70C7Y/c8XNsm+1bwNg?=
+ =?us-ascii?Q?xAcEUF3wWqafzxRWwZEyyoJ+L4y+YhksvpIQCtabojQAE+ofk8zB8DA3ohlS?=
+ =?us-ascii?Q?LcLL5VODmgjmeKRUSzETmSD80ON62OQSki1gXLUfkxukbcNQisqHUKQLE94v?=
+ =?us-ascii?Q?VChWCqZ+PwvqkYWzdqvm2H5pXrHkQxnfn5JGJuY5TVrZDdOnyoQzJTSfN5hD?=
+ =?us-ascii?Q?8j+xqSmEJ4Jtit0j4LtueFb8XXz0mZo86Nyi5VsKd7qziY4SMLYUXibDl+wE?=
+ =?us-ascii?Q?8K49yI8nx9/ZwsydUnLw3S5czqidsWuK7xD+wI2yPB+w38364maKTKB7ass0?=
+ =?us-ascii?Q?qihD5Sz8xgvKbBkbcgSTpeLrAquP60/DtxVwf2iQKUaF00SVWjGRJuPwCO9S?=
+ =?us-ascii?Q?kWiahoJLqUlpHAXAxaKiAeDbflgh7+3ao716g62ivglBkuARwSzR?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7934d6e3-cddf-41cb-1955-08df4b11b107
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 16:32:26.8760
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yv3s6ZNgNFMtM0N35LIccC8SmImvLNhg6hbfxlbtkbLCkOgj2pPnlf946boQ4SF3VE8SDSyQgS9eUYaiTyelW9eRRIyGV03DfNUmYyY2ZR0E2Ms0cTv2ipm7gSRF4zd2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10425
 
-On 25/11/2026 14:19, sashiko-bot@kernel.org wrote:
+On Wed, Nov 25, 2026 at 05:08:45PM +0530, Dinesh kumar v wrote:
+> Add device tree support for the ADLINK LEC-iMX95 module
+> with the I-Pi SMARC Plus carrier board.
+>
+> Signed-off-by: Dinesh kumar v <dineshkumarv85@gmail.com>
+> ---
+...
+> +
+> +&lpi2c8 {
+> +	status = "okay";
+> +
+> +	/* SX1509(2) U1001@IPi SMARC Plus */
+> +	i2c8_gpio_expander_3e: pinctrl@3e {
+> +		/*
+> +		 * GPIO Expander 2 Mapping:
+> +		 * - 0: E_GPIO1_0	<=>	IPi SMARC Plus CN101_PIN29: E_GPIO1_0
+> +		 * - 1: E_GPIO1_1	<=>	IPi SMARC Plus CN101_PIN31: E_GPIO1_1
+> +		 * - 2: E_GPIO1_2	<=>	IPi SMARC Plus CN101_PIN32: E_GPIO1_2
+> +		 * - 3: E_GPIO1_3	<=>	IPi SMARC Plus CN101_PIN33: E_GPIO1_3
+> +		 * - 4: E_GPIO1_4	<=>	IPi SMARC Plus CN101_PIN35: E_GPIO1_4
+> +		 * - 5: E_GPIO1_5	<=>	IPi SMARC Plus CN101_PIN36: E_GPIO1_5
+> +		 * - 6: E_GPIO1_6	<=>	IPi SMARC Plus CN101_PIN37: E_GPIO1_6
+> +		 * - 7: E_GPIO1_7	<=>	IPi SMARC Plus CN101_PIN38: E_GPIO1_7
+> +		 * - 8: E_GPIO2_8	<=>	IPi SMARC Plus CN101_PIN40: E_GPIO2_8
+> +		 * - 9: TP1002		<=>	IPi SMARC Plus TP1002
+> +		 * - 10: TP1003		<=>	IPi SMARC Plus TP1003
+> +		 * - 11: TP1004		<=>	IPi SMARC Plus TP1004
+> +		 * - 12: TP1005		<=>	IPi SMARC Plus TP1005
+> +		 * - 13: TP1006		<=>	IPi SMARC Plus TP1006
+> +		 * - 14: TP1007		<=>	IPi SMARC Plus TP1007
+> +		 * - 15: TP1008		<=>	IPi SMARC Plus TP1008
+> +		 * - 16: OSCIO		<=>	IPi SMARC Plus TP1001
+> +		 */
 
-[...]
+The below gpio-line-names already include the same informaiton, needn't
+duplicate it here.
 
->> +static const struct dev_pm_ops sw43408_pm_ops = {
->> +	LATE_SYSTEM_SLEEP_PM_OPS(sw43408_suspend_late, NULL)
->> +};
-> 
-> [Severity: High]
-> Does sw43408_pm_ops also need an early resume callback to re-enable vpnl
-> when vddi turns back on during system resume?
-> 
-> During system suspend, DRM unprepares the panel in .prepare
-> (dpu_pm_ops.prepare -> msm_kms_pm_prepare()), stmfts_suspend() drops the
-> touchscreen's vddi vote in .suspend, and sw43408_suspend_late() then sees
-> regulator_is_enabled(vddi) == 0 and disables vpnl.
-> 
-> On resume, stmfts_resume() unconditionally re-enables vddi during the
-> .resume phase, while DRM does not resume the panel until .complete (or not
-> at all during resume if the display was blanked before suspend).  That
-> leaves the panel in the vddi-on, vpnl-off state across .resume, and when
-> sw43408_prepare() later runs, vddi is already held enabled by stmfts so
-> regulator_enable(vddi) does not power-cycle vddi to recover the DDIC.
-> 
+> +		compatible = "semtech,sx1509q";
+> +		reg = <0x3e>;
+> +		#gpio-cells = <2>;
+> +		#interrupt-cells = <2>;
+> +		gpio-controller;
+> +		interrupt-controller;
+> +		/* GPIO2_IO22 (module FAN_PWM_1V8) is the expander IRQ on this carrier */
+> +		interrupt-parent = <&gpio2>;
+> +		interrupts = <22 IRQ_TYPE_LEVEL_LOW>;
+> +		pinctrl-0 = <&pinctrl_gpio_exp_3e>;
+> +		pinctrl-names = "default";
+> +		gpio-line-names =
+> +			"E_GPIO1_0",		/* 0 - CN101 Pin 29 */
+> +			"E_GPIO1_1",		/* 1 - CN101 Pin 31 */
+> +			"E_GPIO1_2",		/* 2 - CN101 Pin 32 */
+> +			"E_GPIO1_3",		/* 3 - CN101 Pin 33 */
+> +			"E_GPIO1_4",		/* 4 - CN101 Pin 35 */
+> +			"E_GPIO1_5",		/* 5 - CN101 Pin 36 */
+> +			"E_GPIO1_6",		/* 6 - CN101 Pin 37 */
+> +			"E_GPIO1_7",		/* 7 - CN101 Pin 38 */
+> +			"E_GPIO2_8",		/* 8 - CN101 Pin 40 */
+> +			"",			/* 9 - TP1002 */
+> +			"",			/* 10 - TP1003 */
+> +			"",			/* 11 - TP1004 */
+> +			"",			/* 12 - TP1005 */
+> +			"",			/* 13 - TP1006 */
+> +			"",			/* 14 - TP1007 */
+> +			"",			/* 15 - TP1008 */
+> +			"";			/* 16 - OSCIO / TP1001 */
+> +		semtech,probe-reset;
+> +	};
+> +};
 
-I ran automated stress testing for all states, and it seems it's necessary here.
-Report below the line.
+...
+> +
+> +	/* U1000 SX1509BIULTRT_SEMTECH on module */
+> +	i2c2_gpio_expander_71: pinctrl@71 {
+> +		/*
+> +		 * GPIO Expander Mapping:
+> +		 * - 0: ENET1_RST_B_3V		=>		U2001
+> +		 * - 1: ENET2_RST_B_3V		=>		U2101
+> +		 * - 2: SERDES_RST#_3V		=>		SMARC S77 PCIE_C_RST
+> +		 * - 3: RC210_EN_3V		=>		U1300, RC21008B001GND
+> +		 * - 4: LT9611_RSTN_3V		=>		U1500
+> +		 * - 5: HDMI_INT_3V		<=		U1500
+> +		 * - 6: PCIEA_RST#_3V		=>		SMARC P75
+> +		 * - 7: PCIEB_RST#_3V		=>		SMARC S76
+> +		 * - 8: TPM_RST_N_1V8		=>		U2400
+> +		 * - 9: LID#_1V8		<=	R1005	SMARC S148
+> +		 * - 10: SLEEP#_1V8		<=	R1010	SMARC S149
+> +		 * - 11: CHARGING#_1V8		<=	R1007	SMARC S151
+> +		 * - 12: CHARGER_PRSNT#_1V8	<=	R1011	SMARC S152
+> +		 * - 13: BATLOW#_1V8		<=	R1014	SMARC S156
+> +		 * - 14: TEST#_1V8		<=	R1015	SMARC S157
+> +		 * - 15: DSI0_TE_1V8		<=	R1087	SMARC S144
+> +		 */
 
- From maintainer point view, if there would be need to make it bulletproof I can 
-explore Option 1/2 to address it, but hardware-wise it seems to be not required.
+merge to comment of gpio-line-names
 
-I can send v4 with more verbose explanation within the commit msg / code, if needed.
+Frank
+> +		compatible = "semtech,sx1509q";
+> +		reg = <0x71>;
+> +		#gpio-cells = <2>;
+> +		#interrupt-cells = <2>;
+> +		gpio-controller;
+> +		interrupt-controller;
+> +		interrupt-parent = <&gpio4>;
+> +		interrupts = <15 IRQ_TYPE_LEVEL_LOW>;
+> +		pinctrl-0 = <&pinctrl_sx1509q>;
+> +		pinctrl-names = "default";
+> +		gpio-line-names =
+> +			"ENET1_RST_B_3V",	/* 0 */
+> +			"ENET2_RST_B_3V",	/* 1 */
+> +			"SERDES_RST#_3V",	/* 2 */
+> +			"RC210_EN_3V",		/* 3 */
+> +			"LT9611_RSTN_3V",	/* 4 */
+> +			"HDMI_INT_3V",		/* 5 */
+> +			"PCIEA_RST#_3V",	/* 6 */
+> +			"PCIEB_RST#_3V",	/* 7 */
+> +			"TPM_RST_N_1V8",	/* 8 */
+> +			"SMARC_LID#",		/* 9 */
+> +			"SMARC_SLEEP#",		/* 10 */
+> +			"SMARC_CHARGING#",	/* 11 */
+> +			"SMARC_CHARGER_PRSNT#",	/* 12 */
+> +			"SMARC_BATLOW#",	/* 13 */
+> +			"SMARC_TEST#",		/* 14 */
+> +			"DSI0_TE_1V8",		/* 15 */
+> +			"";			/* 16 - OSCIO */
+> +		semtech,probe-reset;
+> +	};
+> +};
 
-David
-
----
-
-     Good catch to check the resume path, but hardware testing on Pixel 3
-     shows no resume callback is needed here.
-
-     The non-recoverable DDIC state occurs when vpnl is dropped while vddi
-     remains powered ((VDDI=ON, VPNL=ON) -> (VDDI=ON, VPNL=OFF)), not when
-     powering up from a cold both-rails-off state with vddi rising ahead of
-     vpnl.
-
-     I explicitly tested the exact rail sequence on Pixel 3:
-     1. Both vddi (ldo14) and vpnl (ldo28) off, reset deasserted (the state
-        left by sw43408_suspend_late()).
-     2. Re-enabled vddi alone via stmfts while vpnl remained off, and held
-        (VDDI=ON, VPNL=OFF, reset=HIGH) for 6 seconds.
-     3. Ran sw43408_prepare() with vddi still continuously held on by stmfts
-        (no vddi power cycle).
-
-     The panel recovered cleanly and lit up normally.
-
-     Also note that an early resume callback (.resume_early) would run before
-     stmfts_resume() re-enables vddi, so enabling vpnl there would either see
-     regulator_is_enabled(vddi) == 0 (no-op) or unconditionally power up
-     3.0 V vpnl before 1.8 V vddi (reversing the power-on sequence and
-     leaving vpnl enabled when no shared consumer brings vddi up).
