@@ -1,45 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795591230;
-	b=G9AIFnvkiQEdSNg33w9+FWuC9aiYI9ovayo+ekEF2JAlWNPPQVSRJ1TMIXe5nNrM6d1A
-	 h8EqEBgGD5zUhXs9JW7aP37RGSyK4LzSCQHkbOP2mZsQBNMoJriwh0XndH2VHiq05SBe6
-	 SZl1GH9qvuZWlu65aN8ZEdPITB+UYABUFdC5OxaqKD99U6bg1UW+jfwLy5Awh/LSJ2OSc
-	 mtxWfWr6xATCzJo1pgotvQOAr0PtMx3qnfIEBYN7MITYreIwoj3R8HP2tQa13MC3SfdIi
-	 n0gXm/WTJ5LQ1luGwmgJlZQ0GYRmrjV8HKeL6QsmEuEIKPHYRqd1oRx9SgvexRpocRQ==
+	t=1795591234;
+	b=28TfMsRzNDSw10+YqcaRT4oOLky3xtszi2bY/QHKVwBH8rUZsidHgnUxDuy0eutBYxVA
+	 jTA2sO/WfzUBMzh8env1QlSWHediU50qhmJdexNj6MtL32dg9q7ZZ/TRcSkNk92ei7hFB
+	 2PedaxHiX8QzefIDrtTWw2pERJRE6QSt0quKfrnQ2jnyq0sJts5Pm3uvDj09FafvTNywa
+	 d8rlkitD9pqoJ1uboAYZS4bWN3TSDMAoakaCiMDHyPb7l5higBKjuoIqPa2LdsotAIBni
+	 Ba2ZU47qwGhTGGAANTard5PA87mS6tyHnGz1VkYM8cB/M+PrRQao9Slnuqujp0Saoow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795591230;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer;
-	bh=L05En4/xKFVGe3YwLYxtCb15h7QwemjDiV1X8U2nthE=;
-	b=HJbuf0f3Luto23jSK3T6xlkg13mF6BB5Vz9rAUrmgnhZ1gp/WC9uE33PCOF+olZjFfq6
-	 4JtoyLAaqyO6P8nV1exy0JAd669wZ4H6IHATXF/12VPoGmK+Pttul7arCUht8QDA3SaFo
-	 7nutZQ3l0xDU/m9VGHI+gphqheg81AhWlLaDPjQwwfaeKAMLD4jA+aI3c+ONMCJMqNjM8
-	 ECpnK5Be0b2xbyJcIg+LaUT+7PW58gMQsL2OdMVaRum4OUbGsDvh81Dop/ustou50QcWT
-	 GLreRfbLhNCWI3L43VY4MXmea806vDnjH7roW374rCi6FUysBlT8YkfFYfMweFmkPig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795591234;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=zR+ZS3RFnMXyWgWm4jgzl2ojfk5jm0nYYCR8YIToedw=;
+	b=kXwErvtJTEcKWBh7qQpbEn/3M0dcYDorlDRMpcMzQwV4F2OwPmEkqRhtjJWSHnirDR/6
+	 A51Fr/4AV6GqL9bceKpNcsuiwK5R0CeCEQ2wMx+B0+0LJzimPmnmdkT3Hvl0DK2+dOdzG
+	 ZFB26CnSG+3gfncO/bGfswQ6JMmPaeD45DLqEQShSBKmR/I2sRA0NNHBjXR34+cyaz7QY
+	 IeCk/efq/Vht9Idm49Uvy7zM41itAIsijPnME17+qM9dss6vlUGGyQh7qtitPVCHapJJL
+	 OTEX+GIx7oP/1kL1Z5EOFHfGEBKhmNQXOrLQP22zlK8J9IzVJbjr7+YbzfEmtCpVKbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CI7KwRD6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eaeOMGEp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACE96606A323;
-	Wed, 25 Nov 2026 07:20:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE71606A321
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 07:20:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CI7KwRD6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 850C01F000C0;
-	Wed, 25 Nov 2026 07:20:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eaeOMGEp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33C301F000CA;
+	Wed, 25 Nov 2026 07:20:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795591230;
-	bh=L05En4/xKFVGe3YwLYxtCb15h7QwemjDiV1X8U2nthE=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=CI7KwRD6/npgdogDA9soGnOx7aANCu/YHtpit9WlZvZg6ZNb5WZ91xuGXsP7htK9g
-	 AxNgBw6ZxZd2f6JTLRrLXyyVsLDB2JfUyK36sJdxvwYfems3TDhQd04jFCNZHUrli+
-	 l9j3qtu5KNZ+lerE4srjbX7HELfzHhrXTwjDtie0f7LzJhHXJcf8ZhmnytnfsAeBt8
-	 Ya9P518uE9M3mZKCYl9KJzZwloz+9LV+RQrwPgXWYdEYLkvFo/XXGHbWsDXoz74ntk
-	 11l/Lw54Z67R5RWw+J/uPKkCX/Xq3kJj1uph9H+K3yqDaBXtcDYx3Agm//IrDrHZ3N
-	 5N2FqPYzw3twQ==
+	s=k20260515; t=1795591234;
+	bh=zR+ZS3RFnMXyWgWm4jgzl2ojfk5jm0nYYCR8YIToedw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eaeOMGEpDpUIaYcN52wcgb4RHYlNJPU206eYgQ1ztjtCly4d9c02OX50xt+gB/WNX
+	 AbnDIgvDhJseEPnBHiGRLuvRsjPiywH9YbVoLAYS/PgT3yBH2JX1R1diVS57Dbzua5
+	 HYF7jtoVok1U9UJni9aFH9VNNIP4k1zNyhJvhL78v7IklFRbT2joWZ7yvyOjc/k24X
+	 YLiffoQfLoGjptEJRKBkb19nAJFhjvNk+UauKVolvZ4ggcVTNxOV+wdVNgtH9ec0t2
+	 RwZL8U3hLioDF+Kn2rPNLsyZx4ueXLmHmXyJmEQOwohjpXkv07seFXpjLcHspqCD+F
+	 jMUvX6l5GikCQ==
+Message-ID: <sashiko-outbox-232771@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/3] dt-bindings: arm: qcom: Add Talos Lyra EVK board
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ruchira Revdekar" <ruchira.revdekar@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261125-talos-lyra-evk-v2-v4-1-73d768714a5a@oss.qualcomm.com>
+References: <20261125-talos-lyra-evk-v2-v4-0-73d768714a5a@oss.qualcomm.com>
+ <20261125-talos-lyra-evk-v2-v4-1-73d768714a5a@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 25 Nov 2026 07:20:33 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -48,44 +59,48 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 1/9] dt-bindings: mfd: Add Marvell AP806/CP110
- system controller schema
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
- Gregory Clement <gregory.clement@bootlin.com>, 
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
- mfd@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Krzysztof Kozlowski <krzk@kernel.org>
-In-Reply-To: <20261124-dtbs-marvell-v2-1-663009a769da@kernel.org>
-References: <20261124-dtbs-marvell-v2-0-663009a769da@kernel.org>
- <20261124-dtbs-marvell-v2-1-663009a769da@kernel.org>
-Date: Wed, 25 Nov 2026 08:20:26 +0100
-Message-Id: <179559122613.9063.9445094754243687783.b4-reply@b4>
-X-Mailer: b4 0.17-dev
 
-On 2026-11-24 14:46 -0600, Rob Herring (Arm) wrote:
-> The Marvell AP806 and CP110 lack specific compatibles. Add a dedicated
-> schema for the Marvell AP806 and CP110 system controllers and their
-> child devices.
-> 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
-> v2:
->  - Update compatibles to avoid old legacy ones
-> ---
->  .../mfd/marvell,ap806-cp110-system-controller.yaml | 59 ++++++++++++++++++++++
->  1 file changed, 59 insertions(+)
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] dt-bindings: arm: qcom: missing SoM compatible and
+  unaddressed v3 feedback
+--
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+commit 953678badeae0044d4d7bb640f965fa1383fc4ea
+Author: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
 
-Best regards,
-Krzysztof
+dt-bindings: arm: qcom: Add Talos Lyra EVK board
 
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
+This commit adds the qcom,talos-lyra-evk compatible string to the
+qcom,qcs615 and qcom,sm6150 board enum in qcom.yaml.
+
+> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentat=
+ion/devicetree/bindings/arm/qcom.yaml
+> index 121ca557ce1ef..d0e30d6c1d4cd 100644
+> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+> @@ -1089,6 +1089,7 @@ properties:
+>            - enum:
+>                - qcom,qcs615-ride
+>                - qcom,talos-evk
+> +              - qcom,talos-lyra-evk
+>            - const: qcom,qcs615
+>            - const: qcom,sm6150
+
+[Severity: Medium]
+As reported by Krzysztof Kozlowski on v3 [1], should the Talos Lyra SoM
+have its own compatible string between qcom,talos-lyra-evk and the SoC
+compatibles?
+
+The series models the Talos Lyra SoM as a modular compute module
+(talos-lyra-evk-som.dtsi) mounted on a carrier board (talos-lyra-evk.dts),
+and sharing the QCS615/SM6150 SoC with Talos EVK does not remove the need
+for a SoM compatible when the SoM can be paired with other carrier boards
+(similar to qcom,eliza-cqs-som or qcom,purwa-iot-som in this file).
+
+[1] https://lore.kernel.org/r/20261027-whimsical-russet-marmoset-f248ba@quo=
+ll
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-talos-lyra=
+-evk-v2-v4-0-73d768714a5a@oss.qualcomm.com?part=3D1
