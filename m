@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795701018;
-	b=gFIaF8HGsizXwODIiV+TraUZRvrNx5T3X6bd2tf8iN+cUkv1e8vawNziyt3iNpN3s+MF
-	 I/yhkhlFOU0o/xbkxHMcSwhfr3Brdh7/r8NiCLexYUrM/CFdtEVqFqM4tXrafyquJF6p5
-	 Asl28qqPXq/12lWatoYD1l/oYvuB4nWKCNXsiS9XGbHV5zeB/Zhw9nqMU2yv6v7mi60K1
-	 Evt3YVrPmh/60P237JpDxXm49WQ3TtlAJYyF7Lc0G+wAwEhiiFbwundbXcyyROzA+5HDc
-	 BfOXlhj3cbBz4MqlONuyKQ/zOmcDm7v8jAQVo4MizJs1BFgocnsi+2pBDtuxpTp/S2w==
+	t=1795701157;
+	b=Hz5smST0SWiKLmoz0JO0bbFCLg2E0XALDwXXnPkrSYgzzgY3FXqw/IboWTyzpgDxYsNG
+	 rN20V+eCUQpU+I01YsOHItb7Wwl8Nf8XA2m6pXfRzqI5XKCpNYWoE7jkIW4fPDhE5vSwQ
+	 hTS9SpwTojh3V9ofqO2dA5+TScVkBjTbbEIwCLPmmxQ9kx4S/J1wykuK2a7WYwl4ko4sx
+	 t6BoQL326xl9mH5ke+2vYm5btGqOW0zvHPS//7XnUpDo+v2OnfcXHt89cyuW1tFfXGSCI
+	 SaAXqdYF5cGhAWAGNRmWOWQNKDdIWVD35cspRdCdZuFJVSPTGy6nP+ipcGQGRdUq6Uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795701018;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795701157;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=D8aaKfm/rVetnfbpXVlB4VdiR9+CF0Kz6svOuIDEK7U=;
-	b=SOgbiifY/Sib6C7rteRYXZZ/5Ugis8oZc5NcQcGPsc7C70LkgfwWpgb7RMjcH8w4V2dv
-	 yHIjaGp1d1RgxtSKvAMg3v0UzBR7IfZj6fyzHv8zXOoY4Y6ABhT8C+1hXZVjUfSYBup7j
-	 A5SvZTsuYsxXAsD5rnBT7Ngl42BkWh5AfJKClAxqFMElkM7Y3dvE7IQPd8O3/dlktEWIY
-	 nFSFtunB1fh92m2EwwdbIDY/JO3ecFXBvBdzGMtBBk0fnqYh+yEeGwwpcfjua0pdtLgpI
-	 pw4v9fV+cu03nxIkh9V/gWgJzxwTyee4CVWaA4PkRErSYHkl6pGgR6mA374cwfJDWGA==
+	bh=dO47GcUag+bmDxotCWLihzVd3crs6RTsQDfW+nGMD/Y=;
+	b=y8gJ4uR79IORE0fFTlIS+JyJvs21zu/02bF0xZMIhaD9Jq3YdhI9ks59TVz2wIPrxSZx
+	 TtZGyqrcFldkaAhqRKhGr9HM86n2DoNpu+n+2eYY+blWULTYEPbRQqH+yBkKsTlWjfKbz
+	 fjakbYaox4a9jXEgcOBZbD6yeeFG+BB0gFjCg1FdzXIFmPpBQMK39My4YPcD5yYfDg8uW
+	 DAeDfOsdptQ03DyOgNXvFaxG0ayDuwXMPdp5HAhgT9yQuS13hdKP0Ifgxj9avmPyD7oAf
+	 i8y2dgQ8P8H6PBqrJX8swBfdicvkbJ+o7+OhN+O18fLqGNNhrush2KUJmmGtf1DD1dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V4fRQh3l;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ubth0gDZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4CA9606A32A
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 13:50:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B5B606A327;
+	Thu, 26 Nov 2026 13:52:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V4fRQh3l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55EA91F0093E;
-	Thu, 26 Nov 2026 13:50:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ubth0gDZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9196F1F000C6;
+	Thu, 26 Nov 2026 13:52:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795701018;
-	bh=D8aaKfm/rVetnfbpXVlB4VdiR9+CF0Kz6svOuIDEK7U=;
+	s=k20260515; t=1795701156;
+	bh=dO47GcUag+bmDxotCWLihzVd3crs6RTsQDfW+nGMD/Y=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=V4fRQh3l5Jx5eVbio5kiImfnYKpPfNdGKt+4/tpucNFL7F5tjEflaeT08LRFAT8dU
-	 4ErZRCmrvIzjRTIAmKtzQPdDc5Mj7Wceh7ISkXk8xA6qe2+gm9v54VTDGqppdPrwEX
-	 zss7Ff4hLtp70X5s0L6Iqo/FfBrSGRzpWAvqpVyCiroXHqLP3xm1VmQK5Fv/P9kR/3
-	 uivDyjVWOkLVZD6o35n7T6V5G/RZY/J+zoRnOq4z5ZA84Pxx8YAJc0tfTSDDkn/Ttn
-	 8pPSGqzOpZf90lpJDLTIoyHS96uY95PYDUEWElrxzUoPGObH7AprGTtJamlDY7c7he
-	 Av++yQB2F8tmg==
-Message-ID: <sashiko-outbox-235649@kernel.org>
+	b=Ubth0gDZOiXjUKEgvH3lDYCXoloRdlqyfm/7ZM/MPzWkCGQKMP7Ac9ClfxHB0R+pl
+	 izbyj+tIcQD9EN78suTfDD4q8LoPUOjTuHRzqLEnHEjzlc2aawIUwXiA/GjawjQKu8
+	 siJRjATbHdrvwxOEt4idpx7SFU4v8kKQFKMeX3LzE53WL4sZgUJsMownx9pLCPuaO8
+	 gGxqo/4Mbt0vuk88AFd4itYnd0thI4gUOH7N81B2m7RdQodW55McuYXzkWKVI6bfAU
+	 cpNltwsmlDEfPNvOG3aVdzr3EMEhCSwoPIIAt1wVuA0CTxV4s4ZIfWA+IsTetx8Kdp
+	 KTLJBmJ6gBi5A==
+Message-ID: <sashiko-outbox-235656@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sc8180x: add IMEM and IPA
- nodes
+Subject: Re: [PATCH v2 03/10] drm/panel: novatek-nt36672e: Fix the reset
+ GPIO polarity
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Robert Ijtsma" <robertijtsma@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261126-sc8180x-dts-ipa-v2-2-ad57b1be7c70@gmail.com>
-References: <20261126-sc8180x-dts-ipa-v2-0-ad57b1be7c70@gmail.com>
- <20261126-sc8180x-dts-ipa-v2-2-ad57b1be7c70@gmail.com>
+To: "Vladimir Zapolskiy" <vz@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261126134508.320700-4-vz@kernel.org>
+References: <20261126134508.320700-1-vz@kernel.org>
+ <20261126134508.320700-4-vz@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 13:50:17 +0000
+Date: Thu, 26 Nov 2026 13:52:36 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,41 +63,40 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] arm64: dts: qcom: sc8180x: undocumented compatible
-  qcom,sc8180x-ipa
+- [Low] drm/panel: novatek-nt36672e: missing Fixes trailer for reset
+  GPIO polarity fix
 --
 
-commit 98bd0896ae9b2571b22decd833221032e2e62143
-Author: Robert Ijtsma <robertijtsma@gmail.com>
+commit 9b3b20020b17a5e54e69c4e88df2960f428e2e60
+Author: Vladimir Zapolskiy <vz@kernel.org>
 
-arm64: dts: qcom: sc8180x: add IMEM and IPA nodes
+> drm/panel: novatek-nt36672e: Fix the reset GPIO polarity
+>
+> The RESET_N pin of NT36672E panels is an active low signal, however
+> the driver drives the reset GPIO with inverted logical values, thus
+> the reset GPIO has to be described as active high in device trees,
+> which contradicts the panel hardware as well as the panel-common.yaml
+> convention.
+>
+> Fix the driver to assert the reset GPIO to put the panel into reset,
+> and to deassert it to release the panel from reset along with adding
+> a gpiolib-of quirk, which enforces the active low polarity of the
+> NT36672E panel reset GPIO. With the quirk the reset signal levels
+> remain unchanged for dtbs, which describe the reset GPIO as active
+> high, and device trees, which describe it as active low, start to work.
+>
+> To: Linus Walleij <linusw@kernel.org>
+> To: Bartosz Golaszewski <brgl@kernel.org>
+> Cc: linux-gpio@vger.kernel.org
+> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
 
-This commit adds the on-chip SRAM (IMEM) node with the IPA modem-tables
-region and the disabled IPA v4.1 device node to sc8180x.dtsi.
+[Severity: Low]
+This fixes the inverted reset GPIO logical polarity from the initial driver
+commit.  Should this include:
 
-> diff --git a/arch/arm64/boot/dts/qcom/sc8180x.dtsi b/arch/arm64/boot/dts/=
-qcom/sc8180x.dtsi
-> index a85e3211958d1..5d837346f7bee 100644
-> --- a/arch/arm64/boot/dts/qcom/sc8180x.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc8180x.dtsi
-> @@ -2253,6 +2253,51 @@ ufs_mem_phy: phy-wrapper@1d87000 {
->  			status =3D "disabled";
->  		};
-> =20
-> +		ipa: ipa@1e40000 {
-> +			compatible =3D "qcom,sc8180x-ipa";
-
-[Severity: Medium]
-Is "qcom,sc8180x-ipa" documented in the devicetree bindings or supported
-by the IPA driver?
-
-Documentation/devicetree/bindings/net/qcom,ipa.yaml does not list
-"qcom,sc8180x-ipa" in its compatible property, which causes dtbs_check
-validation to fail on SC8180X targets.  In addition, ipa_match[] in
-drivers/net/ipa/ipa_main.c has no entry for "qcom,sc8180x-ipa" (and no
-IPA v4.1 configuration or register tables exist in drivers/net/ipa/), so
-the driver cannot bind when a board devicetree enables this node.
+  Fixes: ea4f9975625a ("drm/panel: Add support for Novatek NT36672E panel d=
+river")
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-sc8180x-dt=
-s-ipa-v2-0-ad57b1be7c70@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126134508.3207=
+00-1-vz@kernel.org?part=3D3
