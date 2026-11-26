@@ -1,88 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795724431;
-	b=tOmPoqo5bHlHwkNYhyJZZzP4Dg2KZCIy2k5vW1ECHmA3CIU5G1/SA5fQazAhzn1pQv9I
-	 KfI4UWH+KLK+/5umbIV2XQOeKvcG9ovdeFKEUxFFvgOPq6IxexIONv95dwqOsc7qn0vVp
-	 Qm7lK5VgvVFCIqaewXk/goVRH7bVsLNsSivKJOk/rXFS+V0tr0lRhjc6i1iWLSB7roCWF
-	 3/ZQ+R6YHmx9UxeOwbrtzUC30dD2K+sA5Zy6jjTFABSxZ2Sm/NA615ZPcm3e3xB0LEb+s
-	 cLhI6UcovCQd2+mSHC2CROOa2+EWW7Q0WTr2Zxe9cVm0dJEsFAH1YuB7Tg66UW3Hx5A==
+	t=1795724548;
+	b=gwwQAUHWViVk0OqzT7MxNM8rs8m6jpayf7mIvUaCTbJ/Mcbz+YptNouKSY8l+OLf32dR
+	 1xL40uD2dw8uSWzLICClC+PTutq4OWCzcekI5cvHuewelxh0mZE9fLJgHXWh6YEQcH9jQ
+	 xDyhelYpi8nfU/q/3XAiazteZVJoFuwvQxhrzgAq3kJfP2078PQI38pY6xOlh+YVI/n4u
+	 XbWUdfyiElihTEyqonlh563BC5haCrK2xaMM3IiwpsrtE9p7vnks2i22F8SlaNJX0cg+M
+	 xUG/qD1uDPG2CCxxPHBIEwDtGsBOVe9gpy33vKhPYEg/enUGvKeaVTPIyOoEyNDR+Mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795724431;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=7CCrVyrTBdPbSe+1if8Pi4d/84Yf1ZbiqX0NUSqRqbc=;
-	b=pRBLfRK/SeQoR5UPKo3cN1emKtZRoN5KsrFF8UM9d7+NWXG9TvUm6dUaHEiyMX0uBAVP
-	 8a5pYvpmtHEM+VE0j8A0DSuVMY8ei7ooo5NP7xRneI8sVw9Jwa9ndp1fq0tVwYw0jGbGH
-	 DfKYvreAzpb5dMl8RHRRtBD7fhONCN71WgnXOKXDQxa7eCsqoDM1o5qijA4F9WLixQg86
-	 PAz4TzWnFRJAfLV2FcLbrDdIbzE7owk2DJ9ajNUYJxl8VFkHGqIrn18r08L94eZw5Nlqx
-	 I4T/loxzprXOZM13+KsFfUcmqv7Gyks24Hk4tpX/xiWmmcy8dYEIS3TttYBdDdaX1HA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795724548;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=K8vXOpYPJvLf306yumbguV5Cmb3JESdYMT0CcHfak1I=;
+	b=heE1hJPIet9X6YcF3MLAkDmRdVGL9DLN3T9S7XGNbcTNyI0i7WEg3Na2deXr3SidRDrl
+	 5DJLvuY208TW8Z32ZMvAQJ52xg9+xs17K9fQB0yFUxqf7jqcv+cotDiytMNSHiHWqDG6L
+	 l1afy9PFi/mTDPoPdyz+4hCwkcNUS6nNrc+tyMxcd/OXpdQD/xNhdIhyGjhZ9xs2opY/G
+	 GqnUZPj3W3FozfRsXqFWSYKYaf4RCj4SBJmIaiI8XeVCVceWOWMLsCVDR2VEwMYfaR1Ku
+	 GLlRz10vZrCReE19E1gHhNItxrRQV+hjyiSZIQTqw0h3j4h3tzoUVvsffY8xZBaZMpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=qSOzqmLQ;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Hte0Q+Gb;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C49C606A31C;
-	Thu, 26 Nov 2026 20:20:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C49C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06B4606A339
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 20:22:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D06B4606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=qSOzqmLQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795724428;
-	bh=pUN2TxTtZtOVhddUkx6PB3N78CQVfEnriFZuNg5Tvgk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=qSOzqmLQEkX+WmrOPd53ng4Ub+f3WGThnGgKuLjCGaW25geqXy7wFsN4FAoD2V6V+
-	 G5135TPN/vMUQg07ob8ICMRGsXkKtPnhoNQqZwD5Fs2yZnXUwxWyLXoAmQQ/deolyN
-	 dgAvUV1LAQ899xivuB4Txz9UumTJQECIAusvR9raaAe8hLxfOnFk9OM5wUn0umBuFd
-	 Bl0TGgC4t23igBCkDDEN7lWTyb05AfGEvQH0MQuEtNqlLipxq+V/Ph8Yer1a0QcCSA
-	 IVLSFNwOuVnFv0mwHxw11o9Fnr28wW6V+ywmW9VqMgerhDB/njmIcc6XDjfuqMomyl
-	 B7OIaLOGRW9Tw==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 6A5A817E00E8;
-	Thu, 26 Nov 2026 21:20:26 +0100 (CET)
-Message-ID: <23748f44fb9f43f88af97c65200cc75ed5d1ee6e.camel@collabora.com>
-Subject: Re: [PATCH v5 2/4] iommu/rockchip: Add rockchip_iommu_restore()
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: aiyengar1990@gmail.com, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley	 <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, "Joerg
- Roedel (AMD)"	 <joro@8bytes.org>, Will Deacon <will@kernel.org>, Robin
- Murphy	 <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-rockchip@lists.infradead.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, iommu@lists.linux.dev, Hans Verkuil
-	 <hverkuil@kernel.org>, Alex Bee <knaerzche@gmail.com>
-Date: Thu, 26 Nov 2026 15:20:24 -0500
-In-Reply-To: <20261126-iep2-v5-2-3deac0976f10@gmail.com>
-References: <20261126-iep2-v5-0-3deac0976f10@gmail.com>
-	 <20261126-iep2-v5-2-3deac0976f10@gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-dQAySM4Jzz+X++kJrWM9"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Hte0Q+Gb
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso15628316eec.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 12:22:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795724547; x=1796329347; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=K8vXOpYPJvLf306yumbguV5Cmb3JESdYMT0CcHfak1I=;
+        b=Hte0Q+GbMa59QI6u4BQ/Q9hH8K18WTBYFPyIGfJrBmh72Khszw2FKp5dp5cglWFHt/
+         BcrcN5zXWDgv2CD/zXXteq0xlqca4nTEGXqA9Xfu7wO9Qv3CJmwWvT1xC2CrdHqvuaZA
+         7Nt7XCrqa5vNmy2MBP9zZgufn8/n5SMFVddaRzoAxb/S4Tlm4+v4K3zNTp05qE0tNe6r
+         udFMoLNBPgGoI4yqVM8JMEdi/+Y9YqxJ7/4RpjOk2mpxHQ/19bC/hNVN+SoKRhVVYvxq
+         0FMgQ15oAMmukcUTOtYt16+/xUImXhSLLTacV8NUl9LyCEB4sp/5kpaw+TF7uTkvlRCq
+         cTmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795724547; x=1796329347;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=K8vXOpYPJvLf306yumbguV5Cmb3JESdYMT0CcHfak1I=;
+        b=T9te1Z4GNpxoBFPvfKDiKCNHFA/z3aVaesAtZnmClAAeU7gpa2z0K0NWBXiluGbXHp
+         dPMvhWpx5Ao1WJOWbm8cehqn06sfuykJFhzhms3r/H78eVGnsWv+9m77ejwyAGtSiY/9
+         XIbiTaw0qsQZMgOSs2q+VlwpHIasSgI7zbARRvR8kI+J6cZDay3JRhqyWZqiFj5ypwFy
+         azRGPHbDI8X88pRAIO9GV6ih1iiJIKvEukvyPQ1WL7EPJZpn2BT+oR1Jp5yYyp+B6xul
+         sliE3UQqMiX7MQ3I6MCbmgWc/KmH0Ih+lQgTniClsGhHlndIIUSva+sx1nQPjJZM1rF3
+         +FnQ==
+X-Forwarded-Encrypted: i=1; AL+hErHD94kIxpHxzlYPHHPkZ+qORq6JAvVP8rjhNQRfXa3rwsL3QwZXa/Gaf6NjTddGXR1CavEZlCXY5HhX@vger.kernel.org
+X-Gm-Message-State: APuU4Z8/9HKaWT+FNi4Lu6/5nDDtWo3u0ctBJMy1tgHgNxfuEopBxVEE
+	2C6QwTWQ6cTF7yrNKdCyKpt6Ye5zj2oko2UVu0QXw0DLyWCwSIuPyvak
+X-Gm-Gg: AZFdTZdOyr9rtkaSU3ceLJIfRiddG3WqWJ/VmsN8Sj+N3N1NO8crxmiBn75CRy4pcyg
+	Z9qTX7/4+RCQmsZCoFG6fAEYfdhgNPs1nBSSQ8LXytnRokhLYOc2b2O2bpcI1SCrHi4Ph4WsWJj
+	lmEP0o15tF8i1k599hWah6ZWomJRd0Kr3yy1ZPN01H20fqS02pjpFR/vFxHx2e7V6yH+QUpDgf9
+	cu4Wif98ag/0lnQQBpHzFN0ny9Ym3KuhrCa6sdiWYoQX0eJZMcFZHinYODerQS+q3vD1a6GDZOW
+	gE4iZpCV4XEXXf1sRL+9HyI51b8Rmyq+dl82YXr4USvsjEBzbPm9Cq4NLrGqgoTW5W5fixLEQT9
+	kK7B4mf2tJ2EXPH7q4Oc2TuuWpBJbA0VU502xVJRXRH9AkiXi5gdPtiO92L25TOZKcoDCZxJ+Kh
+	fnMZipfFAarcSfR7Pizc7CmyYlIFxx/WZZtazu6YcSrCw/Egbq2lZ4AAHVbQFascPfM6bUlAMnS
+	ERhXryT5cme06xQSeDoTk19ZvrU8jcZ5LWLzvveK7UkpyiCRud3duP2Fq/mXoUzwzpu0YAADnhY
+	jsWJRLAz29jT7pVQf1M8vzr2OVLzf/boqhUGPA1+tNRlXKk2
+X-Received: by 2002:a05:7301:550e:b0:386:e952:3455 with SMTP id 5a478bee46e88-386e952358cmr895091eec.34.1795724546785;
+        Thu, 26 Nov 2026 12:22:26 -0800 (PST)
+Received: from mrprachoday.bbrouter ([2402:a00:402:9f97:e752:d178:849f:9d04])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385d2b93dd9sm73987372eec.24.2026.11.26.12.22.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 12:22:26 -0800 (PST)
+From: Prachoday Sutar <prachodaysutar7@gmail.com>
+To: sre@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	pali@kernel.org,
+	afd@ti.com
+Cc: linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Prachoday Sutar <prachodaysutar7@gmail.com>
+Subject: [PATCH v2 0/2] Add TI BQ27Z558 fuel gauge support
+Date: Fri, 27 Nov 2026 01:49:57 +0530
+Message-ID: <20261126201959.28743-1-prachodaysutar7@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,136 +100,38 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
---=-dQAySM4Jzz+X++kJrWM9
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The TI BQ27Z558 is a single-cell fuel gauge documented in the same
+Technical Reference Manual as the BQ27Z561-R2 (SLUUC54) and is register
+compatible with the BQ27Z561.
 
-Le jeudi 26 novembre 2026 =C3=A0 19:51 +0000, Arun Iyengar via B4 Relay a =
-=C3=A9crit=C2=A0:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->=20
-> Some masters reset their IOMMU along with themselves. The RK3588 IEP2
-> does: after its soft reset, paging is off and its DMA is untranslated.
->=20
-> Add a helper to reprogram the IOMMU of such a master, so that its
-> driver need not attach and detach an empty domain to do it. rkvdec
-> does the same with rkvdec_iommu_restore().
->=20
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+Patch 1 adds the compatible to the binding with "ti,bq27z561" as the
+fallback. Patch 2 adds a matching I2C device ID so the driver probes
+correctly when the client is named after the first compatible.
 
-Acked-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Tested on a Kneron KL630-based board with a BQ27Z558, using a vendor
+Linux 4.9 kernel with the equivalent bq27xxx changes and the fallback
+compatible in DT. Voltage, current, capacity, status and temperature
+read correctly through /sys/class/power_supply.
 
-We are trying to get rid of hacks in many Rockchip m2m media drivers. rkvde=
-c
-have that hack upstream, and now I have rga2 and iep2 driver submission wan=
-ting
-to use the same hack. So I asked Arun to give it a try and find a solution.=
- So
-see this as a v1.
+Changes in v2:
+- Add patch 2. Binding via the fallback compatible alone left
+  i2c_client_get_device_id() returning NULL in probe, causing a NULL
+  pointer dereference (reported by the Sashiko AI review).
+- Patch 1: drop the claim from the commit message that no driver
+  changes are needed.
 
-Nicolas
+Link to v1: https://lore.kernel.org/r/20261126191906.25708-1-prachodaysutar7@gmail.com
 
-> ---
->  drivers/iommu/rockchip-iommu.c        | 36 +++++++++++++++++++++++++++++=
-++++++
->  include/soc/rockchip/rockchip_iommu.h | 17 +++++++++++++++++
->  2 files changed, 53 insertions(+)
->=20
-> diff --git a/drivers/iommu/rockchip-iommu.c b/drivers/iommu/rockchip-iomm=
-u.c
-> index 21af2f621c76..81cad102929e 100644
-> --- a/drivers/iommu/rockchip-iommu.c
-> +++ b/drivers/iommu/rockchip-iommu.c
-> @@ -27,6 +27,8 @@
->  #include <linux/spinlock.h>
->  #include <linux/string_choices.h>
-> =20
-> +#include <soc/rockchip/rockchip_iommu.h>
-> +
->  #include "iommu-pages.h"
-> =20
->  /** MMU register offsets */
-> @@ -1349,6 +1351,40 @@ static int __maybe_unused rk_iommu_resume(struct d=
-evice *dev)
->  =09return rk_iommu_enable(iommu);
->  }
-> =20
-> +/**
-> + * rockchip_iommu_restore() - Reprogram the IOMMU of a master after its =
-reset
-> + * @dev: master device, runtime active, with no DMA in flight
-> + *
-> + * Some masters reset their IOMMU with themselves, which turns paging of=
-f.
-> + *
-> + * Context: may sleep.
-> + *
-> + * Return: 0 on success or a negative error code.
-> + */
-> +int rockchip_iommu_restore(struct device *dev)
-> +{
-> +=09struct rk_iommu *iommu;
-> +=09int ret;
-> +
-> +=09if (!device_iommu_mapped(dev) ||
-> +=09    dev->iommu->iommu_dev->ops !=3D &rk_iommu_ops)
-> +=09=09return 0;
-> +
-> +=09iommu =3D rk_iommu_from_dev(dev);
-> +=09if (!iommu || iommu->domain =3D=3D &rk_identity_domain)
-> +=09=09return 0;
-> +
-> +=09ret =3D pm_runtime_get_if_in_use(iommu->dev);
-> +=09if (ret <=3D 0)
-> +=09=09return ret;
-> +
-> +=09ret =3D rk_iommu_enable(iommu);
-> +=09pm_runtime_put(iommu->dev);
-> +
-> +=09return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(rockchip_iommu_restore);
-> +
->  static const struct dev_pm_ops rk_iommu_pm_ops =3D {
->  =09SET_RUNTIME_PM_OPS(rk_iommu_suspend, rk_iommu_resume, NULL)
->  =09SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-> diff --git a/include/soc/rockchip/rockchip_iommu.h b/include/soc/rockchip=
-/rockchip_iommu.h
-> new file mode 100644
-> index 000000000000..79fdd898a0fc
-> --- /dev/null
-> +++ b/include/soc/rockchip/rockchip_iommu.h
-> @@ -0,0 +1,17 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#ifndef __SOC_ROCKCHIP_IOMMU_H__
-> +#define __SOC_ROCKCHIP_IOMMU_H__
-> +
-> +struct device;
-> +
-> +#ifdef CONFIG_ROCKCHIP_IOMMU
-> +int rockchip_iommu_restore(struct device *dev);
-> +#else
-> +static inline int rockchip_iommu_restore(struct device *dev)
-> +{
-> +=09return 0;
-> +}
-> +#endif
-> +
-> +#endif /* __SOC_ROCKCHIP_IOMMU_H__ */
+Prachoday Sutar (2):
+  dt-bindings: power: supply: bq27xxx: Add BQ27Z558
+  power: supply: bq27xxx: Add BQ27Z558 I2C device ID
 
---=-dQAySM4Jzz+X++kJrWM9
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+ .../bindings/power/supply/bq27xxx.yaml        | 72 ++++++++++---------
+ drivers/power/supply/bq27xxx_battery_i2c.c    |  1 +
+ 2 files changed, 39 insertions(+), 34 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+-- 
+2.53.0
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawiUiAAKCRDZQZRRKWBy
-9BjUAQDSNPqdSlLUl/O9azaIblOpLLPu+oK5Nw5EuSLHW+r7zAEAxnuyZq9XVKSw
-gxVnBpP/poBKRTNumlOhqdw1p4TEoAQ=
-=p9Z6
------END PGP SIGNATURE-----
-
---=-dQAySM4Jzz+X++kJrWM9--
