@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795653431;
-	b=ehVPhyyhaaGQH5VRp7KolXdgGt0LFFZKR5t9a33/s8XlQqvRH2q2GmPEVDeet60IwC9s
-	 TSmVnPvRqFBUdoFuFKhahvfMm4Q+h1vV6X0DLWL58a59LgWgZPQVpRAGarp1yv8Lnfpld
-	 YVJFZRNFAqRV/hKeK4bZQDyVAWgCRqQY6H6WHsZ/SVz901iptN2B0GSqdtvvPLUqbJ1s0
-	 po7rt4Z7v/lEfdrxoQroVFmdJ/FQKnKmlWptbC3FI0sG2KEXpfiY+4gAkTinljrv38RN2
-	 FLsc++VmEXPhT47hkAlWc1ys752wjnL84RT7RiQlmcdwLcXGmfuSPN5L80YPLpZa16Q==
+	t=1795653433;
+	b=rvBMLmJUWiGOlwPk/C0oT5me+ZcNyHsiKPz2MJ1Q4Kx0dy2eFosqj6csL5Kj+fI1f6t9
+	 NfU6ry3C+alzvmtZxKHMpq1Doj6UXpgtduq8hQAnNSoq+4CRVzgdprDWjNpvWmcH6/JPD
+	 MJyHgrMpy+kdCcP1xaIDRhrLNXbI4OsSGySXxtL6KC1a9Iq6/LDPJgERVix8PFt26wFiM
+	 yBWq0l9uk1D3NT7k2R1ohw4CJqZqyN9tGwu4HapKHgLgSQ9bB+LoFdxgOjCR8KHXg3Ord
+	 J0ifMZjtB2eAlx8LH69UfTSuqd3QVLL1ZULr7oVDF2FNBwwRU9bsR/gSRoSf2aRunRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795653431;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer;
-	bh=xn0gH4NRspWRvkgQ/bHfnxIngpsuU+qZwOuCuvt5IeU=;
-	b=xndMF+Q15QPoMSrLiaq5WXGpAJA7YY+tlUN2smJD9JtjkdY9Zce9pbHFAIXFf6pp1IKa
-	 U85E9jW0Xpx8Eakmap1bksYwhcKzoBip81DYUcs1vW91K2mFv+Xx37fKWAxl2v6qlQyi4
-	 BdwlbG5iIu7dOP7qB63UxM3QJ3sVAwLVC895ICbmm4mPoNhJJeW7A9IiNIDcvumneEkiR
-	 J87C4LNqyOWwFLgZKvUgZ0FF6e3q+Oj9ZqUvVGIDI0BVmj5stsBsGl60B+8zuiawFAlgW
-	 JJ9yFOV+hvaxXtI3k6qBR55T/Rg0ORba5MeelipTKaWJd3Ijpq9GO+JQFULIXNzHRJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795653433;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=iQcrj1Z2D+KwDkNPYJVOt1V3xyTIYQC8SvlCMLqwpNY=;
+	b=uAALvuRcmASGFexF6HhJfKt6wkzwpkKPjxfJTi35qXZQR7c24Bq2N+FAbiwAtuu+ImKI
+	 0NhTB3Y0n2AlOzg/5r2MKDHakrtoodCwhgznXuCoh/R9EVmvPDNKWPgqiIaXaqdtmKULz
+	 bTjPDJFt7REa3dXlypBkWlbbWcJOIIK8POtXMvHEyg+Ur4ckukG/iL1taQLdoYCfcjMRR
+	 IwYSKELkU4VweRkxTd/YGlVRnwhRt3HzmTYauhFmcgf2VLmSAYmeaWTB02TeiZrIWDjjK
+	 RieGY1Lc9/9wAf+kzLM4d8kPRVJ4JB80EDSVGq/MOSnJUzqMAYC5e/b9NL6SUKvZ3fQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="X/i17b9g";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D4UKR7bk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D5D606A327
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 00:37:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE605606A323
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 00:37:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X/i17b9g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ABE41F000C0;
-	Thu, 26 Nov 2026 00:37:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D4UKR7bk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08D861F000CA;
+	Thu, 26 Nov 2026 00:37:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795653430;
-	bh=xn0gH4NRspWRvkgQ/bHfnxIngpsuU+qZwOuCuvt5IeU=;
-	h=From:Subject:Date:To:Cc;
-	b=X/i17b9gquXUw3JeOO/3nMYp9ylW4qd4ndaHcTrWT6JDGhWz0ZD8VmH0Y1gPdYVye
-	 DmmrkRKjMAuQ0m9Z7sagHDSOd2ulfzZFG7v7bM6H7Zf5QcjX7vVPg2CVKLIPXcAHT4
-	 FukXLnVeXrfYXBVzTZEH9Eg/kZ8FGRKY4qbbRAd4wKllkd2MzkbRTjMEEphUJ7Zq7t
-	 nwtgzLHLxmchQP+q5H0a0T+IpH2fuR+ieKiq3NrH07+j5+20C/tYugl1sj13Vbrxt6
-	 8HxUfzVaevMETSG7142MG/FBK4OIm9T7P5rp6p3WHbMeS70NyS0jBbjYoWIHn7CSyl
-	 eCGfepcSgoN/A==
+	s=k20260515; t=1795653432;
+	bh=iQcrj1Z2D+KwDkNPYJVOt1V3xyTIYQC8SvlCMLqwpNY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=D4UKR7bkFGHa7kEy45fz4yvZkdvxllWbdC74JjxPanQ1ARsdWYNmIvzTi5ZIIGT+Z
+	 zWL1/u9yJTcUftztIhgZnmrq7gxprv+FJiRA7N8viMbQhiscPqTh5PaP/i1iGkadNA
+	 CU2DT5tZ2nL0JVXp3ouS4+w8GvicpZ94hP3wPsxLl913M12++QQi3u7gY9DGl0Au/U
+	 NaIa1m87MXm2lEIrK8Fqb5YDIJBB20cs9Tulo8g2wPQ7VmMNUYNRoen7IT0ULbV1II
+	 gOwkzWmOuH+PzzKUy8UjplSR+4xyNrFOaGb4tgdZbHX9XPe3G3QJTv/pH6WzIuDNcn
+	 IT/yskqw+3T+A==
 From: Linus Walleij <linusw@kernel.org>
-Subject: [PATCH 00/20] Clean up Ux500 and Nomadik device trees
-Date: Thu, 26 Nov 2026 01:37:04 +0100
-Message-Id: <20261126-ux500-dts-after-powerdomains-v1-0-791cd62d8870@kernel.org>
+Date: Thu, 26 Nov 2026 01:37:05 +0100
+Subject: [PATCH 01/20] ARM: dts: ux500: Give memory nodes their unit
+ address
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,77 +55,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MUQqDMAwA0KuEfBtoO+qkVxn7KG10+VgridsE8
- e4D3wHegcYqbJjgQOWvmPSGCfwAWF65LUxSMQEGF0bvw0ifPTpHdTPK88ZKa/+x1v7O0ozu5RZ
- 9LmWKE+MAuCrPsl/943mef7LrpSxuAAAA
-X-Change-ID: 20261126-ux500-dts-after-powerdomains-7c351acc858e
+Message-Id: <20261126-ux500-dts-after-powerdomains-v1-1-791cd62d8870@kernel.org>
+References: <20261126-ux500-dts-after-powerdomains-v1-0-791cd62d8870@kernel.org>
+In-Reply-To: <20261126-ux500-dts-after-powerdomains-v1-0-791cd62d8870@kernel.org>
 To: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
 Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org
 X-Mailer: b4 0.16.0
 
-Apply a series DTS cleanups.
+The root-node schema rejects memory nodes without a unit address.
+Name the memory banks after their first address, zero, on the HREF,
+Snowball and Nomadik boards. Found with CHECK_DTBS=1.
 
-Helped with an LLM.
-In the age of LLMs there is really no excuse to not fix up this stuff.
-
-There are mot patches but they require updated bindings to go in first.
-
+Fixes: d1b8bfa342ca ("ARM: ux500: Create a DTS hierarchy for ST-Ericsson's HREF boards")
+Signed-off-by: Linus Walleij <linusw@kernel.org>
 ---
-Linus Walleij (20):
-      ARM: dts: ux500: Give memory nodes their unit address
-      ARM: dts: ux500: Put CPU cooling properties in a map node
-      ARM: dts: ux500: Correct HREF thermistor and pin group names
-      ARM: dts: ux500: Remove bus clock rates from I2C peripheral nodes
-      ARM: dts: ux500: Use the standard battery chemistry property
-      ARM: dts: ux500: Correct STUIB magnetometer supply names
-      ARM: dts: ux500: Encode Sharp proximity hysteresis as bytes
-      ARM: dts: ux500: Give DSI panels their unit addresses
-      ARM: dts: ux500: Remove unused IIO channel inheritance on Janice
-      ARM: dts: ux500: Fix SD regulator node validation
-      ARM: dts: ux500: Correct GPIO key descriptions
-      ARM: dts: ux500: Correct the PL011 functional clock names
-      ARM: dts: ux500: Correct the STMPE interrupt pin property
-      ARM: dts: ux500: Use valid I2C bus node names
-      ARM: dts: ux500: Correct memory-mapped controller unit addresses
-      ARM: dts: nomadik: Correct the camera I2C unit address
-      ARM: dts: nomadik: Correct controller and clock unit addresses
-      ARM: dts: ux500: Move the pin controller out of the simple bus
-      ARM: dts: ux500: Move addressless devices out of the simple bus
-      ARM: dts: ux500: Connect the AB8500 ULP PLL supply
+ arch/arm/boot/dts/st/ste-href.dtsi            | 2 +-
+ arch/arm/boot/dts/st/ste-nomadik-stn8815.dtsi | 2 +-
+ arch/arm/boot/dts/st/ste-snowball.dts         | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
- arch/arm/boot/dts/st/ste-ab8500.dtsi               |   1 +
- arch/arm/boot/dts/st/ste-dbx5x0.dtsi               | 146 ++++----
- arch/arm/boot/dts/st/ste-href-family-pinctrl.dtsi  | 369 ++++++++++-----------
- arch/arm/boot/dts/st/ste-href-stuib.dtsi           | 151 +++++----
- arch/arm/boot/dts/st/ste-href-tvk1281618-r2.dtsi   | 136 ++++----
- arch/arm/boot/dts/st/ste-href-tvk1281618-r3.dtsi   | 110 +++---
- arch/arm/boot/dts/st/ste-href.dtsi                 |  19 +-
- arch/arm/boot/dts/st/ste-href520-tvk.dts           |   2 +-
- arch/arm/boot/dts/st/ste-hrefprev60-stuib.dts      |   2 +-
- arch/arm/boot/dts/st/ste-hrefprev60-tvk.dts        |   2 +-
- arch/arm/boot/dts/st/ste-hrefprev60.dtsi           | 109 +++---
- arch/arm/boot/dts/st/ste-hrefv60plus-stuib.dts     |   2 +-
- arch/arm/boot/dts/st/ste-hrefv60plus-tvk.dts       |   2 +-
- arch/arm/boot/dts/st/ste-hrefv60plus.dtsi          | 363 ++++++++++----------
- arch/arm/boot/dts/st/ste-nomadik-nhk15.dts         |   4 +-
- arch/arm/boot/dts/st/ste-nomadik-s8815.dts         |   6 +-
- arch/arm/boot/dts/st/ste-nomadik-stn8815.dtsi      | 152 ++++-----
- arch/arm/boot/dts/st/ste-snowball.dts              | 363 ++++++++++----------
- .../boot/dts/st/ste-ux500-samsung-codina-tmo.dts   |  13 +-
- arch/arm/boot/dts/st/ste-ux500-samsung-codina.dts  |  14 +-
- arch/arm/boot/dts/st/ste-ux500-samsung-gavini.dts  |  16 +-
- arch/arm/boot/dts/st/ste-ux500-samsung-golden.dts  |  18 +-
- arch/arm/boot/dts/st/ste-ux500-samsung-janice.dts  |  19 +-
- arch/arm/boot/dts/st/ste-ux500-samsung-kyle.dts    |  15 +-
- arch/arm/boot/dts/st/ste-ux500-samsung-skomer.dts  |  15 +-
- 25 files changed, 1015 insertions(+), 1034 deletions(-)
----
-base-commit: ce2efbd2e360243deaf4b2a7502714da1a50d06d
-change-id: 20261126-ux500-dts-after-powerdomains-7c351acc858e
+diff --git a/arch/arm/boot/dts/st/ste-href.dtsi b/arch/arm/boot/dts/st/ste-href.dtsi
+index 3150e1d2f656..a85b2c352c69 100644
+--- a/arch/arm/boot/dts/st/ste-href.dtsi
++++ b/arch/arm/boot/dts/st/ste-href.dtsi
+@@ -8,7 +8,7 @@
+ #include "ste-href-family-pinctrl.dtsi"
+ 
+ / {
+-	memory {
++	memory@0 {
+ 		device_type = "memory";
+ 		reg = <0x00000000 0x20000000>;
+ 	};
+diff --git a/arch/arm/boot/dts/st/ste-nomadik-stn8815.dtsi b/arch/arm/boot/dts/st/ste-nomadik-stn8815.dtsi
+index 4d37c5fb553c..b90c15352c13 100644
+--- a/arch/arm/boot/dts/st/ste-nomadik-stn8815.dtsi
++++ b/arch/arm/boot/dts/st/ste-nomadik-stn8815.dtsi
+@@ -9,7 +9,7 @@ / {
+ 	#address-cells = <1>;
+ 	#size-cells = <1>;
+ 
+-	memory {
++	memory@0 {
+ 		device_type = "memory";
+ 		reg = <0x00000000 0x04000000>,
+ 		    <0x08000000 0x04000000>;
+diff --git a/arch/arm/boot/dts/st/ste-snowball.dts b/arch/arm/boot/dts/st/ste-snowball.dts
+index 1607bfbd9f56..3b629dd7f798 100644
+--- a/arch/arm/boot/dts/st/ste-snowball.dts
++++ b/arch/arm/boot/dts/st/ste-snowball.dts
+@@ -12,7 +12,7 @@ / {
+ 	model = "Calao Systems Snowball platform with device tree";
+ 	compatible = "calaosystems,snowball-a9500", "st-ericsson,u9500";
+ 
+-	memory {
++	memory@0 {
+ 		device_type = "memory";
+ 		reg = <0x00000000 0x20000000>;
+ 	};
 
-Best regards,
---  
-Linus Walleij <linusw@kernel.org>
+-- 
+2.56.1
 
