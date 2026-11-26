@@ -1,83 +1,83 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795721589;
-	b=0od0McwyHQmvvKfVauxczy930ks/Hh2sDuAAhi3U9mbDxJ1rcE9XkL6NXRRocceV7YXf
-	 iQMUANckcH8CrhyZYzd23pyneTxw8TYtMpKi9t3jnstOqLSMr8dNY0xH6xyWYxNJumwDz
-	 uPPmEov3SxZrJZT9x4Egh8RJ5D0tai3vts0fk0Z3yntSGjiwmkSbhKXwIstMq9YhZaWPu
-	 sIuMlXlLrx3c1kG9cZ/SxEf3i2jIUmIqEKLsRk+FZ2lW5LB1Pf73XauOyotoZJzLZICJr
-	 6a+8xcC+ONPTemtbGfRdzLmlbx0CdOL3oerIrmLN6WMid2ZA6HNi80bPkIZUOY0BH6g==
+	t=1795721591;
+	b=2oOvP+3lXUrINFUIYmh8IkXF3JfqcifB1X02Z9NMY9CaOGSbmzdlfEtyWRfLGPXLdTqE
+	 Pjj9EI1KNsl8T22pDGBGYqv0y7svjY2v2raohGG4gYMarH4BHyLWXzM5m5yFlkuXCR2hr
+	 XJ5DFTgHiy6NAesqqU61j9aHiYGu8CrihcU8GvFu6N9uVV51Ax9CrQ8a0qfVA8vQF4Xqk
+	 wIXolu0ATPgaN3LFewRitWxO7A6zdt6vBwZLOTBe3pi4AgRCOMeR9lm0ZeDk1r0j7+4el
+	 KOip8+GO8rtd4VR07CBOaUYwGu5a2CvkNutYvSYGK1caSmtX3aBXVN6UXlF3IihIv0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795721589;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795721591;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=6uthyLmx54eP91qPBkkIsXEHnEP4gw+2z/PB/gcG1vQ=;
-	b=lnQ1LBmDgufglr+rnyHuoqSgOL7zn8o6AQoWYJAIWEkOyXM3cUrxKGR/nNvu2qdVBWFw
-	 4gzqdd7g+5+hImjXTTxyHz6O1Rxg5gNndSwj7G7jhu7bDTd0rgqnNyOcvsLB2HYX+Bmkd
-	 0jT0MbBGV/lCZxuBRqnoghX/bue/uFLCvtyDBHRRbtlfJvqerjq250lMMqt4XC9y1NfVB
-	 jRodN4B5GMRg5f/cmLC6w6l1D0HjF/2rHkZbxHXfSKhWjlFdXiwmyUfVXpl1p+AXHICqd
-	 BoxAooeEZjMo9nxstjzep0/IL1kL+ETS9vnjhCVOjD4qaHRqG4MwBSQg0IZRtgwPwNw==
+	bh=4dPCbEZZdSDry+u4vUWC6GFpLLhoS8x3SOrFseRsQ00=;
+	b=c0UdOmHhVll7JEzg3mBZEnDhGfuJqwERvDTsYZNcIJpNiHzmJRqugS2YP68gdOLCu3uH
+	 W6uDJVRyWZvTQBEkN0Df1VH9Vz2ZB2ZbumCbTLNcIaPhKyX5e+e+hfCx2RKwVA/ilxJGU
+	 VJJ4RSLyUuAsjI1RJnH0aBrXLEttuQ7xOrDvKmfF5CwnlYIdB6MBag4/uFFr9WBI3huqy
+	 zSXj3rw156TEOHL2g/UEFjYK+4nvQ52uXe5RXKM6zxgALXV7j2jMFxLhSsnz36Mk6i1lM
+	 ToG6qRzi/5KTctN4JP3XVyEUO7Os8DZuK69zqJRK06OBSwWnXPnxpHdvKmVfE4Sx9uA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="qp/xR+KM";
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Mkpaz6UC;
 	arc=none smtp.remote-ip=209.85.128.53
 Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F6DA606A31E
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 19:33:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F6DA606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC1F7606A31E
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 19:33:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC1F7606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qp/xR+KM
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4bb9d8e8e90so45009455e9.3
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 11:33:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Mkpaz6UC
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4bb6ba3b244so75635245e9.3
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 11:33:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795721588; x=1796326388; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795721589; x=1796326389; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6uthyLmx54eP91qPBkkIsXEHnEP4gw+2z/PB/gcG1vQ=;
-        b=qp/xR+KMn6PiVlfwtym8sGxp4vg9UXSjfc/ep/eUwq1Zw5TrgQrRMvp4uK3T4ptcBz
-         HDfcb+uaIMoJAYTe5PqBTEOLWbswacGcS920H1vlvoSxD2oY09LsW4IdqeRB7QyMo35+
-         2hc56CzTlJ/4MzTvYhmhxN5Z+dHxvcF9RWKBTH+LavBJueIo8X5Oe9LnwdHuUanMvTXi
-         jKNTB0LXEsgPpIw6WrJYxNQQJirlqcWP0+QTQJmxGCQU/nG+CSOrKuUFHpMNvIWB6/2X
-         HwIjvqQD2dO4GEL6InxTZTDDMFPmPva0u5JVP2RwCbe9Jc1C0WSerIJcQyyalnhkxjba
-         zq3w==
+        bh=4dPCbEZZdSDry+u4vUWC6GFpLLhoS8x3SOrFseRsQ00=;
+        b=Mkpaz6UCHOtGL6iPPYjQft730v22C3IhBySgtpMEtHkU5PkET0CEmjjITJvr2NTbuf
+         Oyt1Vvb5LpjB9jrXbOtiHWOYBeaMXDESimUxWYA98si+fIorcMm/6hcRBVIbGkLZwq6O
+         PYtMnmhb4zrXPRzmV5yjvGhkf2rtUn2gsqrTiRUrtrSvcKP6+1oTtwLz3yGPIu7VRuxw
+         GPVozBl3QlumNvA2C+ZmCvw3AYWHXUNiS4yPraiX/aKUbdIAgBJOtv6vSzXECMeNTvvo
+         XLIP6nx5VOXaSAyFOlCG4BbMbEtzT91si2co/MZyCSKHP8L5VZLf87ZVBDoDGAm1SWV3
+         WjOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795721588; x=1796326388;
+        d=1e100.net; s=20260707; t=1795721589; x=1796326389;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6uthyLmx54eP91qPBkkIsXEHnEP4gw+2z/PB/gcG1vQ=;
-        b=oeC+2+L1PBZQ1tAXBB45ngFulvuilEnl8sXcxkTFQDmSRIdbCYwLAfWWS58pmCmTTN
-         mSZ/AJSVbTRAwq6NGxFX+z+uef6WlfkL2n6kuMAHL5TZGTThxhVo5wS1CPDImF9ufuNe
-         /qo81vowmEIc0QwXWdFqYoHK5GUH2+X0cb6uvHMRYAc6X5HWsLPsE9UYvXdkHfsQYhrW
-         Z9pgY1nYVIXgZ/qeTVjs9TRgpb5W4B0RAAvmkiJJGzftDORD4wBuXKuYFGsnwGfzqCwr
-         3Iv3XVtt/MPv+8pDp765Abb4qQRHy++jMZf/r/MzqW8l6e/I7TnKs4QNXc5E7hb/15L3
-         s5oQ==
-X-Forwarded-Encrypted: i=1; AL+hErEhknrU5JiUCIHuGn5zGKPE1zCsJ4NMNOfpBnGYNP4D4orXqc5dTHtXW0JZj5M7+OnB6BqXY443+7lo@vger.kernel.org
-X-Gm-Message-State: APuU4Z9D7QzMN/Y6WSr7nXkns7/zpMXh6AJa0aih29muge3nl5lzBMZr
-	ltIDwSeXn8roqBUosnbobMM1b2KeLTxTkuruzbIVOaCTLUKpuDafxQ/r05VSgikslTg=
-X-Gm-Gg: AZFdTZe+g6xn4MKFYtzP0j4PNAZZbSTLyMOolASEU0UTruGhWO2vTFdZrhwK07X4HVz
-	xhsWIXtgF0/NZ8Lflmats/dgUwKGm2pSTcaUC24gO8udCB/+tjQW5LgUOHl9RbCTa0WTrQHzWHS
-	HGFIROAmR0+8Tgu4HxTqX2y2DLz4+Mw4xQA4FvPESO9LwP7kRh/wANtEdy4qtphzmx1csVomOIL
-	Ws94hixRaKOXlpZsrbD4IhM1PXtVYHSv0og5fyaq+Drf3TjeXunxxTu+o5nP1ElOuIRnNUjsq4C
-	9l08hdN4xvl+v28NtBnhOfP/kHlk+REepNnB28ztqyrEzgGnHxjhl6AIoW9XBiLJjAClwJU/JJB
-	Ie+v7soE1iCxfPypObOlg2/GSJHvrG8WFQtCvNkjyj+qjupPcY7V2/f3zXLqPcrTy0M+4wqqZL9
-	gWa4WKxf3slxxBVMs79+vhu/Jok1YcvzHkZT6bw1wtHlhudwGZWpxnDWCVgnxympunbwAsYn5tI
-	+He877t6BL4PWojidBb2u7/V2DOc/628RPsHzsENQ4aAVHKc7zPjfrEpd7+lcAdj5C3nO7Sd3LI
-	WispRO9gn4vAZBBUR+gFY9cJXt3rkb/14tztoRHRnua91g==
-X-Received: by 2002:a05:600c:4e0b:b0:49f:e772:6ddf with SMTP id 5b1f17b1804b1-4bb8881ae90mr457062975e9.32.1795721587613;
-        Thu, 26 Nov 2026 11:33:07 -0800 (PST)
+        bh=4dPCbEZZdSDry+u4vUWC6GFpLLhoS8x3SOrFseRsQ00=;
+        b=fJn0XgJUV9eTQHUGJ6j9hJUIrti8sX++KKiixMjI7vqPUU8NxtzUaAqG/If0/xwMvD
+         OI7eiT5JQvPkCKAWKUOPGcZYeMf4enlmUXhlNCUw7lzsL8ecyUB0UjqBRenlLxI26SW3
+         swdfGAZEIytpPsVxJgHTCRhrHmts7T4L5Je+OVRqed7eFxXt+b0/S/P4BNbQL0eAx20B
+         TcjAxJWTKLG2yqKUP2KFStctsf3aYG7jNvhC2mrbRP/JfTAd4/2lKXMg5Z0o8bkOf0V+
+         8jqLbt1oWAbgDdZUxxpa4s1W7r9J+f6SwCIwSv4p9lmcDwS3TtyqpTpelfQEf2TT7i2B
+         eZzA==
+X-Forwarded-Encrypted: i=1; AL+hErG6qIaaj/os6IbJrqKjn9PiUcX5y2foB9ZiAtfhLxsT5hs8Lz9TdBy2gTvBcg5qgqu7fRlrWzyzL0nB@vger.kernel.org
+X-Gm-Message-State: APuU4Z/k2hlLdqyiFbdL4vHmGzvaoDBFfyOd8B+41qZG78XId2Rgd5VX
+	TNDz/D1uAwY0BMlqD9p+Wc5glMJ38ZuDTAYjMKwc6bQOZFkuJkzcRlS6
+X-Gm-Gg: AZFdTZcprRJQN9/6Yc4mYF2vtpd4kEKhcqOIrMtWmZ5Dt+4G0YQxq2LwCTtOpnG8bzd
+	7DcP+8G7ZY8bUcTyxzMr4w3mmQ6K/Vkzn1CH/FBfhTgDFwHp0w9xZ+BOG8p5ClZitrW9C0b/46J
+	a7wYdPuYbn7KRhqAxK/jn5jH5QzCEDPxcEeJapddtTyChIxmzYj7sX9lyyK+Pzjywqez3qYFcPb
+	KwMeirMGmOszfIyFJdUKo/gev44bacyb9dctZClYWhjx8unq0jhgpAaRIJ78GpRAADp7pWXDrhr
+	PHwjv5r0uwsmqtXxn3Xv06XyrCDGLNHz79Gctqy4azwq1fMLm5Ip1u8LR7jjbPp9pQsHtlFhwjm
+	tMlnWceW/1QBJeQaIvM6OqzrnI1qCERdvjoZYocNIHZTFaVzKRq9mM70fbqgBe6uuSnyvtOYfoy
+	QCGsPHNW2fP9mI2+gG2S0ngKVG05Z+vvTfrSZJzeDdRe+ts2c6CCG5kjJdFPA97GzYsyDZtzBQY
+	Vqa537/90GV99oOJxzD1XVJUgV8Qhw3uKKAvX5sOl1g11Zw23pQ9Pfl1CT+IAt91KHnj3pgKzKP
+	iNl2rQ+puYcdNcFP7xG3t7lVYGc5Iqa0D6F5LVa8k4DvZQ==
+X-Received: by 2002:a05:600c:6219:b0:4bb:60b1:4409 with SMTP id 5b1f17b1804b1-4bb88816525mr432560755e9.19.1795721589007;
+        Thu, 26 Nov 2026 11:33:09 -0800 (PST)
 Received: from localhost.localdomain ([79.117.198.103])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb906cdcc1sm368287675e9.2.2026.11.26.11.33.05
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb906cdcc1sm368287675e9.2.2026.11.26.11.33.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 11:33:05 -0800 (PST)
+        Thu, 26 Nov 2026 11:33:08 -0800 (PST)
 From: Jose Nieto <jnieto.alaber@gmail.com>
 To: Corentin Labbe <clabbe@baylibre.com>,
 	Herbert Xu <herbert@gondor.apana.org.au>
@@ -91,9 +91,9 @@ Cc: linux-crypto@vger.kernel.org,
 	Rob Herring <robh@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Alexey Romanov <romanov.alexey2000@gmail.com>
-Subject: [PATCH v13 05/25] crypto: amlogic - Remove clock input
-Date: Thu, 26 Nov 2026 20:32:21 +0100
-Message-ID: <20261126193241.1471372-6-jnieto.alaber@gmail.com>
+Subject: [PATCH v13 06/25] crypto: amlogic - Add MMIO helpers
+Date: Thu, 26 Nov 2026 20:32:22 +0100
+Message-ID: <20261126193241.1471372-7-jnieto.alaber@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261126193241.1471372-1-jnieto.alaber@gmail.com>
 References: <20261126193241.1471372-1-jnieto.alaber@gmail.com>
@@ -110,62 +110,84 @@ Content-Transfer-Encoding: 8bit
 
 From: Alexey Romanov <romanov.alexey2000@gmail.com>
 
-Amlogic crypto IP, which uses DMA crypto engine,
-doesn't take a clock input.
+Add MMIO access helpers: meson_dma_start() and meson_dma_ready().
 
-Fixes: 48fe583fe541 ("crypto: amlogic - Add crypto accelerator for amlogic GXL")
 Signed-off-by: Alexey Romanov <romanov.alexey2000@gmail.com>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- drivers/crypto/amlogic/amlogic-gxl-core.c | 8 --------
- drivers/crypto/amlogic/amlogic-gxl.h      | 2 --
- 2 files changed, 10 deletions(-)
+ drivers/crypto/amlogic/amlogic-gxl-cipher.c |  2 +-
+ drivers/crypto/amlogic/amlogic-gxl-core.c   | 24 ++++++++++++++++-----
+ drivers/crypto/amlogic/amlogic-gxl.h        |  2 ++
+ 3 files changed, 22 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/crypto/amlogic/amlogic-gxl-cipher.c b/drivers/crypto/amlogic/amlogic-gxl-cipher.c
+index c458548f29b2..62aa82e1cb5d 100644
+--- a/drivers/crypto/amlogic/amlogic-gxl-cipher.c
++++ b/drivers/crypto/amlogic/amlogic-gxl-cipher.c
+@@ -234,7 +234,7 @@ static int meson_cipher(struct skcipher_request *areq)
+ 
+ 	reinit_completion(&mc->chanlist[flow].complete);
+ 	mc->chanlist[flow].status = 0;
+-	writel(mc->chanlist[flow].t_phy | 2, mc->base + ((mc->pdata->descs_reg + flow) << 2));
++	meson_dma_start(mc, flow);
+ 	wait_for_completion_interruptible_timeout(&mc->chanlist[flow].complete,
+ 						  msecs_to_jiffies(500));
+ 	if (mc->chanlist[flow].status == 0) {
 diff --git a/drivers/crypto/amlogic/amlogic-gxl-core.c b/drivers/crypto/amlogic/amlogic-gxl-core.c
-index 24ef7d5a5607..37224d75edfb 100644
+index 37224d75edfb..b972df44e8b5 100644
 --- a/drivers/crypto/amlogic/amlogic-gxl-core.c
 +++ b/drivers/crypto/amlogic/amlogic-gxl-core.c
-@@ -9,7 +9,6 @@
+@@ -22,18 +22,32 @@
  
- #include <crypto/engine.h>
- #include <crypto/internal/skcipher.h>
--#include <linux/clk.h>
- #include <linux/dma-mapping.h>
- #include <linux/err.h>
- #include <linux/interrupt.h>
-@@ -267,13 +266,6 @@ static int meson_crypto_probe(struct platform_device *pdev)
- 	if (IS_ERR(mc->base))
- 		return PTR_ERR(mc->base);
+ #include "amlogic-gxl.h"
  
--	mc->busclk = devm_clk_get_enabled(&pdev->dev, "blkmv");
--	if (IS_ERR(mc->busclk)) {
--		err = PTR_ERR(mc->busclk);
--		dev_err(&pdev->dev, "Cannot get/enable core clock err=%d\n", err);
--		return err;
--	}
--
- 	err = meson_allocate_chanlist(mc);
- 	if (err)
- 		return err;
++void meson_dma_start(struct meson_dev *mc, int flow)
++{
++	u32 offset = (mc->pdata->descs_reg + flow) << 2;
++
++	writel(mc->chanlist[flow].t_phy | 2, mc->base + offset);
++}
++
++static bool meson_dma_ready(struct meson_dev *mc, int flow)
++{
++	u32 offset = (mc->pdata->status_reg + flow) << 2;
++	u32 data = readl(mc->base + offset);
++
++	if (data)
++		writel_relaxed(0xF, mc->base + offset);
++
++	return data;
++}
++
+ static irqreturn_t meson_irq_handler(int irq, void *data)
+ {
+ 	struct meson_dev *mc = (struct meson_dev *)data;
+ 	int flow;
+-	u32 p;
+ 
+ 	for (flow = 0; flow < mc->flow_cnt; flow++) {
+ 		if (mc->chanlist[flow].irq == irq) {
+-			p = readl(mc->base + ((mc->pdata->status_reg + flow) << 2));
+-			if (p) {
+-				writel_relaxed(0xF, mc->base +
+-					      ((mc->pdata->status_reg + flow) << 2));
++			if (meson_dma_ready(mc, flow)) {
+ 				mc->chanlist[flow].status = 1;
+ 				complete(&mc->chanlist[flow].complete);
+ 				return IRQ_HANDLED;
 diff --git a/drivers/crypto/amlogic/amlogic-gxl.h b/drivers/crypto/amlogic/amlogic-gxl.h
-index e0bc5c39bf2c..5149dc6e9f60 100644
+index 5149dc6e9f60..64f2f0e63f12 100644
 --- a/drivers/crypto/amlogic/amlogic-gxl.h
 +++ b/drivers/crypto/amlogic/amlogic-gxl.h
-@@ -91,7 +91,6 @@ struct meson_pdata {
- /*
-  * struct meson_dev - main container for all this driver information
-  * @base:	base address of amlogic-crypto
-- * @busclk:	bus clock for amlogic-crypto
-  * @dev:	the platform device
-  * @chanlist:	array of all flow
-  * @flow:	flow to use in next request
-@@ -101,7 +100,6 @@ struct meson_pdata {
-  */
- struct meson_dev {
- 	void __iomem *base;
--	struct clk *busclk;
- 	struct device *dev;
- 	const struct meson_pdata *pdata;
- 	struct meson_flow *chanlist;
+@@ -159,6 +159,8 @@ struct meson_alg_template {
+ #endif
+ };
+ 
++void meson_dma_start(struct meson_dev *mc, int flow);
++
+ int meson_aes_setkey(struct crypto_skcipher *tfm, const u8 *key,
+ 		     unsigned int keylen);
+ int meson_cipher_init(struct crypto_tfm *tfm);
 -- 
 2.47.3
 
