@@ -1,98 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795691704;
-	b=edmNMtqjtuYWqZkGaub/yXV2hew5U2EWVGOeS3HgJ6FAgOfux4iY/ZiqAIqOz85+uuDV
-	 XBFsQ4Oq6IL/IH8HrjPQQTqtW77Z95RnO6Sk+NGNno44fQOvuhMWkuPTTXW7gzBtRTE7O
-	 xBoEqjhQ5YSb5BW1ND+gPdRwZ3gNk91sGSC9P3O5NuBY0E+B1phuBKZccmGyIk0HIOSvc
-	 SMHcUlVHgNZ0qfs/0PXN3d1ws41eyfn3dWlvPfoUAN+tEhim1lS59dcmMDo4YHKIrpi/B
-	 E+KcBPBIO+wWcYGYrfTph94YiQKIEXPIu6qzm4EZ42xdfD9LdyNECaugY1zxdkbpIRA==
+	t=1795691892;
+	b=SaQWrnMlrLK7MdsIGaLkj7b8dAWGnxYFiOyoNpqv4/sOXkTquwILrMRx/GyP/XGx44Ab
+	 WTeCRjS+7Ebyq4ytNmPodx13tplm2j1q4Cqf/oInB1Lb/SkbBXhDPkj6newPW1XyVE/UB
+	 SdyfGhpTBrI6GiRimWTZhlRlF7dzFxO7nB4lqCr4Ii3EpajNrk2+ncXcjdLB6YKR6w+1T
+	 n+u5gAmjFrfRGsUo5Ud9ZbAOeuhE+3wtTeif7KdD0vVAlVMMD0b7beagQASoyueWNMQ58
+	 YRJLa1yrJqL3lifwsny2kCZnDR1k1jxaulchTnOSi//FvsTKglBTH5YiUJF2KgS8FuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795691704;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=xZR+wq+01JBO2j6s4aTMFnOoeuX0T1ToCwOuNIBcgaU=;
-	b=khHN85xJPNW/7RcwAadEX/tGuPaT5rzxDoJ5YhNAcB1Qa+eB2Cs21MnmLYnnCQsyudUu
-	 8TMSuRNXfXX15FYXffdOAFb92z7dp80yt0YOQjmfiuF9ijsZVHZ+akSIL9kZOIl3L5pel
-	 7mjm2ma+YXTp6RAPXaIodf6uuEfX34VE4ikp39xgHqxz9dlnOpW2kriHvj/vHZxaw0ip6
-	 kSxfWgFDj3xXI6y35caGr+XXQhGBidXj+mrndpwtvoH8YgpKxlsDEO4vvVeaqTuVNN8XQ
-	 292XrS1898yzT0Tvuq92z51ewqAYEdS9lJSH0sJCTFrOi2CjXVoEGHUdtBzOGsN6E8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795691892;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=RHBB9PLTid0nZY8Jd/DOldagdbWGdc3nPHv+Fxe/n2I=;
+	b=IZ84LVpwjr47V1vO0K9xOrLQWiUkVAmJxxSTuOAvCID+8fJem+E6h14wwYzhvO6tE3mN
+	 iZFBV61w0T7e9i4l0OGZpH3+EDabDIv0ZMLrD3U7Nw/PBmsnb4iiZ4sL3flQKh4C2lXwC
+	 nPbC4dS6hDWcT5oBkSsm4adTNCGpmjHZPghXSnaT5AWlyookG7DAsAmkVC5kjn1M44ZkA
+	 BTtz+fsVm5KrCFZxCWVDp9bQxfQvAzUkTXikBQ+utrqn45hG6dU8QUTJ6iWjBiOlngpie
+	 ZZX87qjJ0n8PZoRLhpRMGDl3Gz1VS4+bltlMNwCZtCKOgQG5Zh1G5gpi8ZI69S3J1gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=irp4B5Ws;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WXLxw9QM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A67606A32D
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 11:15:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65A67606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 943AA606A321;
+	Thu, 26 Nov 2026 11:18:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=irp4B5Ws
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ae1da332bcso3574170a91.2
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 03:15:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795691704; x=1796296504; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xZR+wq+01JBO2j6s4aTMFnOoeuX0T1ToCwOuNIBcgaU=;
-        b=irp4B5WslOZBw8G+iVikp/XSJX5Y2nKFHBm1t2G8Sa9CGXOobc+fnN82usfGSWtTqc
-         /8QpwmdIEy5pxnU2YMmWjEpAw7Bb8ZD0MCBwcFFwr0dSgK26NS5UEMCgaf+gz71NcmYO
-         sfURCZ6xtS/X+R+gQMTUBHmw9J7oaxyvoRpWqZr+HEhg2hN0zGoOk6S/Ed8lshxMRFfr
-         zbBCdKQ/7kgyH4Y8EBcGhvnX07o9ODgXkB2K0TWyLNsUQzyCpFLW858O+NcazYa6W6XG
-         Bwle+6HKN1aMlvcW0WgS1d3cEq7h8vsUnIrqO7PW+WtlZwaSg09GIFTJepH0QbbBRcc+
-         xlQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795691704; x=1796296504;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xZR+wq+01JBO2j6s4aTMFnOoeuX0T1ToCwOuNIBcgaU=;
-        b=C+Oq9KKumFMgVhvVnU52rpdPtdppJSjOmhDucORMboTXCVx5Xq5BrBSTKGFgiFBPqA
-         bfd28JMVhQyDlfGc2kkNAg6oZYHVLQC5DIk6gZMB28td+iQ8o6yOYsxgFky2wiUFDZMT
-         l56jClPVSre12w0luMGjVNz5whYcN1AizwhYLf0d+EpSy+OCVlsoFsxHUHVl5TxqtqCe
-         htUvJxatVzNrj4SRIKLPbOUtDZLVUphgtpf05wqZdiQfCG5ZHI2tQbotREvL29KS6BkJ
-         X/kB4M94Iyl0kW7sUJipWPnV7z8aSOI9uaF6rxCrAUOpHTjIMZ8r8H7FJIZNdY6vup+X
-         lRqg==
-X-Gm-Message-State: APuU4Z+c0ynOhziz5eDv8s0pgPu+9RlQbechFwmYdWs6py3O6s5bkkz/
-	rIeuDpLH+1/3oRITqFRF7pI600RpDzTtdJtnH53qSE1eFypiKSS/X73t
-X-Gm-Gg: AZFdTZccRFJUyaF5rfHhjCYwT/zmgQypmW3my+ZHKazQ/nbk5sHL2qmHLlWNyvqQqtb
-	d1VucniGv046tEKxQFDrIXWrcPn0UHcoq0WsXZQVJqruKI60W3CnXck3Bc50X6A9RR9I4DwGUMk
-	OOT0NrituapvgVXY4bBM3BhH8u1sD0W7uZ60lpG8sUEdnuD7GlbC/4AUzrBtAx1K3/IjObcMw5l
-	YdUzXj+pAkICQVFkdaLgRYK891XTllCLr0Vf+EItHXcLiKkBWUs3qHEWXbQyQ9pWIJHp8JWX2Vg
-	dRS8pMYCKAs+MkoJhjZplgQeIBKX9jggqZVAMSjD0khFTy2uQa57JwDTHFQCNM7CGQWajwNY+op
-	Eqs7q6MuniMeTvWst4KNe8d3n0xnJnYLt+m8iLUj/JA9sKP0eXHun0pTH8WlOGuiQi5IIIfVBcY
-	LI7CuMwS7yZY4oXd2js+2ZAWsC6tEmvpoRONpNoswqK00Q1M7e5HHip/ZYB8Ki5iHitI0mxtUyQ
-	VXvtSnfX6EcfmmfrkFB6NTsbZCyV3IJIJPR7uvkVTLvVOd5ex0gDlmElILlpe5P/roFH1p/W55x
-	qUye/ETZkX2mcCWnR80kUx55jtZ/7VEj9SWpx4lnyVd+IGlZ9jjCRVGTurYBbD7yhhJtCN4lJQ=
-	=
-X-Received: by 2002:a17:90b:48d1:b0:3b1:832b:bb3d with SMTP id 98e67ed59e1d1-3b41c9817dfmr19137891a91.57.1795691703719;
-        Thu, 26 Nov 2026 03:15:03 -0800 (PST)
-Received: from localhost.localdomain ([2406:da1e:5db:e000:2565:a988:ec63:8010])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6d03adafsm11030373a12.23.2026.11.26.03.14.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 03:15:03 -0800 (PST)
-Date: Thu, 26 Nov 2026 19:14:51 +0800
-From: Jianhua Lu <lujianhua000@gmail.com>
-To: Jianfeng Liu <liujianfeng1994@gmail.com>
-Cc: devicetree@vger.kernel.org, Abel Vesa <abelvesa@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] dt-bindings: arm: qcom: Document Xiaomi elish
- panel variants
-Message-ID: <awgUq1_piZACNOY4@localhost.localdomain>
-References: <20261126063056.2276703-1-liujianfeng1994@gmail.com>
- <20261126063056.2276703-2-liujianfeng1994@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WXLxw9QM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 505C91F000D3;
+	Thu, 26 Nov 2026 11:18:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795691891;
+	bh=RHBB9PLTid0nZY8Jd/DOldagdbWGdc3nPHv+Fxe/n2I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=WXLxw9QMi9rbwlrkOmBA8tNlBlaQAH9N5E6Gj4FD1ADr/DW5vqW6DlHwsl6EkDyG7
+	 yk2q1VVuKIf7RYviGe6Nr8EKdSp/gDChdgOii8SzMwHMe9gjToKf8eImWXxd4nOXL1
+	 J0h/fyhXxMDn4p/Ts23roJ2zOCNym5ynSccT4g1kE7/0RO8fxX2abyufOrQwxCodct
+	 2y19RisjF/x331koMjTd0Xo1/IqLCTgfrtw2fAuUKhpPCz+7V/BlolSFkGGQXQEiyB
+	 WTZjveSxiTI1tIS1ynNtZkoeVQ5hXAhiT7Frkn1Z/vbOC+U9W2yyQSpbvwAnGkiEqD
+	 38uUsxplb8muQ==
+Message-ID: <sashiko-outbox-235359@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] power: supply: qcom_smbx: Add PM4125 SMBLite
+ charger support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Raj Aryan" <raj.aryan@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, mfd@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
+In-Reply-To: <20261126-smblite-charger-for-pm4125-v2-2-20656509518b@oss.qualcomm.com>
+References: <20261126-smblite-charger-for-pm4125-v2-0-20656509518b@oss.qualcomm.com>
+ <20261126-smblite-charger-for-pm4125-v2-2-20656509518b@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Nov 2026 11:18:10 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,45 +60,171 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261126063056.2276703-2-liujianfeng1994@gmail.com>
 
-On Thu, Nov 26, 2026 at 02:30:33PM +0800, Jianfeng Liu wrote:
-> The Xiaomi Mi Pad 5 Pro (elish) is available with either a BOE or a CSOT
-> display panel. Document a board compatible for each variant so firmware
-> can distinguish the corresponding device trees.
-> 
-> Keep xiaomi,elish as a fallback and continue to allow the existing
-> two-string compatible for older device trees.
-> 
-> Signed-off-by: Jianfeng Liu <liujianfeng1994@gmail.com>
-> ---
-> 
->  Documentation/devicetree/bindings/arm/qcom.yaml | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-> index a7157795870cd..84ae2d991d628 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-> @@ -1192,6 +1192,13 @@ properties:
->                - xiaomi,pipa
-There is a "xiaomi,elish" string above "xiaomi,pipa". I think you should
-drop it since you add "xiaomi,elish" in the following.
->            - const: qcom,sm8250
->  
-> +      - items:
-> +          - enum:
-> +              - xiaomi,elish-boe
-> +              - xiaomi,elish-csot
-> +          - const: xiaomi,elish
-> +          - const: qcom,sm8250
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [Medium] power: supply: qcom_smbx: wrong CHARGE_TYPE mapping in
+  smb_get_property()
+- [Medium] power: supply: qcom_smbx: watchdog left armed on fail/unbind
+  and bad rollback
+- [Low] power: supply: qcom_smbx: write-only fields and unused includes
+  in smb_probe()
+--
+
+commit 2afb04355c7bbe435f2e20cc7c837c7b9cdd0e1c
+Author: Raj Aryan <raj.aryan@oss.qualcomm.com>
+
+power: supply: qcom_smbx: Add PM4125 SMBLite charger support
+
+This commit extends the qcom_smbx charger driver to support the SMBLite
+charger IP found in the PM4125 PMIC alongside the existing SMB2 support.
+
+> diff --git a/drivers/power/supply/qcom_smbx.c b/drivers/power/supply/qcom=
+_smbx.c
+> index c6188c915703a..d23e5ec858586 100644
+> --- a/drivers/power/supply/qcom_smbx.c
+> +++ b/drivers/power/supply/qcom_smbx.c
+
+[ ... ]
+
+> @@ -680,6 +997,30 @@ static int smb_get_property(struct power_supply *psy,
+>  		return smb_get_prop_health(chip, &val->intval);
+>  	case POWER_SUPPLY_PROP_USB_TYPE:
+>  		return smb_apsd_get_charger_type(chip, &val->intval);
+> +	case POWER_SUPPLY_PROP_CHARGE_TYPE: {
+> +		int status, rc;
 > +
->        - items:
->            - enum:
->                - microsoft,surface-duo2
-> -- 
-> 2.47.3
-> 
+> +		if (chip->type !=3D SMBLITE)
+> +			return -EOPNOTSUPP;
+> +
+> +		rc =3D smb_get_prop_status(chip, &status);
+> +		if (rc < 0)
+> +			return rc;
+> +
+> +		switch (status) {
+> +		case POWER_SUPPLY_STATUS_FULL:
+> +			val->intval =3D POWER_SUPPLY_CHARGE_TYPE_NONE;
+> +			break;
+> +		case POWER_SUPPLY_STATUS_CHARGING:
+> +			val->intval =3D POWER_SUPPLY_CHARGE_TYPE_STANDARD;
+> +			break;
+> +		default:
+> +			val->intval =3D POWER_SUPPLY_CHARGE_TYPE_UNKNOWN;
+> +			break;
+> +		}
+> +
+> +		return 0;
+> +	}
+>  	default:
+>  		dev_err(chip->dev, "invalid property: %d\n", psp);
+>  		return -EINVAL;
+
+[Severity: Medium]
+Should POWER_SUPPLY_PROP_CHARGE_TYPE inspect the hardware charge phase in
+SMBLITE_BATTERY_CHARGER_STATUS_1 directly instead of deriving the value
+from smb_get_prop_status()?
+
+When USB is unplugged or charging is inhibited, paused, disabled, or
+stopped due to battery overvoltage, smb_get_prop_status() returns
+POWER_SUPPLY_STATUS_DISCHARGING or POWER_SUPPLY_STATUS_NOT_CHARGING, which
+falls into the default case here and reports
+POWER_SUPPLY_CHARGE_TYPE_UNKNOWN instead of POWER_SUPPLY_CHARGE_TYPE_NONE.
+Because smb_get_prop_status() also folds SMBLITE_TRICKLE_CHARGE,
+SMBLITE_PRE_CHARGE, SMBLITE_FULLON_CHARGE, and SMBLITE_TAPER_CHARGE into
+POWER_SUPPLY_STATUS_CHARGING, this never reports
+POWER_SUPPLY_CHARGE_TYPE_TRICKLE or POWER_SUPPLY_CHARGE_TYPE_FAST.
+
+[ ... ]
+
+> @@ -904,37 +1464,216 @@ static const struct smb_init_register smb_init_se=
+q[] =3D {
+> +	/*
+> +	 * Enable watchdog: WDOG_TIMER_EN_ON_PLUGIN + BARK_WDOG_INT_EN
+> +	 * + BITE_WDOG_DISABLE_CHARGING (misc_base + 0x58)
+> +	 * Matches downstream WD_CFG_REG enable sequence.
+> +	 */
+> +	{ .addr =3D SMBLITE_MISC_BASE + SMBLITE_WD_CFG,
+> +	  .mask =3D SMBLITE_WDOG_TIMER_EN_BIT | SMBLITE_WDOG_TIMER_EN_ON_PLUGIN=
+_BIT |
+> +		  SMBLITE_BARK_WDOG_INT_EN_BIT |
+> +		  SMBLITE_BITE_WDOG_DISABLE_CHARGING_CFG_BIT,
+> +	  .val =3D SMBLITE_WDOG_TIMER_EN_ON_PLUGIN_BIT |
+> +		  SMBLITE_BARK_WDOG_INT_EN_BIT |
+> +		  SMBLITE_BITE_WDOG_DISABLE_CHARGING_CFG_BIT },
+
+[ ... ]
+
+> -static void smb_restore_charge_enable(void *data)
+> +static void smb_restore_charge_state(void *data)
+>  {
+>  	struct smb_chip *chip =3D data;
+> +	u16 reg;
+> +	u8 charge_enable;
+>  	int rc;
+> =20
+> -	rc =3D regmap_update_bits(chip->regmap,
+> -				chip->base + CHARGING_ENABLE_CMD,
+> +	if (chip->type =3D=3D SMBLITE)
+> +		reg =3D SMBLITE_CHGR_BASE + SMBLITE_CHARGING_ENABLE_CMD;
+> +	else
+> +		reg =3D chip->base + CHARGING_ENABLE_CMD;
+> +
+> +	/* Keep SMBLite charging disabled if probe fails partway through setup.=
+ */
+> +	charge_enable =3D chip->type =3D=3D SMBLITE ? 0 : chip->initial_charge_=
+enable;
+> +	rc =3D regmap_update_bits(chip->regmap, reg,
+>  				CHARGING_ENABLE_CMD_BIT,
+> -				chip->initial_charge_enable);
+> +				charge_enable);
+> +	if (rc < 0)
+> +		dev_err(chip->dev, "Couldn't set probe-failure charging state: %d\n",
+> +			rc);
+> +}
+
+[Severity: Medium]
+Does enabling SMBLITE_WD_CFG in smblite_init_seq leave the hardware
+watchdog armed when smb_probe() fails after smb_init_hw() or when the
+driver is later unbound?
+
+Once SMBLITE_WDOG_TIMER_EN_ON_PLUGIN_BIT and
+SMBLITE_BITE_WDOG_DISABLE_CHARGING_CFG_BIT are set, the hardware expects
+smb_handle_wdog_bark() to pet SMBLITE_BARK_BITE_WDOG_PET every 16 seconds;
+if probe fails or the driver is detached, no handler services the bark IRQ
+and the bite timer disables charging in hardware 24 seconds after USB is
+plugged in.  In addition, smb_probe() saves chip->initial_charge_enable
+for SMBLite before disabling charging for setup, but
+smb_restore_charge_state() ignores it and unconditionally writes 0 on
+probe failure or deferral.
+
+[ ... ]
+
+> @@ -973,45 +1713,89 @@ static int smb_probe(struct platform_device *pdev)
+>  	chip->dev =3D &pdev->dev;
+> -	chip->name =3D pdev->name;
+> +
+> +	pmic_name =3D device_get_match_data(&pdev->dev);
+> +	if (!pmic_name)
+> +		return -EINVAL;
+> +	chip->name =3D pmic_name;
+> +
+> +	if (strcmp(pmic_name, "pm4125") =3D=3D 0) {
+> +		chip->type        =3D SMBLITE;
+> +		chip->icl_step_ua =3D SMBLITE_ICL_STEP_UA;
+> +		chip->icl_max_ua  =3D SMBLITE_ICL_MAX_UA;
+> +		/* Use the charger peripheral as the base for SMBLite accesses. */
+> +		chip->base =3D SMBLITE_CHGR_BASE;
+> +	} else {
+
+[Severity: Low]
+This isn't a bug, but several additions in this patch appear to be unused:
+chip->base is assigned SMBLITE_CHGR_BASE here without reading the DT reg
+property even though all SMBLite accesses use the SMBLITE_*_BASE constants
+directly, chip->charge_status and chip->ldo_mode are written but never
+read to drive any behaviour, smblite_init_hw_specific() is a redundant
+wrapper around smblite_detect_ldo_mode(), and linux/regulator/consumer.h
+is included without any regulator consumer calls.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-smblite-ch=
+arger-for-pm4125-v2-0-20656509518b@oss.qualcomm.com?part=3D2
