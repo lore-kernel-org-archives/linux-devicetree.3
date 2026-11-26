@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795660745;
-	b=UgOdLVWb2b3pIgZUhgLweno0m476+bgfQa1fOC0GiBqp7QVtOIWX/ycGT/StpfQf4Ix0
-	 6JnCmtlnU1PsN4hs3joGghcQa5lRr3ImdP5ErBaFnb9T3em4jO4OF862BzLBTX9uZvHts
-	 qngnu4wiC/cWPGXikvo6/pGmr+Yb1d7wiHTkxEDEI/SYneMXBx9nIYdlsB/mKJeOaLN6X
-	 1T9I9ijMpRkmbjYmLYf3IgwDx6JOneBpNFBPeMfCPpL/ansGd3rTRUutuA8vNruhmu0IW
-	 CAIZK0CD8d5H75z2NN9STwJsfjWWy5gHNAGj/9e3kN7I30zlrM6fbI5UX/f3GNbopyA==
+	t=1795660747;
+	b=0YSJf9Sm29t2GuUMMQHWzAaVmCGIBNMcfMNkIxpoe6c2dMJY8RZCuAVdOIFfYcVcQ3RR
+	 93QZekIkDHPd3xRBSqt0hyvyO39h4TmwyFeU6iaSZBtoYhQrhC+TLbVTKs0Qf5o7DccCy
+	 qbSk0/yInOhJ9Tx7bHiiuXMpp203rNS26uCcaW/mbVulvAtndsBgG+cmrYBQSRNxrlmqt
+	 eLNthqERweAs9+2fxOby03m7+2KknpOM7wLaCIbg5MCjFa/x+Vl8gLlTdK6StxhXy+tKN
+	 G5JtgEJ/CVNwQnrRH038mSnX2bQXjDCWKqp1DFR7e2cBsLSFZjEZPfjwL9CcIaKimQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795660745;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795660747;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=VtfSKv7AgKViVzaZbsWW1gLH4mEfcX2kGOpZgRDzjQM=;
-	b=IKlULX2fwb+24VQSCGodsdWSTtM4C4K2tNo9Zsg9w8RtyZQOV47XZnxD/mj4AJ9vDOm9
-	 XEbO9zRErdHoc6xWm2rJfBOZhiEbXceiaHYMuwWwufCEmS28qqfQF8AIs0VlZxSrhe6t2
-	 GxSV+3Hoq3Jj0ddf//waIBmKKWbxGq0GksYYk2VG9syrEqoi1RCVbx20qIEACwQZar5cu
-	 b62Gqp9+ZWqgmTQ9FqaogcAFLgLwyC8eqgzWIxlJBdlhjdAGCwqw3bNMrYcI9NtYI0t1h
-	 Cic3qPP+eBM3d3tQZ0TKvvqNVUUqmU1k66qN5RflQxn4fOsWRBjok/edU/xUFXRjIuQ==
+	bh=ATe77EWktA64DVb1MltUDHzbzMHCrNXC/lvyw7f7T6U=;
+	b=LFqR7N3LS9wJkkAQpNIHyOcfUvXhLrNJVGQGTSeeHyk7maFr1ibt2oTwZUsy9f8nwTdx
+	 8+StgsD+XWGzlldWuAw0zRfAJVIl0NBvuRF+fKqP3Ck8Ii6a1uGS5qDa5YJd3siPR50to
+	 7ajXipITNpeBHmIZc88V22cxTdycgc+FqR8sydlt9jsry4oxIxZ1FULkTgIQX+X5dazK4
+	 ZTqzh70AjvBNAfkVVriBPN9lpCUS8uefdhSrAVSsbDV6Fq/3WBtXNxRSziYnUbHNJRv6g
+	 SPerhSk2dAAWnD76EAm3SH06prKnNTlu9gW2Xq/iVJtVHqy755GIUCWpYWrZgZ8WRvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iTN3RbyC;
-	arc=none smtp.remote-ip=209.85.215.176
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W1JOVHeu;
+	arc=none smtp.remote-ip=209.85.210.180
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04B7606A31E
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 02:39:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D04B7606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB09606A31E
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 02:39:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AB09606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iTN3RbyC
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cdadf7e248aso2682585a12.3
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 18:39:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W1JOVHeu
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8b9c51097e2so2629482b3a.1
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 18:39:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795660744; x=1796265544; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795660746; x=1796265546; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VtfSKv7AgKViVzaZbsWW1gLH4mEfcX2kGOpZgRDzjQM=;
-        b=iTN3RbyCYyrpjiGbaG+FmSJTFz9PrqQpX+yQ2IIj4j7/Z0wdR0Gn3my/lsIeA5j2Nf
-         I0fDfQHe9ncE0bwl3NdcGEG+BP3bPeYn4awYV0jMbETHnCQwypFFA3IQvfOOP5Jdh8wC
-         4uCV9hQfhs8ALja+wtoqgAkPe0vD8rrgKA8R2YOKo70kT9ExO2ijuXDzx2cJtzLJR4Of
-         SwgDlPchS/Em2MGoJhqkLYSroCbI8IdEclGulWxKzCIda28kc2MZ3NTTik2+WCPVfv+Q
-         hEJkt6adSQDPunUw0qMZdxhjjM0w9rkW94Gunztx7mHJIU1GnSauSquwKkZpmWwSCvyu
-         +MwA==
+        bh=ATe77EWktA64DVb1MltUDHzbzMHCrNXC/lvyw7f7T6U=;
+        b=W1JOVHeukmRYcX1trf6UgcGeNYhc7xHPYQtngKL+AFMuajaytNKfFQhQnaze8CAAQu
+         4+NiXflYygX6POL/pSJQfvqzU/BNbJmrgR5sHy/rKgCTjp2NnJMvoEesssumA8jjqSjn
+         PYWtnkEI5UWsOSiM+UpEDNI1P3rZ6JcxtVE3LxYo2Be4ZJm09+TjGP9J/8y/CRD5BPDA
+         xArkrvR3zqgH89fKOeuaXUZ4EcyOhMoWMq50JQoUAYAYn2AbyuUocF2ByyOgE8laMu0r
+         dXwBpBdB2TyTZWsnH5RE7MpXdUf8IaWVD4vrI2M5oitWAYk+p2ZHDw+kzZgPOkwVwR7e
+         aSvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795660744; x=1796265544;
+        d=1e100.net; s=20260707; t=1795660746; x=1796265546;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VtfSKv7AgKViVzaZbsWW1gLH4mEfcX2kGOpZgRDzjQM=;
-        b=fst6EsWtEykt3Lf48yf/51ufIciEj4IXnQBHwRUrMteX+vtONmo0Y852JAhQkXCFqJ
-         9S7rvP5FWVcebWJOY4xKik6rGrmYHn7m7sFinRa0LkqE6DGk2b13YlU8De0JZw4TH938
-         67fquV5BrRmMgMEnkmQIuMix9GNjg07agU3R4HxQRLKiArYeK+djAD98suzWUnX+4Bkf
-         +GGWRdFOD6tpChJ2tYwLWJSUoDs/gdLX8485SLaAnPvhSb02tHrG0ljOsO1G5dnRohxd
-         uj+war4mP3dNcHH9qSjtlrgciA40uqyiooJQpedu9sio8PwfN1kplKoj4uF6WHNnAwEq
-         I4sQ==
-X-Gm-Message-State: APuU4Z8+YqnicbIYTYVwEuk4FORjjym7DOZFuvhZZiYBzd0xyWtBM20T
-	16fvVDVu67kS4d8BaI3NqZHDP38tp/nqMIFRyY8MN4GoI75boLIgyi4Dtn7lCg==
-X-Gm-Gg: AZFdTZd0jdeCgTa2EHfZgwvyRv2wH55tbW+xn2iyps4oVQvRkTftKK8vQYOMNXmpJG1
-	I4G7NRQQGcaEgeLlaJAsg94BW7sEGB3uSJkZ606VxdPGwgbX0tI8UidP8UjpZqjU9cmDnSQitbX
-	UmLTUzNT4xdu7/MCImpv4pbmO7hu7EgkCf0UC2rRhm1g1gSGS2epoyvcY1JtwbONrsnF2clqkz4
-	CyRLXQnn2d4xkeGOIOL60cQNLWpXj+/SuujgkN257xI0t0neECNHTN+ac+Z0jwoTRBB4tBG1EQG
-	oVduqGcDwXWsLjd2IQp5m76uMfdrvcVN4LdsScvrTDMf/QlHOUHpWOhMs6zG0Q+VTChJpWxn/4r
-	jxAtD2KVIhuFSCPDe5NYNinmRtKw93oI4q5Yyagvqp/rjIHS+9Kyyhy3PVMxmMz5W/zWb7a30MD
-	rsNtJM77ldySpXkyJMHIHjcKGJwP3Sv7mGYVXCDmCyp2Oux4Hw/85pfgpv2/8q5LI8UAPNhQVXB
-	RB2BBTLWGytMyw38CZ/+Sm1syOwc2RJDcSCk/+36P0CP8/dnfzkiAkYLdOX/ugcQvECSswNbM1m
-	GRqU2wumAQM+b/ghM0E96dfujOC4387UZe/DrpzrjSOoyRkjzKI94PzeBs2EXx6PWHe5mmX6Pkb
-	qDyiTAFBeTQNl9nKCifHpD5s8g3BjMfPiWSQOKx2SwVvVr0XIvr3rlgAf566dGANtLcN6ZhFAbw
-	3WnA==
-X-Received: by 2002:a17:90b:4483:b0:3ac:bc3d:6fe8 with SMTP id 98e67ed59e1d1-3b41c92f8f9mr17662599a91.34.1795660744178;
-        Wed, 25 Nov 2026 18:39:04 -0800 (PST)
+        bh=ATe77EWktA64DVb1MltUDHzbzMHCrNXC/lvyw7f7T6U=;
+        b=pusHVNqym5HqIHYFrTGSv3Hb2G7YYzi26jBBukHajU6Rzav0lFjvHWpFCIgfX77zSN
+         Pqfhp0Whi5D+8aeuO+B+mMF61B1/4APW5SutcY2Rb6Iy3CxAlgLbQdXs3g3ye4oyaaKh
+         hb0icnf2/732ABRZA0PFqvKaWLTI9CEECdrW+p3lJTlAMYHbfLw+m1huEOaHkw93n8j5
+         3EKcI3RC0JSAIr3/o/f0B5FhiiWrMErILR76+ONSCi2x+H0tk9wz8uTbB1ObNczyNL9s
+         EI8cW1thrlGoGJZ6TfIbCOWSf5pRK6h24pzv5kmqWCBfoulqXDTkxjSZKuozCAgafDZv
+         sKZA==
+X-Gm-Message-State: APuU4Z/COplfVmYOb1VWMbbvvw44QdgiTXOqk3HH5zV+lS6ztuoTcEqi
+	B8sHwdPYOW/knFLSyLLXOS2YULRc54hkAj3RIqUZh1M85YqfXZ4uMgFxDwS9ug==
+X-Gm-Gg: AZFdTZfWDgMRFIQo3bhiX2N5ypJOizek303kE3Y3wW2DyJgrrAUBfIXnYxzm+C2f3m/
+	O3tmrEPpMAyh754Z48A2X/8y36rXLcmhw1Qb211PBIKTHcv7tDC2LQ20M3N6Uy/CtC9fFEU1lst
+	6IyuXzuMxeigbUYDbcfpkFlLUViVdSjLCiwKwMpGRc5TDTR9OFU+LWZgQe9db/oeSyGO2OYp6tM
+	OVn3pwNfCrsR4ZNkW2ZQZVH+Kwx1bsQvVSvcBC+unv99I/KCV1G+fPmIjjZEvmGjiyZQx2pvOHT
+	fp/uYpSoifk4QIqX1yy3Zgdx1LB9P3RqPvPTQIYAzE9WOv5ySiBRV3M57De8WQq9gNpu4DQCW9b
+	fb9xAU/HyNnyVEY3OhEOr7IslPQlaoi0kg8RR63vdMLKzhDOOsG6J//h68erG1GwrIkz5ZzQg8d
+	Ziiur4zqNPKll7f/VIYiqeaa2ZF8onX3v+D9BYrQnB20BfNIJ6ki2bDYgQ1gc5SNZGZ+BJaM897
+	w16lbK5dJkhvh6gf5SrLwSRMQGL40vViimAjm8anM8wLRsfaln8oDF1Uizu7dz13A1WVuH4i05r
+	HLo9dSP1uZ4E7TeaS6alQZOiw0+MUepKIqIcWbEBegJrJHFqudoq41kUhG4CQ7yeuqJVdTPeheZ
+	ZEmeSdDGgaQOrUN5NGDeux2ObypaGqY+rGfTGMQCDne4lgOmjG80CxERwq+OhbTMayD/hAE5i1u
+	OJOhrrNYR3mwxhG+hxylbdndE=
+X-Received: by 2002:a05:6a21:6116:b0:3e2:1418:aae8 with SMTP id adf61e73a8af0-4014dd566d2mr20975073637.72.1795660746393;
+        Wed, 25 Nov 2026 18:39:06 -0800 (PST)
 Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6d026d6fsm9909018a12.19.2026.11.25.18.39.03
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6d026d6fsm9909018a12.19.2026.11.25.18.39.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 18:39:03 -0800 (PST)
+        Wed, 25 Nov 2026 18:39:05 -0800 (PST)
 From: Rosen Penev <rosenp@gmail.com>
 To: devicetree@vger.kernel.org
 Cc: Andrew Lunn <andrew@lunn.ch>,
@@ -89,9 +89,9 @@ Cc: Andrew Lunn <andrew@lunn.ch>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Dennis Gilmore <dennis@ausil.us>,
 	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Marvell Kirkwood and Armada 370, 375, 38x,...)
-Subject: [PATCH 4/7] ARM: dts: helios4: describe the fan tachometer inputs
-Date: Wed, 25 Nov 2026 18:38:53 -0800
-Message-ID: <20261126023856.767961-5-rosenp@gmail.com>
+Subject: [PATCH 5/7] ARM: dts: helios4: use disable-wp for the microSD slot
+Date: Wed, 25 Nov 2026 18:38:54 -0800
+Message-ID: <20261126023856.767961-6-rosenp@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261126023856.767961-1-rosenp@gmail.com>
 References: <20261126023856.767961-1-rosenp@gmail.com>
@@ -106,40 +106,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Each 4-pin fan header has its SENSE line divided down and buffered by
-an open-drain NLX2G07 (U5 for J10, U6 for J17), pulled up to 3V3 and
-fed to an MPP: MPP43 for J10 and MPP48 for J17. The pinctrl groups of
-both fans already mux these pins as GPIOs, but the pwm-fan nodes never
-reference them, so fan speed cannot be read back.
+The microSD socket (U3) has no write-protect switch, and no pin is
+muxed to the SDHCI WP input: the sd0 group only carries CLK, CMD and
+DAT0-3. wp-inverted merely flips the reading of that unconnected input
+so the card ends up writable.
 
-Add the tachometer interrupts so pwm-fan exposes fanN_input. The
-default of two pulses per revolution matches standard PC fans.
+Say what the hardware is instead: there is no write-protect line.
+disable-wp makes the MMC core skip the WP check altogether, with the
+same result for the user.
 
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- arch/arm/boot/dts/marvell/armada-388-helios4.dts | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/arm/boot/dts/marvell/armada-388-helios4.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-index b86b85e9d0ab..f8ac74d7935e 100644
+index f8ac74d7935e..d4ed47ae73c5 100644
 --- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
 +++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-@@ -127,6 +127,7 @@ usb-led {
- 	fan1: j10-pwm {
- 		compatible = "pwm-fan";
- 		pwms = <&gpio1 9 40000>;	/* Target freq:25 kHz */
-+		interrupts-extended = <&gpio1 11 IRQ_TYPE_EDGE_FALLING>; /* MPP43 */
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&helios_fan1_pins>;
- 	};
-@@ -134,6 +135,7 @@ fan1: j10-pwm {
- 	fan2: j17-pwm {
- 		compatible = "pwm-fan";
- 		pwms = <&gpio1 23 40000>;	/* Target freq:25 kHz */
-+		interrupts-extended = <&gpio1 16 IRQ_TYPE_EDGE_FALLING>; /* MPP48 */
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&helios_fan2_pins>;
- 	};
+@@ -256,7 +256,7 @@ sdhci@d8000 {
+ 				pinctrl-names = "default";
+ 				status = "okay";
+ 				vmmc-supply = <&reg_3p3v>;
+-				wp-inverted;
++				disable-wp;
+ 			};
+ 
+ 			usb3@f0000 {
 -- 
 2.56.1
 
