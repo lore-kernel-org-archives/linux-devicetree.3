@@ -1,103 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795654286;
-	b=Gn+5VSD/HReZv8MqJH9BXTmhpfPMiIxXAO4sdvrGyrU3n5Pm4vQhDVAaOQ+pMroS8hhn
-	 GAShbc0TKV0CFKNaae6u08n0LLsi42I8Lnwv3+UBoULes8/ES3T8+G4OBmxVUcv/0i4TJ
-	 Vj7jw8Ke72iq2CZ05oCWnwepD3qOZbKpykY/SmE/9JhEvCAKhyVP0ZEfknmTEyFd1e2NP
-	 e5vROXrvb8Kmvs6w59Wxsp03Lggb0cVBRvD8xeDORMm/IfvBUBPITW5Oxq3ItTbYEMeSh
-	 BF5bv8ar5XbRkJKjDOOtzfRqP6f5yg0x5XKVUCBEORIq5rPPiHLc3gb6zIdZE/7sLpg==
+	t=1795654540;
+	b=3q4R1wgxuqO2qPssZ1aoogMIvRHQbAwSVgVlcVSUyEQzCtRwWjtgvbMXkdZExcBsmpxX
+	 1wHS7/rzYdgj8I8xC02l14n3dIIzNFFchck+RIeQ6/nMC5Qs/Wf8Fc/xe/X/zocDxec4A
+	 ET7eEidiSvsyiAmtrHq/U5XE6a4Th3CIzqVQHki3bkn8hOnm8wHG6/bgJdXElrXfFXRr+
+	 BN84L4iw11M0sTGAjBy/dEN1EILOHhua8QJhxtAHNJOYZvvoX7orN8gwIgnwcyCdbwDIk
+	 kThR0zJewFTyeMlH3k0PKLXgP7kBIGIOjrznfmsj9pbYUZwgFPqhBkg/J/XlqHn7iDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795654286;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795654540;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=mnppamKzAQZC8IzU5oxBIEXI3CEcCekJ7lGtliYOKEI=;
-	b=fcwtQZbQMQFY+7C95Fm9Hbc/5Y1vxnq4mx+Ncj6841lH6N4wRg4XCU62y1Hfd1eT0sS0
-	 Mog8SSVoatLfMSzJ6JkgY+32n4r989bckIb93yQq6HPnG5l5hLxNYJxtKYNC10RpZYzua
-	 liJhAOsEkDD22lgiuY7y7MLz0qjR3jWMIhhnG4JgkuRitbkgRX8bvdqIqyJpigmzfN0xn
-	 iuqF3FxHewKkDh6iTndxz0/bu9qj5nFbrq9S6TyUUMWSo460+nJfx1pMf8xPFLRjeDz7b
-	 juHn21skOrdTC5eFdvraRcnDaSkG+zguB0R/vzhn7RUPfHLf5k+BZDgus2/cR/MbBrA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=KZdqz/5aN0a+Mnl2BFDx98pc2JPnx0esugp5NJKn2WQ=;
+	b=LhxJ1R3mug2wB5ygoFsJe6BAfqqnU9yyzGQtDekMt+uA01m0daGDRpcqgeY9nKhwNH2l
+	 QGHRe+qc0aNhG+7IUto+rfxUXkICfK1GmYxOnHqGoMUvb2Nm0YeCtrAN5pn328FeZe9Va
+	 jt1BPTIzWIlDMiqlPtnn6Rlse6l5DBD7MMUYC1HJV6MRdBHjYd+j2cXAbF1JYAYNVOpm+
+	 vb/guSihbdMRjEAnQ+E0itMvKDuvBlZuMd43RP14r49vq38c7PhYpu5bTadBmd9c1Ys7G
+	 VX1M6nNfDK/GM3qAf1aDyIC7Ul3Gyi/FGYPGxIdj3+J1pgEXhXjA/o8tLZb5ws4iZGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=jclark.com;
-	spf=pass smtp.mailfrom=jclark.com;
-	dkim=pass header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=NeJO9v0H;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DiSEPO56;
+	arc=none smtp.remote-ip=209.85.210.174
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2FBA606A321
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 00:51:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2FBA606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C71C606A31E
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 00:55:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C71C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=NeJO9v0H
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3282db206d3so1525703eec.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 16:51:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DiSEPO56
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8b29b83fdf1so3415309b3a.2
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 16:55:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jclark-com.20260707.gappssmtp.com; s=20260707; t=1795654285; x=1796259085; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mnppamKzAQZC8IzU5oxBIEXI3CEcCekJ7lGtliYOKEI=;
-        b=NeJO9v0HNsJVgIq81pdvrNaVLAAWj80oLv5htqok4JvCqQ/GTit5imBRIUEGs6k1u7
-         qycPZ8BtVrtUMVe0mJUlpzDRRzVeFqp98vC7+Gc3m1hm9Ob7ioriY5Opt7lLGsdBr5cJ
-         GxyYqdLbt7FiEKgcM5UFLxSueuLcxsJoZ1ign9HhImAhvDP7JY1LqMzv5YkanKNw+D3I
-         zSk1WO7fx6CU6PdkEBWIHL4477rUyYPUA/+vPLjW44kDeidTvP2lSNqnfq4hSFHQcnyw
-         mU8wVMfZupSIlPXl6gzgFkqLrS3dk9YWbGP0BRtBVv2p4JS5Vgqv2mTxabIh8V/dNxAr
-         PgUg==
+        d=gmail.com; s=20260707; t=1795654540; x=1796259340; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KZdqz/5aN0a+Mnl2BFDx98pc2JPnx0esugp5NJKn2WQ=;
+        b=DiSEPO56EYuafe0mJhdwC8cA0rzeVwaayI7NlmGRQ22CUF9yk/aWsrwHlM6mnNAEX2
+         KpWJa1Ko9XupkNaKOHqPPkpZdjTOyzhLi4audBkISqnA61rfuj8Mn05L3IvQkAU7MIRo
+         mCh6Jw3hCGFTfyoG+2OeNDow7LlgD5EWA8ZqY3yUAdlFIYLBmwuNmy0W8spzp/yR3hyj
+         wtrUc+dffyqxapQ7bKGBWEv/BVPVetc8KuQ3Mzb0JBzAK9X38oMiBtxRtWAMlLm1Dasr
+         YZ9oLXptcGhaPhOyhPUYJnNSwRtnj3xPxCMyliBNCviJ0p56eh60Lag3USrbweKjlasd
+         dHKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795654285; x=1796259085;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mnppamKzAQZC8IzU5oxBIEXI3CEcCekJ7lGtliYOKEI=;
-        b=Y64pUDc6EyvpQ9swUT7s99hAs9QLQ3kJuhY/K0hzTalbd3NjmFgaxdnGvNXpeewzjY
-         gPaiE3TQPowrPJ8x1lUI9pCmsfHIenwpOjG59cLrGDbZjnYW6HRDE8IZYTYibO4oMcpU
-         AizgZdwi3/Jt4h2jexajg3b3HdNx8SF/NkD+4EK1+GsVA/wB9tVEODZ6S0c3z63JHQia
-         TONB3CvrMEVYwF0R+RfhDJC3HXX9gxTBKC7G7TVtbDUP1fsqPbTNH4tfWyIZszL5CsZU
-         c+369LNal6NHGHHDD18HkIQUOM2cNl4gtSqAid5FJ83NCzo6KRxN/3hu91/Yg2+x1d+Q
-         JGmA==
-X-Forwarded-Encrypted: i=1; AL+hErFMF/ZWmXcEbtsxEW9CEz7+Asuq3uTYkIlrbByzNfS5oui2uUfie+sB8d5MsCHNIa0kFmHk9x5UEING@vger.kernel.org
-X-Gm-Message-State: APuU4Z/7SPW5Eb2H34g7CebL0ItR4OBA+fwH8FCju5IYrGUouXeWTCL0
-	aZOYZzh1ARpWgqgSb1tR2y4FttAqm5ZCqf6vcEwAzRvkk8ZrFLyuMkuiAiFrUXo9dDKitFQX3FZ
-	sFZwQmglh
-X-Gm-Gg: AZFdTZdzLmLu3OVZsiK8Xs3e0B4pfauWzJli6xDbV536F7sHI7z7HMKkgwsZ1XuHg8v
-	ZI73qwcUluS0YiQN6OhuxRc13Esvcg3u3nT7NJjpPiU0QR8cpO3iIqMK/bQnsI2LCpBn8rLiSFG
-	YQYKHw+JPeVCJJ0b4WxdaYDTICjPOr4f5C97VXe+lAcJiOGMFYifX+2cgzvHI4c48YZcl/d+fDu
-	oAM6wLCGhdGg0K4/i/XbGCEfBou4D4uIqkp9p/N3eQO9RpCiAmXZN+7rBjFJOQ/s7QcZUpbaF7L
-	9o4VsfhkuzXdFH8D18GIwHyMqinv2QHaqjvGRden9G+4Ly3bX9HmCuXdbTtJE+g48R8+e0Y5vj2
-	Tkk+8fWroC6UrwACenB+hTb/L5hCHEottgpZJrY01vAbLJbli1wMniiCtLwSNUCcemKCI5qX8/7
-	+y8f61tflyei8blCFENSv5Nji9ml5bQd+NIq+YEYAumEsVodN5M7baTkWh1+OT/dqj8bjWLe9Jq
-	GDc5p8cUlJXeo/nABsFsie1OI2EUdvIy0EhvxqhbUk5hEoiMaoa1xfB24QqJnhW6uy8TaSicJTg
-	h5dh0inSNTvHpuoAPHxHx5NnH6Tc0hm6U3Hw2u85crRLwivNb7ee79j5KYgh56pDWPclsotVAEv
-	ek/8uT1jP9GOp0wG9Tg==
-X-Received: by 2002:a05:7301:a23:b0:386:9ad5:6641 with SMTP id 5a478bee46e88-3869ad56b0emr16578348eec.32.1795654284736;
-        Wed, 25 Nov 2026 16:51:24 -0800 (PST)
-Received: from cantal.lan ([58.136.75.118])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-386c7c62a91sm15707184eec.17.2026.11.25.16.51.21
+        d=1e100.net; s=20260707; t=1795654540; x=1796259340;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KZdqz/5aN0a+Mnl2BFDx98pc2JPnx0esugp5NJKn2WQ=;
+        b=ZlzKT/tdw7FVjGr2RQxzWNZdIMtOndiA9XGes+jVwnRQX41bRA2WcVW/PqnzzS9qPY
+         +o9Wk+9/q96QqlgpJm0ZuPx/y+v55pg1se/vcfvk3j/OgNDF0JFGGf6rmkMxoSYgfS8R
+         1wXtHGvhHSUef0xFPQO5mVffwadsJrlfWhQB+TKlHjPjtzUHOu1VrIZ945shtt+GezWI
+         50ccB7t/EFHtKo67OZflWi/U1cEuY/U+PBnFmu0ehXfBkY/2iTrEWZ9b9tShqcffz9fb
+         jNSMrfpIZI2Ljnc6pwMXi8+5ji2OcQe77dWsGWmZY7KEAj5QxYmTURndZN5WQs19g0uC
+         31cA==
+X-Forwarded-Encrypted: i=1; AL+hErGEJiy3QUY0evQHltIC+iYBZr0cfQEURjzI0j0LfBSpC6YMEUnwm+7VOsov2vUIhIVukXAgq5baeRMT@vger.kernel.org
+X-Gm-Message-State: APuU4Z8OHqCWzpdOCItHg8ukUzBNAz0QreuGYZK82bVpn+LL8Scnl6Pd
+	8lbFJmYFlVNLt6yVStosWK6IwV4ysFtc/Hoeyfbc0xmHEBS2fVasCJmG
+X-Gm-Gg: AZFdTZfLenjyoP5bzZJj6iJpb8u1XcMAWfBHk61xQZE3u5V4GjiTqBCdQgQB7yp6AWY
+	QN1x2ZkrnzK7T18DfFFXR6iqtIwRDru2fR7OumuRidZFciAYR30Mih4W8nmIwKvems7dCKBPcpO
+	DBNnYKpiLGQ84cLC4u2kqa9uAyYjBhpQe7PhkfUgVv4A7ZkQ2GdoMqrxhxkHT5i5lOef6owpDgS
+	MXP2ARDBZQFiOSWmbHcnFIxKu1rAn1QIDexMRoqR/A5xXzjn4tZ5iFYsZfhShKXiMZnGRBCZRlY
+	ez4SMmn43Y1zAm4+KdIwirgYliHw1AR00BC4iVIXEFjg8MF9Sl8qCYdQZyU4MC4g5Bmf8zFLkBc
+	okqBuEaTVTpa5ycb4cRHojV8sl9PG1CU/UXgeQ5nnNP8P4y4GHGDT+xLjmNixuLYPtRhTi+Tj8u
+	jtbmBoQBYUofX5wcfpvEMN2EXzN2meOWe5xdyvroqKStIBONZINBpSDY/wpnRhqBkd8xkjgFnZE
+	J5gPa3BlX82DRAPMEqW6UZK2Iwv07GvT4IAGWmCjvkj/K/XoahgNJO74gJm/Baon5LbkYnzrBp8
+	7Qzj7PQj/1Cws/3eYPYO/kGrdnID4mYQGHzNz0bVvPy3PsDbeRIHTySO
+X-Received: by 2002:a05:6372:a705:b0:3e2:7c10:d465 with SMTP id adf61e73a8af0-4014e358b53mr14368648637.83.1795654539819;
+        Wed, 25 Nov 2026 16:55:39 -0800 (PST)
+Received: from d.home.yangfl.dn42 ([2a09:bac1:7680:d30::4d0:8e])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6cfe9bb9sm9472217a12.12.2026.11.25.16.55.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 16:51:24 -0800 (PST)
-From: James Clark <jjc@jclark.com>
-To: alex.cramt@gmail.com
-Cc: Dinh Nguyen <dinguyen@kernel.org>,
+        Wed, 25 Nov 2026 16:55:39 -0800 (PST)
+From: David Yang <mmyangfl@gmail.com>
+To: netdev@vger.kernel.org
+Cc: David Yang <mmyangfl@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Mahesh Rao <mahesh.rao@altera.com>,
-	Mohamad Asyraaf Azhar <mohamad.asyraaf.azhar@altera.com>
-Subject: Re: [PATCH 3/3] arm64: dts: socfpga: agilex5: add support for Terasic DE25-Nano
-Date: Thu, 26 Nov 2026 07:51:20 +0700
-Message-ID: <20261126005120.176307-1-jjc@jclark.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261118-de25-nano-v1-3-473d16131f7a@gmail.com>
-References: <20261118-de25-nano-v1-0-473d16131f7a@gmail.com> <20261118-de25-nano-v1-3-473d16131f7a@gmail.com>
+	Jian Shen <shenjian15@huawei.com>,
+	Jijie Shao <shaojijie@huawei.com>,
+	devicetree@vger.kernel.org
+Subject: [PATCH net-next v4 0/5] net: hix5hd2_gmac: Support fixed-link
+Date: Thu, 26 Nov 2026 08:55:12 +0800
+Message-ID: <20261126005524.4156940-1-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,46 +104,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Alexandra,
+Support MAC-to-MAC link on hix5hd2_gmac. Also add and support mdio child
+node to suppress warnings when fixed linked, as in macb.
 
-Thanks for posting this. I have a DE25-Nano here and have been running
-a mainline kernel on it with a board file based on Altera's.
+v4:
+ - reword in dt bindings
+ - register MDIO bus manually
+ - skip disabled mdio child
+v3: https://lore.kernel.org/r/20261124002442.19414-1-mmyangfl@gmail.com
+ - use devm_*
+ - split mdio child node and fixed-link
+v2: https://lore.kernel.org/r/20261122230134.3366017-1-mmyangfl@gmail.com
+ - add mdio bus child node
+v1: https://lore.kernel.org/r/20261120031026.1371052-1-mmyangfl@gmail.com
 
-On Wed, Nov 18, 2026 at 08:07:15PM +0100, Alexandra Østermark wrote:
-> +	leds {
-> +		compatible = "gpio-leds";
-> +
-> +		led-0 {
-> +			label = "hps_led0";
-> +			gpios = <&portb 17 GPIO_ACTIVE_LOW>;
+David Yang (5):
+  net: hix5hd2_gmac: Use devm_ managed netdev and MDIO bus
+  dt-bindings: net: hisilicon,hisi-gmac-v1: Add mdio bus child node
+  net: hix5hd2_gmac: Use mdio child node for MDIO bus if it exists
+  dt-bindings: net: hisilicon,hisi-gmac-v1: Allow fixed-link
+  net: hix5hd2_gmac: Support fixed-link
 
-My testing found GPIO_ACTIVE_LOW is wrong here. Altera's and Terasic's
-device trees have the same mistake. You can test with
-/sys/class/leds/hps_led0/brightness . With GPIO_ACTIVE_LOW, 0 turns the
-LED on and 1 turns it off. With GPIO_ACTIVE_HIGH, 1 turns it on and 0
-turns it off, as expected.
+ .../bindings/net/hisilicon,hisi-gmac-v1.yaml  | 25 +++++-
+ drivers/net/ethernet/hisilicon/hix5hd2_gmac.c | 87 +++++++++++--------
+ 2 files changed, 77 insertions(+), 35 deletions(-)
 
-> +&gpio1 {
-> +	status = "okay";
-> +};
+-- 
+2.53.0
 
-I suggest also enabling i2c1, as Altera's file does:
-
-  &i2c1 {
-  	status = "okay";
-  };
-
-Unlike the other HPS I2C controllers, which only reach pins through the
-FPGA, i2c1 is on the HPS's own pins (HPS IO 36/37) and goes to the
-onboard LIS2DW12 accelerometer at 0x19, so it doesn't depend on the
-FPGA design. I've tested it on my board. With i2c1 the only I2C
-controller enabled, it is i2c-0:
-
-  # i2cdetect -y -r 0 0x18 0x19      (shows 19)
-  # i2cget -y 0 0x19 0x0f            (WHO_AM_I, reads 0x44)
-
-
-James
