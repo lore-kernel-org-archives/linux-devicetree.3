@@ -1,73 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795718536;
-	b=bhoTa0cgEXDrweE426/ACDmUpsKaHQAsFpI+E9vu8/Sj2uJG++A3ckp1Srlv8/3OQrQ5
-	 7RVJPaB65//wRgRfwtcpVEgfERiUfwVdSVhs4uVVWWhZISJ6zB3Qx5LIN2qaBJH1Oqdkn
-	 ISLbClJbQ0kqhS6S2nrNpMIkbq9fjfBVgCpvTscwbR5PBjLz88RDYOkGAUkd1SOFdx+1p
-	 AjSX1SHkv5MVukxEliuYuy9OKXxSVy1mLTBX1YsS6liWgMnH/akzmJi0KY1Unok1C1PI/
-	 /uKS24Yr1J0uwCU8WaWY3pQ1geXuUW1JKKIj6JhpXj+r4Gl/Dq63DKBkYpJHHPzYPoA==
+	t=1795718857;
+	b=k8sPxL3L30ZSkeiL9a9+6Bd3XieyrSDj/dirCN//s5TZ9M9LhKV3A1/wQHaD9YDkW7qi
+	 cX8b5rC5fuLciR+xDfshGznyuc46T8xcj4BW13LX1pAZgK+koTVVcRRVESlsQhokzt0qR
+	 74Tby4DD0dbxWqYpzJu35Sf2Q/qI19xstEPYoLDZhmRQRmd9pARE6A/wZIG1avSeavwfk
+	 x4ZFWgWaFZZuViNgiSPZFUq+y0LxdshhIagG7Hbew2GDq1PB6lCuQQNKPnlTyBuMpCxHn
+	 yZ19Xn3lffzLk/HYULMbRhnykMyDv84bv+mj4xpf91IhoYyyQdcLeETjCiWfFMz7BKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795718536;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=TmIlGqYRKL1N0DbrflYbwLWHTPbsYPsvR4Gqt4JhWS0=;
-	b=ziK6gDDPR/kklxgAUnT4/XyVAsJn0ubTODnU9BGOskZ7yyZXiG+u/EOyne8J/1n12Qyo
-	 nKwKe2I8RS/QaS2/X+qqXw70dR0/2EgUAqcA65c5PwhUx6O1H5Doq6DUJmOOiJ74KUFZp
-	 c2Wjo9KreSfKtloNCMTIIPBJCP5jQULLhtWhUr2+/AmsK40oi9WmHAQEKB7v3wGcALvzr
-	 QuWlX31Q6ZTkgn3comSa0srnzeFgUF4/QkORd1lcRQeHcjoHS3aecbcm3I3l6PM3w5Ujz
-	 gnYklno3IIeScosbbTJXp6Q0R3hYcILAhnQdO19AUrMSZdC9IXQIsXRdjijvo0aDr5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795718857;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=4oiPnk4BKoppsHYKZqKHYXcx44kelqYLbXB97dadfMI=;
+	b=5TJXiIqIdLurHCixUK8O6DXdqwa2t4IBgrNH/RAavrIVwC1kbTEzXietnko+NI9rHPAC
+	 RYqHUn39ldNnK19iR+obpxXs5X8tn6i4H4BrVYTkbEvTtK0iL1F6I+DyjvNQbvcjUohxR
+	 K1T6gFt9cGG1h00KM1G1W9I9mg7kvrgYI4lNQ1asfg1u0AqkhUDZcTUjXx4V9d0eQsftI
+	 SAf6GTaahwZizoNGjzvDY4JubrpajDTc/qBHkjYz9htCUo1SjmXI77Rry1+E9R+6W1+7x
+	 Sk8SsayBWzMdHxqA/AswpXEW7Ldp9hsANga+Tnnyn6Q3Sf9dOLDdaqqm6BOJbxPkpeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=free.fr;
-	spf=pass smtp.mailfrom=free.fr;
-	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=Aa6U7TmI;
-	arc=none smtp.remote-ip=212.27.42.3
-Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=orBtDPYO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D69606A31E;
-	Thu, 26 Nov 2026 18:42:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87D69606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC411606A31E;
+	Thu, 26 Nov 2026 18:47:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=Aa6U7TmI
-Received: from L30177.local (unknown [78.240.251.125])
-	(Authenticated sender: vjardin@free.fr)
-	by smtp3-g21.free.fr (Postfix) with ESMTPSA id 60E9A13F8A7;
-	Thu, 26 Nov 2026 19:41:42 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1795718527;
-	bh=RdqlfcRYRyRN/alGMnwzCeIIWGVeJlTeO4EFT1U28HY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Aa6U7TmI2pqdSQbqnVAZ9wKX17hNwrxb7sJCGV9smHxFQfk8SZWDVGYgaykp5Bf+o
-	 Opuxeg1dm6O2Towg5dhvaWuHtmKMVxBIpCDJOJUzALDj0tAlCADAWMldG++WYO4dsN
-	 tDKK5u0vaKg0Hh0rViFgV+Z7rXpZrG6kvHPnaxKg9+faXcARzsIOmnPngTAZJ1RQeY
-	 AZKeO66aAoBCbr2OWpSffyoctoL1hHR+Y9O5W9fT+//ct768q/Pc8Nn2hEz+EkLXrS
-	 fh+6gnFi83iGV1NNb8Hvel5dZrW6Ix3LBfLHl8lPGGBHCoQYeaY5+SmE2AeSVI3HwU
-	 ecFfi6TA2wvLg==
-Date: Thu, 26 Nov 2026 19:41:40 +0100
-From: Vincent Jardin <vjardin@free.fr>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	NXP S32 Linux Team <s32@nxp.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev, Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Ioana Ciornei <ioana.ciornei@nxp.com>
-Subject: Re: [PATCH v8 0/6] lx2160a: change the pad muxes through the RCW
- override
-Message-ID: <awh9ZB5V3vG0gg4S@L30177.local>
-References: <20261118-for-upstream-lx2160a-rcw-pinmux-v1-v8-0-d01bc837593e@free.fr>
- <CAD++jLnRWZrLfyBGGOikx_eeYXirahuB7E7yuDhB6KoSAQoA5w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=orBtDPYO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08D881F000CA;
+	Thu, 26 Nov 2026 18:47:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795718857;
+	bh=4oiPnk4BKoppsHYKZqKHYXcx44kelqYLbXB97dadfMI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=orBtDPYOVaHJ9HtbaIvfjNOCT4VaRAdsXxk8JARr6fflakqdqDW0JBGpS8EKkoxvg
+	 rvcJPy2qqenQQVS1c9TfCqU8TPGFgvuYm8H0nia99be7guFeqmu7GoEPL72j53AGtk
+	 HHdW896/znP1b7GaVb/j0b1CajMxdPsBnfhLDt8kLM8eYOLycR52FcbsydWAItf7bC
+	 trDpnPrMvjfn7MYutC1JQrh+dqNE2j6v31ebBuEKr/TmFYVCfeS7u7ZsAVmwwPKoj4
+	 E6lACtQDyObaUyqPiixPctZk1SxVe8pBK7pHWv1mOBDB2Wo9MSI1lG8roLIVCDbg5p
+	 bBpKA6iqaG14Q==
+Message-ID: <sashiko-outbox-236033@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 5/7] arm64: dts: qcom: glymur-asus-zenbook-a16: enable
+ WCD9378 headset codec
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261126183806.172485-6-srinivas.kandagatla@oss.qualcomm.com>
+References: <20261126183806.172485-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20261126183806.172485-6-srinivas.kandagatla@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Nov 2026 18:47:36 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,37 +60,57 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAD++jLnRWZrLfyBGGOikx_eeYXirahuB7E7yuDhB6KoSAQoA5w@mail.gmail.com>
 
-Hi Linus,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] arm64: dts: qcom: reversed unit-address in wcd9378c codec@3,0
+  node
+--
 
-On Thu, Nov 26, 2026 at 01:53:00PM +0100, Linus Walleij wrote:
-> Once the review is complete, can I merge all patches except the DTSI
-> patch through the pin control tree, i.e. does it have the right ACKs?
+commit 07e647dd9ed11b2ee7570b697d9090d52a74d29b
+Author: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 
-Yes for patch 1/6 to 4/6, however, I believe that 1/6 needs an ack't
-from a DTS maintainers. The status is the following:
+arm64: dts: qcom: glymur-asus-zenbook-a16: enable WCD9378 headset codec
 
-- 1/6 dt-bindings: pinctrl: Reviewed-by Frank Li and Vladimir Oltean,
-  but TBC if any DTS maintainer Ack, is needed ?
+This commit enables the WCD9378 SoundWire headset codec, its DAI links, and
+the vreg_bob1_e0 MICBIAS rail on the Asus Zenbook A16 (UX3607OA).
 
-- 2/6 dt-bindings: soc: fsl: Reviewed-by Rob Herring, Frank Li and
-  Vladimir Oltean
+> diff --git a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dt=
+s b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
+> index c253597b5a5ae..ca035f10dc6cc 100644
+> --- a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
+> +++ b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
+[ ... ]
+> @@ -763,6 +805,44 @@ right_tweeter: speaker@0,1 {
+>  	};
+>  };
+> =20
+> +/* WCD9378 multi-master: swr2 primary + swr1 dependent (DATA lanes 2/3).=
+ */
+> +&swr1 {
+> +	qcom,multi-master-mode =3D "dependent";
+> +	qcom,multi-master-peer =3D <&swr2 0>;
+> +	num-lanes =3D <2>;
+> +
+> +	status =3D "okay";
+> +};
+> +
+> +&swr2 {
+> +	qcom,multi-master-mode =3D "primary";
+> +	qcom,multi-master-peer =3D <&swr1 5>;
+> +	num-lanes =3D <2>;
+> +
+> +	status =3D "okay";
+> +
+> +	wcd9378c: codec@3,0 {
+> +		compatible =3D "sdw20217011000";
+> +		reg =3D <0 3>;
 
-- 3/6 soc: fsl: guts: Acked-by Frank Li (fsl tree) and Christophe Leroy,
-  Reviewed-by Vladimir Oltean
+[Severity: Low]
+Should the unit-address on wcd9378c be @0,3 instead of @3,0 to match
+reg =3D <0 3> (link ID 0, instance ID 3) and the qcom,wcd9378-sdw.yaml
+binding?
 
-- 4/6 pinctrl: Reviewed-by Frank Li and Vladimir Oltean
-
-Regarding the DTS, if my understanding is correct, please,
-Rob, Krzysztof, Conor: could you have a look at 1/6 ?
-
-Then, the two DTSI patches, 5/6 and 6/6, will go through Frank once 1/6 to 4/6
-are in your tree, as he wrote:
-   https://lore.kernel.org/all/awebHKtul2FHepc7@SMW015318/
-
-Thank you,
-  Vincent
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126183806.1724=
+85-1-srinivas.kandagatla@oss.qualcomm.com?part=3D5
