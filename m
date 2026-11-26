@@ -1,81 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795692202;
-	b=rv/yfLIeBzEOR8ZQycmPpdPXgIhiLr4e1KCu8dntpjdr5w5W0/fy2H0f1tFrq2K5PZPB
-	 ajzaQx4kGMxvB/cBxacKzbJ8DFCEl8DfWSL060Ra2ykF+n0vbyRgghqzmJHLF3fRt9e3w
-	 tx6mL4bXsDMIN4vWm/0eUhvfsCs5hENoNZ1m4HYwhZCw4i0cQwCBNHBr5iTtc9uN6JULG
-	 kKUG4kv5p80jFbpiykFE+FqKmARDNzbP+QXYxlTUaTBQVDDeCZ5Z5uOodADCk0Fp33PzD
-	 Xt7ovxWUXMz1zIwpXf/AJ0pbXLWBz3dZm1mYc/UdPJ8tA1O+s1Gob9nUdsW+W7StZwA==
+	t=1795692204;
+	b=HEnC+ZMRhLOJTzgBoSwPzJ7gi0GkKiQr033Tqv23ZgJ5qVDU2InHxz7t8jOskY3zN71n
+	 uOOhL1bD1Qm5MeYletNKqEfTLwlSd9+5XI9GTGXBqEXNvcsqTV/RIsvS6A6tl6HqwyQb/
+	 srFNPLRgqTQTOyCgqsQLgrGlTt2t7cEq3kuUkQ01OEhEGNjrYH04qwGcXgJIFkQv8pRS3
+	 tRWYs3TivluoA+6XC8erlscttoK7qxFHUK2EY9e6n22rXKIlmeOsl2DeZAKCW4AOWMugk
+	 HrBumXZif8yg1AnbV72S95jMRQNm6Wc/E1twnVKMmHBlxlhkkf8/nswnSeoWFQMQHMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795692202;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=aaXBpVUsxWks4S8WneNNxsk86aDtwl54ji96E5mQoy8=;
-	b=ZIRjCA9qbuO0hCfte8x2am6EbC4WwDxp+FSAsiT6JPALSWEXeYzIPdmtE/z8s/3ji1Rj
-	 wK5DcETI5sXA7PxE6x/zzpxeeFMU1SyNEubkQru4JVjGY6hX0gTLZw12JX146gldggtL/
-	 ZjuUCCMU38jMr1xPoVjNHMG+4LTlr0GBNwNvopbzpKiESSzsoiiT4wTAEJ+3SswW6p7nN
-	 xdrdEXKP+2oux1G8mCMhMkk3eedzkNWe31lqbXeudQ1533AX+I9xm+JEYPeVaSx7rTI0K
-	 JgqqQj/kpfepT5XPJYOiBLUDfsjxsq4qcnnAahXLBBJCL+LMEFwsJ+S/u6QY2KKKRXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795692204;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=nkVHTBWGRkEmPj0y0p+bGJ739Ifet0BlvM+VCtljhP0=;
+	b=EsAUhXy1qVKLFw/BlZxTEHlhihu/9DwTMYCPuIeur4ygmxeam1QwHCTPHd/u/KYtxSzT
+	 FQABusSagx6SteDCQMxhwoHtIZ+9C0L4t8fczqyovNFlOcLyNij/0FPyYZcINkuo20CaB
+	 TSqou8EnWFRAE2CMRYq6ZwYQ3aDWs1bt09XJsKTtYqqoBwaJrqif1A4f6HthIxcGBsvv8
+	 ok9cLbKqXULDFsnfc6OvwmtvTl0RdZ84g64YoUNHR1eZbzv0dtNnWgK+/I2Yokoc+GAW+
+	 ouDgHQ6+OyvnNt5skazFGmYqINueNyraIsk6Pl6P85Pl/+0WUtMS/gEaR0+GQ57kWVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=LAg0mqpY;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=lrYSgtMC;
+	arc=none smtp.remote-ip=209.85.167.54
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A9C8606A681;
-	Thu, 26 Nov 2026 11:23:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A9C8606A681
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F52606A692
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 11:23:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97F52606A692
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=LAg0mqpY
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 1B97C4E4179E;
-	Thu, 26 Nov 2026 11:23:20 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id DC6C860237;
-	Thu, 26 Nov 2026 11:23:19 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D901B11E6B367;
-	Thu, 26 Nov 2026 12:23:13 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795692197; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=aaXBpVUsxWks4S8WneNNxsk86aDtwl54ji96E5mQoy8=;
-	b=LAg0mqpYS037Dxvw5vx2d6QJjX48nCEylBE0GXhR6byM0pM5Yw68ajHjHIbxd7NCwUXhot
-	l7m/7pr6V6E2fUxIAgWUnXOk5RMf2EujBZiUVGGmSZeglSIo2Mw3Kfc0dbpwf/NEVF9poj
-	ylrFYPXxwFFMuHF1E8Y+vqjPFe/EuSLLqAKSQJ99RT+3GJ5nRIQ1XWajvxpZuSaaaex95O
-	HxSZ8oOjhH1dtcwZeAmC6udJJ2Z2nJl4uijJsxXeRSvNa9zE+ZAWdMvAsg5Rjagzc5IPRa
-	h3euDRZt0cexb9rV/xUZZd9Hib6H+6xAMTTEuyRNsuBiMlID2mAUXl9stJ4SlA==
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Herve Codina <herve.codina@bootlin.com>
-Subject: [PATCH v4 02/22] tests: Add a test for fdt_root_offset()
-Date: Thu, 26 Nov 2026 12:22:19 +0100
-Message-ID: <20261126112239.636284-3-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261126112239.636284-1-herve.codina@bootlin.com>
-References: <20261126112239.636284-1-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=lrYSgtMC
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5be4716d76fso714059e87.2
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 03:23:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1795692202; x=1796297002; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=nkVHTBWGRkEmPj0y0p+bGJ739Ifet0BlvM+VCtljhP0=;
+        b=lrYSgtMCrESJBFokuoEjstgT0mV42/g7ywFU2W8mYFTCtK2+ri2Nw5YeyTEfXxzUFz
+         uxh78hcP/h6G4FxUzs1L+xG13Y9Eh+8HlWzvc3xanKDMUDfHCsDomSD2R6kBBvormnkv
+         pqeUyY0AL39Cw22AksXMAPwAes7vNWB7hxEE+AhrCG+XGTCeMIelkoBRi5bQAQvVoHrZ
+         m3T9I3UtIN3KbkNwKlU6p5cMNZ4lqAACgJMl1jeAxQX9yJrYZdktam9OXCguCvZzyQaH
+         NBjRs06aWGpKVKlSlGRTAhqk3AvKukeUxZ9JvsJzNrYJEKL9LlS/FW8I2HiiUP4KO2bh
+         tCoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795692202; x=1796297002;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nkVHTBWGRkEmPj0y0p+bGJ739Ifet0BlvM+VCtljhP0=;
+        b=JSTJ/vrHLVLiG3vk7sE8zJTwiQcSHNT5Z5XbDuCVLCtjUd61VDUIMdzY/wfjFTbMfv
+         0bfCHOG/LyX7OJsCE/H1lLZYdW279S+ID2QLD6JORfV/XVVns8VojubLeK1GzyNt6nk4
+         hkRlCkuQ0A4/CMn+6+0VbhdPbYc9GU/6g+pfANEZCqZow2ZJ0smwnlXNaMJjXixurHTy
+         7/BxWKQRGu15UbkPm/QAFMnLBjLO10bjLdp5flRS9p3fy+GORX+sb7BPexHzOm2rAqO9
+         Nl007HZsqkkpAChYX0YQ8OR5nD1Dzu42EBhLfurcBIdcZeNIDtULLH5P4d0elu68dPhz
+         uaDQ==
+X-Forwarded-Encrypted: i=1; AL+hErEvgZHZHkeFNv/xicD4Tlgs1UXPQiAliVvCiOu7XNCq+s2ts6awhnItCmbOy+m9IxeNpmCzVZ+sMCXx@vger.kernel.org
+X-Gm-Message-State: APuU4Z976V2Zb/pGmtKqhvaSLHgRiLt+sqdTinbyK+7jG+fJbyiu+72+
+	uy+Hff6WcMhExsvRgKitYNKmO0GFg4ZN+uu+AdQPvshbeZ3Qqkpq1bI98yuaYeWEMYI=
+X-Gm-Gg: AZFdTZcnEVWDpqSSLtHucNFIgHebwnlTLjydr4uQTUPXh/YAAOfVb/ssjz72rvPmDZc
+	sI0YJ+OUYTibljYa2URZ3eG1NZvz0mlPwFh9zx/l1iswek9k/KSj4hxa4lDwhE8w1ayYrwbQQsY
+	BQxEKRKe2iEKi6L3JYaQZJEcF/UhvF7TUQb5Tta0iXaZ2Ro4h7JQigd88IgViMKCYpfo2BG8KUF
+	QaFucKUyY4dVDdElLmwG3p0hIddslb6MenUx+EwXr5IE4OkMry5nBy1EDKk8ZSJBAvCUZV9HgLM
+	k5HQSfOfkeVRQ+b3bisOEnVZxuPCQaU1B1K1TGdvI9yvNpNXfkt80ipI4YuhmXx2d2BXADfoPXM
+	r577wMQLNGrIpwUHaWFOAFIJLdnFTAYUtKk35cYCBitbhESN8Shd4ebcuYWXiqry0+VfQUteE+q
+	N097oOrHgVk9OVBj+DbH+xxLYVE9j3WGhEJLI56C7PKP9e9bA4cRbOwL8X1VNdwGrXntzgjzbk1
+	q0ifjTveso5RHfRWmcsOFK3xnfgrw+ZUzvHf4Nbe++lzwRdTr0u1JLoKNrvLtdZQnS01aQ0FGgM
+	SYFde0L1ysWepomPZqwhAjABnZfmu6xroBdBwfgTpPqC3ekEZpDTxKiVTf5npmgOR9wMCP1emLG
+	dnrwn1Uo=
+X-Received: by 2002:a05:6512:6313:b0:5c1:ac32:9904 with SMTP id 2adb3069b0e04-5c1bc80e619mr6458406e87.3.1795692201670;
+        Thu, 26 Nov 2026 03:23:21 -0800 (PST)
+Received: from [192.168.1.101] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bd077b37sm5089736e87.74.2026.11.26.03.23.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Nov 2026 03:23:21 -0800 (PST)
+Message-ID: <8a34e083-f364-4eee-9a46-9533647f323a@linaro.org>
+Date: Thu, 26 Nov 2026 13:23:20 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,207 +91,134 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] dt-bindings: media: qcom,sm8650-camss: Add test
+ pattern generators
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20261031112203.545319-1-vladimir.zapolskiy@linaro.org>
+ <20261031112203.545319-2-vladimir.zapolskiy@linaro.org>
+ <CAFEp6-0Ykn4VNMMAa-WzCDcJ9=Z0x9Vd5e7z8FSNf72gGL7c2Q@mail.gmail.com>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <CAFEp6-0Ykn4VNMMAa-WzCDcJ9=Z0x9Vd5e7z8FSNf72gGL7c2Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-The fdt_root_offset() function has been recently introduced.
+Hi Loic.
 
-Add a specific test for this function.
+On 11/26/26 12:52, Loic Poulain wrote:
+> On Sat, Oct 31, 2026 at 12:22 PM Vladimir Zapolskiy
+> <vladimir.zapolskiy@linaro.org> wrote:
+>>
+>> Qualcomm SM8650 CAMSS contains three test pattern generator (TPG) blocks.
+>> Describe their register spaces and the non-real time CAMNOC AXI clock,
+>> which is required to get TPG output frames passed to VFE.
+> 
+> Do you know why TPG support requires the non-RT CAMNOC AXI clock? Does
+> the TPG perform any memory accesses?
 
-Signed-off-by: Herve Codina <herve.codina@bootlin.com>
----
- tests/.gitignore     |  1 +
- tests/Makefile.tests |  4 ++--
- tests/meson.build    |  2 ++
- tests/root_offset.c  | 45 +++++++++++++++++++++++++++++++++++++++++
- tests/run_tests.sh   |  3 +++
- tests/treegen.c      | 48 ++++++++++++++++++++++++++++++++++++++++++++
- 6 files changed, 101 insertions(+), 2 deletions(-)
- create mode 100644 tests/root_offset.c
+No, I don't know the details, here it is a simple experimental evidence,
+basically TPG works with this clock enabled and does not work without it.
 
-diff --git a/tests/.gitignore b/tests/.gitignore
-index 69693129..914699be 100644
---- a/tests/.gitignore
-+++ b/tests/.gitignore
-@@ -56,6 +56,7 @@ tmp.*
- /references
- /relref_merge
- /root_node
-+/root_offset
- /rw_tree1
- /rw_oom
- /set_name
-diff --git a/tests/Makefile.tests b/tests/Makefile.tests
-index dfb2fe52..f6b22fbd 100644
---- a/tests/Makefile.tests
-+++ b/tests/Makefile.tests
-@@ -1,5 +1,5 @@
- LIB_TESTS_L = get_mem_rsv \
--	root_node find_property subnode_offset path_offset \
-+	root_node root_offset find_property subnode_offset path_offset \
- 	get_name getprop get_prop_offset get_phandle \
- 	get_path supernode_atdepth_offset parent_offset \
- 	node_offset_by_prop_value node_offset_by_phandle \
-@@ -44,7 +44,7 @@ TESTS = $(LIB_TESTS) $(DL_LIB_TESTS)
- TESTS_TREES_L = test_tree1.dtb bad_node_char.dtb bad_node_format.dtb \
- 	bad_prop_char.dtb ovf_size_strings.dtb truncated_property.dtb \
- 	truncated_string.dtb truncated_memrsv.dtb unterminated_memrsv.dtb \
--	two_roots.dtb named_root.dtb bad_proplen.dtb
-+	two_roots.dtb named_root.dtb root_offset_12.dtb bad_proplen.dtb
- TESTS_TREES = $(TESTS_TREES_L:%=$(TESTS_PREFIX)%)
- 
- TESTS_TARGETS = $(TESTS) $(TESTS_TREES)
-diff --git a/tests/meson.build b/tests/meson.build
-index 97fb15a6..3d16ae23 100644
---- a/tests/meson.build
-+++ b/tests/meson.build
-@@ -17,6 +17,7 @@ treegen_dtb = custom_target(
-     'unterminated_memrsv.dtb',
-     'two_roots.dtb',
-     'named_root.dtb',
-+    'root_offset_12.dtb',
-     'bad_proplen.dtb',
-   ]
- )
-@@ -76,6 +77,7 @@ tests = [
-   'references',
-   'relref_merge',
-   'root_node',
-+  'root_offset',
-   'rw_oom',
-   'rw_tree1',
-   'set_name',
-diff --git a/tests/root_offset.c b/tests/root_offset.c
-new file mode 100644
-index 00000000..029f84b6
---- /dev/null
-+++ b/tests/root_offset.c
-@@ -0,0 +1,45 @@
-+// SPDX-License-Identifier: LGPL-2.1-or-later
-+/*
-+ * libfdt - Flat Device Tree manipulation
-+ *	Basic testcase for fdt_root_offset()
-+ *
-+ * Copyright (C) 2026 Bootlin.
-+ *
-+ * Authors:
-+ *   Herve Codina <herve.codina@bootlin.com>
-+ */
-+
-+#include <stdlib.h>
-+#include <stdio.h>
-+#include <string.h>
-+#include <stdint.h>
-+
-+#include <libfdt.h>
-+
-+#include "tests.h"
-+#include "testdata.h"
-+
-+int main(int argc, char *argv[])
-+{
-+	int expected_root_offset;
-+	int root_offset;
-+	void *fdt;
-+
-+	if (argc != 3)
-+		CONFIG("Usage: %s <expected root offset> <dtb file>", argv[0]);
-+
-+	test_init(argc, argv);
-+	expected_root_offset = strtol(argv[1], NULL, 0);
-+	fdt = load_blob(argv[2]);
-+
-+	root_offset = fdt_root_offset(fdt);
-+	if (root_offset < 0)
-+		FAIL("fdt_root_offset() fails (%d - %s)",
-+		     root_offset, fdt_strerror(root_offset));
-+
-+	if (root_offset != expected_root_offset)
-+		FAIL("fdt_root_offset() returns %d, expected %d",
-+		     root_offset, expected_root_offset);
-+
-+	PASS();
-+}
-diff --git a/tests/run_tests.sh b/tests/run_tests.sh
-index 1d3e79ac..65ea5894 100755
---- a/tests/run_tests.sh
-+++ b/tests/run_tests.sh
-@@ -435,6 +435,9 @@ check_tests () {
- ALL_LAYOUTS="mts mst tms tsm smt stm"
- 
- libfdt_tests () {
-+    run_test root_offset 0 test_tree1.dtb
-+    run_test root_offset 12 root_offset_12.dtb
-+
-     tree1_tests test_tree1.dtb
- 
-     run_dtc_test -I dts -O dtb -o addresses.test.dtb "$SRCDIR/addresses.dts"
-diff --git a/tests/treegen.c b/tests/treegen.c
-index 3e7a6f24..c9bf5711 100644
---- a/tests/treegen.c
-+++ b/tests/treegen.c
-@@ -701,6 +701,53 @@ static struct buf make_named_root(void)
- 	return b;
- }
- 
-+/* Tree with the root node at the offset 12 */
-+static struct buf make_root_offset_12(void)
-+{
-+	struct buf b = buf_init();
-+	size_t hdr;
-+	size_t p_int, p_sn_int;
-+
-+	hdr = emit_fdt_header(&b);
-+	emit_align(&b, 8);
-+
-+	emit_rsvmap_empty(&b, hdr);
-+	emit_rsvmap_empty(&b, hdr);
-+
-+	{
-+		size_t ss = start_block(&b);
-+
-+		emit_u32(&b, FDT_NOP);
-+		emit_u32(&b, FDT_NOP);
-+		emit_u32(&b, FDT_NOP);
-+
-+		emit_begin_node(&b, "");
-+			p_int = emit_prop_u32(&b, 0, 0x1);
-+
-+			emit_begin_node(&b, "subnode");
-+				p_sn_int = emit_prop_u32(&b, 0, 0x2);
-+			emit_end_node(&b);
-+		emit_end_node(&b);
-+
-+		finish_struct_block(&b, hdr, ss);
-+	}
-+
-+	{
-+		size_t strs = start_block(&b);
-+		size_t s;
-+
-+		s = emit_string(&b, "prop-int");
-+		fill_prop_name(&b, strs, p_int, s);
-+		fill_prop_name(&b, strs, p_sn_int, s);
-+
-+		finish_strings_block(&b, hdr, strs);
-+	}
-+
-+	finish_totalsize(&b, hdr);
-+
-+	return b;
-+}
-+
- static struct buf make_bad_proplen(void)
- {
- 	struct buf b = buf_init();
-@@ -751,6 +798,7 @@ static struct {
- 	TREE(unterminated_memrsv),
- 	TREE(two_roots),
- 	TREE(named_root),
-+	TREE(root_offset_12),
- 	TREE(bad_proplen),
- };
- 
+I believe the NRT clock is "cheaper" and good enough for TPG usecase, and
+to some extent it is a buffer data copying from some (static?) memory page
+sitting inside a TPG IP block, while dealing with PHYs requires more
+expensive RT clock.
+
+>>
+>> Signed-off-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+>> ---
+>>   .../bindings/media/qcom,sm8650-camss.yaml     | 24 ++++++++++++++-----
+>>   1 file changed, 18 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8650-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sm8650-camss.yaml
+>> index 9c8de722601e..50ae30cdcb82 100644
+>> --- a/Documentation/devicetree/bindings/media/qcom,sm8650-camss.yaml
+>> +++ b/Documentation/devicetree/bindings/media/qcom,sm8650-camss.yaml
+>> @@ -17,7 +17,7 @@ properties:
+>>       const: qcom,sm8650-camss
+>>
+>>     reg:
+>> -    maxItems: 17
+>> +    maxItems: 20
+>>
+>>     reg-names:
+>>       items:
+>> @@ -38,9 +38,12 @@ properties:
+>>         - const: vfe2
+>>         - const: vfe_lite0
+>>         - const: vfe_lite1
+>> +      - const: tpg0
+>> +      - const: tpg1
+>> +      - const: tpg2
+>>
+>>     clocks:
+>> -    maxItems: 33
+>> +    maxItems: 34
+>>
+>>     clock-names:
+>>       items:
+>> @@ -77,6 +80,7 @@ properties:
+>>         - const: vfe_lite_ahb
+>>         - const: vfe_lite_cphy_rx
+>>         - const: vfe_lite_csid
+>> +      - const: camnoc_nrt_axi
+>>
+>>     interrupts:
+>>       maxItems: 16
+>> @@ -226,7 +230,10 @@ examples:
+>>                     <0 0x0ac71000 0 0xf000>,
+>>                     <0 0x0ac80000 0 0xf000>,
+>>                     <0 0x0accc000 0 0x2000>,
+>> -                  <0 0x0acd1000 0 0x2000>;
+>> +                  <0 0x0acd1000 0 0x2000>,
+>> +                  <0 0x0acf6000 0 0x400>,
+>> +                  <0 0x0acf7000 0 0x400>,
+>> +                  <0 0x0acf8000 0 0x400>;
+>>               reg-names = "csid_wrapper",
+>>                           "csid0",
+>>                           "csid1",
+>> @@ -243,7 +250,10 @@ examples:
+>>                           "vfe1",
+>>                           "vfe2",
+>>                           "vfe_lite0",
+>> -                        "vfe_lite1";
+>> +                        "vfe_lite1",
+>> +                        "tpg0",
+>> +                        "tpg1",
+>> +                        "tpg2";
+>>               clocks = <&camcc CAM_CC_CAMNOC_AXI_RT_CLK>,
+>>                        <&camcc CAM_CC_CPAS_AHB_CLK>,
+>>                        <&camcc CAM_CC_CPAS_FAST_AHB_CLK>,
+>> @@ -276,7 +286,8 @@ examples:
+>>                        <&camcc CAM_CC_IFE_LITE_CLK>,
+>>                        <&camcc CAM_CC_IFE_LITE_AHB_CLK>,
+>>                        <&camcc CAM_CC_IFE_LITE_CPHY_RX_CLK>,
+>> -                     <&camcc CAM_CC_IFE_LITE_CSID_CLK>;
+>> +                     <&camcc CAM_CC_IFE_LITE_CSID_CLK>,
+>> +                     <&camcc CAM_CC_CAMNOC_AXI_NRT_CLK>;
+>>               clock-names = "camnoc_axi",
+>>                             "cpas_ahb",
+>>                             "cpas_fast_ahb",
+>> @@ -309,7 +320,8 @@ examples:
+>>                             "vfe_lite",
+>>                             "vfe_lite_ahb",
+>>                             "vfe_lite_cphy_rx",
+>> -                          "vfe_lite_csid";
+>> +                          "vfe_lite_csid",
+>> +                          "camnoc_nrt_axi";
+>>               interrupts = <GIC_SPI 601 IRQ_TYPE_EDGE_RISING>,
+>>                            <GIC_SPI 603 IRQ_TYPE_EDGE_RISING>,
+>>                            <GIC_SPI 431 IRQ_TYPE_EDGE_RISING>,
+
 -- 
-2.56.1
-
+Best wishes,
+Vladimir
