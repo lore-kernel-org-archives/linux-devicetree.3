@@ -1,47 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795718878;
-	b=wpKNl4NTwKSbkMAwH+CELU2o99Asl0EvmwHupiwl4xGotQGQy9jTjGRHr4/ugZuBoCPt
-	 9b+syo5hZNkuLTw6qHxzl+TSmyEupiCotBD1owaa2sc3h1a2nvz6vwNws9SsM0nlGuRhS
-	 5ishPiIw4fGeH91N5HF/WEE6RuRH2+jjYTwKoYmyl6tyOQSreDC5m00UpRvd8hfEcxknc
-	 ey13aaY7ysHW8mPjjr9m1BNiM1CbUBho4lgpN5zlD8heQLOk8fJRjWTO9grLXE/2M3IsK
-	 iBGOf+K/ojMRoYp+OOD3uITtEjwdQLeyyw+w3NtC5fvAKB/TdEB4HBn+2OmPHIeaylw==
+	t=1795719000;
+	b=fMTRvxqK7LkACm5YGeIel9qeqGNMA447LPMs24QRoWqUiVcgMtaIOqSpetIMPyahGIQd
+	 l1nOV8/9xSxfyCdNNNSkwYVTuedokZvsEU2dVUlKU+6pKgfhy+j0GKGgtwGfumJlA2aHh
+	 P0/6sz69uhxqrWHR5PSGhKQVayXQTr0s29wp6xovS5fVCczSezmWvLv1woN23oqy6X8Mb
+	 ZgYlLnOodO5ltLkKDUHCa6Dh8jFgxKyi4grRuQVOXqPvFnV2enJCFoXnjFr1ry8DQRTkE
+	 /az7wXjn/W3jvvs19AtklOWYGOz959JjOjInpsXzgioT2Pgw/xMYyR/+T+xTl9r1nEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795718878;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=DkUy01y7xEbf/+LpBM+I9BkjCedA7NkFboIBCgJYdX4=;
-	b=ou0EYExxngaAZPbMYMu46pqvQUADkpDqH6iQyEiWDbyQMujtYh4tOaRIKK/9DReENuoD
-	 zsy3iaPTmmsXbAAOJbpBs9MvbhUuwEv8IPvYSqSI1kbSx8kajMckHrebvsEFMZ9gzOpTu
-	 XBndWHpC4Y+gVvAGEDY2hd+YJw6tGDuVGZKnlliEpqdBEvFoSWQJvnwmKMWN/AbAdVAjK
-	 FcccnHqF5AaWPIdBvXghBQtXFFWZbbZl7YkZOlU0S9eLQt7ZC+MoDeh9yp44oMyUsue9J
-	 FDyH7LbHTn/ycOqb4x5p8F0612IILjr+O1oyB0ZPFbXPJNuJul0q+ehF8w0ATVAMIjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795719000;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=jLtT3v/hHF87VwRc3dXwwdt5vQ6kMiJljjFOoVV4GW0=;
+	b=BuaNB/XaaMNecLLyr7tRbqRxclJkvw0CHptR+XhWVgbsmPaMO9delk5pslzKxxWUiJN9
+	 Zz4BkRUYjzc5IOUWsuzdYFFNLbJQECGHnxZJ+BllQQpUB9YNeM7dRlJG7EtLzvUG3QOXO
+	 KcwJ4C5g06fLQiu1Wrz+klqGhahA6N+zygFAigIIMSua7Bo+WZNTeVKWNM13896sKp1hj
+	 fHUIw3zastieD9FDckfm5cQIeg1EJbN6RMKD+Siad7tM8MCoH7VFP6qz3hYz4GCJWXHPB
+	 /XagXSMKmsJ+xZzxgr0i923fMggD7/7KCxVswJc9xU1D2R7NMbMemZg674C9MUYdURA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jBF4TsmR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pw0ZRCPs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BE5606A31C;
-	Thu, 26 Nov 2026 18:47:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A44A606A31C;
+	Thu, 26 Nov 2026 18:49:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jBF4TsmR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D96E01F000C4;
-	Thu, 26 Nov 2026 18:47:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pw0ZRCPs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35A051F000C4;
+	Thu, 26 Nov 2026 18:49:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795718877;
-	bh=DkUy01y7xEbf/+LpBM+I9BkjCedA7NkFboIBCgJYdX4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jBF4TsmR7GFh0k+NboYQnFAM4Y9gkAG1djVNMrQN9KWPX/AVg8obZFA8aMlb1vSBF
-	 RFXE+SgvQW6oO617L66UefSjI5+Gik4HBNMhBLbx8qSb4SXhxFatRXaZMfhUI2cK2k
-	 YASGpLIcsWeP8Qec2WYUrQc5K1JouNMPZkjtTCCyW3b1GfRV0ptfopc9X9AQFcIuFm
-	 pbqFcvQiCeGUyrhZiu4js0k1W+cESSxlFxtoeahqRnvCCpQ6i0WKbyp6YOJm8CVYbZ
-	 A/sZjS4dVvEiJy7q3qWWJ3svug03JcZNwXzevVScebjbg5dopXjvb0DctlWO6ogOSH
-	 3mTYNeHIVBkqw==
-Message-ID: <cdc5f00b-380c-4c8a-800d-967008c16a4f@kernel.org>
-Date: Thu, 26 Nov 2026 19:47:47 +0100
+	s=k20260515; t=1795718999;
+	bh=jLtT3v/hHF87VwRc3dXwwdt5vQ6kMiJljjFOoVV4GW0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Pw0ZRCPsIAJq1bALozCWoh3I1Li839849+iMfpCHVyBDggu7rKW8e3uFWuqRF2TXz
+	 L/+Jo/OgZwiguf6iC38c4h4GY9KLc9M1kRvTtY54GUiR0lFrGOSudblQY2b7XQugzV
+	 rBraBJjF9nQoWDG/WiaEpO3I4Mfg/NbtM/i2qtMWWsWAPXhcN3Z+p66pfALln0cPBY
+	 1+5vGSKYJz7hYRlz1C6NI+UCP5x+/wYREgONVg4yv/h+F0fTODGUh4Aoy5XwSYFiQW
+	 nzh5aYELEOWlf9i0L8SFOb8LKPwAna7C7yh2IdqBrOZmXeSL8upXlIPYy6U6xQC3NA
+	 XdmZvl5HTsYnw==
+Message-ID: <sashiko-outbox-236034@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/7] arm64: dts: qcom: glymur-crd: enable WCD9378
+ headset codec
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261126183806.172485-3-srinivas.kandagatla@oss.qualcomm.com>
+References: <20261126183806.172485-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20261126183806.172485-3-srinivas.kandagatla@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Nov 2026 18:49:58 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -50,55 +60,89 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 0/6] lx2160a: change the pad muxes through the RCW
- override
-To: Linus Walleij <linusw@kernel.org>, vjardin@free.fr
-Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
- Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- NXP S32 Linux Team <s32@nxp.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- imx@lists.linux.dev, Vladimir Oltean <vladimir.oltean@nxp.com>,
- Ioana Ciornei <ioana.ciornei@nxp.com>
-References: <20261118-for-upstream-lx2160a-rcw-pinmux-v1-v8-0-d01bc837593e@free.fr>
- <CAD++jLnRWZrLfyBGGOikx_eeYXirahuB7E7yuDhB6KoSAQoA5w@mail.gmail.com>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <CAD++jLnRWZrLfyBGGOikx_eeYXirahuB7E7yuDhB6KoSAQoA5w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-Hi Linus,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Low] arm64: dts: qcom: glymur-crd: reversed unit-address in codec@3,0
+  for reg <0 3>
+- [Low] arm64: dts: qcom: glymur-crd: non-standard property order in swr
+  and wcd nodes
+--
 
-Le 26/11/2026 à 13:53, Linus Walleij a écrit :
-> Hi Vincent,
-> 
-> On Wed, Nov 18, 2026 at 12:00 PM Vincent Jardin via B4 Relay
-> <devnull+vjardin.free.fr@kernel.org> wrote:
-> 
->> The LX2160A muxes its IIC, XSPI, SDHC, UART, IRQ and EVT pads from
->> fields of the RCW. They are read-only in RCWSR12..14 of DCFG, and are
->> changed at runtime through the override registers in the DCSR view of
->> DCFG, which read 0 until written.
->>
->> Since commit 8a1365c7bbc1 ("arm64: dts: lx2160a: add pinmux and i2c
->> gpio to support bus recovery"), fsl-lx216x.dtsi drives the override
->> registers with pinctrl-single for the I2C bus recovery. Its first pin
->> state clears every other field of the word: a board whose RCW programs
->> a non-zero pad mux loses those pads at the first I2C probe.
->>
->> This series reads the fields in effect from RCWSR and writes RCWCR, as
->> fsl_guts_rcw_rmw() already does for the SerDes protocols:
-> 
-> Once the review is complete, can I merge all patches except the DTSI
-> patch through the pin control tree, i.e. does it have the right ACKs?
+commit 89daa162b345f778b119d25e91fe91d54941becc
+Author: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 
-I acked patch 3/6 as maintainer of drivers/soc/fsl/ and include/linux/fsl/
+arm64: dts: qcom: glymur-crd: enable WCD9378 headset codec
 
-Christophe
+This commit enables the WCD9378 SDCA headset codec over SoundWire (swr2
+primary and swr1 dependent) along with the playback/capture DAI links and
+reset GPIO pinctrl state on Glymur CRD.
+
+> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/d=
+ts/qcom/glymur-crd.dtsi
+> index 3a9cd5f3ec2b8..be0a2cf10f543 100644
+> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+
+[ ... ]
+
+> @@ -791,6 +826,44 @@ right_tweeter: speaker@0,1 {
+>  	};
+>  };
+> =20
+> +/* WCD9378 multi-master: swr2 primary + swr1 dependent (DATA lanes 2/3).=
+ */
+> +&swr1 {
+> +	qcom,multi-master-mode =3D "dependent";
+> +	qcom,multi-master-peer =3D <&swr2 0>;
+> +	num-lanes =3D <2>;
+> +
+> +	status =3D "okay";
+> +};
+> +
+> +&swr2 {
+> +	qcom,multi-master-mode =3D "primary";
+> +	qcom,multi-master-peer =3D <&swr1 5>;
+> +	num-lanes =3D <2>;
+> +
+> +	status =3D "okay";
+> +
+> +	wcd9378c: codec@3,0 {
+> +		compatible =3D "sdw20217011000";
+> +		reg =3D <0 3>;
+
+[Severity: Low]
+Should the unit-address on wcd9378c be codec@0,3 (or audio-codec@0,3) to
+match reg =3D <0 3>?  SoundWire slave reg cells are <link_id instance_id>,
+so @3,0 reverses the link ID and instance ID relative to reg and the
+qcom,wcd9378-sdw.yaml binding example.
+
+> +
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&wcd_default>;
+> +
+> +		qcom,sdca-compliant;
+> +
+> +		qcom,port-mapping =3D <2 2 3 4 5 6 7 8>;
+> +
+> +		reset-gpios =3D <&tlmm 191 GPIO_ACTIVE_LOW>;
+> +
+> +		vdd-buck-supply =3D <&vreg_l15b0>;
+> +		vdd-rxtx-supply =3D <&vreg_l15b0>;
+> +		vdd-io-supply =3D <&vreg_l18b0>;
+> +		vdd-mic-bias-supply =3D <&vreg_bob1_e0>;
+> +
+> +		#sound-dai-cells =3D <1>;
+> +	};
+> +};
+
+[Severity: Low]
+This isn't a bug, but per the DTS coding style, standard properties should
+precede vendor-specific qcom,* properties (num-lanes before
+qcom,multi-master-* in &swr1 and &swr2, and reset-gpios, vdd-*-supply and
+#sound-dai-cells before qcom,sdca-compliant and qcom,port-mapping in
+wcd9378c), with pinctrl-0 placed before pinctrl-names.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126183806.1724=
+85-1-srinivas.kandagatla@oss.qualcomm.com?part=3D2
