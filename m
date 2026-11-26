@@ -1,111 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.141
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795689131;
-	b=hcwKEfS6bEmFR5cmxmfXNu3W9UtObLe2RFFAIEZqJ65a7t+05ToHFw/ccIrB9nNtBcMZ
-	 8d62y+4uNot3hIOI3vRNFgYidbDPRDPwHxPhtV9dGgP50QetZPC08CTo8d35RatRYbwVf
-	 1DBYXpik9JKAB5FH8ZlkFrI+DtVGPycRm8kfJDfQZsH6zZazRPoAGqil2g6YPoxOqS0/H
-	 gjZ3NSDMfHWFt+xa4foOiDuBEfiLauDd1jMcolSnibfw0vBpGcC6lultH9eXdP8nXgIN5
-	 JGFY0WKttd0zSUqxW8d+zribtXgmih5XtDaMSiS6xEpQIoRSj2xMo7cVYheS0CIauDg==
+	t=1795689244;
+	b=r2+62+jXMCzMbJOvVgTP73DriHYSX+LF5/VMR6YtE0KxOWxPbVwFNNsDITq5kmPYzaDR
+	 RrGCBV2dAIZ4gOWO+jfg2+agifopB84hmV4zS0L6fHCyRxnqj9B/J90FIog8uJsoJRcED
+	 Fshy/MoA8Q3/N2StkIIxjnPkAmy21Rd4sHU4A5P/zGEQRFkYJqb3rVoJgVjQAXQSpZ6Dk
+	 l4ir/AXEcRPtAP/ptWS8iVnYm7T3e9uTWdw727lOrxo+9x5o4I6+xl+tXJ7UudB4r8s/5
+	 Ftf+mtQAjNVqhllSN70ihdBj8w6nX5BFYkTiupcL6hAuNmGPDuYg9z0CtsFHKZV/glg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795689131;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=zwLpoMTDh+rDsEqSsqnZuSBnBidh5uHQGhBxiSxbmTw=;
-	b=xJkozvfkQZ4+jnbHzZQ7RvhhItwJ2s7g2hb6dE1GnL13RS/F5ck2/PXABLoqfzYtNI/V
-	 dsTK5M16+lC0h/mGUn6hTJfHiUDBdIBMVMC80qbsUSYWfz+llcE3ooFeh4WkLRoYLy9BS
-	 hayBEvlOzaOElfxGqMN6JnvKbk41Xbk0bwAMeBHrXJ34MsTWFpl4hlZgWrcKMNV2rD54S
-	 u6w9g4V+qeed/hzSBLaTPzAo2RlMumD2AMRHWBIQZ0ow2PRdq6KjL9mTsOiydPJ/5nGJc
-	 0Oo1Lo139vO6qgqTMS4LGrK2tuuqu+fDQes/vmlnTnZo81Qcoc1sWXZPgLZ7yxZp80Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795689244;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=QUY9+Y2VxoEdHCsHD5R8MfHCWDCl4kBtw61OaYnUOhg=;
+	b=e316nxWY6bBLlnoVSEa+PvUt86yTWEiZFehM2q6chWlfFbMluzCxvrj/ZH+MKK+t9367
+	 diXT40QoWdXgMAPLcIRz7MtkSOf+mcuWf9FT/o5/YlozliA86mbI2/trdb2vFHH5WA2Rw
+	 6UuCqiXxKVF6il76DowNumgw7f5pZuOF8slGqjjbjkY82Rn1O+nPMdIVk/CUZfbNL6td1
+	 JfYxbmIaxmmE8WvIpqB06kdZiZ4vkynk2/z+5FLGtPdqoVzuqV0uh2RbV+4Nsrf8W5OsW
+	 FvQwLpVQEtUgq/3+BZUvWlI0fVu64OxbY5FEVxV6fH1eCJ84wYstN4pppOszswJH0ww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=glider.be;
-	spf=pass smtp.mailfrom=glider.be;
-	dkim=pass header.d=glider.be header.i=@glider.be header.a=rsa-sha256 header.s=fm1 header.b=IilueBVg;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=LBfXY8J+;
-	arc=none smtp.remote-ip=103.168.172.141
-Received: from flow-a6-smtp.messagingengine.com (flow-a6-smtp.messagingengine.com [103.168.172.141])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=F5Dm8yJq;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8703A606A31C
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 10:32:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8703A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=glider.be
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=glider.be
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D485606A323
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 10:34:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D485606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=glider.be header.i=@glider.be header.a=rsa-sha256 header.s=fm1 header.b=IilueBVg;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=LBfXY8J+
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailflow.phl.internal (Postfix) with ESMTP id 692BC1380239
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 05:32:09 -0500 (EST)
-Received: from ams-imap-13 ([10.64.2.33])
-  by ams-compute-02.internal (MEProxy); Thu, 26 Nov 2026 05:32:09 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=glider.be; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1795689124;
-	 x=1795692724; bh=zwLpoMTDh+rDsEqSsqnZuSBnBidh5uHQGhBxiSxbmTw=; b=
-	IilueBVgdzjicrcAbwIbzrsCJFvKspcf3WV2wiTJYvXNutLxS3LnrR+zMPcQtUTn
-	DYm2LE6hYP2sPW1QMezOxJQ9KQVeGFlcklxWDDAVX3X4YlbQKxIkUsd6RRda3OcZ
-	byNerrN7AWogGco35qjnPHSzpemrdtq+dLRp8v+dWIZZW8k/m1p9scUAIecRBJu2
-	gqvd9kfM+j3Ky0y/x+Oxfvedkz8TJoR6Ev0RJyCQFmSzA1m0zebYHbBt8vImcU/i
-	3AZGl7VDi2kWQCmh9sA5iosJpFCEVMbZhnUgOOxM3825AWbBlPIanVwYUjTDxfq+
-	skTx8ucLnz8AK55zgqAwTQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1795689124; x=
-	1795692724; bh=zwLpoMTDh+rDsEqSsqnZuSBnBidh5uHQGhBxiSxbmTw=; b=L
-	BfXY8J+3QBhpC8LlEnfaUhb+uoTGvbEeGhrXBw+H2Y8Jzac/7AYpPJ0QI9JLDeQE
-	q8ecp38RkL5Bw1yXAfpRUzTjUxxSrx2tCS5BPYMIzxN7tiiEkNWKPT+YH6oEJw0F
-	+8v6fIBSh30HHPfyvrKnGvlnAHosCT5rJjd/mVMqmSYk9tY+RMieGUI2Uuoq1p9G
-	3QQWvaM+ZfOSgT0ArvPZRcxaU1RxIpU7vG8GFkLC+/c8gavGnu/OIlglFOMjH35K
-	MpUgmFNitqmU9cyMC1pj+qIjxsQKv3F8HUbb/kqVl5Sx/HKHQR55pAlVpjhKwqBs
-	MjMEElK1Z3K3FfgFXkW0g==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=glider.be a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1795689124; d=glider.be;
-	mf=PGdlZXJ0K3JlbmVzYXNAZ2xpZGVyLmJlPg==;
-	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
-	s=fm1:rsa-sha256:ilMVsKdJGQUkNkCfE6lBWHxxlNpv1q+xeAxVGPSUkVP5JK8
-	308FbDX/VsmOKo0h6TQA4XBlXQNHqmrZAwFSlAgvIrvvH3646gufuUDRc+DYfX3M
-	gv3zGo3GfcAPcrSXgiqP/SrgYf4uvq+4XNcWq0gvbGCpMUoEcleXwGzeC7WVldYE
-	dzBiPjc4R4tUTURK3qcf2pgArPadQKkej2Uv+38cN0QQe6PUlU2uM7BVyY2zAM0+
-	li6PffPWL4PnToZtEDzQynOFkMgWq/B+zNsmVP82zRxMZge4kuPhyCQCjog0tib/
-	vsOxqKSi/a99UVluRsFbIee39j8LomeX9VXneUQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:e5cy9doLIF5C6wbBkPba6K8PNQINcmhh9dBQqy+XHlY=:bQlHbabK+rwltW9kvGOAlyQRBHqT6rZIVsz7rG1QBUI=;
-X-ME-Sender: <xms:oQoIa2NRa7hQmqTLL6G3bG9NaX3B4hqAODGUfUk45TJQdjm-QHTtkQ>
-    <xme:oQoIa_xso63afPBlnDXcpUlnqyvnNPIDVrS3M8bn6tSiSb69WKaJJtL44T5NPQFNq
-    ZSYJNfshc-CjrRqGVtDy_W_6AQ0IYtsvZ8OS0tWgfBNZYWvehkjZfom>
-X-ME-Proxy-Cause: dmFkZTFqP/5itI8IXg0jtDx1RRhA5+6i9xrlrwkNLGkLPQGfno2so2LZefRssDIodX6/cj
-    Rsw/hicadzFHxkGhz2WpHt2yxszTMbDqzlLglErQk18ti87CYykQRRmg4ZD95lMzCUiieM
-    w0dqTaLk6JrC1Oju9NPXtc0wLxOmwrznPSQnZlG1ZsnTVS44na1OkN8QVKC1GriP1hydXQ
-    GCM0pVwz6upSRk6rtAijuC8D6UqLu9eJk+rzhjUWA14QpWvRUq00b8kK8FS5wKxhFLvs3/
-    2a7Z61Ys8KwskpDpbjvypWPn6y9hOZi3vEwQCWk6XqyGXSELvRrfMMvoZXaus5RCanXStX
-    I03y+KeHmWwnHUNLap0Toidb1Ti1EwpIQUQzxKRMbG0b23Sf+VZcOrKzI5JvjndnggtW4W
-    Ps2HyILsKDXMYI4Csp/NNACHGgCwjpaNmA08eonKeurIhsE6YUkj1DnwV7PjPxRtgXInh0
-    uSQLYm4V/ku6a65AXZrS4aZYwX/i3sPaKgKS9bZSOrzPYCsfLhe2WYkaknaILyxvIX1z/N
-    mhzwTe5GUKANKLQZrPktQ5M/IJGdvkJ6qSDLJRna0o9/GSwqDZ/F7g7eOozfszKW2a85kP
-    zCM5xUNnximjKkAtFZh3hwo+zKzSRI71PmuAz8tUcOIuoBzWtLxz4lQxAzbA
-X-ME-Proxy: <xmx:owoIa4njR6Qo75jvN99EjpCjR3Ji0j8txk1-T6CQk-TI7ThweG_QaQ>
-    <xmx:owoIa__IU0QsoKtLBiXLxXEZ4OCOgsgqP1ZdL8UY-LiX-c14JB26Xg>
-    <xmx:owoIa2K87pSCE6O3zFz8dQgEl0Xslb8RatbgTXrv-A6RLkbvRerPIQ>
-    <xmx:owoIa0jAqN9XDDtorfmgc4ry5mZB9vmeOp0f7yxdhLuQ0qh-5ewsIQ>
-    <xmx:pAoIa1WpxsyVq-1Tp0H614sK4Wmo1A_vmx0IO3pQeQl76LYncvT2x2Aj>
-Feedback-ID: ia0f84a9e:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 715D7F800A2; Thu, 26 Nov 2026 05:32:01 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=F5Dm8yJq
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3282db206d3so2534275eec.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 02:34:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1795689244; x=1796294044; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QUY9+Y2VxoEdHCsHD5R8MfHCWDCl4kBtw61OaYnUOhg=;
+        b=F5Dm8yJqZJ/eIFY4KXNhFuQ/PKsgI8ojbyn4Qk/Mv4AzNggmrVvBIXclzBnaw0Ihf3
+         TAqc4T9s57gJ7Lq9gix1mZwarusULJYDrwY9qHV0IQhC6ZxMrrPZ0rCKn5ENv7LAIbUk
+         Qd94p7yYd/mLJOckfK+3i/vF/51N/1jaVo5XPtSFXmoW/AfxALbT6BzDP7CbsZk+Mdii
+         s9Alx9xyBDo8JoWEUTRl+c7vn48WMLXwuOWQH2lrvec3sDhIsL4poAdHPhkEfNY1Fm/G
+         Oo3G4H7+tu2Xl5TJzpdBCNcKTBDXxFhHYwOTYsJO9HM0r+7+vNkQngffTDm8PHyhojAe
+         EPNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795689244; x=1796294044;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QUY9+Y2VxoEdHCsHD5R8MfHCWDCl4kBtw61OaYnUOhg=;
+        b=qBNp2uImYZo2wr0477KgXkA8b/5finaWNH1SiaSEqH2Id6Vw91cAkhMEljyA/hLfUJ
+         MdhFQ312gwVa/XuQ+aMTqaTXJfhxz7erVG4BI/xQXl1kTv3Z/jCHmy1CjOmkpGEIp2Qg
+         0ADm/0ej/5EbeyLp7MUVoxgNcywhtb0it45iW8pm5spL7uYB7FpkgnDjmzmFIPfHD/rt
+         7ZTulNpcf/RkUsSYmuZiJ3JWMDGkT4gMuLC5ZuS7C+ZwO4V9ORY9xZy8GD+WRMkbq/+k
+         34B0jXQ05ZYT/RoYf5d3OUiR9oHQJm9zZAopgVUlOh6KeUCzn5z6hsvk03XGYDaK7eGD
+         HHZQ==
+X-Forwarded-Encrypted: i=1; AL+hErGTe7YG3KdBcBlU/yfiO30v4q0zHVI9Si4lhOmFPLRoQRILYII9i8FL2rdEZgBbBcCkdOuYRblEJ1Wk@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Pb3nzd1s7Qo2eQnxtt7ilXsD0N6P3uAZXftMmSSkND5aBrd//
+	HRLhrPQANITKMtNAOBellHUUyg7iQH7IBx5GEFUbT3MnSIQTBAM29q/223r0e+1ReBA=
+X-Gm-Gg: AZFdTZdTQ4BORVZMVlBSnADTYe5F93KdHiS+xfD91hc3mE1iPIfqd7yJhhS8uqs6bNd
+	leiVdaMmHKmnX1HgA8TM6ZEEgWVsi38RX67JVIVsTOC/SvT+euMKvrX1J5SarOZp/EvTLWdsdku
+	fmyf+G4YxNDSNPSrD0ErgwWZWC+zvCD1bYznb/uTdZMIQGH8D1XXpaXruYWkrTxdSWsYCMMIWPB
+	iBx5u02lu0vgd1wNzMe9MngBkPvwMwNmMZe77RHclDoUjkPRoe4PNOPdAnpXqpRYJn7NuRNbqmZ
+	+90/jJIhI61srMu/L00/RrAku+geHnJdqbYiOYqhU5iwUC8xbRjD5YfajiUfbkMLwSCOtDih/bx
+	8Rx9c2YVK8ngAZ2bVE+LdpF+fypFM1orvxhZu3xd7MV7w1ztAj0g4KSnnsrfppAeWbtUFJacAPH
+	rcJwvbKt0YJGfqTPlHwnBtngojrQxr3YVzysonU7xsqdnXpa1lap3O2OVSXseVu8aZ3zhCfXxZw
+	wDwpaN71ISCzIaPTTUB38qsxx/+okhnadQpRveIn5J7sWQPmVPMWkyQ7u9sFOrF3kJiinqJEIQX
+	MJO+/ikbipAG8F4t3iOXZxlDp3qipA==
+X-Received: by 2002:a05:7301:dc3:b0:386:ce5a:41aa with SMTP id 5a478bee46e88-386ce5a47f9mr4653486eec.13.1795689243454;
+        Thu, 26 Nov 2026 02:34:03 -0800 (PST)
+Received: from localhost ([122.172.83.36])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38566cd46c5sm76487652eec.11.2026.11.26.02.34.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 02:34:02 -0800 (PST)
+Date: Thu, 26 Nov 2026 16:04:00 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Chuan Liu <chuan.liu@amlogic.com>
+Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Christian Hewitt <christianshewitt@gmail.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	christian.koever-draxl@student.uibk.ac.at,
+	neil.armstrong@linaro.org, sboyd@kernel.org, bmasney+clk@redhat.com,
+	khilman@baylibre.com, rafael@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
+	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+	Christian Stefan =?iso-8859-1?Q?K=F6v=E9r-Draxl?= <ckoever@outlook.de>
+Subject: Re: [PATCH 4/4] cpufreq: add an Amlogic speed-bin driver
+Message-ID: <awgLGFpH73_fcnbC@vireshk-B250M-D3H>
+References: <at8WfX_G0tfTlFrm@vireshk-B250M-D3H>
+ <9556e959-daf3-4c85-8794-9613e7e7a9ae@gmail.com>
+ <A45EC676-5B14-4932-A4CF-87ED3B71108D@gmail.com>
+ <4a51e879-708c-49dc-a08a-3f64eeec8bbf@amlogic.com>
+ <CAFBinCBkJJeRPKLFBA9KYjwXMxFjow_NOtvFoKRQdxD=rOPW3w@mail.gmail.com>
+ <48b333a3-ef88-4739-a087-3ed9d8ec60a4@amlogic.com>
+ <CAFBinCCgmRmk--W53wqdJhF-SzJbai--s7wyzDNt3LpfN00spw@mail.gmail.com>
+ <b606819a-661e-4488-b5fb-9e786de463c6@amlogic.com>
+ <awe_Wur5fVbeqV2d@vireshk-B250M-D3H>
+ <1dbf65eb-fd04-41a3-876b-e2941cc10172@amlogic.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,107 +114,19 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AJ3dJRnBKuuc
-Date: Thu, 26 Nov 2026 11:31:41 +0100
-From: "Geert Uytterhoeven" <geert+renesas@glider.be>
-To: "Biju Das" <biju.das.au@gmail.com>
-Cc: linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, "Biju Das" <biju.das.jz@bp.renesas.com>,
- "Magnus Damm" <magnus.damm@gmail.com>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Jonathan Cameron" <jic23@kernel.org>,
- linux-iio@vger.kernel.org
-Message-Id: <a152df0a-0b0b-4193-b3ac-ee0df0350802@app.fastmail.com>
-In-Reply-To: <20261125-usb_rzg3l-v9-1-ea14d3ab8a53@bp.renesas.com>
-References: <20261125-usb_rzg3l-v9-0-ea14d3ab8a53@bp.renesas.com>
- <20261125-usb_rzg3l-v9-1-ea14d3ab8a53@bp.renesas.com>
-Subject: Re: [PATCH v9 1/4] arm64: dts: renesas: r9a08g046: Enable TSU
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1dbf65eb-fd04-41a3-876b-e2941cc10172@amlogic.com>
 
-Hi Biju,
+On 26-11-26, 17:49, Chuan Liu wrote:
+> Yes, as shown in this patch [1], I forced the above two
+> "assert_single_clk()" to "assert_clk_index()" and it worked.
 
-Cc IIO
+Maybe this is the right thing to do:
 
-On Wed, Nov 25, 2026, at 12:05, Biju Das wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->
-> Add #cooling-cells to the CPU nodes, and describe the ADC1 (used
-> exclusively by the TSU) and TSU nodes along with a CPU thermal zone
-> using passive and critical trip points, with CPU frequency cooling
-> maps for thermal mitigation.
->
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+Functions using assert_single_clk(fixed-index-0), can be converted to
+assert_clk_index(fixed-index-0). Lets make this change in the OPP core (in a
+separate patch).
 
-Thanks for your patch!
-
-> --- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-
-> @@ -381,6 +385,37 @@ scif5: serial@1004e000 {
->  			status = "disabled";
->  		};
-> 
-> +		adc1: adc@108c0000 {
-> +			compatible = "renesas,r9a08g046-adc1";
-> +			reg = <0 0x108c0000 0 0x10000>;
-> +			interrupts = <GIC_SPI 378 IRQ_TYPE_EDGE_RISING>;
-> +			clocks = <&cpg CPG_MOD R9A08G046_ADC1_ADCLK>,
-> +				 <&cpg CPG_MOD R9A08G046_ADC1_PCLK>;
-> +			clock-names = "adclk", "pclk";
-> +			resets = <&cpg R9A08G046_ADC1_PRESETN>,
-> +				 <&cpg R9A08G046_ADC1_ADRST_N>;
-> +			reset-names = "presetn", "adrst-n";
-> +			power-domains = <&cpg>;
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +			#io-channel-cells = <1>;
-> +
-> +			channel@8 {
-> +				reg = <8>;
-> +			};
-> +		};
-> +
-> +		tsu: thermal@108d0000 {
-> +			compatible = "renesas,r9a08g046-tsu";
-> +			reg = <0 0x108d0000 0 0x10000>;
-> +			clocks = <&cpg CPG_MOD R9A08G046_TSU_PCLK>;
-> +			resets = <&cpg R9A08G046_TSU_PRESETN>;
-> +			power-domains = <&cpg>;
-> +			#thermal-sensor-cells = <0>;
-> +			io-channels = <&adc1 0>;
-
-<&adc1 8>
-
-You cannot have "channel@8" in the ADC node and magically assume
-consumers should refer to this using "<&adc1 0>".
-
-I don't buy your rationale in [1]:
-
-   "There is a mapping between internal Linux array index (0) and the actual hardware channel ID (8).
-
-    See the code
-    https://elixir.bootlin.com/linux/v7.3-rc3/source/drivers/iio/adc/rzg2l_adc.c#L354"
-
-This mapping is in the driver, and there is no mention of it in the DT bindings.
-This means the driver must be fixed first, too.
-
-> +			io-channel-names = "tsu";
-> +		};
-> +
->  		i2c0: i2c@100ae000 {
->  			compatible = "renesas,riic-r9a08g046", "renesas,riic-r9a09g057";
->  			reg = <0 0x100ae000 0 0x400>;
-
-[1] https://lore.kernel.org/TY3PR01MB11346F7B4718113C76B93362986872@TY3PR01MB11346.jpnprd01.prod.outlook.com/
-
-Gr{oetje,eeting}s,
-
-                                                Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                                            -- Linus Torvalds
+-- 
+viresh
