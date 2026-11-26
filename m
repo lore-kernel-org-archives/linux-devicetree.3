@@ -1,72 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795661554;
-	b=b7nCPOGphoqIRvb66+Fso+VbOw5hvnc1jnioRh5xzY2Zt3VGAwx8CGjJO0SW0dIsNZ4v
-	 Vw7bAQVQ7JeAdEcKC133D6w+bYYCQO6KEMuKjWDpVhPWxHtO7GmShkSjdBJqlUdAsy/pd
-	 U90I3/bMc+X9erGgt4e4AVWCt+KHXA38KBwh780Gy5Mo5SLXXPhpZHHtV8UxKtijTE0J0
-	 e3Z6SkQpDXKkeJCjmv8RcdJs0LnnZPTcWVjqN+//0VPewjIX+wS7Lvx4duHfxlebU/ZSX
-	 G3Jpwe7mvME6PLA7eE8uxJvRbu582rj9wDaGi54l/GDo3/jTAvwADBuJ/ouvPJc6eMA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795661554;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=y38aCOrdnSNqtkhQ3bYVQSQEytyK68gWZGtURBVFos0=;
-	b=jVbYAHRBNAPjjl1ajteroHgTsN5qjQvfg0iTYWmGzCng9TisrShX7gpj6ZQFGuxMuNgf
-	 WafQL7SNgB7s4D8dMCMZp2LyOojguun4Y/uSMkGxKp6JnWVbU0mcXoWyhPk9AQvaC++9v
-	 YVTAIUV1xuRMav6FXRKn7I0ztofJVfmDVJKGNR+x+iGbzK3PjzgeYsWZGHr7FI6MRiQl9
-	 J104wjeR0XuWomV3BAVcR8kO2XY6g7WJ7p0n3XNB5OTP6f3Il8e9oTeXoV2haSJyQAjWN
-	 S9AW8LPZmDoZtO7tmOhOuPo1epSB0v6JJWt9Zzckyf9nMFN+xa/D2A1jclVvzqIsn+w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=uYZ0Zi7F;
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795662039;
+	b=hooKjaWuwEdVbrvNIDGYp1aGAu8SDiEVtYtBSQFS2zmv0hJAIZwBqKmFuFsexgV5ly2S
+	 wbboaM3t5spDTZypyrE1jbMYLFFmqVzaimLl5qv+2Sxg67YqXZapJvtm/KqJlcNzmhMph
+	 6WvC+Sr0DJ69v3Y3HseE0huugE/v3ZQ1IQx9vQ6MyU1ZKtISh/jGHkTC+2v2UZKkc/g7S
+	 2gF6w2KqS4LMMobmxdoDdHR0ike0KpvV3wLg6l0weg9IvEz4KceDlpeZrE4Y1nPJxVyV9
+	 HtajzQReJfH/5Q2ksfCfaFNUzmMd63/DIuve3I1gEwrbbq96wKKHzYZPiux1TkViRrA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795662039;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Qo8eDsRv2uiFS+6Dv/msZizhScyU7dl4mbfwA+0p7MI=;
+	b=0mjFODD9/fzy+CHLnlYTu6iSGe9ELtQCFVyHxyDospsaREv94MSiy43zyDCeiB9g8P2T
+	 rdhDdex1z9vzdmmdfRPdfScE0jBLu1h5+AFN2c2ChWPPQaLTtw3gU7w657bfuCSYCl+Qq
+	 weQx4HSg7lppnkdNXmlpQEhjdymQlHZwuZc+AWzB3D7bNiUtJDKvF18c4pIpdBau74QPw
+	 pMEgtVDhpXqe6cKeWy8Qx3e5nGxKQVQ7vZvBNBxwz1teZOzscxE0nTa8mV0aYH9Gu9YbJ
+	 /md7OhlL6bKnv0Ymay4/EmCndukK9ucYp/PshPPVK+f4ejtt7h33jIp/SxP1eLDnsiQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BbSZw3ni;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.43
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE16F606A31E;
-	Thu, 26 Nov 2026 02:52:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE16F606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0930606A323
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 03:00:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0930606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=uYZ0Zi7F
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BbSZw3ni
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1a3c08d6928so9681195c88.0
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 19:00:38 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795662038; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Njw2vDFz8wGiNenKYQr7tdlzGBXzQp+CcQtloqa0XPKygv9Bmq2DErawJqdxsz0tSq
+         E1gIFOVF9+FJ+lIdz3/8hmIZ+lDymqH4hengp+Jp8DYFAj1zf+CdEYJq0XA6zibMO08z
+         WlpAf8oBCz+30EMB+AbBoaGhOWDdb8qegfxKxYiuoENWAPyRytjKUPcXAWSHTl27paRJ
+         0n4J57XcInT0cI9eyGvMHMeSSM9Ywfg6BaTfFibiRC0qGJwGHRVq0JE7c+YCXRvxf7DK
+         5L8HhNyw/GWBqaaR6W+/FNyBVr6aDSMIU7zWELxdXzs44czRqykrIl7PLvtg8A7hSmyI
+         xWbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Qo8eDsRv2uiFS+6Dv/msZizhScyU7dl4mbfwA+0p7MI=;
+        fh=Jox4sOn3J1iBUdMG0Ij7snLDqVMMvWLjsix0C1GwEMc=;
+        b=KHfwiVF/grcdAtJyZDyxM4v0WfQVVAXbk0xRTWq1I0/A4CFOAzBqqFviLDHVD4XaAW
+         yrSeNNCifI5gurn/ulzb40AwXefbdQXmCbAsEh781ZSV5AAlws093awjBvhsIWegzR5z
+         Ho46w5DsLzROEeSnLFBW0YF3ckjVEN8AYnk2u4GJZwSQNr+LngpFkB+Gc/L4VvwhKkJR
+         WUwIE2xjK2CZAXQtlO1Pe3jJWDlA0OAU3SIVccmTdup4ivs2pwlnTpAVWDjzIW2dBFBg
+         Rz22VN2v1mJvcp02d8QPaiVlQRSygXkjmpEod/AsEUHo2yUk8nNg/GpF0nY6LpEoq2l6
+         DYRw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1795661550;
-	bh=y38aCOrdnSNqtkhQ3bYVQSQEytyK68gWZGtURBVFos0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uYZ0Zi7FEmkQeLep0kpOnb4JflNvFIpset4nldd3CYPxgZjAg+a5XaesuOhw3MrLJ
-	 GcmbMjp7/pqmDITvoMKhAR7UnpQwA65oIcX6O4Ii53+XsyXqADVlz8jiVycCTt3/MY
-	 I8t1ZJqrMW0OYdYTwJAWhTLuE93QLiM/OYCpHKui1dVZOdiWvzTgDxKGmmv75duSSc
-	 eOUV3S/kQXcL+c/pp1pZlL/nbSq8uXOv+EfNhBks/U2e6dYx48Wb2R7DADDGFSnrKw
-	 b3GM2AGbhSloI8nJ6XmFZoeQ2A+j+M5euEBo1IsV+XSW9U3iw2ss8TJ461thUHOy0H
-	 7LqVBxVsJRK3g==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4jZh0t4q6vz4whd; Thu, 26 Nov 2026 13:52:30 +1100 (AEDT)
-Date: Thu, 26 Nov 2026 13:52:22 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH v2 35/74] checks: Get 'chosen' node using
- get_subnode()
-Message-ID: <awee2VKhTF0bpPYa@gractus.seuss>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
- <20260826094950.1088288-36-herve.codina@bootlin.com>
- <awan_SrUGC7OEMIL@gractus.seuss>
- <20261125132129.4f4695ac@bootlin.com>
+        d=gmail.com; s=20260707; t=1795662038; x=1796266838; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Qo8eDsRv2uiFS+6Dv/msZizhScyU7dl4mbfwA+0p7MI=;
+        b=BbSZw3niB1sMBB4ns0ychXKa8xpDYXgHvXbhu9A0bj8bKuoBSqszIWIImYEqXVauFD
+         k6kuDmZGLQItdqOnp/OfezeYshp8no1oRvRKt6n/Caq0+6Z8Mb8KX/9PEVmsJVSe7pWS
+         xog5WY3yRCk+oD+Uwjp2FPWV4okwY7qDJ3NKG8n9TfOxS4ZiOZxxfhT965THGI60hfMz
+         vcB0S1iZ2Ez7HiVtENnU5yMMbHRDb6UJkUCZZSGgWDYym71FIplsQFarWbNfTG0ujJYJ
+         JJgKJuf5bZ/NaV5qbP+WncESc/zpiDmat9lKOgKBcIOp8NG0/HNTuoKsPOO0qLJFEvOF
+         3zZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795662038; x=1796266838;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Qo8eDsRv2uiFS+6Dv/msZizhScyU7dl4mbfwA+0p7MI=;
+        b=Y0TnLQT+tSOFq/R5un8wiji/+b7TcXTMCIMZdFZxUNpoOBl84Q4FqLrWTO1+PPB1wE
+         TKuFAV4x0aUhvrblkSvJtJE28GQewYcDDiXff2YbtOOWRutSV+8El24JQhy7No/U/j5K
+         93HsHeY4fuCrDpkZaBbXX7o/paVlJ0BO16MgQvZ9k0DyDBOHwdqnt+XPF8S9+YhvwXpT
+         EMFwaiu5fBYCkA3UhRpINNAc62XvXTTG1lqrC3TczyGAsb0eOwh5c7c0QMNejlgYplH3
+         WavpeUI87XqQDvH5gscXCeI/yuylAIxyKN98QWBJr6HRoCWKHHrdNKoPpStJOK/Jtmih
+         rJxQ==
+X-Forwarded-Encrypted: i=1; AL+hErHmBRb5asXmK+a4Tbw8YwsbAZ/Kj/wtjxnG3ZnWsHTdcG1vGooPaFdHASZpiS+8ldY/rHWbTB+Aic6U@vger.kernel.org
+X-Gm-Message-State: APuU4Z8jHxfzu+gPJowMi7VJSllPRXrkSbWej2Rc4ngRarof71xVlf6x
+	5/MnAv6Q8jx5BoycWv4TztISfUqOOw7HEX0528Pph+w1PGLQ/20E8pGAuKrudDuXizZlN/fnmkT
+	AJD+BSVCyB+Wgou8TWK9ckLmW0rQrokE=
+X-Gm-Gg: AZFdTZedEEnSp3rDZoEVExkO+WWIUXnMy6ROt0GzD9z5IwjAvqhDE0BSJM72A37sAZD
+	/i7W1BMFW+FIoIVc42+xgVlxWwlBnHZEUDw24mApBd9LGUPRkhb3XYazjxzLXicjjBpSLrjUZ/W
+	Q29UD4pb400Yq6Y6Px4eurymmgTAOrwcpE0FmzeukGWUioIjS++ia4EP2MMxvIRNs9Yabcjf0QZ
+	u0AeoVV+u+4U9630J1h+yMJfUaXmD9UGoG+ndALg04gLifMNT6zlNfX/Ydnf2a3PakJSH9d2nP3
+	einwAH381+4Gx+cXj1oxwRmou3qspxSEmQ8FJpp2Z1jLk9xEitE4IdMf9Gxe4YZqoVbkNUw19Fx
+	BJ27JsLcalhPh/ongp23F2d+3Qv1tUBdKY/Y=
+X-Received: by 2002:a05:701b:2705:b0:1a0:f970:4f5d with SMTP id
+ a92af1059eb24-1b55688b929mr18116460c88.17.1795662037782; Wed, 25 Nov 2026
+ 19:00:37 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,117 +104,291 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="QAC8C0zioRHVFZzG"
-Content-Disposition: inline
-In-Reply-To: <20261125132129.4f4695ac@bootlin.com>
-
---QAC8C0zioRHVFZzG
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+References: <20261123-fix-bpf3-eeprom-v1-1-df8cce6ef2b5@gmail.com>
+ <awS2-clBenE1r1a1@aurel32.net> <12933da0-9bc8-4f92-96d4-36c5673d3f5e@gmail.com>
+ <awXUSuYOUQMPCl-5@aurel32.net> <CANAwSgRf0XpWnyDaoiGySFv3NPKCBYn6BODf1M+P4w58BF-duw@mail.gmail.com>
+ <CAKyUbwUyYptzZrMFKD-RjmufU7Wni8-w5vQvPyxUgx9BU++vsw@mail.gmail.com> <CANAwSgSNuEC72PM=1ai3xj31+=veLkDhAfuNJ3pmCggBtx9v-Q@mail.gmail.com>
+In-Reply-To: <CANAwSgSNuEC72PM=1ai3xj31+=veLkDhAfuNJ3pmCggBtx9v-Q@mail.gmail.com>
+From: Zixian Zeng <sycamoremoon376@gmail.com>
+Date: Thu, 26 Nov 2026 11:00:28 +0800
+X-Gm-Features: Aa3M54rvKVtWSC9Zbb1uS3GLt-A84OUSrFyuO0wKhkcNlq12taKkBIh9NOUxvL4
+Message-ID: <CAKyUbwVuigJqbXiVYS28QKodMELPEd1yNu1Q9xZvmA_TmRHOmg@mail.gmail.com>
+Subject: Re: [PATCH] riscv: dts: spacemit: k1: fix the EEPROM page size
+To: Anand Moon <linux.amoon@gmail.com>
+Cc: Aurelien Jarno <aurelien@aurel32.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Vivian Wang <wangruikang@iscas.ac.cn>, 
+	Junhui Liu <junhui.liu@pigmoral.tech>, 
+	Michael Opdenacker <michael.opdenacker@rootcommit.com>, devicetree@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 25, 2026 at 01:21:29PM +0100, Herve Codina wrote:
-> hi David,
->=20
-> On Wed, 25 Nov 2026 20:19:04 +1100
-> David Gibson <david@gibson.dropbear.id.au> wrote:
->=20
-> > On Wed, Aug 26, 2026 at 11:49:04AM +0200, Herve Codina wrote:
-> > > get_node_by_path() is going to be updated in order to handle orphan n=
-ode
-> > > support for addon device-tree.
-> > >=20
-> > > The 'chosen' node is a subnode of the root node and can perfectly be
-> > > retrieved using get_subnode(). =20
-> >=20
-> > The change certainly shouldn't break anything, but I don't really
-> > understand the rationale for it.  AIUI, get_node_by_path() should
-> > still work, even if it's (trivially) more expensive.
->=20
-> Removing the get_node_by_path() call here avoid a later modification when
-> get_node_by_path() is changed.
+Hi Anand,
 
-Ok, "an upcoming change will be made simpler by avoiding
-get_node_by_path()" is a reasonable thing to put into the commit message.
+On Wed, Nov 25, 2026 at 10:22=E2=80=AFPM Anand Moon <linux.amoon@gmail.com>=
+ wrote:
+>
+> Hi Zixian,
+>
+> On Wed, 25 Nov 2026 at 15:08, Zixian Zeng <sycamoremoon376@gmail.com> wro=
+te:
+> >
+> > Hi Anand,
+> >
+> > On Wed, Nov 25, 2026 at 3:52=E2=80=AFPM Anand Moon <linux.amoon@gmail.c=
+om> wrote:
+> > >
+> > > Hi Aurelien,
+> > >
+> > > On Wed, 25 Nov 2026 at 00:14, Aurelien Jarno <aurelien@aurel32.net> w=
+rote:
+> > > >
+> > > > Hi Zixian,
+> > > >
+> > > > On 2026-11-24 11:31, Zixian Zeng wrote:
+> > > > > Hi Aurelien,
+> > > > >
+> > > > > On 2026/11/24 5:58, Aurelien Jarno wrote:
+> > > > > > Hi,
+> > > > > >
+> > > > > > On 2026-11-23 12:41, Zixian Zeng wrote:
+> > > > > > > The bananapi-f3 carries an AT24C02 compatible EEPROM GT24C02B=
+ [1]:
+> > > > > > > 256 bytes with an 8-byte write page, which can be found in sc=
+hematic[2].
+> > > > > > > The device tree declares pagesize =3D <16>, which does not ma=
+tch the
+> > > > > > > eeprom chip datasheet which declares pagesize 8 bytes.
+> > > > > >
+> > > > > > Oops, I am not sure how I got that wrong. Sorry about that.
+> > > >
+> > > > The question of the page size has been raised in the initial review=
+ [1],
+> > > > and it seems that the GT24C02 has a 16-byte page size, while the
+> > > > GT24C02B [2] has a 8-byte page size. The BPI-F3 schematics confirms=
+ that
+> > > > the B version is used. Sorry about the mistake.
+> > > >
+> > > > > > > EEPROM pagesize of k1-bananapi-cm6-io[3] and k1-orangepi-rv2[=
+4] changed
+> > > > > > > together, based on the chip model shown in the schematic diag=
+ram.
+> > > > > >
+> > > > > > The k1-milkv-jupiter board is also affected with the same issue=
+, despite
+> > > > > > using a slightly different EEPROM (24C04).
+> > > > > >
+> > > > >
+> > > > > The GT24C04A EEPROM used on k1-milkv-jupiter board doesn't seem t=
+o have
+> > > > > the same issue, which you can find "Page Size: 16 bytes" in datas=
+heet:
+> > > > > https://www.giantec-semi.com/uploads/20220929/GT24C04A.pdf
+> > > >
+> > > > Indeed you are correct, and I confirm that this is the exact versio=
+n
+> > > > used on the schematics. Therefore there is no need to extend your p=
+atch,
+> > > > it can be merged that way.
+> > > >
+> > > > > But I don't have the board, simple test would be appreciated. Per=
+haps I
+> > > > > should include test steps in the commit message for the next revi=
+sion.
+> > > >
+> > > > Unfortunately the board has the EEPROM write protection pin connect=
+ed to
+> > > > VCC, which means the write protection is enabled. Therefore testing=
+ is
+> > > > not so easy.
+> > > >
+> > > > Regards
+> > > > Aurelien
+> > > >
+> > > > [1] https://lore.kernel.org/linux-riscv/aNLzRJcKCYOngc7z@aurel32.ne=
+t/
+> > > > [2] https://www.giantec-semi.com/juchen1123/uploads/pdf/GT24C02_DS_=
+Au.pdf
+> > > >
+> > > Apologies, this is a different issue.
+> > >
+> > > I am currently working on enabling multi-DTB support in U-Boot SPL
+> > > for SpacemiT K1 boards.
+> > >
+> > > While investigating the board detection issue, I noticed that the EEP=
+ROM
+> > > on my Banana Pi BPI-F3 does not contain a Product Name TLV entry.
+> > >
+> > > alarm@k1:~$ sudo hexdump -C /sys/bus/i2c/devices/2-0050/eeprom
+> > > 00000000  54 6c 76 49 6e 66 6f 00  01 00 20 24 06 fe fe fe  |TlvInfo.=
+.. $....|
+> > > 00000010  d5 52 bd 2a 02 00 02 23  0c 39 38 61 39 63 33 61  |.R.*...#=
+.98a9c3a|
+> > > 00000020  32 62 64 34 37 fe 04 3b  e3 ff bd ff ff ff ff ff  |2bd47..;=
+........|
+> > > 00000030  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |........=
+........|
+> > > *
+> > > 00000100
+> > >
+> > > Although the EEPROM is readable, the missing Product Name TLV entry
+> > > explains why read_product_name() returns `-ENOENT` (-2), assuming the
+> > > EEPROM read and validation succeed.
+> > >
+> > > Consequently, automatic board detection fails, and U-Boot falls back =
+to
+> > > CONFIG_DEFAULT_DEVICE_TREE, which may select an incorrect device
+> > > tree for the target board.
+> >
+> > Yes, exactly. I encountered the same problem. Board detect failed and t=
+hen used
+> > default device tree (MusePi Pro).
+> >
+> > > Since the SD card-detect GPIO polarity differs between the Banana Pi =
+BPI-F3
+> > > and MusePi Pro, selecting the incorrect device tree can result in SD
+> > > card detection
+> > > and boot failures.
+> > >
+> > > The following SPL boot log shows the board detection failure, althoug=
+h
+> > > DDR initialization completes successfully:
+> > >
+> > > ```
+> > > U-Boot SPL 2026.10-01060-gf3080abcfe92-dirty (Oct 24 2026 - 17:30:03 =
++0530)
+> > > Fail to detect board:-2
+> > > vdd_core, value:900000
+> > > vdd_1v8, value:1800000
+> > > vdd_1v8_mmc, value:1800000
+> > > DDR firmware: [0xc0820900]:0xf0227179, size:0x8d98
+> > > DDR is ready
+> > > ```
+> > > Could you please confirm whether the Product Name TLV entry is
+> > > expected to be programmed into the EEPROM during manufacturing?
+> >
+> > Yes, No product name TLV entry in my Bananapi-f3 EEPROM. That's the rea=
+son
+> > I wanted to write EEPROM and found this EEPROM pagesize issue.
+> >
+> > > Also, is there a recommended approach for handling boards with missin=
+g
+> > > product information in the EEPROM to ensure reliable automatic device
+> > > tree selection?
+> >
+> > I'm not sure. Currently, after I corrected pagesize, I wrote EEPROM man=
+ually:
+> > ```
+> > U-Boot SPL 2027.01-rc2-00039-g4cff50f40343
+> > Get board name:k1-x_deb1
+> > vdd_core, value:900000
+> > vdd_1v8, value:1800000
+> > DDR firmware: [0xc081df80]:0xf0227179, size:0x8d98
+> > DDR is ready
+> > No SPI controller (-19)
+> > Trying to boot from MMC2
+> > ....
+> > =3D> tlv_eeprom
+> > TLV: 0
+> > TlvInfo Header:
+> >    Id String:    TlvInfo
+> >    Version:      1
+> >    Total Length: 29
+> > TLV Name             Code Len Value
+> > -------------------- ---- --- -----
+> > Base MAC Address     0x24   6 FE:FE:FE:90:1E:F0
+> > Product Name         0x21   9 k1-x_deb1
+> > MAC Addresses        0x2A   2 2
+> > CRC-32               0xFE   4 0xA88C93F0
+> > ```
+> > Maybe we can discuss this in u-boot mailling list? This is indeed a
+> > separate issue.
+> Correct, I will raise this issue over there.
+>
+> Reviewed-by: Anand Moon <linux.amoon@gmail.com>
+> Tested-by: Anand Moon <linux.amoon@gmail.com>
+>
+> Can you follow up with the patch to read the MAC address from the EEPROM.
+>
+> $ git diff .
+> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+> b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+> index 1db896536256..3928a47b7702 100644
+> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+> @@ -137,6 +137,8 @@ &eth0 {
+>         pinctrl-0 =3D <&gmac0_cfg>, <&gmac0_clk_ref_cfg>;
+>         rx-internal-delay-ps =3D <0>;
+>         tx-internal-delay-ps =3D <0>;
+> +       nvmem-cells =3D <&mac_address 0>;
+> +       nvmem-cell-names =3D "mac-address";
+>         status =3D "okay";
+>
+>         mdio-bus {
+> @@ -160,6 +162,8 @@ &eth1 {
+>         pinctrl-0 =3D <&gmac1_cfg>, <&gmac1_clk_ref_cfg>;
+>         rx-internal-delay-ps =3D <0>;
+>         tx-internal-delay-ps =3D <250>;
+> +       nvmem-cells =3D <&mac_address 1>;
+> +       nvmem-cell-names =3D "mac-address";
+>         status =3D "okay";
+>
+>         mdio-bus {
+> @@ -202,7 +206,7 @@ eeprom@50 {
+>                 nvmem-layout {
+>                         compatible =3D "onie,tlv-layout";
+>
+> -                       mac-address {
+> +                       mac_address: mac-address {
+>                                 #nvmem-cell-cells =3D <1>;
+>                         };
+>
+>
+Here's the output after apply patch above:
 
-> The code can use get_subnode() here. I thought that using it was more rel=
-evant
-> here (getting the 'choosen' sub-node from the root node) than using the m=
-ore
-> generic get_node_by_path() function.
->=20
-> Well, if you prefer the get_node_by_path() call here, no problem, I can
-> revert this change.
->=20
-> Best regards,
-> Herv=E9
->=20
-> >=20
-> >=20
-> > > In preparation of the future change related to get_node_by_path(),
-> > > replace its usage to get the 'chosen' node by a call to get_subnode().
-> > >=20
-> > > The modification doesn't introduce any functional changes.
-> > >=20
-> > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > > ---
-> > >  checks.c | 3 +--
-> > >  1 file changed, 1 insertion(+), 2 deletions(-)
-> > >=20
-> > > diff --git a/checks.c b/checks.c
-> > > index 13e8b121..1332acc4 100644
-> > > --- a/checks.c
-> > > +++ b/checks.c
-> > > @@ -1349,8 +1349,7 @@ static void check_obsolete_chosen_interrupt_con=
-troller(struct check *c,
-> > >  	if (node !=3D dt)
-> > >  		return;
-> > > =20
-> > > -
-> > > -	chosen =3D get_node_by_path(dt, "/chosen");
-> > > +	chosen =3D get_subnode(dt, "chosen");
-> > >  	if (!chosen)
-> > >  		return;
-> > > =20
-> > > --=20
-> > > 2.55.0
-> > >=20
-> > >  =20
-> >=20
->=20
->=20
->=20
-> --=20
-> Herv=E9 Codina, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
->=20
+```
+# ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN qlen 10=
+00
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast
+state UP qlen 1000
+    link/ether fe:fe:fe:90:1e:f0 brd ff:ff:ff:ff:ff:ff
+    inet 10.5.1.16/24 brd 10.5.1.255 scope global dynamic noprefixroute eth=
+0
+       valid_lft 7160sec preferred_lft 6260sec
+    inet6 fe80::cd94:5cdf:4509:a820/64 scope link
+       valid_lft forever preferred_lft forever
+3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast
+state UP qlen 1000
+    link/ether fe:fe:fe:90:1e:f1 brd ff:ff:ff:ff:ff:ff
+    inet 10.5.1.14/24 brd 10.5.1.255 scope global dynamic noprefixroute eth=
+1
+       valid_lft 7160sec preferred_lft 6260sec
+    inet6 fe80::452b:e032:5630:39ac/64 scope link
+       valid_lft forever preferred_lft forever
+# hexdump -C /sys/bus/i2c/devices/2-0050/eeprom
+00000000  54 6c 76 49 6e 66 6f 00  01 00 1d 24 06 fe fe fe  |TlvInfo....$..=
+..|
+00000010  90 1e f0 21 09 6b 31 2d  78 5f 64 65 62 31 2a 02  |...!.k1-x_deb1=
+*.|
+00000020  00 02 fe 04 a8 8c 93 f0  ff ff ff ff ff ff ff ff  |..............=
+..|
+00000030  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |..............=
+..|
+*
+00000100
+```
 
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
+I think 'fe:fe:fe:90:1e:f0' is read from EEPROM. btw, I wrote product name
+manually (k1-x_deb).
 
---QAC8C0zioRHVFZzG
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmsHntkACgkQzQJF27ox
-2Gck4g/+JGpvHqRANIaQXFgTvlykIGciPaCaDaNoHHZriUjywNtZ+ynQkcPNOBFQ
-ko2Iftt7UxqLaMePQoS8R5gNN2YQ3jUV8yLVTVtyohw+7Z8Mt9JjYGo0rYC3PgGj
-UI810GUV4sSBxO+KWkkqedLjLfPUC37jWQVSIf5HNX0uZq32R2j9azh5532ffzuk
-hKmgOb/U+Ys3ZF0/GOCVl50bAfVRKtoYJAhzij0Xa7oQ98u/+Sp9vLypTwPhl+Tp
-rIHDu8PFtBumPTTex2goMHa5Smp/qVDRwjKOm9GnU99sisQKkSYXdaoJsgwhFiTJ
-+TGw5GQFFcB1pDCOQ5Aqxpl6MZmz+3fKFbngz4KAXxtPO/RNVn4N+KRM2PdyNnGR
-/dapZxxS/J7Tnrl6A1DRkhECLPz3bmppGDYZaTqNs18y8MXf7lOvm1/I1UE7g0U+
-rgLJX0E8K9EuIMYg8vKqYweN/YkboxLD/kBoke5Xyh4EUj1Psd22FLpwLUmDo27a
-ZYkqLCf5BIS/f789bLODtFJU9WTYdcXBYDteC0COuaGEXaE/w97RNibq1RERzG6a
-VQy9wINBDgJmGGiYarC1BMFaHyhAlYX9vOTbK6bLMu4mNXRlfwDvMddnjeXsBHNk
-b4xyfChSIjahzFpJLNmnVHtosIAJdOvd4qWfo/utvdN4PQF+Y5M=
-=oMiV
------END PGP SIGNATURE-----
-
---QAC8C0zioRHVFZzG--
+Best regards,
+Zixian
