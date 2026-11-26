@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795700388;
-	b=Mnikol6E8vx9mJzHvvUe75KwOdRfNGM/Vdwade9v/p4jZTUEX+b/LgqM90/6t85FtbCg
-	 sTP0Uq56ZGJTbhOL8ahcnSksX8z1fAIb5i/EXG9qH9RY8H1s9Lurf8ta7oiDxMhlUe3mE
-	 fetoVJK8AqzQBY/Ibdkj8WqVttKoHsGy3zl0lWDfcZp/JdCW9qflngKgauvumUX1Pmhsc
-	 bCSnD42pzQy+lVnBvnPiPLCsyPY9qB2AIjbcWxQvIczi3x+gaw6lRT2JkZHZFyAW08Rou
-	 jPYeoiPJwenCAQ9vscEbd2HRp4ewi6ZGl9NumvPl10fuvvjgt2ko5PkCSdERLvhmT4g==
+	t=1795700393;
+	b=vWZRfD4vfPi0nPT5fz6Pe3P8bEvtwTnarJC8ZbAu4d56M4+O0f13Uq1ijCpM3GFd1IFM
+	 7AQmcJ4Bi2GfOjgNFjGoOgiEFm8lntPfytF6LlcEqhp/0RTtP8lrLJQEDfw/VTTgowAp2
+	 Wlk02waczKrVUeryv88YYzvAbS9vm5xaGXj8jNIrKyCAYi7W9kzhmfiJfcnwUBexupQmZ
+	 LEQH+1Xyh3FVq2xQy9uNI0OoNFrrsSBE63DswfpXKe86MQKPUgeRmjSjLl7xBXUn4BDzd
+	 /xolncgkGghpDX8/KJ3EytDI3ttjIPOgOkIkZglnvr4zYr3lPqD+sd9sXMlQKZoSZ0w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795700388;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=DBljaZx1Ie/yPOiJhFP1dRpPDFPXYbPsWXbK8agzgEc=;
-	b=fLakoVFV12tNCjUIVZKI1USoTBeoOowzSUyRcetYH0HXVDv57TM8WkBipP+65Zbyj6AI
-	 a5KDyH1D+NDVoHEahj5AGYeUNhkEmbcTOMZVwiM1tCZqAEP0M9vdVROWIxm+6SsQ5uYrq
-	 jQRW341JS0IBBvtzCNd8YmkA/RHT7TojzWX/RazLBphEm7rwo2DuVGHvRt4Vt3n3FCp2Y
-	 hi+vK8xyEd+uC8ZPdpHny3jPi99uLJQcnjcugot9mKdE6IZvkd4D6nYd3OJ5jWu7E2HSl
-	 kmr786t6j5O+3Pz3+41H+IvG18sEMD8aZVWGHxTJHmsdioPSKtJ1121ZFvXufjBhpfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795700393;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=3mEzW61aNdoeGVGoXi6aBFf8PwLAKsbu1WYxRqmceiA=;
+	b=kUQByho0dAqNYp6VQgUAOD0yxNuMvbSvPx9iYq3MPYg+LgBvplBshHLzuWEaI6hEh9r4
+	 9oxHX2p2K+V2cLi5x+LFNdsWAXeMRuuKfTYPQj1AR/ZRo2J9dwS6r8bknyy9jlJDQG41v
+	 NJ6leh4ivz7+DxnLet1B1yHp7vp3J+jQp4GYqsnqcA2GRLldyqZfqxlGWfKmllaqf0HuI
+	 kDQYoLajd4j5u2K0QOS27D4GmSRKVbuuLQaAaWeI0B6UCudd25zsrLZGb0BdCfUzha+pL
+	 3v+gSdMOrJSwyFlMVl8yr828v2qWLMVv1U8GPaANy6VsbJuV7eaJXAUYggBargOoywg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QtJNZ1WC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T5RCRlkp;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E892606A31E;
-	Thu, 26 Nov 2026 13:39:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF64A606A31C;
+	Thu, 26 Nov 2026 13:39:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QtJNZ1WC
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T5RCRlkp
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795700388;
-	b=L5Ev+zRhX5uTK/e1o1FOHe6kQWkJTetJNRnBJIZak0z6R0OfffsBY7fe25A9x1GXH8HU
-	 thJeh38RpUdcPKlq94hiH97AJTWghz9+rWWlwp0S2bk6sM5OrsA7GPtyPE4xCPmAZDbjJ
-	 It6jqGwA7wDsxJ927kNcs/bqZDPBeXmPIwZ0c/WIS9ILyFR+GRAvFcmsOmpzfCDkV1gcN
-	 TRGqEdkSP0q9PRzcL/XWwBCxVlzLi9/Zwf4jrzi9SG3Tv5UIMpuQB68u1Ow2tFhi/FkVF
-	 pRvfQtvQdehklu3MlkbwVkchdY/ZFP+GZQtS+cVq7yHM1/6xmaOG1PZlQsbUMEurlGg==
+	t=1795700392;
+	b=Bh/vVQaLRSG5vlvhbyn5F8lZvsx5cLJq2JdqBke4MVi3ap/KlAmknyjIRPZfcKgnZSl8
+	 aY8KNyZfZ4jqnEvTCy9wBJXnGvmxgnkMBLjp7TmmLjAeH/RKsHGpDid292B1jMhGi0wuC
+	 ddHh7Mw1h56FLA1wEgiO4VLIapMHF4V2A8YLuy4/nHnWkhL9RtmbUo/rucUIkLEJ+/3bf
+	 v7KW/Df5bbS3ngyGteEMc9PEaJB/9vg/7IPT9RNMxED/ncF7WemGhn5qiANX6VytlZ0Nd
+	 41hYIp8FDx2PlT0+u0lLpP+FiAAGbqKp17QBYC9vQ/3ZZqmj1lhjJfE6v+rnVUB1CFg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795700388;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=DBljaZx1Ie/yPOiJhFP1dRpPDFPXYbPsWXbK8agzgEc=;
-	b=j2BExsK3mtr+Rxb0jAI25ziKgHY77c8bwDP/TW14jPGXLavJ6lrCLty7IH8qHNbdar3Q
-	 0fOqFrHPvV7AF6WF39n57xLnNcR5MTxXpzKyjP45LApy/Y+rqdtxIEAN3CLJy69XOGhRO
-	 oVpwrlUF6pTzuYSItH7nYcgCrAXNog9zEHH0S5CI9a4gIMhMHQRgG5MYvT3TDnEcwfC+J
-	 xScW7BNVwKOcobhJcvYA/G4AdaTX6wskzF3tRNwRfVtRG7KtGLOxYqLNfy1OSyM7KiVel
-	 0FpNPHc3aA7rcUz7SklpfroKkbT/UU+CFh/Kc+d4fkGp+eVMwf6nhZTDChYJAWZjt9Q==
+	c=relaxed/relaxed; t=1795700392;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=3mEzW61aNdoeGVGoXi6aBFf8PwLAKsbu1WYxRqmceiA=;
+	b=nD2zlVP74mvqpbmfnvMBgeRXDADdJPAInX79+rYdLtlwGf7vl3+2o0KSB37EbmH03vhi
+	 E4v24bVcfuFh9CKlO5xpjBfxfeVt43+YtyY+r1wCmk5Vg8uZUH8qUc8Q0zB/bCLx09Cr0
+	 heeENq9DWUTE5bR9ytvI/JHtSv4jffH84J1nQA/Y3RYQyhdXXDKsRVCXKnsAXrfykQzkG
+	 KW2TJeB/IVGry2HSvjLaBnic8CQ88ep6Ar7HFMNwNNswpqrcAUnNGhecoSo3DGHp478J8
+	 ++aYEQhMznRv66sh8rwTZPTlrMNNKkDNtwVP96W20Ri20FD+JVoQeeP+MWQchAKsIuQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1F5211F000C6;
+	by smtp.kernel.org (Postfix) with ESMTPS id 1F4DD1F000C0;
 	Thu, 26 Nov 2026 13:39:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795700388;
-	bh=DBljaZx1Ie/yPOiJhFP1dRpPDFPXYbPsWXbK8agzgEc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=QtJNZ1WCGvBIt5yhrXsBJx33X+LUthgUvQfOk1dJkYGJLpBOEWOxYKrFduISmCAmE
-	 iyr1bBWQw+scw+9AefgLZbsgcRySu3ImfVzc/BSnNwV43Jww48jrA/C709L3Bxc1/l
-	 B5xq+QpexNBdmlxqQvuvh72JLmoyFN0OdyMtmxyxbVPMICZpb/j1Gx+Vwl2nXQWqOR
-	 CNb9EonN1FyFxqZksPf5dnV70LJxVqrp5WRm5qouyzDjDuE+doWClTOwF0NJAuKj/i
-	 rNhqBJbjJBFWeZVGSEDzVI8eBIGjO2RsPqn7F6AH45tumbCia7qMVDwfVEZttuWJ9c
-	 /H6ABSO8a5xqA==
+	s=k20260515; t=1795700392;
+	bh=3mEzW61aNdoeGVGoXi6aBFf8PwLAKsbu1WYxRqmceiA=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=T5RCRlkpcKMgfMy4f3rX/veMRK8X3PcU1dQiZmpv87zaT8gT5+iFBsLirQklVSTHU
+	 K7jiWyQvmsQBCIcYVrGPB0NxXF6tqKoaGe4525ROsH21yamBkGbb5tllqCxv+CqvTa
+	 oamGr5iFlVA4eZHrbGz1ZOqg09BWC6J0jNPNhdiDRxVq11oEghadwL7orkvXRAuaR4
+	 qh5THgRtDfop74B10sNUasAEdEFyrMNJFq5/WL9ntALP4xM9em7vk9Mj39JlzHddNm
+	 3LtTgmqm3cZgXWJKESe7HEfSuKr8mv+shQYMnirQx+CrpNVNn1R1J94d1aRmgbdcxR
+	 0kF8kQdUHL0qQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A562A4D51A;
+	by lkml.kernel.org (Postfix) with ESMTP id 7A4994D535;
 	Thu, 26 Nov 2026 13:39:45 +0000 (UTC)
 From: Robert Ijtsma via B4 Relay <devnull+robertijtsma.gmail.com@kernel.org>
-Date: Thu, 26 Nov 2026 14:39:43 +0100
-Subject: [PATCH v2 1/2] dt-bindings: sram: document qcom,sc8180x-imem
- compatible
+Subject: [PATCH v2 0/2] arm64: dts: qcom: sc8180x: add IMEM and IPA nodes
+Date: Thu, 26 Nov 2026 14:39:42 +0100
+Message-Id: <20261126-sc8180x-dts-ipa-v2-0-ad57b1be7c70@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,52 +84,73 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261126-sc8180x-dts-ipa-v2-1-ad57b1be7c70@gmail.com>
-References: <20261126-sc8180x-dts-ipa-v2-0-ad57b1be7c70@gmail.com>
-In-Reply-To: <20261126-sc8180x-dts-ipa-v2-0-ad57b1be7c70@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNwQ6CMBBEf4Xs2Zq2WgVO/ofhAO0Ka4SSLhIM6
+ b9b8Gzm9JKZNyswBkKGMlsh4ExMfkigDxnYrh5aFOQSg5b6opQ2gm2ucrkIN7GgsRZS5ligMbZ
+ oHKTVGPBBy268Vz/md/NEO22ardERTz589stZbb3/9lmJFI3mbK+oTo25tX1Nr6P1PVQxxi9vn
+ v2IwAAAAA==
+X-Change-ID: 20261125-sc8180x-dts-ipa-008e9e55c9bd
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
 Cc: Robert Ijtsma <robertijtsma@gmail.com>, devicetree@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795700384; l=808;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795700384; l=1808;
  i=robertijtsma@gmail.com; s=20261122; h=from:subject:message-id;
- bh=nEQ+cGLgYgPSg71wgECg22VaJoVFfq3rn8jYugnx5Uc=;
- b=vzd6mOxpsmnXG8ZyobOX8UTLgHOJrDa++9/EF08MRlgNK/3IxUv1tw5c9oRifO/xljKc5KMVT
- RM8TfTrD3P/D+hUwbGQBoNnk7fjp53r7xaoWkUFagvxAazo6rDczOlj
+ bh=QyOTC2IVuu3v71bzMrVHNN/OT7Tq0DSK2eLPad57qH4=;
+ b=GFfbt++1Ni77TnAhvAXmQ8Q3AuDx+CSh8if6Z0fYCNDyBOhnVtTskZ+Ekk/Wryahoof3saZAC
+ 8jGHoXYFaXyDpsMFyQqWlmJWjBC/P/V5to0e62AcFZL4m9V8I3FmNDn
 X-Developer-Key: i=robertijtsma@gmail.com; a=ed25519;
  pk=qiDyKVqFicxFIR5sB5m+p9SWPKL2/+mMoiQnUx0C9P0=
 X-Endpoint-Received: by B4 Relay for robertijtsma@gmail.com/20261122 with
  auth_id=1604
 X-Original-From: Robert Ijtsma <robertijtsma@gmail.com>
 Reply-To: robertijtsma@gmail.com
-Content-Transfer-Encoding: 7bit
 
-From: Robert Ijtsma <robertijtsma@gmail.com>
+Document the SC8180X on-chip SRAM (IMEM) compatible string under the
+generic mmio-sram binding and add the IMEM (sram@14680000) and disabled
+IPA v4.1 (ipa@1e40000) nodes to sc8180x.dtsi so board devicetrees can
+enable IPA with their board-specific firmware and reserved memory region.
 
-Document the compatible string for the on-chip SRAM (IMEM) region on
-Qualcomm SC8180X SoCs under the generic mmio-sram binding.
+Note: Patch 2/2 references the "qcom,sc8180x-ipa" compatible string
+documented in the companion net-next IPA v4.1 series [1].
+
+[1] https://lore.kernel.org/r/20261126-qcom-ipa-sc8180x-v2-0-89eba621da95@gmail.com
 
 Signed-off-by: Robert Ijtsma <robertijtsma@gmail.com>
 ---
- Documentation/devicetree/bindings/sram/sram.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v2:
+- Document qcom,sc8180x-imem in Documentation/devicetree/bindings/sram/sram.yaml
+  as generic mmio-sram.
+- Add sram@14680000 with modem-tables-sram@3d000 to sc8180x.dtsi and
+  reference it via sram = <&ipa_modem_tables> from ipa@1e40000 so the
+  IPA driver obtains the IMEM slice from Devicetree (Konrad Dybcio).
+- Link to v1: https://patch.msgid.link/20261125-sc8180x-dts-ipa-v1-1-12e54c7e13b5@gmail.com
 
-diff --git a/Documentation/devicetree/bindings/sram/sram.yaml b/Documentation/devicetree/bindings/sram/sram.yaml
-index 6ee0b14..a6353ab 100644
---- a/Documentation/devicetree/bindings/sram/sram.yaml
-+++ b/Documentation/devicetree/bindings/sram/sram.yaml
-@@ -42,6 +42,7 @@ properties:
-         - qcom,maili-imem
-         - qcom,milos-imem
-         - qcom,rpm-msg-ram
-+        - qcom,sc8180x-imem
-         - qcom,shikra-imem
-         - rockchip,rk3288-pmu-sram
-         - samsung,exynos850-acpm-sram
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Abel Vesa <abelvesa@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
 
--- 
-2.56.0
+---
+Robert Ijtsma (2):
+      dt-bindings: sram: document qcom,sc8180x-imem compatible
+      arm64: dts: qcom: sc8180x: add IMEM and IPA nodes
+
+ Documentation/devicetree/bindings/sram/sram.yaml |  1 +
+ arch/arm64/boot/dts/qcom/sc8180x.dtsi            | 60 ++++++++++++++++++++++++
+ 2 files changed, 61 insertions(+)
+---
+base-commit: 4843f6873f7c4835e62f2c73ba0fd538e57a2f22
+change-id: 20261125-sc8180x-dts-ipa-008e9e55c9bd
+
+Best regards,
+--  
+Robert Ijtsma <robertijtsma@gmail.com>
 
 
