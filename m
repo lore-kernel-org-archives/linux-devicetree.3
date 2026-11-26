@@ -1,56 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795675561;
-	b=JzPwmdA0KnvgBJ4YSnu5yMvO6tMBbi27n2+o41osFBc9Hq3lG8lmk2I0qgvv06BIsCPm
-	 uy2cPptEGtiS8E141mT3N+anwlvGpnBa4Qx/mqhm8KmulZQjV+ptCbQBxZHF9ENa62UTI
-	 cn2T6s0ZvYslDiApqRuOeloFutZACTtoWYYal7r71+HA3CEY3rfwC/vxkXV8uCZWF06L0
-	 OJYbmWizbGXAqpKMS2K23Jw1PXX2pofq/2EsBc5y8UEmJKnMKE+WkmyOtxCeKCMJNz/Bd
-	 uf2S1lc7JL2fVRF/TKbV0DbuHujxGz7UxE+Ozrsne+hKiJdTT74Vy3Oit8TSZr5jLeQ==
+	t=1795675759;
+	b=j/IgQyFbkzTVSw/3kvS6rHR8E9EGL5LVOMKKh4AJMf2gAVaryeEFxBGQA+LsBuj8S8hZ
+	 12Qu0I4BcZSWdQq5XgKtJCprKmUL8dErxVZLm/ELuHLd6oZCyD7UDEXzYE3R1qqCnUwQm
+	 zM6Fs9JaeiVUf2LCf7fW45cD0M9W3E6rTQV0GNNSPaSTcwV9V+Q3mKScGsZIaQLrFSOpZ
+	 FoKJurgrf5J3py0CnIb3PGhP7/XUEza1aZoX/qyW9v8sDFxycnX+/KI0ab8+qm/4i4OJX
+	 DzaaV+sK7bmt1DQXrhaQif9K6ApygLCR60qBbgaQhmlUug+5wR3wSy+UTM2vO96ISjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795675561;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=j49d9FkOO/p0dmnZ0Ik6yMSCNkA/jfkYgsf8kQ77ow0=;
-	b=0FXI5hasUjzvp3pl3tQJ17krBSqHtreEJL5B0xULGn0wCsC99HHdMqQnCFOqBIxLZPNx
-	 XxVvButdhAtOyfe1YwX9/3rAUeb7f02KX8KBLj9BdmgF/T2C3VY9QMAvhSXOSqN3SGXq1
-	 +ZAriUT6B0z2A9DpiWYyewEimNEjONtn4RQTKw7ObxP1d3pHalpNn4RRP2rWv0fGztqLf
-	 tiSgWnSCgX8BWsA7WvxITEGdqorMLVHXNAlMAmHnGOBnivaB+CmaHOKUudYk62/LaKGG7
-	 mTF9pm1X7gi7SgvH2O6OGMb2x5aLkhU/xNCUg9lokTAf2AEkWYRNU8F1REyrptCFTlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795675759;
+	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ALDZI9zzoGK/EGXlQh9cjJVsMiJ6Nq8NocmOtDE4lVY=;
+	b=QN6Vsq/kJSpKv5r34z4WxCSiFDUFAFIJ8uLuTvGedD5+a/BZylnWIoBUPF+LoBNN5Lp7
+	 mK44wpNxKxsDKM2c7A1bNDYBJKdOzhEkj2vw7/HjYmcJ6IZzR8Nc9rErYOp8jb3jFPVm1
+	 VClexBWQM/n0AJhm4aDTZIwtYT0+Yepm2qJmunjh+uR1rp08nJgEfkoStVMqLPUcdc+3u
+	 empBvqnAuX+8FoGsGR9uoP0XQEnj46fzFvetlsV0BS+uQjhOSUalWNNP0reNn7BnC5oYY
+	 cx9bNfIwUmnBGtoCve4tLj8PBCqN0X2EXaAFrzeC4bwe72yriNp61F5IE9pHe1gu4OA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="kq/BIKQY";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=d-silva.org;
+	spf=pass smtp.mailfrom=d-silva.org;
+	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=TABOzGOx;
+	arc=none smtp.remote-ip=119.15.109.137
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1524C606A31C
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:46:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAAF4606A339;
+	Thu, 26 Nov 2026 06:49:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAAF4606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kq/BIKQY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D84BA1F000C4;
-	Thu, 26 Nov 2026 06:45:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795675560;
-	bh=j49d9FkOO/p0dmnZ0Ik6yMSCNkA/jfkYgsf8kQ77ow0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kq/BIKQYJ4MD2XyvFkqQDQxkWoN4BF24o3poJNQ5OPIvyH7D/51aWuEavkTAHcVGI
-	 VFoDhXzR4Cr+I9u+s1pTyDTJk0bgZ+/sOViVSx3xAUeS38rKvIzoJF9lp3kbqxHtZt
-	 sC8kF5Atx1yVPZBkBedpSxIysfpTLvT+7m4DkaGeUqSeugiTpZzbe2rEMenFPDgHzn
-	 l1b6v/1+/4g6PtDtGhbRyRIHJBoTo/MORhQGGrdGsf7us7nR2+jNHS0j3LBzHfXSKx
-	 BDgm9LUjUqlP37nftyiA2FVD7PlTA7be9o7rbKB9kKoBAlsX7OWrO2et1jP4X5W7Bs
-	 jg35zLvdWgtIw==
-Message-ID: <sashiko-outbox-234899@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 08/21] drm/msm/dcp: Add generic HFI display commands
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261126-jshekhar-v3-dcp-v3-8-f1e9d7505039@oss.qualcomm.com>
-References: <20261126-jshekhar-v3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com>
- <20261126-jshekhar-v3-dcp-v3-8-f1e9d7505039@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 06:45:59 +0000
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=TABOzGOx
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id 2FEC3403EF;
+	Thu, 26 Nov 2026 17:49:09 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1795675749;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ALDZI9zzoGK/EGXlQh9cjJVsMiJ6Nq8NocmOtDE4lVY=;
+	b=TABOzGOxi1J6AGOAfDZT/+WS29Uy6C2yZftVVmKrm7PTlSkOHLK5XDikYwiChl5+NtFTB0
+	mt0gXWk/t4zEQNHNWaVInTVHmJl3QW1DO9vFAGNlYe+OHLoSt5CnH6DUmOapf4kZwqZN32
+	OQ7A5rQ7qg9cdrnDajTtt2U8pF9kFby03TKdzdcVeFZdkIGrYOEkfqGyoBtk/EBsijjNbH
+	3GKgc8UFZntRHQ6DXwfGwE+kuJD5mUzP+eMacK91Unn975VSCFCkKCse2QzBC7lQLIOxEk
+	LcwirsXbizh3PCuS5ug6Cw3hTcqfnf1a2GYvF5pXoA7XFfKRRGVoxZc93wMlNA==
+X-GPT-Reason: This is a legitimate personal/technical correspondence
+	regarding a Linux kernel patch or hardware driver update. The
+	message is sent from a known personal domain (alastair@d-silva.org)
+	to a recipient in a technical context, and the content specifically
+	discusses hardware clock frequencies (26 MHz crystal, OrangePi
+	4 Pro, DTS files) which aligns perfectly with the subject line.
+	There are no phishing indicators, no unsolicited marketing, and
+	no suspicious links; the conversation is a standard developer follow-up.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: Junhui Liu <junhui.liu@pigmoral.tech>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Richard Cochran <richardcochran@gmail.com>
+Cc: linux-clk@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Andre Przywara <andre.przywara@arm.com>,
+	netdev@vger.kernel.org,
+	Alastair D'Silva <alastair@d-silva.org>,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>,
+	Norman Herms <dockseed@proton.me>,
+	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+Subject: Re: [PATCH v7 4/8] clk: sunxi-ng: a733: Add PLL clocks support
+Date: Thu, 26 Nov 2026 17:48:50 +1100
+Message-ID: <20261126064909.2584729-1-alastair@d-silva.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261112-a733-clk-v7-4-db7c5451ffa2@pigmoral.tech>
+References: <20261112-a733-clk-v7-4-db7c5451ffa2@pigmoral.tech> <20261125122452.3966873-1-alastair@d-silva.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,182 +100,21 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] drm/msm/dcp: completion zeroing and unlocked caps_cache in
-  dcp_hfi_kms.c
-- [High] drm/msm/dcp: pipe count clobbering in
-  dcp_hfi_parse_init_caps_kv()
-- [Low] drm/msm/dcp: uninitialized stack buffer in
-  dcp_hfi_log_pipe_ids()
---
+Hi Junhui,
 
-commit 493628efb4ff9c95ef6c5374bcbb496f98a1b513
-Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Good catch — I confirmed the OrangePi 4 Pro has a 26 MHz crystal on
+board, and my DTS had declared 24 MHz for hosc.
 
-drm/msm/dcp: Add generic HFI display commands
+Updating &hosc to 26000000 Hz fixes the rate calculation:
 
-This commit adds HFI display command helpers for CRTCs, planes, encoders,
-device initialization, and capability parsing in the DCP driver.
+  2500000.serial: ttyS0 MMIO32:0x0000000002500000 (irq = 414, base_baud = 1500000) is a 16550A
 
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi_kms.c b/drivers/gpu/drm/msm/=
-dcp/dcp_hfi_kms.c
-> new file mode 100644
-> index 0000000000000..82a7fb420e650
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_hfi_kms.c
-> @@ -0,0 +1,325 @@
+ttyS0 now boots cleanly to shell with your v7 CCU series. Sorry for the
+noise, and I'll send a v2 of my OrangePi 4 Pro DTS series with 26 MHz.
 
-[ ... ]
-
-> +static void dcp_hfi_caps_cache_init(struct dcp_hfi_caps_cache *cache)
-> +{
-> +	init_completion(&cache->device_done);
-> +	init_completion(&cache->display_done);
-> +}
-> +
-> +static void dcp_hfi_caps_cache_start(struct dcp_hfi *hfi)
-> +{
-> +	memset(&hfi->caps_cache, 0, sizeof(hfi->caps_cache));
-> +	dcp_hfi_caps_cache_init(&hfi->caps_cache);
-> +}
-> +
-> +static void dcp_hfi_caps_cache_stop(struct dcp_hfi *hfi)
-> +{
-> +	memset(&hfi->caps_cache, 0, sizeof(hfi->caps_cache));
-> +}
-
-[Severity: High]
-Can dcp_hfi_caps_cache_stop() corrupt cache->device_done and
-cache->display_done while capability events are still arriving on resp_vq?
-
-memset() zeroes the whole struct dcp_hfi_caps_cache, including both struct
-completion objects, setting their wait.task_list pointers to NULL and
-zeroing wait.lock without holding hfi->caps_lock.  In
-dcp_hfi_get_capabilities(), a timeout on cache->display_done only logs a
-warning before jumping to out_free_cache and calling
-dcp_hfi_caps_cache_stop() (and timeouts in dcp_hfi_send_device_init() or on
-cache->device_done do the same):
-
-CPU0                              CPU1 (resp_vq callback)
-dcp_hfi_get_capabilities()
-  wait_for_completion_timeout(
-    &cache->display_done, ...)
-    -> times out
-  ...
-  dcp_hfi_caps_cache_stop(hfi)
-    memset(&hfi->caps_cache, 0, ...)
-                                  dcp_hfi_dispatch_event()
-                                    spin_lock_irqsave(&hfi->caps_lock)
-                                    dcp_hfi_store_caps_payload(...,
-                                      &hfi->caps_cache.display_done, ...)
-                                      complete(&cache->display_done)
-                                        swake_up_locked()
-                                          <-- NULL pointer dereference
-
-In swake_up_locked(), list_empty(&q->task_list) evaluates NULL =3D=3D
-&q->task_list as false and dereferences NULL when waking the first entry.
-
-In addition, dcp_hfi_dispatch_event() updates hfi->caps_cache under
-hfi->caps_lock, whereas dcp_hfi_caps_cache_start(),
-dcp_hfi_caps_cache_stop(), and dcp_hfi_get_capabilities() only hold
-hfi->caps_cache_lock.  Because VIG_CAPS, DMA_CAPS, VIG_R1_CAPS, and
-DMA_R1_CAPS do not signal a completion, dcp_hfi_get_capabilities() can read
-and zero those buffers concurrently with dcp_hfi_store_caps_payload().
-
-[ ... ]
-
-> +static void dcp_hfi_parse_init_caps_kv(struct dcp_caps *caps,
-> +				       u32 prop_key,
-> +				       const u32 *payload,
-> +				       u32 max_words)
-> +{
-> +	u32 prop_id =3D HFI_PROP_ID(prop_key);
-> +	u32 count, i;
-> +
-> +	if (!payload || !max_words)
-> +		return;
-> +
-> +	switch (prop_id) {
-
-[ ... ]
-
-> +	case HFI_PROPERTY_DEVICE_INIT_VIG_INDICES:
-> +		if (max_words < 1)
-> +			break;
-> +		count =3D payload[0];
-> +		if (count > max_words - 1)
-> +			count =3D max_words - 1;
-> +		caps->num_vig_pipes =3D 0;
-> +		caps->virt_vig_count =3D 0;
-> +		for (i =3D 0; i < count; i++) {
-> +			u32 idx =3D payload[1 + i];
-> +
-> +			if (DCP_REC_ID(idx) =3D=3D 0) {
-> +				if (caps->num_vig_pipes < DCP_MAX_SSPP_COUNT)
-> +					caps->vig_pipe_ids[caps->num_vig_pipes++] =3D idx;
-> +			} else {
-> +				if (caps->virt_vig_count < DCP_MAX_SSPP_COUNT)
-> +					caps->vig_r1_indices[caps->virt_vig_count++] =3D idx;
-> +			}
-> +		}
-> +		break;
-> +	case HFI_PROPERTY_DEVICE_INIT_DMA_INDICES:
-> +		if (max_words < 1)
-> +			break;
-> +		count =3D payload[0];
-> +		if (count > max_words - 1)
-> +			count =3D max_words - 1;
-> +		caps->num_dma_pipes =3D 0;
-> +		caps->virt_dma_count =3D 0;
-> +		for (i =3D 0; i < count; i++) {
-> +			u32 idx =3D payload[1 + i];
-> +
-> +			if (DCP_REC_ID(idx) =3D=3D 0) {
-> +				if (caps->num_dma_pipes < DCP_MAX_SSPP_COUNT)
-> +					caps->dma_pipe_ids[caps->num_dma_pipes++] =3D idx;
-> +			} else {
-> +				if (caps->virt_dma_count < DCP_MAX_SSPP_COUNT)
-> +					caps->dma_r1_indices[caps->virt_dma_count++] =3D idx;
-> +			}
-> +		}
-> +		break;
-
-[Severity: High]
-Does parsing cache->vig_r1_buf and cache->dma_r1_buf in
-dcp_hfi_get_capabilities() wipe out caps->num_vig_pipes and
-caps->num_dma_pipes?
-
-Both primary (DCP_REC_ID(idx) =3D=3D 0) and rect-1 (DCP_REC_ID(idx) !=3D 0)=
- pipe
-lists use HFI_PROPERTY_DEVICE_INIT_VIG_INDICES and
-HFI_PROPERTY_DEVICE_INIT_DMA_INDICES.  Because dcp_hfi_parse_init_caps_kv()
-unconditionally zeroes both primary and virtual counts before looping,
-parsing vig_r1_buf and dma_r1_buf after vig_buf and dma_buf resets
-caps->num_vig_pipes and caps->num_dma_pipes to 0, causing caps->max_planes
-to become 0 and dcp_hfi_get_capabilities() to fail with -EINVAL.
-
-[ ... ]
-
-> +static void dcp_hfi_log_pipe_ids(struct device *dev, const char *label,
-> +				 const u32 *ids, u32 count)
-> +{
-> +	char buf[128];
-> +	int pos =3D 0;
-> +	u32 i;
-> +
-> +	for (i =3D 0; i < count && pos < (int)sizeof(buf) - 8; i++)
-> +		pos +=3D scnprintf(buf + pos, sizeof(buf) - pos,
-> +				  "%s0x%x", i ? "," : "", ids[i]);
-> +
-> +	dev_dbg(dev, "%s: count=3D%u ids=3D[%s]\n", label, count, buf);
-> +}
-
-[Severity: Low]
-If count is 0, the loop does not run and dev_dbg() prints buf uninitialized
-from the stack.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-jshekhar-v=
-3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com?part=3D8
+Thanks,
+Alastair
