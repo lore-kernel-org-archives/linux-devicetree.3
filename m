@@ -1,13 +1,13 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795687067;
-	b=Jam4t6UDuqFiQJRqEs50j7pu+eSAAQHOCf+hSOs+xFwpmvScU+RnsR5GBM3BV+oozf1G
-	 fJ6l9QQ1uvJavtxZKbf5WHbQzAph4dmy7jw09jogy5Ss8OEFvWTHABnO1rE/CrUOyb80u
-	 uM+59ORy+Eedo97sExLkzVOcgG1OmOWnvaGmW/lfBbxH5uCSl/sOj+oA38V0FKihiDNzm
-	 D1W0uBQ5fHjn3nNBNd99hX7VBu2pljisk2HtNag2E8fDHhlTzkmnw8XaGgqPO7nT4hXVT
-	 yL6wUx30Xw6NmkhMkWGMKJvB+3dCBXdX3n3tJ8RDRBUKc0ZSzY5nqT9fnfVnfSvwUfw==
+	t=1795687075;
+	b=iBrbmRxKjir83F1OkCSwDPCLdflxL7hiratYUarr4HErk+TIno3eN/Jwd3PPcZ4hRj+5
+	 uRE+U43blBuJ9BVPCX441I2dya7AL/YKX/E+Zv+tsTznV1U0RYTDkARV4l176JqASe+L2
+	 RG3ltJTm/QN+Sz4h/gqoWAnSvJSgbebXDl2N8JMfiRdXhr1rOUu5TA3zmLYJ+rq58VAtF
+	 T7QES6gWyR9+KquE2xJR8mqCliajCuCQ1u8HbSZDR+3nLxe/PVCiTYwy6I1CzWPKNRav8
+	 20E4kfwrd3cfqBhSNfNHcWGzurqgYHCvH7rYbBLF37ZjgiwtCIZsr6YHdv0GBCCZDew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795687067;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795687075;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
@@ -16,92 +16,92 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
 	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=agTbkmcEs6TrqXAuW+7FRD7KPDJYeBrOt4eTWPTpJa0=;
-	b=5cAMHIzcp/AJe5DC6PAgdjp1JEmgb0LSoDMbVTB8ZroP+czWrgMPSZNsXMQD+FxfRXPN
-	 7wDP0HfWXb5w9Fd63Y3qazmZA5qg864QGow4oS9ua31ZrjrdR8BJSWx1bZ7F12mo9l/ua
-	 xVlQXAy5ryskzRPgOFYf92M9pbfc6yWz/cgL+7SDIT544ISbRBrekyEE1z+cKDB7NmdMs
-	 65CW3atUFip09+36L1GWZr1K/5PMyD6EAcCBMFdqBMN2LX92NmL+I0jvoCzinb7PQCm/t
-	 PkVhNOe+gOgoujMsow+8SCgP0BWdsQx81mofhQ0LHqwSQlXsY1LbxUuQ4e4T19v+7Dg==
+	bh=V5bOdURA8FVOA/hZUhmlwnRgu1GR98lkW/FXUKup9B8=;
+	b=pZfLD/IyA2Kz/J4JviQ1wHcLATp70UE2lZqBE81zPGL35x12B7aKbcGvHUtZ9ZD5EcOs
+	 aND2V8ZgXq6s6S1hD2nxjroWkHT9jnh7qVBzCWtVkv8wiJbZvGYgbTE2s7FstxDLAegqJ
+	 SjbQ96HGYM+4zVqgyQmAB/93y1vbn06JProBU92mivXH8rf6pzbxxD37KpZld9md3ChhL
+	 aiA9Jm/YZJm4j1TFNO+1xsgsGP6wyUkEXUu+K7RVnn6B973DAVW01h4+ApWerHYTcmHne
+	 lYylc1ZUqgnZUMZZbaZutiaNeDg1XqllPugmJJp1h5s6aRYTMipltJ61ie6S3AMaVnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jN9WcARj;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VXUQ0FjE;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fYchbVi6;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=B69B63vZ;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98320606A33E
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 09:57:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98320606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF689606A31C
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 09:57:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF689606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jN9WcARj;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VXUQ0FjE
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fYchbVi6;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=B69B63vZ
 Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQ7AvDG2594844
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 09:57:46 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQ7AvcI2594845
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 09:57:54 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=agTbkmcEs6T
-	rqXAuW+7FRD7KPDJYeBrOt4eTWPTpJa0=; b=jN9WcARjBcn1WcAkR79jKyT1xuQ
-	/YNmSDJ+uNLNDCX2IYxOmjLxvlOmOx23WpaBrhEK5g0yTIefcsg54laM251CU+UI
-	V2ua2Y4bGJN9FFXIe8cnTEZSXqahqr+FU+N4ynttO/WsfbFpRHo959dgao+2puCh
-	Ju++asjdC+5GJDeXTh7xbmC5IU0zChRNrmDr12WbgqMXDEmu+Iq0N6EPe9AMUl9c
-	vzJZMdhzncRCBdM54uqsC03fVD1dedFtR4EvWR0lsX/HVE0NFsfp3/tHHJA+8A8z
-	kWk0LIhQh8573ckIQhHd2WhYMcY0izYm/dHaMSfejt0h8wkeoy3MxSmbCyQ==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j662sak9m-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=V5bOdURA8FV
+	OA/hZUhmlwnRgu1GR98lkW/FXUKup9B8=; b=fYchbVi6CTlUVo/KWqt222aUOmj
+	UIZL198acvWlJ6kMbJkrCvQDUtc405cnb/zRUtd1/VGM/Q4G8g3pdGeAFAdwzeLK
+	E7y1drA7aOONrzRSAsDZrk3XLFJYg1YERgJp1Jrzy8H8dlbRBo/w0tve1ibl3EGk
+	LdUmYu/rckMwlq3u7ID8P5E4d8HkuTowOggACQHmQ5nzBosJl9/tXlUyZGpG5yua
+	jDyT083H+rjbxQ4t+DWTmuN2+huX4hYxM+/paL3sf3oi2B9epezozOFlZNyGbgW2
+	NYYDDxV0DwHYbP4a1U1P4LmtDP77X1nMW0bJ9/7ukTHYAciTM8d1Yk+Q+KA==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j662saka8-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 09:57:45 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b40e7f4fa2so8938781a91.2
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 01:57:45 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 09:57:54 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2f04561ee04so39182825ad.1
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 01:57:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795687065; x=1796291865; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1795687073; x=1796291873; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=agTbkmcEs6TrqXAuW+7FRD7KPDJYeBrOt4eTWPTpJa0=;
-        b=VXUQ0FjES9Vx/pHSOwQnITjzlJ+pQZg0S1FiG7i+hLP7CAxKv/bGkYA6rEpUnsytdX
-         luzkoeDY0MjXgF9AdGzKRwqnH0xwFAFiJbJeDFMK3en+oyid730qEVfDxPwBAd0ozDbP
-         SBfJlYYYa6Z2AxoBy3xilsf/LRaYdOMu8YcxdtRnT+jBD7b/ZHegIyZZTtd8vCeLui7Z
-         n+Xaakjn3bvwUWsv6Mo60lJTq/MpIJ7ABH/76lqh3uRSasg9leN0BR3sdbXEOR7uyUwY
-         hHpGqw69S0e39BN5O1MPFtapRFmTgCQ72kVo17LYxSIvX0xhA4d85BNvQRKumloy8hHV
-         vnDQ==
+        bh=V5bOdURA8FVOA/hZUhmlwnRgu1GR98lkW/FXUKup9B8=;
+        b=B69B63vZushI4xB4yLPerkG13f2ZWmzRrfkjB8zk9HdBT5J2AE463HLeOk4wgssyRi
+         57bUVby4Zrx4funZBm7M+JQI/do9oHnvO15G7vI170i0qHGBHbspfYjx0ueLbkvpDRI7
+         M8FVrKIR6HAEFTfm1FrzCQVjRpad2lNLKeCxvGfEmdZRCkFvDF1Q/hMzZ204OewRq/Fm
+         yMhxnc4/n5PkZeS2app4XqZ5l9khPjGnCOKLz6eKb4jr4ZFWZqSM4owUo/I8AGeLkDNa
+         u38fxKV7DPfx2bBsVUHTx3jadCJpqowG6TeFIYeiTbFaj7hdbGDRHSmBrHDC4v4CgORw
+         iYmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795687065; x=1796291865;
+        d=1e100.net; s=20260707; t=1795687073; x=1796291873;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=agTbkmcEs6TrqXAuW+7FRD7KPDJYeBrOt4eTWPTpJa0=;
-        b=Csg17XmBrhxlMfkGoHoZ9uHxIZKZu7Q9XUC7UWTWAzaOKg/ixXd9hgJZDKtqb/dGvM
-         2scxR/6axmw183LA2Le+hgYWDLKF7suewb15eJVSScI+FJf3Rh5dJrqCj4HgF0yfG8sG
-         qBfiD+Nlggn0tqEHVrZX0nVxetf+d4VkZCHsBWguZv+oZpQ1ZymUDdfGZT9C8ydV948M
-         oEXdMdC0+b9mdndyXk9SHfYruEfRScLLSgZJSqs87ClDb9I6uKCz+R5jf+VpovAJBixp
-         gKfl1jSa+XPuyxgRwHcUZxbN8uatR+qKXFEzcw89ZMYS8ToaaAGdOg9LcbGe1l1eA09U
-         cqYA==
-X-Forwarded-Encrypted: i=1; AL+hErEDhKdduBE6lsMEwGB5dCo+xxGiaLScCYBsaFlsZRxcwimIjW7hFFrZW2dKBMI15xlW/mvIsU8VCv6+@vger.kernel.org
-X-Gm-Message-State: APuU4Z8IAiN/em3Zi5Kp/8fG3I3bMmJ3j1xRmQ1FVQk7yQXt5mKJS3nX
-	EUR2YeJ154J7+INotuFV5aayco5n/yROSpP+8vhiSDR9FXhN/F4QPFPMohpWInPVO2+cGvYWt2q
-	Fz3vj4xnxRwHiXXYyiJpjBsZNgKJ7AwAO7MLuVrzvylXzUNNZLxLzsRmT7KngOXX3
-X-Gm-Gg: AZFdTZeW9DE0/Qlas7FjqhouEGLq4D29ivqYxQOvEkvbHkUe2vTxYLLMu3cLw/gsDaa
-	EOmTjEjl6/KtcSUn8Vy1/ASxxZ1wujs7D+HeTGpKxe9pWGOB/ES0m5UnY2q7MwecaKfzX2SaCBY
-	Q7EmIP1ywUr8J3yq7gn34OXoRolOfyCq3m8oDPKxCv0vmc7f57XDvo6vJ2kTQGgt8/x62ix+Uf6
-	MjR038+DvV9epsu+U0C69uKMLBnMGQ5mqkmFmSRQy7U9XcfnjPj7Gcl7FIB9Ml/3KIMnMWkJm2H
-	weQ3gQWwQlZjF8I6YzBIDBXkfUyz5xmdVhZbcfFoyOzaY4f2g43JyjnGhIL/VafzH/PHFJvZ+KK
-	T0kCxcwCEujDYirsOJRatPY1a8nK3EIFUZRhsnTbO8rfngrA8VO++2WFovJUrA63kx17SNQULGX
-	EbN2pk9fndrlcQynNG5+yWXRi79uatoUTOfLw4qYbJb54TAfPsZ9aOL8+W+AeW6+R7rcm3rUT2/
-	w==
-X-Received: by 2002:a17:90b:39a3:b0:3a0:9c9d:eb18 with SMTP id 98e67ed59e1d1-3b41cb20e66mr22029457a91.54.1795687065277;
-        Thu, 26 Nov 2026 01:57:45 -0800 (PST)
-X-Received: by 2002:a17:90b:39a3:b0:3a0:9c9d:eb18 with SMTP id 98e67ed59e1d1-3b41cb20e66mr22029418a91.54.1795687064755;
-        Thu, 26 Nov 2026 01:57:44 -0800 (PST)
+        bh=V5bOdURA8FVOA/hZUhmlwnRgu1GR98lkW/FXUKup9B8=;
+        b=DZvvjZg26sQrEix8mNPsH7xLgTTeAsbLqM5AuVqb9IBeoQQl1tt/QHG3dvDZBa/HUx
+         y8KqcGduj5fP/2epqAxLckHpJqXAkk2euapmG5wPe6jDdOzHYum8BJOpLvFumo2OAQnE
+         Y5nTnJ+pZlXBLZ73GuVltEetr4KoCYbPbnUnyMZ82bz+SEv6aEhfBoAXOMfIhp650q9y
+         LY04ImOgQr56/di/ywwTF3leKBjYobNK1S0icr452o225LgoDlZiWf5cYMt9DC6A9Yj4
+         PhkI8JC/KusKubUo/MvzEId2YWu/pt0rjCB7JQO95IcGa4tWAqy+ux+y20w5rq6289Dr
+         fz6Q==
+X-Forwarded-Encrypted: i=1; AL+hErHUo06d9qrgDh1R+xByJU8rhelYvxQ65vfZrqupdvC4KIzvie2TwRJOyDwbVti9dPMxXY6K7/kgxkbH@vger.kernel.org
+X-Gm-Message-State: APuU4Z9KrjZWfRlFS7gFXoIMf5NijGX+8P57RJrjpJiaRD6DzkKHERux
+	sM627ALAtzG5yXlWIzgJg4+ajAWAIOJqokahluj8fYPAIvoZNBoO8H4fUZX59SFwdbWiB0MoFgg
+	M+a8fCuqTYYC2mLhnP9hGZUQmtnUJMaDMLScKeYh6wHPYVJjIhoS5X4nn7LiPUAF9
+X-Gm-Gg: AZFdTZfjM+AToBinS1F2Yw4GOb0Qu7mlj6WDrHpWAR9oNyFTDHDGM1ZnkBW3gvEKmx9
+	Uvww/CVnX9aORauyAMEc2OAdKd/8o20sGro0BMbBAuNY+BD/vx+WfMDNHis8ZpwHlX3w4HZYxue
+	n5FXxj0pqB4RzdlB4oRLSaE+u49zTzSG/KXgzuQ9E1mK7Yq84PwIcAs2R9agZKlChsCns/gcIEb
+	6jVAkrGiZfvXUehiDJy7Ivt5ocrSxXaEvr+PuILfc9kTuFTuj4qRS379hRi88ner//RQbdk5LQT
+	3jjNRKlQdq7Du0rBqEw+Rus2pZ8I6dk5ixh2tJg8dIgr3/kCi733blGY8kHeyrnUR7HEawdHDPn
+	zhbd+QKL+24QsugwVSJPx7UvNZ/s93zqW1sqiO/JqZv4MnRl5ihO+3/1jJrtWzprh2pEo1+zNOx
+	nHmyXL54071yU9VjVeJdL3tNx29Pe+SMM+SHIwBMVcvPJWTIbfBqpm07bWLc9tv5KbZ89zdY1/T
+	Q==
+X-Received: by 2002:a17:90b:2b4c:b0:3b0:a7b5:c037 with SMTP id 98e67ed59e1d1-3b41c7b6145mr19812386a91.1.1795687073461;
+        Thu, 26 Nov 2026 01:57:53 -0800 (PST)
+X-Received: by 2002:a17:90b:2b4c:b0:3b0:a7b5:c037 with SMTP id 98e67ed59e1d1-3b41c7b6145mr19812358a91.1.1795687072994;
+        Thu, 26 Nov 2026 01:57:52 -0800 (PST)
 Received: from hu-mchitale-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-3b41abb2076sm32459030a91.2.2026.11.26.01.57.37
+        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-3b41abb2076sm32459030a91.2.2026.11.26.01.57.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 01:57:44 -0800 (PST)
+        Thu, 26 Nov 2026 01:57:52 -0800 (PST)
 From: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>,
@@ -110,6 +110,7 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Alexander Shishkin <alexander.shishkin@linux.intel.com>,
         Ian Rogers <irogers@google.com>
 Cc: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
+        Anup Patel <anup.patel@oss.qualcomm.com>,
         Alexandre Ghiti <alex@ghiti.fr>, Peter Zijlstra <peterz@infradead.org>,
         Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
         Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
@@ -119,11 +120,10 @@ Cc: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
         Andrew Jones <andrew.jones@oss.qualcomm.com>,
         Sunil V L <sunilvl@oss.qualcomm.com>, linux-riscv@lists.infradead.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Anup Patel <anup.patel@oss.qualcomm.com>,
         Zane Leung <liangzhen@linux.spacemit.com>
-Subject: [PATCH v7 13/14] perf tools: Initial support for gtrace decoder
-Date: Thu, 26 Nov 2026 15:25:34 +0530
-Message-ID: <905e9e671d6b23bd33527c828c3dee212341e246.1795512532.git.mayuresh.chitale@oss.qualcomm.com>
+Subject: [PATCH v7 14/14] MAINTAINERS: Add entry for RISC-V trace framework
+Date: Thu, 26 Nov 2026 15:25:35 +0530
+Message-ID: <d5087c1c7ce28317339739df2fbbfcaa5838243d.1795512532.git.mayuresh.chitale@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1795512532.git.mayuresh.chitale@oss.qualcomm.com>
 References: <cover.1795512532.git.mayuresh.chitale@oss.qualcomm.com>
@@ -137,24 +137,26 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=B54sQ+tM c=1 sm=1 tr=0 ts=6b08029a cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Authority-Analysis: v=2.4 cv=B54sQ+tM c=1 sm=1 tr=0 ts=6b0802a2 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
  a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=QyXUC8HyAAAA:8 a=QMbGdu15EjEoZvaX42IA:9 a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-GUID: v3-roiizRSAXaL3-zdHNaTh39glrKxHE
-X-Proofpoint-ORIG-GUID: v3-roiizRSAXaL3-zdHNaTh39glrKxHE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDAzOCBTYWx0ZWRfX+3uOzQK7/2gq
- 4qy9kYx3mdJOFOaGCbbAKrD8QNKkOa8qCvxkDprtVICdr1fxKXefEM34gZFNrTrLgKG5TblRaIx
- n0l2m2DypQ6ifMf28lyrHjc7rTGm5IjbS+kGwQelBidvPC2reZmwechfQuOl8VWZtEIKxbCDyBc
- DnfWw/Yc0TgiadvQ2OusGVDHJ/uPOV37ng0OVS3zoKb2+Ezxn77pgLhSEwFMxHyRauX4JTFKoas
- wVoZWdO4dCkArJQmMQNwGF2tXGS4VHZBLg+88ebAN+f5+qU3A2Zps0y8Absg1kHKYgjzpN+Jdb8
- YXXvPYX6LIfaUZptndsIV1lRdXY8Pr6Lcs2m8C6YxqSdL3TCTQLMgggSgVBzhpQElXDpLBzdn0x
- KtqgX3t6HKPbhNA/L2PqS7ZvrfFxxkNc2+zDMpFNJx8LSkMc8QoMx7qE97F+B6xvMQomFiZ5AO7
- HPcTgAY65hspkjAPV4w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDAzOCBTYWx0ZWRfX7qGGNPdDNHwi
- QBGLtHrFm3esNQriOfF3GqsdhkJvFOlN+PU1sZdQXkCXr78gN0jusu4J8dEjKVW+8QIf9PUL1fL
- BW3zyJ5SvFp6Aafip6OhMBNeaGf0Yec=
+ a=pGLkceISAAAA:8 a=W-_n0kkjAAAA:8 a=JfrnYn6hAAAA:8 a=UgJECxHJAAAA:8
+ a=hzgbeqSfhi83Ps7mpaYA:9 a=GvdueXVYPmCkWapjIL-Q:22 a=qeNa2pbTr82C0GpJEZFS:22
+ a=1CNFftbPRP8L7MoqJWF3:22 a=-El7cUbtino8hM1DCn8D:22
+X-Proofpoint-GUID: YAwsen6_XZgJpf1c_j-1aO_alji4Y3Zr
+X-Proofpoint-ORIG-GUID: YAwsen6_XZgJpf1c_j-1aO_alji4Y3Zr
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDAzOCBTYWx0ZWRfX6QK1mybYz8KT
+ oFxcdaTwkFdXFN7YxO2Ysi7V8YZ9SvyqvBOUTE5UifXoiB7ubprJv4F7eGmPD/9fg49NGu60hOh
+ nz9F+Ry0mp2IrDtvadSR8fktvBf7A1nfspkGfgAyGCn6Ljz2YRzBA1tpdr7x24765wbNurBXzzA
+ msQF2/zLESZP0FtGgwjYHXIwDp89aRTimUY/GwqpwNM6D5yGWOAG0hRpNOtiMHsX5zZpbYvhtvV
+ LQQtzyJ5c7oGTJBIgk75C2uOPqtCEYA2CQo12NgDLIC2OaUyqRNVvLTroRXI0eSC+y/kZ0vvb6i
+ P5VIV11hih1rgh0r2MQ4yFam2TByjcWpwv/YAgvU3LOr3sz6co/1LFg/DVvBNaXLUvdWXQy4xdz
+ LLR8KO3nLHBt/HW0P1DwCcdTJxjdLYRVtJRl/aVq1uFoipxYpGoCgBrKFX0PfWCuQsFGRp3eb+S
+ wJ8Eycrs7CZPxikI36A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDAzOCBTYWx0ZWRfX9tig163/5Y5M
+ d+t1ljrFzEsd041CORVh3gecQzEs5kROqvdC3o2riuGpPPWSvrg3npb2StBUt1wg0/Q0pSHD5hu
+ etJZr61Gvbf02NkMwIz9ILKr0rrcEs8=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-26_02,2026-11-25_01,2025-10-01_01
@@ -164,171 +166,38 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260038
 
-Add bare bones support for gtrace decoder so that the data received
-from the hardware by the gtrace perf driver can be written to the
-perf record output file. Actual decoding of the trace payload is not yet
-implemented.
+From: Anup Patel <anup.patel@oss.qualcomm.com>
 
-Co-developed-by: Anup Patel <anup.patel@oss.qualcomm.com>
+Add Mayuresh and myself as maintainers for the gtrace framework and
+its RISC-V trace drivers.
+
 Signed-off-by: Anup Patel <anup.patel@oss.qualcomm.com>
-Reviewed-by: Adrian Hunter <adrian.hunter@intel.com>
-Signed-off-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
 ---
- tools/perf/util/Build            |  1 +
- tools/perf/util/auxtrace.c       |  3 +
- tools/perf/util/gtrace-decoder.c | 99 ++++++++++++++++++++++++++++++++
- tools/perf/util/gtrace.h         |  1 +
- 4 files changed, 104 insertions(+)
- create mode 100644 tools/perf/util/gtrace-decoder.c
+ MAINTAINERS | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/tools/perf/util/Build b/tools/perf/util/Build
-index 2c1f880c4c47..ca22b84cb9b9 100644
---- a/tools/perf/util/Build
-+++ b/tools/perf/util/Build
-@@ -147,6 +147,7 @@ perf-util-y += cs-etm.o
- perf-util-y += cs-etm-decoder/
- endif
- perf-util-y += cs-etm-base.o
-+perf-util-y += gtrace-decoder.o
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 742c4e6b291f..e582686ab218 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24318,6 +24318,17 @@ F:	include/dt-bindings/power/thead,th1520-power.h
+ F:	include/dt-bindings/reset/thead,th1520-reset.h
+ F:	include/linux/firmware/thead/thead,th1520-aon.h
  
- perf-util-y += parse-branch-options.o
- perf-util-y += parse-regs-options.o
-diff --git a/tools/perf/util/auxtrace.c b/tools/perf/util/auxtrace.c
-index f77b674dd724..742f21b268b8 100644
---- a/tools/perf/util/auxtrace.c
-+++ b/tools/perf/util/auxtrace.c
-@@ -54,6 +54,7 @@
- #include "arm-spe.h"
- #include "hisi-ptt.h"
- #include "s390-cpumsf.h"
-+#include "gtrace.h"
- #include "util/mmap.h"
- #include "powerpc-vpadtl.h"
- 
-@@ -1433,6 +1434,8 @@ int perf_event__process_auxtrace_info(const struct perf_tool *tool __maybe_unuse
- 		err = powerpc_vpadtl_process_auxtrace_info(event, session);
- 		break;
- 	case PERF_AUXTRACE_GTRACE:
-+		err = gtrace__process_auxtrace_info(event, session);
-+		break;
- 	case PERF_AUXTRACE_UNKNOWN:
- 	default:
- 		return -EINVAL;
-diff --git a/tools/perf/util/gtrace-decoder.c b/tools/perf/util/gtrace-decoder.c
-new file mode 100644
-index 000000000000..503fbaac12c6
---- /dev/null
-+++ b/tools/perf/util/gtrace-decoder.c
-@@ -0,0 +1,99 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Generic hardware trace (gtrace) decoder
-+ * Copyright (c) 2026 Qualcomm Technologies, Inc.
-+ */
++GTRACE FRAMEWORK AND RISC-V TRACE DRIVERS
++M:	Mayuresh Chitale <mchitale@gmail.com>
++M:	Anup Patel <anup@brainfault.org>
++L:	linux-riscv@lists.infradead.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/riscv/riscv,trace-component.yaml
++F:	drivers/hwtracing/gtrace/*
++F:	include/linux/gtrace*
++F:	tools/perf/arch/riscv/util/auxtrace.c
++F:	tools/perf/util/gtrace*
 +
-+#include <errno.h>
-+#include <inttypes.h>
-+#include <stdbool.h>
-+#include <stdlib.h>
-+#include <internal/lib.h>
-+#include <linux/zalloc.h>
-+#include "evlist.h"
-+#include "session.h"
-+#include "gtrace.h"
-+
-+struct gtrace_decoder {
-+	struct auxtrace auxtrace;
-+	u32 auxtrace_type;
-+	struct perf_session *session;
-+	struct machine *machine;
-+	u32 pmu_type;
-+};
-+
-+static int gtrace_process_event(struct perf_session *session __maybe_unused,
-+				 union perf_event *event __maybe_unused,
-+				 struct perf_sample *sample __maybe_unused,
-+				 const struct perf_tool *tool __maybe_unused)
-+{
-+	return 0;
-+}
-+
-+static int gtrace_process_auxtrace_event(struct perf_session *session __maybe_unused,
-+					  union perf_event *event __maybe_unused,
-+					  const struct perf_tool *tool __maybe_unused)
-+{
-+	return 0;
-+}
-+
-+static int gtrace_flush(struct perf_session *session __maybe_unused,
-+			 const struct perf_tool *tool __maybe_unused)
-+{
-+	return 0;
-+}
-+
-+static void gtrace_free_events(struct perf_session *session __maybe_unused)
-+{
-+}
-+
-+static void gtrace_free(struct perf_session *session)
-+{
-+	struct gtrace_decoder *ptr = container_of(session->auxtrace, struct gtrace_decoder,
-+					    auxtrace);
-+
-+	session->auxtrace = NULL;
-+	free(ptr);
-+}
-+
-+static bool gtrace_evsel_is_auxtrace(struct perf_session *session,
-+				      struct evsel *evsel)
-+{
-+	struct gtrace_decoder *ptr = container_of(session->auxtrace,
-+						   struct gtrace_decoder, auxtrace);
-+
-+	return evsel->core.attr.type == ptr->pmu_type;
-+}
-+
-+int gtrace__process_auxtrace_info(union perf_event *event,
-+				   struct perf_session *session)
-+{
-+	struct perf_record_auxtrace_info *auxtrace_info = &event->auxtrace_info;
-+	struct gtrace_decoder *ptr;
-+
-+	if (auxtrace_info->header.size < GTRACE_AUXTRACE_PRIV_SIZE +
-+	    sizeof(struct perf_record_auxtrace_info))
-+		return -EINVAL;
-+
-+	if (session->auxtrace)
-+		return -EINVAL;
-+
-+	ptr = zalloc(sizeof(*ptr));
-+	if (!ptr)
-+		return -ENOMEM;
-+
-+	ptr->session = session;
-+	ptr->machine = &session->machines.host;
-+	ptr->auxtrace_type = auxtrace_info->type;
-+	ptr->pmu_type = auxtrace_info->priv[0];
-+
-+	ptr->auxtrace.process_event = gtrace_process_event;
-+	ptr->auxtrace.process_auxtrace_event = gtrace_process_auxtrace_event;
-+	ptr->auxtrace.flush_events = gtrace_flush;
-+	ptr->auxtrace.free_events = gtrace_free_events;
-+	ptr->auxtrace.free = gtrace_free;
-+	ptr->auxtrace.evsel_is_auxtrace = gtrace_evsel_is_auxtrace;
-+	session->auxtrace = &ptr->auxtrace;
-+
-+	return 0;
-+}
-diff --git a/tools/perf/util/gtrace.h b/tools/perf/util/gtrace.h
-index 63f7560fc15f..acc25748b4ac 100644
---- a/tools/perf/util/gtrace.h
-+++ b/tools/perf/util/gtrace.h
-@@ -13,4 +13,5 @@ struct perf_session;
- 
- #define GTRACE_AUXTRACE_PRIV_SIZE      sizeof(u64)
- 
-+int gtrace__process_auxtrace_info(union perf_event *event, struct perf_session *session);
- #endif
+ RNBD BLOCK DRIVERS
+ M:	Md. Haris Iqbal <haris.iqbal@ionos.com>
+ M:	Jack Wang <jinpu.wang@ionos.com>
 -- 
 2.43.0
 
