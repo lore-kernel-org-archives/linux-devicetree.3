@@ -1,79 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795685084;
-	b=iBiII2UwuQWjfXuKtP+c0a5GHYQaWlrluzZ4tqe+ABCG42KthCN7hc2v24u7yRmGm0O7
-	 YOoto5MfkE6oGSx/f5uz7Bv9K3DLlicHFhxBQ9G8N9hnfgEDf1Gf+F47RK/SEjo7nGB77
-	 Va6lvh9zHkbKRaGRsb/atyE0rpG/sOlscCBR706EgZBxPOlMPITEZVhipiqIZbXs1oWn9
-	 E9RhXdw5EVVD4VNqOQWBQgg47WdE7kKK5DvscIFBT0MwIoeKHoBZNDFCgTZdDQvq7Hrvh
-	 zTEoMz6dWNaypdctoCB415xpQaV6AX7R0ZI5iPF1yXGGXXmhZhTO3xh4a44ZGZYqu7Q==
+	t=1795685261;
+	b=RVJTX7Me2m0jzAAvxgvVbg9YtmqL/BWSVUMjqdFx7zJtvgwpUj36d5dFEEPh3zrRV6gY
+	 CVEr1CV+CvVEL03TS4Uth7f0p4lS6K0ML2gFrhK6s8pfH7U/VNhlz2b2BTTIGBo2xbN/Q
+	 I3z1T7qEW2vIw7naa8o7eHhCgl/oLCYi2OnisK8UeyHYm/dmJkxo80OgP6lKUjPzdUGcJ
+	 hVfSwoX3PVqQGLh5NH2LPAZ5/HsmkXDUK/iJFozKTc3/i5PVYmoCIdxcQvO5Fz7mHvOZv
+	 FLsi/zi2lq+v67aFNjdaJkG4XouDXOY/okOyVrvxl7E1/cHg/pUX4iB//Gfvuz3U+mA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795685084;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ncZEOFwP6rVHKLPZIgaSh4joPCImz4xzJxYzeEGBoGA=;
-	b=KZxgtt1CuYgM4WIm3l3zp+7U83j/dsMFMR433dkN4DK4Mf61qaVgRlOcvWcdIQuFUfE7
-	 lp153ZLyHHC4oTpL/1wUXFdup8Nff4aVhZzfvikqs7ye9Z2hwdd1v796WSWyemFz8S09g
-	 XKx9B6k53bPHyJFIJmBsxCU5K19yhcE49ckoDCZbasGtwA64FaF6HiafeDBPH2OVvLb8e
-	 9rv3WP9q64MChYfInBv9xLTiBDE+YgPget2ATwFz1d+TfgtiQoCCwyNXzSmSJOlbmso2O
-	 IOj8UW9Sz6k2xgdWmmzqgUT0mND0VFS9dBVU+cIp7ccBNxCaRyDxgpqqfPWOnaYTzkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795685261;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=U1PlTflxl6Hs8FvZm8HyBGbLsKpRHwgjqHn1uqmdpRI=;
+	b=jEjvRSJgcnTbc+1+BGqwJ1vsZiuTtVqqibShl6kC00eQveScbfYI6PBgW6TagLdo8Ov9
+	 0E2QvMP3pxocZB4gd8BKwXEE6IR4A+5Z44oH2+nBezB9TOFjVlIDjyagRyCJWiu91xmeO
+	 3bgsClomSgLo+EA1s7SvORZ4hmxxJXNtuVgM5t4WNEt4c5S7jQK8BbF33fu9kqdP2W9Eo
+	 hsQ7ITu2Sh52lVCOzKJVGcShd3B0VGTHCjWU8nx6r3j9Pmmvfbwq/tXzLV6pM2e9KdrDz
+	 7PAOHcBm5TW55UZR4uaVog1fC/PlJkpnrL/A3g+OfxlPa6rcZO2uFBKzHJ8NPdXymRg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cNEYbRtd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WXNCVjPI;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF97606A31C;
-	Thu, 26 Nov 2026 09:24:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286F5606A31C;
+	Thu, 26 Nov 2026 09:27:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cNEYbRtd
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WXNCVjPI
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795685084;
-	b=rsS+J6/X9TbZUoX65QnBFR31jnykojmYoTsqPRudBZ+uDt8anZjcAZ6db/aFjL3BQpzP
-	 dSSxnQWdBa+gf8/a8r2hsbxMq5UHbbAAPwuDqBpubbEV+4FproH4Tw+DTwHrkJfRmDLu6
-	 jbmQp0O0ytjDW6DCHpZ+HZYUeRCsILOEPGibsMsBDmZVIlmMmnt3Xa/pKYaHh7nLVFHFk
-	 QPRKAwNAY3UPaueYOdeGIil4pmL7yEBIZx8evfVVop3lh9ZHb2zJNWrq+bKipQkohD2Wq
-	 poe2u4rBFJ+LuPWFbYHplmQ0UZLxorfcbeVUZj0I4TwPn3eluWk+sMLzkcFHOLY3DcA==
+	t=1795685260;
+	b=hkADdNlJJQVStMGGjx7+uQ2IIrg/RLRkMhB7ZzBnxj/jcS0iYawivs+Ug+7wIuFuiGYI
+	 aNB88h4rDjexnZgQxweuVUy7NW4BahLnncwwr5TT4EqN8v9JEDdnmO7mI1HVLg8wMUJ2h
+	 /7lwXhZxdUBtE9oEdiQs1ww88tbS3VLT3RbMVskD18qKFZJsa69rF+h4gKynmdbkL5g0W
+	 VhulSQ0nZTkyP5TCh1cd3QJBUUcTNRspC2bAIJvkBJWHjQkv5OMkr6gvYkPbTLqA6o4hr
+	 Y2eMSzcqNBFW/8530AUV9jffLskKdhVg6U/RltAGMQihRjUtkLXUK4OVLUvn3I++0pA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795685084;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ncZEOFwP6rVHKLPZIgaSh4joPCImz4xzJxYzeEGBoGA=;
-	b=3gVlEyQTQpelzOPDgacs//94E1Xctah522Sey0NFL2uNkD+QoGJGJFKk8KWHHfhP8jHt
-	 9pD2uLkOvLCCZqHL+s+y91dNha69o67rqXHGx8PDlYkILX9kcTeIBXqxvR2SGTr/O4fkc
-	 eA5el7bb8sy+HbTD5+681aO0gwdrdEvXbBeQHy6S0ufr7zsFnm46sunlVvucoNvmAq2G1
-	 aEMuJxZFLuwtcYL5Us1gX+xzR86VGQ8oOKy0g4+Y4rAXT8TZGNz+WOL2axFZgJM+AMGtE
-	 lfmBoXDQs9wbGKC4OMpkzyRsJ78StQxCOCA75EpsWtUOYN0dPshwo/AbbOxTNyKjzTQ==
+	c=relaxed/relaxed; t=1795685260;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=U1PlTflxl6Hs8FvZm8HyBGbLsKpRHwgjqHn1uqmdpRI=;
+	b=Wv0IHCTn0j1QpWb40PGeDXDvMABgzsUOZ4dT4NWWrScZaeC73RLfKhsTvasq5v6zFnhZ
+	 rf5sj5mCKtQFp+h3mPy8hOHtGFdNuleeDffTYjWuS46iBm1FwGuAVC55R48EsfNgWO48b
+	 FzaUOhlZ9r/oW8Pitu/vDeKnHAHZcAjCcfy+2lAobvAZnInPzC8qpy5cDUUN3y1xGLT2D
+	 sTJVrOQCktLSL/CefBwYwyPtCm1hGZso5415nUyj56CqBs2MMVZ+Oxrb41+bWVQHOrGj/
+	 63b2JJ2dih8ZgEvsdujbV1U1npMJLvnl9no5c4QmnWr5xs8t4/X7gSvwqFKmSWimeCA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 366B91F000C0;
-	Thu, 26 Nov 2026 09:24:35 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 6F6321F000CF;
+	Thu, 26 Nov 2026 09:27:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795685084;
-	bh=ncZEOFwP6rVHKLPZIgaSh4joPCImz4xzJxYzeEGBoGA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=cNEYbRtdmK3BnVY27Xxf+Qldpyv/5HtnmEIWZdfAEsnWAyeD7sYzJKOPpGeQQ8KqY
-	 4z1tCfYNoaiXBu9lnWQT/qkpG3vBsm5jeXUZM/K5QXUFm+G6PFAv7hYBeB2wWgLu2+
-	 jCifl/PdpRlEoqr0YAzODYJBWDb29IL3PrxbhXWWnPC8L6fbTUk7CVsh0QrMARBOCo
-	 Z+tn0teIVoyc561ffe95iUqfnuV/M6i4vCwGTdqf+qj2LwdkIEEb3IsKyaYzsRvFij
-	 Sac1fBvCyMblRq8Bdv41H2D4T3MGj2YZsUcdWK4Zm4nreSx68tzQiAf32whjQ6KIoW
-	 CT+6a9NebE3dw==
+	s=k20260515; t=1795685260;
+	bh=U1PlTflxl6Hs8FvZm8HyBGbLsKpRHwgjqHn1uqmdpRI=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=WXNCVjPIwvejnMUFyjB0wfFwbxB9NzzQes5izg3w18qMRNz/GuFvXCTMlowdgl19G
+	 qGaUhHPhNvIx9KCYKvRXPtZShu8e4yr0JyDGpnkb3vmKFzQdDkP7EbnGyGH9E0LX44
+	 tbcz0JcTVB4Ooo4x62O6cmjx1KmdAlTqGptAEHQ1hrKzJD8al96R1HG+wQzN8GWqr4
+	 /J+NiId2suBv1tZ5/rEjwkbdVhjwJMDQc3hUlPb9gNPV4tzq+c4foWU5EwLetJ05o6
+	 3+Gi1iNmzEgZFII8PdbT6C9TdqpZYx3hzjshzdQPeCVQks63rWywGr6BIkS8UeHXrm
+	 d+63PnNAu4Etg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B2A7C4D355;
-	Thu, 26 Nov 2026 09:24:34 +0000 (UTC)
-From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Date: Thu, 26 Nov 2026 09:24:17 +0000
-Subject: [PATCH RESEND v2 1/3] dt-bindings: reset: amlogic: Add A9 reset
- compatibles
+	by lkml.kernel.org (Postfix) with ESMTP id D65F04D359;
+	Thu, 26 Nov 2026 09:27:34 +0000 (UTC)
+From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
+Subject: [PATCH net-next v3 0/3] Add Cortina Systems CS7542 MDIO controller
+ support
+Date: Thu, 26 Nov 2026 12:27:32 +0300
+Message-Id: <20261126-b4-cs7542-mdio-v3-0-35739a0f3225@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,70 +85,123 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261126-a9-reset-v2-1-e3d850e68725@amlogic.com>
-References: <20261126-a9-reset-v2-0-e3d850e68725@amlogic.com>
-In-Reply-To: <20261126-a9-reset-v2-0-e3d850e68725@amlogic.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Xianwei Zhao <xianwei.zhao@amlogic.com>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795685071; l=1488;
- i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=5WFk+q6Lu4hN8rJdO/6ZEotdvqyA2ABmhWD4G7n6Cis=;
- b=cOnul2S3dQQ9XihiFhv5W/kmjH5bTzlpYQRGNH/80n1ye1L0fphm9C0NVfNTUELw3lkcG+DoA
- UYY4ygn54UxBNkPpBxjOEqyQd+hIdBpXececKRDwMMQfM5uuq1ihb6d
-X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
- pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
-X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
- auth_id=578
-X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Reply-To: xianwei.zhao@amlogic.com
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NTQ7CIBhEr2JYi+G/jSvvYVy08NliLBhAUtP07
+ lLcuNHlZOa9WVCEYCGi425BAbKN1rsS+H6H9Ni5AbA1JSNGmKKUcdwLrGMjBcOTsR6DFgIa2UD
+ LBCrQI8DVzlV4Rg4SdjAndPk08dnfQKfNt21HG5MPr/qdaSV+3WSKCVZMGdIR4L0wp2Hq7P2g/
+ VTlmf3HWcE5EUpCy2kr+Te+rusbNBsRNwcBAAA=
+X-Change-ID: 20261123-b4-cs7542-mdio-ec44e757e824
+To: "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795685252; l=4352;
+ i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
+ bh=v4DtyEWM6eYR9iYKjGXdhR8kKtgwE4w8iV+oL7nK5eA=;
+ b=k5okNZM1O0l1t82MvEdJICkqbAx5ePb28Uq98hkov9m7VT8S0FMbo6Tc16EpVTL8Tjp5FycTl
+ 3tGpku/3S5MBUMyJOh2qVTMTjLpRhPMUd6ac/ddjymX0NlAdUQfpHB7
+X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
+ pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
+X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
+ auth_id=1085
+X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
+Reply-To: filipp.dunsky@gmail.com
 
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Add the Clause 22 MDIO controller used by the CS7542 network engine.
+The driver retains the MDC prescaler initialized by platform firmware and
+uses bounded polling for each transaction. It is independent of the
+pending Cortina platform series and COMPILE_TEST.
 
-Document the reset controller compatibles used by the Amlogic A9 SoC.
-Add support for the A9 AO reset controller and add the A9 reset
-compatible with the T7 reset controller as fallback.
+V2 followed Andrew Lunn's review: remove the pending-frame state and keep
+one straightforward transaction/poll per read or write. No timeout was
+observed at the normal firmware-selected MDC rate. The timeout mentioned
+in v1 validation was deliberately induced only in a RAM test by slowing
+the prescaler; it was not evidence of a normal bus failure. No clock-loss
+recovery guarantee is provided by this driver.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Validation of v2:
+- Full independent ARM vmlinux/modules builds with driver=y and=m,
+  COMPILE_TEST=n, without the platform series.
+- Actual driver read/write/wait functions: 5125 address, data and timeout
+  cases under UBSan, including no data read after timeout.
+- Binding and strict driver checks; b4 dependency/preflight checks.
+
+V2 booted Linux 7.4 in RAM on Almond+: PHY IDs 004d:d036, the firmware
+prescaler 00200001, and same-value advertisement write/readback passed.
+A deliberately slowed MDC produced ETIMEDOUT at about 14ms; restoring the
+prescaler returned the correct IDs. Final RAM result: failures=0 and
+automatic return to installed OpenWrt. No NAND driver was loaded and no
+flash writes were performed.
+
+The MDIO input clock is APB. On Almond+, temporarily selecting the vendor
+600 MHz CPU mode changed APB from 150 to 100 MHz while AXI stayed at
+150 MHz. With the same MDIO prescaler, the transaction took the same
+number of APB timer ticks (median 66512 versus 66537), while CPU cycles
+increased from 332326 to 399013, matching the CPU/APB ratio change from
+5 to 6. Restoring the original mode restored the original measurements.
+All 24 PHY-ID1 reads returned 004d. The original clock override and MDIO
+configuration were restored, and the installed OpenWrt remained running.
+
+Describe this input in the binding and allow the optional clock-frequency
+property inherited from mdio.yaml. The accompanying peripheral DTS update
+connects MDIO to the APB clock. The initial driver continues to retain the
+firmware prescaler; this experiment does not establish the exact divisor
+encoding and no programmable MDC calculation is introduced here.
+
 ---
- Documentation/devicetree/bindings/reset/amlogic,meson-reset.yaml | 5 +++++
- 1 file changed, 5 insertions(+)
+Changes in v3:
+- Use sleepable polling in the MDIO bus callbacks.
+- Describe the hardware MDC prescaler and experimentally verified APB
+  input clock; allow the inherited optional clock-frequency property.
+- Remove the unused private mii_bus pointer.
+- Link to v2: https://patch.msgid.link/20261123-b4-cs7542-mdio-v2-0-30465e831853@gmail.com
 
-diff --git a/Documentation/devicetree/bindings/reset/amlogic,meson-reset.yaml b/Documentation/devicetree/bindings/reset/amlogic,meson-reset.yaml
-index 150e95c0d9be..e585f71879f2 100644
---- a/Documentation/devicetree/bindings/reset/amlogic,meson-reset.yaml
-+++ b/Documentation/devicetree/bindings/reset/amlogic,meson-reset.yaml
-@@ -19,6 +19,7 @@ properties:
-           - amlogic,meson-axg-reset # Reset Controller on AXG and compatible SoCs
-           - amlogic,meson-a1-reset # Reset Controller on A1 and compatible SoCs
-           - amlogic,meson-s4-reset # Reset Controller on S4 and compatible SoCs
-+          - amlogic,a9-ao-reset
-           - amlogic,c3-reset # Reset Controller on C3 and compatible SoCs
-           - amlogic,t7-reset
-       - items:
-@@ -26,6 +27,10 @@ properties:
-               - amlogic,a4-reset
-               - amlogic,a5-reset
-           - const: amlogic,meson-s4-reset
-+      - items:
-+          - enum:
-+              - amlogic,a9-reset
-+          - const: amlogic,t7-reset
- 
-   reg:
-     maxItems: 1
+Changes in v2:
+- Drop the pending-frame state as requested by Andrew Lunn.
+- Sort Kconfig by prompt after MDIO_CAVIUM and sort the Makefile entry.
+- Add Andrew's Reviewed-by to the MAINTAINERS patch only.
+- Link to v1: https://patch.msgid.link/20261123-b4-cs7542-mdio-v1-0-626d0a0e3b4d@gmail.com
 
--- 
-2.52.0
+To: Fil Dunsky <filipp.dunsky@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+To: "David S. Miller" <davem@davemloft.net>
+To: Eric Dumazet <edumazet@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Andrew Lunn <andrew@lunn.ch>
+To: Heiner Kallweit <hkallweit1@gmail.com>
+To: Russell King <linux@armlinux.org.uk>
+Cc: netdev@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Fil Dunsky (3):
+      dt-bindings: net: Add Cortina CS7542 MDIO controller
+      net: mdio: Add Cortina CS7542 bus controller
+      MAINTAINERS: Add Cortina CS7542 MDIO controller entry
+
+ .../bindings/net/cortina,cs7542-mdio.yaml          |  52 +++++++++
+ MAINTAINERS                                        |   7 ++
+ drivers/net/mdio/Kconfig                           |  12 +++
+ drivers/net/mdio/Makefile                          |   1 +
+ drivers/net/mdio/mdio-cs75xx.c                     | 116 +++++++++++++++++++++
+ 5 files changed, 188 insertions(+)
+---
+base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
+change-id: 20261123-b4-cs7542-mdio-ec44e757e824
+
+Best regards,
+--  
+Fil Dunsky <filipp.dunsky@gmail.com>
 
 
