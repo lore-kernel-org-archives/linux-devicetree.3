@@ -1,79 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795693504;
-	b=CFQJNglggpprTgizs6z02XNvD3epwYrHAsneHf91G5zzOsTNVuVt9EDhpnLznqrAdJE7
-	 Ni7KNWOsh0nATt08cfpAHlBRGg1FCwGoOioUTj1CPv7xzOqJy+5yuDXD2gEdsxFBXwdRX
-	 L3DX6sUkYEMIRCQSPmwD0pB/YmhhhM9bK6gbxoccjoBmWhAL1fncj9IpjPxE9wNrEfxtB
-	 /8e17GhJdoYmMqX2RADAg2HvVhhtRX6N3rUcAh1EdDxvvQw8EqHr5uhOyHN0+j7Lmcc19
-	 0Y0yK+A8VoPxyVlKNe/PvGZHFsGFsGOGThbS23QaHO6xZt0BK6AyC85K1EaS1dTyx6Q==
+	t=1795693666;
+	b=4KZ4ibW2dfaS9TCuuL37Oz+vgSDTsSkgBTpW8lUoZ5lZNSALE4DSw5lfDIQpXI91uIO5
+	 1YgodpeAtQPusGolFISHz72uuR/R1sLCeDoEV7awLAVICIIpisaUYdMQgs90aQtG8r0Pn
+	 LeBEv3DyvGFA/2ND1BsaGhdn3a0OOXDtSAYuNhg0OMYdqOPuVjwRtHaFT0ASvEb8G25o4
+	 lXs5mNbF4GNKvHCTs76D4zqGnT+cDn5NoS8m9u2YHyQq7Qj6T+L8zmsmw5i90/t7bcMdl
+	 wB7cLT3FVxNp+V0CoWQBWF5q1eVq1Lj+VNiDZHx+bPxvGXIlfyaTNE5eJkldW0GHt4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795693504;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=J/w9woKIDcG1KIzz6jIjSge7TDzANIjKjukbxSS5bGE=;
-	b=2mIRLZrmdUHczfujvJ5J6HBE10YnOGYi4eG5Il/L+0b56bbsZNP1j1zCVdYTf/stOZp9
-	 5TRT6dKIUqHi7Nmr1XIzkOKHXhggspoNtiw7lfexfPdFcHv3RYZNEhWUSl8qipZEjU5wk
-	 K2mGM5F2GAKbiQe+yKNePwdRk65Gl61Weiymur5l9O9Ilhk4o/xxxW8usLQMJ7Rw/ISly
-	 D2AiHdNcs8spLH7gV3B9f7c9iBIsCkiAXAHIhsf3BukbHVYBBCg4QbFuSBEsJ9wLxk9Qt
-	 I5tkguGnnwQGUXsJlPJvTjeaq4tG6hYHYm1cHIMgRYLdG/8mR4NSLHZbmGVIwy5bi+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795693666;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=/IuU2RbLnTfHjvDJt5vubfcTTRydUn5VtyQNhV9yHwc=;
+	b=CG6uEfvQCkfTEEgSLNq/+e0bTeEVA299twSkx779GBlx39TJtbehszwKRnOsTfegHpnV
+	 qtNJm0qrkrn2MFh/9cX2g8JivrmHfnRL3rBGnqryLWpW7eJ6FKBvwdGrz4RH1HF8Sn0f0
+	 pCQnIb9D8axxM62pDWpHwcvYlvMlOSgDAJDp7YysdtCA/eMdTv5dgjnvNIMwj7IXSgjRv
+	 Xt4sQpXMXvU63nG9gwQL+/rtcg1qvH8VdcdykkuVx+qRcxJTlVNw7bEiNlsRC8/gM6CTu
+	 gTPFHEjid6clWCH/uyP75RtAir5SmXy26pFJ+6y959wpcR03zO5FlK97Nu3lgqHldig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.173
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iIUMq1HY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9AD606A333
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 11:45:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA9AD606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8b4e18369c8so41253177b3.2
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 03:45:03 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795693503; x=1796298303;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=J/w9woKIDcG1KIzz6jIjSge7TDzANIjKjukbxSS5bGE=;
-        b=qtpWgojMhf2UgOatnc+1JZ7wPMaczGxTT0Mnfk2+9ikUyzVkwSHrPinpSFckNZ/tuf
-         BtLKRk59JjiOKfr5GtjKOBm9o6ZMim9bQ7n2vRXNh4EYdSay6wooiespWMJAb4GVjKNc
-         KWl1EMYoyyNdjA0RW0xkH1Q947mI32N9ne/eL6X1PYffH5GsDH7VdfTtE20MjhKusqQb
-         etnE0MEMPlkk306L8WTgGhBnY+WXogV5ZUA9Jihx5ITRYa6ym9yFJ6Phv3kSaTqynF9U
-         1XMnMtEZi/BqyL7Oeg+2fWObtvG1nLy1rQ3YaHay76HRrF9cpt67S+CLadYnr+zTs89q
-         cSTw==
-X-Forwarded-Encrypted: i=1; AL+hErHdLMSUGKWVWKYx/ir595YSS0bmB4amx4cb4r5WMDwXeaJFfjmG5rObqv7aCJkanHFcTWJOeToVLm9D@vger.kernel.org
-X-Gm-Message-State: APuU4Z9IHW4T2z4qSNoleuCCz+505oYagKiq5npOcIgwhQhbs//KnIMh
-	Rnjzy6T8QS2EZ/nRZTt2Ro7ydjUW77UFpVcR0D6uiWYJWjlmpy7u+9QpF/sl9DfN
-X-Gm-Gg: AZFdTZcQIJk7Wo+7U4aTwRCe2iLUg1BeSvBXRDrg+egUzbjzOPx4NK2qlNMJw5IVgAS
-	H4qktW9n2OEz9O1Srz9nwcv1TdZOmcL/v29LxUiBJ0t3v/M6mrX4y2dEyDgH6UR/ZpBvLb+xRuU
-	chOZcz5s+Ai+lOvlrXG+xwqBeMk2o/AZYmP9q3sAWhbrdSGg4c8fpD2S5cnsf5pm/XJmPNm2Cst
-	MTAgtNDyGcIoa+g+CU3xVfpNDLsnLtdS6QO7y4BHnsi0d/fL5t+4Bdk3R8nreBhY7weQEYmGrY9
-	nTnMIXA8z2o2T0/3NEG5LLITAZWGf4+lVuQfWg1aL2KcFSzm6tOxkJ/O91qgq4oRODryL74b0+n
-	0cW6BhB8hTYXEc1BeEDBS0vgaFgs8LJrkz94vBMMFHg4CYM2dARjHH0ClzNZiDRUV0oTA2k0Vyp
-	HjkIRUTc4X6S7XSi/nxqIWk5veCcphu1rraIWbpwCA18HgMgKfsWguaUEc6eT9JclZI1/Qx5KyQ
-	wFBQI8XgmskWzSl/ejW7l2VLsKZp1cw/A+FdJ9oyfmND6Hbw1qBIN5own2wd5Wziid4L5yhYZhH
-	JlINvhi+PcOANlRC1PvbbzMvzbuoLQZnpt6xEPn7/fLgT1zVbAEPTeHaoH0KFUBpsjL9HEitAov
-	UWAuYfvK2fnKR+CpqZI7EbLqWiyzNOxQGcxjnwHHuAiDOqHYKOrPAajp+Bp/u6vLxV5WGI2IVbK
-	scqiE=
-X-Received: by 2002:a05:690c:998c:b0:8b5:341:a12b with SMTP id 00721157ae682-8b5204c991bmr75920357b3.44.1795693502905;
-        Thu, 26 Nov 2026 03:45:02 -0800 (PST)
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com. [209.85.128.180])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b5202b09c6sm85610737b3.17.2026.11.26.03.45.01
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Nov 2026 03:45:01 -0800 (PST)
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b4e18369c8so41252987b3.2
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 03:45:01 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEmWKY4C12QnPOYjUrqPCCptpuWIOYSNEecgFTgop+YAsy7XPzSJiwtsA+mlKNyw+MDCFjsmgRG23wA@vger.kernel.org
-X-Received: by 2002:a05:690c:4985:b0:8b3:3854:c28b with SMTP id
- 00721157ae682-8b520435d1bmr62048027b3.22.1795693500919; Thu, 26 Nov 2026
- 03:45:00 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEE01606A31C;
+	Thu, 26 Nov 2026 11:47:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iIUMq1HY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF3451F000C4;
+	Thu, 26 Nov 2026 11:47:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795693666;
+	bh=/IuU2RbLnTfHjvDJt5vubfcTTRydUn5VtyQNhV9yHwc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iIUMq1HYFh7Ug+mB4SJbihaa468j1yKHlqow/OXuId2iW3hUoQ2wS83jcwCECrfMw
+	 aVsKkwOcboYfRqoeZR7t4qibEbQhD6PhDjo1i2ANpiL9ue3xFu4jGuVPlVHtht464s
+	 HviepUDvEoPYIvURjU3c1+56+9baH91+auYwn4QgztxPsXgEC+shL5TcygPFbznh3u
+	 lqCadeeNN9heBa0goOw/UyHKbmT3gs5XbIryL1sYJyTNGSXUBf9tVqBIvYpw+tTabL
+	 KjJtNGVgNLjqBQMiV7dTNXNPjezHpVzX5rcpxFqmY+GyzVOojmTzxAadPnxrPK01JC
+	 Tl5ohrORWvSBQ==
+Date: Thu, 26 Nov 2026 11:47:28 +0000
+From: Lee Jones <lee@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Pavel Machek <pavel@kernel.org>,
+	Griffin Kroah-Hartman <griffin@kroah.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Daniel Thompson <danielt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	mfd@lists.linux.dev, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v7 4/4] mfd: aat2870: Add support for VIN and IN-LDO
+ power supplies
+Message-ID: <20261126114728.GG38590@joneslee-macbookpro.roam.internal>
+References: <20261115085826.89641-1-clamor95@gmail.com>
+ <20261115085826.89641-5-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,72 +67,68 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261121213102.143130-1-tanure@linux.com> <20261121213102.143130-4-tanure@linux.com>
- <CAFBinCAzSgCGfXb_Q3FuwEmPAEiHSxzVR_ceyqMNp+LEZ18u1g@mail.gmail.com>
-In-Reply-To: <CAFBinCAzSgCGfXb_Q3FuwEmPAEiHSxzVR_ceyqMNp+LEZ18u1g@mail.gmail.com>
-Reply-To: tanure@linux.com
-From: Lucas Tanure <tanure@linux.com>
-Date: Thu, 26 Nov 2026 11:44:49 +0000
-X-Gmail-Original-Message-ID: <CAJX_Q+1or5Eqe46hdtv0CtekSnLTJkfZ3UQY=RmfmYGeXd7YxA@mail.gmail.com>
-X-Gm-Features: Aa3M54p7abSX0OPwjSGJJWzx2W6fGgqfMqyz9aVR061y3YOch6bS5dv9yFIyoYk
-Message-ID: <CAJX_Q+1or5Eqe46hdtv0CtekSnLTJkfZ3UQY=RmfmYGeXd7YxA@mail.gmail.com>
-Subject: Re: [PATCH v8 3/4] arm64: dts: amlogic: t7: add the ethernet controller
-To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261115085826.89641-5-clamor95@gmail.com>
 
-On Tue, Nov 24, 2026 at 9:37=E2=80=AFPM Martin Blumenstingl
-<martin.blumenstingl@googlemail.com> wrote:
->
-> On Sat, Nov 21, 2026 at 10:31=E2=80=AFPM Lucas Tanure <tanure@linux.com> =
-wrote:
-> [...]
-> > +                               int_mdio: mdio@1 {
-> > +                                       reg =3D <1>;
-> > +                                       #address-cells =3D <1>;
-> > +                                       #size-cells =3D <0>;
-> > +                                       status =3D "disabled";
-> Lucas, Igor (+Cc) has taken a closer look at the MDIO mux, see [0]
-> What he's saying is that (in my own words):
-> - status =3D "disabled" is unnecessary
-> - if you had problems without status =3D "disabled": Igor's patch should
-> fix it, can you please test it?
->
->
-> [0] https://lore.kernel.org/linux-amlogic/20261124-re-martin-g12a-mux-t7@=
-iav.lv/T/#m240f885979c7c3a84af26ee8b60d38f3092f0c0a
+On Sun, 15 Nov 2026, Svyatoslav Ryhel wrote:
 
-I never saw a problem without it. v1 to v4 had the on-chip bus
-enabled and the VIM4 ran at full speed. v5 disabled it after a review
-comment, so that a board enables only the bus it uses, and Igor calls
-that ordinary practice for a new SoC. I am fine either way: keep the
-line, or drop it in v9 if you prefer.
+> The AAT2870 supports a dedicated main power supply input alongside parent
+> power supply for its internal regulators.
+> 
+> Add support for retrieving and managing these supply regulators
+> (vin-supply and in-ldo-supply) using the regulator framework to ensure
+> proper power supply dependencies and power-up sequencing.
+> 
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  drivers/mfd/aat2870-core.c            | 5 +++++
+>  drivers/regulator/aat2870-regulator.c | 1 +
 
-Tested Igor's patch on the VIM4 on linux-next (next-20261120, which
-has it and the T7 driver) with the on-chip bus enabled, the MAC on
-the external RTL8211F:
+Is this a build dep?
 
-- both buses come up, mdio_mux-0.0:01 (RTL8211F, the MAC's PHY) and
-  mdio_mux-0.1:08 (Meson G12A Internal PHY); link 1Gbps/Full;
-  ETH_PHY_CNTL2 reads 0x0 after the attach
-- while receiving 942 Mbit/s with iperf3, I unbound and re-bound the
-  internal PHY driver twice (phy_probe reads the PHY through the mux):
-  after each bind ETH_PHY_CNTL2 reads 0x40, SMI_SRC_MAC only,
-  USE_INTERNAL and RX_CLK_EPHY clear
-- the stream kept 941 to 942 Mbit/s in every 2 s interval, 0
-  retransmits, 0 errors in 2.4M received packets, and receive keeps
-  running with the register left at 0x40
+Would something that was working before, break?
 
-So the data path stays on the external PHY across an internal access,
-on the T7 as well.
+>  2 files changed, 6 insertions(+)
+> 
+> diff --git a/drivers/mfd/aat2870-core.c b/drivers/mfd/aat2870-core.c
+> index f5409dd91efb3..9017960ee73b1 100644
+> --- a/drivers/mfd/aat2870-core.c
+> +++ b/drivers/mfd/aat2870-core.c
+> @@ -14,6 +14,7 @@
+>  #include <linux/kernel.h>
+>  #include <linux/mfd/aat2870.h>
+>  #include <linux/of_platform.h>
+> +#include <linux/regulator/consumer.h>
+>  #include <linux/regulator/machine.h>
+>  #include <linux/slab.h>
+>  #include <linux/uaccess.h>
+> @@ -307,6 +308,10 @@ static int aat2870_i2c_probe(struct i2c_client *client)
+>  
+>  	aat2870->reg_cache = aat2870_regs;
+>  
+> +	ret = devm_regulator_get_enable(&client->dev, "vin");
+> +	if (ret)
+> +		return dev_err_probe(&client->dev, ret, "Failed to enable regulator\n");
+> +
+>  	aat2870->en_pin = devm_gpiod_get_optional(&client->dev, "enable",
+>  						  GPIOD_OUT_HIGH);
+>  	if (IS_ERR(aat2870->en_pin))
+> diff --git a/drivers/regulator/aat2870-regulator.c b/drivers/regulator/aat2870-regulator.c
+> index 73b6d06858cff..896f39e345379 100644
+> --- a/drivers/regulator/aat2870-regulator.c
+> +++ b/drivers/regulator/aat2870-regulator.c
+> @@ -105,6 +105,7 @@ static const unsigned int aat2870_ldo_voltages[] = {
+>  #define AAT2870_LDO(ids, match, vsel, vmask) {		\
+>  	.name = #ids,					\
+>  	.of_match = (match),				\
+> +	.supply_name = "in-ldo",			\
+>  	.id = AAT2870_ID_##ids,				\
+>  	.n_voltages = ARRAY_SIZE(aat2870_ldo_voltages),	\
+>  	.volt_table = aat2870_ldo_voltages,		\
+> -- 
+> 2.53.0
+> 
 
-Lucas
+-- 
+Lee Jones
