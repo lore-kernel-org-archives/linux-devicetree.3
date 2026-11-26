@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795691281;
-	b=MAWL5j9WyERvzmvLWWM6idsXn/Tq4GPdz/NW/ZdlNm+Co6cN9r86P+QjJ0KkCE1D2TsH
-	 mCR9etH36b7q3oMw04vCca6OR9dbkqxOHKoJg4n87yKatkGOydLhBbuC6X3D9sBhXTlg+
-	 WkFnpf9C6u2KAZX7XQRWF9ZOK+l8EVGq+yDjQjrQ15y+Uwwzr8ol6mOXhcXtWw2R2iQWx
-	 FL3PCmQC9sOyY4hxk911ThyQ1Tnl5+BvCXFGuiNscEf3xJlqM/ZGUqD1x/+UHC5f6MteG
-	 mR5ym7iGzgtHriTYl8ewA+vulSFABreuWma/AbX11pJH03KFpJWkXJNlnyn1zA7cF9g==
+	t=1795691404;
+	b=m610Bbl4VAkzfiDt3obGSH6mSvyAyafGUuKwuEzPfPRek7Dy6Xk4NhBz7b/jVQNND8YO
+	 FuCcDfMAl+85FvgzgcajRWG+yNmmp+vBktmrYjAt7McYlErURktPUgqNba7amwFk6/N5o
+	 dkLGi1HJU7wZSZx9WsExKLVhrGGLdEAKIUv0EzEuoum8lq2zdEfNa35BPP2oqF5GSQiOy
+	 X/vrSVK1zGiRhw6GsJcjiy6c3zuw7lumsX8bkAZNfsz6aD89xD36QkcV0j0m7kGcBYo7o
+	 BjNqPgyO/KtS1l1JkZhXG0CCJp9m6MMMwxanx7MmHem0ORkB0bUAToWVFmb7I7SsVBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795691281;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795691404;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=fYqIK+FErJ1y6e4nga17lL1/4WCCjUf7mEHg2/MHzAU=;
-	b=s6CwE6dmvHoZfyj4c8JDydwCrE/UkO3Yl0GiuNews/W4F2Ix3OF7Bvstwxm5s1msu4wU
-	 yNXtpSBbU6DXl5RC1el+seO9ve05epvpfOB2dEg40qlJ+uqbIvFtZbY7OtNZN0WZnyqKu
-	 qBHavh0QmR/Ayvxd1T4f30T01A7594Ab5osORhqeZKa/NFhy918MgsaWrNvg6kh2BkzoS
-	 TVGzvdu2zHb+Zzj1Y9MNBzZ2nn/kgWGR4/j7I5g3mnL+G+WRhf2Y9RWtWXB0fkq/K1/9j
-	 77dgm9YkjaykxfMwgOJdzyZQtf1G+wE5jzrTKA7ARAnE/nY2tMOSU4Bv/jXVt51rr3g==
+	bh=NWd8D/ggteamK/i3dbONpF/gMpdizrnBXGdhTocPbCk=;
+	b=PXVdFno+9Wsf5uVyEgHhIIRT0hIN/kOhUwJIaNqjCH3zO2PGo3SSWgWxlVoV2ghHJnz0
+	 JQpk3mAq9qBL+NlMfebluRZwUzKE/VhAVI4ElhtaOtu/m/W/6GDkMIuXAiToIkQ7vO6Df
+	 WY08qFwKBSuI83dKy8h5zyiuya/1gmt/C+MJ5xs8M2fyjYaWyCkBJ8AKRTXd5mbKvmxi/
+	 esCHMJQwaBQb8PkhbLPZclZx5bJw489d5zzu19138X40TXBrnp5vD6+LcfuZIk17GAYax
+	 ty8hMhPsD8u8Ip+TDM+DIt8qJst6L/0mZJ1fYpQKsww9ltcg5UZytzBu8EYN2Fh9hww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZpMj7Pz3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G0PIZZov;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E5D1606A31C
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 11:08:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A388606A31C;
+	Thu, 26 Nov 2026 11:10:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZpMj7Pz3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B200D1F000C6;
-	Thu, 26 Nov 2026 11:08:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G0PIZZov
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AFED1F000C4;
+	Thu, 26 Nov 2026 11:10:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795691280;
-	bh=fYqIK+FErJ1y6e4nga17lL1/4WCCjUf7mEHg2/MHzAU=;
+	s=k20260515; t=1795691403;
+	bh=NWd8D/ggteamK/i3dbONpF/gMpdizrnBXGdhTocPbCk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZpMj7Pz3JhUFbt1j8OjQLbXlvFOUAC8dQ+cOj55B1QyyGTGcB3Raya9upRAPrlszo
-	 Yn9fHhaHaIJalC8OOoiRGHQYa5Wp6qiZDtqROoh5cCuifRcnmq7Z//2BUvJ3wQlRFQ
-	 PfpMpEZjPBX0NZfqq6QiULHxbGVsh0Lvy2C7P0op6vtudG3heUmhwbkaK0727BHamv
-	 FZdwSNln4j0K2k70MlK8QOv5IQOD4U/s5H5n88GYzXNPCBIbTnlTFjbO+Hbrmw5oJb
-	 U+yGIHzZHZV7ANFXjRzUDMnm9UOtmv2APD4w7slT3P/o9Lccm6U7QywlSQj0SUOZhh
-	 iAxcQeL5jMWNQ==
-Message-ID: <sashiko-outbox-235328@kernel.org>
+	b=G0PIZZovWAnw1xbnmF/Q26vFdEIXJEVzqAwthZdFr2Jhxw2dd/AiItxe+NPaOGpsF
+	 QmcA4hxe3chH4ifXw4AHW0RcUQXoICSCKT5BFEKuCLq1H72xfxE2fbmw/xLZSLpoVf
+	 FyciEapF1CdtELpjEGoHY41zvILvQhxxtnfdgZehx72SCOth0ESlqzfohDf5dI4RBp
+	 gHmx0eijejxYBy2b5HRnsd8bSfdVjN6CrNWwsiJyJJ5YL0lLqnPIMG8557trQLlnm8
+	 WfRR1UvkzkoReeileErFEjxIgND7P7lAYKYzVp7qSQi1xjwcP80E1XfO31DzjrOOPe
+	 A7ppHabJA/n4g==
+Message-ID: <sashiko-outbox-235333@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] soc: qcom: smp2p: kick WCSS after restart when
- requested
+Subject: Re: [PATCH v2 1/2] dt-bindings: power: supply: Add
+ qcom,pm4125-charger
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Robert Marko" <robimarko@gmail.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261126105722.188103-2-robimarko@gmail.com>
-References: <20261126105722.188103-1-robimarko@gmail.com>
- <20261126105722.188103-2-robimarko@gmail.com>
+To: "Raj Aryan" <raj.aryan@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, mfd@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
+In-Reply-To: <20261126-smblite-charger-for-pm4125-v2-1-20656509518b@oss.qualcomm.com>
+References: <20261126-smblite-charger-for-pm4125-v2-0-20656509518b@oss.qualcomm.com>
+ <20261126-smblite-charger-for-pm4125-v2-1-20656509518b@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 11:08:00 +0000
+Date: Thu, 26 Nov 2026 11:10:03 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,64 +61,115 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found no new issues
-in this patch, but noticed 1 related pre-existing issue it does not
-introduce:
-- [High] soc: qcom: smp2p: interrupt storm in qcom_smp2p_check_ssr() [1]
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] dt-bindings: power: supply: raw ADC register values in JEITA
+  properties
+- [Medium] dt-bindings: power: supply: pm4125 reg and IRQ claims
+  contradict schema
 --
 
-commit 4020c9b303d93a1d27eff1767bf735415220859a
-Author: Ziyang Huang <hzyitc@outlook.com>
+commit 57cf825c23ab90280bb771024041e96a79554ade
+Author: Raj Aryan <raj.aryan@oss.qualcomm.com>
 
-soc: qcom: smp2p: kick WCSS after restart when requested
+dt-bindings: power: supply: Add qcom,pm4125-charger
 
-This commit adds support for the qcom,wcss-restart-kick device-tree
-property to send an outbound kick in qcom_smp2p_notify_in() when an
-inbound entry reads as zero.
+This commit adds a Devicetree binding schema for the Qualcomm PM4125
+SMBLite switch-mode battery charger and references it from
+qcom,spmi-pmic.yaml.
 
-> diff --git a/drivers/soc/qcom/smp2p.c b/drivers/soc/qcom/smp2p.c
-> index cf06a49149be1..bf11b7d450a43 100644
-> --- a/drivers/soc/qcom/smp2p.c
-> +++ b/drivers/soc/qcom/smp2p.c
+> diff --git a/Documentation/devicetree/bindings/power/supply/qcom,pm4125-c=
+harger.yaml b/Documentation/devicetree/bindings/power/supply/qcom,pm4125-ch=
+arger.yaml
+> new file mode 100644
+> index 0000000000000..4c88d836355b4
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/power/supply/qcom,pm4125-charger.=
+yaml
+> @@ -0,0 +1,119 @@
 [ ... ]
-> @@ -341,6 +343,10 @@ static void qcom_smp2p_notify_in(struct qcom_smp2p *=
-smp2p)
-> =20
->  		trace_smp2p_notify_in(entry, status, val);
-> =20
-> +		/* Some WCSS firmware needs a kick after restarting. */
-> +		if (smp2p->wcss_restart_kick && val =3D=3D 0)
-> +			qcom_smp2p_kick(smp2p);
+> +description: |
+> +  The Qualcomm SMBLite is a switch-mode battery charger IP found on
+> +  the entry-level Qualcomm PM4125 PMIC. It exposes five separate
+> +  SPMI peripheral bases for CHGR, DCDC, USB, MISC and BATIF blocks and
+> +  supports USB input current limiting, JEITA temperature protection,
+> +  battery overvoltage detection and a hardware watchdog.
 > +
->  		/* No changes of this entry? */
->  		if (!status)
->  			continue;
+> +properties:
+> +  compatible:
+> +    const: qcom,pm4125-charger
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 4
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: usb-plugin
+> +      - const: bat-ov
+> +      - const: wdog-bark
+> +      - const: usbin-icl-change
 
-[Severity: High]
-This problem wasn't introduced by this patch, but does
-qcom_smp2p_check_ssr() unconditionally reset entry->last_value to 0 on
-every interrupt when SSR ACK is enabled [1]?
+[Severity: Medium]
+Does this schema match the commit message and description claims for why
+qcom,pmi8998-charger.yaml cannot be reused?
 
-drivers/soc/qcom/smp2p.c:qcom_smp2p_check_ssr() {
-	...
-	restart_done =3D in->flags & BIT(SMP2P_FLAGS_RESTART_DONE_BIT);
-	restart =3D restart_done !=3D smp2p->ssr_ack;
-	list_for_each_entry(entry, &smp2p->inbound, node) {
-		if (!entry->value)
-			continue;
-		entry->last_value =3D 0;
-	}
+The description and commit message state that PM4125 SMBLite exposes five
+separate SPMI peripheral bases and a different interrupt set from SMB2 on
+PMI8998/PM660.  However, this schema defines a single reg entry (0x1000,
+matching SMB2 where the sub-blocks sit at fixed 0x100 offsets from 0x1000)
+and the exact same four base interrupt-names in the same order as
+qcom,pmi8998-charger.yaml (where chg-state-change is optional via
+minItems: 4).  pm4125_adc in arch/arm64/boot/dts/qcom/pm4125.dtsi also
+defines both ADC5_USB_IN_I and ADC5_USB_IN_V_16, matching the usbin_i and
+usbin_v channels in qcom,pmi8998-charger.yaml.
 
-	return restart;
-}
+[ ... ]
 
-Because the loop is not guarded by if (restart), qcom_smp2p_notify_in()
-computes status =3D val ^ 0 on every incoming notification and treats every
-currently asserted bit as a new rising edge, firing spurious nested
-interrupts.
+> +  monitored-battery: true
+> +
+> +  qcom,jeita-soft-thresholds:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    items:
+> +      - description: COOL threshold as a raw ADC comparator value.
+> +        maximum: 0xffff
+> +      - description: WARM threshold as a raw ADC comparator value.
+> +        maximum: 0xffff
+> +    description: |
+> +      JEITA soft temperature thresholds (COOL, WARM) as raw 16-bit ADC
+> +      comparator values written to the BATIF ADC comparator registers.
+> +      Example: <0x5314 0x25e3> for COOL=3D15=C2=B0C, WARM=3D45=C2=B0C.
+> +
+> +  qcom,jeita-hard-thresholds:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    items:
+> +      - description: COLD threshold as a raw ADC comparator value.
+> +        maximum: 0xffff
+> +      - description: HOT threshold as a raw ADC comparator value.
+> +        maximum: 0xffff
+> +    description: |
+> +      JEITA hard temperature thresholds (COLD, HOT) as raw 16-bit ADC
+> +      comparator values written to the BATIF ADC comparator registers.
+> +      Example: <0x58cd 0x20b8> for COLD=3D0=C2=B0C, HOT=3D60=C2=B0C.
 
-[1] https://sashiko.dev/#/bug/linux-bc3d0c88-94cb-435f-b51e-d084030debce
+[Severity: Medium]
+As reported by Krzysztof Kozlowski on v1 [1], should these JEITA
+temperature thresholds be expressed in standard physical units rather than
+raw 16-bit ADC comparator register values?
+
+Encoding raw BATIF register values in qcom,jeita-soft-thresholds and
+qcom,jeita-hard-thresholds bakes hardware register encoding into the
+Devicetree ABI.  Since this binding already includes monitored-battery,
+the soft (COOL, WARM) and hard (COLD, HOT) limits can use the standard
+alert-celsius and operating-range-celsius properties from battery.yaml and
+be converted to ADC comparator codes in the driver (for example via
+qcom_adc_tm5_temp_volt_scale()).
+
+[1] https://lore.kernel.org/r/a5f859c1-0779-4ae1-88f0-bfa12268e09c@kernel.o=
+rg
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126105722.1881=
-03-1-robimarko@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-smblite-ch=
+arger-for-pm4125-v2-0-20656509518b@oss.qualcomm.com?part=3D1
