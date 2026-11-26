@@ -1,78 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795707104;
-	b=soRhM2P1snWdIN+N4mVxYFGZ+K3SFfqwRzEwH2UfTrXD6sk+KaFdB5PshzlSMhXw5BjG
-	 pLAf5X5swvpOICqAR27TZmI/Nje74wGytjyS+VLaG1k17wxq0DKcbWCQQ4e0pFCnVL6Bz
-	 L5y+SnhMAJ5WPI45IJ4nMOIFWBX0YMCoB/bKBZFM5RTrLpqvUjvCPY6fzTA8ro0C+x+a8
-	 GOCN8VYDlTSpoDF85UGTYGoIbJ32OSjFkf/2BuVXSOXQ/LEQO4J2S8+VI9f+MMTVLxNlR
-	 6z8n8MM9x7MxtmJpCPj5vz0+X1x4Maz/tiVOOpkDkMnh9GTJCWeFo92r59/rNjz0jWg==
+	t=1795707193;
+	b=32XoJnfUOOfYkK7r5Aj8q4QQ4wPVM9a0dOfEei7gIavEJCwcig2Pfbusd914QsVm/Oy3
+	 NO7fUGS3N0TucW2LrQFQDFK7ZcWjeMjVDN1BJkRdTasCtrvtYXXT+mk2IvENSxyBTf9Jt
+	 Ce59drwkD9cVES4KWf84InANc5lKoAaU/GJ22MgJpi5GtxU8XXg2g78DRQn4wx/TP5bDf
+	 IHASziLrIBOHhkl0Mti95j32p/wQNYFY/9APK7XwMnCpZeMbnB2gZZh0IWM3XVPbgNRDc
+	 iBAPhesBZ8ZsTn1eeBilDhUeVXjNL6Y0pqVUFCSR9wZDvNrU99HI/XuUVwcoVsB2Mbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795707104;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=VTt6jbaht2zGBYKNI2lpBkMP4t0i6MoEcGFYwP5l2hs=;
-	b=xbSBQMRhVtfePdyZIsLIBZyFMycPfDQG1P1EO0vEKPXASYzCaSADb8ATnN4TEtNJ4Z9I
-	 tivkwY1nkuRfJLAGOgDinW/sfPUlndvk5pWHNe3B1gpDtnv8E7qGo0+eJk93sxEGTfMeQ
-	 Uud+7n5p54WqgFv4w1C9SOXZX4VBqXO68sRBNfJLPD3isJ9ftoOKKpSAzoWlsq1hhRyj+
-	 O0+61C9bMargJ1nfpnWV3CbSGx/MuFh00Z/+HQkLJrBuuUvuZQfS1RYRDoX3DcdRSZf8P
-	 INwlWW7CwF4bL+CN3KT6/jhQ2t1doWhU9kKG7BwcMZJARsfkDOKLouoK4m3BhQ4KTLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795707193;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=A3Ax0lwyOpCC0MDtRi1mKidzPU6SwPp2p+tk94ZfCDo=;
+	b=Wtnw6CTCgcgM1QH0isM/WKqOTkK5ldKElJZminl+HUxfvoXjrawvyJ+yNwCf1HaI82uK
+	 aBgrvVRsBI8P1+6HN2S5Fxwm8OGWTpbsf/aXOzVy+uKY9OnQ4sP/sDxVkuANh/SOD6Y4J
+	 gB1PWhu+ZUrWmQYdmLzfBGW5AwSM5ImF5CEwg5HvnYsWhiEQV1itbo9hnyMYELEYWq7Zw
+	 tcyJktULps3yoGzoGeW1/84A76opqmU/412d8UcMPBogT/wvBS3cXo73EeimD/Ds+Ig8H
+	 LFlhOMM5MI3Z4UQ8/+Yngx5VruzgPbf8+d+oOwRpB7DsoT7+QRUNSa+KeP6Onfz6CIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.222.174
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cBVi354s;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEB0F606A321
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 15:31:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEB0F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-93f3c616c84so553183285a.1
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 07:31:43 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795707103; x=1796311903;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VTt6jbaht2zGBYKNI2lpBkMP4t0i6MoEcGFYwP5l2hs=;
-        b=HzclWMt1id5+pAS3ikViOO7+ykwF26Ye0F9NkHS3FDGtPHwpDJBCnOt3Hj0raU3AkM
-         k6f7Q1ztAvkdVD+okptq2sasRFAooADZ7TN5zXnP/OVec6HJyHQYTqe86C6BCu5aYJDr
-         N4N5RVKk1zXRKfUqWFwJpLvVcrUmpFYMWHBJc29evUhk60/8k8ru0Xblsy+S2u8F8yIL
-         OJoKCK5qJSizijKQtpUBi2S4fz9Iwh7csO2X6t9qFTehmuW0wLE9ah5Fk4dq06O/0dGm
-         dpcOFiZxEj9YCKqT5qzg2Q469vQuv3gCBvH0RUESOAU9jSGnlc7/bYHYPkn1nJwpadlm
-         6XFA==
-X-Forwarded-Encrypted: i=1; AL+hErHxTO6HSwvy7Se3NmBScjY/GNqu5SRrnnOVXwVv1H+UMUCgpxXvi/JGDT686CNhmZiOtL7G1ORYVpGs@vger.kernel.org
-X-Gm-Message-State: APuU4Z8vl0FJoOB4yNeaXpuLkS8C2S045HcJmkDidklNdJeIVEFJa3Pb
-	yDK26drvp8msBQu+9QEUVUVACCX05lZ22dKYc959VYC1Ifvkcps5g+J/T7WbMGrf
-X-Gm-Gg: AZFdTZdbBHvi4gNizSYmEgdSZ1Rw+V+eO9JZzWkGyfZE/GrzqOsSmtltq/BlzxYUVI6
-	aI02E7klgU0sUgy66l/+4eaFCiVwUzRYUpJB/QG701oHA7UlxBa0ZB0piGqcPy9TSdAEl+SPkoN
-	m8BeXqsGNaOnbjsc7hmmDkf9QTDn019VOS+nsFehHUer0OiZtwKmjnjnyaLe3Bthjzi21Hb5SUD
-	GRP3Oz3ApLh514zjQvjoW27lstr4ud936U1B6vq+iYikfq4/YnptAqfSNeK/t12t06S7mhzyMLt
-	5dCB0m/hCgHeEu1bh8/5E1/b+ui+r01DO3IcmeeeLbRR+C9nz2WPg8wpEv05AWlFjAHNOaWgpvY
-	ToMfOTOBtT7cragCvQmKkLez07TxpvRSY/Gme8fHcUnYjUxPe5HIdK80k8vIZGuv+S04WPvZge7
-	GLiukkj6Y35ZO8cG1WIurx5HxZj7E5JVkotZBjEk5cz+Um3y785ATJmkeEFCwRhEa0+tmCFhBLY
-	94wBmxasa3wNv5TXwje6YrQ7eCuRW3DeAc0pFSscSSp2UWs5f4zz3tDA4NcdtiD3w8OtWxyX17C
-	UKRhAY7yG5o2NOea8WEn+7gsJlYWfpSMlUI21sWexAs8SKZWqSTdJpwqb6mPvR2cI2kxzcPzb0p
-	Ju4am7m2tPZm/
-X-Received: by 2002:a05:620a:4608:b0:949:710e:2cdb with SMTP id af79cd13be357-949bab27025mr3929163885a.69.1795707102574;
-        Thu, 26 Nov 2026 07:31:42 -0800 (PST)
-Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com. [209.85.222.54])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb38c903sm1591738385a.19.2026.11.26.07.31.42
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Nov 2026 07:31:42 -0800 (PST)
-Received: by mail-ua1-f54.google.com with SMTP id a1e0cc1a2514c-99e1408dc59so3097147241.0
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 07:31:42 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErH2jPK+wDqvkJF6y7J8JQ/UEpDYdgOsdDaVDTZ7lHz4xr1opFwG43zlyQDUdZBCtOglsY4MYNXVAJZ+@vger.kernel.org
-X-Received: by 2002:a05:6122:1352:b0:5ea:d247:adb0 with SMTP id
- 71dfb90a1353d-5ee8aec0273mr12525476e0c.4.1795707102063; Thu, 26 Nov 2026
- 07:31:42 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60CD8606A321;
+	Thu, 26 Nov 2026 15:33:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cBVi354s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0F3C1F000C6;
+	Thu, 26 Nov 2026 15:33:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795707193;
+	bh=A3Ax0lwyOpCC0MDtRi1mKidzPU6SwPp2p+tk94ZfCDo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cBVi354sryH0oArg7cqjMSvPLkGejS+SMaCGc4zGUlTMEN7wLWrEciVDIRx9/Ap4R
+	 blEQrRDbOW8DcJA2TBt+Ut5CyWXXHOoKjSZk8KECmSHMyTYKqhK0WzVQPu+aLo9lIn
+	 bkJx+qf00BP5mldVMNKyb2PEnCBXpL551Xr4p4cUeL4CEJwhm7K9x19hR8TUhBJnVF
+	 IKym9DQG1Tad28Mejgxr+0hg+IXekVc9vh0NNU2TBZfOnBDpS6vSiPhMAG/858dT2q
+	 tVSdmC4OZZ7eugKtEC7wHFIq0GrD+OvqQAaViHcgN7uNvEbIeYT9x1zMGMICtIApTc
+	 JwAhv6JvzF2Xw==
+Message-ID: <sashiko-outbox-235805@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/6] arm64: dts: imx95-phyflex-libra-rdk: Add
+ phyFLEX-i.MX 95 Libra RDK
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Benjamin Hahn" <B.Hahn@phytec.de>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261126-wip-bhahn-imx95_upstreaming-v3-2-a2bda009bac8@phytec.de>
+References: <20261126-wip-bhahn-imx95_upstreaming-v3-0-a2bda009bac8@phytec.de>
+ <20261126-wip-bhahn-imx95_upstreaming-v3-2-a2bda009bac8@phytec.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Nov 2026 15:33:12 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -81,97 +60,204 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261110080727.2377040-1-niklas.soderlund+renesas@ragnatech.se>
- <20261110080727.2377040-4-niklas.soderlund+renesas@ragnatech.se>
- <CAMuHMdWpZfsaJOcTEBCugyDgKDXNRje68n59OrGFx-0hJXG+4Q@mail.gmail.com> <20261126151633.GO3898744@ragnatech.se>
-In-Reply-To: <20261126151633.GO3898744@ragnatech.se>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 26 Nov 2026 16:31:30 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdWS=HmLkWJayNjWiuaWaCEsq=TZe3Z2d955FiqiT3R0LA@mail.gmail.com>
-X-Gm-Features: Aa3M54pKeTC5hUFcgZHzefDJuLY0GDmu_UJnMCzuy7g_xoL8fTHhTprfIbzhyhc
-Message-ID: <CAMuHMdWS=HmLkWJayNjWiuaWaCEsq=TZe3Z2d955FiqiT3R0LA@mail.gmail.com>
-Subject: Re: [PATCH net-next v8 3/3] arm64: dts: renesas: r8a779g0: Add gPTP node
-To: =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Magnus Damm <magnus.damm@gmail.com>, Richard Cochran <richardcochran@gmail.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "DavidS. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>, Sergey Shtylyov <sergei.shtylyov@gmail.com>, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Niklas,
+Thank you for your contribution! Sashiko AI review found 4 potential
+issues to consider:
+- [High] arm64: dts: freescale: missing OF graph ports on M.2 connectors
+  disable radios
+- [Medium] arm64: dts: imx95-phyflex-libra-rdk: descending
+  cooling-levels breaks pwm-fan
+- [Low] arm64: dts: freescale: custom aliases in
+  imx95-phyflex-fpsc-g-som.dtsi
+- [Low] arm64: dts: imx95-phyflex-libra-rdk: deprecated clock name and
+  dummy regulator
+--
 
-On Thu, 26 Nov 2026 at 16:17, Niklas S=C3=B6derlund
-<niklas.soderlund+renesas@ragnatech.se> wrote:
-> On 2026-11-26 14:33:17 +0100, Geert Uytterhoeven wrote:
-> > On Tue, 10 Nov 2026 at 09:10, Niklas S=C3=B6derlund
-> > <niklas.soderlund+renesas@ragnatech.se> wrote:
-> > > The gPTP module is shared between the RAVB and RTSN Ethernet devices =
-on
-> > > the SoC.
-> > >
-> > > Signed-off-by: Niklas S=C3=B6derlund <niklas.soderlund+renesas@ragnat=
-ech.se>
-> >
-> > Thanks for your patch!
-> >
-> > > --- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-> > > +++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-> > > @@ -606,6 +606,15 @@ mfis: system-controller@e6260000 {
-> > >                         status =3D "disabled";
-> > >                 };
-> > >
-> > > +               gptp: ptp@e6449000 {
-> > > +                       compatible =3D "renesas,r8a779g0-gptp", "rene=
-sas,rcar-gen4-gptp";
-> > > +                       reg =3D <0 0xe6449000 0 0x500>;
-> >
-> > Can you please remind me again where I can find this base address in
-> > the documentation?
->
-> It's very well hidden. The gPTP device itself is only described in the
-> attached files to the datasheet, but it does not describe how it is
-> wired into the V4H.
->
-> For the longest time I assumed each RAVB (and RTSN/RSWITCH) had its own
-> gPTP device as it where on Gen3. I got feedback from Renesas this is not
-> the case and there is only a single device on Gen4 which is shared
-> between all users. That is RTSN and RAVB on V4H and RWSITCH and RAVB on
-> S4. To make it even more fun the gPTP device uses the same clock and
-> reset as RTSN on V4H and RSWITCH on S4.
->
-> I got final confirmation of the address itself from the address map in
-> 002_R-CarV4H_Address_Map_D_r1p30.xlsx.
+commit 344d2e7761b7f7fe50aadecc9f7055eddf8720b0
+Author: Benjamin Hahn <B.Hahn@phytec.de>
 
-Thanks, found it!
+arm64: dts: imx95-phyflex-libra-rdk: Add phyFLEX-i.MX 95 Libra RDK
 
-> > The size looks too small to me, though, as there are registers at offse=
-ts
-> > 0x500 - 0x788.
->
-> You are correct, it should be 0x1000. I will send a new version in a few
-> days in case you have feedback from the question above.
+This commit adds devicetree support for the PHYTEC phyFLEX-i.MX 95 FPSC
+Gamma SoM and the phyFLEX Libra RDK baseboard.
 
-I can fix that while applying, no need to resend.
+> diff --git a/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som.dtsi =
+b/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som.dtsi
+> new file mode 100644
+> index 0000000000000..2611f6ee5a1b7
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som.dtsi
+> @@ -0,0 +1,746 @@
+[ ... ]
+> +	aliases {
+> +		/* FPSC alias definitions */
+> +		ethernet1 =3D &enetc_port1;
+> +		ethernet2 =3D &enetc_port0;
+> +		gpio0 =3D &gpio1;
+> +		gpio1 =3D &gpio2;
+> +		gpio2 =3D &gpio3;
+> +		gpio3 =3D &gpio4;
+> +		gpio4 =3D &gpio5;
+> +		i2c1 =3D &lpi2c2;
+> +		i2c2 =3D &lpi2c5;
+> +		i2c3 =3D &lpi2c3;
+> +		i2c4 =3D &lpi2c4;
+> +		i2c5 =3D &lpi2c1;
+> +		pcie1 =3D &pcie0;
+> +		pcie2 =3D &pcie1;
+> +		pwm1 =3D &tpm3;
+> +		pwm2 =3D &tpm5;
+> +		sai1 =3D &sai5;
+> +		serial1 =3D &lpuart8;
+> +		serial2 =3D &lpuart5;
+> +		serial3 =3D &lpuart7;
+> +		spi1 =3D &lpspi7;
+> +		spi2 =3D &lpspi3;
+> +		spi3 =3D &lpspi4;
+> +		usb1 =3D &usb3;
+> +	};
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.5.
+[Severity: Low]
+Should custom non-standard aliases such as pcie1, pcie2, pwm1, pwm2,
+sai1, and usb1 be dropped from /aliases?
 
-Gr{oetje,eeting}s,
+Devicetree sources only allow established subsystem-generic aliases, and
+pcie1 =3D &pcie0 / pcie2 =3D &pcie1 also conflict with the 0-based
+linux,pci-domain values (<0> and <1>) defined on pcie0 and pcie1 in
+imx95.dtsi.
 
-                        Geert
+> diff --git a/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk.dts b/=
+arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk.dts
+> new file mode 100644
+> index 0000000000000..0f44d7f99707d
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk.dts
+> @@ -0,0 +1,576 @@
+[ ... ]
+> +	m2-key-m-connector {
+> +		compatible =3D "pcie-m2-m-connector";
+> +		clocks =3D <&rv3028>;
+> +		i2c-parent =3D <&lpi2c5>;
+> +		vpcie3v3-supply =3D <&reg_vdd_3v3>;
+> +	};
+> +
+> +	m2-key-e-connector {
+> +		compatible =3D "pcie-m2-e-connector";
+> +		clocks =3D <&rv3028>;
+> +		i2c-parent =3D <&lpi2c3>;
+> +		sdio-reset-gpios =3D <&gpio_expander2 6 GPIO_ACTIVE_LOW>;
+> +		sdio-wake-gpios =3D <&gpio_expander2 5 GPIO_ACTIVE_LOW>;
+> +		uart-wake-gpios =3D <&gpio_expander1 13 GPIO_ACTIVE_LOW>;
+> +		vpcie3v3-supply =3D <&reg_vdd_3v3>;
+> +		w-disable1-gpios =3D <&gpio_expander1 9 GPIO_ACTIVE_LOW>;
+> +		w-disable2-gpios =3D <&gpio_expander1 10 GPIO_ACTIVE_LOW>;
+> +	};
+
+[Severity: High]
+Without OF graph ports linking m2-key-e-connector and m2-key-m-connector
+to their host interfaces, does pwrseq_pcie_m2_probe() leave the M.2 Key-E
+radios permanently disabled?
+
+When pwrseq_pcie_m2_probe() binds to m2-key-e-connector, it requests
+w-disable1-gpios and w-disable2-gpios with GPIOD_OUT_HIGH, asserting both
+active-low disable lines.  Because neither the connectors nor pcie0_port0
+and pcie1_port0 define OF graph endpoints, slot_pwrctrl_probe() sees
+of_graph_is_present() as false and pwrseq_pcie_m2_match() never matches a
+consumer to deassert w-disable1-gpios or w-disable2-gpios.
+
+Connecting port@0 (PCIe) between the M.2 connectors and
+pcie0_port0/pcie1_port0 in the base DTS does not claim lpuart8 as a
+serdev (which only happens when port@3 is linked), while connecting
+port@3 to lpuart8 in the Bluetooth overlay allows btnxpuart and the power
+sequencer to deassert w-disable2-gpios when Bluetooth is enabled.
+
+> +
+> +	uart1_bt_rs_mux: mux-controller-uart1 {
+> +		compatible =3D "gpio-mux";
+> +		#mux-control-cells =3D <0>;
+> +		mux-gpios =3D <&gpio_expander1 14 GPIO_ACTIVE_HIGH>;
+> +		idle-state =3D <0>;
+> +	};
+> +
+> +	osc_mclk: oscillator-mclk {
+> +		compatible =3D "fixed-clock";
+> +		#clock-cells =3D <0>;
+> +		clock-frequency =3D <19200000>;
+> +
+> +		status =3D "disabled";
+> +	};
+> +
+> +	osc_mclk_gated: oscillator-mclk-gated {
+> +		compatible =3D "gpio-gate-clock";
+> +		#clock-cells =3D <0>;
+> +		clocks =3D <&osc_mclk>;
+> +		enable-gpios =3D <&gpio_expander1 8 GPIO_ACTIVE_HIGH>;
+> +
+> +		status =3D "disabled";
+> +	};
+> +
+> +	fan: pwm-fan {
+> +		compatible =3D "pwm-fan";
+> +		interrupt-parent =3D <&gpio1>;
+> +		interrupts =3D <4 IRQ_TYPE_EDGE_RISING>;
+> +		#cooling-cells =3D <2>;
+> +		/* startup 35%, duty cycle 30%-100%;
+> +		 * polarity inversion does not appear to work
+> +		 */
+> +		cooling-levels =3D <255 166 96 0>;
+> +		fan-supply =3D <&reg_vdd_5v0>;
+> +		pwms =3D <&tpm5 3 86958 0>;
+> +		pulses-per-revolution =3D <2>;
+> +	};
+
+[Severity: Medium]
+Does configuring pwm-fan with descending cooling-levels =3D <255 166 96 0>
+and a pull-down (0x51e) on IMX95_PAD_GPIO_IO26__TPM5_CH3 cause the fan to
+run at 100% speed during system suspend and after shutdown?
+
+At cooling state 3 (level 0), set_pwm() calls pwm_fan_power_off(), which
+disables the TPM5_CH3 output driver so the pad pull-down pulls the
+inverted fan input low (full speed).  Because reg_vdd_5v0 is always on,
+pwm_fan_suspend() and pwm_fan_cleanup() enter that same disabled PWM
+state on suspend, shutdown, or unbind and spin the fan at 100% speed.
+
+In addition, pwm_fan_probe() starts at initial_pwm =3D 0 and skips enabling
+the PWM and fan-supply, and pwm_fan_update_state() assumes cooling-levels
+is in ascending order (`if (pwm < ctx->pwm_fan_cooling_levels[i + 1])
+break;`), so writing to pwm1 or pwm1_enable corrupts ctx->pwm_fan_state
+and causes pwm_fan_set_cur_state() to skip thermal state transitions.
+Configuring IMX95_PAD_GPIO_IO26__TPM5_CH3 with a pull-up (0x31e),
+PWM_POLARITY_INVERTED, and ascending cooling-levels with a non-zero
+minimum (such as <1 89 159 255>, as on imx95-19x19-evk.dts) keeps the fan
+off when disabled and preserves ascending state order.
+
+> +
+> +	reg_usb3_phy: regulator-usb-vbus {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-min-microvolt =3D <5000000>;
+> +		regulator-max-microvolt =3D <5000000>;
+> +		regulator-name =3D "usb3-phy-dummy";
+> +	};
+
+[Severity: Low]
+This isn't a runtime bug, but there are a few devicetree binding and
+cleanup issues in this file:
+
+1. reg_usb3_phy defines a dummy regulator ("usb3-phy-dummy") only to
+populate vbus-supply on &usb3_phy; vbus-supply is optional in
+fsl,imx8mq-usb-phy.yaml and VBUS is already supplied by reg_vdd_vbus on
+the usb-c-connector node, so reg_usb3_phy and vbus-supply on &usb3_phy
+can be dropped.
+
+2. fixed-clock.yaml deprecates node names not matching
+^clock-([0-9]+|[a-z0-9-]+)$, so oscillator-mclk above should be named
+clock-mclk.
+
+3. &flexspi1 below repeats pinctrl-0 and pinctrl-names already defined in
+imx95-phyflex-fpsc-g-som.dtsi, and the dt-bindings/mux/mux.h and
+dt-bindings/pwm/pwm.h includes at the top of this file are unused
+(unless PWM_POLARITY_INVERTED from pwm.h is used for the fan node).
 
 --=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-wip-bhahn-=
+imx95_upstreaming-v3-0-a2bda009bac8@phytec.de?part=3D2
