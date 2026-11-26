@@ -1,60 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795698312;
-	b=r5BZwJAxoOImUpIydNXq2cg7BHWMmCZRwkWfwybw63E9APOYXnGda/yG4RNFfqnzVdv+
-	 HTb1E/4IyeDf85/LkmD4I37TxHRCL3ltq1/wAfruC081L+bFaMc+MpnW0DykjF58N9jZQ
-	 Cn96gdratadiIZrcg/NyOjserKmM/LlJ4u54M42DiGvF2/mWzs4jhrxHWKbMh0zFVQ8UH
-	 UjRqWy+qVXx1mJE5Z35bNH1ZXrL/ezGXjeggRDLO6fxqGa7OY/h4af+tIHViNT3GHRPvY
-	 C03LSK8BVoz69s1mUyYPMXahw6e04+LPixpEdyp1GdsB5pJ1PEXYF1sf8vf1AQcN6uQ==
+	t=1795698624;
+	b=w10b8DGZGei+l3MpF4oDmNvgYX5BQ6fiS9kYOH9TWpf/qQ/jlTDF1SzlIGRia/4FhwsF
+	 rQ7cIu9bOzoz89PZU6tLvRoZ57lozqNsHXQr8Ikjv/MAUfSYzWcLytaHmP8V41mt8nFZl
+	 eLv7L1CbIhOff6nfqEaEQcVeG+1TgiSuRpi3+959XYnGHPpE0XMoyEml+6srL8pUJn/Hp
+	 OPyNQUkybww48rkvX/yENSUmgg3DNy9e8ekcBuHCx0w3ZjgdZFRQDzonrW9596SvjL94V
+	 HX5VGHYKCLt2TXumm1raQfw3L6NwvvptktGBkT9ZFVEaPXbxAMW5ygMHTdZ12zxT4xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795698312;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=fENdEb3Bt7HhhupnxtcDcTS2NyZ8NaoZRFolIFDL5BA=;
-	b=Tk9LzhDfSz+/UhAnsczgONe94M5eIaPm//QUexQgIekz2DgyaT7AESGox2J7VeO63ej+
-	 fb2tjaOkIgkQOYNKdYwNFRe69KawE6tBSONJ0FMYvTz19kCCA4hVyAwht44MAdyG39nmz
-	 FUzi7XX4nEmXSokMzD/FKNq7EbVtFEKQjC8BhTlb7gsrmlHHHK5OCBVFUzZnXDDwlwpEs
-	 e6kkF5MSybTMs/HbM9ASXoPKjYDvUxH4IAFHxgLmN06dAjlc7C5TQGVHO5z9Iafng9KTT
-	 Gcos3NwJFwSfsFugOGGZtGH6mje0ZGJ1PoIrlm2i/VL+TE/c4WZvqqWDItdQ55hI0rA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795698624;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=z5gsJ+BDz+8hzJBQw/xAOysO2V3ppLgl3lpNGd2ZXi4=;
+	b=QDennWKJ/O4ohs8Tr0KO7wPxRRFLzJ+yhG2o1aZLzvobvw7YowBADmEyjC7R+bRVEWOp
+	 BU9pvftVTHKgKmsQ8aV96w6RGufnR/T1Ch+O70UhdR5C5qv0DYh3iS+GF89IcppHoFFPT
+	 5gjL5TYwwTlnA5hw9c0xW2SpnvqvT4AePnYG+8by9IlmlxGE009PAv5o8MKZVVYVnd72+
+	 4RlRqm8x5XKX+z4fc7hwXkkjG/gtUYclan1eMJQhu2VpjqZ/MPO7CchP3JKX2OmqE2rfS
+	 ug0vQb+ie2BmhY+kQDSC62fj4Jf2buPSFVOCeL7iKw2HTLig6krcQMBXMOEbB+Mxf5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gi5hVaWH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.221.177
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B6FF606A31E
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 13:05:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gi5hVaWH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C19631F000C4;
-	Thu, 26 Nov 2026 13:05:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795698312;
-	bh=fENdEb3Bt7HhhupnxtcDcTS2NyZ8NaoZRFolIFDL5BA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Gi5hVaWHZxqtA+AyGmt4G3/A6BQGhlVb/4f29z6KMPW5OUAizaOhcjwXNUppfQ5wW
-	 8ekxN9I2u0BjMeq5/4U8PWXwXNF3L0HxLKn1ektYkWAm+kHHN6uGiih0WR7YJohTB3
-	 jIzrwOtzsTrKyxX5OjPrXqmVgHTyKgPz9itvi0uv9BsFiR8XeRX5mTTWFPGglxcNmU
-	 eDX5etww1HnzNkz4ujBDekwzKDhi7RzbUS5XxyjBGoaqlrPtbIXhKw3wcSjNmFwoUw
-	 rF6X5eH6RspDeJHVfniCBVdYwTmVGaJdL0PT61JNM1pA5BfhV6RwhqSvWLWSMz+hgk
-	 vqDDpYLNL56qQ==
-Message-ID: <sashiko-outbox-235556@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/3] mtd: rawnand: Add Cortina CS7542 controller
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fil Dunsky" <filipp.dunsky@gmail.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Richard
- Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Philipp Zabel" <p.zabel@pengutronix.de>
-Cc: linux-mtd@lists.infradead.org, devicetree@vger.kernel.org
-In-Reply-To: <20261126-b4-cs7542-nand-v4-2-38e488f6f8b1@gmail.com>
-References: <20261126-b4-cs7542-nand-v4-0-38e488f6f8b1@gmail.com>
- <20261126-b4-cs7542-nand-v4-2-38e488f6f8b1@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 13:05:11 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47F1A606A31E
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 13:10:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47F1A606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5ee3e658c72so3938438e0c.1
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 05:10:24 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795698623; x=1796303423;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=z5gsJ+BDz+8hzJBQw/xAOysO2V3ppLgl3lpNGd2ZXi4=;
+        b=CTeigCa9cbOe49ttq1J2QLE7yipdChfTa9o3Q4O54p/96PeuIp7UVCKKJAnWJ0XG4e
+         JbkLzLy0JARP9lvm2BnfLptF1+/tNYdYVS6UGC47FP1gOPr+LRkLe84Ir3zhGxuKSMhd
+         Loz4y30xJjPazIIzeY4xekd7BPQAaNVZjuBtRe5i2yTeOlGzKsRmQQHwMEk+D4hYwMLT
+         2pvH84nTKlLYSL13d6LziRkNa+y3jM8srKwlroLHAt/+A8THlWUvwB890Mh58rDorXYD
+         ry3N0WYIxzu5bikJkbVvOPA8HBLp073sQsCEB6HsReD99TDfyRNWhiQuWicLD2bpbTgB
+         K+dA==
+X-Forwarded-Encrypted: i=1; AL+hErHPCbluLjMfUoZGEF7AkiiC0OUQPOGwczgeBZo1Pi3+gdPe5QHi2c+nCoH+QagKQEv1qudFfanU6jlC@vger.kernel.org
+X-Gm-Message-State: APuU4Z9CSJYQHnraYOqmeYm41c3NfcgLGizIkIiZtRyizdwR/nNlrSBs
+	9mBhmpUURB7n8z+Jv2YQW96IcMvocp8KV8w43aWb6IU/T4TsIuk9456TJaPyD3oA
+X-Gm-Gg: AZFdTZdeZW/JTomWMskmU/haM8GP+eIE7y86QCx2njoWVL9hvhM9PAsrbfD4BPBaRMF
+	/NR7F/+MdxnrNBQpRLPlqYyQUVBfxVwQFGzabaN9oArkOAC5oUiS0MKqR35cWqdA/gfUHkcFXYB
+	ysP1+TLo7w16axuwdDFnlsff6OOpsZQlf9YUvqP4DiB7ztbw7iKc0w5+vugVZAuCCeILrsKgZEy
+	jL/NHzhajfrH1KZrcA0zC5+wIFJYt6lTk8fKEgfSO2GkRSlYkzXL/8DXr/KmUApITIfo229+4nK
+	32pAHOTCYoNYewiviSooAMwifLMZDffPXsNGuNfs1FjISVCjn0udCNr/LQMllpI5L0D44uIO4eC
+	fT5UVPenuNRU+I9ICRIRoN8hA1qYHD2pj//WPnmlZrggH9lPKMaOXwUFOVxO5ejqNrgqwGGLE6h
+	zSUHtrUQyR37M3aPJq4gfvkAyzZN88RKvA7lwwQ24jJ50GLd/yptappyofuiPlvJd5yswpgTCoD
+	qepocKr1ZfQV04qh6IFmkzsmfE43norqwe5omewnRkOwOwMIcrvbgxdZlMWXF+Z6iinD98RKf1o
+	xjNzMtlCLfaAPA9zEBWszs/mDNJgv6qMN025rrtXVPo7qAc3V1lyAlbVVdvfgOU8FbWGRzR7DZ+
+	ySXhcjq02GKzbKooZ
+X-Received: by 2002:a05:6122:1823:b0:5ec:3e18:a8fa with SMTP id 71dfb90a1353d-5ee8af737e8mr13155840e0c.20.1795698623197;
+        Thu, 26 Nov 2026 05:10:23 -0800 (PST)
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com. [209.85.221.181])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee8b5cd7c8sm20725438e0c.11.2026.11.26.05.10.22
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Nov 2026 05:10:22 -0800 (PST)
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5ee3a3d281fso4454527e0c.3
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 05:10:22 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHkhNHjHk3i59Uy0IZ5uv0t/7o4zNRvv45eAP2iDEpk9onH/+MPm6N3tGDYZNafCth/n9o2KwSVKA0b@vger.kernel.org
+X-Received: by 2002:a05:6122:e16c:b0:5ea:bfe3:6035 with SMTP id
+ 71dfb90a1353d-5ee8aecb450mr12500493e0c.8.1795698622003; Thu, 26 Nov 2026
+ 05:10:22 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,129 +80,52 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261020031049.969895-1-den@valinux.co.jp> <20261020031049.969895-17-den@valinux.co.jp>
+In-Reply-To: <20261020031049.969895-17-den@valinux.co.jp>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 26 Nov 2026 14:10:09 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdVpV=FLZG6iiNMj8Mq39RQ3u8JxKyTVws7J0O9Y__2EqA@mail.gmail.com>
+X-Gm-Features: Aa3M54rTYSp7n6mDEivRvXB3zz9tm8FUTty6In8Jlz7Pqa2lf3sYsYsJuOUeaRc
+Message-ID: <CAMuHMdVpV=FLZG6iiNMj8Mq39RQ3u8JxKyTVws7J0O9Y__2EqA@mail.gmail.com>
+Subject: Re: [PATCH v5 16/17] arm64: dts: renesas: r8a779g0: Describe the PCIe
+ AER interrupts
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, Shawn Lin <Shawn.lin@rock-chips.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
+	Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa <wilfred.mallawa@wdc.com>, 
+	Serge Semin <fancer.lancer@gmail.com>, linux-pci@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] mtd: rawnand: cs752x: broken child lookup when nand@0 is
-  disabled
-- [Medium] mtd: rawnand: cs752x: broken page writes with
-  NAND_ECC_ENGINE_TYPE_NONE
---
+On Tue, 20 Oct 2026 at 05:11, Koichiro Den <den@valinux.co.jp> wrote:
+> The PCIe controllers report Root Port AER notifications through SPI 454
+> and SPI 461, respectively, separately from the integrated MSI receiver
+> interrupts. Describe these interrupts with the "aer" name so the
+> controller driver can use them for Root Port error reporting.
+>
+> Append the new interrupts to preserve the existing interrupt indices.
+>
+> Suggested-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
 
-commit 27b8a6ca04060af07bea917b577d9528c58349c2
-Author: Fil Dunsky <filipp.dunsky@gmail.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.5.
 
-mtd: rawnand: Add Cortina CS7542 controller support
+Gr{oetje,eeting}s,
 
-This commit adds a raw NAND flash controller driver for the Cortina Systems
-CS7542 SoC using programmed I/O, supporting software ECC and hardware Hammi=
-ng
-ECC.
+                        Geert
 
-> diff --git a/drivers/mtd/nand/raw/cs752x_nand.c b/drivers/mtd/nand/raw/cs=
-752x_nand.c
-> new file mode 100644
-> index 0000000000000..b4cc24e31faee
-> --- /dev/null
-> +++ b/drivers/mtd/nand/raw/cs752x_nand.c
-[ ... ]
-> +static int cs752x_nand_exec_op(struct nand_chip *chip,
-> +			       const struct nand_operation *op, bool check_only)
-> +{
-[ ... ]
-> +	if (p.data && p.data->type =3D=3D NAND_OP_DATA_OUT_INSTR)
-> +		return cs752x_nand_pio(h, &p, (u8 *)p.data->ctx.data.buf.out,
-> +				      requested, true);
-> +
-> +	ret =3D cs752x_nand_pio(h, &p, h->own_buf, len,
-> +			      p.command =3D=3D NAND_CMD_RESET);
-> +	if (ret)
-> +		return ret;
-[ ... ]
-> +static int cs752x_nand_attach_chip(struct nand_chip *chip)
-> +{
-> +	struct mtd_info *mtd =3D nand_to_mtd(chip);
-> +	struct cs752x_nand_host *h =3D to_host(chip);
-> +	int ecc_total;
-> +
-> +	/* Byte-bus transfer handling and the staging buffer are driver limits.=
- */
-> +	if (chip->options & NAND_BUSWIDTH_16 ||
-> +	    mtd->writesize + mtd->oobsize > sizeof(h->own_buf) ||
-> +	    mtd->writesize % sizeof(u32) || mtd->oobsize % sizeof(u32))
-> +		return -EOPNOTSUPP;
-> +	chip->ecc.read_page_raw =3D nand_monolithic_read_page_raw;
-> +	chip->ecc.write_page_raw =3D nand_monolithic_write_page_raw;
-> +	if (chip->ecc.engine_type =3D=3D NAND_ECC_ENGINE_TYPE_SOFT ||
-> +	    chip->ecc.engine_type =3D=3D NAND_ECC_ENGINE_TYPE_NONE)
-> +		return 0;
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-[Severity: Medium]
-Do page writes work when NAND_ECC_ENGINE_TYPE_NONE is selected?
-
-nand_scan_tail() runs after attach_chip() and unconditionally overwrites
-chip->ecc.read_page, write_page, read_page_raw, and write_page_raw in the
-NAND_ECC_ENGINE_TYPE_NONE case:
-
-drivers/mtd/nand/raw/nand_base.c:nand_scan_tail() {
-    ...
-	case NAND_ECC_ENGINE_TYPE_NONE:
-		pr_warn("NAND_ECC_ENGINE_TYPE_NONE selected by board driver. This is not =
-recommended!\n");
-		ecc->read_page =3D nand_read_page_raw;
-		ecc->write_page =3D nand_write_page_raw;
-		ecc->read_oob =3D nand_read_oob_std;
-		ecc->read_page_raw =3D nand_read_page_raw;
-		ecc->write_page_raw =3D nand_write_page_raw;
-    ...
-}
-
-Unlike nand_monolithic_write_page_raw(), nand_write_page_raw() splits a page
-program across nand_prog_page_begin_op(), nand_write_data_op(), and
-nand_prog_page_end_op().  cs752x_nand_pio() pulses ECC_RESET_NF_RESET at the
-end of nand_prog_page_begin_op(), resetting the controller before the confi=
-rm
-command is sent, and cs752x_nand_exec_op() then issues the standalone
-NAND_CMD_PAGEPROG confirm command with write =3D false (FLASH_RD instead of
-FLASH_WT).
-
-[ ... ]
-
-> +static int cs752x_nand_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	if (of_get_available_child_count(dev->of_node) !=3D 1)
-> +		return dev_err_probe(dev, -EOPNOTSUPP,
-> +				     "one connected NAND target is supported\n");
-> +	flash =3D of_get_available_child_by_name(dev->of_node, "nand");
-> +
-> +	if (!flash)
-> +		return dev_err_probe(dev, -ENODEV, "missing NAND chip node\n");
-
-[Severity: Medium]
-Does of_get_available_child_by_name(dev->of_node, "nand") fail with -ENODEV
-when nand@0 is disabled and nand@1 is enabled?
-
-of_get_available_child_by_name() calls of_get_child_by_name(), which returns
-the first child matching "nand" regardless of its status, and then returns
-NULL immediately if that child is not available:
-
-drivers/of/base.c:of_get_available_child_by_name() {
-    ...
-	child =3D of_get_child_by_name(node, name);
-	if (child && !of_device_is_available(child)) {
-		of_node_put(child);
-		return NULL;
-	}
-    ...
-}
-
-On a board where nand@0 has status =3D "disabled" and nand@1 is enabled, pr=
-obe
-fails instead of finding nand@1.  Using of_get_next_available_child() (and
-checking of_node_name_eq(flash, "nand")) would locate the enabled child on
-either chip select.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-b4-cs7542-=
-nand-v4-0-38e488f6f8b1@gmail.com?part=3D2
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
