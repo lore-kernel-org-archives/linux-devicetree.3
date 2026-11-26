@@ -1,74 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795692070;
-	b=REmF5qOKQTy4DdLx/YR18SypkeGDdLNZcPjPsRa31pQiZF16brnRGaNvfZiXaJjyAhS/
-	 cYFiAbJkP+JN86aiFHOs8bVkr44P4KPQlcvggIEDw2yaEg7rh+dXrZN+VlY1P/D2Z0Un0
-	 KFeFm+vFb/7zc9i2WUMicn8RpIG8/+4c5rcyuqhTfX8MJQiJILl1MJs41I44voMS8T8Ee
-	 yAX2aqTGRVYk8Y9rxKJhXS7QvWUhy2cwBWNeBROwzwpBcVArqeIUqU+qty2OI+gqdkfQb
-	 cwHqpqL+ovcjQZfayNpjexGhFkEidPBdHUJhuVfUDRlVlhGnP+PiFwR92ci6wlnwvSA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795692070;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
-	 X-ZohoMailClient;
-	bh=7/hs/MVV/u171MHZfbxcW7bNCuk/hpU5mbRf0FENAYM=;
-	b=Kp7zQtAgrim4aeUA4e2H08YfwVQiNZSX747487vifbUo+7L9BlCqQmnnoKx5yI3Cho3k
-	 4H3wd0ZeHV4CeACXwwPt9b4E/K6YaTQoelcI/kw54ZZ5G9ACVQoyo5zMw7HY5TGBjFzlt
-	 JXdaa+7mc1ZTDh3b7ZJawIE8d9JW/4EkNW/J/esEnNVMXP+fp72vxkHoOpWCwgo7o0O9c
-	 E36Kf8QhJfGUL0ASWJIYJVYSUGbTNkZphXamMRIKOw6Ze8axhxjfd8qoQgTsfOAaFeACC
-	 t+D8ZD2I5xALQ2SmSjDR+bId/Ma2JwOXPRfNVAg3FiykKrXOGMuyZll0OnAI3vLzyYQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=HR7zEAtb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795692179;
+	b=QQDudp8u4sPdnfirDkfklZFwYLlaMQKacySVYigkMWvkmdbypE9GZzr/EkaE/j0lh+WX
+	 DKp/c0qvxYbExd9T8M0s5m3/WjMQLbpH+4jQRWgeNg5hLHxfVGupwor1rHwkprmp8EDfP
+	 psc6vDlSHOqJTBC5aUr5UlSqN6BwUMnOQBY9Mhw7kG2wbBuZ/9xEX1+tdXh3rAiHyFu0L
+	 lQGzjGk3q2wbU6LcJjlwgmnhNvWtVpSZ71TONOwPTYDfRxPSehKewzcammxcVc8c/1yEq
+	 7QwXRZ0Gba7f5bKPcG0s829ruRQntuDiMBCpTwEsf/KPb71z3tlLxsH/2UD+oxqQCUg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795692179;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=f2aTJR5ujlY1iuig4Lvg9F+LskDwvfVaLLYuQpm8ut8=;
+	b=U0rgV04ofI5ei/t5oKH564Ud6+83WdxvCH9Cp5eUWJ7DZiyLC+e2NmvntGQdBw4MGFUg
+	 GvynLd21dZWruEINqFnXUD0q2ro3fDQUad954IVjQPxEOEK4RuvvmM4kcYEbihB11DQB0
+	 RATCsM81SwyLCEYxWycmCS6507x24QWkhKq8AKMrfMSNDs/vhfKH0DkOkjkSV+kBDLiCs
+	 kbj9uJTMhY00VNPqEj0yxuA4jA3TejKrMV5RQi2fCCN1/wc6fBVtgPSxlB54+opfgtv7S
+	 fQKviocTMM8mrBR2d7rRmXjcSm0BxD6tes/iGxTwNzmd/I4dodkQIenhMkWbsiPTtBw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=jclark.com;
+	spf=pass smtp.mailfrom=jclark.com;
+	dkim=pass header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=rUM4Q+6I;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47926606A338;
-	Thu, 26 Nov 2026 11:21:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47926606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C49E606A681
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 11:22:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C49E606A681
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=HR7zEAtb
-ARC-Seal: i=1; a=rsa-sha256; t=1795692034; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=ek+UYjxkb+O5h1TyaLaLshnnt6B2gv7GjvrcgG6alx3oahVF+7U2Y0u+FACamB7p2tsTOlmkgvuwkh6pL7BRvA7ZmT4Qq3XO7S/icKfd4TTz9iI6MFtce+wolUaKJyXBQxOJup8JiauwSOFedPguXosbfnHNIC1xeJfOGr00EtY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1795692034; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=7/hs/MVV/u171MHZfbxcW7bNCuk/hpU5mbRf0FENAYM=; 
-	b=e6kJo3a79dT63hOwxhefU1ON8CGVopKuVjQsCadgfiXQ2CMxsfyylI7YPtFRzBeB8u/qMR7Oe26RomtQ8ctY4vSEnPkot8m1bvUYgbOzd7GcHSgaCh4LdoEL12lgqpUvv9D730OvoLRs6rvd8dJZ/6yxHSmYjU7S6YOSB01omHQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=HR7zEAtb9iE1gygNpEiZUov2cBiGoqk0uRxdjOlIV1wWvcvlnSupTQA4yiZR2p+dGX7TS4j7VbkbRk3tlFxAJHEgwQLEqt8/BEm1o3krMc8UF6ey8Bcsi9xc9uvp8hOOQ2NKEAFwt1FiMeES7flJUlkU0LBxCEUx89Tgdl85vJw=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=7/hs/MVV/u171MHZfbxcW7bNCuk/hpU5mbRf0FENAYM=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 179569203157959.58715006715579;
-	Thu, 26 Nov 2026 03:20:31 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id 9520D18040B; Thu, 26 Nov 2026 12:20:26 +0100 (CET)
-Date: Thu, 26 Nov 2026 12:20:26 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Freimut Diener <f.diener@pengutronix.de>
-Cc: Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
-	Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Midgy Balon <midgy971@gmail.com>, Diederik de Haas <diederik@cknow-tech.com>, 
-	Elaine Zhang <zhangqing@rock-chips.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: power: rockchip: Allow
- post-init-providers for domains
-Message-ID: <awgSoZMgo-GaUOXx@venus>
-References: <20261125-rock5t-regulator-deps-v1-0-6a3470ad1855@pengutronix.de>
- <20261125-rock5t-regulator-deps-v1-1-6a3470ad1855@pengutronix.de>
- <oJj2NKd1Svmsn320H8YWrg@sntech.de>
- <962182b2-6fa0-4aaa-a47a-f78339b5d89e@rock-chips.com>
- <aweeQ2McnEE6yXvY@venus>
- <8733snj1tg.fsf@theta.mail-host-address-is-not-set>
+	dkim=pass (2048-bit key, unprotected) header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=rUM4Q+6I
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-38190551625so13428226eec.1
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 03:22:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=jclark-com.20260707.gappssmtp.com; s=20260707; t=1795692178; x=1796296978; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=f2aTJR5ujlY1iuig4Lvg9F+LskDwvfVaLLYuQpm8ut8=;
+        b=rUM4Q+6I3/M0io47xi6FkZ4+3QYkLQ+dBxio8MpItCE+cJEueofYt9thzNDnENUtX3
+         fe/MgHaw8oRThq9AG98M2yH11d1vS17MQTqBhYIoQJGftHX6l51KsvaOKKCODdnCkfXY
+         YzgZAkpmuMro383aEeRzjVbBh2lygiZ5Mhv1b0GeO1QX2QClt3n3Feb54HMaAa1AzTxM
+         GGkJJdaoObMKMAa28MfXNdNCSXn69Gz4pqMRLqTcfseWxqas5NE+v+tZpCP/BBIncPwe
+         OqZ7PUcX0lnhQ7q4i8+4AqrpnuQM/T+BrL8NwtuOmoJWoCthnmzBDTZcTTGG6dbPUbOR
+         vcnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795692178; x=1796296978;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=f2aTJR5ujlY1iuig4Lvg9F+LskDwvfVaLLYuQpm8ut8=;
+        b=LWM+uXtGS4oadhup4wfy7CZXP8j6cgIivv4j0n2q0tgNoFBECMp2bSaq03pTM4J2iT
+         j6Wpk5Caqnrv94oGG3WcfHtZwose/Zwq/7U46ZjM53W8hsIz3zV3SWmrcF9WfGp7QtYV
+         zpz8Jz0PMqao99eecKvP4iuiglfjq2Givgg3OawkfJuY09yjkmnAvKlbHRcXTdsIEsAx
+         4IrVmzR8ShQ8jJ4XQL/+9tpXrN02q3HCLJr4Vt5G+izKT4HpwpSN8/zACJALodPj4+3x
+         KfdDxH2PacjfBFcy5f+RNO60qLp0Z1t9nU/XaTx5i2Z2bOb51whQr+nxxnn+TxZx0XIb
+         05mA==
+X-Forwarded-Encrypted: i=1; AL+hErHnoKIc8+Rr85kqXrE0xjnFgnBLeoZEkhlaSq3BkkdhqncMAl0iM7F9zpgCVX37/ik9AV9RUffyoAMk@vger.kernel.org
+X-Gm-Message-State: APuU4Z9tDOQBLe6nnjEo228Mb1gk1nmnHaBmPo4nJSCAFDpN3Bhi569x
+	RBtnRfBXjzWjkvRSKwi4Ua+yFkJ5CngweKQgWDKlZkdcnjynJZZ+HK42C5RkWkv4yA==
+X-Gm-Gg: AZFdTZerLmPTMSwx7pFHcO1pYO9Sry/QaaSM8JCnHMNR7HjoyWDalB4sUrY9NeFQNfF
+	PJKfHy2BjLAWtisleeCxaFvHcK2yzdWs5kiGaTbw1mDdcbOt9nB5pLqL8UGDkSmpMLKa6z/kHBZ
+	ruBBmZqJHQa+pxdar6tLnXoMQ5ApRXGB58K0I6pE/cQv6+UrtNmInbQwUN8AhOke+R1tsYWiGSQ
+	F9p/VSTrW7lM2DWKoKW2t4g/Cqrys3bAQzsdrYLekN5bsT11rfS0ukxWCs/XFjSI6/Dw9aFP613
+	2Zr3vOvgFQoifhj3c2pNo3/sPSYLHCndaccnxDKpkJk2oEtEAwdYEWt4GNhRNQ/D7HifAH9m7j2
+	V0mplG+klK6K/bh75kVjZFfHTNlxuyD3dZ+Eztile/EpDt9mMokFLRJsZ7L16WqLQ5IY9JwmMl/
+	GJctekYTTGbIfXqe5VQs/YvJV/n23XBcgsoiGv/sV/pMiFV0GyjWrok8TCC4f+ntfI/Fi6t8jqL
+	chjRD8s42smZTyekHMvwPnga+XZ5FdVFwxRER1O85/EX8Q23+izq56qkqBgodmwvY7JsnOewhBc
+	TlJ5N6HLKfbGB5MkItsdYP+dMrtMWqNfYkJR1v7p1f2j4xLkRkcft0guUOfmYnGg7eyE0CQXS+m
+	02IaaUTgYb37RwnTs9Q==
+X-Received: by 2002:a05:7301:182:b0:386:b4db:74d3 with SMTP id 5a478bee46e88-386b4db7924mr11103689eec.21.1795692177950;
+        Thu, 26 Nov 2026 03:22:57 -0800 (PST)
+Received: from cantal.lan ([58.136.75.118])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38567cafec4sm70620666eec.26.2026.11.26.03.22.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 03:22:57 -0800 (PST)
+From: James Clark <jjc@jclark.com>
+To: alex.cramt@gmail.com
+Cc: Dinh Nguyen <dinguyen@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Mahesh Rao <mahesh.rao@altera.com>,
+	Mohamad Asyraaf Azhar <mohamad.asyraaf.azhar@altera.com>
+Subject: Re: [PATCH v2 0/3] arm64: dts: socfpga: agilex5: add support for Terasic DE25-Nano
+Date: Thu, 26 Nov 2026 18:22:53 +0700
+Message-ID: <20261126112253.365806-1-jjc@jclark.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261126-de25-nano-v2-0-02e43ba72681@gmail.com>
+References: <20261126-de25-nano-v2-0-02e43ba72681@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -78,80 +106,11 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hxq6aiht4vag4qw6"
-Content-Disposition: inline
-In-Reply-To: <8733snj1tg.fsf@theta.mail-host-address-is-not-set>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/295.675.79
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Tested on a DE25-Nano on v7.4-rc4 with socfpga for-next: boot from
+microSD, Ethernet, the HPS LED, I2C1 with the LIS2DW12, and the service
+layer interrupt (hwmon readings).
 
---hxq6aiht4vag4qw6
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/2] dt-bindings: power: rockchip: Allow
- post-init-providers for domains
-MIME-Version: 1.0
-
-Hi,
-
-On Thu, Nov 26, 2026 at 11:59:23AM +0100, Freimut Diener wrote:
-> Sebastian Reichel <sebastian.reichel@collabora.com> writes:
->=20
-> > [...] an alternative solution is moving [affected power domains] to a
-> > separete device.
-> > [...]
-> > Now the kernel has dependency informations, which are also used for
-> > suspend/resume. So the kernel knows it should resume the power
-> > domains required for SPI/I2C (bus used by regulator) first, then the
-> > regulator driver and then the power domains needing regulators.
->=20
-> Since the power domains are managed by a single hardware power
-> controller, would you envision splitting them into separate devices
-> internally in the Rockchip power-domain driver while retaining the
-> existing DT representation, or would this also require changing the DT
-> bindings?
-
-It should be possible to create the subdevices in the driver using
-the current DT; there is a node for each power domain already. The
-decision to create a sub-device can be made based on the regulator
-property.
-
-The part making it interesting is that all power domains are
-accessed via phandles to the main node instead of referencing the
-specific domain node. We cannot change that, as it would be a
-massive ABI break. So this requires some extra work in the pmdomain
-core code to allow partial registration of "early" power domains
-with some stubs for the late domains. The late (regulator using)
-domains can then probe later, once the regulator becomes available.
-At this point they need to register their pmdomain subtree. This
-setup also allows moving the regulator acquistion to probe like any
-other device.
-
-Greetings,
-
--- Sebastian
-
---hxq6aiht4vag4qw6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmsIFfYACgkQ2O7X88g7
-+pqFoQ//TJW+WHm9ovyjlgf4ZjKaP9RPRF+9OAyd0mYxCIcuD6SU61XG6V/YNfvJ
-0lK7E6UINxvd2QcfHPlzJ4LoyW8X4eGctOxSaGCndYYDuK0vi2aqEncNi9+yivm5
-BW+loHE3uyztrmnzeSr33AYSSLkfIQUtS25g2dt0f/OjA7Pyt1Q2ShydVBKB/qct
-MAgXQaIJuL+OhvAWPqJdQUwNWxpcZANWIK8d6JCCtA5vGM044bLsfzsoKRe5Ahuk
-Ya/+pETH/Aej30C9m2EmXTKw7dF675Um+OVINBX55K2DcuOtSsuzf9KpDxNbB3Z+
-OyZGygOE8Vy/wdtLDd8j7X97ut6H6ASGYR1qyCBqxZynSDOE0qe485DyWNeYXzMj
-N30l5y8DrD+O19leSKdyHg4d2zmcLSEHXKbuWK9GIphpDiDV1nhxW88ZWnVeZPZa
-kOOLrkMsCl4rxTxNY1cCDFtGMpllmKWzRaya7iL5Rnv1rjGESC1ZJcAk6uI6mKod
-L4bVxB75S4lyna9eAU+m1riizJ0qFWPkTHlZbXFg1fUAB8GEcWhey6nDyXOl1TSD
-6EiVqQH2jRqSAY0REBQ9xlb1QzVuyCQSQO26m6Qwu4tWVbgko/sBtJ5wIuRXyhYG
-sxRH8oM6CM2ok7DIbiiVf1cXC8xo8SieMQYAtrFjkP5xOFa3lbE=
-=5BFT
------END PGP SIGNATURE-----
-
---hxq6aiht4vag4qw6--
+Tested-by: James Clark <jjc@jclark.com>
