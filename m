@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795731536;
-	b=blW2B1CDqYof9Os8A7hnjJiXVD56Qkh/86OAtXAOF0OtctrENIUd9VTg7Gcs2OKRjBhW
-	 T8MvzOlik2izBBZTAQd5dKhWaqAA5rY2B28zKrmdBQ8M1xUQdNCdNLSuQJ+IpOxGEpa5q
-	 DVLxtR5b3DRTbxhCEjfdqZpg6LsygSfNH2XOXcCvEq5vI68/xc7VNt4KY1xiH7NlIrx/F
-	 iswNRyFEqRZwmON4XwhBCo96qM4XgaE8TBoG7tvT5kmcs7XmyZ8eNpSi4dIjS9jiEuwzC
-	 lUdvxYE2JgwayNBMceYmAH1GnydDVPNUHAwjDQEkMSlLSqL3eEVWxyCTpBSKIgN5U2A==
+	t=1795731592;
+	b=cQWKMkJd8kTTSCDH3tR8gXCLVZ1EVsCAfLz5AhFefCwDgd2APrc3onvvBjxqdN6FnvBz
+	 shCtAnFt7uP+d1w440WXREXCFMdwukJuDmHzQfJyqvmPMnCSzyF6G8LFaGSh8lcasrvvI
+	 n/v+Ey5+IW7HgsdbUA6zpZywX07QsMQfZvJJ49HsC16CsV24K7t+w1d0zKL0iN+8xf1sN
+	 gOuUx7ufl6A+CheOgSTHh3EE+x/eGIzmZ1WC+nLPOrbL5EOtk0ZjKcMycx9rj2gZJDSD8
+	 GP41qcK8qSceAHtZUkoWve3Dm8perJs5exu6PfMR+5MYsIs+/6HgvHmLgM7slMK5aGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795731536;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795731592;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
 	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=pDZ4T9HNnrhv7OW06Bv3skkU7QYMWt1sIx+VN6xDhm4=;
-	b=5cuVQ2iQHVu7d+DvYFTHKn2ySLfPzRMO4TNYqhEQ/F72vGS3S9IQM3Lnz3k6+Mu/naZ8
-	 ZNfhOG/hQUB7hzPnel5QfP2VZa7lY/rl688Mn+1uN3EBXpYZ8t5V0kzUiDVX8fI6v2cG+
-	 fKlZepTbiu9QQFMKtfGFfSZY9uW1YBLPm+LDA/+mkgUlmxPXHLGo5UPPx9slg6IHOLyh3
-	 rUteNNMYGIQ4LsJl86Fh5Ia21gsTStnEZoSzCh4unnOhCUxK/6HIaNPiL7mnQOFzBztbv
-	 88m029dTPhmsnnfBlJjZEh64oK15DZU3mb6ZGpLcg5/zLBXy93ah/Q2NfnT+EzD/vJw==
+	bh=ACgG3qgjymthdmYN5c86mVt9T5rFAWRCAKqvpMDkHlA=;
+	b=sRb+38C6ClK4a+/js7/9PM497p6qanD8nrqtfnehOiQVpViW7iVrsKupvBE4Aces8I+p
+	 lbBrtrSOrn92GF626r+AbfhpnEKMH8nM1NSEvURu8RyAf9p4kaUAnm1jeTKT4zVmG5Gqo
+	 4JnDaKho2dd87DJmxGT2qv6ST/oe+ibKlhWcAk2j0ssccO5fIlsz36zq8u2Yh2K2EGUhz
+	 uWzlTgd/7MACxqroDMeduehOwLISIV+bdGypQu5kZhz0jLHsDIdT0ggFPPKZjqXtoruGm
+	 +kdqU11Qb6w3y6tJAS5ynwZJiB/klqQ3Zp/7xCnoK9f1SfbEBtRAzijaZjpf6LOT+MQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=sang-engineering.com;
 	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=ieb0EkxN;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=a7sbaiKc;
 	arc=none smtp.remote-ip=194.117.254.33
 Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6CDD606A31E
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 22:18:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6CDD606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F26606A32A
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 22:19:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1F26606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=ieb0EkxN
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=a7sbaiKc
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=pDZ4
-	T9HNnrhv7OW06Bv3skkU7QYMWt1sIx+VN6xDhm4=; b=ieb0EkxN4E9ZZby8SQZs
-	UlL/MTM6xVE0Mbavjg2DtVN9RfLw2vmFcSi2zVYOTMhy66/gxsm+hmn0tM0aQ/y0
-	ERnKqY00O9S8aQNwiwNbn6+icalaCIAs+GddSF27QvVhdcvmE4LADHI1LBPWlcyb
-	Sk2pWHLvejW/3AHhgpg1Zi22MWwCNeMl9SJVqG/UbGioUYk+ReWWKm7b7UopvCNl
-	WGoL6AcV4MVUrPYU6Tc83lxhQnWQ7Q01/aOJgyjJ6J8JckDKrLVblpdbhab3/yb3
-	rJ1nsP0mBgHkJlKnOCARmSy/KFWiY1g5Ft384tOdVn9qTi7gm7vi6NOgtd7LUIg2
-	nQ==
-Received: (qmail 1766453 invoked from network); 26 Nov 2026 23:18:50 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 26 Nov 2026 23:18:50 +0100
-X-UD-Smtp-Session: l3s3148p1@qTL4UzVhiMIujnv5
-Date: Thu, 26 Nov 2026 23:18:50 +0100
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=ACgG
+	3qgjymthdmYN5c86mVt9T5rFAWRCAKqvpMDkHlA=; b=a7sbaiKcVNmx6i39vXkj
+	DWA6PG5/m/XhShQ1dxAb/qg+EFj5sCt16VYXjoAV3Js2kp4EZwkZM9Uzs5zca3a+
+	racIQNGcVBYWi1RmiDRgOe8tvPAuoAqhU9Ofco4PBcUjj44mZzRIqxFYEhIDePCM
+	XCk/xyAa+UcQxhCMRC72Y4P2DAjxzUBUGHkE3EwwP/0IE/Sf0YbTnjXOtNDSEZzq
+	AV3yXvF1gDhTFeOQ+ehtcKCfcXnILgZDqgGfPw00FZWxmyBdDY8Oqvg2//ez3gMr
+	i5DFo4wGnqkIGoF8D4jnOsAeH57jqUnlIdmbJn0NzgS3EfAGkRXb7hu6gcAtrQ/I
+	cw==
+Received: (qmail 1766769 invoked from network); 26 Nov 2026 23:19:49 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 26 Nov 2026 23:19:49 +0100
+X-UD-Smtp-Session: l3s3148p1@kG6CVzVhAucujnv5
+Date: Thu, 26 Nov 2026 23:19:49 +0100
 From: Wolfram Sang <wsa+renesas@sang-engineering.com>
 To: khendry@reliablecontrols.com
 Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -61,10 +61,11 @@ Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
 	Philipp Zabel <p.zabel@pengutronix.de>,
 	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/3] clk: renesas: r9a06g032: Add reset controller
-Message-ID: <awiwRTNx-Qi-aNzZ@ninjato>
+Subject: Re: [PATCH v4 3/3] ARM: dts: renesas: r9a06g032: Add #reset-cells to
+ system controller node
+Message-ID: <awiwhcOURd4L-rOC@ninjato>
 References: <20261126-rzn1-miic-resets-v4-0-4f73af81d779@reliablecontrols.com>
- <20261126-rzn1-miic-resets-v4-2-4f73af81d779@reliablecontrols.com>
+ <20261126-rzn1-miic-resets-v4-3-4f73af81d779@reliablecontrols.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,52 +76,49 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="t2Y4PbylN5J00VDt"
+	protocol="application/pgp-signature"; boundary="KtqtMOIx4p5Ve6qE"
 Content-Disposition: inline
-In-Reply-To: <20261126-rzn1-miic-resets-v4-2-4f73af81d779@reliablecontrols.com>
+In-Reply-To: <20261126-rzn1-miic-resets-v4-3-4f73af81d779@reliablecontrols.com>
 
---t2Y4PbylN5J00VDt
+--KtqtMOIx4p5Ve6qE
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 26, 2026 at 08:11:06AM -0800, Kyle Hendry via B4 Relay wrote:
+On Thu, Nov 26, 2026 at 08:11:07AM -0800, Kyle Hendry via B4 Relay wrote:
 > From: Kyle Hendry <khendry@reliablecontrols.com>
 >=20
-> The rzn1 system controller has two resets that need to be cleared for the
-> mii converter to work. They are not directly associated with any clocks
-> so they need a reset controller to set them.
+> Update the rzn1 system controller node with cells for the reset controller
 >=20
-> They are documented in the PWRCTRL_SWITCHCTRL (0x4000C188) register as:
->=20
-> Bit 3: RSTN_CLK25 - Active low Reset for Timestamp signal selection logic
-> Bit 4: RSTN_ETH - Active low Reset for RGMII/RMII Converter (50 MHz).
->=20
-> Add a reset controller and add resets for those bits.
->=20
+> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 > Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
 
 Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
+by adding the rzn1-miic patches from the earlier series. Branch:
 
---t2Y4PbylN5J00VDt
+git://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux.git renesas/n1d/ena=
+blement
+
+
+--KtqtMOIx4p5Ve6qE
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmsIsEUACgkQFA3kzBSg
-Kbb25BAAscL31qp38pQcZ9Veug/0oHqeKBKjoMr/H7cX+GGbUuE6Pu3jrdGLBGMO
-st3/gw3ru5XMTUoOU9myYZnltdbq2TajaRgTDZpD15fsIpFxbiUS3syS9A/fq3jB
-unpUzggvHq3YKtXe3kgPsPnABkRMAdodicXTe/FJdItBeYtw8YqiwKS0UK5+d458
-GDU+uSk7gGcJXCvYx+NkFhAf7c4yPV7hMCS2Dea8l5iYrK87DXI2dDJ8PUrakwSF
-BUyaKvZgveF5Vf00VbRFm991YkN6mdvrY2UFqn/TEU3cNx7iAvJGg/0UKilsI0OQ
-TBeMs9Hr0uneDIetcP2qNalWnZ73JAoSO/X4nETS1It09MMSTmwrjGuPWYYTEIMG
-kVULn80hlC/pQTTJy4WO8YacC+NUeJ7LOcjy+Wmo1qEG5fwTU/P4GrJVk5CHxhfx
-ey97vd7dWsBnDW3ZBzLTsunmj6Q/DT26qgbJf0w/2zMrnsYzcgIPgGaom5Fmc5Yd
-Q9DmYpGOLawT/isIM1+Il6nsUwZ31nEdkyWyKzIRd0girHZpTZ5GsORlNlpcbKHY
-8gXu84XxPkjuGM3CF/pPq7nhYzkDt8d/QokPFt+Tqh31ESpOaGChqFmV9W9mcVyh
-Lqlpq8UKBeACf5IUZdKm+NKgo/8XByAmHkWdViJRyLqHqXZiNuo=
-=wHPG
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmsIsIUACgkQFA3kzBSg
+KbbbEA//cEVIpRBZv5zZZzGWV2AeEe69RIoNjmXGdUAg9fv9TpxQt/n6dypEi1Po
+rUbeCczk26nz5rPP55X7YmbrtV4qsAgEZcvprnlSi28QImunkqYz3Vw4EdhjDfJh
+uSuDautAbFyn/+blMjZ1EOhzZbP3qEaOlVVxauJutCBbAV7xVwOxLryJJrjEq7gw
+LkNthPDuGfki3JVhmNt8g6L0sAjS1lc6kWZPeJ4t8OkDXhdkiaI2YPqrmLDlMOy2
+okhqdty6ZVHQm+qKh0dmCB2K5j0Jl6zvyuwTp9vxHRuThDKwd4iWsK7SsoFt6YQM
+l2ehqwUNoC7Fvu62mRbBIByFzJN8FVXlgUuZ4zZQs6lOlFBC3A9LcCLkB5PIAZcA
+v6uFX9x8A/JFUdG0XfQfzqlx5zXDqE4I59Lf9Xt4nnidWY4zDCwaNcpJFogcg0Pv
+NZqwW+LXhon2MLz+2ypsAgYZ85+cHl0hz3UozaOdjCO2XiEQYcMYeCZdiBHapxZw
+fQ8sLMlt2R14hsUyVQAIcotzAstHiofanK86JZ0XzIWXzgqdXM566aS24R14EU5x
+SYDiODHZ5e3JDALAb6CmYIDbXgdON2rOUJw9K7epOCp1ZRjKk0WNBW85EAi6ygyT
+qqXBYqnV6LQKaxQzbqVyRIUn6VdBrSuDvjZy7OCwAM8LteLslso=
+=k/S2
 -----END PGP SIGNATURE-----
 
---t2Y4PbylN5J00VDt--
+--KtqtMOIx4p5Ve6qE--
