@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795688139;
-	b=bLQq3v66Ul3cdX0E0UHPtiY4z4RfzatrMQfGUQRqX5PtYlhu57JFtytpxflaJLhlyv5Y
-	 kg1qwkm6NSY9ormiGy9pbvfq3YGvyMMgguGH2bjYm+R6NqtFoq2EkVtRDHK69umvpei4V
-	 x+N40MlsmtmOKs5rZmUmb+Q20VkbeWJ2SAVuC1h4k5jBzYZnLvNK16g8liXDJswE49aeb
-	 hiJTnpCwGXBjm4i2oY6w3cQeTb74W54JzRN6stsvyi48CM7zi/9iwXZqjIhGgCc7zCLK0
-	 NWklw7UPdRQWYNHnGaff+JUDt1XKgXfclJwWofpsRXiM1cnRpK+9mxadi4D5YEA6nyg==
+	t=1795688230;
+	b=TukSV/NpGbRxvl8rVstWnD8XCJLfkauExpZFL1dy7QxVpSgeYFgWcPUYNZQmwj1YuhyV
+	 ZECEUXj02vIi9L7USjk/2Xy5xBpgC/OEdoDOCUseWjqlq1xEJ9tAiMEkqhiYg5CKeyW+V
+	 88izBYQGI9vBdkhHF3+a1SeyRtuQKviJPoZ+LMR11mg+PxUplQk03V/iHzG/XWY4jIytc
+	 +vJAonUQsyWlJdSET4bNdqctoeK9xneiiWRVj+Tq2tyXHZ3pN2/POqbZHev1MCrxj1R/K
+	 MKP3NsdJHKGtdy6swC2YV+8s7+Ol0IUS2VdtC7mSBWx4+LNIhxsoutwb6mBZo02IJDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795688139;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795688230;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=2ymCPgIH5Fk5i7xa2+CyKQB5NEr8r7j0YTzP9VNyKhc=;
-	b=zu5MLDScwDEyq32dkmXsZ2at5+EhhgWCnecjSiDarbr0g+85GRA5vcfafI3Ql04BZx5x
-	 4RTMaJ0lZPsRVgCcv7xCKE5LVaXedbWDiqRKA1RXrCEQRLVYzP++CPK80AKyho8BP0/Rc
-	 85J2ROu8Uu9GKNTTVdxx41fxjVslrq7BRr4sgFwqRDOVGrlP/ayo3as1iW2lC42DQfhS/
-	 5Hp2rVp68SPojcYfehe0j5Jkbx3ii4ZalBzK4X2nbAii0Bf7qy1jEyrlX9s2I/xaOFxwT
-	 AsIErKIWHMkDEBi0QQNW8rijx1q0bkT+rVaKx7SV6zb6J3rq7/+OxegUplWVvjpq/9A==
+	bh=23P8WTqaWLx/JVjU79g/iKQ+lH2hcpBv3+gxre4N+nM=;
+	b=cs7VoD2hxdiokkSFVST6Y/kkbdk/qzhCZ485+00ceQKQJgrrC5JsY83vOaAqlP3UypWb
+	 bnFshTfyxgAHCsqmEd/F20rNo47JnuEmLKgc6EvRB5fCWAiKUOkaJD5qolKhGApH3TBlV
+	 4y/CjVZ137VY4o5NB/CwUHUyIr9RavcNCZTJhezpvU7THVto7ozfGwqFA3aCdEdMR8Pe0
+	 gtwqh3nLT1Io5Xz8omxPvhqV+kDtMXiz953XJR+YwpY7znY3rlPUvTsfzpT3eOH+mdcvv
+	 SPf/vfT1D721kcWrzQZjB3JA2LQcmg/MM2AMZahD0fuX6s4Gv8FsjY+Ji/Pb5s9h3GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eXqUVQeg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jnGJyBaB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC773606A323
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 10:15:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8497606A31C
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 10:17:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eXqUVQeg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 394DF1F000C4;
-	Thu, 26 Nov 2026 10:15:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jnGJyBaB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E7121F000E1;
+	Thu, 26 Nov 2026 10:17:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795688139;
-	bh=2ymCPgIH5Fk5i7xa2+CyKQB5NEr8r7j0YTzP9VNyKhc=;
+	s=k20260515; t=1795688230;
+	bh=23P8WTqaWLx/JVjU79g/iKQ+lH2hcpBv3+gxre4N+nM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eXqUVQeg6EQxMF2SP7eOP0Fftu0a2C0fQQf1rCBzk9Zeye0wg+AFM03qGk199b+5S
-	 uA0wzjFCe5hwjs4nNJkLLdBszhsqdBihzUdTssqrd0pg6j793Cxpsl80ehrjXR143Q
-	 +W5CH7rMdMC/nQiPfeY2E/vKm/8jGDmHGDJinATswG8cQ50dD5Ggo1f5DC/KE2vdwm
-	 I0KwADfE2De7vmDrjy5wzA7B2aypoh9rL/+kLKCOeRBoIYQxOnPRYpraUtdtZsOlI6
-	 H9KPpyTAeVj7fckZu59lJVEsKdP0oRqTyKn575xjXbafFM1qWtT8aomoytt0pTy+dj
-	 wHOKJ/G+/t2oQ==
-Message-ID: <sashiko-outbox-235261@kernel.org>
+	b=jnGJyBaB2dS0yDYWxF0RJN0esZ3wQwvoCVrFmpVY3O8vP39yKO4+RmAxNV1hXYkrq
+	 /NO+H45jQ7Cs01l6FRRienkJg91Qa0Ozbc1ZS+X/ZECD5QQG3PucxZtNZMvjGDQs6p
+	 BjkmSAnbuVMIHXMRNYU3ytgfH7vrSCHv/cELoz3TkvEkfWcRxAddU6Wolsf1PJZADr
+	 +6jhaQXMLa6QSVilFraxxw0/4WMhwNPyGpR92OVn2WnbegE8mz04HIttMiVd6L8CZX
+	 lJTeVL5zmnkp9CgS86/a9Pdnz+O2RxWrbyUaNVO/ffuL0fYgmOjmyktM+8Nugr3Spb
+	 wLYcHLueG9ATg==
+Message-ID: <sashiko-outbox-235267@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 02/14] hwtracing: gtrace: Initial implementation of
- gtrace framework
+Subject: Re: [PATCH v7 13/14] perf tools: Initial support for gtrace decoder
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mayuresh Chitale" <mayuresh.chitale@oss.qualcomm.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <50c430c6adecd57e4637c643ee3cf78309608d34.1795512532.git.mayuresh.chitale@oss.qualcomm.com>
+In-Reply-To: <905e9e671d6b23bd33527c828c3dee212341e246.1795512532.git.mayuresh.chitale@oss.qualcomm.com>
 References: <cover.1795512532.git.mayuresh.chitale@oss.qualcomm.com>
- <50c430c6adecd57e4637c643ee3cf78309608d34.1795512532.git.mayuresh.chitale@oss.qualcomm.com>
+ <905e9e671d6b23bd33527c828c3dee212341e246.1795512532.git.mayuresh.chitale@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 10:15:38 +0000
+Date: Thu, 26 Nov 2026 10:17:10 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,137 +60,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] hwtracing: gtrace: unchecked 0 return in
-  gtrace_setup_inconns_from_outconns()
-- [Medium] hwtracing: gtrace: refcount leak overwriting
-  gtrace_cpu_source_comp
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] perf gtrace: unconsumed pipe payload in
+  gtrace_process_auxtrace_event()
 --
 
-commit 8c67f8e6b67201b62b509964fb9df143def486d0
-Author: Anup Patel <anup.patel@oss.qualcomm.com>
+commit aa86191c124d5417c0c0399ddfc0c607fe1d1b9d
+Author: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
 
-hwtracing: gtrace: Initial implementation of gtrace framework
+perf tools: Initial support for gtrace decoder
 
-This commit introduces the core generic hardware trace (gtrace) bus and
-framework for registering trace components, building their connection
-topology, and accessing hardware registers.
+This commit adds stub auxtrace callbacks for PERF_AUXTRACE_GTRACE so
+gtrace trace data can be recorded into perf.data files.
 
-> diff --git a/drivers/hwtracing/gtrace/gtrace-core.c b/drivers/hwtracing/g=
-trace/gtrace-core.c
+> diff --git a/tools/perf/util/gtrace-decoder.c b/tools/perf/util/gtrace-de=
+coder.c
 > new file mode 100644
-> index 0000000000000..57554d5eb98d3
+> index 0000000000000..503fbaac12c6b
 > --- /dev/null
-> +++ b/drivers/hwtracing/gtrace/gtrace-core.c
-> @@ -0,0 +1,524 @@
-
+> +++ b/tools/perf/util/gtrace-decoder.c
 [ ... ]
-
-> +static int gtrace_setup_inconn(struct device *dev, void *data)
+> +static int gtrace_process_auxtrace_event(struct perf_session *session __=
+maybe_unused,
+> +					  union perf_event *event __maybe_unused,
+> +					  const struct perf_tool *tool __maybe_unused)
 > +{
-> +	struct gtrace_component *comp =3D to_gtrace_component(dev);
-> +	struct gtrace_platform_data *pdata =3D comp->pdata;
-> +	struct gtrace_connection *conn =3D data;
-> +	int i;
-> +
-> +	if (device_match_fwnode(&comp->dev, conn->dest_fwnode)) {
-> +		for (i =3D 0; i < pdata->nr_inconns; i++) {
-> +			if (pdata->inconns[i])
-> +				continue;
-> +			pdata->inconns[i] =3D conn;
-> +			return 1;
-> +		}
-> +		return -ENOSPC;
-> +	}
-> +
 > +	return 0;
 > +}
-> +
-> +static int gtrace_setup_inconns_from_outconns(struct gtrace_component *c=
-omp)
-> +{
-> +	struct gtrace_platform_data *pdata =3D comp->pdata;
-> +	struct gtrace_connection *conn;
-> +	int i, ret;
-> +
-> +	lockdep_assert_held(&gtrace_mutex);
-> +
-> +	for (i =3D 0; i < pdata->nr_outconns; i++) {
-> +		conn =3D pdata->outconns[i];
-> +		ret =3D bus_for_each_dev(&gtrace_bustype, NULL, conn, gtrace_setup_inc=
-onn);
-> +		if (ret < 0) {
-> +			gtrace_cleanup_inconns_from_outconns(comp);
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-Can gtrace_setup_inconns_from_outconns() silently succeed when
-bus_for_each_dev() returns 0 because no registered component matched
-conn->dest_fwnode?
-
-The caller resolves conn->dest_comp via gtrace_find_by_fwnode() before
-calling gtrace_register_component(), which drops gtrace_mutex in between.
-If conn->dest_comp is unregistered in that window (or if conn->dest_fwnode
-does not match any device on gtrace_bustype), bus_for_each_dev() returns 0.
-Checking only ret < 0 lets registration succeed without linking conn into
-any destination component's inconns[] array, leaving conn->dest_comp
-pointing to an unregistered component whose pdata has been freed.
-
-Also, gtrace_setup_inconn() and gtrace_cleanup_inconn() match devices only
-by conn->dest_fwnode without checking comp =3D=3D conn->dest_comp.  If the
-destination device was unbound and rebound in that window, conn is attached
-to the new component while conn->dest_comp still holds a reference to the
-old one; when gtrace_cleanup_inconns() later runs on the new component, it
-calls gtrace_put_component(comp) and underflows the new component's
-reference count while leaking the old conn->dest_comp reference.
-
-[ ... ]
-
-> +	if (bound_cpu >=3D 0 && is_source) {
-> +		gtrace_get_component(comp);
-> +		per_cpu(gtrace_cpu_source_comp, bound_cpu) =3D comp;
-> +	}
-> +
-> +	mutex_unlock(&gtrace_mutex);
-> +
-> +	return comp;
-> +
-> +err_out_unlock:
-> +	mutex_unlock(&gtrace_mutex);
-> +err_out:
-> +	return ERR_PTR(ret);
-> +}
-> +EXPORT_SYMBOL_GPL(gtrace_register_component);
-> +
-> +void gtrace_unregister_component(struct gtrace_component *comp)
-> +{
-> +	struct gtrace_platform_data *pdata =3D comp->pdata;
-> +
-> +	mutex_lock(&gtrace_mutex);
-> +
-> +	if (pdata->bound_cpu >=3D 0 &&
-> +	    per_cpu(gtrace_cpu_source_comp, pdata->bound_cpu) =3D=3D comp) {
-> +		per_cpu(gtrace_cpu_source_comp, pdata->bound_cpu) =3D NULL;
-> +		gtrace_put_component(comp);
-> +	}
 
 [Severity: Medium]
-Does gtrace_register_component() leak the existing component reference if a
-second source component is registered for the same bound_cpu?
+Does gtrace_process_auxtrace_event() leave event->auxtrace.size bytes of
+AUX payload unread in the stream when perf_data__is_pipe(session->data) is
+true?
 
-Each component gets a unique type_idx device name suffix, so
-device_register() succeeds even if per_cpu(gtrace_cpu_source_comp,
-bound_cpu) is already populated.  Overwriting the per-CPU pointer without
-checking if it is already non-NULL causes gtrace_unregister_component() on
-the earlier component to see per_cpu(gtrace_cpu_source_comp,
-pdata->bound_cpu) !=3D comp and skip gtrace_put_component().
+In pipe mode, __perf_session__process_pipe_events() only reads the
+perf_record_auxtrace header and expects tool->auxtrace to consume the
+trailing payload from the pipe fd (as process_event_auxtrace_stub() does
+with skipn()).  Returning 0 without consuming those bytes causes the next
+loop iteration to read raw AUX payload as the next perf_event_header,
+corrupting and aborting piped sessions such as "perf record -o - | perf
+report".
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795512532.gi=
-t.mayuresh.chitale@oss.qualcomm.com?part=3D2
+t.mayuresh.chitale@oss.qualcomm.com?part=3D13
