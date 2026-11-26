@@ -1,57 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795718857;
-	b=k8sPxL3L30ZSkeiL9a9+6Bd3XieyrSDj/dirCN//s5TZ9M9LhKV3A1/wQHaD9YDkW7qi
-	 cX8b5rC5fuLciR+xDfshGznyuc46T8xcj4BW13LX1pAZgK+koTVVcRRVESlsQhokzt0qR
-	 74Tby4DD0dbxWqYpzJu35Sf2Q/qI19xstEPYoLDZhmRQRmd9pARE6A/wZIG1avSeavwfk
-	 x4ZFWgWaFZZuViNgiSPZFUq+y0LxdshhIagG7Hbew2GDq1PB6lCuQQNKPnlTyBuMpCxHn
-	 yZ19Xn3lffzLk/HYULMbRhnykMyDv84bv+mj4xpf91IhoYyyQdcLeETjCiWfFMz7BKg==
+	t=1795718878;
+	b=wpKNl4NTwKSbkMAwH+CELU2o99Asl0EvmwHupiwl4xGotQGQy9jTjGRHr4/ugZuBoCPt
+	 9b+syo5hZNkuLTw6qHxzl+TSmyEupiCotBD1owaa2sc3h1a2nvz6vwNws9SsM0nlGuRhS
+	 5ishPiIw4fGeH91N5HF/WEE6RuRH2+jjYTwKoYmyl6tyOQSreDC5m00UpRvd8hfEcxknc
+	 ey13aaY7ysHW8mPjjr9m1BNiM1CbUBho4lgpN5zlD8heQLOk8fJRjWTO9grLXE/2M3IsK
+	 iBGOf+K/ojMRoYp+OOD3uITtEjwdQLeyyw+w3NtC5fvAKB/TdEB4HBn+2OmPHIeaylw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795718857;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=4oiPnk4BKoppsHYKZqKHYXcx44kelqYLbXB97dadfMI=;
-	b=5TJXiIqIdLurHCixUK8O6DXdqwa2t4IBgrNH/RAavrIVwC1kbTEzXietnko+NI9rHPAC
-	 RYqHUn39ldNnK19iR+obpxXs5X8tn6i4H4BrVYTkbEvTtK0iL1F6I+DyjvNQbvcjUohxR
-	 K1T6gFt9cGG1h00KM1G1W9I9mg7kvrgYI4lNQ1asfg1u0AqkhUDZcTUjXx4V9d0eQsftI
-	 SAf6GTaahwZizoNGjzvDY4JubrpajDTc/qBHkjYz9htCUo1SjmXI77Rry1+E9R+6W1+7x
-	 Sk8SsayBWzMdHxqA/AswpXEW7Ldp9hsANga+Tnnyn6Q3Sf9dOLDdaqqm6BOJbxPkpeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795718878;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=DkUy01y7xEbf/+LpBM+I9BkjCedA7NkFboIBCgJYdX4=;
+	b=ou0EYExxngaAZPbMYMu46pqvQUADkpDqH6iQyEiWDbyQMujtYh4tOaRIKK/9DReENuoD
+	 zsy3iaPTmmsXbAAOJbpBs9MvbhUuwEv8IPvYSqSI1kbSx8kajMckHrebvsEFMZ9gzOpTu
+	 XBndWHpC4Y+gVvAGEDY2hd+YJw6tGDuVGZKnlliEpqdBEvFoSWQJvnwmKMWN/AbAdVAjK
+	 FcccnHqF5AaWPIdBvXghBQtXFFWZbbZl7YkZOlU0S9eLQt7ZC+MoDeh9yp44oMyUsue9J
+	 FDyH7LbHTn/ycOqb4x5p8F0612IILjr+O1oyB0ZPFbXPJNuJul0q+ehF8w0ATVAMIjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=orBtDPYO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jBF4TsmR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC411606A31E;
-	Thu, 26 Nov 2026 18:47:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BE5606A31C;
+	Thu, 26 Nov 2026 18:47:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=orBtDPYO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08D881F000CA;
-	Thu, 26 Nov 2026 18:47:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jBF4TsmR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D96E01F000C4;
+	Thu, 26 Nov 2026 18:47:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795718857;
-	bh=4oiPnk4BKoppsHYKZqKHYXcx44kelqYLbXB97dadfMI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=orBtDPYOVaHJ9HtbaIvfjNOCT4VaRAdsXxk8JARr6fflakqdqDW0JBGpS8EKkoxvg
-	 rvcJPy2qqenQQVS1c9TfCqU8TPGFgvuYm8H0nia99be7guFeqmu7GoEPL72j53AGtk
-	 HHdW896/znP1b7GaVb/j0b1CajMxdPsBnfhLDt8kLM8eYOLycR52FcbsydWAItf7bC
-	 trDpnPrMvjfn7MYutC1JQrh+dqNE2j6v31ebBuEKr/TmFYVCfeS7u7ZsAVmwwPKoj4
-	 E6lACtQDyObaUyqPiixPctZk1SxVe8pBK7pHWv1mOBDB2Wo9MSI1lG8roLIVCDbg5p
-	 bBpKA6iqaG14Q==
-Message-ID: <sashiko-outbox-236033@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/7] arm64: dts: qcom: glymur-asus-zenbook-a16: enable
- WCD9378 headset codec
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261126183806.172485-6-srinivas.kandagatla@oss.qualcomm.com>
-References: <20261126183806.172485-1-srinivas.kandagatla@oss.qualcomm.com>
- <20261126183806.172485-6-srinivas.kandagatla@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 18:47:36 +0000
+	s=k20260515; t=1795718877;
+	bh=DkUy01y7xEbf/+LpBM+I9BkjCedA7NkFboIBCgJYdX4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jBF4TsmR7GFh0k+NboYQnFAM4Y9gkAG1djVNMrQN9KWPX/AVg8obZFA8aMlb1vSBF
+	 RFXE+SgvQW6oO617L66UefSjI5+Gik4HBNMhBLbx8qSb4SXhxFatRXaZMfhUI2cK2k
+	 YASGpLIcsWeP8Qec2WYUrQc5K1JouNMPZkjtTCCyW3b1GfRV0ptfopc9X9AQFcIuFm
+	 pbqFcvQiCeGUyrhZiu4js0k1W+cESSxlFxtoeahqRnvCCpQ6i0WKbyp6YOJm8CVYbZ
+	 A/sZjS4dVvEiJy7q3qWWJ3svug03JcZNwXzevVScebjbg5dopXjvb0DctlWO6ogOSH
+	 3mTYNeHIVBkqw==
+Message-ID: <cdc5f00b-380c-4c8a-800d-967008c16a4f@kernel.org>
+Date: Thu, 26 Nov 2026 19:47:47 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,57 +50,55 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 0/6] lx2160a: change the pad muxes through the RCW
+ override
+To: Linus Walleij <linusw@kernel.org>, vjardin@free.fr
+Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
+ Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ NXP S32 Linux Team <s32@nxp.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ imx@lists.linux.dev, Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Ioana Ciornei <ioana.ciornei@nxp.com>
+References: <20261118-for-upstream-lx2160a-rcw-pinmux-v1-v8-0-d01bc837593e@free.fr>
+ <CAD++jLnRWZrLfyBGGOikx_eeYXirahuB7E7yuDhB6KoSAQoA5w@mail.gmail.com>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <CAD++jLnRWZrLfyBGGOikx_eeYXirahuB7E7yuDhB6KoSAQoA5w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] arm64: dts: qcom: reversed unit-address in wcd9378c codec@3,0
-  node
---
+Hi Linus,
 
-commit 07e647dd9ed11b2ee7570b697d9090d52a74d29b
-Author: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Le 26/11/2026 à 13:53, Linus Walleij a écrit :
+> Hi Vincent,
+> 
+> On Wed, Nov 18, 2026 at 12:00 PM Vincent Jardin via B4 Relay
+> <devnull+vjardin.free.fr@kernel.org> wrote:
+> 
+>> The LX2160A muxes its IIC, XSPI, SDHC, UART, IRQ and EVT pads from
+>> fields of the RCW. They are read-only in RCWSR12..14 of DCFG, and are
+>> changed at runtime through the override registers in the DCSR view of
+>> DCFG, which read 0 until written.
+>>
+>> Since commit 8a1365c7bbc1 ("arm64: dts: lx2160a: add pinmux and i2c
+>> gpio to support bus recovery"), fsl-lx216x.dtsi drives the override
+>> registers with pinctrl-single for the I2C bus recovery. Its first pin
+>> state clears every other field of the word: a board whose RCW programs
+>> a non-zero pad mux loses those pads at the first I2C probe.
+>>
+>> This series reads the fields in effect from RCWSR and writes RCWCR, as
+>> fsl_guts_rcw_rmw() already does for the SerDes protocols:
+> 
+> Once the review is complete, can I merge all patches except the DTSI
+> patch through the pin control tree, i.e. does it have the right ACKs?
 
-arm64: dts: qcom: glymur-asus-zenbook-a16: enable WCD9378 headset codec
+I acked patch 3/6 as maintainer of drivers/soc/fsl/ and include/linux/fsl/
 
-This commit enables the WCD9378 SoundWire headset codec, its DAI links, and
-the vreg_bob1_e0 MICBIAS rail on the Asus Zenbook A16 (UX3607OA).
-
-> diff --git a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dt=
-s b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-> index c253597b5a5ae..ca035f10dc6cc 100644
-> --- a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-> +++ b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-[ ... ]
-> @@ -763,6 +805,44 @@ right_tweeter: speaker@0,1 {
->  	};
->  };
-> =20
-> +/* WCD9378 multi-master: swr2 primary + swr1 dependent (DATA lanes 2/3).=
- */
-> +&swr1 {
-> +	qcom,multi-master-mode =3D "dependent";
-> +	qcom,multi-master-peer =3D <&swr2 0>;
-> +	num-lanes =3D <2>;
-> +
-> +	status =3D "okay";
-> +};
-> +
-> +&swr2 {
-> +	qcom,multi-master-mode =3D "primary";
-> +	qcom,multi-master-peer =3D <&swr1 5>;
-> +	num-lanes =3D <2>;
-> +
-> +	status =3D "okay";
-> +
-> +	wcd9378c: codec@3,0 {
-> +		compatible =3D "sdw20217011000";
-> +		reg =3D <0 3>;
-
-[Severity: Low]
-Should the unit-address on wcd9378c be @0,3 instead of @3,0 to match
-reg =3D <0 3> (link ID 0, instance ID 3) and the qcom,wcd9378-sdw.yaml
-binding?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126183806.1724=
-85-1-srinivas.kandagatla@oss.qualcomm.com?part=3D5
+Christophe
