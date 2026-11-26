@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795684774;
-	b=O0dod18B7YdiQq0jZ5Npb74GWw5eLgen8ejW6+VaOG5NC1wdPAbn8g50psnogC3VYmgp
-	 BmZfmI/MhVVzOrhsAkY+4b+Pp/gjzTT5/L83XMQ4OSanjXMKaajflnZlK+bXD3i5ZH/e9
-	 IGiuNfrC+rq2fpAZzDEQv450WmshUUonwfzpKq2RZYxvxzMmdDH+hcJ9DR+SYrW3nkn86
-	 OdPNDrI6oBZTkJjFEwFa4a443rgXDbzY9GhJBcN/3VPwyKwsJm2m6E8AQ5hgY4wYAJRnp
-	 QeOaMFysW7TszF5KuPozAGPGAeoQdMpCQ0nsjU9bmiovZoCmdSWb0uxeCTMPi1Vhuaw==
+	t=1795684841;
+	b=0wG5BS8wgBk/UrSJx3mzqvyJbdWYjfEv9iFl6Yj6SRZ7NGDPGtRfAHF5OEDZ5ytOLnSV
+	 mxMMM1oUXuyIDe9nprlznMHM/0iNETPcLgbgBwXxy1jQSd4I0x/jPkqXfkqCNVxYfmuCH
+	 TOPY8UN+D2w6t9WAzEXn2yvBhXBR1RcNHcjHAIvEHXC6+ni7g90fTxbTz0lmjGH1yBS5f
+	 xnAovOAOIa0TYvCCvaBudyJFqC5EW9zEiBAvmytlfkbA/+9eJbUdjTLBc1B52ps001USV
+	 1JQdeoO5IVXCQ+WwMxYu3Qqbx7xFAqsiCC2DQVSbKnMzcP/AzG7iBAByN1PqP/H1DDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795684774;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795684841;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=/oHHQALghtoPP+5pdGtNsnRmD/fjouORSpU51MjkBAw=;
-	b=0v74KutKsZszggZaUZiRlzxBFdKTaaMVL8yRXO4++2/CSGxjkBwqR5ZBYayatFpOj2u1
-	 rkndbYzzTRsOnz4dVQufp9BjFiR1lca4vXhwHo9PeGOCsScrH4+xuWFNuhfb/Fs2P8JPn
-	 gd6VrrTtR8+ZGDnwTEPpU1bfHLk8ihLCbk1iIkhfmuNaf0O3nISOgjtaU7sTzqCs0uFqH
-	 5bf9Er8o0hYNJB2hSFjbBMlJsnWM6inefUVArgr7ks80Jj9UAK0KHbdFArna6pOFgWOk4
-	 VyFtjCDxXvKzkQSa2/+NjKSJWeB33I9fWwXaISXF8iM61+pfKGGub5pGB4bHO477WYQ==
+	bh=cf4FRqya/4qOQQQJ42WWRSBKQgos6nH+h+T6m0Rgxrk=;
+	b=MJ8Tzrg037hhMRJhacruZn+91Pe/m5sQs5QJLWP7UyI6UZ2lNyq94NyS7xFVwMzNd1r9
+	 mb01LEb0dg9kcCRKfF+c+593vMoZeR9INJwoS1FMKeKTt8SAJPgNVuU5Zt3mO+cIU4Vtd
+	 VQJWpq9yy+q1kKNQsPrWv41M9cE5fB2QYH9r32KJ7W3Birvdcbfe1fjypKbqIs4H3NSTs
+	 t9buZLRxKEnCcATJZETA+57KGWyMYE8K7XUMAIZMWYexu2AUNBuJ5w4RXLIdx9IzxYlQz
+	 z8bEbhvvh+xY3DSNEUHjFunk8LMG38PaftlnnfIFNQnTHPDkysmYd4XZeyh32qypmVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FiTvb9wj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AU+oxcCM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8585606A333
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 09:19:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38946606A31E
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 09:20:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FiTvb9wj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C7AA1F000E0;
-	Thu, 26 Nov 2026 09:19:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AU+oxcCM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC7B51F000C6;
+	Thu, 26 Nov 2026 09:20:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795684774;
-	bh=/oHHQALghtoPP+5pdGtNsnRmD/fjouORSpU51MjkBAw=;
+	s=k20260515; t=1795684840;
+	bh=cf4FRqya/4qOQQQJ42WWRSBKQgos6nH+h+T6m0Rgxrk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FiTvb9wjCWv9gct/mtgu84E50Rbhuqi/D/GVk7P+FQFC4GZ2KS1h0tNpsxVvPMnjc
-	 q6LsAQM8K2X81ekq1uuTxiqO8Of6UKL1QaFxVXPt5FQrx3zeUwsjmBs18NOAwMUGOu
-	 Cu9fKEWzn5eydgHqglkGfkUwTrti156Obh/3wJp72JlwbXj6xBvbHDjXS/EqPoTDgN
-	 C0yaVVWdFtpi4f20goZMb5ucF7RohO4e+NmB/G2DsWOorhTMayffPdhwC1y9+Qm9Up
-	 /hm4vMDQ12GQNYoMYAuXoUqLJkQFD2uZ09tnWU13ed2diNrG7/CJVbRDqEMzeAbDUk
-	 TZ4UOcoXEWz/Q==
-Message-ID: <sashiko-outbox-235114@kernel.org>
+	b=AU+oxcCMvg+c10pu97SRUDeaGV4Knec2wwawUAy4zWqEHMSYD1XdKvdaSwDu88CTV
+	 gkFnZosuytveIfjP8140s7NsMs1mlCSfiX6xPuLQCswUvOEsOgAeocVins22yk++6d
+	 QvlK9nPawUYVqnju8fW7EVlr5zhkT2HeVCHj0nLFcY71s7ozd7Qdlq8Y7CQC6E0Wsf
+	 jplJs7wY13YOAwPUqYSWMa1xPiWKq3MkMOIVE/U63H8g3THvbsP5WOI8kU0iR1EZ+c
+	 oxNPydJm2nm8EvpTR9qQ6k+LJVUraCR3LPFjh4iW2b9LMFu01PpemKEOWX9a0/r2Bn
+	 ekKN6eP1p9WBQ==
+Message-ID: <sashiko-outbox-235115@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 07/10] gtrace: rvtrace: Add pre-ratified trace funnel
- driver
+Subject: Re: [PATCH v3 1/1] arm64: dts: qcom: lemans: Add Vicharak Axon Pro
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Leo Yu-Chi Liang" <leo.liang@sifive.com>
+To: "Ajit Singh" <blfizzyy@gmail.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261126-send-preratified-trace-v1-7-1e686fd75be7@sifive.com>
-References: <20261126-send-preratified-trace-v1-0-1e686fd75be7@sifive.com>
- <20261126-send-preratified-trace-v1-7-1e686fd75be7@sifive.com>
+In-Reply-To: <20261126090928.73637-2-blfizzyy@gmail.com>
+References: <20261126090928.73637-1-blfizzyy@gmail.com>
+ <20261126090928.73637-2-blfizzyy@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 09:19:33 +0000
+Date: Thu, 26 Nov 2026 09:20:40 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,123 +60,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] gtrace: rvtrace: missing tristate RVTRACE dependency on
-  RVTRACE_FUNNEL
-- [Medium] gtrace: rvtrace: premature hardware enable in
-  rvtrace_funnel_probe()
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] arm64: dts: qcom: lemans: misplaced pcie1 GPIOs and wrong
+  WAKE# polarity
 --
 
-commit d12b4752379ea0c92ba55f2e57ceaa616a25b3e8
-Author: Eric Lin <eric.lin@sifive.com>
+commit b99c8adc648ceea0d68c162149cad6f93cd36e09
+Author: Ajit Singh <blfizzyy@gmail.com>
 
-gtrace: rvtrace: Add pre-ratified trace funnel driver
+arm64: dts: qcom: lemans: Add Vicharak Axon Pro
 
-This commit adds a gtrace driver for the pre-ratified RISC-V trace funnel
-component.
+This commit adds initial device tree support for the Vicharak Axon Pro
+SBC based on the Qualcomm QCS9075 SoC.
 
-> diff --git a/drivers/hwtracing/gtrace/Kconfig b/drivers/hwtracing/gtrace/=
-Kconfig
-> index b1f9ca8f73cb9..66fc2791d8f4e 100644
-> --- a/drivers/hwtracing/gtrace/Kconfig
-> +++ b/drivers/hwtracing/gtrace/Kconfig
-> @@ -43,6 +43,19 @@ config RVTRACE_ENCODER
->  	  To compile this driver as a module, choose M here: the module
->  	  will be called rvtrace-encoder.
-> =20
-> +config RVTRACE_FUNNEL
-> +	tristate "RISC-V Trace Funnel driver"
-> +	depends on RVTRACE_V0
-> +	default y
-
-[Severity: Medium]
-Should RVTRACE_FUNNEL also depend on RVTRACE?
-
-Because RVTRACE_V0 is a bool symbol while RVTRACE is a tristate symbol,
-CONFIG_RVTRACE=3Dm sets CONFIG_RVTRACE_V0=3Dy and allows CONFIG_RVTRACE_FUN=
-NEL=3Dy.
-In that configuration, built-in rvtrace-funnel.o fails to link against
-rvtrace_v0_sink_config() in rvtrace.ko (and gtrace core symbols when
-CONFIG_GTRACE=3Dm).
-
-> diff --git a/drivers/hwtracing/gtrace/rvtrace-funnel.c b/drivers/hwtracin=
-g/gtrace/rvtrace-funnel.c
+> diff --git a/arch/arm64/boot/dts/qcom/lemans-vicharak-axon-pro.dts b/arch=
+/arm64/boot/dts/qcom/lemans-vicharak-axon-pro.dts
 > new file mode 100644
-> index 0000000000000..2e0843d233ab7
+> index 0000000000000..f81aa2ebbdcca
 > --- /dev/null
-> +++ b/drivers/hwtracing/gtrace/rvtrace-funnel.c
-> @@ -0,0 +1,98 @@
+> +++ b/arch/arm64/boot/dts/qcom/lemans-vicharak-axon-pro.dts
 
 [ ... ]
 
-> +static int rvtrace_funnel_start(struct gtrace_path_node *node)
-> +{
-> +	struct gtrace_component *comp =3D node->comp;
-> +	int ret;
+> +&pcie1 {
+> +	perst-gpios =3D <&tlmm 4 GPIO_ACTIVE_LOW>;
+> +	wake-gpios =3D <&tlmm 5 GPIO_ACTIVE_HIGH>;
+> +	vddpe-3v3-supply =3D <&vcc_pcie1_en>;
 > +
-> +	/* Set pre-ratified comp's next sink */
-> +	ret =3D rvtrace_v0_sink_config(node);
-> +	if (ret) {
-> +		dev_err(&comp->dev, "failed to set next sink.\n");
-> +		return ret;
-> +	}
+> +	pinctrl-0 =3D <&pcie1_default_state>;
+> +	pinctrl-names =3D "default";
 > +
-> +	ret =3D gtrace_enable_component(comp);
-> +	if (ret)
-> +		dev_err(&comp->dev, "failed to enable funnel.\n");
-> +
-> +	return ret;
-> +}
-> +
-> +static int rvtrace_funnel_stop(struct gtrace_component *comp)
-> +{
-> +	int ret;
-> +
-> +	ret =3D gtrace_disable_component(comp);
-> +	if (ret) {
-> +		dev_err(&comp->dev, "failed to disable funnel.\n");
-> +		return ret;
-> +	}
-> +
-> +	return rvtrace_comp_poll_empty(comp);
-> +}
-> +
-> +static int rvtrace_funnel_probe(struct gtrace_component *comp)
-> +{
-> +	int ret;
-> +
-> +	ret =3D gtrace_enable_component(comp);
-> +	if (ret)
-> +		return dev_err_probe(&comp->dev, ret, "failed to enable funnel.\n");
-> +
-> +	return 0;
-> +}
-> +
-> +static void rvtrace_funnel_remove(struct gtrace_component *comp)
-> +{
-> +	int ret;
-> +
-> +	ret =3D gtrace_disable_component(comp);
-> +	if (ret)
-> +		dev_err(&comp->dev, "failed to disable funnel.\n");
-> +}
+> +	status =3D "okay";
+> +};
 
 [Severity: Medium]
-Why do rvtrace_funnel_probe() and rvtrace_funnel_remove() enable and disable
-the funnel component?
+Should perst-gpios and wake-gpios be defined as reset-gpios and
+wake-gpios on the &pcie1_port0 root port node instead, with wake-gpios
+set to GPIO_ACTIVE_LOW?
 
-rvtrace_platform_probe() already resets the component and brings it out of
-reset before registering it, and rvtrace_funnel_start() and
-rvtrace_funnel_stop() enable and disable it around each trace session.
-Enabling the component in rvtrace_funnel_probe() leaves the funnel enabled
-while idle after boot before any output sink is configured, causes
-rvtrace_v0_sink_config() to modify the sink bits in
-RVTRACE_COMPONENT_CTRL_OFFSET while the funnel is already enabled on the
-first trace run, and leaves the funnel disabled after the first trace sessi=
-on
-stops.
+Because lemans.dtsi defines the child root port node pcie1_port0 under
+&pcie1, placing perst-gpios on the host bridge node triggers a runtime
+warning in qcom_pcie_parse_perst() ("Reusing PERST# from Root Complex
+node. DT needs to be fixed!"), and pci_configure_of_wake_gpio() only
+looks up wake-gpios on the root port node, so PCIe wakeup is never
+configured.  In addition, PCIe WAKE# is an open-drain active-low signal
+(matching the bias-pull-up on gpio5 in pcie1_default_state), whereas
+GPIO_ACTIVE_HIGH causes pci_configure_wake_irq() to select
+IRQ_TYPE_LEVEL_HIGH.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-send-prera=
-tified-trace-v1-0-1e686fd75be7@sifive.com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126090928.7363=
+7-1-blfizzyy@gmail.com?part=3D1
