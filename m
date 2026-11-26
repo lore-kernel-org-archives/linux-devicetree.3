@@ -1,57 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795657096;
-	b=NJw6WgFO84LJXs49twoLgANs7hk1GkroKfrg53iCC+YtDLnlMHzeS8aooHWB9OtgogmJ
-	 EXNW8DmUGfLi27DzWMKQEnUZVUyi2VMYZOSLJHKEMWeIB/vyMNLTnR98to2xYtFJBsm+4
-	 CgktrR6CZx5I7OmX0Xr55+xIq1f8vPu+n7ilm/nD6Kdjg6F13OcW/GB0Xbl2U93p+ryUA
-	 PyuSjEvqqXH4ZQqc56cofpmo0aAmj6qaVrN8gHLJae/VdUdVIldaCySMTNMqMibFQZiJs
-	 3YJMS/Nwk5jc3lv8dn9uHyopibge1HJtNzZt8/JrzOIcfPEbGL1WRlaAGUyyGDpmZyQ==
+	t=1795657287;
+	b=O9V+eZoC9DpXLLWHtZncOci3fXk/QdlxvJZ0vTDI2hgom4u4t+bwbRSfrsblhhSJStqz
+	 4vFPMSRyplfzzXYL27tBP54Q1JWno+W9h2bwc+tmwAiEKLIajMIrSCk5l//wM45JGf7aB
+	 Fpkt4NzbG+xUfAyaEshgvdA6eEnwgOKrJfLJKwAxFQeYj1dn2udKBTSjFsGvQcx/hdjSC
+	 NNRVnU1BqIEYdtRpfOGUIHxprbVO568LfA25O5FIXC1LraXMrmAC5DhWffzAAJuRoIiGz
+	 0B5mTJmaKKQqWeFcfHyksfRWZAmaQ/Z3p7Z9vV5+39Q4Owd5LVVKS3aqKBx6qilXg/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795657096;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=+lad4pCjCdG1H/0L034S+uQS+f0EyMnw+hfLC5ytP0M=;
-	b=p5vFvL3DALcNSBau0NJ49J82EsftJ7TszWa+VJolq0EhGWE2F+C7GzFQ6ykgHlc7FuGy
-	 OQm803hOR8KlMmrSqK4n79JUZt37/vq2+3JnGXV9hospz+s5TYxceZu7B+Uk3q1sMouzK
-	 M7OLHNQlSwJPOJzv5tSqZIZN4Kcoxx9jJlZJDubRaPik9m53lcOkJiHyJSHgJNh+I+djB
-	 3+B+C4HZGQ+MFHH0+T4gjfa27sNoY8KRRjaoqY0C52TKdVRMBKGRZ2Uym3XsyFve0nlFo
-	 dQIWAyvn4ZxqrHS+Y4zz3gZiI2OMwFMq+i5uFaHcLee8gKQd6kd0L3qZ0daL1owbbOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795657287;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=HbyBlYoSc4oQNkMHH7+GzwCjpt+AsrusHMpyq+R+lm8=;
+	b=zuStBusbgqQw0TwNYEUutWk+wfc8BBl+/QnyTgW5t4mVRx30rpu90Bbrj4YcIHHgir0Y
+	 HEBIj29ySg4VRtLle3AOFqhhz0pBPesHAiogpBO0NlnUkGL5Nu7ViomG99pOso31q9OpU
+	 h01lwYX2flm7SOizN1HuI19qZcJ3HwgmR9J73j87giAzdizO39Nrxj/xrRy++/1/Gk0tT
+	 55VmqpphPO+WEHXVQHhfEFbKAXNzowTuPzPGB+C+aaa9h5rRszGXyUm54/d511xnJZVay
+	 /tOO9cko1ZOjy8mfC2vZAhFTONKxVuLguo1gDgP+fTSexLBtMIQ+5TV7ep76GtjTH4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BiSMgeHy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fGZMx2+9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 958B8606A31E
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 01:38:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD743606A321;
+	Thu, 26 Nov 2026 01:41:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BiSMgeHy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCFE51F000C6;
-	Thu, 26 Nov 2026 01:38:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fGZMx2+9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FDD71F000C4;
+	Thu, 26 Nov 2026 01:41:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795657096;
-	bh=+lad4pCjCdG1H/0L034S+uQS+f0EyMnw+hfLC5ytP0M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BiSMgeHyUaho7M4PuYXGcq1UZWc3QpvGzupwKyMsOKQlY6BeCrFjD2ztMeyCT71gd
-	 3/N5IslUaAdF2gtzT2xRE/mCuh5cSQGYlfBW+1C1n96+7Y42BztoN3IpLs9ToGRb0t
-	 ICNRRCVgRZcqzz3CinV3k2wEkiOxXtW9AeHfoUVnyGWCfngonNQC7GAScgxJTqhfFr
-	 csTVdjz3ixEZArmNgp1KnakuC5RI64/KI4VZjh7ynJc6mNVoSDMlN8pD0rQI7nUhBr
-	 sHIwncn9th9gB5n/oT0FOFJC5NgEcGIo3B9pb6d5cbyg5B4LobEDdrz5XYwbtak7Ck
-	 KmbTWo7IKxtFA==
-Message-ID: <sashiko-outbox-234571@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 11/11] arm64: dts: rockchip: Add USB-C DP AltMode for
- RK3588 Jaguar
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261126-rockchip-usb-c-dp-altmode-v1-11-7991eb5bb426@collabora.com>
-References: <20261126-rockchip-usb-c-dp-altmode-v1-0-7991eb5bb426@collabora.com>
- <20261126-rockchip-usb-c-dp-altmode-v1-11-7991eb5bb426@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 01:38:15 +0000
+	s=k20260515; t=1795657287;
+	bh=HbyBlYoSc4oQNkMHH7+GzwCjpt+AsrusHMpyq+R+lm8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=fGZMx2+9wN474RbdEH0dBdNmm7KD9n4vNxooWNmcLHTHs3/RU1zISmcGg1x8d9+Aw
+	 YeaOGlasmDT9e6xuUjxYcuE6nfNA2mW0OzePjygEI8QcSmZmQmbE66Nt7oIjI9YUVh
+	 xOsCrlzUvfw7kRo+1iZJMFRCu9eg68QjgUa/BVxNK5sTqwrZrEXbkNePnYN5+9aZOd
+	 GNwryei3TmXwO3sAUf70Z+R4Uubi9Ja5tNTXjKzfmqyYIwNfWMYlN62h3eYi2ERVJM
+	 6OZI5DN5qVUOOZXcx1MWQaJ8NjN1j6FtzjFJD06okBp48/DMH6QcCjQvBcK/ZeWr/p
+	 ddF6eTdhZ8Gyw==
+Date: Thu, 26 Nov 2026 01:41:18 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Adil =?UTF-8?B?SMO8c3Jldg==?= Tepe <tadilhusrev@gmail.com>
+Cc: Alexey Klimov <alexey.klimov@linaro.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter
+ Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Sam Protsenko <semen.protsenko@linaro.org>, Krzysztof Kozlowski
+ <krzk@kernel.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org
+Subject: Re: [PATCH v2 0/5] Exynos850 ADC support and soc thermistor
+Message-ID: <20261126014118.6eb12fea@jic23-hlaptop>
+In-Reply-To: <20261125193122.747908-2-tadilhusrev@gmail.com>
+References: <20261125-exynos850_adc-v2-0-26de1c6f1717@linaro.org>
+	<20261125193122.747908-2-tadilhusrev@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,95 +65,44 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] arm64: dts: rockchip: missing altmodes node in rk3588-jaguar
-  usb-c connectors
---
+On Wed, 25 Nov 2026 22:31:23 +0300
+Adil H=C3=BCsrev Tepe <tadilhusrev@gmail.com> wrote:
 
-commit 6630f46c0f1c921c9b89f36aebb088fca287fca2
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+> On Wed, Nov 25, 2026 at 02:23:32PM +0000, Alexey Klimov wrote:
+> > This small series adds support for the ADC block found in the Samsung
+> > Exynos850 SoC and enables the Murata NTC thermistor on the WinLink E850=
+-96
+> > development board. =20
+>=20
+> I tested patches 1-3 on a Samsung Galaxy XCover5 (SM-G525F, Exynos850),
+> with an ADC node equivalent to patch 4 (same reg, interrupt and clock)
+> and the board's three NTC channels.
+> Readings match what I get with the vendor-style sequence (re-init around
+> every conversion, SOFT_NON_RESET after reset) to 1-2 LSB on the static
+> channels, the NTC channels follow the temperature, and 200 back-to-back
+> reads per channel show no stale values. So initialising once at probe
+> works fine here.
+>=20
+> One small thing: channels 8 and 9 always read 0. The downstream driver
+> uses 8 channels for this SoC, so MAX_ADC_V2_CHANNELS (10) may expose two
+> channels that don't exist.
 
-arm64: dts: rockchip: Add USB-C DP AltMode for RK3588 Jaguar
+Other than that thing to chase down this looks fine to me.  So I'll wait
+for Alexey to confirm if the magic channel pair exist before picking it up =
+;)
 
-This commit enables the DisplayPort controllers and updates the USB-C
-connector, USBDP PHY, and USB host controller port graphs to support
-DisplayPort AltMode on the RK3588 Jaguar board.
+Thanks for testing!
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts b/arch/arm64/=
-boot/dts/rockchip/rk3588-jaguar.dts
-> index 0446834e84d5d..fcc4a043b2990 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts
-[ ... ]
-> @@ -375,7 +407,7 @@ port@0 {
->  					reg =3D <0>;
-> =20
->  					usbc0_hs: endpoint {
-> -						remote-endpoint =3D <&usb_host0_xhci_drd_sw>;
-> +						remote-endpoint =3D <&usb_host0_xhci_hs>;
->  					};
->  				};
-> =20
-> @@ -383,7 +415,7 @@ port@1 {
->  					reg =3D <1>;
-> =20
->  					usbc0_ss: endpoint {
-> -						remote-endpoint =3D <&usbdp_phy0_typec_ss>;
-> +						remote-endpoint =3D <&usbdp_phy0_ss_out>;
->  					};
->  				};
-> =20
-> @@ -391,7 +423,7 @@ port@2 {
->  					reg =3D <2>;
-> =20
->  					usbc0_sbu: endpoint {
-> -						remote-endpoint =3D <&usbdp_phy0_typec_sbu>;
-> +						remote-endpoint =3D <&usbdp_phy0_dp_out>;
->  					};
->  				};
->  			};
-> @@ -488,7 +520,7 @@ port@0 {
->  					reg =3D <0>;
-> =20
->  					usbc1_hs: endpoint {
-> -						remote-endpoint =3D <&usb_host1_xhci_drd_sw>;
-> +						remote-endpoint =3D <&usb_host1_xhci_hs>;
->  					};
->  				};
-> =20
-> @@ -496,7 +528,7 @@ port@1 {
->  					reg =3D <1>;
-> =20
->  					usbc1_ss: endpoint {
-> -						remote-endpoint =3D <&usbdp_phy1_typec_ss>;
-> +						remote-endpoint =3D <&usbdp_phy1_ss_out>;
->  					};
->  				};
-> =20
-> @@ -504,7 +536,7 @@ port@2 {
->  					reg =3D <2>;
-> =20
->  					usbc1_sbu: endpoint {
-> -						remote-endpoint =3D <&usbdp_phy1_typec_sbu>;
-> +						remote-endpoint =3D <&usbdp_phy1_dp_out>;
->  					};
->  				};
->  			};
+Jonathan
 
-[Severity: High]
-Are both usb-c-connector nodes missing an altmodes child node with a
-displayport subnode (svid 0xff01)?
+>=20
+> For patches 1-3:
+> Tested-by: Adil H=C3=BCsrev Tepe <tadilhusrev@gmail.com>
+>=20
+> Adil
+>=20
 
-During port registration, tcpm_register_port() ->
-typec_port_register_altmodes() looks up the "altmodes" child node on the
-connector fwnode and registers no port alternate modes when it is absent.
-When a DisplayPort AltMode partner is attached, typec_altmode_set_partner()
-finds no matching port altmode and leaves altmode->partner NULL, causing
-typec_probe() to fail with -ENODEV before dp_altmode_probe() can bind and
-switch the USBDP PHY mux.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-rockchip-u=
-sb-c-dp-altmode-v1-0-7991eb5bb426@collabora.com?part=3D11
