@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795685911;
-	b=xYaRO00OPcHRBiHN0dI9zPUpq2v/jIwvxCt3iWFFwbrBE89RCImbAwJj5SXi/vT60MJ3
-	 sx0kf6raOfgB7q9abx2x5k+wHtEnhAloEtDb3c4vv2WdgRTUSOQKOdqrQGcsZBSp6ox4l
-	 dVxZBpKlLjXd346tgE7z5gYIuj7LrBAoFgo14Y3N/MWedJtxUTmkqCTPk8TC8DTY78fLl
-	 +ev9cmL7BPb1mib6poe108ndfRp1cGKgeVbt+HJ/qRCLpmFUcv8+/dmPLEvvjo2WuezLI
-	 MDpRFhW7Qub+hHYG2fUOkABkFd/xD1pWHVCBtLHgvYnMFAiAnH5nCX1EBtJ9GHizJZQ==
+	t=1795685916;
+	b=ht16OJjoNjmkMuZ8+goRSWHUk+EoKNY/eu1hu3+WfgnK0w9WAtNLUPd7G2PsmwJrSRQW
+	 UG3GcCVd/QFlFMqdj/3XnZZozvfk5BHb0J/dcc5Tg3lJWXjMXg4qkGiiuXR59M52IrPkF
+	 lw00Hw6QRVl8LbWPezlw+Eqe65+itpldQAhEkOvkw7rfZyqZF0ax3oWAqybsa90gLJ5VB
+	 075jrGseqJuDlgFS73uAFzeXud4lWIVwtwY6tFBpyghjcZcCMSTMEI+DBglOo4Q24kbkM
+	 Wn3FwgziATaSLrxYCP0ONijs+DSNQLAOnAN4hnt/fDon31dRwbP7q5zxQkp+nXpbiaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795685911;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795685916;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=pt7DX8nlqHiFJ7aXsSiW8EaVWyIU59SnklsNhtNjSiE=;
-	b=SdMWB4CwXf0sE5xnVBbYPwUlNv1p6CLRhqUAQLluAOzFPNhbIOwokwyxIAWrsW2z2sB1
-	 LBf8WpY8wJTgZ9pzT3SVr9k8XPDjzGTvGbq3lu69GcyhQwMmC9KxPO0/+SY3Ym+seKORq
-	 LPy/dT36KtnOwUdghHgUhtBXD3X5rrLeJZrvzIjYIPXZMA2Qhw5HMv0Ppjq5FKZtI94qo
-	 D8AltkzaJfZXOPOb/KeeZrG0kqK07qGtNBXeHknC9exD1cVcWtTtTeP4Lgh8kvCdHtLf7
-	 +4ehpykzafHqpgiZhdRxgXVApCh8Fd6Wlq7RZgaUq8xG2dM4ws2GMz20/Q5R1Z+hq2A==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=OJjcEC6A3l+rkxqAUXBKDBDeimXRqX3a+RszRTJllzk=;
+	b=C/IPV/NF7LEe3IOhDti1DTTlMXx6fl7qCkRSze0uB02/kpPVGixN061LTlQxGSSTctDj
+	 KBV4k/p/RsKE22uGEep2OgqZwNVOwZkhT58ASjvliHkgND0xlh0dYBBXfxR9N6QElqtJH
+	 nd6MArcx9pUoeTmOmqMIHkPZob6g/LHWxj1SQU+nuF0mc7+ab/OTB5u9b30YBzAmMIo5M
+	 dToMRV2RksfLk3efWjZC3IW+3KXkeEqtQxLE5Tf7Z2exQ/2eL/7qs3VeA25V450B7p1rf
+	 1wuLKS7213j2cTFnTO9cvVF3SW5gGPGqwi8c+Zz69sqsRVUCISZgiZcW7Yi/E/LW+Vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aWGzwxQz;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mspHNW9F;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B67606A31C
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 09:38:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38B67606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C26DF606A32A
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 09:38:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C26DF606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aWGzwxQz
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3282db206d3so2428639eec.0
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 01:38:31 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mspHNW9F
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1a2761c69fbso9084603c88.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 01:38:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795685910; x=1796290710; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pt7DX8nlqHiFJ7aXsSiW8EaVWyIU59SnklsNhtNjSiE=;
-        b=aWGzwxQz9Wi0C+RrshIBxa38+3yLzysGAYB2LZxc19Q4H+rfA+20UKVsTMEMSUeidm
-         5LJ5ndEWuh4XOccbQ0BNHbHh5PQe18HJds/1uubckXyXDn2iRlbQ7vgdAxy3TU+Bjz+c
-         gpvTmloYsu2CNrJTDM7/vL+L64fqBICziPt7XYWhIVcwICsI2IV3ffjPN7KD0PyQAwKK
-         11s3wD4mzkavEvyBmzyrXKdzSuMRNz2ZR42Hn98+zGDHVB4yk7Y9Fu7yueqT8qV/xWVF
-         U279c810mOPFG+UPpjNkIB4e0XEE2i50DFqmlnd/MF0qfYQl7O+8c+vnsFkzLEmo3Zwr
-         LIUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795685910; x=1796290710;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1795685915; x=1796290715; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pt7DX8nlqHiFJ7aXsSiW8EaVWyIU59SnklsNhtNjSiE=;
-        b=yk0/iaK8U9oSy3wys+t7Zs+FQsXSA/qy4yFJ0BczBPlchNQw7fosolo6e1xERueVbf
-         dBC0xxNJJqkhlbQDt8qzeILQMeELafE2CXvslC4m5rJFYeamfmfdyyjWNWMIhCJ+QUW3
-         b/cntWEB25MJbWuy1c+UQgTkmIxE3C+Rd+5yqFwo1MnsL6lQpKzUa89WbVEW1P1Lkx3F
-         B5Y46sVGnrtWRypPs5CCXkm/IeX5exAHxW8RMgmNF77aaltDHVn0+BZiZPOcTjOIGHel
-         zecnn91MNfmLQwoWcD1rYpCpmcg7TUEY83tmMttJPc8zt0npgnzKkcZZBMsKnwEUTX0v
-         7W7g==
-X-Forwarded-Encrypted: i=1; AL+hErGf2boFF6bDVThIWt/J+WZZRZDvgoOwrOqGsJ6efmeisg6u4L3AahTQN/Q4lQoixJvZyoZ8Q9xL/pCf@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Jp+nItrAbGj3UxLFo98yO3ZcrhlMmeekwK9zOjLQsZ7r7LNiL
-	bmY1jwniLf7pq/DxZgd/rqD1RK5OMfGbmbGkREESWg27gOHMTbYB4MEB
-X-Gm-Gg: AZFdTZe8XW3lz3WntdhrEfL8bKMnoXlwbStbyqRMhIhRz9SjgVEN2yEP095ryG12ToW
-	PFZO1CU9imLdqBfzfPjn1kkexmu9umy309frYy0XoWQ35IMEybq7JFe/HNCPF0M+mxoNcQ02LU/
-	Is+OUhR2CAzdhn8LE7s89r3FCql4xPKW3lnaWyUzSTed/2IYctKbmczi0C94Sh+i++ueX16Jan1
-	4hfT1rE7mvUkoyYdr7LXy6m5q8CGL9qmhhRs394U1QNAF0D9cPBMfepPExM8i3KEOz919os3oed
-	/0N1N9ZXcWzrXzuD5ut0hQLQqp2PMw0IfCoxXvK1xKpHfQ58qp7DH/yqIqsbzIf4yh+dToVyXeT
-	ws2KRQ52nkPW9rsYsGOKbADQkXy2Q4KbnUPBuGD+kB6pP2vr9up3evLd24namurxSLvM4FdHEUu
-	vuJZVyY7Z4wbzxaC8vTriicVEMBhhDHb7Ekkd3l9u9giL4iYLhgMhM73jPL0mSEKul34cXvcJ1S
-	7LaH4fdgip7MzUVznFj78dwP5TlCTs5vLPVSwybG3mctpbP/QMhBgplATMNB6q+D6MNy8OXbPga
-	tTqMij/largbyYx1Rrv01ugqpPW0to75nrOS0M+rESwBczmgvRUn
-X-Received: by 2002:a05:7301:1a84:b0:386:abfb:4a2 with SMTP id 5a478bee46e88-386abfb1a83mr13514697eec.11.1795685910273;
-        Thu, 26 Nov 2026 01:38:30 -0800 (PST)
+        bh=OJjcEC6A3l+rkxqAUXBKDBDeimXRqX3a+RszRTJllzk=;
+        b=mspHNW9FnADo+E1ymBnNgtLq5lsFnyrQ2XEib50gP0GnXtd7/P7RKZZRJCIHL1dQNS
+         mO+0RD0rMQKzUf6/Zu4ApJYHNvXF3j9dWnU0LP4vJnYRyCgPM7vT4mWFd3weRA+iYyDz
+         z8Z9wjMEBuRwu+qrEP8lSRVjHpYu9lHKQgCWhJKoxtl2B+bWXmc2kJyIkOSf1k5dHLwc
+         gkpol3mZs7/WVitJGWL2dVNh5m0WgcbzLBc6g+Hqa3hc5yiaf/eodMUiwKj/ROYddYBh
+         dKEXyyYp2ZItKs4wtyqzcH3tZcvHAp163PDcMVwqKXSbW2g0v7a12tu1Dw12eiZUzh7E
+         U3dQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795685915; x=1796290715;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OJjcEC6A3l+rkxqAUXBKDBDeimXRqX3a+RszRTJllzk=;
+        b=RRePFjXHA+44rdAax6lEMQ75ycpzOJwBw/8RD+LqCexxjYdmphMxNr0UMG69v0QGvO
+         RrqaOdv114jIZ8DQCwe9nXUnbAQRNf/pQCoEWPkD7adVg1wAs7TsPwtoaLOyIGC+cZiU
+         N1h0sa+2TCDV6aVy6v2+rVFEMdfCqnH+yJjazTOp3s6xkZte/YbaIeVcdT9D3MDs0Qmi
+         xTfpw9Dw+IjB6KA8r3L+ZlSVsA6YhXK9zpFsWIPjRQGg1/pvU0tRzHhn39ffiVB8ZBvW
+         YJXiZsiwBPYjlaopI0tPQ3bv1YwbEoDwQwhnRgvQ+EyAJCE/USpiHHR2KOIUQrhTxcrX
+         yb9g==
+X-Forwarded-Encrypted: i=1; AL+hErHj2gBGtK4xzBf0R1YS524saewYuuffbJFcwPYuNNZrBPxBrXGoDbxt8iB2bLw5hqXCw/Z08T9lGEwg@vger.kernel.org
+X-Gm-Message-State: APuU4Z/uYO6k+Q/nFRvwlqBAPqtnf58LEbCAC93JKl+BNyJ/7+I71ZMU
+	4Jp8Qjxd/dRBmJ2XXgI3RvB8iTYRsoM8z31nI4naFP1WzQwKmQyxoiyY
+X-Gm-Gg: AZFdTZftFU1z4w1iKrEnUQWCy7ficy2tmXzK7rlurGKXcBWUtmsFeOvAOfXzJeLMO02
+	djuoA2mKTcUiWpvQ44U/M2hysMcqOk6HZfefFWb1Ryy3tLBw7LD3fmnxOGee9bsFaJ/V9aet01r
+	isPkKrc0hKUtAg1xO2qwUoyzh6jNHiIjG87MOQxGqoDkUT0B+kjIcNifh9nFE7GKPdjnX6W3YEX
+	IQXGybmSCd5jiMikiBw1PYxNdpemB547Aivwo12DT3tk51es0sfpVoA4ijVRVh/goSW+prs98fo
+	Zfuzi5hDbStZpxEPWEMSMWhb8naIGExJT1bpF7IOVYPAJrR3PVQga9/nTcUKMAcXg6IvVHwaSuy
+	w/vsE8oaoTwkJhqW7tNebzdwpO5Wm7lLYLqYa0EGpryIaUJboFJce7gQ44Ln7c292+iqJCxZyXG
+	UlDQ/DGGS37WX0wLPqUhxJOEh0Rh7xphzPYeE0dF4XyyPMv4XJe85ZGI1nDCg9po3sYG1o74+Md
+	XWharnf228eN/L179GVfBAQ6PvM89BYnaeDbeH5uO24ka1Wn0dVxxzBKa0L+RuglQMzBgtNlQeS
+	dF9DZZDzsvt4ew3mJr7SluVzKD17tou5erkHaSNd9YsiYq2s9f76
+X-Received: by 2002:a05:7300:d401:b0:362:fa87:2aa6 with SMTP id 5a478bee46e88-38569256f32mr18976622eec.0.1795685914859;
+        Thu, 26 Nov 2026 01:38:34 -0800 (PST)
 Received: from 192.168.1.36 ([2402:a00:163:2ce9:ad38:eaaf:b00d:c452])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-386aa203267sm32600571eec.0.2026.11.26.01.38.25
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-386aa203267sm32600571eec.0.2026.11.26.01.38.30
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 26 Nov 2026 01:38:29 -0800 (PST)
+        Thu, 26 Nov 2026 01:38:34 -0800 (PST)
 From: Ajit Singh <blfizzyy@gmail.com>
 To: romain.gantois@bootlin.com
 Cc: gregkh@linuxfoundation.org,
@@ -88,10 +89,12 @@ Cc: gregkh@linuxfoundation.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Ajit Singh <blfizzyy@gmail.com>
-Subject: [PATCH v2 0/2] usb: typec: mux: tusb1046: Support no-hpd
-Date: Thu, 26 Nov 2026 15:08:17 +0530
-Message-ID: <20261126093819.76480-1-blfizzyy@gmail.com>
+Subject: [PATCH v2 1/2] dt-bindings: usb: ti,tusb1046: Document no-hpd
+Date: Thu, 26 Nov 2026 15:08:18 +0530
+Message-ID: <20261126093819.76480-2-blfizzyy@gmail.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261126093819.76480-1-blfizzyy@gmail.com>
+References: <20261126093819.76480-1-blfizzyy@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,22 +106,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On boards where the TUSB1046 HPD_IN pin has no usable HPD signal,
-configure the device over I2C to treat HPD_IN as asserted while
-DisplayPort Alt Mode is active. Describe this with no-hpd.
+Describe boards where the TUSB1046 HPD_IN pin has no usable HPD
+signal. In DisplayPort Alt Mode, the device can be configured over
+I2C to treat HPD_IN as asserted.
 
-Changes in v2:
-- Use the existing no-hpd property instead of ti,hpd-in-override,
-  as suggested by Rob Herring.
+Signed-off-by: Ajit Singh <blfizzyy@gmail.com>
+---
+ Documentation/devicetree/bindings/usb/ti,tusb1046.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Ajit Singh (2):
-  dt-bindings: usb: ti,tusb1046: Document no-hpd
-  usb: typec: mux: tusb1046: Support no-hpd
-
- .../devicetree/bindings/usb/ti,tusb1046.yaml        |  7 +++++++
- drivers/usb/typec/mux/tusb1046.c                    | 13 +++++++++++++
- 2 files changed, 20 insertions(+)
-
+diff --git a/Documentation/devicetree/bindings/usb/ti,tusb1046.yaml b/Documentation/devicetree/bindings/usb/ti,tusb1046.yaml
+index e1501ea6b50b..a512df1bd6fe 100644
+--- a/Documentation/devicetree/bindings/usb/ti,tusb1046.yaml
++++ b/Documentation/devicetree/bindings/usb/ti,tusb1046.yaml
+@@ -20,6 +20,13 @@ properties:
+   reg:
+     maxItems: 1
+ 
++  no-hpd:
++    type: boolean
++    description:
++      The HPD_IN pin is not connected to a usable HPD signal. When DisplayPort
++      Alt Mode is active, the device is configured over I2C to treat HPD_IN as
++      asserted.
++
+ required:
+   - compatible
+   - reg
 -- 
 2.50.1 (Apple Git-155)
 
