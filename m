@@ -1,56 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795730423;
-	b=RkR33kfgcR1LOAMmhMbNzhKPHzvqLLN63PTI1Lp+okSviWXesZTHTbcW8FrimQlp90PM
-	 rSvclHJStCf8aoYm/ldkqrWm8qRwfC3pnMLT29o+BHTrvXZmiV28HUq6Isa4JqsOWihMj
-	 RVZcDHVc9d12Sdu+zBzuPg8qNAtIhZeZF96m7/ZjRq0+GO6EwnVoCogHtg2VR1FS6jFwB
-	 1ZEw0iZxrmlvcOoT0wsGryeYADB5VygYwhopo4RvZ4qYX41wb0RnNnxQ6kwIf2ziU44QH
-	 4o5kkzq2ol+G1RQvMY7V13C3Bptu22drc7u2/4xJ7VaiReRoFmam5NIRDo9WdNQM7Sw==
+	t=1795730984;
+	b=kdbzxGip1PiWHuUzmDjviWQumgYA8sqHbTKLTsvVEhNeQo0cYhy7pMzoMZzdm5jHcdpz
+	 riYhOdBPuLhAawmqfL46l6uYjkncvyeBNOntoo6RZr6V8Fexia4loi6BleSLK0f6QPuHq
+	 s4CzNmHIS0BSTVfmQH974UmSRoyX5/DRFr2LgZ50AWA93g20T6bjbYA562M/532tAN02p
+	 JUrm0APd9c82CqJfDWx7ha1qtxHJpRkb/XjhJHQagnJ87liNiJc+gZ8Hb072nJfYk7DyD
+	 44Af2it5uiiK1J9y0ZARSj9usvHV6Yzolmrz/e0uP3pOhOItGJapr1QgjGOtIhRSTWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795730423;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=7c7/oytUm/cTA9mvt2dZkojdQh//AqC3WyEoCbnB0JA=;
-	b=En3wBKYHP6gArx/3Dkz0t/eUdjsFB4TVY4gqOA8gMorPNkio6Tmle9UN1yr6eOeLNcf9
-	 brvTS3BKx2WW+nFSfDcA2qL6HI90w6H4J5FaPnE/ICHwouco5SN/VZIk9NA1tcQTnKQFK
-	 cwz/S3i+kpsyVeffn4NHAHEEFtfFZYOSP3iNJaAbp08ncUqTN6MhqPYXiGAlcZq1rl6gu
-	 emz2eiqek3evAn6C69GmvUT7fAkKjF4QIlWbN01+JP6FL3of3uoBgr+ovqT8xwPjEnaiQ
-	 FwHG6i0Uj7gu/X2hfKDXb1SX3dpyzaU1TuzdZRAfFeTKOijNVayTyZ1lk86CuFWYiPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795730984;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=I5v0JsGqp24CAKR03vUd6KOc5z/kIg6y/48uz5hFCgs=;
+	b=anRsTgKIQKNTQulmrj3Oy5BqB2klejc3T9u8UxPX03TRevfPBkYls3/R7as5DJP/78BR
+	 /qkowazPzrTomk+KU+0R9UvZ6uoi3vFYe3uia0X1zfNiywz3XNtyBtX2/o3xvKMQ7ow0W
+	 CE+Nxf6h4N4S6Oz58jhxp+Q/EGNRki4VDMSrtSfgIEI5CTeLYzgr0iitmYkwn6dkGB4w8
+	 v87P4VNFVHDN1kWGqu23bwyND8qa6bbAg7zJN9KWkOSHZbjv6gaevcXnaNd7cKtO1WJGV
+	 pSUaRlD37yd11sQB+15uAmlaR6RTxV7MoETQpBrqsgzuEAeK7SgKizGOWJTd2Ef187A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SIR/jHlR";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mDBf9rXU;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA0FD606A323;
-	Thu, 26 Nov 2026 22:00:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B2E7606A330;
+	Thu, 26 Nov 2026 22:09:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B2E7606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SIR/jHlR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 167741F00893;
-	Thu, 26 Nov 2026 22:00:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795730423;
-	bh=7c7/oytUm/cTA9mvt2dZkojdQh//AqC3WyEoCbnB0JA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SIR/jHlReC/pQgdPSDammzaAJpgLf7Q/QkY3zzhbV8Yw7EsfRq4MFshU2i5A/BFlT
-	 z7pWcmD97ZBj0iIkgbWQwItx67vdPv5hwifdh4giJ4q82NWz8BDsJpRzfqHrz0j8SK
-	 ZpWJu4DLC/AOMagP8tyOMkc+TAQlh2ZG43W7YCRYVbenYMGlpJTNuu0ysr7DdfYFzy
-	 7LhRD1QZkgyQO6h1s2pjguSP10cOGrUxNbOmOdWkfeyDOM30wMn6BIn26KeXt5aDqC
-	 /IggTJlhfNn5GYjlvzmQs5T73vq4VrK8dpBH2/9p4ztJ3RobEgai7U95wfzbUiaeve
-	 jZuJJ2/IAhlcg==
-Message-ID: <sashiko-outbox-236290@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 10/11] arm64: dts: allwinner: h616: Add display pipeline
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jernej Skrabec" <jernej.skrabec@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261126214433.3562326-11-jernej.skrabec@gmail.com>
-References: <20261126214433.3562326-1-jernej.skrabec@gmail.com>
- <20261126214433.3562326-11-jernej.skrabec@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 22:00:22 +0000
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mDBf9rXU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795730984; x=1827266984;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=jQl5SVALAIeS7jawC6ZuFNJD8KZfNc2rVFnNHxmKSqw=;
+  b=mDBf9rXUz669IUFOC11lIzF+yfczNujhem5S3ebe/I9HSFs+/leEE2Ep
+   dOdfGtm5CQS5d02d0jbE2qyJMIzqV8xL+AJZgeh4GNYnOxDF6RwVhdNEj
+   lRdkE/6P6A+MMkHTPVzITwC1Ml1MvWTojPErI0XoKdsT9o5CeSoz1gGOt
+   iKqZOgx8pafZXcXC6WGC6DRbuItMOUM5ZVa070BBfqu5vqXIy3VBE05J0
+   I90sh3YaBCvkKyIPhnmdAcLMWpA1ra/nlBf9gpVtCkY1jMKxFsTueZgqe
+   ItxSd4XuBofI5JBeHCUHK6P5YYt8C1vI7kiy2NGIXureLRHpigGE+fGLw
+   w==;
+X-CSE-ConnectionGUID: 4vKqu+/wRc2cjqCYwXK8/g==
+X-CSE-MsgGUID: TKf5b03BTPW4tstKxmwAdA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11978"; a="4643536"
+X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
+   d="scan'208";a="4643536"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Nov 2026 14:09:41 -0800
+X-CSE-ConnectionGUID: JHDpbERWRmOf+i8ETjP+FA==
+X-CSE-MsgGUID: HgcEE5u1RNiFVWBKYbeDxA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
+   d="scan'208";a="13939775"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa012.fm.intel.com with ESMTP; 26 Nov 2026 14:09:36 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xWheo-00000001Uxa-109p;
+	Thu, 26 Nov 2026 22:09:34 +0000
+Date: Fri, 27 Nov 2026 06:09:17 +0800
+From: kernel test robot <lkp@intel.com>
+To: Robert Ijtsma via B4 Relay <devnull+robertijtsma.gmail.com@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Robert Ijtsma <robertijtsma@gmail.com>
+Subject: Re: [PATCH v2 2/2] iio: light: add ams OSRAM TCS3430 XYZ and ambient
+ light sensor driver
+Message-ID: <20261127060159.FSKHGwvz-lkp@intel.com>
+References: <20261126-iio-tcs3430-v2-2-6c5329d20919@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,179 +90,42 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261126-iio-tcs3430-v2-2-6c5329d20919@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] arm64: dts: allwinner: h616: tcon_top graph overflows
-  sun4i_drv_probe() kfifo
---
+Hi Robert,
 
-commit 01e1e3e0b1574bffa9c9d00380c059ba10691ddb
-Author: Jernej Skrabec <jernej.skrabec@gmail.com>
+kernel test robot noticed the following build errors:
 
-arm64: dts: allwinner: h616: Add display pipeline
+[auto build test ERROR on 4843f6873f7c4835e62f2c73ba0fd538e57a2f22]
 
-This commit adds the devicetree nodes for the Allwinner H616 display
-engine 3.3 pipeline, including two mixers, TCON TOP, four TCONs, and HDMI.
+url:    https://github.com/intel-lab-lkp/linux/commits/Robert-Ijtsma-via-B4-Relay/dt-bindings-iio-light-add-ams-OSRAM-TCS3430/20261126-091147
+base:   4843f6873f7c4835e62f2c73ba0fd538e57a2f22
+patch link:    https://lore.kernel.org/r/20261126-iio-tcs3430-v2-2-6c5329d20919%40gmail.com
+patch subject: [PATCH v2 2/2] iio: light: add ams OSRAM TCS3430 XYZ and ambient light sensor driver
+config: riscv-randconfig-1000-20261127 (https://download.01.org/0day-ci/archive/20261127/20261127060159.FSKHGwvz-lkp@intel.com/config)
+compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261127/20261127060159.FSKHGwvz-lkp@intel.com/reproduce)
 
-> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/arm64/=
-boot/dts/allwinner/sun50i-h616.dtsi
-> index 93c3b8279241f..d7ed84d3c1217 100644
-> --- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-[ ... ]
-> @@ -978,6 +1065,339 @@ ohci3: usb@5311400 {
-[ ... ]
-> +		tcon_top: tcon-top@6510000 {
-> +			compatible =3D "allwinner,sun50i-h616-tcon-top";
-> +			reg =3D <0x06510000 0x1000>;
-> +			clocks =3D <&ccu CLK_BUS_TCON_TOP>,
-> +				 <&ccu CLK_TCON_TV0>,
-> +				 <&ccu CLK_TVE0>,
-> +				 <&ccu CLK_TCON_TV1>;
-> +			clock-names =3D "bus",
-> +				      "tcon-tv0",
-> +				      "tve0",
-> +				      "tcon-tv1";
-> +			clock-output-names =3D "tcon-top-tv0",
-> +					     "tcon-top-tv1";
-> +			resets =3D <&ccu RST_BUS_TCON_TOP>;
-> +			#clock-cells =3D <1>;
-> +
-> +			ports {
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +
-> +				tcon_top_mixer0_in: port@0 {
-> +					#address-cells =3D <1>;
-> +					#size-cells =3D <0>;
-> +					reg =3D <0>;
-> +
-> +					tcon_top_mixer0_in_mixer0: endpoint@0 {
-> +						reg =3D <0>;
-> +						remote-endpoint =3D <&mixer0_out_tcon_top_mixer0>;
-> +					};
-> +				};
-> +
-> +				tcon_top_mixer0_out: port@1 {
-> +					#address-cells =3D <1>;
-> +					#size-cells =3D <0>;
-> +					reg =3D <1>;
-> +
-> +					tcon_top_mixer0_out_tcon_lcd0: endpoint@0 {
-> +						reg =3D <0>;
-> +						remote-endpoint =3D <&tcon_lcd0_in_tcon_top_mixer0>;
-> +					};
-> +
-> +					tcon_top_mixer0_out_tcon_lcd1: endpoint@1 {
-> +						reg =3D <1>;
-> +						remote-endpoint =3D <&tcon_lcd1_in_tcon_top_mixer0>;
-> +					};
-> +
-> +					tcon_top_mixer0_out_tcon_tv0: endpoint@2 {
-> +						reg =3D <2>;
-> +						remote-endpoint =3D <&tcon_tv0_in_tcon_top_mixer0>;
-> +					};
-> +
-> +					tcon_top_mixer0_out_tcon_tv1: endpoint@3 {
-> +						reg =3D <3>;
-> +						remote-endpoint =3D <&tcon_tv1_in_tcon_top_mixer0>;
-> +					};
-> +				};
-> +
-> +				tcon_top_mixer1_in: port@2 {
-> +					#address-cells =3D <1>;
-> +					#size-cells =3D <0>;
-> +					reg =3D <2>;
-> +
-> +					tcon_top_mixer1_in_mixer1: endpoint@1 {
-> +						reg =3D <1>;
-> +						remote-endpoint =3D <&mixer1_out_tcon_top_mixer1>;
-> +					};
-> +				};
-> +
-> +				tcon_top_mixer1_out: port@3 {
-> +					#address-cells =3D <1>;
-> +					#size-cells =3D <0>;
-> +					reg =3D <3>;
-> +
-> +					tcon_top_mixer1_out_tcon_lcd0: endpoint@0 {
-> +						reg =3D <0>;
-> +						remote-endpoint =3D <&tcon_lcd0_in_tcon_top_mixer1>;
-> +					};
-> +
-> +					tcon_top_mixer1_out_tcon_lcd1: endpoint@1 {
-> +						reg =3D <1>;
-> +						remote-endpoint =3D <&tcon_lcd1_in_tcon_top_mixer1>;
-> +					};
-> +
-> +					tcon_top_mixer1_out_tcon_tv0: endpoint@2 {
-> +						reg =3D <2>;
-> +						remote-endpoint =3D <&tcon_tv0_in_tcon_top_mixer1>;
-> +					};
-> +
-> +					tcon_top_mixer1_out_tcon_tv1: endpoint@3 {
-> +						reg =3D <3>;
-> +						remote-endpoint =3D <&tcon_tv1_in_tcon_top_mixer1>;
-> +					};
-> +				};
-> +
-> +				tcon_top_hdmi_in: port@4 {
-> +					#address-cells =3D <1>;
-> +					#size-cells =3D <0>;
-> +					reg =3D <4>;
-> +
-> +					tcon_top_hdmi_in_tcon_tv0: endpoint@0 {
-> +						reg =3D <0>;
-> +						remote-endpoint =3D <&tcon_tv0_out_tcon_top>;
-> +					};
-> +
-> +					tcon_top_hdmi_in_tcon_tv1: endpoint@1 {
-> +						reg =3D <1>;
-> +						remote-endpoint =3D <&tcon_tv1_out_tcon_top>;
-> +					};
-> +				};
-> +
-> +				tcon_top_hdmi_out: port@5 {
-> +					reg =3D <5>;
-> +
-> +					tcon_top_hdmi_out_hdmi: endpoint {
-> +						remote-endpoint =3D <&hdmi_in_tcon_top>;
-> +					};
-> +				};
-> +			};
-> +		};
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/20261127060159.FSKHGwvz-lkp@intel.com/
 
-[Severity: Medium]
-Does this tcon_top graph overflow the 16-entry endpoint_list FIFO in
-sun4i_drv_probe() and leak device_node references?
+All errors (new ones prefixed by >>, old ones prefixed by <<):
 
-When sun4i_drv_probe() traverses mixer0 and mixer1, both push tcon_top
-into list.fifo.  tcon_top has 9 connected output endpoints across port@1
-(4), port@3 (4), and port@5 (1), and sun4i_drv_traverse_endpoints() queues
-every remote node regardless of whether the target device is disabled:
+>> ERROR: modpost: drivers/iio/light/tcs3430.ko: module uses symbol 'devm_iio_init_iio_gts' from namespace 'IIO_GTS_HELPER', but does not import it.
+>> ERROR: modpost: drivers/iio/light/tcs3430.ko: module uses symbol 'iio_gts_find_gain_by_sel' from namespace 'IIO_GTS_HELPER', but does not import it.
+>> ERROR: modpost: drivers/iio/light/tcs3430.ko: module uses symbol 'iio_gts_get_scale' from namespace 'IIO_GTS_HELPER', but does not import it.
+>> ERROR: modpost: drivers/iio/light/tcs3430.ko: module uses symbol 'iio_gts_all_avail_scales' from namespace 'IIO_GTS_HELPER', but does not import it.
+>> ERROR: modpost: drivers/iio/light/tcs3430.ko: module uses symbol 'iio_gts_avail_times' from namespace 'IIO_GTS_HELPER', but does not import it.
+>> ERROR: modpost: drivers/iio/light/tcs3430.ko: module uses symbol 'iio_gts_find_gain_sel_for_scale_using_time' from namespace 'IIO_GTS_HELPER', but does not import it.
+>> ERROR: modpost: drivers/iio/light/tcs3430.ko: module uses symbol 'iio_gts_find_gain_time_sel_for_scale' from namespace 'IIO_GTS_HELPER', but does not import it.
+>> ERROR: modpost: drivers/iio/light/tcs3430.ko: module uses symbol 'iio_gts_find_new_gain_by_gain_time_min' from namespace 'IIO_GTS_HELPER', but does not import it.
+>> ERROR: modpost: drivers/iio/light/tcs3430.ko: module uses symbol 'iio_gts_find_sel_by_gain' from namespace 'IIO_GTS_HELPER', but does not import it.
 
-drivers/gpu/drm/sun4i/sun4i_drv.c:
-struct endpoint_list {
-	DECLARE_KFIFO(fifo, struct device_node *, 16);
-};
-
-drivers/gpu/drm/sun4i/sun4i_drv.c:sun4i_drv_traverse_endpoints() {
-    ...
-	for_each_available_child_of_node(port, ep) {
-		remote =3D of_graph_get_remote_port_parent(ep);
-    ...
-		kfifo_put(&list->fifo, remote);
-	}
-}
-
-Popping the first tcon_top entry pushes 9 remote nodes while the second
-tcon_top entry is still queued (10 entries in list.fifo).  Popping the
-second tcon_top entry then attempts to push 9 more remote nodes (18 in
-total), so the final two kfifo_put() calls for tcon_tv1 and hdmi fail on a
-full 16-entry FIFO, dropping the queue insertions and leaking the two
-remote device_node references from of_graph_get_remote_port_parent().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126214433.3562=
-326-1-jernej.skrabec@gmail.com?part=3D10
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
