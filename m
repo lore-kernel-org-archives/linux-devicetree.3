@@ -1,68 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795689291;
-	b=A6hqSRzbRCmqzntiVN6xN/NZjnw9bcflnKwDelejkk3Su6ucSchDEoPguMS22KIh4tSz
-	 iBsTs5KKP2WvtUAS5ga+Co9PQRbeY1DW0oGcvFUNql3ZHWkOJ+r7RBPTXBajvoaHY7tZY
-	 ftZImwQkdxnsPF1bvTJ7RRYzoaOWcrPoSr+wVcYkx/Zf/nABqY4EXPkqOVOYeOBFVh1VX
-	 MjoxHaoCuuiiRe5DZSP3JK4G5Ack04Z5BkytYq68dNc9HCGaHr2o8AW9RtJc+S/mrGHTJ
-	 748yFUbggZC/vCEw3B5RnljbvIwJfF3HLpFy5q+uYirg6ANMBFGiPb21z+C/+PmogYw==
+	t=1795689410;
+	b=jJ5i3SR1e9WMHnilWiMlIo9bnsPyf4smGSBro52tNiv4ltz5Gyl9wWfAebJDqiz58E0S
+	 WS8XUybN0cWzNaegNo8w7PcTq11bm8KA72DpltohHwY02P9ECSNy5SlvpFQKM4VuKk7Ik
+	 xIRDE/tVtgOMBn2U4KcEIeV/h0ViUylX32xpBMGXH59b/J8X/Rk/43rgIAYrEuKlsaYy4
+	 mpQsUKvyn0IBS1y/UbQxbcuKYYMwBiCQ100G6J0fR4qCtBwX21YnBK69brP4wdja0f91t
+	 CW4FgVzrA6FoYKf9DEUPbkeR59o+9gDBKheqgIO7C8S+TGbrOUg85M193k/k8MXwIxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795689291;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
-	 Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=rzzACaUtalXI013YzU18LtG6O0FsOnMdwi03iMTqkNE=;
-	b=V/gyeys7c1RkHGDRUmrWhT4qhk3Dsr2NELEoNZGCdjhGBoEwu+GSGt6GPI3epQ3+rP7k
-	 VWv65nt6vZ76BIIn7wwDPeJPe+Gl3Ux+n/3UdJNooMuGyFw/F6Uk6MpU/8AUsgQ2UgNRd
-	 ZHxB4lqeRRbD6u9KOs7gNvpPTBB/5cOOtAvFT7mw/ie1DRusI8cdBhHNzkwdi0bMYd07/
-	 FeCYuqVthEmcRf6zPCIOFlzq/72tkoaXWz+Y7AUeP4eSrhfVX2cGAXQLTjt9pKbHakBkg
-	 bMNK2S3djFg6RMFBHjBmImrpyA/8KM41C/lBrt0JnpMkW6mi02s3GIwT/Dw4SrF+50g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795689410;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=KFh732M+jZzy5oX1MPaDaWiUvrfZpVppipnUN/wY7pk=;
+	b=40/mdepKb6DW9mwG0e+ZaHYlnQSQNX2Uvuh1vdTw01ozo+5cTNndgjIGgMV/7huoVp3S
+	 1gNE2HHyH0rwS38ifQYcw2GvR7qLwKYX4f2YgDxqETVnw39bm/AUO3m32Q7ckUY4cP4e+
+	 N8cc5bpYq+N2D2pm8Uvm4AdRiHwAAZHVt1OTvDFsa/j9LSXbtB7OI+U2gNXyBi+NveY0I
+	 mFJmIzpRSzWhOGDhuxNPr4b7jl90VuCKUZTIcK/z5bHB+l/e44NO8bVcZPC2SM/SB0lYe
+	 JnQjrTtqod6vr4cACNkQ+y+Om99iFIS83ga7HzxfMh0dh2bc9qXObItmhfi5ZcWS7/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=e1wLMGHf;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uk4fpKuO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FDCC606A332;
-	Thu, 26 Nov 2026 10:34:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FDCC606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1845C606A31C
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 10:36:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=e1wLMGHf
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQAXSG84001448;
-	Thu, 26 Nov 2026 10:34:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	rzzACaUtalXI013YzU18LtG6O0FsOnMdwi03iMTqkNE=; b=e1wLMGHfSt00MCkn
-	wnAoVKsm0u15v6CpfWI2+449cp3fjL1EaJKFopY5rzbXgalv+7VouWkqePvX/aY0
-	DiEe3OotPnO+J4Obi14rDvocljrSCO9cz/uW1QFedTSQWciern2WD+mr8bAqu9XD
-	+qbpKvggW9IGCGxbu+xcq9kT0B9SAjfiWlBupeKNSVuCvX/oh3XMHQrjqulXvvNf
-	s6npjLrx86HeuQwGmezrmE3rBLgwnFMalgJ7m5dROgPkpUKLIRVgJ4F8XnweNjbM
-	1lZTGsRKpwri5P7pVptGxy0qXxZmo3EUob0578pT7GZZtsd4q8GperQOpm3kE/qA
-	W4el4g==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j62vauhp2-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 26 Nov 2026 10:34:35 +0000 (GMT)
-Received: from pps.filterd (apblrppmta02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQAYWxU4021460;
-	Thu, 26 Nov 2026 10:34:32 GMT
-Received: from hu-ffaruque-hyd.qualcomm.com (hu-ffaruque-hyd.qualcomm.com [10.147.245.31])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 6AQAYUSC4021426;
-	Thu, 26 Nov 2026 10:34:31 +0000 (GMT)
-From: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
-Date: Thu, 26 Nov 2026 16:04:21 +0530
-Subject: [PATCH v3 2/3] arm64: dts: qcom: add Monaco Draco AC SoM
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uk4fpKuO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C6391F000D0;
+	Thu, 26 Nov 2026 10:36:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795689409;
+	bh=KFh732M+jZzy5oX1MPaDaWiUvrfZpVppipnUN/wY7pk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Uk4fpKuOa1Nc7ZX1BM3TcKlsmrIC1jyFkHHsnXqeT7G4837clRanZtHFbNnsnNHWj
+	 tLZ8b+lOvKZV0r4gdBPi+ojycnc+2N44Zf3wvuGFZ5DUFAQ9u+ss3p07qa7BX5VmXg
+	 IWCnOky7AulAOttavl0GTIsnYlnHVifCcGh/i75hdPmEq+7IRHb0cbRzDxZkjAfdEM
+	 qgqf6mKjQ6EqR2tBf6ESFRI4hkrFYV/HFZbDFM78K867jM10TD+T9vz0+mPWPVTZtz
+	 yEM75dyB7AjbbkEeIGp5mECPqU9XyN4TpEY5mTEuj3AsGkTBnGNJzt80qNXdIjWLHG
+	 fT1wc6+tNO5tw==
+Message-ID: <sashiko-outbox-235301@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v2 2/3] net: cortina: Add CS7542 CPU network
+ datapath
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Fil Dunsky" <filipp.dunsky@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261125-b4-cs7542-ethernet-v2-2-d0ea3c6eb375@gmail.com>
+References: <20261125-b4-cs7542-ethernet-v2-0-d0ea3c6eb375@gmail.com>
+ <20261125-b4-cs7542-ethernet-v2-2-d0ea3c6eb375@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Nov 2026 10:36:49 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,411 +60,214 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-monaco-draco-v3-2-0b603afa1328@oss.qualcomm.com>
-References: <20261126-monaco-draco-v3-0-0b603afa1328@oss.qualcomm.com>
-In-Reply-To: <20261126-monaco-draco-v3-0-0b603afa1328@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Richard Cochran <richardcochran@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-        Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
-        Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>,
-        Dipa Mantre <dipa.mantre@oss.qualcomm.com>,
-        Sravani Tella <tella@hu-tella-hyd.qualcomm.com>,
-        Monish Chunara <monish.chunara@oss.qualcomm.com>,
-        Ajinkya Inchure <ainchure@qti.qualcomm.com>,
-        Faruque Ansari <faruque.ansari@oss.qualcomm.com>,
-        Kishor Buchi <kbuchi@qti.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDA0MCBTYWx0ZWRfX8NohAjfeYDs0
- ltULyR9S0K0LYbfjCfdJc9N2AqQiOYpzIYCB6p4AcySfojcwgGgAPUmOskN5eO1MudYUTiRkgbs
- ENHgWwvHEpul/BBhPM8r5P/b5fvnbbk=
-X-Proofpoint-ORIG-GUID: jtVXTZ_11vr_rb25gwb4IvHZCGKMXRyL
-X-Proofpoint-GUID: jtVXTZ_11vr_rb25gwb4IvHZCGKMXRyL
-X-Authority-Analysis: v=2.4 cv=QZPzLcbv c=1 sm=1 tr=0 ts=6b080b3b cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=YecoAyRWaEMobBTNqMMA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDA0MCBTYWx0ZWRfXzqdjJZVem6kO
- WSHBYUxxrVRtiSckDWT3EQfw1CZksoJgzKWBUtbuT0mKlrEhjZGoUeWYQDI0SsxQfrPGz3wh9w1
- O4Qjohiv2H6e7kObipFoIx4dv6jPdDvgR5jzI9TeSuKGF0Yu2lrAT0cLDf8OHrPZ9AZSEVWo/BN
- H/IAhigSjCgLiaPQeQM6toDhn8mXeuaGqrzgdcHy/y2svHJCQHx0cbWTxFOvlGLxmWHqqJyY2jr
- 6D5Z+ElZ6yPBV0dzRWO36ppqs5kFoYBPELIMlOzZGA9F9itnsI0VEooHqNGslS4h2AAPjd0C3SV
- f+7EpHcjD88rU7LVTtPPOz6cIjGa8z14cuAgK58PwYd97H2JBBRjXIpiyR/MVe9vuvCLLESjg6k
- jH1sTuKZH1OECTwGs69bUCp9T2cIb9JHTBOBQ4b5BvvBD4uEsZ5kk90FJp6ZIE/7joUYn6V50mM
- Poa45arBj9E26vijq7A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-26_02,2026-11-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0 phishscore=0
- adultscore=0 malwarescore=0 impostorscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260040
 
-Introduce the device tree for the QCS8300-based Monaco Draco AC
-SoM. The Monaco Draco AC SoM is a compact compute module integrating
-the QCS8300 SoC, two PMM8654AU PMICs, eMMC, UFS storage, an Adreno
-623 GPU, USB and UART interfaces, designed to mount on carrier
-boards.
+Thank you for your contribution! Sashiko AI review found 5 potential
+issues to consider:
+- [High] net: cortina: RX buffer leak in cs_ne_rx_poll() when FCS spans
+  buffers
+- [Medium] net: cortina: missing TX_DESC_OWN check in
+  cs_ne_tx_complete()
+- [Medium] net: cortina: RX stall in cs_ne_rx_poll() after XR_OWNERSHIP
+  break
+- [Medium] net: cortina: BM bypass bits cleared after init in
+  cs752x_tm_bm_init()
+- [Medium] net: cortina: shared MAC prefix registers clobbered in
+  cs_ne_set_hw_addr()
+--
 
-The initial SoM device tree includes basic support for:
+commit 6a57a4063dd740b5d790fca88be11e9fe060a608
+Author: Fil Dunsky <filipp.dunsky@gmail.com>
 
- - RPMH regulators for two PMM8654AU PMICs
- - QUP firmware paths (qupv3_id_0/1)
- - Remoteproc instances (ADSP, CDSP, GPDSP) with firmware paths
- - Console UART (uart7, serial0) and secondary UART (uart6, serial2)
- - eMMC storage
- - UFS storage
- - USB1 in peripheral mode with HS PHY and QMP SuperSpeed PHY, and USB2
-   with HS PHY
- - GPU (Adreno 623) with ZAP shader firmware
+net: cortina: Add CS7542 CPU network datapath
 
-Co-developed-by: Kishor Buchi <kbuchi@qti.qualcomm.com>
-Signed-off-by: Kishor Buchi <kbuchi@qti.qualcomm.com>
-Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/monaco-draco-ac-som.dtsi | 320 ++++++++++++++++++++++
- 1 file changed, 320 insertions(+)
+This commit adds the Cortina CS7542 three-GMAC network engine driver with
+phylink support, per-port NAPI RX, a shared TX ring, and FE, QM, TM, and
+SCH initialization.
 
-diff --git a/arch/arm64/boot/dts/qcom/monaco-draco-ac-som.dtsi b/arch/arm64/boot/dts/qcom/monaco-draco-ac-som.dtsi
-new file mode 100644
-index 000000000000..2016cdbb3ef0
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/monaco-draco-ac-som.dtsi
-@@ -0,0 +1,320 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-+#include <dt-bindings/sound/qcom,q6afe.h>
-+
-+#include "monaco.dtsi"
-+#include "monaco-pmics.dtsi"
-+
-+/ {
-+	aliases {
-+		serial0 = &uart7;
-+		serial2 = &uart6;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	/* This comes from a PMIC handled within the SAIL domain */
-+	vreg_s2s: vreg-s2s {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vreg_s2s";
-+
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+	};
-+};
-+
-+&apps_rsc {
-+	regulators-0 {
-+		compatible = "qcom,pmm8654au-rpmh-regulators";
-+		qcom,pmic-id = "a";
-+
-+		vreg_l3a: ldo3 {
-+			regulator-name = "vreg_l3a";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l4a: ldo4 {
-+			regulator-name = "vreg_l4a";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <912000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l5a: ldo5 {
-+			regulator-name = "vreg_l5a";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l6a: ldo6 {
-+			regulator-name = "vreg_l6a";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <912000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l7a: ldo7 {
-+			regulator-name = "vreg_l7a";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <912000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l8a: ldo8 {
-+			regulator-name = "vreg_l8a";
-+			regulator-min-microvolt = <2504000>;
-+			regulator-max-microvolt = <2960000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l9a: ldo9 {
-+			regulator-name = "vreg_l9a";
-+			regulator-min-microvolt = <2970000>;
-+			regulator-max-microvolt = <3072000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_s4a: smps4 {
-+			regulator-name = "vreg_s4a";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_s9a: smps9 {
-+			regulator-name = "vreg_s9a";
-+			regulator-min-microvolt = <1352000>;
-+			regulator-max-microvolt = <1352000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+
-+	regulators-1 {
-+		compatible = "qcom,pmm8654au-rpmh-regulators";
-+		qcom,pmic-id = "c";
-+
-+		vreg_l1c: ldo1 {
-+			regulator-name = "vreg_l1c";
-+			regulator-min-microvolt = <300000>;
-+			regulator-max-microvolt = <512000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2c: ldo2 {
-+			regulator-name = "vreg_l2c";
-+			regulator-min-microvolt = <900000>;
-+			regulator-max-microvolt = <904000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l4c: ldo4 {
-+			regulator-name = "vreg_l4c";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l7c: ldo7 {
-+			regulator-name = "vreg_l7c";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l8c: ldo8 {
-+			regulator-name = "vreg_l8c";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l9c: ldo9 {
-+			regulator-name = "vreg_l9c";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_s5c: smps5 {
-+			regulator-name = "vreg_s5c";
-+			regulator-min-microvolt = <1104000>;
-+			regulator-max-microvolt = <1104000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+};
-+
-+&gpu {
-+	status = "okay";
-+};
-+
-+&gpu_zap_shader {
-+	firmware-name = "qcom/qcs8300/a623_zap.mbn";
-+};
-+
-+&mdss_dp0_phy {
-+	vdda-phy-supply = <&vreg_l5a>;
-+	vdda-pll-supply = <&vreg_l4a>;
-+
-+	status = "okay";
-+};
-+
-+&pcie0_phy {
-+	vdda-phy-supply = <&vreg_l6a>;
-+	vdda-pll-supply = <&vreg_l5a>;
-+	vdda-qref-supply = <&vreg_l4a>;
-+	vdda-refgen-supply = <&vreg_l7a>;
-+
-+	status = "okay";
-+};
-+
-+&pcie1_phy {
-+	vdda-phy-supply = <&vreg_l6a>;
-+	vdda-pll-supply = <&vreg_l5a>;
-+	vdda-qref-supply = <&vreg_l4a>;
-+	vdda-refgen-supply = <&vreg_l7a>;
-+
-+	status = "okay";
-+};
-+
-+&qupv3_id_0 {
-+	firmware-name = "qcom/qcs8300/qupv3fw.elf";
-+
-+	status = "okay";
-+};
-+
-+&qupv3_id_1 {
-+	firmware-name = "qcom/qcs8300/qupv3fw.elf";
-+
-+	status = "okay";
-+};
-+
-+&remoteproc_adsp {
-+	firmware-name = "qcom/qcs8300/adsp.mbn";
-+
-+	status = "okay";
-+};
-+
-+&remoteproc_cdsp {
-+	firmware-name = "qcom/qcs8300/cdsp0.mbn";
-+
-+	status = "okay";
-+};
-+
-+&remoteproc_gpdsp {
-+	firmware-name = "qcom/qcs8300/gpdsp0.mbn";
-+
-+	status = "okay";
-+};
-+
-+&sdhc_1 {
-+	vmmc-supply = <&vreg_l8a>;
-+	vqmmc-supply = <&vreg_s2s>;
-+
-+	no-sd;
-+	no-sdio;
-+	non-removable;
-+
-+	status = "okay";
-+};
-+
-+&serdes0 {
-+	vdda-0p9-supply = <&vreg_l4a>;
-+	vdda-1p2-supply = <&vreg_l5a>;
-+
-+	status = "okay";
-+};
-+
-+&uart6 {
-+	status = "okay";
-+};
-+
-+&uart7 {
-+	status = "okay";
-+};
-+
-+&ufs_mem_hc {
-+	reset-gpios = <&tlmm 133 GPIO_ACTIVE_LOW>;
-+	vcc-supply = <&vreg_l8a>;
-+	vcc-max-microamp = <1100000>;
-+	vccq-supply = <&vreg_l4c>;
-+	vccq-max-microamp = <1200000>;
-+
-+	status = "okay";
-+};
-+
-+&ufs_mem_phy {
-+	vdda-phy-supply = <&vreg_l4a>;
-+	vdda-pll-supply = <&vreg_l5a>;
-+
-+	status = "okay";
-+};
-+
-+&usb_1 {
-+	dr_mode = "peripheral";
-+
-+	status = "okay";
-+};
-+
-+&usb_1_hsphy {
-+	vdda-pll-supply = <&vreg_l7a>;
-+	vdda18-supply = <&vreg_l7c>;
-+	vdda33-supply = <&vreg_l9a>;
-+
-+	status = "okay";
-+};
-+
-+&usb_2 {
-+	status = "okay";
-+};
-+
-+&usb_2_hsphy {
-+	vdda-pll-supply = <&vreg_l7a>;
-+	vdda18-supply = <&vreg_l7c>;
-+	vdda33-supply = <&vreg_l9a>;
-+
-+	status = "okay";
-+};
-+
-+&usb_qmpphy {
-+	vdda-phy-supply = <&vreg_l7a>;
-+	vdda-pll-supply = <&vreg_l5a>;
-+
-+	status = "okay";
-+};
+> diff --git a/drivers/net/ethernet/cortina/cs752x_ne.c b/drivers/net/ether=
+net/cortina/cs752x_ne.c
+> new file mode 100644
+> index 0000000000000..081b4207928e4
+> --- /dev/null
+> +++ b/drivers/net/ethernet/cortina/cs752x_ne.c
+[ ... ]
+> +static int cs_ne_rx_poll(struct napi_struct *napi, int budget)
+> +{
+[ ... ]
+> +	wr =3D ni_rd(ne, NI_CPUXRAM_CPU_STA_RX(port->id)) & NI_XRAM_PTR_MASK;
+> +	rd =3D port->rd;
+> +	while (rd !=3D wr && done < budget) {
+> +		desc =3D ne->xram + rd * 8;
+> +		w1 =3D readl(desc + 4);
+> +		if (w1 & XR_OWNERSHIP) {
+> +			ndev->stats.rx_fifo_errors++;
+> +			break;
+> +		}
+> +		next =3D FIELD_GET(XR_NEXT_LINK, w1);
+> +		if (next =3D=3D wr &&
+> +		    (ni_rd(ne, NI_CPUXRAM_CPU_STA_RX(port->id)) & NI_XRAM_PTR_MASK) =
+=3D=3D wr) {
+> +			/*
+> +			 * The next link reaches the unchanged hardware write pointer:
+> +			 * this is the current tail packet. Retain the vendor's 16us
+> +			 * DDR-arrival guard before reading its header and payload.
+> +			 * NAPI softirq context cannot use a sleeping delay here.
+> +			 */
+> +			udelay(CS_NE_RX_TAIL_SETTLE_US);
+> +		}
+> +		hdre_hi =3D readl(desc + 8);
+> +		hdre_lo =3D readl(desc + 12);
+> +		rd =3D next;
+> +		pkt_size =3D FIELD_GET(HDRE_PKT_SIZE, hdre_lo);
+> +		off =3D CS_NE_BUF_HDR_OFF + 8 + 16 + 2;
+> +		total =3D pkt_size > 20 ? pkt_size - 20 : 0;
+> +		valid =3D total >=3D ETH_HLEN && total <=3D CS_NE_MAX_PKT_LEN;
+> +		/* Drop policy must not hide trailing buffers in this descriptor. */
+> +		nbufs =3D 1;
+> +		if (total > CS_NE_BUF_DATA_MAX - (off & 0xff))
+> +			nbufs +=3D DIV_ROUND_UP(total - (CS_NE_BUF_DATA_MAX - (off & 0xff)),
+> +					      CS_NE_BUF_DATA_MAX);
 
--- 
-2.34.1
+[Severity: High]
+Does computing nbufs from total (which subtracts the 4-byte FCS) rather
+than total + ETH_FCS_LEN leak the trailing RX buffer when the FCS crosses
+a buffer boundary?
 
+The first buffer holds CS_NE_BUF_DATA_MAX - (off & 0xff) =3D 3558 bytes of
+frame data, so when total is 3555..3558 bytes (or 7139..7142 bytes at the
+next boundary), QM writes the trailing FCS bytes into an extra buffer that
+cs_ne_rx_poll() never claims or recycles, leaving it stuck in CS_NE_RX_HW
+until the port's RX pool is exhausted.
+
+[ ... ]
+> +	cs_ne_rx_kick(ne);
+> +	ni_wr(ne, NI_CPUXRAM_CPU_CFG_RX(port->id), rd);
+> +	port->rd =3D rd;
+> +	if (done < budget && napi_complete_done(napi, done)) {
+> +		spin_lock_irqsave(&ne->rx_lock, flags);
+> +		if (READ_ONCE(port->opened) && !ne->rx_stopping)
+> +			ni_wr(ne, NI_CPUXRAM_RXPKT_INTENABLE(port->id), 1);
+> +		spin_unlock_irqrestore(&ne->rx_lock, flags);
+> +	}
+> +	return done;
+> +}
+
+[Severity: Medium]
+Can breaking out of the loop when XR_OWNERSHIP is set and then calling
+napi_complete_done() stall RX on this port?
+
+cs_ne_rx_irq() already cleared NI_CPUXRAM_RXPKT_INTERRUPT(port->id) before
+scheduling NAPI, and an already-queued XRAM descriptor does not generate a
+new interrupt edge, so completing NAPI while rd !=3D wr leaves that
+descriptor unread until another packet arrives.
+
+[ ... ]
+> +static void cs_ne_tx_complete(struct cs_ne *ne)
+> +{
+> +	struct cs_ne_txq *txq =3D &ne->txq;
+> +	struct cs_ne_tx_buf *buf;
+> +	u32 rptr;
+> +	int i;
+> +
+> +	if (txq->fault)
+> +		return;
+> +	rptr =3D readl(ne->dma + DMA_LSO_TXQ_RPTR(0)) & DMA_PTR_MASK;
+> +	/* Never consume unsubmitted descriptors or loop past the ring boundary=
+. */
+> +	if (rptr >=3D CS_NE_TX_DESC_NUM ||
+> +	    ((rptr - txq->tail) & (CS_NE_TX_DESC_NUM - 1)) >
+> +	    ((txq->head - txq->tail) & (CS_NE_TX_DESC_NUM - 1))) {
+> +		txq->fault =3D true;
+> +		cs_ne_tx_stop_all(ne);
+> +		dev_err_ratelimited(ne->dev, "invalid TX completion pointer %#x\n", rp=
+tr);
+> +		return;
+> +	}
+> +	while (txq->tail !=3D rptr) {
+> +		buf =3D &txq->bufs[txq->tail];
+> +		if (buf->len) {
+> +			if (buf->page)
+> +				dma_unmap_page(ne->dev, buf->dma, buf->len,
+> +					       DMA_TO_DEVICE);
+> +			else
+> +				dma_unmap_single(ne->dev, buf->dma, buf->len,
+> +						 DMA_TO_DEVICE);
+> +			buf->len =3D 0;
+> +		}
+
+[Severity: Medium]
+Should cs_ne_tx_complete() verify that TX_DESC_OWN is clear in
+txq->desc[txq->tail * 8] before unmapping buf->dma and consuming buf->skb?
+
+The commit message notes that the driver never releases descriptors whose
+hardware ownership remains set, and if DMA_LSO_TXQ_RPTR(0) advances when
+the descriptor is fetched before completion writeback clears TX_DESC_OWN,
+this loop will unmap an in-flight buffer.
+
+[ ... ]
+> +static void cs_ne_set_hw_addr(struct cs_ne_port *port)
+> +{
+> +	struct cs_ne *ne =3D port->ne;
+> +	const u8 *a =3D port->ndev->dev_addr;
+> +
+> +	ni_wr(ne, NI_MAC_ADDR0, a[0] | (a[1] << 8) | (a[2] << 16) | (a[3] << 24=
+));
+> +	ni_rmw(ne, NI_MAC_ADDR1, 0xff, a[4]);
+> +	ni_rmw(ne, NI_ETH_MAC_CONFIG2(port->id), 0xff, a[5]);
+> +}
+
+[Severity: Medium]
+Does cs_ne_set_hw_addr() clobber the upper five MAC address bytes of the
+other ports?
+
+NI_MAC_ADDR0 and NI_MAC_ADDR1 are shared across all three GMACs while only
+NI_ETH_MAC_CONFIG2(port->id) is per-port, so probing multiple ports with
+different 5-byte prefixes (such as the eth_hw_addr_random() fallback in
+cs_ne_probe_port()) or changing one port's address via
+cs_ne_set_mac_address() silently overwrites the hardware MAC prefix of the
+sibling ports.
+
+> diff --git a/drivers/net/ethernet/cortina/cs752x_sch_tm.c b/drivers/net/e=
+thernet/cortina/cs752x_sch_tm.c
+> new file mode 100644
+> index 0000000000000..da156349678d4
+> --- /dev/null
+> +++ b/drivers/net/ethernet/cortina/cs752x_sch_tm.c
+[ ... ]
+> +static int cs752x_tm_bm_init(struct device *dev, void __iomem *tm)
+> +{
+[ ... ]
+> +	cfg =3D readl(tm + TM_BM_CONFIG_0);
+> +	cfg &=3D ~(TM_BM_CONFIG_0_DISABLE |
+> +		 TM_BM_CONFIG_0_RECALCULATE_GLOBAL_BUFFERS_USED |
+> +		 TM_BM_CONFIG_0_BM2_BYPASS_CA_PROCESS |
+> +		 TM_BM_CONFIG_0_BM2_BYPASS_DEST_PORT_PROCESS |
+> +		 TM_BM_CONFIG_0_BM2_BYPASS_VOQ_PROCESS |
+> +		 TM_BM_CONFIG_0_BM1_BYPASS_CA_PROCESS |
+> +		 TM_BM_CONFIG_0_BM1_BYPASS_DEST_PORT_PROCESS |
+> +		 TM_BM_CONFIG_0_BM1_BYPASS_VOQ_PROCESS |
+> +		 TM_BM_CONFIG_0_ENQUE_HDR_ADJUST |
+> +		 TM_BM_CONFIG_0_INIT);
+> +
+> +	writel(cfg | TM_BM_CONFIG_0_BM1_BYPASS_CA_PROCESS |
+> +	       TM_BM_CONFIG_0_BM2_BYPASS_DEST_PORT_PROCESS |
+> +	       TM_BM_CONFIG_0_BM2_BYPASS_VOQ_PROCESS |
+> +	       TM_BM_CONFIG_0_INIT, tm + TM_BM_CONFIG_0);
+> +	ret =3D cs752x_tm_wait_init_done(dev, tm, TM_BM_STATUS_0,
+> +				       TM_BM_STATUS_0_INIT_DONE, "bm");
+> +	if (ret)
+> +		return ret;
+> +
+> +	writel(cfg, tm + TM_BM_CONFIG_0);
+
+[Severity: Medium]
+Does writing cfg back to TM_BM_CONFIG_0 here clear
+TM_BM_CONFIG_0_BM1_BYPASS_CA_PROCESS,
+TM_BM_CONFIG_0_BM2_BYPASS_DEST_PORT_PROCESS, and
+TM_BM_CONFIG_0_BM2_BYPASS_VOQ_PROCESS right after initialization finishes?
+Those three bits are masked out of cfg and only ORed into the
+TM_BM_CONFIG_0_INIT write, so deasserting INIT disables the bypasses.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-b4-cs7542-=
+ethernet-v2-0-d0ea3c6eb375@gmail.com?part=3D2
