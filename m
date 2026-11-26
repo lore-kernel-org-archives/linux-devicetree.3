@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795701157;
-	b=Hz5smST0SWiKLmoz0JO0bbFCLg2E0XALDwXXnPkrSYgzzgY3FXqw/IboWTyzpgDxYsNG
-	 rN20V+eCUQpU+I01YsOHItb7Wwl8Nf8XA2m6pXfRzqI5XKCpNYWoE7jkIW4fPDhE5vSwQ
-	 hTS9SpwTojh3V9ofqO2dA5+TScVkBjTbbEIwCLPmmxQ9kx4S/J1wykuK2a7WYwl4ko4sx
-	 t6BoQL326xl9mH5ke+2vYm5btGqOW0zvHPS//7XnUpDo+v2OnfcXHt89cyuW1tFfXGSCI
-	 SaAXqdYF5cGhAWAGNRmWOWQNKDdIWVD35cspRdCdZuFJVSPTGy6nP+ipcGQGRdUq6Uw==
+	t=1795701550;
+	b=lc8brltZZuO0Z5Tgp74QgZJZBttbRHuagDBoLpChFwtQLOG/+zs7N7ESQJPuhXmkhkS5
+	 AcM/iTZN9sJaFqiRMHQxrDCE8fNcnkebH5nzt8xr3G3tIp+O0fqy+2cT2KiwTIMj1Xc4r
+	 ovuy3JCevYeQxTkaPu9lX+rggeQJMMynEBUb0ccayZE812i7KVSkMwLWHpdWW8kl+FeQa
+	 6U7PF21pLU89KNgCj69LKbZNuulJ3zrrl8ewOsLdkQsCUQOZta57aoE3ZQYKHBTTLhx10
+	 RSpn+TpAGF15qM37rz9vuFDbz9ayAs51++UyNSu81Q587De64yc5X6AdtkSuPAtHJHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795701157;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795701550;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=dO47GcUag+bmDxotCWLihzVd3crs6RTsQDfW+nGMD/Y=;
-	b=y8gJ4uR79IORE0fFTlIS+JyJvs21zu/02bF0xZMIhaD9Jq3YdhI9ks59TVz2wIPrxSZx
-	 TtZGyqrcFldkaAhqRKhGr9HM86n2DoNpu+n+2eYY+blWULTYEPbRQqH+yBkKsTlWjfKbz
-	 fjakbYaox4a9jXEgcOBZbD6yeeFG+BB0gFjCg1FdzXIFmPpBQMK39My4YPcD5yYfDg8uW
-	 DAeDfOsdptQ03DyOgNXvFaxG0ayDuwXMPdp5HAhgT9yQuS13hdKP0Ifgxj9avmPyD7oAf
-	 i8y2dgQ8P8H6PBqrJX8swBfdicvkbJ+o7+OhN+O18fLqGNNhrush2KUJmmGtf1DD1dw==
+	bh=BUnBxZ5TOpW1AE3y1XW0jFiWlj+sMinsf6/9xM46Lqc=;
+	b=0mhyv67du+rf8gVeq6kCcMEpofLRLXsyOYQg+NDIyWIxh5ZJAmlJjbnIeP6ps9I1vGcW
+	 aWDyk6PzZGtZbujmjgxRnsFSiqdtieKMBHw5yEZe6yYXrswEtLlBgOi3EFAocwNodKlvB
+	 dog8khc/yYeIaRagz2WzvPfoLSTxw8pOoJbaWwg/xWOvw+bEAqWH5k6P035ZokIYfEkNC
+	 o/KutyVf9UX5MNLgrMkCGXhfnDqx3UQYpAuHpleL9sosEdpuSjFRy/GI9dhPvgQYtKzOv
+	 gSTnGKLkZQD6Md7DqNxEsmu7iQXQJsRoRBCPs36xpuoBYXiadtv/jaNopfyV6fJj7NQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ubth0gDZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V1QHmQrE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B5B606A327;
-	Thu, 26 Nov 2026 13:52:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47F35606A31C
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 13:59:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ubth0gDZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9196F1F000C6;
-	Thu, 26 Nov 2026 13:52:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V1QHmQrE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91B721F000CF;
+	Thu, 26 Nov 2026 13:59:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795701156;
-	bh=dO47GcUag+bmDxotCWLihzVd3crs6RTsQDfW+nGMD/Y=;
+	s=k20260515; t=1795701549;
+	bh=BUnBxZ5TOpW1AE3y1XW0jFiWlj+sMinsf6/9xM46Lqc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ubth0gDZOiXjUKEgvH3lDYCXoloRdlqyfm/7ZM/MPzWkCGQKMP7Ac9ClfxHB0R+pl
-	 izbyj+tIcQD9EN78suTfDD4q8LoPUOjTuHRzqLEnHEjzlc2aawIUwXiA/GjawjQKu8
-	 siJRjATbHdrvwxOEt4idpx7SFU4v8kKQFKMeX3LzE53WL4sZgUJsMownx9pLCPuaO8
-	 gGxqo/4Mbt0vuk88AFd4itYnd0thI4gUOH7N81B2m7RdQodW55McuYXzkWKVI6bfAU
-	 cpNltwsmlDEfPNvOG3aVdzr3EMEhCSwoPIIAt1wVuA0CTxV4s4ZIfWA+IsTetx8Kdp
-	 KTLJBmJ6gBi5A==
-Message-ID: <sashiko-outbox-235656@kernel.org>
+	b=V1QHmQrEthigKZd/JGcLzshP5iEKCV5VRSuYtJR9YgalJ9D8sLKYqmLlPd2pZHaHB
+	 KmT3jz1ThIPl4JRSC2s7QGIZCKhupJDlAHYcI64M/OsPHw7Gl0W7+Mse0UvGASZJdB
+	 tn57Jk/HwVml0eXRIIpPba8hnBJCVK1Y58T65gVEPLQGzCPZCObr9zr2EGWTMd5Gyh
+	 ETG5z9NeHkxcL3gcLsl56B+DAKMIhOqySCsvUZVF/rOKJfsnKWbdAER0xU5rRuqmy5
+	 W+TkSNmSlDMwDACgOK2OJOWSOWS42vawvxOQYVlJ+X5VSYY78ZYtY20Cp1taHOmNmD
+	 rJNLpMj/uo/Jg==
+Message-ID: <sashiko-outbox-235666@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 03/10] drm/panel: novatek-nt36672e: Fix the reset
- GPIO polarity
+Subject: Re: [PATCH v2 08/10] arm64: dts: qcom: sm8450-hdk: Add display card
+ overlay
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Vladimir Zapolskiy" <vz@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261126134508.320700-4-vz@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261126134508.320700-9-vz@kernel.org>
 References: <20261126134508.320700-1-vz@kernel.org>
- <20261126134508.320700-4-vz@kernel.org>
+ <20261126134508.320700-9-vz@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 13:52:36 +0000
+Date: Thu, 26 Nov 2026 13:59:09 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,40 +63,71 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Low] drm/panel: novatek-nt36672e: missing Fixes trailer for reset
-  GPIO polarity fix
+- [High] arm64: dts: qcom: sm8450-hdk sound probe fails due to enabled
+  HDMI DAI link
 --
 
-commit 9b3b20020b17a5e54e69c4e88df2960f428e2e60
+commit 2845e74d5b67d8963c4614b68345c54b82ab8dfb
 Author: Vladimir Zapolskiy <vz@kernel.org>
 
-> drm/panel: novatek-nt36672e: Fix the reset GPIO polarity
->
-> The RESET_N pin of NT36672E panels is an active low signal, however
-> the driver drives the reset GPIO with inverted logical values, thus
-> the reset GPIO has to be described as active high in device trees,
-> which contradicts the panel hardware as well as the panel-common.yaml
-> convention.
->
-> Fix the driver to assert the reset GPIO to put the panel into reset,
-> and to deassert it to release the panel from reset along with adding
-> a gpiolib-of quirk, which enforces the active low polarity of the
-> NT36672E panel reset GPIO. With the quirk the reset signal levels
-> remain unchanged for dtbs, which describe the reset GPIO as active
-> high, and device trees, which describe it as active low, start to work.
->
-> To: Linus Walleij <linusw@kernel.org>
-> To: Bartosz Golaszewski <brgl@kernel.org>
-> Cc: linux-gpio@vger.kernel.org
-> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
+arm64: dts: qcom: sm8450-hdk: Add display card overlay
 
-[Severity: Low]
-This fixes the inverted reset GPIO logical polarity from the initial driver
-commit.  Should this include:
+This commit adds a devicetree overlay for the SM8450 HDK external display
+card with a Novatek NT36672E DSI panel and disables the mutually exclusive
+on-board Lontium LT9611UXC HDMI bridge.
 
-  Fixes: ea4f9975625a ("drm/panel: Add support for Novatek NT36672E panel d=
-river")
+> diff --git a/arch/arm64/boot/dts/qcom/sm8450-hdk-display-card.dtso b/arch=
+/arm64/boot/dts/qcom/sm8450-hdk-display-card.dtso
+> new file mode 100644
+> index 0000000000000..3fcaae7f2abc0
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sm8450-hdk-display-card.dtso
+> @@ -0,0 +1,144 @@
+
+[ ... ]
+
+> +/* Disable HDMI bridge related nodes (mutually exclusive with the displa=
+y card) */
+> +
+> +&i2c9 {
+> +	status =3D "disabled";
+> +};
+> +
+> +&lt9611_1v2 {
+> +	status =3D "disabled";
+> +};
+> +
+> +&lt9611_3v3 {
+> +	status =3D "disabled";
+> +};
+> +
+> +&lt9611_codec {
+> +	status =3D "disabled";
+> +};
+
+[Severity: High]
+Does disabling lt9611_codec without disabling the HDMI MI2S DAI link under
+&sound break the sound card probe?
+
+In arch/arm64/boot/dts/qcom/sm8450-hdk.dts, the prim-mi2s-dai-link child no=
+de
+of &sound remains enabled and references <&lt9611_codec 0>:
+
+arch/arm64/boot/dts/qcom/sm8450-hdk.dts:
+	prim-mi2s-dai-link {
+		link-name =3D "HDMI Playback";
+		...
+		codec {
+			sound-dai =3D <&lt9611_codec 0>;
+		};
+
+When qcom_snd_parse_of() iterates the available child nodes of &sound,
+snd_soc_of_get_dai_link_codecs() fails with -EPROBE_DEFER because
+lt9611_codec is disabled and never registers a codec component, preventing
+the entire sound card from registering.  Like sm8550-hdk-display-card.dtso,
+prim-mi2s-dai-link can be given a label in sm8450-hdk.dts and disabled in
+this overlay.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126134508.3207=
-00-1-vz@kernel.org?part=3D3
+00-1-vz@kernel.org?part=3D8
