@@ -1,89 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795695323;
-	b=Xwzxkw2FqshumSR8I5aQUxvqCBwweJq38P3R0Ov/3dHgylkMlr/oE8M1mMGtlLcDqOYb
-	 6TOJ60KgCuWI/ws+XUgBU/DwLJ5HbBNvoSc8UZfsSRr3G6R1+6bPxnEPooOm691bhqY+I
-	 6u5vIMYjc98ygu98+f4hPWI2bwo9pS2ITPQmld6G2iBmBP8Sca8JB/KIpPQ27GaJEvuJK
-	 gBQTg4RLgwRrFOHdUnjZEOVWM7jNRBjlRW2b2eqA1QF+P/h3nmaVM/GVQ3C0PzZmU+Igg
-	 s1xV6BGaK1Ccb8LCJkiWxWqn4hvN022rME8ZA3I8itXhuHPYuzXKfZCbWNuFSnzPLBA==
+	t=1795695442;
+	b=eoMIiZ07TXz7/2XzD6Nx6SnGW5dJPwOz8NBVpWBoseXS9RwTQIMIFrjmWMOgOm7Vvnls
+	 aqTms7oc0VtOZ73fJbT21KLLxOT+ufZMXlLkrjCbcYn3lAdL2wruGlCNbgRy0o0c1xJsE
+	 r0RsdPqTIL12eHWxO4G6UzM+9w7E49LidE/eUcVQMWU4EhRegkdY/GGGNXL8To9Z9EDdR
+	 7mP+RLLzXFO6Py0KkD1itsMenBOSfseHUv2pPVeP3Ka/9rLR1M9yJKUIfi1Avu1xbbfDD
+	 xHj+n9bMJeLowkL1W88blMKvNjkox18GFDvKk8ZoJU4MIUjSwBUpjPLeJwhIHfX41Qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795695323;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=N7R2bspuSN2vTU9KXTd+Gs5ucj/LrOjxnprdX2nps1A=;
-	b=xl33xNBM7j1XJFI3erD7Ter6m/ECxX6ycg+h7jXGqtF31GbKMk1BQeu+0QVC0Kq7GY2P
-	 4tfzbT2NKLw9yte053rb2FmX5qcuz1J60I4BobOIR1c6pknMrv1UKCS/+mPtTQIOsIY64
-	 0+prJW17dHMlw0Pprx20S8bClQBrDxyM4EA9Yt4fH4t5HJuOK/hGXQqslasJuveabPExc
-	 IuYKjBbAYcH0cpayqqAucGjxQFRgqVbfapszIkAx5niwoLnEr86Ftgj8kjtd7Lbsd/gei
-	 5pX7M3slsG4VY2RY32Zdfv2g1eVmo460n3sLeFUzR5lMZMU4e06cBFFYaMuiCzws8TA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795695442;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:X-Mailer:
+	 Alx-In-Reply-To:MIME-Version:Content-Type:Content-Disposition;
+	bh=hafFXAutGx2P5qfUXeVs2wpCzaq/c3/3n8ujaYS8fcE=;
+	b=BO/xPSgfA9ZKtGdfQnJZR4TWqTQ+180x+8Zhw9sLqRzIsuKjfBj5Dt/VSFTxVSbDxDYC
+	 hc2pdB7o5veN2QQAipUb3o0EdmfD7otzGbLhNG9J8A7iNNHkg2bghqGmp+0sR44tLfx98
+	 +13WYVgxkTI5YVMyDERLxLyX+D0xLiZuzzeb0BAZWOsoWrG0uCvjfBOA7q0nvCQC3AVZJ
+	 OAQVc2wsGcmSqxQVeSzLbIE6EZxMqQl/j9KgGpd2CgdG0PEpD8OUnJNnbIQliNbE/xZ3Y
+	 Eyy3R+iXYUhwsqRYmf+9E0AWscZuK2Pddv7i7KtnKnKjkhQNuSXmCbHtC5ROuq1usIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=FwRjmudW;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=njZmbj+7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D18D0606A323
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 12:15:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D18D0606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C693606A31C;
+	Thu, 26 Nov 2026 12:17:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=FwRjmudW
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso54265565e9.0
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 04:15:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1795695321; x=1796300121; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=N7R2bspuSN2vTU9KXTd+Gs5ucj/LrOjxnprdX2nps1A=;
-        b=FwRjmudWL65oLgTj/u0S7HQX4RFS3WnOCzEmmUj60oHwEXRK/tuKkJNusyKZlWK1M9
-         Q3OWtaUEnyPQMKwdLfw/GSnHVTtxYsSTBID0lVsgQ+7Q7IR1flV5EeGHRZeXIv4a3g0u
-         Qa23F7gHKt5tLT3NTo5Ox0mgBBDrx/nxvTvTh+tjKsv4tzk67N/YeWXxxPfyt6pWUUBg
-         2Dfyjmgf30+RljnWLlu996rmkIJJykXjPdfyAG1Qt2Ml1kKCIByWel5t5wtqUFcyDadF
-         30t/r9Humb2RC7ljW6BOWSF5sZaZnLBTgR0GHu82jg405d1/psWuDQyX3zYU4ZDWOxL9
-         2czQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795695321; x=1796300121;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=N7R2bspuSN2vTU9KXTd+Gs5ucj/LrOjxnprdX2nps1A=;
-        b=2Ug5P58rvquvgfWdyZy0o3RVGK/Ki24leR6BGaU1GLEncYW5hm/eTYoqmnv79oAhw6
-         PZwhHSwK0CjE/S9ufjluc5PHyI1OSlg/gcM1spvGNTT9uqsruMeUtn0lguBC2TWfs2IK
-         WyItYa99eQsNHNEgunr9Dad+hRAf2AeSf6HrXv0VOJ8AgfUiZrQmQphZgEy5hR4B3gKi
-         YXBnxtCKxatImuqRV+XG12FuULZXtZNNj0+U4ZWlXN+JpKbAX6xhRkgV1qSjbl6kUgzw
-         MeW2U93/wSIrpIRipw57QFtHoVsF2C+//Citze+62UbuLKDDF1QpBqsFcaiDAiIakues
-         9B+w==
-X-Forwarded-Encrypted: i=1; AL+hErE9IOfXaeAhhpy4P+g007QFs5/0LmgNr96Bgfex9OY5F0ZfsoxBzFEx5vJ3BxugHhPZoWDx++2t1YQU@vger.kernel.org
-X-Gm-Message-State: APuU4Z/c0OV985p+UP/Ir9cFgZGHE5F30ApEXubFtJe8kd1Nhhkhr/zT
-	+aiUQ1JglT4lWgkR0TFSxTP+EZmmL0jnwHofpE/stb336I35J65LpkZs4zCEx1RuqwU=
-X-Gm-Gg: AZFdTZfzx3d9XeWxOYBJr5GT+AwiJFgh2yP1KtMsq4BtJImYohBCgjvAgxAGnwbYPi2
-	1IcU8s9L1wN48RS9a9nPsGrBI/mgv6n6ItFYYBuMkzbZ1vZUsuECy094k5b5b567oALMtGIULsI
-	DAXE8Dc76cSbOf+FU0GLjlTJVNh4Hw8Zyf/Nyt9S5QF/juNTNGFLsNvJPNH8CcKpHo6+xwLMWHM
-	CAr7xy+ous+f/bgbZoj+pD1aGE0i2d970ZbgqvJEInxC17un52MjLpRArkAQOVVbJfTI5YqEIZl
-	KCtwqFEr/gm8Lnz9dO8iXeVRPVSBptgfjGILyblVBAlmANsSb93e6d6CupxlPLqyXD9vhdJ7ipw
-	VXGmpnJrZz7dAua58vOvZgwS4e3xjpLxTV+aqIqX91jVTWyBBX/vP1Sw9CE7wB/tWzRW0xmVs0Y
-	4FlQOeDPKeA/w0bUHHTT8dfvcqpa/4ab7/btgN0rK7ISyIVS71SULKutQtq105ev1tA1PrYUwuW
-	s5tUhncRNFGB1GM/zpc7rXliq5UfgiS3QtmVpfyLQ1MBIxGhwndS3S/bYl7OICZPVh6+JHMrjtP
-	FU/BFoqQmlPUHzoz5f5fNqrFn/Q7oFCwrO0wjzEmsx7ah8yZQzGzWcL/XD+gh5JZnNEjHzxEa0+
-	0SbdOvLur+k5XvNXmvXcv0NvBkUYBv6f5TCJVnofqwMGBo0pGlrNozJHdDmkYLM4gFg==
-X-Received: by 2002:a05:600c:3b91:b0:4bb:7e4e:de53 with SMTP id 5b1f17b1804b1-4bb8881059bmr507224745e9.12.1795695320857;
-        Thu, 26 Nov 2026 04:15:20 -0800 (PST)
-Received: from ?IPV6:2a02:842a:9b20:d01:a06b:e180:2ea9:f6eb? (2a02-842a-9b20-0d01-a06b-e180-2ea9-f6eb.rev.sfr.net. [2a02:842a:9b20:d01:a06b:e180:2ea9:f6eb])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb906c089dsm349451575e9.1.2026.11.26.04.15.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Nov 2026 04:15:20 -0800 (PST)
-Message-ID: <bc5f0035-08ba-4813-9bda-9b2ba68f3680@baylibre.com>
-Date: Thu, 26 Nov 2026 13:15:18 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=njZmbj+7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55B1A1F000C0;
+	Thu, 26 Nov 2026 12:17:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795695441;
+	bh=hafFXAutGx2P5qfUXeVs2wpCzaq/c3/3n8ujaYS8fcE=;
+	h=Date:From:To:Cc:Subject;
+	b=njZmbj+7j24SVaRSv//hfuQ9xp9yvl3+1GOyNIwrzZmoyJlRHteTx30R4V97+Cuhm
+	 rTx1Y8wqPGpNGl54W9/29aXWvGQeC0FvYQBJTMnUZ74ZuAuQ0RAQPw0VnYFhcVAgaw
+	 +vlFl7jZolRY4/mnHGe0ZS9bzeN20jgHTqb8LU69cCAbMZ3mPCVH4gxw+YHEyVM8xM
+	 IcEx7Dhw7RORZeroi4tN5D7hAcb4y+SkUZu0r4ZVz7I/Hdyr80v1mbNkupIZksmYCA
+	 //2I520m8ymFhnIqQd6+ec8YbeVTCVAO6ua5TzCj+/7VwKAZBL2YpH0I+pWb5zUvj2
+	 k9dc+DTCXAxKA==
+Date: Thu, 26 Nov 2026 13:17:12 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-hardening@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, alx+linux-hardening@kernel.org
+Subject: [PATCH v8 0/4] Add strprefix() and fix a bug with it
+Message-ID: <cover.1795695151.git.alx@kernel.org>
+X-Mailer: git-send-email 2.55.0
+Alx-In-Reply-To: <cover.1793876837.git.alx@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,163 +70,209 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 00/15] R-Car X5H Ironhide CPG/MDLC SCMI remapping
- support
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf Hansson <ulfh@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Kevin Hilman <khilman@baylibre.com>, Vinod Koul <vkoul@kernel.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Paul Elder <paul.elder+renesas@ideasonboard.com>,
- Sudeep Holla <sudeep.holla@kernel.org>,
- Cristian Marussi <cristian.marussi@arm.com>, arm-scmi@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <cover.1795029012.git.geert+renesas@glider.be>
- <1e9c5ac3-d82b-4af9-9946-0302cadf7404@baylibre.com>
- <20261119234759.GB2324725@killaraus.ideasonboard.com>
- <19c3745a-6308-46ff-bb37-3acc88fe22e2@baylibre.com>
- <awAqqg6F2Z1t55x2@ninjato>
- <d94ad9ca-afdd-4301-a69c-0bbad5b334fa@baylibre.com>
- <20261123103633.GB2959742@killaraus.ideasonboard.com>
- <fc13a7a8-b825-400c-9ea0-ceb2670dc478@baylibre.com>
- <20261123160550.GA3050935@killaraus.ideasonboard.com>
- <27796cff-eef5-46ce-8079-93a0a8d40db5@baylibre.com>
- <20261125221502.GD3581@killaraus.ideasonboard.com>
-Content-Language: en-US, fr
-From: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>
-Autocrypt: addr=clegoffic@baylibre.com; keydata=
- xjMEafx9bxYJKwYBBAHaRw8BAQdAtc85GIwDXLz0rh9thWXC80Lji0otVDVncXT4qaS4j1fN
- K0Nsw6ltZW50IExlIEdvZmZpYyA8Y2xlZ29mZmljQGJheWxpYnJlLmNvbT7ClgQTFgoAPhYh
- BJjMiHuM4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsDBQkJZgGABQsJCAcCBhUKCQgLAgQWAgMB
- Ah4BAheAAAoJEH6EW4KtCh6Tt+sA/jVC35rY1npFlOy7YnncTdrID8Qf855JA78IzXgvzpGp
- AP9FkuuT80m66PP3DvgYX9kVnG17mSDKO0+v2W18v6ZgCM44BGn8fW8SCisGAQQBl1UBBQEB
- B0DMwF4u//aQyzsFlO8rPJ/cqsAuPH80IeIA3HOEo5mlVgMBCAfCfgQYFgoAJhYhBJjMiHuM
- 4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsMBQkJZgGAAAoJEH6EW4KtCh6TdSgBAMDS0MiWCivt
- LjzZc9bs+P/xdXywUjDKq3lpQGJ6vZ0GAP9vI6DnN7vwVK6jt6/+0aBGkog5Ura9+WwRFEdM
- vLfPDQ==
-In-Reply-To: <20261125221502.GD3581@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="f3pjldnlt7gzzsxn"
+Content-Disposition: inline
 
-Hi Geert, Laurent,
 
-Thanks to both of you for the answers, I reply to all of them here.
+--f3pjldnlt7gzzsxn
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-hardening@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, alx+linux-hardening@kernel.org
+Subject: [PATCH v8 0/4] Add strprefix() and fix a bug with it
+Message-ID: <cover.1795695151.git.alx@kernel.org>
+MIME-Version: 1.0
 
-On 11/25/26 3:45 PM, Geert Uytterhoeven wrote:
-> Status = "reserved" would work fine for a leaf device (e.g. a network
-> interface), without further dependencies.
->
-> For core components like the CPG and MDLC its different, as every single
-> module on the SoCs makes use of them.
+Hi!
 
-Right, an SCMI DT changes every producer and consumer node, and they would change again with each firmware version that changes its ids. If I were to do it, I would handle those changes in a downstream tree, as SCMI does not seem designed for several firmware versions with different ids on the same chip.
+str_has_prefix() is based on sizes and lengths, which means it must
+overload the valid length 0 to mean not found.  This is a typical
+consequence of choosing to design an API around sizes and lengths, and
+vanishes when moving to pointer-based similar APIs.
 
->   1. They are not stable!
->      We only _assumed_ they are stable, so we could relax dependencies.
->      With that assumption, there is no longer a need for the (contented)
->      addition of scmi_get_base_info(), which would be needed to
->      distinguish among different firmware using e.g. different ID
->      spaces.
+According to its author (Steven R.), str_has_prefix() was never meant to
+accept an empty prefix, but that's not documented, and there's no
+obvious reason why that would be acceptable for a generic string
+function (as opposed to a function very specific to its original use).
+Anyway, as suggested by Steven, I've added a WARN_ON_ONCE() to catch
+such uses, and also added documentation stating this limitation.
 
-I think this is the real problem, and it is not specific to X5H. Ideally the SCMI firmware keeps its ids stable, and to me it should even be mandatory.
+If the function had been named something like strprefix_len(), that
+design would have made sense, but being called str_has_prefix(), the
+obvious way to call it will result in bugs, because the name contradicts
+its intended use.
 
->   2. That can't work for now, due to limitations/deficiencies of the
->      current SCMI firmware specification and/or firmware implementation.
+Users of strings need a function whose behavior extends naturally to the
+empty string, and we can do better, by returning a pointer.  And indeed,
+users have ended up using str_has_prefix() with empty prefix, expecting
+it to work (as is natural of a generic string API with that name).
 
-Which ones? Can't we work on improving it?
+This patch set adds strprefix(), and uses strprefix() in one place to
+fix a bug reported by Bartosz.
 
->   3. Last but not least, they are not hardware description.
+It also adds streq(3), just because it simplifies the tests, and is also
+a nice interface.
 
-They are firmware ids, and the arm,scmi binding is made for them.
+This patch set doesn't include the sibling strsuffix(), and also doesn't
+replace any other cases which would benefit from strprefix(), to allow
+merging it quickly.  I'll work on a follow-up patch, including the
+patches from v6 that have been dropped in this v7, after this has been
+applied.
 
-On 11/25/26 3:52 PM, Geert Uytterhoeven wrote:
-> This only focuses on the IDs, not on different abstractions offered by
-> SCMI.
->
-> The latter leads to the need for changes in (many) DT bindings and
-> drivers, to support the same hardware blocks that are already supported
-> without SCMI in the same and/or older SoCs.  How many different DT
-> binding variants, with corresponding more complex handling in drivers,
-> are you willing to support for the same hardware block?
-> The remapping driver takes care of this in a single place, avoiding DT
-> binding and driver changes all over the tree.
 
-Agreed, the ids are only one part. But most of the other differences on X5H come from the firmware (missing clocks, zero rates, reserved resets) or from the missing clock domain in SCMI, so I would rather fix them in the firmware and in the specification.
+Have a lovely day!
+Alex
 
-On 11/25/26 3:55 PM, Geert Uytterhoeven wrote:
-> So we can't upstream DT, until we have stable IDs for real?
 
-Yes, that would be my take, to avoid glue code based on the firmware version.
+Changes in v8
+~~~~~~~~~~~~~
 
-To me, development firmware is the SDK, made for development, and a released firmware is the one that has been fully tested, where no new resource or missing id is discovered anymore. As you wrote to Wolfram, "We are still discovering missing SCMI IDs for some resource", so I think the X5H firmware is still in development.
+-  [*/4]
+   -  Add Tested-by and Reviewed-by tags.
+-  [4/4]
+   -  Remove Message-ID tags.  [Andy, Geert, Bartosz]
 
-I was also always told not to upstream something that is not mature enough, as your cover letter says for the firmware. So why is it important to upstream the DT before the firmware is mature?
+See the range-diff and interdiff below.
 
-On 11/25/26 11:15 PM, Laurent Pinchart wrote:
-> It's not a matter of "in development". Software is always in
-> development. Don't get me wrong, I agree that we should minimize
-> breaking changes in SCMI firmware, but we can't avoid them, or even
-> minimize them enough, without a QA cost that nobody seems willing to
-> pay. Where's the stable SCP firmware for X5H ?
+v1: <https://lore.kernel.org/linux-hardening/cover.1793876837.git.alx@kerne=
+l.org/>
+v2: <https://lore.kernel.org/linux-hardening/cover.1793882260.git.alx@kerne=
+l.org/>
+v3: <https://lore.kernel.org/linux-hardening/cover.1794323750.git.alx@kerne=
+l.org/>
+v4: <https://lore.kernel.org/linux-hardening/cover.1794425425.git.alx@kerne=
+l.org/>
+v5: <https://lore.kernel.org/linux-hardening/cover.1794574496.git.alx@kerne=
+l.org/>
+v6: <https://lore.kernel.org/linux-hardening/cover.1794667407.git.alx@kerne=
+l.org/>
+v7: <https://lore.kernel.org/linux-hardening/cover.1795639368.git.alx@kerne=
+l.org/>
 
-Linux is always in development too, and it still keeps its userspace ABI stable. I think a firmware can do the same with its ids: keeping them stable is not a QA cost, it is a rule when adding resources, append only and never renumber.
+Testing
+~~~~~~~
 
-The open-source SCP firmware I am developing for X5H is public here: https://git.gitlab.arm.com/clegoffic/SCP-firmware/-/tree/renesas
+Since there are no code changes since v7, I haven't tested again.
+See the link for v7 above to see the testing of v7.  Bartosz also
+tested v7.
 
-For the SDK firmware, Geert's v5 cover says one table covers SDK 4.31 and later, tested with 4.36 and 4.39, so the ids v5 uses have not changed since 4.31.
 
-Personally, I also don't like to see version numbers of firmware that is neither upstream nor public in an open-source project like the Linux kernel.
+Alejandro Colomar (4):
+  string: Add streq()
+  string: Add strprefix()
+  string: Document corner-case misbehavior in str_has_prefix() for empty
+    prefix
+  device property: Fix fwnode_name_eq() for empty node names
 
-On 11/25/26 3:55 PM, Geert Uytterhoeven wrote:
-> Zephyr has less complex software abstractions than Linux, and
-> might not care about DT stability.
+ drivers/base/property.c            |  5 +---
+ drivers/clk/socfpga/clk-gate-a10.c |  2 --
+ drivers/clk/socfpga/clk.h          |  1 -
+ include/linux/string.h             | 42 +++++++++++++++++++++++++++---
+ lib/tests/string_kunit.c           | 22 ++++++++++++++++
+ 5 files changed, 61 insertions(+), 11 deletions(-)
 
-Yes, we are lucky on this one :-D
+Interdiff against v7:
+Range-diff against v7:
+1:  ad8500a6eb0a ! 1:  8f3840fa232e string: Add streq()
+    @@ Commit message
+    =20
+         This removes some driver-specific definitions of streq(3).
+    =20
+    +    Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.c=
+om>
+    +    Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm=
+=2Ecom>
+         Signed-off-by: Alejandro Colomar <alx@kernel.org>
+    =20
+      ## drivers/clk/socfpga/clk-gate-a10.c ##
+2:  b32d70163fb4 ! 2:  a688f0a1c20a string: Add strprefix()
+    @@ Commit message
+    =20
+         Closes: https://lore.kernel.org/linux-hardening/20261104-fwnode-fo=
+r-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/
+         Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm=
+=2Ecom>
+    +    Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.c=
+om>
+    +    Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm=
+=2Ecom>
+         Signed-off-by: Alejandro Colomar <alx@kernel.org>
+    =20
+      ## include/linux/string.h ##
+3:  c4131a109098 ! 3:  fb24c7a543f8 string: Document corner-case misbehavio=
+r in str_has_prefix() for empty prefix
+    @@ Commit message
+    =20
+         Closes: https://lore.kernel.org/linux-hardening/20261104-fwnode-fo=
+r-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/
+         Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm=
+=2Ecom>
+    +    Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.c=
+om>
+    +    Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm=
+=2Ecom>
+         Signed-off-by: Alejandro Colomar <alx@kernel.org>
+    =20
+      ## include/linux/string.h ##
+4:  396395e1d02c ! 4:  5c23d229235a device property: Fix fwnode_name_eq() f=
+or empty node names
+    @@ Commit message
+         Closes: https://lore.kernel.org/linux-hardening/20261104-fwnode-fo=
+r-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/
+         Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm=
+=2Ecom>
+         Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+    -    Message-ID: <avrSUUM3HMgxTNpl@kekkonen.localdomain>
+         Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm=
+=2Ecom>
+    -    Message-ID: <nat4ilqmzzpuyrjbuahl367ip22tfnmjorydlppuwqiscxaujo@kf=
+63j4lb3flk>
+         Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.c=
+om>
+    -    Message-ID: <nat4ilqmzzpuyrjbuahl367ip22tfnmjorydlppuwqiscxaujo@kf=
+63j4lb3flk>
+         Signed-off-by: Alejandro Colomar <alx@kernel.org>
+    =20
+      ## drivers/base/property.c ##
+--=20
+2.55.0
 
-On 11/25/26 3:56 PM, Geert Uytterhoeven wrote:
-> I understand that can work on servers with N CPU cores, N network
-> interfaces, and N storage controllers, where you run multiple
-> virtual instances using the same DTB describing e.g. a single CPU core,
-> network interface, and storage controller.
-> But not on an embedded platform with complex I/O...
 
-To me, X5H is an Arm platform like another, not a special case. NXP's automotive S32G, which also has complex I/O, already uses SCMI ids in its mainline DT. That is why I would rather handle the firmware versions with the SCMI quirk framework, the same way for every platform, than with a special case for each SoC.
+--f3pjldnlt7gzzsxn
+Content-Type: application/pgp-signature; name="signature.asc"
 
-On 11/25/26 11:15 PM, Laurent Pinchart wrote:
-> We have two options to deal with that: either we handle that instability
-> in every leaf driver, or we handle it in a central place. The latter
-> seems a much better solution to me.
+-----BEGIN PGP SIGNATURE-----
 
-Agreed on a central place rather than every leaf driver. Where we differ is which central place: I think it is the SCMI framework, with its quirk framework, rather than one remapping driver per SoC. A hardware revision is handled by the driver of that hardware, but SCMI is the same protocol on every SoC, so its firmware versions are better handled once in the SCMI stack.
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmsII0cACgkQ64mZXMKQ
+wql7FRAAkr/lSr6+m4oTo+bBZcKBUalA4juB3aKvEJM39TgDsZgfF7FAPVOpwFFi
+/iI7sQnqEJnzfr+08LJHy9T1kVp5UfT5a4+La3DFus0Fj9MyIcQTTgNYQjjRQ5Ql
+QvA14x/+73Wmt5LA1jgAdLijWfXH3YiH+O9/vx8CAB8/lxY9br8SodpFNACgrVRc
+nvXqiMwnHwFSQrioZvNtoG/a5yM3VmTuSIrzjPtS7+UYr0M2znPdw9u7JyynNBza
+r/vapzOkiVIh5y50jTOydbkfe9CtgKgiFDLCQhntEkQAFu4JtSNcdGE+mWyrpCbD
+bxXEGhJHP1rxhupq6+xCKgq41/OoAMsLHg4G0hVFKCXd0MkuXVItTrkl7uuvKAm6
+Wu+Csh2TkC4G5Z9NqcIeQM9HbQbfIRlzikCAza4O7wC1n7F8FGYLQleKlDjRSMwC
+cDx+ivljfLIFAJXgM3dyQG5/N7d066leCq319RgjRkYO7Vd7GhEUuO0Fzhajws/p
+JjUv0hVCodrBX8cZxPXvNspX6ucDGBB1KVWxoD4qdCaQ9l4FJhlyrSdXPs29yo2u
+6LKbTtD0YHt9s+bsxVM9vjjzZ9kqbcMRrqBzgg+qf23uOSAoDeZ56l0ny38JR+sD
+dAwuaf7y+c/0fR/Xiw8XIvtAlODIJxDD15xETwUCtw+w0COq6Mo=
+=UMdp
+-----END PGP SIGNATURE-----
 
-Anyway, I know I am going against the common view here, and maybe I live in an idealistic world. I truly think that one SCMI platform should have only one SCMI firmware version, but somehow several exist here. Do you know why the old SDK firmware versions are not simply fixed and updated?
-
-In general, different SoC vendors seem to face the same issue, so perhaps it comes from the software development process around SCMI servers. That may be worth stating somewhere, or even directly in the SCMI specification, for example that a released SCMI firmware keeps its ids stable.
-
-As long as old firmware versions are not fixed, it changes how the SCMI Linux framework has to think about the product development lifecycle: how can we handle several SCMI server versions without a set of device trees and without dependencies inside the drivers?
-
-My first idea was an upstream interface in the SCMI framework, used by tables maintained downstream. But that does not hold, as an upstream interface needs an upstream user, and I am not in favor of adding one for this.
-
-So I would rather keep a set of atomic patches downstream, one per firmware version, built on the SCMI quirk framework, so they stay easy to rebase and maintain. This way upstream carries no development firmware, no extra device trees and no version-specific code.
-
-This would also follow the comment in drivers/clk/clk-scmi-oem.c: "impl_ver-specific behavior should be considered a bug and handled via SCMI Quirk framework".
-
-> The way to go in my opinion is minimizing firmware breakages *and*
-> having a remapping driver. Those are not mutually exclusive.
-
-Agreed, they are not. We only disagree on where the remapping should live.
-
-Best regards,
-Clément
+--f3pjldnlt7gzzsxn--
