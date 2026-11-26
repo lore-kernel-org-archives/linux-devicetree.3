@@ -1,72 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795679461;
-	b=Uj66bfVBRqe0xo8yGNzEQ3NOsTdseZwqfLRbcPnrd7aUNqT7H0sGGSlFL6+g/rcDTKJy
-	 kBNaiemUU1sGZvYs9zDteWYKfEZilaqhmdpHZM5/SwaVdK0Mxo2OEdG/nTDjEWx4Yy3Hi
-	 3CpdvW5sNLnrHLDmrt9y2OSViwbN5kTfBrV6AMXBAZkO3Y8tsKtY+lp9bXI4nqIa9JM8J
-	 w7Q+ATI80WDi+ZuiabZl8yUMqT5u0nLe1mNeC0T39uESzEYac1NBVXUHlUUr661arHDh/
-	 5cbCahIKxkfr0acEf1GXW+wWQZy/icD+MJrYrKupZfFiciUrj/Pwh2lcFAEFs5DS0cw==
+	b=D1YZJmA6Z9O/2+bbrAKxImZg8sYfp6z9HqrnkbxUtkOEU/JJF8Yv9l3zl4Vi4LJArvgk
+	 6Ilyha2DEoMaSezueCYNpLjY6e5P1S7PDHBH8oq4Dq/q2Lr7popZmFxsWhZ7CI6ahKXMP
+	 5RSUiFut6lbkaj5mi98D2jtrjbfyTOmNb0HQVriKsqHGJiUsmI8YJvlpQaZmLTZhWBmOz
+	 cpAl5tKTjHtICZ+BD0MVg/9arl93Nl2VfyTouoAhJkVehJ10yzxNCQT61vNgPeW9Ibwj+
+	 QD8dtTtpzZalRgbNoc3RQtZyBhYgcWuJUEN3i+AZaIANX8pkvEPfWjArgO5WdS+h2GA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795679461;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Proofpoint-Reinject:
-	 X-QCInternal:X-QCInternal:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 Received:From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Reinject:
+	 X-QCInternal:X-QCInternal:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
 	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=6HRhdUoyZbzGkLk2F3JpCB31n0oAXufUVBdSRNlFGfU=;
-	b=EdDQCNRRTOUWsZej6AMwi/djz8JQKUUP98BUgUZyQ6ObRLj2Sji/FvoiKSHz5wK0fKFO
-	 aLSht1O3ozkzqNz04+uqIlX2nD4ZVYx6y/LFJ+Q65lemcnZ8ZSLI4ZU+TpMyl1RRCIhNp
-	 nuwQwzFFFrDCeAdl578Ya1ATABPzvBo5kIjojFPrsJ2RarWQCGqVkF0gDCzF1ANIK5Tnh
-	 QEgC2n49Y+c3Y/Q0c2tx28nOqV9VZDOPUUQQ07BkCCPbrvYKPN3msDchwfVvN03KxrKZM
-	 69xvmcLynJ0RZyCFa2+lT5OHeF7l0vbh57mppR8n4UAjEMayagvJZq9WA6dtu3LOiog==
+	bh=NGgWXEGTwjIgzm24Rh2KPILvMJuJIo9kKnLaP6KeDb0=;
+	b=S5bfzqfM6cKaVbOzjShfTYhQJEEADms6WAk/JdiQGJyGPcPQcXMuqqMyNEYb6eWBwsmu
+	 OvCKEElZ9uu54vg7dZ6eJOoHHDp3O24c4/Mbg5+O486Smp0HC83FlSzU8vES9IyuXcMa7
+	 LKLrqtlApIfHWcRZyipEg3GxcSLNybPi2of2y4VE5i6uFdvU73hjXxnmOdK9gKa97llGV
+	 fvylIktQr/vEeU/hwwITCjkaiqhSGDNqu4dknTMlApjb2xwHkdYR6a0LNjVwSKjd3hNW6
+	 oipI4uGPuiNt1eNaKQn6UVZJi4GroUwlkQfj/iD3Qi1IEcw1EcI/37qRnQtJQzouAvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=D4cHjUXm;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DnNHhkmw;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAAE8606A680;
-	Thu, 26 Nov 2026 07:51:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAAE8606A680
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 451B6606A688;
+	Thu, 26 Nov 2026 07:51:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 451B6606A688
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=D4cHjUXm
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQ7B42l2175787;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DnNHhkmw
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQ7ArVg2885415;
 	Thu, 26 Nov 2026 07:50:46 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6HRhdUoyZbzGkLk2F3JpCB31n0oAXufUVBdSRNlFGfU=; b=D4cHjUXmqw3FrCGh
-	XYsU0Z/Cs89j+5EIXPIGcXGXU+aPiix24DVNRLwigXbAxnCygwSgSu4djvbf+bnX
-	Ne/Dz4SvlSh4qSPaUitYvX4QmzoOV5qHMGcemMjNKx375qkcBPoIaHVRu7qUJlpo
-	9xIE8ySKyEPa1rN0fCxmiEjJakJO/AxCMu0RWwQLYytXv12V347r2xQinVyChc6J
-	v0OQZ/+et8IiIiKVnYq0WIXoX/zNn+Qh+0/JGwXKnwHklBJxoC8xl6UTMxeTcQom
-	syBMcLVHNZlZaMfVC3EaF25HGMgnD+suUCqRWYuKFllVDuRkQoKh1qYsKMU5d+ZD
-	3ZbHYQ==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j61ahubn6-1
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=NGgWXEGTwjIgzm24Rh2KPI
+	LvMJuJIo9kKnLaP6KeDb0=; b=DnNHhkmwNe1l6yH6sHv2DkLk9esh/0iQV4+xyd
+	9gDu9/MJc14amoysdKf08VJrnCU77nx1MNrVP8oLwv3I5EPRBTthPnLrJLEZWQWS
+	e83K9i3/PW/WytihcHHdkT8qHINVPE/P0UyGFJuZZ0dRv8J5HH2jG0Gh+2Tcmxyk
+	gf8ngEcZ+sLQqZOC6tlM1JWMz11zC4lDrKXXZA6qh2Q+33lbcU9s2vuilbO9wbbe
+	0qU8R3TyEBDplGI3LQZw2K4AVSRIjUxvGIEHXqaQUzYLqXjlQgB9d0bJUQ0uC4IZ
+	QQwK0qs+Br5klzwxAFjDt7tiS1TrY7oFPL8KSazkVS6nu9jQ==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j6f8rgbjh-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 26 Nov 2026 07:50:46 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQ7oh7j2051594;
+	Thu, 26 Nov 2026 07:50:45 +0000 (GMT)
+Received: from pps.filterd (apblrppmta02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQ7ohD53793278;
 	Thu, 26 Nov 2026 07:50:43 GMT
 Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-mdsor-hyd.qualcomm.com [10.147.243.209])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 6AQ7ogCG2051576
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 6AQ7ogCh3793262
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
 	Thu, 26 Nov 2026 07:50:43 +0000 (GMT)
 Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4770534)
-	id D616BA76; Thu, 26 Nov 2026 13:20:41 +0530 (+0530)
+	id CDB19A6F; Thu, 26 Nov 2026 13:20:41 +0530 (+0530)
 From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-Date: Thu, 26 Nov 2026 13:20:37 +0530
-Subject: [PATCH v2 4/7] arm64: defconfig: Enable PCA9685 PWM controller
+Subject: [PATCH v2 0/7] arm64: dts: qcom: lemans-draco-evk: Add display
+ panel overlays
+Date: Thu, 26 Nov 2026 13:20:33 +0530
+Message-Id: <20261126-draco-evk-display-v2-0-95395c5ee387@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -78,9 +79,13 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-draco-evk-display-v2-4-95395c5ee387@oss.qualcomm.com>
-References: <20261126-draco-evk-display-v2-0-95395c5ee387@oss.qualcomm.com>
-In-Reply-To: <20261126-draco-evk-display-v2-0-95395c5ee387@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAMrkB2sC/22QSW7DMAxFr2JoXQaWPMlGUfQeRRaSTCdqPEW0h
+ QaB71552CUbAp8g/yP/kxE6i8Sq6Mkcekt26IMQHxEzV9VfEGwdNBOxyDnnMdROmQHQ36C2NLb
+ qAYmqheZ5npoUWdgbHTb2b/P8Oe+aZv2LZlqNjgmH9znApn2MdUikNlgVfe4skUCLnerpQDa2V
+ y3sRxFoZ/vLPIJPIdykG8MzU8dSJt8D0ek+q9YMXXcK5WslvvrHgkM7lQFkwBfguQxGaVlIXaa
+ yzBv+3kgrQlg7dqqiOsVCFFlS8Eyz9dWrpWlwjy1Nz7fPjuCSN8F5HpBCKl6aXKGSxQuSnZdl+
+ Qcd9QgepAEAAA==
+X-Change-ID: 20261110-draco-evk-display-3ad2b1664c4e
 To: Bjorn Andersson <andersson@kernel.org>,
         Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -88,68 +93,133 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, Mohit Dsor <mohit.dsor@oss.qualcomm.com>,
         venkata.valluru@oss.qualcomm.com,
-        Jessica Zhang <jesszhan0024@gmail.com>
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
+        Anand Tiwari <anand.tiwari@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795679441; l=769;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795679441; l=4332;
  i=mohit.dsor@oss.qualcomm.com; s=20260808; h=from:subject:message-id;
- bh=SNHHJIV+tMKguYCj7SpMkqYZwY1KQSq8CiQDCXHJY8A=;
- b=IFx7jF0C03vhbZk8WRa9VS70OslzeneiOLZRX+nFc7ZUPNXl2LgsfE83BCIdqdoE0WNKvAbGq
- fm6aA2NaHoFBDxm1uluvIu65yIfO/bbywVogrFhP4D4Tuc91P/Gb3cZ
+ bh=/3tcgf+9W97iu2aWIxUNoZAaLYlnMlJN1Ebl7rDWol4=;
+ b=FsdUml5+1kiH95FhGqHKgpAwmlVIMtymPXWa8/Zn2KP2osMW76R/TnXZIKmJOwlKh7uxUnbMV
+ Dp32ixaR9fLBAX53Moq7iGtbpFAZ0RQoQDhdaMAPC0SMPh48LmADEOo
 X-Developer-Key: i=mohit.dsor@oss.qualcomm.com; a=ed25519;
  pk=outHVBN53JhozDw1xkj3G1qrqqE5scMBP7M4WL3aHQQ=
 X-Proofpoint-Reinject: loops=2 maxloops=12
 X-QCInternal: smtphost
 X-QCInternal: smtphost
-X-Proofpoint-GUID: qS0ymWrRnDMXZNqK5GA0XHPbPT-qzDmx
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDAyOSBTYWx0ZWRfX+niuEfRVgpPY
- F1FmRzmhOVsdTaTHaVihPKL1cKtm06KLRjC/A41RA57BHZ3CiwXAsBczvWaRBDcgyZ4ydiQo1M3
- 3VzFL8gEEPDRLqhWu/lE4TyJ8MgRdeM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDAyOSBTYWx0ZWRfXyt5ypvSrR+bm
- EKPA02ckuDWRqBTpWu5PZs1WtkndIwriSbwEoUk97pKSvkI1h7h3WZZFKwOClt+1AawIgtK0FDI
- nmf9Mmc82shCDo+1u+40JvRUVoe6cjqcqCPp722kP/ud+EE3zBgVjxhOQKLTa/esuIGGRmZdHTh
- uR3Qo0OHBin68eGXpbbHqZe5VO63LKKzwJQjKiSwO79Fe6bjUogj1jH892U+h600CSw0VyMO7AY
- U0LiAYTm2QlNQiLxmt8YKPMAjcVrmgEWsBtNNWE2i8RYnG/iXZfQ4mcJc2LLnzv8yN/rFcb3PWe
- +3MKZFpo4cuaKKW+muVnruD7CpJWtE5PJbPT/A8xGmjoVpy4kgcpvJPyLiVZASC5jZg20OFwYzn
- M+c7Xlrwgjsf14kyCS/ecdQMtKM5IYojBr37Sjfm/9rdw4e4vkoIjh3OqZZDaZ4F9NPnCDDq4x7
- Z2ZN/D6UAvc4BciAOkQ==
-X-Proofpoint-ORIG-GUID: qS0ymWrRnDMXZNqK5GA0XHPbPT-qzDmx
-X-Authority-Analysis: v=2.4 cv=BbxNQbt2 c=1 sm=1 tr=0 ts=6b07e4d6 cx=c_pps
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDAzMCBTYWx0ZWRfX/OfaGU7sP3E+
+ eeZjG7LiO+busK/cRa98XEwRfvy9fViULhLH+8NfaNOwGWvW7BrP9xXYmi3xbyJgMvUjN4ooFh1
+ XDEhzzZWB1lLS7vsSNBMRJG1RpOpsRflvt5+qjmF5XAUw+q0bjBaEph8FNgpVY78khlrygdxc3i
+ Y8iXStfsODf9NAm82znu1fyo6h4iYEfhlPuF+3zd3HZ1T/nxTiNlZPMSxcwVoMwFq1CjmIHcjvD
+ oL923aTbLarJlenGD929SXP90gcpkiUjo5UGOHDsd7JZnBhtS3Wu/g3kt6R3VkQbJ+oKg4HsEDX
+ R01ssoimeRTVYtF1FxOUerw1Wgoro/9N8Ll0/kDRYML0fvf6k/RmqNbkdcjFkG3e39SnllFpdx6
+ QB4gKjNgZzpg64dBZ6/Kf4Zf6U5+cjsG1Qs0hCdpMklaZjOgJDTJTwfOf33tV8ckg5qLOENHsCd
+ b0+hrY/WwIzHzxumkMg==
+X-Proofpoint-GUID: 9mTEuhoMQvMsCqVO6rX8UeCUGwdOdOJ8
+X-Proofpoint-ORIG-GUID: 9mTEuhoMQvMsCqVO6rX8UeCUGwdOdOJ8
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDAzMCBTYWx0ZWRfX/YOCEkZY+XpK
+ tboNXAb8PPrVZB3PjttlZ4tYlnfjzj0G2fCjp8w11wrB/CHZ72DTAFf17O9ZZZLQTxUIanVQS8I
+ G7KUMSmC2yw1N+jBnORDVa7bUO3U6Kc=
+X-Authority-Analysis: v=2.4 cv=FuOQbGrq c=1 sm=1 tr=0 ts=6b07e4d5 cx=c_pps
  a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=qI7vs_IE5eraBV8M_hMA:9 a=QEXdDO2ut3YA:10
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=XtEAIIO-7vcKqsFKLG8A:9 a=QEXdDO2ut3YA:10
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-26_02,2026-11-25_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 adultscore=0 suspectscore=0 impostorscore=0
- priorityscore=1501 malwarescore=0 spamscore=0 phishscore=0 lowpriorityscore=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 malwarescore=0 adultscore=0
+ suspectscore=0 phishscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260029
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260030
 
-Enable CONFIG_PWM_PCA9685 as a module to support the NXP PCA9685
-16-channel PWM controller used for PWM backlight control on the
-Qualcomm Lemans Draco EVK board, as added in
-the lemans-draco-evk-lvds-auo,g133han01.dtso overlay.
+The Qualcomm SA8775P/QCS9100 (LeMans) SoC card is mounted on the
+Draco EVK carrier card. The DSI0 interface from the SoC card is
+routed to either the 22-pin DSI connector on the carrier card named
+JDISP1 DSI0 or to the DSI0_B2B connector, through a MUX which can
+be selected by a hardware DIP switch. There are multiple daughter
+cards designed that can be connected to this B2B connector.
+
+The below B2B display interface is enabled by default in the base DTB:
+  - DSI-to-HDMI using the LT9611UXD daughter card
+
+The following overlay DTs are added for additional display
+configurations:
+  - lemans-draco-evk-dlc0697-dsi: DLC DLC0697 DSI panel with DLC
+    daughter card
+  - lemans-draco-evk-raspberrypi-dsi-7inch: Raspberry Pi 7-inch DSI
+    panel with touch via the 22-pin DSI connector
+  - lemans-draco-evk-waveshare-dsi-8inch: Waveshare 8-inch DSI panel
+    with touch via the 22-pin DSI connector
+  - lemans-draco-evk-lvds-auo,g133han01: AUO G133HAN01 LVDS panel
+    with LVDS daughter card
+
+These overlays are applied on top of the lemans-draco-evk base DTB.
+
+Changes in v2:
+- Add #address-cells = <1>; #size-cells = <0>; to &i2c4 fragment
+  in the AUO G133HAN01 LVDS overlay to fix reg_format dtb-check
+  failure (Krzysztof Kozlowski)
+- Use full board name "Qualcomm Technologies, Inc. Lemans Draco EVK"
+  and reference overlay by filename in defconfig commit message
+   (Krzysztof Kozlowski)
+- Expand DLC0697 commit message to describe power supplies
+  (avdd/avee from vreg_bridge_3p3, vddi from vreg_s4a), GPIO
+  backlight (expander2 GPIO2), reset GPIO (pmm8654au_1_gpios GPIO4),
+  and TE pin (gpio84)
+- Link to v1: https://lore.kernel.org/all/20261113-draco-evk-display-v1-0-28a19c6aea87@oss.qualcomm.com/
+
+Anand Tiwari (1):
+      arm64: dts: qcom: lemans-draco-evk: Add AUO G133HAN01 LVDS panel overlay
+
+Mohit Dsor (3):
+      arm64: dts: qcom: lemans-draco-evk: Add LT9611UXD HDMI bridge support
+      arm64: dts: qcom: lemans-draco-evk: Add hdmi-dual-dsi overlay
+      arm64: defconfig: Enable PCA9685 PWM controller
+
+Vishnu Saini (3):
+      arm64: dts: qcom: lemans-draco-evk: Add DLC DLC0697 DSI panel overlay
+      arm64: dts: qcom: lemans-draco-evk: Add RPi 7-inch DSI panel overlay
+      arm64: dts: qcom: lemans-draco-evk: Add Waveshare 8-inch DSI panel overlay
 
 Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
 ---
- arch/arm64/configs/defconfig | 1 +
- 1 file changed, 1 insertion(+)
+Anand Tiwari (1):
+      arm64: dts: qcom: lemans-draco-evk: Add AUO G133HAN01 LVDS panel overlay
 
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index dfc52e32802e..7e381899f3c6 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -614,6 +614,7 @@ CONFIG_I2C=y
- CONFIG_I2C_CHARDEV=y
- CONFIG_I2C_MUX=y
- CONFIG_I2C_MUX_PCA954x=y
-+CONFIG_PWM_PCA9685=m
- CONFIG_I2C_MUX_PINCTRL=m
- CONFIG_I2C_BCM2835=m
- CONFIG_I2C_CADENCE=m
+Mohit Dsor (3):
+      arm64: dts: qcom: lemans-draco-evk: Add LT9611UXD HDMI bridge support
+      arm64: dts: qcom: lemans-draco-evk: Add hdmi-dual-dsi overlay
+      arm64: defconfig: Enable PCA9685 PWM controller
 
--- 
-2.34.1
+Vishnu Saini (3):
+      arm64: dts: qcom: lemans-draco-evk: Add DLC DLC0697 DSI panel overlay
+      arm64: dts: qcom: lemans-draco-evk: Add RPi 7-inch DSI panel overlay
+      arm64: dts: qcom: lemans-draco-evk: Add Waveshare 8-inch DSI panel overlay
+
+ arch/arm64/boot/dts/qcom/Makefile                  |  20 ++++
+ .../dts/qcom/lemans-draco-evk-dlc0697-dsi.dtso     |  81 +++++++++++++
+ .../dts/qcom/lemans-draco-evk-hdmi-dual-dsi.dtso   |  38 ++++++
+ .../qcom/lemans-draco-evk-lvds-auo,g133han01.dtso  | 133 +++++++++++++++++++++
+ .../lemans-draco-evk-raspberrypi-dsi-7inch.dtso    |  98 +++++++++++++++
+ .../qcom/lemans-draco-evk-waveshare-dsi-8inch.dtso |  94 +++++++++++++++
+ arch/arm64/boot/dts/qcom/lemans-draco-evk.dts      | 119 ++++++++++++++++++
+ arch/arm64/boot/dts/qcom/lemans-draco-som.dtsi     |   5 +
+ arch/arm64/configs/defconfig                       |   1 +
+ 9 files changed, 589 insertions(+)
+---
+base-commit: d4e72753715bc741a78c4f7e8cf4f182f14f96c0
+change-id: 20261110-draco-evk-display-3ad2b1664c4e
+prerequisite-message-id: <20261123-lemans-draco-final-changes-bringup-v4-0-dbfc15cd0883@oss.qualcomm.com>
+prerequisite-patch-id: 9abb39ca0584a3ce35b860674c31456fd509ac2d
+prerequisite-patch-id: ad7e63dd9462d71212a2a5c0e0b7a05253a21084
+prerequisite-patch-id: 33617f32c25ccc12796dee76077808715eb6f3a0
+prerequisite-message-id: <20261021-lt9611c-v7-v18-0-4978b94896f1@oss.qualcomm.com>
+prerequisite-patch-id: 49f1e01bb5594ce9c4301ce4b16715834ece7f41
+prerequisite-patch-id: 21cfbbfd71515961501a768edad476740336c13c
+
+Best regards,
+--  
+Mohit Dsor <mohit.dsor@oss.qualcomm.com>
 
