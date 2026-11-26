@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795691404;
-	b=m610Bbl4VAkzfiDt3obGSH6mSvyAyafGUuKwuEzPfPRek7Dy6Xk4NhBz7b/jVQNND8YO
-	 FuCcDfMAl+85FvgzgcajRWG+yNmmp+vBktmrYjAt7McYlErURktPUgqNba7amwFk6/N5o
-	 dkLGi1HJU7wZSZx9WsExKLVhrGGLdEAKIUv0EzEuoum8lq2zdEfNa35BPP2oqF5GSQiOy
-	 X/vrSVK1zGiRhw6GsJcjiy6c3zuw7lumsX8bkAZNfsz6aD89xD36QkcV0j0m7kGcBYo7o
-	 BjNqPgyO/KtS1l1JkZhXG0CCJp9m6MMMwxanx7MmHem0ORkB0bUAToWVFmb7I7SsVBQ==
+	t=1795691631;
+	b=KdWKfGWq6sY4eFcG6N8CyOSpNFaJ7+0BiyXC3qD+Hi89VpMKo1vy+j159nVXbdntl7u8
+	 8r1CT46YvPojkj4x52ocqA0WBNRmXgmPZrMMq2EkbOsOr0aHtDL2Bc/WhDqttFsef0UQN
+	 gxOvGRTDLhRMNruWeJAZFesXT9huPaYMCXW226NVI6hUOxwWOEkknSEJWWkwHqdpo+CVj
+	 CkTBSSMk3ToD9+LrwH7R4Ern697sJdlZ6fCDDNk6jref8QfslVDs+OJundDkAHt3oAhbG
+	 PkUl+RT4o8tpyFivDn/TMoZyBMxVQ5+uiE93uGH4N+svuqYavxBv0z2+NUYnIR38x8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795691404;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795691631;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=NWd8D/ggteamK/i3dbONpF/gMpdizrnBXGdhTocPbCk=;
-	b=PXVdFno+9Wsf5uVyEgHhIIRT0hIN/kOhUwJIaNqjCH3zO2PGo3SSWgWxlVoV2ghHJnz0
-	 JQpk3mAq9qBL+NlMfebluRZwUzKE/VhAVI4ElhtaOtu/m/W/6GDkMIuXAiToIkQ7vO6Df
-	 WY08qFwKBSuI83dKy8h5zyiuya/1gmt/C+MJ5xs8M2fyjYaWyCkBJ8AKRTXd5mbKvmxi/
-	 esCHMJQwaBQb8PkhbLPZclZx5bJw489d5zzu19138X40TXBrnp5vD6+LcfuZIk17GAYax
-	 ty8hMhPsD8u8Ip+TDM+DIt8qJst6L/0mZJ1fYpQKsww9ltcg5UZytzBu8EYN2Fh9hww==
+	bh=5yes+atJQS0D3nRYnQMVb52mM8aZbG7m6W3LL5KHhuo=;
+	b=DKFVDdBpKcPLwUqr4C2OOf87dKuw0698O8Ih1EEbKNoex9gzV4kNxsfTkAsOx51IaxzJ
+	 QazTGLA6HdMCl7v+DAGamDSNkf7J4P1zAlIP/1ba8l8z9JXh9pDDgWeQn9KV51FYoGYLL
+	 AgGftJXum+3okGlMmSGrr9D2521zLyt1vhcbyxUKSzUljm1IwT1qEtM2QB4wZ5/kAFCix
+	 36BY/OT4PZPQjZb4ztCLi8MvZESqz7lbhrl04Bv3nO2aguEidIQA7H5PsGAqSfjR/rano
+	 thVPC732FYbdcOTj5wSC3Ykv365ykO2q9p3m/00XvegTrSURJu/D6EooMzIT9aA91ZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G0PIZZov;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ILf3dbFe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A388606A31C;
-	Thu, 26 Nov 2026 11:10:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A367C606A31C;
+	Thu, 26 Nov 2026 11:13:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G0PIZZov
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AFED1F000C4;
-	Thu, 26 Nov 2026 11:10:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ILf3dbFe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B9281F000CA;
+	Thu, 26 Nov 2026 11:13:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795691403;
-	bh=NWd8D/ggteamK/i3dbONpF/gMpdizrnBXGdhTocPbCk=;
+	s=k20260515; t=1795691630;
+	bh=5yes+atJQS0D3nRYnQMVb52mM8aZbG7m6W3LL5KHhuo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=G0PIZZovWAnw1xbnmF/Q26vFdEIXJEVzqAwthZdFr2Jhxw2dd/AiItxe+NPaOGpsF
-	 QmcA4hxe3chH4ifXw4AHW0RcUQXoICSCKT5BFEKuCLq1H72xfxE2fbmw/xLZSLpoVf
-	 FyciEapF1CdtELpjEGoHY41zvILvQhxxtnfdgZehx72SCOth0ESlqzfohDf5dI4RBp
-	 gHmx0eijejxYBy2b5HRnsd8bSfdVjN6CrNWwsiJyJJ5YL0lLqnPIMG8557trQLlnm8
-	 WfRR1UvkzkoReeileErFEjxIgND7P7lAYKYzVp7qSQi1xjwcP80E1XfO31DzjrOOPe
-	 A7ppHabJA/n4g==
-Message-ID: <sashiko-outbox-235333@kernel.org>
+	b=ILf3dbFe9V38ZmrlrP0TT9xBcuA1GKNz53LnG4z9Aalcdmvds6bGwY5994V5ICvdU
+	 bSjP8u6E5WNR+OvufcWSf8CLudM/z503WT4wfTov9R406dLfCdrJkHfo18t/P/6C9T
+	 kx60qYV0StVOcREApv9qlwvN06zw8ddAatmPcOyXE4tJEUOIuEK7ltazQ0ORWxi0TQ
+	 zTPjXpk90FhVKndWTmVqE9vTnIUpOcppVZCbfzh5s5y7raAUoAQFib1ytYEa8XDVk8
+	 JHNXxvRurG/XitROR+kZ1D0GAMK9s2ZTWvSmw0qM1dh8svBlM6cbnz/c6YJ+yBWPcV
+	 aawFJYP8cegQA==
+Message-ID: <sashiko-outbox-235350@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: power: supply: Add
- qcom,pm4125-charger
+Subject: Re: [PATCH v2 1/3] ARM: imx: enable STOP-ON mode in idle if wakeup
+ requirements permit
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Raj Aryan" <raj.aryan@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, mfd@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
-In-Reply-To: <20261126-smblite-charger-for-pm4125-v2-1-20656509518b@oss.qualcomm.com>
-References: <20261126-smblite-charger-for-pm4125-v2-0-20656509518b@oss.qualcomm.com>
- <20261126-smblite-charger-for-pm4125-v2-1-20656509518b@oss.qualcomm.com>
+To: "Andreas Kemnade" <andreas@kemnade.info>
+Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261126-imx6-idlestop-v2-1-c6987e7a392f@kemnade.info>
+References: <20261126-imx6-idlestop-v2-0-c6987e7a392f@kemnade.info>
+ <20261126-imx6-idlestop-v2-1-c6987e7a392f@kemnade.info>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 11:10:03 +0000
+Date: Thu, 26 Nov 2026 11:13:50 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,113 +63,92 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 2 potential
 issues to consider:
-- [Medium] dt-bindings: power: supply: raw ADC register values in JEITA
-  properties
-- [Medium] dt-bindings: power: supply: pm4125 reg and IRQ claims
-  contradict schema
+- [Medium] ARM: imx: broken fallback to states 0 and 1 in
+  imx6sx_enter_pll_off()
+- [Low] ARM: imx: wrong clock names in imx6sll_check_pll_are_used()
+  comments
 --
 
-commit 57cf825c23ab90280bb771024041e96a79554ade
-Author: Raj Aryan <raj.aryan@oss.qualcomm.com>
+commit 6724bea26c43aa799d88abd3c3139a314f0fea52
+Author: Andreas Kemnade <andreas@kemnade.info>
 
-dt-bindings: power: supply: Add qcom,pm4125-charger
+ARM: imx: enable STOP-ON mode in idle if wakeup requirements permit
 
-This commit adds a Devicetree binding schema for the Qualcomm PM4125
-SMBLite switch-mode battery charger and references it from
-qcom,spmi-pmic.yaml.
+This commit adds a STOP ON cpuidle state on i.MX6SLL that powers off the
+ARM core and PLLs when no peripheral clocks requiring PLLs are active.
 
-> diff --git a/Documentation/devicetree/bindings/power/supply/qcom,pm4125-c=
-harger.yaml b/Documentation/devicetree/bindings/power/supply/qcom,pm4125-ch=
-arger.yaml
-> new file mode 100644
-> index 0000000000000..4c88d836355b4
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/power/supply/qcom,pm4125-charger.=
-yaml
-> @@ -0,0 +1,119 @@
-[ ... ]
-> +description: |
-> +  The Qualcomm SMBLite is a switch-mode battery charger IP found on
-> +  the entry-level Qualcomm PM4125 PMIC. It exposes five separate
-> +  SPMI peripheral bases for CHGR, DCDC, USB, MISC and BATIF blocks and
-> +  supports USB input current limiting, JEITA temperature protection,
-> +  battery overvoltage detection and a hardware watchdog.
+> diff --git a/arch/arm/mach-imx/cpuidle-imx6sx.c b/arch/arm/mach-imx/cpuid=
+le-imx6sx.c
+> index 83c5cbd3748e1..d2e8a98cc6ebb 100644
+> --- a/arch/arm/mach-imx/cpuidle-imx6sx.c
+> +++ b/arch/arm/mach-imx/cpuidle-imx6sx.c
+> @@ -65,6 +65,40 @@ static __cpuidle int imx6sx_enter_wait(struct cpuidle_=
+device *dev,
+>  	return index;
+>  }
+> =20
+> +static __cpuidle int imx6sx_enter_pll_off(struct cpuidle_device *dev,
+> +				       struct cpuidle_driver *drv, int index)
+> +{
+> +	if (imx6sll_check_pll_are_used()) {
+> +		for (index--; index >=3D 0; index--)
+> +			if (!dev->states_usage[index].disable)
+> +				return imx6sx_enter_wait(dev, drv, index);
 > +
-> +properties:
-> +  compatible:
-> +    const: qcom,pm4125-charger
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 4
-> +
-> +  interrupt-names:
-> +    items:
-> +      - const: usb-plugin
-> +      - const: bat-ov
-> +      - const: wdog-bark
-> +      - const: usbin-icl-change
+> +		return -EBUSY;
+> +	}
 
 [Severity: Medium]
-Does this schema match the commit message and description claims for why
-qcom,pmi8998-charger.yaml cannot be reused?
+Can this fallback call imx6sx_enter_wait() with index 1 or 0?
 
-The description and commit message state that PM4125 SMBLite exposes five
-separate SPMI peripheral bases and a different interrupt set from SMB2 on
-PMI8998/PM660.  However, this schema defines a single reg entry (0x1000,
-matching SMB2 where the sub-blocks sit at fixed 0x100 offsets from 0x1000)
-and the exact same four base interrupt-names in the same order as
-qcom,pmi8998-charger.yaml (where chg-state-change is optional via
-minItems: 4).  pm4125_adc in arch/arm64/boot/dts/qcom/pm4125.dtsi also
-defines both ADC5_USB_IN_I and ADC5_USB_IN_V_16, matching the usbin_i and
-usbin_v channels in qcom,pmi8998-charger.yaml.
+State 3 sets CPUIDLE_FLAG_RCU_IDLE, so cpuidle_enter_state() skips
+ct_cpuidle_enter() and ct_cpuidle_exit() around target_state->enter().
+If state 2 is disabled in sysfs and imx6sll_check_pll_are_used() returns
+true, falling back to index 1 runs case 1 in imx6sx_enter_wait(), which
+calls cpu_do_idle() without ct_cpuidle_enter() / ct_cpuidle_exit() and
+leaves RCU non-idle while the CPU sleeps with its local timer stopped.
 
+If states 2 and 1 are both disabled, falling back to index 0 hits
+default: break in imx6sx_enter_wait() and returns 0 without calling
+cpu_do_idle() at all, causing the idle loop to busy-spin while counting
+entries into state 0.
+
+Calling drv->states[index].enter(dev, drv, index) wrapped in
+ct_cpuidle_enter() and ct_cpuidle_exit() when the fallback state does not
+have CPUIDLE_FLAG_RCU_IDLE set would handle all shallower states.
+
+> diff --git a/arch/arm/mach-imx/pm-imx6.c b/arch/arm/mach-imx/pm-imx6.c
+> index 3c73e2cdb8ceb..2494ee4d20c3a 100644
+> --- a/arch/arm/mach-imx/pm-imx6.c
+> +++ b/arch/arm/mach-imx/pm-imx6.c
 [ ... ]
-
-> +  monitored-battery: true
+> @@ -287,6 +295,29 @@ void imx6_enable_rbc(bool enable)
+>  	imx_gpc_restore_all();
+>  }
+> =20
+> +bool imx6sll_check_pll_are_used(void)
+> +{
+> +	/* check for any clock active which provides more than register access =
+*/
 > +
-> +  qcom,jeita-soft-thresholds:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    items:
-> +      - description: COOL threshold as a raw ADC comparator value.
-> +        maximum: 0xffff
-> +      - description: WARM threshold as a raw ADC comparator value.
-> +        maximum: 0xffff
-> +    description: |
-> +      JEITA soft temperature thresholds (COOL, WARM) as raw 16-bit ADC
-> +      comparator values written to the BATIF ADC comparator registers.
-> +      Example: <0x5314 0x25e3> for COOL=3D15=C2=B0C, WARM=3D45=C2=B0C.
-> +
-> +  qcom,jeita-hard-thresholds:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    items:
-> +      - description: COLD threshold as a raw ADC comparator value.
-> +        maximum: 0xffff
-> +      - description: HOT threshold as a raw ADC comparator value.
-> +        maximum: 0xffff
-> +    description: |
-> +      JEITA hard temperature thresholds (COLD, HOT) as raw 16-bit ADC
-> +      comparator values written to the BATIF ADC comparator registers.
-> +      Example: <0x58cd 0x20b8> for COLD=3D0=C2=B0C, HOT=3D60=C2=B0C.
+> +				/* uart2 | dcp */
+> +	return readl_relaxed(ccm_base + CCGR0) & (BIT(29) | BIT(11)) ||
+> +				/* uart | gpt_serial | epit | ecspi */
+> +		readl_relaxed(ccm_base + CCGR1) & (BIT(25) | BIT(23) | BIT(15) | BIT(1=
+3) |
+> +						   BIT(11) | BIT(7) | BIT(5) | BIT(3) | BIT(1)) ||
+> +				/* pxp | lcd | i2c */
+> +		readl_relaxed(ccm_base + CCGR2) & (BIT(31) | BIT(29) | BIT(11) | BIT(9=
+) |
+> +						   BIT(7) | BIT(3)) ||
+> +				/* lcdif | epdc | pxp */
+> +		readl_relaxed(ccm_base + CCGR3) & (BIT(11) | BIT(5) | BIT(3)) ||
 
-[Severity: Medium]
-As reported by Krzysztof Kozlowski on v1 [1], should these JEITA
-temperature thresholds be expressed in standard physical units rather than
-raw 16-bit ADC comparator register values?
-
-Encoding raw BATIF register values in qcom,jeita-soft-thresholds and
-qcom,jeita-hard-thresholds bakes hardware register encoding into the
-Devicetree ABI.  Since this binding already includes monitored-battery,
-the soft (COOL, WARM) and hard (COLD, HOT) limits can use the standard
-alert-celsius and operating-range-celsius properties from battery.yaml and
-be converted to ADC comparator codes in the driver (for example via
-qcom_adc_tm5_temp_volt_scale()).
-
-[1] https://lore.kernel.org/r/a5f859c1-0779-4ae1-88f0-bfa12268e09c@kernel.o=
-rg
+[Severity: Low]
+This isn't a bug, but in drivers/clk/imx/clk-imx6sll.c, BIT(3) of CCGR2
+(0x70) gates csi (omitted from the CCGR2 comment) and BIT(3) of CCGR3
+(0x74) gates uart5_ipg / uart5_serial rather than pxp.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-smblite-ch=
-arger-for-pm4125-v2-0-20656509518b@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-imx6-idles=
+top-v2-0-c6987e7a392f@kemnade.info?part=3D1
