@@ -1,111 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795702920;
-	b=T8f4Q0a1NPNic8HumsGO6S7clXpmkTEp+MSFdEDBHjporHV8CfIMVBD2J4QxGU0GeY2l
-	 TayUFTEDs3atYsCmsl9owHfi/j8e+Ns5yym0s65elYhEFFyL0/s9B6Fj+UtSJPhNduNx6
-	 foks5ZBc8xCCasUmgYIZDxrqdmWVo/OIsWwy6nHddds+bbuEEAzIENVFcxDs8Ss0CDIYs
-	 DERCFs1mFAGpUprWqqwZXrTFKwkaOXsaqgN/GTtJGpmFkSPa0WOp0ntCWaRLZewqOnU1A
-	 pjRgunOcfgu8YQFPWjwdD/LwCGo/4VC65Kvglzw0WvccEKHss9AHMFF4b+qJiOBGOFg==
+	t=1795702918;
+	b=TfKtpihjMNycQ15AdkaR0Fof40zp8+7JBoMrE9xGstSEpiFo0pPSG2g/yO/vW3iAWu3z
+	 UNwxBrQIl5rDQkO5veiem98KujPwr2r14VDax495TgnLbwK7heoVqXm0nsM7CV7Yo8D43
+	 7opKh4rJjcBPEv2hX1xM/WgeA0jLDsHHOvBPP4/3/LUdnzzYLvH7S3j6LRt/RE80Ts3K2
+	 RnZD1BKGgC+COLtyvcDs1tBqR9yCMynUjNErMIaIfwY4EfryuMM+xC0YAiGoHhNSXNENW
+	 BDGuB334CBL7UsYUzWtA6KpT2Yo8RcxvOXM2T42jYCNjRQ8EdkaVmNggl1Ty/GND+Kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795702920;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=3qO+cKDCyoLTk5ZwPdAZ2/NZCnSWYAmAoadmXtEy00E=;
-	b=cSsgH0CPvxbEvkziRbn/nNXnNRYkIbB9y1PdGq9R+599XojrZY5c1f7hlxGWVCjtokPn
-	 1KhxkGmbO8lzb8fu8AJLGxQG+YozvjLwROT+8Al8n0xDLRLUFRyoQqMNXOt33hYPPCjiU
-	 xnlSD114zw8qvIHpRhS0BUxe+Xs1NmQsAA+FXni/rB1D86n8GL2Ooi6R2QeKpGc7RKnCu
-	 unDug0b4ze9glKCD9p+2xCM4whAtQiT77rf1hNnrkTlzFyg7WGmB4hsrOPMI/bErw0i7J
-	 S1nGgBBfsbfDwSjGLGbI/MvN0dqW9+HqGV6glwLq3C0AQqBwMcS5jN2vGt77SzY9/qg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795702918;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=U+4pL6qLvvaN/MhyEDL7roP9YywTVS8pAuir7owH1T4=;
+	b=X12zxpIUbGZ8vQYRj71CR04bjLEbwJhnmeQzTuZyaov5NScjtLMYWJnYO186tegOAjuV
+	 Mc3BlwKr+2ogsEy0voVnswtdZOVqc4S8wKJQqocVgj2HPMu48ZVtfdyGb1WwFW/fw/oZF
+	 qFyevHKeiHmI9qHBbJcjM3iWVbJb//cwBuiln+kVZ/OeLItw34v9g3pQKcZvyDelhonY6
+	 3ljguGv2gmzceAT5WGNVEvXbPX9WBAaDsqENIicF+voc5e6DL4J6DiGXnpVIw6yECiOtO
+	 dMbzx6KoFjMgHnPW2ejr+kSxjihbxiZ+wqdrBSsKplSiKXH05AjgQKaL2SlBQ/b/T5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=PbsRhuus;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HuUMdNUl;
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C0DD606A336
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 14:21:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C0DD606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23E09606A31E;
+	Thu, 26 Nov 2026 14:21:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23E09606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=PbsRhuus
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4b467581b98so68817605e9.0
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:21:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1795702918; x=1796307718; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3qO+cKDCyoLTk5ZwPdAZ2/NZCnSWYAmAoadmXtEy00E=;
-        b=PbsRhuussMyQu1C9Z87U0zbKtI5UnEuDaxErAUa7VDsBHDhsXOGybk0MseNYgdS0WG
-         3mp9KsvAeOdmhlcSsViIJgXJKbQB3ng+oNlNAGniIZcJmQMLwT2Pz3Brzw9BwMwInfSH
-         1y4zlblZhDKwtkNoqvX0eFpvBJehVvQtpFK84rpdkG85M8YXQRzpnc66czzHFMN7eUWx
-         /8yPAzE9EgmntLslEXnXJryayLZGqTOwnPL+BDXjTvUDgk5/y6h48xMO0FMYOAlmClxT
-         hFmII7Gavou1Aaa9OnAnucLeaCSoGPc65bYTx41ZC2EB9wQ6IReFIy4vkWncwgl1ztL8
-         Mltg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795702918; x=1796307718;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3qO+cKDCyoLTk5ZwPdAZ2/NZCnSWYAmAoadmXtEy00E=;
-        b=gjYa8h3fvXtfs7eveF8+mzblVhgYzvFi4Q2bgxQKUJ2R8koRNd2Zy4yxZHHD/9L8Uw
-         vzF7HMtd5KtTgo/U9xhIM8DyY75xtqVp3WwNyv5YON8+nfotDuAKvZJWy8VvX9jUbgGj
-         ZTXDDuRDq22Qdyzyv0cZ6eMFNdbiLwULr2LiyC+iW7W4J94qzsB3Fy2WvFeszaXpb0cy
-         Jnsl8k+tFoxpmd0e6RkcDUFKN/wNfYTArwffwFCytjg6/+VFL25bzhwlao0PQFZJjiLN
-         hRgxPaoVI7oyNnks5fgVgKd73F+NTViET8b/U9jK7uGyWka9xneoh1m1dtlD2u3sBgEw
-         Eadg==
-X-Forwarded-Encrypted: i=1; AL+hErHA/rMC+zxxMdY1Vw28kCj7mHV6fndi/IIhY+21uLY5F5XNhMh43s25iG+Z6Z+z3b9rDT0sfUtOVKEg@vger.kernel.org
-X-Gm-Message-State: APuU4Z9nd74LPhxftfbueRZb1rAMRB5UPtqOgBTApI6gj9XC5zUdPQKy
-	2J3a/SdBw4pOnzEJiexCRamIvAayWf7mTrQzjXl5SlqgK4m0COgB8Lb/71yqnrIIF/U=
-X-Gm-Gg: AZFdTZdKSS/pHNs++Lcz/ONOQb+DTMXxmRaYafMN7/iTvxBjAn/4yh29TmviCp8B9na
-	qLXx7RHzqoWcuQboWVk/e7rr8ZF44IF95iz73SZHV0lSIkgdcV8/P9qTX6DibqSPm+NLYxusqnA
-	mUnMyunIb30ORA1wy+G6ClYX2XhpQ6hwY6ZxXRQ9yhSazTRDBH5II5OsGK2s2MB88OocS1JWtNX
-	fN90TMETnqmGZh6qRT4LF28Mz9DVpElXddyJZ3KKhYTBHGFyKw9yhZXDgbjO61dS6A+GPK8lzlU
-	h5h8JHNCpY/ozmSgAzgBB78iU/s7UbUwFDrPurOu/EAedNWYJZezy2YxLeo0La/h62zuLWGXSG8
-	h7bO1H1pEsotK9DwMtZ08ol8Lmkf4UEfr3e5pbrtCRxWunDNxjlscGgBIQKxSCDZJ2LPBir2Shz
-	mywzd+nDbvJqrx56H+QL9mOqTiXJ7wGx6t+c21yEGy0j3oJ2PZJrXxTLPZ8HFwkT+2MLfrCNFMM
-	2E2cnq3h+8ys24emKarmLXrMsoPX9BI4qZ+RMvkGAeQjBNcGtPN/LE3s8d4BAyAiaH7QQbHwUTe
-	hTFpEFfMiY1lHQYG4wwXrMUE8ZLj
-X-Received: by 2002:a05:600c:a08b:b0:4bb:6651:9eda with SMTP id 5b1f17b1804b1-4bb88922ca4mr401901655e9.14.1795702917688;
-        Thu, 26 Nov 2026 06:21:57 -0800 (PST)
-Received: from localhost ([195.94.148.180])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884b7515sm831228715e9.13.2026.11.26.06.21.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 06:21:57 -0800 (PST)
-From: Andrea della Porta <andrea.porta@suse.com>
-X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Thu, 26 Nov 2026 15:25:56 +0100
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Andrea della Porta <andrea.porta@suse.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	dmaengine@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HuUMdNUl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795702919; x=1827238919;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=8E/3GjBkO3qFHAhQ6seGTlGhA2dd1h8qEzfPoxUikwM=;
+  b=HuUMdNUlOxy5GB5vz16dFT3HyDfnZqbg5lhZ8R5wG9czd+osOpLDyOXM
+   mz7JOMaQqD+9tlwxVMzTqk+/cUrwvvoOTmRiIeXNs6C9QE/aLZvufri1h
+   ayy2oLRJgOsvoL+MvtbhMbdhSlFoAOCdwrbvmO5mqWl+bWEvYORE3qJJM
+   JjTN2Mp1RuP8UIKtPqJp5HiGOQl2dIqprpdgXIqITZuKoEmeKSyxqsdYs
+   XaGlE2CSBdcfmn0OEwjrjbuoXrx6LvM4CUYg0jXe1H+4vR8plDEqWh2cG
+   AbSEwL9UbP1fm+YfEXX8xv+8mJ4/EGnQWwmmI6Zx01p7zrIuzFkCetp2a
+   A==;
+X-CSE-ConnectionGUID: DZRbWyfqTiWzdd2pJE4CZQ==
+X-CSE-MsgGUID: 8eAk0uQJR2iFLQOTwN6jcQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11978"; a="4498002"
+X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
+   d="scan'208";a="4498002"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Nov 2026 06:21:58 -0800
+X-CSE-ConnectionGUID: BAPLiANfQDyy66/S57hlZg==
+X-CSE-MsgGUID: shslAUAQQJqkv8Gj5IR+vw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
+   d="scan'208";a="11964080"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.208])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Nov 2026 06:21:55 -0800
+Date: Thu, 26 Nov 2026 16:21:52 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Robert Ijtsma <robertijtsma@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Saenz Julienne <nsaenz@kernel.org>,
-	Stefan Wahren <wahrenst@gmx.net>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Phil Elwell <phil@raspberrypi.com>,
-	Dom Cobley <popcornmix@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 01/28] dmaengine: bcm2835: Fix coding style issues and
- a typo
-Message-ID: <awhBdHDVnmxNhQOM@apocalypse>
-References: <20261123145728.29082-1-andrea.porta@suse.com>
- <20261123145728.29082-2-andrea.porta@suse.com>
- <awXhjjB_9-N7RRBi@lizhi-Precision-Tower-5810>
+	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v2 0/2] iio: light: add support for ams OSRAM TCS3430
+Message-ID: <awhAgM77M7I8chR3@ashevche-desk.local>
+References: <20261126-iio-tcs3430-v2-0-6c5329d20919@gmail.com>
+ <awg91DruXE0fZ8l-@ashevche-desk.local>
+ <20261126141415.116a2eb352e6@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,76 +88,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <awXhjjB_9-N7RRBi@lizhi-Precision-Tower-5810>
+In-Reply-To: <20261126141415.116a2eb352e6@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Frank,
-
-On 14:12 Tue 24 Nov     , Frank Li wrote:
-> On Mon, Nov 23, 2026 at 03:56:39PM +0100, Andrea della Porta wrote:
-> > Fix the coding style issues reported by checkpatch: use u32 instead of
-> > uint32_t, add the missing parentheses around macro arguments, which
-> > could lead to operator precedence issues, drop superfluous parentheses
-> > and long int, and align the function arguments. Also fix a typo in a
-> > comment ('missmatch').
-> >
-> > Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
-> > ---
-> >  drivers/dma/bcm2835-dma.c | 83 ++++++++++++++++++++-------------------
-> >  1 file changed, 42 insertions(+), 41 deletions(-)
-> >
-> > diff --git a/drivers/dma/bcm2835-dma.c b/drivers/dma/bcm2835-dma.c
-> > index 06d830d36882..b19182c6e3df 100644
-> > --- a/drivers/dma/bcm2835-dma.c
-> > +++ b/drivers/dma/bcm2835-dma.c
-> > @@ -51,13 +51,13 @@ struct bcm2835_dmadev {
-> >  };
-> >
-> >  struct bcm2835_dma_cb {
-> > -	uint32_t info;
-> > -	uint32_t src;
-> > -	uint32_t dst;
-> > -	uint32_t length;
-> > -	uint32_t stride;
-> > -	uint32_t next;
-> > -	uint32_t pad[2];
-> > +	u32 info;
-> > +	u32 src;
-> > +	u32 dst;
-> > +	u32 length;
-> > +	u32 stride;
-> > +	u32 next;
-> > +	u32 pad[2];
-> >  };
-> >
-> >  struct bcm2835_cb_entry {
-> > @@ -116,8 +116,8 @@ struct bcm2835_desc {
-> >  					       * AXI-write to ack
-> >  					       */
-> >  #define BCM2835_DMA_ERR		BIT(8)
-> > -#define BCM2835_DMA_PRIORITY(x) ((x & 15) << 16) /* AXI priority */
-> > -#define BCM2835_DMA_PANIC_PRIORITY(x) ((x & 15) << 20) /* panic priority */
-> > +#define BCM2835_DMA_PRIORITY(x) (((x) & 15) << 16) /* AXI priority */
-> > +#define BCM2835_DMA_PANIC_PRIORITY(x) (((x) & 15) << 20) /* panic priority */
-> >  /* current value of TI.BCM2835_DMA_WAIT_RESP */
-> >  #define BCM2835_DMA_WAIT_FOR_WRITES BIT(28)
-> >  #define BCM2835_DMA_DIS_DEBUG	BIT(29) /* disable debug pause signal */
-> > @@ -136,9 +136,9 @@ struct bcm2835_desc {
-> >  #define BCM2835_DMA_S_WIDTH	BIT(9) /* 128bit writes if set */
-> >  #define BCM2835_DMA_S_DREQ	BIT(10) /* enable SREQ for source */
-> >  #define BCM2835_DMA_S_IGNORE	BIT(11) /* ignore source reads - read 0 */
-> > -#define BCM2835_DMA_BURST_LENGTH(x) ((x & 15) << 12)
-> > -#define BCM2835_DMA_PER_MAP(x)	((x & 31) << 16) /* REQ source */
-> > -#define BCM2835_DMA_WAIT(x)	((x & 31) << 21) /* add DMA-wait cycles */
-> > +#define BCM2835_DMA_BURST_LENGTH(x) (((x) & 15) << 12)
-> > +#define BCM2835_DMA_PER_MAP(x)	(((x) & 31) << 16) /* REQ source */
-> > +#define BCM2835_DMA_WAIT(x)	(((x) & 31) << 21) /* add DMA-wait cycles */
+On Thu, Nov 26, 2026 at 03:14:15PM +0100, Robert Ijtsma wrote:
+> On Thu, Nov 26, 2026 at 04:10:28PM +0200, Andy Shevchenko wrote:
+> > On Thu, Nov 26, 2026 at 09:11:46AM +0100, Robert Ijtsma via B4 Relay wrote:
+> > > Add Devicetree binding documentation and an IIO driver for the ams OSRAM
+> > > TCS3430 ambient light and CIE 1931 XYZ tristimulus color sensor.
+> > > 
+> > > Tested on Microsoft Surface Pro X SQ2 (SC8180X), where the sensor is
+> > > connected on I2C at 0x39 and used for ambient light sensing.
+> > 
+> > It's still unclear why a branch new driver. Can you elaborate on this?
 > 
-> You touch these code, can you shift to use FIELD_PREP() macro ?
-
-Done in v4: the register field macros now use FIELD_PREP.
-
-Many thanks,
-Andrea
-
+> Sure. Compared to the existing ams/TAOS color and ALS drivers in
+> drivers/iio/light/, the TCS3430 differs in both register interface and
+> sensing architecture:
 > 
-> Frank
+> - tcs3414 and tcs3472 are older TAOS RGBC (Red/Green/Blue/Clear) devices
+>   using the legacy 0x80 COMMAND-bit SMBus protocol (register offsets
+>   0x00..0x1b), different ATIME/gain encodings (e.g. tcs3414 fixed
+>   12/100/400 ms steps; tcs3472 countdown (256 - ATIME) * 2.4 ms, max 64x
+>   gain), and RGBC channels.
+> - as73211 is an unrelated MAZeT/JENCOLOR XYZ/UV sensor family (I2C
+>   0x74..0x77) with banked config/output register spaces (0x00..0x08), a
+>   1.024 MHz clock divider, temperature channel, and 1x..2048x gain.
+> - TCS3430 uses ams's direct-addressed 0x80..0xdd register map (no COMMAND
+>   bit in register addresses: ENABLE at 0x80, ATIME at 0x81 as
+>   (ATIME + 1) * 2.78 ms, CFG1 at 0x90, ID at 0x92, 16-bit Z/Y/IR1/X data
+>   registers at 0x94..0x9b, CFG2 HGAIN bit at 0x9f for 128x gain, CFG3 at
+>   0xab, INTENAB at 0xdd) and outputs CIE 1931 tristimulus Z/Y/IR1/X
+>   channels plus photopic Y illuminance.
+> 
+> I will also note this distinction in the commit message / Kconfig help
+> when preparing v3 (alongside adding MODULE_IMPORT_NS("IIO_GTS_HELPER")
+> for CONFIG_TCS3430=m builds).
+
+Kconfig help probably don't need this info.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
