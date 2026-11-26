@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795684841;
-	b=0wG5BS8wgBk/UrSJx3mzqvyJbdWYjfEv9iFl6Yj6SRZ7NGDPGtRfAHF5OEDZ5ytOLnSV
-	 mxMMM1oUXuyIDe9nprlznMHM/0iNETPcLgbgBwXxy1jQSd4I0x/jPkqXfkqCNVxYfmuCH
-	 TOPY8UN+D2w6t9WAzEXn2yvBhXBR1RcNHcjHAIvEHXC6+ni7g90fTxbTz0lmjGH1yBS5f
-	 xnAovOAOIa0TYvCCvaBudyJFqC5EW9zEiBAvmytlfkbA/+9eJbUdjTLBc1B52ps001USV
-	 1JQdeoO5IVXCQ+WwMxYu3Qqbx7xFAqsiCC2DQVSbKnMzcP/AzG7iBAByN1PqP/H1DDg==
+	t=1795685062;
+	b=CmjsQqxM2/qQtFmZDUOdO+9lfPpEF1p6ZoT2PgfQiQHDbmipTTLCjnnEfG8uyP2cz0oy
+	 DgOKOyoZpEuY777rIiTZPAt/fUk6IYU4h2nTJc2qBIbJ/LsxPwJ9NFEPiQ/Ajvi6iJT51
+	 fc8tyY+KjO2f4ius+DqFr2hTPOT/EaBEnCuCUZkS/mUBInwQ98V5hIvIZPxtRUZcEySA9
+	 gsJ3gENHfYHJ0n7RkCSLCvwHTjwJMzfKChpUIGnbPba5zWCHCGn400uxZ4D0L9kDMnbwk
+	 fOtEBIVrQZ/9yqgJ1KlaVbmo7wT6D59Ur9dDyy6OtpQuFdutIjF/fM64ORD+ODMP+/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795684841;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795685062;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=cf4FRqya/4qOQQQJ42WWRSBKQgos6nH+h+T6m0Rgxrk=;
-	b=MJ8Tzrg037hhMRJhacruZn+91Pe/m5sQs5QJLWP7UyI6UZ2lNyq94NyS7xFVwMzNd1r9
-	 mb01LEb0dg9kcCRKfF+c+593vMoZeR9INJwoS1FMKeKTt8SAJPgNVuU5Zt3mO+cIU4Vtd
-	 VQJWpq9yy+q1kKNQsPrWv41M9cE5fB2QYH9r32KJ7W3Birvdcbfe1fjypKbqIs4H3NSTs
-	 t9buZLRxKEnCcATJZETA+57KGWyMYE8K7XUMAIZMWYexu2AUNBuJ5w4RXLIdx9IzxYlQz
-	 z8bEbhvvh+xY3DSNEUHjFunk8LMG38PaftlnnfIFNQnTHPDkysmYd4XZeyh32qypmVw==
+	bh=cDj3g8UJBQ0tGrHxEPBXKZHnYGxxMMKOE94C1CZhOV4=;
+	b=yTdmQSP7VkeR13zGFzKWzbPtSboR6cr1/0QwkHIBacCTJv+kn/GfT/H9+fSKECLqpop3
+	 ZguV0Yz97HCHCuJLSWOj5MSjC++6PvyJujyIEB3guqpY5RPJs0hfi5bfjv4uSecUPJe/u
+	 ZoyU9UlbHawC3CQ4ByGyERSUCEciObrxqLx7FY9V1DdOhni/WzcBmiQt7Z4WVMQUBFuHx
+	 v26Rr5+Fb8kwvzjBOY+9fMnpCUFZ4zeMgl+8AX6dUlL30uDqo3bI66QxeAFbwPLewsl/D
+	 oyii0yEeN2MpJmffjiIBia2fYI0AsO+qopgQm0BrW4WWgAVNfWFryFhO4OwzzvOsfgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AU+oxcCM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mYKh59vt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38946606A31E
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 09:20:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B520C606A33A;
+	Thu, 26 Nov 2026 09:24:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AU+oxcCM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC7B51F000C6;
-	Thu, 26 Nov 2026 09:20:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mYKh59vt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5C8A1F000C0;
+	Thu, 26 Nov 2026 09:24:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795684840;
-	bh=cf4FRqya/4qOQQQJ42WWRSBKQgos6nH+h+T6m0Rgxrk=;
+	s=k20260515; t=1795685061;
+	bh=cDj3g8UJBQ0tGrHxEPBXKZHnYGxxMMKOE94C1CZhOV4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AU+oxcCMvg+c10pu97SRUDeaGV4Knec2wwawUAy4zWqEHMSYD1XdKvdaSwDu88CTV
-	 gkFnZosuytveIfjP8140s7NsMs1mlCSfiX6xPuLQCswUvOEsOgAeocVins22yk++6d
-	 QvlK9nPawUYVqnju8fW7EVlr5zhkT2HeVCHj0nLFcY71s7ozd7Qdlq8Y7CQC6E0Wsf
-	 jplJs7wY13YOAwPUqYSWMa1xPiWKq3MkMOIVE/U63H8g3THvbsP5WOI8kU0iR1EZ+c
-	 oxNPydJm2nm8EvpTR9qQ6k+LJVUraCR3LPFjh4iW2b9LMFu01PpemKEOWX9a0/r2Bn
-	 ekKN6eP1p9WBQ==
-Message-ID: <sashiko-outbox-235115@kernel.org>
+	b=mYKh59vt7AxRB3TaQ6vZbkEBfx6yE9Mlyuf9CTxU3FJHvFyAM4Hd+WaYpTvHklWgr
+	 omad5peNy52zoqHWeAA95IyRepobvliSuhvTs6exTeg0e4AWO/NZ+boiZUJqur3QX3
+	 1Cs5v75iM2AjUNf0RV45I6GYAjKlCHs2AD5G5+2HtJoAmyDrvqdeLLfl+KF5USCn3s
+	 K+c0I/7lUrRMdlnNESwdim79JNapbrbBzVn9hGxL+ow54bMFnA9Ikz93pLPfucT6Ot
+	 n2O8gGuMdfDhZyMc6IBd9/t9FoP+kDYcLTf272FMpldMcy6dxkahu0Xl9hZyuvBdui
+	 Xma4du46kjwMQ==
+Message-ID: <sashiko-outbox-235124@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/1] arm64: dts: qcom: lemans: Add Vicharak Axon Pro
+Subject: Re: [PATCH 3/3] ARM: dts: microchip: sam9x7: Fix GMAC TSU clock
+ frequency
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ajit Singh" <blfizzyy@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261126090928.73637-2-blfizzyy@gmail.com>
-References: <20261126090928.73637-1-blfizzyy@gmail.com>
- <20261126090928.73637-2-blfizzyy@gmail.com>
+To: "Mihai Sain" <mihai.sain@microchip.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261126091809.13012-4-mihai.sain@microchip.com>
+References: <20261126091809.13012-1-mihai.sain@microchip.com>
+ <20261126091809.13012-4-mihai.sain@microchip.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 09:20:40 +0000
+Date: Thu, 26 Nov 2026 09:24:21 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,53 +63,32 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] arm64: dts: qcom: lemans: misplaced pcie1 GPIOs and wrong
-  WAKE# polarity
+- [Low] ARM: dts: microchip: sam9x7: missing Fixes trailer for GMAC TSU
+  clock fix
 --
 
-commit b99c8adc648ceea0d68c162149cad6f93cd36e09
-Author: Ajit Singh <blfizzyy@gmail.com>
+commit e08604f20c8a6ce19e494241d87354c098dba453
+Author: Mihai Sain <mihai.sain@microchip.com>
 
-arm64: dts: qcom: lemans: Add Vicharak Axon Pro
+> ARM: dts: microchip: sam9x7: Fix GMAC TSU clock frequency
+>
+> According to the datasheet (see link section), chapter 64.6.2,
+> the supported TSU clock frequencies are:
+> 8,10,20,25,40,50,100,125,200,250 MHz.
+>
+> Set the clock frequency to 200 MHz, allowing the PMC to derive
+> the required frequency from the parrent PLLs.
+>
+> Link: https://ww1.microchip.com/downloads/aemDocuments/documents/MPU32/Pr=
+oductDocuments/DataSheets/SAM9X7-Series-Data-Sheet-DS60001813.pdf
+> Signed-off-by: Mihai Sain <mihai.sain@microchip.com>
 
-This commit adds initial device tree support for the Vicharak Axon Pro
-SBC based on the Qualcomm QCS9075 SoC.
+[Severity: Low]
+Since this fixes the unsupported GMAC TSU clock frequency introduced with
+the SAM9X7 device tree, should it include a Fixes tag?
 
-> diff --git a/arch/arm64/boot/dts/qcom/lemans-vicharak-axon-pro.dts b/arch=
-/arm64/boot/dts/qcom/lemans-vicharak-axon-pro.dts
-> new file mode 100644
-> index 0000000000000..f81aa2ebbdcca
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/lemans-vicharak-axon-pro.dts
-
-[ ... ]
-
-> +&pcie1 {
-> +	perst-gpios =3D <&tlmm 4 GPIO_ACTIVE_LOW>;
-> +	wake-gpios =3D <&tlmm 5 GPIO_ACTIVE_HIGH>;
-> +	vddpe-3v3-supply =3D <&vcc_pcie1_en>;
-> +
-> +	pinctrl-0 =3D <&pcie1_default_state>;
-> +	pinctrl-names =3D "default";
-> +
-> +	status =3D "okay";
-> +};
-
-[Severity: Medium]
-Should perst-gpios and wake-gpios be defined as reset-gpios and
-wake-gpios on the &pcie1_port0 root port node instead, with wake-gpios
-set to GPIO_ACTIVE_LOW?
-
-Because lemans.dtsi defines the child root port node pcie1_port0 under
-&pcie1, placing perst-gpios on the host bridge node triggers a runtime
-warning in qcom_pcie_parse_perst() ("Reusing PERST# from Root Complex
-node. DT needs to be fixed!"), and pci_configure_of_wake_gpio() only
-looks up wake-gpios on the root port node, so PCIe wakeup is never
-configured.  In addition, PCIe WAKE# is an open-drain active-low signal
-(matching the bias-pull-up on gpio5 in pcie1_default_state), whereas
-GPIO_ACTIVE_HIGH causes pci_configure_wake_irq() to select
-IRQ_TYPE_LEVEL_HIGH.
+  Fixes: 41af45af8bc3 ("ARM: dts: at91: sam9x7: add device tree for SoC")
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126090928.7363=
-7-1-blfizzyy@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126091809.1301=
+2-1-mihai.sain@microchip.com?part=3D3
