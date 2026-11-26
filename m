@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795721620;
-	b=NaQ5wBF6ztCNu10nNvQo41ogeWX12u0+0YdQbR1oR9jDcGL6z2RhvswtLVLP2s6fvtjz
-	 MTkMl7BHTNWN3zIvB6wCdwjWyAWcfM9V+bR+NcM/w3wcS+8+zZRTHKLJlv7bumuR/dw4P
-	 HXfqESY1riCrsp4Axd5MxpjyxEa2IGOSFMk9EY+kbQB4yvg2AyXoSRH5HreGA/ABN8mpR
-	 KzQMUuVvzcFb+SzC64cq+vq59r+qTBOU+3Ykpwnj95venugYt0D0DeEetMj/WstJL2AAi
-	 a4mO11RuR69B1L4V5cypuXSNhYyvYAwcvuj5PqzRMDvr8vUMSVmDzGhpc3YgbAcmlbQ==
+	t=1795721621;
+	b=FDo05RD0eAXs3TTnvIgK6I9bmJgvMdVUS9lbvnX5resm26N2fzBtrI2d2fNU/A2tP+N/
+	 HsPIbBP4StQjYoiBZqXdb6Ol7KPjtwiXvx3XN2jrTLimFhFWvQVVQLEHLrAcmoUFPo1sT
+	 WdnVepRUOFp8hQ9B+aP5Y9HWESU/YoM2CBUjtNBBi0WEOKKQpnK2qUFr+8TpB2/xc3dHS
+	 wtk7fiI1ov/u7xi91jQI6/45bceKfW+qfnaa/Ir8pi7+5fagG3aihuDXHK/9gI1lhM2bb
+	 N4vKCJRiyY8Qd8kNwkV2pOyPh3lLHVCzw/G2Zlaq+8FGt2lHQd0wser1qSKSnPBfIBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795721620;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795721621;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=L7TYh02oTJOZVmPV/26Kf9AK9AugmvaVvF3eHOWqM4o=;
-	b=tli0g2S5xnPnw6OvS/bdwdNkDUyVpGjNug6MASfdM4pUwzUV8rf9nmek4NcmpJNPLXMF
-	 l+lk+cXV3SKEAIfiRCdVUoaOi04QPrdDXpAhJgra/9S3ewZiSi6hqkOfFZaOVIyZILshC
-	 Ae4mN8lc3ju44haUvIXbYJU+6yoSO8OECLkfbhQN/paoQWmuhAlGOTydUQpxQ7L2LFmyw
-	 T7aShvNhJ9XfgZx1+wmXMcjOKF9gLYnnr1RioVxqGDCvEGoryVNzqloRNser0A7CbQBzX
-	 bfpRp/sHhY7riRAHRt71k2gFRo7ItCDkSY2aYRIkBQIEXJNSP5lGtixDfLwbs8gOzdQ==
+	bh=Jf5GtpRuXRchR2ff5N5v4AswDiRdBOtYpnk/23HLdl0=;
+	b=gndkUSOnpcJncWEJPE1M/eyK+M5j77rJwjkcv+4CO+yCcczZIo101rJsLnVYfrQMmC2D
+	 DTEMAmvAFQQ0rYeD7mqg4lLqPfRMeXBbsT1f48LcBQWpQk5uQsuZCD1wEB3WblvjGOk6A
+	 +DgE/J+tOLLltWiRVg4XQmILQLsZlLrWINgKSyo/boKMnY7h/XOsd7S8f+t1ByEZxmlVp
+	 ajlvCzi34hOUnIL9IkT6fHDH2dY+dthi1XETne4/zEyK6lAA/znUpVAbYEs3UIIbQ1ANA
+	 nqfFMhK0FafpOEZ/R6qd4U8Y4mV0DPQduhaTmuMpi/FlFW4nV/pb5G5Ksm39F76cgTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uWSn9Dkg;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PXZjYF68;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED95A606A321
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 19:33:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED95A606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71BCD606A32D
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 19:33:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71BCD606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uWSn9Dkg
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4bba5e17cbeso20796185e9.1
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 11:33:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PXZjYF68
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so61538125e9.2
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 11:33:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795721618; x=1796326418; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795721620; x=1796326420; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=L7TYh02oTJOZVmPV/26Kf9AK9AugmvaVvF3eHOWqM4o=;
-        b=uWSn9DkggmqiqlyDjXE2iIzsxYnRI70J4TLtr6CcxEUJ9/2F0ffcgbUKyNw53HMhyq
-         p/ccO7dqJVDrtbUs72vxr3rhExDSrozs+zETKtcavvFQXHzLBfudH3xzOTV5ca3YvE0M
-         wbU+dkWFE6ZKvs+/IiyRpExAIWCu7fqzWiR0WcjoLmbjhzEi9reZmLZKbbfgfnrKN1Tw
-         FGnH2NR6Y6tCXJDQKpNdVO3lc47Mj4OiC1X3ZqWdDRCGAp7nNCT3GxPSm/9hO9PJBD4E
-         CCfAlVRc5g8sDSr/L1r+C6JOJfmOsMUvN+VB+f720cbyXhpWCMoWjgRJQnplj+Z+HJ/W
-         CBEg==
+        bh=Jf5GtpRuXRchR2ff5N5v4AswDiRdBOtYpnk/23HLdl0=;
+        b=PXZjYF681Cys0iH8L+l1VkG6kxpmZ6t0xFDNGqmNd3kTah8MRTqPQwu87CDNYTNq8X
+         Na+tfqFFGx/NQwh0dF6LWnFS1zRL3TBhIL7ob0x0kDqR3cN2C0hlpDDDgVT/oQQQb8rx
+         tADfD5t+MzSfEko9WB060ZzGSMsgomJoKwRnx7zPAmtALai2ezo3a9ef62Sazg92o0VK
+         oV0QWn8gDczPcSjskKSJNST9ch4nbURhKcBSAy5xWjqBJ4cHVN+r4UtSt30UejxTbg67
+         y+pRkpxhrA3KnyYiyTKyulMtRNDXlJ95HSWsXEELmF6afYZsQ9ABIpY07N7FGH3Tz1XS
+         57ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795721618; x=1796326418;
+        d=1e100.net; s=20260707; t=1795721620; x=1796326420;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=L7TYh02oTJOZVmPV/26Kf9AK9AugmvaVvF3eHOWqM4o=;
-        b=VHLJ5+pyPDkPIVvgm1AZbLX8C2aLDJW4oHa8ciLcIsSEC3iYaO8CRABbjIAti/SRhu
-         8QqmD8UqZjlmuib90MQhP3EO9qqgyk3z4vsGKqeevwW5/B8VGvabd03YjDdS34YHn0i6
-         YBlX+JQMXG/l4YqcQlzeQ2MzcpC4MQq7TOHNN2wT7a4XIFlNzRkeT93J1joECFh83e3w
-         6MYIWiR6ogT0GO1OCow/nrVECAdMt51wLLjtiCEHwhe6uxD7XYGqidMYJVZKnNyKKiAL
-         qqR/4fpMvre6H4DbSC0B9+spmDb6qK6hZzvH9JQJhmOAEjoKlMvuIoxuFLKlMlandCUT
-         OlRA==
-X-Forwarded-Encrypted: i=1; AL+hErEjl5g4aUyCxs+XswCDnzu4caYitrqf+V31djyQ/NWmsuz1YXteJMVd+wDVcigjENX0amngjZlC+hCw@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Ukvl26fL+Bj7agIINZcO492v8jVfxQHizIY0jWBRZ5NowZj7p
-	B/giBP9Dfg+Wa+5D/UT9XaQTp9VLbar3yx8gn0VCZLmxBHAb/LKXKVkv
-X-Gm-Gg: AZFdTZeN4zuSIgANl5u064JrnnQeTT6rHGvjBIKDS1ZPhvQWEMR0GhWUP+oMe34I8QK
-	21fyk/oZ6Z2S+uySxLNX8wwlnspH+3165DowKCJhXfmr1lAdTssZ613zV59t4Qb5iBpTBmvuA4Y
-	Vdj+vldwZaA14vwofm+b+GvmmxOyfhklNcWqXuG0aIYOsGJtlPIMTSvwxCfxXwDFvo8vDKuJk2/
-	nk8HgCVJGxEHtPIJ3OBeIhX04c/x88KyNLfRLwDlRRsL4h5LWBvxPYMZssvJZGNVepFhzQrX6E/
-	LiKLDJ67uJnS0ihUtWBLZf0ByLM8gYTdk7gNd3z9q1t5ie2UhQMk9bVmu/9NUj+OUR/wscq+b7d
-	2lwyiSGmrqxhaxqsMD0wp4w0cSM7gseVsmHi8h4JF4AEX5AtnQTfKmYlMbv4/EnjBl5sgH5QLN6
-	4jbu7b9WsoEwOAhRSc1Sbjg4emLpWiVp733gSyURgjpsSb4h0lcby+gDFK+GyN164fnf5kETYYj
-	4PHniuHQLauH7+o/R1i04C3i8yGlUvM5ALp/xOlcfRS0FwAvDO1qvl0a2Qx5sYt5tLy6DzRRW4U
-	Y2GXN61qG1hAfAw9fG41WOxCWDVOSGReZ92+yil1f+gcDG5FFzmGAOd8DlgczrkufFQ=
-X-Received: by 2002:a05:600c:4f84:b0:4bb:8701:a2df with SMTP id 5b1f17b1804b1-4bb88809950mr454205435e9.17.1795721618450;
-        Thu, 26 Nov 2026 11:33:38 -0800 (PST)
+        bh=Jf5GtpRuXRchR2ff5N5v4AswDiRdBOtYpnk/23HLdl0=;
+        b=ep/HnFaE4W+8lERlXZ7bpa5z4VdwaLwKXOVF1uPGg+wf3zFKlulT1vFqvHggjt4znf
+         X7Y8wWrvU5NRoHtArF97zjuryd8pa/wvqVRuoo+VoRtQH7gjeDaPfjjprqvKUmjXgUl5
+         XGAaeXABqaos8t18NMIgM8ixheCkAJZ9A7LG9nQP5/+Ake8tDvmDrp+Q4kNSyq/d1Ghi
+         YhyfKau9aik7K43DPrtVActBj7viKQZDP9B52ma+uZ5vvLjzlZESKDR5bVY4Eg3s/vRd
+         faJIKi8+Oe+xp3pOKDuDmAxdXv2h2IwBJveJidxNjW7uiFcFhPiZFHryPAQTGLEEMFQK
+         7Cnw==
+X-Forwarded-Encrypted: i=1; AL+hErFuGmXFN/w1k6fOHNqnnsT/+Oev3H4W6IqzR161oNOYJDs9P3D31sQ34ZVWrO40rCeeDH6LNnd6hOea@vger.kernel.org
+X-Gm-Message-State: APuU4Z/G70JkTtSsu6rBSyA46iMlaz9QzwV8MTvaz83aF/cIFzk/urXZ
+	/PyzOdmcwvrY0f8PW5NQDzG0yX1ZELlyEQvMNcH3E5jgYSERM00WSa4U
+X-Gm-Gg: AZFdTZeaoEXZ9GFTEwfPIGOLDMF+PFyQRqnGEm5Bek4HRvWnf2IG+om8quGgQHpaSyL
+	Fu+fWaBymPvu6PDsV0eVMJoummP6PfFR5dVN8BZgR1fhnjW//wJnh8Xo7RvnPQ6OvzigIhTdoXF
+	Edhag0fEuonmYR7sFKl8YamWv+su7k2ODRpB5tKa6ZuR+xTkmZfanvsfXaCtoDI/z1taxXg/p9+
+	wZUj8fhv07I0+4sS/j4hDcrNUPrWUxKAMc/6IyslZd6T9o3AKbkWRkgKaO9sqdMjiyyo/R8v5GZ
+	1cCGpuHyePkOvpAu7rGCMzcQ6gDPHkuuJBjNpBZ2Zue3MGa4Nfk0JkLMeLdHSdcfOmAqbgNA7CU
+	3O8q8yUvqV0n1r0raqkN4pou1n4UfxUxggKqSVcnTXFVbsK5pHMHA41crN9ZdjBx/p8DRHw4DBH
+	Vl/i9R5H42wOJ0hTnSmIiRil11CuEJSrk8V6o6/rQfxAYhCkP+wo698vE9Quhwd2NIvUzodeOma
+	ZiFfUP2fInZIN6V4/A5n9748X2P06eULir93uelRFoy7QN3qaURKloPU0hF3EsYngvg8ExzbP/+
+	JmdjR3h1VLOBrXrBjBN49usDn98RERIBxMRDizuZBOeE0Dk=
+X-Received: by 2002:a05:600c:1d86:b0:4bb:6a5a:7824 with SMTP id 5b1f17b1804b1-4bb8892099amr474464105e9.30.1795721619820;
+        Thu, 26 Nov 2026 11:33:39 -0800 (PST)
 Received: from localhost.localdomain ([79.117.198.103])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb906cdcc1sm368287675e9.2.2026.11.26.11.33.37
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb906cdcc1sm368287675e9.2.2026.11.26.11.33.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 11:33:37 -0800 (PST)
+        Thu, 26 Nov 2026 11:33:39 -0800 (PST)
 From: Jose Nieto <jnieto.alaber@gmail.com>
 To: Corentin Labbe <clabbe@baylibre.com>,
 	Herbert Xu <herbert@gondor.apana.org.au>
@@ -91,9 +91,9 @@ Cc: linux-crypto@vger.kernel.org,
 	Rob Herring <robh@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Alexey Romanov <romanov.alexey2000@gmail.com>
-Subject: [PATCH v13 23/25] arm64: dts: amlogic: s4: add crypto node
-Date: Thu, 26 Nov 2026 20:32:39 +0100
-Message-ID: <20261126193241.1471372-24-jnieto.alaber@gmail.com>
+Subject: [PATCH v13 24/25] arm64: dts: amlogic: g12: add crypto node
+Date: Thu, 26 Nov 2026 20:32:40 +0100
+Message-ID: <20261126193241.1471372-25-jnieto.alaber@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261126193241.1471372-1-jnieto.alaber@gmail.com>
 References: <20261126193241.1471372-1-jnieto.alaber@gmail.com>
@@ -110,46 +110,33 @@ Content-Transfer-Encoding: 8bit
 
 From: Alexey Romanov <romanov.alexey2000@gmail.com>
 
-This patch adds a crypto node declaration for Amlogic S4-series.
+This patch adds a crypto node declaration for Amlogic G12-series.
 With the Amlogic crypto driver we can use HW implementation
 of SHA1/224/256 and AES algo.
 
 Signed-off-by: Alexey Romanov <romanov.alexey2000@gmail.com>
 ---
- arch/arm64/boot/dts/amlogic/meson-s4.dtsi | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-index 2a6fbd530836..de173f40e15e 100644
---- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-@@ -71,6 +71,12 @@ xtal: xtal-clk {
- 		#clock-cells = <0>;
- 	};
- 
-+	clk81: clk81 {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <166000000>;
-+	};
-+
- 	firmware {
- 		sm: secure-monitor {
- 			compatible = "amlogic,meson-gxbb-sm";
-@@ -621,6 +627,13 @@ mux {
- 
+diff --git a/arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi b/arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi
+index 3135566df880..df1383f86366 100644
+--- a/arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi
++++ b/arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi
+@@ -1742,6 +1742,13 @@ internal_ephy: ethernet-phy@8 {
+ 					};
+ 				};
  			};
- 
-+			crypto: crypto@440400 {
-+				compatible = "amlogic,s4-crypto", "amlogic,a1-crypto";
-+				reg = <0x0 0x440400 0x0 0x48>;
-+				interrupts = <GIC_SPI 24 IRQ_TYPE_EDGE_RISING>;
-+				clocks = <&clk81>;
-+			};
 +
- 			gpio_intc: interrupt-controller@4080 {
- 				compatible = "amlogic,meson-s4-gpio-intc",
- 					     "amlogic,meson-gpio-intc";
++			crypto: crypto@3e000 {
++				compatible = "amlogic,g12a-crypto";
++				reg = <0x0 0x3e000 0x0 0x48>;
++				interrupts = <GIC_SPI 180 IRQ_TYPE_EDGE_RISING>;
++				clocks = <&clkc CLKID_CLK81>;
++			};
+ 		};
+ 
+ 		aobus: bus@ff800000 {
 -- 
 2.47.3
 
