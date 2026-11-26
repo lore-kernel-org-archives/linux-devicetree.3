@@ -1,111 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795705474;
-	b=zmcUtsAHNrBSlKS9D1tQfkfF//BrulwezB1qKaic5/h6YKZR6h+3rFXhy+anPfnDpoXt
-	 rdQIuGYjVhP7GbgpJXKNhl9Q3KKC+TuguSsYqVF7Mjzjya3XEmxC8XqXFz6LqNfzaouzC
-	 0vpVLwcgjO6BgR+rd4CAPr945JbjBDIvF9Hmnk0SMYKyCIGDtt+6LnOzhsj7iZDetyxLY
-	 B6zUl9E8oPJ5pzG8cDFevqV+dJfm9lTE/oLy9noWwA4ddSaxo2xbK3CVGCzn0bS/3l413
-	 XsHRBxF0hH/TvjviNmuh6pwva79vWRzgoebi2qUU+A1so9+OiA0MKSMyi5hWkvtgrWA==
+	t=1795705491;
+	b=pyyYftfQlzuh9mY58Y1Ht815LIcndDKG97I84CTbZtFgvb6MtU+uxuqJYfJdFR1m3ZVz
+	 j881/QuLqwrk7NYRqWl7X89D4PIs7TJzlzNUQTjivp953N/ihp/3Vl1uU7NL5T3/qIVaa
+	 AAVjjZWBvyfYBVfNstaJWBc4XtMzEofLVlBPIHu6QvBgapD51hE4LsTOQyoQygm9W23UA
+	 fv7PRgCzIzmmUmz3yFyem3J++SsTk6dt/q+7DO1qX6DId/9CQMAUqxZJhGZAIzP0ly8mJ
+	 tYW1qDfe0MU0na98A7eoOsn2Ww1tSaTNgRmeprXcFAocluOmAmNJ77JX3zSBVCj3DkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795705474;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Ay28i+UPkgdXHWpGHXowhq8PHfWQZrfJNRqr4alQBjM=;
-	b=jhs8/Sjf9beMt1WaUDPbX4EJejfkiNeF5hsaomkHGBcORt+Y++z/DNrZ38jDOyXsgH+p
-	 7TX4Ph8RJa+32b+oqkYsTV19RjA1inHVAyZVz6Fqb7OpZ3HVGA+YbmY3jZYrAWrXthw7f
-	 /xK6TH21UimbA7CxkkbpmlEwcvrJOsCDZZu2Kh3j8E/mRvtxQDyMdQbcXltW4YSIZa1ib
-	 cWTevYrn9AoW5Gx+6cONVtKZpFUJMqz0Owh+68oQ38SH+wAcNfulxcyP1AJchKnxj4ZWa
-	 vKMv1D9gkMZICiYZxGxNQV5RFpIcdwh22M8toXbbz6Wl2o8/+N+cI+8Cwd1cddgiTGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795705491;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=DxoeQUnqjrax7TOZA6qlXkeOvtgxZiLNkiFCezfCp1U=;
+	b=wYnGJcgH2Ycqaz7KnKH608GVQeTGaOjiCiknkQyiAIBiYJZ9IwMjFItM+araIhDCraY4
+	 Ep6GpeRhq3O3y+wvdQntvM7mQs7V1WgBczeclyAt1giIVr5tkYDB5+eUBa+4tACAcUGIZ
+	 ZhshUi+9rhDeWoumcmewcDvsTCFJtRptcboqj+rYueEPfH1RTLD46r7frs2oobWqz/4H0
+	 9YQFaKAovMI626WoCUmOn3khVZEXUG7EnoKjdMd99mjTEPOS77ZF1av72+ygProp5ynI/
+	 8AZewhZrJCD2IaVmsRHPxLwBCMNJXWTcoaZaC5kbKFWXW3pATK5LWJu7vnG38wyZDxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=k8DNikOo;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VrHYCxXR;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XuRoetxz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 969FE606A31E
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 15:04:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 969FE606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6AE606A31C;
+	Thu, 26 Nov 2026 15:04:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=k8DNikOo;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VrHYCxXR
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQEVYA23298799
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 15:04:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Ay28i+UPkgdXHWpGHXowhq8PHfWQZrfJNRqr4alQBjM=; b=k8DNikOoSI2S3MBz
-	fZuUPZfU+u07cuI7NOt3O0TJXN+eaDNhO1DLR7IIGRAajVtdFI3qsEu1vIDqXPYb
-	dbsoauqdtbvh9fjbHXl8TDM9X8/csRFc6S7ra7eHYmSZcRIINOpLEGTiDd1orGbz
-	dIbRk9xO7w+ed1ExPh6mrZyc22/3wNaSTSqNMqtX7+yQjzx7c5MsNQ0Fd0bJlc8l
-	7l4lHhiytjpNIi23qILZxqCyYXL8I5G4CjHzCwUGORPtf9S7QCh/nQ9cEjlbGyB6
-	BYf2cIfCOkszQ/FT6lHQCnne7/i/5a9ucZft/6zxUMt4BUnbX+EwOnFX2utqGljj
-	VLrQgA==
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j6ak02rmy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 15:04:32 +0000 (GMT)
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-85c1135c288so1057364a34.3
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 07:04:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795705472; x=1796310272; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ay28i+UPkgdXHWpGHXowhq8PHfWQZrfJNRqr4alQBjM=;
-        b=VrHYCxXRC+MX3DmeVHIXg6rg7GxkXBxzjo2X2IaJTLsWNt3DRKkRHtjWDTFXiQN1bJ
-         iNyXtuyAV0sYqiM2coIAkTezJmSe1Wdx+KMiIVF+U6mo/t+AElT08NZYy3PwEMFlnJ5Z
-         fW0F0U7xpvVkKbI+6N647iM2SmUx7KoYQbcW0iloed3jctuqRSt9xnhDr8NLi4l1GPCF
-         PD0lENazUS1uLinSfIYzxVTZASDl3f/q+J1c3aR2aBygRGDDG11w9Q4CngrOkJwip9IT
-         n4L/MwOEnLfl4+rgUGCRXnlGGF0xd4CCnwq/KBt+eAeSa2kwEae2jU4msJUOJ/sd3qdd
-         r/7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795705472; x=1796310272;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ay28i+UPkgdXHWpGHXowhq8PHfWQZrfJNRqr4alQBjM=;
-        b=EOczBJKLNDc1Q7HaDPr+iBoHSbJHqdC+s7LU7cig98X/mbYG61sZpqAHId8JksHA+T
-         CcMB5C6bf4ZY3jehJjpkN8439Qo0JuRWY4nYTkPoAdSS7HMfxt8zc2SWlMCi5FofYT5u
-         miOkG/EoHuqBbXrl1qHvCzTIEsqrzWfv7da13lSEjVs5xNcPF+WtzO+AbO8ec0ecP33F
-         0CQb1FP/tZAcCCQZiS5yjGxLoTnaCcEBL8eO/PGQXNgZVZyaTGrBe84IcXyp+2m0wxRd
-         mQ6trk0V1UxUxGP8yWK4L5ZPo+/3zIh41QaLmwl83N67I58W87sbsO7xUNuwlBJIAn61
-         53vw==
-X-Forwarded-Encrypted: i=1; AL+hErGQj0uSALfDufI7VFLgO0hqGTrhUsLojS3Q85Bx7KtpmJxVv6W+PoSRUDCtW+0y2CIOqrd2C4OD4hcP@vger.kernel.org
-X-Gm-Message-State: APuU4Z8WsBlcEjW+JBXu68Ui3zkb1Ut63Fmfc3/Zdd43+7XvVcVNH6Pf
-	lp9AURW54I2/11uqwOvMUFSItBM2wCDZTUW0aZVfM594qIC/uEBO0Ls+U9qSX5E/tZ00DIYWU8Z
-	ZbRJXp21JijhCEdSEX+tjCcqqzplXwZ5TRwrYOa3B/EpzMjP2HMa0FVZHUChsz4r1gvb1jBaC
-X-Gm-Gg: AZFdTZchBPapEsHkueYzNFDnMjhJCQxS/j9dLF7mdJhr5MIcUmn/0RMVmbJ7LURw1z7
-	eBEkft+dFMZ/1FIHTX/bwx9+gNPLqP9jXCKBmkn4ylQeduIhr/YBUpD/POQmqjn60zTWX2r04e0
-	S/mSXwALxyetg6IZBSxcvw0oxdWghIF0ulEAgihwS/e/NhX1AYCDHTSdWcLCoHQ1TKlTN/ORzoa
-	Ov5oP0a1DxqNDkeoLMW3bQyATu1ondHrIiAOP5k62Vh8K+eukjtvYw814ZnHQtXBz3jJGW6z8MH
-	xbk1wzw4FGGyQwMHeOt4VyBCEjol07vE7dUJLTuoWl3x6wgPjVBVDis05ksx/IcnefiHKy9JS8B
-	7VE22SnyZ1iWAImXN+sK79B2j8AqkyuJp89fbD8KKU2g8vZb7pqWdzYgq
-X-Received: by 2002:a05:6820:c2c9:10b0:70c:bf79:3e6e with SMTP id 006d021491bc7-71b39033ddbmr21002905eaf.0.1795705471777;
-        Thu, 26 Nov 2026 07:04:31 -0800 (PST)
-X-Received: by 2002:a05:6820:c2c9:10b0:70c:bf79:3e6e with SMTP id 006d021491bc7-71b39033ddbmr21002869eaf.0.1795705471359;
-        Thu, 26 Nov 2026 07:04:31 -0800 (PST)
-Received: from [192.168.226.72] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513ae9f705sm766108066b.42.2026.11.26.07.04.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Nov 2026 07:04:30 -0800 (PST)
-Message-ID: <c06e7955-e72e-47a1-9cfc-1d519cf3a33e@oss.qualcomm.com>
-Date: Thu, 26 Nov 2026 16:04:28 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XuRoetxz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 886A41F000C4;
+	Thu, 26 Nov 2026 15:04:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795705490;
+	bh=DxoeQUnqjrax7TOZA6qlXkeOvtgxZiLNkiFCezfCp1U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=XuRoetxzLB5cN/ZOJHXhjAM3lYNwk/kx003krdL0WLjrofpSa2LCoTLuTfYec9jNE
+	 jcSXWaqEGVi1US2VYq/U/oqZL/PbxQ22Sriwp0ydhYG38vwDLP/HmQMMQ/LqwioH3j
+	 4GCH4H4tPd/gYr4o98stO7Jw0x1PtjBxwAWCfSv5sgq35v7LtmAh+mlOsUfJx0DRX5
+	 RWBb+hgals6VuboRYkul4mLHT23/KC6vPld52EouWVQ+FWtTckYg1Wy7jX8Mk7jgPr
+	 wTIH9wQASW0Ozc3No3xNs/QjJ28+wGHK/l0xn5Jn3Hi7daBa7bUSV+K4juqfE8gMAq
+	 NlyIuKugFhgjA==
+Message-ID: <9ca9842d-f0ae-4e21-8f89-9bd673ee7b03@kernel.org>
+Date: Thu, 26 Nov 2026 16:04:45 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,69 +52,211 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] arm64: dts: qcom: x1e78100-lenovo-thinkpad-t14s: Fix
- touchscreen power on
-To: Hans de Goede <johannes.goede@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-References: <20261118162343.16197-1-johannes.goede@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261118162343.16197-1-johannes.goede@oss.qualcomm.com>
+Subject: Re: [PATCH v2 2/4] platform: arm64: lenovo-thinkpad-t14s: Add Gen 7
+ EC support
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ devicetree@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Hans de Goede <johannes.goede@oss.qualcomm.com>
+References: <20261123-t14s-gen7-ec-v2-0-3420a6202366@oss.qualcomm.com>
+ <20261123-t14s-gen7-ec-v2-2-3420a6202366@oss.qualcomm.com>
+ <f575410d-f0be-5ad5-834f-3b1c59109c53@linux.intel.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <f575410d-f0be-5ad5-834f-3b1c59109c53@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=T4oZ3PKQ c=1 sm=1 tr=0 ts=6b084a80 cx=c_pps
- a=+3WqYijBVYhDct2f5Fivkw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=oWukJj1da76sGXFo3RcA:9 a=QEXdDO2ut3YA:10
- a=eYe2g0i6gJ5uXG_o6N4q:22
-X-Proofpoint-ORIG-GUID: Y0C3BqThSh5KzANMCCTqwE19cxC2hCvv
-X-Proofpoint-GUID: Y0C3BqThSh5KzANMCCTqwE19cxC2hCvv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDA1OCBTYWx0ZWRfX9FMjufN1YVC1
- j0yGli9C10R4nZOGliMVfKF57YjUUufupTGcbeEIHilTnR7anfRsh/BpMIRqxItrnSRTa35rNzD
- YMonOgAsdZi4NAvoicmZMIK0jNRU+qpXigUyd1QmANM6NgSDsZbQfzQKY3McbYpaxjbT06QmCTh
- zKb/1WGVju0r7V0BwRZerCTC5Rhk9is+FXsMPH3OITMMuNYckEpYdJ2GzWhtn0ebn7HJB2WdJ7u
- 0EyZtzRRhYEK0YR3ekJ0DGnzr02UrbhRBN/NGH78PJRbpGrTjQhw0OK1taQ41MrAesiOzWwHDdb
- /dimp8uT5U/ORqFzznb7dJIlgwwhmmlfIcV3NUsTI3YQixfYJ0tbuMzZx1BFdKEh3QmbGr8Aa5+
- CK/sZRDRd9NM8LQhl/7a7ERCOTRXfl0PwrMKgdwbAs4el8IoHIuFzB5lM6U6wd4Sa1Nti+Gxuo4
- /YngbekmBIWgwm8bqXg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDA1OCBTYWx0ZWRfX2fkTbaaL5/p7
- O2ps3YIod1Lf1lBQlrO9iXfyBUfge2S3NIZ+N5bc34wEt9okGC6Nza2q2UZubS2njMCvDpIecIw
- d6vIyIM9uLS/LgXFcq0XrqPu3UIC92Q=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-26_03,2026-11-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 spamscore=0 suspectscore=0 phishscore=0
- lowpriorityscore=0 bulkscore=0 malwarescore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260058
+Content-Transfer-Encoding: 8bit
 
-On 11/18/26 5:23 PM, Hans de Goede wrote:
-> When the i2c-hid driver is builtin the touchscreen on the ThinkPad T14s
-> fails to probe at boot. When the driver is builtin the touchscreen gets
-> probed immediately after being taken out of reset. At this point
-> the touchscreen is not ready to talk on the I2C bus yet, causing
-> the probe to fail.
-> 
-> The touchscreen on this laptop needs a delay of 200ms (taken from ACPI
-> power-sequences) before it will accept I2C transfers.
-> 
-> Add a post-power-on-delay-ms = 200 property to the touchscreen DT node
-> to fix this.
-> 
-> Fixes: 7d1cbe2f4985 ("arm64: dts: qcom: Add X1E78100 ThinkPad T14s Gen 6")
-> Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-> ---
-> Changes v2:
-> - s/touchpad/touchscreen/ in commit msg
-> - Add fixes tag
-> ---
+Hi,
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On 25-Nov-26 23:04, Ilpo Järvinen wrote:
+> On Mon, 23 Nov 2026, Abel Vesa wrote:
+> 
+>> The embedded controller of the ThinkPad T14s Gen 7 uses the same
+>> register layout and event codes as the Gen 6 one, but a different set
+>> of I2C commands. Going by the ACPI EC accessors in the Gen 7 firmware:
+>>
+>>   - register read:  write {0x80, reg}, then write {0x80} + read 1 byte
+>>   - register write: write {0x81, reg, val}
+>>   - event read:     write {0x84, 0x00}, then write {0x84} + read 1 byte
+>>
+>> With the Gen 6 commands the EC never reports any event and the LED
+>> and keyboard backlight accesses have no effect.
+>>
+>> Describe the bus accessors and event read per variant and add one for
+>> the Gen 7. The multi-message Gen 7 reads are done with the I2C bus
+>> locked, as the Gen 6 ones already are.
+>>
+>> Besides the protocol, the Gen 7 differs in a few other places:
+>>
+>>   - there is no second keyboard backlight register and, when cycled
+>>     with Fn+Space, the keyboard backlight also reports level 3;
+>>   - the mic mute LED is a generic LED (id 0x0e) instead of a bit in the
+>>     audio register;
+>>   - Fn+F12 reports its own event code (0x19);
+>>   - suspend is signalled through bit 5 of register 0xcf instead of the
+>>     Gen 6 modern standby register, and the firmware makes the power and
+>>     lid logo LEDs glow while suspended;
+>>   - a few hotkeys which already come in through the I2C-HID keyboard
+>>     (volume, mute and some Fn+Fxx combinations) also raise an EC event,
+>>     and the firmware reports some status events nobody acts upon.
+>>
+>> Handle those differences and treat the Gen 7 only events as known ones,
+>> ignoring the duplicate hotkey events.
+>>
+>> Co-developed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+>> Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+>> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+>> ---
+>>  drivers/platform/arm64/lenovo-thinkpad-t14s.c | 197 ++++++++++++++++++++++++--
+>>  1 file changed, 186 insertions(+), 11 deletions(-)
+>>
+>> diff --git a/drivers/platform/arm64/lenovo-thinkpad-t14s.c b/drivers/platform/arm64/lenovo-thinkpad-t14s.c
+>> index 7a875877c8f3..cc7713aeac8e 100644
+>> --- a/drivers/platform/arm64/lenovo-thinkpad-t14s.c
+>> +++ b/drivers/platform/arm64/lenovo-thinkpad-t14s.c
+>> @@ -17,7 +17,9 @@
+>>  #include <linux/interrupt.h>
+>>  #include <linux/leds.h>
+>>  #include <linux/lockdep.h>
+>> +#include <linux/minmax.h>
+>>  #include <linux/module.h>
+>> +#include <linux/mutex.h>
+>>  #include <linux/regmap.h>
+>>  #include <linux/slab.h>
+>>  #include <linux/pm.h>
+>> @@ -26,8 +28,20 @@
+>>  #define T14S_EC_CMD_ECWR	0x03
+>>  #define T14S_EC_CMD_EVT		0xf0
+>>  
+>> +/*
+>> + * The Gen 7 (Snapdragon X2) EC uses a different command set over I2C, as
+>> + * described by the ACPI EC accessors in its firmware (RDEC, WREC, QEVT).
+>> + */
+>> +#define T14S_GEN7_EC_CMD_RD	0x80
+>> +#define T14S_GEN7_EC_CMD_WR	0x81
+>> +#define T14S_GEN7_EC_CMD_EVT	0x84
+>> +#define T14S_GEN7_EC_LED_MIC_MUTE	0x0e
+>> +
+>>  #define T14S_EC_REG_LED				0x0c
+>>  #define T14S_EC_REG_KBD_BL1			0x0d
+>> +#define T14S_EC_REG_MODERN_STANDBY_GEN7		0xcf
+>> +/* Gen 7 DSDT sets this bit on Windows modern standby entry */
+>> +#define T14S_EC_MODERN_STANDBY_GEN7_ESLS	BIT(5)
+>>  #define T14S_EC_REG_MODERN_STANDBY		0xe0
+>>  #define T14S_EC_MODERN_STANDBY_ENTRY		BIT(1)
+>>  #define T14S_EC_MODERN_STANDBY_EXIT		BIT(0)
+>> @@ -41,6 +55,7 @@
+>>  #define T14S_EC_EVT_NONE			0x00
+>>  #define T14S_EC_EVT_KEY_FN_4			0x13
+>>  #define T14S_EC_EVT_KEY_FN_F7			0x16
+>> +#define T14S_EC_EVT_KEY_FN_F12_GEN7		0x19
+>>  #define T14S_EC_EVT_KEY_FN_SPACE		0x1f
+>>  #define T14S_EC_EVT_KEY_TP_DOUBLE_TAP		0x20
+>>  #define T14S_EC_EVT_AC_CONNECTED		0x26
+>> @@ -67,6 +82,18 @@
+>>  #define T14S_EC_EVT_KEY_FN_F11			0x7a
+>>  #define T14S_EC_EVT_KEY_FN_G			0x7e
+>>  
+>> +/* Gen 7 only */
+>> +#define T14S_GEN7_EC_EVT_HKEY_1010		0x14
+>> +#define T14S_GEN7_EC_EVT_HKEY_1011		0x15
+>> +#define T14S_GEN7_EC_EVT_HKEY_1017		0x1c
+>> +#define T14S_GEN7_EC_EVT_STATUS_35		0x35
+>> +#define T14S_GEN7_EC_EVT_DYTC			0x3c
+>> +#define T14S_GEN7_EC_EVT_STATUS_40		0x40
+>> +#define T14S_GEN7_EC_EVT_STATUS_4B		0x4b
+>> +#define T14S_GEN7_EC_EVT_STATUS_4E		0x4e
+>> +#define T14S_GEN7_EC_EVT_HKEY_1016		0x76
+>> +#define T14S_GEN7_EC_EVT_HKEY_1015		0x7b
+>> +
+>>  /* Hardware LED blink rate is 1 Hz (500ms off, 500ms on) */
+>>  #define T14S_EC_BLINK_RATE_ON_OFF_MS		500
+>>  
+>> @@ -83,6 +110,7 @@
+>>  enum t14s_ec_led_status_t {
+>>  	T14S_EC_LED_OFF =	0x00,
+>>  	T14S_EC_LED_ON =	0x80,
+>> +	T14S_EC_LED_GLOW =	0xa0, /* Gen 7 only, only works for power and lid LEDs */
+>>  	T14S_EC_LED_BLINK =	0xc0,
+>>  };
+>>  
+>> @@ -93,9 +121,18 @@ struct t14s_ec_led_classdev {
+>>  	struct t14s_ec *ec;
+>>  };
+>>  
+>> +struct t14s_ec;
+>> +
+>> +struct t14s_ec_variant {
+>> +	const struct regmap_bus *regmap_bus;
+>> +	int (*read_evt)(struct t14s_ec *ec, u8 *val);
+>> +};
+>> +
+>>  struct t14s_ec {
+>>  	struct regmap *regmap;
+>>  	struct device *dev;
+>> +	const struct t14s_ec_variant *variant;
+>> +	enum led_brightness mic_mute_cache;
+>>  	struct t14s_ec_led_classdev led_pwr_btn;
+>>  	struct t14s_ec_led_classdev led_chrg_orange;
+>>  	struct t14s_ec_led_classdev led_chrg_white;
+>> @@ -206,6 +243,85 @@ static int t14s_ec_read_evt(struct t14s_ec *ec, u8 *val)
+>>  	return ret;
+>>  }
+>>  
+>> +static int t14s_gen7_ec_cmd_read(struct t14s_ec *ec, u8 cmd, u8 arg, u8 *val)
+>> +{
+>> +	struct i2c_client *client = to_i2c_client(ec->dev);
+>> +	u8 req[2] = { cmd, arg };
+>> +	struct i2c_msg msgs[2] = {
+>> +		{ .addr = client->addr, .flags = 0, .len = 2, .buf = &req[0] },
+>> +		{ .addr = client->addr, .flags = I2C_M_RD, .len = 1, .buf = val },
+>> +	};
+>> +	int ret;
+>> +
+>> +	i2c_lock_bus(client->adapter, I2C_LOCK_SEGMENT);
+>> +
+>> +	/* Send cmd + arg */
+>> +	ret = __i2c_transfer(client->adapter, msgs, 1);
+>> +	if (ret < 0)
+>> +		goto out;
+>> +
+>> +	/* Resend the cmd byte + read the value */
+>> +	msgs[0].len = 1;
+>> +	ret = __i2c_transfer(client->adapter, msgs, 2);
+>> +	if (ret < 0)
+>> +		goto out;
+>> +
+>> +	ret = ret == 2 ? 0 : -EIO;
+> 
+> Aren't these literal 2 same as ARRAY_SIZE(msgs) ? (x2)
 
-Konrad
+Yes, but we first want to transfer 1 msg and then 2 msgs.
+
+IOW the array is sized after the max amount of msgs we
+need to transfer vs we do not necessarily want to transfer
+the total amount of messages in the array.
+
+I went with literal '2' here instead of ARRAY_SIZE()
+to match the literal '1' in the transfer above and
+because we want to transfer 2 msgs, not max msgs
+(which happens to be the same).
+
+I'm fine with changing this, but IMHO using ARRAY_SIZE()
+for the second transfer looks a bit weird vs the literal
+'1' for the first transfer.
+> I wish we could use guard() of the i2c lock.
+
+Agreed.
+
+Regards,
+
+Hans
+
+
