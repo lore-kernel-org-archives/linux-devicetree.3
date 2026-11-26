@@ -1,111 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795695117;
-	b=SR/I5lHeB/1m/kLQ9AIlKAWU5ULDQSGgHrvMBKuhsAKwMFypWfOYcCIE+AzZq9xLRqsq
-	 IiLhtNbM835tvTtXn4Cb6qqhuwAPxqDp282EA3QRYwgD64035OqIMwVfHCg0e5x4egAlh
-	 W/OmbFhnPaFeeDDleiC/35jhnGTEuOmA7uo18uXlcvXAjTm6sZ4hsCpjkxeN5UISCnRfk
-	 +O5SHt1zFcvYDbZqufUlOQYjN0RZDP0DG5BncGX/BIbVusrqgjgCmdq4xnLdTmCzRqxGU
-	 oCdfiR2by1JGCsdDaL4kDYW5wtU4YmWDZR0XpUCYk7e0EbW8uz1G8m4nJAYJNanLVKQ==
+	t=1795695323;
+	b=Xwzxkw2FqshumSR8I5aQUxvqCBwweJq38P3R0Ov/3dHgylkMlr/oE8M1mMGtlLcDqOYb
+	 6TOJ60KgCuWI/ws+XUgBU/DwLJ5HbBNvoSc8UZfsSRr3G6R1+6bPxnEPooOm691bhqY+I
+	 6u5vIMYjc98ygu98+f4hPWI2bwo9pS2ITPQmld6G2iBmBP8Sca8JB/KIpPQ27GaJEvuJK
+	 gBQTg4RLgwRrFOHdUnjZEOVWM7jNRBjlRW2b2eqA1QF+P/h3nmaVM/GVQ3C0PzZmU+Igg
+	 s1xV6BGaK1Ccb8LCJkiWxWqn4hvN022rME8ZA3I8itXhuHPYuzXKfZCbWNuFSnzPLBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795695117;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=fEDxuQOxbmLRFfoTwtigXSIA0ABTesePwql9QImGq2I=;
-	b=K0t1axztgY2oSi8vzfHkkMAHeZG/CTknm5rrVe1DAoPtSIiXItBMqOGsiZMz23lc9HE9
-	 NH3fLO3e3nxLXksz52a8L4+WpvSuQ8xNg1K/tBM6HX51J7mO+Sa7hTSiFOJfMnCHP/c7t
-	 ehyyeo2GPeG9BYQxAa8DfR1pyE59O8bKghvRE7iAuR45dMEYOGOt+2JA9yqfYhK1pwho9
-	 28U1WOyaS2nniQwH1lMcjrNVLJvpf0ZmNpBPy5mloI3+TuqOIcTCRyNxyLwtbIEbi9n17
-	 lwBFUmMCsJUhKLRxGAv2Ttu/LysGEJOCf20oh+T+Pslc12hkwkKB0GtisQ+sGhrXWbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795695323;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=N7R2bspuSN2vTU9KXTd+Gs5ucj/LrOjxnprdX2nps1A=;
+	b=xl33xNBM7j1XJFI3erD7Ter6m/ECxX6ycg+h7jXGqtF31GbKMk1BQeu+0QVC0Kq7GY2P
+	 4tfzbT2NKLw9yte053rb2FmX5qcuz1J60I4BobOIR1c6pknMrv1UKCS/+mPtTQIOsIY64
+	 0+prJW17dHMlw0Pprx20S8bClQBrDxyM4EA9Yt4fH4t5HJuOK/hGXQqslasJuveabPExc
+	 IuYKjBbAYcH0cpayqqAucGjxQFRgqVbfapszIkAx5niwoLnEr86Ftgj8kjtd7Lbsd/gei
+	 5pX7M3slsG4VY2RY32Zdfv2g1eVmo460n3sLeFUzR5lMZMU4e06cBFFYaMuiCzws8TA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mmMNd4wI;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dk1GPZEf;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=FwRjmudW;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC18A606A329
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 12:11:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC18A606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D18D0606A323
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 12:15:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D18D0606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mmMNd4wI;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dk1GPZEf
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQBVQWE2758191
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 12:11:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fEDxuQOxbmLRFfoTwtigXSIA0ABTesePwql9QImGq2I=; b=mmMNd4wIHPdOkwE9
-	5OBijT+0u+AFoV4Y40Grtgrw8ql36kSzPNSArWeEy2lBL8D7PJImrAEJ6t8VN4vM
-	aeBtmjanXnLjVY16QM43gCd36vTsSA3qxUOygCDGQplbz/43BsPDzXC/0LeG/VKR
-	emA5g0+JhC0dEC9geNDZStWDOvZ+jR10Qdd8xmnUkedbaaSPNpC1KzgvsuWG3GRD
-	YlR8FIs2EiKNUiei7fwNtiVSSXZS6pEfP2pGNcLpR4sJKEWkoApAEPRaSY2h8ODR
-	58abhJ46pSDbG0uyzMqwzU2DXkmMHEbg/kspi/sFFGnHzUDr9SFq7lsVinU4LgYW
-	ie8kdw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j61ahvbqh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 12:11:55 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-94961511b61so1121167285a.3
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 04:11:55 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=FwRjmudW
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso54265565e9.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 04:15:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795695115; x=1796299915; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fEDxuQOxbmLRFfoTwtigXSIA0ABTesePwql9QImGq2I=;
-        b=dk1GPZEfwosP0tv+mLh+acQ0fYpd6qdYdsWDcx5/Fmyy7pKgToFYyO+XiV8zSuI18U
-         Mh1OfBZZrjL8QWw/Mxf3qzIjcULFbk+lBeIW5+3tpcqX17puxGyQwa7Xh/VN7rcnud3H
-         vJsdPdrpHhJm9hdTwp3HGRj+Reca8+FmraHmBsG99uKvD+hGS41gttDfKFF+TwPJO9uu
-         1QMUuVU3mR6K0YR6NkHxGF35PyFEZxxn8LdgKdSKDg2QfjmXC3W1nf8yFznccrPqSAAZ
-         cTA7gKcLh8ePntfwn3XQ8D3gbQeanEBjwMqO3GjnbEUikTed3fHM7tGkDx4WU0vuI1oJ
-         0ijg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795695115; x=1796299915;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=baylibre.com; s=google; t=1795695321; x=1796300121; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fEDxuQOxbmLRFfoTwtigXSIA0ABTesePwql9QImGq2I=;
-        b=foDWk4CfCbiUd5ME0R6JUBrtT4FD4Cm6A9vwmWsapEyzVBQZEhIdmD7eAajfZ+Ij/S
-         y9a6Gs4Id2n290MiPX2RYuSMz5OyUvNY51mwO5/6gH8UStSnheYnrxreluzi7n0CZtV6
-         zLjBxurqHMkt5Bwdo9QiVlxPXT+BuEFsurb3+Cb4LKsGFiYO6cGi15qaUuU5fmLJHHS2
-         O8OK+Qo6b8qABfNCJ65JJYgD12ofP/3SThGJkNJx14v3m1EohPFf9rIqfC4xNFsbYOqI
-         xkXDl36Wedlo5lNnwWSZYL56veYGQtZqRyXj3MiFTqGxM5OanPXhprorehUlDB0u/WmT
-         CAhg==
-X-Forwarded-Encrypted: i=1; AL+hErFM+D+rPEZ3SthRt+9jGyigKcRbcYaljcAiOy9AgGYyajrh08TIkm6ImJ0qQNGuRQqeh5/xaklQoicT@vger.kernel.org
-X-Gm-Message-State: APuU4Z/bY104TYxNQO5cAuEaLncXJYU79eiULpl3xWdqMCG7WTeOzfcw
-	fAF2X/mMNDTveFATJolkEIMCFB2RYqnpaP54PT/zyFVlQbiWmBvINBSRYMH3bEZf1ZWxviaDKec
-	+hUWalKwXkayuKb1kqlKrzUyGd8SGbGALlD1H2gVZj7RrjyXos8ArzYm9WeL5vC7SyogCs8qR
-X-Gm-Gg: AZFdTZd+91Ao6er1UEUlS4XJnn+ZchbwDqF5HdA2SC9p1is5Gh2il0BZhLIjqbEy3TX
-	GUAfU6m9NV1Qef/XMpc8nW00ACgV84TIiq0B1bVoL1MeCQrAmF3gLNvQmWX4Xt36tbCx2xk9Wq3
-	4T8OjNkr3K5FXQqSGQYT880rxOb79F5CFnah0vT018b0eFj9Dg1bPLve0v/OTohYEBuV0dnhSfN
-	qvSWPBfdreF83B4cdzCRKRiw2WI3QRoDNynzIZRZuojIyzsOLnRL6eJ0yV1yK8N+IvdO6ajmesH
-	KN6bMrLYXK13AlOETTRqY5V3LEr2xa/2RJ/43b2Ak/GqGwhtTD5YgK6gIzhrX5HruH3HWrw/v+W
-	a4DuiCsQksLY+Nf2Pm5hXmVA4hpMmOY/SQI3tJrhs1dVt8cZ17V9eI9SK7QoiafJoe8OSyikkrI
-	w+ZIVPryKX9z4X
-X-Received: by 2002:a05:620a:2a02:b0:949:70ec:7e8e with SMTP id af79cd13be357-949ba9e4216mr3538198985a.54.1795695114951;
-        Thu, 26 Nov 2026 04:11:54 -0800 (PST)
-X-Received: by 2002:a05:620a:2a02:b0:949:70ec:7e8e with SMTP id af79cd13be357-949ba9e4216mr3538192385a.54.1795695114410;
-        Thu, 26 Nov 2026 04:11:54 -0800 (PST)
-Received: from [127.0.1.1] (93-159-22-70.cgnat.inetia.pl. [93.159.22.70])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513ae8f70fsm748736566b.40.2026.11.26.04.11.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 04:11:53 -0800 (PST)
-From: Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>
-Date: Thu, 26 Nov 2026 13:11:40 +0100
-Subject: [PATCH v2 2/2] arm64: dts: qcom: agatti: add an EL2 overlay
+        bh=N7R2bspuSN2vTU9KXTd+Gs5ucj/LrOjxnprdX2nps1A=;
+        b=FwRjmudWL65oLgTj/u0S7HQX4RFS3WnOCzEmmUj60oHwEXRK/tuKkJNusyKZlWK1M9
+         Q3OWtaUEnyPQMKwdLfw/GSnHVTtxYsSTBID0lVsgQ+7Q7IR1flV5EeGHRZeXIv4a3g0u
+         Qa23F7gHKt5tLT3NTo5Ox0mgBBDrx/nxvTvTh+tjKsv4tzk67N/YeWXxxPfyt6pWUUBg
+         2Dfyjmgf30+RljnWLlu996rmkIJJykXjPdfyAG1Qt2Ml1kKCIByWel5t5wtqUFcyDadF
+         30t/r9Humb2RC7ljW6BOWSF5sZaZnLBTgR0GHu82jg405d1/psWuDQyX3zYU4ZDWOxL9
+         2czQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795695321; x=1796300121;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=N7R2bspuSN2vTU9KXTd+Gs5ucj/LrOjxnprdX2nps1A=;
+        b=2Ug5P58rvquvgfWdyZy0o3RVGK/Ki24leR6BGaU1GLEncYW5hm/eTYoqmnv79oAhw6
+         PZwhHSwK0CjE/S9ufjluc5PHyI1OSlg/gcM1spvGNTT9uqsruMeUtn0lguBC2TWfs2IK
+         WyItYa99eQsNHNEgunr9Dad+hRAf2AeSf6HrXv0VOJ8AgfUiZrQmQphZgEy5hR4B3gKi
+         YXBnxtCKxatImuqRV+XG12FuULZXtZNNj0+U4ZWlXN+JpKbAX6xhRkgV1qSjbl6kUgzw
+         MeW2U93/wSIrpIRipw57QFtHoVsF2C+//Citze+62UbuLKDDF1QpBqsFcaiDAiIakues
+         9B+w==
+X-Forwarded-Encrypted: i=1; AL+hErE9IOfXaeAhhpy4P+g007QFs5/0LmgNr96Bgfex9OY5F0ZfsoxBzFEx5vJ3BxugHhPZoWDx++2t1YQU@vger.kernel.org
+X-Gm-Message-State: APuU4Z/c0OV985p+UP/Ir9cFgZGHE5F30ApEXubFtJe8kd1Nhhkhr/zT
+	+aiUQ1JglT4lWgkR0TFSxTP+EZmmL0jnwHofpE/stb336I35J65LpkZs4zCEx1RuqwU=
+X-Gm-Gg: AZFdTZfzx3d9XeWxOYBJr5GT+AwiJFgh2yP1KtMsq4BtJImYohBCgjvAgxAGnwbYPi2
+	1IcU8s9L1wN48RS9a9nPsGrBI/mgv6n6ItFYYBuMkzbZ1vZUsuECy094k5b5b567oALMtGIULsI
+	DAXE8Dc76cSbOf+FU0GLjlTJVNh4Hw8Zyf/Nyt9S5QF/juNTNGFLsNvJPNH8CcKpHo6+xwLMWHM
+	CAr7xy+ous+f/bgbZoj+pD1aGE0i2d970ZbgqvJEInxC17un52MjLpRArkAQOVVbJfTI5YqEIZl
+	KCtwqFEr/gm8Lnz9dO8iXeVRPVSBptgfjGILyblVBAlmANsSb93e6d6CupxlPLqyXD9vhdJ7ipw
+	VXGmpnJrZz7dAua58vOvZgwS4e3xjpLxTV+aqIqX91jVTWyBBX/vP1Sw9CE7wB/tWzRW0xmVs0Y
+	4FlQOeDPKeA/w0bUHHTT8dfvcqpa/4ab7/btgN0rK7ISyIVS71SULKutQtq105ev1tA1PrYUwuW
+	s5tUhncRNFGB1GM/zpc7rXliq5UfgiS3QtmVpfyLQ1MBIxGhwndS3S/bYl7OICZPVh6+JHMrjtP
+	FU/BFoqQmlPUHzoz5f5fNqrFn/Q7oFCwrO0wjzEmsx7ah8yZQzGzWcL/XD+gh5JZnNEjHzxEa0+
+	0SbdOvLur+k5XvNXmvXcv0NvBkUYBv6f5TCJVnofqwMGBo0pGlrNozJHdDmkYLM4gFg==
+X-Received: by 2002:a05:600c:3b91:b0:4bb:7e4e:de53 with SMTP id 5b1f17b1804b1-4bb8881059bmr507224745e9.12.1795695320857;
+        Thu, 26 Nov 2026 04:15:20 -0800 (PST)
+Received: from ?IPV6:2a02:842a:9b20:d01:a06b:e180:2ea9:f6eb? (2a02-842a-9b20-0d01-a06b-e180-2ea9-f6eb.rev.sfr.net. [2a02:842a:9b20:d01:a06b:e180:2ea9:f6eb])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb906c089dsm349451575e9.1.2026.11.26.04.15.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Nov 2026 04:15:20 -0800 (PST)
+Message-ID: <bc5f0035-08ba-4813-9bda-9b2ba68f3680@baylibre.com>
+Date: Thu, 26 Nov 2026 13:15:18 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,114 +93,163 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-agatti-el2-v2-2-1ed468b4c52b@oss.qualcomm.com>
-References: <20261126-agatti-el2-v2-0-1ed468b4c52b@oss.qualcomm.com>
-In-Reply-To: <20261126-agatti-el2-v2-0-1ed468b4c52b@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Proofpoint-GUID: GQ_Vksyugj_NrkJVdhBkg1sC23eE__jo
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDA0NyBTYWx0ZWRfXyOqS+5vjeIkh
- a1vQ+nFG/0ejFwnoOxkdmdTDFMq7wtwHKeKHoOH8mexFZJ4q6WmB5CoOaDG9DKyHuPZLljHPnpo
- 6jmY0X7kmUcSgrVGpB1mJfQnTuYlm8E=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDA0NyBTYWx0ZWRfX9bsThwgqSmT4
- AKjWh0RLY8ac4usK/bP/5zT9UGxvhFzEGyYd+3s9oxqe93p0qRUYeRJqAIQkh/t+HqwJKQ99Vyv
- 4aDIegKSEY3/VS51S1A7KCXgOflaOgjb+sAj2klYzY6JcYXAqUuZ7lrQH3MQzVIBU6xf0AXQXAd
- uB1c+MxAgxjP73+7IN+kJ7U/uasfwzquzO1Evq38p5jzKZ6IgEjmJdoSb90kKcL6950S5nIt7BF
- 018FNRYcgKSEkyHeMm/KsuRxzYLxHWdEu/q8UjI/1trrSWvEEprfHvHb0vRPrECRIlQ3Gb+01dG
- tXNLexrNtOC7uLxpuJYYtW8JkPidoxAFtWKf3SGs+0SFZ5KdKxLtMAhI79DpC4AHDxJeXMfXviH
- Wd7RhsAEP1bB4ybZFivpQryn6wVv02+5n70595w5ZvUc5TNoHoUBbZTM9cS1IPXgECQs3k6ITRJ
- DdK55WJEo3853cnwHCQ==
-X-Proofpoint-ORIG-GUID: GQ_Vksyugj_NrkJVdhBkg1sC23eE__jo
-X-Authority-Analysis: v=2.4 cv=BbxNQbt2 c=1 sm=1 tr=0 ts=6b08220b cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=ySe+0nHqNG5yihRO1pIWsw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=0g1k818zwqbdU_kKEKkA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-26_03,2026-11-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 adultscore=0 suspectscore=0 impostorscore=0
- priorityscore=1501 malwarescore=0 spamscore=0 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260047
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 00/15] R-Car X5H Ironhide CPG/MDLC SCMI remapping
+ support
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf Hansson <ulfh@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ "Rafael J . Wysocki" <rafael@kernel.org>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Kevin Hilman <khilman@baylibre.com>, Vinod Koul <vkoul@kernel.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Paul Elder <paul.elder+renesas@ideasonboard.com>,
+ Sudeep Holla <sudeep.holla@kernel.org>,
+ Cristian Marussi <cristian.marussi@arm.com>, arm-scmi@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+References: <cover.1795029012.git.geert+renesas@glider.be>
+ <1e9c5ac3-d82b-4af9-9946-0302cadf7404@baylibre.com>
+ <20261119234759.GB2324725@killaraus.ideasonboard.com>
+ <19c3745a-6308-46ff-bb37-3acc88fe22e2@baylibre.com>
+ <awAqqg6F2Z1t55x2@ninjato>
+ <d94ad9ca-afdd-4301-a69c-0bbad5b334fa@baylibre.com>
+ <20261123103633.GB2959742@killaraus.ideasonboard.com>
+ <fc13a7a8-b825-400c-9ea0-ceb2670dc478@baylibre.com>
+ <20261123160550.GA3050935@killaraus.ideasonboard.com>
+ <27796cff-eef5-46ce-8079-93a0a8d40db5@baylibre.com>
+ <20261125221502.GD3581@killaraus.ideasonboard.com>
+Content-Language: en-US, fr
+From: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>
+Autocrypt: addr=clegoffic@baylibre.com; keydata=
+ xjMEafx9bxYJKwYBBAHaRw8BAQdAtc85GIwDXLz0rh9thWXC80Lji0otVDVncXT4qaS4j1fN
+ K0Nsw6ltZW50IExlIEdvZmZpYyA8Y2xlZ29mZmljQGJheWxpYnJlLmNvbT7ClgQTFgoAPhYh
+ BJjMiHuM4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsDBQkJZgGABQsJCAcCBhUKCQgLAgQWAgMB
+ Ah4BAheAAAoJEH6EW4KtCh6Tt+sA/jVC35rY1npFlOy7YnncTdrID8Qf855JA78IzXgvzpGp
+ AP9FkuuT80m66PP3DvgYX9kVnG17mSDKO0+v2W18v6ZgCM44BGn8fW8SCisGAQQBl1UBBQEB
+ B0DMwF4u//aQyzsFlO8rPJ/cqsAuPH80IeIA3HOEo5mlVgMBCAfCfgQYFgoAJhYhBJjMiHuM
+ 4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsMBQkJZgGAAAoJEH6EW4KtCh6TdSgBAMDS0MiWCivt
+ LjzZc9bs+P/xdXywUjDKq3lpQGJ6vZ0GAP9vI6DnN7vwVK6jt6/+0aBGkog5Ura9+WwRFEdM
+ vLfPDQ==
+In-Reply-To: <20261125221502.GD3581@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-With a boot chain that has no hypervisor (TF-A and OP-TEE in place of
-QTEE and Gunyah) Linux runs at EL2 and owns the APPS SMMU.
+Hi Geert, Laurent,
 
-Add agatti-el2.dtso for that case, as the other SoCs have:
+Thanks to both of you for the answers, I reply to all of them here.
 
-- disable the zap shader: at EL2 the GPU driver programs the CP secure
-  registers itself;
-- give the ADSP remoteproc its SMMU stream (0x1c0), so the PAS driver
-  maps the firmware carveout and the resource-table windows for it;
-- give the WLAN firmware its SMMU stream (0x1a2) through a
-  "wifi-firmware" node, so ath10k_snoc maps the wlan-msa carveout the
-  firmware on the modem reaches through it.
+On 11/25/26 3:45 PM, Geert Uytterhoeven wrote:
+> Status = "reserved" would work fine for a leaf device (e.g. a network
+> interface), without further dependencies.
+>
+> For core components like the CPG and MDLC its different, as every single
+> module on the SoCs makes use of them.
 
-Signed-off-by: Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/Makefile        |  4 ++++
- arch/arm64/boot/dts/qcom/agatti-el2.dtso | 25 +++++++++++++++++++++++++
- 2 files changed, 29 insertions(+)
+Right, an SCMI DT changes every producer and consumer node, and they would change again with each firmware version that changes its ids. If I were to do it, I would handle those changes in a downstream tree, as SCMI does not seem designed for several firmware versions with different ids on the same chip.
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 19310879349d..70e41313b4d9 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -278,6 +278,10 @@ dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride-el2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride-r3-el2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qdu1000-idp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qrb2210-arduino-imola.dtb
-+
-+qrb2210-arduino-imola-el2-dtbs	:= qrb2210-arduino-imola.dtb agatti-el2.dtbo
-+
-+dtb-$(CONFIG_ARCH_QCOM)	+= qrb2210-arduino-imola-el2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qrb2210-rb1.dtb
- 
- qrb2210-rb1-vision-mezzanine-dtbs	:= qrb2210-rb1.dtb qrb2210-rb1-vision-mezzanine.dtbo
-diff --git a/arch/arm64/boot/dts/qcom/agatti-el2.dtso b/arch/arm64/boot/dts/qcom/agatti-el2.dtso
-new file mode 100644
-index 000000000000..aa8e85278bdc
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/agatti-el2.dtso
-@@ -0,0 +1,25 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+/*
-+ * Agatti specific modifications required to boot in EL2.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+&gpu_zap_shader {
-+	status = "disabled";
-+};
-+
-+&remoteproc_adsp {
-+	iommus = <&apps_smmu 0x1c0 0x0>;
-+};
-+
-+&wifi {
-+	wifi-firmware {
-+		iommus = <&apps_smmu 0x1a2 0x1>;
-+	};
-+};
+>   1. They are not stable!
+>      We only _assumed_ they are stable, so we could relax dependencies.
+>      With that assumption, there is no longer a need for the (contented)
+>      addition of scmi_get_base_info(), which would be needed to
+>      distinguish among different firmware using e.g. different ID
+>      spaces.
 
--- 
-2.53.0
+I think this is the real problem, and it is not specific to X5H. Ideally the SCMI firmware keeps its ids stable, and to me it should even be mandatory.
 
+>   2. That can't work for now, due to limitations/deficiencies of the
+>      current SCMI firmware specification and/or firmware implementation.
+
+Which ones? Can't we work on improving it?
+
+>   3. Last but not least, they are not hardware description.
+
+They are firmware ids, and the arm,scmi binding is made for them.
+
+On 11/25/26 3:52 PM, Geert Uytterhoeven wrote:
+> This only focuses on the IDs, not on different abstractions offered by
+> SCMI.
+>
+> The latter leads to the need for changes in (many) DT bindings and
+> drivers, to support the same hardware blocks that are already supported
+> without SCMI in the same and/or older SoCs.  How many different DT
+> binding variants, with corresponding more complex handling in drivers,
+> are you willing to support for the same hardware block?
+> The remapping driver takes care of this in a single place, avoiding DT
+> binding and driver changes all over the tree.
+
+Agreed, the ids are only one part. But most of the other differences on X5H come from the firmware (missing clocks, zero rates, reserved resets) or from the missing clock domain in SCMI, so I would rather fix them in the firmware and in the specification.
+
+On 11/25/26 3:55 PM, Geert Uytterhoeven wrote:
+> So we can't upstream DT, until we have stable IDs for real?
+
+Yes, that would be my take, to avoid glue code based on the firmware version.
+
+To me, development firmware is the SDK, made for development, and a released firmware is the one that has been fully tested, where no new resource or missing id is discovered anymore. As you wrote to Wolfram, "We are still discovering missing SCMI IDs for some resource", so I think the X5H firmware is still in development.
+
+I was also always told not to upstream something that is not mature enough, as your cover letter says for the firmware. So why is it important to upstream the DT before the firmware is mature?
+
+On 11/25/26 11:15 PM, Laurent Pinchart wrote:
+> It's not a matter of "in development". Software is always in
+> development. Don't get me wrong, I agree that we should minimize
+> breaking changes in SCMI firmware, but we can't avoid them, or even
+> minimize them enough, without a QA cost that nobody seems willing to
+> pay. Where's the stable SCP firmware for X5H ?
+
+Linux is always in development too, and it still keeps its userspace ABI stable. I think a firmware can do the same with its ids: keeping them stable is not a QA cost, it is a rule when adding resources, append only and never renumber.
+
+The open-source SCP firmware I am developing for X5H is public here: https://git.gitlab.arm.com/clegoffic/SCP-firmware/-/tree/renesas
+
+For the SDK firmware, Geert's v5 cover says one table covers SDK 4.31 and later, tested with 4.36 and 4.39, so the ids v5 uses have not changed since 4.31.
+
+Personally, I also don't like to see version numbers of firmware that is neither upstream nor public in an open-source project like the Linux kernel.
+
+On 11/25/26 3:55 PM, Geert Uytterhoeven wrote:
+> Zephyr has less complex software abstractions than Linux, and
+> might not care about DT stability.
+
+Yes, we are lucky on this one :-D
+
+On 11/25/26 3:56 PM, Geert Uytterhoeven wrote:
+> I understand that can work on servers with N CPU cores, N network
+> interfaces, and N storage controllers, where you run multiple
+> virtual instances using the same DTB describing e.g. a single CPU core,
+> network interface, and storage controller.
+> But not on an embedded platform with complex I/O...
+
+To me, X5H is an Arm platform like another, not a special case. NXP's automotive S32G, which also has complex I/O, already uses SCMI ids in its mainline DT. That is why I would rather handle the firmware versions with the SCMI quirk framework, the same way for every platform, than with a special case for each SoC.
+
+On 11/25/26 11:15 PM, Laurent Pinchart wrote:
+> We have two options to deal with that: either we handle that instability
+> in every leaf driver, or we handle it in a central place. The latter
+> seems a much better solution to me.
+
+Agreed on a central place rather than every leaf driver. Where we differ is which central place: I think it is the SCMI framework, with its quirk framework, rather than one remapping driver per SoC. A hardware revision is handled by the driver of that hardware, but SCMI is the same protocol on every SoC, so its firmware versions are better handled once in the SCMI stack.
+
+Anyway, I know I am going against the common view here, and maybe I live in an idealistic world. I truly think that one SCMI platform should have only one SCMI firmware version, but somehow several exist here. Do you know why the old SDK firmware versions are not simply fixed and updated?
+
+In general, different SoC vendors seem to face the same issue, so perhaps it comes from the software development process around SCMI servers. That may be worth stating somewhere, or even directly in the SCMI specification, for example that a released SCMI firmware keeps its ids stable.
+
+As long as old firmware versions are not fixed, it changes how the SCMI Linux framework has to think about the product development lifecycle: how can we handle several SCMI server versions without a set of device trees and without dependencies inside the drivers?
+
+My first idea was an upstream interface in the SCMI framework, used by tables maintained downstream. But that does not hold, as an upstream interface needs an upstream user, and I am not in favor of adding one for this.
+
+So I would rather keep a set of atomic patches downstream, one per firmware version, built on the SCMI quirk framework, so they stay easy to rebase and maintain. This way upstream carries no development firmware, no extra device trees and no version-specific code.
+
+This would also follow the comment in drivers/clk/clk-scmi-oem.c: "impl_ver-specific behavior should be considered a bug and handled via SCMI Quirk framework".
+
+> The way to go in my opinion is minimizing firmware breakages *and*
+> having a remapping driver. Those are not mutually exclusive.
+
+Agreed, they are not. We only disagree on where the remapping should live.
+
+Best regards,
+Clément
