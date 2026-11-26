@@ -1,82 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795680816;
-	b=3iOKzJYLAM37jSWBnqA7EVHQqq+2VNQW6rzfOaXnRR7gvMFX1blquBhr9Ivm+h5eYzgi
-	 jtweJsJBpiGVvA8V2FKBxKuepirke1jsymAZ4uTHc8slUKZexLrTvECO7YltOcszBFbzA
-	 R3c1dM+ttbcntw7uh7o6JhqhcVtK9E8kkqaID2G/JcKn8NaFI153/NtMHpXk+0KK8qH+1
-	 nuDav18d2jdEBfN/eyWOHvA7MiIp1t2Dvag0fG850uLET2JEYOpZMJ6tt7eLZMB6/d0Cm
-	 YRWnT/XKT+dgUQ4nxDHS+fGe2O8NiXPC47BnkCHtW6obUeBHSW5yqCu5vduZmY6YtsA==
+	t=1795680851;
+	b=brrxPLxgLbgCw3Xpl639kcUaTsNwgwb6ANSKPIemQwg3ddP2ESPJPXy0Rx6wT0d83UdX
+	 tWhh8LHHTmuuYnG7z2TmQJpnCz/ecHXvpj6DKIIHY3wOssOWCwKQXxKbRZHHMFqgiFO7z
+	 y+jNmhDtyixah7JPfn4LmqAtl5lglC1qMyETrp6qcnyJZGp8NIYXUiL8LuNhSFXCDRoTa
+	 lhqX5+dwfojyMZfb9nbSRr/uTVIQoCIaTuA8B+iDQ8wqRE+jD8M1uDjvZNSVk1JiD6Bb/
+	 +tMLasIL11hZRgwwbEpwgsLZHUHquPY9o0cd2A8spjcy1ItMVqdbGBcXAFOGBTBhicw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795680816;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=6g3oE9O+R1XLM2iPW2rgKpt+xVr7YudApomdQV3VjNI=;
-	b=BK3TQfqiwOR+/Z6AhQIZTzmfIvV7PRae0+Rt7WZHdy6dnf798w1zRAAMGxmnlwY2VoCV
-	 gDAIwBITuEPpoLmxT7tN9FwtFqL/At7Fj87NGHnwmGIQYndiGQcywOcjQpFYEUH1RnATq
-	 czV9ZiiH4XV3B6wr9DsuFOKq9muwg2hSAGUw+VO1yKFPw1jNdR8OPgTdAfwCAVe9JI8PJ
-	 yc7z5AJZlJgid2II0AarxcFPUswTtfovg8P5aV2fULuUQQNux/B5qi9ryOBkloaxK/lHh
-	 dbKm30cOVMOb+fyQCdQxUz8ds2AacKe9zAd8xPtELHx33u8G82pE0lsWQODnJYWP9sA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795680851;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=huqWM0eo0fyX26dQJHUvYM8kb6xLmmHqJZknA1XlnBI=;
+	b=qGamMa/dAmg+ZVPaqZXcIa56PQfp1KEr/kf6DrcDfW0cgd03ncFJapADkZPBpuNviWpL
+	 eRtgxuSHmzeD/386ihxbSptVwA7q+5JiT7wctmgjCXHa0Uqir5adPFWwj6dNTa2lnx0PJ
+	 Z9i/gG35XOuaClpAVPhm9Xr8mD/jRMIwc+785oPy8x+2BhTROTTxihpAChdnuI0k5biut
+	 4g/O24/xYpCQbqLNF/Xwj0ViQELqYZYKiR0cgTM9WFlK9QjYb/TW4KHEXbXtDwRwuMsEH
+	 oGAqUdcxLSui3z3C6MLzqmReDmFQfLNDPNv+7QtbjF3IxO+Pc40hQoa9rNMpI5OioyQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=VaChOyNm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eax1i2c1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56BF8606A33A;
-	Thu, 26 Nov 2026 08:13:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56BF8606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14730606A321;
+	Thu, 26 Nov 2026 08:14:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=VaChOyNm
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id EEA722007F9;
-	Thu, 26 Nov 2026 09:13:32 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795680812;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=6g3oE9O+R1XLM2iPW2rgKpt+xVr7YudApomdQV3VjNI=;
-	b=VaChOyNm2kcnPPsZ1Aiy8Ct5unwUo2JUhuvqE8zoEuN6Owv1U9HxDKhF6ioKzhCTg9Scxo
-	1v9u4D2MRD04yIjgxpHsK1zxVoXBhkoQhme+cpDpy6295EhUEV8vLbTcIZUWG7UEU2ARM7
-	pNSambJRmoLqzFzS0u2tQ9yCdyi7XDLeurKllioe9JcOIcWyPWlKRWSstZLx4+SbDLH04q
-	wz+Z9ZRLnNq8/raVUbW66tS22xqjDk/Dgq3zYIlrfh6ZcLai1nHUxNtvA0X4nqHvkyZJEx
-	+xXHQl8Z7eAe42HBCuOp+0fzNm2WcWGprBiwRMyqU4GY/CkEmAmCrAoBPjHKVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795680812;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=6g3oE9O+R1XLM2iPW2rgKpt+xVr7YudApomdQV3VjNI=;
-	b=bdoE4RfamCaVUsrpHNQXaIP1I+QYHfDE7pJGSwUZqcMyrfrVF6Lu9vFzogUCh92+t/bTCO
-	6GwVN3roFKmEaZxsuq5li/qqyWOWVHPgxr8yIzmeWtqZo7voJOClmJbHmjS7EI0uRqQM0j
-	+4MgMpF1vHZCrN5eE/GSgRdFyW5JKX5YdrddoN7GdJON6qGxt6H3MrZAouJbujtg0llYpL
-	U+wKCSkh6eaKCeVJa2JIHHE1+6qHUdzhkJ15wFqUjWPJdNUSsdPk7ekm6Mce5yokBRr3R8
-	68LMQAPk8DqUELZAas6bqsSUuj6YcO2yqiggYJad6KKIH+FjIG7Uds2mJnbW3Q==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=f.diener@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795680812; a=rsa-sha256;
-	cv=none;
-	b=Pc/hlvVTnnuCUiZbjJwl5iri5rLz4BGCx+sNXgz+UXOltekFitRqoh5Dd8RYayLmXhtIod
-	UC5VyEgl6HXkoiE8eryW/3pWVQJkgoVcl2srOfd9L1PPi2cTF2zaiEetDhgsyXECMNjlWN
-	EGqZRpqyqsEa48w4xgcL38X59mmvlQl05fE2DA3oPuY++Um50Q0xWa8eIKgS2nLtlRnCCy
-	jeJLWZ44NFaHl4iVHpREnly4oGi7IWi2KDBBjXxd97HMhTSbK2glDP5OdSVNRLS6Y6jEsi
-	5VpQQTCLOh51w+h85eDsumvNufJsGuWSrYMazWBRoyEWXBh1Y0eHHaPVIbKN4Q==
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=[127.0.0.2])
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
-	(envelope-from <f.diener@pengutronix.de>)
-	id 1xWUbk-001XUF-1C;
-	Thu, 26 Nov 2026 09:13:32 +0100
-From: Freimut Diener <f.diener@pengutronix.de>
-Date: Thu, 26 Nov 2026 09:13:28 +0100
-Subject: [PATCH] arm64: dts: ti: k3-am625-beagleplay: Add EEPROM supply
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eax1i2c1
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795680850;
+	b=W3PQtRonekxWOVZOoFHxfqcYxYccSf8VHwclQhuUD7F2bTfMsD3vM/DBrgmUxra2qy20
+	 mfyath2AxNcOd1rEoKIoHX9iYk12n5uD+W/ECBJQzpfQN5KQL0xWyCz40Tdo+SEW2oWpD
+	 v/Pegn1V0OrhrpJ4p25E0Dmr8pQ4B+2GhsZpDvy59ChSDJsX/3Xl6mNgu+fxA7omOL1/N
+	 rb14JZ7ZFM4baV/v/GHxWUBvsDm1PIiwgSuJfoR/GjiQu82zy/df9ViEvku8AhVdA8QVl
+	 3FePh/mj2bIWR6Z+mqBXAN6kdJr4NAgAehtrjwoqfkVm+0o13BOv44SM5CKJHXgqB+Q==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795680850;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=huqWM0eo0fyX26dQJHUvYM8kb6xLmmHqJZknA1XlnBI=;
+	b=UgesoyPYSga95dN5nSas6ZPy8kEC8lksk/5FHy8MXU0AedEg7cWenjHyEwXXRKyOo7kl
+	 LSMfPDKTB3PLrTKS2e5ubvpnvPbs8nH/whJK5EKaBIAaWXpskRdQ2xGK3qbJEd33xSnSP
+	 BNPv826ZVO88rHFhwg7aPJHFQ7pCKy2ew7xaga42T63frFne4Xe+MmmRGDwSFTf56685y
+	 rNEFVODIoDIB1XP6r5cEPsXErBO83ivkJMsxDpkE3fS3hQdNLolEl7aoQGTg1uercuWHm
+	 TulMwBhQB9JMIhprWWbCt2CpldQK5+DJxH+fIaF3XnZLER1KbJgEp4Pz4emWabWTDZQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id A99881F000E1;
+	Thu, 26 Nov 2026 08:14:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795680850;
+	bh=huqWM0eo0fyX26dQJHUvYM8kb6xLmmHqJZknA1XlnBI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=eax1i2c196w9D4jYYrnIzZBTu8/Rn5Ii3lFWCS+uuIKAudBa7G60vPgLmgh34PB0c
+	 gGSln4w31I29gET9uG0kOsOQgrktc8toIn3NDeUKRDUTS1nx+ohRuaFzqJujZaJmUk
+	 z1Ql0Ek1KXPODyVPqdGUcIDnn5siJuhk5pGR1plFh7Ueg05AjhnBOY86R2Pnus2qL6
+	 jiDTEUnbCEMRFKnWTCDvCWJh7Nu+POxiT+Iodi9kn+Iv0WJpkcqJWPWYDGFKJWCwBs
+	 foL0PWRtxsMLXkuwwyh9jDB9Y2HI/tFOhqYp7raC2sx1fuLFSw1CEjm2y9NfsOMZw6
+	 TMCVwPb7nOZcQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 36C154D2EE;
+	Thu, 26 Nov 2026 08:14:05 +0000 (UTC)
+From: Robert Ijtsma via B4 Relay <devnull+robertijtsma.gmail.com@kernel.org>
+Date: Thu, 26 Nov 2026 09:14:05 +0100
+Subject: [PATCH net-next v2 1/3] dt-bindings: net: qcom,ipa: add
+ qcom,sc8180x-ipa compatible
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -87,67 +84,57 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261126-qcom-ipa-sc8180x-v2-1-89eba621da95@gmail.com>
+References: <20261126-qcom-ipa-sc8180x-v2-0-89eba621da95@gmail.com>
+In-Reply-To: <20261126-qcom-ipa-sc8180x-v2-0-89eba621da95@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Alex Elder <elder@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Robert Ijtsma <robertijtsma@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795680844; l=911;
+ i=robertijtsma@gmail.com; s=20261122; h=from:subject:message-id;
+ bh=Zda+9Ammsc4s6lMXOWoTtjkZ/oA5KShVVsCnmBZdGAo=;
+ b=I40e9SfuC+UdZBZLKwNCpF9MbOPhueCs93NphBRuYb6USVNiQaO/L3nOJhJ4Sj/u4o873DA3L
+ BZHwwh72z74CLVsV7IH/QcJk/F3TwPAYyHqnSAhiKUZ34CUtCP3g1GG
+X-Developer-Key: i=robertijtsma@gmail.com; a=ed25519;
+ pk=qiDyKVqFicxFIR5sB5m+p9SWPKL2/+mMoiQnUx0C9P0=
+X-Endpoint-Received: by B4 Relay for robertijtsma@gmail.com/20261122 with
+ auth_id=1604
+X-Original-From: Robert Ijtsma <robertijtsma@gmail.com>
+Reply-To: robertijtsma@gmail.com
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-beagleplay-eeprom-supply-v1-1-19c543de6ab5@pengutronix.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCMBBG4auUWTuQBJXiVcRFmvytkdgOmVYsp
- Xc36vJbvLeRoiQoXZqNCl5J0zRW2END4e7HAZxiNTnjzta6E3fwQ4ZkvzIgZXqyLiJ55ehiezS
- 9N7ENVHMp6NP7t77e/taleyDM3x/t+wcVGwHBfAAAAA==
-X-Change-ID: 20261125-beagleplay-eeprom-supply-d2d840fa0d8c
-To: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Robert Nelson <robertcnelson@gmail.com>, 
- Dhruva Gole <d-gole@ti.com>, Andrew Davis <afd@ti.com>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>, 
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Freimut Diener <f.diener@pengutronix.de>
-X-Mailer: b4 0.15.2
 
-The BeaglePlay board ID EEPROM at address 0x50 is wired to the
-VDD_3V3 rail, but its device tree node does not describe the supply.
-When at24 probes, the regulator core warns that the vcc supply was not
-found and falls back to a dummy regulator:
+From: Robert Ijtsma <robertijtsma@gmail.com>
 
-    at24 0-0050: supply vcc not found, using dummy regulator
+Document the Qualcomm SC8180X (IPA v4.1) compatible string in the
+Qualcomm IPA binding.
 
-Set vcc-supply to vdd_3v3 so at24 uses the regulator that powers the
-EEPROM.
-
-Fixes: f5a731f0787fd ("arm64: dts: ti: Add k3-am625-beagleplay")
-Link: https://docs.beagleboard.org/boards/beagleplay/03-design.html#board-eeprom
-Signed-off-by: Freimut Diener <f.diener@pengutronix.de>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Robert Ijtsma <robertijtsma@gmail.com>
 ---
-The BeaglePlay board device tree already describes the 3.3 V regulator.
-This patch adds the missing supply reference for the board ID EEPROM.
-
-The BeaglePlay DTB compiles without warnings, and the EEPROM node passes
-validation against the at24 binding.
-
-Boot-tested on BeaglePlay: with the updated DTB, the at24 dummy
-regulator warning no longer appears, and regulator_summary lists
-0-0050-vcc under vdd_3v3.
----
- arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts | 1 +
+ Documentation/devicetree/bindings/net/qcom,ipa.yaml | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts b/arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts
-index 898e4ca3fd87e..4ddd5e7b3843e 100644
---- a/arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts
-+++ b/arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts
-@@ -671,6 +671,7 @@ &main_i2c0 {
- 	eeprom@50 {
- 		compatible = "atmel,24c32";
- 		reg = <0x50>;
-+		vcc-supply = <&vdd_3v3>;
- 	};
- 
- 	rtc: rtc@68 {
+diff --git a/Documentation/devicetree/bindings/net/qcom,ipa.yaml b/Documentation/devicetree/bindings/net/qcom,ipa.yaml
+index 38e3830512feb375572c8801e06fbb97c33d9d89..99e5464dc47e53514dc8012ecd06654789ef6019 100644
+--- a/Documentation/devicetree/bindings/net/qcom,ipa.yaml
++++ b/Documentation/devicetree/bindings/net/qcom,ipa.yaml
+@@ -48,6 +48,7 @@ properties:
+           - qcom,msm8998-ipa
+           - qcom,sc7180-ipa
+           - qcom,sc7280-ipa
++          - qcom,sc8180x-ipa
+           - qcom,sdm845-ipa
+           - qcom,sdx55-ipa
+           - qcom,sdx65-ipa
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261125-beagleplay-eeprom-supply-d2d840fa0d8c
+-- 
+2.47.3
 
-Best regards,
---  
-Freimut Diener <f.diener@pengutronix.de>
 
