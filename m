@@ -1,43 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795681639;
-	b=iAVObOEsNhfbA8rL6HPCB/R/fDRIhME4LbqPwUs6aCHkq/JeNFE0p/LNaLc1fUM25Fxz
-	 Gy8YsPV66PJAeKZdyNzw/HDpLhAvEvEMqW/yravfyyhTsHiKtOcmhNt2aNmvSTrQh7C1s
-	 odl8aQRy6VCH4emYFNXR4kG+j2CHgcMvT0pqQyuWctwd6cK++rnhmfEFO7EkkmHbCGhqO
-	 w0fVBXsPJgV8lCFo/ppFNHjQAuuIctDk4krwzaNzaxbUe/xYfc6RcDt00mkI2mgmPXYBf
-	 w+IKrl96sQHQMpwUx0t9JAgjhc40QstT1AVD29H5QCwKIP8464sX4LreNiub5ScUh7g==
+	t=1795681916;
+	b=gWF89lknAjXIboVRJzTll9D+J6cScj5YTxSmwFd1wZW64BJo7O25BDcR7Cm8w5zYtfPh
+	 UuyPIZXpDwl5luEgcXI7xzjwsUVAtOQxGX+waYQz/+mDt7n0BLDTpPhyTlj/zM9cz3Hfj
+	 YeTaN5wn64CABpBZyIW44xmVAOW3AT1V05N4+k4qcN9pBvbt/jhJG9fRddrErPiTbCXwG
+	 fKSu8fPqYYmD+bOO8PPL59HtAnoWDTJ2iGeXiifNUEwYEI20JYRWqJSp15HTO70Jy6/39
+	 QKm/j9JtYJfCTCM7tH2+cnD3cLHj+Z5i2DKch0oGQ5qq2iBMEALbOXs2z5N9xHjLvdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795681639;
-	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
-	 X-CM-SenderInfo;
-	bh=UVP94qkra3NeZRByxo8XfGEpavoS46ZaTdo5vMtYzGw=;
-	b=t+KgYqayiJ6LP9ZICtf2PkaNtA4CWo8+jB8NmSnZrslCwIU0cmN353aTDfZX5hvFtmHo
-	 G4nq21QdzY0GbvcpLOBce1ZRGoQv6HGpOLcJilVh2z4JRPZwqjRZ7QieMjGDXqsf8mAz9
-	 t9QwUntkWlYfhotr2yrgjQssEjpE3KMCTXCsIcUWIYHcOtTJFQlh/qq+ILzHzhxiw89YN
-	 jYwH3A0kor/YbmS62+QA2bBYkSKOX8DHVPmrlHWFZBYNWfqCxHqJWNrEdF+wwvGe650CW
-	 SuODxF0nDHeMtDiWyCCTiKD3M416LRDCoIKEpT4ZqOQ0iX9VKZDuVokTy/Cfc3A4I1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795681916;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=bsFyyn4glzVRtAEYcoWdywoe9cNyQJ0bI+XLL83v7f4=;
+	b=cqMiu4Pwm/PLIq5c3E+0UTeal1R7dk7ZcFJq6wLMtRXK/kD8iesJUFH3x7/BtJS+/mK7
+	 o00m6HXv8kVovakANJitGdXr71qjAvYdWD3eGv5x76NSPDT2hsi+vmCiWRg7At8eSVdUj
+	 45klDDKNOTCM8DsRA85cOiNo40tTADjH41v4/ey5PYGP/Uhk6650xepxRdMnsCxSbVk4R
+	 5grjxHczeQcMGNr4qS62UqokR5J0cCnNmtmFdABYer+7kqWOfQ/z8syZ8XCQ4WM7JJW29
+	 DMOuBQfllmhGdBclJeRlOlaOzKrkf9GbqlyAbIXSbc7GsmDdDrbo/PJxZKpkzLKxFHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VHNHPIPJ;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="Cb/6fMKG";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D731606A31C;
-	Thu, 26 Nov 2026 08:27:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D731606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.207])
-	by APP-03 (Coremail) with SMTP id rQCowABncJFW7QdrHy_WAQ--.21303S2;
-	Thu, 26 Nov 2026 16:27:02 +0800 (CST)
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Date: Thu, 26 Nov 2026 16:26:58 +0800
-Subject: [PATCH v2] dt-bindings: usb: vialab,vl817: derive subnodes from
- usb-hub.yaml
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFEBF606A321
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 08:31:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFEBF606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VHNHPIPJ;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Cb/6fMKG
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQ7B9rd919560
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 08:31:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	bsFyyn4glzVRtAEYcoWdywoe9cNyQJ0bI+XLL83v7f4=; b=VHNHPIPJMFTm2FRU
+	Ec47rd255jdGakFPiT7uMNt5jTPVQ1FicYqYVdwYenErQFi/LL0zxANpIH0/9R2v
+	CaxDDGSgDdEcY4K7pleWjKTGOdAK1Mgtb9oWb9GOnAt87/eEaslWMZupabxh2sff
+	xUNxi0+qDzGW8vT5hvGc5/mnnJBo0P1zdev6DavGVL6ePh1vfaa9UMWb+YbMWPLF
+	N/D03OTZ47kaP4nP+BaIawczseyDP8EAkW6AUV4edvJDPvf9WvUFnn0BEYBP0oHk
+	eOYrTAnda0Uudxk4Ns8q0cZI5VUeC7BX+R1th+ME8biWt1JXuc403hEXPY5wTB3i
+	Mv6H0A==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j662y262e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 08:31:55 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9460411fce4so37021085a.2
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 00:31:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795681914; x=1796286714; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bsFyyn4glzVRtAEYcoWdywoe9cNyQJ0bI+XLL83v7f4=;
+        b=Cb/6fMKGaXX7DeYORLnDNyi3KQ7pSbCueISIgAOKLZ0XvQwJNqf7BCJ+IyQGOVk+j3
+         Yrq92XewJDVlfY8pqCfDNNWgfwpeuugtyd282Yjt89bYHzCmTeRYq7fPgFt7pYJiVjr+
+         TBwYweLjnrwglRFQlStNM5uDZh2k8tI7ZdXqjDDQ1X7FPBVPMfDV7OpXrdD8YgDrcXW0
+         EdG5yLY7LOxMnuqmxODqhwU30glmLUDuZOF7sUZt6ZkzUJD8ksDFXR0FthrLBfLkectR
+         5mE/89HFzREN74TEcb6sYjFQAkvC7f+dVZxQ9JU9VL7WRX/zFi/2kzSl9DjNURU9qPdN
+         1EAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795681914; x=1796286714;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bsFyyn4glzVRtAEYcoWdywoe9cNyQJ0bI+XLL83v7f4=;
+        b=0QLl4Xki/YAqo00a0XB8IRNM6+MCf6fOFdQrpU68EXywEj/zfoCfMQocpm/vuRBqnl
+         OKuINPug1vuaAzwHKGgky4wTLfa3cY8bmzswmeeTGasfZdd+4leEEirO6w9omftE+Vpi
+         8B+mzqaQSKBjOEdR3oZk18rp2XW9F8NPeIidYPRGgEc4cP2a/7qcG1Vv82hbgfgX6TmS
+         7gtHY/TUo/Ft+kfYDw8bhXpQBAHp2JhQAAdPP0cY/oG8VS8cE6JdSR7cWeHnxSLJ5seK
+         0aTfN7cMr4fLmVBqcEIAoffsv0bgE+PQP9KfuH1lZh5YC3u69E+s20Ay6swKaK6WFH7r
+         xYfQ==
+X-Forwarded-Encrypted: i=1; AL+hErHb/gElBe24F/E1b6Z/e/L2FhxTsleY3euO8esRTbwcpXyGOV5432CkLtqYRXuZy0i6CLyyn7OJD5Zm@vger.kernel.org
+X-Gm-Message-State: APuU4Z82cCNdLWJ2h9+FUd1YveIpBlLJVWCgszXteNSZneukHoOkNkw5
+	YQFi9wqLve3hdvG6S41chIF1eNNcvbZF9mn4ZXd95FU5RlcRTfEA3shTfcEIoaeKZNj560RtjGH
+	X5u7Oc6stXnthVaDR0O5Nb+3M8G55j5h4HrVLKEXMCCP0LHhLo5A1pK+L3L8DScmx
+X-Gm-Gg: AZFdTZe70lowz+lVX9L8fK26Xkz7pgyjR/zbfnPV8tBjCN6h1VC/AH97CTWYL3q3VCl
+	Gw/bJMnrbNOewH2U2I32MOBEiowCfG2ZRclyzDm/4O5EGleW6UAlp91QVdSuRCKEDJTRqh9zZ1J
+	0wZpV84tlrUMiFnYezn/dONwIyg7jpVPdNcmTvQ9/JFPg61rJyZ9hJ2oPmqfma/QoGIgz2THETr
+	KFlIafRZXtRih1ix6J4TlnnRBztJRMGkB/Uxf/BQxQO04Mjn+AVTqwy/V/03tWQCicaF803M96t
+	sZn1Phulc9+/8JLGKcNsGELMWJ5lGXocsfPmx4ir9Ms/zQ22fHLrUINViaHFZlCS2LW2EOGsqTs
+	QC5Bsb4pU0jdfrmiXFHUniUdYUVskxXNCVs15MjqHWT4tNX2N36R9/kEdg/fFw7JXPFJCGc4=
+X-Received: by 2002:a05:622a:e2cc:10b0:535:f9db:3b86 with SMTP id d75a77b69052e-55d769f824dmr343745891cf.3.1795681914112;
+        Thu, 26 Nov 2026 00:31:54 -0800 (PST)
+X-Received: by 2002:a05:622a:e2cc:10b0:535:f9db:3b86 with SMTP id d75a77b69052e-55d769f824dmr343745661cf.3.1795681913644;
+        Thu, 26 Nov 2026 00:31:53 -0800 (PST)
+Received: from [192.168.226.72] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba370e8adbsm9286795a12.17.2026.11.26.00.31.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Nov 2026 00:31:52 -0800 (PST)
+Message-ID: <c1ec2f35-955f-4131-85f4-bae78d016c98@oss.qualcomm.com>
+Date: Thu, 26 Nov 2026 09:31:47 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -47,87 +115,70 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 5/9] drm/panel: s6e3ha8: Correct the polarity logic
+ within
+To: david@ixit.cz, Dzmitry Sankouski <dsankouski@gmail.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: Marco Mattiolo <marco.mattiolo@hotmail.it>,
+        Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20261125-crosshatch-panel-v4-0-120adc58e737@ixit.cz>
+ <20261125-crosshatch-panel-v4-5-120adc58e737@ixit.cz>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261125-crosshatch-panel-v4-5-120adc58e737@ixit.cz>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-vl817-uneval-prop-v2-1-9640b58d37db@iscas.ac.cn>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ6CMBBFr0JmbUmnNVRceQ/DotRBxpDStNBoC
- HcXcO/yJe+/v0CiyJTgWiwQKXPi0W+gTgW43vonCX5sDEqqClGdRR4uaMTsKdtBhDgGURulybR
- OVx3CtguROn4fzXvz4zS3L3LTHtqNntM0xs9xmnH3/vUzCilQGydr3bVayhsnZ1NpXek8NOu6f
- gHgcSUaxgAAAA==
-X-Change-ID: 20261124-vl817-uneval-prop-9723e7bc36f1
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Matthias Kaehlcke <mka@chromium.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Anand Moon <linux.amoon@gmail.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Icenowy Zheng <uwu@icenowy.me>, 
- Han Gao <rabenda.cn@gmail.com>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
-X-Mailer: b4 0.15.0
-X-CM-TRANSID:rQCowABncJFW7QdrHy_WAQ--.21303S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CF1kuryDGrykuw4xArWUArb_yoW8Wr4xpF
-	4akFsrK3Zxt342ga1v9F4xua1rJas8Ars7GrykXa1qga15Aan8Jws8K3s8WF4DWFWxuFW3
-	CFWqkF15tws2kaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
-	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
-	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
-	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
-	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
-	VFxhVjvjDU0xZFpf9x0JUd-B_UUUUU=
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDAzMiBTYWx0ZWRfXxQmeKlkyjdyW
+ VA+T3uLoFEBZjWKdtd3NSpO21y9mFKDKdvMZ17ZxEE8pBbkeUHsSr0qL+0p6Zy4WIym3U/b6h3D
+ 7/XND0bYjndYDp8DwATq+xEvGdicyqmvNUI62cIphWnXiqF5Lq0yeQLP8Bgwwxfre8f/N0ARmxY
+ oIjaU/3NV3FAexo/Nv4eUXxkHbWr/Y3pTHhhntYRVG7M8vlV1xt+7U5cUDcBmpUuppC6yOHxpTe
+ ILc/5Uc4lIBNCFxInNgNJKNl4ZykPUa3rf/VNqeSxKBSYNRqvANvLnfmt/8XEU/ew7p2yrte/WU
+ geGNeOaT9h1OrU0zqY0z4/T2SVhc2lt0qh0xThZVqc19JCPbuxm54DQeFB+5w8v66dLwG6pUp2B
+ R9ZjZCRiffKY3XBCcHjFQVexlAo19kvg9fpiesgPKrZywKv+/eliXku49TiNrlXFqOvGOV0d83I
+ sL7iU817aSLArMPBNkA==
+X-Proofpoint-GUID: HsDLTXohi8d4UdNWv76CYrbMt9wE8I_O
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDAzMiBTYWx0ZWRfXzsqDfjRfptS8
+ thLVCZESwF2Exqq3wpQiW5kyxNa7mCEnum8wA5NlsZ3q1t6KumUDNjNEeMoyS0Jlb6LfO5d1pVd
+ hDOeBkwAXTKIyB+y8FRzn3p1R4thoOI=
+X-Proofpoint-ORIG-GUID: HsDLTXohi8d4UdNWv76CYrbMt9wE8I_O
+X-Authority-Analysis: v=2.4 cv=W/KtxhWk c=1 sm=1 tr=0 ts=6b07ee7b cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=7BbI1mFHGmmar5m0u5AA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-26_02,2026-11-25_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 phishscore=0 malwarescore=0 adultscore=0
+ suspectscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260032
 
-Currently the binding for VL817, a USB hub chip, doesn't allow either
-OF graph ports or attached devices to exist as subnodes.
+On 11/25/26 7:12 PM, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
+> 
+> The reset was introduced with wrong polarity. Correct for the future
+> compatibles and keep current with reverted logic.
+> 
+> Old DTs keep GPIO_ACTIVE_HIGH and are fixed up via
+> gpiod_toggle_active_low() on the deprecated compatible.
 
-Change the parent schema to usb-hub.yaml and set unevaluatedProperties
-to false (instead of additionalProperties) to allow subnodes defined in
-the hub schema, including OF graph ports and pattern-matched downstream
-devices.
+738455858a2d ("ASoC: codecs: wsa881x: Use proper shutdown GPIO polarity")
 
-Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
----
-Changes in v2:
-- Stop to deduplicate properties from usb-*.yaml.
-- Squash the remaining 2 patches into one.
-- Link to v1: https://patch.msgid.link/20261124-vl817-uneval-prop-v1-0-137c093fb300@iscas.ac.cn
----
- Documentation/devicetree/bindings/usb/vialab,vl817.yaml | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+made it work with one compatible
 
-diff --git a/Documentation/devicetree/bindings/usb/vialab,vl817.yaml b/Documentation/devicetree/bindings/usb/vialab,vl817.yaml
-index c815010ba9c2e..1900444bec31c 100644
---- a/Documentation/devicetree/bindings/usb/vialab,vl817.yaml
-+++ b/Documentation/devicetree/bindings/usb/vialab,vl817.yaml
-@@ -10,7 +10,7 @@ maintainers:
-   - Anand Moon <linux.amoon@gmail.com>
- 
- allOf:
--  - $ref: usb-device.yaml#
-+  - $ref: usb-hub.yaml#
- 
- properties:
-   compatible:
-@@ -40,7 +40,7 @@ required:
-   - vdd-supply
-   - peer-hub
- 
--additionalProperties: false
-+unevaluatedProperties: false
- 
- examples:
-   - |
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261124-vl817-uneval-prop-9723e7bc36f1
-
-Best regards,
---  
-Icenowy Zheng <zhengxingda@iscas.ac.cn>
-
+Konrad
