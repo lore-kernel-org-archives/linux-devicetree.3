@@ -1,79 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795686478;
-	b=d+pre3tYEyswQm1FV944iDcK+vGg/94iEiND6SnOqZLWP5V7Ty7K2Z2qS3L4KyFZeRbU
-	 PWjfYT8jSiSHI9fzRpNEVXbJP3asLAdVCP8q82iqSVvDRoLj6PbWDKYuzns4q2CQH2+XA
-	 7yFFFCzntxKcLViCABJrUjcQkUuRDdOz3p+nWWcwDbiYI9hPjft/F1ewTnFNggsTnKfSA
-	 HKi4xAII8GZh2M4N6wVe+KGz0Al3uScEy5ZbyWywtKpaW857rMQTPT0YTVdIgtXCk/6iO
-	 P9YUekjSrOtKwAP/Jv/1Hz2XAZuyizaEa43DRoUQUS3vxzQ8q3TWt67mUVNMN/zTouA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795686478;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GUDae9cdn+7jukw5FaNzRwyibyvz8i01iDH/hVud3Ow=;
-	b=KXdiQ2bomx1F7LkLcQF4/nxPOonQa6X8qEViMqkk1yvlHV2FOdoZFjGt2HAS32ND3IFy
-	 7RgfAsIXbDD78joVsf1GdHlLJuFJ0VI3P7ptKLyTWfDkapwiVR1OjiTph8NDj87bhxnrg
-	 4YiEJ/K0OFefB5ulDq9YKFanaZClofaDhXf+6EqmZ44La9Ke6L51c8zFa2d3gd51Qe0hl
-	 3sfig/FUI9LXTjdjX29VFMTM/EUes7sq363PZab9u+GJhaHnf1oE1cBgSA8neHW3dkkSu
-	 L0Mkf+cstfBt6qHl1uO5LlrSAFg65gAmfnJmWv7zsK0y7MmG+x6ccxkwUAwSiYfxRTg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JG3r7kTa;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEDA2606A323;
-	Thu, 26 Nov 2026 09:47:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JG3r7kTa
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795686478;
-	b=SpskddrOHa7gyyhKzVBfUhXcFi+kDALrfOiFA6L0d3YGQg/1xNta0uL5OCy4MA7yFG4v
-	 0CGKJDVVg16GPQQCB0eExR2xi1rjzLJ3NPCA84TZyLfF+M2waLNd1LzPtTN/wA+UMHhxr
-	 MV1KVYF5NCwV7HBNT2kmYraR5+AjJDBquz6d1z7VBeNesHHgTFdzYJtLOAYFT3YOC535I
-	 w+Ump97DG8FYaLWYMihONEnWShTme/ya2hZi2T8OEr9ufVmND46aPgtRMekGd1xNyv3h8
-	 BDyhrZr5k5KSlrEw2hAiXDU2fxHmapxsTiLpfDyuIKrqjRaE14nDt3bV4+O0oQufv2A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795686478;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GUDae9cdn+7jukw5FaNzRwyibyvz8i01iDH/hVud3Ow=;
-	b=lxM9mwk240M94FAHx3tXNwvI7o/mrLhfOuJLXhBqEyv1tJtvdwovbJUi1iMjrhrMoDKX
-	 m0qSU/BEqwYx0FA2fRYzmTrbjkLjeRqDd9tnxBXkvE8AXiIQZyng/ayBM8hE/MH650n7T
-	 9zckg2MiC1UAyHPK6AqXvhM0VLgX7pmHbpAW5RASOhwVGSzDfNIWGZaXc1WsUFchcJAt5
-	 Sq1Kj0Jucf+zaor2MXqOkpJYO3D7cIe3gRUyxXrQMlbZymna5xFPoH1GJquGOk3/1SBl7
-	 SAFJ7t7gOSPJCVGoaM1RnlQoJZMcJPrR/PEj7kZNgMcDraTm6rcC8H0+DUGOFTaIeIw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795686511;
+	b=gt+gLImBG24B3pBPs+d0zXX0Ad0fiyzYcYpIBYBn5cK8GO1EDxq9XBfDnP+TtYyYfZlW
+	 OawyjFArmw40blZEi7IL5tbWmab2SjWUaEd4uDYelyGXsIOyPBYMwUB//xVt/vJD2GpnS
+	 6yHYSo1HXD53pvtk1bgcJEC9ekkaLO08K//a1Mw7ppCbUmfdatXyulPSPDjJe9TUXj+ko
+	 yJUFvA2yVLoc69u/fWkSRiX9b0plNKsWarQyoC7w+mCq7zOdwOyaZnBmp6dTcM0cZ3KjZ
+	 gRm4S/21tCkDgQxCytZKdh2bAbiOuiccc+MkLJCR0Er6WkNxeG46VZu0VxBF4LNcPGA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795686511;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2Za6MacJG/4uYb3nMvFDyzid4e9GAP1DjcxkycMoIOM=;
+	b=2dVsvX91CHWIlLOVku/CIX2xogHFDlKpYa9CoW1GduC95KzaeYTmh6vMufOTcautDam1
+	 R2MDebTkMM5nWY/1VWSV83RiEAgmO0QmLn211nbI/TArEAuatvYpePPIc521RVTjXAl7a
+	 U1y7E6zbnFdXIjIsLmnIw6LfmMhka2XwoNJw+2pGUFx2wSJhOt1HCTYUpNIN2jKvgfeB4
+	 HAYkQjRdp6liBUMzP3Bh+8Cm6n0GHzNtDR9pQJiZhBbn4TXrOGvQblqUt4NJaoSc5lBY9
+	 EnIF30TQHfyh/nGLOKEgrxdRg1LVLvFgVCIypaWVi3aC+QGDYci3IlHSMAfFymhB6+w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DMxaLUjL;
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id BB4691F00AD3;
-	Thu, 26 Nov 2026 09:47:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795686478;
-	bh=GUDae9cdn+7jukw5FaNzRwyibyvz8i01iDH/hVud3Ow=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=JG3r7kTantY+00tQEj5dBxq+RBw9Ydd9jSTs8cVbGP0ZsJ4aj7DX1TfTN58F27in2
-	 fHgTIoI4oS26tBwP4aPfBwoIHRu5Q7RZKwizjRPUOxnfASM6YAfWpumie1qBxj8VsO
-	 3gDVw32xKoXXmVFtmlBOei5J2/BAdJTdPcHVToRRKZ+7QHc9aqxA56I9EwyVcxHV/M
-	 PK0yQQmA/8KJe4f4OZ69hO5N7Cq6T9Ns7RIE+J3QGlDn8f95aCupqK21/Bpw0Vvnsr
-	 HKD98kufCydoy+rS0trG98z/gaJaTzwGwkXRantLig/gCgEWWOYcSK+uRub2cVsj95
-	 vH9wanO0jZg1A==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3E7C84D3B8;
-	Thu, 26 Nov 2026 09:47:37 +0000 (UTC)
-From: =?utf-8?q?Alexandra_=C3=98stermark_via_B4_Relay?= <devnull+alex.cramt.gmail.com@kernel.org>
-Date: Thu, 26 Nov 2026 10:47:35 +0100
-Subject: [PATCH v2 1/3] arm64: dts: socfpga: agilex5: add the service layer
- interrupt
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8716606A323
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 09:48:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8716606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DMxaLUjL
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1b563e5cbc3so402163c88.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 01:48:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795686510; x=1796291310; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2Za6MacJG/4uYb3nMvFDyzid4e9GAP1DjcxkycMoIOM=;
+        b=DMxaLUjLA5BlKaT6YX+N2yYET838u0pZcFVXo+fjXewh8keajOCnUP+WEalIa0pm4M
+         scCx4aQLbdiRKGI3dAts5WvNvtN92ADRV+PDuZKBKnZte2uCb7aUcwwNosGaUhGfFbou
+         /4fGB2k9MpVzhDxUhhd/f774mnw7RoeSuszx/XksflzDlHUMar4VDueO2H9wpvl05r97
+         Ds52aKW7qa8CoDQOhKF/FafV+zawzdjTjllz7buM6pwiIQCqs0ULFzR41yvedG+idzlB
+         yrqIN192zJFzz3mnlsRxNP6w3qq+ySVLKCM73/zH8wkZ46oihXrjSwEY/SeQNTveXDzg
+         VrFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795686510; x=1796291310;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2Za6MacJG/4uYb3nMvFDyzid4e9GAP1DjcxkycMoIOM=;
+        b=Bmrs8YaIhe3YewN8VnUPF4Fm+C+aQSDogGMLOLBUJl/vCc5Rp3CEnfhUSaAo/kGixA
+         N9kMiYA6nGnyIFOXdjUK6/cywu3gfR42YOwYDpxTtutbq7YmkjnZy0wBoenl0snLSX6v
+         R7bH1544EXt+6vOw2sVLXMBsS24xbcQmJhAjt4eJErKpZy9vLBTZSBYEshL294yd5Q07
+         zFMIDXRwso8naVEjkl3kZ5t33/nUv0/+4KChw2I4zr9wmkeCXY5aGyrlmB2XiGsdmq8V
+         cDgvLtbt2169yvI9oi+RGQ4m95HUuYywS7vWERsgV9inAMqhfL2gbfIbczY3knbXOB98
+         v11Q==
+X-Forwarded-Encrypted: i=1; AL+hErFyBRbHnAMAzS42pe3Sf7SFoAuA2ume5UbhhI3Enrq48NpdeFYpBJCaLMhz4jW3Ux4USTmIqXmxNvrO@vger.kernel.org
+X-Gm-Message-State: APuU4Z856pJxPDsASrC/CrXJNF5fZLZtzVRKWZAHfV37kneugkgd2zNb
+	+z45W4tv0zLlV/GvVpxQRFuRFKMPfUAhnsBZM1JN9+Fs+15kqSEk1u8K
+X-Gm-Gg: AZFdTZfk7qY+0IofIEY/1FDviltAE/Ej1mYDR6psyGLsylJIB83XjC32u1EbSbKvxwl
+	mHDNf4p+64rJ+ne6Q4XkzPLIRSWExmqO04HCjc1qepSdsUnIZQgau4LUVvU2JOvKaye8crZ30RC
+	kyGMO5gK0hFZKETNeGJO74rLvmJlNbtEUGnQ3QFvMOwKwmBwFuJtfI1SpEziZd9ae1qln0/2+tj
+	hW5/t3wwH+PDP/h2OoDYz0R9P3Bc3rqbAsAfg52EbOuJ4WYJEZZxuaUNu/LMWi5nsltm+EhLWVQ
+	oOn6CHyimwygC0lrdBHk5ROdsw4NfQqtipOvRchYNLfd1SilrDEAbhnd5bU0CGA3Ahx1b1vog54
+	62aYRdjebjpMLp7W9oqJEcFsIcAGtO/gWsAH/cPbM0faXKAmjJtLt80cP44E91eg46G2zS1Eqhb
+	Igb8uEr0XwCVVcUTnsMk0OSDOATyxTBWkiMB27aUYSprEQ/RKKI4B/gbBctYKwqv9FeDFsRT1kT
+	Z0UoI6h1n3odzVnPSygoxnIhArEbJYqi0NNX1/EJ4HPIAtgx32hFZFqiMeJraP6ThPt/hEv2ubM
+	znINLvb9pHVDamcoY1TNxWiJ6GRUJMlDkVfFfRcwj5YZRL9lrX1rvJHzZpOJQpLDMU2nJNic5w=
+	=
+X-Received: by 2002:a05:701b:21cd:b0:1b3:be0d:696c with SMTP id a92af1059eb24-1b5567e661emr20009355c88.1.1795686509781;
+        Thu, 26 Nov 2026 01:48:29 -0800 (PST)
+Received: from 192.168.1.36 ([2402:a00:163:2ce9:ad38:eaaf:b00d:c452])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b55684c85fsm71781172c88.14.2026.11.26.01.48.25
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 26 Nov 2026 01:48:29 -0800 (PST)
+From: Ajit Singh <blfizzyy@gmail.com>
+To: andersson@kernel.org
+Cc: konradybcio@kernel.org,
+	abelvesa@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ajit Singh <blfizzyy@gmail.com>
+Subject: [PATCH v4 0/1] arm64: dts: qcom: Add Vicharak Axon Pro
+Date: Thu, 26 Nov 2026 15:18:17 +0530
+Message-ID: <20261126094818.77473-1-blfizzyy@gmail.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,65 +102,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261126-de25-nano-v2-1-02e43ba72681@gmail.com>
-References: <20261126-de25-nano-v2-0-02e43ba72681@gmail.com>
-In-Reply-To: <20261126-de25-nano-v2-0-02e43ba72681@gmail.com>
-To: Dinh Nguyen <dinguyen@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, Mahesh Rao <mahesh.rao@altera.com>, 
- Mohamad Asyraaf Azhar <mohamad.asyraaf.azhar@altera.com>, 
- James Clark <jjc@jclark.com>, 
- =?utf-8?q?Alexandra_=C3=98stermark?= <alex.cramt@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795686456; l=1261;
- i=alex.cramt@gmail.com; s=20261118; h=from:subject:message-id;
- bh=481VP81WZKi/ygpfq41EOdbsewe8WlT8xUBo1hTQ0dA=;
- b=siF8qeeDcuYhyByZQU49qFw+m5FjuhcwK4321DzEy9c7Idk4Xy7SSN++kWqW45d1n9g80W3ue
- A0CddYjUDZjDRVFqhqGDaBb98NYc+WEZzquCDtgdmYRCWhBAm8BWKJM
-X-Developer-Key: i=alex.cramt@gmail.com; a=ed25519;
- pk=vQBaXUvFG7cCIaWDKclPMjo3b4XfPEVkuPjaWCkYddc=
-X-Endpoint-Received: by B4 Relay for alex.cramt@gmail.com/20261118 with
- auth_id=1561
-X-Original-From: =?utf-8?q?Alexandra_=C3=98stermark?= <alex.cramt@gmail.com>
-Reply-To: alex.cramt@gmail.com
 Content-Transfer-Encoding: 8bit
 
-From: Alexandra Østermark <alex.cramt@gmail.com>
+Add initial devicetree support for the Vicharak Axon Pro SBC based on
+the Qualcomm QCS9075 platform.
 
-The SDM signals completion of asynchronous service layer requests on
-GIC SPI 0, which the Stratix 10 and Agilex 7 device trees already wire
-up, as does Altera's vendor tree for Agilex 5. Upstream's Agilex 5 svc
-node lacks it, so stratix10-svc logs "Failed to get IRQ, falling back
-to polling mode" and polls for every async reply.
+The board description includes the debug UART, UFS, USB 2.0 host with
+an onboard hub, PCIe1 (NVMe), GPIO LEDs, GPU and DSPs.
 
-Add the interrupt as the other SoCs do. Tested on a Terasic DE25-Nano:
-the driver registers it for sip async operations, it fires
-(/proc/interrupts counts it), and FPGA configuration through the FPGA
-manager still works.
+The compatible string was merged separately as a917cf9dc0e9
+("dt-bindings: arm: qcom: Add Vicharak Axon Pro").
 
-Signed-off-by: Alexandra Østermark <alex.cramt@gmail.com>
----
- arch/arm64/boot/dts/altera/socfpga_agilex5.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+Changes in v4:
+- Move the PCIe1 PERST# and WAKE# GPIOs to the root-port node.
+- Describe WAKE# as active low.
 
-diff --git a/arch/arm64/boot/dts/altera/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/altera/socfpga_agilex5.dtsi
-index 161f3d4bb..d272cc4fd 100644
---- a/arch/arm64/boot/dts/altera/socfpga_agilex5.dtsi
-+++ b/arch/arm64/boot/dts/altera/socfpga_agilex5.dtsi
-@@ -84,6 +84,8 @@ svc {
- 			compatible = "intel,agilex5-svc";
- 			method = "smc";
- 			memory-region = <&service_reserved>;
-+			interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-parent = <&intc>;
- 			iommus = <&smmu 10>;
- 
- 			fpga_mgr: fpga-mgr {
+Changes in v3:
+- Rebase on linux-next and include lemans-embedded.dtsi after the
+  platform resource split in 1f90a2bab7f6.
+- Drop the binding patch, which is already merged.
+
+Ajit Singh (1):
+  arm64: dts: qcom: lemans: Add Vicharak Axon Pro
+
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ .../dts/qcom/lemans-vicharak-axon-pro.dts     | 517 ++++++++++++++++++
+ 2 files changed, 518 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/lemans-vicharak-axon-pro.dts
 
 -- 
-2.56.0
-
+2.50.1 (Apple Git-155)
 
