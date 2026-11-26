@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795691643;
-	b=Ex9caEOeHW9OGGRtJ+AnXBG8xOdhIxwnXUhGIyeYanydk8pNFMb4IyN5BAh1pu/yvnN/
-	 KmcyD++ZP3piHY3qveyyUi9NTicc8e6jeXij1MCBZH/UJE1w3a1QNVa25ltyHAcEYyjxF
-	 8dpZvIqjRz5h4kmsNOf9xdqJgrqSfRq+4s8fDhrQc2rQgI1GBDa6bC4DqEI5aitPFOEIA
-	 qUtslHzarjHSyqRK3B3HVpNm08b6ERsFPzkf/Rio+VLvTj4crvlMtPLkEtp/QvQl65hay
-	 hiGKXRDFsr+FKrqoJvMYEgDHRx2uqbD6lperz3GzIpbl/CFcRjo/HBO8jroy0OjyCpA==
+	t=1795691649;
+	b=Nfmug1kqjWDLN+PMOhydfQ2V9r+D9NduvZJI2UVvs3ICUD460j99YibXK2i/qjX8uItF
+	 pqUyJtdudjiV/FpUKEwXjOsaQOc/0jxZdx4a335uAxW/XQeK/ihzNMU/qyriNtsH/Ri05
+	 ++7oAZHM+cOO9gfhMXQW8BC7HQOArWP0DyNgwUhaNRPCf90v8rTKAQs13SwnVek1nCvxp
+	 DHillVI1EXWox17IkV+88rDg2wGvhIeSumCkRIViR0k5mSMy+ShXHAkYzB9XgJY5u5wL5
+	 ozmatobya2lQTrbiyNLyRwZgmvQaum5R30duEF91l48MpvfTkwuYu0QXGHxmGFPy9NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795691643;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795691649;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=VEUGBS5H5UOXhhfNeblNGivYRklYJG60u1ibM6gPMlY=;
-	b=pRse3vwCF2//0nc6pfZb0vBv+j0ODVTF7uPmWhWp23g2IHDH8YuSHWzY6HnL8bwlsqIY
-	 yZeNDxIzpXAwxWqSSEbnH4GlaSGiQmBWATJ56rGA/6Dmsvxzw10Jz3X55bwN6CGddHd6a
-	 Zs22Vlkmn0ILIzvB5chUdTJ4FOyF6XskD9xMX6bzcAt4eHeUV8Pn9LKzkHONu2MILKnNx
-	 5w4/Ns33fFo4CytjvRPmL7/TTyNvWD9PgId5Z7lCYWmMtS+U2AFLC5tZBiSRRfpjxUOY1
-	 7WoTkvKzTczYM4RZSyD2s1mhuyKF5d2o4oKliwEYO9JOOdWmknatB2MAZsWNjFvJUMQ==
+	bh=xhc2nJSV1hkMUyv54hignhDjR+Iw5x/3Z9F39M9ejTk=;
+	b=tJZLnl3kbQ0KCwjgwTzoPNHLKk2+r+eYdzyz56jSMhc38KiL+IRkvbwDqYmJDjax2vqf
+	 TX1CPPTJA0n/izMeScFMGUVqYQ+3Zo/dx4RKNiwxiyvE3l9Oqnn5gIGzVJjze5Ek3/3n6
+	 SS+xHGsS9x5g5iz9QTUY75qY7u8b1ZJoWOms/SvYXNcq3yUkJL4WJgX3oK6/XsCgRDgm5
+	 WvSbhrGL3ivvSG8e2A2NzX+SGui/5wizDy5uaJ42QFzOzSWKzEClbMQf4QHQPUTOLdBne
+	 G8S6EHxrQ8uNSSbKLRLrkqUvZ1/gC6Us7lOarl9ufvfsomxTGf/ymSGtMdSNes6Hq+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m4NRZAKH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eFT6MkMA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B817606A31C;
-	Thu, 26 Nov 2026 11:14:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 591CF606A332
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 11:14:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m4NRZAKH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB9321F000C4;
-	Thu, 26 Nov 2026 11:14:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eFT6MkMA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75D671F000D1;
+	Thu, 26 Nov 2026 11:14:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795691643;
-	bh=VEUGBS5H5UOXhhfNeblNGivYRklYJG60u1ibM6gPMlY=;
+	s=k20260515; t=1795691648;
+	bh=xhc2nJSV1hkMUyv54hignhDjR+Iw5x/3Z9F39M9ejTk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=m4NRZAKHH4YZRVANSwEp+3uE1mtedCM2N7sXZG6JMs8hAB9lPlohoZfYr7JCB9gI8
-	 ZOtzhGsl+mZdYXUUn8P9QY2Z8oHAwbWQx7l2UUIbro4mgbof+VVmDLE4XmjHzMyYPn
-	 1m5wiVVWR8qdrPUakS/yPK6vebcvkGYSS1/1R2ZW2cJXL5geTz5+SM0h3HhP6HOMv+
-	 1CiDs5whhG+1myEUh2Cq465sbzB6PVitHLbNy1/uIS+1Oz510eqPM0TfaNVH92uKQO
-	 5MSyIqMzDq9uh9fN11lnGzmQvbW4vQTvnFGJHbqYJJNG/d2hSVXLsiQBKSASh3LVOH
-	 vCF4+HARdTMzg==
-Message-ID: <sashiko-outbox-235351@kernel.org>
+	b=eFT6MkMAkVC/1VWz23oHbBVpAgF5VXbCY1Lq3yXtrROOZBfWQrCFc+K3LiuSm9++a
+	 XIiWa/CTHlExbzD/TJgbFp/Z/z9enAZn9d+DHxuYQ9JMgahOBurn3ml+XiFi9D+vBF
+	 0Wq+Fjf70vSot6dxPuB2wiUVtYaFKsM47FPCoiSaW1toV+KlQrj7nMeVUKAdik5IXI
+	 uOykYXSdILgZij9Tmo2uTpqt8/a3YWJsP9ewzAJrws4SyAdn9HbVUxCRcVlBbao/VD
+	 gTeiufPfrHdf5AMvHybJ2ToSeYGxRv44q/b6AC7gTsU4xudsehN1/hNFN3V8mhbsyY
+	 ejjrMp7E7r8qw==
+Message-ID: <sashiko-outbox-235352@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] timer-imx-gpt: Allow 32K clock to be used as a
- clock source
+Subject: Re: [PATCH] arm64: dts: qcom: Add PM4125 charger node and shikra HS
+ phy bridge
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Andreas Kemnade" <andreas@kemnade.info>
-Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261126-imx6-idlestop-v2-2-c6987e7a392f@kemnade.info>
-References: <20261126-imx6-idlestop-v2-0-c6987e7a392f@kemnade.info>
- <20261126-imx6-idlestop-v2-2-c6987e7a392f@kemnade.info>
+To: "Raj Aryan" <raj.aryan@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261126-smblite-dt-v1-1-0f4f4401db3b@oss.qualcomm.com>
+References: <20261126-smblite-dt-v1-1-0f4f4401db3b@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 11:14:02 +0000
+Date: Thu, 26 Nov 2026 11:14:08 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,68 +60,69 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found no new issues
-in this patch, but noticed 1 related pre-existing issue it does not
-introduce:
-- [Critical] clocksource/drivers/timer-imx-gpt: use-after-free in
-  mxc_timer_init_dt() [1]
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] arm64: dts: qcom: missing usb-role-switch on usb_1_hsphy in
+  shikra-cqs-evk
 --
 
-commit 870748ba8cec003b2bb83b77fde7449ddd3b4055
-Author: Andreas Kemnade <andreas@kemnade.info>
+commit d3868dd4e124d44a8cb64cb0971aab3bdb89598c
+Author: Raj Aryan <raj.aryan@oss.qualcomm.com>
 
-timer-imx-gpt: Allow 32K clock to be used as a clock source
+arm64: dts: qcom: Add PM4125 charger node and shikra HS phy bridge
 
-This commit configures the i.MX GPT timer control register and minimum
-clockevent delta to allow using the 32.768 kHz clock as a clock source.
+This commit adds the PM4125 SMBLite charger node, enables it on Shikra CQM
+SOM, and routes Shikra's primary HS PHY endpoint through an intermediate
+connector/controller port pair for runtime USB role switching.
 
-> diff --git a/drivers/clocksource/timer-imx-gpt.c b/drivers/clocksource/ti=
-mer-imx-gpt.c
-> index 8335bd7f8c6ce..85fd36fe1c760 100644
-> --- a/drivers/clocksource/timer-imx-gpt.c
-> +++ b/drivers/clocksource/timer-imx-gpt.c
-
-[ ... ]
-
-> @@ -281,8 +284,7 @@ static int __init mxc_clockevent_init(struct imx_time=
-r *imxtm)
->  	ced->rating =3D 200;
->  	ced->cpumask =3D cpumask_of(0);
->  	ced->irq =3D imxtm->irq;
-> -	clockevents_config_and_register(ced, clk_get_rate(imxtm->clk_per),
-> -					0xff, 0xfffffffe);
-> +	clockevents_config_and_register(ced, rate, rate =3D=3D 32768 ? 3 : 0xff=
-, 0xfffffffe);
+> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts b/arch/arm64/boo=
+t/dts/qcom/shikra-cqs-evk.dts
+> index 2ded25c4304e6..808f07218841c 100644
+> --- a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
+> +++ b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
+> @@ -26,7 +26,7 @@ chosen {
+>  };
 > =20
->  	return request_irq(imxtm->irq, mxc_timer_interrupt,
->  			   IRQF_TIMER | IRQF_IRQPOLL, "i.MX Timer Tick", ced);
+>  &pm4125_hs_in {
+> -	remote-endpoint =3D <&usb_1_dwc3_hs>;
+> +	remote-endpoint =3D <&usb_1_hsphy_connector>;
+>  };
+> =20
+>  &pm4125_ss_in {
+> @@ -77,10 +77,8 @@ &sdhc_2 {
+> =20
+>  &usb_1 {
+>  	dr_mode =3D "otg";
+> -};
+> =20
+> -&usb_1_dwc3_hs {
+> -	remote-endpoint =3D <&pm4125_hs_in>;
+> +	status =3D "okay";
+>  };
+> =20
+>  &usb_1_hsphy {
+> @@ -98,6 +96,10 @@ &usb_qmpphy {
+>  	status =3D "okay";
+>  };
+> =20
+> +&usb_1_hsphy_connector {
+> +	remote-endpoint =3D <&pm4125_hs_in>;
+> +};
+> +
+>  &usb_qmpphy_out {
+>  	remote-endpoint =3D <&pm4125_ss_in>;
+>  };
 
-[Severity: Critical]
-This problem wasn't introduced by this patch, but can a failure in
-request_irq() cause a use-after-free on imxtm->ced [1]?
+[Severity: High]
+Is &usb_1_hsphy missing the usb-role-switch property here, as added in
+shikra-cqm-evk.dts?
 
-mxc_clockevent_init() registers imxtm->ced with
-clockevents_config_and_register() before calling request_irq().  If
-request_irq() fails, the error propagates through _mxc_timer_init() to
-mxc_timer_init_dt(), which frees imxtm while the clockevents core still
-holds a reference to the registered ced:
-
-drivers/clocksource/timer-imx-gpt.c:mxc_timer_init_dt() {
-	...
-	ret =3D _mxc_timer_init(imxtm);
-	if (ret)
-		goto err_kfree;
-	...
-err_kfree:
-	kfree(imxtm);
-	return ret;
-}
-
-Requesting the IRQ before calling clockevents_config_and_register() would
-avoid leaving a registered clock_event_device behind on failure.
-
-[1] https://sashiko.dev/#/bug/linux-b33465da-04a0-4dc9-8c09-6d0b6a5ad47b
+Routing &pm4125_hs_in to &usb_1_hsphy_connector makes usb_1_hsphy the
+remote port parent inspected by fwnode_usb_role_switch_get(), where
+usb_role_switch_match() requires the usb-role-switch property to match the
+role switch on Shikra CQS EVK.  Also, &usb_1 already has status =3D "okay"
+in shikra-evk.dtsi.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-imx6-idles=
-top-v2-0-c6987e7a392f@kemnade.info?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-smblite-dt=
+-v1-1-0f4f4401db3b@oss.qualcomm.com?part=3D1
