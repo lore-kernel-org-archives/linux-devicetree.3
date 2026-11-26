@@ -1,87 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=149.28.215.223
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795721279;
-	b=kP02Yo3M6t+ii87bGQJQ5mb7sHf9fhencbu5rabuuurLTvGTY4tZsHCNlfrF+6K7CXFo
-	 iuW4F8ExdCfdkCReP2FmzWD0FKKTyqFpjWWRx0MReXZwC4V+zqcM0xAoJBGndxQ87JSpg
-	 3lzdngGV3gvFHyRbBTh9CCfPb8aEDYLZZfb8YvK0luBnln4UsE9LMpx+CuUUYuCJ+0fa2
-	 GP3iz/7r8alv81PNZ6GYvkLyfkBSVfwDt4zZ/NbTsc84d0DM+vrJXBB8J0HX4138urHhv
-	 ssDfdmjcp8nn60n6KlbQRQbRUI/6lcxmzPBw0a/mMMmknDg1lU/wdazBf7wU67iYB9g==
+	t=1795721580;
+	b=sMrsAgZJEAP2Jnj8eALb6UtWw4YfMP6oxEw6jqL3+ck1CJd6FTeZ2qksTY2A5x9B0AYF
+	 BkVBULqx7y1FFqhfoFIbkFBfiFiSnpofupOeY9NMwz4I2gHWT+cRRDVA37K5sItEKai89
+	 25LzzYFn97OgHbf4sxFm8ervJmrm3Qm7dJrdWvetqoWKDwHOvs1rbXZGobx8R/BvvDbZ8
+	 JRVJYaf+wetekdK1YxPCaL85KDNBxQto2Mjxd56/IR+P6fU9G+PtoGJAnRy3oHKeCggNj
+	 3QieS5gg/RFNTLBYbpTa/Cte3Io+VcD6q6Ggb5OIdefKltu8TDbfWF9xvbvvBXcY4Pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795721279;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:CFBL-Feedback-ID:
-	 CFBL-Address:X-Forward-Email-ID:X-Forward-Email-Sender:
-	 X-Forward-Email-Version:X-Forward-Email-Website:X-Complaints-To:
-	 X-Report-Abuse:X-Report-Abuse-To:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795721580;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=FNzEHA4/L2PAmJ+F/LcXdz2bE0OJ7mWf/LIjnfOf7EY=;
-	b=Q0o/kXtIr0s+fXsOgDy2RrwpamakHfdGskuWR2I9EzCB+AZAH1QrZGMpOs37F2OlzplK
-	 0yDnFlb4NXLcFaig/yVfiyDKApTIyghvwyrzm1AfygpBWMUvCTqNuY8n3DAGc/ACGlcLh
-	 OmgNiaLuvdR1SLW60eOg00i/OuFGllSATdHu+0LYh44rDiKEQ/PZcA2FFGFwn3V1/YkZD
-	 3bcBfgmVPHb/0LVy66JbAEnQL2fUWD5A77mZfj8PWaQmVXoveI53FIlGCA0D3fJ3OsGBd
-	 tjsiie0e1GSWl4t7OWfBDUBE65rRbMNSjfrgzwA36cYb6CTg3H/han5ZLGXAtvcmkwA==
+	bh=OuaUxwS6JtTJWMd+hXXNq/iTmPJxIas+/RtLlIzqUXM=;
+	b=ZB6/3nsFBv1KdJNLos2upjITJDGBvo7s4KTtwXbigJIJfjdGl5oNmekHM5uJGU5OPzvj
+	 8NpPi1dGz+r8YnHVZIyvSroYVCLsgMVdaEcTd3CY/z4Ctwup8oaIWzcnv0lruei7uqlrd
+	 ACt2Ux4kS65uk5JANYcUU0StyWhr/JVZdqO7Mq6EdB8C1abGzZ1fiG3keuef5N4WWkDAQ
+	 kQv3uurV1j5brLNk+/2GuHzcgl2+VYHuGWGviJq3bOUeCnrBh7f/9lV1Be/CezXJZSPjj
+	 xedqU843UoNDRX+1ZNg5xHuwiCYZAWVRVWxmoZX+Otf7UmdX50EcJgx3BU31ydnK8eA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kwiboo.se;
-	spf=pass smtp.mailfrom=fe-bounces.kwiboo.se;
-	dkim=pass header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=cts9fInG;
-	dkim=pass header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=hTDmMdGM;
-	arc=none smtp.remote-ip=149.28.215.223
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BHAw41k1;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69F09606A326
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 19:27:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69F09606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46842606A321
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 19:33:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46842606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=cts9fInG;
-	dkim=pass (1024-bit key) header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=hTDmMdGM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
- h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
- Message-ID: Date: Subject: Cc: To: From: CFBL-Address: CFBL-Feedback-ID;
- q=dns/txt; s=fe-e1b5cab7be; t=1795721278;
- bh=FNzEHA4/L2PAmJ+F/LcXdz2bE0OJ7mWf/LIjnfOf7EY=;
- b=cts9fInGtWJx5PetlT13bOLHeI4WNVmKATRmvPlR3u8O3Sx38uZuX8i96b+a1qLQ4BVQGIYRR
- 8oA8y3GiHUf3/uFN0bjwxUfzQtcbQyEn4cCXcjQ2TB1CKA9e3RKB7YKjvxjAtXpFnH/CWF5Pmzp
- XFpoxBOpywBqvt8cOviE2hxpxyK/91ZX0k8Haqou9Y1up3TMJdE60pQB6501b6AorsNGLGsyrRY
- nqULitqMo6FheIaBBHJykv/tfAkHIg7Khcl8FcvlWGU9aUnr3hwyDZ23V5nO2VmJjkrIm1qf5+2
- DkaUteDMZP3EmwTLSwtTTH8a2N9zXgZDqDsjplMgzbeQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=forwardemail.net;
- h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
- Message-ID: Date: Subject: Cc: To: From: CFBL-Address: CFBL-Feedback-ID;
- q=dns/txt; s=default; t=1795721278;
- bh=FNzEHA4/L2PAmJ+F/LcXdz2bE0OJ7mWf/LIjnfOf7EY=;
- b=hTDmMdGMb0jlWl+LVGSrf71k6hKs4EYKOaxVy6AJmIqUvk0B4XKkjv9JKlkHdbRACr8LqjvSd
- woDmF6QPiDIh+O2vmzg7ypuHesnDkaC5gsOwCGpkChxKo8WGFX0gGKi7WqzJDactJh2JpVCTNbd
- GQF9fNdCQiXiuYt+ltiIZiw=
-CFBL-Feedback-ID: 6b08883ab69a54ed847adb5e:08f0c09a429f60df47897387344267c7
-CFBL-Address: abuse@forwardemail.net; report=arf
-X-Forward-Email-ID: 6b08883ab69a54ed847adb5e
-X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 149.28.215.223
-X-Forward-Email-Version: 2.19.39
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-From: Jonas Karlman <jonas@kwiboo.se>
-To: Heiko Stuebner <heiko@sntech.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: devicetree@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BHAw41k1
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49d05d51553so52364475e9.2
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 11:33:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795721578; x=1796326378; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OuaUxwS6JtTJWMd+hXXNq/iTmPJxIas+/RtLlIzqUXM=;
+        b=BHAw41k1O5L/8d1yA4euhH7KmKjak06vXEdW1+yNf8OaJW2NTGuviUxpzbpkqseAmC
+         1MM9Lt2VLfKa4FhI5X0Ba4nsRTvcjsHp/pPO8zoVTzpfk/EJ0plxaEaCQrECkDR+F4+V
+         Vm/cekink0updJA5rRWMkDC07iLiMDwagbhijxuzCZ4gAcF6xGD2AGltl+id5Mh/RbQV
+         QV2kjXgbjIZ2upC0e+gdDgK5jaAEBIrfGwu0crmZucAs2rmubtJ62clU4J2XzodGjNGJ
+         zUpodQeHb6R8BP3PuJ8jgcZEUUVdju9ijzzUS8cAJBn8i3sGNTDk8eyit66OT2bwj0Z9
+         3ZOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795721578; x=1796326378;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OuaUxwS6JtTJWMd+hXXNq/iTmPJxIas+/RtLlIzqUXM=;
+        b=vsaciS+YoHcXBCG1QGN1AuJX2osFZMa9K8WVKUV87W70EMMdVptc48s185ZQd69Emz
+         31lx63krbEuklsiEOXOx8qW136zNWAJOwZbRfno85U9I1YeW/5yYiG/M68CsLiRyI2ac
+         UXERxwNugjsqiVsaYClxXOLtqO+Wuj1HNl1nVMl+A61eEeyMZGoqANZywHF9rJKKopWg
+         eqq6ojpz74ymzAi591uIBD1J8ais8mCP9JcXU+YCsl9DdTLq3UgeM4l1NQlv8Z0oF2jW
+         snphnI1sS5OqE4WhF96HCJSIT5rQbTBqShyXBd09pouqx4fwVyyuRNb3Ftvck3tCmdQ1
+         wcQw==
+X-Forwarded-Encrypted: i=1; AL+hErEmMilPqRS13aDDeb4uQtqkj9bUsj00/8mKBEtO3tdaru8+9abkoslvmu4mKc5iQXop6Uqrgw+1K0CV@vger.kernel.org
+X-Gm-Message-State: APuU4Z9NIt67LZ0AMesorTlcFjCimCNG9+eo6QyOw2h9ZJdY7f86KTz7
+	58UeXheah4D6sABrC5Rmk/7pSobqKOcDzghrCi15NfxeZAMG90zWLL9x
+X-Gm-Gg: AZFdTZdHIySVyYwMe66df0ID+LQ41ndi6/UO4ETcB7tFxzA+EcnLrYXw8aPp/I9zg+y
+	w2RJjJkY53T3kEz7mcMpwxn60fOGr49MZsxFr0bZSpHAP2a5Q4gX0U5Q8Tp4Nm41qY6LhGnbd2b
+	Jn3IvGUuUOfZE46mKS0ArjW98o0xqehuINO3OQLpo36KPdChsuk9D6wuq347XlaaSwUH9/Pb8Wq
+	ZBpNOq+wMChocEtEIfk1V9pNmaIrGlq+K3FxGnqi0RrTmRA5AJeKD04Icqxi/yGF0sR75uUxE3D
+	dqTGmZN8LTpl5Q9Hlx8NBsa6AAYE77BGey74VcTYjxYOf4QWGHgx2/5SJ6YWclaFjb4zIJEErcU
+	FE3e2V+6IV1z3jZftOmiC79MrvV0giX5jObW/RS94T4bg+s/pjFRCNdMDDOXljAj3yo9WMN1pBL
+	Jpa9pmShmFpQaXGIij3CKlRpVf3X9LZC7/5/dYikQhhJ5kirgpYCVr5Nxjced+mRHSB690mo6sf
+	WGzdLZcIdfzf0Jw4AqiDpg0dDn3Ll+UEkXqEcx1wFQc0cZ9vfQcWOhMs+RLjEoYCLbGC4wVLzTa
+	JQkF/F0Xe0WDQmIa6QXHR52ngVMvVRWQaBjpXK9iDg52Ew==
+X-Received: by 2002:a05:600c:a0d:b0:4a1:825a:56fd with SMTP id 5b1f17b1804b1-4bb88826c1fmr424233425e9.32.1795721578321;
+        Thu, 26 Nov 2026 11:32:58 -0800 (PST)
+Received: from localhost.localdomain ([79.117.198.103])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb906cdcc1sm368287675e9.2.2026.11.26.11.32.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 11:32:56 -0800 (PST)
+From: Jose Nieto <jnieto.alaber@gmail.com>
+To: Corentin Labbe <clabbe@baylibre.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>
+Cc: linux-crypto@vger.kernel.org,
+	linux-amlogic@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org,
-	Jonas Karlman <jonas@kwiboo.se>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] ARM: dts: rockchip: Add ArmSoM Forge1 board
-Date: Thu, 26 Nov 2026 19:27:45 +0000
-Message-ID: <20261126192746.1595707-3-jonas@kwiboo.se>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261126192746.1595707-1-jonas@kwiboo.se>
-References: <20261126192746.1595707-1-jonas@kwiboo.se>
+	devicetree@vger.kernel.org,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jose Nieto <jnieto.alaber@gmail.com>
+Subject: [PATCH v13 00/25] crypto: amlogic: add support for G12/AXG/A1/S4 and misc fixes
+Date: Thu, 26 Nov 2026 20:32:16 +0100
+Message-ID: <20261126193241.1471372-1-jnieto.alaber@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,265 +105,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ArmSoM Forge1 is an industrial-grade product powered by the RK3506J
-triple-core Cortex-A7 application processor. It is specifically designed
-for industrial gateways, HMIs, PLCs, handheld POS devices, and home
-appliance display/control applications.
+This is v13 of the Amlogic crypto driver series originally posted by
+Alexey Romanov.  It rebases the series onto linux-next (next-20261123) and
+adds the fixes required for the current tree.
 
-Link: https://docs.armsom.org/armsom-forge1
-Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
----
-Changes in v2:
-- Remove unintended use of zero-width space in commit message
-- Add spi_nand label to flash@0 node
-- Drop rtc_int pinctrl, it was not referenced and unclear how RMIO may
-  affect how hw description of RTC IC may end up
----
- arch/arm/boot/dts/rockchip/Makefile           |   3 +-
- .../dts/rockchip/rk3506j-armsom-forge1.dts    | 223 ++++++++++++++++++
- 2 files changed, 225 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm/boot/dts/rockchip/rk3506j-armsom-forge1.dts
+The series keeps Alexey's original implementation and commit split:
+platform data, IRQ handling, MMIO helpers, multi-descriptor processing,
+G12/AXG/A1 support, hasher, and the per-SoC DT bindings/DTS.  While
+rebasing, the fixes that landed in the driver since v12 are preserved
+(IRQ handler return value and fallthrough, devm clock management, DMA SG
+unmap on the cipher error path, probe cleanup and devm_kmalloc_obj
+conversion).
 
-diff --git a/arch/arm/boot/dts/rockchip/Makefile b/arch/arm/boot/dts/rockchip/Makefile
-index faebeb20f467..ef11b2b95ae4 100644
---- a/arch/arm/boot/dts/rockchip/Makefile
-+++ b/arch/arm/boot/dts/rockchip/Makefile
-@@ -49,4 +49,5 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += \
- 	rk3506-luckfox-lyra-plus.dtb \
- 	rk3506-luckfox-lyra.dtb \
- 	rk3506b-luckfox-lyra-ultra.dtb \
--	rk3506b-luckfox-lyra-zero-w.dtb
-+	rk3506b-luckfox-lyra-zero-w.dtb \
-+	rk3506j-armsom-forge1.dtb
-diff --git a/arch/arm/boot/dts/rockchip/rk3506j-armsom-forge1.dts b/arch/arm/boot/dts/rockchip/rk3506j-armsom-forge1.dts
-new file mode 100644
-index 000000000000..ddc752059d50
---- /dev/null
-+++ b/arch/arm/boot/dts/rockchip/rk3506j-armsom-forge1.dts
-@@ -0,0 +1,223 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
-+#include "rk3506.dtsi"
-+
-+/ {
-+	model = "ArmSoM Forge1";
-+	compatible = "armsom,forge1", "rockchip,rk3506";
-+
-+	aliases {
-+		ethernet0 = &gmac0;
-+		ethernet1 = &gmac1;
-+		mmc0 = &sdmmc;
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:1500000n8";
-+	};
-+
-+	adc-keys {
-+		compatible = "adc-keys";
-+		io-channels = <&saradc 0>;
-+		io-channel-names = "buttons";
-+		keyup-threshold-microvolt = <1800000>;
-+		poll-interval = <100>;
-+
-+		button-maskrom {
-+			label = "MASKROM";
-+			press-threshold-microvolt = <0>;
-+			linux,code = <KEY_SETUP>;
-+		};
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		led-0 {
-+			color = <LED_COLOR_ID_GREEN>;
-+			default-state = "on";
-+			function = LED_FUNCTION_HEARTBEAT;
-+			gpios = <&gpio4 RK_PB3 GPIO_ACTIVE_HIGH>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&run_led>;
-+			linux,default-trigger = "heartbeat";
-+		};
-+	};
-+
-+	vdd_0v9: regulator-0v9 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vdd_0v9";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <900000>;
-+		regulator-max-microvolt = <900000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc_1v8: regulator-1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_1v8";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		vin-supply = <&vcc_3v3>;
-+	};
-+
-+	vcc_3v3: regulator-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_3v3";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc5v0_sys: regulator-5v0-sys {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc5v0_sys";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+	};
-+
-+	vcc5v0_usb20_otg1: regulator-5v0-usb20-otg1 {
-+		compatible = "regulator-fixed";
-+		enable-active-high;
-+		gpios = <&gpio1 RK_PD0 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&usb20_otg1_drv_h>;
-+		regulator-name = "vcc5v0_usb20_otg1";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+	};
-+
-+	vcc_ddr: regulator-vcc-ddr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_ddr";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+};
-+
-+&fspi {
-+	status = "okay";
-+
-+	spi_nand: flash@0 {
-+		compatible = "spi-nand";
-+		reg = <0>;
-+		bootph-pre-ram;
-+		bootph-some-ram;
-+		spi-max-frequency = <80000000>;
-+		spi-rx-bus-width = <4>;
-+		spi-tx-bus-width = <1>;
-+	};
-+};
-+
-+&gmac0 {
-+	assigned-clocks = <&cru CLK_MAC0>;
-+	assigned-clock-rates = <50000000>;
-+	phy-handle = <&rmii_phy0>;
-+	phy-supply = <&vcc_3v3>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&eth_rmii0_miim>, <&eth_rmii0_tx_bus2>,
-+		    <&eth_rmii0_rx_bus2>, <&eth_rmii0_clk>;
-+	clock_in_out = "output";
-+	status = "okay";
-+};
-+
-+&gmac1 {
-+	assigned-clocks = <&cru CLK_MAC1>;
-+	assigned-clock-rates = <50000000>;
-+	phy-handle = <&rmii_phy1>;
-+	phy-supply = <&vcc_3v3>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&eth_rmii1_miim>, <&eth_rmii1_tx_bus2>,
-+		    <&eth_rmii1_rx_bus2>, <&eth_rmii1_clk>;
-+	clock_in_out = "output";
-+	status = "okay";
-+};
-+
-+&mdio0 {
-+	rmii_phy0: ethernet-phy@1 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <1>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&rmii0_rstn>;
-+		reset-assert-us = <20000>;
-+		reset-deassert-us = <100000>;
-+		reset-gpios = <&gpio0 RK_PC2 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&mdio1 {
-+	rmii_phy1: ethernet-phy@1 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <1>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&rmii1_rstn>;
-+		reset-assert-us = <20000>;
-+		reset-deassert-us = <100000>;
-+		reset-gpios = <&gpio1 RK_PC7 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&pinctrl {
-+	ethernet {
-+		rmii0_rstn: rmii0-rstn {
-+			rockchip,pins = <0 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		rmii1_rstn: rmii1-rstn {
-+			rockchip,pins = <1 RK_PC7 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	leds {
-+		run_led: run-led {
-+			rockchip,pins = <4 RK_PB3 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	sdmmc {
-+		sdmmc_det_l: sdmmc-det-l {
-+			rockchip,pins = <0 RK_PA3 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+
-+	usb {
-+		usb20_otg1_drv_h: usb20-otg1-drv-h {
-+			rockchip,pins = <1 RK_PD0 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+};
-+
-+&saradc {
-+	vref-supply = <&vcc_1v8>;
-+	status = "okay";
-+};
-+
-+&sdmmc {
-+	cap-mmc-highspeed;
-+	cap-sd-highspeed;
-+	cd-gpios = <&gpio0 RK_PA3 GPIO_ACTIVE_LOW>;
-+	disable-wp;
-+	no-sdio;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&sdmmc_bus4>, <&sdmmc_clk>, <&sdmmc_cmd>, <&sdmmc_det_l>;
-+	vmmc-supply = <&vcc_3v3>;
-+	vqmmc-supply = <&vcc_3v3>;
-+	status = "okay";
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
+On top of the rebased series, three patches add what is needed for the
+current code:
+
+  - drop CRYPTO_ALG_ALLOCATES_MEMORY so dm-crypt can select the hardware
+    engine instead of silently falling back to software;
+  - add the ahash ->digest one-shot path and fix trailing-block handling
+    for digest requests;
+  - minor cleanup (unused fields/includes, stale kernel-doc).
+
+Testing on Khadas VIM3 (A311D / G12B), booted with a linux-next kernel
+built from this series:
+  - the crypto self-tests (known-answer tests) pass for ecb/cbc(aes) and
+    sha1/224/256;
+  - dm-crypt with aes-cbc-plain runs on top of cbc-aes-gxl and the driver's
+    request counter accounts for the I/O.
+
+Attribution is preserved: the original 22 patches keep Alexey Romanov as
+author and carry his Signed-off-by; the three additional patches are
+authored by me.
+
+Thanks,
+Jose
+
+Alexey Romanov (22):
+  dt-bindings: crypto: amlogic,gxl-crypto: correct clk and interrupt
+    lines
+  dt-bindings: crypto: amlogic,gxl-crypto: support new SoC's
+  crypto: amlogic - Don't hardcode IRQ count
+  crypto: amlogic - Add platform data
+  crypto: amlogic - Remove clock input
+  crypto: amlogic - Add MMIO helpers
+  crypto: amlogic - Move get_engine_number()
+  crypto: amlogic - Drop status field from meson_flow
+  crypto: amlogic - Move algs definition and cipher API to cipher.c
+  crypto: amlogic - Cleanup defines
+  crypto: amlogic - Process more than MAXDESCS descriptors
+  crypto: amlogic - Avoid kzalloc in engine thread
+  crypto: amlogic - Introduce hasher
+  crypto: amlogic - Use fallback for 192-bit keys
+  crypto: amlogic - Add support for G12-series
+  crypto: amlogic - Add support for AXG-series
+  crypto: amlogic - Add support for A1-series
+  arm64: dts: amlogic: gxl: correct crypto node definition
+  arm64: dts: amlogic: a1: add crypto node
+  arm64: dts: amlogic: s4: add crypto node
+  arm64: dts: amlogic: g12: add crypto node
+  arm64: dts: amlogic: axg: add crypto node
+
+Jose Nieto (3):
+  crypto: amlogic: g12: drop CRYPTO_ALG_ALLOCATES_MEMORY
+  crypto: amlogic: hasher: add one-shot digest path
+  crypto: amlogic: drop unused field and stale includes
+
+ .../bindings/crypto/amlogic,gxl-crypto.yaml   |  32 +-
+ arch/arm64/boot/dts/amlogic/meson-a1.dtsi     |  14 +
+ arch/arm64/boot/dts/amlogic/meson-axg.dtsi    |   7 +
+ .../boot/dts/amlogic/meson-g12-common.dtsi    |   7 +
+ arch/arm64/boot/dts/amlogic/meson-gxl.dtsi    |   6 +-
+ arch/arm64/boot/dts/amlogic/meson-s4.dtsi     |  13 +
+ drivers/crypto/amlogic/Makefile               |   2 +-
+ drivers/crypto/amlogic/amlogic-gxl-cipher.c   | 605 ++++++++++++------
+ drivers/crypto/amlogic/amlogic-gxl-core.c     | 281 ++++----
+ drivers/crypto/amlogic/amlogic-gxl-hasher.c   | 510 +++++++++++++++
+ drivers/crypto/amlogic/amlogic-gxl.h          | 120 +++-
+ 11 files changed, 1219 insertions(+), 378 deletions(-)
+ create mode 100644 drivers/crypto/amlogic/amlogic-gxl-hasher.c
+
+
+base-commit: 3191063649dbf7c0d0b768e1f3655e4c5fc6edb5
 -- 
-2.56.1
+2.47.3
 
