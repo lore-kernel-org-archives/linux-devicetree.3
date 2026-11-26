@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795678131;
-	b=lvBqONFTAaHcN8KpLT/RIKAsAIfavvUl1tTi0XAUS9Rl8OXT1xGunMFf97nm/yhLJd+1
-	 Gfto3pkvEjjMUO3HjZuLt+Amk3w6u3aluN3ZBrihY1H+ABXY5igmazmlaJs4er1LCJDrv
-	 jAvcpGmOPEGm0SAziPBeXiwMOyVkfwxzAXg8aN9KErRtUyGDrM5dnJldJIBWZyQq9rMyN
-	 cnNzDtovDMcj97h5JnFD2gWzyiJQRthEezdJtRmrOKXPJSZJFnJEfY7m1CXQQMOBSG5Gy
-	 MznLfji4AoldFvoQDmJRef2otIBBSOeoYLhI7lkOv8ZXv/LU9/qIhBhgp4LVppNzYUA==
+	t=1795678153;
+	b=BcNWIW1RTrb8BNEcual41igIUqz6w57SALDJtZ8yzubXMQslzUhOtrHNSaKzHkji/xt0
+	 rdGEkzxXfyx8ian81PYNCVZ8pFR9YDewIitT8TWqH0jPm3/4rN7eo4EFM2N6CxJffxoOV
+	 yDX9F42kxeWFFyuk9aY34Mru/2gp1jwsKh0/f4UyM/zyIuoEpXOA4KdPgaBXBB3tOCc7M
+	 +slstNI0O2llud7hSUWms5WqzCpVbMxbqtDFu8gAywxVkBzgLHuREfk+uUyYuvKfC1QEY
+	 HI/uECZQwhq8l9rfDMZuNSceUkTFCYK4PRj9cY/ojTPRAIuuhcR6EAbxhyJMnWkv98A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795678131;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795678153;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=DyOSJX986Z4RQQbKW8xrcE+PJ5PRKBKUU/4ul9Dz3/8=;
-	b=Z/XrO5Ne6K6Q4Dg0XSRM1O7ZR81P55cnp6s3/uzbjVasFWHnRIXbkn1VZAw6I0O0ayHZ
-	 jLH/vqUQhvsNRKn6GVN9d//hfJzUkSdIq5Y91lS9+hKHOAjxQSrIvxMxeUKUnfVUg4AaY
-	 QFt0rn2arg8/b4lR5W/S0OVMefhqb6cAjRJ75y3Tv5JFjwTEKoopE2viO+ZGTSdUr/Ebw
-	 oBdUlJUnwr1LUii9XtCCSJV/M+aYYarkzZt+8o+2/V2kf1+oECbo8ypCTyAnsXxxAbmEK
-	 kmPCdN1Jon4aj/N7F0bogGNbRxjeGv/qYNpZYqDFTEqoZ+rHwP7Uh64b8GQaeOqGjUQ==
+	bh=Rh/L4GAW1pCVNZs0b8KXmgAoLL1y5oDef7lb0me1RRc=;
+	b=lLqBdT3bbtHyMpCv0ufFMlzKd8QJJ1sZrvqoEp4KTrQpzb/L4hSpG+0M3sdi/kvx9peF
+	 9H09FE0oZVuH1mnEerLKvqgBVzpblGtTBxJUPJ9Xk+f9nXTeY2EQWcImTOeN+35SXd7Nj
+	 T8GWod/SlhJpiI3tdD6NvtFGNlnzpZ/Ya8xpbPeohAZMA+EqT4L4DDwz7LPKZ8tY1Mybq
+	 OCIu33g6Ta8b5/ls0ywzS95mgxOwh05mQ1/x1lU3YStOe3AG5JN3o83hRVcKXSn/HolUN
+	 ZuIak81lYkYCzSbI84g53uPsXhYeGpMkdL0dyoRGEVkkNAqWzl23WCWGLzEXGHB0fFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jXzLhI2/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SiH2rQ2b;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F8B606A327
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 07:28:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89430606A323
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 07:29:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jXzLhI2/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC85D1F00ADE;
-	Thu, 26 Nov 2026 07:28:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SiH2rQ2b
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C479D1F000F2;
+	Thu, 26 Nov 2026 07:29:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795678131;
-	bh=DyOSJX986Z4RQQbKW8xrcE+PJ5PRKBKUU/4ul9Dz3/8=;
+	s=k20260515; t=1795678153;
+	bh=Rh/L4GAW1pCVNZs0b8KXmgAoLL1y5oDef7lb0me1RRc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jXzLhI2/4MEtBBnDab8hn1KAxZP5EABPUnt3TA2kQuWR5w467QrQRbQiKRLzliNuy
-	 +yCyzY1HYZsn+tcgjjlXlY0ASlng85spsxHVyi8oGjZOxY7bIi8WjLQaDZL9izxL1o
-	 Q390SgldmToXeNKSFmsvrxGZKN797EHvFfUhKS1Cp5+GyelESTV2HHfQ6JkrvwXkxM
-	 nd/MwtfdHJ7dVI4jMqKKHCausolbEvZRtDwmxwoR7b2+6hle99KDQkFj9CrsIOhVuX
-	 TOD1uZGMDJFKWd0Te7RxEL4Ek1X9BWMvFNFqAndZ5telTCXDI+6up0rv9N9ndQE9ts
-	 SotUo4osVmJXw==
-Message-ID: <sashiko-outbox-234955@kernel.org>
+	b=SiH2rQ2b3BSAx+UGnzD7Sut0uS+NehaNE3NViwjMCV2QO5+w9hllZ/Y/SLCc1NvK+
+	 OVvBMfHl/viDXvPDBFfCD2XqMnjaRJUxb4wEsqoKc0oiFz4Pbfa417pvhVr8H5OdDp
+	 Q2dkMHH0QRczlmN76UXjNKK3vzVLAesp+AHbxQOhqTD5aA0+YSPzkzdrpjy6A20h0L
+	 c4ei1dPRE5zrnirDsrgU11Sz9Ap+pOOk3lI7wU8dRfq3e26sYeuUArfO7Y7oBLI9km
+	 BmD03YWzAVOtG4RsAQ5f4ZQEuc74ezJxNF96C8fVwQ87y9diBSWQ1qlzK+/d5flzC1
+	 YxijjP6jwSYDg==
+Message-ID: <sashiko-outbox-234956@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/4] remoteproc: qcom: pas: Add Glymur OOBMSS PAS
- parameters
+Subject: Re: [PATCH v4 2/4] remoteproc: qcom: pas: Support secondary images
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Anvesh Jain P" <anvesh.p@oss.qualcomm.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261126-oob-support-glymur-v4-4-ad4ec5dd4b0a@oss.qualcomm.com>
+In-Reply-To: <20261126-oob-support-glymur-v4-2-ad4ec5dd4b0a@oss.qualcomm.com>
 References: <20261126-oob-support-glymur-v4-0-ad4ec5dd4b0a@oss.qualcomm.com>
- <20261126-oob-support-glymur-v4-4-ad4ec5dd4b0a@oss.qualcomm.com>
+ <20261126-oob-support-glymur-v4-2-ad4ec5dd4b0a@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 07:28:50 +0000
+Date: Thu, 26 Nov 2026 07:29:12 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,149 +60,140 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issues to consider:
-- [Medium] remoteproc: qcom: pas: secondary shutdown errors lost in
+- [Medium] remoteproc: qcom: pas: masked secondary shutdown errors in
   qcom_pas_stop()
-- [Medium] remoteproc: qcom: pas: firmware leak after qcom_pas_load() on
-  start error
-- [Medium] remoteproc: qcom: pas: missing decrypt shutdown poll in
-  qcom_pas_start()
+- [Medium] remoteproc: qcom: pas: firmware leak on boot failure after
+  qcom_pas_load()
 --
 
-commit eeb577211ecb1e7bd112a3fc4d396f7f8f51017c
+commit dc23d946a37b9cfe0d13e4638daa0d99a7b84a72
 Author: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
 
-remoteproc: qcom: pas: Add Glymur OOBMSS PAS parameters
+remoteproc: qcom: pas: Support secondary images
 
-This commit adds PAS resource parameters and the corresponding OF match
-entry for the Glymur OOBMSS subsystem, including primary and secondary
-firmware, DTB PAS IDs, and decrypt_shutdown support.
+This commit adds PAS remoteproc support for loading, authenticating,
+mapping, shutting down, and releasing a secondary image and its DTB
+alongside the primary image.
 
 > diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom=
 _q6v5_pas.c
-> index 1e55b00357c80..a0807615b0e7f 100644
+> index e7dfad27e5263..1e51371e445f3 100644
 > --- a/drivers/remoteproc/qcom_q6v5_pas.c
 > +++ b/drivers/remoteproc/qcom_q6v5_pas.c
-> @@ -2194,6 +2194,30 @@ static const struct qcom_pas_data kaanapali_soccp_=
-resource =3D {
->  	.early_boot =3D true,
->  };
+
+[ ... ]
+
+> @@ -252,6 +288,10 @@ static int qcom_pas_unprepare(struct rproc *rproc)
+>  	qcom_pas_metadata_release(pas->pas_ctx);
+>  	if (pas->dtb_pas_id)
+>  		qcom_pas_metadata_release(pas->dtb_pas_ctx);
+> +	if (pas->secondary_pas_id)
+> +		qcom_pas_metadata_release(pas->secondary_pas_ctx);
+> +	if (pas->secondary_dtb_pas_id)
+> +		qcom_pas_metadata_release(pas->secondary_dtb_pas_ctx);
 > =20
-> +static const struct qcom_pas_data glymur_oobmss_resource =3D {
-> +	.crash_reason_smem =3D 669,
-> +	.firmware_name =3D "oobmss_tee.mbn",
-> +	.dtb_firmware_name =3D "oobmss_qc_dtb.mbn",
-> +	.secondary_firmware_name =3D "oobmss_ns.mbn",
-> +	.secondary_dtb_firmware_name =3D "oobmss_oem_dtb.mbn",
+>  	return 0;
+>  }
+> @@ -269,19 +309,29 @@ static int qcom_pas_load(struct rproc *rproc, const=
+ struct firmware *fw)
+>  	if (pas->lite_dtb_pas_id)
+>  		qcom_pas_shutdown(pas->lite_dtb_pas_id);
+> =20
+> -	if (pas->dtb_pas_id) {
+> -		ret =3D request_firmware(&pas->dtb_firmware, pas->dtb_firmware_name, p=
+as->dev);
+> +	if (pas->secondary_dtb_pas_id) {
+> +		ret =3D request_firmware(&pas->secondary_dtb_firmware,
+> +				       pas->secondary_dtb_firmware_name, pas->dev);
+> +		if (ret) {
+> +			qcom_pas_release_firmware(pas);
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	if (pas->secondary_pas_id) {
+> +		ret =3D request_firmware(&pas->secondary_firmware,
+> +				       pas->secondary_firmware_name, pas->dev);
+>  		if (ret) {
+> -			dev_err(pas->dev, "request_firmware failed for %s: %d\n",
+> -				pas->dtb_firmware_name, ret);
+> +			qcom_pas_release_firmware(pas);
+>  			return ret;
+>  		}
+> +	}
+> =20
+> -		ret =3D qcom_mdt_pas_load(pas->dtb_pas_ctx, pas->dtb_firmware,
+> -					pas->dtb_firmware_name, &pas->dtb_mem_reloc);
+> +	if (pas->dtb_pas_id) {
+> +		ret =3D request_firmware(&pas->dtb_firmware, pas->dtb_firmware_name,
+> +				       pas->dev);
+>  		if (ret) {
+> -			qcom_pas_metadata_release(pas->dtb_pas_ctx);
+> -			release_firmware(pas->dtb_firmware);
+> +			qcom_pas_release_firmware(pas);
+>  			return ret;
+>  		}
+>  	}
 
 [Severity: Medium]
-Can this leak pas->secondary_dtb_firmware, pas->secondary_firmware, and
-pas->dtb_firmware if startup fails after qcom_pas_load() succeeds?
+Does this leak pas->secondary_dtb_firmware, pas->secondary_firmware, and
+pas->dtb_firmware if boot fails after qcom_pas_load() succeeds?
 
-qcom_pas_load() requests those firmware blobs, but
-qcom_pas_release_firmware() is only called in qcom_pas_start() under the
-disable_irqs label and on successful start.  If rproc_prepare_subdevices()
-fails in rproc_start() before rproc->ops->start() is called (where cleanup
-only runs qcom_pas_unprepare()), or if qcom_q6v5_prepare() fails at the top
-of qcom_pas_start(), the three firmware objects are never released and
-pas->firmware is left non-NULL:
+qcom_pas_release_firmware() is only called in qcom_pas_start() on success
+or under the disable_irqs error label.  If rproc_prepare_subdevices()
+fails in rproc_start() before qcom_pas_start() is called, or if
+qcom_q6v5_prepare() fails at the top of qcom_pas_start() and returns
+early, qcom_pas_release_firmware() is skipped and qcom_pas_unprepare()
+does not release the firmware or clear pas->firmware.  A later boot or
+recovery attempt then overwrites the pointers in qcom_pas_load().
 
-drivers/remoteproc/qcom_q6v5_pas.c:qcom_pas_start() {
-    ...
-	ret =3D qcom_q6v5_prepare(&pas->q6v5);
-	if (ret)
-		return ret;
-    ...
-}
+[ ... ]
 
-> +	.pas_id =3D 0x42,
-> +	.dtb_pas_id =3D 0x43,
-> +	.secondary_pas_id =3D 0x44,
-> +	.secondary_dtb_pas_id =3D 0x45,
-
-[Severity: Medium]
-Does qcom_pas_stop() drop shutdown errors from pas->secondary_pas_id and
-pas->secondary_dtb_pas_id when pas->pas_id shuts down cleanly?
-
-drivers/remoteproc/qcom_q6v5_pas.c:qcom_pas_stop() {
-    ...
-	if (pas->secondary_pas_id) {
-		ret =3D qcom_pas_shutdown(pas->secondary_pas_id);
-		if (ret && pas->decrypt_shutdown)
-			ret =3D qcom_pas_shutdown_poll_decrypt(pas->secondary_pas_id);
-		if (ret)
-			dev_err(pas->dev, "failed to shutdown secondary: %d\n", ret);
-
-		qcom_pas_unmap_carveout(rproc, pas->secondary_mem_phys,
-					pas->secondary_mem_size);
-	}
-
-	if (pas->secondary_dtb_pas_id) {
-		ret =3D qcom_pas_shutdown(pas->secondary_dtb_pas_id);
-		if (ret)
-			dev_err(pas->dev,
-				"failed to shutdown secondary dtb: %d\n", ret);
-
-		qcom_pas_unmap_carveout(rproc, pas->secondary_dtb_mem_phys,
-					pas->secondary_dtb_mem_size);
-	}
-
-	ret =3D qcom_pas_shutdown(pas->pas_id);
-    ...
-}
-
-Unlike the pas->dtb_pas_id shutdown below it, which preserves an earlier
-error instead of overwriting ret, both secondary shutdown results are
-overwritten by qcom_pas_shutdown(pas->pas_id).  During
-rproc_boot_recovery(), rproc_stop() returning 0 lets recovery proceed to
-qcom_pas_coredump(), which maps and reads pas->secondary_mem_region while
-the secondary carveout may still be locked by PAS.
-
-> +	.proxy_pd_names =3D (char *[]){
-> +		"cx",
-> +		"mx",
-> +		NULL
-> +	},
-> +	.ssr_name =3D "oobmss",
-> +	.sysmon_name =3D "oobmss",
-> +	.ssctl_id =3D 0x21,
-> +	.auto_boot =3D true,
-> +	.early_boot =3D true,
-> +	.needs_tzmem =3D true,
-> +	.decrypt_shutdown =3D true,
-> +};
+> @@ -440,9 +557,30 @@ static int qcom_pas_stop(struct rproc *rproc)
+>  	if (ret =3D=3D -ETIMEDOUT)
+>  		dev_err(pas->dev, "timed out on wait\n");
+> =20
+> +	if (pas->secondary_pas_id) {
+> +		ret =3D qcom_pas_shutdown(pas->secondary_pas_id);
+> +		if (ret && pas->decrypt_shutdown)
+> +			ret =3D qcom_pas_shutdown_poll_decrypt(pas->secondary_pas_id);
+> +		if (ret)
+> +			dev_err(pas->dev, "failed to shutdown secondary: %d\n", ret);
+> +
+> +		qcom_pas_unmap_carveout(rproc, pas->secondary_mem_phys,
+> +					pas->secondary_mem_size);
+> +	}
+> +
+> +	if (pas->secondary_dtb_pas_id) {
+> +		ret =3D qcom_pas_shutdown(pas->secondary_dtb_pas_id);
+> +		if (ret)
+> +			dev_err(pas->dev,
+> +				"failed to shutdown secondary dtb: %d\n", ret);
+> +
+> +		qcom_pas_unmap_carveout(rproc, pas->secondary_dtb_mem_phys,
+> +					pas->secondary_dtb_mem_size);
+> +	}
+> +
+>  	ret =3D qcom_pas_shutdown(pas->pas_id);
+>  	if (ret && pas->decrypt_shutdown)
+> -		ret =3D qcom_pas_shutdown_poll_decrypt(pas);
+> +		ret =3D qcom_pas_shutdown_poll_decrypt(pas->pas_id);
+> =20
+>  	if (ret)
+>  		dev_err(pas->dev, "failed to shutdown: %d\n", ret);
 
 [Severity: Medium]
-With decrypt_shutdown enabled, do the error paths in qcom_pas_start() leave
-pas->pas_id or pas->secondary_pas_id only partially shut down?
+Does overwriting ret with qcom_pas_shutdown(pas->pas_id) mask shutdown
+failures for pas->secondary_pas_id and pas->secondary_dtb_pas_id?
 
-drivers/remoteproc/qcom_q6v5_pas.c:qcom_pas_start() {
-    ...
-	if (ret =3D=3D -ETIMEDOUT) {
-		dev_err(pas->dev, "start timed out\n");
-		qcom_pas_shutdown(pas->pas_id);
-		goto unmap_carveout;
-	}
-    ...
-	if (pas->secondary_pas_id)
-		qcom_pas_shutdown(pas->secondary_pas_id);
-unmap_secondary_carveout:
-	if (pas->secondary_pas_id)
-		qcom_pas_unmap_carveout(rproc, pas->secondary_mem_phys,
-					pas->secondary_mem_size);
-    ...
-}
-
-On platforms with decrypt_shutdown, the first qcom_pas_shutdown() call only
-initiates decryption and returns -EINVAL until shutdown completes, which is
-why qcom_pas_stop() follows up with qcom_pas_shutdown_poll_decrypt().  If
-qcom_q6v5_wait_for_start() times out, or if starting pas->dtb_pas_ctx or
-pas->pas_ctx fails after pas->secondary_pas_ctx has been authenticated and
-reset, qcom_pas_start() unmaps the carveouts and disables clocks,
-regulators, and power domains without polling
-qcom_pas_shutdown_poll_decrypt().
+If secondary shutdown fails while primary shutdown succeeds,
+qcom_pas_stop() returns 0 to rproc_stop() instead of preserving the error
+the way the pas->dtb_pas_id block below does with dtb_ret, allowing crash
+recovery or shutdown to proceed while the secondary PAS carveout remains
+locked by TrustZone.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-oob-suppor=
-t-glymur-v4-0-ad4ec5dd4b0a@oss.qualcomm.com?part=3D4
+t-glymur-v4-0-ad4ec5dd4b0a@oss.qualcomm.com?part=3D2
