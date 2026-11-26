@@ -1,75 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795662610;
-	b=H8dg4S8mirW4D949UcHDSevg7M8a6G5OMZ5DDPmZ7RUG2X6DMQpTxEt1ihCO/InjOoqr
-	 CWkMrhxuVBg66NTdcH/itzB8fanHJRVn7Mihyyp08Nvp3lfcRCZLdNgugx/hr0GztZGqW
-	 NAoF95XqvN8tesnF4z0+55nvir83NZX3+mmERtFZyPbsNfGi65qn97NdfBff2A2FWkRbG
-	 N5q5a2jNYbWJgnVmwq41fM7PS8ucHtJOUe5nqpsVvovx17ITzwzNmWflgtNDnVFxroyZR
-	 y8GSqTWKClNFmp52wVUsI2EkLJvjvx7PuJEn/xs9u2bJ6g/p6wQrbFI69+mQuG+QzMQ==
+	t=1795662618;
+	b=Vefo1EnzstllpyertgPp+llEeG6mX5A4UvzaxyvsGgcmk97cXW+ZvZU48rdL+yZkYjoy
+	 0DhT/oUsZ6q9D8Zrkhah4E7EgmXlqrchb6PkozU8h6M4BT1zJJPZ/H4NNfBaBtUQKV+xD
+	 WDAommeX+X9DzJPzU16srNIYeplXfQKbJDmtTiEaoPMd3ssboQYdp+x010+VLIz+0c8+y
+	 PgrCuyRUMP8QMQHlStLg4QtGZpqL20QNN4RDdgONU7nLw67L11jq3aNfXmNJi5E5COXia
+	 ahcnYE3CVk8cXzyT1y1CsSggTN+eaGVjVhGSCt+MIr/RUP++3UY6Z5iVNkrdOI4DlcA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795662610;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795662618;
 	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-Id:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=7bvCI+57wri+mzNR0HTW5gRIi4+VJmG0S1QXuuUNuew=;
-	b=L3ZY3OmF//m8z2wK9nQV10Jo1Z9G7V6S8ks6NGhMsY6GyPIHorj50TEiLFiaoa84MPxt
-	 XGLZHoRFITAKyzW1hmApztfWPOeaKYQXlWaFTVMdEU8U61bX6/uzFV6eVf39MYS3xeFum
-	 57eVf69jVN/SqNQDc2zd9wUWF1MKPS1gBKCeOOgcCLkWXgFRsmXVuNdckUlDSg/NbaSxn
-	 HlFX5OSvSYzEdlVbqhCz7NSchX0za61TDfYc016w3hQTVCYmbqAG7tRmW16zYzyRPwVKW
-	 Y/IKDjWhMgwSPoM3dyrHtcdiRGAxgRnVl6gVZ/dpbHkDKw0rRdc7rCD229YZ6Ui0Lng==
+	bh=ObL7qkms1Lrjmbt5Lzf0B1k2VOPxe5HsW6sjzBjmexA=;
+	b=0thxuYejSvPnEoHESCnX+qUFixSqczmQYq3XxWp0DviAsE3Be0GNoW1WBf2xDmbd0aXl
+	 rqNdBuPAzSu5GNWOnYhhevaxnEvshC4jaaiBGh0XpEUeZtzzUY9EXpQehS5Ah1aVOa+zM
+	 JOMWl0Sba0pyLTibW4/2GYHDUurUmcChCUEoMJaD2t8QEvYPmos9B1LQNd+40hPYIvyBL
+	 YGPfpFKSS3ItZa4gzl5fRs6xfoa6gI513IjaEqrbjRj3mYIzp61hptQOOKBQgfs9wHyPD
+	 YOmRIKUHFylNvTwZx05qxVzCvXp9oVclsiAG/4jHGw8C37dyhOFdG+dINq32Qd5cXMg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eIFdvnsq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I43RLY3e;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00832606A321;
-	Thu, 26 Nov 2026 03:10:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA445606A321;
+	Thu, 26 Nov 2026 03:10:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eIFdvnsq
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I43RLY3e
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795662609;
-	b=0qbwzi95CvTMPDKyT5JscuLjQ50M4F04q3u7sFn0sE+6r5l0HliAjQCc7HKpGjpRlw0o
-	 Cev/KgUOp0voDDQqTK4uETO+WlJf7zq7PUkQ11ceSzewbla+lcmXf/QBkJoFseBbUPf3Q
-	 gOYozWmrsrg0BotOSz7u5jbwqe0pmD2hvxg/HDavYmO6I2lclmzHybacG80NbK9bgJqxX
-	 TQ6wVkHkYnVxZmpbXBGBiKuqFa8o7qUhRWLg8nTf7ETgk+JJrw//8ImupuhP9rxSSxD1L
-	 fgIb87Zhh+LPVbtv/8aXlpwvJc3oiIhVh+228E5sgKCEuGpsdMOXgpdv7Iu/3cZsKKA==
+	t=1795662617;
+	b=dtWNbakKg0F/ii1z6qWYkEeyD/Qk5v6YHXsxx7UDPu+vo8ArRWM62AU+G0Ag1miny3RE
+	 8NZRwStwoHRVYxAtLQEylJqP7xVoLBGtM0dmFKqjPdrrCgOGKigPZvzqYiuI+8DA1UU3Q
+	 PZpGLmbP6xhnUObxdgeqrJi+6eZCVKsQ5ZKuDBW1Vv7/aU2cbgF9kYpf64sGDdyd2HfSM
+	 vjQa7GBEjuL9Z7iOEzmULVbqtW9n1+3QuN/vO3tIWT6ZU2xfgpVABs3/BmrSsrv79w4n7
+	 WSmbsCmGlDgIdWZVCRMg9QE0zElxWZb0W8bf2f5lqVCSvw/w+QFJQrc0fgGL+Bs65kg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795662609;
+	c=relaxed/relaxed; t=1795662617;
 	h=DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-Id:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=7bvCI+57wri+mzNR0HTW5gRIi4+VJmG0S1QXuuUNuew=;
-	b=wuA4VHQTKYoBsmQqz7qN1lqKmISGfMTR5bFXuL6+2IoWMRLOQTHat44os9kOj1oZNM5c
-	 EJLQfzi6SaW7i2utrlhnOamd2Nus15ppXXnWOegBGCnILeYBmgslWz7xiMdQP/BNbT9+p
-	 ykhPQVa80ZEv3pZslXzSrHJoK3+Zi+3xNWLDZ26jCf0rtRazRIYCmTF5dvhI9BbypC+bk
-	 immFHnyP1w+qN6G0BbVZDqBJDrgHkJhxoGuSZxpbQhWTUOi46B8MDjLBffY9pMGk0EIbM
-	 J8Ze+xh+juUglVyWucW7zmq99o2JWJxJ1dzo15W2l6Jkc3wt6aJ0Xzg4lva3/FrXLfA==
+	bh=ObL7qkms1Lrjmbt5Lzf0B1k2VOPxe5HsW6sjzBjmexA=;
+	b=g/c3LUJRa8DKhruPLsW4V+8RVqWvJSOGoSY1E0E9LflI7LOqEdbfz5B00jLj14vhdym9
+	 Pj4fXH6hU58nbIy39G8P7MC2nzdmztP6v0Pw0+F76IbvO0rlNsTxfUiUMEpGi2nSfqqGP
+	 Vo/r4H25F7llAI1vkkzmLrEDpg9aPAOW5Vd8IByNBC87JyCoI8hKqZJoeOIa0APHhVHpy
+	 VoQEHZrbB2pjFAh8jwyZLdQfwXPD1Xcf02XEtcmqwlg9vUw2SAlgW5ZPUISHKrRK2S6ZX
+	 obJc29cIPQEt/AXceaPIH7gMLo0EIynP4sEiWK2ZJ6SkRLLmgzJ98SnMIEju1uP+ORA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4D8361F000C4;
+	by smtp.kernel.org (Postfix) with ESMTPS id AB6A51F000D0;
 	Thu, 26 Nov 2026 03:10:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795662609;
-	bh=7bvCI+57wri+mzNR0HTW5gRIi4+VJmG0S1QXuuUNuew=;
+	s=k20260515; t=1795662617;
+	bh=ObL7qkms1Lrjmbt5Lzf0B1k2VOPxe5HsW6sjzBjmexA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:Reply-To;
-	b=eIFdvnsqGw99Ft6VFpT3/ZVo66mugf32b1A3GYyEy0IJ7Uuyg0nBYpUsfezVQwd7d
-	 qsDoCDFq7k0xsFkzzE10FOBh2wh/CPAxCc2Vy1q2foG16zxw0RiK6abSsRJxqMzSJx
-	 Jg/kah+voTi/U3yqIUIojPK9NnJfB9NgWsdNvVLqIdtXITxgdwARyr7eLY4FpGKoiU
-	 4C3JZV/2pe2i18eic95MUae5LKxrqO6mlUpCrke0aq3Tbu3IRhA2a0Hn0V2x0REDDY
-	 T+VDb03eDXvL5NHB+emFs12QnHlPyIQYJ5rLbyk4BrV8Ch2n+ke6BiVWdPGJP8lJO4
-	 P5V7YPS9jywDA==
+	b=I43RLY3e0Q+FFjcOTpoJO5GeG/DdbIkq4rOOZ39tJG5jjDTHCpOD88zvAxqGSxmYy
+	 3jj7139C72fTkc/6wpJnWqYNaP4gL301QC+plSYAkOu6R7kj6W4a3h8ctuwlIVD7CQ
+	 l17ca3KBhVugmZWpI4U1BNWKK0k9F1rlcms8A8EVKznYwP1fffzOjk/2tAGEoVoyH8
+	 1BRHp8bJhuvizvyhEUfEcDNHwa4wEOHNBg7+6+l5O1oXHsr5Bn3PuEkFVN/dGfPBB2
+	 412D8tQ0UGUhatfn5uCipNsdJvON8k5ezcD1jmQEgV7uobJIj3bs9BfmZ+Bkd7jBWD
+	 CLY8r+cZobEWQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id CF5BB4D1C1;
-	Thu, 26 Nov 2026 03:10:03 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 3825E4D1E6;
+	Thu, 26 Nov 2026 03:10:04 +0000 (UTC)
 From: Ilia Snezhkov via B4 Relay <devnull+iasnezhkov.gmail.com@kernel.org>
 To: matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com, 
  robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
@@ -78,10 +78,10 @@ Cc: flora.fu@mediatek.com, amergnat@baylibre.com, leilk.liu@mediatek.com,
  me@adomerle.pw, devicetree@vger.kernel.org, linux-spi@vger.kernel.org, 
  linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/4] dt-bindings: soc: mediatek: pwrap: Add compatible
- for MT6789
-Date: Thu, 26 Nov 2026 03:10:02 +0000
-Message-Id: <20261126031001.27288-2-iasnezhkov@gmail.com>
+Subject: [PATCH v3 4/4] dt-bindings: spi: mediatek,spi-mt65xx: Add
+ compatible for MT6789
+Date: Thu, 26 Nov 2026 03:10:05 +0000
+Message-Id: <20261126031001.27288-5-iasnezhkov@gmail.com>
 In-Reply-To: <20261126031001.27288-1-iasnezhkov@gmail.com>
 References: <20261126031001.27288-1-iasnezhkov@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
@@ -96,11 +96,11 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795662602; l=1071;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795662602; l=1154;
  i=iasnezhkov@gmail.com; s=mindone2026; h=from:subject:message-id;
- bh=LfmVvg7Aql2KLn2xC/sbkpfApa1X1JdB+MH4gLa495I=;
- b=d2eSehcrzHtooK0YqCNF5v8FmPES28TCUhN9VCRfVX/jwI8Ky6U7QVg5ZRxh8x9k58jwMrT4Z
- MT0yF/Oy9dcD1DZW5KJJSeSs01nu5Rk5nNbb3GOB6qM3qjxriCLglBx
+ bh=V05m+8yF0Wxx4QXUx+4PM5IgqsffZt/x6aXxrp5Z1ew=;
+ b=cyrtbIKhBF62/LrJJ8VXUTpKkPx24CbpfjUK0Apof0fUGKsAQgJ/Iqhvq4HDbPgkaU42WO8Am
+ o2A7VFHFbC6AIajM9Sn0kLWapBgjXwKIH4wjbbdvRd7xrR0H9xy+yDU
 X-Developer-Key: i=iasnezhkov@gmail.com; a=ed25519;
  pk=hQgXfiWi4ukk2jh4BHu1vRVhg9BUivo//AFp50AKMag=
 X-Endpoint-Received: by B4 Relay for iasnezhkov@gmail.com/mindone2026 with
@@ -110,29 +110,32 @@ Reply-To: iasnezhkov@gmail.com
 
 From: Arseniy Velikanov <me@adomerle.pw>
 
-Add a compatible for the PMIC Wrapper found on the MT6789 SoC.
+Add the SPI controller compatible for the MediaTek MT6789 SoC with
+mediatek,mt6893-spi as its fallback compatible, addressing v1 review
+feedback that MT6789 SPI is programming-model compatible with MT6893
+without requiring a driver change.
 
 Signed-off-by: Arseniy Velikanov <me@adomerle.pw>
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Ilia Snezhkov <iasnezhkov@gmail.com>
 ---
-Rebased onto v7.4-rc4 with Rob Herring's Acked-by from v1 preserved.
+ .../devicetree/bindings/spi/mediatek,spi-mt65xx.yaml          | 4 ++++
+ 1 file changed, 4 insertions(+)
 
- .../devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml         | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml b/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
-index 79b7558..0c5ebf6 100644
---- a/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
-+++ b/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
-@@ -33,6 +33,7 @@ properties:
-               - mediatek,mt2701-pwrap
-               - mediatek,mt6765-pwrap
-               - mediatek,mt6779-pwrap
-+              - mediatek,mt6789-pwrap
-               - mediatek,mt6795-pwrap
-               - mediatek,mt6797-pwrap
-               - mediatek,mt6873-pwrap
+diff --git a/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml b/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
+index 3bf3eb1..7d82369 100644
+--- a/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
++++ b/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
+@@ -39,6 +39,10 @@ properties:
+               - mediatek,mt7988-spi-single
+               - mediatek,mt8188-spi-ipm
+           - const: mediatek,spi-ipm
++      - items:
++          - enum:
++              - mediatek,mt6789-spi
++          - const: mediatek,mt6893-spi
+       - items:
+           - enum:
+               - mediatek,mt8196-spi
 -- 
 2.54.0 (Apple Git-157)
 
