@@ -1,56 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795675906;
-	b=3j1Fst73tva5MRBzpwrKbxW5LFrkU1FxWQHFniNqPpgZCokfTEkYH/9QlO5Tn48toWmN
-	 deaCPN9Im7z9hFCnEGoYK3nnyGcS5Qh3K8IuAEloP7e9+DgfI/Fz3o9i80lMPUNh9tY/Q
-	 uq929fJZ8R3DZL5OIxE1exS0STMQ0W3xZjxWm3oEa+pqG2JksYdM3AuJTIATdk0tlO+og
-	 d5zooirLAmHmU1oj3+E/iAMwKuStW91vMuNKYwfinvsT5Gcv7pP6w5ugccsUF7A/U/Byk
-	 27MS6jl8Rxh4HyjaRNG+WCR/Sg97dyYf4NPZiLOAkpto0CtvFF57kgsGCd9gvaIOTGQ==
+	t=1795675956;
+	b=M3YdZhYGveaksoIGoEf8AkpsyZMCMdPCUTCScFTAivT1NcqeCw28vB72MgRe/R3MFCPi
+	 Apz/jLshhOMTWg76Y/8mkaTgOF/SC28kaJwyc1NsTNS+mIaicB6fitruHplP5YNayuZS4
+	 TeAliQruRdwuYQ2jczJoyrjL78XNntm/lhbjAi+ptOJ/7BNhNTq8wgIb/TPzPlJB3SjR5
+	 zc1VfD5IK7L4q/RhvsG3ObmGhEGWByVOIotCNFaoxE0OnTv1RZ3jpD1rPZeoAeO8VYyCm
+	 N0QPjCTJYAP9gtpLoFkqyWUk3KrQd7puCL0mPdcFo5RZfY5eM0CR7vvnIebgcogNwZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795675906;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=SHVnbB74xJyXXA7f9X6sfXdRoPDgXwPu5VdxfRqvkY8=;
-	b=j4GAR3i0nk8t1c2Dju/T98NgtvZ7qqU5fVt18DxqqSyVHXdAYNBkaESEnnWFSNL6mOZs
-	 Ey7LibnZusvqS5m5k25iibm4EQONnqi5O0EuPDAyJuGVXZpD0xHO37odmYfg3Swp+B5ym
-	 7p/0A89ZGyro+K2vZJ3c6Amb8bGptsOzWT98tXtvnDyuZzHL1+r+NAeMxy1U6ulM/TNRE
-	 XPyhVeRzR85SZmzuqIT0wpuKW/Pmeqnk/q81Ea5Me3vLw7eQfnfjjvXktsB0G6Ue6FFVP
-	 f4x99jnK9VS8O+epDCr9KXAVOWDRGmU/8NaSsE5mCQIoms7aVWrwLAbCo/V29611pew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795675956;
+	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
+	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:
+	 UI-OutboundReport;
+	bh=w+ytwK427nQPXkrURTx5WjRyiSqoE+ZcCfjZVbYYd8I=;
+	b=PkF5iJwi5feMY7HrTcKYnr++fSccMDKLQaNyqlvVlybI5fmsblCacY/3xlz0cLisYvxS
+	 C5AqeQEEddRqWw662fejvUyx8KFexOWpCmvMSCTfqyJLWrbZAh3towvk8CcvkC06IZP34
+	 mtWAjzWo+QvCPhxTgQSTQ2frJ9sFDaZ8y58n8XGpehEDaH0nce+UZMn/OY6vHZoQxIzeB
+	 kIlzVTTa0CAwCEnh8dzlEzDqw5SNEkVEoYg88Jp4hXQtCz+Sp+dZv+FvhVd0sPB90UK0Y
+	 W2HSypGIvh1GJoYQudwrOd93/ouj0gJ6ISq6kWnwrT/41LIXQGZmc6C+p/aiJgS5G+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=av79QFhS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=web.de;
+	spf=pass smtp.mailfrom=web.de;
+	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=DyjyOo0U;
+	arc=none smtp.remote-ip=212.227.15.14
+Received: from mout.web.de (mout.web.de [212.227.15.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C68606A32E
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:51:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2473606A31C
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:52:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2473606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=av79QFhS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A577B1F000F2;
-	Thu, 26 Nov 2026 06:51:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795675905;
-	bh=SHVnbB74xJyXXA7f9X6sfXdRoPDgXwPu5VdxfRqvkY8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=av79QFhSsGvZIYSyrnjTuWGlqk3SecJ/Vz+6TqbL9U5d+aIXsYJJuhNYhV28ZkDU6
-	 y0acMeKq+27PQR7fLan9CsdTxLcMJKpo9VYg/sGVWOg0MF4y5xhXhfA3yiDKGlh8cq
-	 rpnCSbBE8/b2QN/WA4Fbid3ogcV2jCK69tKGnwe7uilde8j7x3RpTWJmtgVFR3KeMt
-	 jwsXaRkL8FlSQ1G3V3u22gtGQ0v/ImWwYFo72EAnxakss++MuZrlNyKO9wAUqCC3SP
-	 dNsomMLbjOvagtUOQN9Kf1ADvEB00oG7RUtjNFsyZTKzCwi5Q91PcEbDdwkmoyQJb/
-	 7GTG+vh/Nb/6g==
-Message-ID: <sashiko-outbox-234910@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 06/21] drm/msm/dcp: Add HFI VirtIO transport
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261126-jshekhar-v3-dcp-v3-6-f1e9d7505039@oss.qualcomm.com>
-References: <20261126-jshekhar-v3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com>
- <20261126-jshekhar-v3-dcp-v3-6-f1e9d7505039@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 06:51:45 +0000
+	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=DyjyOo0U
+DKIM2-Signature:  i=1; m=1; t=1795675947;
+ mf=PE1hcmt1cy5FbGZyaW5nQHdlYi5kZT4=;
+ rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+ d=web.de;
+ s=s29768273:rsa-sha256:haklZjs4qJqJOx38x4p8YKHtpZYD
+   FF/GZd6DSnZhtW/e8OYJR/5RuV1nqYBuFRUrNsbVYwlPmTKkyZuUIQDp06VlU3WfPY8ykWe5bex
+   gEQy6XExYzLbWL7sR97aqQfzzBYpCbinvT4qg+u+ct9xlaqdxRGMioyxc3WYEXv2XYC+AJFHyqX
+   qbaDeLF77j2xffR/7iS7oXu9hqpHD0j3KmnLvrZDA0TO9hrP8XhvZhC6Ogve9+pyMMjXEsxob0h
+   kwpszdNOKQDCe/meucxkP0oKno9/Ccj1NtP0UO+LjzcHk5udyvIWbmfNgiuxQSUUFWMBe+134pa
+   qpdcRi5CIqr6hA==;
+Message-Instance:  m=1;
+ h=sha256:
+   ovECSw/XZu6E19QAVSSSQ62IkUEmSjf/5JlWpdHCDPM=:
+   rd9GyoY5N701DfycZ4LhG5ghpUk8uTOk/vLgb2pQwy4=,
+  sha512:
+   bN+g9v/KcV9G/yiYVPSNJoslBCPpzROJOkYr0Kxm+Gi3QN4VLMgTmYBN6tHCx4TjNJAf+dC1ozlroBIlofgWww==:
+   r6jqTiSUXwf2ZnxjNDA5+Dqgg2aW5QlO3nxr5kPrav2Ls/uHtlb1ecRP9IwxIPx2YuVqnyb7bGpxHa4qPVw9RQ==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1795675909; x=1796280709; i=markus.elfring@web.de;
+	bh=w+ytwK427nQPXkrURTx5WjRyiSqoE+ZcCfjZVbYYd8I=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=DyjyOo0UAd7l/yBaBlCuSlY1iRRAHAXLUoPo1GXX4QNyVIJVKrQYs5gtiGNH080v
+	 3a3F/AynwxJbLRpRE0DGP5zbTa03IhgJWlxromySS35bKoDtAOtRoe7TKIQF6V8qf
+	 6V4oXKyjxdpmRfTb7uJJR5X/ljbHt2HQmYAHT0LyxuJG9aipyq6YpEk5pKNfrmn6I
+	 YZJ/n8NqKR9mxv5Lvn+gOO4cgL8TpxDSbvnbZCNtQCrQHL60RowGSOi33drV+1ZkI
+	 l0dTriYPMqIhPkmDISRt3TdMN1OTZNCuOzsliwo0jK4g/+9nsXEXJv3+ynFLD+aCf
+	 /LlfIr+IoF8Gs3GM6A==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1N8Elg-1yaHPY4AG8-017VcX; Thu, 26
+ Nov 2026 07:51:49 +0100
+Message-ID: <5d75177b-a86b-4728-92f6-87f37a51d4da@web.de>
+Date: Thu, 26 Nov 2026 07:51:47 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,306 +80,146 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 2/2] i2c: amlogic: Add Amlogic A9 I2C controller
+ driver
+To: Junyi Zhao <junyi.zhao@amlogic.com>,
+ Xianwei Zhao <xianwei.zhao@amlogic.com>, linux-amlogic@lists.infradead.org,
+ linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ Andi Shyti <andi.shyti@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>
+References: <20261126-a9-i2c-v13-0-926e2072cc4f@amlogic.com>
+ <20261126-a9-i2c-v13-2-926e2072cc4f@amlogic.com>
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20261126-a9-i2c-v13-2-926e2072cc4f@amlogic.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:coeYVQCvczOdUX1zW/dp5SW/ji9CBDsrtp9vc7yTzLHZNOLiOC3
+ XVH7CBq/tEu54Fohf6Y6Q1MYojp/AvBF8vEMHjMTNmVqsxQEObN90spa8twVQTGK5AbPeWj
+ +wC6OTEwc1VkxPUHbX68njAZXGVlFgCnU8dMq5waT7cT5Y58JH0hzS1Da0fM+wxrDcWu5Nv
+ gNaaqSeFYwvUVyJkJNlbQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:ubFfV22+ESY=;vJiFvJ7XWK7P5cZ6Jccq2hABY3V
+ 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
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [Critical] drm/msm/dcp: stack use-after-free on timeout in
-  dcp_hfi_send_sync_on_vq()
-- [High] drm/msm/dcp: unsynchronized callbacks and work re-arming in
-  dcp_hfi_stop()
-- [Medium] drm/msm/dcp: double-fetch from shared DMA buffer in
-  dcp_hfi_resp_callback()
-- [Low] drm/msm/dcp: open-coded 30-40ms sleep polling in
-  _dcp_hfi_buf_alloc()
---
+=E2=80=A6
+> +++ b/drivers/i2c/busses/i2c-amlogic-a9.c
+> @@ -0,0 +1,428 @@
+=E2=80=A6
+> +/* Amlogic I2C register map */
+> +#define REG_CFG_RDY		0x00
+> +#define REG_CFG_I2C		0x04
+> +#define REG_CFG_START		0x08=E2=80=A6
 
-commit 340f49f4f52ebdf1a0f2de7503d38dbf0160ca10
-Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Can another enumeration become helpful for such constant values?
 
-drm/msm/dcp: Add HFI VirtIO transport
-
-This commit implements the VirtIO transport layer for communicating HFI
-commands and responses between the Linux display driver and DCP firmware.
-
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c b/drivers/gpu/drm/msm=
-/dcp/dcp_hfi_core.c
-> new file mode 100644
-> index 0000000000000..9c46a4560a0de
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
-
-[ ... ]
-
-> +static struct dcp_hfi_buf *_dcp_hfi_buf_alloc(struct dcp_hfi *hfi,
-> +					      struct list_head *free_list,
-> +					      spinlock_t *lock,
-> +					      const char *pool_name)
-> +{
-> +	struct dcp_hfi_buf *buf =3D NULL;
-> +	unsigned long flags;
-> +	int retry;
-> +
-> +	if (atomic_read(&hfi->shutdown_in_progress)) {
-> +		dev_dbg(hfi->dev,
-> +			"HFI shutdown in progress =E2=80=94 refusing %s buffer allocation\n",
-> +			pool_name);
-> +		return NULL;
-> +	}
-> +
-> +	for (retry =3D 0; retry <=3D DCP_HFI_BUF_ALLOC_RETRIES; retry++) {
-> +		if (atomic_read(&hfi->shutdown_in_progress))
-> +			return NULL;
-> +
-> +		spin_lock_irqsave(lock, flags);
-> +		if (!list_empty(free_list)) {
-> +			buf =3D list_first_entry(free_list,
-> +					       struct dcp_hfi_buf, node);
-> +			list_del(&buf->node);
-> +		}
-> +		spin_unlock_irqrestore(lock, flags);
-> +
-> +		if (buf)
-> +			return buf;
-> +
-> +		if (retry < DCP_HFI_BUF_ALLOC_RETRIES)
-> +			usleep_range(DCP_HFI_BUF_ALLOC_SLEEP_US_MIN,
-> +				     DCP_HFI_BUF_ALLOC_SLEEP_US_MAX);
-> +	}
-
-[Severity: Low]
-Can _dcp_hfi_buf_alloc() wait on a waitqueue signaled when buffers are
-returned to cmd_free_list instead of polling with usleep_range()?  When all
-64 command buffers are in flight, sleeping 30-40ms per retry stalls display
-commits for multiple frames even if dcp_hfi_cmd_callback() reclaims a
-buffer right away.
-
-[ ... ]
-
-> +void dcp_hfi_resp_callback(struct virtqueue *vq)
-> +{
-> +	struct dcp_drv *drv =3D vq->vdev->priv;
-> +	struct dcp_hfi *hfi =3D drv ? drv->hfi : NULL;
-> +	struct dcp_hfi_buf *buf;
-> +	unsigned int len;
-> +	unsigned long drain_flags;
-> +
-> +	if (!hfi || atomic_read(&hfi->shutdown_in_progress))
-> +		return;
-> +
-> +	spin_lock_irqsave(&hfi->resp_drain_lock, drain_flags);
-> +	virtqueue_disable_cb(vq);
-> +	for (;;) {
-> +		while ((buf =3D virtqueue_get_buf(vq, &len)) !=3D NULL) {
-> +			struct hfi_cmd_buff_hdl hdl;
-> +			struct hfi_header_info hdr_info;
-> +			struct hfi_packet_info pkt_info;
-> +			u32 pkt_num;
-> +			int rc;
-> +
-> +			spin_unlock_irqrestore(&hfi->resp_drain_lock, drain_flags);
-> +
-> +			if (unlikely(len < sizeof(struct hfi_header) ||
-> +				     len > DCP_HFI_BUF_SIZE)) {
-> +				dev_warn_ratelimited(hfi->dev,
-> +						     "HFI resp: short buffer len=3D%u (min=3D%zu) =E2=80=94 skippi=
-ng\n",
-> +						     len, sizeof(struct hfi_header));
-> +				goto repost;
-> +			}
-> +
-> +			hdl.cmd_buffer =3D buf->data;
-> +			hdl.size =3D (u32)len;
-> +			rc =3D hfi_unpacker_get_header_info(&hdl, &hdr_info);
-> +			if (rc) {
-> +				dev_warn_ratelimited(hfi->dev,
-> +						     "HFI resp: invalid header (rc=3D%d) len=3D%u\n",
-> +					     rc, len);
-> +				print_hex_dump(KERN_WARNING, "HFI resp raw: ",
-> +					       DUMP_PREFIX_OFFSET, 16, 4,
-> +					       buf->data, min_t(u32, len, 64), false);
-> +				goto repost;
-> +			}
-> +
-> +			for (pkt_num =3D 1; pkt_num <=3D hdr_info.num_packets; pkt_num++) {
-> +				memset(&pkt_info, 0, sizeof(pkt_info));
-> +				rc =3D hfi_unpacker_get_packet_info(&hdl, pkt_num,
-> +								  &pkt_info);
-
-[Severity: Medium]
-Can unpacking directly from the coherent DMA buffer buf->data cause a
-double-fetch out-of-bounds read?
-
-buf->data remains mapped and writable by the DCP firmware.
-hfi_unpacker_get_packet_info() validates header and packet sizes in
-hfi_sanitize_cmd_buff(hdr), then re-reads packet->payload_info from
-buf->data:
-
-drivers/gpu/drm/msm/dcp/hfi/hfi_unpacker.c:hfi_unpacker_get_packet_info() {
-    ...
-	if (GET_HEADER_SIZE(hdr->cmd_buff_info) > cmd_buf_hdl->size ||
-	    packet_num > hdr->num_packets || hfi_sanitize_cmd_buff(hdr))
-		return -EINVAL;
-
-	packet =3D hfi_packet_at(hdr, packet_num);
-	packet_size =3D GET_PACKET_SIZE(packet->payload_info);
-    ...
-	packet_info->payload_size =3D packet_size - sizeof(*packet);
-}
-
-If the firmware mutates hdr->cmd_buff_info or packet->payload_info in shared
-memory after hfi_sanitize_cmd_buff(), hfi_packet_at() can walk past the
-buffer or packet_size can underflow packet_info->payload_size, leading to
-an out-of-bounds read when dcp_hfi_complete_pending() copies from
-pkt_info->payload_ptr.  Copying the received len bytes into a private
-buffer before unpacking avoids the double fetch.
-
-[ ... ]
-
-> +static int dcp_hfi_send_sync_on_vq(struct dcp_hfi *hfi,
-> +				   struct virtqueue *vq __maybe_unused,
-> +				   u32 cmd,
-> +				   enum hfi_cmd_buff_type cmd_type,
-> +				   u32 object_id,
-> +				   enum hfi_packet_payload_type payload_type,
-> +				   void *payload,
-> +				   u32 payload_size,
-> +				   u32 tx_flags,
-> +				   void *resp_data,
-> +				   size_t resp_len,
-> +				   unsigned int timeout_ms)
-> +{
-> +	struct dcp_hfi_buf *buf;
-> +	struct dcp_hfi_completion comp;
-
-[ ... ]
-
-> +	ret =3D dcp_hfi_send_cmd_async(hfi, buf,
-> +				     hfi_get_header_size(&hdl), &comp);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (!wait_for_completion_timeout(&comp.done, msecs_to_jiffies(timeout_m=
-s))) {
-> +		dev_err(hfi->dev,
-> +			"HFI cmd=3D0x%x buf_type=3D%s object_id=3D%u timed out after %ums (pk=
-t_id=3D%u)\n",
-> +			cmd, dcp_hfi_cmd_buff_type_name(cmd_type), object_id,
-> +			timeout_ms, packet_id);
-> +		spin_lock_irqsave(&hfi->resp_drain_lock, flags);
-> +		dcp_hfi_pending_find(hfi, packet_id);
-> +		spin_unlock_irqrestore(&hfi->resp_drain_lock, flags);
-> +		return -ETIMEDOUT;
-> +	}
-
-[Severity: Critical]
-Can a timeout in dcp_hfi_send_sync_on_vq() race with
-dcp_hfi_complete_pending() and corrupt the stack?
-
-comp lives on the stack of dcp_hfi_send_sync_on_vq().  In
-dcp_hfi_resp_callback(), hfi->resp_drain_lock is dropped before calling
-dcp_hfi_complete_pending(), and dcp_hfi_pending_find() drops
-hfi->pending_lock after erasing comp from hfi->pending_xa:
-
-CPU0                                  CPU1
-dcp_hfi_send_sync_on_vq()
-  wait_for_completion_timeout(&comp.done)
-                                      dcp_hfi_resp_callback()
-                                        unlock(&hfi->resp_drain_lock)
-                                        dcp_hfi_complete_pending()
-                                          comp =3D dcp_hfi_pending_find(...)
-                                            /* erased from pending_xa */
-  /* times out */
-  lock(&hfi->resp_drain_lock)
-  dcp_hfi_pending_find(...) -> NULL
-  unlock(&hfi->resp_drain_lock)
-  return -ETIMEDOUT;
-  /* stack frame unwound */
-                                          memcpy(comp->resp_data, ...)
-                                          comp->status =3D status;
-                                          complete(&comp->done);
-                                            <-- stack use-after-free
-
-If dcp_hfi_pending_find() on the timeout path returns NULL (because
-dcp_hfi_complete_pending() or dcp_hfi_cancel_pending() already claimed
-comp), waiting for comp.done with wait_for_completion(&comp.done) before
-returning or completing under pending_lock prevents unwinding the stack
-while the completion callback is still using comp.
-
-[ ... ]
-
-> +void dcp_hfi_stop(struct dcp_hfi *hfi)
-> +{
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&hfi->cmd_lock, flags);
-> +	atomic_set(&hfi->shutdown_in_progress, 1);
-> +	spin_unlock_irqrestore(&hfi->cmd_lock, flags);
-> +
-> +	cancel_delayed_work_sync(&hfi->resp_repost_work);
-> +	dcp_hfi_cancel_pending(hfi, -ENODEV);
-> +}
-> +
-> +void dcp_hfi_quiesce_queues(struct dcp_hfi *hfi)
-> +{
-> +	struct dcp_hfi_buf *buf;
-> +	unsigned int len;
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&hfi->resp_drain_lock, flags);
-> +	if (hfi->cmd_vq)
-> +		virtqueue_disable_cb(hfi->cmd_vq);
-> +	if (hfi->resp_vq)
-> +		virtqueue_disable_cb(hfi->resp_vq);
-> +	spin_unlock_irqrestore(&hfi->resp_drain_lock, flags);
-> +
-> +	if (hfi->cmd_vq) {
-> +		while ((buf =3D virtqueue_get_buf(hfi->cmd_vq, &len)) !=3D NULL)
-> +			dcp_hfi_buf_free(hfi, buf);
-> +		while ((buf =3D virtqueue_detach_unused_buf(hfi->cmd_vq)) !=3D NULL)
-> +			dcp_hfi_buf_free(hfi, buf);
-> +	}
-> +	if (hfi->resp_vq) {
-> +		while (virtqueue_get_buf(hfi->resp_vq, &len))
-> +			;
-> +		while (virtqueue_detach_unused_buf(hfi->resp_vq))
-> +			;
-> +	}
-> +}
-
-[Severity: High]
-Can an in-flight dcp_hfi_resp_callback() re-arm resp_repost_work and
-repost buffers after dcp_hfi_stop() and during dcp_hfi_quiesce_queues()?
-
-dcp_hfi_resp_callback() only checks shutdown_in_progress at entry, then
-drops resp_drain_lock while unpacking packets, and does not re-check
-shutdown_in_progress at the repost label:
-
-CPU0                                  CPU1
-                                      dcp_hfi_resp_callback()
-                                        /* shutdown_in_progress =3D=3D 0 */
-                                        lock(&hfi->resp_drain_lock)
-                                        buf =3D virtqueue_get_buf(...)
-                                        unlock(&hfi->resp_drain_lock)
-dcp_hfi_stop()
-  atomic_set(&shutdown_in_progress, 1)
-  cancel_delayed_work_sync(&resp_repost_work)
-                                        goto repost;
-                                        lock(&hfi->resp_drain_lock)
-                                        virtqueue_add_inbuf_premapped(...)
-                                        schedule_delayed_work(&resp_repost_=
-work)
-                                          <-- re-armed after cancel
-                                        virtqueue_enable_cb(vq)
-                                        unlock(&hfi->resp_drain_lock)
-
-In addition, dcp_hfi_cmd_callback() checks shutdown_in_progress outside
-cmd_lock without re-checking under cmd_lock, and dcp_hfi_quiesce_queues()
-disables cmd_vq callbacks under resp_drain_lock and then calls
-virtqueue_get_buf() and virtqueue_detach_unused_buf() on both queues
-without holding cmd_lock or resp_drain_lock.  Concurrent callback execution
-can corrupt the virtqueue state, double-free command buffers onto
-cmd_free_list, or run resp_repost_work after teardown.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-jshekhar-v=
-3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com?part=3D6
+Regards,
+Markus
