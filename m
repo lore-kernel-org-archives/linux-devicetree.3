@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795660741;
-	b=Z5GLZpZ3L9pTh+FwJrWLaryJ8S0mT78FTLxMjCjHe1s0AHOf19pGpn8n1CqORBoE7LEt
-	 3z6xTzk4r8Z/Ff+7nSLz9MTJRwfj2PcylIHm1ATAcDQlo+Pw9Y0LxmJGWNEFNym+ndoOb
-	 opiSYWNsbPCnRjB3W41QLfKHcmqfsDvPgdfaIi9Tn5kRW2evprEVaaLrcb9eiezjenjVr
-	 2h2TP3UUTp/HWTuuEx5WgV123kR/ZAY/KAxBsHK2rbygNG7vDEn6MlW9v4IXIqdT2Ord8
-	 B6xT0v4dpkYb/Nn51EEaLVoB88VaTd8HuNa17tZxRK0MpUtue/9/+bQ/phCAC9h4XlA==
+	t=1795660742;
+	b=I1ZRfkrPNZJbxGwOix/aCgJrYqHmLGenVLJ5LlRo8XVurmBVdbF3diNlelrqHKZ/gPK9
+	 Yov8eR6PmisAO8XlJLneQrnvHZ/N/4S1yoxxwWXSsWImYvx8JZyTufHC39MSPOhrc3HHh
+	 Ju6ChVbKed1Li6UCIK8/naLjuFlDzUSfd20XOPMD7ufcMM0CqEavO2KsVIp07uXwgbs1k
+	 b5im5VNDRsrt6XdRAPD/iXCq8CZiSRqOzkDZPamH9WZcryrD1o+IGgRwt9r4ew5eh89qa
+	 KRz6DEx0elAbL93zoFE8x7QCC/U3NCdYuc5U0awiZxJy9VUXxbaVoeBYaWWr8kWN5OQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795660741;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795660742;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Bm/bUp7RlKkBT/8X38VbZu3Ft5/2WN63tbel6a0QUxM=;
-	b=JplACY2+hdDNc901HzGECcTFkTeUK7W4uH7mo+AXePEf9DBPSnGVjw0FHSMIENnjfiY8
-	 nwCm4F0FhfIVYa53AMyTRBf8xAP49jZZ8YkJbHqqW1Y1H/5q7XJkBHdpoNJ52XrgEAWKX
-	 Isx4MkYpcDepeoZx05oOnLHehWfjLboG7x66m+Fnv22BrbTVZhdvuX+VTSUOSJFA3NNh6
-	 kinIxf3fYTgz+7sG3YylUzFi91wj/qjzuaLRgesEWQGc6N/KCspTB5/jc59t2G8kkSzTc
-	 ivXVSudIwRKH7zcjvpp5VtW2rIJAxZ3ZzM8zPjRQ29U7BPs7j/OPqg+MKCzwlaeoDPg==
+	bh=P2b3ibZfYLI/rA4iAlhtTumPUKIx/cMHtlCujWDHvss=;
+	b=Kzb/EnSQfyLya1nnVAUX1E1J6DoxUrQH3ZSR8q8GTEOrQS0tEOiBRnqDrbdPiy142SC9
+	 CB3NdwKDeDgtsmdAvr5SIcLUH87vgHK1ooPOjrxnvKSA/tQVsMC17V5xpjjaQtXeOROnQ
+	 ehU5DfIDhp0Vh5tt9ADAW4cs+PdXcP30XWsjuEGPRgObvND3RfNFNqAuPWUMwynX5R35P
+	 djzE42F726fA8WNAwCkFiHzBGsoXqqmnwkkhMBgYLcU3xzSofYeKY0PkH2k2hHI3wB+eZ
+	 aIrlAoLwiBECATQWup3SyAN5yCDOst7NzYBN4mhDuSEggbG+N37m+iYgI0RLx2zrUpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l8t2buJZ;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PDgpO3nX;
+	arc=none smtp.remote-ip=209.85.210.171
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4124A606A31E
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 02:39:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4124A606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77448606A31E
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 02:39:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77448606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l8t2buJZ
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3b43d30822fso3493298a91.3
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 18:39:01 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PDgpO3nX
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8c5ebbc5150so4555236b3a.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 18:39:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795660741; x=1796265541; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795660742; x=1796265542; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Bm/bUp7RlKkBT/8X38VbZu3Ft5/2WN63tbel6a0QUxM=;
-        b=l8t2buJZHeLyktmdJHxJyyVosC+gpje9EDmrnIe5yh+iPn3Owev9CG/8z6Juz/sitc
-         YqgTxAizJiLKaVTKv+KmDwCje4IIUFnV2KY04RwzPRZcoruu+Y3f2uRvBON6pqcbC66w
-         obcLB4FB8byXGfRGZQj63Yep0sxzSJuI0Xo+IMQpD0+lNTv3TxZGSnYRC6lqqLgmSidB
-         rcM48TH+UgkTDGbrWc5aEWUmneh2mUZSHAX6CGLKcjNX56MMv5oT1qN8+gqy1LuvNHuv
-         gvr/6Sy1KWs4NkcciRaiobW7kY4olvRci/4jQtEpJvSlagqBJs9jDc2KUSaMbelWZ3+X
-         Jo/A==
+        bh=P2b3ibZfYLI/rA4iAlhtTumPUKIx/cMHtlCujWDHvss=;
+        b=PDgpO3nXslC6kizxJIrIXctk2CcxnmcOFxkd5CbgxGrVD59bNSnq5VlRv+wmmlQKB8
+         3CD4vlCWxOwOZh1odSGoIdvkhYmo/mbWvw9xTMks9UN7hso8eAkmJgR8X+ujkq2XYPwU
+         1UGNHxlLvJRNEF+HchjMXchWGz4/t0PzUkTyDYt7azKk3SNXNUF3qNZm+s4eiRho+Fko
+         vYXmguctTeBg3W0EJA8MqVHtK0U8ZraF5/QxSBlxajst6EJLQki0DHxEASHimPX8hGnW
+         B9rjy5HmOE25SLpcSd5ZuCwyvnFyzoU3C4bhdtBP7MBkLvAgryvc5tdkT2KlWy7wVLVo
+         iRuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795660741; x=1796265541;
+        d=1e100.net; s=20260707; t=1795660742; x=1796265542;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Bm/bUp7RlKkBT/8X38VbZu3Ft5/2WN63tbel6a0QUxM=;
-        b=FgzAyYsh6rgeYw4Xlzk/96WskLPFbTTVI7EGeClU5iUv0h9jG7tbDKJLWkPfNJDoQq
-         QqwtZoqQ0AJAoYPJMLgrxrTRDRcen0+nN5cLZzQNcf0lDcaQQxEDn9PE9/IH2u5KmC73
-         BkDQ9lsxd83F/3tteWhRB+j/4jooxJ1U8kR6dfFw58OsvrgdldIzeVXbM1wgm6atNtOi
-         /xq54RbRccvln/kjGeKLj/u/ITwKBCB+R8hTw9IlNtFoFZkq3vDpariVIipc38vW/yUU
-         KzpvRCH/dfEuFqHiDdWxdO73S7g52/SQ7Y3QKM0HKREXvwZzI953+xqHBdVI2+Du3TPH
-         kTEA==
-X-Gm-Message-State: APuU4Z+y6lWgxPEDthgK5RkCDfV/t/yk83FgwxSUXAqVVYNoxGvIham9
-	DwKw+g4n0QDd34ZpCrsRGHtSgpIC8lB3t+YAKhzHfbNcAf5AYZ3JmJ074MUNlw==
-X-Gm-Gg: AZFdTZeumL1//81jdzPP+/N2x8cn1rUwPQzcfcK+Ya7C1IiR++LQx833MPh+MeU9jp5
-	QF32lDyPiqMjt1Bko03HEw3T2jiAXXdU5PSgPQlIJkft5Duhf2y7dW5BRpopJt95tPzvm061b9d
-	QJ5W5UXKdtbbvv8T2dMjzrC68VndF0amHMO9q8AA5mGT17pMqY1zA+vxcx61vcwRsk8cRfkT7a+
-	Blzo+yXGjpnir4S/TNRQvMqSAVZ5LHZUgexOzRVD7jw2TlM1HFETlbWzHQZV4eABGQwYdk8zaa9
-	u4OmG/+k6fnmcuCiS3DY3Dz6kfPKHObCvk8iYnpB5vmbUBqNghmJTcdubRw5IRsmXfF6Eq8H88/
-	DypmxwD/Fu3PjRlm0P0qgA8Cco8ZHB/ZAYTZ9BBoFBhxS1k0zS6obItBpMsvGPGSpZgK0aobHkP
-	MfYyMDxMpKqEfCTW4Eo5Whjciuo9FyxcgLVC2voqaIW5mJQaxTkYMIFGgHCMZcT6dS0YKpNru7H
-	71/J0QyhvUR+zcKFckGlNVBerUsiB03rNnnO455wFpyWk6bIYrBZN/f7RrGE13TIGp+bKZ9KsAl
-	ONhjOqPpaAkOZghbJlb0vIhaYqbkOCW6OPxtxpc8OR+W/OGGLKN/u0c7prYGSGkj35jFqspz1fQ
-	glsjqXeeq6QoJzysZqIPqVaVBzkFudPSmFFUt24U99b58Yn9Pi9GpRVix3Rr1gdSsUyUnVPlI6b
-	WHgw==
-X-Received: by 2002:a17:90a:ec88:b0:3a4:6e84:e7f6 with SMTP id 98e67ed59e1d1-3b41c7b572bmr17367824a91.5.1795660740619;
-        Wed, 25 Nov 2026 18:39:00 -0800 (PST)
+        bh=P2b3ibZfYLI/rA4iAlhtTumPUKIx/cMHtlCujWDHvss=;
+        b=IzKOHgYWGHs/hTybyh6NoeSZZhrQnreDKIAvAAGP1vPi/wJA1z7VYQd4A8+ge4wiSn
+         JwCu3j7LtUINm5Vbb2scnoza3sNFYuJhc1v9lBfdu+dcYv8QzA/3yxvwukgT5SZrcnad
+         ye+c59klobkw+t1FFNKTWyfc+BRHjUpyx8ih1R8sFblpq6Hbf2blvn2gjptJMcXL/VT1
+         zORway2jrF6/cnisxG1o6vGOqzC2UrNFRKy+OxXE5eQcsPn73N9RZ0ijbL7eGjRK5jS3
+         gFCYYCcf2Xew4hQbUf9YQJaOzoKcL40hqNt5qN+XQhWScjWO4cIQjOeRr24FCEZCa4dB
+         eXZQ==
+X-Gm-Message-State: APuU4Z+IykWGD4zL+RiIfygs7vdlVHxmsZqXo0RsjPdPHHjxe+1npN3j
+	HBivN6GdmCSxAIudB38AERugRhF4RaJ7LM1+/enBYpmB1jJxixSGybu31GaaAQ==
+X-Gm-Gg: AZFdTZcj8R6HcyPUCyDPu9XM5nJ4XeqsxcyErmNea2CtRjY8mGsr+6qsdwZbVjNmtfN
+	z4JHqmAT/8V8ahGvWXhqsMKLZ5LaNL39n4TVqLkeaJnk8IntA5mtJPEzmghAj4+1rSBS+pXAtUp
+	9uNmDZ0R/oZiWzx6yNTTGby0FVGADvO+WmGkN8VSMykGWbj2EJUSu3g+YcvtXkxW5eAC4s6L1WN
+	6Ln2YkLaCaeG/8ymaOXSI10e+/iYgD3w/nWBHj5s7w+scz90zQqMQkhmNigqZrOIGm6B20zu81C
+	y4NUGi2FkTJzz22xli/WreNhEFKyvZjZRCf8KXg7MRBIZTlCEYhFw9ke3NSEvwfQjLjfeRO1ACY
+	eQKasYD61LAqP1fhZfavqbyRH9Y5hE8Koy1ygCEO1ARUNfHm3DCEUlZva7+J34JR1x73Lh/rhVc
+	fsoOROdaxmJc/uTqwK8gmz3Q/TDcyR4WtBVgeGKvcacjKJ0ZGielIyPIFDb7rFpv7HdmnT1vLKx
+	9X+ZMiEhyKvVnKmjCSdVEseuDl6r8DelKA9fKSvIF3gtf+CVzTrgeWeYAVrK3LENryzOknn7n0S
+	K5wmPgXMnhMtg6ItIZqpKtRWTd5OCRCWXFdwG6XfpvgJxdxIlWfYEoaf9VI1EnKkCMMskawtDE5
+	Rl/AiBv08DcIyT3lgt8QRfnO7rXIQ/deb9mj/bivcbusW+Xt8iYBy98RMF5ghRbsNPjJP8LTuN4
+	e72g==
+X-Received: by 2002:a05:6a20:51a7:b0:40a:5639:4a6b with SMTP id adf61e73a8af0-40a56394b39mr132821637.30.1795660741806;
+        Wed, 25 Nov 2026 18:39:01 -0800 (PST)
 Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6d026d6fsm9909018a12.19.2026.11.25.18.38.59
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6d026d6fsm9909018a12.19.2026.11.25.18.39.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 18:39:00 -0800 (PST)
+        Wed, 25 Nov 2026 18:39:01 -0800 (PST)
 From: Rosen Penev <rosenp@gmail.com>
 To: devicetree@vger.kernel.org
 Cc: Andrew Lunn <andrew@lunn.ch>,
@@ -89,9 +89,9 @@ Cc: Andrew Lunn <andrew@lunn.ch>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Dennis Gilmore <dennis@ausil.us>,
 	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Marvell Kirkwood and Armada 370, 375, 38x,...)
-Subject: [PATCH 1/7] ARM: dts: helios4: fix board revision GPIO polarity
-Date: Wed, 25 Nov 2026 18:38:50 -0800
-Message-ID: <20261126023856.767961-2-rosenp@gmail.com>
+Subject: [PATCH 2/7] ARM: dts: helios4: use a level interrupt for the GPIO expander
+Date: Wed, 25 Nov 2026 18:38:51 -0800
+Message-ID: <20261126023856.767961-3-rosenp@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261126023856.767961-1-rosenp@gmail.com>
 References: <20261126023856.767961-1-rosenp@gmail.com>
@@ -106,42 +106,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The board revision is strapped on PCA9655 I/O0_0 and I/O0_1 with plain
-resistors, so a strap pulled to 3V3 reads as 1:
+The PCA9655 INT output is open-drain and active low (pulled up by R60
+on MPP23). It stays asserted until the input port registers are read,
+and stays low as long as any input differs from its last read value.
 
-  R1.1: I/O0_0 = 0 (R67 pull-down), I/O0_1 = 0 (R66 pull-down)
-  R1.2: I/O0_0 = 1 (R110 pull-up, R67 not fitted), I/O0_1 = 0 (R66)
-
-The hogs describe both lines as GPIO_ACTIVE_LOW, so the logical values
-are inverted: R1.1 reports 3 and R1.2 reports 2. Describe them as
-active high so the logical value matches the strap.
+With a falling-edge trigger, an input that changes while INT is
+already asserted produces no new edge. If the handler's read races
+with such a change, INT never deasserts and no further interrupts are
+delivered from the expander. Use a level-low trigger, as the chip's
+INT semantics require.
 
 Fixes: ced8025b569e ("ARM: dts: armada388-helios4")
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- arch/arm/boot/dts/marvell/armada-388-helios4.dts | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/marvell/armada-388-helios4.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-index 9c106633b2b9..965e9972c9d6 100644
+index 965e9972c9d6..b87e3f8fd12d 100644
 --- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
 +++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-@@ -181,13 +181,13 @@ expander0: gpio-expander@20 {
+@@ -175,7 +175,7 @@ expander0: gpio-expander@20 {
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pca0_pins>;
+ 					interrupt-parent = <&gpio0>;
+-					interrupts = <23 IRQ_TYPE_EDGE_FALLING>;
++					interrupts = <23 IRQ_TYPE_LEVEL_LOW>;
+ 					interrupt-controller;
+ 					#interrupt-cells = <2>;
  
- 					board-rev-bit-0-hog {
- 						gpio-hog;
--						gpios = <0 GPIO_ACTIVE_LOW>;
-+						gpios = <0 GPIO_ACTIVE_HIGH>;
- 						input;
- 						line-name = "board-rev-0";
- 					};
- 					board-rev-bit-1-hog {
- 						gpio-hog;
--						gpios = <1 GPIO_ACTIVE_LOW>;
-+						gpios = <1 GPIO_ACTIVE_HIGH>;
- 						input;
- 						line-name = "board-rev-1";
- 					};
 -- 
 2.56.1
 
