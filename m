@@ -1,112 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795671684;
-	b=cpQhY6A3atybcHqNSALwqt7CvMTyBO+VEzWkCGF6jdIUesXDMFomhKJUMMIFET7K0EbU
-	 e27EBdWrhmdYAvnSemmFJv79z2d1EdvtMr8228Osn4u24F4L9ld3LK9FK55FqMDyGWWW5
-	 j2EZs13bO0GB07kmNvK4ub+4HdyWdZ1nWCQeO/15P+QCCqDaNN7JF50uqtY1aohhKPFRV
-	 uNjiblBS0HXoZvX9Njen+Fjq07tbOAfe+FPva7A5ONbslUsBUzEKIHk1FWXYsCCQRZDnY
-	 SxBBYo/L0urohuNTT+xLKLqRSwnrwxJ8nWIbVMiR3GKETX9SJWse7L+u8vKcaOE37Rg==
+	t=1795671821;
+	b=vCT4MM/3aP1wTOddB5150a16IquIRvnOSu1vGchFJePVKQHCtkbfK0Sn6v6mYzkmirZS
+	 F1HlCsWpLOef7iKSBOYiS/5jOqnUAOzXk7g7nupj6NJ77QlFpG2qEq6grkTG0jJkMJb9K
+	 QgWguhjPuHcds812E/wmgfs386d6HzoSaB3aXzpgaL1gvnBAP2iAGtXEDRPT3Kxpgukc6
+	 uoIcX49tOMiAktV8jDecbHUXkre1HNQq5PMMkkHtCZC/Ft5dvtEK3KHeGz1p48YLsi0Fr
+	 hywqHtUbHedFe8MCtRdR7ZlYoYs0/XTkGncZG3gdh9R2qCdb2GgIarZ0dNqOANWqgTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795671684;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=KaIkBumHdEKKdnazl1dkdI7RsBJJnknjh5eFZLYyAK8=;
-	b=TRaycN7G5Z/m3E+WLS3YAoe7TFgUIaRfWfgWOdmV1reGPLMtOzdrYXOcErp7/FkEFiHH
-	 e6aFaBdGuySNZ/rpmqvS7utEgJxFxjZ+MmppoHZxknmFF8rJkxuEzJD2R0sU3VBk4w9Bc
-	 wbq+Mp3BUueVqSdQY69OYGy7Y4f6PWAVxgLEk1lyj2LIO37E9wKmI9d0RJSBVFJ5jLfHG
-	 YUZm/WiVqV3jCqzev2OJivf2n7Oc2KTsp3Ge233T6qQwzcRqk20GkY6M+TibyDtOPQEY8
-	 MpRT7OlybmoPsCrpGuq6/F49yGXmSYWXIBn8D34wH6C8TJvRNocSMLJkK0raDj2u8zQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795671821;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=RIdBdhJ75KmMg8/6wy3jTWLMxE7IBjEX0YQreojB6mM=;
+	b=d4hfEd1zQ7V3mfn+28vW+WM4tsPdpqFfRTS72fu1lngXzEUy4ZlUGpHWeXjHA9yoQS28
+	 hnjTdQi39C/BXvnbAIbHQFYycgryMbVap9zr/iGsIpcknkRfogfQaVw9P3E/eyT0XlRgx
+	 TZonwUWugpUV6wrgJdIsrgl09aZrzyuXKnraBnOmYEwi7Dc4bmkYiXPOWVY4/a92CQOdM
+	 ddrOiKq5MYlukkIhXCn9+p9XwVuaiDnyNrwjVRUqXYzLkMrLEPtb6khZIXDdq1MQ92mkS
+	 WOajgxU3svVG/HsOswd1UEeZbi2qlFO+SxbCv6Uq9Q+iFJAl0YWuWMU24/NV79EOq5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XHbdAQM2;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="gYkI/hat";
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eqBgETWr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF41E606A32A
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 05:41:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF41E606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D674B606A31C
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 05:43:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XHbdAQM2;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gYkI/hat
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQ36Ls9394050
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 05:41:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	KaIkBumHdEKKdnazl1dkdI7RsBJJnknjh5eFZLYyAK8=; b=XHbdAQM24AiJSbus
-	R9doTO40p6club4sn6vQEj4a9nZB7tEZwXJl7ZBUiVq3KVrTin0EEyYqyLTMBix2
-	FUoNg2y48oSp/+ujhKn7jSWN5sqKGucDTXffGKMfVPmYfWg6pLsu024bNiT9QOc2
-	aSyNbANF+QMDFSMGO4C1jkUa7CzSFkXefKO5QgLidvf74XOHFitpLl/QUUl9HAJV
-	J1LoFcK2AyM1YX6fPvMLkwlYTHVHJpc0Ak0jRlQqPIUAmKrgZejygEi65NObCmrM
-	VFm5Ijgon/b8GdyxEhPMXUDPJsv0XgGzFnHR6bzzmrWLcxlMaNDxaIsWy4hoamU6
-	MRttcQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j662y1j6b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 05:41:12 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ae19907a31so6354488a91.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 21:41:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795671672; x=1796276472; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KaIkBumHdEKKdnazl1dkdI7RsBJJnknjh5eFZLYyAK8=;
-        b=gYkI/hatiBmPXLGsPcbb3jeDbEFgaUC4qtveRJrp2bSNR45Hir5JVjCAVZlx2z7vlt
-         7Kv3sW6Qlzh0+cER/Rs1RXj6c33h85FPPGq2MUgTEv7CzdPRlaQ3F/THNgxk09gSMer5
-         UEIwNu2vsP+74DApaddlDeM3P++L0bR7C4Nly4h7njB06zeA9R9nIgWB9joEyDAajdHI
-         KM4gtxwhHofkTkPJAw5D4YO71ruDmXusDUzwcDaSufiDgWUH0sek1P5b9aKw+RrYRfhr
-         iLDY8INI+JvolOItUZr/qXDR9tlqZk4N2pgAZ5Ak/zvCLSjNHerWxF5rn3uP77hcsxXx
-         XB3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795671672; x=1796276472;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KaIkBumHdEKKdnazl1dkdI7RsBJJnknjh5eFZLYyAK8=;
-        b=ovi8dSDtcw7uIdaIg9mdQphdWFiheU/1Q0Nb/lX0Zc2EXH8vvlPKaswnyKxMbGKjm/
-         t6okyLaswgLMuCduXQtVLtvnO4oTYis3wwg8wXTcUP1D/tuFrr3cGKFiwO4Xm6z6sgkW
-         c3C4rdUPAcTZ+y4+vA7g0pgxAnDtv4wMMeaBdhIJJxnPKgvPndeyv/asUmRnbSIlPEn0
-         UonvC/5H+iTJgtNIHRnifCH2NkQ2aEQCUUHBnFoCOcU/swZ9LDgyuvGGSdODT5mjcW+A
-         Mf/CepTqij0MvTyDjDLsaylIIGN9J25XtWxYvOJHtLEm5uiYgxqhHDK4ZlrORVeonf29
-         J/8w==
-X-Forwarded-Encrypted: i=1; AL+hErFi9by1IkyVIBY7z//PMy+HPTJTwfaGOg2P3ZBp1pyEMIUvJlSoV0B65ZDesqQuzQBYOGKggcYB+1XC@vger.kernel.org
-X-Gm-Message-State: APuU4Z/7Q0lFasyNAyFXC7Rj8K92kuFZ//KuCBoSJFoGChArMbtnPcTz
-	enOW+sJfbAZ3HnizeFCn6nQgmLE7GBlwbA9+3d/j3BtR2HQ51B67EjGyMHYMK5R1RCsgmxPj7L6
-	Ng3QA7ftpzN/pTVcSw/TUJxnAitPuWwa3V8jbNT9RZUW0H2ubFjdykQqQhPrMfqmYFNddyYiS
-X-Gm-Gg: AZFdTZdooyff69XHNjGlhqdxYYxZNBaabuq6JMbG9PkLn7Fb8JTpIkaQ+owbK4VIygV
-	N6+l8B6a+wf1yS4JQuwS9ijG5LMftB7YGPV5EHAZ3+4HQpelsiQuYgAmTz9fwSPIeXH964Jp/rZ
-	0HxP1TVNDRjdMfmrsy35vkbR4E7GQACWm69CgW7+fLk2iMwPjJnA93cRGHWkWFv/VmDgOBGyFAx
-	zzpjclNmBknFAc37YE0rY30AkcwjVRkU4ZA072u70Ept2oCru0ifk0StBA9ZH3bmZh0PaBhKo6Z
-	rFzSl4ng8dGqbuCdRJOGuYrz4WtM6dIeVAgUaHf46KPdPXZ2ioyVBxmveMBUB95p/ktE2x+sgYU
-	vFLAa/MvvRxQhgIj4Entp2m/PeyqIvN8TJZYC4WH9QjeeBlpbG7Y3bCMwwmDwnKMbZrMcI1KZiW
-	qq
-X-Received: by 2002:a17:90b:4490:b0:3b0:a7b5:c044 with SMTP id 98e67ed59e1d1-3b41c7bbef0mr12554571a91.1.1795671672152;
-        Wed, 25 Nov 2026 21:41:12 -0800 (PST)
-X-Received: by 2002:a17:90b:4490:b0:3b0:a7b5:c044 with SMTP id 98e67ed59e1d1-3b41c7bbef0mr12554548a91.1.1795671671671;
-        Wed, 25 Nov 2026 21:41:11 -0800 (PST)
-Received: from [10.206.111.19] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405ec698dsm33365160a91.14.2026.11.25.21.41.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Nov 2026 21:41:11 -0800 (PST)
-Message-ID: <238a552a-ca4b-4997-aecb-fdaa278ca1c4@oss.qualcomm.com>
-Date: Thu, 26 Nov 2026 11:11:04 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eqBgETWr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CB521F000C6;
+	Thu, 26 Nov 2026 05:43:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795671821;
+	bh=RIdBdhJ75KmMg8/6wy3jTWLMxE7IBjEX0YQreojB6mM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eqBgETWrlYQk9CNL5B1M2kxa3m5oysV41/q9cX0RgAo9mzXVovyT1kao6qxK56DND
+	 f0slX4VJjwIdqj+zvvVVujWD+UOsXk1qE6RMy/tTQK+vcInNpzkrQwJJPKFOERVHQ+
+	 YeFYbm75zwyqxJ1X/g14uDsUMbolGo7DCyNgOQsf4v1CKUPnrlMmV2wBkNpEU1vMx9
+	 SfI3MFXxEg77ct0M7zP3eJVmowrfn7jSyQRQDxsRkfD4rkgkBH7kX/vkg6UGUvrp6b
+	 YbMuTkKQfYBseUrG+w9yrua4N0QIU8PJYqgUHRbMgS48v0icP2ONeAm+SV+czlHHT2
+	 DTAfzvtrPufjw==
+Message-ID: <sashiko-outbox-234804@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] arm64: dts: qcom: Add Microsoft Surface Laptop 8th
+ Edition
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Gopikrishna Garmidi" <gopikrishna.garmidi@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261125-mahua-surface-laptop-v3-1-875b9c63d4e2@oss.qualcomm.com>
+References: <20261125-mahua-surface-laptop-v3-1-875b9c63d4e2@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Nov 2026 05:43:40 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,95 +59,120 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add
- Glymur compatible
-To: bod@kernel.org, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-phy@lists.infradead.org,
-        Suresh Vankadara <svankada@qti.qualcomm.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260925-glymur_camss-v4-0-d7c2983d6d7b@oss.qualcomm.com>
- <20260925-glymur_camss-v4-1-d7c2983d6d7b@oss.qualcomm.com>
- <179561294019.462348.12092000419789488599.b4-reply@b4>
-Content-Language: en-US
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-In-Reply-To: <179561294019.462348.12092000419789488599.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDAyMSBTYWx0ZWRfX/pKbSz1uC4eQ
- UJaHp/XfDNKWA/EeGkJGGIn4oNzeSb2gtSotGRSlNlk+t14G6J/pUTDoZD/eq4N+bxQBnA8WYMg
- cVQxRMY7OKE14iEBPst2vF13YwGChGgg+a+ofD1ssEB0qnoDV4gScDOgB1sCcYE6QquqP6dreEC
- +jPY8rVXiX3WkB2nU3f9Uzm5U3bWowiwcujfCgbX08FGyVyhKJxXmFMWW7uxas0BODT4VNJyEMC
- rPyiwrJMdF98MTNedVlA9lKaLYTXJ+sbMP1UsRhsL4w5UhpRshV96SahVyQYilgZH2bQvKPGXeV
- LvxWgVA4mCSYhqsYHXns/7o4OQ8hD615ouecjJZH7LElHOQCma8/uK/ZCiVRFDofPkCv3WT9Axn
- W1HvSGRh1NCbU/GI8qd2vKRetO1gWcCoh0bjeRCQvb2aj83aPM+cQMEwvQRBcXAg3aDK3pWewsA
- 4bB/2JAvCJfo2Wbe3FA==
-X-Proofpoint-GUID: 1YaekDFP5Q1AFWsoHvjmdU456NfIZfDe
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDAyMSBTYWx0ZWRfX9OE7yIB6Af3w
- Sy5qHVN+bVyp7qR45pXyTbDzW0phd+FXkgeOGt5707+3wKeVnmXmQwmHzoR8BxOlJqu0Gjveb/H
- TXmnf2egpRkh30La/EhXWsk+wjUSqzw=
-X-Proofpoint-ORIG-GUID: 1YaekDFP5Q1AFWsoHvjmdU456NfIZfDe
-X-Authority-Analysis: v=2.4 cv=W/KtxhWk c=1 sm=1 tr=0 ts=6b07c683 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=CZpgSDYph55k4HqUXiUA:9
- a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-26_01,2026-11-25_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 phishscore=0 malwarescore=0 adultscore=0
- suspectscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260021
 
-Hi Bryan, Vladimir,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] arm64: dts: qcom: SAM compatible mismatch breaks
+  ssam_platform_hub_probe()
+- [Medium] arm64: dts: qcom: duplicate CoB PMIC includes and stale
+  regulator overrides
+--
 
-On 25-11-2026 18:52, bod@kernel.org wrote:
->> --- a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
->> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
->> @@ -16,7 +16,11 @@ description:
->>  
->>  properties:
->>    compatible:
->> -    const: qcom,x1e80100-csi2-phy
->> +    oneOf:
->> +      - const: qcom,x1e80100-csi2-phy
->> +      - items:
->> +          - const: qcom,glymur-csi2-phy
->> +          - const: qcom,x1e80100-csi2-phy
->>  
->>    reg:
->>      maxItems: 1
->>
->> -- 
->> 2.34.1
->>
->>
-> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+commit 5ca42311513062b6586cdd08dce26ed93bc509a5
+Author: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
 
-This series is already present in the mainline tree:
+arm64: dts: qcom: Add Microsoft Surface Laptop 8th Edition
 
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/media/qcom,glymur-camss.yaml
+This commit adds the device tree for the Mahua-based Microsoft Surface
+Laptop 13.8" 8th Edition.
 
-I am not sure why it appeared in your review queue again.
-Can you please review the follow-up changes instead?
+> diff --git a/arch/arm64/boot/dts/qcom/mahua-microsoft-surface-laptop-8-13=
+p8.dts b/arch/arm64/boot/dts/qcom/mahua-microsoft-surface-laptop-8-13p8.dts
+> new file mode 100644
+> index 0000000000000..2f8c93d900df8
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/mahua-microsoft-surface-laptop-8-13p8.dts
+> @@ -0,0 +1,1146 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +/dts-v1/;
+> +
+> +#include "mahua.dtsi"
+> +
+> +#include "pmcx0102.dtsi"
+> +#include "pmh0101.dtsi"
+> +#include "pmh0110-glymur.dtsi"
+> +#include "pmh0104-glymur.dtsi"
+> +#include "pmk8850.dtsi"
+> +#include "smb2370.dtsi"
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/input/gpio-keys.h>
+> +#include <dt-bindings/input/input.h>
+> +#include <dt-bindings/interrupt-controller/irq.h>
+> +#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+> +
+> +/* PMICs tied to Glymur's cluster2 are absent on Mahua. */
+> +/delete-node/ &pmcx0102_d_e0;
+> +/delete-node/ &pmcx0102_d0_thermal;
+> +/delete-node/ &pmh0104_i_e0;
+> +/delete-node/ &pmh0104_i0_thermal;
+> +/delete-node/ &pmh0104_j_e0;
+> +/delete-node/ &pmh0104_j0_thermal;
+> +
+> +/ {
+> +	model =3D "Microsoft Surface Laptop 8th Edition (13.8 inch)";
+> +	compatible =3D "microsoft,surface-laptop-8-13p8", "qcom,mahua";
 
-https://lore.kernel.org/all/20261123-glymur_camss-v4-0-d7db74f59e22@oss.qualcomm.com/
--- 
-Regards,
-Nihal Kumar Gupta
+[Severity: High]
+Does "microsoft,surface-laptop-8-13p8" match ssam_platform_hub_of_match in
+drivers/platform/surface/surface_aggregator_registry.c?
 
+Commit e93536b1fcf7 ("platform/surface: aggregator_registry: Add Surface
+Laptop 8th Edition") registered the match entry with the v1 compatible
+string:
+
+drivers/platform/surface/surface_aggregator_registry.c:
+	/* Surface Laptop 8th Edition (13.8") */
+	{ .compatible =3D "microsoft,surface-laptop-8-13in", (void *)ssam_node_gro=
+up_sl7 },
+
+With the root compatible renamed to "microsoft,surface-laptop-8-13p8",
+of_machine_get_match_data() in ssam_platform_hub_probe() returns NULL and
+fails with -ENODEV, leaving the SAM keyboard, fan, and platform profile
+devices unregistered.
+
+[ ... ]
+
+> +&apps_rsc {
+> +	regulators-0 {
+> +		compatible =3D "qcom,pmh0101-rpmh-regulators";
+> +		qcom,pmic-id =3D "B_E0";
+
+[ ... ]
+
+> +		vreg_l4f_e0_0p3: ldo4 {
+> +			regulator-name =3D "vreg_l4f_e0_0p3";
+> +			regulator-min-microvolt =3D <1080000>;
+> +			regulator-max-microvolt =3D <1200000>;
+> +			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +	};
+
+[Severity: Medium]
+Should this board DT use the common CoB power grid from glymur-cob.dtsi
+instead of re-including the PMIC dtsi files and redefining regulators-0
+through regulators-4?
+
+Since commit 6fdce1f4a17b ("arm64: dts: qcom: Consolidate Glymur CoB power
+grid"), mahua.dtsi includes glymur-cob.dtsi, deletes the cluster2 PMIC
+nodes, and wires the common on-SoC supplies (&tcsr, &lpass_vamacro,
+&mdss_dp3_phy, &pcie4_phy, &pcie5_phy, the eUSB2 repeaters, and the USB
+PHYs).  Redefining the regulator nodes here overrides the consolidated
+glymur-cob.dtsi rail voltages with old CRD values (such as lowering
+vreg_l7b0, vreg_l1c1..vreg_l4c1, vreg_l2f0..vreg_l3f0, and
+vreg_l1h0..vreg_l2h0) and re-introduces F_E0 ldo4 (VDD_LPI_MX), which
+commit b7ff5f19bb27 ("arm64: dts: qcom: glymur: Drop L4F0") dropped
+because RPMH manages it as an ARC/RPMHPD.
+
+Dropping the six PMIC #include directives, the duplicate /delete-node/
+statements, and the duplicate on-SoC supply assignments, and extending
+&rpmh_vregs_b_e0, &rpmh_vregs_f_e0, and &rpmh_vregs_f_e1 with only the
+board-specific rails would avoid overriding the common CoB rail
+constraints.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-mahua-surf=
+ace-laptop-v3-1-875b9c63d4e2@oss.qualcomm.com?part=3D1
