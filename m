@@ -1,47 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795713495;
-	b=d8rls7PIH90HaqqGkFIYCtciS524YjNmeO65KpYZ5RTuqYuErAtvEhY8JpVPfRgy/3Lh
-	 2hBxiQB8Zq9wQYDO0xcxqI2Ufdsxx5ZSJhYuz8JSu1ysail6I0gIXZyYk+sQyF1gMib25
-	 n+3T0fY53hAgXJBp//w/ijTEj4KfT3CvS93guN7LBwX3K8DpHKVNunCYIQ0b4gxtpEWCo
-	 ZkM7vpQld84WIbo+qAIjGyCk045zYSYFiMm1/y2TOJfGWxQ84UCS7EajMBVQ25XA7IUr9
-	 /wYQtHTV54I2fDDQVeTKWpgDo55fwWr9P6WfOOj/MaPK47XHZizKXUIA+BlzvisDmeQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795713495;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=w120dgf1qMRFAFrYxURhT9tSBYAzmjIDKW2aCCxepAc=;
-	b=zEQ2g5CRJN4uQtqV/9l7IuQiIHDG2LxPPAqWlkdnwZfrWDIA4WssevFRME0/IlLWuY8o
-	 JzwkCOdY2Cf4TzgYLE1t/2KoPy8A1M04+4My8mwK3ooVMedk55qzPCG9J5IBR4qxU/CPb
-	 JKFNSZC8PV/I29XCIGM/Uvv+CNPWeItFeoSTpM1F/TOOxwaUn2BrXPM+5vc0/CrPSzooq
-	 gLA+nlcDbxoT9UiLDDD4m6GbpMhm9/essbXbO/oaI131lrR29vW4llr657EMY59M2gceW
-	 C//a+4co+dh+IErDyFwmsLRyTG3ggUAbgjFLKXjZe6LtJV08qB8mEcTnQd/A4LstKhw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XzO1tZYj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795713593;
+	b=OS+4pWDNqrWQITCQkQrjhjELZyi74KnBokysU2ech6IQbkz32qKSsM7noZz6Z+kCGFW/
+	 Za7vWTgaiAAB50v/b7wlSyel4lb/3O20lkFxem97rnD4EeZ1IvudOVtEbMpQtL5yn4Amy
+	 GPx0bZaokNmqdTmPF9P3ljk3Akt64H0GVKfuiKnfyZYIjLAyM2RHjIqp4x0W+7ZQstqGN
+	 R4fknn8bIuRKPLiaLidBhgbh2RdSEZC9P/0KxzV2ccj7wel3cuT+7V0mdnzP/D0UMfz4+
+	 vIxA/W2rNcv7rDSxWtxbLtrB1YvmDBU6Y4QB4b1H3MnbNyqEhPVfD/NF3T+5rsTMh/w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795713593;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=IDeKDSsVbDV13k0Hy+XkX6qCopz9xoTAmCZ1Tcbq/jI=;
+	b=foRBGzTK4Gn38rKCOm5oPL1Y+kFB768YmpuTnCUk2VKv9SZEnIEFlvXTsTRNNmnYlsh0
+	 lMG48lCdBhcVYHKWxgkN93iDtFugZThq+oGwykpuHZzv6lIDJAzSUwRewPnCzfocsko1t
+	 nKI5ELEvLXBRE3Pn8GkBT2BvmxiQ+7L1KJiLK526GFm7SHJ1XRJp+zn6Mduz62fDCQvP0
+	 /fX9VqcEC4R6IPYru0VTZ1hoWeS2Z+gl+tSpPgHqnvg6xiLEmIr6Bo+YBF45rL/QsxPFC
+	 ht4z1ZC1sh+JslVmTiqdr0jTb30o0rPbU3w+AE6Jr1Egz09x7icW16Y6eN2HSgpz5eA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=UEKF+kAI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 978BF606A31C;
-	Thu, 26 Nov 2026 17:18:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C530606A31C;
+	Thu, 26 Nov 2026 17:19:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C530606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XzO1tZYj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82EBF1F000C4;
-	Thu, 26 Nov 2026 17:18:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795713495;
-	bh=w120dgf1qMRFAFrYxURhT9tSBYAzmjIDKW2aCCxepAc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XzO1tZYjiMPl4BGrk8KrL+KedwziwSVuMmV+ZcK6UWWD/SFo34rD0ym72unn4a34F
-	 GhIDKC2wJIW4lV2uUOEjWk5u8vTOy7QnwkB3y3FUnX3ZLdSGd8ynAzfHaOTDhpW+27
-	 0wV5/cngIYB6ORRltU7V8PgKotB/+vbOb2vrCvfEsdlN+sCx8d5QeKNRqsn0syBphR
-	 MfOYuqEUEwULC2DpVJuAzXATLbFq6sA8H8cKz5/0VuX4XLDNB+RcEGlOj17xmL52Hy
-	 QETWCIsQqgKg2XoGo4H9xLHIBEaxv7XXJ/TER1JsXUuRWJ5vqyLsXQyZq4em7NwP8k
-	 OTDl35OH6mmdA==
-Message-ID: <54eeb70e-e7d4-4f3b-af80-8b9da48ec7b0@kernel.org>
-Date: Thu, 26 Nov 2026 19:18:08 +0200
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=UEKF+kAI
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 93F6620583D;
+	Thu, 26 Nov 2026 18:19:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795713586;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IDeKDSsVbDV13k0Hy+XkX6qCopz9xoTAmCZ1Tcbq/jI=;
+	b=UEKF+kAIxfh+ciOumzn6hZn1L9NuCv3VAMkQGuaovTkc9IMnNU1Ir4Z6N3mrmX6Q6wmJX5
+	WRRjZgCI4799KKuEW0S9BjATjzSrFRIxUJhbTJrFl7Z+qUag+JNis8p7wUXAwHMdu6EFyR
+	YYK1Dge6Fqrnn7yMSlXo95kU5tWghXqXBWL8MwaRQ+SS0dvuIlr8c9bNqA5EQsyOZiCIUl
+	KDQDyPd8VVzn7q/M51930Q2+/1JEK+IPyzAq1ajTi+PaHL7pidwzPuIVjzjia+lq3iXCEX
+	nsXHge1Zpo30iCc3JLjjzZImP4PrDSxxUmWB5K6jKgaJe+yw70AIM1i1Uq892g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795713586;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IDeKDSsVbDV13k0Hy+XkX6qCopz9xoTAmCZ1Tcbq/jI=;
+	b=B07MFOCoC8+nNbkkldFEyw5yoaeNSqqr8tFxdF/Q6wcvnnVgoWlR7G3HC0ZiD5/rqdJ0q+
+	NDi1FfH7woS+mwdc4KzPANShQk+jYCfVUQNgJVNNAKMliaDVcZCtJokmrl26U9aZ/a690D
+	rd+Cn9ZjBUvESYC/s/zE0smVO/rHxqDdB7i1hjGq4akSVZ0AfWjdvQZTwcrvwAtVKrIIJu
+	TcP511BulGQ3qQ9LrKG6UZIHf2+/A86GZ2eAt4SQNBAMkmKGpO5LkVMYVDQHmchdiBQeNp
+	Wlfb2k04tNx2PtGHVWQ8D0CZBqc/g1sVkSsez50DrIBM/Ju0rDG+6BVbnbaVYA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795713586; a=rsa-sha256;
+	cv=none;
+	b=MRS0mnKPu6BGbJxZjUZufAzX4rgbnLUrflyMUPDdLj+1lVe9AfZZsocXagFecyjIKeYf0X
+	AHVbByd+JKt9HKSkVRDq/Nz0L4qoGbYkBk+81vb19ecvWOEyrC7YSOSNTyPSK/6TY3L/0G
+	w3t5sfURtKgWJa5XBkV/+Ese2RuUE0ALaVOean3mbZAHAjTP67a/JL7oNxu7OLR93zvHzG
+	WZhGgcGgnm1W58SsONxSoE+U+BulQfNqKRV/mAcCokZyGEP+VQKEjbmNFD/xRgV3ycCGfs
+	RT+EdlFxBRnomDHlkSM0JRSqLYNnQvxFCD1TCMRLBxjNsS8cKXqKyO5KeWgrPA==
+Message-ID: <04cb977d0a486b9574aaec5262ce92f652a29f18.camel@pengutronix.de>
+Subject: Re: [PATCH v3 2/3] clk: toshiba: introduce a TC9564 clock/reset
+ driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Alex Elder <elder@riscstar.com>, sboyd@kernel.org,
+ bmasney+clk@redhat.com, 	jbrunet+clk@baylibre.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, 	andersson@kernel.org,
+ konradybcio@kernel.org, abelvesa@kernel.org
+Cc: daniel@riscstar.com, mohd.anwar@oss.qualcomm.com, 
+	lorenzo.bianconi@oss.qualcomm.com, fabrice.gasnier@foss.st.com, 
+	alexandre.torgue@foss.st.com, marex@nabladev.com, 
+	changhuang.liang@starfivetech.com, devicetree@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Thu, 26 Nov 2026 18:19:46 +0100
+In-Reply-To: <e20fde6a-3389-4084-a2de-fee5426a74e6@riscstar.com>
+References: <20261125202141.1288493-1-elder@riscstar.com>
+	 <20261125202141.1288493-3-elder@riscstar.com>
+	 <579859f0e1b53aa6506492a2e5d073f3f991014c.camel@pengutronix.de>
+	 <e20fde6a-3389-4084-a2de-fee5426a74e6@riscstar.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,198 +103,24 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/7] media: qcom: camss: Add SM8450 CAMSS support
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-arm-msm@vger.kernel.org, Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-References: <20261026224957.1115370-1-vz@kernel.org>
- <20261026224957.1115370-5-vz@kernel.org>
- <auIVQNdHp91xwzqO@lizhi-Precision-Tower-5810>
-From: Vladimir Zapolskiy <vz@kernel.org>
-In-Reply-To: <auIVQNdHp91xwzqO@lizhi-Precision-Tower-5810>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi Frank.
+On Do, 2026-11-26 at 06:59 -0600, Alex Elder wrote:
+> On 11/26/26 3:42 AM, Philipp Zabel wrote:
+> > On Mi, 2026-11-25 at 14:21 -0600, Alex Elder wrote:
+[...]
+> > > +	/* Warn on any attempt to change state of a critical reset */
+> > > +	if (WARN_ON(id =3D=3D RESET_I2C) || WARN_ON(id =3D=3D RESET_PCIE))
+> > > +		return 0;
+> >=20
+> > Can't this be checked at reset_control_get() time (in fwnode_xlate) so
+> > that critical reset controls aren't given out to consumers in the first
+> > place?
+>=20
+> So I'd pass in a slightly modified fwnode_reset_simple_xlate()
+> as the fwnode_xlate pointer?  I hadn't thought about that, but
+> it's a good suggestion.
 
-On 10/28/26 17:31, Frank Li wrote:
-> On Tue, Oct 27, 2026 at 12:49:54AM +0200, Vladimir Zapolskiy wrote:
->> Add support of the camera subsystem (CAMSS) found on Qualcomm SM8450 SoC.
->>
->> The CAMSS IP on SM8450 contains:
->> * three CSID and two CSID lite, which are supported by CSID 680,
->> * three VFE and two VFE lite blocks, which are supported by VFE 680,
->> * three CSI test pattern generators, which are supported by TPG Gen1.
->>
->> Qualcomm SM8450 CSIPHYs are supported by the CSI2 PHY driver only.
->>
->> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
->> ---
->>   drivers/media/platform/qcom/camss/camss-vfe.c |   2 +
->>   drivers/media/platform/qcom/camss/camss.c     | 236 ++++++++++++++++++
->>   drivers/media/platform/qcom/camss/camss.h     |   1 +
->>   3 files changed, 239 insertions(+)
->>
->> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
->> index 2680a9914765..8ebd67bd9b2e 100644
->> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
->> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
->> @@ -350,6 +350,7 @@ static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
->>   	case CAMSS_8280XP:
->>   	case CAMSS_8300:
->>   	case CAMSS_845:
->> +	case CAMSS_8450:
->>   	case CAMSS_8550:
->>   	case CAMSS_8650:
->>   	case CAMSS_8775P:
->> @@ -2010,6 +2011,7 @@ static int vfe_bpl_align_rdi(struct vfe_device *vfe)
->>   	case CAMSS_8280XP:
->>   	case CAMSS_8300:
->>   	case CAMSS_845:
->> +	case CAMSS_8450:
->>   	case CAMSS_8550:
->>   	case CAMSS_8650:
->>   	case CAMSS_8775P:
->> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
->> index b0d60e70e4bb..1db66976e51b 100644
->> --- a/drivers/media/platform/qcom/camss/camss.c
->> +++ b/drivers/media/platform/qcom/camss/camss.c
->> @@ -2967,6 +2967,226 @@ static const struct resources_icc icc_res_sc8280xp[] = {
->>   	},
->>   };
->>
->> +static const struct camss_subdev_resources csid_res_sm8450[] = {
->> +	/* CSID0 */
->> +	{
->> +		.regulators = {},
->> +		.clock = { "cpas_ahb", "csid", "csiphy_rx" },
->> +		.clock_rate = { { 0 },
->> +				{ 480000000 },
->> +				{ 400000000 }, },
->> +		.reg = { "csid0" },
->> +		.interrupt = { "csid0" },
->> +		.csid = {
->> +			.hw_ops = &csid_ops_680,
->> +			.parent_dev_ops = &vfe_parent_dev_ops,
->> +			.formats = &csid_formats_gen2,
->> +		},
->> +	},
->> +	/* CSID1 */
->> +	{
->> +		.regulators = {},
->> +		.clock = { "cpas_ahb", "csid", "csiphy_rx" },
->> +		.clock_rate = { { 0 },
->> +				{ 480000000 },
->> +				{ 400000000 }, },
->> +		.reg = { "csid1" },
->> +		.interrupt = { "csid1" },
->> +		.csid = {
->> +			.hw_ops = &csid_ops_680,
->> +			.parent_dev_ops = &vfe_parent_dev_ops,
->> +			.formats = &csid_formats_gen2,
->> +		},
->> +	},
->> +	/* CSID2 */
->> +	{
->> +		.regulators = {},
->> +		.clock = { "cpas_ahb", "csid", "csiphy_rx" },
->> +		.clock_rate = { { 0 },
->> +				{ 480000000 },
->> +				{ 400000000 }, },
->> +		.reg = { "csid2" },
->> +		.interrupt = { "csid2" },
->> +		.csid = {
->> +			.hw_ops = &csid_ops_680,
->> +			.parent_dev_ops = &vfe_parent_dev_ops,
->> +			.formats = &csid_formats_gen2,
->> +		},
->> +	},
->> +	/* CSID_LITE0 */
->> +	{
->> +		.regulators = {},
->> +		.clock = { "cpas_ahb", "vfe_lite_csid", "vfe_lite_cphy_rx",
->> +			   "csiphy_rx" },
->> +		.clock_rate = { { 0 },
->> +				{ 480000000 },
->> +				{ 400000000 },
->> +				{ 400000000 }, },
->> +		.reg = { "csid_lite0" },
->> +		.interrupt = { "csid_lite0" },
->> +		.csid = {
->> +			.is_lite = true,
->> +			.hw_ops = &csid_ops_680,
->> +			.parent_dev_ops = &vfe_parent_dev_ops,
->> +			.formats = &csid_formats_gen2,
->> +		},
->> +	},
->> +	/* CSID_LITE1 */
->> +	{
->> +		.regulators = {},
->> +		.clock = { "cpas_ahb", "vfe_lite_csid", "vfe_lite_cphy_rx",
->> +			   "csiphy_rx" },
->> +		.clock_rate = { { 0 },
->> +				{ 480000000 },
->> +				{ 400000000 },
->> +				{ 400000000 }, },
->> +		.reg = { "csid_lite1" },
->> +		.interrupt = { "csid_lite1" },
->> +		.csid = {
->> +			.is_lite = true,
->> +			.hw_ops = &csid_ops_680,
->> +			.parent_dev_ops = &vfe_parent_dev_ops,
->> +			.formats = &csid_formats_gen2,
->> +		},
->> +	},
->> +};
->> +
->> +static const struct camss_subdev_resources vfe_res_sm8450[] = {
->> +	/* IFE0 */
->> +	{
->> +		.regulators = {},
->> +		.clock = { "gcc_hf_axi", "camnoc_axi", "cpas_ahb",
->> +			   "core_ahb", "cpas_fast_ahb", "cpas_vfe0",
->> +			   "vfe0_fast_ahb", "vfe0" },
->> +		.clock_rate = { { 0 },
->> +				{ 300000000, 400000000 },
->> +				{ 0 },
->> +				{ 0 },
->> +				{ 0 },
->> +				{ 0 },
->> +				{ 0 },
->> +				{ 432000000, 594000000, 675000000, 727000000 }, },
-> 
-> Nit:
-> 	Can you align clock and clock_rate wrap method,
-> 
-> 	"gcc_hf_axi", "camnoc_axi", "cpas_ahb",
-> 
-> 	{0}, { 300000000, 400000000 }, {0},
-> 
-> 1st line have 3 clock at .clock,
-> clock rate also 3 clock_rate.
-> 
-> So reader can know corresponding rate quickly,
-> 
-> 	for example, If I know rate of cpas_fast_ahb, reader can simple
-> locate by second row and second col.
+Exactly, and don't forget to set fwnode_reset_n_cells.
 
-I'm reluctant to do such a change for v3, because it does not match
-any of the current clock resource lists in the driver, which breaks
-the established tradition.
-
-If needed, this should be done for all clock resources in the driver
-at once, but this is out of the scope of this changeset, so I do not
-consider to update the change accordingly in a probable next version
-of the changeset, which adds SM8450 CAMSS support.
-
--- 
-Best wishes,
-Vladimir
+regards
+Philipp
