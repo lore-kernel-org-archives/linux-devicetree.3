@@ -1,61 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795704789;
-	b=bvmubpM4hT1+OYr3eKvkGoC8vXAzZ1mNdfixgdlKj1lKZEAC0wOB/nPB53gmKP64u3SB
-	 IQweeRuEqHAjYA5KA7ZnYQ7+HLQHIRFBv4wF68iCdwA2Wafx1dRsosvpXeBPvfXOm7T2b
-	 k1juwH6MilRTo9506HjIn4qysn0XL3C/fGb1MXayN1WNFVIPNSpUigZbHMFnsyQCTic47
-	 7KeE2dT74MnJ/jSeIToRsDZW186Fmx5KT+hjtWq7hLfatjI6R+UcplsozEpR8ZIGYmJv2
-	 tloxHlI4gIKvWi5M+eDS870xaPiC2A0LsIQZUtVL/irjBLMo39GAyDkZnFQVhUcmB+w==
+	t=1795704796;
+	b=xFr+peN2Acpc/AvIJZyRfX5WYKu6qB2E0aWggzCUkwb4HvnIH1lioaxVHPWMeDDrcMwz
+	 gejOmrDjsPGvv0oc8axdOusW4ppESMNq4v4ngIwvNAVWP9R0e72OjP5liI4mu2xgkkEi2
+	 1Wz/Q76JA0rrNT6Q129lof/Uyox4qeSTkRGITlcqXf+UsuBS/VEhrv/wXnS0D2/eFG0i6
+	 jeK3dXndvfdM5nspoHNUdIbI0b4MqZlKROCH2/qnBQr1q3BbFElEpaOs5Zm7nb01g0HXU
+	 tsByqGbWYmbTE3amtLHDLKkHUqMWLqjJNHjQOCJxdyyvgbb41tBmPnK8PGVdXA2xbCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795704789;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=RrOv7CU2NAZPmYfHhE9qmxlo23xuzngVTOTd9duwgRs=;
-	b=SWsy/HUr5zzpp82vjkQgpXvjdZGqrUZGISrUaNjRV2hCyrtjgYbkPLA4zSdcsJS/+yHn
-	 wP+OLOtCbBAaungE7ZIxjNvcVsH2cRU5MtGzTtnOOYVZa32mJQPyk+drPAszfgSS8uqca
-	 bgM3l7cRJwQlupJMmMYpbW3C99tcg0+tB+3hGA6TrWeQn3Hy1pDNwOHT9yN1pz8uvq0vT
-	 +vPrqtmyol9bIYjEw49nCwvDEBK3ne3p7XQSWNXCOkFmKJvHO65dBj2yRUqXQsAoy+Jbh
-	 v9rc+IH/CIaneJGiR3dDyeW+7XpQ54CV0lrD+PYg3jAH9tEHGTDJ7prfEmG0FRitkBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795704796;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ZqMqbfj/cETQCXmO3wbil3gEmzGzk18Px5yh8y4lWVg=;
+	b=IOvTbx12+RR22GPeTh16bIqynnX2aVDmZNmNl+f83iHrxs7v3JOYO1Wdm54uspkv7Fle
+	 jIRUwFlGOAi2urP1Pf1a94cOyhF5amvFlZGfI+3QwrPEk8RAQExMxFwv1vdBL2AYYYzvw
+	 PkmSIHC9NJFSyEL9Rxo8g43Iu0a/2eCJtrk2Vfs9HftAhfgNqbKSe32WmVgFWxv6QZksP
+	 4YAKjMNDwONCno3bzwzuzbOGNxTsm7YZXCFVSgr2VRqhYW5dR7KWy/oeAPlCfQ08XcQIy
+	 RXJqxGjdx07HqUg2zFwb4Zl9OoS5vuRyHWd0vOsOZqtsNFLKQ4xrvm1/tYpOLMcZx+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=KdPTUQGO;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=SbH0mZzT;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB9F8606A331;
-	Thu, 26 Nov 2026 14:53:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB9F8606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7113E60A2605
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 14:53:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7113E60A2605
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=KdPTUQGO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795704785;
-	bh=Bf8dtseVDYyweSiEKFBSZr7qcxyZPpHohYhrJ+QdE6A=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=KdPTUQGO/Q7WkvVjrHm+lV3AjZw3i/4RqGSO0GENiPnevWNcFbNfAcH5NLGy8rexn
-	 HJ4yHNj9UMceVOColJRrWkdxj5j4CxyWWRBGwv9QgYsvuykHhmC4iDiKTqmMxkeHmU
-	 TR+aTWDWfMjP9nbXTezNReX+c6hmcUpu1EhGd/V5HTp4ivQHLBHf6hoMlPlGgr0Lfw
-	 ZSZssynZ/BkqOnKjO3FNshH5rfEFW0dnFW7s0VQcN3wE2xNpMBz0v5Ye1R5AdPbJLs
-	 AoPES+zccsddWlglBggWYPIEUIpGOrGAPDpis0iuxIRwbD6lifJWV5HqD0QbUvsY1E
-	 gTbTkwaaPZZ+A==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id F402617E1090;
-	Thu, 26 Nov 2026 15:53:04 +0100 (CET)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id 670EC480038; Thu, 26 Nov 2026 15:53:04 +0100 (CET)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 26 Nov 2026 15:52:40 +0100
-Subject: [PATCH v3 5/6] arm64: dts: rockchip: add dfi clocks on RK3588
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=SbH0mZzT
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so57572415e9.3
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:53:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1795704794; x=1796309594; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZqMqbfj/cETQCXmO3wbil3gEmzGzk18Px5yh8y4lWVg=;
+        b=SbH0mZzTQkyuq3Sga3blWcZFEfcQIFRZmyVP1q634WAIOy6CvybhvI93yuiE0JiTZ6
+         zZvpRZu7lDlbqxMnYYpy0mh8SunGI+MJP35P+iPhpvLMDf5hoqMNkbAXzngC4mawAh4R
+         T7eCVkrw5Htp2UBW2pMGLTLK/c6sfljG2P3zGVWxu45O1ZRKesy9JLyVJrouV4j3Ya3r
+         OzHu5iE8UznSx2fqb08zYWXAnqvB6c7uRLo7IWbSWHwTm5XvCYqgQ3prnXc4jLuXwwAz
+         BSXqrO9p5ZjjnbglFoq8anfSnyIhAgQv0yN3zqfPOHmgjCDwgQj7u9gtteiL8SocUNVn
+         Q3Aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795704794; x=1796309594;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZqMqbfj/cETQCXmO3wbil3gEmzGzk18Px5yh8y4lWVg=;
+        b=1BfPoIVTs1rd8OBQYz07ilpiKMJbTQiSt6qZDGabzUgboJ5V/qlrSJIKWrysmzHFk8
+         jYwmvQovGGeXjpr7OiWy6V78kZX0qx/yO2CR6WJ2E7pc8QVLqtVFMkvxCiQfFCdvxWSh
+         5H69y+6PWCD+qdKBo3R0bB9G4EzADWMEZex5gPqrlq7d+ujq5y3C7r9u62f5IY/myGdF
+         U7lToXqBLk7N+gcp+tJBrNW5NxCa1G+rkontEOZtBkNgjzTxa0o23VS+y67qBjXvFyca
+         jbvQi7HBCuoDtSWrWDAcEBrV/KWlnxVhsb3b9ichwbGh0OgObhfsf2z3pIhx+crYSzu5
+         DxHA==
+X-Forwarded-Encrypted: i=1; AL+hErFsz3RWtNlPEOmqM6uLsRtKsMzgTGGv3Hs47hImRNlV/DetnVWabXxrf/OI2WhE2npZpNf0pEVB2BQl@vger.kernel.org
+X-Gm-Message-State: APuU4Z9o3D7gu/i+KCwpE6BMuEcrruxYNakWqDHInp0lnqaXFg4TMv0U
+	BlAk/hJpDh7DnFHqYua9j07f7WUrSQZ1bOBKdRtcjDXfj2xaOUWS5dkESgRgrF2pK6U=
+X-Gm-Gg: AZFdTZdOXzLOCNlgGMAtOlqRMwfhV7UWpDWTHL7Nb0/vMhEVOq/t0tGAg5NjKce0rQg
+	WBoTk5+MrhSTGdptHGuEFfr3SGKNvfaIa9Aw3cJYIB3EbGibCWf8z6MjLW8nOiU66OlQ7UfE/CV
+	cd2xe+4yT0Jjvu3QmqQipIxTvS22s0hbEjn88Scg6N2LnaWangmntjIpVhWXeE1sfuO5re6L4hU
+	2dl6Eq9Tl4MHVydDlF72jV7ASs5c+R3Uf8FNZcPrG3dmOefu6QLno7A3X1CG+noDQQAaD7vGK/z
+	AWHxmTeSeKqvZqLSD1P8rEey6xRYZE2Hnf+DiF4jTlO/+JNRi6TNLD/0Kaydd0ySXgNis94rorr
+	yTfWz6lPcia+uMFPCKQQoy4z6vp6SMXkB89rkjGtEPxXap8i3DUsV0OZ6Np/lGwTrlBAkEB0y+c
+	JUBPLoi07lHvoChPrumBR0jWh/GjgB/C23FIn+lVnBWKXCjj07g4lURMuSeebV2e4TtS3evpqZ9
+	XNbz3qvPRisWyktPu+nXyh6cRVqH3vrRaYasub7Tr5n734O7EaLn0HfJl57LOEdrjpuKt+fhyCX
+	gpx+S4cpPpa9I/vsp68lv60uMCna
+X-Received: by 2002:a05:600c:a11:b0:4a2:e0c:2b0a with SMTP id 5b1f17b1804b1-4bb888120famr434903565e9.16.1795704793802;
+        Thu, 26 Nov 2026 06:53:13 -0800 (PST)
+Received: from localhost ([195.94.148.180])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb88442995sm636202395e9.2.2026.11.26.06.53.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 06:53:13 -0800 (PST)
+From: Andrea della Porta <andrea.porta@suse.com>
+X-Google-Original-From: Andrea della Porta <aporta@suse.de>
+Date: Thu, 26 Nov 2026 15:57:13 +0100
+To: Stefan Wahren <wahrenst@gmx.net>
+Cc: Andrea della Porta <andrea.porta@suse.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Frank Li <Frank.Li@kernel.org>, dmaengine@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Saenz Julienne <nsaenz@kernel.org>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Phil Elwell <phil@raspberrypi.com>,
+	Dom Cobley <popcornmix@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 02/28] dmaengine: bcm2835: Add support for per-channel
+ flags
+Message-ID: <awhIyZ2weVtCrKN6@apocalypse>
+References: <20261123145728.29082-1-andrea.porta@suse.com>
+ <20261123145728.29082-3-andrea.porta@suse.com>
+ <7258e7d8-c968-4876-bfb4-de89e2fb05e3@gmx.net>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,70 +115,75 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-dfi-clocks-and-rk3576-support-v3-5-0f33c1b8df48@collabora.com>
-References: <20261126-dfi-clocks-and-rk3576-support-v3-0-0f33c1b8df48@collabora.com>
-In-Reply-To: <20261126-dfi-clocks-and-rk3576-support-v3-0-0f33c1b8df48@collabora.com>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chanwoo Choi <cwchoi00@gmail.com>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, kernel@collabora.com, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1261;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=RUxKo8yjLDpNQswNDTGn2Yq0hb9ptZ/lBMieeJFpQPw=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGsIR9CrdaNcsU5Jr/JkRVo9MJBZJ4Vwt1KN8
- RccFjsrYzGZRYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJrCEfQAAoJENju1/PI
- O/qaoOYP/270kR2vc9JNtA8y0CQIqb6xukuYBrYfS+PENLlRu3f7srQ41sxtpUFqodW7CI61qz2
- yCCW9jzcmxT86Vrqj9OlL+IeOH923Hh7ToEbgSjUIJ62ROsjjxMTFCv671zrpCC1C8HuhMvPrNU
- yDEQCHKSKNpoMf3lyFfeLbfApePgi6VRAGNhWsCgv1YjMO6JVV9ggN0LAcvtDFDcd+O1ZLbWmn8
- udXqcyHbbofSK6uYZcIHUsP+5TY7cvggiEfF5R8aKbG/Q9eA1vzbTEXrqbH6Cj+66shiRZRZpSb
- lb09eDBWOaWlqSJdTcoEhJgOQhVv9l87uaDNYEoXU9+G6dwljkQQA4YcxZVmPojGTUm++2WPyoM
- RkJptW/V9TzBOZBiPea4lCxu76bIs7HejKWWa1cE26s5ohQ+l32kInupk9bexkzx7QI7ngP5Db4
- 4BKg4/fBvb3UbcN/DfPtNgIyVCQyrQaEEYQGuRvhYx/8P0mgBSyDZvtJsFZIKXGYvVIjYQCAGb+
- neVq9gyisL1vruKN58UUyTmyTOYoCjYcaD+iyKXMH6HLHsxRy3hk6VYLXiOr4peu5kEkhdDwpl2
- nBSZ/z81BaxTBaaipAEga+cxf5LdCyv4eZMslWTmHbfxStLrZWQ6Miucx5SYBaWQtjC6W23uSD4
- r6ay/giZny+g8//h8eh4jZA==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7258e7d8-c968-4876-bfb4-de89e2fb05e3@gmx.net>
 
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Hi Stefan,
 
-The DFI clocks weren't modelled before and the binding didn't know about
-them either. That has changed though, and now we actually need to
-specify these clocks.
+On 18:37 Mon 23 Nov     , Stefan Wahren wrote:
+> Hi Andrea,
+> 
+> Am 23.11.26 um 15:56 schrieb Andrea della Porta:
+> > From: Phil Elwell <phil@raspberrypi.org>
+> > 
+> > Add the ability to interpret the high bits of the dreq specifier as
+> > flags to be included in the DMA_CS register. The motivation for this
+> > change is the ability to set the DISDEBUG flag for SD card transfers
+> > to avoid corruption when using the VPU debugger.
+> actually I'm not against this feature, but this seems to pad out this
+> series. Is this really necessary for BCM2711 or 40 bit support?
 
-Add all four clocks for all four channels of monitoring.
+The flags of patches 3-5 have in-tree users in this series: the BCM283x HDMI
+audio channel uses wide source reads and no write response wait (patch 27),
+and the BCM2712 HDMI audio uses bursts, wide reads and the AXI priority/panic
+priority (patch 28), as done by the downstream device trees too.
+If you prefer, I can move them to a follow-up series together with the HDMI
+audio patches: in this case you'll have to wait for the upcoming new series
+in order to have the updated audio nodes in DTBs.
 
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 4 ++++
- 1 file changed, 4 insertions(+)
+Many thanks,
+Andrea
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index d0f364547ae5..ef0ff6555fba 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -2190,6 +2190,10 @@ qos_vop_m1: qos@fdf82200 {
- 	dfi: dfi@fe060000 {
- 		reg = <0x00 0xfe060000 0x00 0x10000>;
- 		compatible = "rockchip,rk3588-dfi";
-+		clocks = <&cru PCLK_DDR_MON_CH0>, <&cru PCLK_DDR_MON_CH1>,
-+			 <&cru PCLK_DDR_MON_CH2>, <&cru PCLK_DDR_MON_CH3>;
-+		clock-names = "pclk_ddr_mon_ch0", "pclk_ddr_mon_ch1",
-+			      "pclk_ddr_mon_ch2", "pclk_ddr_mon_ch3";
- 		interrupts = <GIC_SPI 28 IRQ_TYPE_LEVEL_HIGH 0>,
- 			     <GIC_SPI 38 IRQ_TYPE_LEVEL_HIGH 0>,
- 			     <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH 0>,
-
--- 
-2.53.0
-
+> 
+> Best regards
+> > 
+> > Signed-off-by: Phil Elwell <phil@raspberrypi.org>
+> > Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
+> > ---
+> >   drivers/dma/bcm2835-dma.c | 10 ++++++++--
+> >   1 file changed, 8 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/dma/bcm2835-dma.c b/drivers/dma/bcm2835-dma.c
+> > index b19182c6e3df..690f5ba1c439 100644
+> > --- a/drivers/dma/bcm2835-dma.c
+> > +++ b/drivers/dma/bcm2835-dma.c
+> > @@ -137,6 +137,10 @@ struct bcm2835_desc {
+> >   #define BCM2835_DMA_S_DREQ	BIT(10) /* enable SREQ for source */
+> >   #define BCM2835_DMA_S_IGNORE	BIT(11) /* ignore source reads - read 0 */
+> >   #define BCM2835_DMA_BURST_LENGTH(x) (((x) & 15) << 12)
+> > +#define BCM2835_DMA_CS_FLAGS(x) ((x) & (BCM2835_DMA_PRIORITY(15) | \
+> > +				      BCM2835_DMA_PANIC_PRIORITY(15) | \
+> > +				      BCM2835_DMA_WAIT_FOR_WRITES | \
+> > +				      BCM2835_DMA_DIS_DEBUG))
+> >   #define BCM2835_DMA_PER_MAP(x)	(((x) & 31) << 16) /* REQ source */
+> >   #define BCM2835_DMA_WAIT(x)	(((x) & 31) << 21) /* add DMA-wait cycles */
+> >   #define BCM2835_DMA_NO_WIDE_BURSTS BIT(26) /* no 2 beat write bursts */
+> > @@ -433,7 +437,8 @@ static void bcm2835_dma_start_desc(struct bcm2835_chan *c)
+> >   	c->desc = to_bcm2835_dma_desc(&vd->tx);
+> >   	writel(c->desc->cb_list[0].paddr, c->chan_base + BCM2835_DMA_ADDR);
+> > -	writel(BCM2835_DMA_ACTIVE, c->chan_base + BCM2835_DMA_CS);
+> > +	writel(BCM2835_DMA_ACTIVE | BCM2835_DMA_CS_FLAGS(c->dreq),
+> > +	       c->chan_base + BCM2835_DMA_CS);
+> >   }
+> >   static irqreturn_t bcm2835_dma_callback(int irq, void *data)
+> > @@ -460,7 +465,8 @@ static irqreturn_t bcm2835_dma_callback(int irq, void *data)
+> >   	 * if this IRQ handler is threaded.) If the channel is finished, it
+> >   	 * will remain idle despite the ACTIVE flag being set.
+> >   	 */
+> > -	writel(BCM2835_DMA_INT | BCM2835_DMA_ACTIVE,
+> > +	writel(BCM2835_DMA_INT | BCM2835_DMA_ACTIVE |
+> > +	       BCM2835_DMA_CS_FLAGS(c->dreq),
+> >   	       c->chan_base + BCM2835_DMA_CS);
+> >   	d = c->desc;
+> 
