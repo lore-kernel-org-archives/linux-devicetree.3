@@ -1,93 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795675434;
-	b=bmSucYhdH7U4lBtPPf5K48RBwMpdYmLA9DElaulSYjd4C3jTbGVv53SARgat+GgyK5ow
-	 nmOZ8VJAeWCLHYPKR2jGM30ZFzzCfcnJtghRAw5uM6sEEtCysRF8R3+tIMecpH2YLVJBL
-	 Q7wTggSlvRlMbO5pPfkZgYHx7zdEYfuvkoWYxbNv5JQM6wxsgr6mS7KbFFy/n9/BWDjmf
-	 /FHhhh17nteCoiM6aRwb3CGt8ZiIBeO/LyEUeqFvlsQE6eQdoJhhyz07RAA3fSfLeN4Lc
-	 qBmapjyE3+4l+/81yhXluPjFD/TbM8IiYZ/+F+Tm0tUwqNjuYJIK0X/IGjQyG4M2i9g==
+	t=1795675472;
+	b=RbHLprJaTZ2pwx91eYSHnAQD6iG44yc+m9cGkAcFEsnjckGOyzVS9Ix+nM0VbeXh8mQD
+	 lM2EtfcdkUBTCRyo5P/sh8Ifj0XImNN8/arKmVsd2g78L5FI1yJUGpOudVLMpv2rPFnWF
+	 20mcdPtko0IZuD4xwu6RNcquwVdmBf9z5PHJT2BELq8J8MIvkCkXE3gJHjzpaVQli7sni
+	 YrSyDRlO5jFcNdyA4CeYar9WjvtKotMPelPRjBasbxBXEe29SIfQX0tWSjrXdg4vCkfHw
+	 UaY+xcQYHEqSTeDiJ48E/UQ+g4ol216HEAWoVYDE+Yh7bqpvQW03K9LXn06COcq4n9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795675434;
-	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xDtIST3zZ9y4EzJ6NETBhs9+pFPleoAbssJ/eV+XnOE=;
-	b=FXL33MSTa+c1Gdfn5tIZ9xwXq+5kTGrmSGPqExAMA4Wh8Lty2vRlWio78HOnPR+i783P
-	 vg+BzykERhVhlc/qLKaryLStKk3tVuuuW8/txBrGGnbrYEvqfrb0AZc8rH6dkQ7d+vB67
-	 r8DopnekuKwKt9MR0UQvH0kKjA7R2PnLlX6rP036GxiToDBfBuzCqM43FHTmk3qSBT3Cr
-	 yCT8VKmwu6zZAcYR9tB5SX2LJmwqcXWMwIDbooHVe/eW5+wpB+QzuXSy6O0nGDTbg8Ssw
-	 o4uZGxmNUfsy9sWQ2xFjRXrgZypaCuf0YmbAJNm5GBmhsIU2SjEcMpMEV/SY6utnf1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795675472;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=SJn+E+whF7dsKL1P9xTFHG/kse4SpMPZXxWIRnOTMPE=;
+	b=wO2RihcZPvhQYT6aEVpCio4JC5hMhsddv187rKxEMB7l9m5KirnDPMfcPKsX9aHjh5Nr
+	 g/kVKFN5feIshvFJwFZZVdw+99McR/NY2Dg8dTMYOBczjSlLf53q/XIFbC/XixetbhgNr
+	 9uoDoier7MO3D9MxeIS6s5ApEWSvDPIHzJM8HNYpbm/Zjz7nwww00x444Z6zChR6yQ2rj
+	 FJbouJi1Qgw25jwb9ItuKj1HrseZhzEIPXo8zYrZyC0rQ+QJ0V+RQSsA9x7M9oTIuo8HU
+	 HsgZj7KHp0gC9d9/XZT9asX7gh7TZFnRJ9vqZb9vjF4rFGW8YLRQhzurr3QwhkvgOoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=d-silva.org;
-	spf=pass smtp.mailfrom=d-silva.org;
-	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b="SjFKF5/t";
-	arc=none smtp.remote-ip=119.15.109.137
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EajJxNSe;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B8C606A31C;
-	Thu, 26 Nov 2026 06:43:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77B8C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3179D606A31E;
+	Thu, 26 Nov 2026 06:44:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=SjFKF5/t
-Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id AEDCC403EF;
-	Thu, 26 Nov 2026 17:43:45 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1795675425;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xDtIST3zZ9y4EzJ6NETBhs9+pFPleoAbssJ/eV+XnOE=;
-	b=SjFKF5/tk54Xz2Km9hT+o/URL72fTkx0Jsfqyqj9ECYBOS1JAbZ4S7UZoxx2E4V2K4nuDB
-	CjBsPCYkeTBKtm7tCpB39vnc3y8fYp0RUDSbMqzbdMo0NYwrrpVyyfGiqy77A82MWqLqts
-	gRaL3UUDOIhfL+EsjPfoSoH7g0fRDjTcg6QTYR5KEI6O/HGn4x4RiXa2zKhOgfrF1QXfFj
-	ouoHUeyW5wp7nutpSrq1e6v55JE0WM/h0mmwtyRn6cIEtxy7vLWwMS+q+ynDUgSBxrnsFY
-	S7x9GaxPK/NbWq9/tEZVBbWcdvdBdNLPoGw9S4PApBmkLScYonxN38gY5ENAdg==
-X-GPT-Reason: legitimate; this is a technical, personal, or professional
-	correspondence regarding a Linux kernel patch (net-next) that
-	perfectly aligns with the sender's identity (alastair@d-silva.org)
-	and the recipient's role; the content is highly specific technical
-	discussion about hardware clock inversion and GMAC210 support
-	with no marketing, phishing, or scam indicators; authentication is
-	supported by a consistent From domain and a lack of external links
-	or urgency tactics.
-From: Alastair D'Silva <alastair@d-silva.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Alastair D'Silva <alastair@d-silva.org>
-Subject: Re: [PATCH net-next v3 5/5] net: stmmac: sun55i: Add support for Allwinner A733 GMAC210
-Date: Thu, 26 Nov 2026 17:43:45 +1100
-Message-ID: <20261126064345.2569445-1-alastair@d-silva.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260923-allwinner-a733-gmac-support-v3-5-15735155a789@baylibre.com>
-References: <20260923-allwinner-a733-gmac-support-v3-0-15735155a789@baylibre.com> <20260923-allwinner-a733-gmac-support-v3-5-15735155a789@baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EajJxNSe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E3CC1F000C0;
+	Thu, 26 Nov 2026 06:44:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795675471;
+	bh=SJn+E+whF7dsKL1P9xTFHG/kse4SpMPZXxWIRnOTMPE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EajJxNSeiGZxuWuIcTxOoBgPAxNLrzgzh4LdY8kqIQiDTwIfxcgLRUpNbkjozdOIN
+	 o5jkhTpv+elM0bJF/RnE2+ztayx2XPDS8DzpChk65kjuSlM9Q0Mlz8Wcw7WLwuKcsZ
+	 StsUr1gCMxDbt9663tl8umyrqSxcYoZO3fed3U47KHBwNk4cT/5os26is1VzjcM1mU
+	 cQnpH7yucjj58WEDRNeU9ujJQ8Q4zBlyvrCG3/CsLF83DFBAc3Z/TzaEuMK3Sw86xb
+	 ZqHytxk3i2oceIo7eFnEy8KTcXLEp1Uqj4QoXHissBTGwTizARwMc8k8jX4oP/MIGo
+	 ZMjqGUzmf4YNg==
+Message-ID: <sashiko-outbox-234895@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] virtio: Add Qualcomm VirtIO transport wrapper
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
+Cc: virtualization@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, "Michael
+ S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
+In-Reply-To: <20261126-jshekhar-qcom-virtio-dcp-v1-3-7b49bda74916@oss.qualcomm.com>
+References: <20261126-jshekhar-qcom-virtio-dcp-v1-0-7b49bda74916@oss.qualcomm.com>
+ <20261126-jshekhar-qcom-virtio-dcp-v1-3-7b49bda74916@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Nov 2026 06:44:30 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -96,33 +60,280 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi Jerome,
+Thank you for your contribution! Sashiko AI review found 5 potential
+issues to consider:
+- [Medium] virtio: dcp_ipcc_handle_rx() conflates power ACK and resp_vq
+  IRQs
+- [Medium] virtio: unsafe restore in dcp_virtio_transport_suspend()
+  error path
+- [Medium] virtio: concurrent vring_interrupt() on resp_vq from two IRQ
+  lines
+- [Medium] virtio: missing synchronize_irq() in dcp_ipcc_synchronize()
+- [Low] virtio: duplicated MMIO init in dcp_virtio_init_device()
+--
 
-While testing A733 GMAC210 on the Orange Pi 4 Pro (YT8531 PHY), we hit
-two hardware differences that also affect this series:
+commit 857816350f7692694cd906a59f8f5d13188d9138
+Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 
-1. External vs. internal RGMII TX clock (SYSCON_ETCS_EXT_GMII):
-   Unlike the Cubie A7A, the Orange Pi 4 Pro wires the PHY's 125 MHz
-   CLK_OUT back to the MAC and stalls on 1 Gbps TX with
-   SYSCON_ETCS_INT_GMII (0x2). It requires SYSCON_ETCS_EXT_GMII (0x1),
-   matching Allwinner's "aw,rgmii-clk-ext" BSP property. A733 GMAC210
-   will need a DT/clock way to select EXT_GMII vs. INT_GMII so both
-   boards work.
+virtio: Add Qualcomm VirtIO transport wrapper
 
-2. RX clock inversion (BIT(4), ERXIE in glue offset 0x00):
-   With BIT(4) = 0, Orange Pi 4 Pro required ~3.8-4.1 ns of total RX
-   delay (matching what you saw on Cubie A7A with 1800 ps MAC delay on
-   top of 2 ns PHY delay). Testing with BIT(4) = 1 (ERXIE) confirmed
-   it inverts RXC by ~4 ns (180 degrees at 125 MHz), centering RX at
-   0 ps MAC/PHY RX delay. Andrew Lunn requested fixing this clock
-   inversion rather than compensating with ~2-4 ns rx-internal-delay-ps.
+This commit adds a Qualcomm DCP VirtIO transport driver that reuses
+virtio_mmio_config_ops and integrates an IPCC mailbox client to send power
+notifications and forward response virtqueue interrupts.
 
-I plan to rebase the Orange Pi 4 Pro Ethernet support on top of this
-series and address these in follow-on patches unless you intend to
-roll them into a v4.
+> diff --git a/drivers/virtio/virtio_qcom_dcp.c b/drivers/virtio/virtio_qco=
+m_dcp.c
+> new file mode 100644
+> index 0000000000000..a5443f2dbc4b0
+> --- /dev/null
+> +++ b/drivers/virtio/virtio_qcom_dcp.c
+> @@ -0,0 +1,273 @@
 
-Thanks,
-Alastair
+[ ... ]
+
+> +static int dcp_virtio_find_vqs(struct virtio_device *vdev, unsigned int =
+nvqs,
+> +			       struct virtqueue *vqs[],
+> +			       struct virtqueue_info vqs_info[],
+> +			       struct irq_affinity *desc)
+> +{
+> +	struct virtio_mmio_device *mmio =3D
+> +		container_of(vdev, struct virtio_mmio_device, vdev);
+> +	struct dcp_virtio_transport *transport =3D to_dcp_virtio_transport(mmio=
+);
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	ret =3D virtio_mmio_config_ops.find_vqs(vdev, nvqs, vqs, vqs_info, desc=
+);
+> +	if (ret)
+> +		return ret;
+> +
+> +	for (i =3D 0; i < nvqs; i++) {
+> +		if (vqs[i] && vqs_info[i].name && !strcmp(vqs_info[i].name, "resp")) {
+> +			dcp_ipcc_set_resp_vq(&transport->ipcc, vqs[i]);
+> +			break;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Can vm_interrupt() and dcp_ipcc_handle_rx() run vring_interrupt() on
+resp_vq concurrently across two IRQ lines?
+
+virtio_mmio_config_ops.find_vqs() registers vm_interrupt() on IRQ 0 and
+keeps every created virtqueue, including "resp", on vdev->vqs.  dcp_virtio_=
+find_vqs()
+then also assigns that queue to transport->ipcc.resp_vq, which is serviced
+on IRQ 1 by dcp_ipcc_power_notify_irq():
+
+CPU0 (IRQ 0)                      CPU1 (IRQ 1)
+vm_interrupt()                    dcp_ipcc_power_notify_irq()
+  virtio_device_for_each_vq()       dcp_ipcc_handle_rx()
+    vring_interrupt(irq, vq)          spin_lock_irqsave(&ipcc->state_lock)
+      vq->vq.callback(&vq->vq)        vring_interrupt(0, ipcc->resp_vq)
+                                        vq->vq.callback(&vq->vq)
+                                          <-- concurrent callback execution
+
+vring_interrupt() has no internal lock, so if both interrupts fire at the
+same time while a used buffer is pending, resp_vq->callback() runs on two
+CPUs simultaneously.
+
+[ ... ]
+
+> +static int dcp_virtio_init_device(struct dcp_virtio_transport *transport,
+> +				  struct platform_device *pdev)
+> +{
+> +	struct virtio_mmio_device *mmio =3D &transport->mmio;
+> +	unsigned long magic;
+> +	int ret;
+> +
+> +	mmio->vdev.dev.parent =3D &pdev->dev;
+> +	mmio->vdev.config =3D &transport->config_ops;
+> +	mmio->pdev =3D pdev;
+> +
+> +	mmio->base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(mmio->base))
+> +		return PTR_ERR(mmio->base);
+> +
+> +	magic =3D readl(mmio->base + VIRTIO_MMIO_MAGIC_VALUE);
+> +	if (magic !=3D ('v' | 'i' << 8 | 'r' << 16 | 't' << 24)) {
+> +		dev_warn(&pdev->dev, "Wrong magic value 0x%08lx!\n", magic);
+> +		return -ENODEV;
+> +	}
+> +
+> +	mmio->version =3D readl(mmio->base + VIRTIO_MMIO_VERSION);
+> +	if (mmio->version < 1 || mmio->version > 3) {
+> +		dev_err(&pdev->dev, "Version %ld not supported!\n", mmio->version);
+> +		return -ENXIO;
+> +	}
+> +
+> +	mmio->vdev.id.device =3D readl(mmio->base + VIRTIO_MMIO_DEVICE_ID);
+> +	if (!mmio->vdev.id.device)
+> +		return -ENODEV;
+> +
+> +	mmio->vdev.id.vendor =3D readl(mmio->base + VIRTIO_MMIO_VENDOR_ID);
+> +
+> +	if (mmio->version =3D=3D 1) {
+> +		writel(PAGE_SIZE, mmio->base + VIRTIO_MMIO_GUEST_PAGE_SIZE);
+> +		ret =3D dma_set_mask(&pdev->dev, DMA_BIT_MASK(64));
+> +		if (!ret)
+> +			dma_set_coherent_mask(&pdev->dev,
+> +					      DMA_BIT_MASK(32 + PAGE_SHIFT));
+> +	} else {
+> +		ret =3D dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(64));
+> +	}
+> +	if (ret)
+> +		ret =3D dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
+> +	if (ret)
+> +		dev_warn(&pdev->dev,
+> +			 "Failed to enable 64-bit or 32-bit DMA. Trying to continue, but this=
+ might not work.\n");
+> +
+> +	return 0;
+> +}
+
+[Severity: Low]
+This isn't a bug, but dcp_virtio_init_device() duplicates the MMIO register
+validation and DMA mask setup from virtio_mmio_probe() in
+drivers/virtio/virtio_mmio.c.  Since this patch already introduces
+drivers/virtio/virtio_mmio.h to share struct virtio_mmio_device and
+virtio_mmio_config_ops, could this initialization be factored into a shared
+helper in virtio_mmio.c?
+
+Also, the commit message says the transport implements MMIO configuration
+access, feature negotiation, and reset, whereas it reuses
+virtio_mmio_config_ops for those operations.
+
+[ ... ]
+
+> +#ifdef CONFIG_PM_SLEEP
+> +static int dcp_virtio_transport_suspend(struct device *dev)
+> +{
+> +	struct dcp_virtio_transport *transport =3D dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	ret =3D virtio_device_freeze(&transport->mmio.vdev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D dcp_ipcc_enable_irq_wake(&transport->ipcc);
+> +	if (ret)
+> +		goto err_restore;
+> +
+> +	ret =3D dcp_ipcc_send_power_notify(&transport->ipcc);
+> +	if (ret) {
+> +		dcp_ipcc_disable_irq_wake(&transport->ipcc);
+> +		goto err_restore;
+> +	}
+> +
+> +	return 0;
+> +
+> +err_restore:
+> +	virtio_device_restore(&transport->mmio.vdev);
+> +	return ret;
+> +}
+
+[Severity: Medium]
+Is it safe for err_restore to call virtio_device_restore() directly after
+dcp_ipcc_send_power_notify() fails?
+
+If dcp_ipcc_send_power_notify() times out after mbox_send_message() has
+already sent the sleep notification, DCP may already be powering down or
+inaccessible when virtio_device_restore() accesses mmio->base to reset the
+device and recreate virtqueues.  In addition, unlike
+dcp_virtio_transport_resume(), err_restore does not write PAGE_SIZE to
+VIRTIO_MMIO_GUEST_PAGE_SIZE when mmio->version =3D=3D 1 before calling
+virtio_device_restore().
+
+> diff --git a/drivers/virtio/virtio_qcom_dcp_ipcc.c b/drivers/virtio/virti=
+o_qcom_dcp_ipcc.c
+> new file mode 100644
+> index 0000000000000..1d83bcc69d5cf
+> --- /dev/null
+> +++ b/drivers/virtio/virtio_qcom_dcp_ipcc.c
+> @@ -0,0 +1,193 @@
+
+[ ... ]
+
+> +static void dcp_ipcc_handle_rx(struct dcp_ipcc *ipcc)
+> +{
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&ipcc->state_lock, flags);
+> +	if (ipcc->shutting_down) {
+> +		spin_unlock_irqrestore(&ipcc->state_lock, flags);
+> +		return;
+> +	}
+> +
+> +	complete(&ipcc->power_notify_done);
+> +	if (ipcc->resp_vq)
+> +		vring_interrupt(0, ipcc->resp_vq);
+> +
+> +	spin_unlock_irqrestore(&ipcc->state_lock, flags);
+> +}
+
+[Severity: Medium]
+Does dcp_ipcc_handle_rx() conflate power-notification acknowledgments with
+response virtqueue interrupts during suspend and resume?
+
+ipcc->resp_vq is only cleared in dcp_virtio_del_vqs() and
+dcp_ipcc_deinit().  If the bound VirtIO driver does not call del_vqs() in
+its freeze callback (for example, virtio_rtc keeps its virtqueues across
+freeze and deletes them in restore), ipcc->resp_vq remains non-NULL while
+the device is frozen.  When DCP acknowledges dcp_ipcc_send_power_notify()
+during dcp_virtio_transport_suspend() (after virtio_device_freeze()) or
+during dcp_virtio_transport_resume() (before virtio_device_restore()),
+dcp_ipcc_handle_rx() invokes vring_interrupt(0, ipcc->resp_vq) on the
+frozen device.
+
+Conversely, because dcp_ipcc_send_power_notify() calls
+reinit_completion(&ipcc->power_notify_done) while ipcc->power_notify_irq is
+also used for response queue notifications, an in-flight response queue
+interrupt arriving after reinit_completion() completes power_notify_done
+and causes dcp_ipcc_send_power_notify() to return before DCP has
+acknowledged the power transition.
+
+[ ... ]
+
+> +void dcp_ipcc_synchronize(struct dcp_ipcc *ipcc)
+> +{
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&ipcc->state_lock, flags);
+> +	spin_unlock_irqrestore(&ipcc->state_lock, flags);
+> +}
+
+[Severity: Medium]
+Should dcp_ipcc_synchronize() call synchronize_irq(ipcc->power_notify_irq)
+instead of only cycling ipcc->state_lock?
+
+When virtio_reset_device() calls virtio_synchronize_cbs() ->
+dcp_virtio_synchronize_cbs(), ipcc->shutting_down is still false and
+ipcc->resp_vq is still set until del_vqs() is called later.  If
+power_notify_irq has fired on another CPU (or woken its IRQ thread under
+threadirqs or PREEMPT_RT) but has not yet acquired ipcc->state_lock, cycling
+the lock returns immediately and the handler then enters
+dcp_ipcc_handle_rx() and calls vring_interrupt(0, ipcc->resp_vq) after
+virtio_reset_device() has returned:
+
+CPU0                              CPU1 (<hardirq> / IRQ thread)
+virtio_reset_device()
+  dev->config->reset(dev)
+                                  dcp_ipcc_power_notify_irq()
+                                    dcp_ipcc_handle_rx()
+  virtio_synchronize_cbs()
+    dcp_virtio_synchronize_cbs()
+      dcp_ipcc_synchronize()
+        spin_lock_irqsave(&ipcc->state_lock)
+        spin_unlock_irqrestore(&ipcc->state_lock)
+                                      spin_lock_irqsave(&ipcc->state_lock)
+                                      vring_interrupt(0, ipcc->resp_vq)
+                                        <-- callback runs after reset
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-jshekhar-q=
+com-virtio-dcp-v1-0-7b49bda74916@oss.qualcomm.com?part=3D3
