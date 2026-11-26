@@ -1,57 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795652491;
-	b=pUGgtkNGsoIOIgjYh1jriIg9m/HzbhPfc3W6j6Y7wXHo96/TSdZ+zSj3DZnsZQ0LVEyN
-	 HKGKXn+OVWorSUfaee0C1kJam2xFpsKQzJAoD4g9pEZVTtrMg8IuehkSgmnQoWQU0AJjF
-	 WItZ+VDVeZw5r8DOi0b3XEg1vkd/lyq/v7J2GcDtBUDneywURkScj0FS6umEZTzcRaH7O
-	 wwyOS2YnIbiK7jAPYc645I85+NovjAsQ/w7WzbLQsEi/5b7KH9s15cT4wbbO5EQ7amcpK
-	 PPznE5L5TBsf3c2EXYp1IyRo1fi/Z0X5QQDHXrc/8ZGn86r53IItfwW+W/tuuB+Ge9w==
+	t=1795652536;
+	b=PNr4JNloik632bcHtTndwx2uSPNuoiGIA7ng3VN0wpDCLUjvkUfW3cJz7P3cH1/Y3Hn0
+	 B2g7MsxCyk+T66FpmTPKwl7DyC/yknG20dhsQOPeANMJ2xgWCA9nWls6FNCwZyksmqd1h
+	 St8O6lEY6dTv03JGMdhX7h3+Y8ZmpZSafZsEBLg1VjgsdChts1XIzdU2q5HnWIgQF6vdI
+	 QzMTQL5jWiXy4N2dSRCxkDDNkcrC4I/gv5WlsrH/VUZaiibGt4uM5YGq0xi+iGwDgODdC
+	 B5UemnS5Y1+rBrEu8+JY844Ce1jkfdRdnJvDrxMufCyEmIlP3gqiwGJlu9xTblwSMAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795652491;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ov+34zS1NT//W/Q16Zzg/rygUX8KDVBq2mJRyYs2Rys=;
-	b=nbGoMPzTLWq/vQ/gQ5koe+hl+PrgxbRyqPiGHy19FsQ8CNq/a25lAC+fsbiQJchWJTmD
-	 yKYmoQq52CyDqaHX3GdXkGGlvrrXwtXifwt75Z7DToId/ooNWkoEMgFNaLR+5glMP4kZP
-	 Ru4919zgiXfsh/WGe8tS7l9UoRrGBDP8FbKB0w6WXNgLh4zUAYhgmSpC2M/5j1F101d2u
-	 Qsk6aGPxSJZbCGgn3+s37WDtth700RUn7VY4l92vvneURPYAHqkDO3poQA5NAujVasHrv
-	 elOz5uPvC3lsBGD0MSrCcQjHBosnas8EghnqRGBDUJRO74CokOWIdP0BvixRKMJgaiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795652536;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=XvExC2+tWx5r3ogFdwkXOxMCwzM9eqisKqe+kdKim/4=;
+	b=K3vkOB6jPJPAhWKmT9duzoeINOv+QysVLTCc3mt1Bh7tjjec/yKFf8PQax/PKKUQ5aO2
+	 Y2ckmez0oRysHcEv+iYxRSSK8nf2qX6EAO9T+4okzOihyL2DxnU4k4LbVBwWK08IaJ9mt
+	 Szi1tJufwNLVLz2slQ71ztnAM0HIPZ8hfmIrxk45JQHPlVx/+DH46pQxsjcQBc8ykXOhy
+	 0YAxA0gVoUy6ZA20bL+1GWe0cNyCtFmrnoxvDu9u+4nha3HQpgAFHqHlVV34HWeUYORjR
+	 RGWMiHkHYctw/6QgeNqElzn0HD/9i3OlFC86B/Q2B2Q/vrr8HgSZ78u3jnWVrDopiIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FgaOJX3+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10321606A31E
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 00:21:30 +0000 (UTC)
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=iX4LbI4u;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A1513606A321;
+	Thu, 26 Nov 2026 00:22:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1513606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FgaOJX3+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 742A51F000C0;
-	Thu, 26 Nov 2026 00:21:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795652490;
-	bh=ov+34zS1NT//W/Q16Zzg/rygUX8KDVBq2mJRyYs2Rys=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FgaOJX3+z8t66SvI8o39W9bEvK/hA07QONaixZsezaY3i6BEk2hLU4q/Qhlxfts8M
-	 hIXD/5a5B2kGOSbi3j0X5RFSJuM8y0Y0zRoasNDshStFLQCks3irnObtgaGjQEV+Za
-	 ELlPdbNe9oFbwxdPydQyT97NZMEcyKR2j4aOxJ4mqQAG/hsVG2EUyO/+cJRaLQeZdd
-	 i5e0tFMdwYQQlgNLWDL8dtWj3wre7hqJ1P2bvA98VWUcqjAjRsm0xknvQ4wHt5TIYd
-	 HiFcKHBWtEN0T9KvIqW4IOn4dOuntSy+3SS+x9ubxSdOxCq1ZGSxb0WGRrYq9L/882
-	 ERVtjLLq9vWZA==
-Message-ID: <sashiko-outbox-234462@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] soc: mediatek: mtk-pmic-pwrap: Add MT6789
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ilia Snezhkov" <iasnezhkov@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261126000711.16163-3-iasnezhkov@gmail.com>
-References: <20261126000711.16163-1-iasnezhkov@gmail.com>
- <20261126000711.16163-3-iasnezhkov@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 00:21:30 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=iX4LbI4u
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=XvExC2+tWx5r3ogFdwkXOxMCwzM9eqisKq
+	e+kdKim/4=; b=iX4LbI4ujWm/bmOcd1QtAFfjcTvtoGo+7wOayOA82WcKfvAxF3
+	RYy1DPwgZO3nhfHPTkiTcNqrcCUXKJZuH1Q1nstL6e1L/GaqAZ8tZSJdDv3E5NpT
+	J4ZmBGQEp9qPWHX1hfsoZiPkWsQtlTjKqRlphdO4+ymbHc0OSHakuC2L8=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.181.84])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgAnnzOmewdrvLr5AA--.1516S3;
+	Thu, 26 Nov 2026 08:22:04 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: andersson@kernel.org,
+	konradybcio@kernel.org
+Cc: abelvesa@kernel.org,
+	mitltlatltl@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v9 1/2] dt-bindings: arm: qcom: document the Lenovo Legion Y700 Gen4
+Date: Thu, 26 Nov 2026 08:21:56 +0800
+Message-ID: <20261126002157.1954799-2-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261126002157.1954799-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261126002157.1954799-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,120 +66,49 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgAnnzOmewdrvLr5AA--.1516S3
+X-Coremail-Antispam: 1UD129KBjvdXoW7JF1kAr18uFW5JrWxZw13Arb_yoW3XrgEya
+	1xX3Wvgrs5AF1Fgrs0yws5t3W5Jws7Wrs7Awn0qFn2y3sFy398KFWkt34xAFy7ur47ur1f
+	uF48Wr9IyanrGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb9xYjsxI4VWxJwAYFVCjjxCrM7AC8VAFwI0_Xr0_Wr1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l82xGYIkIc2x26280x7
+	IE14v26r18M28IrcIa0xkI8VCY1x0267AKxVWUCVW8JwA2ocxC64kIII0Yj41l84x0c7CE
+	w4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6x
+	kF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE
+	c7CjxVAFwI0_Cr1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
+	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
+	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7
+	CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6w1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC
+	6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWw
+	C2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_
+	JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJV
+	WUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIY
+	CTnIWIevJa73UjIFyTuYvjxUxH7KDUUUU
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARECB2sGHiAuFQA1sI
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] soc: mediatek: pwrap: missing INT_FLG and INT_CLR offsets in
-  mt6789_regs
-- [Medium] soc: mediatek: pwrap: unmapped WDT_SRC_EN and init writes to
-  0x0 on MT6789
---
+The Lenovo Legion Y700 Gen4 is an SM8750 tablet that ships with the
+lenovo,elden board compatible. Add it to the SM8750 section of the
+Qualcomm board binding.
 
-commit f63c0f3d9c9912d15ad03c4814d1837bc4e482d8
-Author: Arseniy Velikanov <me@adomerle.pw>
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-soc: mediatek: mtk-pmic-pwrap: Add MT6789 support
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 121ca557ce..a32cfb30a1 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -1220,6 +1220,7 @@ properties:
+ 
+       - items:
+           - enum:
++              - lenovo,elden
+               - qcom,sm8750-mtp
+               - qcom,sm8750-qrd
+           - const: qcom,sm8750
+-- 
+2.53.0
 
-This commit adds PMIC wrapper register definitions, cipher handling, wrapper
-parameters, and device tree match table entry for the MediaTek MT6789 SoC.
-
-> diff --git a/drivers/soc/mediatek/mtk-pmic-wrap.c b/drivers/soc/mediatek/=
-mtk-pmic-wrap.c
-> index 90677187c3b56..c74e9164f3343 100644
-> --- a/drivers/soc/mediatek/mtk-pmic-wrap.c
-> +++ b/drivers/soc/mediatek/mtk-pmic-wrap.c
-> @@ -640,6 +640,17 @@ static const int mt6779_regs[] =3D {
->  	[PWRAP_WACS2_VLDCLR] =3D		0xC28,
->  };
-> =20
-> +static const int mt6789_regs[] =3D {
-> +	[PWRAP_INIT_DONE2] =3D		0x0,
-> +	[PWRAP_TIMER_EN] =3D		0x3E4,
-> +	[PWRAP_INT_EN] =3D		0x450,
-> +	[PWRAP_WACS2_CMD] =3D		0x880,
-> +	[PWRAP_SWINF_2_WDATA_31_0] =3D	0x884,
-> +	[PWRAP_SWINF_2_RDATA_31_0] =3D	0x894,
-> +	[PWRAP_WACS2_VLDCLR] =3D		0x8A4,
-> +	[PWRAP_WACS2_RDATA] =3D		0x8A8,
-> +};
-
-[Severity: High]
-Should mt6789_regs[] also define PWRAP_INT_FLG and PWRAP_INT_CLR?
-
-Because both are omitted here, their offsets default to 0x0
-(PWRAP_INIT_DONE2).  pwrap_probe() enables interrupts in PWRAP_INT_EN with
-int_en_all =3D 0x180000 and registers pwrap_interrupt() with IRQF_TRIGGER_H=
-IGH:
-
-drivers/soc/mediatek/mtk-pmic-wrap.c:pwrap_interrupt() {
-	rdata =3D pwrap_readl(wrp, PWRAP_INT_FLG);
-	dev_err(wrp->dev, "unexpected interrupt int=3D0x%x\n", rdata);
-	pwrap_writel(wrp, 0xffffffff, PWRAP_INT_CLR);
-
-	return IRQ_HANDLED;
-}
-
-When an enabled interrupt fires, pwrap_interrupt() reads and writes
-0xffffffff to offset 0x0 instead of clearing the interrupt status register,
-leaving the level-high IRQ asserted and causing an interrupt storm.  (Compa=
-ring
-with mt8195_regs[], which shares these register offsets and int_en_all =3D
-0x180000, 0x450 is bank 1 INT1_EN with flag and clear at 0x458 and 0x45c,
-while bank 0 INT_EN/FLG/CLR are at 0x420/0x428/0x42c.)
-
-[ ... ]
-
-> @@ -1852,6 +1864,7 @@ static int pwrap_init_cipher(struct pmic_wrapper *w=
-rp)
->  	case PWRAP_MT7622:
->  		pwrap_writel(wrp, 0, PWRAP_CIPHER_EN);
->  		break;
-> +	case PWRAP_MT6789:
->  	case PWRAP_MT6873:
->  	case PWRAP_MT8183:
->  	case PWRAP_MT8195:
-> @@ -2302,6 +2315,19 @@ static const struct pmic_wrapper_type pwrap_mt6779=
- =3D {
->  	.init_soc_specific =3D NULL,
->  };
-> =20
-> +static const struct pmic_wrapper_type pwrap_mt6789 =3D {
-> +	.regs =3D mt6789_regs,
-> +	.type =3D PWRAP_MT6789,
-> +	.arb_en_all =3D 0x777f,
-> +	.int_en_all =3D 0x180000,
-> +	.int1_en_all =3D 0,
-> +	.spi_w =3D PWRAP_MAN_CMD_SPI_WRITE,
-> +	.wdt_src =3D PWRAP_WDT_SRC_MASK_ALL,
-> +	.caps =3D PWRAP_CAP_ARB,
-> +	.init_reg_clock =3D pwrap_common_init_reg_clock,
-> +	.init_soc_specific =3D NULL,
-> +};
-
-[Severity: Medium]
-Does probing pwrap_mt6789 overwrite PWRAP_INIT_DONE2 at offset 0x0 with
-wdt_src (0xffffffff)?
-
-In pwrap_probe(), the PWRAP_CAP_ARB check added by 9d498d0b4043 ("soc:
-mediatek: pwrap: add arbiter capability") only guards PWRAP_WDT_UNIT, while
-PWRAP_WDT_SRC_EN is written unconditionally:
-
-drivers/soc/mediatek/mtk-pmic-wrap.c:pwrap_probe() {
-	...
-	if (!HAS_CAP(wrp->master->caps, PWRAP_CAP_ARB))
-		pwrap_writel(wrp, 0xf, PWRAP_WDT_UNIT);
-
-	pwrap_writel(wrp, wrp->master->wdt_src, PWRAP_WDT_SRC_EN);
-	...
-}
-
-Since PWRAP_WDT_SRC_EN is not in mt6789_regs[], its offset is 0x0, so every
-probe writes 0xffffffff to PWRAP_INIT_DONE2.  In addition, this patch adds
-PWRAP_MT6789 to pwrap_init_cipher(), but mt6789_regs[] omits all cipher and
-initialization registers used by pwrap_init() and pwrap_init_cipher(), so
-if PWRAP_INIT_DONE2 is not already set by the bootloader, those writes will
-also hit offset 0x0.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126000711.1616=
-3-1-iasnezhkov@gmail.com?part=3D2
