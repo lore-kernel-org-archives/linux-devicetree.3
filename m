@@ -1,106 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.65
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795710821;
-	b=K9R4Do8og26m3MCP94NDcEY3Rn798Cae2Y8L+IrH0rBU1Y69BmlJLX9wNZb/3MYJ61xq
-	 t8XydCO/tzRqMhcyvSeNYAqI9aFXj10jzVl+DEpLcEeXlFVG90DtyozmaojUigiezGD2v
-	 0WnCkaSh8q01CIXbJlGSYUjnv9tmi2PUWo0VQw1Rzycnj62fPl3qSk4kfejPHgGMwxymW
-	 Y7bdtgqe9wlLeOSev4kcDeD7xkVMq8LUTmrN5ClVkD+a75bPWP4b25Qbfsuse8fYadwo/
-	 /7MbXgnfLJrTwFKnhvauNCAuk0JzIcPcJKtUP9OvqA5ejmDzGnwTm6LoibsPWzigNqg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795710821;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=7soUBChG2eorH8MaKZzLxtkNhLd/s6s3Ma6CXM0wbKc=;
-	b=Me5XvsyouLTWSQMN5nDDBFUVGfzQbagJoleDDKDnZRpe7yPldOnyEbLWh9/4xHsowmf4
-	 kIjEvTj080yS9gwkmVosImG8neDmv9US37lftHYbVLgG7Wlm7w1ntQI/0jqVM45xqV339
-	 ODq4COm6G6X25ljjgvrH5Ca3jobxAzioh2+S/pkL4R00/GAN7RmUSvDfBxjbuWri7G08b
-	 hW/5JcYcNKwuy7X2FoJQT7aU+bs14dW0h4OyECgYcu8+n8yi80bnnk1XBVCTcWPJovOxX
-	 AnIaIGRDj9VJSQpVU8MQKEneXDG+i9M33Z2VxlQGT8nA5N5GAIBGbtEOFYGmd0GA4OA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="kvzGya/S";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.65
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013065.outbound.protection.outlook.com [52.101.83.65])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795710864;
+	b=BSTtUCtrcNdONepHtCNHWvc9tv0/rE353nGZIliRezsoRlFx2/8UFKRrzm31LXt5tSGY
+	 tQF36ZwuS1x2I5kvm8J0S5k9ig1c5uJJms7ehUHuzeXEMIXtmUaZ1DquS3sN1HweraalL
+	 2Uoit5JhmjUx+CxeitO6rSW5CgsNY3ZwSPVP3pM7YQo0gZl6bDUS8JZatqNLjfWU3/SN+
+	 cNa950Q5pD6vWB/zKL2XIL+sU+zIJgqInOfaycxUK2kSGdR2j1+rkhj/+nxC2/LmcYC5W
+	 Cbhmrr0/EXn9P+RUu9/c16imDOGyMVztvMwRIERvBNj6PPjKc+BZpZjTPj2JGpAo4yw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795710864;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=4GGeAo5/eJpQM5XTDcKfzKRoN8xVvNaF8+APziQ8k/c=;
+	b=1yO6CsHKMIR+sX755yJbuxbXMuC5sURClQdegGU7Nm5r7XQF/+KEhQ9EZsencLiPPVTU
+	 62MUufyMioLVdS6yCnGUnd6rypulcvGuyxUmtGEshf16cdwSrRNf+ci1tPCSmtCsgHuuS
+	 zemY3evHfY63F6R/qifxE6kK6G961gv8G5AB+kLho9kbV6LX3A1IXDhayn6KC2QPLfsPx
+	 VoagUD7SkCKKwlI6jyuB/3bdZv2f9HWeTPXvdth0IYlPoplpm7jAmYf0ZFvQiiufv2jwj
+	 Xf36N14Ez+dsqnY+A8nLPYWqeQDIsQB+oelDEvByJgQXHeZHwIVCLk/oscXAjevlmqQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ljIiPK2Y;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10716606A32C;
-	Thu, 26 Nov 2026 16:33:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10716606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E68606A321;
+	Thu, 26 Nov 2026 16:34:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=kvzGya/S
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=INS02Ie7g55EMxYdAw95e7ObPlNIWZWKZetg7a3bsm+pDKCR1yxE/185aM4F4CEpjW64qv5DQy/bSDGCd3aiQPIi9xaVQaDg5SaleouwyD3M5AC0kFPy8RmN6gmqhIoWQtIBtXWuU/IsQ8JKor4m6XBGtXfs3r7W4faRUL2iq3JwIi9/2mjDvC8bxNjEraHHtpsuVc/Wdepe7t1Y+Wp6sljUlnBl4gDCCInYhjQYJpSI30RYzwDRoqdqWnvgbuwzV6ZYIgiTsWM5q6eQKxNoDlbCjFwe9M5kZvG7gkJZz/1LbCOR4RUQPAOuOVK+SLUDXBM03jAe1ZsajQZ5GfIzMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7soUBChG2eorH8MaKZzLxtkNhLd/s6s3Ma6CXM0wbKc=;
- b=k1XxXAr4o4WbzY9GMnMEx9T/Zvb6pvRbeV3mjRU2ZYI6dkpVvzE47wuJt97n4KGO5kJOcPF5tZOniSVzMJQc7ogdwir0W3IiB8Sc5A0DS9nx6624qus/YGXmi+axcNNuqCClLjHSeNCPhR311dve43lwwKcDRwMYpy+Y2Ycy1ofx+559yUa0bE94pFKNudqItklZF7DmmfbqrFeOXIEM7scHpXny+ekKbpPGp8hyO/i7y1q5EaHKw2T5HTX2zDTG8Lu0ppTarYjylelXqGtSN1VYBDgwAKSKJydxEGO/hBIBhxAch5Esl9FtSem3y88n0BE5pZZLsuTlt7+dowIYHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7soUBChG2eorH8MaKZzLxtkNhLd/s6s3Ma6CXM0wbKc=;
- b=kvzGya/SYoRcPeYwTibnHEzV0DPzm98lv1NUqGJ1KC09FBs5BEALaTK1SZDkjDOxHPWXkt/MQtWpSRiM+uLMqxwaeJEoJYQz6/QWHXeq/YJXqqng5hcEXh/dKqlQxbLMnqkDIc90kCVS0UpDJDHWERUAK1v1STsDkZdUy8hO0GlSxQLyShCL/hxtp1ZbrHeY+amRzkxvt3JwRyMaoTtq312Kdozt27EbhI6cytnXFiHGKapszeL7/J5Ff3nBQv/ZDC9UVabV2umc2Xk84rGZDPOKDoAT1zSdANuhD5TFhbNpK+nZVKS+Qwd6vVBHJ3zuiyKlBkON8tYooKcUBEawkw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PA3PR04MB11203.eurprd04.prod.outlook.com
- (2603:10a6:102:4ab::13) by DBBPR04MB8009.eurprd04.prod.outlook.com
- (2603:10a6:10:1ef::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.7; Thu, 26 Nov
- 2026 16:33:37 +0000
-Received: from PA3PR04MB11203.eurprd04.prod.outlook.com
- ([fe80::80e9:ab1c:dbc4:6930]) by PA3PR04MB11203.eurprd04.prod.outlook.com
- ([fe80::80e9:ab1c:dbc4:6930%3]) with mapi id 15.21.0662.004; Thu, 26 Nov 2026
- 16:33:36 +0000
-From: marouene.boubakri@oss.nxp.com
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Anup Patel <anup@brainfault.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Radu Rendec <radu@rendec.net>,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Marouene Boubakri <marouene.boubakri@oss.nxp.com>
-Subject: [PATCH v2 8/8] riscv: defconfig: enable OpenHW Group CVA6 APU support
-Date: Thu, 26 Nov 2026 17:46:32 +0100
-Message-Id: <20261126164632.978624-9-marouene.boubakri@oss.nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261126164632.978624-1-marouene.boubakri@oss.nxp.com>
-References: <20261126164632.978624-1-marouene.boubakri@oss.nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PH7PR03CA0012.namprd03.prod.outlook.com
- (2603:10b6:510:339::24) To PA3PR04MB11203.eurprd04.prod.outlook.com
- (2603:10a6:102:4ab::13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ljIiPK2Y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6F291F000C0;
+	Thu, 26 Nov 2026 16:34:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795710864;
+	bh=4GGeAo5/eJpQM5XTDcKfzKRoN8xVvNaF8+APziQ8k/c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ljIiPK2YrvbA/5AQqXuIfegj0dOvorMd/00bpSo7nLXnxR+XC7pmo7u1q7fgNbJ6V
+	 CQ3wVeFtJdXeIAO3MnyUKpNOm+Q756zZ7antkFSo0rnZAKu5enP6cZDOi0fC3GZ2UF
+	 WA8mcaQp4IRkp3/+X9y8+U5XRzwfDhHdTWtTIN5GS3GtYvOZq5AE27qaZwXamJsmkC
+	 hcBYyOpPweBqRyOazJZCdY6tgSfTg8Eb/cjnjoBon9yFF+aWSRqcEO0HyhbkRB4qTe
+	 aHeAIDQlMJQmAIEbycMtjG0VefAQrm2N3EA/b1+FeBlLbGKPbqx1iXHCmqg9CnB8s3
+	 vKu98dc/reWzQ==
+Message-ID: <sashiko-outbox-235922@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: pinctrl: Add Qualcomm Netrani TLMM
+Reply-To: sashiko-reviews@lists.linux.dev
+To: SignKirigami <prcups@krgm.moe>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261127-netrani-tlmm-v3-v3-1-3bf3f0bbe5df@krgm.moe>
+References: <20261127-netrani-tlmm-v3-v3-0-3bf3f0bbe5df@krgm.moe>
+ <20261127-netrani-tlmm-v3-v3-1-3bf3f0bbe5df@krgm.moe>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Nov 2026 16:34:23 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,102 +59,194 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA3PR04MB11203:EE_|DBBPR04MB8009:EE_
-X-MS-Office365-Filtering-Correlation-Id: 063e69e3-ae44-4af7-ae6f-08df4bdb04f8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|19092799006|10067099003|56012099006|11063799006|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	o6McgzDB7OD/1ykkx7/GDeM34Ui7c1kZcODTJ4nxdrNltqVaiD2adqEhXGdWTdf0CMkGruOlF3V1FI6HkQfaLokRU+Qj8I/bQvE8B0/9dzVaTYJItMd/eKbj0aiPRSIVSYHX7M1GCB7EkmUUbezID2dfWkm2JmMMT5DLVVQ0JEaG30nJDg9CQgZVwR3psO9vA0tF6mrRN6RsWkIlulE9ZA8KTWgUzDhPHhMgYdq5SLSRy6VVgM9px5dziDt0uYKq+BpHW9SuF5f7yPFUAxim8jSqp/fEhk2o0GCE1CkZSoOXiE/zETD8SHBcvgnrmIhfvBsQHfLnuk8gYFe7srCUf7cMHkODY/K7By46e9Fx1bVz56GR8DEErzuAiH0BeyV6g5uPn7VuWpGv/HE9SVRBl/zXUzX5rtsqgVo1NiuKTjIl3ASdHmvSzTJx5I5eacRYXCu6FiqfhBb9DYwcs6o1UsaCIHRibkDfkP2YU/EO6ktisA77e66Na7eC11SwqG16TAc3SMh/a8/B2PoGnFKvd7FQbgE3iZojsoXbYJyujmYQluVLZeHtj9SwZg5rmI8l9iLXo2HY8UiR75W7H38SYyrbu8WtRpvEtAkH1DoHCzhAZdvDpsMeY8cJYv6IvycBO71do38/DZ2TAMGgfzm5553G9L6D0GiEdACsCaMWx9M=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA3PR04MB11203.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(19092799006)(10067099003)(56012099006)(11063799006)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?U62xplFZjnwIGVTibgfNvuYGoxZkOWGhi/eptGnXhFcTiUNXO8OL9lUYr0kj?=
- =?us-ascii?Q?UHE5lErVKTcGXyk+07nBlcgM16OIoSFITnxMByYscrNmkkbQ8K27bh0yjwJQ?=
- =?us-ascii?Q?pJcRbavRl49roDp8yM6NvClEs6h5Jht8w2wyjvV/fVFwJ9KKtfD4huDWWiNJ?=
- =?us-ascii?Q?HVLi6HYadkrLchx4vIyltzehqMMbvltTF8kZPnqZMKjwwKKwJcqJlU4QhAY5?=
- =?us-ascii?Q?HJv9oQ4TITpXnybvNnlHOVh+l0h7QCZXLOR6+XtEUldm7EtVMUrOPmmAROvN?=
- =?us-ascii?Q?8MVkPQLeAlVQAEddqWPt2jeUFJgfCjNCPLOMVbnhe6oMpm1Dsbf55kJWqyyl?=
- =?us-ascii?Q?ix91ildugBnRdbGm1IKgdRaYjrlIJjgCh6FfNFcg3OkYr/QmeSc5Q8gPGuPr?=
- =?us-ascii?Q?Xu0/h4nzMpXPqn5E1oQY+qy+lXphE+nrsCl1AIpioVg32IQqnd1BGrOJyDos?=
- =?us-ascii?Q?FN9tJbWvZKdT7bNOb3CxyQHHLNfq+Np8uS16UMwOjhV3c5S2cbzbcl0MXxl+?=
- =?us-ascii?Q?0XlC4mwx/PviFSt6t3wBOLYrGJOs0CHPOeck+FL7VmQivj/gl1h7B+fS+g7o?=
- =?us-ascii?Q?jVQSXjd3eDq1pBBrmPGqVK1nSoVhaqK7NO3UQtWmHfBxj0lTXvMgxH3Y8LhM?=
- =?us-ascii?Q?38whjzG20g5BHG8F7oJYQbSwfdXVVgFnnD2Bq7asclNL1BzZD7tUY2byrFv5?=
- =?us-ascii?Q?xIYoT7TnC0KGt7/PBpymzGnqiLQSNPOS+CemWz0jg4ggOUwOTDi6unDgNMkY?=
- =?us-ascii?Q?Ry1ycO81Bxta+mvz4MqLx25UkbfDZI7ECN1obWvYe4KNOaQwUZsLn92s/KN4?=
- =?us-ascii?Q?bSs5nNOAxRgZaqMuhE5cyJLOj9wSfAfiLQkOa7z/oKk+LNZL1FqDGMq/14KS?=
- =?us-ascii?Q?dWbaqSUv9EKwWdO7aVjVFjpp/buyxnvvvfaUVtlPebhsQOr1MHVSqem8gFAg?=
- =?us-ascii?Q?jvai1MBQT5rlOVLHYkh9ZEPOZ2RS+YKmTjeJOibCzjr89FWnZRPkMT5ixZ3x?=
- =?us-ascii?Q?Z1pAnrpj1qAKPQcM2snxLdgPBX5hNY0pYjZa8wadzEaB3rtbQiCHmUGz8QQq?=
- =?us-ascii?Q?sK1LkY16kdJAeSBE8UQsIOEYHdKBuvxY5SYM+CkTexh4r469hymIqL0/363c?=
- =?us-ascii?Q?OhSy3cxTImio659SNOzCWr9f7daKZSDIwYOFiV+EanAjGq6rWWaGlLU0OWfA?=
- =?us-ascii?Q?qM/KN5Dk3LzEOYAgtnc2xIhTEyQCNI5TfbixtvIjptgTJ03XG2lMqkrnB+T2?=
- =?us-ascii?Q?k8oWmlaFl4wGpoapcQ+DlLbuIeaDbCcEfn/f7za5Au2NeMTlpRV4dQ4PtWSy?=
- =?us-ascii?Q?m3xpXxwyg81Q3M2Fuy0BinK5lUrCwCjG2pRG4jKzF19Bzzhqe9t/n87sUFOc?=
- =?us-ascii?Q?0IItzOwlOF3//acu49GcpCuq9E/2pRXRqx69r2+G2OL8sjaOnGhFVLNBXLQ8?=
- =?us-ascii?Q?Eeyxs3b0MwYrqVEukXH7t6cG8ARAIw6+VwIQTRxb1SpqPzkvzREwjqRgrFAT?=
- =?us-ascii?Q?Cb5kFaryk2FAV6EGXN1wTFREvy9cZIOJvFSAdOm+QlldAB0P6biUoAbVRcUN?=
- =?us-ascii?Q?F+vnSDzQnSB1p5ywLidQyD7vo7LFmT8L440SQ3jLE8k+5v+Tl8xCQqg1Ow/s?=
- =?us-ascii?Q?WGAOSKSDxC2YD1cjCCyr+lRAOV8q41TW+pAYITK+6lf2yIK1k9nGnXwGXQMd?=
- =?us-ascii?Q?e9F+GHiqp75QCEDt2Y2QpYe46YiBR1iWSMxObx5SNjVlXloBHlKbAiqB+tsE?=
- =?us-ascii?Q?Zin8T4DdOTw2zjV58mZ5jtvycZ8tdq86bgJU06G2WzMLvnxVlOywGl8RXb2j?=
-X-MS-Exchange-AntiSpam-MessageData-1: Rlg8dOJFfKVn6Q==
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 063e69e3-ae44-4af7-ae6f-08df4bdb04f8
-X-MS-Exchange-CrossTenant-AuthSource: PA3PR04MB11203.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2026 16:33:36.5973
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1eHH1ZrrcpCcZr3ck1pi22BPVx1mDunm1fM9WwMgN1sDnG4DrgKKA0OEn/x43LGyVhRzOzL2l/uRjjZAnVMqFwC3ym8j/gBWIAhX9iGv2Q0XNduDsz0t78FOzLE0RK3L07bTe4UX/HPFhsexAXQ6Dg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB8009
 
-From: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [Medium] dt-bindings: pinctrl: qcom: unconsolidated per-lane function
+  names
+- [Low] dt-bindings: pinctrl: qcom: unconstrained interrupts and
+  redundant properties
+- [Low] dt-bindings: pinctrl: qcom: non-canonical interrupts order in
+  example
+--
 
-Enable ARCH_OPENHWGROUP so the CVA6 APU device trees are built, and the
-Xilinx SPI and GPIO drivers used by the SD card slot and the LEDs on the
-Digilent Genesys 2.
+commit 6ec67914517e38e03fb92aa9d60a76850afd82d3
+Author: SignKirigami <prcups@krgm.moe>
 
-Signed-off-by: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
----
- arch/riscv/configs/defconfig | 3 +++
- 1 file changed, 3 insertions(+)
+dt-bindings: pinctrl: Add Qualcomm Netrani TLMM
 
-diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
-index 04ae305d55..ed495eb8ad 100644
---- a/arch/riscv/configs/defconfig
-+++ b/arch/riscv/configs/defconfig
-@@ -26,6 +26,7 @@ CONFIG_ARCH_ANDES=y
- CONFIG_ARCH_ANLOGIC=y
- CONFIG_ARCH_ESWIN=y
- CONFIG_ARCH_MICROCHIP=y
-+CONFIG_ARCH_OPENHWGROUP=y
- CONFIG_ARCH_SIFIVE=y
- CONFIG_ARCH_SOPHGO=y
- CONFIG_ARCH_SPACEMIT=y
-@@ -166,6 +167,7 @@ CONFIG_SPI_FSL_QUADSPI=m
- CONFIG_SPI_PL022=m
- CONFIG_SPI_SIFIVE=y
- CONFIG_SPI_SUN6I=y
-+CONFIG_SPI_XILINX=y
- # CONFIG_PTP_1588_CLOCK is not set
- CONFIG_PINCTRL_TH1520=y
- CONFIG_PINCTRL_SOPHGO_CV1800B=y
-@@ -175,6 +177,7 @@ CONFIG_PINCTRL_SOPHGO_SG2002=y
- CONFIG_GPIO_DWAPB=y
- CONFIG_GPIO_SIFIVE=y
- CONFIG_GPIO_SPACEMIT_K1=y
-+CONFIG_GPIO_XILINX=y
- CONFIG_GPIO_PCA953X=m
- CONFIG_GPIO_PCA953X_IRQ=y
- CONFIG_POWER_RESET_GPIO_RESTART=y
--- 
-2.43.0
+This commit adds the Device Tree binding schema for the Top Level Mode
+Multiplexer (TLMM) pin controller on the Qualcomm Netrani SoC.
 
+> diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,netrani-tlmm.=
+yaml b/Documentation/devicetree/bindings/pinctrl/qcom,netrani-tlmm.yaml
+> new file mode 100644
+> index 0000000000000..c8f9d15fa692e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pinctrl/qcom,netrani-tlmm.yaml
+> @@ -0,0 +1,190 @@
+
+[ ... ]
+
+> +allOf:
+> +  - $ref: /schemas/pinctrl/qcom,tlmm-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,netrani-tlmm
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts: true
+> +  interrupt-controller: true
+> +  "#interrupt-cells": true
+> +  gpio-controller: true
+> +
+> +  gpio-reserved-ranges:
+> +    minItems: 1
+> +    maxItems: 71
+> +
+> +  gpio-line-names:
+> +    maxItems: 141
+> +
+> +  "#gpio-cells": true
+> +  gpio-ranges: true
+> +  wakeup-parent: true
+
+[Severity: Low]
+Should interrupts specify maxItems: 1 here instead of true?
+qcom,tlmm-common.yaml allows up to 9 interrupts, whereas Netrani TLMM uses
+a single summary IRQ.
+
+Also, interrupt-controller, #interrupt-cells, gpio-controller,
+#gpio-cells, gpio-ranges, and wakeup-parent are already defined in
+qcom,tlmm-common.yaml and can be dropped since this schema uses
+unevaluatedProperties: false.
+
+[ ... ]
+
+> +      function:
+> +        description:
+> +          Specify the alternative function to be configured for the spec=
+ified
+> +          pins.
+> +        enum: [ gpio, egpio,
+> +                atest_char_start, atest_char_status0, atest_char_status1,
+> +                atest_char_status2, atest_char_status3, atest_usb0_atere=
+set,
+> +                atest_usb0_testdataout00, atest_usb0_testdataout01, ates=
+t_usb0_testdataout02,
+> +                atest_usb0_testdataout03, audio_ref_clk, cam_mclk,
+> +                cci_async_in0, cci_i2c_scl0, cci_i2c_scl1,
+> +                cci_i2c_scl2, cci_i2c_scl3, cci_i2c_sda0,
+> +                cci_i2c_sda1, cci_i2c_sda2, cci_i2c_sda3,
+> +                cci_timer0, cci_timer1, cci_timer2,
+> +                cci_timer3, cmu_rng_entropy0, cmu_rng_entropy1,
+> +                cmu_rng_entropy2, cmu_rng_entropy3, coex_uart1_rx,
+> +                coex_uart1_tx, cri_trng_rosc, cri_trng_rosc0,
+> +                cri_trng_rosc1, dbg_out_clk, ddr_bist_complete,
+> +                ddr_bist_fail, ddr_bist_start, ddr_bist_stop,
+> +                ddr_pxi0_test, ddr_pxi1_test, dp0_hot_plug,
+> +                gcc_gp1_clk, gcc_gp2_clk, gcc_gp3_clk, gp_mn,
+> +                host2wlan_sol_mira, host2wlan_sol_mirb, i2s0_data0,
+> +                i2s0_data1, i2s0_sck, i2s0_ws,
+> +                ibi_i3c_qup0, ibi_i3c_qup1, jitter_bist_ref,
+> +                mdp_vsync0_out, mdp_vsync1_out, mdp_vsync2_out,
+> +                mdp_vsync3_out, mdp_vsync_e, mdp_vsync_p,
+> +                mdp_vsync_s, nav_gpio0, nav_gpio1,
+> +                nav_gpio2, pcie0_clk_req, phase_flag_status0,
+> +                phase_flag_status1, phase_flag_status10, phase_flag_stat=
+us11,
+> +                phase_flag_status12, phase_flag_status13, phase_flag_sta=
+tus14,
+> +                phase_flag_status15, phase_flag_status16, phase_flag_sta=
+tus17,
+> +                phase_flag_status18, phase_flag_status19, phase_flag_sta=
+tus2,
+> +                phase_flag_status20, phase_flag_status21, phase_flag_sta=
+tus22,
+> +                phase_flag_status23, phase_flag_status24, phase_flag_sta=
+tus25,
+> +                phase_flag_status26, phase_flag_status27, phase_flag_sta=
+tus28,
+> +                phase_flag_status29, phase_flag_status3, phase_flag_stat=
+us30,
+> +                phase_flag_status31, phase_flag_status4, phase_flag_stat=
+us5,
+> +                phase_flag_status6, phase_flag_status7, phase_flag_statu=
+s8,
+> +                phase_flag_status9, pll_bist_sync, pll_clk_aux,
+> +                prng_rosc_test0, prng_rosc_test1, prng_rosc_test2,
+> +                prng_rosc_test3, qdss_cti_trig0, qdss_cti_trig1,
+> +                qdss_gpio_traceclk, qdss_gpio_tracectl, qdss_gpio_traced=
+ata0,
+> +                qdss_gpio_tracedata1, qdss_gpio_tracedata10, qdss_gpio_t=
+racedata11,
+> +                qdss_gpio_tracedata12, qdss_gpio_tracedata13, qdss_gpio_=
+tracedata14,
+> +                qdss_gpio_tracedata15, qdss_gpio_tracedata2, qdss_gpio_t=
+racedata3,
+> +                qdss_gpio_tracedata4, qdss_gpio_tracedata5, qdss_gpio_tr=
+acedata6,
+> +                qdss_gpio_tracedata7, qdss_gpio_tracedata8, qdss_gpio_tr=
+acedata9,
+> +                qlink0_enable, qlink0_request, qlink0_wmss_reset,
+> +                qlink1_enable, qlink1_request, qlink1_wmss_reset,
+> +                qspi0, qspi1, qspi2,
+> +                qspi3, qspi_clk, qspi_cs_n,
+> +                qup0_se0_l0, qup0_se0_l1, qup0_se0_l2,
+> +                qup0_se0_l3, qup0_se1_l0, qup0_se1_l1,
+> +                qup0_se1_l2, qup0_se1_l3, qup0_se1_l4,
+> +                qup0_se2_l0, qup0_se2_l1, qup0_se2_l2,
+> +                qup0_se2_l3, qup0_se3_l0, qup0_se3_l1,
+> +                qup0_se3_l2, qup0_se3_l3, qup0_se4_l0,
+> +                qup0_se4_l1, qup0_se4_l2, qup0_se4_l3,
+> +                qup0_se5_l0, qup0_se5_l1, qup0_se5_l2,
+> +                qup0_se5_l3, qup0_se5_l4, qup0_se5_l5,
+> +                qup0_se5_l6, qup1_se0_l0, qup1_se0_l1,
+> +                qup1_se0_l2, qup1_se0_l3, qup1_se1_l0,
+> +                qup1_se1_l1, qup1_se1_l2, qup1_se1_l3,
+> +                qup1_se2_l0, qup1_se2_l1, qup1_se2_l2,
+> +                qup1_se2_l3, qup1_se2_l4, qup1_se3_l0,
+> +                qup1_se3_l1, qup1_se3_l2, qup1_se3_l3,
+> +                qup1_se5_l0, qup1_se5_l1, qup1_se5_l2,
+> +                qup1_se5_l3, sd_write_protect, tb_trig_sdc1,
+> +                tb_trig_sdc2, tgu_ch0_trigout, tgu_ch1_trigout,
+> +                tgu_ch2_trigout, tgu_ch3_trigout, tmess_prng_rosc0,
+> +                tmess_prng_rosc1, tmess_prng_rosc2, tmess_prng_rosc3,
+
+[Severity: Medium]
+Should the per-lane and per-bit signal names in this function enum be
+consolidated into logical function groups (such as qup0_se0..qup0_se5,
+qup1_se0..qup1_se5, phase_flag, qdss_gpio, atest_char, atest_usb0,
+cci_i2c_scl, cci_i2c_sda, cci_timer, cmu_rng, cri_trng, prng_rosc, and
+tmess_prng)?
+
+Exposing raw per-lane names such as qup0_se3_l2 and qup0_se3_l3 in the DT
+binding ABI forces client nodes (like uart-w-state in the example below)
+to split pins of the same peripheral interface across separate subnodes
+with different function strings instead of using function =3D "qup0_se3".
+
+[ ... ]
+
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    tlmm: pinctrl@f000000 {
+> +        compatible =3D "qcom,netrani-tlmm";
+> +        reg =3D <0x0f000000 0x1000000>;
+> +        gpio-controller;
+> +        #gpio-cells =3D <2>;
+> +        gpio-ranges =3D <&tlmm 0 0 142>;
+> +        interrupt-controller;
+> +        #interrupt-cells =3D <2>;
+> +        interrupts =3D <GIC_SPI 208 IRQ_TYPE_LEVEL_HIGH>;
+
+[Severity: Low]
+This isn't a bug, but in the example node, interrupts should be placed
+right after reg to follow standard DT property ordering.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127-netrani-tl=
+mm-v3-v3-0-3bf3f0bbe5df@krgm.moe?part=3D1
