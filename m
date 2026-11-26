@@ -1,47 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795703784;
-	b=gwN16tGVawTV9IyzPnppfiSPgin3MRivyowM5EWvCyWYB+R98a1BSvJTyEuvKG7icCab
-	 tFZQEk++JxTLQOiOEncTR0kvDwFw5lkQTky4DlpK0zhgrGugbOFhSei7843HvPiWZXA+z
-	 rvm05hZmEIoLCku/9g7vLMcWjSlWYXbNY9MkejP5x+o9K6NCzwrwkiGJ4GF1LnqgO0mKI
-	 hEx8ryB7Rf+3q1A0QKZbQcrqynkX2yibUdNydn20sc+OPaT5bl/Ts4/e4GJXMJOpvN83F
-	 KjR2eulFcc8hawPbFU0MnjF1gwJ+/4sYyKPxiXRGV+HhhNGbfTqQI2FOtbLj2udStpg==
+	t=1795703800;
+	b=0zy3KvJ7Qi3urZyATAtPhqa+xXbpLxtlZaEGHAgsRyqudecPjZT7VjksfevZ3bf5oenl
+	 biu8A/jvbKIQ0gtSeUNRpnDHD5L+/aAjXgjdfriVIWd23fMHvwHDI93V5jXmTSxmKZNKS
+	 POS33jvQ6dTsxftSbwzGzF/0YM5kEVCUYAeX4KvZx5VjlOzfyLEhKc4tvCJ5V3MDgYz1e
+	 Y09qsienY+ydqfhJBD8dvZ+SibiMloNfSAeaH8H96I0lBJtJg3t7NNWRDDs9so0Q/3hZX
+	 v5bu9aGizuE019Z4xIdHlpzSqiLw+zoL18S7xT9XY6BV3LqrNqKZXiv6zjF5ZVg7ycQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795703784;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=zj0JE2YyafWc6urtXStDlJMn1hg/PIQWGQas+jhQ4rY=;
-	b=QX/sLPSjS5xqiyOIUCbf/BgWpQG7TEzRHCh1rsxPq9gOKpUmzybF2gJn/GF44yfn0mFg
-	 crpFELvwCRIQgYysH0DDCgpvocBXXglcTlmpfvkMTEzNbjDiEFpjqIZ7oAXzmiB0KgUtY
-	 hmIObxl7Y+c4Ea9k6vobfI2kRbOKl0VTa5DJi45ZUMYgo7vS2F47aUR3xuFcjH2D+jxEu
-	 vW+9X+DjmHMTHOvvB972hgZQBgvzJ7Bq0y4PFnZ1F38jy5Rup0A2YWJBvndynJ8JaA5at
-	 guUw8szGnZmZhJC3CEovGM355uiwxUxmcYt1xgNKVDeZRNpUyqFnrCH1mD9UJQo4Hng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795703800;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=SrVpOL/vsmOkgEFx/8WAFupqNXkkubNUnl9sC+8oIJ0=;
+	b=K9RUOsW45L5qGAnHpXJ3n44peY2PEguA9slvhKMh22BJ+PQNbBXYitYSgB+NAjjz5gWR
+	 0v2Cg/HxS3rAjXEvSP0QqVpNlQh0+Mq3XOg6zfx2KXT0NNjgzWZxLY9JPK8zJOeyqdjTS
+	 5xUAbS9XArye4RrU0mIybxCWFxnZyS52mYjJFSL2YzTbNzIITkW2XY4gTIIuzBKGyz8eM
+	 dt6JXWo05nWqmX7HbIeBuO0HdT/J6KvoJubSTl1onRpxvdLXDbrWgYBdzDlL7PYf4zYM7
+	 y6hWerwPcKRvrfcIOhLNiCBjEr3UeehiHKHWXSCm196PuY9ymBspiv695DGRwuG2lOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mRLysoad;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Ll2ieohY;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D02606A31C;
-	Thu, 26 Nov 2026 14:36:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41B32606A336
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 14:36:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41B32606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mRLysoad
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 815041F000C0;
-	Thu, 26 Nov 2026 14:36:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795703784;
-	bh=zj0JE2YyafWc6urtXStDlJMn1hg/PIQWGQas+jhQ4rY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=mRLysoadABmBeW3KIErKB7poC2Z7v6ZV49ekiOGD29UKxV7vMT9Tdgp95ihR49SPS
-	 baRpmglmNcxkMbHlPIE3Gokh/rKc67lpqEl98c2p2Y9WRAoNyjk1maBD4Jy0FjSFlm
-	 TKGRVCgqhj3UI1p1FR1BWZE6hZ3eEYGv3RK/cLr9yIZazYhwp9oYWvjXZjnn/Mj7M1
-	 19GP5oIU0kLPlni7vcpsK9WQ5YggRVuTS6bQcsbkjML++bWVZh+OMIZn82Dz+lIlgw
-	 0myTCkKfV9dY67yUTY0uFKRfJJE5ask5/kZZf+BontU+WbejgIGQzovZiQN6b45poH
-	 K6/0Qf6QNFjvg==
-Message-ID: <a77c9b9b-ae0b-455f-b51e-f5dfb47a753e@kernel.org>
-Date: Thu, 26 Nov 2026 15:36:12 +0100
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Ll2ieohY
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-4a3e706b5dfso4431601f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:36:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1795703798; x=1796308598; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SrVpOL/vsmOkgEFx/8WAFupqNXkkubNUnl9sC+8oIJ0=;
+        b=Ll2ieohYwEjw7jYZgh40Vz+Dj2ApGO1hxH6w3r/29uiXkJYbBTcAIsBesXHIn7ePkq
+         xbuUjZCJ/CdRZRURtPdlnoCCArqL9rbtybBnuXrGZ1nG7yDkkwebZ3moyLYzL72AS7/K
+         8X/G32FRmLn0nTFc+qJrt8PdEh5Y6fDSavg3DIV7yVRtjOJnwUeTeZlapDDM7Bfu6N1m
+         NCwIAjod+GRMVQhgQa979MbaL8LE27wT6xjmJpzF/5I5tAUR9enFlDEAiJHCJtyn05Tr
+         H1+10eQJ4RwwdNCfB3QOwEL8AM/B49mBU1CleRPeohoyoYwlTcIv6d2sp02q6o+N8deI
+         niNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795703798; x=1796308598;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SrVpOL/vsmOkgEFx/8WAFupqNXkkubNUnl9sC+8oIJ0=;
+        b=WykAkgEdl7aRAj/qwGXDG1BSUOvquvwL8/eZ7HcSAkAMWPopBd31CPtwOl5e/ojIqY
+         MjhFhzRqsqrxgTln+n22EFbB5qr9upK+UFOVYlSJuWSXQ1XH9BrrVgnkyiuYGcvJkmM7
+         35XA7nki3dEa+Azuz5/qUCgGkO1B8xZlxLovxwpVhK+QcmfX3Uchto/NAgMxY5pk6706
+         i5+igwyB5MRKTy8qNI1HCnpQbNuvsKTYGiSIn+2z7iWV3JhNTCyU2SN1fQTDzUvtYRHe
+         clQQcRR5ejJ7ds4hexM7ELqAKcAo+rSNCLIgV9d3OUREmLXrXIWvLNW91UjURi+jtaAR
+         xh9g==
+X-Forwarded-Encrypted: i=1; AL+hErHLZrDsLaZY60OOEqk/cH44KgnZ8yqCzV4qqVFN/nbEazrgg85jMQ5JUpB6jlWm908lTNveltRXDKaQ@vger.kernel.org
+X-Gm-Message-State: APuU4Z+zOU9zlkB3TGDWussZ4nMtqJSRFSj/U4AjSLsvrOZ1kkyfMFWH
+	ZeV93MDXw3piXImKOeAVbQoIjm7o4XCXcBNTTDKmkHBTg+jqPsX/ezldNQkLEAOBVVQ=
+X-Gm-Gg: AZFdTZeeNIyOEbWhOUKwjkY44ivrP9mMiv0x1Yn0rMav7MKZLuO0WQiDkayXIB8rwAU
+	YLbLRT0vssMCAXkp2+j1CotdTzWuhsnTkdZ7c1QWjciTsg+hELy48rQZ+9ojRxNZ/dFxNG8Axlx
+	52gmZRKzHP0dh9I1yVn3nTH2qvXdD8EixFBbOEUtAeSLW9IwHpBSZbHGpyrSvEx31Hi/fPBbFp9
+	oLeGBsG4Dr2L9txZBfOMwgoFopP/4Hrds+n7Z8T0EvbBxEfCz9n9qX9OuIhfHGpzVlMLkBAr1TC
+	hsuCrDSH+4KMwyH2eC9IH4NVtbFa7PzqHmAbClWT1a2HfkTcOIB4/K/8RSK8UJ0482j2IrDCNmM
+	V6H5caWWDJQa1IY0tvE69ZDECYHF+0CUEsZDVAKm6fXvDh5d0z80eUnNFusSC6XyryMn7rHul6o
+	QK7dtTnHf2O+BjSHQrPpkNU8DChvyrEgv7P/CoExVApxO0WXUiZmdcDOI5YqkiUJKTmuUkoSRHy
+	eOeIyWpt72Ts3r6bRndQ8jocKVNolZJ40FrLg4GiP1gTJCu1hFR+NGcVDTTVnBJEmp20Ne/Y8P6
+	X3ZSJM6kQG2UuaR/M/L2w3TWawjf
+X-Received: by 2002:a05:600c:1548:b0:4bb:7347:d5df with SMTP id 5b1f17b1804b1-4bb88814405mr445502155e9.13.1795703798534;
+        Thu, 26 Nov 2026 06:36:38 -0800 (PST)
+Received: from localhost ([195.94.148.180])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb906640a2sm340799515e9.0.2026.11.26.06.36.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 06:36:38 -0800 (PST)
+From: Andrea della Porta <andrea.porta@suse.com>
+X-Google-Original-From: Andrea della Porta <aporta@suse.de>
+Date: Thu, 26 Nov 2026 15:40:37 +0100
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Andrea della Porta <andrea.porta@suse.com>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	dmaengine@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Saenz Julienne <nsaenz@kernel.org>,
+	Stefan Wahren <wahrenst@gmx.net>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Phil Elwell <phil@raspberrypi.com>,
+	Dom Cobley <popcornmix@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 05/28] dmaengine: bcm2835: Fixes for dma_abort
+Message-ID: <awhE5UEnOtrXWX5l@apocalypse>
+References: <20261123145728.29082-1-andrea.porta@suse.com>
+ <20261123145728.29082-6-andrea.porta@suse.com>
+ <awXmrhJ4HToyCxOD@lizhi-Precision-Tower-5810>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,83 +114,112 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/9] dt-bindings: net: rockchip-dwmac: Allow iommus
-To: Arun Iyengar <aiyengar1990@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- David Wu <david.wu@rock-chips.com>, Damien Le Moal <dlemoal@kernel.org>,
- Niklas Cassel <cassel@kernel.org>, Serge Semin <fancer.lancer@gmail.com>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-ide@vger.kernel.org,
- Pranjal Shrivastava <praan@google.com>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, iommu@lists.linux.dev,
- Shawn Lin <shawn.lin@rock-chips.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>
-References: <20261113-mmu600-php-v1-0-231196049a3b@gmail.com>
- <20261113-mmu600-php-v1-1-231196049a3b@gmail.com>
- <20261123-quirky-scallop-of-beauty-c662b7@quoll>
- <CAEy9hNX-TiThoXZ9+Q7j=bB7PpNBr7Wjz8_sH7C081HXka4xHA@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAEy9hNX-TiThoXZ9+Q7j=bB7PpNBr7Wjz8_sH7C081HXka4xHA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <awXmrhJ4HToyCxOD@lizhi-Precision-Tower-5810>
 
-On 26/11/2026 09:55, Arun Iyengar wrote:
-> Sorry, I missed the report. v2 allows iommus only on the RK3588
-> compatibles and drops the nested ifs in 3/9. It follows once the
-> arm-smmu-v3 clocks/resets binding it needs is settled.
+Hi Frank,
+
+On 14:34 Tue 24 Nov     , Frank Li wrote:
+> On Mon, Nov 23, 2026 at 03:56:43PM +0100, Andrea della Porta wrote:
+> > From: Dom Cobley <popcornmix@gmail.com>
+> >
+> > There is a problem with the current abort scheme
+> > when dma is blocked on a DREQ which prevents halting.
+> >
+> > This is triggered by SPI driver which aborts dma
+> > in this state and so leads to a halt timeout.
+> >
+> > We attempt to abort the channel, which will work
+> > if there is no blocked DREQ.
 > 
+> use imperative mood descript the problem
+> 
+> >
+> > It it times out, we can assume there is no AXI
+> > transfer in progress and reset anyway.
+> >
+> > The length of the timeout is observed at ~20us.
+> 
+> wrap at 75 char
+> 
+> >
+> > Signed-off-by: Dom Cobley <popcornmix@gmail.com>
+> > Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
+> > ---
+> >  drivers/dma/bcm2835-dma.c | 32 +++++++++++++++++++++++---------
+> >  1 file changed, 23 insertions(+), 9 deletions(-)
+> >
+> > diff --git a/drivers/dma/bcm2835-dma.c b/drivers/dma/bcm2835-dma.c
+> > index 063e1b2aabe3..51e3a40dbaec 100644
+> > --- a/drivers/dma/bcm2835-dma.c
+> > +++ b/drivers/dma/bcm2835-dma.c
+> > @@ -419,7 +419,7 @@ static void bcm2835_dma_fill_cb_chain_with_sg(
+> >  static void bcm2835_dma_abort(struct bcm2835_chan *c)
+> >  {
+> >  	void __iomem *chan_base = c->chan_base;
+> > -	long timeout = 10000;
+> > +	long timeout = 100;
+> >
+> >  	/*
+> >  	 * A zero control block address means the channel is idle.
+> > @@ -428,19 +428,33 @@ static void bcm2835_dma_abort(struct bcm2835_chan *c)
+> >  	if (!readl(chan_base + BCM2835_DMA_ADDR))
+> >  		return;
+> >
+> > -	/* Write 0 to the active bit - Pause the DMA */
+> > -	writel(0, chan_base + BCM2835_DMA_CS);
+> > +	/* We need to clear the next DMA block pending */
+> > +	writel(0, chan_base + BCM2835_DMA_NEXTCB);
+> > +
+> > +	/* Abort the DMA, which needs to be enabled to complete */
+> > +	writel(readl(chan_base + BCM2835_DMA_CS) | BCM2835_DMA_ABORT | BCM2835_DMA_ACTIVE,
+> > +	       chan_base + BCM2835_DMA_CS);
+> >
+> > -	/* Wait for any current AXI transfer to complete */
+> > -	while ((readl(chan_base + BCM2835_DMA_CS) &
+> > -		BCM2835_DMA_WAITING_FOR_WRITES) && --timeout)
+> > +	/* wait for DMA to be aborted */
+> > +	while ((readl(chan_base + BCM2835_DMA_CS) & BCM2835_DMA_ABORT) && --timeout)
+> >  		cpu_relax();
+> 
+> use read_poll_timeout()
+> 
+> Frank
+> >
+> > -	/* Peripheral might be stuck and fail to signal AXI write responses */
+> > -	if (!timeout)
+> > +	/* Write 0 to the active bit - Pause the DMA */
+> > +	writel(readl(chan_base + BCM2835_DMA_CS) & ~BCM2835_DMA_ACTIVE,
+> > +	       chan_base + BCM2835_DMA_CS);
+> > +
+> > +	/*
+> > +	 * Peripheral might be stuck and fail to complete
+> > +	 * This is expected when dreqs are enabled but not asserted
+> > +	 * so only report error in non dreq case
+> > +	 */
+> > +	if (!timeout && !(readl(chan_base + BCM2835_DMA_TI) &
+> > +	   (BCM2835_DMA_S_DREQ | BCM2835_DMA_D_DREQ)))
+> >  		dev_err(c->vc.chan.device->dev,
+> > -			"failed to complete outstanding writes\n");
+> > +			"failed to complete pause on dma %d (CS:%08x)\n", c->ch,
+> > +			readl(chan_base + BCM2835_DMA_CS));
+> >
+> > +	/* Set CS back to default state and reset the DMA */
+> >  	writel(BCM2835_DMA_RESET, chan_base + BCM2835_DMA_CS);
+> >  }
+> >
 
-What's this about? There is no context here at all.
+I'll drop this patch in v4. As sashiko pointed out, it brings back the
+NEXTCONBK/ABORT sequence that commit 9e528c799d17 ("dmaengine: bcm2835:
+Fix abort of transactions") replaced after finding experimentally that
+it does not abort the control block.
+It is also not needed for the 40-bit channels, which have their own abort
+sequence.
 
-Best regards,
-Krzysztof
+Regards,
+Andrea
+
+> > --
+> > 2.51.0
+> >
