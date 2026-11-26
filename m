@@ -1,46 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795652536;
-	b=yTEO5FTPt5qQnZ5dIfreS2r2HM9va9jDuEmkE+2S5Uqeg3J3zlQr/t9VJnDzjBEqDe+d
-	 Wm6XbZJGSVCclFZ8lc5p+g2VSbk0cN5td6DUlZZQ5bRfE/KQmrNaZMdOhP8TsQkh7wbma
-	 iB06ca6EUA1mQBz8bQJAM0APc7W7IPVLMwvfSpp+6OnjFdLZmrExAIuKZ52fhoW7NMNG0
-	 s5eT8DfppHjfHzCYRC1RtVZCeCQhE7topUgri0OyFNuFeFdIaAaSvAeAJA9VKjeRQpm6B
-	 hreO5nws1o3yXgxPdSCDgTYmoUy2JEmxj7d2xwrUgb9FhNiNmWPXH6rT8qfMxvXyEUA==
+	b=XdgNBU1z5h6qoTq0uomjucG5Trj4ePuW2nHIDSl87zLdX05xsdpWtrpitZ8fIxSRNa6a
+	 UR2KuRPQQQnI6cbIVt1qGawJieaI8EJ7CTaNlEquTGECB58uvEJTgNtZHSK4jYG+ZY1KV
+	 pbslaZSLsbadItfz/7gCcOOKDUvBd2w3hu9eyKHZ57KsXnFOnZjprU6lt1zlDUYcjj8Tl
+	 uFGNMoJGD7lsHDRmlaqsKj9yk7OT1SZQ7rKp9SuHZ0XmA9ONCkIW0+AE4TUJvkKjvf79Y
+	 N2K/3lx7DJbtTWhQzGiSmAohDBcRswgl09+/gs+G8Qyqn37FrBSov1q7vhYQGbm+5cA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795652536;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=xNNL92OcqsGyu+v/1EvUmyOnv9Zhalz1FYFzTcPOxD0=;
-	b=tuw0l224R+9NcbzDi6lHiSMDtThxWKD5cBZKs6I7Py0uLzUEqlrqSaA1h3MMDF4hZ+Qd
-	 2DEKWOBNz9c9TDyaUED1hY5N3TxBH8fMNMVlr6COGEqUedACQmkMrD5zjcJmXYdTKJMlA
-	 DHNcWB97c9faE7ikaLE+pqMmjm5GN9fP9gejDbwhqpVb5uEOrmu75vt/Ic8uRpZ6baHKC
-	 AjjAWzAJc9MyjFRXgLl+IQgouAjyhyVbxUBZZ2b7naqDP7f/0pW2fE07zIM18624MSlQ+
-	 BSQp9Gy+EKS9+tNNoQsANBstwdfe2PozxVhmdgh75YOKS+oQQh1ls74SslumoSjMJzQ==
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=i5PbccdGZMDe1Z6+BcEaC6Vrjcw7rwsr6ATyclxsFg4=;
+	b=VvsEh/cs4oPgKBxCyxL6fgQtFAYWPVBu59WNON8PcVq7kd+6kEif5Z3pyMvdJ0+Vr7L5
+	 1kXNT0GlIMpVzpc3CzfVIaIxWLUr+H4zjjfJWuvLEkDPOZbLfkdoiFn5QohKGjFMoCYN7
+	 2zppN6rrZ45yHvOTE77gKmI9CY2oY+AJICxnAHkU5g88bXY9k6viFiwnIG8xJjj5alhQf
+	 /9Ie3RgBau10zZs8HgLR00fjQvdd+CEFVqYIo8FOfejwp7ZVyhYALMWNeYKOVRnvVrht+
+	 D0LRXaRVKKpmgk1MBxRiJvs8lIeqQNoPEYe51mO5n4eC8YhPBmWDRGAWjJDVksTBvZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=U5FZ6Vcd;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=p2jbjyZ5;
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B730C606A323;
-	Thu, 26 Nov 2026 00:22:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B730C606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A1444606A31E;
+	Thu, 26 Nov 2026 00:22:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1444606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=U5FZ6Vcd
+	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=p2jbjyZ5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=xNNL92OcqsGyu+v/1EvUmyOnv9Zhalz1FY
-	FzTcPOxD0=; b=U5FZ6VcdeWfYE6NQAxS5PoinqjzXyUWULdv9HgL6gO+WOkUTvn
-	DEJv4x/CXBqs70Ecb2Nelirkv29Y3gigSPRbESIyNmVP8OQR8ha+N3ecMZ/2+9ef
-	/dNMQQd6qfl7327HhHSq2bbMxOP2MTo9qbYs5i5KcWg9PxzDjjLzy4bZ8=
+	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=i5PbccdGZM
+	De1Z6+BcEaC6Vrjcw7rwsr6ATyclxsFg4=; b=p2jbjyZ5JnmjKCgBmnYLiFfIYB
+	suUb0urQq4YTH/g6GnkIYb4wklnKXBmu76ZnHxK7dNH3cW+HrUXTcv+APphqUJGS
+	EiKLGG93nARDptc8kraPa1jcWxR2XnxKfIJvz6ZWv7ZkUYeEATpQKI4FvXsV5I7a
+	0OajjbAg6YyiwKWAY=
 Received: from xuqianhui.ustc.edu.cn (unknown [114.214.181.84])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgAnnzOmewdrvLr5AA--.1516S4;
-	Thu, 26 Nov 2026 08:22:05 +0800 (CST)
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgAnnzOmewdrvLr5AA--.1516S2;
+	Thu, 26 Nov 2026 08:22:00 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 To: andersson@kernel.org,
 	konradybcio@kernel.org
@@ -52,12 +51,10 @@ Cc: abelvesa@kernel.org,
 	devicetree@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v9 2/2] arm64: dts: qcom: sm8750-lenovo-elden: add Lenovo Legion Y700 Gen4, a Qualcomm SM8750-based tablet
-Date: Thu, 26 Nov 2026 08:21:57 +0800
-Message-ID: <20261126002157.1954799-3-xiaqinghuan@mail.ustc.edu.cn>
+Subject: [PATCH v9 0/2] arm64: dts: qcom: sm8750-lenovo-elden: add the Lenovo Legion Y700 Gen4
+Date: Thu, 26 Nov 2026 08:21:55 +0800
+Message-ID: <20261126002157.1954799-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261126002157.1954799-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261126002157.1954799-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,207 +65,133 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgAnnzOmewdrvLr5AA--.1516S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxtw45Kr47Ww43Kw45Kr1Dtrb_yoW7Zr1rpF
-	srXFs3CrykuFyrKa15W34S93Z8Wws5CayvkryjkFW5C390kF97GF9FyF1rAF18JrZ7Xw4F
-	yFZxur92yF1kZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmvb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUXwA2048vs2IY020Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv
-	6xkF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzV
-	Aqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S
-	6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7Mx
-	kF7I0En4kS14v26r1q6r43MxkIecxEwVAFwVWDMxAIw28IcxkI7VAKI48JMxC20s026xCa
-	FVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_Jr
-	Wlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j
-	6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr
-	0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUv
-	cSsGvfC2KfnxnUUI43ZEXa7IU0XTmDUUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARECB2sGHiAuFQA2sL
+X-CM-TRANSID:3pYKCgAnnzOmewdrvLr5AA--.1516S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxtr4UKryfCr18uFyrZw1DKFg_yoW7XFW7pF
+	WDtrZ7ArykKryxGw4xJr1Iq345Zrn5Jr45Jr1kJ34UAF45XFyxtrsIva15uFyUuryku3W5
+	tFnxuwn0kF1kX3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9mb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
+	Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJV
+	W8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka
+	0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6w1l42xK82IYc2Ij64vIr41l4I
+	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
+	xVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
+	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8I
+	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
+	1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07brMa5UUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARECB2sGHiAuFQA0sJ
 
-The Lenovo Legion Y700 Gen4 (TB322FC) is an SM8750 tablet.  Add its
-devicetree with the board compatible, the chassis type, the GPIOs the boot
-firmware reserves and the board clocks, which the SM8750 dtsi consumes: the
-XO and sleep clocks and the two divided CXO derivatives, as on the other
-SM8750 boards.
+Adds the device tree for the Lenovo Legion Y700 Gen4 (TB322FC), an SM8750
+tablet, and the board compatible it needs.  The device tree is byte for
+byte the one posted as v7 and v8; v9 changes this letter and the changelog
+of 2/2, nothing else.
 
-The camera devices are powered by a WL2868C camera PMIC on i2c10: LDO1
-feeds the rear sensor DVDD, LDO2 the front sensor DVDD, LDO3 the front
-sensor AVDD, LDO4 the rear sensor AVDD, LDO5 the VCM VDD, LDO7 the DOVDD of
-both sensors and the VCM VDDIO, all at fixed voltages including the offsets
-programmed by the stock firmware.  LDO6 is not wired out on this board.
+Waiting on bindings
+===================
+Stated up front, as requested:
 
-This is one logical action - "add this new hardware" - so the board and the
-regulators it carries are described in a single commit.
+  2/2 waits on willsemi,wl2868c
+    Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
+    Landed as 84e67d2ee13f (binding) and 602f57223457 (driver) in
+    regulator.git for-7.5; not in v7.4-rc3, the base of this series.  It
+    appears in mainline with the 7.5 merge window.
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+  Merge order
+    1/2 (arm/qcom.yaml) has no dependency and can be applied right away.
+    2/2 only after the binding above is in the tree.  Taking 1/2 now and
+    2/2 after 7.5-rc1 is fine with me and needs no repost.
+
+  Cost of taking 2/2 early
+    Measured on v7.4-rc3, not assumed: with the binding applied on top,
+    dtbs_check reports 0 diagnostics for this board; without it, exactly
+    one, from that compatible:
+
+      sm8750-lenovo-elden.dtb: /soc@0/geniqup@8c0000/i2c@888000/pmic@2f:
+      failed to match any schema with compatible: ['willsemi,wl2868c']
+
+The USB Type-C receptacles are not part of this series for the same
+reason: they wait on another binding, which is in review and not merged:
+
+  [PATCH v16 0/3] usb: dwc3: support two connectors sharing one HS data bus
+  https://lore.kernel.org/linux-usb/20261125142309.3265777-1-xiaqinghuan@mail.ustc.edu.cn/
+
+The two patches
+===============
+1/2 documents "lenovo,elden" in the Qualcomm board binding.  Without that
+line dtbs_check rejects the board's root node, so a tree that builds still
+fails validation; it is the line v7 forgot.
+2/2 is the board itself, in one commit as asked in the v6 review:
+compatible, chassis type, the GPIO ranges the boot firmware reserves, the
+board clocks the SM8750 dtsi consumes, and the WL2868C camera PMIC on
+i2c10 with the voltages the stock firmware programs.
+
+Relation to Pengyu Luo's posting
+================================
+The board file was posted by Pengyu Luo in July ("[PATCH v2 0/2] Introduce
+Lenovo Legion Y700 Gen4"), which is at changes-requested with no v3.  We
+agreed on 2026-10-25 that I send it, with him in the loop, so this
+supersedes his v2.  The line in 1/2 is his: say which trailer form is
+wanted and I will add it (Co-developed-by needs his Signed-off-by too).
+
+Not described, not claimed
+==========================
+Wi-Fi/Bluetooth, camera sensors, ADSP sensors, audio, USB Type-C.  Neither
+the SPMI PMICs, the RPMh regulators nor the console are described, so this
+board description boots nothing by itself; that is the v6 comment, still
+true and not addressed here.
+
+Checks: v7.4-rc3 (aebb727447) worktree, 2026-11-26
+==================================================
+- git apply 1/2, 2/2: clean, no offset, no fuzz; resulting blobs equal the
+  patch "index" lines (qcom.yaml a32cfb30a1, Makefile e0b65a36c5, board
+  file 73f4452f46).
+- checkpatch.pl --strict --no-signoff: 1/2 0 errors 0 warnings 0 checks;
+  2/2 0 errors 1 warning 0 checks, the warning being the new-file
+  "does MAINTAINERS need updating?" prompt.
+- dt_binding_check, full tree: rc=0, no lint/style errors (5420 schemas)
+  and no output for arm/qcom.yaml.
+- dtbs_check with CHECK_DTBS=1 on sm8750-lenovo-elden, sm8750-mtp and
+  sm8750-qrd: three builds; diagnostics 1 / 0 / 0, and 0 for the board
+  once the willsemi,wl2868c binding above is applied.
+- No boot claim: the tablet runs a vendor 7.3 kernel and this tree was not
+  booted on it.
+
+Disclosure: prepared with an LLM coding assistant; the trees, the checks
+and every number in this letter were run and read by the author, who is
+responsible for the content.
+
+Qianhui Xu
 ---
-Changes in v9:
-- State the dependency explicitly, as asked: this patch is waiting on the
-  willsemi,wl2868c regulator binding,
-  Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml, which
-  is in regulator.git for-7.5 (84e67d2ee13f binding, 602f57223457 driver)
-  and not in v7.4-rc3.  Until it is in the tree, dtbs_check reports one
-  diagnostic here, on pmic@2f: "failed to match any schema with
-  compatible: ['willsemi,wl2868c']".  Merge this patch after that binding;
-  1/2 has no such dependency and can go in on its own.
-- No change to the device tree: the diff is byte-identical to v7 and v8.
+Changes since v8
+ (v8: https://lore.kernel.org/all/20261125091309.124354-1-xiaqinghuan@mail.ustc.edu.cn/)
+- The letter now says "this series waits on bindings" explicitly, on its
+  own section, and names them: willsemi,wl2868c, its file, the commits it
+  landed as, which tree, and the merge order for 1/2 and 2/2.  The rest of
+  the letter is cut accordingly (Krzysztof: "should be explicit about
+  waiting on bindings, instead of wall of text").
+- 2/2's changelog says the same thing on the patch itself.
+- 2/2 also answers the two [Medium] notes sashiko posted against v8 2/2:
+  the willsemi,wl2868c schema is the binding above (it arrives with 7.5 and
+  needs nothing from this series), and the absent SPMI PMIC / RPMh
+  regulators / console / storage nodes are the "not described" section of
+  this letter, as in v6 - out of scope here.
+- No diff change: 1/2 is unchanged since v8 and 2/2's diff is
+  byte-identical to v7 and v8 (cmp on the "diff --git" section).
 
-Changes in v8:
-- The series is split in two patches, with the board binding entry first;
-  no change to the device tree itself.  See the cover letter.
+Qianhui Xu (2):
+  dt-bindings: arm: qcom: document the Lenovo Legion Y700 Gen4
+  arm64: dts: qcom: sm8750-lenovo-elden: add Lenovo Legion Y700 Gen4, a
+    Qualcomm SM8750-based tablet
 
-Still open from the v6 thread (unchanged here, no way to validate them):
-SPMI PMIC, RPMh regulators and console are not described, so this is still
-the boot-infrastructure-less skeleton the v6 review commented on.
+ .../devicetree/bindings/arm/qcom.yaml         |   1 +
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ .../boot/dts/qcom/sm8750-lenovo-elden.dts     | 129 +++++++++++++
+ 3 files changed, 131 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 88230c4e00..e0b65a36c5 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -453,6 +453,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-hdk.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-mtp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-qrd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-valve-deckard.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-lenovo-elden.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-mtp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-qrd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk.dtb
-diff --git a/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
-new file mode 100644
-index 0000000000..73f4452f46
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
-@@ -0,0 +1,129 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) 2026, Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-+ */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include "sm8750.dtsi"
-+
-+/ {
-+	model = "Lenovo Legion Y700 Gen4";
-+	compatible = "lenovo,elden", "qcom,sm8750";
-+	chassis-type = "tablet";
-+
-+	clocks {
-+		xo_board: xo-board {
-+			compatible = "fixed-clock";
-+			clock-frequency = <76800000>;
-+			#clock-cells = <0>;
-+		};
-+
-+		sleep_clk: sleep-clk {
-+			compatible = "fixed-clock";
-+			clock-frequency = <32000>;
-+			#clock-cells = <0>;
-+		};
-+
-+		bi_tcxo_div2: bi-tcxo-div2-clk {
-+			compatible = "fixed-factor-clock";
-+			#clock-cells = <0>;
-+
-+			clocks = <&rpmhcc RPMH_CXO_CLK>;
-+			clock-mult = <1>;
-+			clock-div = <2>;
-+		};
-+
-+		bi_tcxo_ao_div2: bi-tcxo-ao-div2-clk {
-+			compatible = "fixed-factor-clock";
-+			#clock-cells = <0>;
-+
-+			clocks = <&rpmhcc RPMH_CXO_CLK_A>;
-+			clock-mult = <1>;
-+			clock-div = <2>;
-+		};
-+	};
-+
-+	/*
-+	 * VSYS of the camera PMIC is the always-on system rail of the tablet.
-+	 * The SPMI PMICs that generate it are not described yet, so it is
-+	 * modelled as a fixed regulator without a voltage constraint.
-+	 */
-+	wl2868c_vsys: regulator-vsys {
-+		compatible = "regulator-fixed";
-+		regulator-name = "wl2868c_vsys";
-+		regulator-always-on;
-+	};
-+};
-+
-+&gpi_dma2 {
-+	status = "okay";
-+};
-+
-+&qupv3_2 {
-+	status = "okay";
-+};
-+
-+&i2c10 {
-+	status = "okay";
-+
-+	pmic@2f {
-+		compatible = "willsemi,wl2868c";
-+		reg = <0x2f>;
-+		reset-gpios = <&tlmm 126 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&camera_pmic_default>;
-+		vsys-supply = <&wl2868c_vsys>;
-+
-+		regulators {
-+			/* Voltages include the offsets programmed by stock firmware. */
-+			camera_ldo1: ldo1 {
-+				regulator-name = "camera_ldo1";
-+				regulator-min-microvolt = <1128000>;
-+				regulator-max-microvolt = <1128000>;
-+			};
-+
-+			camera_ldo2: ldo2 {
-+				regulator-name = "camera_ldo2";
-+				regulator-min-microvolt = <1288000>;
-+				regulator-max-microvolt = <1288000>;
-+			};
-+
-+			camera_ldo3: ldo3 {
-+				regulator-name = "camera_ldo3";
-+				regulator-min-microvolt = <2816000>;
-+				regulator-max-microvolt = <2816000>;
-+			};
-+
-+			camera_ldo4: ldo4 {
-+				regulator-name = "camera_ldo4";
-+				regulator-min-microvolt = <2824000>;
-+				regulator-max-microvolt = <2824000>;
-+			};
-+
-+			camera_ldo5: ldo5 {
-+				regulator-name = "camera_ldo5";
-+				regulator-min-microvolt = <2808000>;
-+				regulator-max-microvolt = <2808000>;
-+			};
-+
-+			/* LDO6 is not wired out on this board. */
-+			camera_ldo7: ldo7 {
-+				regulator-name = "camera_ldo7";
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+			};
-+		};
-+	};
-+};
-+
-+&tlmm {
-+	gpio-reserved-ranges = <39 1>, <74 1>;
-+
-+	camera_pmic_default: camera-pmic-default-state {
-+		pins = "gpio126";
-+		function = "gpio";
-+		bias-disable;
-+	};
-+};
+-- 
+2.53.0
 
