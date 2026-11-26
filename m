@@ -1,53 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795702642;
-	b=YgOf58F93ea/wfpnHIaMA7Lmm5lDORhWUcKZroz81ujedhlOPRHN45q6nFxwaJhC6Akv
-	 5yHa1uPh1FlKqaZKMDqWcwHQufXFBEfAfW8ewp3t8S3dIVxwgZ4TNOXUC2J+3mDLO1B7P
-	 YDgpXPe5YKiR/J0ZXBj7gp33LQfviNBvHIjXLZQL+QFt2A1SrklqlLefIF7q9L7ZWMpcD
-	 JOb65bhvc8ZvqBV/sB/3RFs0iGOBZ4P94iuSGTjlL+94zpNbaAukUddz0THTJH4SYIznk
-	 Rm1haqnqGPgodt4iwg8RqBPdJcpbrjQlSAKM0SdwDUeulvtgpp1ZpI32qwWX4SuACsA==
+	t=1795702714;
+	b=aI6RY/woUlPCXoFnlCwn0Fyxl0feB3Y3eLo9bjZXvE2ZTfySMGTZg9k1WRePO0tzHuct
+	 DdLllQvs2snZ2asvO5VExhCu+rbirsKUVrGj9ymjQ33gcAN0E3hw8Ki3LQLjvuHIROFFJ
+	 7dCo0Cz6YAiMg62UEQbm6vd7Tgmk4x6Tmsq4Kpa4w/b4jG1e/fvD8c+5KVUlJ8iMtsBLI
+	 aul1+U/Bd1RuLKuB1B0H5U/eBdKp5oeO/UVwZh1VKXsvF1C/w2YijkNtl+Azj5F79ttBU
+	 ZLF5h90icICSNSlCvZLHKHIn5qKS6fW1mXmtcLhV05TDYNDHcXC6kucLtqoxxvySOPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795702642;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Ek0TAsK5PjVLM/HBOxfS2veUV8l2ImkiOAkwJh/IuAY=;
-	b=IIpboJCD2DKd+w4Ppv5aWBhaXOdorvmsYBjeLr+qM5ZNlmKNFyjzyjzcaJ2V9bbHHmMH
-	 Lzhek4H//N6GDKOHWx6L4wvlxB+pTNO6bNfDBiw2IJsVWx9MTbh8PWnyo2Z3cIDkeCh4m
-	 ezcLlMSxiKxcvxkVVlPmTG6Jhu9xAPcRzUeeW4AYvkDXOSrHwZuzRJmNIfE4V5DGK/sqD
-	 oe3HWTyxG5XC7Kqto+0pWfc+z8+g4iUVok38DoY3Pino+ti8/JHRKw3+L3wNK7Mf07gcc
-	 hK4cjFyJ+gYXXjLI58sOs1QbtoSMAzk7h38R1XXf6dnvZTL7n4oECiELHaa/zxaVJ+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795702714;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=NyKzTXadaH80KPU41rwaODjR1cCn4hE+RiYMnZpd86g=;
+	b=hnPWp49HbeFGWBNcRo9l0LOoTO84syeYQWFcpKNmOEVx2xPBNP/fYy5/dBkfrWby5CJb
+	 LgaDu0gKk7a9X27sGnF5ekP54KeolAVEVu9N3QVTDh42NgWdcnQwEWH1axWdXT2QsnWdD
+	 m5BT03zvEoWouwJE99G0LaUifClHFYaaLpebvrTgz7L64hEENxBDWFcz7XVcHWhFpmhoM
+	 b3qgjuywwkZonTfI95Ugl9Nw4sc1PXD1dZaiWSP3bFF00KVLXzF9F3Vm4LRu0nFTh46vu
+	 teT14Ack2A/y+H02vQ5hPeU0kAlm2cu8CatUbQzUhiCvxTUWMTB/IuF4WgA4mWsT38Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=kunu7xQV;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=Rg+rCHOH;
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TKkG0YX2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C69BC606A31C;
-	Thu, 26 Nov 2026 14:17:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C69BC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E62DB606A31E;
+	Thu, 26 Nov 2026 14:18:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=kunu7xQV;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=Rg+rCHOH
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1795702629; bh=Ek0TAsK5PjVLM/HBOxfS2ve
-	UV8l2ImkiOAkwJh/IuAY=; b=kunu7xQVv35J7CHgGUrHf2X32WUe3xDdbDIjmeyHD8gxIlKitr
-	Wf1REQBhLhe0Ar36GV8UH05rEE6xOaJMJKDtosltYJuzo3ZQb8qlwO4ME1rv/l4gdQBYjWC9/DM
-	YXprcwt2DcFVzmuFfBvQFqQUzdFf/BGFI8KKOFnQhgx/tANx2M9zDEUwVuER5h5e8/BpR/D5Bo+
-	JZdaAryJ5k+WF9JkUpPRS7NeJfPIdpEmTGkrPobVmXipSleP452krDRoD+g5ppoLfsL7CFgk/gH
-	a8egm1Q0/sWgHMlxzgV8XaB+jXVHHwLWTBV4Uq4/eT0KvN/GQiJs/hcF+zkGn4QD/mw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1795702629; bh=Ek0TAsK5PjVLM/HBOxfS2ve
-	UV8l2ImkiOAkwJh/IuAY=; b=Rg+rCHOHW8HCrl/VqtqJGLro6sxF2mkU9RNUnAPu2DtOZxNRPT
-	LenbWjpJL+yoZklfYDLx+ZtCDeKyu4cIlXAw==;
-Message-ID: <512c6ecf-7696-465e-a2c5-d414f2d64939@mainlining.org>
-Date: Thu, 26 Nov 2026 17:17:08 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TKkG0YX2
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 0721D1F000D1;
+	Thu, 26 Nov 2026 14:18:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795702713;
+	bh=NyKzTXadaH80KPU41rwaODjR1cCn4hE+RiYMnZpd86g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TKkG0YX2wb7BkJBT5asY8jsFXrQuwOipsZzhH1M+s97eq57mxGxAVspA9aqxFr0Hr
+	 9neyTwJY+BHUAYaaHfuU10yUrLzQGp7ycUQWDNTFUyhxVjmfdz3iggeF3XU8ZB4c3f
+	 pZUQ3eICTufypMiM0p/bNzAbXp36P8eamOlf4ImvMPz6awcJ1DjPqsnGsiSyGwKpbh
+	 P2RFvo3LeHh+dMgbhDrftSeP5hZpl2NeCw45q1OU/44oI2PPlxw631sma+ciNlTA6F
+	 6umxiR38hL4E1QuAlqx3q+5NAVSIYOyyoog8HlNZF+mpB9wA/UbqqOcqdVBDmSbKND
+	 2M0+hbriCKn6Q==
+Date: Thu, 26 Nov 2026 15:18:29 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Xilin Wu <sophon@radxa.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>, 
+	dragon@radxa.com
+Subject: Re: [PATCH v4 4/4] firmware: qcom: scm: Allow QSEECOM for Radxa
+ Dragon Q8B
+Message-ID: <p3kffrgkkxa2gzszqa73rro6vcxtc3aho4srjvinq4cxfbierh@xm3esomojnns>
+References: <20261029-q8b-dts-v4-0-e8e7438f5545@radxa.com>
+ <20261029-q8b-dts-v4-4-e8e7438f5545@radxa.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,49 +70,15 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: firmware: qcom: scm: fix CP_ADSP_SHARED
- VMID value
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Gianluca Boiano <morf3089@gmail.com>
-References: <20261124-qcom-adsp-shared-vmid-fixes-v1-0-f1a808dc41a5@mainlining.org>
- <20261124-qcom-adsp-shared-vmid-fixes-v1-1-f1a808dc41a5@mainlining.org>
- <179559535967.14607.13377213266450757103.b4-reply@b4>
-Content-Language: ru-RU, en-US
-From: Nickolay Goppen <setotau@mainlining.org>
-In-Reply-To: <179559535967.14607.13377213266450757103.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-q8b-dts-v4-4-e8e7438f5545@radxa.com>
 
+On Thu, Oct 29, 2026 at 06:13:38PM +0800, Xilin Wu wrote:
+> Add Radxa Dragon Q8B to the QSEECOM allowlist for enabling access to
+> efivars and uefi bootloader.
+> 
+> Signed-off-by: Xilin Wu <sophon@radxa.com>
+> ---
 
-25.11.2026 11:29, Krzysztof Kozlowski пишет:
-> On 2026-11-24 19:52 +0300, Nickolay Goppen wrote:
->> From: Gianluca Boiano <morf3089@gmail.com>
->>
->> CP_ADSP_SHARED was taken from downstream AC_VM_ADSP_HEAP_SHARED, which
->> is defined there as decimal 33, i.e. 0x21, not 0x33.
->>
->> TZ on SDM636 accepts assigning the ADSP heap to 0x21 and rejects 0x33
->> with -EINVAL.
-> So not a binding? The value is abstract, just fix firmware... even the
-> drivers are not really treating this as DT ABI.
->
-> Anyway, any ABI break must be explicit in commit msg, better with
-> explanation what was actually not working.
->
-A mentioned misinterpreted vmid value leads to probe loop as tz rejects 
-this value and probe fails
->
-> Best regards,
-> Krzysztof
->
--- 
-Best regards,
-Nickolay
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
