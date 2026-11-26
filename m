@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795703465;
-	b=I9gAlrs++dqJ418Jmoh6UqERyKgq19wApRWf2284KwEzXd2Gh9jE6vsZ/EwpOdtVeEU1
-	 N6IM11DqH1h6YuZ0o79yJkZRGqbc755fQEojicpRE51mAkGShatvUF/AANSEBF75c3GPL
-	 6KY9KXNJBP3ydx6JKhhYp9JGNqzSpLARusxThMgMyEhYRlhfocIWcOTzfTK7+ByRxWMEC
-	 bM4icfUoJKhVM3s4/vUWwBQXM5yKSYzIIuFRYM5JJk468hpl2vbdOInUHF+OpiHaedbp2
-	 Am7fIv1R7lXmq67RAirtRSrxnTvyYH6/RG3fY6vC9N1Q+ROvFgFwNLlqxhLMtpOuseQ==
+	t=1795703475;
+	b=TyW0R1uKVLH5NNZYuKzwtY2PWhQhPhhnKwCIX+iv3ZevM8O4xtFa6kwqkKOHqsctBG9A
+	 tN9Dd3AfIaW0im2cV0eNlrdt2oK9SZfobDcY+n/x+TGwYIe1kZ+l3s1NCRkzVP8yXzduw
+	 c6Jmv/rrTMiiyGNzP7ujZzIT9GkYfbrgxULpCuYO4bu6r8CJN9PDreakya0VTlW03On+G
+	 PpcZ1CIybv8KVeWUjpBHO9I1xvjcZVaYOMNdxhC9co8GAGWnqJlrCv3mJ8h5JFMaD9GA+
+	 IO0hT/hhkIGSi56S/KwxnFBu5Oi9Oqpuqvm4+MEQrHhINtDsHtCS27zIkwwggDzlCuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795703465;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795703475;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9lAyvwZZT5v+wcmdHg5kmxZfIU39+yV0fKjX8zUkDT8=;
-	b=W6+rsxoT1gM6v19ixO2BjpJbGSZgCcAWyPxj2rQuob6eO7elpidwFgpfFPiCU80MfByi
-	 f6wfSK+/0qMbSuHd2F25gy09NQwsEoPLUUwq5gDD1M5Jvfl7i2rClj7/mtfxYbklpqTTp
-	 hhF4g6fO7sKBiObKgaoLDRaFyrmcTLD3bTOQsmjQEN8X6hq7LYRCrNl2iF3vMFTQuNdja
-	 g4+zRvzxf2SMD5ae5ea+AbxNTXbn3D2AW2bpR/gpdfseQXLNxiY8LkamHL7mj/3Ux2CRI
-	 1cWYqlkMNWRy1P+aasmt+R0a8GwGhzt9JEKpxQDTdNS926rynS00wDqzJsC19Sm02Mg==
+	bh=LcCyyNEShtN9NDQID84OguusVHpvilueb19Q0/nztUw=;
+	b=lVGikw8ue2590ivzsfh5GVL410/C4bb09VLLN8gS9B1i8xvzoarCBS+ZAQNH/buSNrnM
+	 ruxOS0X3RS7imSuzCcnx8WJ2AEqqwJPqDei+7k1s7jK/TO14PKDepLFPZGoxKP3meU3Fy
+	 J2PiRxT/ZomLpQshRDjF22dWGIBJbfiED8TDc2LbMBBWWOLSRNUlVXVrXahRE0j7oq42i
+	 S8kZvjMtpQop0yDexSoN5K4UQB64k8c0acTX7TymGls8McgL0NeruYaZnLyZlzgtY7Bid
+	 97PlmQ4WXshrGA5+bYIprpBCHgGbpdW0QRoWUPsdtwfga4+ZyU19L3olKlbzWsp01Pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FiV8CNgP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y1TwWXBB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24DA2606A6AE;
-	Thu, 26 Nov 2026 14:31:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35D76606A32A;
+	Thu, 26 Nov 2026 14:31:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FiV8CNgP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FBAF1F000CA;
-	Thu, 26 Nov 2026 14:31:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y1TwWXBB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AC361F000D2;
+	Thu, 26 Nov 2026 14:31:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795703464;
-	bh=9lAyvwZZT5v+wcmdHg5kmxZfIU39+yV0fKjX8zUkDT8=;
+	s=k20260515; t=1795703474;
+	bh=LcCyyNEShtN9NDQID84OguusVHpvilueb19Q0/nztUw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FiV8CNgPVYOrHabdZiI8fBsgAT4tayHRtJKcJk3tcUKHZegmR2hE58QZHSJC7p4DC
-	 cbukvz0Mo887ktpwC3J0mMriCWEj1r31isM6pHGNd+6P/OvzDHUrF2CkgVd2A4Hknj
-	 Gx1jVnGDfUa4uD+Cx1rj2nJ6G78N1Z33k8ZXJN3ZhXncUIhfBm4LJO+/X3JBK1p5+Y
-	 qq9cfpdXJUlbtrllqiIgfPIPL9xNn2hS2vOaOdgoaepV1gIIk6I+S59HGRgaI0ITMD
-	 tqEfiY+efbrK3sPegXI31V5od80Hvh0sGC9pb0vn4d9ZdXm2VQNRbNWVcMA7gyWndy
-	 HJK1sIhHjpMYg==
+	b=Y1TwWXBBysulR1Y+3XoqWzYv7qSSg5rw3/lMPVNRv/EgUpr1FJhuoEUS1QZtP1/cC
+	 1UlMql6P0Omd1S7T7aUOOV/8keGEy9xrT4eqCj7Z54cGULL9PZq45oEMcCRFQU76uT
+	 /VwO/BRE2MqYtc72zXlbhF62QPExUDN1m6n2D79T7AQX+K/pFNPdMZ1dOxQpC19ay9
+	 uXMyb1uKIm5xpe4rMPvbqewAZeyzTwgcKkx+E9R3yN0NSDmceKcNOBSdmHz8aJiXjg
+	 memlqBLKShEDb06TOgJGqq2wFns0xUSsrZlaxM4UkAJIyP2hL2w98Z70ybIqbGm5yh
+	 AFR/qX0/hG6AQ==
 From: Geert Uytterhoeven <geert@kernel.org>
 To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
 	Rob Herring <robh@kernel.org>,
@@ -51,11 +51,10 @@ To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
 Cc: linux-pwm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-renesas-soc@vger.kernel.org,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v2 2/6] dt-bindings: pwm: renesas,pwm-rcar: Add support for R-Car X5H
-Date: Thu, 26 Nov 2026 15:30:37 +0100
-Message-ID: <5990ba1efe6a6936272e6dc1993b7e656690b1d4.1795702568.git.geert+renesas@glider.be>
+	Geert Uytterhoeven <geert+renesas@glider.be>
+Subject: [PATCH v2 5/6] pwm: rcar: Parametrize cycle counter field size
+Date: Thu, 26 Nov 2026 15:30:40 +0100
+Message-ID: <114735221f5a3e9a331768e87ee3c165aa82fcc2.1795702568.git.geert+renesas@glider.be>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1795702568.git.geert+renesas@glider.be>
 References: <cover.1795702568.git.geert+renesas@glider.be>
@@ -72,96 +71,148 @@ Content-Transfer-Encoding: 8bit
 
 From: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Document support for the Pulse Width Modulation (PWM) module in the
-Renesas R-Car X5H (R8A78000) SoC.
-
-R-Car Gen5 enlarged the PWM output cycle and high-level period fields
-from 10 to 24 bits.  While the added register bits have initial states
-of all-zeroes, and thus look compatible with previous generations, the
-register bits may have been modified before Linux boots.  Hence no
-fallback to renesas,pwm-rcar is included.
+Prepare for the advent of PWM blocks with output cycle and high-level
+period fields larger than 10 bits by parametrizing the field size.
 
 Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
 v2:
-  - Add Reviewed-by.
+  - No changes.
 ---
- .../bindings/pwm/renesas,pwm-rcar.yaml        | 61 ++++++++++---------
- 1 file changed, 33 insertions(+), 28 deletions(-)
+ drivers/pwm/pwm-rcar.c | 51 +++++++++++++++++++++++++++---------------
+ 1 file changed, 33 insertions(+), 18 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/pwm/renesas,pwm-rcar.yaml b/Documentation/devicetree/bindings/pwm/renesas,pwm-rcar.yaml
-index 2fe1992e29088c9a..424ca1e2df15354c 100644
---- a/Documentation/devicetree/bindings/pwm/renesas,pwm-rcar.yaml
-+++ b/Documentation/devicetree/bindings/pwm/renesas,pwm-rcar.yaml
-@@ -11,34 +11,39 @@ maintainers:
+diff --git a/drivers/pwm/pwm-rcar.c b/drivers/pwm/pwm-rcar.c
+index f1f68bfe016f729f..3813094c601efc8c 100644
+--- a/drivers/pwm/pwm-rcar.c
++++ b/drivers/pwm/pwm-rcar.c
+@@ -22,7 +22,7 @@
+ #include <linux/slab.h>
  
- properties:
-   compatible:
--    items:
--      - enum:
--          - renesas,pwm-r8a7742   # RZ/G1H
--          - renesas,pwm-r8a7743   # RZ/G1M
--          - renesas,pwm-r8a7744   # RZ/G1N
--          - renesas,pwm-r8a7745   # RZ/G1E
--          - renesas,pwm-r8a77470  # RZ/G1C
--          - renesas,pwm-r8a774a1  # RZ/G2M
--          - renesas,pwm-r8a774b1  # RZ/G2N
--          - renesas,pwm-r8a774c0  # RZ/G2E
--          - renesas,pwm-r8a774e1  # RZ/G2H
--          - renesas,pwm-r8a7778   # R-Car M1A
--          - renesas,pwm-r8a7779   # R-Car H1
--          - renesas,pwm-r8a7790   # R-Car H2
--          - renesas,pwm-r8a7791   # R-Car M2-W
--          - renesas,pwm-r8a7794   # R-Car E2
--          - renesas,pwm-r8a7795   # R-Car H3
--          - renesas,pwm-r8a7796   # R-Car M3-W
--          - renesas,pwm-r8a77961  # R-Car M3-W+
--          - renesas,pwm-r8a77965  # R-Car M3-N
--          - renesas,pwm-r8a77970  # R-Car V3M
--          - renesas,pwm-r8a77980  # R-Car V3H
--          - renesas,pwm-r8a77990  # R-Car E3
--          - renesas,pwm-r8a77995  # R-Car D3
--          - renesas,pwm-r8a779a0  # R-Car V3U
--          - renesas,pwm-r8a779g0  # R-Car V4H
--          - renesas,pwm-r8a779h0  # R-Car V4M
--      - const: renesas,pwm-rcar
-+    oneOf:
-+      - items:
-+          - enum:
-+              - renesas,pwm-r8a7742   # RZ/G1H
-+              - renesas,pwm-r8a7743   # RZ/G1M
-+              - renesas,pwm-r8a7744   # RZ/G1N
-+              - renesas,pwm-r8a7745   # RZ/G1E
-+              - renesas,pwm-r8a77470  # RZ/G1C
-+              - renesas,pwm-r8a774a1  # RZ/G2M
-+              - renesas,pwm-r8a774b1  # RZ/G2N
-+              - renesas,pwm-r8a774c0  # RZ/G2E
-+              - renesas,pwm-r8a774e1  # RZ/G2H
-+              - renesas,pwm-r8a7778   # R-Car M1A
-+              - renesas,pwm-r8a7779   # R-Car H1
-+              - renesas,pwm-r8a7790   # R-Car H2
-+              - renesas,pwm-r8a7791   # R-Car M2-W
-+              - renesas,pwm-r8a7794   # R-Car E2
-+              - renesas,pwm-r8a7795   # R-Car H3
-+              - renesas,pwm-r8a7796   # R-Car M3-W
-+              - renesas,pwm-r8a77961  # R-Car M3-W+
-+              - renesas,pwm-r8a77965  # R-Car M3-N
-+              - renesas,pwm-r8a77970  # R-Car V3M
-+              - renesas,pwm-r8a77980  # R-Car V3H
-+              - renesas,pwm-r8a77990  # R-Car E3
-+              - renesas,pwm-r8a77995  # R-Car D3
-+              - renesas,pwm-r8a779a0  # R-Car V3U
-+              - renesas,pwm-r8a779g0  # R-Car V4H
-+              - renesas,pwm-r8a779h0  # R-Car V4M
-+          - const: renesas,pwm-rcar
-+      - items:
-+          - enum:
-+              - renesas,pwm-r8a78000  # R-Car X5H
-+          - const: renesas,rcar-gen5-pwm
+ #define RCAR_PWM_MAX_DIVISION	24
+-#define RCAR_PWM_MAX_CYCLE	1023
++#define RCAR_PWM_MAX_CYCLE(rp)	GENMASK(rp->cycle_bits - 1, 0)
  
-   reg:
-     # base address and length of the registers block for the PWM.
+ #define RCAR_PWMCR		0x00
+ #define  RCAR_PWMCR_CC0_MASK	GENMASK(19, 16)
+@@ -32,14 +32,17 @@
+ #define  RCAR_PWMCR_EN0		BIT(0)
+ 
+ #define RCAR_PWMCNT		0x04
+-#define  RCAR_PWMCNT_CYC0_MASK	0x03ff0000
+-#define  RCAR_PWMCNT_CYC0_SHIFT	16
+-#define  RCAR_PWMCNT_PH0_MASK	0x000003ff
+-#define  RCAR_PWMCNT_PH0_SHIFT	0
++#define  RCAR_PWMCNT_CYC0_MASK	GENMASK(31, 16)
++#define  RCAR_PWMCNT_PH0_MASK	GENMASK(15, 0)
+ 
+ struct rcar_pwm_chip {
+ 	void __iomem *base;
+ 	struct clk *clk;
++	unsigned int cycle_bits;
++};
++
++struct rcar_pwm_info {
++	unsigned int cycle_bits;
+ };
+ 
+ static inline struct rcar_pwm_chip *to_rcar_pwm_chip(struct pwm_chip *chip)
+@@ -77,7 +80,7 @@ static int rcar_pwm_get_clock_division(struct rcar_pwm_chip *rp, int period_ns)
+ 	if (clk_rate == 0)
+ 		return -EINVAL;
+ 
+-	div = (u64)NSEC_PER_SEC * RCAR_PWM_MAX_CYCLE;
++	div = mul_u32_u32(NSEC_PER_SEC, RCAR_PWM_MAX_CYCLE(rp));
+ 	tmp = (u64)period_ns * clk_rate + div - 1;
+ 	tmp = div64_u64(tmp, div);
+ 	div = ilog2(tmp - 1) + 1;
+@@ -111,21 +114,19 @@ static int rcar_pwm_set_counter(struct rcar_pwm_chip *rp, int div, u64 duty_ns,
+ 
+ 	/* div <= 24 == RCAR_PWM_MAX_DIVISION, so the shift doesn't overflow. */
+ 	tmp = mul_u64_u64_div_u64(period_ns, clk_rate, (u64)NSEC_PER_SEC << div);
+-	if (tmp > FIELD_MAX(RCAR_PWMCNT_CYC0_MASK))
+-		tmp = FIELD_MAX(RCAR_PWMCNT_CYC0_MASK);
+-
+-	cyc = FIELD_PREP(RCAR_PWMCNT_CYC0_MASK, tmp);
++	cyc = min(tmp, RCAR_PWM_MAX_CYCLE(rp));
+ 
+ 	tmp = mul_u64_u64_div_u64(duty_ns, clk_rate, (u64)NSEC_PER_SEC << div);
+-	if (tmp > FIELD_MAX(RCAR_PWMCNT_PH0_MASK))
+-		tmp = FIELD_MAX(RCAR_PWMCNT_PH0_MASK);
+-	ph = FIELD_PREP(RCAR_PWMCNT_PH0_MASK, tmp);
++	ph = min(tmp, RCAR_PWM_MAX_CYCLE(rp));
+ 
+ 	/* Avoid prohibited setting */
+ 	if (cyc == 0 || ph == 0)
+ 		return -EINVAL;
+ 
+-	rcar_pwm_write(rp, cyc | ph, RCAR_PWMCNT);
++	rcar_pwm_write(rp,
++		       FIELD_PREP(RCAR_PWMCNT_CYC0_MASK, cyc) |
++		       FIELD_PREP(RCAR_PWMCNT_PH0_MASK, ph),
++		       RCAR_PWMCNT);
+ 
+ 	return 0;
+ }
+@@ -142,12 +143,15 @@ static void rcar_pwm_free(struct pwm_chip *chip, struct pwm_device *pwm)
+ 
+ static int rcar_pwm_enable(struct rcar_pwm_chip *rp)
+ {
+-	u32 value;
++	u32 value, cyc, ph;
+ 
+ 	/* Don't enable the PWM device if CYC0 or PH0 is 0 */
+ 	value = rcar_pwm_read(rp, RCAR_PWMCNT);
+-	if ((value & RCAR_PWMCNT_CYC0_MASK) == 0 ||
+-	    (value & RCAR_PWMCNT_PH0_MASK) == 0)
++	cyc = FIELD_GET(RCAR_PWMCNT_CYC0_MASK, value);
++	ph = FIELD_GET(RCAR_PWMCNT_PH0_MASK, value);
++
++	if ((cyc & RCAR_PWM_MAX_CYCLE(rp)) == 0 ||
++	    (ph & RCAR_PWM_MAX_CYCLE(rp)) == 0)
+ 		return -EINVAL;
+ 
+ 	rcar_pwm_update(rp, RCAR_PWMCR_EN0, RCAR_PWMCR_EN0, RCAR_PWMCR);
+@@ -202,11 +206,16 @@ static const struct pwm_ops rcar_pwm_ops = {
+ 
+ static int rcar_pwm_probe(struct platform_device *pdev)
+ {
++	const struct rcar_pwm_info *info;
+ 	struct device *dev = &pdev->dev;
+ 	struct rcar_pwm_chip *rcar_pwm;
+ 	struct pwm_chip *chip;
+ 	int ret;
+ 
++	info = of_device_get_match_data(dev);
++	if (!info)
++		return -ENODEV;
++
+ 	chip = devm_pwmchip_alloc(dev, 1, sizeof(*rcar_pwm));
+ 	if (IS_ERR(chip))
+ 		return PTR_ERR(chip);
+@@ -222,6 +231,8 @@ static int rcar_pwm_probe(struct platform_device *pdev)
+ 		return PTR_ERR(rcar_pwm->clk);
+ 	}
+ 
++	rcar_pwm->cycle_bits = info->cycle_bits;
++
+ 	chip->ops = &rcar_pwm_ops;
+ 
+ 	platform_set_drvdata(pdev, chip);
+@@ -247,8 +258,12 @@ static void rcar_pwm_remove(struct platform_device *pdev)
+ 	pm_runtime_disable(&pdev->dev);
+ }
+ 
++static const struct rcar_pwm_info rcar_pwm_info = {
++	.cycle_bits = 10,
++};
++
+ static const struct of_device_id rcar_pwm_of_table[] = {
+-	{ .compatible = "renesas,pwm-rcar" },
++	{ .compatible = "renesas,pwm-rcar", .data = &rcar_pwm_info },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, rcar_pwm_of_table);
 -- 
 2.43.0
 
