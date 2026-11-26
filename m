@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795660749;
-	b=FVaOeT8BI7hiMusUZUyiky4kjIQhM9xGCAvg2sxyaIzD9J+71XB7BiRYrbKJLeJ2bmZb
-	 ZLwi1eJkR139epzBgzAPgxo2o71YsOlMK2CsQRcJ/4qrzLhaZTc17pcMRwMQyxFbrxBeU
-	 aNXPiYDid+oftjGkonJFOP90eLNL0EiPcCiLdTaZbWrsT9m/f7kpyiBU5JwCBBrpDVz9L
-	 pZuU6sPIMRP4/vMPuNrtP4eutHYdRgo0Uj90xbxUM8GAWPEq3O0XN6UlAiNSV0VNwDiqX
-	 k2pBwWE93E/vtogvtQLX3mMdatMCGlMprV3tKZZ22qfCZ70VXntJ438I8JWebz9TFOQ==
+	t=1795660750;
+	b=CEVenauVZPwsBRiOM9PD0BIuU6TfaBDLPV6tHglqZgLlKnc+BHxLlMHfm23C+Jj3fNnH
+	 9NUpITnKSu1YCPExJBWW4z2H1ZJf6ekoear3FddEzr5nGpL/1DA+KYgMGWl0+3kynzVDn
+	 TWm0xFG6NqyEFT07KV1GkFASzgeD8gQQPoYRWxhJLnPthahXBz0HWa9EZ70zt6sP94ACf
+	 feToTj6QOOa5GRsNMUDcB1BKJGvmX7SGTlE3TOl/819xl85H9KIUACxT3q3HV/ow/ULJc
+	 a08prYYkwMraJzH5dg28IL1XGkrYYLcKpORmhoMdzCufk7db3uWSYNkudS/LPVpy1vQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795660749;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795660750;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=9HTtW+Vn/gGQSbX8Dg4iqwQSooM4TxCKWvPg+ZuATgM=;
-	b=RkrSghmoFk2EcE71eB03/sTSAU8+N9f+xTkKMHRBWpIUtW1xyTNeUDMAEXM2HRUl/RXA
-	 nOJY/XrixVmR4oL75hgUTgws7rC3MdoF4r+hyTWd8igfT6d7OdwXPjb6RfTJdqvePhr7q
-	 LfPp838VT3wpqFM6XeBOJwVujubwudpYRUIefckhbpdQMQ6jyhAzdGAYyGHmtBltNlCn/
-	 EUgd94XBPQCgpfZ81mHUvVneJVht6DyL19xGJpHCkRTwB5oUAc8IlCtOAbGhbV8v5zApu
-	 OlDqoFB37ocO0YT4mmHShVLr5nm+MNH2cO7b0bV1fM6pU/lmtNrkIRpxUVmrD0Q6BUw==
+	bh=MlNq259fQdyBNl1lJWVsWFfj9prUCecygCmOZDgOoHQ=;
+	b=o22Vi/ghnnJmTZgQfPv9uDE6KcX0TtT/Qsgg2d5RjojFN+NskCUyTaPDRkQAwSpVCkVZ
+	 3QGC3LA2NuuwwGIpVfBSkql0/MRSq0PRDx6ZBlh+rp0WJgDTCSEcNo06kvaCPXaCedSjc
+	 pCdUpgU1VlbaH6u7z9/HeqhhZAnuexbW3UQB3QA6s0EelWcHz8Gl4LCMCPPLiV3FXvJDP
+	 aaG98+Vw/FNo1gxKh0c00yrTFz6cvZaPz0NhbxMiprxe5wAAWjk3jCOmGHwwY1yqHEQPQ
+	 ORvvfH9aHWav3NOXc98muXZn0tsX1nbeivkXBOVzxudtKd1PJ+TUocqKvto3CMj4+Hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BnPDBh0X;
-	arc=none smtp.remote-ip=209.85.210.177
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mcM9HObN;
+	arc=none smtp.remote-ip=209.85.210.179
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D4D2606A31E
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 02:39:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D4D2606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62E64606A31E
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 02:39:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62E64606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BnPDBh0X
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8a594d313a3so4330236b3a.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 18:39:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mcM9HObN
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8b32bc605d9so3206032b3a.2
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 18:39:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795660748; x=1796265548; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795660750; x=1796265550; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9HTtW+Vn/gGQSbX8Dg4iqwQSooM4TxCKWvPg+ZuATgM=;
-        b=BnPDBh0XN6ebzXvmM7uH6Jg0zp+IbTUIpbCrxxRhfpvJ2pOtRQb9Er77U2lQO96Noe
-         U1PsL+zPoIQP0OstyYC8kiH349eCL3pcyFb8r/OyLLrRh0y4lx1Nxgnb7RJoWsD/9YP/
-         +sg1Z0CITiUDdSZsFv/k489p1LriexdtTCmv6a4YVXIAyeF9snI2IkgFBfCQ0axFmFvF
-         HWu2ULfpeGa4CyGo3Rfw0KIvjO28Hjw/bHcDRyyFHmxbNKO8iukGefDwXVll9Ms5pZrO
-         P/mTVd9uuQcMyyiyuM13PpTTMMOjVWGohpt7yvddlS9uA4TGiTxRIQIFUc8WBzMia+gf
-         hnEg==
+        bh=MlNq259fQdyBNl1lJWVsWFfj9prUCecygCmOZDgOoHQ=;
+        b=mcM9HObNgNc5qPZr4l6HmJmTIemuMh2dNxGxEhSpq5o5jqdMFU9dEn0QLNVsVIMpE6
+         MRF33XdfJ3xVdYkuSHAviaX8OfLMyZ/Cg8Ax2VlTcMIpQt8YYZ+8+XX/5TFwaFqFSw8q
+         rF2L9EZUQNekJ1LOZf2CD4NPb8PMOyNpBN3KOk5tV7Y3EMSqqF/RgXWfcs5z1STIFlnA
+         C0FujaeuLPM+BMbLe5h8QWH2cWNHc3Cqg2GBZvjnZiiTEai9SP59QNgFGamkFYmN49Rr
+         IdUNepIhdwzdKUUu/QDWbVw8980ysOlnwsCqq37niDnhBdZtEBQwBKvbPrkuOgDvDDGa
+         gh/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795660748; x=1796265548;
+        d=1e100.net; s=20260707; t=1795660750; x=1796265550;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9HTtW+Vn/gGQSbX8Dg4iqwQSooM4TxCKWvPg+ZuATgM=;
-        b=Bw4FWmSa8MFaVG6y0qdKAEu2ps50Uh8cXStZFfRPo15mfuXy4Do1QLM2MMsQq00l3o
-         jAtK17fjBTWuh5dOh0AkCCKHgmquMw+P/ORIjR/nvDUmHZNbZfSjqt+ZqTTdXRYhDKEp
-         DLxLnzNbZJcxyHDF6YPpCgMx3eknhLWzAqwYL6Ec6rvcjBpCXDyxQqdgyVX3VQVHxNJF
-         WNFc/h8gGBCcwErHmq6V4YXeoZdsa5vZSSG6FEV1kejayA/vlYB/hz3U+SApy+DkxqI6
-         zVf9evlKAtNgxKNbV9i5LDaqD9hZbc6MbL8vSVDiXkh8lkvFQSoQdqDR/wlC0u4So2bX
-         +vyw==
-X-Gm-Message-State: APuU4Z/7jGI7iiTTcXEbNO9utBAKFXiQoUamx5kJZ/YeTP/SSRtV4lt3
-	vxd4YLHH9fHl41fRgYl7CnGwo5SSQiYjSGlrsXhkbkBc0HbEhDqoryprW4WAew==
-X-Gm-Gg: AZFdTZe54Kro6PW/yfa+VvGo25LFHwLfxjVY9tR+iCqpbF/1pU9zlPk33J70eWc56ZQ
-	UxzSocw6VxU+DqwZwfgHxfnzERSoeas9xDO+1pNqPnGDglrRij/9CDPYQ7uFKvElQfpsq8zIZBD
-	1M8g/rdkF+Ls7c7nKxPv8+ifc2PYt/gsUeXevjE1sh9sDkcs4+f0bqA7AtHsheWzZApvZ1cf5mu
-	BWIM7e+ZNAWbdxI1HKPff/ny9ZmuwzfsTQiknnNPrwHruymLHmY/XJye3GPGKFs+qhaMYDCKUhh
-	1YfkMUdGL6lzCUqlkxw41Sg1d5XVA8UsrndhXvENE6GUtQV+p9T4WMax6/D8C0O1tgO5aEiMQ4g
-	GOFi3Qd3LwGVJGINioxorn3eBj/3Rsi9/9BfN1sSEgaGEnhmvwKh98Zpd2amGDzwIFo+Ovk3Zxq
-	Ck4Lc3tlThbiVG+L77YKafDq77bgRvd4xnLkCJPJRxR9U6tDps1LezQT1U+fQMBhmxS2VFCkG5p
-	HGZJwOeKz+6uHgLqLKXyc31s+ShNLA/fUf9uHySWsCD3ySbkNpWeql+/aqmx20TRpPeTEuK64eF
-	S+J8xSHBJt0v57Yn4kKqnpgOXOYaVwptl/HGGfBNVOayumK6lB7cU5fga5jTSNcrLbjZCdFGPSM
-	jtpNNJDSr6+voN5oZUVYguHZBqFJ4Sii3MNZV1JFLlPgHdVJzEk9qQzozWfoGuH9Lxrsrlece20
-	vNbg==
-X-Received: by 2002:a05:6a20:e347:b0:3e2:5d7f:f630 with SMTP id adf61e73a8af0-4014d75b547mr21301396637.54.1795660748573;
-        Wed, 25 Nov 2026 18:39:08 -0800 (PST)
+        bh=MlNq259fQdyBNl1lJWVsWFfj9prUCecygCmOZDgOoHQ=;
+        b=SDUkdLBjUlaE0kseycXHYK6ERK9i36wfv8ZYtcQuYq/iwj+gvIJFmetm6tb76ncnbO
+         cUlAyOvRNtWQUZ7++UTErx03+OGo5SX22NQosOkUD9/w6I2MuR42hHHdCE+6QS7XrlOT
+         6OxV2LAZZU8N37ydfvK7D2UAiiyfVtC0GU32Ng1MnYm324ElxkrG3ncteBdcuKLJiidh
+         koaUrXR1OIkkCtdgwbgp/6N60nusWZjvOXWtEzZlhC8puUGPfT/vEM//qfgY+2NAiU5u
+         Di5AdxhX5BwJc6TUi/VACR4hhIB5PImDrQ4dAFH4wzHIMzzxgAgsoNZJsogJXk5ORXuS
+         S77Q==
+X-Gm-Message-State: APuU4Z+s8UC6QRXjcOvSl4SHAPwOgzVBc3CRL9nLlPkIXCcpTmmjrrRS
+	2PywQUIRm4Qmfl6Moi5g03loI/KIj+tpCnwQMUt5YwDcVd8/tjg2kv4/uJ/VHw==
+X-Gm-Gg: AZFdTZdRICtDKfByuVcCpBjYZxRaDnn+WD10g/lrHGV311WRW9hJvmI5+q0og8zzF8D
+	5i31PojFhZRZIiDZpEUpgfAEaqpLYYkYPI3TZxUj/HzP/vXZrCg1SFRKwMemntFzlCiDa51Nlzo
+	FJUofru6sUW8R5ZApePTbvjY03sk6Wt1UVM1bUz7mbr9X8/+K6xVt+AAZU1Gb2VI8HHykKpAp2+
+	X2d/CKKtEYzTsNn0ZTzZldinGK2Wd2/ygluXXT/DVUJ6xXh3crZ/C8vU2XSpDS+bilxW7Lswmlo
+	vdDrNClTecCVSk4Uc8CCeYXpw+dbwkYKZMthHrkv8sYGFY12pWi3W5NgGT9fIaCc7SzRtTuf761
+	YjLdcXrforLGi8yXO8JarzhTlaF73xZJNBdCVL/CvioksNWYOn0Funvzmyaoujjl6G57AXEc16f
+	FpY0xaLY6MztolAOlDTyJ830qglZOCZt2OAyg4ISh/CRLYrd7FD/t7n7IKCCVE1XMnbvbsxbYqn
+	HCHPzhO80jXZLSdVnKGOo7JMDNY6/lqzkYlmEC9JpbJstKzFNFy8o/hwo6H6Ccw56XBRS3esoOe
+	FACWBHRG5qwjgVR2VeLFp8xU1B9Ua6Nk0B/SW+G+ZUal7+ekeWrZYjv8IId1Hn9di43OvjSQKLH
+	uqDjP8+vHBuWSpDKvr7KwQQyNqv01oNd1o/TnHsU/43rDqItgGKy8OIPkdYzNsMn7GFPnhDZWbj
+	zQ1A==
+X-Received: by 2002:a05:6a21:170f:b0:3e2:7643:3098 with SMTP id adf61e73a8af0-4014c34e75amr21652736637.67.1795660749742;
+        Wed, 25 Nov 2026 18:39:09 -0800 (PST)
 Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6d026d6fsm9909018a12.19.2026.11.25.18.39.06
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6d026d6fsm9909018a12.19.2026.11.25.18.39.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 18:39:07 -0800 (PST)
+        Wed, 25 Nov 2026 18:39:09 -0800 (PST)
 From: Rosen Penev <rosenp@gmail.com>
 To: devicetree@vger.kernel.org
 Cc: Andrew Lunn <andrew@lunn.ch>,
@@ -89,9 +89,9 @@ Cc: Andrew Lunn <andrew@lunn.ch>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Dennis Gilmore <dennis@ausil.us>,
 	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Marvell Kirkwood and Armada 370, 375, 38x,...)
-Subject: [PATCH 6/7] ARM: dts: helios4: use hyphens in fan pinctrl node names
-Date: Wed, 25 Nov 2026 18:38:55 -0800
-Message-ID: <20261126023856.767961-7-rosenp@gmail.com>
+Subject: [PATCH 7/7] ARM: dts: helios4: describe LED color and function
+Date: Wed, 25 Nov 2026 18:38:56 -0800
+Message-ID: <20261126023856.767961-8-rosenp@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261126023856.767961-1-rosenp@gmail.com>
 References: <20261126023856.767961-1-rosenp@gmail.com>
@@ -106,37 +106,95 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dtc W=1 warns about the underscores in the fan pinctrl group node
-names:
+Add color and function properties to all seven LEDs, matching the
+schematic: green status LED (LED1, MPP24), red fault LED (LED2, MPP25),
+four green SATA activity LEDs (LED3-LED6) and a green USB LED (LED7).
 
-  Warning (node_name_chars_strict): .../helios_fan1_pins: Character '_' not recommended in node name
-
-Use hyphens like every other pin group in this file. The labels are
-unchanged, so no references need updating.
+The deprecated label properties are kept on purpose. They take
+precedence over color/function when the LED class device is named, so
+the existing sysfs names (helios4:red:fault and friends), which board
+support scripts rely on, stay unchanged.
 
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- arch/arm/boot/dts/marvell/armada-388-helios4.dts | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../boot/dts/marvell/armada-388-helios4.dts   | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
 diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-index d4ed47ae73c5..b62730b949a4 100644
+index b62730b949a4..46ff69c3426b 100644
 --- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
 +++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-@@ -300,11 +300,11 @@ helios_io_led_pins: helios-io-led-pins {
- 						       "mpp54";
- 					marvell,function = "gpio";
- 				};
--				helios_fan1_pins: helios_fan1_pins {
-+				helios_fan1_pins: helios-fan1-pins {
- 					marvell,pins = "mpp41", "mpp43";
- 					marvell,function = "gpio";
- 				};
--				helios_fan2_pins: helios_fan2_pins {
-+				helios_fan2_pins: helios-fan2-pins {
- 					marvell,pins = "mpp48", "mpp55";
- 					marvell,function = "gpio";
- 				};
+@@ -10,6 +10,7 @@
+ /dts-v1/;
+ #include "armada-388.dtsi"
+ #include "armada-38x-solidrun-microsom.dtsi"
++#include <dt-bindings/leds/common.h>
+ 
+ / {
+ 	model = "Helios4";
+@@ -75,6 +76,8 @@ system-leds {
+ 
+ 		status-led {
+ 			label = "helios4:green:status";
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_STATUS;
+ 			gpios = <&gpio0 24 GPIO_ACTIVE_LOW>;
+ 			linux,default-trigger = "heartbeat";
+ 			default-state = "on";
+@@ -82,6 +85,8 @@ status-led {
+ 
+ 		fault-led {
+ 			label = "helios4:red:fault";
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_FAULT;
+ 			gpios = <&gpio0 25 GPIO_ACTIVE_LOW>;
+ 			default-state = "keep";
+ 		};
+@@ -94,30 +99,44 @@ io-leds {
+ 
+ 		sata1-led {
+ 			label = "helios4:green:ata1";
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_DISK;
++			function-enumerator = <1>;
+ 			gpios = <&gpio1 17 GPIO_ACTIVE_LOW>;
+ 			linux,default-trigger = "ata1";
+ 			default-state = "off";
+ 		};
+ 		sata2-led {
+ 			label = "helios4:green:ata2";
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_DISK;
++			function-enumerator = <2>;
+ 			gpios = <&gpio1 18 GPIO_ACTIVE_LOW>;
+ 			linux,default-trigger = "ata2";
+ 			default-state = "off";
+ 		};
+ 		sata3-led {
+ 			label = "helios4:green:ata3";
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_DISK;
++			function-enumerator = <3>;
+ 			gpios = <&gpio1 20 GPIO_ACTIVE_LOW>;
+ 			linux,default-trigger = "ata3";
+ 			default-state = "off";
+ 		};
+ 		sata4-led {
+ 			label = "helios4:green:ata4";
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_DISK;
++			function-enumerator = <4>;
+ 			gpios = <&gpio1 21 GPIO_ACTIVE_LOW>;
+ 			linux,default-trigger = "ata4";
+ 			default-state = "off";
+ 		};
+ 		usb-led {
+ 			label = "helios4:green:usb";
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_USB;
+ 			gpios = <&gpio1 22 GPIO_ACTIVE_LOW>;
+ 			linux,default-trigger = "usb-host";
+ 			default-state = "off";
 -- 
 2.56.1
 
