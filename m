@@ -1,68 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795679672;
-	b=akPTOM26TCnhAP4BNzAaVZZtp0+ADtQFk91ttT566GSd4gVAMRUlHb/wGGd73XBbL47j
-	 uJf4dwGduf5W84/REQCeY9QXTmOLOLDDK0HQifk8Ric3z7joN+fzNXSKLaJS/3kZTET5j
-	 iUbtB5VBbJsMiPlEK+uXzZG5ZY/6h23Y0gjFWNX2PvElEtd/l8qjviA9mM7lpUOxURjSJ
-	 JfCc1bkKx71QEgdFy76jDvK83sN4heejnjTb+E24E2dxjd+xJrfhhm+iHGCAOtIVf85oP
-	 d5ETB1Zbbm+dvXHpX5MjIiXSQh3PfjJjhqxiFDwGAiQP4turRBNle/+3kjp+rjtoVbg==
+	t=1795680003;
+	b=P4RrF9J1zKOsLellqYRxeZ22SYRS3NmessHckVO/wQZ11C1QdNZRC8mJd8GO4NAClbUX
+	 56LubHen/glSfAcnc2TApAV/EAP4paGzbD/N7g1z0sRjuIY/hpPVLRfBFRC6wwWQc0Isl
+	 w2EEqMSxYXtOjXYol+0S8NMU39nNa09BjMQlV8X1BaMgFlifq2DMldCFP6sPUf3OvVN6D
+	 9YdaU6hT9Yk7+nqf3w3bOmjm4oRnaDxHGJg6osdamUW5+UYpCN+LL570WrszIRN7oUnPR
+	 f0RnPltT26nCFGsRMEc7rkcaCf9KkmoS8PhpLZSSNb09NnK5IDnfLUE13lgOvfM8MbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795679672;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=bUb4hYTBPcgn4fPSOAlue7i31G1iMQmFecbSBRUfqRM=;
-	b=wbvSXo7rC6flgaYlZw3AF1HIzmZmDD+tBAYVVxXc4fX+r6nPwYIGUcVN5tzpwdb8VqZk
-	 Q2Rr9cwhy4zGZ5DW2I4vqV4RFn/bmeKZpUejv5todKWV2f7CH8h21mBpmuwq2bVj758mW
-	 jbWHn30495FOwoLu/pjBYk+91LHtWugEH1sY+vAPxo1ubMVh34vu8yEKYVHU8Om+fxGKi
-	 6g4O7Kn7Mu51v15wdfrzNgGwM1mYU0OqESKm2JzanmIeR+PEdjUTvCNgMVUw8cejpUBXS
-	 MY7n7VYLmyrx8skaQlfyjeSM+S94/alydhhXFi1KqrPKxQshYSVPfl4znJjW9fVm89A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795680003;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=2BAeP825lkaxoabnMfIBpo2jQjykn0ii0H1E+c/o1R8=;
+	b=lu0YPlKcsoaakqtNieMk96CwMkypZE4Fl1HmRw/zIDV+3B6KuDR7gzNVWQ7jgmlgFtNp
+	 OzkP0hS/m0YZfjqkL4Pccu4jVa/Y3eenCjz6jKq3fagnIdGz4BOQNFii6LkP+OuiZIHUf
+	 bQ0Ku3qKmjelXITgAnOt7+Rg2nnK0y3OmIpWGSSSRnDMgr4KB7ZmIG3V71qQ7/6rQX0Xd
+	 NhPi0tS/lPDSv8wNZ7KqK+gjZZYA4nMA53oeDOmipEkrB1Xb+DLjg1HQS/J7k1G+WTsCV
+	 duRV+H4BWVT44/F653AkG4wiDYnkZTw/WIRpp1vRWh4KQZ2sAeWBFW+V8zHHYW7CU0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dolcini.it;
-	spf=pass smtp.mailfrom=dolcini.it;
-	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=R1wUduC9;
-	arc=none smtp.remote-ip=217.194.8.81
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=d3vMgiPa;
+	arc=none smtp.remote-ip=209.85.217.47
+Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com [209.85.217.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F2D1606A31E;
-	Thu, 26 Nov 2026 07:54:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F2D1606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B1A606A31C
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 08:00:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58B1A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=R1wUduC9
-Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id 9C2631F953;
-	Thu, 26 Nov 2026 08:54:21 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1795679662;
-	bh=bUb4hYTBPcgn4fPSOAlue7i31G1iMQmFecbSBRUfqRM=; h=From:To:Subject;
-	b=R1wUduC9jw5X/rsJjGoL7cVRJLM2iRqNJIwvkvI0Ds6VCr7ZLJ3c/CCbg1mWc1+iM
-	 Gv323BquroyQdG2kncCJd4DISfwyMHFGs+0/gxwDkw/jnr0+GItx7Wof5VNsfELzhx
-	 B0zwbA1eNYI/9mf/W9X6zIODhxL4DYnlSWleByrL+Mip85hlmHb4tqzSVOZFtGCNnb
-	 8pygiKYUARwgN4Y0lYkKa672YyRB6QbsooDaNHNk+9JP+3xBcrnK46da59VAL/JDGr
-	 KAzBnpwaevPTC64kV6PwRH4LNBbQ57t+9hTDJlLpoY4ETtq3CuHvhTza5rYIqohRIp
-	 3+1jxc9mkhX+g==
-Date: Thu, 26 Nov 2026 08:54:17 +0100
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Frank.Li@oss.nxp.com, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco@dolcini.it>,
-	Frank Li <Frank.Li@nxp.com>, linux-bsp@toradex.com,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 0/2] arm64: dts: freescale: imx9[135]-toradex-osm-dev:
- Fix SDIO_B interface
-Message-ID: <20261126075417.GA12954@francesco-nb>
-References: <20261122171931.295307-1-francesco@dolcini.it>
- <179562955482.3138640.15368712550107593780.b4-ty@b4>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=d3vMgiPa
+Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-7d2c8141dc6so3581939137.1
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 00:00:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1795680002; x=1796284802; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2BAeP825lkaxoabnMfIBpo2jQjykn0ii0H1E+c/o1R8=;
+        b=d3vMgiPaC2GyhVLWGd9gaFgnyRLo3y+wKrCW98G6zIl2aTs5b42vLah+virrMF/N6W
+         So/sT8LUbPxxIbmxabDk46LsjRv1G+ocOeWA9srbp5i++Eq3SDfnGVH/GRWyGWbOfnmE
+         zANQsSRBF4rGNPEuaI9QKd4BL+vD8W+9hpLgA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795680002; x=1796284802;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2BAeP825lkaxoabnMfIBpo2jQjykn0ii0H1E+c/o1R8=;
+        b=tJOCtS/GX0a/dte+fOluHimC3HPRPRo6JcUZ2hver8VOAlrLXAymEw2HLpJpYRiGam
+         uaau8W0AJjxkwxRhzc2bJA8/P4h8Su2S4bEngYiKebiADwjAnmnNAqunRNiQEwYlc4WI
+         EqdcRaToqt+3gdrS3ni0aMOfnLCdAYDH7BOv9AB/RlKodAXKA+5rhogIiaxssYgktUSg
+         fWQp4LW475k31QFdeJLcsTdN5hYVLfn08eKbB2AtSoi3rmAs0pq8tPi32MP8JcC/O73D
+         1yWqq+FWNOU4HG217ArlyQ0qT8DOxmZWNxHoSrAM1kQAMk2mJyOBCWM0TQqwd7r3WsQu
+         gR2g==
+X-Forwarded-Encrypted: i=1; AL+hErHJ7skeZ6bg6PMTeXneqPo2YUpKftFpcSGJ6ZYmjdHo/hcL2h7vIB9Fx2WT1manAJ3smSDyG7p42XjR@vger.kernel.org
+X-Gm-Message-State: APuU4Z/WX3fpPmgd+hPgoI+APMC107EuVAMTwh0EQY+I0sWNayetuLSy
+	bnS2KjNUYFSAU58MmuHg5qgTgpS8C4eJ3F9v6JHnkTIqCwoX+SsvWXj9yC/PmegvNWXcDEJ6ovL
+	ffQxWsg==
+X-Gm-Gg: AZFdTZdd7p0T7UZPfrZLElmoKdTdVdK7qOgemPtbXFCYgmAoQxo0MLKO+Suox8zsbaZ
+	pq9C4Qq7JAwl+SxT1Bdff6I/XD5jpmxcaIfAe6vtcLo7GM4a8Jbcy/xUE3TtpOmzl1gtK3a/27d
+	r/hy0xjyIrp0Vne/FYNZNY2xI7jqkMw+KMJB4yBsbXLsv98kNlmHFNXpYViItcjqmeoKipnved3
+	NDQLhNiH56aTnGRoE/vw5n5mZGdlQoo6eVS4QY+LOFtI/tbFmRNIy6mbsoYxCP9+3WYxwyouYM2
+	Mb7Vst+vcCqV3ECjMNiGK2WaZvu3VPfsMxzhiek/EJUri74XHUh/6PJATgjtj7WLaWbnFK3KTO6
+	IQDnCz/xYx4FnQbMIuMcC9nWnvYV/PLOGL72TO7bQE8RJZ6QgGLwysDDTlBm6Bj2xXzJwPxBBqC
+	nLiokM7jt8nTDrq/nDlJkDrp8RHvKbVLX7MXbQeF5h02VTm8QxyWCx9mbnq1eeKB3vCtjsViwhG
+	Pet21kn+4qEl08qvj6IB/kZmvUuY689HQTL0G8sXpEiTM7sqATayhDm4Es9/UciB0iVoua2sA+C
+	qr3XJWCsCvYE07+SDDovjdTtn6FDFpstjxIx4ILEqvj1Q8x/xOI474+0RZ4PtpGr
+X-Received: by 2002:a05:6102:f07:b0:7d0:6cf3:d8f3 with SMTP id ada2fe7eead31-7d739444d6cmr12239674137.18.1795680002071;
+        Thu, 26 Nov 2026 00:00:02 -0800 (PST)
+Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com. [209.85.217.44])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99e6dec57ddsm20397825241.1.2026.11.26.00.00.01
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Nov 2026 00:00:01 -0800 (PST)
+Received: by mail-vs1-f44.google.com with SMTP id ada2fe7eead31-74ab99038afso4399457137.3
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 00:00:01 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEmTXuyq+LiHU+SBuksmwGtjrElxJ57qPun9b3zUH0jwtOwyky8c/TbMvIaECDuS1HyR3B/v1gXF2vg@vger.kernel.org
+X-Received: by 2002:a05:693c:87d8:b0:386:b896:319c with SMTP id
+ 5a478bee46e88-386b8963d3amr10022337eec.35.1795679552269; Wed, 25 Nov 2026
+ 23:52:32 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,32 +94,170 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179562955482.3138640.15368712550107593780.b4-ty@b4>
+References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com> <20260714114414.184512-18-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260714114414.184512-18-angelogioacchino.delregno@collabora.com>
+From: Fei Shao <fshao@chromium.org>
+Date: Thu, 26 Nov 2026 15:51:53 +0800
+X-Gmail-Original-Message-ID: <CAC=S1ngJz=WR=dynO0O4FiAW3rqADNCvEGa9cPn1b-Dfkxi6LQ@mail.gmail.com>
+X-Gm-Features: Aa3M54pxRAeFEOdKGCuQ1O6Bt_XOraD0DZxugIMunZCy7TNnnfXexdvBZJe7MKU
+Message-ID: <CAC=S1ngJz=WR=dynO0O4FiAW3rqADNCvEGa9cPn1b-Dfkxi6LQ@mail.gmail.com>
+Subject: Re: [PATCH v2 17/46] drm/mediatek: Add support for hardware
+ multi-stage layers
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com, 
+	simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+	tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	matthias.bgg@gmail.com, dri-devel@lists.freedesktop.org, 
+	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	justin.yeh@mediatek.com, jason-jh.lin@mediatek.com, kernel@collabora.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello Frank,
+On Tue, Jul 14, 2026 at 7:45=E2=80=AFPM AngeloGioacchino Del Regno
+<angelogioacchino.delregno@collabora.com> wrote:
+>
+> In preparation for adding support for newer, more complex, display
+> controllers like the ones found in the MediaTek Kompanio Ultra and
+> Genio Pro 5100 (MT8196/MT8894), add support for multi-stage layers
+> as in newer hardware, there is a special strategy using multiple
+> hardware components of one (or multiple) display controller(s) to
+> form one single layer.
+>
+> Multi-stage layers are one more step towards extra flexibility of
+> the Display Subsystem, making it possible to change capabilities
+> of Display Controller Pipelines depending on the final application
+> of a board: for example, one board may choose to use fewer layers
+> per pipeline to achieve more pipelines (more concurrent outputs),
+> or more layers to achieve less, but more capable (as in offloading
+> and in achievable bandwidth) concurrent outputs.
+>
+> This currently adds boilerplate to support this hardware, but does
+> not yet implement the IP-specific support for MT8196/8894, which
+> will be done after all preparation is done.
+>
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
+abora.com>
+> ---
+>  drivers/gpu/drm/mediatek/mtk_crtc.c           | 304 ++++++++++++------
+>  drivers/gpu/drm/mediatek/mtk_ddp_comp.h       |  15 +-
+>  drivers/gpu/drm/mediatek/mtk_disp_drv.h       |  12 +-
+>  drivers/gpu/drm/mediatek/mtk_disp_ovl.c       |  12 +-
+>  .../gpu/drm/mediatek/mtk_disp_ovl_adaptor.c   |   2 +-
+>  drivers/gpu/drm/mediatek/mtk_disp_rdma.c      |   9 +-
+>  drivers/gpu/drm/mediatek/mtk_disp_wdma.c      |   2 +-
+>  7 files changed, 246 insertions(+), 110 deletions(-)
+>
+[snip]
+> @@ -992,15 +974,15 @@ static int mtk_crtc_init_comp_planes(struct drm_dev=
+ice *drm_dev,
+>                                      struct mtk_crtc *mtk_crtc,
+>                                      int comp_idx, int pipe)
+>  {
+> -       int num_planes =3D mtk_crtc_num_comp_planes(mtk_crtc, comp_idx);
+>         struct mtk_ddp_comp *comp =3D mtk_crtc->ddp_comp[comp_idx];
+> +       unsigned int num_planes =3D mtk_ddp_comp_layer_nr(comp, comp_idx)=
+;
+>         int i, ret;
+>
+>         for (i =3D 0; i < num_planes; i++) {
+> -               ret =3D mtk_plane_init(drm_dev,
+> -                               &mtk_crtc->planes[mtk_crtc->layer_nr],
+> -                               BIT(pipe),
+> -                               mtk_crtc_plane_type(mtk_crtc->layer_nr, n=
+um_planes),
+> +               struct mtk_crtc_hw_layer *hwlayer =3D &mtk_crtc->hwlayers=
+[mtk_crtc->hwlayer_nr];
+> +
+> +               ret =3D mtk_plane_init(drm_dev, &hwlayer->plane, BIT(pipe=
+),
+> +                               mtk_crtc_plane_type(mtk_crtc->hwlayer_nr,=
+ num_planes),
 
-On Wed, Nov 25, 2026 at 01:00:29PM -0500, Frank.Li@oss.nxp.com wrote:
-> Applied, thanks!
-> 
-> [1/2] arm64: dts: freescale: imx93-imx91-toradex-osm-dev: Fix SDIO_B definition
->       commit: a9f5577f21dbdd097f8bd0bade4777cbc2c5b804
-> [2/2] arm64: dts: freescale: imx95-toradex-osm-dev: Fix SDIO_B definition
->       commit: 25e472ca356c0395d7af26cb325b80bb09b2a183
-> 
-> drop tag "freescale", every one know imx is chip of nxp.
+I hope it's not too late for new comments...
 
-Do you want us to drop the `freescale:` prefix from now on (it's there
-because the prefix is the directory path, not for other reasons)?
+IIUC, mtk_crtc->hwlayer_nr is the CRTC-wide plane index, while
+num_planes is only the plane count of the current component.
+When a CRTC spans multiple 1-plane components (such as four EXDMA
+blocks on MT8196), hwlayer_nr is 1..3 but num_planes - 1 is 0, so no
+cursor plane is created.
+You might need to forward the CRTC total num_comp_planes to
+mtk_crtc_plane_type() instead.
 
-So just "arm64: dts: imx9[135]-toradex-osm-dev: ...". Are the DT/SoC
-maintainer fine with that?
+>                                 mtk_ddp_comp_supported_rotations(comp),
+>                                 mtk_ddp_comp_get_blend_modes(comp),
+>                                 mtk_ddp_comp_get_formats(comp),
+[snip]
+> +static int mtk_crtc_init_layer_stages(struct mtk_crtc *mtk_crtc)
+> +{
+> +       unsigned int prev_master_layer_component =3D UINT_MAX;
+> +       unsigned int master_layer_component =3D 0;
+> +       unsigned int comp_idx;
+> +
+> +       for (comp_idx =3D 0; comp_idx < mtk_crtc->ddp_comp_nr; comp_idx++=
+) {
+> +               struct mtk_ddp_comp *comp =3D mtk_crtc->ddp_comp[comp_idx=
+];
+> +               struct mtk_crtc_hw_layer *hwlayer =3D NULL;
+[snip]
+> +               if (master_layer_component !=3D prev_master_layer_compone=
+nt) {
+> +                       hwlayer =3D mtk_crtc_find_hwlayer_with_comp(mtk_c=
+rtc, master_layer_component);
+> +                       if (!hwlayer) {
+> +                               drm_err(mtk_crtc->base.dev,
+> +                                       "Could not find layer master for =
+%d!\n",
+> +                                       master_layer_component);
+> +                               continue;
+> +                       }
+> +                       prev_master_layer_component =3D master_layer_comp=
+onent;
+> +               }
+> +
+> +               /* Add the newly found layer stage to the correct layer m=
+aster */
+> +               hwlayer->layer_stages[hwlayer->layer_stages_nr] =3D comp_=
+idx;
+> +               hwlayer->layer_stages_nr++;
 
-To be explicit, I do not mind, I just need to know so that we send
-patches with the commit message title you expect.
+hwlayer is declared as NULL inside the loop. On a second stage
+component for the same master layer, the lookup above is skipped, so
+dereferencing hwlayer leads to crashes. Declare hwlayer outside the
+loop.
 
-BTW, please check https://lore.kernel.org/all/awbs94RtiqAOqhEx@sirena.org.uk/,
-it's related to this "freescale" removal.
+>         }
+>         return 0;
+>  }
+> @@ -1039,6 +1112,7 @@ int mtk_crtc_create(struct drm_device *drm_dev,
+>         struct mtk_ddp_comp *dma_comp;
+>         struct mtk_crtc *mtk_crtc;
+>         unsigned int num_comp_planes =3D 0;
+> +       unsigned int max_comp_stages =3D 0;
+>         int ret;
+>         int i, j;
+>         bool has_ctm =3D false;
+> @@ -1121,20 +1195,54 @@ int mtk_crtc_create(struct drm_device *drm_dev,
+>                                                 &mtk_crtc->base);
+>         }
+>
+> -       for (i =3D 0; i < mtk_crtc->ddp_comp_nr; i++)
+> -               num_comp_planes +=3D mtk_crtc_num_comp_planes(mtk_crtc, i=
+);
+> +       for (i =3D 0; i < mtk_crtc->ddp_comp_nr; i++) {
+> +               struct mtk_ddp_comp *comp =3D mtk_crtc->ddp_comp[i];
+> +
+> +               num_comp_planes +=3D mtk_ddp_comp_layer_nr(comp, 0);
 
-Francesco
+Passing 0 instead of i here skips the `pipeline_index > 0` check in
+mtk_rdma_layer_nr() and over-counts num_comp_planes (also carried into
+patch 38/46).
+Pass i (j in patch 38/46) as the pipeline index.
+
+> +               max_comp_stages =3D MAX(mtk_ddp_comp_stage_nr(comp), max_=
+comp_stages);
+> +       }
+[snip]
+
+Regards,
+Fei
