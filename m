@@ -1,82 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795702918;
-	b=TfKtpihjMNycQ15AdkaR0Fof40zp8+7JBoMrE9xGstSEpiFo0pPSG2g/yO/vW3iAWu3z
-	 UNwxBrQIl5rDQkO5veiem98KujPwr2r14VDax495TgnLbwK7heoVqXm0nsM7CV7Yo8D43
-	 7opKh4rJjcBPEv2hX1xM/WgeA0jLDsHHOvBPP4/3/LUdnzzYLvH7S3j6LRt/RE80Ts3K2
-	 RnZD1BKGgC+COLtyvcDs1tBqR9yCMynUjNErMIaIfwY4EfryuMM+xC0YAiGoHhNSXNENW
-	 BDGuB334CBL7UsYUzWtA6KpT2Yo8RcxvOXM2T42jYCNjRQ8EdkaVmNggl1Ty/GND+Kw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795702918;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795702981;
+	b=EfrcIAjgvADMdjf3Hl8bKmxMyfaqvYBKiRmXg0Qu/Ko4qnXI69+rQSOCBAajl2qvXFwC
+	 cH7ju+Y5iCqaNNsxZgF3t0ExDUCF19o1xxQ444XASGj4YYS9ZVfRIpPB1Lq7E67gvuz0p
+	 NV2aYPGMPeqIZMJxp1AtMAICJ3anqT1h1Jt3HBE0Oti6jBov5iznZYwiltN+bG+kg1hhM
+	 dNQzL3ii0df/vwFpkoY2OVqNXFwm3doEQdbE6LnODGE3XUkoNIYpAwtoTJ3/6vNg0Qs3n
+	 s157toZzRoq0Xniwpl6zM2t7LScjhjH3f/m5UAJgahO0ProgQElYipskulrQTi+b9Jw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795702981;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=U+4pL6qLvvaN/MhyEDL7roP9YywTVS8pAuir7owH1T4=;
-	b=X12zxpIUbGZ8vQYRj71CR04bjLEbwJhnmeQzTuZyaov5NScjtLMYWJnYO186tegOAjuV
-	 Mc3BlwKr+2ogsEy0voVnswtdZOVqc4S8wKJQqocVgj2HPMu48ZVtfdyGb1WwFW/fw/oZF
-	 qFyevHKeiHmI9qHBbJcjM3iWVbJb//cwBuiln+kVZ/OeLItw34v9g3pQKcZvyDelhonY6
-	 3ljguGv2gmzceAT5WGNVEvXbPX9WBAaDsqENIicF+voc5e6DL4J6DiGXnpVIw6yECiOtO
-	 dMbzx6KoFjMgHnPW2ejr+kSxjihbxiZ+wqdrBSsKplSiKXH05AjgQKaL2SlBQ/b/T5Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HuUMdNUl;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
+	 X-ZohoMailClient;
+	bh=EqLFCb5XmtQPipwvLpAcDKVt+kHlckNlX0WznuDW5lA=;
+	b=WfWid5vMoUfOntaxSI1NoANthNC/1HABbdqtjHXo5Jo/6Sdh4EOc+oxmQTwIvXiBNndD
+	 kUMEQpFFstryUIWP3puD7yQ8COhk+EMnwxig2nI+6zxnStfaWVVrx5z9Cupaz4sR4JUD0
+	 Rdel+vrC+6uZeEnejTYv2bcYPCiG/QsUc/rg/D452cyTxVFGPJIA6jmVQsTtsG55bP5eD
+	 K7Kb0BrmasL8AfgTNzV9FQvy1urszUKjGNSond0zIJuVJ/pgk+m4h/np2azEVGhNfotCB
+	 RKc0o/rJuQRj+PlqFa+s8aG3ysT/qde4jvacFHvQ/aUT5Q1mpvpbinJT9tELyLEtnwA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=MTP6elXg;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23E09606A31E;
-	Thu, 26 Nov 2026 14:21:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23E09606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2412606A321;
+	Thu, 26 Nov 2026 14:22:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2412606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HuUMdNUl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795702919; x=1827238919;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=8E/3GjBkO3qFHAhQ6seGTlGhA2dd1h8qEzfPoxUikwM=;
-  b=HuUMdNUlOxy5GB5vz16dFT3HyDfnZqbg5lhZ8R5wG9czd+osOpLDyOXM
-   mz7JOMaQqD+9tlwxVMzTqk+/cUrwvvoOTmRiIeXNs6C9QE/aLZvufri1h
-   ayy2oLRJgOsvoL+MvtbhMbdhSlFoAOCdwrbvmO5mqWl+bWEvYORE3qJJM
-   JjTN2Mp1RuP8UIKtPqJp5HiGOQl2dIqprpdgXIqITZuKoEmeKSyxqsdYs
-   XaGlE2CSBdcfmn0OEwjrjbuoXrx6LvM4CUYg0jXe1H+4vR8plDEqWh2cG
-   AbSEwL9UbP1fm+YfEXX8xv+8mJ4/EGnQWwmmI6Zx01p7zrIuzFkCetp2a
-   A==;
-X-CSE-ConnectionGUID: DZRbWyfqTiWzdd2pJE4CZQ==
-X-CSE-MsgGUID: 8eAk0uQJR2iFLQOTwN6jcQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11978"; a="4498002"
-X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
-   d="scan'208";a="4498002"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Nov 2026 06:21:58 -0800
-X-CSE-ConnectionGUID: BAPLiANfQDyy66/S57hlZg==
-X-CSE-MsgGUID: shslAUAQQJqkv8Gj5IR+vw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
-   d="scan'208";a="11964080"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.208])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Nov 2026 06:21:55 -0800
-Date: Thu, 26 Nov 2026 16:21:52 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Robert Ijtsma <robertijtsma@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 0/2] iio: light: add support for ams OSRAM TCS3430
-Message-ID: <awhAgM77M7I8chR3@ashevche-desk.local>
-References: <20261126-iio-tcs3430-v2-0-6c5329d20919@gmail.com>
- <awg91DruXE0fZ8l-@ashevche-desk.local>
- <20261126141415.116a2eb352e6@gmail.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=MTP6elXg
+ARC-Seal: i=1; a=rsa-sha256; t=1795702946; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=GzcComGISICfD0ijd263oCRnoQcJw1dywIKmy93jDC5oKVQRFACS3nTRwH7djnR58rKS/X0qKv0sDeGX2ZalBYud0nK6y1ymF2gXjOVmPnDv4F/tOu10aJpRwAmvfIApbvOtKhT6zDzG620AJ61n2IvZ/Vv05hA3rK1tJA+rKwI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1795702946; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=EqLFCb5XmtQPipwvLpAcDKVt+kHlckNlX0WznuDW5lA=; 
+	b=j38BzdZHJIunTz0eNN4FL/TBMmG0sDGqlezzN31PowDgurWu1/O9y3beJXvamXFd+T7up7U+lQUxpM744/3xhlUBMqCUiYzhJ7Ht7rGC2HeiTSG3+WlSAeENXe8pLUasuCsa/OedlsWPnf1JI9JHpkkgT/oCPRO9hKyNrUhyNb4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=MTP6elXgIUaUN1zsV21nBC6L2lc4v28RHcQkSsPFjU1kh8r29SMSZrvcaHSfE3ABucBZz9f12Cfc5VoODJcrVTkkaHmNm79m00FVfhWpKyj6iQpoS9pbnQfPWiZdFSZtkdjFJJLaE0WoyPU5we/xapg3/Z7Dt8gD0JZhhM5Z6XM=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=EqLFCb5XmtQPipwvLpAcDKVt+kHlckNlX0WznuDW5lA=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1795702942410502.09212304582513;
+	Thu, 26 Nov 2026 06:22:22 -0800 (PST)
+Received: by venus (Postfix, from userid 1000)
+	id 7BCFC1804FF; Thu, 26 Nov 2026 15:22:17 +0100 (CET)
+Date: Thu, 26 Nov 2026 15:22:17 +0100
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: chanwoo@kernel.org
+Cc: Chanwoo Choi <cw00.choi@samsung.com>, 
+	MyungJoo Ham <myungjoo.ham@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+	linux-pm@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@collabora.com, 
+	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v4 00/11] PM / devfreq: rockchip-dfi: cleanups and RK3576
+ support
+Message-ID: <awg_MN-Hn7B_Z2Oa@venus>
+References: <20261119-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v4-0-517a68c008fe@collabora.com>
+ <86a7174f-c44b-4663-862b-3631b0d6c5bd@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -86,50 +75,119 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="2jxiphyxg2w6bi2f"
 Content-Disposition: inline
-In-Reply-To: <20261126141415.116a2eb352e6@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-
-On Thu, Nov 26, 2026 at 03:14:15PM +0100, Robert Ijtsma wrote:
-> On Thu, Nov 26, 2026 at 04:10:28PM +0200, Andy Shevchenko wrote:
-> > On Thu, Nov 26, 2026 at 09:11:46AM +0100, Robert Ijtsma via B4 Relay wrote:
-> > > Add Devicetree binding documentation and an IIO driver for the ams OSRAM
-> > > TCS3430 ambient light and CIE 1931 XYZ tristimulus color sensor.
-> > > 
-> > > Tested on Microsoft Surface Pro X SQ2 (SC8180X), where the sensor is
-> > > connected on I2C at 0x39 and used for ambient light sensing.
-> > 
-> > It's still unclear why a branch new driver. Can you elaborate on this?
-> 
-> Sure. Compared to the existing ams/TAOS color and ALS drivers in
-> drivers/iio/light/, the TCS3430 differs in both register interface and
-> sensing architecture:
-> 
-> - tcs3414 and tcs3472 are older TAOS RGBC (Red/Green/Blue/Clear) devices
->   using the legacy 0x80 COMMAND-bit SMBus protocol (register offsets
->   0x00..0x1b), different ATIME/gain encodings (e.g. tcs3414 fixed
->   12/100/400 ms steps; tcs3472 countdown (256 - ATIME) * 2.4 ms, max 64x
->   gain), and RGBC channels.
-> - as73211 is an unrelated MAZeT/JENCOLOR XYZ/UV sensor family (I2C
->   0x74..0x77) with banked config/output register spaces (0x00..0x08), a
->   1.024 MHz clock divider, temperature channel, and 1x..2048x gain.
-> - TCS3430 uses ams's direct-addressed 0x80..0xdd register map (no COMMAND
->   bit in register addresses: ENABLE at 0x80, ATIME at 0x81 as
->   (ATIME + 1) * 2.78 ms, CFG1 at 0x90, ID at 0x92, 16-bit Z/Y/IR1/X data
->   registers at 0x94..0x9b, CFG2 HGAIN bit at 0x9f for 128x gain, CFG3 at
->   0xab, INTENAB at 0xdd) and outputs CIE 1931 tristimulus Z/Y/IR1/X
->   channels plus photopic Y illuminance.
-> 
-> I will also note this distinction in the commit message / Kconfig help
-> when preparing v3 (alongside adding MODULE_IMPORT_NS("IIO_GTS_HELPER")
-> for CONFIG_TCS3430=m builds).
-
-Kconfig help probably don't need this info.
-
--- 
-With Best Regards,
-Andy Shevchenko
+In-Reply-To: <86a7174f-c44b-4663-862b-3631b0d6c5bd@gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/295.675.79
+X-ZohoMailClient: External
 
 
+--2jxiphyxg2w6bi2f
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 00/11] PM / devfreq: rockchip-dfi: cleanups and RK3576
+ support
+MIME-Version: 1.0
+
+Hi,
+
+On Thu, Nov 26, 2026 at 10:28:28PM +0900, Chanwoo Choi wrote:
+> On 11/19/2026 10:01 PM, Sebastian Reichel wrote:
+> > This is a combination of the DFI driver patches from the following two
+> > series to ease applying to devfreq tree. It is based on devfreq-next
+> > and there are no other dependencies.
+> >=20
+> >  * https://lore.kernel.org/linux-rockchip/20260921-rockchip-dfi-cleanup=
+-v2-0-43ff34ac8599@collabora.com/
+> >  * https://lore.kernel.org/linux-rockchip/20260921-b4-rockchip-dfi-rk35=
+76-support-v2-0-04f847016321@collabora.com/
+> >=20
+> > Changes in PATCHv4:
+> >  * Link to v3: https://patch.msgid.link/20261117-rockchip-dfi-rk3588-cl=
+eanups-and-rk3576-support-v3-0-32ff1546b0e4@collabora.com
+> >  * In PATCHv3 I accidentally used the patches from PATCHv1 as base with
+> >    the wrong DT bindings; this is now fixed
+> >  * I've fixed num_clks typo in kernel doc (Sashiko)
+> >  * I've fixed incorrect LPDDR5 BANK_MODE_MASK for RK3576 (Sashiko)
+> >  * I added a fix at the start of the series correcting LPDDR5 bank
+> >    mode value (Sashiko)
+> >  * I've added a fix at the start of the series avoiding usage of
+> >    uninitialized memory (Sashiko)
+> >=20
+> > Changes in PATCHv3:
+> >  * split out DFI driver patches from both series and merge them into a
+> >    new one; clock controller and DT patches will be sent separately.
+> >  * rebase to devfreq-next
+> >  * collecting Reviewed-by / Acked-by
+> >=20
+> > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> > ---
+> > Nicolas Frattaroli (6):
+> >       dt-bindings: devfreq: event: rockchip,dfi: add clocks to rk3588
+> >       dt-bindings: devfreq: event: rockchip,dfi: add rk3576
+> >       PM / devfreq: rockchip-dfi: move to per-variant const structs
+> >       PM / devfreq: rockchip-dfi: add NO_INTERRUPT perf capability
+> >       PM / devfreq: rockchip-dfi: use bulk clock APIs
+> >       PM / devfreq: rockchip-dfi: make RK3588 use its clocks
+> >=20
+> > Sebastian Reichel (5):
+> >       PM / devfreq: rockchip-dfi: drop incorrect shift of LP5 bank mode
+> >       PM / devfreq: rockchip-dfi: initialize dmc_count structs
+> >       PM / devfreq: rockchip-dfi: move register offsets to variant stru=
+ct
+> >       PM / devfreq: rockchip-dfi: prepare support for v4 DDRMON
+> >       PM / devfreq: rockchip-dfi: add RK3576 support
+> >=20
+> >  .../bindings/devfreq/event/rockchip,dfi.yaml       |  89 +++++-
+> >  drivers/devfreq/event/rockchip-dfi.c               | 297 +++++++++++++=
+++------
+> >  2 files changed, 290 insertions(+), 96 deletions(-)
+> > ---
+> > base-commit: f9316c13d6f621af4f6f4a6089d3c989ffe899e6
+> > change-id: 20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-747=
+27d64d729
+> >=20
+> > Best regards,
+> > -- =20
+> > Sebastian Reichel <sebastian.reichel@collabora.com>
+>=20
+> Applied them. But you also need to send the clock patch[1] and get
+> it applied. [1]
+> https://lore.kernel.org/linux-rockchip/20260921-rockchip-dfi-cleanup-v2-6=
+-43ff34ac8599@collabora.com/
+
+Thanks. The clock patches (RK3588 & RK3576) as well as the DT
+additions are on my TODO list. The DT side had a dependency on the
+DT binding being merged first, so I was not too much in a hurry to
+send them out (esp. considering nothing changed in them since v1).
+
+I will see to send them out today.
+
+Greetings,
+
+-- Sebastian
+
+--2jxiphyxg2w6bi2f
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmsIQJkACgkQ2O7X88g7
++ppr/g//a7aHkud2vzc0NUnb34c5K7j1n3UQj4oqhM1BvI5qp7bk1VtbSlsKHaIH
+rNhBleXpFwipY82Sfshg6ybDpxMthtqxmGr8vN8s5P8nhXnlfS2MbtV7vVpwNRV9
+b+Or6Y++/x79VbeA+t3IdCbizCep2IFcdvzsFBAvumO2LDJJPZY54/DosCSK2ZhG
+axl8zN+zbvvjyKXaAajNsd7SDOj3ueUoY8fEkZdsZIoBC+A/hRzv42E9s/B9F8zm
+vB8oZWgo9iwoT+iJSWrF8yXrLTr7+Wx+DIRUYob0PaJbcnIzIXd7xpGx95zqiULm
+ye0UPMkfbetgPNrno6KAliTD/nBbaZvjJDpLogwGbicn6gnmWHqXfgm9WNH5Jv5L
+LYpO9WOc0os7BlLyKky+ViLyK9GRFKCCvpzhTBV/P5bwHMHyModSz7P2+Hm7Vy/Y
+d9WGgEhXlYRaQGumfCTW074NZriA56Ct3Fjir2XhALOGOE/b98HWcOEjckBKjEoA
+4dvMD6SW3a+P3/sD/LxtE7LotDw8SQyRljTZ37FntNOdOcFfrt//vgwZuU0UeCNg
+f824yBSIZCE/QmTUghNeKQ5tQC2hTlF5NCIJ9oVo3sPfkz8Ove2zd8V/LZMAgbH0
+jC/UeIIF8nx7C5//ogFhrkEJbeYjbxRz9fDZdNJPzFHcPSEqI7c=
+=CenJ
+-----END PGP SIGNATURE-----
+
+--2jxiphyxg2w6bi2f--
