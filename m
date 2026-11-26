@@ -1,100 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.170
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795726287;
-	b=uJ2Mz7DlGRw1XXNsA7iEdmCvl6mHHSnXdND70fEqARti5Dna1ou6Gk/HMBwaOsU/Cibv
-	 tBQoPi1w44YeMVnldZy7ifOH3PwN1XisMJJhyf+F2K4ywFPF8HAOKiNOJBx4spZQSPdI2
-	 zjRJaBR/2//AfDOwFeVNPFo6/4oJiVBY/25NMWOLw5amwvgNfug37Y8nV44NzWd/BkyQK
-	 iatUzniN5hUqie2lEh5/Sdp/2+GrAkxRESHIq8LWO1xeAMU6w2L7AyhR6KVUSlbQEAcDZ
-	 WLSu565YPma85PNitCAVOwsIw4Gx0o6M64hVD+hnu7PSxGOBB9D90OwA+ehsRHe9Oag==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795726287;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=KjPQo4q/k3/IK7cR8RIRgyLDoYYjcusaTmDtFIYgl8E=;
-	b=VXaYI0mMxMeUNB4Q/Tz4uBdcMOwa+yjjtoasPjrRXdBa7XWhmmhKFHGXQbVxeYeT3waI
-	 DfmQaE2siv5+QIRL7/sG6g7Z8zVrIgl2+oCVHqT4f7aj+83rh40X5zU6Os+tGEuRLUTa2
-	 1t1yAJ50BQX4tsSPqwMP6CMdOENy36Gga2R3jpdZninHHwt6nXbvBRJv4syFXwPYy+EKj
-	 kgtzpRhaIHEy8Z2ark3IO5fPV6UHVU8cdw3H3DJyXYqphlxHssEOcQbD0Wqw+4LqwVeKQ
-	 QAgSEjx7lYr4IeyirAe2dtiV/bnyF/OumlxoESi1WZ+mnG88yjvMin8hcVfSztr1HUQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="pWUFz3/M";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.170
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795726381;
+	b=Wrzgld+iomP50y7MxgJFYgAzIfocNNjrIQIHptl2yWlLV63ojGZEqsq1yD3TpPdhfXgO
+	 PUhwWdF1j+KF9bGpP0kP7c47x6i0dtfXzN9uWdZZr070ymEk2BhLH0gLSbGxml24lnnip
+	 +vIffPH1au/BVEcRbEV8szLC2wIT5LH6te+2FZNUOLZ9mVdxPXidH8+yQflKe3BqmnjKa
+	 XF2pS62XcZ8Sp2+HGj6MHS/PVKs6C6N3+R5KI/94TeDqyXuKwlTEhLgqPm2a1QyM2+csj
+	 RYqQyJDdqiPE4h849G5iXcqDYO8jvPSC24cQZaCMmdy6sxgduv0tcVC8YLjqNNi41Vw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795726381;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=tjQyY1vfmGep+Esa3MSlDcZQTtZ0AOYcA2A46l010/U=;
+	b=aZXw56IFTooaJHXjrrTLnSyVXhjCp8gWkC6NN+8E9I2ooDJJM3RbooCa+mDA1d6dmKcS
+	 nE49Qt5OzSMDR5lDl+C1QQ3ZClukcfJka3wEu/EFcACaVXzmXu7qWuqi56qgjlFeLxiQp
+	 ooIDwS8UV1kMZpCrhRAW2vfCK6Ib/WKCV4yVlYouoiEwvKhwlQSwlWeksDoz5UngjMVrr
+	 2/SuRdyxO5jswLWb0i4vWdnIO40hJu80gq24QYKa3FMzC1geGE1K6WL9k9mus8Uv7fNF7
+	 Q5v/EMEmvI8VE3XhTNUfGhU2ciUyWuPC/x9XLrwtIQwVubfKvPn7DMXLIzZ5JXGDK7g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GF9Op+Ia;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C07E4606A687
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 20:51:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C07E4606A687
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28DE4606A31C;
+	Thu, 26 Nov 2026 20:53:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pWUFz3/M
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2f04244c3d0so58690545ad.3
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 12:51:26 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795726286; cv=none;
-        d=google.com; s=arc-20260327;
-        b=irp2xaWgdZ8yjrIdK7XQRswZBc3O0/6ztbtEnEm2mtFiv3FuOw0XJuiu2oMESYcHb0
-         Y6cU9WNmwse1aoxfVI6I++JH7aIGHDNtJ8wYBa82iruenAvClM7lhBFHdL1alfimCkn4
-         Tc5xlGsvYvUa9Omma/yJiHnnmH8/qtzvKiyX4Cy4H76sMF7f+9mJHJ1YAT684XOuuOqU
-         ltKeiGWQPOihQeOtJW3wVlCVBKkkug1jPa6IGwu44h9cuE8R4PBZmabL/RL/kBjV84Dk
-         nJmsyroyxPJKtY+a+ZqwtPP5SaWNMdZs3XCCvBOHjHe85y9zSTRsT/FHW8aShGZfIwuS
-         Ur/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=KjPQo4q/k3/IK7cR8RIRgyLDoYYjcusaTmDtFIYgl8E=;
-        fh=1sZqnBNKdDwtjJEOZscYc5ri7KG7oZdFVaTn3DYI4cg=;
-        b=qj3WEJp7xm2JMpN1jWfsYx7pC9DjQUVFyyFFnPjmVZVifX4Yxq0o/JI9Thdsm1tTgL
-         7C0dWCWFH8s1pdG8HJNURUURtQktXtsqyeGjN8vUzZT8GmJoGT7iAJG4GvI7Gczuei5a
-         F+78wktG0TWBg5P4Iq+xvctXodw/CkYrM7dZ0uwuJphT/lTNmqeN7RziqFmdldlyM73i
-         Ehruu6mz2LQfbWzhxlkbjm7ciFwuxdsAZFydHLjmoy8WJQItpypEKanEKSmFi5wN7Ax2
-         qptTXb3Q4kR/PF8tP2XZ4cSspPpuSY7B/YemQNe6Fr7YKkuzRq7ik1CLnjb8CV6k3reE
-         QRrw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795726286; x=1796331086; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KjPQo4q/k3/IK7cR8RIRgyLDoYYjcusaTmDtFIYgl8E=;
-        b=pWUFz3/M7EmWEuXYofT9Wlt8PQb5LVGmCJejjLrN282r1F9m9LUgcFTgW/6gC1bDG6
-         BSCD40lsLsshlKT/UGRAuVdbcwHEcnx01DVyOl5rkFGOLZnG9lAGhCZ5D9E4pJg7YB/a
-         tfrK2fkOEt8VYi2X8jUMBiNAa3Z88xXWfdb3dnq7HGORnxK3znS4NyvDKjYnHuV3CXjD
-         FidYpBONQH9MdrhOraRPikIVcNlRJbqjsQtZUzZAt7Wn1KlnCozlO2qVkUHfQJJtWDBs
-         7MoCa8znYJOSQSgsyMWNN/DTuhfZ/DYQS1BFWEV4nd8vLIeXEbZ/dZ18aQwnfV3XROtt
-         NVnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795726286; x=1796331086;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KjPQo4q/k3/IK7cR8RIRgyLDoYYjcusaTmDtFIYgl8E=;
-        b=LfGnX7YCIzldwr7gTTKfvtPJZQYoQ8+hBVy6tY73dtl4oO/5babwyy/0euMsbddv87
-         opDrh6LI4wn86514h3Us+OAHhTfB0I83p2kfGZiHfy7u9qlWMnuBu23oYUk+yaQ6A8A5
-         mhO4fluA7FnyZ3pACIjTW2REtGSHvaimxKckFBBoIP1MXmBZTYLd5sM0513xE8p59uV3
-         VTfxhKABRYSgn6iN8MMfpnX30Hf2DZpJ+k+RN2tgx/oodK98h4/6aXOei3icmTBm2uTo
-         7ADCqeEecGroVMbjDvfzi/+amYFqgNuBB6jEqgeqG11vB1AgpS++J/WkEkx/C32/cOoE
-         zVRg==
-X-Forwarded-Encrypted: i=1; AL+hErEUAAmrdtrnmMaxw8W74xThuAcTMeAjTHYRDzoGlLlq2mkU6lfaNaeyulF9gehz8crotESerhHk9P0o@vger.kernel.org
-X-Gm-Message-State: APuU4Z+DTVOIQ+itIwZ/ELXAPAicpq+W83mmxCe3pAvEUqIv/BZV6493
-	XngMzCxb55pkVbPfpgEhbkQx5CxBsBshRy0I86t373DRyf625BWh6N4vsa6iu5AbYiSTQFg7JEe
-	raeQQcyJl1IQBKCUi4evQFI4sTt8c9jg=
-X-Gm-Gg: AZFdTZcZ9eyvg7eeq88sUTxd71zMxaWY25GoKHzFscVpAunRy7CnGuHHtQtvYqscfCb
-	r4IPnkba9Zazosn/19jHpx4urJBvwf3h4XX9mJDaG1L3ns7eplWfdgPnAojGwMfVNQAeCCGcbgO
-	OpFV3T8ZHpimoXEYGShJiWc3tZiT/H0S05m2fz7fq30HrfREpYzRWJyqtzfnDmxjDSNK2jGVsie
-	NRmR9peO1M/kL/p10FEdi+PG+LAOK/YlN5ptsd9F0uTgY4otAYWFRBzue/+fZ5Lc4fLzTvsisGw
-	mFcuYSJLmdlZd67gKoH8k8XRhg2SwodIgYNfyBOig12PrgLFZl1X35dAygghhSUT40KDhYeVRfE
-	pT71wBqFVP10tDbzcsOt8JBe3lIxNgOWEEC7s
-X-Received: by 2002:a17:903:4b0c:b0:2ed:352d:c619 with SMTP id
- d9443c01a7336-2f03f16ca83mr215219965ad.46.1795726286102; Thu, 26 Nov 2026
- 12:51:26 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GF9Op+Ia
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 589711F00893;
+	Thu, 26 Nov 2026 20:53:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795726380;
+	bh=tjQyY1vfmGep+Esa3MSlDcZQTtZ0AOYcA2A46l010/U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GF9Op+Ia9d3aq+1M89g3LmTITBPxJ/if+0I8mX/Qlz5E7QjoslYKZiwmBIEIQJ29R
+	 5tH9kzH74OQsJWfPldnWiyGr9z/qzQgYh7kxUuZyOGjapTxONQjV8huy4lZ6xXBhKe
+	 QpD5THXs8COmwmkoQcb8cYaBFP4qdx2K3cpLzVkFPLR2YLILvr9RqQGxblzYGJhzxK
+	 QdDMHS8yT1wEVbdOIAz5xCcy7P9FhMhOmSOW9KrcCUz+AWAQm6FGnNNg4C0uMHrSIq
+	 YvEoXm2AJYcPoAt5t1GH6XK/Pq4a5Fq18OfxUOYF/oWtUrFClhuiMtq3mANTiUYke0
+	 GulaXlwSzzgnw==
+Message-ID: <sashiko-outbox-236168@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 2/5] arm64: dts: allwinner: add A733 SoC description
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Enzo Adriano" <enzo.adriano.code@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261126-a733-cubie-a7s-dt-v6-2@gmail.com>
+References: <20261126-a733-cubie-a7s-dt-v6-0@gmail.com>
+ <20261126-a733-cubie-a7s-dt-v6-2@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Nov 2026 20:52:59 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,96 +59,94 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261125-spacemit-soc-timer-v3-0-e6390f3ae4a6@linux.spacemit.com>
-In-Reply-To: <20261125-spacemit-soc-timer-v3-0-e6390f3ae4a6@linux.spacemit.com>
-From: Iker Pedrosa <ikerpedrosam@gmail.com>
-Date: Thu, 26 Nov 2026 21:50:00 +0100
-X-Gm-Features: Aa3M54oEPweJV68Vjz8cVs_U2wRf_Iqv5S5UWB4zm__2yBgEw8WUCZAIeYKD9Xg
-Message-ID: <CABdCQ=OHaicMvAC=S+To2pQgFXupoUEY72TF+NUNF7ywM1kj0Q@mail.gmail.com>
-Subject: Re: [PATCH v3 0/5] Add SpacemiT K1/K3 SoC timer support
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Yixun Lan <dlan@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Series looks good. All previous concerns addressed.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] arm64: dts: allwinner: missing Port A interrupt in A733 pio
+  node
+- [Low] arm64: dts: allwinner: undocumented allwinner,sun60i-a733-uart
+  compatible
+- [Low] arm64: dts: allwinner: commit message claims shared L3 is
+  described in DT
+--
 
-Reviewed-by: Iker Pedrosa <ikerpedrosam@gmail.com>
+commit ca507efa367e6e97ea2be259dd6d3577602268a3
+Author: Enzo Adriano <enzo.adriano.code@gmail.com>
 
-El mi=C3=A9, 25 nov 2026 a las 2:39, Troy Mitchell
-(<troy.mitchell@linux.spacemit.com>) escribi=C3=B3:
->
-> The SpacemiT K1 and K3 SoCs have APB timers that run independently of
-> the CPU cores. Each timer block has three 32-bit up counters, and each
-> counter has three match comparators and its own interrupt. A counter
-> can be clocked from the functional clock or from the 32.768 kHz clock,
-> and can run in free-running or periodic mode.
->
-> This series uses counter 0 as a oneshot clockevent. It is registered
-> for tick broadcast, so it can wake up CPUs whose local RISC-V timer
-> stops in idle.
->
-> K3 uses the same register interface as K1 and falls back to the K1
-> compatible. Both SoCs run the timer from a 1 MHz functional clock.
->
-> ---
-> Changes in v3:
-> - Drop the unnecessary RESET_CONTROLLER dependency (Philipp)
-> - Link to v2: https://patch.msgid.link/20261117-spacemit-soc-timer-v2-0-9=
-264d0ea7755@linux.spacemit.com
->
-> Changes in v2:
-> - Use named constants with comments for the counter sync latency and
->   the minimum clock rate (Iker)
-> - Link to v1: https://patch.msgid.link/20261103-spacemit-soc-timer-v1-0-3=
-6722421db6e@linux.spacemit.com
->
-> To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-> To: Daniel Lezcano <daniel.lezcano@kernel.org>
-> To: Thomas Gleixner <tglx@kernel.org>
-> To: Rob Herring <robh@kernel.org>
-> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> To: Conor Dooley <conor+dt@kernel.org>
-> To: Yixun Lan <dlan@kernel.org>
-> To: Philipp Zabel <p.zabel@pengutronix.de>
-> To: Paul Walmsley <pjw@kernel.org>
-> To: Palmer Dabbelt <palmer@dabbelt.com>
-> To: Albert Ou <aou@eecs.berkeley.edu>
-> To: Alexandre Ghiti <alex@ghiti.fr>
-> Cc: linux-kernel@vger.kernel.org
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-riscv@lists.infradead.org
-> Cc: spacemit@lists.linux.dev
->
-> ---
-> Troy Mitchell (5):
->       dt-bindings: timer: Add SpacemiT K1 timer
->       clocksource/drivers/spacemit: Add K1 timer support
->       riscv: dts: spacemit: Add the K1 APB timer
->       riscv: dts: spacemit: Add the K3 APB timer
->       MAINTAINERS: Add entry for SpacemiT timer
->
->  .../bindings/timer/spacemit,k1-timer.yaml          |  71 +++++
->  MAINTAINERS                                        |   6 +
->  arch/riscv/boot/dts/spacemit/k1.dtsi               |  12 +
->  arch/riscv/boot/dts/spacemit/k3.dtsi               |  12 +
->  drivers/clocksource/Kconfig                        |  11 +
->  drivers/clocksource/Makefile                       |   1 +
->  drivers/clocksource/timer-spacemit.c               | 317 +++++++++++++++=
-++++++
->  7 files changed, 430 insertions(+)
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261019-spacemit-soc-timer-cadf3088d286
->
-> Best regards,
-> --
-> Troy Mitchell <troy.mitchell@linux.spacemit.com>
->
->
+arm64: dts: allwinner: add A733 SoC description
+
+This commit adds the base SoC Devicetree description for the Allwinner
+A733, covering the CPUs, PSCI, timers, GIC, RTC, clock/reset and pin
+controllers, UART, I2C, and MMC.
+
+Link: https://gist.githubusercontent.com/apritzel/60fd7379b9560a15b8b352986=
+b69d39f/raw/efd9cdf8f26ba5b0c7e138f093af44a1cf322469/sun60i-a733.dts
+Link: https://lore.kernel.org/r/20261126172253.1097838-2-andre.przywara@arm=
+.com
+
+> Describe the single DynamIQ unit and shared L3 shown in section
+> 5.1.2, figure 5-1. Partition PPI 7 (section 12.2.3, table 12-1)
+> between the Cortex-A55 and Cortex-A76 PMUs so each probes its own
+> core type. Defer capacity-dmips-mhz until it is measured on A733.
+
+[Severity: Low]
+Does the Devicetree actually describe the shared L3 cache as stated here?
+The /cpus node defines cluster0 in cpu-map and cpu0 through cpu7, without
+any cache nodes or next-level-cache properties.
+
+> diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi b/arch/arm64/=
+boot/dts/allwinner/sun60i-a733.dtsi
+> new file mode 100644
+> index 0000000000000..e062b08006da0
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
+
+[ ... ]
+
+> +		pio: pinctrl@2000000 {
+> +			compatible =3D "allwinner,sun60i-a733-pinctrl";
+> +			reg =3D <0x02000000 0x800>;
+> +			interrupts =3D <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH 0>,
+> +				     <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH 0>,
+> +				     <GIC_SPI 73 IRQ_TYPE_LEVEL_HIGH 0>,
+> +				     <GIC_SPI 75 IRQ_TYPE_LEVEL_HIGH 0>,
+> +				     <GIC_SPI 77 IRQ_TYPE_LEVEL_HIGH 0>,
+> +				     <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH 0>,
+> +				     <GIC_SPI 81 IRQ_TYPE_LEVEL_HIGH 0>,
+> +				     <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH 0>,
+> +				     <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH 0>,
+> +				     <GIC_SPI 87 IRQ_TYPE_LEVEL_HIGH 0>;
+
+[Severity: High]
+Should pio include the Port A interrupt (GIC_SPI 67) as the first entry
+so that interrupts has 11 items?
+
+The binding in allwinner,sun55i-a523-pinctrl.yaml requires 11 interrupts
+for allwinner,sun60i-a733-pinctrl (matching the A523 fix in commit
+6b81aa0c8a4f ("arm64: dts: allwinner: a523: Add missing GPIO
+interrupt")).  In the driver, prepare_function_table() starts at bank 1
+for Port B because Port A has 0 pins, and sunxi_irq_base_reg() indexes
+Port A at bank 0 and Ports B through K at banks 1 through 10.  Omitting
+GIC_SPI 67 shifts pctl->irq[] by one bank, so any GPIO interrupt on
+Ports B through K reads and clears the preceding bank's status register
+and leaves the actual interrupt unhandled.
+
+[ ... ]
+
+> +		uart0: serial@2500000 {
+> +			compatible =3D "allwinner,sun60i-a733-uart",
+> +				     "snps,dw-apb-uart";
+
+[Severity: Low]
+As reported by Chen-Yu Tsai on v5 [1], the compatible string
+"allwinner,sun60i-a733-uart" used on uart0 through uart6 and r_uart0
+through r_uart1 is not documented in
+Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml, which
+causes dtbs_check validation failures.
+
+[1] https://lore.kernel.org/r/CAGb2v64c5oirvfq7R3a1CWQCydfOOipcRD7dhSFAb=3D=
+zczRdTHw@mail.gmail.com
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-a733-cubie=
+-a7s-dt-v6-0@gmail.com?part=3D2
