@@ -1,82 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795660740;
-	b=pGC/6ipcbFdTplbQdMKMUCspl74J5CR1UbrQn/R2p29GcmWa92+AmeF5y3H62zdbUjGd
-	 F11SEtHywxB/Aob/EdpSFYh7kzuo+xRiVuC2T/Qd4UPbHxtEIJf6oVyeCNjqAX2rmHY31
-	 xjMjWIrf/9WeSvWD3SmnYx3/Q5WkhmBcNjuA3KefnmjCIubEG72VUjsKc25TXtNPjnzfZ
-	 RLK+RLFwTVgzGg+KSnM44jj3EeNcbe00zkrTdLzVu3AK19IoyBzbleva5mGemhlKYyXjG
-	 aKlUJfBsMHYAgNiWJ0/8n9sNML2czNtVAG3ePL+zHFsoSw6zMlwKUAQMrgzv0ETq9FQ==
+	t=1795660741;
+	b=Z5GLZpZ3L9pTh+FwJrWLaryJ8S0mT78FTLxMjCjHe1s0AHOf19pGpn8n1CqORBoE7LEt
+	 3z6xTzk4r8Z/Ff+7nSLz9MTJRwfj2PcylIHm1ATAcDQlo+Pw9Y0LxmJGWNEFNym+ndoOb
+	 opiSYWNsbPCnRjB3W41QLfKHcmqfsDvPgdfaIi9Tn5kRW2evprEVaaLrcb9eiezjenjVr
+	 2h2TP3UUTp/HWTuuEx5WgV123kR/ZAY/KAxBsHK2rbygNG7vDEn6MlW9v4IXIqdT2Ord8
+	 B6xT0v4dpkYb/Nn51EEaLVoB88VaTd8HuNa17tZxRK0MpUtue/9/+bQ/phCAC9h4XlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795660740;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795660741;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=coO4Ngf257EjY6b4GluqTxT2j3/irNaUNExRpoNnHT0=;
-	b=AqktJEChP7fo4OvC5QZTU6stzYLyIPEfBk4cNllwHHUXlD8w7Bw6vEgjgepDHuZOyCcT
-	 +w3py7Fh4XvORaVjQXYG0e7jVUDeKcHer3fdYddHw9ktANi7YPwtZZoIowEOWjggWQhZP
-	 wXmzyPBcfxn5Ll+VnQMRbvEpX1rsGqYN1YqWAZaWX9Gw9hS5v6hkCp/pPM6tJ6hRKwhDW
-	 lv9caSTficXUA0D+BXjI5GNfqZVAtmk4USEbQ7Lh3glnn7PsEyZXRp8ZOtUVD+HAT1fxA
-	 KTAqg4GlRSAciMbezRHk4jG027JlA/HmZp8ir4sonuJWcYxNPleEMua67cM9ttq2bdw==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Bm/bUp7RlKkBT/8X38VbZu3Ft5/2WN63tbel6a0QUxM=;
+	b=JplACY2+hdDNc901HzGECcTFkTeUK7W4uH7mo+AXePEf9DBPSnGVjw0FHSMIENnjfiY8
+	 nwCm4F0FhfIVYa53AMyTRBf8xAP49jZZ8YkJbHqqW1Y1H/5q7XJkBHdpoNJ52XrgEAWKX
+	 Isx4MkYpcDepeoZx05oOnLHehWfjLboG7x66m+Fnv22BrbTVZhdvuX+VTSUOSJFA3NNh6
+	 kinIxf3fYTgz+7sG3YylUzFi91wj/qjzuaLRgesEWQGc6N/KCspTB5/jc59t2G8kkSzTc
+	 ivXVSudIwRKH7zcjvpp5VtW2rIJAxZ3ZzM8zPjRQ29U7BPs7j/OPqg+MKCzwlaeoDPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oh0QO9l6;
-	arc=none smtp.remote-ip=209.85.210.170
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l8t2buJZ;
+	arc=none smtp.remote-ip=209.85.216.45
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 495CA606A31E
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 02:39:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 495CA606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4124A606A31E
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 02:39:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4124A606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oh0QO9l6
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a06e79e152so3243221b3a.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 18:39:00 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l8t2buJZ
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3b43d30822fso3493298a91.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 18:39:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795660739; x=1796265539; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=coO4Ngf257EjY6b4GluqTxT2j3/irNaUNExRpoNnHT0=;
-        b=oh0QO9l6P71GJbq8uxDu/gVYB9eu3Sd2jVhzdjQQ5ve2nsNaJuaoqsLOdi+sZDVDei
-         JWjg6/V3szg312ttrlmuw3V/JuPQ8vHjY+yi8sc7S1g7UJc3QIzT5B+PCGBB1kR4zMv0
-         XmB7MCPLIAjLkDowXxMeev5ftUT9SpZcKXzfByKNp90XUT4mQdSkRmDu+DDpKabgRy/6
-         r3gRjWlgOD+jE7RgOtfhSPcA89XSldyPivq9bHrm/9EG5DGTfm/mkECdqP9QU7d+IIlI
-         6QPpzG1xcyEXRR/tuGeJYvBH812cYBB6ROZtfbWfb56/4wuFQvdeWXqvz9mvInX54eCV
-         PsCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795660739; x=1796265539;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1795660741; x=1796265541; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=coO4Ngf257EjY6b4GluqTxT2j3/irNaUNExRpoNnHT0=;
-        b=S90cLJg5/5Q/ObAXGj+vLn88KUS2tUNtW5CgAUtFZRocUdRo5aKKw0q2HVihvTCEMD
-         LKc8aT08itQu8SPra/L6Gs5W4Z/cRkRPhJNqxSIJwNATHbkUge6QGUgYFi76Jx8Uktbz
-         Nx3pRFAoFiAHpmMuCWEfa43IbgExwiH8cTM1jfzCo+M8xtMuwFKFK5J7zCFum2vuY885
-         y3rK2+Yu/ktaGwUy37EvQNx7hCqz0Wyih2ih3KW//rLc5gLGP19Nd+z7AXg5Y4ipo/0t
-         Yq3cwDNlq6EptM0Dwhwm8Ez7MiZX9g3yYUHUitMKV+vrVI9BYw2ZmPq2JJJakQxY/nt+
-         yorA==
-X-Gm-Message-State: APuU4Z/pPhhpM21HgJqzwu9d+y14izhQbhqjjLs1+HGxGfH3fmW1uuYg
-	beT1GP9qvKM/FIcG720CWgnaeAwX/nSf6iPPawwtrRyVEVpABOztvn6D7oKMgQ==
-X-Gm-Gg: AZFdTZfIqP8sYUGSPTeUgnd4FCW9YpaxmLU0LatH/uaoaTa+sETqhRBegq0hpdjDaNK
-	geJnMIvmECPO/VVQLV3xkogg7alnpt2m9oLOlsy8V4P9rIyvCxXzhjioF8olxcllOcQxZwDMTWf
-	6qQXw/4lseVvXeztudskEnWzJGo6qJ5hh2bUGio8Im/R2xHFpNS0gf2H1+QPeQthREy8qH4+DEt
-	n0cnD51dulORI6N0SrRPfH0P3l9W0H9JpHbf9dAKX54l9KSijTVmxwFTIgtQ5wpXHuP3AzbMLqi
-	PAWzQ555nykt3RGwWHo7WIjugSFynlQZpzhaQSxAq2eJTmLY/oeE/CPHXXyL5woJgQqHcXj77H/
-	nMoVfQJz4yqqvGE4ejGYjfjSM4wnZHdW/DNrg/vNTvxN72l88BW+SYXPO7YCQyIg2/Ofxnk+K5E
-	Wq1u6VNJf4GBai+9ceFKNHnPtXxfj9HI9GpsPqedRM1v7L8VvIsnBGng3+Xhv5sr6chNjTWEy1j
-	HSAN/yBaSpK7Ts4kXg21C1ceOTT521vE02sCqhOjwNkuojn8gyboThDkvyfM+BKxoDrLlpv9eiF
-	ENfws3h99iHTJHa+34/XZIQ39a/cWxcTWWJtbvN+I9ISQXGRKW4n1UorUSGmtMGyLewklGmG94m
-	HrSM74mZwbAtm6SVQIj4tXq/kvAK2baoXpFyF4iYiWLlC3ifiiNRhc3Rx+5K/lMe9OWhWEJ0246
-	MI6Y44LBNMRTyBXrg0PaVamCO/
-X-Received: by 2002:a05:6a21:7a44:b0:3e2:200b:dc24 with SMTP id adf61e73a8af0-4014e655aeemr20431782637.90.1795660739442;
-        Wed, 25 Nov 2026 18:38:59 -0800 (PST)
+        bh=Bm/bUp7RlKkBT/8X38VbZu3Ft5/2WN63tbel6a0QUxM=;
+        b=l8t2buJZHeLyktmdJHxJyyVosC+gpje9EDmrnIe5yh+iPn3Owev9CG/8z6Juz/sitc
+         YqgTxAizJiLKaVTKv+KmDwCje4IIUFnV2KY04RwzPRZcoruu+Y3f2uRvBON6pqcbC66w
+         obcLB4FB8byXGfRGZQj63Yep0sxzSJuI0Xo+IMQpD0+lNTv3TxZGSnYRC6lqqLgmSidB
+         rcM48TH+UgkTDGbrWc5aEWUmneh2mUZSHAX6CGLKcjNX56MMv5oT1qN8+gqy1LuvNHuv
+         gvr/6Sy1KWs4NkcciRaiobW7kY4olvRci/4jQtEpJvSlagqBJs9jDc2KUSaMbelWZ3+X
+         Jo/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795660741; x=1796265541;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Bm/bUp7RlKkBT/8X38VbZu3Ft5/2WN63tbel6a0QUxM=;
+        b=FgzAyYsh6rgeYw4Xlzk/96WskLPFbTTVI7EGeClU5iUv0h9jG7tbDKJLWkPfNJDoQq
+         QqwtZoqQ0AJAoYPJMLgrxrTRDRcen0+nN5cLZzQNcf0lDcaQQxEDn9PE9/IH2u5KmC73
+         BkDQ9lsxd83F/3tteWhRB+j/4jooxJ1U8kR6dfFw58OsvrgdldIzeVXbM1wgm6atNtOi
+         /xq54RbRccvln/kjGeKLj/u/ITwKBCB+R8hTw9IlNtFoFZkq3vDpariVIipc38vW/yUU
+         KzpvRCH/dfEuFqHiDdWxdO73S7g52/SQ7Y3QKM0HKREXvwZzI953+xqHBdVI2+Du3TPH
+         kTEA==
+X-Gm-Message-State: APuU4Z+y6lWgxPEDthgK5RkCDfV/t/yk83FgwxSUXAqVVYNoxGvIham9
+	DwKw+g4n0QDd34ZpCrsRGHtSgpIC8lB3t+YAKhzHfbNcAf5AYZ3JmJ074MUNlw==
+X-Gm-Gg: AZFdTZeumL1//81jdzPP+/N2x8cn1rUwPQzcfcK+Ya7C1IiR++LQx833MPh+MeU9jp5
+	QF32lDyPiqMjt1Bko03HEw3T2jiAXXdU5PSgPQlIJkft5Duhf2y7dW5BRpopJt95tPzvm061b9d
+	QJ5W5UXKdtbbvv8T2dMjzrC68VndF0amHMO9q8AA5mGT17pMqY1zA+vxcx61vcwRsk8cRfkT7a+
+	Blzo+yXGjpnir4S/TNRQvMqSAVZ5LHZUgexOzRVD7jw2TlM1HFETlbWzHQZV4eABGQwYdk8zaa9
+	u4OmG/+k6fnmcuCiS3DY3Dz6kfPKHObCvk8iYnpB5vmbUBqNghmJTcdubRw5IRsmXfF6Eq8H88/
+	DypmxwD/Fu3PjRlm0P0qgA8Cco8ZHB/ZAYTZ9BBoFBhxS1k0zS6obItBpMsvGPGSpZgK0aobHkP
+	MfYyMDxMpKqEfCTW4Eo5Whjciuo9FyxcgLVC2voqaIW5mJQaxTkYMIFGgHCMZcT6dS0YKpNru7H
+	71/J0QyhvUR+zcKFckGlNVBerUsiB03rNnnO455wFpyWk6bIYrBZN/f7RrGE13TIGp+bKZ9KsAl
+	ONhjOqPpaAkOZghbJlb0vIhaYqbkOCW6OPxtxpc8OR+W/OGGLKN/u0c7prYGSGkj35jFqspz1fQ
+	glsjqXeeq6QoJzysZqIPqVaVBzkFudPSmFFUt24U99b58Yn9Pi9GpRVix3Rr1gdSsUyUnVPlI6b
+	WHgw==
+X-Received: by 2002:a17:90a:ec88:b0:3a4:6e84:e7f6 with SMTP id 98e67ed59e1d1-3b41c7b572bmr17367824a91.5.1795660740619;
+        Wed, 25 Nov 2026 18:39:00 -0800 (PST)
 Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6d026d6fsm9909018a12.19.2026.11.25.18.38.57
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6d026d6fsm9909018a12.19.2026.11.25.18.38.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 18:38:58 -0800 (PST)
+        Wed, 25 Nov 2026 18:39:00 -0800 (PST)
 From: Rosen Penev <rosenp@gmail.com>
 To: devicetree@vger.kernel.org
 Cc: Andrew Lunn <andrew@lunn.ch>,
@@ -87,10 +89,12 @@ Cc: Andrew Lunn <andrew@lunn.ch>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Dennis Gilmore <dennis@ausil.us>,
 	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Marvell Kirkwood and Armada 370, 375, 38x,...)
-Subject: [PATCH 0/7] ARM: dts: helios4: fixes and cleanups
-Date: Wed, 25 Nov 2026 18:38:49 -0800
-Message-ID: <20261126023856.767961-1-rosenp@gmail.com>
+Subject: [PATCH 1/7] ARM: dts: helios4: fix board revision GPIO polarity
+Date: Wed, 25 Nov 2026 18:38:50 -0800
+Message-ID: <20261126023856.767961-2-rosenp@gmail.com>
 X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261126023856.767961-1-rosenp@gmail.com>
+References: <20261126023856.767961-1-rosenp@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,33 +106,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fixes and cleanups for the Helios4 (Armada 388) device tree, checked
-against the board schematics.
+The board revision is strapped on PCA9655 I/O0_0 and I/O0_1 with plain
+resistors, so a strap pulled to 3V3 reads as 1:
 
-Patches 1-3 fix bugs from the original DTS: the board revision hogs
-have the wrong polarity, the PCA9655 expander uses an edge trigger that
-can lose interrupts, and the EHCI controller that gets enabled has no
-port on the carrier board.
+  R1.1: I/O0_0 = 0 (R67 pull-down), I/O0_1 = 0 (R66 pull-down)
+  R1.2: I/O0_0 = 1 (R110 pull-up, R67 not fitted), I/O0_1 = 0 (R66)
 
-Patches 4-7 describe hardware more accurately: the fan tachometer
-inputs, the microSD slot's missing write-protect line, and LED color
-and function. Patch 6 fixes a dtc W=1 node name warning.
+The hogs describe both lines as GPIO_ACTIVE_LOW, so the logical values
+are inverted: R1.1 reports 3 and R1.2 reports 2. Describe them as
+active high so the logical value matches the strap.
 
-An AI coding assistant (Claude Code, Claude Opus 5.5) was used to write
-these patches and draft the commit messages and this cover letter.
+Fixes: ced8025b569e ("ARM: dts: armada388-helios4")
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ arch/arm/boot/dts/marvell/armada-388-helios4.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Rosen Penev (7):
-  ARM: dts: helios4: fix board revision GPIO polarity
-  ARM: dts: helios4: use a level interrupt for the GPIO expander
-  ARM: dts: helios4: drop the unconnected EHCI controller
-  ARM: dts: helios4: describe the fan tachometer inputs
-  ARM: dts: helios4: use disable-wp for the microSD slot
-  ARM: dts: helios4: use hyphens in fan pinctrl node names
-  ARM: dts: helios4: describe LED color and function
-
- .../boot/dts/marvell/armada-388-helios4.dts   | 53 ++++++++++---------
- 1 file changed, 29 insertions(+), 24 deletions(-)
-
+diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+index 9c106633b2b9..965e9972c9d6 100644
+--- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
++++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+@@ -181,13 +181,13 @@ expander0: gpio-expander@20 {
+ 
+ 					board-rev-bit-0-hog {
+ 						gpio-hog;
+-						gpios = <0 GPIO_ACTIVE_LOW>;
++						gpios = <0 GPIO_ACTIVE_HIGH>;
+ 						input;
+ 						line-name = "board-rev-0";
+ 					};
+ 					board-rev-bit-1-hog {
+ 						gpio-hog;
+-						gpios = <1 GPIO_ACTIVE_LOW>;
++						gpios = <1 GPIO_ACTIVE_HIGH>;
+ 						input;
+ 						line-name = "board-rev-1";
+ 					};
 -- 
 2.56.1
 
