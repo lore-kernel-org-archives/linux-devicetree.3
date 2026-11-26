@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795664488;
-	b=LpXXhiANXEIWypyGW9eII/sgHVq7zWKPRlBzhXX9rMXN7WQZ1V6q4faqo2JQvT1bpHr0
-	 idB6gWfDFSlMgTCmUp0mjuJdolcxVONSQUKtnw2ys9ot1djDQBpgCV8Py/23XziiSlbwr
-	 bbgtt4EG0f7TURFJDYOCmy50qwHUGZNaCdhPyJWMpbWSgBJRR/1zOiysE9MGN2NnuXbno
-	 N2pvV+IRxWsLYAFcFr35aHrJAZfhilmVznJNRXycyf1jXB6yhn/VtGClbgoys5eiBUW8J
-	 GzUU1oPD7NFuUdxYVCP1R7DeXhS0AjsqlFRRUV3dw6aiBgGUSw51QJBEYzBPihnfpCQ==
+	t=1795664519;
+	b=2a91zAvhQrjtGqtMH9Nk4OEBw7yVRnXN6uHKpdExeQu2IB/ekXnXT00Tgv/MUNoZun6K
+	 4SWznjvbdfFKDtbVmDMfbdDAi5J4Rmc3TEttCxlpEJDpRGxNcoAutySyjZs1fMP+iMfN6
+	 Lwlzgk7pwlk8+MKAy141gGgkhRMR0r65wwsZJxRK7VQLVDhNsT1kviDCcbrIprgrHkLYl
+	 GWJIf2KpqwywFHp4WQH72e8vcMtkGftMUEYFgqEZTZ4R+M6Ek6uiejFrmBbSQ669FZJ7h
+	 mkJkVW8giIiq7oXH/Qz/kilkmPWAtihgqqcjoJI0eUI2/9I/EhD7myzbWsID/KDRsjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795664488;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795664519;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=aAGCSVKRyJvt2CqiGVRrcfVMXDXMo2Q7Oe2lWMcw6c4=;
-	b=In/71s0grhQr8AkOo0edhRfHSENVQze01HIcT0E5+X9DXXHvC5g2Xr7GKSfEYcrEPSqu
-	 mbZmqJoME/DEtj10eQTsPJvhzgkMSd/GE/nN6Lcbya3Ch8VUORy8/96e20cKPzxOXdvo1
-	 ZLAg+3M9iRlLis0mlNH/Q2Bdv/K9HjL/PWoQEXVKsao9jArM9CSGwJ2pjX2dI3RbgGmt9
-	 XLocriqtbpAtf2nzPuikImQ0KQd22re5gMyPllBq35wl0nMBaSJ4uvGbs5rQAXROFHfQ1
-	 CA9gAgfxUro9pXQNkBE10QDUN3rGM5/EX/oMFVtRkWYz1j3kVuF4Y0CKR4OMeeLCoFg==
+	bh=xuDj1RKbZC6+WhHH3WA8MZHQCTluwl0b7PlIC/sAYs8=;
+	b=kOagwRUjIEt1mfBc/g7jUAgbauohNUc6P1KADuQSm+ouqw+XcHCluXmccN5ly0R71bmb
+	 rWvlBxnd4LBhSaW2XRwZp2xtPxSGoB1x73FrppZYIAjuKwxnSlta62Q8dUR5sOUc+UMt3
+	 xRwT+9BZif7CS+50lAlvNkQX74Ac5l9aqWmFIJ1tKf1okKI6ksmTrBLpLTCDkJpIVa215
+	 GBGjLb3UdoxYils4MUDi6lqGEEuvoENi+tt+m4W6arjQzxpcYlbF5NULrMx4mwUse3Wwj
+	 63ejqEpzM4VZx5nvU8u+1lcBkffH31leTCGXekSzkYC1tUgEjpxLq0tJZ8WRkshdf1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RVAYXBTh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L2ZeV6PJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8356606A32A
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 03:41:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1F8606A323
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 03:41:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RVAYXBTh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11FE21F000D2;
-	Thu, 26 Nov 2026 03:41:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L2ZeV6PJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA3CA1F000C4;
+	Thu, 26 Nov 2026 03:41:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795664488;
-	bh=aAGCSVKRyJvt2CqiGVRrcfVMXDXMo2Q7Oe2lWMcw6c4=;
+	s=k20260515; t=1795664519;
+	bh=xuDj1RKbZC6+WhHH3WA8MZHQCTluwl0b7PlIC/sAYs8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RVAYXBTh60u8Ly2g1doVbL2SUS+y6xLSS0fDkFjvD0G2+PC55CPpu8nD2ukjRKQST
-	 I+/uS4tmVcP3wyTuh8UMGDjDxHMjziydQ4Qayz1My55+EX4T0xpl5rF1iCtuNETDpj
-	 xZkQwHj1J0RyKVDcC2tmfpGdVeSI39G9vSQgAHB2IQ/CLgOldq1ZVej4735E0xOQah
-	 tewt3oaKwqC+DjAW01RkFlos2xcyDsVqyQJenlN77gKIwJTFYP54rj8l29mvL3jjJ1
-	 Zd5ByoYvOncWCsjMpiKzNnprFojLS3K/1/pr7h5e0aRSWzgz0VxJFOvTbupZOiAm2K
-	 Msi0eD8KBLbTg==
-Message-ID: <sashiko-outbox-234700@kernel.org>
+	b=L2ZeV6PJPZXWG5Jecpu1xojnR8hLWvyrrYtpEx2AHogsRrRtlJJEgFBMoLcwqMQKZ
+	 MudLMAbFasFvAj6ji72qJ/6KhEyNQU63aYyrTK7AmtUegxnZbGgxaAC5cEh8Za8DfX
+	 ikByYcjQ6xnIOkwDPE4xgo6De9qvqrsn0cfsTovAnIzvWMOxGwU5G/v4ZqrRRCNWtJ
+	 +1v0iq+ca1PQb8E0o4jiDvyQ0+/IFFEVCfLbBvKSnJOMewlgT+HFbV8RIIRhF2m1jd
+	 Hoq+D4ZxuYpGJjuDpKl8+8Jq02PaSz+l8YnQX3YEcJ467mPCJvcnFk0dD7TL3WKxY4
+	 tAmtESdXXBKvA==
+Message-ID: <sashiko-outbox-234701@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: regulator: qcom,rpmh: Add PM6450
+Subject: Re: [PATCH v2 2/2] regulator: qcom-rpmh: Add PM6450 LDO support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: SignKirigami <prcups@krgm.moe>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261126-netrani-pm6450-v1-v2-1-2539a2422218@krgm.moe>
+In-Reply-To: <20261126-netrani-pm6450-v1-v2-2-2539a2422218@krgm.moe>
 References: <20261126-netrani-pm6450-v1-v2-0-2539a2422218@krgm.moe>
- <20261126-netrani-pm6450-v1-v2-1-2539a2422218@krgm.moe>
+ <20261126-netrani-pm6450-v1-v2-2-2539a2422218@krgm.moe>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 03:41:27 +0000
+Date: Thu, 26 Nov 2026 03:41:58 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,53 +62,55 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] dt-bindings: regulator: qcom,rpmh: missing PM6450 supply
-  properties in allOf
+- [High] regulator: qcom-rpmh: invalid vin supply_name on all PM6450
+  LDOs
 --
 
-commit 034e98206388b0aac6afd8c342a23f595e3b315b
+commit f10d34b3eaf0e0959ceb4a5be745dd75208d5999
 Author: SignKirigami <prcups@krgm.moe>
 
-dt-bindings: regulator: qcom,rpmh: Add PM6450
+regulator: qcom-rpmh: Add PM6450 LDO support
 
-This commit adds the qcom,pm6450-rpmh-regulators compatible and documents
-its supported RPMh LDO resources.
+This commit adds RPMh regulator descriptions and compatible matching for
+the PM6450 LDOs.
 
-> diff --git a/Documentation/devicetree/bindings/regulator/qcom,rpmh-regula=
-tor.yaml b/Documentation/devicetree/bindings/regulator/qcom,rpmh-regulator.=
-yaml
-> index 9115885e7985b..ba3f50352773c 100644
-> --- a/Documentation/devicetree/bindings/regulator/qcom,rpmh-regulator.yaml
-> +++ b/Documentation/devicetree/bindings/regulator/qcom,rpmh-regulator.yaml
-> @@ -37,6 +37,7 @@ description: |
->        For PM6150, smps1 - smps5, ldo1 - ldo19
->        For PM6150L, smps1 - smps8, ldo1 - ldo11, bob
->        For PM6350, smps1 - smps5, ldo1 - ldo22
-> +      For PM6450, ldo5, ldo7, ldo13, ldo16, ldo19, ldo23 - ldo25
->        For PM660, smps1 - smps6, ldo1 - ldo3, ldo5 - ldo19
->        For PM660L, smps1 - smps3, smps5, ldo1 - ldo8, bob
->        For PM7325, smps1 - smps8, ldo1 - ldo19
-> @@ -72,6 +73,7 @@ properties:
->        - qcom,pm6150-rpmh-regulators
->        - qcom,pm6150l-rpmh-regulators
->        - qcom,pm6350-rpmh-regulators
-> +      - qcom,pm6450-rpmh-regulators
->        - qcom,pm660-rpmh-regulators
->        - qcom,pm660l-rpmh-regulators
->        - qcom,pm7325-rpmh-regulators
+> diff --git a/drivers/regulator/qcom-rpmh-regulator.c b/drivers/regulator/=
+qcom-rpmh-regulator.c
+> index da4764ffa6325..ff5022bba5fc6 100644
+> --- a/drivers/regulator/qcom-rpmh-regulator.c
+> +++ b/drivers/regulator/qcom-rpmh-regulator.c
+> @@ -1619,6 +1619,18 @@ static const struct rpmh_vreg_init_data pm6350_vre=
+g_data[] =3D {
+>  	RPMH_VREG("ldo22",  LDO,  22, &pmic5_nldo,      "vdd-l15-l19-l22"),
+>  };
+> =20
+> +static const struct rpmh_vreg_init_data pm6450_vreg_data[] =3D {
+> +	RPMH_VREG("ldo5",  LDO, 5,  &pmic5_nldo,    "vin"),
+> +	RPMH_VREG("ldo7",  LDO, 7,  &pmic5_nldo,    "vin"),
+> +	RPMH_VREG("ldo13", LDO, 13, &pmic5_nldo,    "vin"),
+> +	RPMH_VREG("ldo16", LDO, 16, &pmic5_nldo,    "vin"),
+> +	RPMH_VREG("ldo19", LDO, 19, &pmic5_pldo_lv, "vin"),
+> +	RPMH_VREG("ldo23", LDO, 23, &pmic5_pldo_lv, "vin"),
+> +	RPMH_VREG("ldo24", LDO, 24, &pmic5_pldo,    "vin"),
+> +	RPMH_VREG("ldo25", LDO, 25, &pmic5_pldo,    "vin"),
+> +	{},
+> +};
 
-[Severity: Medium]
-Should qcom,pm6450-rpmh-regulators have a matching if/then block under
-allOf declaring its vdd-*-supply parent supply properties?
+[Severity: High]
+Should pm6450_vreg_data[] use the PMIC input supply pin names (such as
+"vdd-l5") or NULL instead of "vin"?
 
-Because this schema sets unevaluatedProperties: false and defines allowed
-vdd-*-supply properties per compatible under allOf, dtbs_check will reject
-any parent input supply properties specified on a
-qcom,pm6450-rpmh-regulators node.  In addition, the description lists only
-a subset of eight LDOs (ldo5, ldo7, ldo13, ldo16, ldo19, ldo23 - ldo25)
-with no SMPS rails rather than the complete set of regulators on the PM6450
-PMIC.
+rpmh_regulator_init_vreg() registers every LDO with reg_config.dev set to
+the parent PMIC device and rdesc.supply_name set to this string.  When a
+child LDO node has no vin-supply property, regulator_resolve_supply() ->
+regulator_dev_lookup() -> of_get_regulator() falls back to
+of_get_child_regulator(dev->of_node, "vin-supply"), which scans all child
+LDO nodes under the PMIC and binds the LDO to the first sibling's
+vin-supply (or falls back to regulator_lookup_by_name("vin") and binds to
+any regulator named "vin" in the system).  The qcom,rpmh-regulator.yaml
+binding also disallows vin-supply on both the PMIC node and child LDO
+nodes.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-netrani-pm=
-6450-v1-v2-0-2539a2422218@krgm.moe?part=3D1
+6450-v1-v2-0-2539a2422218@krgm.moe?part=3D2
