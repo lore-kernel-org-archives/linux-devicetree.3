@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795687905;
-	b=IM6lHmn/0jeohdyr3hH0RYBkAqKXaUyWmHKGxGHm482VE6gnX3Dh0MJK6pEXw/gQE5Px
-	 HeXZacqDppjGFCc41VqCo5lmr92GV7xvHL/F7GFbM0lyTUS58G5RUHsF/zvl+Eq9kUI+l
-	 L4K2QLUnvpWWXbHQBrlYyRGohBHgBCdZe7TYeOygEEm6rhg0kw8/nPqW1BTlMAP+80rxP
-	 cqtK6oegB6oqx3Kh1BUb3ciyBzrhkQpyIOcCgm/uFzEIWb4idgcoxN+LN8FFN5HwDUZ31
-	 hg/gTpqUb/osWi7yUtMoSdIszB2uDqkZmY7fwzMEjFNGHOWG1trUb6+qlTcJ4bDrocw==
+	t=1795687933;
+	b=Zygrhse3I5sk6khEH9Gy5TBlIyTFzFT6VYHYswSXzUjc7xMFvgIzdkdoYOqSDiAX2eGj
+	 hs+CKsoeoXqQznShOmACPfiXRVYk1rOqemLWjTxTuhmoPO+ZneTcUhQ8/dES87YGEcjMO
+	 wMkp/bvUo0vlb5bzWNQZxqtOsKG/gkwkV73qfs+HXO4ZM6h4a45yYj4UcQeO1/4oJsqSK
+	 Akqp3+q2h7nxjp+HxTzo4P1s9nZV9TZXSCWJ67JJsvuGewDB+3LhQnk1+Q+5jm8yrjb49
+	 9waOdunCXAh4rmmeO3dgvaJywqWynnWXVLkh81CMexMPsH7tMTRnUazmG9YTZXcy7HQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795687905;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=HAJAo8CN+a2ad2/AuSuWENM8KqTIk5dcUroaCZsRSVU=;
-	b=k9brD/klaWDqsoHDO/un2wDe01KHRlxsjkfRHzSOWSYqfq3c1eYPPuWuC5YFUHZAV3Tz
-	 U3N5BsJ0Nimop0Up8aRPAjZaFc8meXRLEVr0eu8fHr5TV4lit5O+fk9NQd6t0XWQoVIsB
-	 01FGv/rLBqx2qiWuhFvwaewGbDlFFCDmoTGLTl8F6dT81l8pzIvqMpMkDbPQTl8WnYI9S
-	 Az9NLei/0VjncOlpTIUtlQ7gIQZvdmqZvwye4JsgXZfAWzaToKI72fYSF2/AJVgedYttN
-	 hEKEM+AT0hFM4LaLDRBKRV6sWy3B0u+3AGi8oZ9MHjLZfO9W2IxjoRGY/ieA1gBZ/7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795687933;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=hnQPlN6as0O3dpTiW12fxADq1eDM3DKq0SFdRGNzkD8=;
+	b=ljOp47E4Tbqsvttswoz+IuQXU5rwczGbXVlMIUGq7+LPdBedYeeChuiYPAaY2C0hyaa/
+	 nm3LR6Z43NVmewrmHRZYU6Ik0WnTYoUCVyYOUh/pnEfJyzUbrr/nGW3pDMsVuwVtz/lpI
+	 ye+n8lkOOPtUU8X0M3Cf9QQxP3sMJO36eTGqWuGQxz0xlsD9EY1EC1H26mOzM+//eQ0sI
+	 V19Y3xrh+y8+V7JpB0OU/EPK7TvpeujMKUg/06YDIFcBBuOrLycFAuIIVeYhtx+8RaqpV
+	 tXRzZfw0Bkr9l8Utv9M8aGsNQrTdbCBbWwfWP60OM6YJQsNI6t3Nzjuwd9SLzqHy0GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EbL8Txbg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Az9OxYxW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 2B044606A321;
-	Thu, 26 Nov 2026 10:11:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61A46606A31C
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 10:12:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EbL8Txbg
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E34CD1F000CF;
-	Thu, 26 Nov 2026 10:11:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Az9OxYxW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA39C1F000C4;
+	Thu, 26 Nov 2026 10:12:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795687904;
-	bh=HAJAo8CN+a2ad2/AuSuWENM8KqTIk5dcUroaCZsRSVU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EbL8Txbg44fuRJcGf0rVEAKpWer0aO3WEnilkpTjoEm0VZK7cj22NKzGZaUFasWwp
-	 EiOCBAml/DFFOZkkZErv+4fpq5YaMrFXm0ifeuYT2ja3y+3rHmws/pBNoJnEzuh5Dx
-	 mKzMKcVq3FMuhvZUoRbRAohP628pgb8+0rTNZEjI0xlE8norc1aCkyiYRxIDOEkBzW
-	 BekoyPtxkUaqd7foOfPWclykoJ2mZnMWK9a2Xg2rFFUZmdbcNem1IF3mDWxwXFwabb
-	 5U5VQ+wHRpYTGDGTvms3PV7Uvw/R4E5uWSCzwUERMJddHRK0vlrWR7Lbq4xzgiWvAz
-	 hyBcl7MlnHbvQ==
-Date: Thu, 26 Nov 2026 11:11:41 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>, 
-	Jonathan Cameron <jic23@kernel.org>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
-	Michael Hennerich <michael.hennerich@analog.com>, Trevor Gamblin <tgamblin@baylibre.com>, 
-	David Lechner <dlechner@baylibre.com>, linux-pwm@vger.kernel.org, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 1/6] pwm: core: add pwm_get_waveform_step_might_sleep()
-Message-ID: <awgEH1y_JnsiactY@monoceros>
-References: <awVki6lC3SxGfqSl@monoceros>
- <20261124114714.611570-1-Nicolae-daniel.Deaconescu@analog.com>
- <20261124-bath-runaround-dccb788f14e3@spud>
+	s=k20260515; t=1795687933;
+	bh=hnQPlN6as0O3dpTiW12fxADq1eDM3DKq0SFdRGNzkD8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Az9OxYxWxnb0/2XEVglqmLoCAoqdUGRzzulm1N+5J85VZbjwqsfEmgK9RjZJpHAKA
+	 Dnos0CKik7/8tTRXA3Ydu1MuduhMBWzpsxbD7/pE10bTQMEMqUblr0OtiY16iITKKr
+	 HQ6xasaznyypIsZcKBOIV0Xucm+GYxAUUXaF0l0NDbvSFQ1An2nyceeZhlT/ybph6T
+	 8fsOUMrxUhBpY+Qy7vEZ4VNpQ+7fWW4dNh065wjTvRuH+tGjgXHUmVXcTky0TysRL2
+	 cInuV4/6/sgY6Mj2AHw14zkBsSKdkO+omiNpOAlphzkPk+c1jhWObj2WyEY4BgT5oH
+	 ysbdsBK6RA8Qg==
+Message-ID: <sashiko-outbox-235253@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 03/14] gtrace: Add RISC-V platform driver for the
+ gtrace framework
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mayuresh Chitale" <mayuresh.chitale@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <b5b3dc4a1ca378ea74498d1adb0207e281e6ad01.1795512532.git.mayuresh.chitale@oss.qualcomm.com>
+References: <cover.1795512532.git.mayuresh.chitale@oss.qualcomm.com>
+ <b5b3dc4a1ca378ea74498d1adb0207e281e6ad01.1795512532.git.mayuresh.chitale@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Nov 2026 10:12:12 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,77 +60,229 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2cgg4o7s4rucd725"
-Content-Disposition: inline
-In-Reply-To: <20261124-bath-runaround-dccb788f14e3@spud>
 
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [Medium] gtrace: device reference leak on dest_comp in
+  gtrace_of_parse_outconns()
+- [Medium] gtrace: TOCTOU race between gtrace_of_parse_outconns() and
+  registration
+- [Low] gtrace: CONFIG_RVTRACE module name mismatch between Kconfig and
+  Makefile
+--
 
---2cgg4o7s4rucd725
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 1/6] pwm: core: add pwm_get_waveform_step_might_sleep()
-MIME-Version: 1.0
+commit 4636c1fbe60ae0aca475723fde99c3bc6d009499
+Author: Anup Patel <anup.patel@oss.qualcomm.com>
 
-On Tue, Nov 24, 2026 at 06:34:13PM +0000, Conor Dooley wrote:
-> On Tue, Nov 24, 2026 at 01:47:13PM +0200, Nicolae-Daniel Deaconescu wrote:
-> > Hi Uwe,
-> >=20
-> > Yes, that works. It is how the gate duty was set before, in ad7625.c, w=
-ith
-> > DIV_ROUND_UP(NSEC_PER_SEC * pulses, rate), which gives 34 ns for 4 puls=
-es
-> > at 120 MHz. I'd drop the step API (patches 1 and 2) and do the same for=
- the
-> > new parts, but i don't have the clock rate, and without a clocks proper=
-ty
-> > I don't know how I should get it. The PWM core has no way to report it.
-> >=20
-> > Conor, Uwe: is a clocks property on adi,ltc2387 acceptable,?
-> > If not, how should the driver get the rate?
->=20
-> My opinion here has not changed. The clock is an input to the pwm
-> generator, not the iio device.
+gtrace: Add RISC-V platform driver for the gtrace framework
 
-The setup as I understand it (
+This commit adds device-tree connection parsing helpers and a RISC-V
+platform driver for the gtrace framework.
 
-              ,-----.                   ,---.
-  clk ---+----> PWM >--- pwm signal ---->   |         ,-----.
-         |    `-----'                   | & >---------| iio |
-         `------------------------------>   |         `-----'
-                                        `---'
-)
-works as the clk feeds into both, the PWM and (masked by the PWM) also
-into the iio device. So the clk is in the same way relevant for the iio
-device as the PWM signal?!
+> diff --git a/drivers/hwtracing/gtrace/Kconfig b/drivers/hwtracing/gtrace/=
+Kconfig
+> index bcc3b4169a764..04986f2165491 100644
+> --- a/drivers/hwtracing/gtrace/Kconfig
+> +++ b/drivers/hwtracing/gtrace/Kconfig
+> @@ -13,3 +13,18 @@ menuconfig GTRACE
+> =20
+>  	  To compile this driver as a module, choose M here: the module
+>  	  will be called gtrace.
+> +
+> +config RVTRACE
+> +	tristate "RISC-V Trace Support"
+> +	depends on RISCV
+> +	depends on OF
+> +	depends on GTRACE
+> +	default RISCV
+> +	help
+> +	  This provides the RISC-V backend for the generic hardware trace
+> +	  (gtrace) framework. It parses the RISC-V trace component topology,
+> +	  provides the RISC-V register-level control ops and registers each
+> +	  component with the gtrace core.
+> +
+> +	  To compile this driver as a module, choose M here: the module
+> +	  will be called rvtrace.
+> diff --git a/drivers/hwtracing/gtrace/Makefile b/drivers/hwtracing/gtrace=
+/Makefile
+> index 3f90fb99c5149..20f67a78b8abc 100644
+> --- a/drivers/hwtracing/gtrace/Makefile
+> +++ b/drivers/hwtracing/gtrace/Makefile
+> @@ -2,3 +2,6 @@
+> =20
+>  obj-$(CONFIG_GTRACE) +=3D gtrace.o
+>  gtrace-y :=3D gtrace-core.o
+> +gtrace-$(CONFIG_OF) +=3D gtrace-of.o
+> +
+> +obj-$(CONFIG_RVTRACE) +=3D rvtrace-platform.o
 
-> Using the pwm generator input clock in this way is also inherently tied
-> to one implementation, since assumes a particular relationship between
-> input clock and output waveforms. Were a different pwm generator to be
-> used that had a /2 divider between input and output to be used, the
-> logic here would break?
+[Severity: Low]
+The Kconfig help text states that the module will be called rvtrace, but
+building CONFIG_RVTRACE=3Dm produces rvtrace-platform.ko.
 
-Yes an additional divider only on the clk->PWM path would break that (or
-need adaptions to the algorithm at least).
+> diff --git a/drivers/hwtracing/gtrace/gtrace-of.c b/drivers/hwtracing/gtr=
+ace/gtrace-of.c
+> new file mode 100644
+> index 0000000000000..4ffeda32c4a38
+> --- /dev/null
+> +++ b/drivers/hwtracing/gtrace/gtrace-of.c
+> @@ -0,0 +1,133 @@
 
-Best regards
-Uwe
+[ ... ]
 
---2cgg4o7s4rucd725
-Content-Type: application/pgp-signature; name="signature.asc"
+> +static struct gtrace_connection *
+> +gtrace_of_parse_outconn(struct gtrace_platform_data *pdata,
+> +			struct device_node *ep_node)
+> +{
+> +	struct device_node *rep_node, *rdev_node;
+> +	struct gtrace_connection *conn;
+> +	struct of_endpoint ep, rep;
+> +	int ret;
+> +
+> +	conn =3D devm_kzalloc(pdata->dev, sizeof(*conn), GFP_KERNEL);
+> +	if (!conn)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	ret =3D of_graph_parse_endpoint(ep_node, &ep);
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> +
+> +	rep_node =3D of_graph_get_remote_endpoint(ep_node);
+> +	if (!rep_node)
+> +		return ERR_PTR(-ENODEV);
+> +
+> +	rdev_node =3D of_graph_get_port_parent(rep_node);
+> +
+> +	ret =3D of_graph_parse_endpoint(rep_node, &rep);
+> +	if (ret)
+> +		goto out;
+> +
+> +	conn->src_port =3D ep.port;
+> +	conn->src_fwnode =3D dev_fwnode(pdata->dev);
+> +	/* The 'src_comp' is set by gtrace_register_component() */
+> +	conn->src_comp =3D NULL;
+> +	conn->dest_port =3D rep.port;
+> +	conn->dest_fwnode =3D of_fwnode_handle(rdev_node);
+> +	fwnode_handle_get(conn->dest_fwnode);
+> +	conn->dest_comp =3D gtrace_find_by_fwnode(conn->dest_fwnode);
 
------BEGIN PGP SIGNATURE-----
+[Severity: Medium]
+Can conn->dest_comp become stale if the destination component is
+unregistered before gtrace_register_component() runs?
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmsIBdsACgkQj4D7WH0S
-/k4mKQf/RO6OHP/Eo6JdjL4f5G2MIQWChDzq9XoctpM2ec7U6Gkr54MFg1Yl8tF2
-74J6Amq1GKVf0zca3FGhmpLWp+rkAf9ryoiUmj+NMC9S6TNIO7YmYAR9EJVKrLXg
-kvEBQIj5vqCF5f7fggrQhPqnF0ESlxZQPHkATnOn03O1V81ut1ORqQDzh4daZurQ
-jEs7iPtfOfWXYRcbGCuBiOfF6VXk2h1IpMzbyVgVM/Kd9wz88crjektyp8b4Gt7t
-B1PaJfx0xgw611RKHlslJIdukWJb0eUXBr+a7hbuWp+xGOCRaUKvi1gQjIUl5gub
-poambkD6A8/tncOim01feVRP+yfU+w==
-=HhS5
------END PGP SIGNATURE-----
+CPU0                                  CPU1
+rvtrace_platform_probe() [src]
+  gtrace_of_parse_outconns()
+    gtrace_of_parse_outconn()
+      gtrace_find_by_fwnode()
+        mutex_lock(&gtrace_mutex)
+        gtrace_get_component(dest)
+        mutex_unlock(&gtrace_mutex)
+                                      rvtrace_platform_remove() [dest]
+                                        gtrace_unregister_component(dest)
+                                          mutex_lock(&gtrace_mutex)
+                                          gtrace_cleanup_inconns(dest, NULL)
+                                          device_unregister(&dest->dev)
+                                          mutex_unlock(&gtrace_mutex)
+                                      /* devres frees dest->pdata */
+  gtrace_register_component()
+    mutex_lock(&gtrace_mutex)
+    gtrace_setup_inconns_from_outconns()
+      bus_for_each_dev(..., gtrace_setup_inconn)
+      /* dest is off bus; returns 0 */
+    mutex_unlock(&gtrace_mutex)
 
---2cgg4o7s4rucd725--
+Because conn has not been installed in dest->pdata->inconns[] yet when
+CPU1 runs gtrace_cleanup_inconns(), conn->dest_comp is not cleared.  Then
+in gtrace_setup_inconns_from_outconns(), bus_for_each_dev() returns 0
+because dest->dev is no longer on gtrace_bustype, and checking only
+ret < 0 treats that as success:
+
+drivers/hwtracing/gtrace/gtrace-core.c:gtrace_setup_inconns_from_outconns()=
+ {
+    ...
+		ret =3D bus_for_each_dev(&gtrace_bustype, NULL, conn, gtrace_setup_inconn=
+);
+		if (ret < 0) {
+			gtrace_cleanup_inconns_from_outconns(comp);
+			return ret;
+		}
+    ...
+}
+
+Registration then succeeds with conn->dest_comp pointing to an
+unregistered component whose devm-allocated dest->pdata has already been
+freed, leading to a use-after-free when walking output connections.
+
+> +	if (!conn->dest_comp) {
+> +		fwnode_handle_put(conn->dest_fwnode);
+> +		ret =3D -EPROBE_DEFER;
+> +	}
+> +
+> +out:
+> +	of_node_put(rdev_node);
+> +	of_node_put(rep_node);
+> +	return ret ? ERR_PTR(ret) : conn;
+> +}
+> +
+> +/*
+> + * Parse the "out-ports" graph of the component's device tree node and f=
+ill
+> + * pdata->outconns.
+> + * Return: 0 on success or when there are no output ports
+> + *         -EPROBE_DEFER if a destination is not registered yet
+> + *         negative error code otherwise.
+> + */
+> +int gtrace_of_parse_outconns(struct gtrace_platform_data *pdata)
+> +{
+> +	struct device_node *parent, *ep_node;
+> +	struct gtrace_connection *conn;
+> +	int ret =3D 0, i =3D 0;
+> +
+> +	parent =3D of_get_child_by_name(dev_of_node(pdata->dev), "out-ports");
+> +	if (!parent)
+> +		return 0;
+> +
+> +	pdata->nr_outconns =3D of_graph_get_endpoint_count(parent);
+> +	pdata->outconns =3D devm_kcalloc(pdata->dev, pdata->nr_outconns,
+> +				       sizeof(*pdata->outconns), GFP_KERNEL);
+> +	if (!pdata->outconns) {
+> +		ret =3D -ENOMEM;
+> +		goto done;
+> +	}
+> +
+> +	for_each_endpoint_of_node(parent, ep_node) {
+> +		conn =3D gtrace_of_parse_outconn(pdata, ep_node);
+> +		if (IS_ERR(conn)) {
+> +			ret =3D PTR_ERR(conn);
+> +			of_node_put(ep_node);
+> +			break;
+> +		}
+> +
+> +		pdata->outconns[i] =3D conn;
+> +		i++;
+> +	}
+> +
+> +done:
+> +	if (ret) {
+> +		for (i =3D 0; i < pdata->nr_outconns && pdata->outconns; i++) {
+> +			conn =3D pdata->outconns[i];
+> +			if (conn && conn->dest_fwnode)
+> +				fwnode_handle_put(conn->dest_fwnode);
+> +		}
+> +	}
+
+[Severity: Medium]
+Does this error path leak the conn->dest_comp device reference acquired by
+gtrace_find_by_fwnode()?
+
+When a component has multiple output endpoints and parsing a later
+endpoint fails (such as with -EPROBE_DEFER), the loop only drops
+conn->dest_fwnode on the earlier connections and rvtrace_platform_probe()
+returns directly without calling gtrace_release_outconns(pdata).  Calling
+gtrace_release_outconns(pdata) here when pdata->outconns is non-NULL would
+release both conn->dest_comp and conn->dest_fwnode.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795512532.gi=
+t.mayuresh.chitale@oss.qualcomm.com?part=3D3
