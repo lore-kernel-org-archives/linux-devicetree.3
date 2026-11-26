@@ -1,68 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795693333;
-	b=yHQzlAUqB6kiEJ/CN8/5uWaiAFRMTiFvoUaQ9u8rOKeW6qt4+pa29rXEkQMdtABmZrQN
-	 5d6rHi6rDR3wXFdBjE8YSnbEaaTrUiij7taEz5knZdRFaN7CDsaWBus1TfUf0vXgrgFue
-	 H/MyDk3IHDS1wR0vczK2ds5ddm8L085w2vKGxk12VvVCvh+z2RBMd4CHsqFWTZ3pppix0
-	 +0QzhUDT6eVp1qs0qDlocFnrkW0qfcmyGKnjUFA5Ycn+UTnncDdbEHdSBBIJ9RUvBtXFf
-	 bzV3p1KScuC1cJWdb/88Ei0KOAMsfBbne+HjcdDq1Ar+0pbJvhj7YemBKHBmtwXd8xA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795693333;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
-	 X-ZohoMailClient;
-	bh=bYOZXiRGQJ//pWe9YOwqcOqL/wYtfhgkT4Sub0noruk=;
-	b=CwyNy5EhnzpZmyfWMq49ppbdIz/pwIYnqwEAeqSb6BR0qAV3e5+okHGyWf89SOm4Zpqr
-	 zlsBqc7D/u3yGR5VOTVhfDqmvmWsneZvW4n2VBhZg9KDxvNhaTLeLMfenhhxI31iNRHfy
-	 oum5kK4G0juXL925GhJNtEGZHI2vol7UvxxUs8ZjGrsHQP2OUeW0fo60xPtcJNY2PsAp4
-	 H07zYlvu3gm5b8OJE0SXwufDV1O2Zuv7TnIA/D6hyQrAut/g4vRZmiDS3lamx2b+ja5ke
-	 NfMZ31dPkFUirQW8SUM+TJ4Jfte/6K78CuRdqUgvb6bh7zdKx19Ac9XbONCzHcxJP5w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=g6WYF7CH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795693370;
+	b=s1hA5K+KvT2MmGCXbumlu5GQJXHhUrilQNnTlMxQJ6tUVGvgsLKUrDWVUlrF8PyAELFq
+	 8ZG+Hqt/NDnowxSGHhUtIkB8FT7To0y7XNTxN/ARvSRryBZHq/gomgIEJBzV4iCMODGbQ
+	 O3epl0YxY8h6Xi1awPR0IR5VrV+jXmgQo1wPdGxwdWlZTB7bM9515oREje8Mdz2GSR16n
+	 T/m0oG3UuAM5wZRCDEGeBT4U+oS1eUSSixY8ZN8wEQMt/TEGro9pk2yCZ4Bw2vT1Zcu85
+	 uVuvi+rFG4NvwJ9O6M1IW6Ec8gHfTGnA6JcsXFA4aB7V/3jpHpykefFkN4T07N2icsQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795693370;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=I6lL9Zj57dWgnPBSlKlRN2hREBCW1ZtICTCl8DOJjUM=;
+	b=NnuTJMxPnIg0D2Kc3ctDNSQW3T98R0JQbNfRU6GvaZSEjT57CGAkl3y7PotD6prZM7tu
+	 S2/QoBaghXjIQoGlsp7f/yBpjv7w2Xzh7kuy+dbhJcmQX0tvF+Av65PQSQdpRXF4RIWG0
+	 ptTji3LgmvDfKu2QXmuCD3rPQZ9te3dvgxx1a1WAg2P8Vi8mXwv588TGxuxwivIyCujNN
+	 cjvYOAMY3jrA4GUZ/MkZNDgQeRVwGMmv3OhhoXumqwtHS/FR1Z7hPanvnqr844/1LJhxk
+	 BUkCC+SQwUNx4Ps1kHb3LA0tOzIcxllJjN1NzQjPtmlg+NkVtPXowprFCphXMhQJBpA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JkopCOUx;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AP2AUQBE;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16C52606A31C
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 11:42:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16C52606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A384D606A33A
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 11:42:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A384D606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=g6WYF7CH
-ARC-Seal: i=1; a=rsa-sha256; t=1795693309; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=kAgvait2QaHddMGU2JggKhLXJQ9oKhpVPIRi9m+BlZv1rYVb61KIs9WJeQCA+gdTfkUXu50+Qa5XrwxaLwBYjWpGFXRVKFbPOdFqhWbsC1Qq81DBqI6OjSgOfOhciUEQbyUn/iF3Ogr/p6F8VNR8gRP0foBbSWaWHq3MgF5k+Tc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1795693309; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=bYOZXiRGQJ//pWe9YOwqcOqL/wYtfhgkT4Sub0noruk=; 
-	b=cly2D7MXbquKLzM2AIoHxT3s4BZLanfJhKFfddNsE4X1l9kbLEQeHabFBegnfuTjf+DsVQom3Tazrfh6GSKu7fo8iwqt1GZvdv1Hu/USV5JvRDouC+r0DUfUjjmzPlJcUkatnTzseBuX7xEY8tdv8q+Iy3u4su0V+0E2c7pg2ic=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=g6WYF7CHxvXCwO/X7PmAgEcbCytTnyJDkKKHdY3kGmv9/+sBiwGKC8YDUhYu7qsJnpgR5bIYTjpRHoUO9l2oEo4llX8y7YPFmF0v3lDO3Ck/jwO4QnkVcZuQYwnn2lTG9NZp1Kq4K83CVPUK5WFBLJWdinv1ocNS8BgVTWfdVvw=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=bYOZXiRGQJ//pWe9YOwqcOqL/wYtfhgkT4Sub0noruk=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795693307754664.1898182605632;
-	Thu, 26 Nov 2026 03:41:47 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id 90BDB18040B; Thu, 26 Nov 2026 12:41:44 +0100 (CET)
-Date: Thu, 26 Nov 2026 12:41:44 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Luo Liu <Luo.Liu@cixtech.com>
-Cc: "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>, 
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"robh@kernel.org" <robh@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>
-Subject: Re: =?utf-8?B?5Zue5aSNOiBbUEFUQ0ggdjUgMS81?= =?utf-8?Q?=5D?=
- dt-bindings: display: add CIX Sky1 DisplayPort transmitter
-Message-ID: <awgYIdprQg1-hjfJ@venus>
-References: <20261126060003.3979478-1-Luo.Liu@cixtech.com>
- <20261126060003.3979478-2-Luo.Liu@cixtech.com>
- <sashiko-outbox-234829@kernel.org>
- <TYZPR06MB6915D02AE69A9A5649146D31F5422@TYZPR06MB6915.apcprd06.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JkopCOUx;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AP2AUQBE
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQBVaif2263578
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 11:42:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	I6lL9Zj57dWgnPBSlKlRN2hREBCW1ZtICTCl8DOJjUM=; b=JkopCOUxbdpRd6DV
+	7rVqG6keB47462GxSS2GwHEhhenOwpI0TwsmYUqc0DBkh2iVC2P19I+puolPoxcc
+	EmvK9DUm1VMedzGfxx5Y1CDGfm+41Og5hYVDR8g88oKiWGIdbz33+6/fBDTqY9H4
+	YngJED1cUuZy09nbl1pnORhdh9ns3hlBBXjoZXoeuV2eaidnUBaOihGdlk0FWns3
+	eWAzotsImLvD7T4j3CIXdQAK6ZRLSLIzJkEZ20V+5jKxGJBx/KWKr75W4ltdkssS
+	134RBORNoKBOUGtluzxwCQuNKgqgwdXZ6CqaSdvxUeE9F9CTt5pFTMb2VKcqHzXZ
+	zbeOLA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j62aekxrb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 11:42:48 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-55c4997063aso19481201cf.2
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 03:42:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795693368; x=1796298168; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I6lL9Zj57dWgnPBSlKlRN2hREBCW1ZtICTCl8DOJjUM=;
+        b=AP2AUQBE4Cq3VykfUvh7xtdqiNdeuUob/5hUFKbarKYEKBxlqExqEpBaslyZuTELJn
+         28oqrYK6UnH2WJv+A1XvLRRlA94sS3zQDL75CO+X+B250Co8h0s1R6GZLBaYQi4iknna
+         yK5pbFl/JmLx4fDmbDN/+LimIZPpXgoyUNiZkHL+xtY86hVKNZzdy9z4ThR7hlwxHfTb
+         LBPlQKFdiLT6gjXHswD6MqhnlMSdWqT9s8Aw/o4YLSulS+fQGrkbMXujy3m5oBAu3Nfu
+         qpHuTYxTfZgtFmBfGlKybV5CAOKeuXJnMGdpTjmKG98m0yhuUGxbXFH5ddXjuHm6nlGQ
+         hTvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795693368; x=1796298168;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=I6lL9Zj57dWgnPBSlKlRN2hREBCW1ZtICTCl8DOJjUM=;
+        b=ZY6sZhLltBr5y4qObKbEYz1o22AKGHlMpyrYbueHPKT87lTF7O+/te5lJlejnimhUz
+         CYhflZiL0GcUo951z0FUbiZ3u+VeNPAJiRbqEFDFqt00pyaGd5Ql1hBj3HsecjypsLcK
+         VlhGhYCBhT4TKZO1NTHznnz/2gB89O/EJC+Wfv8V9mpBKwCvsf5gtf9mSeDXxCAL7xN/
+         UezYm+rwc2o5KEBYKcbFirsb4hIZA9OD/XFqfzlY+Ad+aOJ9LFVgD1JDEyNKlvz17kPR
+         CK4vp0Fza6lGdnB/9WGgpOJzeuUIyhDUcVjElz6XVBazmsJd04eM/4cE9AV44h7zF/Ot
+         RQ4g==
+X-Forwarded-Encrypted: i=1; AL+hErEWVBto70u8adMGejUG5vpI3J9SZGayw6mtwF9ryJdcXw0UuLS4lkPu9hgkGCWDl70/6s0rvKmYp1cO@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ky9lNctKjiMv4PP6CVGxT/1VGQFt3O0cqnCdqb76e5Q/CtjNa
+	GvdQP0PbHdSHvYiuyTx3w2bbpDfJw8nmcU2aagMJPH58lX40Z35W+vOvEX/TxE78AbtIS1V6MZb
+	dPg6XykTYtiEY419tBxDmz7K26FMq1RsY77iaHg0ZIwp5eLw9hERiAfL/y3YlwpsGmc2Jrfk7
+X-Gm-Gg: AZFdTZfVdf2lNAHUcEMMQ1XBs/dC1JtDSGrQQ6BY85GxFDtDMzQi1EvMabbs8Ncq0y0
+	mtRlbxNSsOIl6u/x97lNRuEVpaJZVaqnMUwEG3YChhhlvw2IzGPKHDEWPx+PzJTryur4oMQSwex
+	ze9ww6gKYQjjjpMhplT4qk6YmNWcJj+srNryC0crl4QSRkbRT534WMfVwE7Ao3W7jwKayVnXXu6
+	PtxhWYX2raTigNwFbG1h8pddVGYlZGEAlpxp0yhwC1hJJInM3acPLpdPeDfZl/RexGTvKEg3h6H
+	0SvgtGJrbpgRiB1KM0aPX6MUWjJSdLRX8yzn0y3XiPNsw7hB3x/Hvo+YT3/5OzitBKVa48OuaHv
+	bXTNxSXRg6BYQGPQzQ45USnHOkagSpKrAmXrKt0P2gssHhO4k6OTEtHpMOkSBU5J+pwnoZGw=
+X-Received: by 2002:a05:620a:6f8a:20b0:945:ede4:d247 with SMTP id af79cd13be357-949ba82824dmr3397656185a.1.1795693367649;
+        Thu, 26 Nov 2026 03:42:47 -0800 (PST)
+X-Received: by 2002:a05:620a:6f8a:20b0:945:ede4:d247 with SMTP id af79cd13be357-949ba82824dmr3397654085a.1.1795693367223;
+        Thu, 26 Nov 2026 03:42:47 -0800 (PST)
+Received: from [192.168.226.72] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513ae8ce16sm738945466b.37.2026.11.26.03.42.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Nov 2026 03:42:46 -0800 (PST)
+Message-ID: <5b3112f5-6b6e-4796-bb71-3ad92238bd33@oss.qualcomm.com>
+Date: Thu, 26 Nov 2026 12:42:44 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,175 +115,86 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="apc47prpiboe3afh"
-Content-Disposition: inline
-In-Reply-To: <TYZPR06MB6915D02AE69A9A5649146D31F5422@TYZPR06MB6915.apcprd06.prod.outlook.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/295.675.79
-X-ZohoMailClient: External
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] arm64: dts: qcom: agatti: EL2 overlay and QUP
+ firmware for the Arduino UNO Q
+To: Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261126-agatti-el2-v1-0-4e25fd64f198@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261126-agatti-el2-v1-0-4e25fd64f198@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDA0NSBTYWx0ZWRfX6RQ45cgbkcJi
+ qPSERrLmc1pRCNjbf1XU0KEQ5PL8uYh44AOruzbnO9zNntGaDUWpdpTfhX48rysTXoNvnl8CNTf
+ SRxIeTG6Fv2jS4Kr6vpIcrUJz5Ulo6jMDBZ2pkZ6ytoU25GsDWIHMXuevRBArxkg3NZ96ecbWzV
+ fVlRmp24k7+f8AbybksXW1Nv57wtW1xZKk0GwPu2LQtehvcUd4g/3wEZXTFfaVdzJWDQ1gm6nPz
+ JtWQXWkMQ+yFJ4MN32uULE1Ll5iR8a85gNYoHoMOvli/h6aUbrnigsDL0+bHl/Q5/cu9LqxrO24
+ 1rGQs6LY8gzDYKqj/omi5cnSvNyzCchRgJUwVaiDkAb8zCSx8wPUvBI/qv3mawCCVngtrRt2a60
+ 6TwkbCrDoX8YsAkJlh7Gu3Elb3PDIYZMxhNcsZ4vVmts08WxMb+/gCs/K4lA55utbGfFWEY61wE
+ k9Iz+4zZNZlXX7rpT+A==
+X-Proofpoint-GUID: lVGoRlatxlminZugldxlUcb8CaEOyBN4
+X-Proofpoint-ORIG-GUID: lVGoRlatxlminZugldxlUcb8CaEOyBN4
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDA0NSBTYWx0ZWRfX6VUnmS+wRCd4
+ wXS8+GVBd3tJLKd6jT5FQxoWn6pbFAijYsTfzNMxz3FKw3Shy1pAia5UHNiHJrdewhv0C5QoFHy
+ ixKDI2VJ1GwGz+fqwFo8ger8ahjAaDk=
+X-Authority-Analysis: v=2.4 cv=PqoG/AM3 c=1 sm=1 tr=0 ts=6b081b38 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=4WvWY9BfOHavVd4mqZkA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-26_03,2026-11-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260045
 
+On 11/26/26 12:36 PM, Igor Opaniuk wrote:
+> The Arduino UNO Q (QRB2210) can boot an open firmware chain: TF-A and
+> OP-TEE in place of QTEE, no hypervisor, so Linux runs at EL2. These
+> three patches are the DT side that this chain needs and that does not
+> belong in the base board file.
+> 
+> - Patch 1 names the GENI QUP firmware, so geni-se loads it when the
+>   boot firmware has not. Where the engines are already programmed, as
+>   with QTEE, the drivers do not read the property.
+> - Patch 2 adds agatti-el2.dtso, following the existing -el2 overlays:
+>   zap shader off, SMMU stream for the ADSP remoteproc.
+> - Patch 3 adds the WLAN firmware's SMMU stream to the overlay, as
+>   kodiak-el2.dtso has it.
+> 
+> Loading the QUP firmware on this SoC also needs the geni-se fix in [1].
+> 
+> Tested on the Arduino UNO Q with TF-A + OP-TEE, Linux at EL2: I2C, SPI
+> and the Bluetooth UART probe, the GPU renders without a zap shader, the
+> ADSP starts over PAS with no SMMU faults, and WiFi associates.
+> 
+> Patch 1 was also booted on the stock QTEE + Gunyah chain, with and
+> without the property: the same serial engines probe and the same I2C
+> devices answer in both cases.
+> 
+> dtbs_check (qrb2210-arduino-imola, qrb2210-arduino-imola-el2,
+> qrb2210-rb1) is clean.
+> 
+> [1] https://lore.kernel.org/r/20261114-geni-minicore-v1-1-a825dd549664@oss.qualcomm.com
+> 
+> ---
+> Igor Opaniuk (3):
+>       arm64: dts: qcom: qrb2210-arduino-imola: name the QUP firmware
+>       arm64: dts: qcom: agatti: add an EL2 overlay
+>       arm64: dts: qcom: agatti-el2: map the WLAN firmware's SMMU stream
 
---apc47prpiboe3afh
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: =?utf-8?B?5Zue5aSNOiBbUEFUQ0ggdjUgMS81?= =?utf-8?Q?=5D?=
- dt-bindings: display: add CIX Sky1 DisplayPort transmitter
-MIME-Version: 1.0
+Don't fix the previous patch, squash 2 and 3 together
 
-Hi,
-
-On Thu, Nov 26, 2026 at 06:27:31AM +0000, Luo Liu wrote:
-> > -----=E9=82=AE=E4=BB=B6=E5=8E=9F=E4=BB=B6-----
-> > =E5=8F=91=E4=BB=B6=E4=BA=BA: sashiko-bot@kernel.org <sashiko-bot@kernel=
-=2Eorg>
-> > =E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4: 2026=E5=B9=B411=E6=9C=8826=E6=97=
-=A5 14:13
-> > =E6=94=B6=E4=BB=B6=E4=BA=BA: Luo Liu <Luo.Liu@cixtech.com>
-> > =E6=8A=84=E9=80=81: dri-devel@lists.freedesktop.org; devicetree@vger.ke=
-rnel.org;
-> > robh@kernel.org; conor+dt@kernel.org
-> > =E4=B8=BB=E9=A2=98: Re: [PATCH v5 1/5] dt-bindings: display: add CIX Sk=
-y1 DisplayPort
-> > transmitter
-> >
-> > EXTERNAL EMAIL
-> >
-> > Thank you for your contribution! Sashiko AI review found 1 potential is=
-sue to
-> > consider:
-> > - [Medium] dt-bindings: display: cix,sky1-dp: missing ports/port@1 and
-> >   aux-bus in schema
-> > --
-> >
-> > commit 0fd2cf4952ac57efa52ecd81791109f84491673b
-> > Author: Luo Liu <Luo.Liu@cixtech.com>
-> >
-> > dt-bindings: display: add CIX Sky1 DisplayPort transmitter
-> >
-> > This commit adds the Device Tree binding schema for the Trilinear Displ=
-ayPort
-> > transmitter integrated on CIX Sky1.
-> >
-> > > diff --git
-> > > a/Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
-> > > b/Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
-> > > new file mode 100644
-> > > index 0000000000000..2cb4dbb8d5fe5
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
-> > > @@ -0,0 +1,102 @@
-> >
-> > [ ... ]
-> >
-> > > +  port:
-> > > +    $ref: /schemas/graph.yaml#/properties/port
-> > > +    description:
-> > > +      Video input from the Mali D71 display pipeline (Komeda) that d=
-rives
-> > > +      this controller. The link to the sink is through phys (USB-C c=
-ombo PHY
-> > > +      or the native DP PHY), not a second OF graph port on the DPTX.
-> > > +
-> > > +required:
-> > > +  - compatible
-> > > +  - reg
-> > > +  - reg-names
-> > > +  - clocks
-> > > +  - clock-names
-> > > +  - interrupts
-> > > +  - resets
-> > > +  - phys
-> > > +  - port
-> > > +
-> > > +additionalProperties: false
-> >
-> > [Severity: Medium]
-> > Should this schema define a ports container with port@0 (input) and
-> > port@1 (output), as well as an optional aux-bus property for eDP panels=
-, instead
-> > of requiring a single unnumbered top-level port node?
-> >
-> > The phys property only references the local SoC PHY provider and does n=
-ot
-> > describe downstream sink or AUX bus topology.  In addition, an output p=
-ort
-> > cannot be added as an optional property later while a top-level unnumbe=
-red
-> > port node is required: of_graph_get_port_by_id() scopes port lookup exc=
-lusively
-> > to a ports child node whenever one is present, so a board DTS adding
-> > ports/port@1 would hide an SoC DTSI top-level port node unless the bind=
-ing is
-> > migrated from port to ports.
-> >
->=20
->=20
-> Hi,
->=20
-> This device has exactly one OF graph port: its video input, which is
-> linked from the Komeda display pipeline. The DP link itself is not an OF
-> graph connection. The output goes through the generic PHY referenced by
-> "phys" to a physical connector on the board, and that connector is created
-> by drm_bridge_connector_init() from the bridge operations. There is no
-> downstream sink node, so a port@1 would have no remote-endpoint to point
-> at and could only be left dangling.
-
-You want a downstream port too, so that you can describe the
-connection to the actual connector in DT (e.g. "dp-connector", but
-could also be "usb-c-connector" (in that case possibly via some mux)
-or even a dp2hdmi bridge followed by an hdmi connector). I suggest
-to even make it mandatory as it forces people to write proper DTs.
-
-> The schema therefore follows the usual convention of a single unnumbered
-> "port" when the device has exactly one port.
->=20
-> You are right that of_graph_get_port_by_id() switches to a "ports" child
-> and would then no longer see a top-level "port". But no board DTS can
-> legitimately add an output port here, because there is no node to connect
-> it to, so that situation cannot arise for this binding. A future variant
-> that does model a downstream node would come with an updated schema, and
-> its DTS users would be converted at the same time.
-
-Your DT is just incomplete if there is nothing you are connecting it
-to.
-
-> "aux-bus" is specific to eDP panels that sit as a child of the AUX
-> channel. This binding covers both the USB-C DP and the native DP output
-> and does not bind any panel, so the property would describe hardware that
-> no code drives. It can be added as an optional property later if an eDP
-> panel node is ever needed; the input port stays where it is either way, so
-> that part is not blocked on the choice of "port" versus "ports".
-
-For USB-C having the usb-c-connector link described properly might
-even be necessary depending on the controller. I suppose you have a
-'smart' one, which toggles HPD pin for you and thus get away with
-the incomplete DT description. That doesn't make the DT correct,
-though.
-
-Greetings,
-
--- Sebastian
-
---apc47prpiboe3afh
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmsIGvAACgkQ2O7X88g7
-+poIVA//eXs3tXUgxkTwuS+7hQxrJDPUecT5f4XvOjZXRjIxJXn8A7olZaFQIYf4
-WJ+yPefv89YMpzKu5bKAbP8nGNL/q787J6evjdiI3G+guguguhW66+FLstOAVPX4
-pwGTKAgFqThsJrQE5wqaEy+At8F6MEd5IfK60EuqdRsMI6J0o4p9H8DDx6uAd+75
-DOb/2t03RtgUJvKR8VQxHi0Qf7gId6rkAttFmZyeKnTDqpbUWlIy1gvYtYnb+ttC
-xTO5dFQjE51hYFO1FIVu9KPK+4ncd6PNruprdTezEcW2EC8VBJOGHdnbL3Rj/Idn
-nSwvTvobNY8bDeRa27l6YQ2uJLD7vUdtX8fBjz5g0uLRSQdt1+c3xScSmTShsBxP
-+QHRAS2XqUWIJbF6TTywGPBgt3/DNXdOzLSJPYO5WUfOWQ3HQedMhCW3fKvNZfLw
-9gZZCXmEoWu0MH1ftxyzMzKp6Y/kD3HBvgVtzljd5it/c99wDs+oZ/Zlb9browdG
-7P+fXklk06oACYQWvUqkfIk3EDOCc0EBUhwqwNQfsZQhLbAMrk+a9lAP8t7dOOgj
-+XLwmkusWMHsL6Ek3EHuJ5w1OzFmuomOzVhsRLJTuYRQHGpzTxxixzSa+BcOWMO0
-wauTaDP1podGPCeCzSmcUTuZfYH8n0sMjYN8i4Opnfs75X2B52k=
-=1NQT
------END PGP SIGNATURE-----
-
---apc47prpiboe3afh--
+Konrad
