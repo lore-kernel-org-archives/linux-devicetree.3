@@ -1,49 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795734994;
-	b=Uri8jrsszsszonuJ+E/RnqlrN2SoRkIEgPrAVEc2JHuWBDQ/XJsCoXsw5O8BeNklZ0r4
-	 qKbXbzWXXNqFzGpFOPaOkcj6lVpYsQcaQvIZ2xCECLY8xbTkx/87c4nXS1elo46bztqk1
-	 F7hAKqh0bvBKVQ8uKMHamWQWmS/2+inVY/dLxch8Vu+QHK+ME/udWAQlUbOLw+a8ckkwL
-	 BeuQRmXwE2Wfu/rmY/t7wNjKOeg2+GMui2nuqtN2ZsfIUbJ2AZdbk6YgAb/NL8bxuH67V
-	 cj4X9JxgUEMOlzBikFcM2SUDkKpmsr8ohwrWzSrLYvIavELQpJydr1Nqul4X3ecJpVQ==
+	t=1795735937;
+	b=UBwT8EcXJnlFSNM7yZ/Amxai0jrRzz5Aw2rnDO+mbjcNLpJHABx9jamXgo4mEYchqd9J
+	 SvfLHi8yWE28/XRRqUZOcg47H9qSuZDevgNpuwWo1Awh5c6+Z4HEjT4hO3DoUIZ3K0T+z
+	 91WfheLiRvSnjC4tgW+t65COxkwdL9lrYmH3q0UHI8BZvajtQ24srCf4X3Jc+JyLYraCu
+	 yB8iRr7FDrAJtTNW51X6hCnc+3qzkbFSFruphM3Zwg3ocnbKxHZdUWb1qcJlqstvFO1LZ
+	 mg80SarEYFkEJyah1ZuvKVmZO6eoQRrSKr2VRMqOOiMEZpS3NxUjfXJcbxt8TpPF2dA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795734994;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=WuZ27z0xovqUdABOavKvYadEvNB5Oq4EByhTvKg8Q7A=;
-	b=gPNUdRE3rAKsucuZtYQNdaQFdvr+MVfp9kBlexLUVEb/p7lqRN0Q0FyOd4Zg96Wc69mF
-	 r7FdlpVUipk5G0sqMLmgI8R46zJCvnCVXS9SZDsBJwJzTxPTU+6/TWIb1z+Cr8Mt/3FOj
-	 pvt49RrVkN5AfyzfXWaUMsK5GaLPeBTeZkwJAoIStuHfuh8vd9GDjDhtczOvqVIImmcyN
-	 K570P56X6VzdGopfRYyyA5YWZqh1got6A2utwWWjTRkNwGwmf+we4AzXgIci44s+gG/PA
-	 tnUzSXa43b2b3KiGgGBhVYksXsY1utwtzb95wx2mhS6t2nVX9n3vKijizXhuQaLpUmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795735937;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=JgbNwrwi6IM9ws3GFBZzMvRlYtraNu76+Wn16Tg8+yk=;
+	b=FMQZbDON+zEDwqXGVV0O11sHdUEzw2oAAMSESLRu1urUWgtwP927H7zwo8idBr61qJRu
+	 hR+sehiNn1dBVxWrKKrkiuyAYH07EA6v1nanZEXokJ0nUmcrTEmfDFNtIHIofkx/fGvqL
+	 0X9ZYngJ03XkLuCmDo2WkBfIZVKURaS1Hz5WmJOAwD5aW6qh2KaT1V5oIVKK3RO4LHmQ+
+	 Dd28iz1qLDtHaEOL6SHiySEIWSKQ600evOCkZ6KpjOOH7IHyPloxc+V1gfh7jV9FJgJGv
+	 HvZvlFbpFujTvsQHZ27z9Xw/VmYHOBauewJv/ABK7mu9kMU2xbEdrP1g4BQeX+oDiHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ouwWjCaY;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 906C6606A321;
-	Thu, 26 Nov 2026 23:16:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 906C6606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dabvvxnw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA3B606A31C
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 23:32:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ouwWjCaY
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 16FE01A2D;
-	Thu, 26 Nov 2026 15:16:28 -0800 (PST)
-Received: from [10.43.3.73] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DDB783F632;
-	Thu, 26 Nov 2026 15:16:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795734990; bh=CYKtMaEtkCcjimtyMBfEwa8SM8OpN01EJ3Gl7DRXMis=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ouwWjCaYfGWDpbcqfFTeIwlm3DfC6T694qEKiNs8bdsaHqD4MbGy6MvdDm7UNCO3I
-	 NU15zQok5gZ45ugb2Qv4Ii6FofEOxC9hdpbkUk3aPSp+YkgX+t2hhkp8h3r8giZyPf
-	 l7OxqwwcfFo4ZI85tbV5ac0aIE0CYonlKtE7rQzg=
-Message-ID: <b47222b9-4362-441a-a885-703aa8d3dd6a@arm.com>
-Date: Thu, 26 Nov 2026 23:16:24 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dabvvxnw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 998601F000C1;
+	Thu, 26 Nov 2026 23:32:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795735936;
+	bh=JgbNwrwi6IM9ws3GFBZzMvRlYtraNu76+Wn16Tg8+yk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dabvvxnwNrPrMDPST1P1bgLhj7KoinvhOGucoiJ9elARkgaNKHL7gaF9XEhcX4/Rm
+	 AFlD8oQTcQaCyVR9pBzeInHeGDfvQK/KcAOI57lVxu7iysqBWmf8EJLjZdBNZn4KVw
+	 rMJtxOeNdgeULJ/Rm84Sodknbo0eFgoa5Qkpdcxbq5uDbWtVAoHb4GnjjiPiBSNtY1
+	 fBIQ11bSyedx1l5LBWWaG65yDfjyh7QTH3541UIcudFtsVhzMfwQkHy1cYs38yV36u
+	 k7ZUKo/Nm0i8pqeN9dDT82CHAKzFWJwQhcFZnblQI3owZDJHzKhtqyNlq4TFh38gJR
+	 +6QzBC6Ul0dbQ==
+Message-ID: <sashiko-outbox-236330@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC 08/19] clocksource/drivers/timer-clint: Add
+ Espressif ESP32-P4 support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?VsOtdG9yIEh1Z28gU2lsdmE=?= <vitorhg20080@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261125233020.1380594-9-vitorhg20080@gmail.com>
+References: <20261125233020.1380594-1-vitorhg20080@gmail.com>
+ <20261125233020.1380594-9-vitorhg20080@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Nov 2026 23:32:14 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,96 +60,87 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/5] dt-bindings: arm: sunxi: document Radxa Cubie A7A,
- A7S and A7Z
-To: Enzo Adriano <enzo.adriano.code@gmail.com>, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org,
- jernej.skrabec@gmail.com, samuel@sholland.org
-Cc: Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, Junhui Liu <junhui.liu@pigmoral.tech>,
- Jerome Brunet <jbrunet@baylibre.com>, Pablo Mazzini <pmazzini@gmail.com>,
- Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
- Alexander Sverdlin <alex@sverdlin.org>, Jun Yan <jerrysteve1101@gmail.com>,
- Lukas Schmid <lukas.schmid@netcube.li>,
- Cristian Filipescu <filipescu.cristian@gmail.com>,
- Norman Herms <dockseed@proton.me>
-References: <20261126-a733-cubie-a7s-dt-v6-0@gmail.com>
- <20261126-a733-cubie-a7s-dt-v6-1@gmail.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20261126-a733-cubie-a7s-dt-v6-1@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] clocksource: timer-clint: mismatched IPI gating in
+  clint_timer_starting_cpu()
+--
 
-On 11/26/26 21:35, Enzo Adriano wrote:
-> Document the Radxa Cubie A7A, A7S and A7Z with their Allwinner A733
-> SoC compatible.
- > The initial device trees for all three boards are> ready to use these 
-entries.
+commit ff948927794ebb2a7c5ef1defc24583fcf3b6ad3
+Author: V=C3=ADtor Hugo Silva <vitorhg20080@gmail.com>
 
-Not sure what this sentence is supposed to mean. Please look at other 
-commit messages for that file to see what should be in here.
+clocksource/drivers/timer-clint: Add Espressif ESP32-P4 support
 
-> Radxa's Linux 5.15 A7A DTS already uses the same compatible pair.
+This commit adds CLINT timer support for the Espressif ESP32-P4, where
+machine-mode timer interrupts are routed through the CLIC.
 
-That's irrelevant, please drop.
+> diff --git a/drivers/clocksource/timer-clint.c b/drivers/clocksource/time=
+r-clint.c
+> index e56eee7e3781d..bf5bae077d7ab 100644
+> --- a/drivers/clocksource/timer-clint.c
+> +++ b/drivers/clocksource/timer-clint.c
 
-> Link: https://github.com/radxa/allwinner-device/blob/6d911d1582dcccdb5a4c38be8d3c1ee851019795/configs/cubie_a7a/linux-5.15/board.dts#L5-L9
+[ ... ]
 
-Please no links to dodgy vendor patches.
-
-> Link: https://lore.kernel.org/r/20261111134919.90264-2-vinicius.eduardo.pedrosa@gmail.com
-> Co-developed-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-> Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-> Signed-off-by: Enzo Adriano <enzo.adriano.code@gmail.com>
-
-The patch itself looks fine, thanks for putting them all together.
-With the commit message fixed:
-
-Reviewed-by: Andre Przywara <andre.przywara@arm.com>
-
-Cheers,
-Andre
-
-> ---
-> Changes since v5:
-> - Fold in the A7Z compatible from Vinicius's binding patch.
-> - Drop Alexander's Reviewed-by, which covered the A7S entry alone.
->    Krzysztof acked the A7S and A7Z entries separately. Leave the Acked-by
->    off the combined patch since it also includes the A7A entry.
-> 
->   Documentation/devicetree/bindings/arm/sunxi.yaml | 15 +++++++++++++++
->   1 file changed, 15 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/sunxi.yaml b/Documentation/devicetree/bindings/arm/sunxi.yaml
-> index 7da84e2de748..7a7f96f21f57 100644
-> --- a/Documentation/devicetree/bindings/arm/sunxi.yaml
-> +++ b/Documentation/devicetree/bindings/arm/sunxi.yaml
-> @@ -857,6 +857,21 @@ properties:
->             - const: radxa,cubie-a5e
->             - const: allwinner,sun55i-a527
->   
-> +      - description: Radxa Cubie A7A
-> +        items:
-> +          - const: radxa,cubie-a7a
-> +          - const: allwinner,sun60i-a733
+> @@ -130,13 +157,22 @@ static int clint_timer_starting_cpu(unsigned int cp=
+u)
+>  {
+>  	struct clock_event_device *ce =3D per_cpu_ptr(&clint_clock_event, cpu);
+> =20
+> +	if (clint_uses_clic) {
+> +		ce->set_next_event =3D esp32p4_clint_next_event;
+> +		ce->set_state_shutdown =3D esp32p4_clint_shutdown;
+> +		ce->set_state_oneshot_stopped =3D esp32p4_clint_shutdown;
+> +		esp32p4_clint_shutdown(ce);
+> +	}
 > +
-> +      - description: Radxa Cubie A7S
-> +        items:
-> +          - const: radxa,cubie-a7s
-> +          - const: allwinner,sun60i-a733
+>  	ce->cpumask =3D cpumask_of(cpu);
+>  	clockevents_config_and_register(ce, clint_timer_freq, 100, ULONG_MAX);
+> =20
+>  	enable_percpu_irq(clint_timer_irq,
+>  			  irq_get_trigger_type(clint_timer_irq));
+> -	enable_percpu_irq(clint_ipi_irq,
+> -			  irq_get_trigger_type(clint_ipi_irq));
+> +	if (!clint_uses_clic)
+> +		enable_percpu_irq(clint_ipi_irq,
+> +				  irq_get_trigger_type(clint_ipi_irq));
 > +
-> +      - description: Radxa Cubie A7Z
-> +        items:
-> +          - const: radxa,cubie-a7z
-> +          - const: allwinner,sun60i-a733
-> +
->         - description: Remix Mini PC
->           items:
->             - const: jide,remix-mini-pc
+>  	return 0;
+>  }
 
+[Severity: Medium]
+Should enable_percpu_irq(clint_ipi_irq, ...) be gated on CONFIG_SMP
+instead of !clint_uses_clic, or should the IPI setup in
+clint_timer_init_dt() also be skipped when clint_uses_clic is set?
+
+clint_timer_init_dt() still requires and maps clint_ipi_irq for
+"esp,esp32p4-clint", and its IPI mux and handler setup is guarded only by
+CONFIG_SMP:
+
+drivers/clocksource/timer-clint.c:clint_timer_init_dt() {
+	...
+#ifdef CONFIG_SMP
+	rc =3D ipi_mux_create(IPI_MAX, clint_send_ipi);
+	if (rc <=3D 0) {
+		pr_err("unable to create muxed IPIs\n");
+		rc =3D (rc < 0) ? rc : -ENODEV;
+		goto fail_free_irq;
+	}
+
+	irq_set_chained_handler(clint_ipi_irq, clint_ipi_interrupt);
+	riscv_ipi_set_virq_range(rc, IPI_MAX);
+	clint_clear_ipi();
+#endif
+	...
+}
+
+When CONFIG_SMP is enabled with clint_uses_clic, clint_timer_init_dt()
+registers the IPI mux and chained handler on clint_ipi_irq while
+clint_timer_starting_cpu() leaves the per-CPU IPI IRQ disabled.  In
+Addition, the commit message does not explain why IPI enablement is
+changed here.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125233020.1380=
+594-1-vitorhg20080@gmail.com?part=3D8
