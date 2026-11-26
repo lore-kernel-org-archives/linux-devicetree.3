@@ -1,55 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=121.127.44.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795721108;
-	b=iGCtv1lAB5CO6AMbQuqMa9JnhzbM4EEZ2JB9k7PSk/55LSmkxpsaAHMBtBHkNriPZ61L
-	 tJCcXJDLngcK8AkvYNU80AbYWzY6KQXHJoyUAOrF08imcjcU35IrcSqpc6JW0feWRCUB5
-	 nLz4dRM07lyPaX/IwjkGcbQ2E73JM8gVXdoqwkxtqQ9V65bDaYZgnjcSDj6WuEomRw5O/
-	 lMlqvrX/HW87yfHx4KeIsmJk7I5Ut5fxSykJVgmCIuBBNwgIisyvUpetnriV8ZC1jlyP8
-	 OdgEimSux4H8kpIoy7hs6xfRddRH5AKu9xOTV1W0pjPwGUadzlqVP11Yl9Gu9Y4Tq8A==
+	t=1795721279;
+	b=a9WbyHbyszO+tw9u8I8KxtwGhJVPc26v42kjeqgJ56diVZsgtIYNCoNUxZdp9xMbA8C6
+	 seoHlIwkByBk8n/q5lhvKLGzJvz16kY13iCBVTTHGKbhlkD0D/aUAEYX6t8CMusD1OYW9
+	 Hf8yPFBoC4t9ACJFlUj0xFnQ+fhKQFjYwztL2vJsdAAJwNuu1NFKqqmkIMrilsHGeflFC
+	 jT5sBZg8Bqf7BK26IkPbPbruLz9ZPJxw4wUPlbzJ2+k3wE+mBFvnkCaMvgRBBxbH45tSL
+	 JN1hdqZWwNTuVKaZopNuIDdOoy2sRpK5mN+4z3bMtaMyUPs798ntw27+QjKd4Af6Qtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795721108;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=8neFM4IZWctrSKbLLCGkv0TlKkdzfM0Qrkc2za2vGOE=;
-	b=tGiEECUj2LtF5m1rMM+JzZmVazVeKaMGLutiRx6MZXFg/xZg8VSELP0qyv0VWe47hSDs
-	 Zaxb2m1gkMGJt7NxYkIZW7zV/CRZTxBulaIBZaenvnUVYwkWx482wJjJpg3JzlS10oMm1
-	 Xh26D2HZ+zCs6Z4BTkt1TsSFf5qQvmdHnSoA2yVWX1fdI7cjX3ncFHZ5cocRNDl17puL+
-	 OU/TB8UQrPLGK4TIJCrCDAD13zwhs0jWo2qH9Dw96NDxW2f7TyVw19P74DQOxJuDuFu9e
-	 ildy4w7ErkjRwqqRReEhWjWm9OdySQFs5SWxkuMB8Bqmm8R/lV1G1jZYbjqTxC5+QTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795721279;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:CFBL-Feedback-ID:
+	 CFBL-Address:X-Forward-Email-ID:X-Forward-Email-Sender:
+	 X-Forward-Email-Version:X-Forward-Email-Website:X-Complaints-To:
+	 X-Report-Abuse:X-Report-Abuse-To:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=Dt1leGuDwrWA2E3OVhdzYv2X+ho/ucBUcti/3VyXxnk=;
+	b=M9C98SO047X/KiuJFNJHGQLEak7XX/CdLWphU6PpjpTA5LDZygPY887yfwOPEpz81NCL
+	 t1ufANIQhduzfEAwnbnKM9IsaxoiBnx8JdJBPO8pL3Kz63OykoktgkZShQgLKVMhaSMJM
+	 QbvMkfx/tYeLSRAuctFiJPK3Z8IUKmcnTw/zI3HB5Lt8aFipQasXfwyasZJS/B7j5bHQK
+	 0no5X7cDzk3udkkYMZ+yVR+Hq+uW4oCXZ+YmtAWK8eZCvqyGtU9riQ6oTgY/2Nq3BQguj
+	 cm0Y7/ivCWQTRnVG5efVBbxrbKy0D33/oiIxBiJN+4GvkXd0dzFRQqsFOpWq0HERZCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bj/AWI8I";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=kwiboo.se;
+	spf=pass smtp.mailfrom=fe-bounces.kwiboo.se;
+	dkim=pass header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=Ib1kjaof;
+	dkim=pass header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=Dse0tQzx;
+	arc=none smtp.remote-ip=121.127.44.66
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00139606A31C
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 19:25:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91FEB606A31C
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 19:27:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91FEB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bj/AWI8I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E71D1F000D1;
-	Thu, 26 Nov 2026 19:25:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795721107;
-	bh=8neFM4IZWctrSKbLLCGkv0TlKkdzfM0Qrkc2za2vGOE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bj/AWI8I0upm4jaOjs5ykSt8pwKPG0xDPUl8iBSlAB9m5eZqscYwOp6EhERjUpKLx
-	 uDC4h8/6QLSQxIi7vPxxYtrZDjYSbriQzftq5/xMgVRsAyrz8pLx6EpeXjkzSaddhu
-	 acGydyL7ytsbwI7Ls7E08IizayJjBCUlsPIEqASnzbj0uyc7s39rNJCyg7YFdUI0J6
-	 bbHZOxwMLRjKKI7tGYGrd3z589SPSfLz8U+wO9sPiR6h9N+7p5lLoqfTEaJS8P1qIc
-	 p9ItD4aSyh2r6ePxUb7KkBZIonluagAJMdo6DT63jdSQRoFy+DvJJrUEfmUsimXvpz
-	 LDcsASGdG67FQ==
-Message-ID: <sashiko-outbox-236089@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: power: supply: bq27xxx: Add BQ27Z558
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Prachoday Sutar" <prachodaysutar7@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261126191906.25708-1-prachodaysutar7@gmail.com>
-References: <20261126191906.25708-1-prachodaysutar7@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 19:25:06 +0000
+	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=Ib1kjaof;
+	dkim=pass (1024-bit key, unprotected) header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=Dse0tQzx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
+ h=Content-Transfer-Encoding: MIME-Version: Message-ID: Date: Subject: Cc:
+ To: From: CFBL-Address: CFBL-Feedback-ID; q=dns/txt; s=fe-e1b5cab7be;
+ t=1795721271; bh=Dt1leGuDwrWA2E3OVhdzYv2X+ho/ucBUcti/3VyXxnk=;
+ b=Ib1kjaofffLRqFzChJbFtRw0dL2qomq/Mu9kyrgDMv7vz6R0y6VpL8CYR0EIKU97JxKvkSBXq
+ dwJY9K8Vn3L1R/AYY5YZXt2kzJvt/Ln2+EGt/qjonpCCz6gcaUFpNMMnsiFdil2lnVu5Xn//xt1
+ 3JE1828sIkS0V5hvHjifZnNxUni6fLqYY//zcpTAYNJgt0GXQZubj8Ho+oxwVP/yicOqw3K4W7J
+ w2/xzD1+ymahZSFqhLSvidAx+/b497CdgxsficnMj7+7StZDoTUS+9MjC6oBFet9vUtPmo3J6jg
+ xDQICXeEqoghjPoQj4YUzEUC6p8B+++s7mYRIwhPRE9w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=forwardemail.net;
+ h=Content-Transfer-Encoding: MIME-Version: Message-ID: Date: Subject: Cc:
+ To: From: CFBL-Address: CFBL-Feedback-ID; q=dns/txt; s=default;
+ t=1795721271; bh=Dt1leGuDwrWA2E3OVhdzYv2X+ho/ucBUcti/3VyXxnk=;
+ b=Dse0tQzxiTw9C5iA4so93j9IPit74yxaGHfPwqs9KXS95JhWIePjfKixGmT5TqHAX7gx1QIYf
+ 4OVAih782q97Wivm1EB6dJOmb/ugGqT+qc4UPJK9alPpDlgEADljSUuxxir2Ev7LGXhQ2zx8GTj
+ u3XTxpcYJZkSUARwKgC2424=
+CFBL-Feedback-ID: 6b088836b69a54ed847adb2c:f6ea4d869c8a42e936c08f2cc48301d0
+CFBL-Address: abuse@forwardemail.net; report=arf
+X-Forward-Email-ID: 6b088836b69a54ed847adb2c
+X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
+ 121.127.44.66
+X-Forward-Email-Version: 2.19.39
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+From: Jonas Karlman <jonas@kwiboo.se>
+To: Heiko Stuebner <heiko@sntech.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Jonas Karlman <jonas@kwiboo.se>
+Subject: [PATCH v2 0/2] ARM: dts: rockchip: Add ArmSoM Forge1 board
+Date: Thu, 26 Nov 2026 19:27:43 +0000
+Message-ID: <20261126192746.1595707-1-jonas@kwiboo.se>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,62 +84,45 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] dt-bindings: power: supply: bq27xxx: NULL deref in
-  bq27xxx_battery_i2c_probe()
---
+This series adds initial support for ArmSoM Forge1 [1].
 
-commit 54d1a3afdd53a67243b18d9017c27b2cdf3485cd
-Author: Prachoday Sutar <prachodaysutar7@gmail.com>
+ArmSoM Forge1 is an industrial-grade product powered by the RK3506J
+triple-core Cortex-A7 application processor. It is specifically designed
+for industrial gateways, HMIs, PLCs, handheld POS devices, and home
+appliance display/control applications.
 
-dt-bindings: power: supply: bq27xxx: Add BQ27Z558
+This series depends on the base SoC dtsi added as part of the series
+"ARM: dts: rockchip: Add Luckfox Lyra boards" [2].
 
-This commit adds the "ti,bq27z558" compatible string to the bq27xxx fuel
-gauge device tree binding with "ti,bq27z561" as a fallback.
+Mainline U-Boot support can be tested using a branch at [3], it contains
+board support using same devicetree files extended with USB support.
 
-> diff --git a/Documentation/devicetree/bindings/power/supply/bq27xxx.yaml =
-b/Documentation/devicetree/bindings/power/supply/bq27xxx.yaml
-> index be0f1f7292c8f..28b04732e08d9 100644
-> --- a/Documentation/devicetree/bindings/power/supply/bq27xxx.yaml
-> +++ b/Documentation/devicetree/bindings/power/supply/bq27xxx.yaml
-> @@ -18,40 +18,44 @@ description: |
-> =20
->  properties:
->    compatible:
+Changes in v2:
+- Remove unintended use of zero-width space in cover and commit messages
+- Add spi_nand label to flash@0 node
+- Drop rtc_int pinctrl, it was not referenced and unclear how RMIO may
+  affect how hw description of RTC IC may end up
+Link to v1: https://patch.msgid.link/20261122184532.1300004-1-jonas@kwiboo.se/
 
-[ ... ]
+[1] https://docs.armsom.org/armsom-forge1
+[2] https://patch.msgid.link/20261125214421.1580359-1-jonas@kwiboo.se/
+[3] https://git.u-boot-project.org/u-boot/contributors/kwiboo/u-boot/-/commits/rk3506
 
-> +      - items:
-> +          - const: ti,bq27z558
-> +          - const: ti,bq27z561
-> =20
->    reg:
->      maxItems: 1
+Jonas Karlman (2):
+  dt-bindings: arm: rockchip: Add ArmSoM Forge1
+  ARM: dts: rockchip: Add ArmSoM Forge1 board
 
-[Severity: High]
-Does binding via the "ti,bq27z561" fallback trigger a NULL pointer
-dereference in bq27xxx_battery_i2c_probe()?
+ .../devicetree/bindings/arm/rockchip.yaml     |   5 +
+ arch/arm/boot/dts/rockchip/Makefile           |   3 +-
+ .../dts/rockchip/rk3506j-armsom-forge1.dts    | 223 ++++++++++++++++++
+ 3 files changed, 230 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm/boot/dts/rockchip/rk3506j-armsom-forge1.dts
+---
+Based-on: <20261125214421.1580359-1-jonas@kwiboo.se>
 
-When the I2C core creates the client from Device Tree,
-of_i2c_get_board_info() -> of_alias_from_compatible() populates
-client->name from the first compatible string ("bq27z558").  During probe,
-bq27xxx_battery_i2c_of_match_table matches the "ti,bq27z561" fallback, but
-its entries do not set .data:
+-- 
+2.56.1
 
-drivers/power/supply/bq27xxx_battery_i2c.c:bq27xxx_battery_i2c_probe() {
-	const struct i2c_device_id *id =3D i2c_client_get_device_id(client);
-	...
-	name =3D devm_kasprintf(&client->dev, GFP_KERNEL, "%s-%ld", id->name, num);
-	...
-	di->chip =3D id->driver_data;
-}
-
-Because "bq27z558" is not in bq27xxx_i2c_id_table,
-i2c_client_get_device_id(client) returns NULL and probe crashes
-dereferencing id->name and id->driver_data.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126191906.2570=
-8-1-prachodaysutar7@gmail.com?part=3D1
