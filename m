@@ -1,88 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795699715;
-	b=UJm0kHG2IBDJZIhXlDwuFYnzqW41u6r4mI+vbqGdjlh3AVyKMtLPSmXx9i7N0h9yBze7
-	 54AW0kO2IYT/SIT/xZJ2NjTjK3+CjLyfe3buYZ47gGxIwpG+I/JLdG+PqSn03J8n0tQRJ
-	 SAE0nwadqRPrLI1gt/J31LUe1QOC6qOOzCF6Vvo7MKXGcDoFS/tnHUGTk1H9jrDfqFw/A
-	 lh5SMlBj1YZUS6S0ThwJJ2iuF9MuzF8MnLxrNz8QwiuQJVZg1AFcnQwOR7yDQRnkWgW1/
-	 ofImSeVRsXIBgutkFsiQhdrBPphxDzMpD4E85X1i3xqwpsoiH60nucxHk0X7obyRdgA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795699715;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795699836;
+	b=N0s3upuTeqySKDcdYIJGnfY1ME7iG6DaGEWC58m6TfKV1zj5RnqC2jvEjRmq4Ypt/SD8
+	 eg0rhrQCAzq6oxc4/uTpLIDsPstxd63CpazLFThiuyl/VSMBakiSex04yzUFJDPJjRqAI
+	 /iZJfgy+wqVC0ttEoiexL9tcmgXKCILJu/zKDlrMS3S8vOiHJyxAXz1KcPPl0kzv05tYG
+	 RzANg3uxhhr2DbbPhIjJxPVnZLch6h/WIDmQrHKi7XRMs47FsNHHiTi642Cw8u7x7y5Xw
+	 PiniM+5xbIn7Wyk6U0XK0krG+kRCmxetsKG66gShJNW/jIuVM7zp2f7XYRivHjdLhzA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795699836;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Reply-To:Subject:
-	 Content-Language:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=pFahHhnApCqp4xWzSbnlx6J9bvCFbftUctTIaRpbdJw=;
-	b=VQ45YUyeCylUzm1xbFadyKdEnwz43q/GIYXe3qxXe4Vpdvf/cDFd+P1k+1zCemLLSeWv
-	 FIskgg/z0uj/Kcu+fAjd51ZXnlfuTkjEA7JshwACcOweSPS+LcaxJnCh5a+WgZqXcHFtO
-	 jkMLFilWJLUWnwWlo9LyS/7tmFC9vgywnuJ+x2g0MA5lg70KsDRa0BmfH+wr+HwNU3Nu9
-	 t4u8EIvYORvz4ns8PEjYoi1IExU6v1q4IM1zo/hl1rq+vSWwf4xupHvXHbxC92f0as2pv
-	 e8xKoNnAwHoI1cmRQ9toD1NCFV/GnR4hKPk6FvovjaBDJd+XRXsjKutNmAhzQuSnsbw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=cpHsV5w2JYbXJ1AFl+wqh6QNZT0CRx63Sll+q8RneTQ=;
+	b=0JVNOWjEpOgRGsfruHdng5ig8XsMafGpvZ3zGVXodJVAALQSTy3Va7z4w+wkKBGdzmOB
+	 tkNm1bwfAsjB5PaC3wa4vbGfDgtUW2reB1abzRcg3qZRW422zDDQPGmxHkZ6hbbj43OBM
+	 FAzlDG4jSK8VNrtZQUcOsLWelmZIdgmADfOviYAM+fhEW0DGhonUmj6L8MOlc8tS6jJ87
+	 yVdsm21ceI3veH5QX651+uHLASeCBXJq1TQSvRFAUwlqnKPj8TK0YCBaYqzMQ8MlpdIbb
+	 kL9D1ygjeOHWxiaJ8iCGkWaM9swu/kXu9bKKkyHyvmThjU1M8hRYDsuHjnxi0cNJurQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="MC/TKS47";
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iz8oGwyO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3704606A334
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 13:28:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3704606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FAD6606A323
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 13:30:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FAD6606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MC/TKS47
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-38190551625so13610924eec.1
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 05:28:34 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iz8oGwyO
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso14873138eec.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 05:30:36 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795699835; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hpdBt+qVXlQIhTumtI3hdHe4EwhCVLnpdpZn/F5i+C7/phcuxcRfdkN3jZETbI7tce
+         seqSHLQe2WwUQPU23J+yqITpV5z/ZqKlfSTp07Q54s21qtrRxZ7GYm9mSu2sd3mlcaFH
+         QievM/hJUk+EK7EhHsPZoKmG+qiraaUAkojY0Jb5HietBkkQ/DYL9XA7FjVZdnHr+43A
+         FZLU2H066q/XGqpJ4EiygCcYu3ev8ChIW01qkd3hH6KHLtgtKltJqEH/CSIvkK/ieccO
+         MqEvqRgO26eibbMgoUdUT+mdpYnJ2ilE4GuczwUCGQ0yNK1G740hSH0Vm+TfGojUxElx
+         dH1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cpHsV5w2JYbXJ1AFl+wqh6QNZT0CRx63Sll+q8RneTQ=;
+        fh=dQpiv4yn4/LDCNVEWjbqL5xgLgepFqmK3cwnV1MIZKc=;
+        b=Umwexo8JWN3AEVyipydCIAN/bCS2fiul7buztH4jUyuBvkBl1vgKfgkKZpQhs2KIrh
+         12PYRk6Os4dFDlkPEttc99nCF06t/GcM6RxAHkI73oQF+sYQLV7BhXVYzuyjFTDxr+8r
+         ufa6FB3SxZGvIOBx9dTpT9f9gzUkIi2+ncjdwyZazdTq8NFywiUD2c6kAhvS5SuwtZ7V
+         uNX0Q7VVrueCZ4id59QOwz3IOeemLbRbtiAeVIzXyudj2SQ9MGYEeiQaFQjN4/LWb+wO
+         WWLPdUZeNxAh0L75hJKzX1yDyqXewUTTnAWwAE/zJytrXKVgHLfqf80YSR2xWy/OwKVw
+         QHOQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795699714; x=1796304514; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:reply-to:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pFahHhnApCqp4xWzSbnlx6J9bvCFbftUctTIaRpbdJw=;
-        b=MC/TKS47PCVThH4hxBVbgYAI17PI8aoyvnUrzLlf5cUFLIk+p2ddtVf+hQToBZH+Q/
-         rB5Im9GJK7ymW6o+kw2H38ubAlvFSPrnLV7QUMeiielvCCVXjFgTv9pPaMj7j5bKFWgq
-         IbMU6BMgevQG1NxYkx63x1CZ1CrFMrFtSuCi8sABEky3K6kX7E0ldh4+6UPuYNnMdTHW
-         Bz1jigNK9fpe2VkAaSyGXsKvGbRhb+8I4k8LzZkkFdqc/bZrTYAIonP49b8b0MsEuwkT
-         GAW+ARRDnT9SD9ayDaZpUz7XLSvG1CfXy+gvHuMerhQ22jporeapnIv76onGGYCGVYpw
-         lXdg==
+        d=gmail.com; s=20260707; t=1795699835; x=1796304635; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cpHsV5w2JYbXJ1AFl+wqh6QNZT0CRx63Sll+q8RneTQ=;
+        b=iz8oGwyOO09o4i5dWB91D4ghISsBxmFjH2tehPipI789M9ucTYLpa7LONDMVVl6ICL
+         v6QuocHdAeNYP9nvTFW9XIXOBgQGaueGU2YlbdDOPj5vcjRZgbC8tm3zZxQ9omvYcXDi
+         xB1pI6bJGoMuTKu37WkNP4tGErBsJVIZnBjisgqpvYrk/cF7dCP66d56rMov1NMAvlKM
+         h85ENOl4S8WOzUZMZUA0MCIy5oGQ0AyLFlKk+AK1WfOvUS1/jSUjI/8rI33VxjXZ+mc3
+         EAY74D0kL7j3CP0Z/HH5p80XtoxuTKyA6lmTbLid4SC68C1wk5YyGkNvgeHQVoZm6sd8
+         b7jA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795699714; x=1796304514;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:reply-to:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pFahHhnApCqp4xWzSbnlx6J9bvCFbftUctTIaRpbdJw=;
-        b=p2JVAPnT/3wg6U89osm5g6/FQPO6FHhk0bwdRN+WDcpZM0geSHcfPhSnMh+y4gvJNC
-         kanNG6/8ITu59y31O2hsqJhK8bS54IMvh3uFaPvvUPtUqTmg5hdykbBH5Z1wzMEgO0aL
-         P5Cuof/7mRANXDU3MWGAbXZV0aX9F3UfmvLOQKJEYOfxxylrcr/BLOSHJRgbsq6yYVYA
-         Uqf9iqIjiOzbW9zlPLqgtDM7oernrZcpCgF+BJdq+H8f6EaSZeDSg8MiqwCYg/IkFQYP
-         j56bA/5Tu477eCSnSi5bAmrM1XCPDYoTiMffyFJc8QcZst7Q2mEUGZNlBJqIJbpH3ec3
-         0HMg==
-X-Forwarded-Encrypted: i=1; AL+hErHRyfzHCyHvpLXzktXPi4Hl/+RujvCYR7/axk/EvksbIFa8GHjZIeBLj6suay4yzPsM/WT4pn+ehmoE@vger.kernel.org
-X-Gm-Message-State: APuU4Z/t/mVQfu+QFu7mYlcOpw7oxXzcNZ2YzOrylJEah/vYcwKlpgL+
-	Xlt3aRuAa0duBuvdXK7mlSVf4k+1lMPfmMHB4PvrFG+8CRkXTkJXuKqE
-X-Gm-Gg: AZFdTZe2AI/sQratm/Z68RlcBBpafgIVzy5x0TGGU9oJ1eMLVwAL+FT+LIW6XcWS5u8
-	MKMh5QrbjTiSMcapLVQ0LAJ3s+iCHppTCbRzD3JQsV5J1OlOrCh9Tn6zgMVgnJ30VORQR2g2G/d
-	EM82IwPg6Xm2V+BGXKh1Tzf1Y92o9P4mSumYSPKtgoS9bJfS9aiRadZQ+azdJuKihk7/7ocb5Ip
-	pKbLyprAC4pjEPBH/5J7l4p1Pp2zutVUrDZqiQldJeK7pN52WZfhd5hmpq2vsbaK1rD0o2DAU1Z
-	c9T/9mSN/t2PVWyI1doL47Ptmbf7VL8GrX7pRjOC+rQKWtT9pyPDiXc2OoQBlv5llBmNJu+gdKO
-	Pz25WL4UkEHcaQYSwj3NYzWTcpim+WhOmDfkXynLd8fpYq9zAOYBh1JsGpESyTI81DlCOZvSdS2
-	XGu+LZkryF4DPZfZD3DLCN2PUodmCvZJymfKL0XIJ0TAxOfFCvXY7ZD99oms9KJ3ioqBPwryXi0
-	ib2l0vJSVttuAUfXl+FxYJPGGbb+dj4TsdAB/VwxeWjdU+jfHFpBfu3r3/Psac3JgAXLoiyDpmp
-	8DElYZ8ARENL2Qux/ywZPWDY/zUlsIH8wqlpyfW52sLVeI1GeFYvjW2e4EALJ21od2I=
-X-Received: by 2002:a05:7300:c00e:20b0:386:c3ab:ab7d with SMTP id 5a478bee46e88-386c3abaf3bmr8681892eec.3.1795699713612;
-        Thu, 26 Nov 2026 05:28:33 -0800 (PST)
-Received: from [192.168.35.43] ([218.50.238.131])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e96bdsm59213477eec.7.2026.11.26.05.28.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Nov 2026 05:28:32 -0800 (PST)
-Message-ID: <86a7174f-c44b-4663-862b-3631b0d6c5bd@gmail.com>
-Date: Thu, 26 Nov 2026 22:28:28 +0900
+        d=1e100.net; s=20260707; t=1795699835; x=1796304635;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cpHsV5w2JYbXJ1AFl+wqh6QNZT0CRx63Sll+q8RneTQ=;
+        b=EoxX6FNoAwpHuKumroG1Kw//Ho+Zf5++gOJk4tXbr9hvfEy4mftcl/DJMvE0ELkHzJ
+         8xNjf7M6fnvXE1FYKX1NVzTM+ThIDD5SBRaoEQrhJ7QcKqw7p+jTTeWix2X78NcSiF7B
+         YwcGLH7lHIffCmnBY3IdqYWqDtnDivQp/Geb3Y61wxzMNT76ASSeSNbHpD6vrJh7tSq8
+         JGqHEHUJqRpHGE/h0d1Fgy03wHbjiKa+0MZtnOVuRGvO48cLN7Al8Q056g0eSguyi1X1
+         gf0MDjvBeAN5bKsm1ZW7B1Vn/0zt26xRSr6YZy//NrtFzDH/VjbcecpBBpuWb5+mePNj
+         Z7KA==
+X-Forwarded-Encrypted: i=1; AL+hErG9ihsmqccZzZ4CNIKodZZS903E5Q9h4T+KvaO+ygal/sAvhI9RWjXC7l8enzoZ/9bTb9sRK0BzlSdx@vger.kernel.org
+X-Gm-Message-State: APuU4Z/oFpCuozb8nTfnXx2+BjY3MJ03GwBio9EO/o/4dBt86pn1zCmo
+	IliBuCB2FzroiYxeuvQ3qzvGvsO2zcLCFVDB91xsnwAjEs3eS/9PwbC2P1HbiQ2Rr3/3PTHfcxu
+	hSgaNnvOg4EKEJS6VCewBd1j8MGz62Gg=
+X-Gm-Gg: AZFdTZcotAmXGmpgcOBmWXfvoI+g67dOJx6TfY3ggmsM7PI0naX3CWKZIdCM0ksmNAf
+	RgZsmkuAEt7ywDcmQOhMjAxUdkkmyBwhWLbUDDl0xFgN0cWe2jhecnf//jX8kR4AW/GSLFQV1+x
+	kJRGxNCeghzdi8++CkqLM3PIaXTsN6ZOErsFSYVOM3osiqqXVVzJhas5F1NtPdotdFZz564lPgX
+	vXLdZK/NGg52MEIUbaKiYOsqFLFlWHRKKLjZXuV+QZq55xtoM7Vv3lkjXnUhLOWrWD3JvJnC6cT
+	53fYVvNtdFVcm6QGKo9ca+OsQR2y0PdQVqg2NuIw8fIaosdZvOtWb7k5xraFvTqH0on2w3ZaL5S
+	Qsay7lmbd9VqO6ZhjGlNx64mtQi9VhIemRbTO42XvvFuDJxlw2jnM3meeof3y3CW4EJgh+j/nx8
+	FnfiSqxygUu/TOEALGXARTUmCqsTN6PjkLQB2nwHlIdPkDNt6oMu8=
+X-Received: by 2002:a05:7300:4721:b0:386:da66:671f with SMTP id
+ 5a478bee46e88-386da66762cmr2781680eec.28.1795699835188; Thu, 26 Nov 2026
+ 05:30:35 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,87 +105,38 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: chanwoo@kernel.org
-Subject: Re: [PATCH v4 00/11] PM / devfreq: rockchip-dfi: cleanups and RK3576
- support
-Content-Language: ko
-To: Sebastian Reichel <sebastian.reichel@collabora.com>,
- Chanwoo Choi <cw00.choi@samsung.com>, MyungJoo Ham
- <myungjoo.ham@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, kernel@collabora.com,
- Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20261119-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v4-0-517a68c008fe@collabora.com>
-From: Chanwoo Choi <cwchoi00@gmail.com>
-In-Reply-To: <20261119-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v4-0-517a68c008fe@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261115090520.102216-1-clamor95@gmail.com> <20261115090520.102216-2-clamor95@gmail.com>
+ <0670d537-0f9a-43dd-9d48-90272f04f1e2@sirena.org.uk> <20261126122936.GH38590@joneslee-macbookpro.roam.internal>
+ <c0bc9e91-fe8d-4c0c-a6c0-f7c8d4d086a9@sirena.org.uk>
+In-Reply-To: <c0bc9e91-fe8d-4c0c-a6c0-f7c8d4d086a9@sirena.org.uk>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Thu, 26 Nov 2026 15:30:22 +0200
+X-Gm-Features: Aa3M54phpO9TY-BjFhMXHRwC2_FlICHLesKqjIioZHRgOyOaeZaLBv9530oQbas
+Message-ID: <CAPVz0n3tpcEteSfU+51_FeJaYYMwz522h968nWHSw2gz6+336g@mail.gmail.com>
+Subject: Re: [PATCH v6 1/3] regulator: dt-bindings: maxim,max8907: Document
+ LED support
+To: Mark Brown <broonie@kernel.org>, Lee Jones <lee@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Pavel Machek <pavel@kernel.org>, Griffin Kroah-Hartman <griffin@kroah.com>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-leds@vger.kernel.org, mfd@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/19/2026 10:01 PM, Sebastian Reichel wrote:
-> This is a combination of the DFI driver patches from the following two
-> series to ease applying to devfreq tree. It is based on devfreq-next
-> and there are no other dependencies.
-> 
->  * https://lore.kernel.org/linux-rockchip/20260921-rockchip-dfi-cleanup-v2-0-43ff34ac8599@collabora.com/
->  * https://lore.kernel.org/linux-rockchip/20260921-b4-rockchip-dfi-rk3576-support-v2-0-04f847016321@collabora.com/
-> 
-> Changes in PATCHv4:
->  * Link to v3: https://patch.msgid.link/20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-0-32ff1546b0e4@collabora.com
->  * In PATCHv3 I accidentally used the patches from PATCHv1 as base with
->    the wrong DT bindings; this is now fixed
->  * I've fixed num_clks typo in kernel doc (Sashiko)
->  * I've fixed incorrect LPDDR5 BANK_MODE_MASK for RK3576 (Sashiko)
->  * I added a fix at the start of the series correcting LPDDR5 bank
->    mode value (Sashiko)
->  * I've added a fix at the start of the series avoiding usage of
->    uninitialized memory (Sashiko)
-> 
-> Changes in PATCHv3:
->  * split out DFI driver patches from both series and merge them into a
->    new one; clock controller and DT patches will be sent separately.
->  * rebase to devfreq-next
->  * collecting Reviewed-by / Acked-by
-> 
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> ---
-> Nicolas Frattaroli (6):
->       dt-bindings: devfreq: event: rockchip,dfi: add clocks to rk3588
->       dt-bindings: devfreq: event: rockchip,dfi: add rk3576
->       PM / devfreq: rockchip-dfi: move to per-variant const structs
->       PM / devfreq: rockchip-dfi: add NO_INTERRUPT perf capability
->       PM / devfreq: rockchip-dfi: use bulk clock APIs
->       PM / devfreq: rockchip-dfi: make RK3588 use its clocks
-> 
-> Sebastian Reichel (5):
->       PM / devfreq: rockchip-dfi: drop incorrect shift of LP5 bank mode
->       PM / devfreq: rockchip-dfi: initialize dmc_count structs
->       PM / devfreq: rockchip-dfi: move register offsets to variant struct
->       PM / devfreq: rockchip-dfi: prepare support for v4 DDRMON
->       PM / devfreq: rockchip-dfi: add RK3576 support
-> 
->  .../bindings/devfreq/event/rockchip,dfi.yaml       |  89 +++++-
->  drivers/devfreq/event/rockchip-dfi.c               | 297 +++++++++++++++------
->  2 files changed, 290 insertions(+), 96 deletions(-)
-> ---
-> base-commit: f9316c13d6f621af4f6f4a6089d3c989ffe899e6
-> change-id: 20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-74727d64d729
-> 
-> Best regards,
-> --  
-> Sebastian Reichel <sebastian.reichel@collabora.com>
+=D1=87=D1=82, 26 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 15:2=
+4 Mark Brown <broonie@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Thu, Nov 26, 2026 at 12:29:36PM +0000, Lee Jones wrote:
+> > On Sun, 15 Nov 2026, Mark Brown wrote:
+> >
+> > > On Sun, Nov 15, 2026 at 11:05:18AM +0200, Svyatoslav Ryhel wrote:
+> > > > The Maxim MAX8907 PMIC supports a single LED; document it.
+> > >
+> > > Acked-by: Mark Brown <broonie@kernel.org>
+> >
+> > You should just apply this, I think.
+>
+> Well, it doesn't apply so...  :/
 
-Applied them. But you also need to send the clock patch[1] and get it applied.
-[1] https://lore.kernel.org/linux-rockchip/20260921-rockchip-dfi-cleanup-v2-6-43ff34ac8599@collabora.com/
-
-Thanks,
-
--- 
-Best Regards,
-Chanwoo Choi
-Principal Engineer, Samsung Electronics
+Obviously, Lee did not pick up
+https://lore.kernel.org/lkml/20261123150224.199601-1-clamor95@gmail.com/
