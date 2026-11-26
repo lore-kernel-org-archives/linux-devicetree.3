@@ -1,76 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795698646;
-	b=zSf9fBh7XUVTtM50KhaabuK4DANFlGuHFIvFGRLHRuItEIDbZKi5DLlkMicP5lYZymPG
-	 XtMi3oqg17cE3rXnDtmn2n4W8QWBY2g2fEq19r9cuDzHR/gSYYJhQC35vitd7EcqJ+P0C
-	 X21ZOajkqyMHznlHZRyzXjbyPrJoNR+m+3JvAqnSzjcSKYMpcQ83qSjruAaqPmWVwrj3L
-	 /orUfm11UIo8mt5XSGMbYUWVaX+hZtip/nbYIPbdCxrRYXyAlAsjLG3yaa+AvG6UCd3l9
-	 KpriauQM36ZTMk/Ol9gR/1lctxdYDlh0SRMqVsh7haT3STyc8hgN7fskQZ6qONH/FBg==
+	t=1795698837;
+	b=aVPJbpc6Xq8eDcP7zdErwPEahvQRLRueMCfg7+XYP8BZdvQmbJSS2g4ti0gDqKUkNFaT
+	 3+sYZiu4ClkLqyZw3j5Uu7/XgGWrde7y5Nr7bDc+3tWc9N+88dl72AalaMeGKgxEmbYT4
+	 ZVAK3ohRLCGkQqON/VfojLachuz40HHdYAYM/xCnRrxH/38qGjX6HiJgm1Y9MZCqI6Q2W
+	 SzeQn9dSDjCrnYdl8aliHMaGN5D9UIL2mcJ+VeC5RKULU6YASGE03+SxC6diKzh1vw0eR
+	 ibxl2TOCJl6Kex1zOB0DGasub+6cY+q1evZMXMmpN3MchlK2v6wQ06I+zxwNi3gsi7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795698646;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795698837;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
 	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=8lzx438I9zhWgrnJA+oH7tC0er2jtBCrxj4IPB3U0cU=;
-	b=ieKtiCRXTRAFj7pyQG79bsTR4BMoJFaq8QlRLudq7lIs4k+2oTZECP6U93lI7yajHRwW
-	 FWlbB9R/SVI/7wsg5OplIOJlAhAYys8S7c/hht9Dq9HwNRoMF2t/DTs7zPfylx0Y8SRye
-	 X+BC9wtA0IVHuMhHfL7WH5Pi499hKqL3t2HvljSmMcypTJZhC9COYodwljiNe8Yfq5x0R
-	 7eCGL+APC8J+v7Mej8+0IfzQ3pSVdg+BG3RAyNrl8w+yekOnqLhw6GyjXcqTjDM5GowHp
-	 +UpQ3nLx9C23BRzZS7TIrfrqX+XN4G8VOOu2ED40CX5s+Jcx4P/mjwAz24g/5ht6/EA==
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=NGKjIx/lsrYSs635frFVwYK8gqcYIaaf5ELPmMFxaA4=;
+	b=fgf5jqMmDWh3fdC5yYA9lzpr8L4T2BDAEiZRypVZligLXA1Hxo/bjoHegvF/UgCF80Oq
+	 zFUXXZ8AsWKI1v9KXoVF+hjzdbsV8aIwmeH7sPkH/2Hpd2ZOSnTs+NxMXaVw5bNgR6hyj
+	 j7Zcyje9BqPCwui67uAa7V+cP7YD9xSVnwMGA3Ak3RBe8VgCPSbbcaqNCOfeAtvwaQL8N
+	 BwAz9EeKs7R7TleAvBULiyd/zkMoSTIyRYe7+W/De3fxcj6qFTl+bpgcQPmlCyM972LMV
+	 Us4e9yX5ukARmZRuM/8uQAia7sPVo0t81yWncnxozMiMYzGxdyChY7J9SEnWxl2hHXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.222.41
-Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com [209.85.222.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E76uDGxf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4084B606A321
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 13:10:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4084B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-990a39ba4fbso1836278241.0
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 05:10:46 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795698645; x=1796303445;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8lzx438I9zhWgrnJA+oH7tC0er2jtBCrxj4IPB3U0cU=;
-        b=u2T+vz/r3xb7OYStxJTVk1nMkmYWSkNQxqGYks/3jLWUW4mw9sCRaON6gc01nujTn1
-         w9MmMO0AmbobwD7fPxFL1DIQKRJJDt7TGNor7w9NwpwoK/SJGDIuqYfJ9YwMatvonQpQ
-         k8zCwpoHuTMRs9CxWeuc+7HeZ2dNipCh5M5NkL0apKW6mpfHfr8if2FxDcwHvA92Svbh
-         mE85HDkOyygvObtzL1gkqbAbvcp1RhGexZfC5fz16n2elUAN+jNNWqqG0WHjDlKHGt0C
-         X272H7BZuQpW8HsECUTZhT5LqprEdBUck9LC/1OIVIk4YEh1qvSTdflF4FZvnZzXKAFB
-         eayQ==
-X-Forwarded-Encrypted: i=1; AL+hErHnOfsZhI32kHGBHnqxwRQhm9F476ASQ3a8Xgm5eQrqA9cDDRR5BTfH56F33SUcxyW9Ijcq7jHI3UuE@vger.kernel.org
-X-Gm-Message-State: APuU4Z/9bbvusjOkA5ySh7QkldmME71jsX4D4BQYMfELYewp/HMm8Q5T
-	H2pQoGedOF12Z33w+k/Cxhzq8bkARL5oWYdEvEQLxsgRGc8OIAFqMddhhNp3Er0v
-X-Gm-Gg: AZFdTZfqdBWw5vmbfhGagpSJrbpGrKoepmCyGbwBxT723mFcPF8iKWf3MUb47D2szY3
-	CTjDISdNJYKv9XcVqakcVd4SBr5NAJuu+cIa3bFE786xJX6E7LWUmdJLf7qVx696oqYvwLaZX5P
-	7IzJeZspdi5uStFQaCX6rcS+Q10ORuFAMaYCoC3ePhxVanzkh+QQk8mJSq4fk/G9bdSQHTMr5v3
-	30xfFT/SPhav5VrIQV/FrBlnQ1iXdBwKTGdX+6Lh3qPgPlhD6zG50QuHCRuUmkCAoNCKM/9UYQw
-	qff4As8MFTC1Uo4IYPovPGGMfx92+GRBkxX0m1VvRCP9srqoorz5blB7pUnDmhCNJ1ryeCDhD5W
-	KTtDXeH/h4e8sdAt/Yq1JDGwCI90Fkf7Vjd2Ib0BPlkosY4s2rJnAq5bgRF1UmIgUKxwH/4cBrc
-	4SH1j2eZ2FWawDiaEa9uwlS3E3oALsXPUREIv33vE5MGRvxEGJDkRLACWR8xRqamKggqlUypJ//
-	o6mI+RUOAhISJCZlIjFqRdGQp1YT1osY4tGf6sf6YRWmsgHEq8brXzjOwWu8HtqNTNfiYNaVfZx
-	o3Kqfn4cClBusW7txeRajorZAO33irO5I4iyxAqrUtuBAYbvfUh2JklWUbbkr96YR1bbvHg=
-X-Received: by 2002:a05:6122:4b88:b0:5ca:fc48:5634 with SMTP id 71dfb90a1353d-5ee8aed35femr11430781e0c.11.1795698645047;
-        Thu, 26 Nov 2026 05:10:45 -0800 (PST)
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com. [209.85.221.178])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99e6e0686b1sm22146324241.10.2026.11.26.05.10.44
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Nov 2026 05:10:44 -0800 (PST)
-Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5ecda93627eso2238392e0c.1
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 05:10:44 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErH+aHuE01ePcwFkHSRyRYDVGqscdjTTs8lbt6ayywTBaX9qPlax2/yuxGmVyZ0xwYLqCWi3fSgifyTs@vger.kernel.org
-X-Received: by 2002:a05:6122:1352:b0:5ea:d1c4:7cbe with SMTP id
- 71dfb90a1353d-5ee8af79c4emr10201505e0c.23.1795698643771; Thu, 26 Nov 2026
- 05:10:43 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32F8E606A327
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 13:13:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E76uDGxf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE6581F000D8
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 13:13:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795698836;
+	bh=NGKjIx/lsrYSs635frFVwYK8gqcYIaaf5ELPmMFxaA4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=E76uDGxfRoHMxGSx1n/KhJ+/uaL9TdbXC0lWWjb9UmJO+qdb3//M1VgGazAdje1Pf
+	 pJKZvnJMW10Z7G9wYhRoZnqJ+GttWxUDW/DmhV5zn1mTSj62mG2eFCOp+qUwhw10Sm
+	 kwMz/4/CQQJansfi+O1ysUveSuxNaDvXslw2VllzhDvIe+QiM8Vm0h0/3bZ2eQ73fG
+	 EhicxdctRdXs9uh9tuvm+2zx+teaJl8bI2B9RZ0nLnVpHgQLf6ZBJDU0MbqVoUQedI
+	 lIG7xfKPt0LJUj6A7L1VG+g9H9szNvIYHLeSPeiQFwyybnEgI1FqgszUlIkUVpSGZW
+	 mpeycp5SAbIow==
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5bccecba199so6813898e87.1
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 05:13:56 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErElRjWsGeC072BGTC3yEIYfnCfXlUQTCqkZOs/O81WBVlk0GEncVRpWYqAMRdNPVkeFwnfHYUMnPWV7@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Ty/YtjR15/zW7Hm13VsBjwqLW3f6itIev8MkG6EwKF5wXCNwW
+	L0WyxuUViwB5yp6ix81ynby69l0vAwLzQS82sOU2dXl39EDsQwn5oTeMpDBbgwaQ9nkYVtKZBjl
+	JvafSfkTDg2yeB0ps22JFo640u39GGNk=
+X-Received: by 2002:a05:6512:304d:b0:5c0:a65:ad2 with SMTP id
+ 2adb3069b0e04-5c1bc814bccmr7600916e87.49.1795698835538; Thu, 26 Nov 2026
+ 05:13:55 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -80,51 +59,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020031049.969895-1-den@valinux.co.jp> <20261020031049.969895-18-den@valinux.co.jp>
-In-Reply-To: <20261020031049.969895-18-den@valinux.co.jp>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 26 Nov 2026 14:10:32 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdWk9pZdJ+eh0dNHrZSMVDe84_rsvmrD=pC1Fjy9wEyp1Q@mail.gmail.com>
-X-Gm-Features: Aa3M54pKW-6JgYTYZWdXwvcVTMAw8E4E5W6RppZyD7aVJ1bsffJTTTgDbIyWkEQ
-Message-ID: <CAMuHMdWk9pZdJ+eh0dNHrZSMVDe84_rsvmrD=pC1Fjy9wEyp1Q@mail.gmail.com>
-Subject: Re: [PATCH v5 17/17] arm64: dts: renesas: r8a779h0: Describe the PCIe
- AER interrupt
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, Shawn Lin <Shawn.lin@rock-chips.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
-	Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa <wilfred.mallawa@wdc.com>, 
-	Serge Semin <fancer.lancer@gmail.com>, linux-pci@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
+In-Reply-To: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 26 Nov 2026 14:13:40 +0100
+X-Gmail-Original-Message-ID: <CAD++jLkSr5Rw3vzQH_t2uGq3ZSnFDuFxwhMpdPbZ-OHmTqiMvg@mail.gmail.com>
+X-Gm-Features: Aa3M54q_yjAB_gF_ehQIHoUZMFIkQNhkQlSji1urlQGfqAlyuSk3xRkB3BtsRVk
+Message-ID: <CAD++jLkSr5Rw3vzQH_t2uGq3ZSnFDuFxwhMpdPbZ-OHmTqiMvg@mail.gmail.com>
+Subject: Re: [PATCH 00/19] riscv: add initial support for the Allwinner V861
+ and Avaota F2
+To: gaohan@iscas.ac.cn
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Guo Ren <guoren@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	Samuel Holland <samuel.holland@sifive.com>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Maxime Ripard <mripard@kernel.org>, 
+	Andre Przywara <andre.przywara@arm.com>, Han Gao <rabenda.cn@gmail.com>, 
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@sifive.com>, 
+	Conor Dooley <conor@kernel.org>, devicetree@vger.kernel.org, linux-csky@vger.kernel.org, 
+	linux-sunxi@lists.linux.dev, linux-clk@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 20 Oct 2026 at 05:11, Koichiro Den <den@valinux.co.jp> wrote:
-> The PCIe controller reports Root Port AER notifications through SPI 454,
-> separately from the integrated MSI receiver interrupt. Describe this
-> interrupt with the "aer" name so the controller driver can use it for
-> Root Port error reporting.
->
-> Append the new interrupt to preserve the existing interrupt indices.
->
-> Suggested-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+Hi Han,
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.5.
+thanks for your patches!
 
-Gr{oetje,eeting}s,
+On Fri, Nov 13, 2026 at 11:33=E2=80=AFPM Han Gao via B4 Relay
+<devnull+gaohan.iscas.ac.cn@kernel.org> wrote:
 
-                        Geert
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+>       dt-bindings: pinctrl: add the Allwinner V861 pin controllers
+>       pinctrl: sunxi: allow a per-controller IRQ register base
+>       pinctrl: sunxi: add support for the Allwinner V861 PIO
+>       pinctrl: sunxi: add support for the Allwinner V861 R-PIO
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Can you send these four patches separately so I can review and merge
+them in isolation?
+
+I think entire-SoC patch bombs only delay merging the things piecemal.
+
+Thanks!
+Linus Walleij
