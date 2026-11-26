@@ -1,73 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=121.127.44.73
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795720951;
-	b=lQbcnmCREv/rXv03uX7om5Jk7BaP60u1uRt4Zx6AaKw49SNs/UFuzap0JpcbBUcPH23F
-	 yMHfj5RFHXwYZRJwaPbQrCyXtl0jLs0OTmtBQA4IQ3uKd70btiKr7sBiEjusDZeW9fy2w
-	 skll6t6sd0iK2WxsbIdAQFahWYesOcYrHgI7KDmlxkaLQ8kOff0hdWYHZ064/Nvlh0yfq
-	 Lqbb+AKCdeEauAtHoqzAMGwG8OmKJlHeOWJVj+RE3l6gfF1/sMNkn3Pdrs0aGQqy8g3ye
-	 UWf4vCnNCeW9BNAG9P7lhzBhJpZUeRqnEiLxL2u1rigQgwOS7QikA6TZ056DNfR3c8A==
+	t=1795721108;
+	b=iGCtv1lAB5CO6AMbQuqMa9JnhzbM4EEZ2JB9k7PSk/55LSmkxpsaAHMBtBHkNriPZ61L
+	 tJCcXJDLngcK8AkvYNU80AbYWzY6KQXHJoyUAOrF08imcjcU35IrcSqpc6JW0feWRCUB5
+	 nLz4dRM07lyPaX/IwjkGcbQ2E73JM8gVXdoqwkxtqQ9V65bDaYZgnjcSDj6WuEomRw5O/
+	 lMlqvrX/HW87yfHx4KeIsmJk7I5Ut5fxSykJVgmCIuBBNwgIisyvUpetnriV8ZC1jlyP8
+	 OdgEimSux4H8kpIoy7hs6xfRddRH5AKu9xOTV1W0pjPwGUadzlqVP11Yl9Gu9Y4Tq8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795720951;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:CFBL-Feedback-ID:
-	 CFBL-Address:X-Forward-Email-ID:X-Forward-Email-Sender:
-	 X-Forward-Email-Version:X-Forward-Email-Website:X-Complaints-To:
-	 X-Report-Abuse:X-Report-Abuse-To:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=xtYY1ni/jPVazlX7rZS6Ml4RefbM5/NVLUrh9nhJs3k=;
-	b=EcJXD/E6ZjlvHIda/w2fa1z/KJFkTKAGJ5vsLIj07TEdI5PrXaA0IzzKKzUOq3VRZ28J
-	 fLvFy7jui821PpKFkmaPGTRhL5RFMhJSFTSu2f5CTaiURNMjX5bDfDRE4iF10CiMHzBim
-	 ZtBVAwQ1crNVGbnaQ6cVzItTQrl512UXlvQAQNA0bj4/HQbFdaTIMaKxMIG5dx1uxA6df
-	 TKA22AaKO64WP3yvVr2qhItA9J7gQEt78FwEIz/93/2xuc5dFqF5epQ8cddkyGPIXgfIj
-	 cWyJcs9ionOzxUZdpjVd2wGcqYfzQkA3PmMVec6QQWKrSB1+oyIJx1M/yKZ9lcYhVJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795721108;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=8neFM4IZWctrSKbLLCGkv0TlKkdzfM0Qrkc2za2vGOE=;
+	b=tGiEECUj2LtF5m1rMM+JzZmVazVeKaMGLutiRx6MZXFg/xZg8VSELP0qyv0VWe47hSDs
+	 Zaxb2m1gkMGJt7NxYkIZW7zV/CRZTxBulaIBZaenvnUVYwkWx482wJjJpg3JzlS10oMm1
+	 Xh26D2HZ+zCs6Z4BTkt1TsSFf5qQvmdHnSoA2yVWX1fdI7cjX3ncFHZ5cocRNDl17puL+
+	 OU/TB8UQrPLGK4TIJCrCDAD13zwhs0jWo2qH9Dw96NDxW2f7TyVw19P74DQOxJuDuFu9e
+	 ildy4w7ErkjRwqqRReEhWjWm9OdySQFs5SWxkuMB8Bqmm8R/lV1G1jZYbjqTxC5+QTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kwiboo.se;
-	spf=pass smtp.mailfrom=fe-bounces.kwiboo.se;
-	dkim=pass header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=qjS4jduR;
-	dkim=pass header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=GP7oKhu+;
-	arc=none smtp.remote-ip=121.127.44.73
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bj/AWI8I";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B50A4606A31C
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 19:22:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B50A4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00139606A31C
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 19:25:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=qjS4jduR;
-	dkim=pass (1024-bit key, unprotected) header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=GP7oKhu+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
- h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From:
- Content-Language: References: Cc: To: Subject: MIME-Version: Date:
- Message-ID: CFBL-Address: CFBL-Feedback-ID; q=dns/txt; s=fe-e1b5cab7be;
- t=1795720949; bh=xtYY1ni/jPVazlX7rZS6Ml4RefbM5/NVLUrh9nhJs3k=;
- b=qjS4jduRS4Zsiv6coXPbfaH9e+XGqs4q2ihHhHsrokiBP/26+cKAw1kRFF1eYdMxYg2L7CmCV
- V+/O5skL6qdZQMrQTbyjI/DPEhF7ALt81xgwzs5dgB8y6TKOewsa0iM6idHDw98h/58qnaXY0LY
- JQc93DBMKFLoqKwnVnJnzXwm42AtWmGlTrlxMLi4fLaAZ1lMd7yOxujzncVCoblG8ic9P6lBYrk
- 273ZjjyxSM/srPmJTS1TQ0bMDp9iphkgXqtJSuKXeMCFPBcVK/MP1s5lge/HQ7CQYwYy2Ys0Jqf
- 81H/t51Tux8lmKfncip440oq/Y4+BemoXsLh+2ndxjjg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=forwardemail.net;
- h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From:
- Content-Language: References: Cc: To: Subject: MIME-Version: Date:
- Message-ID: CFBL-Address: CFBL-Feedback-ID; q=dns/txt; s=default;
- t=1795720949; bh=xtYY1ni/jPVazlX7rZS6Ml4RefbM5/NVLUrh9nhJs3k=;
- b=GP7oKhu+bpNFB+xObrjHquy2UoP/S7BPfcxDiY+8a6/Ec0KZLOL+2V9Jw2MVZ4Kvx+bZmuzty
- N/GCBt9MoLvDBjCJaOg1MrLPjPuRp4jYPm4R8EK5Hy0rIsEX3rBovGLTLlGklaNeo/Jn5DlnYf6
- YMuliIyIQW2XQNRfWAmMvcw=
-CFBL-Feedback-ID: 6b0886f4db90085b74e95c0c:357941f6256b17592609bb13a46c9175
-CFBL-Address: abuse@forwardemail.net; report=arf
-X-Forward-Email-ID: 6b0886f4db90085b74e95c0c
-X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 121.127.44.73
-X-Forward-Email-Version: 2.19.39
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-Message-ID: <b2e8d547-dd57-4ce4-9019-372d3dc962d7@kwiboo.se>
-Date: Thu, 26 Nov 2026 20:22:25 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bj/AWI8I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E71D1F000D1;
+	Thu, 26 Nov 2026 19:25:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795721107;
+	bh=8neFM4IZWctrSKbLLCGkv0TlKkdzfM0Qrkc2za2vGOE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bj/AWI8I0upm4jaOjs5ykSt8pwKPG0xDPUl8iBSlAB9m5eZqscYwOp6EhERjUpKLx
+	 uDC4h8/6QLSQxIi7vPxxYtrZDjYSbriQzftq5/xMgVRsAyrz8pLx6EpeXjkzSaddhu
+	 acGydyL7ytsbwI7Ls7E08IizayJjBCUlsPIEqASnzbj0uyc7s39rNJCyg7YFdUI0J6
+	 bbHZOxwMLRjKKI7tGYGrd3z589SPSfLz8U+wO9sPiR6h9N+7p5lLoqfTEaJS8P1qIc
+	 p9ItD4aSyh2r6ePxUb7KkBZIonluagAJMdo6DT63jdSQRoFy+DvJJrUEfmUsimXvpz
+	 LDcsASGdG67FQ==
+Message-ID: <sashiko-outbox-236089@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: power: supply: bq27xxx: Add BQ27Z558
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Prachoday Sutar" <prachodaysutar7@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261126191906.25708-1-prachodaysutar7@gmail.com>
+References: <20261126191906.25708-1-prachodaysutar7@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Nov 2026 19:25:06 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,56 +58,62 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: arm: rockchip: Add ArmSoM Forge1
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-References: <20261122184532.1300004-1-jonas@kwiboo.se>
- <20261122184532.1300004-2-jonas@kwiboo.se>
- <8fc3f505-61bf-4a6b-80f9-1cd6bb1e698a@kernel.org>
-Content-Language: en-US
-From: Jonas Karlman <jonas@kwiboo.se>
-In-Reply-To: <8fc3f505-61bf-4a6b-80f9-1cd6bb1e698a@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Hi Krzysztof,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] dt-bindings: power: supply: bq27xxx: NULL deref in
+  bq27xxx_battery_i2c_probe()
+--
 
-On 11/25/2026 10:45 AM, Krzysztof Kozlowski wrote:
-> On 22/11/2026 19:45, Jonas Karlman wrote:
->> ArmSoM Forge1​​ is an industrial-grade product powered by the ​​RK3506J
->> triple-core Cortex-A7 application processor​​. It is specifically designed
->> for industrial gateways, HMIs, PLCs, handheld POS devices, and home
->> appliance display/control applications.
->>
->> Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
-> 
-> Malicious characters found in your posting. Dropping.
-> 
-> Be sure you use standard tools, standard editors and run checkpatch.
-> THERE IS NO way standard editor can create zero width space.
+commit 54d1a3afdd53a67243b18d9017c27b2cdf3485cd
+Author: Prachoday Sutar <prachodaysutar7@gmail.com>
 
-Sorry about this, I copied text from ArmSoM webpage into VS Code, and
-nano did not show anything special when amending the commit message.
+dt-bindings: power: supply: bq27xxx: Add BQ27Z558
 
-checkpatch do show a warning, however in terminal and editor the line
-did not look too long, should have trusted checkpatch :-)
+This commit adds the "ti,bq27z558" compatible string to the bq27xxx fuel
+gauge device tree binding with "ti,bq27z561" as a fallback.
 
-  WARNING: Prefer a maximum 75 chars per line (possible unwrapped commit description?)
-  #9:
-  ArmSoM Forge1​​ is an industrial-grade product powered by the ​​RK3506J
+> diff --git a/Documentation/devicetree/bindings/power/supply/bq27xxx.yaml =
+b/Documentation/devicetree/bindings/power/supply/bq27xxx.yaml
+> index be0f1f7292c8f..28b04732e08d9 100644
+> --- a/Documentation/devicetree/bindings/power/supply/bq27xxx.yaml
+> +++ b/Documentation/devicetree/bindings/power/supply/bq27xxx.yaml
+> @@ -18,40 +18,44 @@ description: |
+> =20
+>  properties:
+>    compatible:
 
-Will send a v2 without zero-width space and have changed my git editor
-to vim to help catch anything similar in future.
+[ ... ]
 
-Regards,
-Jonas
+> +      - items:
+> +          - const: ti,bq27z558
+> +          - const: ti,bq27z561
+> =20
+>    reg:
+>      maxItems: 1
 
-> 
-> Best regards,
-> Krzysztof
+[Severity: High]
+Does binding via the "ti,bq27z561" fallback trigger a NULL pointer
+dereference in bq27xxx_battery_i2c_probe()?
 
+When the I2C core creates the client from Device Tree,
+of_i2c_get_board_info() -> of_alias_from_compatible() populates
+client->name from the first compatible string ("bq27z558").  During probe,
+bq27xxx_battery_i2c_of_match_table matches the "ti,bq27z561" fallback, but
+its entries do not set .data:
+
+drivers/power/supply/bq27xxx_battery_i2c.c:bq27xxx_battery_i2c_probe() {
+	const struct i2c_device_id *id =3D i2c_client_get_device_id(client);
+	...
+	name =3D devm_kasprintf(&client->dev, GFP_KERNEL, "%s-%ld", id->name, num);
+	...
+	di->chip =3D id->driver_data;
+}
+
+Because "bq27z558" is not in bq27xxx_i2c_id_table,
+i2c_client_get_device_id(client) returns NULL and probe crashes
+dereferencing id->name and id->driver_data.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126191906.2570=
+8-1-prachodaysutar7@gmail.com?part=3D1
