@@ -1,110 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795689244;
-	b=r2+62+jXMCzMbJOvVgTP73DriHYSX+LF5/VMR6YtE0KxOWxPbVwFNNsDITq5kmPYzaDR
-	 RrGCBV2dAIZ4gOWO+jfg2+agifopB84hmV4zS0L6fHCyRxnqj9B/J90FIog8uJsoJRcED
-	 Fshy/MoA8Q3/N2StkIIxjnPkAmy21Rd4sHU4A5P/zGEQRFkYJqb3rVoJgVjQAXQSpZ6Dk
-	 l4ir/AXEcRPtAP/ptWS8iVnYm7T3e9uTWdw727lOrxo+9x5o4I6+xl+tXJ7UudB4r8s/5
-	 Ftf+mtQAjNVqhllSN70ihdBj8w6nX5BFYkTiupcL6hAuNmGPDuYg9z0CtsFHKZV/glg==
+	t=1795689280;
+	b=I1W6XS4QDrQF9Rm3CrQvMTqSZGRrRxBW4R9EEWjWxKjvmBdbYkirrijpuWuhOT4GY+J6
+	 4Mis3OvtBcSEb+5YCqUj5XTgfZjnfjxJOap6hzLDEMt5ELRyC//IRRpFl0PqMZQ2C1LHy
+	 aJFsaPrCK7ADaUJ4Ohvr8zEnWR2TIzOoH4F//v2tQ5geob6ca7mfmI+tgcBvLSYRtQGcT
+	 WNHd5qaFGiA+8eEOS7acZDc5eDP+XCz/g1NhE31crCujqoPMGOy05cWOMV9+KQuMGZwj9
+	 YM8sOlrhiuUehfMf5JFLh5xKTeycC2hX51VWIY/JF45dx+AsL8jziAqzsAW0jxNrfEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795689244;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=QUY9+Y2VxoEdHCsHD5R8MfHCWDCl4kBtw61OaYnUOhg=;
-	b=e316nxWY6bBLlnoVSEa+PvUt86yTWEiZFehM2q6chWlfFbMluzCxvrj/ZH+MKK+t9367
-	 diXT40QoWdXgMAPLcIRz7MtkSOf+mcuWf9FT/o5/YlozliA86mbI2/trdb2vFHH5WA2Rw
-	 6UuCqiXxKVF6il76DowNumgw7f5pZuOF8slGqjjbjkY82Rn1O+nPMdIVk/CUZfbNL6td1
-	 JfYxbmIaxmmE8WvIpqB06kdZiZ4vkynk2/z+5FLGtPdqoVzuqV0uh2RbV+4Nsrf8W5OsW
-	 FvQwLpVQEtUgq/3+BZUvWlI0fVu64OxbY5FEVxV6fH1eCJ84wYstN4pppOszswJH0ww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795689280;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=JYhq87ZXqNsEjS7JMY1mlF+52qvOkmnvtH+mBS178dg=;
+	b=5ZQhW1un8ijBlXkZe0z/ImFeStK+BW8RSgTFQTDRMtAEDTUdob+1dec0m7t+8A0FegcH
+	 D0SSYUqaimkBj9Ui4hPPMg+kzdpYks6I3LOyTk9ofjn31w0V6ucjTnr8Fv3nbq1lHYRVh
+	 Chux0rKQIJ/4RlaXZyS8cZUYVuXTJyzdx8Sa8DEjM91g9rYCRfA8Gc60oJivQ45lWLkQf
+	 zMl0Fli/RPL6a0+7nLRGEfB0KfDOht3uu7QKt/BX0pFdCT0wySoErW6aHZn+lM7On2suR
+	 yw13S3Oykqv0o02jc5Cgie8G3QfECKAzzZhUr6byulaOIlm3MX7YGybDx9PRA62EfJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=F5Dm8yJq;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=T7LuGVMh;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D485606A323
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 10:34:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D485606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9699D606A31C;
+	Thu, 26 Nov 2026 10:34:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9699D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=F5Dm8yJq
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3282db206d3so2534275eec.0
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 02:34:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795689244; x=1796294044; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QUY9+Y2VxoEdHCsHD5R8MfHCWDCl4kBtw61OaYnUOhg=;
-        b=F5Dm8yJqZJ/eIFY4KXNhFuQ/PKsgI8ojbyn4Qk/Mv4AzNggmrVvBIXclzBnaw0Ihf3
-         TAqc4T9s57gJ7Lq9gix1mZwarusULJYDrwY9qHV0IQhC6ZxMrrPZ0rCKn5ENv7LAIbUk
-         Qd94p7yYd/mLJOckfK+3i/vF/51N/1jaVo5XPtSFXmoW/AfxALbT6BzDP7CbsZk+Mdii
-         s9Alx9xyBDo8JoWEUTRl+c7vn48WMLXwuOWQH2lrvec3sDhIsL4poAdHPhkEfNY1Fm/G
-         Oo3G4H7+tu2Xl5TJzpdBCNcKTBDXxFhHYwOTYsJO9HM0r+7+vNkQngffTDm8PHyhojAe
-         EPNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795689244; x=1796294044;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QUY9+Y2VxoEdHCsHD5R8MfHCWDCl4kBtw61OaYnUOhg=;
-        b=qBNp2uImYZo2wr0477KgXkA8b/5finaWNH1SiaSEqH2Id6Vw91cAkhMEljyA/hLfUJ
-         MdhFQ312gwVa/XuQ+aMTqaTXJfhxz7erVG4BI/xQXl1kTv3Z/jCHmy1CjOmkpGEIp2Qg
-         0ADm/0ej/5EbeyLp7MUVoxgNcywhtb0it45iW8pm5spL7uYB7FpkgnDjmzmFIPfHD/rt
-         7ZTulNpcf/RkUsSYmuZiJ3JWMDGkT4gMuLC5ZuS7C+ZwO4V9ORY9xZy8GD+WRMkbq/+k
-         34B0jXQ05ZYT/RoYf5d3OUiR9oHQJm9zZAopgVUlOh6KeUCzn5z6hsvk03XGYDaK7eGD
-         HHZQ==
-X-Forwarded-Encrypted: i=1; AL+hErGTe7YG3KdBcBlU/yfiO30v4q0zHVI9Si4lhOmFPLRoQRILYII9i8FL2rdEZgBbBcCkdOuYRblEJ1Wk@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Pb3nzd1s7Qo2eQnxtt7ilXsD0N6P3uAZXftMmSSkND5aBrd//
-	HRLhrPQANITKMtNAOBellHUUyg7iQH7IBx5GEFUbT3MnSIQTBAM29q/223r0e+1ReBA=
-X-Gm-Gg: AZFdTZdTQ4BORVZMVlBSnADTYe5F93KdHiS+xfD91hc3mE1iPIfqd7yJhhS8uqs6bNd
-	leiVdaMmHKmnX1HgA8TM6ZEEgWVsi38RX67JVIVsTOC/SvT+euMKvrX1J5SarOZp/EvTLWdsdku
-	fmyf+G4YxNDSNPSrD0ErgwWZWC+zvCD1bYznb/uTdZMIQGH8D1XXpaXruYWkrTxdSWsYCMMIWPB
-	iBx5u02lu0vgd1wNzMe9MngBkPvwMwNmMZe77RHclDoUjkPRoe4PNOPdAnpXqpRYJn7NuRNbqmZ
-	+90/jJIhI61srMu/L00/RrAku+geHnJdqbYiOYqhU5iwUC8xbRjD5YfajiUfbkMLwSCOtDih/bx
-	8Rx9c2YVK8ngAZ2bVE+LdpF+fypFM1orvxhZu3xd7MV7w1ztAj0g4KSnnsrfppAeWbtUFJacAPH
-	rcJwvbKt0YJGfqTPlHwnBtngojrQxr3YVzysonU7xsqdnXpa1lap3O2OVSXseVu8aZ3zhCfXxZw
-	wDwpaN71ISCzIaPTTUB38qsxx/+okhnadQpRveIn5J7sWQPmVPMWkyQ7u9sFOrF3kJiinqJEIQX
-	MJO+/ikbipAG8F4t3iOXZxlDp3qipA==
-X-Received: by 2002:a05:7301:dc3:b0:386:ce5a:41aa with SMTP id 5a478bee46e88-386ce5a47f9mr4653486eec.13.1795689243454;
-        Thu, 26 Nov 2026 02:34:03 -0800 (PST)
-Received: from localhost ([122.172.83.36])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38566cd46c5sm76487652eec.11.2026.11.26.02.34.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 02:34:02 -0800 (PST)
-Date: Thu, 26 Nov 2026 16:04:00 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Chuan Liu <chuan.liu@amlogic.com>
-Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Christian Hewitt <christianshewitt@gmail.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	christian.koever-draxl@student.uibk.ac.at,
-	neil.armstrong@linaro.org, sboyd@kernel.org, bmasney+clk@redhat.com,
-	khilman@baylibre.com, rafael@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
-	Christian Stefan =?iso-8859-1?Q?K=F6v=E9r-Draxl?= <ckoever@outlook.de>
-Subject: Re: [PATCH 4/4] cpufreq: add an Amlogic speed-bin driver
-Message-ID: <awgLGFpH73_fcnbC@vireshk-B250M-D3H>
-References: <at8WfX_G0tfTlFrm@vireshk-B250M-D3H>
- <9556e959-daf3-4c85-8794-9613e7e7a9ae@gmail.com>
- <A45EC676-5B14-4932-A4CF-87ED3B71108D@gmail.com>
- <4a51e879-708c-49dc-a08a-3f64eeec8bbf@amlogic.com>
- <CAFBinCBkJJeRPKLFBA9KYjwXMxFjow_NOtvFoKRQdxD=rOPW3w@mail.gmail.com>
- <48b333a3-ef88-4739-a087-3ed9d8ec60a4@amlogic.com>
- <CAFBinCCgmRmk--W53wqdJhF-SzJbai--s7wyzDNt3LpfN00spw@mail.gmail.com>
- <b606819a-661e-4488-b5fb-9e786de463c6@amlogic.com>
- <awe_Wur5fVbeqV2d@vireshk-B250M-D3H>
- <1dbf65eb-fd04-41a3-876b-e2941cc10172@amlogic.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=T7LuGVMh
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQAXPLO1370021;
+	Thu, 26 Nov 2026 10:34:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=JYhq87ZXqNsEjS7JMY1mlF
+	+52qvOkmnvtH+mBS178dg=; b=T7LuGVMhIja7bB9kbIhnZWMOIOZySRUhcNxzdU
+	tsNR+OCYtlGKsqM/AJ/ajPdEyzMCMHf/vY1wNqi4n55CuvOyqqwJ4geD48URm712
+	JdELwiSBbnbIaNoJdIMgX2ucVD1G397OUWNPWsEuQ0ukUJ65cfgKpO+oFxm583Bj
+	iWA2J167LcxVX7Z2Cs4KkQuiAkvEwlWxfP0k2kKfxPwLKotRnDgWjhSFuKbv2E4L
+	I63S1EyC6esErKwaVCKJgcdkKxHoT7RRnT+xl0BJub/NT6MVR4PSxLBkeq7mb6t0
+	XKpDCSuY87f7VkvIEbrsBZERKnS2Oin5VVpG/u2+LYoBGUHg==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j662y2p1x-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 26 Nov 2026 10:34:33 +0000 (GMT)
+Received: from pps.filterd (apblrppmta02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQAYViO4021435;
+	Thu, 26 Nov 2026 10:34:31 GMT
+Received: from hu-ffaruque-hyd.qualcomm.com (hu-ffaruque-hyd.qualcomm.com [10.147.245.31])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 6AQAYUSA4021426;
+	Thu, 26 Nov 2026 10:34:31 +0000 (GMT)
+From: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+Subject: [PATCH v3 0/3] arm64: dts: qcom: add Monaco Draco EVK board
+ support
+Date: Thu, 26 Nov 2026 16:04:19 +0530
+Message-Id: <20261126-monaco-draco-v3-0-0b603afa1328@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,19 +73,114 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1dbf65eb-fd04-41a3-876b-e2941cc10172@amlogic.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACwLCGsC/23MQQ6CMBCF4auYWVvSmQJFV97DuEA6SBOh2mqjI
+ dzdQlyocfOSf5L5RgjsLQfYrkbwHG2wbkih1itouno4sbAmNZCkElEWondD3Thh/LxkNBWtNNU
+ GDaSXi+fWPhZuf0jd2XBz/rnoEefrG0L9DUUUUnBOBkutMK/MzoWQXe/1uXF9n6WB2Yv0YZD6M
+ SgZilkdSemixfKPMU3TC8zw5xnzAAAA
+X-Change-ID: 20261105-monaco-draco-2d725f0d891d
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Richard Cochran <richardcochran@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+        Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
+        Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>,
+        Dipa Mantre <dipa.mantre@oss.qualcomm.com>,
+        Sravani Tella <tella@hu-tella-hyd.qualcomm.com>,
+        Monish Chunara <monish.chunara@oss.qualcomm.com>,
+        Ajinkya Inchure <ainchure@qti.qualcomm.com>,
+        Faruque Ansari <faruque.ansari@oss.qualcomm.com>,
+        Kishor Buchi <kbuchi@qti.qualcomm.com>,
+        Karthik S <karthik.s@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDA0MCBTYWx0ZWRfX9mgLcpr6dOUX
+ GexobRx620Sqm/hCIiPuKKVavIacX8Kj3O84pa0FlwltNst7qWiGj1ZWt+vbcxPbTqFaYf84zxl
+ sTx5J/DwME6mky9uQzavGc3OwziQsRCYfXZ3rzXm3uoEOOuZhHN4hM9JNKJAJtT2S3RFQQHO8EQ
+ djJypbTnpG3OQW8QjOet46VfVcqaXrZTgtsNVS81azy+Dl1pehxTRCaUF4cIGs/MfDcns0om30l
+ J5vaNYJTeV6FqRbLvJ5wDP/zxLPVRsICy4X8Cf8yi2cXcBdGG0oY1nJY/pzwyzBcL+3MYQ/Wo0r
+ EYuJ0fR1y5f/cdcObRm3VAVh3MZ+gQmA0Aw16p0yhXOfUYQPl/R1desONbgAtPALM4MDWYSuf5R
+ TU0XAaeRvY9XvKplwwCN5gDRFy469EDmoPNohlFDDRDO6f6fkOwcnska3Qw4ASlJo4JQv+UBLZc
+ D+I0gWIfjdmOv4A9MKA==
+X-Proofpoint-GUID: W_gmXCY3inFysZUnXuKaBLre-Fg-0ElM
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDA0MCBTYWx0ZWRfX9T7TzkKF3/1j
+ 89eCRW6vZRTO3J60JvI/8l22Z+4QyNadEG4ja/i0oRvd7DidvMbH3+huQHtsa4gMC+7u5GMN0Nc
+ PjJ9NMs+OzqOeFvxGoxCEW9JDIqiljk=
+X-Proofpoint-ORIG-GUID: W_gmXCY3inFysZUnXuKaBLre-Fg-0ElM
+X-Authority-Analysis: v=2.4 cv=W/KtxhWk c=1 sm=1 tr=0 ts=6b080b3a cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=OfGTQUpXpFICen9CABoA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-26_02,2026-11-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 phishscore=0 malwarescore=0 adultscore=0
+ suspectscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260040
 
-On 26-11-26, 17:49, Chuan Liu wrote:
-> Yes, as shown in this patch [1], I forced the above two
-> "assert_single_clk()" to "assert_clk_index()" and it worked.
+This series adds device tree support for the Monaco Draco EVK, an
+evaluation kit based on the QCS8300 SoC targeting automotive and
+industrial use cases. The platform consists of a System on Module
+(SoM) paired with the Draco carrier board.
 
-Maybe this is the right thing to do:
+The Monaco Draco AC SoM integrates the QCS8300 SoC, two PMM8654AU
+PMICs, eMMC and UFS storage, USB0/USB1, the Adreno 623 GPU, USB
+and UART interfaces.
 
-Functions using assert_single_clk(fixed-index-0), can be converted to
-assert_clk_index(fixed-index-0). Lets make this change in the OPP core (in a
-separate patch).
+The Draco carrier board builds on the SoM and adds:
+ - DWMAC gigabit Ethernet (2500base-x to HSGMII PHY), MAC from EEPROM
+ - AMC6821 fan controller on i2c13
+ - I2C GPIO expanders (4x kts1622 on i2c14, 2x tca9538 on i2c15)
+ - Native DisplayPort output (DP0) to an on-board DP connector
+ - Dual PCIe (pcie0/pcie1) via an on-board TC9563 PCIe switch
+ - ST33HTPM TPM over SPI10
+ - M.2 E-key slot connectivity
+ - Audio Playback and Capture over max98091, Audio Capture over
+   va_macro codec DMA.
 
+This series is functionally dependent on the driver and binding changes
+posted here:
+https://lore.kernel.org/all/20261123073459.2361169-1-karthik.s@oss.qualcomm.com/
+
+Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+---
+Changes in v3:
+- Sort all DT nodes and subnodes, with appropriate spacing and blank lines.
+- Link to v2: https://lore.kernel.org/r/20261123-monaco-draco-v2-0-3ee3b2375f16@oss.qualcomm.com
+
+Changes in v2:
+- Move PCIe reset and wake gpios to port node (Sashiko-bot)
+- Add compatible = "pciclass,0604" for switch dsp to create a platform device and invoke it's
+  power-on sequence.
+- Add Audio Playback and Capture over max98091, Audio Capture over va_macro codec DMA
+- Link to v1: https://lore.kernel.org/r/20261117-monaco-draco-v1-0-e42d1673148d@oss.qualcomm.com
+
+---
+Faruque Ansari (3):
+      dt-bindings: arm: qcom: add Monaco Draco EVK board
+      arm64: dts: qcom: add Monaco Draco AC SoM
+      arm64: dts: qcom: add Monaco Draco EVK board
+
+ Documentation/devicetree/bindings/arm/qcom.yaml   |   5 +
+ arch/arm64/boot/dts/qcom/Makefile                 |   5 +
+ arch/arm64/boot/dts/qcom/monaco-draco-ac-som.dtsi | 320 +++++++++
+ arch/arm64/boot/dts/qcom/monaco-draco-evk.dts     | 764 ++++++++++++++++++++++
+ 4 files changed, 1094 insertions(+)
+---
+base-commit: 6d0933ae9d46674a6ea63a87e9e9ab4e662670c9
+change-id: 20261105-monaco-draco-2d725f0d891d
+
+Best regards,
 -- 
-viresh
+Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+
