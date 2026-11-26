@@ -1,44 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.209.128.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795657876;
-	b=WzWzApxe9VTxMqTcjE55GlIAwpDccch0xDtir7ZQL/RjYPyh25jBv7+K+Sn+9TdYUfpV
-	 zbX42yBxaU2yl2NtwBOoiE2H1OnnIFJ7DZXA0R0IP0ZcDLEvWNqsHS1zjgEEOrmKX9fzp
-	 YwD0tpCGscGd8H3JO4ZG5lcm3RmrZ0YRiF3+9e+QtL/1E7hpMXEA1P/vOoMsD3F8hCAMd
-	 OFkRlOK7V7pHGF+BQeGn4T5ty4wGTHUG2MobFgXwVUzoc2yLyMkrEjJ/KHyu3cdByRAuM
-	 yK8knQpgVENDUjo5L8dfnP+3NDAgkCKtMhBYs3ZYDTsv1D4PYvdli5pDKe9g/LIxJJw==
+	t=1795658434;
+	b=cHGArUmZUWjvRQbU16d9IPszAFF6/uyMhcoyXeuu70EbWeTTnI8qBMlAwwaDHyN54MUr
+	 Hbn/LZ+/DEMoaLInXWzc5o5qfQwzvJe2/D58FBIlSd8ILCLAZ7SmY+dfba14jddg4u5My
+	 IC+Wgm8ykW1yYP2zoQoYUZ34yGij9xxiz6Vzbwh6fWzBeSyHjtqyxBhjVxQ2/mwGjvuCM
+	 5f+pQiTA+cYLsbxvGRTAAtljfuWxYf5YLD6vtM1UEOFJcENGOip6V1PMe7L3uYM4m4wXk
+	 tcNJryr1bCkPAvFggFRhIHV33wkEMl/CmX/QjaPdfOeGSxFzCxPOY+GJWZXbvVK24sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795657876;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=SfN9tjE1qMNBgqH3WtTiy9LIb6nxDFA36oFjP6dk48c=;
-	b=NAx+xFwzJQSiY+RHzm6za+IzDR+YH33Xq4Q2JYsRt8FwvY+DdlLV6SVaVyjneVNCBaDp
-	 Oah5UmT0ExWnKYakaTXHhWLe0OrhjQiymWB2Rf/s3R42s8NezO21VoeZTjanPRxOESliu
-	 WfVsXeBc/QRTvBsASKR1o9DAxg8Q7U36XspeeNXhhfY4hOVqaQQ6xOcwcbT8LbGxEC3Dp
-	 rhAWkk3DBRSzfoD0bF8Q+awvP/8mIAFCalmjbbadJCJdeyUj5wpdnKMKQK9qkP2O5feRA
-	 /H2XAiKDUnh0K9aEpdQqEnPSzhUXLypMikjtyIkVlN3U2GdaHpA5+nlsWrGYgdBA/Xg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795658434;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=rclIhKxKVrA3v/EDPy0FH8lxHjo9Lwc467SMjq6lroE=;
+	b=ksOijRv6f0OfqG4u2VOYtw6/1C5pRTrDRZ3yhktXo/uxnFB2Ca10nKT+nwoOUdakjFZc
+	 M+NcYdq/MFrNh1Sa70Q4M+j8ecmoeSnPq8V3MPvM+zwLXOTrl2orFkRoFBPfJXPPg7Ipw
+	 dFL++x2vSNP6etUEfVYNDwv/FolU8UAoSf0ziXNr15rEZvzF93FqywX8jar0Jiof6Nl+z
+	 KuMwloOeIeyqdwZiFjeHzyrQiQAQr2mdPJj+acMDldV3gz5dSmAEK2fwwwqFWZT401Slp
+	 3UY6aqC2Rq88dcK8rvgUkFANhQi6Nk6btuUKxCNoHEkUjXTIob3nQYR0mBDzlIaQd8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=MytotL2R;
-	arc=none smtp.remote-ip=103.209.128.9
-Received: from mail-m1289.netease.com (mail-m1289.netease.com [103.209.128.9])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OBbfAcrF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B3C606A31E;
-	Thu, 26 Nov 2026 01:51:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1B3C606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C681C606A31E;
+	Thu, 26 Nov 2026 02:00:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=MytotL2R
-Received: from [127.0.0.1] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5608936e4;
-	Thu, 26 Nov 2026 09:51:03 +0800 (GMT+08:00)
-Message-ID: <962182b2-6fa0-4aaa-a47a-f78339b5d89e@rock-chips.com>
-Date: Thu, 26 Nov 2026 09:50:56 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OBbfAcrF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D47DE1F000C0;
+	Thu, 26 Nov 2026 02:00:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795658434;
+	bh=rclIhKxKVrA3v/EDPy0FH8lxHjo9Lwc467SMjq6lroE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=OBbfAcrFN10TQVbAIzfEXXA41ULoT16vWthMwAfD/WtHnQ1DbxbTTjjacX3qDBVwI
+	 ey/YxI82YDQkkgEp9f0+1xNeXyXYexMZZwJBhrbuHE+f5DM4u6lYp3zj31iR6tvZQP
+	 0Kox2Cpk4p9gVyamH66XJl+mYMjv14FjZorgdq5OI3iZNZlWYLNcYZCOf3VfEhVHd0
+	 W20gZRSOPL+h+DjYWY0XK4zbjhkHJ8dG48NESaUZKwjctTYhJ0A2QUbEbLJnEPqoY0
+	 sJryXb2WuxB84YyR+ilpjto9p3b8n5iWMhtLDE357NsG9y5XIn02Kfe9hRKNbXsnkz
+	 kifqr0/31AAYg==
+Date: Thu, 26 Nov 2026 02:00:28 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux@analog.com, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Arnd
+ Bergmann <arnd@arndb.de>
+Subject: Re: [PATCH 6/6] iio: adc: ad7793: add firmware support and drop
+ platform data
+Message-ID: <20261126020028.62a67891@jic23-hlaptop>
+In-Reply-To: <20261125-iio-adi-legacy-platdata-v1-6-54e4c8830b57@analog.com>
+References: <20261125-iio-adi-legacy-platdata-v1-0-54e4c8830b57@analog.com>
+	<20261125-iio-adi-legacy-platdata-v1-6-54e4c8830b57@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -48,90 +65,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: power: rockchip: Allow
- post-init-providers for domains
-To: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Midgy Balon <midgy971@gmail.com>,
- Diederik de Haas <diederik@cknow-tech.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Elaine Zhang <zhangqing@rock-chips.com>,
- Freimut Diener <f.diener@pengutronix.de>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261125-rock5t-regulator-deps-v1-0-6a3470ad1855@pengutronix.de>
- <20261125-rock5t-regulator-deps-v1-1-6a3470ad1855@pengutronix.de>
- <oJj2NKd1Svmsn320H8YWrg@sntech.de>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <oJj2NKd1Svmsn320H8YWrg@sntech.de>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa2158c924b03a7kunm45f8827fed3801
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGk5JVh1ISk1MHhkYTU1LSlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=MytotL2RABnbZ7kXKpcgJJfOfMZqqLOZu0eLKudmYI89t89SNQugmLgZi/eApkau5sbmpblihOSnLYLQimqZHDIMdd4wPMbHyTHpARTdbV5fgHpZOR9tnHJIFVyVBzki9SsoXmlRXEG2JzPbDiNVmJxrfFXwNRl64BUOSFBbxpo=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=SfN9tjE1qMNBgqH3WtTiy9LIb6nxDFA36oFjP6dk48c=;
-	h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: quoted-printable
 
-On 11/26/2026 4:37 AM, Heiko Stuebner wrote:
-> Am Mittwoch, 25. November 2026, 11:33:57 Mitteleuropäische Normalzeit schrieb Freimut Diener:
->> A Rockchip power domain can have a supply that is required when
->> powering on the domain but is not required to initialize the power
->> controller.
->>
->> Allow post-init-providers on power-domain child nodes to describe
->> such dependencies.
->>
->> Signed-off-by: Freimut Diener <f.diener@pengutronix.de>
-> 
-> Interesting that this exists since 2024 and this will be the first
-> user it seems.
-> 
-> I've looked at the dtschema for it, and this looks really great for this.
-> 
-> Reviewed-by: Heiko Stuebner <heiko@sntech.de>
-> 
+On Wed, 25 Nov 2026 10:19:22 +0000
+Nuno S=C3=A1 <nuno.sa@analog.com> wrote:
 
-That's exactly what we want. :)
+> The driver refuses to probe without struct ad7793_platform_data, and
+> there are no in-tree users of it. That means the driver can not be used
+> at all on a modern system.
+>=20
+> Get the configuration from firmware properties instead, following the
+> new binding, and drop the platform data header:
+>=20
+> - The reference is REFIN (REFIN1) if refin-supply is present, REFIN2 if
+>   refin2-supply is present, and the internal 1.17 V reference otherwise.
+>   Parts without an internal reference need refin-supply.
+> - An external clock on the CLK pin is used if given. A 128 kHz clock
+>   is divided by 2 internally.
+> - The input buffer stays enabled (as it is at power-up) unless
+>   adi,buffer-disable is set, and unipolar coding is used unless bipolar
+>   is set.
+> - The bias voltage generator, the burnout currents and the excitation
+>   current sources get their own properties.
+>=20
+> While at it, also enable the AVDD and DVDD supplies, add an OF match
+> table and fold the platform data checks into the property parsing.
+>=20
+> Signed-off-by: Nuno S=C3=A1 <nuno.sa@analog.com>
+Looks fine in general but could as Andy suggested be package
+a tiny bit differently to be nicer to reviewers!
 
-I guess it's because the kernel doesn't include this part of the
-binding, and it's only included in the dt-schema repository, 
-so nobody noticed it?
 
-https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/post-init-providers.yaml
+> diff --git a/drivers/iio/adc/ad7793.c b/drivers/iio/adc/ad7793.c
+> index b0f44c144f20..f3e3ca724ec2 100644
+> --- a/drivers/iio/adc/ad7793.c
+> +++ b/drivers/iio/adc/ad7793.c
 
-Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+> =20
+> +static int ad7793_parse_excitation(struct device *dev,
+> +				   struct ad7793_config *cfg)
+> +{
+> +	static const char * const iout_pins[] =3D { "iout1", "iout2" };
+> +	u32 pins[] =3D { 1, 2 };
+> +	const char *names[2];
+> +	u32 val;
+> +	int ret;
+> +
+> +	ret =3D device_property_read_u32(dev, "adi,excitation-current-microamp",
+> +				       &val);
 
-> 
->> ---
->>  Documentation/devicetree/bindings/power/rockchip,power-controller.yaml | 3 +++
->>  1 file changed, 3 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/power/rockchip,power-controller.yaml b/Documentation/devicetree/bindings/power/rockchip,power-controller.yaml
->> index b41db576f95de..d2b512dd95f63 100644
->> --- a/Documentation/devicetree/bindings/power/rockchip,power-controller.yaml
->> +++ b/Documentation/devicetree/bindings/power/rockchip,power-controller.yaml
->> @@ -147,6 +147,9 @@ $defs:
->>            A number of phandles to qos blocks which need to be saved and restored
->>            while power domain switches state.
->>  
->> +      post-init-providers:
->> +        $ref: /schemas/post-init-providers.yaml#/properties/post-init-providers
->> +
->>        "#power-domain-cells":
->>          enum: [0, 1]
->>          description:
->>
->>
-> 
+Feel free to go a bit long on things like this.
 
--- 
-Best, 
-Chaoyi
+
+
+
