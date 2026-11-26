@@ -1,87 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795672723;
-	b=KZBd5JR5P4iethNnyBYmsH4sPhAIZpjePax5VvCywNlPQro41uJ8eagKo6ylCE8vEV2H
-	 HKStMneUgRlacx4gOEiwH7kJsSuTpVHmc4t8mUHVdl+RlZAq2dZ9TfNnn4kywkDzDRebO
-	 IarVsrJgcJZCE5d0Xxk/2Vj7uVt7q0tv5MuOR/YWmD+HdreIFsHyxXxFlBsw4iFEHXI7H
-	 UVWIEOQC3xXlwnMfnzCWPX7Fr/j2Pmj0POjHUeIHKwvHrrC4Ymb7qHwDGcIJRasakr9OI
-	 jIKwkJeuHYwSjIYkozwDHuCzBK1iSaTuUSfyjQ5AItD5L8t+tqaZlBx05WugdjsmYdQ==
+	t=1795672795;
+	b=aBZBgu5gjzp4vFNIF+TLi4z8Saz7ktle/8OuqcjqM+XnTRCw13ZGFYECwDRfb5ItTBwR
+	 tl6cJP0r8asgbVoLP8XGNMn+byyDGRdXrI97eon/L47UCH9jGba0iWxjh/egSCNe7OEI8
+	 17sx+QWd+MD5aM5rsnc/yIFcHE2ZISj1/1ywLrm1N37PPmY6eY+WKc0nBERjZESTjNSyO
+	 PHhMGC1bGQIc5FSqRs7OuC78uc3kMG50ecWVpi5ijQQjmuk52a4T/gf9plMTQDW6mLWHP
+	 jxSveuXcshqEZrp7IyFB8i7TGovHhzpsQiGs2CRwq/KRR2K2yWUd9RTGmtdXSlOVEEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795672723;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795672795;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
 	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=z9mqzTj0TE8Dvmu37VtnOOjrtJgwrbw+0ALBo5nrPOQ=;
-	b=sSd8wrCgB/8WXg7lBRyUu/oPYP3jB9CGeMQac8Gas44hh6B6K+qpl2k+pO5ASby+LKlB
-	 VjYg6Y/IeliLnpWYjMofuQm/RbOABdV58DfkiKTZfXPJfhE6dugI4HHalmnwGZJ09LF5H
-	 BMnsakeMAFKIHKcfHsu02gdEnhGNyqeYBq2DkzJVxlLay+XCdvnjP0JyKGMWV9DrzFFij
-	 4RI6oj0Fz7Zc4sg4zAKyJVNi4M9FuHMFvndMPfq13I8CU0gMaUbWnhMGPIi4F5SSYY2PA
-	 yuIt2zmFISxBLiDUhuk6lA2VelohDmNcF012QdDzT4Z/ZGYa7HFtHrPQ0voWIGeLbzw==
+	bh=k2IRBl9gY5e2oSUNrEWY6jjQeC8ZZ1pQO6bdpjOXj2I=;
+	b=vJm6pnzC3EfWgpznLCtf3glppi+0hzcH8WQVg/lbis74FIByjJb+ALUxPlzcJ73C0Wn7
+	 rt6rEqV7+pEdpXGFsMt1qnZ2utmbePF+kt2QLyKcf/2eEGh9g9Mt6YMZu/6OcZE+Rm24Q
+	 p9HEvFiTDtxfkabuOz89rT4xs6rtAhgMZJXX13TKdqY33uSrN0vtzcDLH601L26JhsFwZ
+	 37fegsQi0m/A4PnsSF3waNxQsWnJQ3++zLl4l9OE4rxzfLAkru14ubRihnTBotQ/sYyHG
+	 nza9mjUw9KVyjz5zj9S4d4KaOkFylV35MP4cjRr23Z3kg2H320O6eo3JdJ4Lurov34w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=fgwd7q4x;
-	arc=none smtp.remote-ip=209.85.167.45
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=eXnfkOdx;
+	arc=none smtp.remote-ip=209.85.167.48
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1ABA606A321
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 05:58:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1ABA606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D19BF606A31C
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 05:59:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D19BF606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=fgwd7q4x
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5c154a41f8aso501735e87.2
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 21:58:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=eXnfkOdx
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5c00b0866b0so382031e87.0
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 21:59:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795672721; x=1796277521; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1795672793; x=1796277593; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from:references
          :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=z9mqzTj0TE8Dvmu37VtnOOjrtJgwrbw+0ALBo5nrPOQ=;
-        b=fgwd7q4x2oo3KRStS1qxJPIf7HEppN3pEKniLX3DvaQ0dz0mnDLUa2B/J80XkRGLOi
-         uSj/dv4qEmD1ay9SwXIH7KcaJQuiL7PMmX7c5wHN6RuL6Iy17q8zb/Rj+q95xJ7Z6TcF
-         1BADaB3ltf+Lb76igC3VlFAjUcm8+/WK2J8qvBZE+bakF4FOrIofJyCkCxciMA0qDFZ/
-         mt1MEueLyRgt341f+wZm0DcDAVFuLDV44Fycw7rkElZgzXIvE6XeK/gJPEY3IS5cYIQN
-         gtNxHQEJvjcIdA4k2GIpzChqsayFFFu9FnSGq1EgXCABDVOyZxlbRyV20ZoBYkdGY6zy
-         w9Ew==
+        bh=k2IRBl9gY5e2oSUNrEWY6jjQeC8ZZ1pQO6bdpjOXj2I=;
+        b=eXnfkOdxJc0Gj7vmJ8rNyjwrixGiB80YcEjr3kfxXXWycGgRixJo8zxbnIzNFq3yNc
+         2mMdoAgIIepQ2rgKnIcqF0K8Ll9eeCF+H+HCXTEzWIn2DGA2jL4fMrPxUFQy3HCk3Xho
+         YM+CEtXOh/+YQemc6c8XUTfwL7cc73Wxn5BAxKVko7gF0qH8FaoP1GFQFthtGnYhYhj4
+         v/6KADYgbLYCA3z2UPDOvPzdlYW2TEnWANnnfLA9bWYQTYBGWmyjVSZkSQtsixl6N+8z
+         7fuqCjnuZdhE5DFOtA9to/FYLZvKfJdwZDx64/SawBHM+x+VrPGbavm2BWt0jy8yf4eq
+         00cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795672721; x=1796277521;
+        d=1e100.net; s=20260707; t=1795672793; x=1796277593;
         h=content-transfer-encoding:content-type:in-reply-to:from:references
          :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=z9mqzTj0TE8Dvmu37VtnOOjrtJgwrbw+0ALBo5nrPOQ=;
-        b=PLQgOVZ0IJ1DG05+o0MwOcQ1RZ51DrXKe7lAriJU0uer9KJDD1429T9QyN+8Ryj1A1
-         rOvTYMgvg+q8OsXES1xnE2xS5ijHSjrHYVVcFgrCOvkoE6VAqxltSk3Z8sa7VEunuWcM
-         Prm4r4UnoE4j0haxrlAooODchBBh9DX+5PjfO9k/xQ8sIdQGpSJD5rjz5iFWe0sohGUd
-         P+trx0A8EcOvedOiTmGK8k3fb87dKxqLGtJj5Zd4q4p5kVkVR4PgfS7foGnOspygoxyp
-         244/2QLJZt6RNvhKzXstt5iaekL8f89VK3jqbaBwsjn9+s5MAYGq7fDyxZjr27yDF1m0
-         y/MA==
-X-Forwarded-Encrypted: i=1; AL+hErELku9dzw/vEVDuQ4HS1Q+clH9X3jpfnEq5losXa4pCXHIEY1N7rEXc4BIlLw3/vubHn+W3DxOtmmkV@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ma2l2/2kN/VyCLtkorf0NckPZkIYBbRdt58DxHbL8pGqIa9xy
-	EjsVYZy3vBt/sJ4YYREpSnUTRtQuuIKxr4rcIjzGchwgg09QftYamGDTFXQWW2ZImsg=
-X-Gm-Gg: AZFdTZcE7uJyYa7/IKYBiRmsG83jYi3mBADvZrF45YMngEhlAagMJzdBj4kt2iMJUF4
-	d18fckL+J+OzbLzw6mJDXIgi6f3sa0NXkdqnjnaC6UD1taqmq0jcb1XSx8Cavt2p9MUqZyq1NbT
-	NXZecBHGzzvZ3KbtdB/kqi1+6lhWZPmVKgaNGNGRdEuLyGBQHb9VBmBsN/xBeu8rCDFQj54asmw
-	8isdzwdePB49qfoRQbesJicA8fMDSih1mVyDrKw1oDNyGgrWZuILDcxAv2KaYMvoukPSdt8FcOd
-	oWXMGObaJzE70dn3Du8ErpIx8Sp8vHoj6AavJB1wyEbB+YHStqpPyVVEdtlU2cIPxkT53+mgqm2
-	A7eyYNpIH+yw/rNXE1zbf4GtR6Ml0PToJZ1T/HaUKR2cauyvg0leq2SAMKizqbhj+QIqqKGxve9
-	la54v62KKO2C4hh7YSASP7tFMruS3uO5dsAHFAwRDb0M/vAHDhgSObDs7dopE2QIpTbyI33HiGc
-	PnbL4UzmLUFUz89AE4rrTdCfteqlqVKXxztiSib5DeYOCqkcN029TEeWnaQESTuZ3faBd6siJVG
-	mFMft3VE6EggknJx0krxRS0OJVEvfu4qXRqG1geeM5ETeDEIywwQVWNWi/eZx4Pf6iHTL3bLjiR
-	SN5W6soc=
-X-Received: by 2002:a05:6512:85c5:20b0:5c3:2506:4c1 with SMTP id 2adb3069b0e04-5c32506083fmr1030505e87.4.1795672721080;
-        Wed, 25 Nov 2026 21:58:41 -0800 (PST)
+        bh=k2IRBl9gY5e2oSUNrEWY6jjQeC8ZZ1pQO6bdpjOXj2I=;
+        b=wRjyyQ3R+3icFiIdtFu47QNNUC2D23xaZWKxaZXWRmSh1gMThh3Uc1a2SLdwZbj8ga
+         AnCjly/Ehrl9kRE0QWs2U4WmdS+SAFb/R/wV/XlD2QNlkaWsp9n14UcV4OhRHMAn/N4j
+         Jj3CAlPculNrTYUnSi+GmhwzcE9FKzDC8WI919OdmcLXjqNcGJx5XPzlgsnJuig8oZbR
+         DWUDe+6b5E3sS92A5k8BulXkx9x+pX61nuO32HHmkvwN8KiqzVN+4s3WjVoaaw+hnBpO
+         uU9/r2Yo0gNup4ZQHv/MRNNd+g+MqPokivxHHBOL0EHjzX+BMqWyUTBseO1VENMtmEhs
+         YqBw==
+X-Forwarded-Encrypted: i=1; AL+hErGQONQG9b67b62GUHoCW30oY/MImQm7BFRaCk6iv4sGLfnAVORXvwZUZzhANYlDGwLyWiyGU/Wv5rAb@vger.kernel.org
+X-Gm-Message-State: APuU4Z+dbmY71g5/ly7AUTLpcMqRkKSzqqK5QMRJbwQ+j/A36ijaLDu5
+	1whDW6Mt8INjT3i1mXNzJX8KfXCopzfUEW42Y1VZT0k+kxnoyFevsaXZTjGC+WHaDtk=
+X-Gm-Gg: AZFdTZfE6EgARzYXjx7umdC30CEasEulnx/JnLGaC31uYVCN0TNVlcs7yITwtxhVmqz
+	XbYB8YgYUzpMccx1STnoR5LpK7VcKvpPhdJfxsXiov4MxPdf0UW7wNxa2OsTHLE74izKYDazAeY
+	vOUSG7ikg/k80CANyCWkrtxOPaMADTwuE32b1VxJAxkP8gg2mmNv/vxl8rJ3jD1T5yqq5qLbyxE
+	Px6fvk4IUKFw01bq+ry3YJm4IwpjYm1nk3QKXOCeitCPMAVuRSLBcFWBhzc16a/KIq8D2B6vIYy
+	wt4K/+Sd/GDVFfSrCkFnM3v/6mC4qKO95qbYT7y6Azvaw/kzOGlpsZnvwU1knH+o6nlBvUjuTou
+	6LIZp6iDdLnIKFA5Irt6sCi/BQWWjX8Yrr+2sbh9iojbeuYjFYPyQ56qTiGJ5DNHQdE53MbT8Dr
+	Dl7W4KIdWXBsIOELxxsgRibmbpvK73LD6ozyLqDzIaCyIxkqWfgEHEalGWkdO61t7W7wPZxC+1T
+	H1nCRJcPiRElBZyI/NV9Hu2AzsKwn90/jdHMEsQFwXfSDj5DrfYcaclBqhF9/gD20bAk3/kvPUo
+	xcv3fshgeph6R1AVF744yzSsvF3zXvYXkTLzksGA3hV4q1HQ7vX5Nnr1qthLxznZ7IZPUjrKAuO
+	M0C0N/BU=
+X-Received: by 2002:a05:6512:12c7:b0:5bf:a48b:7827 with SMTP id 2adb3069b0e04-5c1bc6bf385mr6662753e87.2.1795672792982;
+        Wed, 25 Nov 2026 21:59:52 -0800 (PST)
 Received: from [192.168.1.101] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bd043420sm4925147e87.57.2026.11.25.21.58.40
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bd01b3eesm5192662e87.42.2026.11.25.21.59.52
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Nov 2026 21:58:40 -0800 (PST)
-Message-ID: <69b8d22e-f688-4458-ae2c-0e75f7b23234@linaro.org>
-Date: Thu, 26 Nov 2026 07:58:40 +0200
+        Wed, 25 Nov 2026 21:59:52 -0800 (PST)
+Message-ID: <6d7257a7-92dd-4a1a-a598-9a4cd2be6e2e@linaro.org>
+Date: Thu, 26 Nov 2026 07:59:51 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,8 +92,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] dt-bindings: media: qcom,glymur-camss: Use linear
- CSI ports
+Subject: Re: [PATCH v4 2/2] media: qcom: camss: Add Glymur-specific resources
 To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
  Bryan O'Donoghue <bod@kernel.org>,
  Loic Poulain <loic.poulain@oss.qualcomm.com>,
@@ -105,51 +104,100 @@ Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
  Suresh Vankadara <svankada@qti.qualcomm.com>,
  Vikram Sharma <vikram.sharma@oss.qualcomm.com>
 References: <20261123-glymur_camss-v4-0-d7db74f59e22@oss.qualcomm.com>
- <20261123-glymur_camss-v4-1-d7db74f59e22@oss.qualcomm.com>
+ <20261123-glymur_camss-v4-2-d7db74f59e22@oss.qualcomm.com>
 From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <20261123-glymur_camss-v4-1-d7db74f59e22@oss.qualcomm.com>
+In-Reply-To: <20261123-glymur_camss-v4-2-d7db74f59e22@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11/23/26 13:35, Nihal Kumar Gupta wrote:
-> Glymur has three CSI2 PHY connections: CSIPHY0, CSIPHY1 and CSIPHY4.
-> The binding documented CSIPHY4 as port@3 because the initial driver data
-> reused the X1E80100 CSIPHY table, where entry 3 maps to hardware PHY id 4.
+On 11/23/26 13:36, Nihal Kumar Gupta wrote:
+> Glymur has three CSIPHY instances while X1E80100 has four. Reusing the
+> X1E80100 CSIPHY resources also exposes CSIPHY2, which is not present on
+> Glymur.
 > 
-> Fix the current v7.4-rc ABI to use linear graph ports 0-2 by replacing
-> port@3 with port@2 for the third CSI2 PHY connection. The matching
-> Glymur driver data maps port@2 to hardware PHY id 4.
+> Add Glymur-specific CSIPHY resources for the three available PHYs while
+> continuing to reuse the common X1E80100 CAMSS resources.
 > 
-> Fixes: 1e0c8f82d710 ("dt-bindings: media: qcom,glymur-camss: Add Glymur CAMSS")
+> Fixes: 09d6c30d3fae ("media: qcom: camss: Add Glymur compatible")
 > Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
 > ---
->   Documentation/devicetree/bindings/media/qcom,glymur-camss.yaml | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
+>   drivers/media/platform/qcom/camss/camss.c | 42 ++++++++++++++++++++++++++++++-
+>   1 file changed, 41 insertions(+), 1 deletion(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,glymur-camss.yaml b/Documentation/devicetree/bindings/media/qcom,glymur-camss.yaml
-> index a0b77edc212319fad69113f3d55ca24f184d4b23..18a38fc4f9025f6b927780f55ed4fab194091c02 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,glymur-camss.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,glymur-camss.yaml
-> @@ -109,7 +109,7 @@ properties:
->         CSI input ports.
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+> index f8e5cf9f3ff09e96d3b48cd5628489715385cc5c..f3cab9ecef04273e09b81ee0cd4e31ca45d1c915 100644
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -4103,6 +4103,30 @@ static const struct resources_icc icc_res_sa8775p[] = {
+>   	},
+>   };
 >   
->       patternProperties:
-> -      "^port@[0-3]$":
-> +      "^port@[0-2]$":
->           $ref: /schemas/graph.yaml#/$defs/port-base
->           unevaluatedProperties: false
+> +static const struct camss_subdev_resources csiphy_res_glymur[] = {
+> +	/* CSIPHY0 */
+> +	{
+> +		.csiphy = {
+> +			.id = 0,
+> +			.formats = &csiphy_formats_sdm845
+> +		},
+> +	},
+> +	/* CSIPHY1 */
+> +	{
+> +		.csiphy = {
+> +			.id = 1,
+> +			.formats = &csiphy_formats_sdm845
+> +		},
+> +	},
+> +	/* CSIPHY4 */
+> +	{
+> +		.csiphy = {
+> +			.id = 4,
+> +			.formats = &csiphy_formats_sdm845
+> +		},
+> +	},
+> +};
+> +
+>   static const struct camss_subdev_resources csiphy_res_x1e80100[] = {
+>   	/* CSIPHY0 */
+>   	{
+> @@ -5572,6 +5596,22 @@ static void camss_remove(struct platform_device *pdev)
+>   	camss_genpd_cleanup(camss);
+>   }
 >   
-> @@ -288,8 +288,8 @@ examples:
->                       };
->                   };
+> +static const struct camss_resources glymur_resources = {
+> +	.version = CAMSS_X1E80100,
+> +	.pd_name = "top",
+> +	.csiphy_res = csiphy_res_glymur,
+> +	.tpg_res = tpg_res_x1e80100,
+> +	.csid_res = csid_res_x1e80100,
+> +	.vfe_res = vfe_res_x1e80100,
+> +	.csid_wrapper_res = &csid_wrapper_res_x1e80100,
+> +	.icc_res = icc_res_x1e80100,
+> +	.icc_path_num = ARRAY_SIZE(icc_res_x1e80100),
+> +	.csiphy_num = ARRAY_SIZE(csiphy_res_glymur),
+> +	.tpg_num = ARRAY_SIZE(tpg_res_x1e80100),
+> +	.csid_num = ARRAY_SIZE(csid_res_x1e80100),
+> +	.vfe_num = ARRAY_SIZE(vfe_res_x1e80100),
+> +};
+> +
+>   static const struct camss_resources msm8916_resources = {
+>   	.version = CAMSS_8x16,
+>   	.csiphy_res = csiphy_res_8x16,
+> @@ -5806,6 +5846,7 @@ static const struct camss_resources x1e80100_resources = {
+>   };
 >   
-> -                port@3 {
-> -                    reg = <3>;
-> +                port@2 {
-> +                    reg = <2>;
->                       camss_csiphy4_ep: endpoint {
->                           data-lanes = <1 2 3 4>;
->                           remote-endpoint = <&csiphy4_out>;
+>   static const struct of_device_id camss_dt_match[] = {
+> +	{ .compatible = "qcom,glymur-camss", .data = &glymur_resources },
+>   	{ .compatible = "qcom,msm8916-camss", .data = &msm8916_resources },
+>   	{ .compatible = "qcom,msm8939-camss", .data = &msm8939_resources },
+>   	{ .compatible = "qcom,msm8953-camss", .data = &msm8953_resources },
+> @@ -5824,7 +5865,6 @@ static const struct of_device_id camss_dt_match[] = {
+>   	{ .compatible = "qcom,sm8550-camss", .data = &sm8550_resources },
+>   	{ .compatible = "qcom,sm8650-camss", .data = &sm8650_resources },
+>   	{ .compatible = "qcom,x1e80100-camss", .data = &x1e80100_resources },
+> -	{ .compatible = "qcom,glymur-camss", .data = &x1e80100_resources },
+>   	{ }
+>   };
+>   
 > 
 
 Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
