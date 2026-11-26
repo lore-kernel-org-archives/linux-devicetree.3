@@ -1,65 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795729879;
-	b=Iru4q4GHsVOBuhq6caQWBqptoi+L0yS1PjAStgmUO9YMFz49HiEYmQUmEeVpbPU4CAWO
-	 ee84u4pANeziQtiS94c9D7hWuMSbfF217NtbT2Kf8jUGx4h+XQS3FKialFiKc6xwiBVjN
-	 zfqjR67UegUy08/m11eHhvl7ZJe9FY1yDodQV4aLeijUg4GaeFwtZQAB8Mdm8ASDmd86f
-	 AE1Rs8bnosm4CfkC8LQ614gSjCGDAS6I9U39V49ZM/wBfHcyMWt975JZlMmfkGvnieEVZ
-	 2BE4w7u/X97pnUNOQcbyHQ5ES8MLU7IraQooGLDn+hrWrkBElaCmCcTYKpNpLH3/u6Q==
+	t=1795730423;
+	b=RkR33kfgcR1LOAMmhMbNzhKPHzvqLLN63PTI1Lp+okSviWXesZTHTbcW8FrimQlp90PM
+	 rSvclHJStCf8aoYm/ldkqrWm8qRwfC3pnMLT29o+BHTrvXZmiV28HUq6Isa4JqsOWihMj
+	 RVZcDHVc9d12Sdu+zBzuPg8qNAtIhZeZF96m7/ZjRq0+GO6EwnVoCogHtg2VR1FS6jFwB
+	 1ZEw0iZxrmlvcOoT0wsGryeYADB5VygYwhopo4RvZ4qYX41wb0RnNnxQ6kwIf2ziU44QH
+	 4o5kkzq2ol+G1RQvMY7V13C3Bptu22drc7u2/4xJ7VaiReRoFmam5NIRDo9WdNQM7Sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795729879;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=WbA+jsGv0wskRc45vxrESitu3ujSAtU/NZMKbke3qrM=;
-	b=cJxX6PcQIJP1mPF/gMWeV/GaCqBnUjk1Hh7V8YzsHN/QVs3AQMFU+NfoP3HGKXsqYfOZ
-	 wg7gsova3jnBVB5m7vcxXTowKCIPPHfpndLJjm8rxVfV30jIaMqLW3LGFt+ns11VfIJ3V
-	 zd24PYezo9F1in8p2Wgq801OUZAaU0B2YQpHFiNpeCvS9bQmdB2bCe/TYcSGW0yyKdvpX
-	 us9+oRdN66l5juHy1hsKzk9o3VMuqFHGcqtlLopiSNY4EPwcJtxZUF24tx+CowrmRCGHY
-	 fA45diN1mVbEA+blJDflWICdrnDAZ8yb4XQhI0Tl2YkBy2D3Ury6ndZ0mXJYBCz+MRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795730423;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=7c7/oytUm/cTA9mvt2dZkojdQh//AqC3WyEoCbnB0JA=;
+	b=En3wBKYHP6gArx/3Dkz0t/eUdjsFB4TVY4gqOA8gMorPNkio6Tmle9UN1yr6eOeLNcf9
+	 brvTS3BKx2WW+nFSfDcA2qL6HI90w6H4J5FaPnE/ICHwouco5SN/VZIk9NA1tcQTnKQFK
+	 cwz/S3i+kpsyVeffn4NHAHEEFtfFZYOSP3iNJaAbp08ncUqTN6MhqPYXiGAlcZq1rl6gu
+	 emz2eiqek3evAn6C69GmvUT7fAkKjF4QIlWbN01+JP6FL3of3uoBgr+ovqT8xwPjEnaiQ
+	 FwHG6i0Uj7gu/X2hfKDXb1SX3dpyzaU1TuzdZRAfFeTKOijNVayTyZ1lk86CuFWYiPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ioRGYjCY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SIR/jHlR";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51208606A31C;
-	Thu, 26 Nov 2026 21:51:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA0FD606A323;
+	Thu, 26 Nov 2026 22:00:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ioRGYjCY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02B6E1F000C1;
-	Thu, 26 Nov 2026 21:51:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SIR/jHlR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 167741F00893;
+	Thu, 26 Nov 2026 22:00:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795729878;
-	bh=WbA+jsGv0wskRc45vxrESitu3ujSAtU/NZMKbke3qrM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ioRGYjCY51cDGF73s01dz3ctyFlRMSE1xVp2PsV2uUvfzrQ8DIWl/XcCCl8GFjSYJ
-	 +32Smpr1Mie5+3Q9CSky9lH/GV3gGFVvP6V4rh8cMDW1pnuRy+UcpOlRSHyrFpdQTK
-	 uiPwpubNBNbSNZ6tFE2j7YhG6p0TEyLra8g1hI3boBQq9c/0laAP+r6pO2u03UKBpU
-	 oyA9QroDaQBH1HQKs7qvkaVBknS7XyOVA5QyNzxHm6xmhr+FmhHvfDTEpIa02thkOO
-	 TrephghAEiEJJILokwwBZOPn9mF/BJzfdI6jCZ1rENGvvbw7GcZkgVUlyh7TSUyqB/
-	 ZQWT525IgczlA==
-Date: Thu, 26 Nov 2026 22:51:11 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
-	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v8 0/4] Add strprefix() and fix a bug with it
-Message-ID: <awipprsECiIWE6US@devuan>
-References: <cover.1793876837.git.alx@kernel.org>
- <cover.1795695151.git.alx@kernel.org>
+	s=k20260515; t=1795730423;
+	bh=7c7/oytUm/cTA9mvt2dZkojdQh//AqC3WyEoCbnB0JA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=SIR/jHlReC/pQgdPSDammzaAJpgLf7Q/QkY3zzhbV8Yw7EsfRq4MFshU2i5A/BFlT
+	 z7pWcmD97ZBj0iIkgbWQwItx67vdPv5hwifdh4giJ4q82NWz8BDsJpRzfqHrz0j8SK
+	 ZpWJu4DLC/AOMagP8tyOMkc+TAQlh2ZG43W7YCRYVbenYMGlpJTNuu0ysr7DdfYFzy
+	 7LhRD1QZkgyQO6h1s2pjguSP10cOGrUxNbOmOdWkfeyDOM30wMn6BIn26KeXt5aDqC
+	 /IggTJlhfNn5GYjlvzmQs5T73vq4VrK8dpBH2/9p4ztJ3RobEgai7U95wfzbUiaeve
+	 jZuJJ2/IAhlcg==
+Message-ID: <sashiko-outbox-236290@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 10/11] arm64: dts: allwinner: h616: Add display pipeline
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jernej Skrabec" <jernej.skrabec@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261126214433.3562326-11-jernej.skrabec@gmail.com>
+References: <20261126214433.3562326-1-jernej.skrabec@gmail.com>
+ <20261126214433.3562326-11-jernej.skrabec@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Nov 2026 22:00:22 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,231 +59,179 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jfvf2jdenz5dkrbl"
-Content-Disposition: inline
-In-Reply-To: <cover.1795695151.git.alx@kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] arm64: dts: allwinner: h616: tcon_top graph overflows
+  sun4i_drv_probe() kfifo
+--
 
---jfvf2jdenz5dkrbl
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
-	"Maciej W. Rozycki" <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v8 0/4] Add strprefix() and fix a bug with it
-Message-ID: <awipprsECiIWE6US@devuan>
-References: <cover.1793876837.git.alx@kernel.org>
- <cover.1795695151.git.alx@kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <cover.1795695151.git.alx@kernel.org>
+commit 01e1e3e0b1574bffa9c9d00380c059ba10691ddb
+Author: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-Hi,
+arm64: dts: allwinner: h616: Add display pipeline
 
-> Date: 2026-11-26 13:17:12+0100
-> From: Alejandro Colomar <alx@kernel.org>
->
-> Hi!
->=20
-> str_has_prefix() is based on sizes and lengths, which means it must
-> overload the valid length 0 to mean not found.  This is a typical
-> consequence of choosing to design an API around sizes and lengths, and
-> vanishes when moving to pointer-based similar APIs.
->=20
-> According to its author (Steven R.), str_has_prefix() was never meant to
-> accept an empty prefix, but that's not documented, and there's no
-> obvious reason why that would be acceptable for a generic string
-> function (as opposed to a function very specific to its original use).
-> Anyway, as suggested by Steven, I've added a WARN_ON_ONCE() to catch
-> such uses, and also added documentation stating this limitation.
+This commit adds the devicetree nodes for the Allwinner H616 display
+engine 3.3 pipeline, including two mixers, TCON TOP, four TCONs, and HDMI.
 
-Oops, I forgot to update this text from the cover letter.  There's no
-WARN_ON_ONCE() anymore, and it's instead only documented.
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/arm64/=
+boot/dts/allwinner/sun50i-h616.dtsi
+> index 93c3b8279241f..d7ed84d3c1217 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
+[ ... ]
+> @@ -978,6 +1065,339 @@ ohci3: usb@5311400 {
+[ ... ]
+> +		tcon_top: tcon-top@6510000 {
+> +			compatible =3D "allwinner,sun50i-h616-tcon-top";
+> +			reg =3D <0x06510000 0x1000>;
+> +			clocks =3D <&ccu CLK_BUS_TCON_TOP>,
+> +				 <&ccu CLK_TCON_TV0>,
+> +				 <&ccu CLK_TVE0>,
+> +				 <&ccu CLK_TCON_TV1>;
+> +			clock-names =3D "bus",
+> +				      "tcon-tv0",
+> +				      "tve0",
+> +				      "tcon-tv1";
+> +			clock-output-names =3D "tcon-top-tv0",
+> +					     "tcon-top-tv1";
+> +			resets =3D <&ccu RST_BUS_TCON_TOP>;
+> +			#clock-cells =3D <1>;
+> +
+> +			ports {
+> +				#address-cells =3D <1>;
+> +				#size-cells =3D <0>;
+> +
+> +				tcon_top_mixer0_in: port@0 {
+> +					#address-cells =3D <1>;
+> +					#size-cells =3D <0>;
+> +					reg =3D <0>;
+> +
+> +					tcon_top_mixer0_in_mixer0: endpoint@0 {
+> +						reg =3D <0>;
+> +						remote-endpoint =3D <&mixer0_out_tcon_top_mixer0>;
+> +					};
+> +				};
+> +
+> +				tcon_top_mixer0_out: port@1 {
+> +					#address-cells =3D <1>;
+> +					#size-cells =3D <0>;
+> +					reg =3D <1>;
+> +
+> +					tcon_top_mixer0_out_tcon_lcd0: endpoint@0 {
+> +						reg =3D <0>;
+> +						remote-endpoint =3D <&tcon_lcd0_in_tcon_top_mixer0>;
+> +					};
+> +
+> +					tcon_top_mixer0_out_tcon_lcd1: endpoint@1 {
+> +						reg =3D <1>;
+> +						remote-endpoint =3D <&tcon_lcd1_in_tcon_top_mixer0>;
+> +					};
+> +
+> +					tcon_top_mixer0_out_tcon_tv0: endpoint@2 {
+> +						reg =3D <2>;
+> +						remote-endpoint =3D <&tcon_tv0_in_tcon_top_mixer0>;
+> +					};
+> +
+> +					tcon_top_mixer0_out_tcon_tv1: endpoint@3 {
+> +						reg =3D <3>;
+> +						remote-endpoint =3D <&tcon_tv1_in_tcon_top_mixer0>;
+> +					};
+> +				};
+> +
+> +				tcon_top_mixer1_in: port@2 {
+> +					#address-cells =3D <1>;
+> +					#size-cells =3D <0>;
+> +					reg =3D <2>;
+> +
+> +					tcon_top_mixer1_in_mixer1: endpoint@1 {
+> +						reg =3D <1>;
+> +						remote-endpoint =3D <&mixer1_out_tcon_top_mixer1>;
+> +					};
+> +				};
+> +
+> +				tcon_top_mixer1_out: port@3 {
+> +					#address-cells =3D <1>;
+> +					#size-cells =3D <0>;
+> +					reg =3D <3>;
+> +
+> +					tcon_top_mixer1_out_tcon_lcd0: endpoint@0 {
+> +						reg =3D <0>;
+> +						remote-endpoint =3D <&tcon_lcd0_in_tcon_top_mixer1>;
+> +					};
+> +
+> +					tcon_top_mixer1_out_tcon_lcd1: endpoint@1 {
+> +						reg =3D <1>;
+> +						remote-endpoint =3D <&tcon_lcd1_in_tcon_top_mixer1>;
+> +					};
+> +
+> +					tcon_top_mixer1_out_tcon_tv0: endpoint@2 {
+> +						reg =3D <2>;
+> +						remote-endpoint =3D <&tcon_tv0_in_tcon_top_mixer1>;
+> +					};
+> +
+> +					tcon_top_mixer1_out_tcon_tv1: endpoint@3 {
+> +						reg =3D <3>;
+> +						remote-endpoint =3D <&tcon_tv1_in_tcon_top_mixer1>;
+> +					};
+> +				};
+> +
+> +				tcon_top_hdmi_in: port@4 {
+> +					#address-cells =3D <1>;
+> +					#size-cells =3D <0>;
+> +					reg =3D <4>;
+> +
+> +					tcon_top_hdmi_in_tcon_tv0: endpoint@0 {
+> +						reg =3D <0>;
+> +						remote-endpoint =3D <&tcon_tv0_out_tcon_top>;
+> +					};
+> +
+> +					tcon_top_hdmi_in_tcon_tv1: endpoint@1 {
+> +						reg =3D <1>;
+> +						remote-endpoint =3D <&tcon_tv1_out_tcon_top>;
+> +					};
+> +				};
+> +
+> +				tcon_top_hdmi_out: port@5 {
+> +					reg =3D <5>;
+> +
+> +					tcon_top_hdmi_out_hdmi: endpoint {
+> +						remote-endpoint =3D <&hdmi_in_tcon_top>;
+> +					};
+> +				};
+> +			};
+> +		};
 
+[Severity: Medium]
+Does this tcon_top graph overflow the 16-entry endpoint_list FIFO in
+sun4i_drv_probe() and leak device_node references?
 
-Have a lovely night!
-Alex
+When sun4i_drv_probe() traverses mixer0 and mixer1, both push tcon_top
+into list.fifo.  tcon_top has 9 connected output endpoints across port@1
+(4), port@3 (4), and port@5 (1), and sun4i_drv_traverse_endpoints() queues
+every remote node regardless of whether the target device is disabled:
 
->=20
-> If the function had been named something like strprefix_len(), that
-> design would have made sense, but being called str_has_prefix(), the
-> obvious way to call it will result in bugs, because the name contradicts
-> its intended use.
->=20
-> Users of strings need a function whose behavior extends naturally to the
-> empty string, and we can do better, by returning a pointer.  And indeed,
-> users have ended up using str_has_prefix() with empty prefix, expecting
-> it to work (as is natural of a generic string API with that name).
->=20
-> This patch set adds strprefix(), and uses strprefix() in one place to
-> fix a bug reported by Bartosz.
->=20
-> It also adds streq(3), just because it simplifies the tests, and is also
-> a nice interface.
->=20
-> This patch set doesn't include the sibling strsuffix(), and also doesn't
-> replace any other cases which would benefit from strprefix(), to allow
-> merging it quickly.  I'll work on a follow-up patch, including the
-> patches from v6 that have been dropped in this v7, after this has been
-> applied.
->=20
->=20
-> Have a lovely day!
-> Alex
->=20
->=20
-> Changes in v8
-> ~~~~~~~~~~~~~
->=20
-> -  [*/4]
->    -  Add Tested-by and Reviewed-by tags.
-> -  [4/4]
->    -  Remove Message-ID tags.  [Andy, Geert, Bartosz]
->=20
-> See the range-diff and interdiff below.
->=20
-> v1: <https://lore.kernel.org/linux-hardening/cover.1793876837.git.alx@ker=
-nel.org/>
-> v2: <https://lore.kernel.org/linux-hardening/cover.1793882260.git.alx@ker=
-nel.org/>
-> v3: <https://lore.kernel.org/linux-hardening/cover.1794323750.git.alx@ker=
-nel.org/>
-> v4: <https://lore.kernel.org/linux-hardening/cover.1794425425.git.alx@ker=
-nel.org/>
-> v5: <https://lore.kernel.org/linux-hardening/cover.1794574496.git.alx@ker=
-nel.org/>
-> v6: <https://lore.kernel.org/linux-hardening/cover.1794667407.git.alx@ker=
-nel.org/>
-> v7: <https://lore.kernel.org/linux-hardening/cover.1795639368.git.alx@ker=
-nel.org/>
->=20
-> Testing
-> ~~~~~~~
->=20
-> Since there are no code changes since v7, I haven't tested again.
-> See the link for v7 above to see the testing of v7.  Bartosz also
-> tested v7.
->=20
->=20
-> Alejandro Colomar (4):
->   string: Add streq()
->   string: Add strprefix()
->   string: Document corner-case misbehavior in str_has_prefix() for empty
->     prefix
->   device property: Fix fwnode_name_eq() for empty node names
->=20
->  drivers/base/property.c            |  5 +---
->  drivers/clk/socfpga/clk-gate-a10.c |  2 --
->  drivers/clk/socfpga/clk.h          |  1 -
->  include/linux/string.h             | 42 +++++++++++++++++++++++++++---
->  lib/tests/string_kunit.c           | 22 ++++++++++++++++
->  5 files changed, 61 insertions(+), 11 deletions(-)
->=20
-> Interdiff against v7:
-> Range-diff against v7:
-> 1:  ad8500a6eb0a ! 1:  8f3840fa232e string: Add streq()
->     @@ Commit message
->     =20
->          This removes some driver-specific definitions of streq(3).
->     =20
->     +    Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm=
-=2Ecom>
->     +    Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualco=
-mm.com>
->          Signed-off-by: Alejandro Colomar <alx@kernel.org>
->     =20
->       ## drivers/clk/socfpga/clk-gate-a10.c ##
-> 2:  b32d70163fb4 ! 2:  a688f0a1c20a string: Add strprefix()
->     @@ Commit message
->     =20
->          Closes: https://lore.kernel.org/linux-hardening/20261104-fwnode-=
-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/
->          Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualco=
-mm.com>
->     +    Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm=
-=2Ecom>
->     +    Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualco=
-mm.com>
->          Signed-off-by: Alejandro Colomar <alx@kernel.org>
->     =20
->       ## include/linux/string.h ##
-> 3:  c4131a109098 ! 3:  fb24c7a543f8 string: Document corner-case misbehav=
-ior in str_has_prefix() for empty prefix
->     @@ Commit message
->     =20
->          Closes: https://lore.kernel.org/linux-hardening/20261104-fwnode-=
-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/
->          Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualco=
-mm.com>
->     +    Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm=
-=2Ecom>
->     +    Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualco=
-mm.com>
->          Signed-off-by: Alejandro Colomar <alx@kernel.org>
->     =20
->       ## include/linux/string.h ##
-> 4:  396395e1d02c ! 4:  5c23d229235a device property: Fix fwnode_name_eq()=
- for empty node names
->     @@ Commit message
->          Closes: https://lore.kernel.org/linux-hardening/20261104-fwnode-=
-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/
->          Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualco=
-mm.com>
->          Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
->     -    Message-ID: <avrSUUM3HMgxTNpl@kekkonen.localdomain>
->          Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualco=
-mm.com>
->     -    Message-ID: <nat4ilqmzzpuyrjbuahl367ip22tfnmjorydlppuwqiscxaujo@=
-kf63j4lb3flk>
->          Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm=
-=2Ecom>
->     -    Message-ID: <nat4ilqmzzpuyrjbuahl367ip22tfnmjorydlppuwqiscxaujo@=
-kf63j4lb3flk>
->          Signed-off-by: Alejandro Colomar <alx@kernel.org>
->     =20
->       ## drivers/base/property.c ##
-> --=20
-> 2.55.0
->=20
+drivers/gpu/drm/sun4i/sun4i_drv.c:
+struct endpoint_list {
+	DECLARE_KFIFO(fifo, struct device_node *, 16);
+};
 
+drivers/gpu/drm/sun4i/sun4i_drv.c:sun4i_drv_traverse_endpoints() {
+    ...
+	for_each_available_child_of_node(port, ep) {
+		remote =3D of_graph_get_remote_port_parent(ep);
+    ...
+		kfifo_put(&list->fifo, remote);
+	}
+}
 
+Popping the first tcon_top entry pushes 9 remote nodes while the second
+tcon_top entry is still queued (10 entries in list.fifo).  Popping the
+second tcon_top entry then attempts to push 9 more remote nodes (18 in
+total), so the final two kfifo_put() calls for tcon_tv1 and hdmi fail on a
+full 16-entry FIFO, dropping the queue insertions and leaking the two
+remote device_node references from of_graph_get_remote_port_parent().
 
 --=20
-<https://www.alejandro-colomar.es>
-
---jfvf2jdenz5dkrbl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmsIqc4ACgkQ64mZXMKQ
-wqmd1BAAhioU4qXCSPoC9eZ7SMmdqAx2ab3diOPWpJM/5zXgoA56mQKCcP9AnyAj
-/dzdZDy/pPDgrPCuPv1R/EXpfozRg3CNg6cbwb6iHiv919mLuSQClY0CyFKGG3z1
-H3/QUnNgbtUE0ThoxTBWUKKR04vtxmpjzgNthSccPZwRMzlocCIdNwKPEAVGs+S+
-Z/aHYgY0DfIYEVvXiAGQo2dgvfMhHQbuW038Mxi3NrhAvSxoMN13NcjNiSWOWuQQ
-+FSyJtRA4/d+6rbiP4/JVcWUL7ErPcU6Cm9MEmCn9D+hVVWcTQ0VWxjUASEqzLgb
-XFitqqaRhGwafYmNTF9f1QV/StqUebcat4BWiJGbmEl+E5olgxKryVB+As4iPdm1
-qcBXZZs95i5KJUg++OL1RYWvsws8cQ/D7qYQXl+gz8rO79+dM7Ccha4NA/TurEgP
-4GpIE3ZxNnJ7Wp/WHFozZD/Q0sWLGFcci4Tju6m7vu6S9wtbGRk5G2ryAXapwJaM
-5wl/UkTGiknqoLkMQRPrD06exME6i/e8MOfjQdLAYk0wyAipxdvYtfpju86iXC6d
-5I+tA2NRn6M9hIZr024dm7Mr1PEkcwW1Mh+ysZp3rWXM/VM0wW2oBxZM8XydZgPT
-DQB9VafJKSDkVr3pdO6uR3P52Q6cjyYAT8QfXqcP0pH5YRLxUVw=
-=8rG6
------END PGP SIGNATURE-----
-
---jfvf2jdenz5dkrbl--
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126214433.3562=
+326-1-jernej.skrabec@gmail.com?part=3D10
