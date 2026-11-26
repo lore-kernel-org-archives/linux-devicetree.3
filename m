@@ -1,66 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795697245;
-	b=MPVqF/pOBgG+O8KTXhKbo35Fe5Vw3mjx5nm2cstH5d+TpVGawQrsHJ/6NZDYow8kdEim
-	 gTHWXMWRWA844ouZNvNIbattzjOjwDHAPYseZciBFsvn9ZE44uJ9UTLVjyYFt+j9aFKup
-	 UyRqejEYibJSv6UIMk0smAq8Y04egskfwKEH+kGvBIHY8BVXK9wq2Z8i27W5ippQYuGm7
-	 ouyDUbIvMMO5MDujJkHpe0XewxBIU0Nz0ZMtaNPrjgghGai0An8g8GFyLNK9Sm140W+XM
-	 Oj8f2FXLsGu5WezMQ2a7rO/0tOobZVJUdJI804avnPPh9prqj8mDkTYQA/2YmCy3QDw==
+	t=1795697303;
+	b=E3sLDzIDjvnPhQdkzyL9IKT8T8pflTzGLrR6DS3wLGPCTgRkS/KPhwVxwYHGcZI6mGaR
+	 Voawm80b1YclCx9MrOMN/KgzxF6Xbrx8cwkAVfapf8d15EE15X5IQqwO1wNv3AZjih5hn
+	 1XjaJ+EWSvPyzhHDTMo2Fb0javUbuVY3+m6D3XPiEzB+WICXbnR3etiD3qWQLFPs46WV1
+	 /7/EAL4F5N5w3UlBTMQKn+gg2QiGj80J2xGG9AhBOmrJNJV5pReC2g4ChtS4H/TFXO015
+	 +fWzc/pT3iXoFseu1ibGoZumwsMHt15TuDZ1ra/fc1Tr+Q2I52HAoh72K15skOwDlgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795697245;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=q4oaVRG88t+rJ671yZUZBq0iKBzOxZgNztWtKYUJVTI=;
-	b=sGXXexJqY9GSiTZluJlrC6sGTdM82kX52NkQJ7grVmUBa/47sAqgHNn9vKn/wRnExsp0
-	 fxjDsouVjDsdq02yesWWyi9tGl3VCKwy9btZ8ixMc7K+Aa5Rocw+F15/Zdzrrc54vC7cD
-	 QtvL8AvpccCuqlyRuZpxMICnu8figE82lXvv5dQEqSgVDyimGlF1VTM2SOJEvQfP6X4IE
-	 DAfRvO2ZZ7mFBmvG94TBPRIrNFod/wRWg/PofA1UGQrhIoE9kKIlQTGbdnuv0GQO3b+Tb
-	 YUhi6b4XTBx5yjMXbLZ5oyf1ZdMCq0TSu5VlBMFkgUpBcivoK/92xBGl7xHMJCIyTOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795697303;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=A58UABYtrnEty2sjHiU2WLl/hxy5u3d9ZmR6jr4hXxk=;
+	b=QhPhni0vFvVC6nDb34OE9Z7S1vcD5cWRSYiH46ra8M+qxKXaMP4iyIKWrA/Qkjc1kG5i
+	 4XQLo1uHYOkXAe4CagqYKms/px2YK02qSSd+x5yz5Pikniro5hQ+mf7pZFIeAffBP2R5J
+	 hps7eA8WR6KsZMK6ip8EcaAJBjLGUPBExTMSJjQuEIkGjmNsnn3s8UeAlSokBG04lG0HV
+	 gcMwLpxebt9oOJlD5++w4f34oNvgcaBwao4rguArM2lXRJh6JgUAT0ISh4TlIv31mw7Xc
+	 /38vTqmPoQX6/qNw3MZ35Pw5297MKYgiOuOQPQHEseKp38bYkJE0+WKo9FiBKTW9rVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z0VY7+XD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VIH3bDTn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EECA2606A338;
-	Thu, 26 Nov 2026 12:47:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47545606A321
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 12:48:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z0VY7+XD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8D721F000D0;
-	Thu, 26 Nov 2026 12:47:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VIH3bDTn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C312E1F000D3
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 12:48:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795697244;
-	bh=q4oaVRG88t+rJ671yZUZBq0iKBzOxZgNztWtKYUJVTI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z0VY7+XDTSGwCNFGY9Vo4wDSQRlh/DcTkHoq0uA68MVx8XxzkifE1qxOEUGbbeuLO
-	 BH6J9AxzdCEljo4uH0bHCasdJR+FlF7JeF7IJyZwQtA9P1UVFb4Im/q5Vl3wa2uCIT
-	 FRvg8X8zfykFpphpk9NnITVPR4NWv97L0nnN7Wb/mImjqwfCjcqd7R0JrdFbe7tPhe
-	 pWgqQ1O5+AQB9pc2FkU/G6Jw56nDY0FyHogp7TdzTD43uTFYoW1KpDKRke+9UICWwm
-	 Nx135+KNmoFylG3do5CAJz6JYa9vTDI2n9MuUc0Gl2KwDDYr2M9sLwSAM39Ur3lSgT
-	 NShKA0E4s989g==
-Date: Thu, 26 Nov 2026 12:47:19 +0000
-From: Lee Jones <lee@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Pavel Machek <pavel@kernel.org>,
-	Griffin Kroah-Hartman <griffin@kroah.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	mfd@lists.linux.dev, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v7 4/4] mfd: aat2870: Add support for VIN and IN-LDO
- power supplies
-Message-ID: <20261126124719.GJ38590@joneslee-macbookpro.roam.internal>
-References: <20261115085826.89641-1-clamor95@gmail.com>
- <20261115085826.89641-5-clamor95@gmail.com>
- <20261126114728.GG38590@joneslee-macbookpro.roam.internal>
- <CAPVz0n138PXP88++q4QXiao-7=nzade=e_jAdfKK0_xsEyPtFg@mail.gmail.com>
+	s=k20260515; t=1795697302;
+	bh=A58UABYtrnEty2sjHiU2WLl/hxy5u3d9ZmR6jr4hXxk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=VIH3bDTnvVGM6xc85XONsMwzIZSIMOX/kLGunOVHAV7NWrLxiz6tUtsxiX7X9eRBQ
+	 7HlYscIyT0DeaCqLM7W3dKABi/wiP7ejbaUzNkS2UXlTv+0D98ZsI0bvxuTzEMXgg0
+	 etY7ebPDRFamAe+bQS0Ir+tJryGJ/MEtY0kkO9pz8A428wghm0MzNRG3lApKhP788N
+	 h0i7X9bZG9iNoltIBhFYeNUCD/W9FDi5oQq8Iqxry3Gg2wOn7vUXiR8oehSsQnAEfX
+	 9KY2D8Wi/Y829/dJbIxfUh21+b9siRCy+yWkidhssnSqpASS+2m+QfBYAmHrvk17gf
+	 qiAN3jfkksY6A==
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3ab3b29a1d4so56070781fa.1
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 04:48:22 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFIB7Uqo3ONrOqjcpBXbRwoe9A0WGPeTTLkONA4ep0vmY5Y2LWGnG92M1iCwcX471Po3qV1fHObUjYv@vger.kernel.org
+X-Gm-Message-State: APuU4Z+TmdC6i7ZAt3VIXvaM9z1EoeoqrhFkbU1KDXtOWSXJskQ1qXfd
+	lWWDxG8pPAKNCadru6VQTTzmlkK4iftbywK0mNsMqWr1RXsvGUXT6W2ep9QO9uLAV9bRB7UPY1P
+	VUaVmUU7zldBDuxtVSY7L2zzTxu72Gaw=
+X-Received: by 2002:a05:6512:a345:b0:5c3:35fd:125e with SMTP id
+ 2adb3069b0e04-5c335fd1700mr31267e87.65.1795697301561; Thu, 26 Nov 2026
+ 04:48:21 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,42 +59,30 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPVz0n138PXP88++q4QXiao-7=nzade=e_jAdfKK0_xsEyPtFg@mail.gmail.com>
+References: <cover.1795589383.git.hns@goldelico.com>
+In-Reply-To: <cover.1795589383.git.hns@goldelico.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 26 Nov 2026 13:48:09 +0100
+X-Gmail-Original-Message-ID: <CAD++jLn7J7D-gobRYWWOk3Gk9-Ez8YEGT=R0SwYPgGRqWDKQtw@mail.gmail.com>
+X-Gm-Features: Aa3M54reGVx3uHqx-zCudInMGYCYaxYXXbA1fSoBKZP47tBZ4PUO9v6291x42MI
+Message-ID: <CAD++jLn7J7D-gobRYWWOk3Gk9-Ez8YEGT=R0SwYPgGRqWDKQtw@mail.gmail.com>
+Subject: Re: [PATCH v5 0/7] pinctrl: ingenic: Add X2600 support
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Paul Cercueil <paul@crapouillou.net>, 
+	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
+	letux-kernel@openphoenux.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 26 Nov 2026, Svyatoslav Ryhel wrote:
+Hi H. Nikolaus,
 
-> чт, 26 лист. 2026 р. о 13:47 Lee Jones <lee@kernel.org> пише:
-> >
-> > On Sun, 15 Nov 2026, Svyatoslav Ryhel wrote:
-> >
-> > > The AAT2870 supports a dedicated main power supply input alongside parent
-> > > power supply for its internal regulators.
-> > >
-> > > Add support for retrieving and managing these supply regulators
-> > > (vin-supply and in-ldo-supply) using the regulator framework to ensure
-> > > proper power supply dependencies and power-up sequencing.
-> > >
-> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > ---
-> > >  drivers/mfd/aat2870-core.c            | 5 +++++
-> > >  drivers/regulator/aat2870-regulator.c | 1 +
-> >
-> > Is this a build dep?
-> >
-> 
-> More a logical link, I can break it but it still will be part of this patch set.
-> 
-> > Would something that was working before, break?
-> 
-> Other way, it was broken (aat2870 may have a dedicated supply) and now
-> it is fixed.
+I first put the two fixes on an immutable branch and merged to both
+fixes and devel (for-next), then applied the remaining patches on
+top of the fixes in devel.
 
-Great.  Split it and Mark and I will take them into our own subsystems.
+This should work out the conflicts I would otherwise face from
+fixes vs next.
 
-Thanks.
-
--- 
-Lee Jones
+Yours,
+Linus Walleij
