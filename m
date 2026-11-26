@@ -1,111 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795704796;
-	b=xFr+peN2Acpc/AvIJZyRfX5WYKu6qB2E0aWggzCUkwb4HvnIH1lioaxVHPWMeDDrcMwz
-	 gejOmrDjsPGvv0oc8axdOusW4ppESMNq4v4ngIwvNAVWP9R0e72OjP5liI4mu2xgkkEi2
-	 1Wz/Q76JA0rrNT6Q129lof/Uyox4qeSTkRGITlcqXf+UsuBS/VEhrv/wXnS0D2/eFG0i6
-	 jeK3dXndvfdM5nspoHNUdIbI0b4MqZlKROCH2/qnBQr1q3BbFElEpaOs5Zm7nb01g0HXU
-	 tsByqGbWYmbTE3amtLHDLKkHUqMWLqjJNHjQOCJxdyyvgbb41tBmPnK8PGVdXA2xbCg==
+	t=1795704809;
+	b=Dg7fLYItOoLFYi8b9BZHI/kVnPnLAypfeLOY338BA9Ew4CgUpWe5l4yw5c5PFdgnxmdV
+	 f/6oQT6TFLnDTeQ2orFhVwkPbrNpEPq8zrf7Gj8apXBW5G6GnGFmLhHKNwt1N9uqEaY3b
+	 dQKREoVeipsHb+WL8EjhGbbQ5bkTVDgJ69LzOt8hy2KYTbh3utXfm1CMvNOzhnd5vwHOd
+	 Hs/89KTumcPdUwZ7JY3w2iNtJ1lNDhNDOG2JV3UtsQxFh6i9Xc2VSY+NthxKXPj0qLJcX
+	 Uv29AWpXGo6bQt33y5CWMHM4Sz/bWqoSuU290KjD9PdLaAScFdpcnSeiYWUdfczSRpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795704796;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZqMqbfj/cETQCXmO3wbil3gEmzGzk18Px5yh8y4lWVg=;
-	b=IOvTbx12+RR22GPeTh16bIqynnX2aVDmZNmNl+f83iHrxs7v3JOYO1Wdm54uspkv7Fle
-	 jIRUwFlGOAi2urP1Pf1a94cOyhF5amvFlZGfI+3QwrPEk8RAQExMxFwv1vdBL2AYYYzvw
-	 PkmSIHC9NJFSyEL9Rxo8g43Iu0a/2eCJtrk2Vfs9HftAhfgNqbKSe32WmVgFWxv6QZksP
-	 4YAKjMNDwONCno3bzwzuzbOGNxTsm7YZXCFVSgr2VRqhYW5dR7KWy/oeAPlCfQ08XcQIy
-	 RXJqxGjdx07HqUg2zFwb4Zl9OoS5vuRyHWd0vOsOZqtsNFLKQ4xrvm1/tYpOLMcZx+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795704809;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=XQNAN6Vy4siPlthRoQH9jet8l2I4+/EnJVydI4yjk1s=;
+	b=WFe75ycVOUPFtaY4+ucFos6IhdxBTTY1hKv95v1sNO0ByvG1uvDsrzT9jhYnXA/n1KNE
+	 Pmk1KA3LpOf50tfcxKjkWr/88lib9nJb8loAmM88/sJo6FDIFnW94HfaiW4gKdn7FqWy7
+	 AdTKVaCjEN43vSGfxyYyBKiqSD3+lhX0pkk84LDulUzEYZ9OEaaEsDL6MoJghBmTS0RYV
+	 G1TQUG5O7smiBPn8c/RS+DPjzpQNoFTbmi1wylzjlkKuU/tb60UNqoqzfrIMGMzOq+ENR
+	 VaXyylT7bTZEI1Zv9K+08jq5ZM6MiyiEpHN4Cz8dOPeoIDz+V5Nh008nO+k2RuCLfJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=SbH0mZzT;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eur+LAM4;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Adqj5ofJ;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7113E60A2605
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 14:53:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7113E60A2605
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC632606A32C
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 14:53:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC632606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=SbH0mZzT
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so57572415e9.3
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:53:15 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eur+LAM4;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Adqj5ofJ
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQEUxcv3563219
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 14:53:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	XQNAN6Vy4siPlthRoQH9jet8l2I4+/EnJVydI4yjk1s=; b=eur+LAM4pFbOfhIo
+	2uB6AtdRkfgb4csfaXkpGOzp1a1TwKFNiM39Swed5FkWWMFuonAI4JqPsHNhALHo
+	wWiOWniIQnfsCzkKggHON/1+EEl5ZX/55r/uE8BnosJhV9e8ZNsY2sxGGwMrk3O9
+	aWBnM0Iu28wXw/mHvi8d/on3ezXuOpVXLwY4W5bhXQYhjAgt8peG48y3RO3BEv+r
+	h21oEV6PXs9YFK21TR1sm2rp/s4LHVaNLJYTN7jMOvpoOdg8wPO1zQN6Gh2zasMY
+	8ppY8rWEchIoDbvZ2hfbRKRtNXYGSWZnaJzxtlf3w4v3I4BIJGGK43QjjKIUe9JY
+	ES6nFg==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j662sbke8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 14:53:28 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-386a65fca25so6212916eec.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:53:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1795704794; x=1796309594; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZqMqbfj/cETQCXmO3wbil3gEmzGzk18Px5yh8y4lWVg=;
-        b=SbH0mZzTQkyuq3Sga3blWcZFEfcQIFRZmyVP1q634WAIOy6CvybhvI93yuiE0JiTZ6
-         zZvpRZu7lDlbqxMnYYpy0mh8SunGI+MJP35P+iPhpvLMDf5hoqMNkbAXzngC4mawAh4R
-         T7eCVkrw5Htp2UBW2pMGLTLK/c6sfljG2P3zGVWxu45O1ZRKesy9JLyVJrouV4j3Ya3r
-         OzHu5iE8UznSx2fqb08zYWXAnqvB6c7uRLo7IWbSWHwTm5XvCYqgQ3prnXc4jLuXwwAz
-         BSXqrO9p5ZjjnbglFoq8anfSnyIhAgQv0yN3zqfPOHmgjCDwgQj7u9gtteiL8SocUNVn
-         Q3Aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795704794; x=1796309594;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1795704807; x=1796309607; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZqMqbfj/cETQCXmO3wbil3gEmzGzk18Px5yh8y4lWVg=;
-        b=1BfPoIVTs1rd8OBQYz07ilpiKMJbTQiSt6qZDGabzUgboJ5V/qlrSJIKWrysmzHFk8
-         jYwmvQovGGeXjpr7OiWy6V78kZX0qx/yO2CR6WJ2E7pc8QVLqtVFMkvxCiQfFCdvxWSh
-         5H69y+6PWCD+qdKBo3R0bB9G4EzADWMEZex5gPqrlq7d+ujq5y3C7r9u62f5IY/myGdF
-         U7lToXqBLk7N+gcp+tJBrNW5NxCa1G+rkontEOZtBkNgjzTxa0o23VS+y67qBjXvFyca
-         jbvQi7HBCuoDtSWrWDAcEBrV/KWlnxVhsb3b9ichwbGh0OgObhfsf2z3pIhx+crYSzu5
-         DxHA==
-X-Forwarded-Encrypted: i=1; AL+hErFsz3RWtNlPEOmqM6uLsRtKsMzgTGGv3Hs47hImRNlV/DetnVWabXxrf/OI2WhE2npZpNf0pEVB2BQl@vger.kernel.org
-X-Gm-Message-State: APuU4Z9o3D7gu/i+KCwpE6BMuEcrruxYNakWqDHInp0lnqaXFg4TMv0U
-	BlAk/hJpDh7DnFHqYua9j07f7WUrSQZ1bOBKdRtcjDXfj2xaOUWS5dkESgRgrF2pK6U=
-X-Gm-Gg: AZFdTZdOXzLOCNlgGMAtOlqRMwfhV7UWpDWTHL7Nb0/vMhEVOq/t0tGAg5NjKce0rQg
-	WBoTk5+MrhSTGdptHGuEFfr3SGKNvfaIa9Aw3cJYIB3EbGibCWf8z6MjLW8nOiU66OlQ7UfE/CV
-	cd2xe+4yT0Jjvu3QmqQipIxTvS22s0hbEjn88Scg6N2LnaWangmntjIpVhWXeE1sfuO5re6L4hU
-	2dl6Eq9Tl4MHVydDlF72jV7ASs5c+R3Uf8FNZcPrG3dmOefu6QLno7A3X1CG+noDQQAaD7vGK/z
-	AWHxmTeSeKqvZqLSD1P8rEey6xRYZE2Hnf+DiF4jTlO/+JNRi6TNLD/0Kaydd0ySXgNis94rorr
-	yTfWz6lPcia+uMFPCKQQoy4z6vp6SMXkB89rkjGtEPxXap8i3DUsV0OZ6Np/lGwTrlBAkEB0y+c
-	JUBPLoi07lHvoChPrumBR0jWh/GjgB/C23FIn+lVnBWKXCjj07g4lURMuSeebV2e4TtS3evpqZ9
-	XNbz3qvPRisWyktPu+nXyh6cRVqH3vrRaYasub7Tr5n734O7EaLn0HfJl57LOEdrjpuKt+fhyCX
-	gpx+S4cpPpa9I/vsp68lv60uMCna
-X-Received: by 2002:a05:600c:a11:b0:4a2:e0c:2b0a with SMTP id 5b1f17b1804b1-4bb888120famr434903565e9.16.1795704793802;
-        Thu, 26 Nov 2026 06:53:13 -0800 (PST)
-Received: from localhost ([195.94.148.180])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb88442995sm636202395e9.2.2026.11.26.06.53.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 06:53:13 -0800 (PST)
-From: Andrea della Porta <andrea.porta@suse.com>
-X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Thu, 26 Nov 2026 15:57:13 +0100
-To: Stefan Wahren <wahrenst@gmx.net>
-Cc: Andrea della Porta <andrea.porta@suse.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Frank Li <Frank.Li@kernel.org>, dmaengine@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Saenz Julienne <nsaenz@kernel.org>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Phil Elwell <phil@raspberrypi.com>,
-	Dom Cobley <popcornmix@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 02/28] dmaengine: bcm2835: Add support for per-channel
- flags
-Message-ID: <awhIyZ2weVtCrKN6@apocalypse>
-References: <20261123145728.29082-1-andrea.porta@suse.com>
- <20261123145728.29082-3-andrea.porta@suse.com>
- <7258e7d8-c968-4876-bfb4-de89e2fb05e3@gmx.net>
+        bh=XQNAN6Vy4siPlthRoQH9jet8l2I4+/EnJVydI4yjk1s=;
+        b=Adqj5ofJ3pYVkJYRH3fVXXiB1VYmwIYxcozwCGw48Yew08Xz8N2KaWNqO407I3f/pb
+         0mLoFQkVrv6z/V2bS5/1HKLerhSnW6Zu7bx/rkoE1pf2NQDWsr8x1znvUSEcnvquVyPa
+         8q+IikalaKa1R8Pb2vURCOpXs+pIMCEawQCIDuUuK/konpFwwuqhr89PSzL6qgVSI2h5
+         W5OzAUfpZWy2EF7WEXmcCpZmdjLtRnie1AnDpYAgE3wP5G+Qm2OYU866wah9UwXWReZC
+         r6g/VAK8Mvk8O6QkCS4NGg9JdNnG615wSl2BMGBzPlFtcJftkyBTDP9Eg2VEU2cxsX8w
+         +Wzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795704807; x=1796309607;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XQNAN6Vy4siPlthRoQH9jet8l2I4+/EnJVydI4yjk1s=;
+        b=u080E/HKJZm+2bGRQsMapb10J2fOzvT/Q2UDuDVR6jWeVetXETGB798bG1eUTs9zVJ
+         6rd5deJloBVPaPAn9neVU1ioHmEMO0nS0hRu09ERvubZBs3vtye5JgPgten/PGLE/pA1
+         DeFnKnyXPD7QRG7SO2GRvt8LIg4hltHoQ/rlYnfPGP4MvVXhMtYZw5JEfIv6ZC9vt3ee
+         eudZOKzC2PZX/M4jjLVW6t+QjtHOrYedOIfICjfDHyHuRtvywxZjK5WROgjfo7AEE4RG
+         jdlG27E9vs1pWNe/qtRMVVEUBWkmTjRTIKVLOyjWoFYBPOyfPv8ckev6Ns3A2cruCvBP
+         cWRg==
+X-Forwarded-Encrypted: i=1; AL+hErFEo7fSoTVuJ7qlsNNOQhj/SnS1qhbcL/n9JYwZ8wX49b1Lqd9Ao/Gz93MhweF5arSb7wvdzGPYTj8I@vger.kernel.org
+X-Gm-Message-State: APuU4Z+8yjvewZhvE+/hPB74P2x7X3xyN83nQWuGOs/eq6lsDZUbTTpF
+	lMqQZpaxXGe9XxhU1uukMCm7bq6/fAfVoQ3FiftdAyJ1aSlflNFDrhrZfMlVnYNRPnaD9O0r3Ap
+	A9aq30t17ScGkMekSj9tre4VuDUEUFOmBq8TzOgtBzB5uw7nPxIwseKl/3e4DSD0C
+X-Gm-Gg: AZFdTZdboTpkmCRKAAqEFU+DahDlQYFnZjyGb+/tiG/5mEbx0V9MnFTU4aQIsC9b3Wu
+	q+xMUzXDkw0RUrqIyWr4X5qR81l3FIlcya7lN3B/J6jz5G8N1wpugLt2AVGPhudPfVyYK9cHkA9
+	RaCuAeH9zqPjXF5RZD7b3+V3S5UmfpsmiNZCD7cgZ357CKt9ZqqGBplAiHNEAnhGmhFfRbzexpd
+	yWxuRRgdsXCGO/AsFB/TltNE3ETtbL+wFK6Y8gR9jKIuCXXbK210ta3Rtke2YgQm5n9iAWKGZy3
+	kZMw1clBGnvRQb7ii8ECHoCvHR7AZLhe6M1Eqc4Yppo0QULQzcdGF1Ppg1EInHzGcWbZfwr/xjd
+	bnnM+s9yj5tQUvAQHFxWfkLIjS+x21X+xK3ExfKljaETmBrW/LN9VGGyASPUnewr29kgFPIyt6A
+	==
+X-Received: by 2002:a05:7022:906:b0:1a4:c892:b14f with SMTP id a92af1059eb24-1b556904c50mr27737707c88.29.1795704807329;
+        Thu, 26 Nov 2026 06:53:27 -0800 (PST)
+X-Received: by 2002:a05:7022:906:b0:1a4:c892:b14f with SMTP id a92af1059eb24-1b556904c50mr27737651c88.29.1795704806659;
+        Thu, 26 Nov 2026 06:53:26 -0800 (PST)
+Received: from [10.204.104.211] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b556829d31sm82132907c88.9.2026.11.26.06.53.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Nov 2026 06:53:26 -0800 (PST)
+Message-ID: <70651641-b264-43cc-a745-178ef2b02680@oss.qualcomm.com>
+Date: Thu, 26 Nov 2026 20:23:18 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,75 +116,94 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7258e7d8-c968-4876-bfb4-de89e2fb05e3@gmx.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/5] drm/msm/a6xx: Add Adreno 753 support
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, Shivam Rawat <shivrawa@qti.qualcomm.com>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+References: <20261118-nord-gpu1-v2-0-8d6d9908b7c5@oss.qualcomm.com>
+ <20261118-nord-gpu1-v2-1-8d6d9908b7c5@oss.qualcomm.com>
+ <a005f8a1-76a2-46ce-b328-2063bc307758@oss.qualcomm.com>
+Content-Language: en-US
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+In-Reply-To: <a005f8a1-76a2-46ce-b328-2063bc307758@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=B54sQ+tM c=1 sm=1 tr=0 ts=6b0847e8 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=GMqeiC-AThkal4myrkQA:9 a=QEXdDO2ut3YA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-GUID: tY5TaDbbK6G-E_soO6HwzIJ0P_hpNVo7
+X-Proofpoint-ORIG-GUID: tY5TaDbbK6G-E_soO6HwzIJ0P_hpNVo7
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDA1OCBTYWx0ZWRfX5vQ3Qqs8Q+yD
+ y8oIi5tfWROJDR2zCEzyb7nNtBjtPJqoFp8K2bNF3OeAI10qjR6fYXnbJ5LmYeMIiAUmfJ06yFs
+ 6+80XiaiAWt4DTUJ1wA+p7u0uitdk7sHmegSk2K34SjGML7uKJAZ57ulRp7kANKJYR4h4yM1t8i
+ DCFFTr9vXuSSV0oDJ/RsESGOhxo9fW0eZlpo2RHZ+kXU5mgusHd1fU/0bsMTVX1Xzdn0loAUcLi
+ 96upUlwUQ2tfR7+oI2+WvZE2iepFgKtWyxrYS5OyXni/0CXVlbmdhcZm3itRmJB9/Ek+Ch4B82b
+ VlC8W5MFgequCVCWNCdBICjTpqvxspijFP77Ofg+hVJab61gMTwDFasCIpzU8Y8qAXx1KMsM/6m
+ 2OBQQzvJzM2DtjUAZR4VQMo5dWJoPdDshT931ANAbMer5Eqg24G05Z/6lT+lHgoXIyuBxe++7Et
+ N8xL9dwX3CrWD7pJ61w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDA1OCBTYWx0ZWRfX0ZqCllBs4vsn
+ f4JhWV2ArgVM8yOZYRgnYsBvP2TOzZYWE6BPrRS5BCmTiMWG31sHN9uGUUqGnQBTxRo4cPi3fJt
+ 8STYaKjpT3CoNG6qZt1BFR6WhtTXDhw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-26_03,2026-11-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
+ phishscore=0 clxscore=1015 malwarescore=0 adultscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260058
 
-Hi Stefan,
 
-On 18:37 Mon 23 Nov     , Stefan Wahren wrote:
-> Hi Andrea,
+
+On 11/26/2026 8:17 PM, Konrad Dybcio wrote:
+> On 11/18/26 12:00 AM, Akhil P Oommen wrote:
+>> From: Shivam Rawat <shivrawa@qti.qualcomm.com>
+>>
+>> Adreno 753 is the primary GPU in the Qualcomm Nord SoC and belongs to
+>> the A7xx Gen3 family. It is derived from A750 and shares the same
+>> IP-level configuration: protected registers, pwrup/IFPC register lists,
+>> GBIF CX registers, gmu_cgc_mode, 3MB GMEM, bus BCMs and preemption
+>> record size. The differences visible to the KMD are the chip id
+>> (0x43051701), the GMU chip id (0x70d0000) and the gen71300 SQE and GMU
+>> firmware.
 > 
-> Am 23.11.26 um 15:56 schrieb Andrea della Porta:
-> > From: Phil Elwell <phil@raspberrypi.org>
-> > 
-> > Add the ability to interpret the high bits of the dreq specifier as
-> > flags to be included in the DMA_CS register. The motivation for this
-> > change is the ability to set the DISDEBUG flag for SD card transfers
-> > to avoid corruption when using the VPU debugger.
-> actually I'm not against this feature, but this seems to pad out this
-> series. Is this really necessary for BCM2711 or 40 bit support?
+> [...]
+> 
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> @@ -651,6 +651,9 @@ static void a6xx_set_hwcg(struct msm_gpu *gpu, bool state)
+>>  	if (!(adreno_gpu->info->a6xx->hwcg || adreno_is_a7xx(adreno_gpu)))
+>>  		return;
+>>  
+>> +	if (adreno_is_a753(adreno_gpu))
+>> +		state = false;
+> 
+> Is that intended?
 
-The flags of patches 3-5 have in-tree users in this series: the BCM283x HDMI
-audio channel uses wide source reads and no write response wait (patch 27),
-and the BCM2712 HDMI audio uses bursts, wide reads and the AXI priority/panic
-priority (patch 28), as done by the downstream device trees too.
-If you prefer, I can move them to a follow-up series together with the HDMI
-audio patches: in this case you'll have to wait for the upcoming new series
-in order to have the updated audio nodes in DTBs.
+yes. It is mentioned in the commit text.
 
-Many thanks,
-Andrea
+-Akhil.
 
 > 
-> Best regards
-> > 
-> > Signed-off-by: Phil Elwell <phil@raspberrypi.org>
-> > Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
-> > ---
-> >   drivers/dma/bcm2835-dma.c | 10 ++++++++--
-> >   1 file changed, 8 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/dma/bcm2835-dma.c b/drivers/dma/bcm2835-dma.c
-> > index b19182c6e3df..690f5ba1c439 100644
-> > --- a/drivers/dma/bcm2835-dma.c
-> > +++ b/drivers/dma/bcm2835-dma.c
-> > @@ -137,6 +137,10 @@ struct bcm2835_desc {
-> >   #define BCM2835_DMA_S_DREQ	BIT(10) /* enable SREQ for source */
-> >   #define BCM2835_DMA_S_IGNORE	BIT(11) /* ignore source reads - read 0 */
-> >   #define BCM2835_DMA_BURST_LENGTH(x) (((x) & 15) << 12)
-> > +#define BCM2835_DMA_CS_FLAGS(x) ((x) & (BCM2835_DMA_PRIORITY(15) | \
-> > +				      BCM2835_DMA_PANIC_PRIORITY(15) | \
-> > +				      BCM2835_DMA_WAIT_FOR_WRITES | \
-> > +				      BCM2835_DMA_DIS_DEBUG))
-> >   #define BCM2835_DMA_PER_MAP(x)	(((x) & 31) << 16) /* REQ source */
-> >   #define BCM2835_DMA_WAIT(x)	(((x) & 31) << 21) /* add DMA-wait cycles */
-> >   #define BCM2835_DMA_NO_WIDE_BURSTS BIT(26) /* no 2 beat write bursts */
-> > @@ -433,7 +437,8 @@ static void bcm2835_dma_start_desc(struct bcm2835_chan *c)
-> >   	c->desc = to_bcm2835_dma_desc(&vd->tx);
-> >   	writel(c->desc->cb_list[0].paddr, c->chan_base + BCM2835_DMA_ADDR);
-> > -	writel(BCM2835_DMA_ACTIVE, c->chan_base + BCM2835_DMA_CS);
-> > +	writel(BCM2835_DMA_ACTIVE | BCM2835_DMA_CS_FLAGS(c->dreq),
-> > +	       c->chan_base + BCM2835_DMA_CS);
-> >   }
-> >   static irqreturn_t bcm2835_dma_callback(int irq, void *data)
-> > @@ -460,7 +465,8 @@ static irqreturn_t bcm2835_dma_callback(int irq, void *data)
-> >   	 * if this IRQ handler is threaded.) If the channel is finished, it
-> >   	 * will remain idle despite the ACTIVE flag being set.
-> >   	 */
-> > -	writel(BCM2835_DMA_INT | BCM2835_DMA_ACTIVE,
-> > +	writel(BCM2835_DMA_INT | BCM2835_DMA_ACTIVE |
-> > +	       BCM2835_DMA_CS_FLAGS(c->dreq),
-> >   	       c->chan_base + BCM2835_DMA_CS);
-> >   	d = c->desc;
-> 
+> Konrad
+
