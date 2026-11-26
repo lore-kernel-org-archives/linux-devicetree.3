@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795704385;
-	b=mYVplE2hXBM/EKmWkeqU9EsoLz+U7uDmM3ffCkLKJqpWyZY02mG0UGil5OG+BXrTlksL
-	 msFqnBd+X8SFp9tXLLG2TCZYZgsQbD3Aut/XgtUUdpyrooGu5wmjw9/0B8qlPdwBNmCVN
-	 lTFaEZGhMgFMfFwJti9HsA+2NeaOA7dEmi5fhfBEVOEzLavx7vQp9xs7YkJvjKKTZnjTQ
-	 Czz2pX/I5RpiGFla+U61tlZ/DdWNsHYbOaBa5ws0QWlUbM1xmaeOdJZnodU76KjXTL51y
-	 p9MRd6z6n7chC/X8zPi9f29miezuTqbDo7WzkLkSbtF/LOCGCy5Lh2x4wXWcT6xakBA==
+	t=1795704391;
+	b=dxoIYzcn7m0I1KK1RnR6M6fNIgTJIIInF1iFU9Wu5kIs1DToV+grrLcrx5j3FyxxGwYy
+	 fc3KHWKmS9rIgbo39tYIY/sSNIyzBI3if7nJ/VTdh62qs5yyhQDMdxwNKL6g4aorohKlQ
+	 C+56l/oQT6hXN/8cgQo8W1+8jbD5WIWM2Z/l1F94DvvfUB167tOr/10ZeSJNuvcy2lJyc
+	 GBo60wyDN+dS/yNwkyjOhdoR1GLgis0ELAFI69pOfL1KGXztv4sNtbY3d7BX197d1sCpM
+	 5Bftqn9q9ib88w4cJw9XOWhUu39782SymEQ1Nh2RmI6sE5wC4S+s5U8d36DVWALehMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795704385;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795704391;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=43DT+0N/KHuXPvPZTfHEASKIKf7hWu21oag5oHhyoOk=;
-	b=kP4Xhtu+xyZgYY7jskpyhtriregStFsgcP2bUjFOW0AH+PbLdS32THaYTaYL5UfQSyZX
-	 k6ahaoGL8k0GUsRLNcsP5abh6EA+fZoaQoxxHs0X/TnHx9GlJLqgh7PgCvQ+q37K2gyUE
-	 6cFugjqp4NOgsvmvSrn9oRykQfqgP+SDpaCyxRUOJ8pWh6UiSOmQBrr1Pi0TiY4a7q9A+
-	 qM9EJ7NieA2e18iShTcaiqRMfNSlEZwFenaRs+OPypR8xpUfSvNfzQhWbv+tHV6Nc56in
-	 nT9FI9TN126hJ7chbdpT/0105ghfeGedspgdL/Ktm9dU5wRxcL7XOMsx8htbgexYuWg==
+	bh=OmKRzxxqQq1PoNy2kWqSjJKHAfh2pWtu6K/xMddIM1A=;
+	b=WT+Qya+IEJBsTe4OcOFcC4JuWedDjQWLVnyorTgCbZZtljoFy6Px0Gz/Ahd78HPcqiES
+	 Akse8zOCPKruwMuaSFs4BwwW/r05iH1DgCTz0BGrwZ6T8fuh2R4vThJJ/yILmztXbV64+
+	 Mf1f9TzQ6edNd9Z6WjK7i1a9/xI/Da0W9w3wAk35/38BusBQDMsar+liEHZN33kVDgCef
+	 d+vUvqaB4lnAkW1vL1kIromEqNxEllNknOG+pYLXg4rBwLGJhB1JElGbkw93gqrUmBLR3
+	 RxOwGX6m82g9t/3MIZNHC6iaGcttZwgI4Pmc1wx1cvOX3SHJCnPOT3TbSEW5WxLzfbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EGCGQ5Sc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=exHbqaM2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C22606A32D;
-	Thu, 26 Nov 2026 14:46:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 877B1606A323;
+	Thu, 26 Nov 2026 14:46:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EGCGQ5Sc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12C881F000CF;
-	Thu, 26 Nov 2026 14:46:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=exHbqaM2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 882631F000C0;
+	Thu, 26 Nov 2026 14:46:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795704384;
-	bh=43DT+0N/KHuXPvPZTfHEASKIKf7hWu21oag5oHhyoOk=;
+	s=k20260515; t=1795704391;
+	bh=OmKRzxxqQq1PoNy2kWqSjJKHAfh2pWtu6K/xMddIM1A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EGCGQ5ScCVdNB5z3+0xzzA/v+ct3jbi9ETJEQUj/cL0L9d64uql1mOtZiWJqjcS8a
-	 wKjO12rNMwnMIhPSDnuUPXzAkXv9LVdZU/cAqoTQ/nuatk1iI0tk5LSknDw0zVj9Qq
-	 XZhseBV4IPh2bGhyR4F1nSIR+xpRJatOjd5hiXUQhAab26bM0gISrB0emIjiK2uLVT
-	 Q5C6VAOqjgVvx0Sqq/RBHccXNvBh5zPpoiceU5adZhCHVKOfCypIDyt5o1+hxYw4bY
-	 mbpTxReuC2hmQJwxvdocKKp9Vui1l4f73venXnj9u+wcj3Iy/gmfwePjuibNHliRBi
-	 1SzYqs1JZcU9g==
+	b=exHbqaM2PAmfUyxwELdJR0eLDO2IPkj3FTM0kN75yLeEeTVxquGLTS/j+MWXFSaSd
+	 DUpqhCqw2/gJtWIFCOeFNFOwfXP5uEdpzuugZIDymAXlKNCO0G+nxlbWm0CqvbDS3N
+	 Y3qMHLZFjN96ZA7KN45pPWADvH8HVNN4LHYSFmGWlKZYXAVqqZyTUKhKZT/GNmyaEK
+	 vdqpSXVqAceAdWkzmjGxE2gOUck2ieB+jG/rzdQl2fHCQQK+kL/Lp8XK3Nbc8Y5l7z
+	 nsI6HrWqmq00mXEkZC5CiRu3/heCXnAKKyMjT5ppJE78bhTph5uJAGjLmLqKNjaIYl
+	 Vkhv4A5TPQetQ==
 From: Geert Uytterhoeven <geert@kernel.org>
 To: Marc Kleine-Budde <mkl@pengutronix.de>,
 	Vincent Mailhol <mailhol@kernel.org>,
@@ -54,9 +54,9 @@ Cc: linux-can@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-renesas-soc@vger.kernel.org,
 	Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: [PATCH v2 2/4] can: rcar_canfd: Add Runtime PM support
-Date: Thu, 26 Nov 2026 15:46:07 +0100
-Message-ID: <557fa8a4776e0ee7d6c566b825771075db46b276.1795703576.git.geert+renesas@glider.be>
+Subject: [PATCH v2 4/4] can: rcar_canfd: Add support for R-Car Gen5
+Date: Thu, 26 Nov 2026 15:46:09 +0100
+Message-ID: <d83095f877c2134e1350c6b86304998ab9d0bb95.1795703576.git.geert+renesas@glider.be>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1795703576.git.geert+renesas@glider.be>
 References: <cover.1795703576.git.geert+renesas@glider.be>
@@ -73,85 +73,57 @@ Content-Transfer-Encoding: 8bit
 
 From: Geert Uytterhoeven <geert+renesas@glider.be>
 
-On R-Car X5H, the CAN-FD module is part of a power domain.  This means
-Runtime PM must be used to make sure the domain is powered when needed.
-The CAN-FD module is part of a Clock Domain on all supported SoCs.
-Hence remove explicit management of the functional clock, as this is
-handled automatically by Runtime PM.
+The CAN-FD block on R-Car Gen5 is similar to the variant on R-Car Gen4,
+but uses split global and per-channel interrupts, and has no /2
+postdivider for the canfd clock input.
 
 Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
 ---
 v2:
-  - Add Reviewed-by.
+  - Correct .postdiv,
+  - Rebase.
 ---
- drivers/net/can/rcar/rcar_canfd.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+ drivers/net/can/rcar/rcar_canfd.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
 diff --git a/drivers/net/can/rcar/rcar_canfd.c b/drivers/net/can/rcar/rcar_canfd.c
-index 1040803936f56cea..c57c5252e38572df 100644
+index ce1d6629c1922fe3..c199ceff8f47555d 100644
 --- a/drivers/net/can/rcar/rcar_canfd.c
 +++ b/drivers/net/can/rcar/rcar_canfd.c
-@@ -37,6 +37,7 @@
- #include <linux/of.h>
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/reset.h>
- #include <linux/types.h>
+@@ -642,6 +642,25 @@ static const struct rcar_canfd_hw_info rcar_gen4_hw_info = {
+ 	.fixed_canfd = 0,
+ };
  
-@@ -2059,9 +2060,9 @@ static int rcar_canfd_global_init(struct rcar_canfd_global *gpriv)
- 	int err;
- 
- 	/* Enable peripheral clock for register access */
--	err = clk_prepare_enable(gpriv->clkp);
-+	err = pm_runtime_resume_and_get(dev);
- 	if (err) {
--		dev_err(dev, "failed to enable peripheral clock: %pe\n",
-+		dev_err(dev, "pm_runtime_resume_and_get() failed: %pe\n",
- 			ERR_PTR(err));
- 		return err;
- 	}
-@@ -2071,7 +2072,7 @@ static int rcar_canfd_global_init(struct rcar_canfd_global *gpriv)
- 	if (err) {
- 		dev_err(dev,
- 			"failed to enable RAM clock, error %d\n", err);
--		goto fail_clk;
-+		goto fail_rpm;
- 	}
- 
- 	err = reset_control_reset(gpriv->rstc1);
-@@ -2129,8 +2130,8 @@ static int rcar_canfd_global_init(struct rcar_canfd_global *gpriv)
- 	reset_control_assert(gpriv->rstc1);
- fail_ram_clk:
- 	clk_disable_unprepare(gpriv->clk_ram);
--fail_clk:
--	clk_disable_unprepare(gpriv->clkp);
-+fail_rpm:
-+	pm_runtime_put(dev);
- 	return err;
- }
- 
-@@ -2148,7 +2149,7 @@ static void rcar_canfd_global_deinit(struct rcar_canfd_global *gpriv, bool full)
- 	reset_control_assert(gpriv->rstc2);
- 	reset_control_assert(gpriv->rstc1);
- 	clk_disable_unprepare(gpriv->clk_ram);
--	clk_disable_unprepare(gpriv->clkp);
-+	pm_runtime_put(&gpriv->pdev->dev);
- }
- 
- static int rcar_canfd_probe(struct platform_device *pdev)
-@@ -2319,6 +2320,10 @@ static int rcar_canfd_probe(struct platform_device *pdev)
- 		}
- 	}
- 
-+	err = devm_pm_runtime_enable(dev);
-+	if (err)
-+		goto fail_dev;
++static const struct rcar_canfd_hw_info rcar_gen5_hw_info = {
++	.nom_bittiming = &rcar_canfd_gen4_nom_bittiming_const,
++	.data_bittiming = &rcar_canfd_gen4_data_bittiming_const,
++	.tdc_const = &rcar_canfd_gen4_tdc_const,
++	.regs = &rcar_gen4_regs,
++	.sh = &rcar_gen4_shift_data,
++	.rnc_field_width = 16,
++	.max_aflpn = 127,
++	.max_cftml = 31,
++	.max_channels = 8,
++	.postdiv = 1,
++	.multi_channel_irqs = 1,
++	.ch_interface_mode = 1,
++	.shared_can_regs = 1,
++	.external_clk = 1,
++	.fcan_pclk = 0,
++	.fixed_canfd = 0,
++};
 +
- 	err = rcar_canfd_global_init(gpriv);
- 	if (err)
- 		goto fail_mode;
+ static const struct rcar_canfd_hw_info rzg2l_hw_info = {
+ 	.nom_bittiming = &rcar_canfd_gen3_nom_bittiming_const,
+ 	.data_bittiming = &rcar_canfd_gen3_data_bittiming_const,
+@@ -2437,6 +2456,7 @@ static const __maybe_unused struct of_device_id rcar_canfd_of_table[] = {
+ 	{ .compatible = "renesas,r9a09g077-canfd", .data = &r9a09g077_hw_info },
+ 	{ .compatible = "renesas,rcar-gen3-canfd", .data = &rcar_gen3_hw_info },
+ 	{ .compatible = "renesas,rcar-gen4-canfd", .data = &rcar_gen4_hw_info },
++	{ .compatible = "renesas,rcar-gen5-canfd", .data = &rcar_gen5_hw_info },
+ 	{ .compatible = "renesas,rzg2l-canfd", .data = &rzg2l_hw_info },
+ 	{ }
+ };
 -- 
 2.43.0
 
