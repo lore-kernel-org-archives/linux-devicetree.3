@@ -1,104 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.78
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795711919;
-	b=eZ6xMIEgfrzAin1vAJpMSt66ZGwLIm3lSXj1VJkEO6coWBLubPatKoNlfho06PVHqkZH
-	 LaWmkK13VJpp8iom5FPuTNpWNIYTCpyeLy4HF1zffHTyFKGAMJMN52XXmgDIyGg4qUpZp
-	 clQ4inPbKuvs3G+8S0ixeDc2XteZcJ1XiCFPSQUTaBoLcx9Sm2i5qRWmD/MsL8Zyi0BIE
-	 8GrrQNEw0NnMzw+U8L2ydG7Rb4FYu60mexTsHMnbm/Hm0B5f9QH8xNQFOsAh3z6LMv+IL
-	 TZzXGvq3e3ogxcRMkUPWb6P84ZxVaWuAul6fA8ZSD5wzIIrZn9Txry+oWSuzYaok4Xg==
+	t=1795711920;
+	b=3eSRqeOavCi1d3eJnKTD/Hsos43LUYwQCK05WM4SrPqYqundfRVNL/ZHeT7i/A/SjD9v
+	 tWC/l/xLkZvV53fnAYGXk7XaR/NQ+cB/uKqRqWB/tAqS7WgNHVqcSMMBQzAw8GS3IQWDc
+	 SbJ3wlXA9PYGtY/zktAJoh2uOqOfnqgmRja8TBIJLWUsMQSB2U+xKhOF0bJ8nIt00Yxpi
+	 OhIjqDsMPwDdj2yn4z5W5v5DVupM3CwYoV1cGOcVPMdNmMVJIPwmYt+XFS4nzwAhhXUuf
+	 JfYwHZFQ207zg+aVw+jiMS0YJJN+GSk4Ky2DXjUnFk2yLKbBohTCQrGIyPbdwcIflhA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795711919;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=GrQ7CcCxbHBOb1kmfS64tuCJXEF7/0dFGu+SdJ/GHFk=;
-	b=bId67XG6PlCgYwL6LccBiUVaf2P05xCZDUVogUvMCnvu2CPM+0qaH8V+HY8Ky8/5F0ml
-	 BfuLcItM23YaTw58wpmRwVbFJzzbS7MJOImm7frT+ihVOHgtI/yflCRLXWK8090Z0UrgS
-	 z6XxutjnU3LJNm/TLSrUDjIQu7VuAM+rxanFmCuBw2Uyt6O2Esr3QYcSMx/1H8LA1snfP
-	 qxwAQViJYgKiApbUwiA7basmDaJ5V922oi9CCDiSQpUbIvdlurxL4TieFrOi8uRJyCBXB
-	 SxH5MHtwkChwE9tYJEvqk7dJG9/hNj2xen0SmD+hIrD8OfjLF2Rg5Vkz9Z48q0BQ59Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795711920;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=IZI1G18EIyQNE1DDoE2KMGLxXsH8mObvQd17Sxs0cX0=;
+	b=OvcPuDm2CGxHQAsYFB9nRaFSS8Eh/bVcINu9ooSaL/eyqBbv0MJV8QOSGXNz5w+0Hw/x
+	 VP3tRrP0R+JHqwevb7ce6SOs44nRCKqGdzsBfxU3+AN6dmd6M+z0xU6DOPsa7O5iVH9sW
+	 IjzHjClp8T6rslixbY4TUfOvpu/dGam0wCtC0dMLBVodiGPxs66Pml1oy1/ZtgatY0OIq
+	 QgBRK+33JroD9Gl8d0GVOr/0Sqb1zG/80uK40ssGxPMj3WSRrzyTWbdqWkDATrNjw7nxQ
+	 00mJ0YcutXamMb74Rkd/46cDDdzTT6tDbXFzo2LFwNCfT5+z8YFj+eBtna5p1GJ+bFw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=valinux.co.jp;
-	spf=pass smtp.mailfrom=valinux.co.jp;
-	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=p1e3QahJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.78
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11021078.outbound.protection.outlook.com [52.101.125.78])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V0VjNnw3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C6C606A31E;
-	Thu, 26 Nov 2026 16:51:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88C6C606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A134606A327;
+	Thu, 26 Nov 2026 16:52:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=p1e3QahJ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nc7s8VwnMHSJZ8JA3xUJkcGR/sklme8BD5sklawJYQteR8K7iapXeZbKkEgSeAObv6GBVps1VrzMsTA5v+R8L37tVKYo/KSb/ysiusgBKx5hm1oFfuN9TQ09RLhxPAEpsL4loZtjx1BB/NLtEzUTyz+v5eSG3nSKNH6ucCjTpwkRtxHS6TnP/0dLuKw9By8VdtwdhWoY182Java3Z6JHBwElUz+n5QBuBWRHS4qtshSteNxFuWmk1BEOgur7x2EtPt9C/QK+jrT+hjPlTx5BecxzJk9abPAvUjXFRngy2Ja9ttNsugJrMJ/qv9xalaaW2pBJGAGuuwlpwjIltwHFhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GrQ7CcCxbHBOb1kmfS64tuCJXEF7/0dFGu+SdJ/GHFk=;
- b=j8ILMqhCyEoUXtMcBIQbhHCrujN1CifdxZrWSUmK1QPEWvsvWjxrNzN/eZPta4QuP+IqI33ul/DhNUUnhVizv9UiZPCzvVsEqCMuBnw1BpxQU4jQQ73WhDAWMQAGFhuAbrduycnVCC2jDauB/dmKhaENWWK54DpULBXQaeyi0wjZ7S3/8LyYjtX7j1NRvriurwGRs9RXPkc1IC7NOW6BYCECOWDFzmcFyPWOqwqzpZUXjSlE7aGu3FddY1nXQTTXvQAUoIq6Ddg1foBInORjoNS4AXzUNUqIDPdKR0pmJIyz663H07p+/kCvH66ayDTGCEWxhbrQQKSJgKY95z60mg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GrQ7CcCxbHBOb1kmfS64tuCJXEF7/0dFGu+SdJ/GHFk=;
- b=p1e3QahJYikThVY80vrPThH8b6SBxDPFlPkNd+JaYr0rNzjpqtKXMwl0eJ55Gk6iyZHZ+AWnIcrh27Germ3U0CPSo8k8geAFPX0TC73ra+M2txNA69C2ruSFJi1nWjWblCBsb19GWiwPhHlEW1ucCcTI62t9JLTz6Gu8ZVXg0nI=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
- by TYYP286MB4125.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:14d::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.7; Thu, 26 Nov
- 2026 16:51:54 +0000
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0662.004; Thu, 26 Nov 2026
- 16:51:54 +0000
-Date: Fri, 27 Nov 2026 01:51:53 +0900
-From: Koichiro Den <den@valinux.co.jp>
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, Shawn Lin <Shawn.lin@rock-chips.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>, 
-	Wilfred Mallawa <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>, linux-pci@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Manivannan Sadhasivam <mani@kernel.org>
-Subject: Re: [PATCH v5 17/17] arm64: dts: renesas: r8a779h0: Describe the
- PCIe AER interrupt
-Message-ID: <awhiSQ_A0V4K5fBW@z790sl>
-References: <20261020031049.969895-1-den@valinux.co.jp>
- <20261020031049.969895-18-den@valinux.co.jp>
- <CAMuHMdWk9pZdJ+eh0dNHrZSMVDe84_rsvmrD=pC1Fjy9wEyp1Q@mail.gmail.com>
- <awhXFPlyc3vnmjtC@z790sl>
- <0c3d98cb-6641-47a5-9f15-0cf315979069@app.fastmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0c3d98cb-6641-47a5-9f15-0cf315979069@app.fastmail.com>
-X-ClientProxiedBy: TY4P286CA0007.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:26d::16) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:325::11)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V0VjNnw3
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795711920;
+	b=imJYJJOd5rgMXAkKw+0RpHyZ0ChyzmMByvxEdqxKd6AYW8fNSj2Xpwf8sxLK56d9KuTk
+	 c5+dp4AqNe+DRtXWnavHzFLgwAiipwEP4RHZ4Vge44tFHAL5JiCBWxFGSxbW3cJEGRheR
+	 PnqxVMFQRfZmLwS3bQAffswj/q0KX5YxxqBFettwEBALG8/EUBzoOSO569PbapMF7UnxZ
+	 Yg6n+cYrFVhHkk8X0R5rLacev9nPPQwpeTBMOpdDL7EwOc4F6FKuup6s0A32k0IeuBgtR
+	 oR9g4Rjyc3jIOUhEjD6MH9B8/TejNbV/x7EOh4p9GYrWr6K9kqZVFzk6o5ysVi1pbuw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795711920;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=IZI1G18EIyQNE1DDoE2KMGLxXsH8mObvQd17Sxs0cX0=;
+	b=VSOL7LWRxy2t/wF7C32owMPLzVdzOlmD2MOzWY6r2ClvXCigj1u5byrgMX97rmo7pAys
+	 T03lxkV3O+xinP1NTRwmpswpZslNz2lfYRCYlEFW021pjVjPHG1Ub3VNyQBllOODi8HnJ
+	 1DvaY+riyo5HlhdC6kcALWWxVBvP7zvGXAfzHJpvq0+YP2ooof5kDyZx0zlkey2X+EJpL
+	 QRKs0XJsNCKmOf1GsUVNDqabVEh8JPy7bzHV5PiUHIQm81ZSKWOWUvHxW1U+xWjQB/2qg
+	 EzQUe6eQcpUuSVf4ZnbmLEEOlX5NPYp8H+9N+/4TYpUeuWirQMniBcFlr6hnEl0dWxQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id E4AD41F000D2;
+	Thu, 26 Nov 2026 16:51:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795711920;
+	bh=IZI1G18EIyQNE1DDoE2KMGLxXsH8mObvQd17Sxs0cX0=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=V0VjNnw3nu/kCF6Jwn2gAfDXJooY+aXXBzXzMXpcAZY4XQUCuFYZqAjOyL7eTBPtW
+	 VYvLI5FJMeSqW7S+8UcRKnUoKg9S+ZpwBP4g/1LhxOP2mwbNhesiDounNLHIQDqHrY
+	 tOgWKLVV8YPszd1+a6+lyA48qlfk01CBoEWalObWTxL00dK3TT4Rg2ZGudS80pI1FK
+	 1vdg5O55Apf9TQwp7qHK39jaL33e7Jzb9hnMHh6k2enK1HuPHSiT4J9VZRy2VQmWxy
+	 hgYD+V3blkla1W+V6CfGjdoY6I2b7UVuaFW44AY1FnA1FE0Pyv+RCvS6LKe3VuKxcc
+	 JaT+THfYHVZ5Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 442C84D725;
+	Thu, 26 Nov 2026 16:51:58 +0000 (UTC)
+From: Venkat Yadlapati via B4 Relay <devnull+venkat.yadlapati.yahoo.com@kernel.org>
+Subject: [PATCH v5 0/2] pinctrl: qcom: Add the Molokai TLMM
+Date: Thu, 26 Nov 2026 22:21:56 +0530
+Message-Id: <20261126-molokai-tlmm-v5-0-ada44435bdd3@yahoo.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,106 +83,109 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|TYYP286MB4125:EE_
-X-MS-Office365-Filtering-Correlation-Id: 89abb153-b39d-417e-3aae-08df4bdd936d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|10070799003|366016|1800799024|7416014|376014|4143699003|22082099003|261009223027099003|18002099003|56012099006|10067099003|261022105027099003|261026140227099003|261021121427099003|261021135927099003|261028144727099003|261102123227099003;
-X-Microsoft-Antispam-Message-Info:
-	s6GCfux5LkPNCq2bKDjVLX5iJQ5Igbi/52SG2SQdohphWdLFsGiEeTvKCDBCM6F6pdSTJHP8Fw1EoXRua/51XwXd+JmSgZOmyBFhrMkTIxKAw2y3gPZpiup/ESUP2HarIiLKrEbqZ5VgpqqQ29RZkJF/C47WIN5vQKMJF9Umvv+b+5D6wdv/pa50x7H1aw//DnjGlC7yOdw+osN2Xsk4BzEj1baOxgXgaCnolBJnEzvxmf05h/Mkym/0k10ojKjQvFD6HI1BQKrDtydXnxp7Ozi4T28Y6MgKmLjU2RmsoZfdSqhynwUH/d/+whGgPpRn9r90Kxufha/QjFoe8nG2HUIZVx0JRdgwQx4CpmnseRkqkCAPgpYN+rQ5s9QhxZ1U4FzXdQ8+FuQtt1SKVtqEyhqQ/pVLTJFJaNl/Is0W/YwH3GOZmu3DmTpcyf/MIJK4sZDAfzdv8fesM3jsXSflGcYFzZtglAq5IaBZwFELTpqJDcRoXyCEG25ELnq7J8gu216YwPw7nsdel4WmTpCd5W03FBrIOfzTeR989pDqyM547loCiiY7CG3iUT30Vjvpn/wME1LX3Q0ChwpBZCpuxgE+HoHFJpckygduS0nVBvn4D73OIGBs1sdPmtrBHwql
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(366016)(1800799024)(7416014)(376014)(4143699003)(22082099003)(261009223027099003)(18002099003)(56012099006)(10067099003)(261022105027099003)(261026140227099003)(261021121427099003)(261021135927099003)(261028144727099003)(261102123227099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?9e0a60UAmnH5rGm+v1a/Qd6/3ZC8zW/ctvo7MOF+Yl5PA+DaSN5NS1RtzUQx?=
- =?us-ascii?Q?3+E5lORt7FJ4E+H4wyQgYTZQs5ZJOzfnHnfbbUU1OvkSKs0fFSX4k5aYbjGF?=
- =?us-ascii?Q?eJcfzBICiiu5mvjHm4yKQzW9UBLarQ2LZdBLizHUgtNZFA39PNVqgpHSXGdm?=
- =?us-ascii?Q?VaulOOq2UwFNhSXOKcDT5Cj+eiqQrOO4FOfjwhOrjwERrdaySS7Owq4aGPwD?=
- =?us-ascii?Q?tQjKVzRuxoxLS2vDSI/rUs9d70uwOWiaMi3NFIzi6iPQwdG47O3qWa7zXs2M?=
- =?us-ascii?Q?AqC7e5ujxAP9QOVTj9DZhin8umOSrUQCdFoYWKG93yK+O5DqAzwyK4AfoE0r?=
- =?us-ascii?Q?kTGTJq2wnPxlUILnw86hlTuZD36hzw6VJ9uQwjrUjff2W/1JcEKRFo4+v7Nw?=
- =?us-ascii?Q?zg5+HicpIxN4nxUvAXGj59DXE3h5gAsiZq9EnW0L6KkIgw3EN4O/O/8l6Prm?=
- =?us-ascii?Q?4RIVWIDrhkcyHiWvCD+2phbfTY+DSNBsJES0PXVFrXVXbpr1b4eKEtig/Tjd?=
- =?us-ascii?Q?i63DqU4xnLtHAm3wpsoR+ul5Ylw9HCPhYHw95crvsjc5UpI8ngqLvlvSo1Tk?=
- =?us-ascii?Q?oqOCLbylqtg2ZHVXTEbCAvwrFBNgssS/FxiWUMjJGSU1RYQgHd40l6vYok0h?=
- =?us-ascii?Q?l2u+XT8m/QLMUvxmGM3yWBNMVXc3MlN43aDLkvfGs6xal8FvSBxexMez1seM?=
- =?us-ascii?Q?2FXwTbfxTe89+Hiu+69Gzjhjks65Et4fZzI8mCt5kfQ1MBTBSxEx5G2atRBx?=
- =?us-ascii?Q?3aTsCf3IJVKl/cOlHa9N79I6z0hcFs7Wv+aJ5agn8zI7aw35Ew1cDnShMlOF?=
- =?us-ascii?Q?wG2vPmgmMhWUR9NkD9cY2XG9WdrnATdG1/tiR3Bg9XDASTfU+3fDduCCM3nP?=
- =?us-ascii?Q?4Th+geKpeIhiG4qVPpsQh92FhTqTFve9ycKjvcdiUE6EZ8I0iypYbpPYdbzv?=
- =?us-ascii?Q?UtfHy6CYgNMi8QqxWU2G01/ujZr1lUeAdOxuvEwK8xv4Sqyu7RPXZVdU7oW3?=
- =?us-ascii?Q?TbJobPfoY43igtA+vtIy9dfj8GsVYa5RtRclmJUhMnV2YtCJjj7VCicMUzkj?=
- =?us-ascii?Q?CU1Xi/CmD5vZ4QLYqOjRgfRgNosf5w8O/h3JXTp2p35LIztbfV3tOxZIWLB6?=
- =?us-ascii?Q?h/5SMn+stq9vp4gXpVxmBkLyiT4qs6ebV4ZjKT6Xy+LnNhDgq0ljZGRKhMea?=
- =?us-ascii?Q?HVxksOzh6W/BGLWneNzwUkxuc8x8RoF58YR8IHAM1+hS/Z15L1btSZM9ZmY8?=
- =?us-ascii?Q?8jvb5PNrkdEwZ+rsnal69YUm7ojGAoCL8eDnJF0J9MRBEnrrigPuokdK7Sdw?=
- =?us-ascii?Q?ToaMT33KtynO5F/HY2vqf0t7BOGEua2GEyvKtGK+5dcZMjtOlcQZqef+B1DB?=
- =?us-ascii?Q?Jhtfk9jr8apePzCaF3gKSqZkd8vcSFejLJqjLrbWGw09vu2Umb5LJ+zxjeZh?=
- =?us-ascii?Q?UPvn8Rt9Kf34bzD9/55aRPMxkxFaYP9XpYj/j7P2+v/c435HTETCjKyROoZR?=
- =?us-ascii?Q?3x105FqSLIuVtPByIyjlyBAZSVGFkJ9qzXxSQEufKgOIqN0wgHfTpMBtu2bi?=
- =?us-ascii?Q?ZtfCFyC7eeCeOBuHOqVO3akJwrj7fgIRsMSBdGmBA8/u+4ZXMhkvWXM8+EVa?=
- =?us-ascii?Q?hdbmARvyfyuOyaV7oglY2ClXr93ZWvv+f1IJvn5/q5jIFQ7QRX8xRDhnwqc9?=
- =?us-ascii?Q?p5BDEF7wUb1pjkS2BBPNHjIMjJKWW5r8rmVgOL++Mf81vUZyR3bWyn1crW14?=
- =?us-ascii?Q?c/mDJqrzAgYrjeHdoifx46NHUdLqTkM79uTyh7orPfhbZrqXYFiJ?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 89abb153-b39d-417e-3aae-08df4bdd936d
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2026 16:51:54.4211
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NNmUqhLyxlIK9UZWwNrwX98gOuKvX2y2dNifE929qeA3zTYTQKDvQ9x09l9aVcV+4cKbgF1TdYiijVh5Z6ZVRg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYP286MB4125
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NTQ7CIBCG4asY1mJmgP7oynsYF0CnFrViSm00p
+ ncXdNPU6PJL5nnnyQJ1jgLbLJ6so8EF5y9xZMsFs42+HIi7Km4mQOSImPPWn/1JO96f25YbDUQ
+ Kc8pQskiuHdXu/s7t9p8dbuZItk+NdNG40Pvu8f43YLr7kR6QA5dGq1IBgLBm+9CN9yvrW5bSg
+ /iHRcRKrOvSllVJBudYTrCAGZYRU1ZbWZAsAL+wmmI5wyphqnIira0tYIrHcXwB9Go7n3EBAAA
+ =
+X-Change-ID: 20261116-molokai-tlmm-ba0ee416e513
+To: Bartosz Golaszewski <brgl@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795711916; l=3620;
+ i=venkat.yadlapati@yahoo.com; s=20261023; h=from:subject:message-id;
+ bh=yvh6oQ30SWrOi/tTSyISUv5yU+UrT1z3j4lkCL44K4s=;
+ b=TUnSqaGa5j4NPRi6MI79uQZ7pZdZMt243F7WrEDymEul+tILdlNAbxi1kI2uU7gjxEs8uJ5Hd
+ AXAX3ea10smDNpwNh4e4LS+TMmp7XgWzdu0R4Q4h2R38rWqKQuLx5Fk
+X-Developer-Key: i=venkat.yadlapati@yahoo.com; a=ed25519;
+ pk=e8KStCtEMvUP1Se/riB/KVnDAQFEVR2Dw2PcuA8/eME=
+X-Endpoint-Received: by B4 Relay for venkat.yadlapati@yahoo.com/20261023
+ with auth_id=1303
+X-Original-From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+Reply-To: venkat.yadlapati@yahoo.com
 
-On Thu, Nov 26, 2026 at 05:37:08PM +0100, Geert Uytterhoeven wrote:
-> Hi Den-san,
-> 
-> On Thu, Nov 26, 2026, at 17:24, Koichiro Den wrote:
-> > On Thu, Nov 26, 2026 at 02:10:32PM +0100, Geert Uytterhoeven wrote:
-> >> On Tue, 20 Oct 2026 at 05:11, Koichiro Den <den@valinux.co.jp> wrote:
-> >> > The PCIe controller reports Root Port AER notifications through SPI 454,
-> >> > separately from the integrated MSI receiver interrupt. Describe this
-> >> > interrupt with the "aer" name so the controller driver can use it for
-> >> > Root Port error reporting.
-> >> >
-> >> > Append the new interrupt to preserve the existing interrupt indices.
-> >> >
-> >> > Suggested-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> >> > Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> >> > Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> >> 
-> >> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> >> i.e. will queue in renesas-devel for v7.5.
-> >
-> > Thanks, Geert. TBH I'm worried that the rest of the series might possibly not
-> > get picked up, in which case dtbs_check will keep warning indefinitely.
-> >
-> > Mani, mind if I ask whether the series still in your review queue (it looks so
-> > on patchwork [1]), or whether there's no hope of it landing for some reason?
-> >
-> > [1] https://patchwork.kernel.org/project/linux-pci/list/?series=1189393
-> 
-> Oops, I incorrectly assumed your DT bindings patch had been applied,
-> as my grep for "aer" matched Marek's addition of "aer" for R-Car Gen5
-> in commit 2fcb7513361b4493 ("dt-bindings: PCI: rcar-gen4-pci-host:
-> Replace sft_ce IRQ with AER IRQ on R-Car Gen5")...
+Molokai (SM8845) is a Qualcomm SoC derived from Kaanapali (SM8850), found
+for example in the Motorola Signature. Its TLMM has the Kaanapali register
+layout, but 205 GPIOs instead of 217, the Kaanapali pin functions on only
+29 pins and a GPIO to PDC wakeup map with no entry in common. With the
+Kaanapali tables a wake-capable GPIO interrupt is routed to the wrong PDC
+input and never fires, so this adds a binding and a driver of its own.
 
-Ah, that explains it :) Thanks!
+The SoC and board devicetree that use it are sent separately in "Add
+support for the Qualcomm Molokai (SM8845) and the Motorola Signature".
 
-Koichiro
+Tested on the Motorola Signature: the UFS reset, the keys and the GPIO
+interrupts that go through the PDC (touchscreen, amplifiers) work.
 
-> 
-> Gr{oetje,eeting}s,
-> 
->                                                 Geert
-> 
-> --
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-> 
-> In personal conversations with technical people, I call myself a hacker. But
-> when I'm talking to journalists I just say "programmer" or something like that.
->                                                             -- Linus Torvalds
+I used an LLM (Claude) to help write these patches and their commit
+messages. I reviewed all of them and tested the result on the device.
+
+---
+Changes in v5:
+- Binding commit message: Molokai does have SDC2, muxed on GPIOs; it
+  only lacks the dedicated SDC2 pads of Kaanapali (Bartosz).
+- Driver: add gp_mn on GPIO127 (Bartosz, Konrad).
+- Driver: add the gp_pdm_mira, gp_pdm_mirb, rffe and grfc functions, and
+  qup2_se5_l6, qup1_se5_l2_mirb and qup1_se5_l3_mirb for the second QUP
+  mux setting of GPIO17, GPIO202 and GPIO203 (Konrad). The three RFFE
+  buses share one rffe function, as Konrad suggested. The gp_mn,
+  gp_pdm, rffe and grfc muxes are not in the downstream tables, they
+  come from Konrad's review.
+- Binding: add the new functions to the function enum. Krzysztof's
+  Reviewed-by is kept, as the schema only gains enum entries.
+- Driver: drop the comment above the pin group table (Konrad).
+- Driver commit message and cover: 29 pins (not 35) now have the
+  Kaanapali functions, as GPIO138-143 gained rffe and grfc.
+- Link to v4: https://patch.msgid.link/20261123-molokai-tlmm-v4-0-eed6eeaacc70@yahoo.com
+
+Changes in v4:
+- Rebase on next-20261120 instead of the pinctrl for-next branch, no
+  code change (Bartosz).
+- Driver commit message: say that 35 pins share the Kaanapali functions
+  instead of "different on every pin" (Bartosz).
+- Link to v3: https://patch.msgid.link/20261120-molokai-tlmm-v3-0-e5fc37e37011@yahoo.com
+
+Changes in v3:
+- Drop the Assisted-by trailers and the LLM notes from the commit
+  messages, the LLM use is stated in this cover letter (Krzysztof).
+- Rewrap the GPIO to PDC wakeup map so that no entry is split across
+  lines, no change in content.
+- Pick up the Reviewed-by of Krzysztof.
+- Link to v2: https://patch.msgid.link/20261116-molokai-tlmm-v2-0-429f8c8d8eb1@yahoo.com
+
+Changes in v2:
+- Binding: indent the example state node consistently.
+- Driver: mark egpio as a GPIO function (MSM_GPIO_PIN_FUNCTION) so GPIO
+  requests on pins muxed to egpio are not rejected.
+- Kept the default 3-bit interrupt target field: on Molokai INTR_CFG[11]
+  reads 0 out of reset and the target resets to 0x7.
+- Link to v1: https://patch.msgid.link/20261116-molokai-tlmm-v1-0-3ba4840002cb@yahoo.com
+
+---
+Venkat Yadlapati (2):
+      dt-bindings: pinctrl: qcom: Add Molokai TLMM
+      pinctrl: qcom: Add Molokai TLMM driver
+
+ .../bindings/pinctrl/qcom,molokai-tlmm.yaml        |  129 ++
+ drivers/pinctrl/qcom/Kconfig.msm                   |   10 +
+ drivers/pinctrl/qcom/Makefile                      |    1 +
+ drivers/pinctrl/qcom/pinctrl-molokai.c             | 1727 ++++++++++++++++++++
+ 4 files changed, 1867 insertions(+)
+---
+base-commit: 909ef7a9a30fa139e69e555e3606680f5cca7726
+change-id: 20261116-molokai-tlmm-ba0ee416e513
+
+Best regards,
+--  
+Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+
+
