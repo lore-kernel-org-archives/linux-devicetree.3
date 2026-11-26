@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795721580;
-	b=sMrsAgZJEAP2Jnj8eALb6UtWw4YfMP6oxEw6jqL3+ck1CJd6FTeZ2qksTY2A5x9B0AYF
-	 BkVBULqx7y1FFqhfoFIbkFBfiFiSnpofupOeY9NMwz4I2gHWT+cRRDVA37K5sItEKai89
-	 25LzzYFn97OgHbf4sxFm8ervJmrm3Qm7dJrdWvetqoWKDwHOvs1rbXZGobx8R/BvvDbZ8
-	 JRVJYaf+wetekdK1YxPCaL85KDNBxQto2Mjxd56/IR+P6fU9G+PtoGJAnRy3oHKeCggNj
-	 3QieS5gg/RFNTLBYbpTa/Cte3Io+VcD6q6Ggb5OIdefKltu8TDbfWF9xvbvvBXcY4Pg==
+	t=1795721583;
+	b=HbukJszUctSwoAY5wAjauuOyTj/3XvqX+qiULrkCOjZNZIHvJMRDOS09BabRS8F6z5uR
+	 6+Vr0pqUEdHNf1AUBeMnO15D277kv+FampgBbm9PH4NcBlY3NWDtMtdn1YJGvZXfZUq9A
+	 ggi/fDktWW01LIWcGvWBgSD/YY01DLAMmTLzSTxLq9VeQdTcTDVhvyzMHzoAFub+GrpEc
+	 LzttzupkOW3VKHRr6AbjIJGv5knO31KeX7uk3psj72kQ/MSJexpPFwLJBk84sSMt/v5b4
+	 5kPtCz8STYkZ31XGhFKKZgX/u21YeJrXiXLXd6AK9TPf8/EUBi7dOgN0DYOF3iF1Ujg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795721580;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795721583;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=OuaUxwS6JtTJWMd+hXXNq/iTmPJxIas+/RtLlIzqUXM=;
-	b=ZB6/3nsFBv1KdJNLos2upjITJDGBvo7s4KTtwXbigJIJfjdGl5oNmekHM5uJGU5OPzvj
-	 8NpPi1dGz+r8YnHVZIyvSroYVCLsgMVdaEcTd3CY/z4Ctwup8oaIWzcnv0lruei7uqlrd
-	 ACt2Ux4kS65uk5JANYcUU0StyWhr/JVZdqO7Mq6EdB8C1abGzZ1fiG3keuef5N4WWkDAQ
-	 kQv3uurV1j5brLNk+/2GuHzcgl2+VYHuGWGviJq3bOUeCnrBh7f/9lV1Be/CezXJZSPjj
-	 xedqU843UoNDRX+1ZNg5xHuwiCYZAWVRVWxmoZX+Otf7UmdX50EcJgx3BU31ydnK8eA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=yslwO1t9MXGHf6kGSQvi8Jsla7lrMGXHDb1MA6K0JGE=;
+	b=ki6gy0NJZdZZXe9OZTJHzFVwQq2UdZSYR+KV/IPcx75D7dZPkI0F3VD3ur3rbheb2M9J
+	 HeNtq5lrMEdtQ/zLdd9FNMpVGCK7iOxvvyeVq9Rsl18vumUCxMZ04mzv/ZkaniMpCsRqm
+	 z/+WdRjNWB/5T5xw98w8twJq/G8PVkaW+XOHJ2yRz4vNPLcoTsWD+x8BvJ8X86B4B/WIF
+	 ajx/uUY/sCU9mwIqZ8j5T0BoDbzORtssq3YGULex3NKGVnuvF3fTvTQPFnaI9tjhS1e/h
+	 mXWYuLoYZanTU1SoDCCKYFhJdufcV8aa5Ay8CRYiEeqDN4Fgs47dm73N687kdZCGqSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BHAw41k1;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ivuX4+nj;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46842606A321
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 19:33:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46842606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5379606A31C
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 19:33:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5379606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BHAw41k1
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49d05d51553so52364475e9.2
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 11:33:00 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ivuX4+nj
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48dee593f18so6885257f8f.3
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 11:33:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795721578; x=1796326378; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OuaUxwS6JtTJWMd+hXXNq/iTmPJxIas+/RtLlIzqUXM=;
-        b=BHAw41k1O5L/8d1yA4euhH7KmKjak06vXEdW1+yNf8OaJW2NTGuviUxpzbpkqseAmC
-         1MM9Lt2VLfKa4FhI5X0Ba4nsRTvcjsHp/pPO8zoVTzpfk/EJ0plxaEaCQrECkDR+F4+V
-         Vm/cekink0updJA5rRWMkDC07iLiMDwagbhijxuzCZ4gAcF6xGD2AGltl+id5Mh/RbQV
-         QV2kjXgbjIZ2upC0e+gdDgK5jaAEBIrfGwu0crmZucAs2rmubtJ62clU4J2XzodGjNGJ
-         zUpodQeHb6R8BP3PuJ8jgcZEUUVdju9ijzzUS8cAJBn8i3sGNTDk8eyit66OT2bwj0Z9
-         3ZOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795721578; x=1796326378;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1795721581; x=1796326381; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OuaUxwS6JtTJWMd+hXXNq/iTmPJxIas+/RtLlIzqUXM=;
-        b=vsaciS+YoHcXBCG1QGN1AuJX2osFZMa9K8WVKUV87W70EMMdVptc48s185ZQd69Emz
-         31lx63krbEuklsiEOXOx8qW136zNWAJOwZbRfno85U9I1YeW/5yYiG/M68CsLiRyI2ac
-         UXERxwNugjsqiVsaYClxXOLtqO+Wuj1HNl1nVMl+A61eEeyMZGoqANZywHF9rJKKopWg
-         eqq6ojpz74ymzAi591uIBD1J8ais8mCP9JcXU+YCsl9DdTLq3UgeM4l1NQlv8Z0oF2jW
-         snphnI1sS5OqE4WhF96HCJSIT5rQbTBqShyXBd09pouqx4fwVyyuRNb3Ftvck3tCmdQ1
-         wcQw==
-X-Forwarded-Encrypted: i=1; AL+hErEmMilPqRS13aDDeb4uQtqkj9bUsj00/8mKBEtO3tdaru8+9abkoslvmu4mKc5iQXop6Uqrgw+1K0CV@vger.kernel.org
-X-Gm-Message-State: APuU4Z9NIt67LZ0AMesorTlcFjCimCNG9+eo6QyOw2h9ZJdY7f86KTz7
-	58UeXheah4D6sABrC5Rmk/7pSobqKOcDzghrCi15NfxeZAMG90zWLL9x
-X-Gm-Gg: AZFdTZdHIySVyYwMe66df0ID+LQ41ndi6/UO4ETcB7tFxzA+EcnLrYXw8aPp/I9zg+y
-	w2RJjJkY53T3kEz7mcMpwxn60fOGr49MZsxFr0bZSpHAP2a5Q4gX0U5Q8Tp4Nm41qY6LhGnbd2b
-	Jn3IvGUuUOfZE46mKS0ArjW98o0xqehuINO3OQLpo36KPdChsuk9D6wuq347XlaaSwUH9/Pb8Wq
-	ZBpNOq+wMChocEtEIfk1V9pNmaIrGlq+K3FxGnqi0RrTmRA5AJeKD04Icqxi/yGF0sR75uUxE3D
-	dqTGmZN8LTpl5Q9Hlx8NBsa6AAYE77BGey74VcTYjxYOf4QWGHgx2/5SJ6YWclaFjb4zIJEErcU
-	FE3e2V+6IV1z3jZftOmiC79MrvV0giX5jObW/RS94T4bg+s/pjFRCNdMDDOXljAj3yo9WMN1pBL
-	Jpa9pmShmFpQaXGIij3CKlRpVf3X9LZC7/5/dYikQhhJ5kirgpYCVr5Nxjced+mRHSB690mo6sf
-	WGzdLZcIdfzf0Jw4AqiDpg0dDn3Ll+UEkXqEcx1wFQc0cZ9vfQcWOhMs+RLjEoYCLbGC4wVLzTa
-	JQkF/F0Xe0WDQmIa6QXHR52ngVMvVRWQaBjpXK9iDg52Ew==
-X-Received: by 2002:a05:600c:a0d:b0:4a1:825a:56fd with SMTP id 5b1f17b1804b1-4bb88826c1fmr424233425e9.32.1795721578321;
-        Thu, 26 Nov 2026 11:32:58 -0800 (PST)
+        bh=yslwO1t9MXGHf6kGSQvi8Jsla7lrMGXHDb1MA6K0JGE=;
+        b=ivuX4+njXIxjCdyHHok0kE5C6lUcPxDZnGAGn9pOqGeTr1zY7qMFnWX5i9SYgpGl68
+         aSVPQzef+IMteddK4OCPOQPbeN1Tp4FirzNZUJ1eUl8ljCLUgomkmTwjErY8uRmpQxsW
+         5xzYY/q0tOnzqqhQUCfzAipDCtfTvyJa+NnnjvG5+vpvKRFwSMNnLGeJ1KReM9QbtNKI
+         FYmSt3nhucgwEf+x1A7uICj0fzSLpJC+r0PA3l5aSlZq37HNPl49/bYnblph/drowf7x
+         zihecJ8gZlpPoiHYkHS3MTPJL+kzDqCD5Gx9yJYerRk67ukjmaPlfgg2LOL+4QbI3MBL
+         lFIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795721581; x=1796326381;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yslwO1t9MXGHf6kGSQvi8Jsla7lrMGXHDb1MA6K0JGE=;
+        b=1glQfeVW0gLD95TP8cTqUqM1fwBVmcg3HzNWjxTpatf7XekS51VlI11VCnsPfZttjC
+         nmfPBL2rEZwFZJKR+Yt1YR/Sm+uHzVdqEBPcuz+5j65APQAhc3nHFMymd7A8Qgd2Znle
+         7N+PMMRblFD9mVpBQT1WtqmaLEBKMx/jI4BW4PsqfIXTdpCj/WvGYJ3vAdUKlVtt+35E
+         qaBBWEDHcMJydzoOXt47C+Eo/WlaTh5EW8FsATWKVK8D3xlmsiuJ/NE2nvVjvB662dxI
+         tSozhHQY638X1GtBxwe4Yi7LhSWinpYpv79/HyMMJrmfkYl/hZJnB2vdYrMfRfgZvuq/
+         SVCA==
+X-Forwarded-Encrypted: i=1; AL+hErG8izQvG5Kqr3SkJy44v6HNX/0AgsIGdVVecJ4WdfE7NvQTEPzHDrONji3HiSy1ndhuCIukGjyFca4+@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Vf7NrE+z/ZTUIj1FKOCNRNr50b+ITFs3zJSU6SA4sNj0fJck6
+	nZT2bVGiHxDthsSFMNKVHDE+TGIgcDjq7onvl3l7atICHRb2R4ASJqXy
+X-Gm-Gg: AZFdTZckL+B98BItSFbVGh/ZGt8guiLJt+4fqoVGagFl18P/Xrd9l0Rvdvc3vllTolx
+	Mkq4FUlS/pqn+gsRAI/KOs98juz8I1hTw6W96zz0RukLf9StIo+1oJX489T2szrwqpTZB/lB0jm
+	4fFr4SvluhQFiNEH8tmZ19wSwWr78++ut9CzUPpSuhaWJh3hh1OqFLqo2r9TbYSeGM6tkzOfGTe
+	IKVHnfR7k+KpTPvKHqwfo2+dxlLVXY3dWRh/mj5CFyG9hRCy0atiLNL4o7hy7+/S34jx34x9pqL
+	qttsrIjER0x8OaosDLNGUGcjCKbxMqQSMrOixEuro5N7K7NsEtPqFl2FCUjScEAne/xvkY9sAIv
+	xZv+4NWKW3QD4+V7vwOjwYx+vawLtgzVJ4/02ruXbjyL/7M7KXd614zH8dzRj0O4vxvrmcWUdts
+	KKmvdpBeqEAPA/U0deFXISqL5wkyfbcQ+Ya8XSBBW05szkJ2OEzOxmPGzgfEAAsqJ+RFYORVHMG
+	vlBd+sz661Q54ZCSo9XabPpg19E+8THHOqiOFZvCE1timf1OLuZO86adCMDn7eTMg0eLTpWxQNb
+	uCDfqSjpvoHfxkqDoA8lFFhtzmwo8uCujZ6rql0H01YYsw==
+X-Received: by 2002:a05:600c:64c9:b0:4bb:8701:bb14 with SMTP id 5b1f17b1804b1-4bb88804d1cmr475541865e9.5.1795721580895;
+        Thu, 26 Nov 2026 11:33:00 -0800 (PST)
 Received: from localhost.localdomain ([79.117.198.103])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb906cdcc1sm368287675e9.2.2026.11.26.11.32.55
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb906cdcc1sm368287675e9.2.2026.11.26.11.32.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 11:32:56 -0800 (PST)
+        Thu, 26 Nov 2026 11:33:00 -0800 (PST)
 From: Jose Nieto <jnieto.alaber@gmail.com>
 To: Corentin Labbe <clabbe@baylibre.com>,
 	Herbert Xu <herbert@gondor.apana.org.au>
@@ -89,11 +90,13 @@ Cc: linux-crypto@vger.kernel.org,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jose Nieto <jnieto.alaber@gmail.com>
-Subject: [PATCH v13 00/25] crypto: amlogic: add support for G12/AXG/A1/S4 and misc fixes
-Date: Thu, 26 Nov 2026 20:32:16 +0100
-Message-ID: <20261126193241.1471372-1-jnieto.alaber@gmail.com>
+	Alexey Romanov <romanov.alexey2000@gmail.com>
+Subject: [PATCH v13 01/25] dt-bindings: crypto: amlogic,gxl-crypto: correct clk and interrupt lines
+Date: Thu, 26 Nov 2026 20:32:17 +0100
+Message-ID: <20261126193241.1471372-2-jnieto.alaber@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261126193241.1471372-1-jnieto.alaber@gmail.com>
+References: <20261126193241.1471372-1-jnieto.alaber@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,87 +108,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is v13 of the Amlogic crypto driver series originally posted by
-Alexey Romanov.  It rebases the series onto linux-next (next-20261123) and
-adds the fixes required for the current tree.
+From: Alexey Romanov <romanov.alexey2000@gmail.com>
 
-The series keeps Alexey's original implementation and commit split:
-platform data, IRQ handling, MMIO helpers, multi-descriptor processing,
-G12/AXG/A1 support, hasher, and the per-SoC DT bindings/DTS.  While
-rebasing, the fixes that landed in the driver since v12 are preserved
-(IRQ handler return value and fallthrough, devm clock management, DMA SG
-unmap on the cipher error path, probe cleanup and devm_kmalloc_obj
-conversion).
+GXL and newer SoC's uses the DMA engine (not blkmv) for crypto HW.
+Crypto HW doesn't actually use the blkmv clk. At RTL level, crypto
+engine is hard-wired to a clk81 (CLKID_CLK81). Drop clock-names
+field from schema: name "blkmv" is invalid and "clk81" is confusing
+and sounds like something global.
 
-On top of the rebased series, three patches add what is needed for the
-current code:
+Also, GXL crypto IP isn't connected to the second interrupt line.
+This binding is useless, there are no users of this line.
+We must remove it from dt-bindings.
 
-  - drop CRYPTO_ALG_ALLOCATES_MEMORY so dm-crypt can select the hardware
-    engine instead of silently falling back to software;
-  - add the ahash ->digest one-shot path and fix trailing-block handling
-    for digest requests;
-  - minor cleanup (unused fields/includes, stale kernel-doc).
+Fixes: 7f7d115dfb51 ("dt-bindings: crypto: Add DT bindings documentation for amlogic-crypto")
+Signed-off-by: Alexey Romanov <romanov.alexey2000@gmail.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+---
+ .../devicetree/bindings/crypto/amlogic,gxl-crypto.yaml | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
-Testing on Khadas VIM3 (A311D / G12B), booted with a linux-next kernel
-built from this series:
-  - the crypto self-tests (known-answer tests) pass for ecb/cbc(aes) and
-    sha1/224/256;
-  - dm-crypt with aes-cbc-plain runs on top of cbc-aes-gxl and the driver's
-    request counter accounts for the I/O.
-
-Attribution is preserved: the original 22 patches keep Alexey Romanov as
-author and carry his Signed-off-by; the three additional patches are
-authored by me.
-
-Thanks,
-Jose
-
-Alexey Romanov (22):
-  dt-bindings: crypto: amlogic,gxl-crypto: correct clk and interrupt
-    lines
-  dt-bindings: crypto: amlogic,gxl-crypto: support new SoC's
-  crypto: amlogic - Don't hardcode IRQ count
-  crypto: amlogic - Add platform data
-  crypto: amlogic - Remove clock input
-  crypto: amlogic - Add MMIO helpers
-  crypto: amlogic - Move get_engine_number()
-  crypto: amlogic - Drop status field from meson_flow
-  crypto: amlogic - Move algs definition and cipher API to cipher.c
-  crypto: amlogic - Cleanup defines
-  crypto: amlogic - Process more than MAXDESCS descriptors
-  crypto: amlogic - Avoid kzalloc in engine thread
-  crypto: amlogic - Introduce hasher
-  crypto: amlogic - Use fallback for 192-bit keys
-  crypto: amlogic - Add support for G12-series
-  crypto: amlogic - Add support for AXG-series
-  crypto: amlogic - Add support for A1-series
-  arm64: dts: amlogic: gxl: correct crypto node definition
-  arm64: dts: amlogic: a1: add crypto node
-  arm64: dts: amlogic: s4: add crypto node
-  arm64: dts: amlogic: g12: add crypto node
-  arm64: dts: amlogic: axg: add crypto node
-
-Jose Nieto (3):
-  crypto: amlogic: g12: drop CRYPTO_ALG_ALLOCATES_MEMORY
-  crypto: amlogic: hasher: add one-shot digest path
-  crypto: amlogic: drop unused field and stale includes
-
- .../bindings/crypto/amlogic,gxl-crypto.yaml   |  32 +-
- arch/arm64/boot/dts/amlogic/meson-a1.dtsi     |  14 +
- arch/arm64/boot/dts/amlogic/meson-axg.dtsi    |   7 +
- .../boot/dts/amlogic/meson-g12-common.dtsi    |   7 +
- arch/arm64/boot/dts/amlogic/meson-gxl.dtsi    |   6 +-
- arch/arm64/boot/dts/amlogic/meson-s4.dtsi     |  13 +
- drivers/crypto/amlogic/Makefile               |   2 +-
- drivers/crypto/amlogic/amlogic-gxl-cipher.c   | 605 ++++++++++++------
- drivers/crypto/amlogic/amlogic-gxl-core.c     | 281 ++++----
- drivers/crypto/amlogic/amlogic-gxl-hasher.c   | 510 +++++++++++++++
- drivers/crypto/amlogic/amlogic-gxl.h          | 120 +++-
- 11 files changed, 1219 insertions(+), 378 deletions(-)
- create mode 100644 drivers/crypto/amlogic/amlogic-gxl-hasher.c
-
-
-base-commit: 3191063649dbf7c0d0b768e1f3655e4c5fc6edb5
+diff --git a/Documentation/devicetree/bindings/crypto/amlogic,gxl-crypto.yaml b/Documentation/devicetree/bindings/crypto/amlogic,gxl-crypto.yaml
+index 948e11ebe4ee..fdc39797a2a9 100644
+--- a/Documentation/devicetree/bindings/crypto/amlogic,gxl-crypto.yaml
++++ b/Documentation/devicetree/bindings/crypto/amlogic,gxl-crypto.yaml
+@@ -20,20 +20,15 @@ properties:
+   interrupts:
+     items:
+       - description: Interrupt for flow 0
+-      - description: Interrupt for flow 1
+ 
+   clocks:
+     maxItems: 1
+ 
+-  clock-names:
+-    const: blkmv
+-
+ required:
+   - compatible
+   - reg
+   - interrupts
+   - clocks
+-  - clock-names
+ 
+ additionalProperties: false
+ 
+@@ -46,7 +41,6 @@ examples:
+     crypto: crypto-engine@c883e000 {
+         compatible = "amlogic,gxl-crypto";
+         reg = <0xc883e000 0x36>;
+-        interrupts = <GIC_SPI 188 IRQ_TYPE_EDGE_RISING>, <GIC_SPI 189 IRQ_TYPE_EDGE_RISING>;
+-        clocks = <&clkc CLKID_BLKMV>;
+-        clock-names = "blkmv";
++        interrupts = <GIC_SPI 188 IRQ_TYPE_EDGE_RISING>;
++        clocks = <&clkc CLKID_CLK81>;
+     };
 -- 
 2.47.3
 
