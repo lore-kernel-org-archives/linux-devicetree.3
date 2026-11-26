@@ -1,61 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795724247;
-	b=l+DrEJlipqP4HnC8KGOj7o2u2ePKXeT+YgubrmtAZetHHQ5ebSIaGfPJ+pQ9Pr/45xbD
-	 qS8JzLy0pBP9BMQ9OTKeso2QqHRD+axkumqlzQo8WYnz6t81zQkkmvjUZpDgd6V2kAs4F
-	 LX0GXwMsjokg9NlBBOPOawj96gKfexu1dppFhKEAumtoDV3TXy8syOGkVy1scKFCg7FIC
-	 hH2G695mPV96a+oQkzUB0uSmkU7kwQS5SWUInHHE/lKAhW0aBFn2cW5BFobf19UC5TAWF
-	 zbTl4J6kiZesYOqeYvb/V1QjxeaPEIdHHvvXNvKqsvLMJhcAPNULmgW3J5HRhaEqbTA==
+	t=1795724431;
+	b=tOmPoqo5bHlHwkNYhyJZZzP4Dg2KZCIy2k5vW1ECHmA3CIU5G1/SA5fQazAhzn1pQv9I
+	 KfI4UWH+KLK+/5umbIV2XQOeKvcG9ovdeFKEUxFFvgOPq6IxexIONv95dwqOsc7qn0vVp
+	 Qm7lK5VgvVFCIqaewXk/goVRH7bVsLNsSivKJOk/rXFS+V0tr0lRhjc6i1iWLSB7roCWF
+	 3/ZQ+R6YHmx9UxeOwbrtzUC30dD2K+sA5Zy6jjTFABSxZ2Sm/NA615ZPcm3e3xB0LEb+s
+	 cLhI6UcovCQd2+mSHC2CROOa2+EWW7Q0WTr2Zxe9cVm0dJEsFAH1YuB7Tg66UW3Hx5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795724247;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=OrAN9c3tynY/DpBuJ7vG5TphyhARolPWNJXd2naUKI8=;
-	b=OfFe9vK4VrFilRlHS7FLNhVw0fsfgF4b8DOsnjvXlBugf5LLr4XpAeTcizbbxjkTr9WJ
-	 USH8z///QjXqyHBBUsde+CY69WZKTwD0IAXKxK9XTaa8EZDeVMTj/F5JVtOT3oQGswm5F
-	 4xONc+ERzcxX9yu5w2BfyNS9cQa7Ak3Vo7YM04pXctu9xFB5mSu9YkJvmt+YTinb9v7cw
-	 YIJy7b/Eh/2vTUd30rHkAKqpBwJ/i4TNtCE6c56//jNduycR3FqnuDukasQpJexF5HFvA
-	 6awqKGwmyIaeUpcagkkyObEcb6BDW6835DsWnrn+Lz1v+DF8clsrmaHeNuO6Rd/9H2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795724431;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=7CCrVyrTBdPbSe+1if8Pi4d/84Yf1ZbiqX0NUSqRqbc=;
+	b=pRBLfRK/SeQoR5UPKo3cN1emKtZRoN5KsrFF8UM9d7+NWXG9TvUm6dUaHEiyMX0uBAVP
+	 8a5pYvpmtHEM+VE0j8A0DSuVMY8ei7ooo5NP7xRneI8sVw9Jwa9ndp1fq0tVwYw0jGbGH
+	 DfKYvreAzpb5dMl8RHRRtBD7fhONCN71WgnXOKXDQxa7eCsqoDM1o5qijA4F9WLixQg86
+	 PAz4TzWnFRJAfLV2FcLbrDdIbzE7owk2DJ9ajNUYJxl8VFkHGqIrn18r08L94eZw5Nlqx
+	 I4T/loxzprXOZM13+KsFfUcmqv7Gyks24Hk4tpX/xiWmmcy8dYEIS3TttYBdDdaX1HA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Wpk/g2h4";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=qSOzqmLQ;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7678C606A31C;
-	Thu, 26 Nov 2026 20:17:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C49C606A31C;
+	Thu, 26 Nov 2026 20:20:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C49C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wpk/g2h4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 483461F00896;
-	Thu, 26 Nov 2026 20:17:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795724246;
-	bh=OrAN9c3tynY/DpBuJ7vG5TphyhARolPWNJXd2naUKI8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Wpk/g2h4Spij0ntaXkGy+6B6FhE4nWLv1vbJr7qStLGWSUJkrQqqxJPQDITUqNtsw
-	 7F5PxaE1zo3M+4C5RUnED7/5eZV0ZvzEJ+VIPXRkSX008mBIbrPliHgPT1gC2HS0Yc
-	 /+MXTQaiUZzslkL/khjo58qJkl0Mkkmx4Yr40nJjLoYyNIaUXcczwEW2fNlxzf1z/a
-	 R+/Neq5gTnUusAGwX78cx4UjOZ4zcM0W827iokfM45t0e9Cegi7UeJwgu2fTGLPKaL
-	 1lWGtkF+OMbQEjU+ImGgzdfn8ljZaIz7A4fxzvWiJr025iwi7mtf5/viNDd98wD6pQ
-	 sTn6uWWw95XwA==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Srinivas Kandagatla <srini@kernel.org>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261125171831.1458954-1-srinivas.kandagatla@oss.qualcomm.com>
-References: <20261125171831.1458954-1-srinivas.kandagatla@oss.qualcomm.com>
-Subject: Re: [PATCH 0/2] ASoC: Glymur LPASS macro codec support
-Message-Id: <179571303906.142532.12603531757351486618.b4-ty@b4>
-Date: Thu, 26 Nov 2026 17:10:39 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=qSOzqmLQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795724428;
+	bh=pUN2TxTtZtOVhddUkx6PB3N78CQVfEnriFZuNg5Tvgk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=qSOzqmLQEkX+WmrOPd53ng4Ub+f3WGThnGgKuLjCGaW25geqXy7wFsN4FAoD2V6V+
+	 G5135TPN/vMUQg07ob8ICMRGsXkKtPnhoNQqZwD5Fs2yZnXUwxWyLXoAmQQ/deolyN
+	 dgAvUV1LAQ899xivuB4Txz9UumTJQECIAusvR9raaAe8hLxfOnFk9OM5wUn0umBuFd
+	 Bl0TGgC4t23igBCkDDEN7lWTyb05AfGEvQH0MQuEtNqlLipxq+V/Ph8Yer1a0QcCSA
+	 IVLSFNwOuVnFv0mwHxw11o9Fnr28wW6V+ywmW9VqMgerhDB/njmIcc6XDjfuqMomyl
+	 B7OIaLOGRW9Tw==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 6A5A817E00E8;
+	Thu, 26 Nov 2026 21:20:26 +0100 (CET)
+Message-ID: <23748f44fb9f43f88af97c65200cc75ed5d1ee6e.camel@collabora.com>
+Subject: Re: [PATCH v5 2/4] iommu/rockchip: Add rockchip_iommu_restore()
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: aiyengar1990@gmail.com, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley	 <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, "Joerg
+ Roedel (AMD)"	 <joro@8bytes.org>, Will Deacon <will@kernel.org>, Robin
+ Murphy	 <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-rockchip@lists.infradead.org, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, iommu@lists.linux.dev, Hans Verkuil
+	 <hverkuil@kernel.org>, Alex Bee <knaerzche@gmail.com>
+Date: Thu, 26 Nov 2026 15:20:24 -0500
+In-Reply-To: <20261126-iep2-v5-2-3deac0976f10@gmail.com>
+References: <20261126-iep2-v5-0-3deac0976f10@gmail.com>
+	 <20261126-iep2-v5-2-3deac0976f10@gmail.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-dQAySM4Jzz+X++kJrWM9"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,55 +92,136 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+
+--=-dQAySM4Jzz+X++kJrWM9
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Le jeudi 26 novembre 2026 =C3=A0 19:51 +0000, Arun Iyengar via B4 Relay a =
+=C3=A9crit=C2=A0:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+>=20
+> Some masters reset their IOMMU along with themselves. The RK3588 IEP2
+> does: after its soft reset, paging is off and its DMA is untranslated.
+>=20
+> Add a helper to reprogram the IOMMU of such a master, so that its
+> driver need not attach and detach an empty domain to do it. rkvdec
+> does the same with rkvdec_iommu_restore().
+>=20
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+
+Acked-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+
+We are trying to get rid of hacks in many Rockchip m2m media drivers. rkvde=
+c
+have that hack upstream, and now I have rga2 and iep2 driver submission wan=
+ting
+to use the same hack. So I asked Arun to give it a try and find a solution.=
+ So
+see this as a v1.
+
+Nicolas
+
+> ---
+>  drivers/iommu/rockchip-iommu.c        | 36 +++++++++++++++++++++++++++++=
+++++++
+>  include/soc/rockchip/rockchip_iommu.h | 17 +++++++++++++++++
+>  2 files changed, 53 insertions(+)
+>=20
+> diff --git a/drivers/iommu/rockchip-iommu.c b/drivers/iommu/rockchip-iomm=
+u.c
+> index 21af2f621c76..81cad102929e 100644
+> --- a/drivers/iommu/rockchip-iommu.c
+> +++ b/drivers/iommu/rockchip-iommu.c
+> @@ -27,6 +27,8 @@
+>  #include <linux/spinlock.h>
+>  #include <linux/string_choices.h>
+> =20
+> +#include <soc/rockchip/rockchip_iommu.h>
+> +
+>  #include "iommu-pages.h"
+> =20
+>  /** MMU register offsets */
+> @@ -1349,6 +1351,40 @@ static int __maybe_unused rk_iommu_resume(struct d=
+evice *dev)
+>  =09return rk_iommu_enable(iommu);
+>  }
+> =20
+> +/**
+> + * rockchip_iommu_restore() - Reprogram the IOMMU of a master after its =
+reset
+> + * @dev: master device, runtime active, with no DMA in flight
+> + *
+> + * Some masters reset their IOMMU with themselves, which turns paging of=
+f.
+> + *
+> + * Context: may sleep.
+> + *
+> + * Return: 0 on success or a negative error code.
+> + */
+> +int rockchip_iommu_restore(struct device *dev)
+> +{
+> +=09struct rk_iommu *iommu;
+> +=09int ret;
+> +
+> +=09if (!device_iommu_mapped(dev) ||
+> +=09    dev->iommu->iommu_dev->ops !=3D &rk_iommu_ops)
+> +=09=09return 0;
+> +
+> +=09iommu =3D rk_iommu_from_dev(dev);
+> +=09if (!iommu || iommu->domain =3D=3D &rk_identity_domain)
+> +=09=09return 0;
+> +
+> +=09ret =3D pm_runtime_get_if_in_use(iommu->dev);
+> +=09if (ret <=3D 0)
+> +=09=09return ret;
+> +
+> +=09ret =3D rk_iommu_enable(iommu);
+> +=09pm_runtime_put(iommu->dev);
+> +
+> +=09return ret;
+> +}
+> +EXPORT_SYMBOL_GPL(rockchip_iommu_restore);
+> +
+>  static const struct dev_pm_ops rk_iommu_pm_ops =3D {
+>  =09SET_RUNTIME_PM_OPS(rk_iommu_suspend, rk_iommu_resume, NULL)
+>  =09SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
+> diff --git a/include/soc/rockchip/rockchip_iommu.h b/include/soc/rockchip=
+/rockchip_iommu.h
+> new file mode 100644
+> index 000000000000..79fdd898a0fc
+> --- /dev/null
+> +++ b/include/soc/rockchip/rockchip_iommu.h
+> @@ -0,0 +1,17 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +
+> +#ifndef __SOC_ROCKCHIP_IOMMU_H__
+> +#define __SOC_ROCKCHIP_IOMMU_H__
+> +
+> +struct device;
+> +
+> +#ifdef CONFIG_ROCKCHIP_IOMMU
+> +int rockchip_iommu_restore(struct device *dev);
+> +#else
+> +static inline int rockchip_iommu_restore(struct device *dev)
+> +{
+> +=09return 0;
+> +}
+> +#endif
+> +
+> +#endif /* __SOC_ROCKCHIP_IOMMU_H__ */
+
+--=-dQAySM4Jzz+X++kJrWM9
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1516; i=broonie@kernel.org;
- h=from:subject:message-id; bh=F1An95lPGxcReO+L4LVto08RyreBaE5IgrZNODBMBZE=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI5Jl/6daWqceJ+JZMGTvsnNTqKB9K1doh2ZdWqzuENV
- F/3d/+njlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEykNpSR4dpnt+A/W89flNQu
- vf5U1f7TT1fPuKSl91Saz3aX7GjMucvIMPNOYeaqX4vvZP0IvXlsZ9R8Y0mmM59fMCWtUukQ+Jq
- 5nwUA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Wed, 25 Nov 2026 17:18:29 +0000, Srinivas Kandagatla wrote:
-> ASoC: Glymur LPASS macro codec support
-> 
-> Teach the LPASS RX macro driver about LPASS_CODEC_VERSION_2_9 (the
-> version reported by Glymur's RX macro) and add the matching
-> qcom,glymur-lpass-rx-macro and qcom,glymur-lpass-tx-macro
-> compatibles to the existing rx-macro / tx-macro bindings.
-> 
-> [...]
+-----BEGIN PGP SIGNATURE-----
 
-Applied to
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawiUiAAKCRDZQZRRKWBy
+9BjUAQDSNPqdSlLUl/O9azaIblOpLLPu+oK5Nw5EuSLHW+r7zAEAxnuyZq9XVKSw
+gxVnBpP/poBKRTNumlOhqdw1p4TEoAQ=
+=p9Z6
+-----END PGP SIGNATURE-----
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
-
-Thanks!
-
-[1/2] ASoC: codecs: lpass-rx-macro: handle LPASS_CODEC_VERSION_2_9
-      https://git.kernel.org/broonie/sound/c/d8764bc050af
-[2/2] ASoC: dt-bindings: qcom: Add Glymur LPASS macro codecs
-      https://git.kernel.org/broonie/sound/c/9efa4eac7819
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+--=-dQAySM4Jzz+X++kJrWM9--
