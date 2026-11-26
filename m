@@ -1,86 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795729485;
-	b=sk8VVp+J8C9WKU5JrtazZNFs2HWmMHOdh1IxFbhKnmyIF3L/UuwPJpr+0ikXa7IRBig7
-	 JIyeBRAuBdpygtYQD3Yz2NVP97uUi7gZaQru+Y6VJrokIIW2VWO00bbmsZr7MqTqpFh+a
-	 xMDOZ82+qNHbyiIHudSphRqAsgL+7ncyJtuxOKVlMlXf9PQVMkYNmDmLVX1873TNG8voA
-	 3+5tixRLOoA13xCRSedt9KRecpSw7qQzEaLQNu5A4friBR18XqeGJoMiumTXXeHBaRTs3
-	 S3W1kYR6dGmpODPZPS9k7rOYo/TF+Boyrfw4UUiG9MttM8r0lKmomRGgiYMAhSbnBqQ==
+	t=1795729487;
+	b=kDdmzPYUKsHzDOIH59zXXAMEDB7ih49RO0PMd+eSzlMkts+0fMmt9pwP936jHoowYqZO
+	 bTc8kwUBEPlt1yhTksCS20RiDterJtxvQZTgp9Y5REzswCmwWmQ69tfSnlWBimq8cnukw
+	 7dYhX1ILgklsNtjTuENf5WvYeRD6dz8oDQVpOacLdJSrfrlcowBh8BdLIga64oJwNJnme
+	 4V2F3m8dYRHMq7sXp9Y41jwjjVURAw43Ta1eihYgfMKbfuSrh2T/IPFfpZVogJw9wlIzO
+	 xDWRLZEGjnZLbyyYbQ2anIfZtcq8W+VyIUvj6AwjR5tIJJmznuxBDiYPB/VukCshxXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795729485;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795729487;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Rthem334wkm2a7wmTCRGlWmB/Wf3+iH9fn3pLKOROFg=;
-	b=LmfMZuZkn8OoDrfqON00LRNXswtggiKx6Y7a30stqRxnzbxeGwAcHR19AcjzvMTfliKh
-	 yLR1JdFCMB4O0AppTxan5d+TUnHD5pXNBBqUODOuf/HIPYgiyceay5tyO/wFo41r+Olxt
-	 Cf1SQz0N5cULSFiXemRDgbVKPC43Z3RGSpEI8OUE8j7M1iEkvSdfYvFa+KJIHc1J43kDo
-	 hra4RArC2Rm0gIC7pQcYWOdxlSgTe1kgJHdhk92IHnH6GEgU8N27YMPqn1Rm2Bzt67FFM
-	 E7rCzTKgA1/UiyigQz1EJpnBSYZ9HGZDA0lP7BgJrPY5Y0I/KQeEErdnUrGnSBiw60g==
+	bh=StNF/DBdYuXhvQKxZ0p2je0tZDOMLysv6mcYjNTNzho=;
+	b=p9DfmSxrdIGIYacN8vNlWxC4JWe6bPLIgK6w0jyazIboEJwsLXElp6k8a80oU7ZLPK9e
+	 mTISmCMm8KnPBXQPAEjlC/XzMXB3kg8eB4ekVP9yrnX8jfVbR5uL1VjKYskYL20gBY417
+	 +jI5sn4wy9F4kTBPpb0iIUzyHgtRTpnf4QCBBEsyqBHxrkiyE4A+7cnJPGGjlq/ODufeV
+	 zLj/axvDjslJPOso6PEvqhApG3kDyMT22aEuad7jR4SUPImD94V9y9Pv3RhhMSwjEkm7Z
+	 JB74pUYghoiJBgBpF8RWzTksZ3EsV8jZNf+bZY4S7NDdxVtkqv2xVLoXxDMiC3BhGXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kgHy1QX7;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z2fnCsf1;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D9D60A263B
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 21:44:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1D9D60A263B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 082AF606A6B3
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 21:44:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 082AF606A6B3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kgHy1QX7
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-4ac109a8a12so4424969f8f.3
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 13:44:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z2fnCsf1
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-497614c95f0so4275670f8f.1
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 13:44:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795729483; x=1796334283; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795729485; x=1796334285; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Rthem334wkm2a7wmTCRGlWmB/Wf3+iH9fn3pLKOROFg=;
-        b=kgHy1QX7XA2+Szlj3vv2Bv7fs7JXMdigxpRNGecSd9cb5jEt1eJYrEiivNXTMrpryN
-         4I49RvtcDiKQQMj/0KhLNZYsz1EBBV8UguEAJde0y7yCacs629RotipPScXHESPqyYaG
-         ivNXRNoLU9kXUgAsHnOZ9p+9S6lzv6IgLjr9+vR+xdVEGnl788qC2YfF2lYb7wwXA7t6
-         nuZHdUF7Pxd0GQapsNPNyxUQhIbgHR2Px42dMsecjXPhLtryWgl5DrlaIUuzSASPh+7g
-         f+h8xOl+lChvDRs1Ubc2+GdMl9TxZQvyOT9g/mpi4ZDghQHphWWIWeOE0dzaZkLk2lID
-         P+Ag==
+        bh=StNF/DBdYuXhvQKxZ0p2je0tZDOMLysv6mcYjNTNzho=;
+        b=z2fnCsf1MrGS8du7uy74STXVZgP+RCUZ9Bg7j2mvA2sELRaOxBn3KwT4NACo4GD+1J
+         8fBSwYBYTUfOAo6OcF9e6yDpZ0oIYegmk4r7+PzeTsSSRHQowcYXQ50ECbpTLpKFk7pe
+         mAfunw9gJQUu5sVEig0wjOz+GkYTyf1EZdxS2oOVcF3WhnjwIjfK646ON/beuo4s5b6R
+         Lzo4Cg+VBDfKVXdaB2LqLfck+TA8/kjbz/XH1/7prvda2A11GJH+q9QQ3rnECEDBu0Dv
+         TMkr4IqNWa413wKd8Ct+qu73RQ4RODT+9hByV+JForhDr+wZEfmxT3zxFBcHL6+NR/Iw
+         OQ8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795729483; x=1796334283;
+        d=1e100.net; s=20260707; t=1795729485; x=1796334285;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Rthem334wkm2a7wmTCRGlWmB/Wf3+iH9fn3pLKOROFg=;
-        b=2k7aCkEX9FzBq3BAwvyld9JvZmhB6xyaI0h8c0I8IdIYw2rGmyg4zu1jU8/Ie5Sn3Z
-         2iqYDg461hrXzjZlZ609mF8WvkPeY6AL0WaF2hD9Zr/EncD7pbanAtP/z1wrtjZgFVfI
-         Xppk1c0aK92emc0Qrb1P1uglxsGDEUoM8Jujig5oqKn78T0OKNTquVC9Ny5TlGEkZI0Y
-         8SqsXzqejB4+QaFAhj0YWRK8S+Fta4oBUBns9CxmEbeIQFgnD/k+nI8apuMps8Q7cPLw
-         V66qNMYoO68J3TpgW1w7oHUOWK3+PFPbw51mzQn2JDPfsQ13+U/YllOM/ODYfVOTDk/k
-         +wnA==
-X-Forwarded-Encrypted: i=1; AL+hErFTHGgH3iCDsVPFrNlu/uAFmggMY1cbaS2rxl1BfUWl8hvQ7iNnoWsFu4FEqz+P5dK3xeImoi4Pw02F@vger.kernel.org
-X-Gm-Message-State: APuU4Z8zfuew5WrM9+K79JXa9aXZRina4kPVkSj/XGtLlnATfMIuK7Db
-	1lnxrDT+cSOaz15/WwN58LoWumaduJwexy6xelsnworwXgckVuVkuvv1
-X-Gm-Gg: AZFdTZf8L6a9L6BtsPUncOpo+e0SfNn5CYqtQ59FcTrzLSNx+CiyXYIE3lvxlgJsMJA
-	44yHXk6D+S64H+ousaCY+UkumkOuiKAURxWjUcJrkd1MFoku8Rnp/Tn7UBrrQ5nE5ryAaebjmXf
-	CY9s+b/AlF4urcLHZd8Kge14WKEJGBJ18htC/TZ9V5v4rU9Wt5f90eeBoimiI0L4keISHNlfAFY
-	UF70OsydUccgxBDSgZeF7lfr8uCa+EgmsVz3N0VsVrWSr9wUXzYEzkjmMcWMC7B6vkNoi37FXLS
-	hGqumxbnlY480Uc9q0tGRCf17Trl3Sf6rKMkK/1SJk7s39lBYBIun7EcaI9TLg+Tz8FbdSCvahW
-	wwdwLtZEa2FFapJTHtmOPf8T/uaSps8cfg47gTq+Ae2V1iY1zWN7n8nIqZB8R6aAz5hfWQ4dUjJ
-	9u5k8jaY7aRiz3O7Xk2KkFszrc6pHV/E/itRfzCwLtmlWUCS3OR/MVqvFax6x1A7MmtVW+GN/E9
-	AN+8cOjpiuOQMHCmCulen84pvSqvAqP7NV+/SvwXV8TmeyrmTcA5CKkos43cZsaKocaTHAyewNs
-	wlcO80ImyGpKPIjNEGbCTFg0k71mEXPeq9Twwg3WSQblEtCZVOuAG1IfxD91gX9VfrWE2VUxuMK
-	8Nju7Mj656w0nMpTiPTyY3lHVYpR9nxu03ms9sS6tpxuZZ9+OsSFl6yjHZeoVbOpD1SO6RiXjER
-	Pgt8fH9Mb9nxAKW3/gjEUJsTF2487EniYg+6XR+bcj+xGRtdcpU+ncANLKOnEesUuyxE3Eenzuv
-	/jSJItfwBHePoz9Cul0RrtJZjd7ceA1Xp+p5E7odw==
-X-Received: by 2002:a05:600c:5303:b0:4a2:1a:a11d with SMTP id 5b1f17b1804b1-4bb88785d24mr434400835e9.0.1795729483289;
-        Thu, 26 Nov 2026 13:44:43 -0800 (PST)
+        bh=StNF/DBdYuXhvQKxZ0p2je0tZDOMLysv6mcYjNTNzho=;
+        b=UMPGOSN5jVd/uXMcfcZbeI+O9CbriWQ43skBJKQ8O51ByIKSs9hInNp6ECb2pqNP+8
+         STdUxNrY2SR1iH0Dx7fmuFO2Jw/r5fPeNrFSbRZBa00c/86s0xxU5vwAdWMJSNEPx2pt
+         hcQak5rUPrRZwZ+EXb3Yp8HFGWW+NYGLMdX5ly8EBNo26c5Frhg/ZEtKvLPllqK5ANET
+         hvygrnoU9gE6joZarLhwpG3vVxFBt8J08WjYjEpSSv2shb/+A/9zwtcJN83tMaVF+zfH
+         0HKcv3whH33/ZI4eVLkMXlRi+9Aazz+BmVJPzNUFZK+KULir/lH3aOU7wpBIHkhHXSYj
+         I6eA==
+X-Forwarded-Encrypted: i=1; AL+hErHadiJ4B5rJjbtxZI29zvGNKThaPriyriogdQuVFiORcr2mMP4M3AtzCHYhqtJnQRuwcfrRpgTSTBER@vger.kernel.org
+X-Gm-Message-State: APuU4Z/eLuZWQ0K0KfJpyni5hF0AE5kBRJkpbptN+qaaC/xGUSOYW4SD
+	Uj5+31NCPPnmgtRbwM+ZNdUNFmNsCWaPLVR1Fa2VKwEpusEa5P1A0hbV
+X-Gm-Gg: AZFdTZfSuL6TX0tweU0aHuLXnL9GPf/x8c5oYW6U1at1mdOjp+vYqFPpE7B8x/ZuZIl
+	Er/l5eG76FlS4IP9YEL9YvHdaJY3xbRhUKv6obA0il9dyK6S46xQMDR9i0dn+JVdAudS19kUbjF
+	r145egM4gUIlBoExCUjbhvnzXQUih8/HEgC0yh7hjAoY60df6vTDEYg3YDJzHeYdXOSg0V9zLlI
+	5yazAWXhTGuvO3H1LrkMF90lF5sBT3jGWMCur5nh7ruSSMNJqFQffJTNouQDir3wTICpupEkKNm
+	bvGdpPd2fnqkayTnzZDY2iVmpEOCCh80IU1xFVkil9yA4NeVDfxal7axOL+i9HaNyxPESS1dh7V
+	Agf0RVANRSNbItAsCNX3IryS0tK9bOeZr1JUKQ2LXVbjgrILozhrW3gVngMr4O0O9zJtZgIp0IS
+	xalN3sbQY9kqfCHnnFPJwYrr2Arl2vtTjtiyg75BijaF3V9oMJo7tGkwSbYPnxxhec4/W4iQWp9
+	axEKxM4wcPPRLqL1LZWyw66VPC/tIOetsaEWb5JsdVhRHLIxfaCEDEczFySueu5xylc4aeSWfmL
+	+ND/n3LGvbGHGhCBSruOGowim7dZ0nW4fWLmuiwcCCLc0dGbWb18kYne+OBaMGgkYZTDeexENp1
+	aBEN2OyLvQFKDBq0Um3dXCyjyYzfhfkEckOtIf2mSqSdXIkij70AwhN3iDI3rk/up3hvCK3deod
+	mLJUiIVksWfOrI3z31Vr6RDmQGHYt8lgVhNEdpiQvE2iJlF1Saq2KKsrC/gvH3Ndsgf4DvjlMaM
+	I6mHNilJEhGksPQemTuxyBNu5Qg2ThETUCI9/azFg==
+X-Received: by 2002:a05:6000:2b8e:b0:4a4:7dd0:2177 with SMTP id ffacd0b85a97d-4abb55185b5mr27115538f8f.49.1795729485342;
+        Thu, 26 Nov 2026 13:44:45 -0800 (PST)
 Received: from jernej-laptop (77-38-7-250.dynamic.telemach.net. [77.38.7.250])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4abbd84e661sm40403963f8f.18.2026.11.26.13.44.41
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4abbd84e661sm40403963f8f.18.2026.11.26.13.44.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 13:44:42 -0800 (PST)
+        Thu, 26 Nov 2026 13:44:45 -0800 (PST)
 From: Jernej Skrabec <jernej.skrabec@gmail.com>
 To: Chen-Yu Tsai <wens@kernel.org>,
 	Samuel Holland <samuel@sholland.org>
@@ -100,9 +100,9 @@ Cc: mripard@kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-sunxi@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 03/11] drm/sun4i: Add support for H616 TCON TOP
-Date: Thu, 26 Nov 2026 22:44:25 +0100
-Message-ID: <20261126214433.3562326-4-jernej.skrabec@gmail.com>
+Subject: [PATCH 04/11] drm/sun4i: tcon: Request LVDS reset as shared
+Date: Thu, 26 Nov 2026 22:44:26 +0100
+Message-ID: <20261126214433.3562326-5-jernej.skrabec@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261126214433.3562326-1-jernej.skrabec@gmail.com>
 References: <20261126214433.3562326-1-jernej.skrabec@gmail.com>
@@ -117,84 +117,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-TCON TOP in H616 is similar to R40, with the exception of missing DSI
-and a different position of the TCON TV1 clock gate, which sits right
-after the TCON TV0 gate (bit 21 instead of bit 24).
+H616, and other SoCs with the same die like T507, have one LVDS reset
+line for both TCON LCDs. The TCON driver requests it exclusively, so the
+second TCON LCD fails to get it with -EBUSY and the display pipeline
+doesn't come up when both TCON LCDs are enabled.
 
-Make the TCON TV1 gate position a quirk and add support for H616.
+Request the LVDS reset as shared. The driver only pulses it once in bind
+with reset_control_reset(), which is fine for shared resets, since the
+reset core triggers it only once.
 
 Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 ---
- drivers/gpu/drm/sun4i/sun8i_tcon_top.c | 13 ++++++++++++-
- drivers/gpu/drm/sun4i/sun8i_tcon_top.h |  3 ++-
- 2 files changed, 14 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/sun4i/sun4i_tcon.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/sun4i/sun8i_tcon_top.c b/drivers/gpu/drm/sun4i/sun8i_tcon_top.c
-index 86e1e8fed03a..5ea55a2844a7 100644
---- a/drivers/gpu/drm/sun4i/sun8i_tcon_top.c
-+++ b/drivers/gpu/drm/sun4i/sun8i_tcon_top.c
-@@ -18,6 +18,7 @@
- struct sun8i_tcon_top_quirks {
- 	bool has_tcon_tv1;
- 	bool has_dsi;
-+	u8 tcon_tv1_gate;
- };
- 
- static bool sun8i_tcon_top_node_is_tcon_top(struct device_node *node)
-@@ -246,7 +247,7 @@ static int sun8i_tcon_top_bind(struct device *dev, struct device *master,
- 		clk_data->hws[CLK_TCON_TOP_TV1] =
- 			sun8i_tcon_top_register_gate(dev, "tcon-tv1", regs,
- 						     &tcon_top->reg_lock,
--						     TCON_TOP_TCON_TV1_GATE, i++);
-+						     quirks->tcon_tv1_gate, i++);
- 
- 	if (quirks->has_dsi)
- 		clk_data->hws[CLK_TCON_TOP_DSI] =
-@@ -314,6 +315,7 @@ static void sun8i_tcon_top_remove(struct platform_device *pdev)
- static const struct sun8i_tcon_top_quirks sun8i_r40_tcon_top_quirks = {
- 	.has_tcon_tv1	= true,
- 	.has_dsi	= true,
-+	.tcon_tv1_gate	= TCON_TOP_R40_TCON_TV1_GATE,
- };
- 
- static const struct sun8i_tcon_top_quirks sun20i_d1_tcon_top_quirks = {
-@@ -324,6 +326,11 @@ static const struct sun8i_tcon_top_quirks sun50i_h6_tcon_top_quirks = {
- 	/* Nothing special */
- };
- 
-+static const struct sun8i_tcon_top_quirks sun50i_h616_tcon_top_quirks = {
-+	.has_tcon_tv1	= true,
-+	.tcon_tv1_gate	= TCON_TOP_H616_TCON_TV1_GATE,
-+};
-+
- /* sun4i_drv uses this list to check if a device node is a TCON TOP */
- const struct of_device_id sun8i_tcon_top_of_table[] = {
- 	{
-@@ -338,6 +345,10 @@ const struct of_device_id sun8i_tcon_top_of_table[] = {
- 		.compatible = "allwinner,sun50i-h6-tcon-top",
- 		.data = &sun50i_h6_tcon_top_quirks
- 	},
-+	{
-+		.compatible = "allwinner,sun50i-h616-tcon-top",
-+		.data = &sun50i_h616_tcon_top_quirks
-+	},
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, sun8i_tcon_top_of_table);
-diff --git a/drivers/gpu/drm/sun4i/sun8i_tcon_top.h b/drivers/gpu/drm/sun4i/sun8i_tcon_top.h
-index 2b887470a49f..e775737e69ae 100644
---- a/drivers/gpu/drm/sun4i/sun8i_tcon_top.h
-+++ b/drivers/gpu/drm/sun4i/sun8i_tcon_top.h
-@@ -21,7 +21,8 @@
- 
- #define TCON_TOP_GATE_SRC_REG		0x20
- #define TCON_TOP_HDMI_SRC_MSK			GENMASK(29, 28)
--#define TCON_TOP_TCON_TV1_GATE			24
-+#define TCON_TOP_R40_TCON_TV1_GATE		24
-+#define TCON_TOP_H616_TCON_TV1_GATE		21
- #define TCON_TOP_TCON_TV0_GATE			20
- #define TCON_TOP_TCON_DSI_GATE			16
- 
+diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon.c b/drivers/gpu/drm/sun4i/sun4i_tcon.c
+index 20740fa10ce8..77b6026bc895 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_tcon.c
++++ b/drivers/gpu/drm/sun4i/sun4i_tcon.c
+@@ -1170,8 +1170,11 @@ static int sun4i_tcon_bind(struct device *dev, struct device *master,
+ 		 *
+ 		 * If the property is missing, just disable LVDS, and
+ 		 * print a warning.
++		 *
++		 * The reset is shared, since some SoCs have one LVDS reset
++		 * line for multiple TCONs.
+ 		 */
+-		tcon->lvds_rst = devm_reset_control_get_optional(dev, "lvds");
++		tcon->lvds_rst = devm_reset_control_get_optional_shared(dev, "lvds");
+ 		if (IS_ERR(tcon->lvds_rst)) {
+ 			dev_err(dev, "Couldn't get our reset line\n");
+ 			return PTR_ERR(tcon->lvds_rst);
 -- 
 2.43.0
 
