@@ -1,60 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.17
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795680677;
-	b=ip+WitHlVvPIxRJP1SgZzVaoh7JIwstrXgEp+nw5ejD2+59shXN5xbf0ReIiCRGWiN2X
-	 t8PmrCwcpoReHb08KXAXuKGpaJd+J1Yj2mdGAkPguEmb+fCyyxisnMnV55u4Nct25OdTA
-	 B+FgQMvqjHDALOpO6ASd/MN4DQTXRWvm84BmhjyD6f1G2w87t0Uwd8Wbnj6qJ9Ro/uIiK
-	 W7xgdxrrtrnQ0CMJI5yP3XzmUFOhd3dR/go5CG+ncGtb+GGd2nvlSrY1WACX9uwJUFtfR
-	 ZjEVmcca/0iWbZpz57OkP9CZzmu/Vx42OaEylg0WDbnm2fRSopNDkXGzEGO09Ach3cw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795680677;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=kx8h+Ar+4Gc1qWaoobGzkg9ZynxpfsO5B9MeCPzrIdw=;
-	b=QfXIP4Mv0xxgqDbzDjtn5wUJTo5arTD8wOnX/1l7lVWFUsTmxDv+2drGcrYNJq9aoI1s
-	 zGbjvqiOtBOGe+X4Ckl4iSC9HNjsRx5bbjZRnnm/Ha1+VaiF6Q7LsYMEms5ZARUOGAMIX
-	 vPnbJsKsvNIzCBTofDu8CRgmlT+5dcTDEPjSqF97ELDeTX+3TLQtbpFvjOS3Jg/GcfUUt
-	 RtVoym+WkTcaV/wnWK70dF0IP4MG4CAYHMLJAtHc02vimN/FzdhnLiWKHRUNBnY+GiGhv
-	 bi+6iewdVvAs81iGPU/Q3ZiXgs+8Lb7HOirn3vQUrIv/fOzNjh5QYndIVewAJ7c7ADA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=Zdh3mf8Y;
-	arc=none smtp.remote-ip=109.224.244.17
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795680713;
+	b=WWMjUEMnV1rPCZIpNOPjqyHi1E2HpMGIRkkcKqxBxvEFnrVEKcSj442K+UsvWqMNTMr1
+	 GLHkK7wR6zSRPsFOaCt+Eo9WVrHua99slXFoGtPyVzD2fw7fRHCWIF3kANEEjGh/As8MK
+	 ESpXlRmGeEqXBevdRfxLMqrQ10sq7CXvCMpTFteHRT5gnq66uhaaEWMS8vNDVklsJpPEV
+	 Z5dxawlSWSvQGsid0+Xu2WQQAjE+LCXbt1YyBD93MoxrAko6LhplB12ZNkIr1LoaDMUkK
+	 vAlQCnTfro/4QUVzPN0mtypoUfqKsC63csA4iiFqppbaUWQ5uTvaOdeyAQPjnr03XWA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795680713;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=qS0qQWCBaGoqQJ4yzdVeAx2982yYGUh5X7QjAiHCBVQ=;
+	b=0+y1fLFbPlxwBmIgj/JB2Xs2Cp+DvOAeIlLo87E3StFf0Xnub/Sv1Qr6IKt250Z6Wy3w
+	 I0VCyPrNa8vqE8gcHZc3Ad7NtPoCArof4ROobNQoWM0eRtXGmnnavjMYJYB7Eg0gAgKJ3
+	 tBLIi6CB93H7dcTyVDl9x4FthYoQCWgB1vAR/tivI74SDN4EIKrZ/2W+MlW2zb81qCNHt
+	 lzZUXR7cmKkOqlMZC/dIjgDlgg1s40ZuMUVNBXs+WHyrdnswI3w5yBbv54/mcrYKXvl1Q
+	 Mh8rhsRbAy6kOnkOy5/MtDDCmleGQcP3P1MhpXVYSOEbSITPCjyq6E0G2Ct+Qr51wLg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GrEhG3zx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DFE606A31E;
+	Thu, 26 Nov 2026 08:11:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GrEhG3zx
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795680713;
+	b=ECrnpiM+oScB1mam0GXib9Fk7/O6iPSrjH5rpM2Gv56EckGfIAqXlewvYw5RD2vrMYRx
+	 80JNSh3TQlCGBXLY/lukiYr2K20IWCWfrMrSqogKf6RBOF3NBOIwWHiWH1oARmOkbbyQE
+	 5k5iGqnQfdw9K9aTr6qAkOoL2PTmVd8e6LfCrPrzNqToNeMa1toLjYLGArWRKMBzfYRGR
+	 gmwmb0C6t8jof9r5gPq9mQR9pkzRSGP870hGT1Ckaj+YGq26mQkY0AZhRSuB/C+a9XDvs
+	 gnV4ZfMIF59sznhKda0FVH/lk3CYZcxCF43AHcllOojCMM43FN0jgXKUrSlcMRUQSLA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795680713;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=qS0qQWCBaGoqQJ4yzdVeAx2982yYGUh5X7QjAiHCBVQ=;
+	b=fZWntgLAOMABObaR+B3FEZu0BGkPPLKqKu8mzzwzPV8ELPvy+tf56i8m2dDKx/gNEavG
+	 03STEeyJbk8UIkNH1C/xq9ueaGE+LMqYyeWo223MkED4Qo6Q0uwjytjI3ef1qpXnnV+ZR
+	 TZyqUA76+DOp3mO/oTEeKEHJ+2+Fyl5cOKT2COtW4GXspu8bapLFALSdouho/LF2X+2Wc
+	 nLlV/xM7gQaBal+F35Ph0edASNmyt+qpXMrdVyi44a+GU4HGTtymiT2F3nVEeOaPBjPjC
+	 bCtS0bSJAAsf8Ojc5dYdxeTRfsFSpULk2/mc9JBgoEuG1tADWiCogjTRKbu4kYzAEPw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C67B5606A31E;
-	Thu, 26 Nov 2026 08:11:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C67B5606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=Zdh3mf8Y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1795680673; x=1795939873;
-	bh=kx8h+Ar+4Gc1qWaoobGzkg9ZynxpfsO5B9MeCPzrIdw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Zdh3mf8Ysd87iU3bY8C49poOuhDda4EevLwzGVf9g1ZyfEwOU/tAd1jpnLWIGqcYv
-	 7VHZM+bpTx4hUBBYmlw82aoCdxIdEStqu6SbH1LE6hjlD3Ckdm8ILyCNZxI/u13EHL
-	 Y2EZCWKrBn1ou6wtKYPr6rGxUbE1MjSNatlEN9uJamdJ++999OPHQ/OXq7mC/+PDjw
-	 exd7/5Au2mTVTuHHqYeM+Sx0Sc9eeT4qZyFbj3KdcFdWG1Dt1WZVL8EVwDzUHMRYAL
-	 hZesa1h+hDGUfar5TTU+la7ad9GpbLweV7sNw75+YV2d8KKb00d6ngJILCeCZjLxsE
-	 d0XNoLJwl/HEw==
-Date: Thu, 26 Nov 2026 08:11:07 +0000
-To: iasnezhkov@gmail.com
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, broonie@kernel.org, flora.fu@mediatek.com, amergnat@baylibre.com, leilk.liu@mediatek.com, me@adomerle.pw, devicetree@vger.kernel.org, linux-spi@vger.kernel.org, linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/4] soc/spi: mediatek: Add MT6789 PMIC wrapper and SPI support
-Message-ID: <0Af_vuU3D7JCxCsHmjyJZCQhptiOPd3Y325yrg4ufwjT3C5cz6cgJxU4CHY4qfES7Hhzcb-sxm0o7dj-diOzMJPCcw5bSyrYi5CWUNsXQus=@protonmail.com>
-In-Reply-To: <20261126031001.27288-1-iasnezhkov@gmail.com>
-References: <20261126031001.27288-1-iasnezhkov@gmail.com>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: f5e5584ad9f8c9446847ecc24663ff6184cab23b
+	by smtp.kernel.org (Postfix) with ESMTPS id 13C801F000C4;
+	Thu, 26 Nov 2026 08:11:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795680713;
+	bh=qS0qQWCBaGoqQJ4yzdVeAx2982yYGUh5X7QjAiHCBVQ=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=GrEhG3zx98S9qFRiAEb8WHPiBVgQbjO+bAft5mf6X5bcURrVry/3V3i9xCge0WqDs
+	 bm9AcSyBrR29YqkK6h+gHP9TPnU1YFZB7LwJzF3w12CR5xGNeJspJcSq63v8Tabz+j
+	 YYhiGW1b9xzIRr/r2LG5+ZpCgWQaWZi7Agy24/Tjauhu/4Wxm26LFcRFn8LyQjBGar
+	 WQNmw08C8LLpeEo5+4HGx7z49fCHrmKt4miZlWtR6r4WEWEW06tuxwFKgiATCQF1JU
+	 /Q4xLjj1nrowGxTduVsVv51ki3W7SSN84RFaMNHZNaTgMzbhHgiSyLq+gdBEaDYfea
+	 5bzmDqs0DeLhQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5428C4D2D9;
+	Thu, 26 Nov 2026 08:11:47 +0000 (UTC)
+From: Robert Ijtsma via B4 Relay <devnull+robertijtsma.gmail.com@kernel.org>
+Subject: [PATCH v2 0/2] iio: light: add support for ams OSRAM TCS3430
+Date: Thu, 26 Nov 2026 09:11:46 +0100
+Message-Id: <20261126-iio-tcs3430-v2-0-6c5329d20919@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,65 +83,75 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMLpB2sC/22Nyw6CMBBFf4XM2pp2Wh668j8Mi1oGGCPUtEg0h
+ H+34NblSc49d4FIgSnCOVsg0MyR/ZgADxm43o4dCW4SA0oslEIjmL2YXNRGS4FtrqvylGNJDaT
+ FM1DL7712rX8cX7c7uWlLbEbPcfLhs9/NavP+l2clpJAtWl3ZwhqnLt1g+XF0foB6Xdcvl5vYH
+ bgAAAA=
+X-Change-ID: 20261124-iio-tcs3430-2f53879527ed
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Robert Ijtsma <robertijtsma@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795680706; l=1886;
+ i=robertijtsma@gmail.com; s=20261122; h=from:subject:message-id;
+ bh=0+sMFzcSS5li54XaXhcSaRKdwk6n5ZYNxtJoIRuT8+w=;
+ b=IQt15XFVbKpTHfAvNrLLYxYqKjbJVOjn7rOzdu8KdFeKTFNicWObXDqbUXEz4JMM+WB1qTQuf
+ WdOgC+K3Rx6AMAUoYJd3B7g+J0Gg7rORW36s9QLYfxhPWT0zTjCuPjZ
+X-Developer-Key: i=robertijtsma@gmail.com; a=ed25519;
+ pk=qiDyKVqFicxFIR5sB5m+p9SWPKL2/+mMoiQnUx0C9P0=
+X-Endpoint-Received: by B4 Relay for robertijtsma@gmail.com/20261122 with
+ auth_id=1604
+X-Original-From: Robert Ijtsma <robertijtsma@gmail.com>
+Reply-To: robertijtsma@gmail.com
 
-On Thursday, November 26th, 2026 at 5:10 AM, Ilia Snezhkov via B4 Relay <de=
-vnull+iasnezhkov.gmail.com@kernel.org> wrote:
+Add Devicetree binding documentation and an IIO driver for the ams OSRAM
+TCS3430 ambient light and CIE 1931 XYZ tristimulus color sensor.
 
-> This series continues the stalled July 2025 MediaTek MT6789 (Helio G99)
-> initial bring-up patches originally posted by Arseniy Velikanov (on CC):
-> - pwrap v1: https://lore.kernel.org/linux-mediatek/20250715225746.1321-1-=
-me@adomerle.pw/
-> - spi v1:   https://lore.kernel.org/linux-mediatek/20250715231921.4527-1-=
-me@adomerle.pw/
->
-> Original authorship and Signed-off-by are preserved on patches 1, 3,
-> and 4.
+Tested on Microsoft Surface Pro X SQ2 (SC8180X), where the sensor is
+connected on I2C at 0x39 and used for ambient light sensing.
 
-Why this series has both spi and pwrap? There's no dependency between
-them.
+Signed-off-by: Robert Ijtsma <robertijtsma@gmail.com>
+---
+Changes in v2:
+- Replace hardwaregain control with standard IIO _scale and configurable
+  integration time using the IIO GTS helper (Jonathan Cameron).
+- Hold data->lock across the entire IIO_CHAN_INFO_SCALE path in
+  tcs3430_read_raw() (Jonathan Cameron).
+- Convert register I/O to regmap_i2c (Joshua Crofts).
+- Wrap guard(mutex) declarations in tcs3430_read_raw() switch cases in
+  enclosing blocks to fix Clang -Wjump-misses-init / cleanup scoping
+  (kernel test robot, Joshua Crofts).
+- Use switch(mask) in tcs3430_read_avail() and tcs3430_write_raw(), and
+  drop unused linux/mod_devicetable.h include (Joshua Crofts).
+- Drop redundant L: mailing-list line from MAINTAINERS (Joshua Crofts).
+- Pick up Krzysztof Kozlowski's Reviewed-by on dt-bindings.
+- Link to v1: https://patch.msgid.link/20261124-iio-tcs3430-v1-0-0f2a38a6a4c1@gmail.com
 
->
-> Changes since v2:
-> - Patch 2 (new): guard PWRAP_WDT_SRC_EN, PWRAP_WDT_SRC_EN_1, and cold
->   pwrap_init() with !HAS_CAP(wrp->master->caps, PWRAP_CAP_ARB) so
->   arbiter SoCs (MT6873, MT8195, MT6789) do not write wdt_src to offset
->   0x0 (PWRAP_INIT_DONE2) during probe.
-> - Patch 3 (was 2/3): add [PWRAP_INT_FLG] =3D 0x458 and
->   [PWRAP_INT_CLR] =3D 0x45C to mt6789_regs[] matching PMIF-SPI bank 3
->   (INT_EN at 0x450, int_en_all =3D 0x180000) so pwrap_interrupt() does
->   not clobber offset 0x0 and leave a level-high IRQ asserted.
-> - Patch 4 (was 3/3): renumbered to 4/4, unchanged.
->
+---
+Robert Ijtsma (2):
+      dt-bindings: iio: light: add ams OSRAM TCS3430
+      iio: light: add ams OSRAM TCS3430 XYZ and ambient light sensor driver
 
-All notes about addressing review in your patches should go below ---,
-otherwise they will be included in the git history. Alternatively,
-you can put them right here.
+ .../devicetree/bindings/iio/light/ams,tcs3430.yaml |  52 +++
+ MAINTAINERS                                        |   6 +
+ drivers/iio/light/Kconfig                          |  12 +
+ drivers/iio/light/Makefile                         |   1 +
+ drivers/iio/light/tcs3430.c                        | 489 +++++++++++++++++++++
+ 5 files changed, 560 insertions(+)
+---
+base-commit: 4843f6873f7c4835e62f2c73ba0fd538e57a2f22
+change-id: 20261124-iio-tcs3430-2f53879527ed
 
 Best regards,
-Roman
+-- 
+Robert Ijtsma <robertijtsma@gmail.com>
 
-> The v3 rebase and fixes were prepared with an AI coding assistant.
->
-> Base: torvalds/linux master 4dce97c6c265.
->
-> Arseniy Velikanov (3):
->   dt-bindings: soc: mediatek: pwrap: Add compatible for MT6789
->   soc: mediatek: mtk-pmic-pwrap: Add MT6789 support
->   dt-bindings: spi: mediatek,spi-mt65xx: Add compatible for MT6789
->
-> Ilia Snezhkov (1):
->   soc: mediatek: mtk-pmic-pwrap: Skip WDT source and init on arbiter SoCs
->
->  .../bindings/soc/mediatek/mediatek,pwrap.yaml |  1 +
->  .../bindings/spi/mediatek,spi-mt65xx.yaml     |  4 +++
->  drivers/soc/mediatek/mtk-pmic-wrap.c          | 44 ++++++++++++++++---
->  3 files changed, 43 insertions(+), 6 deletions(-)
->
-> --
-> 2.54.0 (Apple Git-157)
->
->
->
->
+
