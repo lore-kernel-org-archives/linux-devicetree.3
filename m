@@ -1,99 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795713593;
-	b=OS+4pWDNqrWQITCQkQrjhjELZyi74KnBokysU2ech6IQbkz32qKSsM7noZz6Z+kCGFW/
-	 Za7vWTgaiAAB50v/b7wlSyel4lb/3O20lkFxem97rnD4EeZ1IvudOVtEbMpQtL5yn4Amy
-	 GPx0bZaokNmqdTmPF9P3ljk3Akt64H0GVKfuiKnfyZYIjLAyM2RHjIqp4x0W+7ZQstqGN
-	 R4fknn8bIuRKPLiaLidBhgbh2RdSEZC9P/0KxzV2ccj7wel3cuT+7V0mdnzP/D0UMfz4+
-	 vIxA/W2rNcv7rDSxWtxbLtrB1YvmDBU6Y4QB4b1H3MnbNyqEhPVfD/NF3T+5rsTMh/w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795713593;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=IDeKDSsVbDV13k0Hy+XkX6qCopz9xoTAmCZ1Tcbq/jI=;
-	b=foRBGzTK4Gn38rKCOm5oPL1Y+kFB768YmpuTnCUk2VKv9SZEnIEFlvXTsTRNNmnYlsh0
-	 lMG48lCdBhcVYHKWxgkN93iDtFugZThq+oGwykpuHZzv6lIDJAzSUwRewPnCzfocsko1t
-	 nKI5ELEvLXBRE3Pn8GkBT2BvmxiQ+7L1KJiLK526GFm7SHJ1XRJp+zn6Mduz62fDCQvP0
-	 /fX9VqcEC4R6IPYru0VTZ1hoWeS2Z+gl+tSpPgHqnvg6xiLEmIr6Bo+YBF45rL/QsxPFC
-	 ht4z1ZC1sh+JslVmTiqdr0jTb30o0rPbU3w+AE6Jr1Egz09x7icW16Y6eN2HSgpz5eA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=UEKF+kAI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C530606A31C;
-	Thu, 26 Nov 2026 17:19:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C530606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795713785;
+	b=MhG/1lKIjapkRNBtgmLnsZKmTIQBMjHWb9yde6LLcLzvxhdlPjIacia3copr8r7enXtw
+	 EjnniCt6WajIjx/fOea98hI1WOP6s9ba5SwRmj/COphbJld/HXwezo5EMGWtnFoiAnQJo
+	 foyGiLEJiopggpGd4+2GpX8yctp8372wvYVoKJIm2+cCLOQAWBiwnMUc9EyBgImsQuB9y
+	 fG7c8MNXw4sdbDuZZ1qbvyRx6MiyFkl0b1uoFM9aF5p7LsBRVV2WZV9Qg/xr/+usIXI9s
+	 +318PXSO9BZl+uvbZjbEvYnFb049vU3SF0omctBawjATg5aVBhuOEtPLO/vUDZ/4/Ag==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795713785;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=AazhS24I/7MuMOkh0TY7pWo5KAGFVFjGku5DM2Pt/BA=;
+	b=jWhvKmLVhxIC+sXEqg7KQ+wEaPszYegpxt3gldAErNJAZaEVM25EhamnXFKnBBQzXEO8
+	 bJvoZbzwp7dNt+CY3joO1HO22xfJmP9GRjDnaJx41sh46oCBtQzWrxdT/dCx6R8x1cA4U
+	 O2BmMp+sXeIcZMKEw1r48ocg8V8kIEhp1lOdVCHpFN/w7wW/nhC5NDtT/gUF51Yl0I5Gt
+	 8KZmJHFqeKRJoZ/ApNL/fM+8KBQdfwxnf+EAFbl7tuDqB4k1/DHcCHQjdLcxrbHSPl8OL
+	 +v4n7Lnszz2ykMT0LFV2ASLlKQtUGYse0VSASQ+Vlf9jvbtIrZed8ocdX/CTZWcCT/Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=T2BEv0v4;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 03838606A321;
+	Thu, 26 Nov 2026 17:23:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03838606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=UEKF+kAI
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 93F6620583D;
-	Thu, 26 Nov 2026 18:19:46 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795713586;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IDeKDSsVbDV13k0Hy+XkX6qCopz9xoTAmCZ1Tcbq/jI=;
-	b=UEKF+kAIxfh+ciOumzn6hZn1L9NuCv3VAMkQGuaovTkc9IMnNU1Ir4Z6N3mrmX6Q6wmJX5
-	WRRjZgCI4799KKuEW0S9BjATjzSrFRIxUJhbTJrFl7Z+qUag+JNis8p7wUXAwHMdu6EFyR
-	YYK1Dge6Fqrnn7yMSlXo95kU5tWghXqXBWL8MwaRQ+SS0dvuIlr8c9bNqA5EQsyOZiCIUl
-	KDQDyPd8VVzn7q/M51930Q2+/1JEK+IPyzAq1ajTi+PaHL7pidwzPuIVjzjia+lq3iXCEX
-	nsXHge1Zpo30iCc3JLjjzZImP4PrDSxxUmWB5K6jKgaJe+yw70AIM1i1Uq892g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795713586;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IDeKDSsVbDV13k0Hy+XkX6qCopz9xoTAmCZ1Tcbq/jI=;
-	b=B07MFOCoC8+nNbkkldFEyw5yoaeNSqqr8tFxdF/Q6wcvnnVgoWlR7G3HC0ZiD5/rqdJ0q+
-	NDi1FfH7woS+mwdc4KzPANShQk+jYCfVUQNgJVNNAKMliaDVcZCtJokmrl26U9aZ/a690D
-	rd+Cn9ZjBUvESYC/s/zE0smVO/rHxqDdB7i1hjGq4akSVZ0AfWjdvQZTwcrvwAtVKrIIJu
-	TcP511BulGQ3qQ9LrKG6UZIHf2+/A86GZ2eAt4SQNBAMkmKGpO5LkVMYVDQHmchdiBQeNp
-	Wlfb2k04tNx2PtGHVWQ8D0CZBqc/g1sVkSsez50DrIBM/Ju0rDG+6BVbnbaVYA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795713586; a=rsa-sha256;
-	cv=none;
-	b=MRS0mnKPu6BGbJxZjUZufAzX4rgbnLUrflyMUPDdLj+1lVe9AfZZsocXagFecyjIKeYf0X
-	AHVbByd+JKt9HKSkVRDq/Nz0L4qoGbYkBk+81vb19ecvWOEyrC7YSOSNTyPSK/6TY3L/0G
-	w3t5sfURtKgWJa5XBkV/+Ese2RuUE0ALaVOean3mbZAHAjTP67a/JL7oNxu7OLR93zvHzG
-	WZhGgcGgnm1W58SsONxSoE+U+BulQfNqKRV/mAcCokZyGEP+VQKEjbmNFD/xRgV3ycCGfs
-	RT+EdlFxBRnomDHlkSM0JRSqLYNnQvxFCD1TCMRLBxjNsS8cKXqKyO5KeWgrPA==
-Message-ID: <04cb977d0a486b9574aaec5262ce92f652a29f18.camel@pengutronix.de>
-Subject: Re: [PATCH v3 2/3] clk: toshiba: introduce a TC9564 clock/reset
- driver
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Alex Elder <elder@riscstar.com>, sboyd@kernel.org,
- bmasney+clk@redhat.com, 	jbrunet+clk@baylibre.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, 	andersson@kernel.org,
- konradybcio@kernel.org, abelvesa@kernel.org
-Cc: daniel@riscstar.com, mohd.anwar@oss.qualcomm.com, 
-	lorenzo.bianconi@oss.qualcomm.com, fabrice.gasnier@foss.st.com, 
-	alexandre.torgue@foss.st.com, marex@nabladev.com, 
-	changhuang.liang@starfivetech.com, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Thu, 26 Nov 2026 18:19:46 +0100
-In-Reply-To: <e20fde6a-3389-4084-a2de-fee5426a74e6@riscstar.com>
-References: <20261125202141.1288493-1-elder@riscstar.com>
-	 <20261125202141.1288493-3-elder@riscstar.com>
-	 <579859f0e1b53aa6506492a2e5d073f3f991014c.camel@pengutronix.de>
-	 <e20fde6a-3389-4084-a2de-fee5426a74e6@riscstar.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=T2BEv0v4
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 562CA1BA8;
+	Thu, 26 Nov 2026 09:23:01 -0800 (PST)
+Received: from e142021.manchester.arm.com (e142021.arm.com [10.33.50.35])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B8CD03F632;
+	Thu, 26 Nov 2026 09:23:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795713784; bh=ijv/jqvo5qY8ee8OXFhmAq8F26CDUX03x4X4GgLtBiI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=T2BEv0v4xCvvpktZYfwPdzScfkP5S8lUNLojcxTQJzrRj3V3wx+NZtgnWawxisl9/
+	 pTypmHyImALeo5sYPgA2jhp/716j6vDY+oioE0H2KRD8hf0pQYtxYdJvd1wtIY6Zu/
+	 v9J12xwfMjIEdG0IPxMkjI6/meao1kZdWbF7jNSw=
+From: Andre Przywara <andre.przywara@arm.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Alastair D'Silva <alastair@d-silva.org>,
+	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
+	Pablo Mazzini <pmazzini@gmail.com>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>
+Subject: [PATCH 0/2] arm64: dts: allwinner: add Radxa Cubie A7A board
+Date: Thu, 26 Nov 2026 17:22:51 +0000
+Message-ID: <20261126172253.1097838-1-andre.przywara@arm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,24 +69,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Do, 2026-11-26 at 06:59 -0600, Alex Elder wrote:
-> On 11/26/26 3:42 AM, Philipp Zabel wrote:
-> > On Mi, 2026-11-25 at 14:21 -0600, Alex Elder wrote:
-[...]
-> > > +	/* Warn on any attempt to change state of a critical reset */
-> > > +	if (WARN_ON(id =3D=3D RESET_I2C) || WARN_ON(id =3D=3D RESET_PCIE))
-> > > +		return 0;
-> >=20
-> > Can't this be checked at reset_control_get() time (in fwnode_xlate) so
-> > that critical reset controls aren't given out to consumers in the first
-> > place?
->=20
-> So I'd pass in a slightly modified fwnode_reset_simple_xlate()
-> as the fwnode_xlate pointer?  I hadn't thought about that, but
-> it's a good suggestion.
+Hi,
 
-Exactly, and don't forget to set fwnode_reset_n_cells.
+this short series adds a devicetree for the Radxa Cubie A7A single board
+computer. It's based on Enzo's basic A733 .dtsi and Cubie A7S series,
+plus the other required binding patches, which are partly still in flight.
+Patch 1 adds some I2C pins to the .dtsi, as the board connects some
+external RTC chip there.
+Patch 2 is the actual .dts, supporting just a very basic system - the
+system peripherals like GIC and timer, plus the PMIC, SD card and the
+UART. USB and Ethernet should be easy to add, though binding patches for
+them are still in flight.
 
-regards
-Philipp
+Tested on the board, with MMC including card detect IRQ working, also
+the LEDs behave as expected. The EEPROM could be read via the sysfs
+interface. The I2C-attached RTC probes, though I couldn't really use it,
+as it reports an invalid calendar format. For booting, I needed the
+sunxi/for-next kernel, plus the pinctrl fixes and the AXP318 patches.
+
+Ideally this series should become part of Enzo's DT series, to avoid
+unnecessary churn and avoid conflicts: patch 1/2 should be squashed into
+the .dtsi, and patch 2/2 just added to his series.
+
+Please have a look!
+
+Cheers,
+Andre
+
+Andre Przywara (2):
+  arm64: dts: allwinner: a733: add r_i2c1 pins
+  arm64: dts: allwinner: add Radxa Cubie A7A board
+
+ arch/arm64/boot/dts/allwinner/Makefile        |   1 +
+ .../dts/allwinner/sun60i-a733-cubie-a7a.dts   | 385 ++++++++++++++++++
+ .../arm64/boot/dts/allwinner/sun60i-a733.dtsi |   7 +
+ 3 files changed, 393 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7a.dts
+
+-- 
+2.43.0
+
