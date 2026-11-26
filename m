@@ -1,47 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795705491;
-	b=pyyYftfQlzuh9mY58Y1Ht815LIcndDKG97I84CTbZtFgvb6MtU+uxuqJYfJdFR1m3ZVz
-	 j881/QuLqwrk7NYRqWl7X89D4PIs7TJzlzNUQTjivp953N/ihp/3Vl1uU7NL5T3/qIVaa
-	 AAVjjZWBvyfYBVfNstaJWBc4XtMzEofLVlBPIHu6QvBgapD51hE4LsTOQyoQygm9W23UA
-	 fv7PRgCzIzmmUmz3yFyem3J++SsTk6dt/q+7DO1qX6DId/9CQMAUqxZJhGZAIzP0ly8mJ
-	 tYW1qDfe0MU0na98A7eoOsn2Ww1tSaTNgRmeprXcFAocluOmAmNJ77JX3zSBVCj3DkA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795705491;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=DxoeQUnqjrax7TOZA6qlXkeOvtgxZiLNkiFCezfCp1U=;
-	b=wYnGJcgH2Ycqaz7KnKH608GVQeTGaOjiCiknkQyiAIBiYJZ9IwMjFItM+araIhDCraY4
-	 Ep6GpeRhq3O3y+wvdQntvM7mQs7V1WgBczeclyAt1giIVr5tkYDB5+eUBa+4tACAcUGIZ
-	 ZhshUi+9rhDeWoumcmewcDvsTCFJtRptcboqj+rYueEPfH1RTLD46r7frs2oobWqz/4H0
-	 9YQFaKAovMI626WoCUmOn3khVZEXUG7EnoKjdMd99mjTEPOS77ZF1av72+ygProp5ynI/
-	 8AZewhZrJCD2IaVmsRHPxLwBCMNJXWTcoaZaC5kbKFWXW3pATK5LWJu7vnG38wyZDxg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XuRoetxz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=52.101.66.88
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1795705502;
+	b=bgyccWuexoqIqj9wIyVjO1+BPhu8iEvxVP4YX8TBDo86V3vefCoSJyEQ9b5iL/392ivI
+	 5QabEZ7k2bDIvGBqoR2dLTy7hukzR4bnBikPsDhg+LXP/jpcyYPgQlwyLNstjT1sSBQa4
+	 q8stKn54+l3/yD7L+EDbSJgRiN2V/x8+lfYuT6CKzl/c45dN3SsHKKiDD92P2o84CGr0p
+	 NyXJvpBRsEtodZD11c67wT+HtOcf9VIi/qpfBXX9WHXbZeGpBZQYMzY81YQFzE/Wl77OA
+	 8T36mx4Amr81GC1WmwC/u7y4HIj7DozbuXA6S2rQfVUcFA3Hm8n6+Spx7ekcqdN/pmg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795705502;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=uLZnYGL4VRxRv9A16dd7c2EGzwCgFOCuOvu32IGKyGs=;
+	b=U8nXJAttD3VXP41zv09A1VQQdDBBuB8FsFI2pooXe7mY0rKVf35rbIxyUzJLyLo7s4G/
+	 aovmGh/v2KhE0Kc9dkg6mZd8efAdKpPUoLiP5CjSkQ+pN6JoKSLYFRy2qTChcB2nIyygL
+	 m9waIL6RYlJnpv6ozbHWlQ6CrFHWjD/NSkL8feZRuiQXiLGqR80AW15G4oDQHpXkhAGPu
+	 qYtlViLUjo1Xxc98GUC8C5l5AZqz75YOnkhC3Hj1ucgufRCPdPLJaNwj3EQaXCUx817xX
+	 2ce2/sYiOP7IWh8rOftPK+5e9BpS3HQSfzqEJsn8wjNotSJXhWXNoFL2iBYwZRl4QCg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=phytec.de;
+	spf=pass smtp.mailfrom=phytec.de;
+	dkim=pass header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b=UiOHr3ii;
+	arc=fail smtp.remote-ip=52.101.66.88
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11022088.outbound.protection.outlook.com [52.101.66.88])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6AE606A31C;
-	Thu, 26 Nov 2026 15:04:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672FB606A323;
+	Thu, 26 Nov 2026 15:05:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 672FB606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytec.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XuRoetxz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 886A41F000C4;
-	Thu, 26 Nov 2026 15:04:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795705490;
-	bh=DxoeQUnqjrax7TOZA6qlXkeOvtgxZiLNkiFCezfCp1U=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XuRoetxzLB5cN/ZOJHXhjAM3lYNwk/kx003krdL0WLjrofpSa2LCoTLuTfYec9jNE
-	 jcSXWaqEGVi1US2VYq/U/oqZL/PbxQ22Sriwp0ydhYG38vwDLP/HmQMMQ/LqwioH3j
-	 4GCH4H4tPd/gYr4o98stO7Jw0x1PtjBxwAWCfSv5sgq35v7LtmAh+mlOsUfJx0DRX5
-	 RWBb+hgals6VuboRYkul4mLHT23/KC6vPld52EouWVQ+FWtTckYg1Wy7jX8Mk7jgPr
-	 wTIH9wQASW0Ozc3No3xNs/QjJ28+wGHK/l0xn5Jn3Hi7daBa7bUSV+K4juqfE8gMAq
-	 NlyIuKugFhgjA==
-Message-ID: <9ca9842d-f0ae-4e21-8f89-9bd673ee7b03@kernel.org>
-Date: Thu, 26 Nov 2026 16:04:45 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b=UiOHr3ii
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=c9v5IGainzqlJ7kOSIrVgglOwxvqK2JcDqmwfAh1rYL0cIhVhuH2P0RAPpO1Xz68drSm0xV5MiGsPxAtWxjpVA2+cppaInFE6r51glidECp0+98ZHtXH3C24HEEytkz+T6S9KmNJeFyYkYYaU06Jx+1TBFnNfHIqnPybmwfjZc4weGxf22bKmXhmWNca9jiSL2MX6B4nuEcKSOP4KWdnjGXgiwu6bT6I4SZZ/cKudaHtnJk8Eky6eqlYVP+qLZZA0Befjm9/uh21Rd6sU8xncf8xzcRyteQZMTNEpyELXiRz84pbp1akEqEC69IYtszOyc+vDZjjae+Mpwu6dBtx4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uLZnYGL4VRxRv9A16dd7c2EGzwCgFOCuOvu32IGKyGs=;
+ b=I6odNnWkURwihkMg5B5rl83M5KK1TGL2K+D8rKZEUxxhTx5Ptr94JIvfjHEoZ7IahRaHj1qxwFo/7P5lL4hqZR0QZ0/qQM8lrRJPh4FdesEZ+Hw9P9U6CciPhdFtVqWGJXjPsYSzyqluY9P8ZxpmAD0s9SvmvqDO8BkMAJQzz0pN4V4KB+76z0Opi4pkSCzzQqwJfgQIwvbFf1NMalhyGyLEQhb8XPkWfbV2tvBfpTuVFR9NlcVc0gyBqWWGlY1/NLXw0xr0PLa0q5z6zovQ23zu9Pkd89jufekJ1XutYdxqyTiUrkzTs8YMOtCx6xjBLp/KUmzFhAE9Y7nzIl7A8w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 91.26.50.189) smtp.rcpttodomain=nxp.com smtp.mailfrom=phytec.de; dmarc=fail
+ (p=quarantine sp=quarantine pct=100) action=quarantine header.from=phytec.de;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phytec.de;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uLZnYGL4VRxRv9A16dd7c2EGzwCgFOCuOvu32IGKyGs=;
+ b=UiOHr3iiDsMq6unjZwNHpRuyB4Y4UQImZa8vIPQcTbQ+8YYMS9GLgeggKsakutOlSzaV+t5VvNA0lOKGZf1DAu7jRy7asdcGCqpt7DEv+eAJRzGE/w4wqnRUcrJV4Esa4Hmr3wYR6LhfQ4C9QeVBcDZzQIlfNQwpWJq+G4PEf3I0feCO/MrojsINICpinMm3nXfuWXVEl82Bf5W00bgWK7cEhd/anQ921nF/l9evkIcHbUaCPXVEeDOcLRFFZrfsD0GZuIpPp1QndpsTVmXF30a3/AdqKoTHegTfmG2IOLbQJQGP0NKRYU6r0u1z1xMRKoGaFOMpL76TaPAnJT0Mow==
+Received: from DU2P250CA0019.EURP250.PROD.OUTLOOK.COM (2603:10a6:10:231::24)
+ by AMBP195MB532405.EURP195.PROD.OUTLOOK.COM (2603:10a6:20b:7b2::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.6; Thu, 26 Nov
+ 2026 15:04:57 +0000
+Received: from MAD0EPF000008AE.eurprd04.prod.outlook.com
+ (2603:10a6:10:231:cafe::56) by DU2P250CA0019.outlook.office365.com
+ (2603:10a6:10:231::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.7 via Frontend Transport; Thu, 26
+ Nov 2026 15:04:57 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 91.26.50.189) smtp.mailfrom=phytec.de; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=phytec.de;
+Received-SPF: Fail (protection.outlook.com: domain of phytec.de does not
+ designate 91.26.50.189 as permitted sender) receiver=protection.outlook.com;
+ client-ip=91.26.50.189; helo=Postix.phytec.de;
+Received: from Postix.phytec.de (91.26.50.189) by
+ MAD0EPF000008AE.mail.protection.outlook.com (10.167.241.187) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.662.3 via Frontend Transport; Thu, 26 Nov 2026 15:04:56 +0000
+Received: from [172.25.51.48] (172.25.51.48) by Postix.phytec.de (172.25.0.11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Thu, 26 Nov
+ 2026 16:04:55 +0100
+From: Benjamin Hahn <B.Hahn@phytec.de>
+Date: Thu, 26 Nov 2026 16:04:52 +0100
+Subject: [PATCH v3 1/6] dt-bindings: arm: fsl: Add phyFLEX-i.MX 95 Libra
+ RDK
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,212 +102,85 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] platform: arm64: lenovo-thinkpad-t14s: Add Gen 7
- EC support
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- devicetree@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Hans de Goede <johannes.goede@oss.qualcomm.com>
-References: <20261123-t14s-gen7-ec-v2-0-3420a6202366@oss.qualcomm.com>
- <20261123-t14s-gen7-ec-v2-2-3420a6202366@oss.qualcomm.com>
- <f575410d-f0be-5ad5-834f-3b1c59109c53@linux.intel.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <f575410d-f0be-5ad5-834f-3b1c59109c53@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261126-wip-bhahn-imx95_upstreaming-v3-1-a2bda009bac8@phytec.de>
+References: <20261126-wip-bhahn-imx95_upstreaming-v3-0-a2bda009bac8@phytec.de>
+In-Reply-To: <20261126-wip-bhahn-imx95_upstreaming-v3-0-a2bda009bac8@phytec.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, Frank Li
+	<Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
+	Yannic Moog <y.moog@phytec.de>
+CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
+	<upstream@lists.phytec.de>, Benjamin Hahn <B.Hahn@phytec.de>, Conor Dooley
+	<conor.dooley@microchip.com>
+X-Mailer: b4 0.16.1-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795705493; l=1121;
+ i=B.Hahn@phytec.de; s=20240126; h=from:subject:message-id;
+ bh=Q38FYiJhuLQTH0X7DO++nMMSoqBnE9MrEdJELzp6J68=;
+ b=lZsMnGJs+3gtyxlI2EentNKUwf2F233lzedQ2gs5mjnv9dkFo2YbEJGnxgIZbCT4T5Q6KbnzT
+ aPDY0iDiIyhAJOIiahQR5MnLh7mevs/RsUJIr/kyMmJjW7eMtJf/jTc
+X-Developer-Key: i=B.Hahn@phytec.de; a=ed25519;
+ pk=r04clMulHz6S6js6elPBA+U+zVdDAqJyEyoNd8I3pSw=
+X-ClientProxiedBy: Postix.phytec.de (172.25.0.11) To Postix.phytec.de
+ (172.25.0.11)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MAD0EPF000008AE:EE_|AMBP195MB532405:EE_
+X-MS-Office365-Filtering-Correlation-Id: a3ed4f51-ff5d-4f21-9226-08df4bcea279
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|23010399003|7416014|376014|36860700016|22082099003|261009223027099003|18002099003|11063799006|10067099003|56012099006|261022075727099003|261026121527099003|261021121427099003|261102123227099003;
+X-Microsoft-Antispam-Message-Info:
+	7QTMWbzmjixUDb6oxrBI3x5CpxrRRJhDnVgg1IeY7iwEXwWoFqZ3ClGwFirNv+buJQs1rpcSjqQhKc2yWXzhRmBhCvK3WS9bzZdRIPBxCT0pVDNbvprHfjy8oAvRcSUe/e1Xk+kfS10HvhlOxFWDx59Wnmi3OtgLR2RLVTNVF4Mt+/U6Q8Ln7OrsjvYnqrY+Jy3lAOqAcXrjxb9E10u2HOuYQzKGf7YohuPnY+tR+bkvdWUhzwEFwWWRo4HEtVqnxWAkOKKX5J1igBs75u1gcXcIQ3bWA7L08NjrKHkTmw8EYxPGmMg+cPHSC4ft3y9n2UEWVOtLE6w10qGbVwEwf6MNBnzime9b0Gn5rJGXAHcgsCzHRwmyy3+6B3kLlfU3TrwBSIgbA3iqHEVvFbkfQOOvkYrXfO/lBiMBezIja1EmvuACcd3JSGHoAKPuAoAYmrMMR8yO/7OpFhqFK69Csnd/slAdfvH6QQyT8h1R1x6Mt4DeIpcTr+zqVFZcQkImnI7WJNI0X0ioQAoGAATSOiE4O+IrhWOF1BKEmuVqhM39dvhDcsY7lw67IPUon7cSpbGSJaghDp2waIZIXntGplQVC3mwVhZGpyQrFZgbM3ydeLBdtGH9wgqBuKMVSJ5EDldTx6VsfJar5mMhHjMrWBPdCV8z1CoYFDzH2CJJCAeKLvaby53rIcxVywM5LrLcv13bdMW1MWyPzGh26krpow==
+X-Forefront-Antispam-Report:
+	CIP:91.26.50.189;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:Postix.phytec.de;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(23010399003)(7416014)(376014)(36860700016)(22082099003)(261009223027099003)(18002099003)(11063799006)(10067099003)(56012099006)(261022075727099003)(261026121527099003)(261021121427099003)(261102123227099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	TFIgPbP/lWzsf6AH7HQ231pJfL/VoA+9NpQAW/cPfcnfA8mXSJHtUBCATvXSDPiEN7756ke2dlhK3Z1bf5oiaYHNMbyRal1EFkpyJqdvqEM0SIWBtJ195gLIhHMrY1xkj+JxAfob76BUrX4r8Egc0iZsjsGIFUmvtLPD4LMPIla4AvtzVuIVMgpLVURsC+Vl5PiGvGmpgKBM7aHh6H72+BogSQ2pVcTk1qtExFamYsjapae6af1lkQ9pLy5Q3XCDuGAvlqZbPCMvPGlM3mQR+22gIEuumtsC/ToHcCgwUqwmHqS9PZPbzo8iRVJJBda1cTUCAFdudfFngBWSCKQ4DOYruh5RDgeN6Ji6+cGBU0Oan1Ff43PpzwuB+WWkEJMNQnnBBwwXHzoamyZAt1Y0slCZYJ0Dq/SoZtAGwUu7/X2YDnWIpqUmlCJp/aJ2IVMP
+X-OriginatorOrg: phytec.de
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2026 15:04:56.9961
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3ed4f51-ff5d-4f21-9226-08df4bcea279
+X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e609157c-80e2-446d-9be3-9c99c2399d29;Ip=[91.26.50.189];Helo=[Postix.phytec.de]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MAD0EPF000008AE.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBP195MB532405
 
-Hi,
+Add devicetree bindings for new phyFLEX-i.MX 95 Libra RDK and
+phyFLEX-i.MX 95 FPSC Gamma SoM.
 
-On 25-Nov-26 23:04, Ilpo Järvinen wrote:
-> On Mon, 23 Nov 2026, Abel Vesa wrote:
-> 
->> The embedded controller of the ThinkPad T14s Gen 7 uses the same
->> register layout and event codes as the Gen 6 one, but a different set
->> of I2C commands. Going by the ACPI EC accessors in the Gen 7 firmware:
->>
->>   - register read:  write {0x80, reg}, then write {0x80} + read 1 byte
->>   - register write: write {0x81, reg, val}
->>   - event read:     write {0x84, 0x00}, then write {0x84} + read 1 byte
->>
->> With the Gen 6 commands the EC never reports any event and the LED
->> and keyboard backlight accesses have no effect.
->>
->> Describe the bus accessors and event read per variant and add one for
->> the Gen 7. The multi-message Gen 7 reads are done with the I2C bus
->> locked, as the Gen 6 ones already are.
->>
->> Besides the protocol, the Gen 7 differs in a few other places:
->>
->>   - there is no second keyboard backlight register and, when cycled
->>     with Fn+Space, the keyboard backlight also reports level 3;
->>   - the mic mute LED is a generic LED (id 0x0e) instead of a bit in the
->>     audio register;
->>   - Fn+F12 reports its own event code (0x19);
->>   - suspend is signalled through bit 5 of register 0xcf instead of the
->>     Gen 6 modern standby register, and the firmware makes the power and
->>     lid logo LEDs glow while suspended;
->>   - a few hotkeys which already come in through the I2C-HID keyboard
->>     (volume, mute and some Fn+Fxx combinations) also raise an EC event,
->>     and the firmware reports some status events nobody acts upon.
->>
->> Handle those differences and treat the Gen 7 only events as known ones,
->> ignoring the duplicate hotkey events.
->>
->> Co-developed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
->> Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
->> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
->> ---
->>  drivers/platform/arm64/lenovo-thinkpad-t14s.c | 197 ++++++++++++++++++++++++--
->>  1 file changed, 186 insertions(+), 11 deletions(-)
->>
->> diff --git a/drivers/platform/arm64/lenovo-thinkpad-t14s.c b/drivers/platform/arm64/lenovo-thinkpad-t14s.c
->> index 7a875877c8f3..cc7713aeac8e 100644
->> --- a/drivers/platform/arm64/lenovo-thinkpad-t14s.c
->> +++ b/drivers/platform/arm64/lenovo-thinkpad-t14s.c
->> @@ -17,7 +17,9 @@
->>  #include <linux/interrupt.h>
->>  #include <linux/leds.h>
->>  #include <linux/lockdep.h>
->> +#include <linux/minmax.h>
->>  #include <linux/module.h>
->> +#include <linux/mutex.h>
->>  #include <linux/regmap.h>
->>  #include <linux/slab.h>
->>  #include <linux/pm.h>
->> @@ -26,8 +28,20 @@
->>  #define T14S_EC_CMD_ECWR	0x03
->>  #define T14S_EC_CMD_EVT		0xf0
->>  
->> +/*
->> + * The Gen 7 (Snapdragon X2) EC uses a different command set over I2C, as
->> + * described by the ACPI EC accessors in its firmware (RDEC, WREC, QEVT).
->> + */
->> +#define T14S_GEN7_EC_CMD_RD	0x80
->> +#define T14S_GEN7_EC_CMD_WR	0x81
->> +#define T14S_GEN7_EC_CMD_EVT	0x84
->> +#define T14S_GEN7_EC_LED_MIC_MUTE	0x0e
->> +
->>  #define T14S_EC_REG_LED				0x0c
->>  #define T14S_EC_REG_KBD_BL1			0x0d
->> +#define T14S_EC_REG_MODERN_STANDBY_GEN7		0xcf
->> +/* Gen 7 DSDT sets this bit on Windows modern standby entry */
->> +#define T14S_EC_MODERN_STANDBY_GEN7_ESLS	BIT(5)
->>  #define T14S_EC_REG_MODERN_STANDBY		0xe0
->>  #define T14S_EC_MODERN_STANDBY_ENTRY		BIT(1)
->>  #define T14S_EC_MODERN_STANDBY_EXIT		BIT(0)
->> @@ -41,6 +55,7 @@
->>  #define T14S_EC_EVT_NONE			0x00
->>  #define T14S_EC_EVT_KEY_FN_4			0x13
->>  #define T14S_EC_EVT_KEY_FN_F7			0x16
->> +#define T14S_EC_EVT_KEY_FN_F12_GEN7		0x19
->>  #define T14S_EC_EVT_KEY_FN_SPACE		0x1f
->>  #define T14S_EC_EVT_KEY_TP_DOUBLE_TAP		0x20
->>  #define T14S_EC_EVT_AC_CONNECTED		0x26
->> @@ -67,6 +82,18 @@
->>  #define T14S_EC_EVT_KEY_FN_F11			0x7a
->>  #define T14S_EC_EVT_KEY_FN_G			0x7e
->>  
->> +/* Gen 7 only */
->> +#define T14S_GEN7_EC_EVT_HKEY_1010		0x14
->> +#define T14S_GEN7_EC_EVT_HKEY_1011		0x15
->> +#define T14S_GEN7_EC_EVT_HKEY_1017		0x1c
->> +#define T14S_GEN7_EC_EVT_STATUS_35		0x35
->> +#define T14S_GEN7_EC_EVT_DYTC			0x3c
->> +#define T14S_GEN7_EC_EVT_STATUS_40		0x40
->> +#define T14S_GEN7_EC_EVT_STATUS_4B		0x4b
->> +#define T14S_GEN7_EC_EVT_STATUS_4E		0x4e
->> +#define T14S_GEN7_EC_EVT_HKEY_1016		0x76
->> +#define T14S_GEN7_EC_EVT_HKEY_1015		0x7b
->> +
->>  /* Hardware LED blink rate is 1 Hz (500ms off, 500ms on) */
->>  #define T14S_EC_BLINK_RATE_ON_OFF_MS		500
->>  
->> @@ -83,6 +110,7 @@
->>  enum t14s_ec_led_status_t {
->>  	T14S_EC_LED_OFF =	0x00,
->>  	T14S_EC_LED_ON =	0x80,
->> +	T14S_EC_LED_GLOW =	0xa0, /* Gen 7 only, only works for power and lid LEDs */
->>  	T14S_EC_LED_BLINK =	0xc0,
->>  };
->>  
->> @@ -93,9 +121,18 @@ struct t14s_ec_led_classdev {
->>  	struct t14s_ec *ec;
->>  };
->>  
->> +struct t14s_ec;
->> +
->> +struct t14s_ec_variant {
->> +	const struct regmap_bus *regmap_bus;
->> +	int (*read_evt)(struct t14s_ec *ec, u8 *val);
->> +};
->> +
->>  struct t14s_ec {
->>  	struct regmap *regmap;
->>  	struct device *dev;
->> +	const struct t14s_ec_variant *variant;
->> +	enum led_brightness mic_mute_cache;
->>  	struct t14s_ec_led_classdev led_pwr_btn;
->>  	struct t14s_ec_led_classdev led_chrg_orange;
->>  	struct t14s_ec_led_classdev led_chrg_white;
->> @@ -206,6 +243,85 @@ static int t14s_ec_read_evt(struct t14s_ec *ec, u8 *val)
->>  	return ret;
->>  }
->>  
->> +static int t14s_gen7_ec_cmd_read(struct t14s_ec *ec, u8 cmd, u8 arg, u8 *val)
->> +{
->> +	struct i2c_client *client = to_i2c_client(ec->dev);
->> +	u8 req[2] = { cmd, arg };
->> +	struct i2c_msg msgs[2] = {
->> +		{ .addr = client->addr, .flags = 0, .len = 2, .buf = &req[0] },
->> +		{ .addr = client->addr, .flags = I2C_M_RD, .len = 1, .buf = val },
->> +	};
->> +	int ret;
->> +
->> +	i2c_lock_bus(client->adapter, I2C_LOCK_SEGMENT);
->> +
->> +	/* Send cmd + arg */
->> +	ret = __i2c_transfer(client->adapter, msgs, 1);
->> +	if (ret < 0)
->> +		goto out;
->> +
->> +	/* Resend the cmd byte + read the value */
->> +	msgs[0].len = 1;
->> +	ret = __i2c_transfer(client->adapter, msgs, 2);
->> +	if (ret < 0)
->> +		goto out;
->> +
->> +	ret = ret == 2 ? 0 : -EIO;
-> 
-> Aren't these literal 2 same as ARRAY_SIZE(msgs) ? (x2)
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Benjamin Hahn <B.Hahn@phytec.de>
+---
+ Documentation/devicetree/bindings/arm/fsl.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Yes, but we first want to transfer 1 msg and then 2 msgs.
+diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+index 656f2596e1d5..43b1ff8d25cb 100644
+--- a/Documentation/devicetree/bindings/arm/fsl.yaml
++++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+@@ -1551,6 +1551,13 @@ properties:
+           - const: phytec,imx95-phycore-fpsc  # phyCORE-i.MX 95 FPSC
+           - const: fsl,imx95
+ 
++      - description: PHYTEC phyFLEX-i.MX95 FPSC-Gamma SoM based boards
++        items:
++          - enum:
++              - phytec,imx95-phyflex-libra-rdk    # i.MX 95 phyFLEX Libra RDK
++          - const: phytec,imx95-phyflex-fpsc-g  # phyFLEX-i.MX 95 FPSC-Gamma
++          - const: fsl,imx95
++
+       - description: Toradex Boards with Aquila iMX95 Modules
+         items:
+           - enum:
 
-IOW the array is sized after the max amount of msgs we
-need to transfer vs we do not necessarily want to transfer
-the total amount of messages in the array.
-
-I went with literal '2' here instead of ARRAY_SIZE()
-to match the literal '1' in the transfer above and
-because we want to transfer 2 msgs, not max msgs
-(which happens to be the same).
-
-I'm fine with changing this, but IMHO using ARRAY_SIZE()
-for the second transfer looks a bit weird vs the literal
-'1' for the first transfer.
-> I wish we could use guard() of the i2c lock.
-
-Agreed.
-
-Regards,
-
-Hans
-
+-- 
+2.53.0
 
