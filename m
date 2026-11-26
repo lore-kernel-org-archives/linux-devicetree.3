@@ -1,88 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.12
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795662614;
-	b=ql6o6AtQWNrtw8pkk3jLk000BpfyJz6ixOhnACIm7zb3aCktrtmRkxwKEdXW4LaLkvog
-	 WO3xwArL3wiPEjesxX+agoPKlBcViY3rsrvTP1lFtoIPagtqbdvL+BOMGCTqawqiJe5OF
-	 0tQxrlLEEDEnvNsQDp00OEFMct45aknOuet39BaQrU6pZA+zZ0KKoElwqmu2BMyqYXc2V
-	 b/sVBj0ix3uJmFTP+X4PsfrDrvAl/viJjFBGm8TClNfPqkTiHOyazoXdY6EMnIFHfVMGz
-	 CqMSlT0fGEjJ3uW8wWNU09Ogj7XFaZMNFMy2zTOIx7Q6nBgaX/RmwQBisOcJjbVIlzg==
+	t=1795663257;
+	b=vuRpElAC40dK8FAAKOEc3pFvgAIVvBTw1nU/6+E9cyvNlKjyLXk3uf/raI9GNwmPbj5g
+	 eFOEuHbBDSjN25o+2z8qOrli5heOl8z5PEWTCtiEYmu0NrN+4XBmOlvqfpgPK+0p/YkRL
+	 vSyu8YHMf6B3YKrnjGlO1uNA3Vqo2pZWmSylqdyw4wMV6GgLgVj8McPeyf1IKWU1gbwIh
+	 gR5bhk7C+TcPNrYzzslfBAt5THGkTfD7lwgt2lQ7sVpVVnsiotngFWAMXV3qj00jrKacv
+	 yD4mDQ/pt4egPo2UNbsL4xSITzbBwgo+e8JM6/wl2CCapk7ml8rOb5TTEug3YgE7tTA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795662614;
-	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-Id:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=IjXU0+1UubX5FFQk0Wex754aARJrydtUNBmuPvryIQk=;
-	b=B8NibtP6NlTV9ivT67u6F8wQYaGELhQu3mv1aCM7gBpZlXtRdj7gGkJgyG7ZWwfDMCjT
-	 ytfVOSdVGUrLMG2rJV4GqVfwcny28nqaTwjE7r4io7+Mm5e2ud4eDvU3S6haTAQeX1ZJK
-	 BvZOV8DXp2d3kShv3cIvAsCUjk7aC52F3lxHpBmfGNWCWTRCLMC/KMd3IAeOztUpewhfK
-	 2geI/CpNftBw4gg+EKNx7YBRnzubsSpwFjlAQCCy3lvDSLzopY8isbMp436gUoO0nH7md
-	 O2lI131W2aZ5HsyZwLynB374TOeuoKVtgZctvKDCcuatsYulBTha44xmIgbh9DTmtSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795663257;
+	h=DMARC-Filter:DKIM-Signature:Received:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To:X-ZohoMailClient;
+	bh=wl1zFrlH173HoV75rMT0wWjqW6vBAlxFdSbEFwWvJuI=;
+	b=lIxn/RddZlHdxeRykGVRFCmBsjgCwgk1UD8YwXXoWwdyRKiS55ZJxA1JXNy1vlCw6tsc
+	 +EAgjkibZUM5oxT3V/rfmChkatoGPC6eU2RWWTIVpWAQvLM4cPMwOqxkHS7jHYtrnDHob
+	 QH/xXQKfqyiWnvBb6sewiS/5uOJ8fbArFtpJWSFsHKV4wAtemanXfIfAB9RDSvjl2sGxP
+	 p9kRxNWKTKn2xfpaIU5TG0YZpPXXYo8hRniOW+2TU6bkHqZpGMKUXX+X30pjJgCvOe9sk
+	 gr0MerXm6XohKV7BS2o6XvHtOexfe0f9OAd7JNh/Hwj/uUxmOsq9Q+oUyYyA3o9oxVQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Slwd0p8q;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=pigmoral.tech;
+	spf=pass smtp.mailfrom=pigmoral.tech;
+	dkim=pass header.d=pigmoral.tech header.i=@pigmoral.tech header.a=rsa-sha256 header.s=zmail header.b=FAvk0CBL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.12
+Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64338606A336;
-	Thu, 26 Nov 2026 03:10:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CEC5606A31E;
+	Thu, 26 Nov 2026 03:20:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CEC5606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Slwd0p8q
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795662613;
-	b=CaeFtufqp9Oc+B+lCpeSnJSG9yI/yCczdAw86KSXLgMOiKMy4tmTS+stobfo/f074STt
-	 /l6eEKgais+i2HfqvP4peMlUhXVWPaxs4PoDHLk9eNVuVZbcRb2m0KWXxT1wGQuqb7/b3
-	 Iu3F4SSiPjqvOWbxCwc2sWaKKWFbKjfHFzHVMT9jqm1967H84PAW/7CzZvVZhs9fWvymr
-	 F0Pe/QZPH5o3lcFFGceudFhrK/GGLrZikbUn4nUsYw+173hFlf05+MTyRuO5BvxgTZQ1b
-	 2CGkZJwnZL4X6o+GWWYJoRWUZWS8ns/rJkVC7umuY9YpzeXD3hj6IWuer6BPSsOh1Rw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795662613;
-	h=DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-Id:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=IjXU0+1UubX5FFQk0Wex754aARJrydtUNBmuPvryIQk=;
-	b=TnSOJ7YDAKGp/LOvyb1wNLjoSUAH229GgnAWM+YelAP17weIInOsDHuNy7YD0lfEkhgZ
-	 4g4go+G08T4PGagoQCzEE2wJoACs2JuMIrNq9Ylr51y/1yxE0mi4lgpImNKRxb95oQTnV
-	 h/9yD4Se0n7EbzKSzDIg4p0xh5cKcmjXloLE9hV1+XVbBnz9f+WWUDlJGWEeUQlbf5gYp
-	 vB37O50eNlEbWLEgVUgkr8DX4+ukjU2OWoRnVgci5OSjl17JfZ639/SnI56Ynmi5Tgor0
-	 Qnb+cOtQhjMukDomz7tYR8YRDeo9Gb3xYbhs5lByI5r07c3D37PTBeyz2nKuRDqFfyA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8B6761F000CF;
-	Thu, 26 Nov 2026 03:10:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795662613;
-	bh=IjXU0+1UubX5FFQk0Wex754aARJrydtUNBmuPvryIQk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:Reply-To;
-	b=Slwd0p8qbNtRRID6Yr1ZmacEUeFUR39FQoxE496r9zFat1rU9AHzFHQxSJmCZtD3n
-	 CslRWLaTDTUWIMdR4D8MQjXbGDmZKwDMLASmnR1u7EGd6RpN3VSd2EXTWJ08414mTr
-	 nVjJjQXG0xZzvQZLjam1zhb2YVkGnBG8DBw0OgNDV2DE5Nu7sW7ioPRNw7nyc4pRZH
-	 Tqyf5bXWO0XVhtjvFkmbzrirpBjnpuaIBy/5hVXjSXqcx7ArydDAxzFQgQwX0BHPj2
-	 Y3BqKD/0wokz1zUNpHPsjg1STHodENPA5Q35NNMxpTYShfnpTqxsaA/0eloekAR8dG
-	 tNSdW5GQCEB3A==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 193D34D1E1;
-	Thu, 26 Nov 2026 03:10:04 +0000 (UTC)
-From: Ilia Snezhkov via B4 Relay <devnull+iasnezhkov.gmail.com@kernel.org>
-To: matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com, 
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- broonie@kernel.org
-Cc: flora.fu@mediatek.com, amergnat@baylibre.com, leilk.liu@mediatek.com, 
- me@adomerle.pw, devicetree@vger.kernel.org, linux-spi@vger.kernel.org, 
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-Subject: [PATCH v3 3/4] soc: mediatek: mtk-pmic-pwrap: Add MT6789 support
-Date: Thu, 26 Nov 2026 03:10:04 +0000
-Message-Id: <20261126031001.27288-4-iasnezhkov@gmail.com>
-In-Reply-To: <20261126031001.27288-1-iasnezhkov@gmail.com>
-References: <20261126031001.27288-1-iasnezhkov@gmail.com>
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=@pigmoral.tech header.a=rsa-sha256 header.s=zmail header.b=FAvk0CBL
+ARC-Seal: i=1; a=rsa-sha256; t=1795663192; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=e4FII9bZdXIdBe8LYq4IGbMGRvCRAqDjcHw9c8PyTsCwtiVOHVX5/o5BFvRZq0JzdHw4je5tOQNaP8jVIjuVYUPUqGGHM2gbGyvBK9FyNT8Kycg4BOOHwfPE7RnxlVPqV/ZCxlxkMgRkxdSOsnV7mkREAb/knXDALPMCKk0t7ks=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1795663192; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=wl1zFrlH173HoV75rMT0wWjqW6vBAlxFdSbEFwWvJuI=; 
+	b=UUDe5cwvt/PXWuIAvUf7gV10dD720xJ276dIrDwnydvX0vcdz39b+TOiVIzKwtv0rWTBNc/hcSoszBNxJ9fhCrI6J3p/WVjxBu6hbPq+8o10JwFbnn0+/tb2RocfO8quJzYOua2SEEyGmP2fsWdF29PJKqhh0Ky4UKSiB+zECkA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: a=rsa-sha256; b=FAvk0CBLjnz+CVdmsl7/q3o4Fp2VSiuJJI4sTMUqqnfWurQhA1S0J/y6uFnL1wO8PJypOYhxEbmZYB28yoWSeEefIUxMG+jv39r2SBJ8lcFiQVUpBH0wno0yeu97zQDXIRopUT3Fgb/Kqtzd5SFHi9F9OFc6dMwE2FASRbwLjHQ=; c=relaxed/relaxed; s=zmail; d=pigmoral.tech; v=1; bh=wl1zFrlH173HoV75rMT0wWjqW6vBAlxFdSbEFwWvJuI=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1795663189418348.39520229037566;
+	Wed, 25 Nov 2026 19:19:49 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,114 +55,99 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795662602; l=3276;
- i=iasnezhkov@gmail.com; s=mindone2026; h=from:subject:message-id;
- bh=qbRExgNIXMO4nE5/slFdmSgfJvIRSfGusTpiIDiDri8=;
- b=ceYqBOI8k8xQMEDeVr7d8USS02DXQezeIQoq8ugPWj/G2rBAE7hANVEDI/C5eKNuG6rPtJ2lb
- Dx0CYCPX0qQDG03v7OvYorYsLCwVj7jodcNK7qnMQjLkGH9lCVumcnY
-X-Developer-Key: i=iasnezhkov@gmail.com; a=ed25519;
- pk=hQgXfiWi4ukk2jh4BHu1vRVhg9BUivo//AFp50AKMag=
-X-Endpoint-Received: by B4 Relay for iasnezhkov@gmail.com/mindone2026 with
- auth_id=1643
-X-Original-From: Ilia Snezhkov <iasnezhkov@gmail.com>
-Reply-To: iasnezhkov@gmail.com
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 26 Nov 2026 11:19:39 +0800
+Message-Id: <DN4TH0CNAM11.2OA7W5L11W78S@pigmoral.tech>
+Cc: <linux-clk@vger.kernel.org>, <linux-sunxi@lists.linux.dev>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ "Andre Przywara" <andre.przywara@arm.com>, <netdev@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>, "Jerome
+ Brunet" <jbrunet@baylibre.com>, "Enzo Adriano"
+ <enzo.adriano.code@gmail.com>, "Norman Herms" <dockseed@proton.me>,
+ "Vinicius Pedrosa" <vinicius.eduardo.pedrosa@gmail.com>
+Subject: Re: [PATCH v7 4/8] clk: sunxi-ng: a733: Add PLL clocks support
+From: "Junhui Liu" <junhui.liu@pigmoral.tech>
+To: "Alastair D'Silva" <alastair@d-silva.org>, "Junhui Liu"
+ <junhui.liu@pigmoral.tech>, "Stephen Boyd" <sboyd@kernel.org>, "Brian
+ Masney" <bmasney+clk@redhat.com>, "Jerome Brunet"
+ <jbrunet+clk@baylibre.com>, "Chen-Yu Tsai" <wens@kernel.org>, "Jernej
+ Skrabec" <jernej.skrabec@gmail.com>, "Samuel Holland"
+ <samuel@sholland.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Philipp Zabel" <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>,
+ "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Alexandre Ghiti" <alex@ghiti.fr>, "Richard Cochran"
+ <richardcochran@gmail.com>
+X-Mailer: aerc 0.22.0
+References: <20261112-a733-clk-v7-4-db7c5451ffa2@pigmoral.tech>
+ <20261125122452.3966873-1-alastair@d-silva.org>
+In-Reply-To: <20261125122452.3966873-1-alastair@d-silva.org>
+X-ZohoMailClient: External
 
-From: Arseniy Velikanov <me@adomerle.pw>
+Hi Alastair,
 
-Add PMIC-Wrapper support for the MediaTek MT6789 (Helio G99) SoC.
+On Wed Nov 25, 2026 at 8:24 PM CST, Alastair D'Silva wrote:
+> Hi Junhui,
+>
+> On Thu, 12 Nov 2026, Junhui Liu wrote:
+>> static struct ccu_nkmp pll_ref_clk =3D {
+>> ...
+>> };
+>> ...
+>> static CLK_FIXED_FACTOR_HWS(sys_24M_clk, "sys-24M", pll_ref_hws, 1, 1, 0=
+);
+>
+> While testing this v7 series on the OrangePi 4 Pro (24 MHz HOSC), ttyS0
+> switches from earlycon to garbled output with:
+>
+>   2500000.serial: ttyS0 MMIO32:0x0000000002500000 (irq =3D 414, base_baud=
+ =3D 1384615) is a 16550A
+>
+> Because the hardware bypasses pll-ref (0x02002000) when HOSC is 24 MHz,
+> sys-24M physically runs at 24 MHz from HOSC, while pll-ref remains
+> disabled with reset/unprogrammed N=3D12, M=3D13 fields. Since
+> ccu_nkmp_ops.recalc_rate() computes parent_rate * N / M regardless of
+> the enable bit, pll-ref reports 24000000 * 12 / 13 =3D 22153846 Hz.
+>
+> sys-24M, apb-uart, and bus-uart0 inherit 22153846 Hz instead of
+> 24000000 Hz, so 8250_dw calculates base_baud =3D 1384615 (instead of
+> 1500000) and programs divisor 12 instead of 13 (+8.3% baud error).
 
-MT6789 uses the PMIF-SPI arbiter interface with bank 3 interrupt
-registers (INT_EN at 0x450, INT_FLG at 0x458, INT_CLR at 0x45C, mask
-0x180000) and WACS2 software interface at 0x880..0x8A8. Register offsets
-and wrapper parameters are verified on live MT6789 hardware (iKKO
-MindOne, MT6366 PMIC).
+Thanks for testing and reporting this. This is indeed a problem. I had
+assumed that PLL_REF would be used on all boards.
 
-Signed-off-by: Arseniy Velikanov <me@adomerle.pw>
-Signed-off-by: Ilia Snezhkov <iasnezhkov@gmail.com>
----
-Changes since v2:
-- Added PWRAP_INT_FLG (0x458) and PWRAP_INT_CLR (0x45C) matching bank 3
-  PWRAP_INT_EN (0x450) so pwrap_interrupt() clears the real status
-  register instead of writing 0xffffffff to offset 0x0.
-- Depends on patch 2/4 so probing does not write wdt_src to offset 0x0.
-- Updated with an AI coding assistant.
+I also tried manually disabling or bypassing PLL_REF on my Radxa Cubie
+A7A, but have not yet managed to establish a working bypass
+configuration... I currently suspect that the selection is handled
+automatically by the hardware, but this needs further confirm.
 
- drivers/soc/mediatek/mtk-pmic-wrap.c | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+>
+> If pll-ref is disabled/bypassed (or if sys-24M is physically fixed at
+> 24 MHz as the comment describes), either pll_ref_clk needs a recalc_rate
+> that returns 24 MHz when disabled/bypassed, or sys_24M_clk should not
+> inherit an unenabled pll-ref N/M ratio.
 
-diff --git a/drivers/soc/mediatek/mtk-pmic-wrap.c b/drivers/soc/mediatek/mtk-pmic-wrap.c
-index 6b0d462..f3b97fb 100644
---- a/drivers/soc/mediatek/mtk-pmic-wrap.c
-+++ b/drivers/soc/mediatek/mtk-pmic-wrap.c
-@@ -640,6 +640,19 @@ static const int mt6779_regs[] = {
- 	[PWRAP_WACS2_VLDCLR] =		0xC28,
- };
- 
-+static const int mt6789_regs[] = {
-+	[PWRAP_INIT_DONE2] =		0x0,
-+	[PWRAP_TIMER_EN] =		0x3E4,
-+	[PWRAP_INT_EN] =		0x450,
-+	[PWRAP_INT_FLG] =		0x458,
-+	[PWRAP_INT_CLR] =		0x45C,
-+	[PWRAP_WACS2_CMD] =		0x880,
-+	[PWRAP_SWINF_2_WDATA_31_0] =	0x884,
-+	[PWRAP_SWINF_2_RDATA_31_0] =	0x894,
-+	[PWRAP_WACS2_VLDCLR] =		0x8A4,
-+	[PWRAP_WACS2_RDATA] =		0x8A8,
-+};
-+
- static const int mt6795_regs[] = {
- 	[PWRAP_MUX_SEL] =		0x0,
- 	[PWRAP_WRAP_EN] =		0x4,
-@@ -1316,6 +1329,7 @@ enum pwrap_type {
- 	PWRAP_MT2701,
- 	PWRAP_MT6765,
- 	PWRAP_MT6779,
-+	PWRAP_MT6789,
- 	PWRAP_MT6795,
- 	PWRAP_MT6797,
- 	PWRAP_MT6873,
-@@ -1852,6 +1866,7 @@ static int pwrap_init_cipher(struct pmic_wrapper *wrp)
- 	case PWRAP_MT7622:
- 		pwrap_writel(wrp, 0, PWRAP_CIPHER_EN);
- 		break;
-+	case PWRAP_MT6789:
- 	case PWRAP_MT6873:
- 	case PWRAP_MT8183:
- 	case PWRAP_MT8195:
-@@ -2302,6 +2317,19 @@ static const struct pmic_wrapper_type pwrap_mt6779 = {
- 	.init_soc_specific = NULL,
- };
- 
-+static const struct pmic_wrapper_type pwrap_mt6789 = {
-+	.regs = mt6789_regs,
-+	.type = PWRAP_MT6789,
-+	.arb_en_all = 0x777f,
-+	.int_en_all = 0x180000,
-+	.int1_en_all = 0,
-+	.spi_w = PWRAP_MAN_CMD_SPI_WRITE,
-+	.wdt_src = PWRAP_WDT_SRC_MASK_ALL,
-+	.caps = PWRAP_CAP_ARB,
-+	.init_reg_clock = pwrap_common_init_reg_clock,
-+	.init_soc_specific = NULL,
-+};
-+
- static const struct pmic_wrapper_type pwrap_mt6795 = {
- 	.regs = mt6795_regs,
- 	.type = PWRAP_MT6795,
-@@ -2448,6 +2476,7 @@ static const struct of_device_id of_pwrap_match_tbl[] = {
- 	{ .compatible = "mediatek,mt2701-pwrap", .data = &pwrap_mt2701 },
- 	{ .compatible = "mediatek,mt6765-pwrap", .data = &pwrap_mt6765 },
- 	{ .compatible = "mediatek,mt6779-pwrap", .data = &pwrap_mt6779 },
-+	{ .compatible = "mediatek,mt6789-pwrap", .data = &pwrap_mt6789 },
- 	{ .compatible = "mediatek,mt6795-pwrap", .data = &pwrap_mt6795 },
- 	{ .compatible = "mediatek,mt6797-pwrap", .data = &pwrap_mt6797 },
- 	{ .compatible = "mediatek,mt6873-pwrap", .data = &pwrap_mt6873 },
--- 
-2.54.0 (Apple Git-157)
+The issue may affect not just sys-24M, but also the downstream PLLs.
+According to the vendor SDK, their control registers have a PLL_FREF_SEL
+mux at bit 24, selecting between HOSC and REFPLL. The driver currently
+models these PLLs as having PLL_REF as their only parent, so their rates
+could also be calculated incorrectly when they actually use HOSC. We
+should model those muxes as well.
 
+However, my A7A, A7S and A7Z boards all use 26 MHz crystals, so I cannot
+properly validate the 24 MHz case until I get a board with a 24 MHz
+crystal. In the meantime, if you have a fix in mind, please feel
+free to send a separate patch.
+
+>
+> Tested on OrangePi 4 Pro (Allwinner A733).
+>
+> Thanks,
+> Alastair
+
+--=20
+Best regards,
+Junhui Liu
 
