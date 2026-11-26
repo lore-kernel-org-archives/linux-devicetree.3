@@ -1,49 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795705208;
-	b=dafajG6lXHZSUgNJn5at7lfM5PkI7Y9vdNEfwO2zivJxg6APwJuZCAB1Sp//q2OJ754n
-	 FqWOJggsDiEYWiQBz7FhQ6AbUwhcd+snlWJ+8j69k6IczkqdMbaFO+RAooQ9M42A7SG/c
-	 eXcsrHEcWvWWsyrvMP8JOWNMu11bi2VipNW9UWQGavGNdLUEI6gBvxyGqrpgYpBtYkH3e
-	 P9w/bi27xYiVjgZEVwhMNwoIbBRy777N7k+X/nIKyC2f7VbAyLFKkqjn5s5Tq3QlnxwRB
-	 bXl+zbUnOMWIWJVq3UoDx0Rj9+9GhyZJDYH19MV6LpOTwgH+8RbaYL3LQ9wmEilNE8w==
+	t=1795705251;
+	b=io67mMI8RPz9acmL2CSg7l/AUP+XQVesNofQA2FnrISCSfCXHtGJGYrAH9zJQOZCCrga
+	 pzDrFOplwgrVbNy1RuaH1TPlVVkDlWfVuagzVSTNrpIUBHRlIS/9xShUB1WiY3vAXxAHt
+	 A6TTZ7ZKsVoiJdqcEZknUtUAOHhz4Di9fZM7gL5CG7pSJimCC+N71vnUkAn18uy7ohq3m
+	 kYXEzcJ9ftgC7/YhkjpfjD+gDZ0g3Gu6/WfyLMZ0KrEGYpx7pkQ/yBGt+S16zwDJipblj
+	 o8GNwH4XhfEsUsJmp9nSVBDhD80a3DOyPHuPodMBJwTr60slmSjVSTjKeJFy+J1WiLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795705208;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=G4b3dFHg0tvdbnb4TXJttoG2afJS8WFlVLY+6CDMkE0=;
-	b=HepWSD7en65lUmGSJ4HmmLavNWyLWqN9wIrWYgEYL0yMuKks6soww6w1rk9MMQGOkYVk
-	 a6yADrBvJNY49QHW07UzyE3pm5ME+Uj2N+vS3iFFcSzWFp8I3qOTnVLxSnu3My89axCQy
-	 SfRNZeTTd0xU0F2ZCoqlOopaHt6H4d6e4UYNQPr2DNY4yE8WW15tR+Rqug7YXGFIiAJti
-	 7Qkj239FcKXyA8U/SadTNUWzjcoSLGvhLwqpSXHBCH9qrT7jOiblXBaMmg29oQO8i1lQ4
-	 jiNzwIhElIvrvPt9eNPop0l084jrAZ/X6qRtYW5ArMokK9kIWMjkbFKlrNyWcp8jMoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795705251;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=RB78X0IcOyrqNjXNG6N3DX4I1/jgYJG4ZEhjhOhkzQs=;
+	b=IDFmfF2T5tR5/ODOrWHJwrtjJg2njuuynjb8XdAHn2lMEKfivU6wIWFkrNXA0j10Mh0i
+	 J9gqOUDow/tvzx5a2NltGn2H9F0UIqjTAZHTJDqvKkSBB6ZT77HzuJBQqiUq+2cKBn+so
+	 uXPM9yKDL8ITC0YSNgr7y9Zcezw9IDy2DWOMv7SnZJzeJEGFs8M6td5bedyPWwVbk/7Yl
+	 7Akf058mM46JQRDKq15e+uRp5c6YEKe1ZgCweDieRZq2KO0j3zVE4414ZNvT2z9ClRax/
+	 XBVctCTaj62gmRgIM/WB8cD0V+xYpXKOY64kzAwBZOLTPRVVX8e/pNLhKKT2rMR804A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OyAaZiii;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7EB35606A333;
-	Thu, 26 Nov 2026 15:00:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EB35606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gz68Hsaa;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A23DE606A329;
+	Thu, 26 Nov 2026 15:00:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OyAaZiii
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EE5401BA8;
-	Thu, 26 Nov 2026 07:00:04 -0800 (PST)
-Received: from [10.33.48.93] (GM14V85S.arm.com [10.33.48.93])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5D29A3F86F;
-	Thu, 26 Nov 2026 07:00:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795705207; bh=1fcrH9jumeQ+fD04PGZH05Eq8TBEmii97al5gS/oIO4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=OyAaZiiipunAESQC3EfdqhVnoJcyqbpgBTVTR82YqLGsohLs0r6+TtEzsvhtOg/1V
-	 klVLI/kLfeHWDRT8p6tdVY4tnpQp6khQR/B/lQZgzebSw44DDYegyseYf6k9/dZscx
-	 sVnxnGqmix/ZMd27GaXlRDnlVtW5LQYVFoNrMxB4=
-Message-ID: <91794c90-a797-417d-88c9-8839529660e9@arm.com>
-Date: Thu, 26 Nov 2026 15:00:02 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gz68Hsaa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EFD61F000C4;
+	Thu, 26 Nov 2026 15:00:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795705251;
+	bh=RB78X0IcOyrqNjXNG6N3DX4I1/jgYJG4ZEhjhOhkzQs=;
+	h=From:To:Cc:Subject:Date;
+	b=Gz68HsaaIeYn+XU6mxagfJkVh7xsjb8Is2cqwsEkAP/7JxmR38b1EO0S/lqe6S9ju
+	 h1mgNRqcQgBF4z01M8/fzrmItYD7XfRmd1ErZNS2opE5xnL2Kl10u3Ro/dO68BOh4Y
+	 s75dQBQoFMwju6oz8D11MDSEOkb19Xhc3x74bAyMfSBulchWXGBJ4xjjI/wuyADs8n
+	 vsPNgYr7uhLZLs80azXwtdZUDwSD5B2xZpwD8e0L7g1lP3RUFg3UBQh6Je9SlYCxPw
+	 kO+7ugALNp4XOecfjUxE0W8n6Olz+7BziokFpO1yVqjHb1AdLWWTNTnfrFCAONWI2y
+	 aYcRkUMDFOOqA==
+From: Sasha Levin <sashal@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	kernelci@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: qcom: sm8750: Mark the watchdog as reserved
+Date: Thu, 26 Nov 2026 10:00:48 -0500
+Message-ID: <20261126150048.2221469-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,56 +64,49 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/24] media: mali-c720: Add hardware identification
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Nayden Kanchev <nayden.kanchev@arm.com>,
- Konstantin Babin <konstantin.babin@arm.com>,
- Linus Walleij <linusw@kernel.org>, jacopo.mondi@ideasonboard.com,
- kieran.bingham@ideasonboard.com, laurent.pinchart@ideasonboard.com,
- dan.scally@ideasonboard.com, Sakari Ailus <sakari.ailus@linux.intel.com>,
- Rob Herring <robh@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-References: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
- <20261124-b4-initial-upstream-candidate-v1-5-0cb9bde1bd30@arm.com>
- <179559677600.14607.6594089332845207687.b4-reply@b4>
-Content-Language: en-GB
-From: Anthony McGivern <anthony.mcgivern@arm.com>
-In-Reply-To: <179559677600.14607.6594089332845207687.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Since next-20261110 the SM8750 MTP in KernelCI panics during boot when
+qcom_wdt probes:
 
-On 25/11/2026 08:52, Krzysztof Kozlowski wrote:
-> On 2026-11-24 17:07 +0000, Anthony McGivern wrote:
->>  struct mali_c720_top_regs;
->>  struct mali_c720_ctx_mgr_regs;
->>  struct mali_c720_modules_regs;
->> @@ -56,7 +58,8 @@ struct mali_c720_registers {
->>  };
->>  
->>  const struct mali_c720_id_regs *mali_c720_get_id_regs(void);
->> -int mali_c720_get_registers(struct mali_c720_registers *regs);
->> +int mali_c720_get_registers(enum mali_c720_version_id version,
->> +			    struct mali_c720_registers *regs);
-> 
-> You just added this code. Add complete pieces of code, not half-baked
-> which you immediately need to fix/change.
-> 
+  Internal error: synchronous external abort: 0000000096000010 [#1] SMP
+  pc : qcom_wdt_probe+0x374/0x460 [qcom_wdt]
+  Kernel panic - not syncing: synchronous external abort: Fatal exception
 
-That's valid, initially I separated these changes from register access,
-though they are somewhat dependent on one another. For V2 I will squash
-this and the register access patch together.
+The node has no "sram" property, so qcom_wdt_get_bootstatus() reads
+WDT_STS, and that first watchdog MMIO read takes the external abort.
+The MTP runs the Gunyah hypervisor, which owns the APSS watchdog, as on
+SM8650.
 
-> Best regards,
-> Krzysztof
-> 
+Mark the node reserved, as commit 4f8202061737 ("arm64: dts: qcom:
+sm8650: Add watchdog node") does for SM8650. This also lets qcom_scm
+register the Gunyah watchdog, which it skips while a "qcom,kpss-wdt"
+node is available.
 
-Thanks,
-Anthony
+Fixes: 6554c11efd6d ("arm64: dts: qcom: sm8750: Add watchdog node")
+Link: https://files.kernelci.org/qualcomm/baseline-arm64-qualcomm-6b071ff5286e1965ecb6e758/log.txt.gz
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+Built sm8750-mtp.dtb and sm8750-qrd.dtb on top of arm64-for-7.5 (W=1),
+not tested on hardware.
+
+ arch/arm64/boot/dts/qcom/sm8750.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+index f46a5e8a953c7..3f76dfe0bd565 100644
+--- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+@@ -6007,6 +6007,7 @@ watchdog@16410000 {
+ 			reg = <0x0 0x16410000 0x0 0x1000>;
+ 			clocks = <&sleep_clk>;
+ 			interrupts = <GIC_SPI 0 IRQ_TYPE_EDGE_RISING>;
++			status = "reserved"; /* Owned by hypervisor */
+ 		};
+ 
+ 		cpucp_mbox: mailbox@16430000 {
+
+base-commit: dde0308a2f8867806a444df1fdd7e685b1c56d5b
+-- 
+2.53.0
 
