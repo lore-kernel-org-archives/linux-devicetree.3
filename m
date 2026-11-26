@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795700758;
-	b=q52ReQl2WpPwVES84Tg/208slbVU9Y37xUoGnTFOYGzynye1zdD/9NnVCubqKHCacayW
-	 lfQRPw4MT0Jf3F+73wqUaGa8aEOhbzL1QU7J0qefQ+z7rwkKiUEW3Clj8ypcsyVI9vcB0
-	 97bm4eOr4ZbiExRSmOkl0E5EwshXANfAStMzMcbRwrf411BY2ke0zU4sy5vbJQXEwvp8K
-	 x+9ZI4+WJgW5mZrXvLXOko0EWKxHoPZzaC196pqmeGmqBYfgaJ3olNdG9Z3cGmLCJHn3O
-	 EnrrY248CBASh/R8+x2K7BEnTcahYI2O6rXW+rmJNnI60l7InfMCUu/dx2hJwOJHmcg==
+	t=1795700763;
+	b=xO9/yu+0qwkEd13s4rTHG2yeBgMKPHnGAi3X51+CSHmWmhkUP7HYWg4tskvJj6KfWeTs
+	 vSRGL29fIi/ROHKuImC0DsXPCZ+VKNy31lHl3mk+cf1m+iVticva1xuuycvAZD53UNykJ
+	 0JkLZy8UN4DrpN2yI6tcV0vy8bQKJAFIAfXm7nmzV15uySTNb4x8Q4dVAubc3shr25DiC
+	 QmPuP4GLow1Azw/aUoF9Sr4YLiXGd19TSg7PpWI+Vq7sYf1QD/BsXI8h3hyHf0ZRF9gx7
+	 jqdo+D1BFnDwgieO94Upi/oDKZxbq5Wknk/pCe+Fmg1eNZHSZGm3GKusjIQZ+YnoDJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795700758;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795700763;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=bsSwYdx+AuYuIkeKuhSejgl7Ua506v/UQfY/79+CdWA=;
-	b=THKrsvSY2d/USCt9cbwMykld8YGNeMTvFygGCxTtrlV4yJrUd2WhBjZy1SHqaAqMPYBy
-	 PC8qXkPLCtktmbylMcJ2Q6/O9g6+nGnYljMi1K0ePe7Z+wZLQUvulJF6jqnnm3/NxwiW1
-	 4XYVnpAW+jBGIQv433vOXeD6RFdcWyiEShozsL4f6FZr9mMX5Wt8rJ3rJTIbe8bBBrkeY
-	 Pd3sGoJr6i3iflS53Cb+OmQtcAnLoG9L0yz0QhGBqapuC+2yfX6Ne/WAI64m4tvhqt+A8
-	 Na2ZC8ouvJm/tvhHyiT36sbKLNuIUbGWjr0SFy/EkIRK5zsVSR7v1UmxOZyoSuuSHBQ==
+	bh=5izFwnqcV2sJ+6UxL0zKXDHUAtBrQLb7nNenrLl2QvI=;
+	b=hgMozo8gnqfHT9EM/YHmxIBga/rKdo5FXDLW1J4a/lAKu0H3SnVcoVVk497U57MY/5Gf
+	 yLmnj26GjFH93zZX9nVqOsPmicLCh0yWVT9UILITWKj2/EtBf63W/CzEE4Z8g3f2aubef
+	 lLtf4Hd03OzTv3KuXnW5IrK6W2vu8LDkhoYqRmZqTHkiLWufOQrL6VkKiXnGwuFBIJMsF
+	 /d57so1HmT+xzlJys18nmtIv3fhI9c2IiGxl3VLcjHAly1Pb6XLskwfjnIXpV21E3oxoL
+	 Yp2jMhaChPCeH2v6VFAcEOJJxP7oiDbmNS3tXPCdWWhJ6lioFHxFVz3yE6hsJkpuNjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kFsvWiHO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RdcjsUg+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95945606A31C;
-	Thu, 26 Nov 2026 13:45:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 544EC606A323;
+	Thu, 26 Nov 2026 13:46:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kFsvWiHO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2603A1F000C6;
-	Thu, 26 Nov 2026 13:45:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RdcjsUg+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E417B1F000EE;
+	Thu, 26 Nov 2026 13:45:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795700757;
-	bh=bsSwYdx+AuYuIkeKuhSejgl7Ua506v/UQfY/79+CdWA=;
+	s=k20260515; t=1795700762;
+	bh=5izFwnqcV2sJ+6UxL0zKXDHUAtBrQLb7nNenrLl2QvI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kFsvWiHOmnkFaQ/1GS7udvV34DPX0momG05TVGoxABWJ0FH5aF+43PkeaAVkS7wGK
-	 Mu8K1xS8e22G05W1+kw8D+Vrc8p7FuD3gB1M/EsnpcGF+/QreQ4gMeRbaKnptiBgxF
-	 jq7EfPX5+JIWjveKujPTN6bAcWwnO4CPK/I2ugMFmpZthmzObJ8dU9Zxmzk/52dQzw
-	 z7p3dDejVEijhbHUXDWmjNvpum6sp8z3llFyKpsCMIl4Ojmset9uNmbUEpjFROXbeF
-	 xT/NNrjdNfJ6xtc6WVZ+VXIWr8SFuUd/02wH1fwGulEgLq9quX8Lnyu21TU7T2+57d
-	 GX15x6PrRRH0w==
+	b=RdcjsUg+moQP2HUzuueSFSnrR9LZSoZ7CqlDjAnm+dCv55Zb1rAnD01kj4jKdmz5n
+	 +kEmOGeGG3Aea82V4ANoCv4GK2io7+KnZOQ52wdqrqrS2eLE06vDj5ih69UbRfq+Z7
+	 jjEJkfOgVqYcLfHte398b/DHDmd/wkMPxbM0oZb7anFzg25eUc+gHbeUXygdeucl0I
+	 hRM+PxopBjTxQrHg8NJZs5XVqmq6HlupD/yFPAPKGnoYrT6qE5br9zZEniZB7JNyFH
+	 KMpmdYeROK2FY9+2eh5Q7txx0DYbBCgQ65Qv6e+AkEowSkqmK4cCyyLFPi/+jGlgxV
+	 Z/+nauH7HKAJg==
 From: Vladimir Zapolskiy <vz@kernel.org>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
 	Jessica Zhang <jesszhan0024@gmail.com>,
@@ -57,9 +57,9 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	devicetree@vger.kernel.org,
 	Abel Vesa <abelvesa@kernel.org>,
 	linux-arm-msm@vger.kernel.org
-Subject: [PATCH v2 04/10] drm/panel: novatek-nt36672e: Make the AVDD and AVEE supplies optional
-Date: Thu, 26 Nov 2026 15:45:02 +0200
-Message-ID: <20261126134508.320700-5-vz@kernel.org>
+Subject: [PATCH v2 05/10] drm/panel: novatek-nt36672e: Support the bias enable GPIO
+Date: Thu, 26 Nov 2026 15:45:03 +0200
+Message-ID: <20261126134508.320700-6-vz@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261126134508.320700-1-vz@kernel.org>
 References: <20261126134508.320700-1-vz@kernel.org>
@@ -74,141 +74,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The positive and negative bias supplies of NT36672E panel may generate
-the bias on the module itself, and be not exposed by the panel modules.
-
-Split the supplies into the required VDDI supply and the pair of AVDD
-and AVEE bias supplies, which are either both described or both absent,
-and get the bias supplies only if they are described.
+Some NT36672E panel modules generate their positive and negative bias
+supplies on the module, and expose only a bias enable signal instead of
+the AVDD and AVEE supply inputs, add support of such bias enable GPIO.
 
 Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
 ---
- .../gpu/drm/panel/panel-novatek-nt36672e.c    | 69 +++++++++++++------
- 1 file changed, 49 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/panel/panel-novatek-nt36672e.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
 diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672e.c b/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
-index 364e0855280f..de070637c208 100644
+index de070637c208..4836751b7d5d 100644
 --- a/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
 +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
-@@ -13,16 +13,13 @@
- 
- #include <video/mipi_display.h>
- 
--static const char * const regulator_names[] = {
--	"vddi",
--	"avdd",
--	"avee",
-+static const struct regulator_bulk_data nt36672e_supplies[] = {
-+	{ .supply = "vddi", .init_load_uA = 62000 },
- };
- 
--static const unsigned long regulator_enable_loads[] = {
--	62000,
--	100000,
--	100000,
-+static const struct regulator_bulk_data nt36672e_bias_supplies[] = {
-+	{ .supply = "avdd", .init_load_uA = 100000 },
-+	{ .supply = "avee", .init_load_uA = 100000 },
- };
- 
- struct panel_desc {
-@@ -40,7 +37,8 @@ struct nt36672e_panel {
+@@ -37,6 +37,7 @@ struct nt36672e_panel {
  	struct drm_panel panel;
  	struct mipi_dsi_device *dsi;
  	struct gpio_desc *reset_gpio;
--	struct regulator_bulk_data supplies[3];
-+	struct regulator_bulk_data *supplies;
-+	struct regulator_bulk_data *bias_supplies;
++	struct gpio_desc *enable_gpio;
+ 	struct regulator_bulk_data *supplies;
+ 	struct regulator_bulk_data *bias_supplies;
  	const struct panel_desc *desc;
- };
- 
-@@ -362,12 +360,23 @@ static int nt36672e_power_on(struct nt36672e_panel *ctx)
- 	struct mipi_dsi_device *dsi = ctx->dsi;
- 	int ret;
- 
--	ret = regulator_bulk_enable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
-+	ret = regulator_bulk_enable(ARRAY_SIZE(nt36672e_supplies), ctx->supplies);
- 	if (ret < 0) {
- 		dev_err(&dsi->dev, "regulator bulk enable failed: %d\n", ret);
- 		return ret;
+@@ -377,6 +378,8 @@ static int nt36672e_power_on(struct nt36672e_panel *ctx)
+ 		}
  	}
  
-+	if (ctx->bias_supplies) {
-+		ret = regulator_bulk_enable(ARRAY_SIZE(nt36672e_bias_supplies),
-+					    ctx->bias_supplies);
-+		if (ret < 0) {
-+			dev_err(&dsi->dev, "bias regulator enable failed: %d\n", ret);
-+			regulator_bulk_disable(ARRAY_SIZE(nt36672e_supplies),
-+					       ctx->supplies);
-+			return ret;
-+		}
-+	}
++	gpiod_set_value_cansleep(ctx->enable_gpio, 1);
 +
  	/*
  	 * Reset sequence of nt36672e panel requires the panel to be out of reset
  	 * for 10ms, followed by being held in reset for 10ms and then out again.
-@@ -389,7 +398,14 @@ static int nt36672e_power_off(struct nt36672e_panel *ctx)
+@@ -397,6 +400,7 @@ static int nt36672e_power_off(struct nt36672e_panel *ctx)
+ 	int ret = 0;
  
  	gpiod_set_value(ctx->reset_gpio, 1);
++	gpiod_set_value_cansleep(ctx->enable_gpio, 0);
  
--	ret = regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
-+	if (ctx->bias_supplies) {
-+		ret = regulator_bulk_disable(ARRAY_SIZE(nt36672e_bias_supplies),
-+					     ctx->bias_supplies);
-+		if (ret)
-+			dev_err(&dsi->dev, "bias regulator disable failed: %d\n", ret);
-+	}
-+
-+	ret = regulator_bulk_disable(ARRAY_SIZE(nt36672e_supplies), ctx->supplies);
- 	if (ret)
- 		dev_err(&dsi->dev, "regulator bulk disable failed: %d\n", ret);
- 
-@@ -520,7 +536,8 @@ static int nt36672e_panel_probe(struct mipi_dsi_device *dsi)
- {
- 	struct device *dev = &dsi->dev;
- 	struct nt36672e_panel *ctx;
--	int i, ret = 0;
-+	bool avdd, avee;
-+	int ret = 0;
- 
- 	ctx = devm_drm_panel_alloc(dev, struct nt36672e_panel, panel,
- 				   &nt36672e_drm_funcs,
-@@ -534,15 +551,27 @@ static int nt36672e_panel_probe(struct mipi_dsi_device *dsi)
- 		return -ENODEV;
- 	}
- 
--	for (i = 0; i < ARRAY_SIZE(ctx->supplies); i++) {
--		ctx->supplies[i].supply = regulator_names[i];
--		ctx->supplies[i].init_load_uA = regulator_enable_loads[i];
--	}
--
--	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ctx->supplies),
--			ctx->supplies);
-+	ret = devm_regulator_bulk_get_const(dev, ARRAY_SIZE(nt36672e_supplies),
-+					    nt36672e_supplies, &ctx->supplies);
- 	if (ret < 0)
--		return ret;
-+		return dev_err_probe(dev, ret, "Failed to get regulators\n");
-+
-+	/* The bias supplies are either both described or generated on the module */
-+	avdd = of_property_present(dev->of_node, "avdd-supply");
-+	avee = of_property_present(dev->of_node, "avee-supply");
-+	if (avdd != avee)
-+		return dev_err_probe(dev, -EINVAL,
-+				     "avdd and avee supplies must be described together\n");
-+
-+	if (avdd) {
-+		ret = devm_regulator_bulk_get_const(dev,
-+						    ARRAY_SIZE(nt36672e_bias_supplies),
-+						    nt36672e_bias_supplies,
-+						    &ctx->bias_supplies);
-+		if (ret < 0)
-+			return dev_err_probe(dev, ret,
-+					     "Failed to get bias regulators\n");
-+	}
- 
- 	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
+ 	if (ctx->bias_supplies) {
+ 		ret = regulator_bulk_disable(ARRAY_SIZE(nt36672e_bias_supplies),
+@@ -577,6 +581,16 @@ static int nt36672e_panel_probe(struct mipi_dsi_device *dsi)
  	if (IS_ERR(ctx->reset_gpio))
+ 		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio), "Failed to get reset-gpios\n");
+ 
++	ctx->enable_gpio = devm_gpiod_get_optional(dev, "enable", GPIOD_OUT_LOW);
++	if (IS_ERR(ctx->enable_gpio))
++		return dev_err_probe(dev, PTR_ERR(ctx->enable_gpio),
++				     "Failed to get enable-gpios\n");
++
++	/* The bias is either supplied to or generated on the panel module */
++	if (ctx->enable_gpio && ctx->bias_supplies)
++		return dev_err_probe(dev, -EINVAL,
++				     "enable-gpios and bias supplies are mutually exclusive\n");
++
+ 	ctx->dsi = dsi;
+ 	mipi_dsi_set_drvdata(dsi, ctx);
+ 
 -- 
 2.51.0
 
