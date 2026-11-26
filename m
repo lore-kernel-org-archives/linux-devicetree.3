@@ -1,77 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795700010;
-	b=5V7L4v7keRiqqbBYo2DGj4fNv4VjSGRUH3AkuaPkTz+kbEwzMXVWFs7TRy8SxOi8JHxt
-	 OYIoQw7RvqpPd26tdjyGZdZXL5L35kTsR1eH8AxM+SpOvV9HcymI2PV9pCdTclCpu5/XB
-	 ZTB6ygRHMRa5TVf4+fqW+QW2bxlVAzuqqwr6rEjt09Y9UCrgl9Gzhl6aPzwtkUv0wAwiY
-	 TriA1aBT//V5aYXH1kVaVpqAE4+FG+cuKDmeT4FgHClSseM/pH6FobgF7DoHcbLv+Pz25
-	 uvdJ3MWSkt+8mFXK90omHDBUjAWjHJVjYgBTzsqDGrIDmYF31tZUTmvUVnjBUvoio6g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795700010;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=HcwFZv9BM0w57FN62L5UyDAXYgvPAV25zeOmEc/ACiU=;
-	b=D4A9MFT2d3PM+9t1yWxibPghivAK52J0tXTANu9Wyw2u1Y+yGeaWXXv5dZKEEnQXZDsj
-	 Lpdcyi7Sn1qlLKa7PjDsetPy2UAAx5ZPsLFWAWpPPt4/UL01God+V3JZAqqdeML8ZsXpW
-	 b/IJg/2dhnI4SUV/OmPYer4UHDuNwCYwdEq37xDqUMCVUkyRbMD6foyIVhIawllu/WKcG
-	 6W8wjfYRD8J4pWFBoRm/SPwnQE2fRstF2P+zI/AAArKe3MBnEo9/lGN4Be6ewR8NwJ+hz
-	 FZHvtl3QJCAHztj3QMuvCFiNB7wesxyvOvYZ28EmjbYKKWa/4hZU4Zt5Ji61hshEbpg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.222.53
-Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com [209.85.222.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795700388;
+	b=Mnikol6E8vx9mJzHvvUe75KwOdRfNGM/Vdwade9v/p4jZTUEX+b/LgqM90/6t85FtbCg
+	 sTP0Uq56ZGJTbhOL8ahcnSksX8z1fAIb5i/EXG9qH9RY8H1s9Lurf8ta7oiDxMhlUe3mE
+	 fetoVJK8AqzQBY/Ibdkj8WqVttKoHsGy3zl0lWDfcZp/JdCW9qflngKgauvumUX1Pmhsc
+	 bCSnD42pzQy+lVnBvnPiPLCsyPY9qB2AIjbcWxQvIczi3x+gaw6lRT2JkZHZFyAW08Rou
+	 jPYeoiPJwenCAQ9vscEbd2HRp4ewi6ZGl9NumvPl10fuvvjgt2ko5PkCSdERLvhmT4g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795700388;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=DBljaZx1Ie/yPOiJhFP1dRpPDFPXYbPsWXbK8agzgEc=;
+	b=fLakoVFV12tNCjUIVZKI1USoTBeoOowzSUyRcetYH0HXVDv57TM8WkBipP+65Zbyj6AI
+	 a5KDyH1D+NDVoHEahj5AGYeUNhkEmbcTOMZVwiM1tCZqAEP0M9vdVROWIxm+6SsQ5uYrq
+	 jQRW341JS0IBBvtzCNd8YmkA/RHT7TojzWX/RazLBphEm7rwo2DuVGHvRt4Vt3n3FCp2Y
+	 hi+vK8xyEd+uC8ZPdpHny3jPi99uLJQcnjcugot9mKdE6IZvkd4D6nYd3OJ5jWu7E2HSl
+	 kmr786t6j5O+3Pz3+41H+IvG18sEMD8aZVWGHxTJHmsdioPSKtJ1121ZFvXufjBhpfQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QtJNZ1WC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E892606A31E;
+	Thu, 26 Nov 2026 13:39:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QtJNZ1WC
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795700388;
+	b=L5Ev+zRhX5uTK/e1o1FOHe6kQWkJTetJNRnBJIZak0z6R0OfffsBY7fe25A9x1GXH8HU
+	 thJeh38RpUdcPKlq94hiH97AJTWghz9+rWWlwp0S2bk6sM5OrsA7GPtyPE4xCPmAZDbjJ
+	 It6jqGwA7wDsxJ927kNcs/bqZDPBeXmPIwZ0c/WIS9ILyFR+GRAvFcmsOmpzfCDkV1gcN
+	 TRGqEdkSP0q9PRzcL/XWwBCxVlzLi9/Zwf4jrzi9SG3Tv5UIMpuQB68u1Ow2tFhi/FkVF
+	 pRvfQtvQdehklu3MlkbwVkchdY/ZFP+GZQtS+cVq7yHM1/6xmaOG1PZlQsbUMEurlGg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795700388;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=DBljaZx1Ie/yPOiJhFP1dRpPDFPXYbPsWXbK8agzgEc=;
+	b=j2BExsK3mtr+Rxb0jAI25ziKgHY77c8bwDP/TW14jPGXLavJ6lrCLty7IH8qHNbdar3Q
+	 0fOqFrHPvV7AF6WF39n57xLnNcR5MTxXpzKyjP45LApy/Y+rqdtxIEAN3CLJy69XOGhRO
+	 oVpwrlUF6pTzuYSItH7nYcgCrAXNog9zEHH0S5CI9a4gIMhMHQRgG5MYvT3TDnEcwfC+J
+	 xScW7BNVwKOcobhJcvYA/G4AdaTX6wskzF3tRNwRfVtRG7KtGLOxYqLNfy1OSyM7KiVel
+	 0FpNPHc3aA7rcUz7SklpfroKkbT/UU+CFh/Kc+d4fkGp+eVMwf6nhZTDChYJAWZjt9Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A17606A323
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 13:33:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33A17606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-99e1408dc59so3045111241.0
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 05:33:30 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795700009; x=1796304809;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HcwFZv9BM0w57FN62L5UyDAXYgvPAV25zeOmEc/ACiU=;
-        b=LR8JCq43R+cAkLJq1zohArh6w8f9cXF+TFDbG51nYjUtsoB8Cv6yKQnhwLsYoBQFfX
-         xF+ut7tSTx9eekyFEBb1wSvepWHS/XCxBL5cqo5ojWp6fQ0HOXqTntACB4/Kls2W116F
-         lO1CSryZoYAVZbXrN8lgWbsLgZNYKE1SsqHZL25MkGjQV2UDZ1elATUlwaxepztsa/Cc
-         adhPRrhM/Y7LOe5zy662tcwAMQKlMKuAea1W9UO58xU10uQPIriwf+HjNiQfu44M/f1q
-         PHMoEdn1U5pwUcYDNlru4wQqkx4SJolyXsyvgrENqrzL+Y3NvIFxrsD0o7y69O28tSYH
-         wL3g==
-X-Forwarded-Encrypted: i=1; AL+hErHup0/W5GZcBVcaPdAcZIzA5Pk1AljbqPPmpdGSAcSNJ2ezg8DoLX7wGH4k01kqp3tPCe6liWzkPAQ7@vger.kernel.org
-X-Gm-Message-State: APuU4Z8d8fE3Pu1z+6OgIdaGFdNI7LT9cBX1RPGhUjaveUOQdsjYOZuU
-	Gl7vks5I6zaiYUNNsTFbyW/NRt808Brp3s7yvShlWI3i/6snandBtjF4Trwki/HV
-X-Gm-Gg: AZFdTZd3RltQ9uFVjT2jsptUioqxV/DseKNzF14gUQEC1Iz93SzSwTsd6RlNt/MSGLi
-	Rhsn5CmTLlEuG8dY39dnHg8rl7SmOhBXDEFsGUtqkTk/gMxPDhslpnOoAMbJZTjLKZzmcD+c0/N
-	niK+nRkcAErIuiPFtDdMVWDPFAYjMMLKHJwyl6ESaRyqVqwmF5cvSnTSP7wk6IqN/g5raXp7D9P
-	awtTlmBVihkIcDhVStnvhjxLTk4xmwrOMsBTzsmKq3LRzHsjoACdEG24jmNog0Y0V8XeBs1i4WY
-	P+3clP27WrMQnYd3rHhV1s9z3SEBJZ92SbsMqNcOsP6kjeAw6N7mv5aYggLe/0B4UZoEQLy7EjK
-	nR735Z1MRU0C9cFBqXabCi1UnpQSQLqtVQPKj4zqFdgOc533lkNR/j4c8nIZfwtXhX5RkJbxCVG
-	kyfSzSoT6aWEvL+37UV+ZTSO91X59XSVO7XNpnHLccmMTBHPghEEPZBxdefehxe+fyJOf9EkXfG
-	nrqAaEte9xNzv7llQA3gdrxo7ifdCpMdcB6DH/YA0yS71v5LE8Bc42Rzb3QRcnLji28P52nCdGM
-	qUYBL/bvbruXmndx/1yg1m5+pAtWEeqTwoee5pe0GDpv2V+nfKUdBPLooWhEyq0Pl7Y=
-X-Received: by 2002:a05:6102:a53:b0:7c1:ce61:19b3 with SMTP id ada2fe7eead31-7d73967e59dmr12309565137.33.1795700009140;
-        Thu, 26 Nov 2026 05:33:29 -0800 (PST)
-Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com. [209.85.217.51])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99e6dec7cb5sm22232886241.2.2026.11.26.05.33.28
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Nov 2026 05:33:28 -0800 (PST)
-Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-7d2c8141dc6so3720770137.1
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 05:33:28 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEMnaEM6/Km7hjOB2FtStwyghRhjuf4ZvTpqiNsBLJ8Lqom8CoKkFSBGIvVLgucfCEPI8N1Vo1qAOPJ@vger.kernel.org
-X-Received: by 2002:a05:6102:3f94:b0:7cc:2674:b78c with SMTP id
- ada2fe7eead31-7d739391bf3mr11259967137.7.1795700008033; Thu, 26 Nov 2026
- 05:33:28 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 1F5211F000C6;
+	Thu, 26 Nov 2026 13:39:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795700388;
+	bh=DBljaZx1Ie/yPOiJhFP1dRpPDFPXYbPsWXbK8agzgEc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=QtJNZ1WCGvBIt5yhrXsBJx33X+LUthgUvQfOk1dJkYGJLpBOEWOxYKrFduISmCAmE
+	 iyr1bBWQw+scw+9AefgLZbsgcRySu3ImfVzc/BSnNwV43Jww48jrA/C709L3Bxc1/l
+	 B5xq+QpexNBdmlxqQvuvh72JLmoyFN0OdyMtmxyxbVPMICZpb/j1Gx+Vwl2nXQWqOR
+	 CNb9EonN1FyFxqZksPf5dnV70LJxVqrp5WRm5qouyzDjDuE+doWClTOwF0NJAuKj/i
+	 rNhqBJbjJBFWeZVGSEDzVI8eBIGjO2RsPqn7F6AH45tumbCia7qMVDwfVEZttuWJ9c
+	 /H6ABSO8a5xqA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A562A4D51A;
+	Thu, 26 Nov 2026 13:39:45 +0000 (UTC)
+From: Robert Ijtsma via B4 Relay <devnull+robertijtsma.gmail.com@kernel.org>
+Date: Thu, 26 Nov 2026 14:39:43 +0100
+Subject: [PATCH v2 1/2] dt-bindings: sram: document qcom,sc8180x-imem
+ compatible
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -81,78 +83,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110080727.2377040-1-niklas.soderlund+renesas@ragnatech.se> <20261110080727.2377040-4-niklas.soderlund+renesas@ragnatech.se>
-In-Reply-To: <20261110080727.2377040-4-niklas.soderlund+renesas@ragnatech.se>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 26 Nov 2026 14:33:17 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdWpZfsaJOcTEBCugyDgKDXNRje68n59OrGFx-0hJXG+4Q@mail.gmail.com>
-X-Gm-Features: Aa3M54q5_iVD09yTxiCPbutEOoqFTTuL8Qbh52NAGvGv6cSg6_A-6RxSK9Zhqcw
-Message-ID: <CAMuHMdWpZfsaJOcTEBCugyDgKDXNRje68n59OrGFx-0hJXG+4Q@mail.gmail.com>
-Subject: Re: [PATCH net-next v8 3/3] arm64: dts: renesas: r8a779g0: Add gPTP node
-To: =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Magnus Damm <magnus.damm@gmail.com>, Richard Cochran <richardcochran@gmail.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "DavidS. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>, Sergey Shtylyov <sergei.shtylyov@gmail.com>, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261126-sc8180x-dts-ipa-v2-1-ad57b1be7c70@gmail.com>
+References: <20261126-sc8180x-dts-ipa-v2-0-ad57b1be7c70@gmail.com>
+In-Reply-To: <20261126-sc8180x-dts-ipa-v2-0-ad57b1be7c70@gmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: Robert Ijtsma <robertijtsma@gmail.com>, devicetree@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795700384; l=808;
+ i=robertijtsma@gmail.com; s=20261122; h=from:subject:message-id;
+ bh=nEQ+cGLgYgPSg71wgECg22VaJoVFfq3rn8jYugnx5Uc=;
+ b=vzd6mOxpsmnXG8ZyobOX8UTLgHOJrDa++9/EF08MRlgNK/3IxUv1tw5c9oRifO/xljKc5KMVT
+ RM8TfTrD3P/D+hUwbGQBoNnk7fjp53r7xaoWkUFagvxAazo6rDczOlj
+X-Developer-Key: i=robertijtsma@gmail.com; a=ed25519;
+ pk=qiDyKVqFicxFIR5sB5m+p9SWPKL2/+mMoiQnUx0C9P0=
+X-Endpoint-Received: by B4 Relay for robertijtsma@gmail.com/20261122 with
+ auth_id=1604
+X-Original-From: Robert Ijtsma <robertijtsma@gmail.com>
+Reply-To: robertijtsma@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Hi Niklas,
+From: Robert Ijtsma <robertijtsma@gmail.com>
 
-On Tue, 10 Nov 2026 at 09:10, Niklas S=C3=B6derlund
-<niklas.soderlund+renesas@ragnatech.se> wrote:
-> The gPTP module is shared between the RAVB and RTSN Ethernet devices on
-> the SoC.
->
-> Signed-off-by: Niklas S=C3=B6derlund <niklas.soderlund+renesas@ragnatech.=
-se>
+Document the compatible string for the on-chip SRAM (IMEM) region on
+Qualcomm SC8180X SoCs under the generic mmio-sram binding.
 
-Thanks for your patch!
+Signed-off-by: Robert Ijtsma <robertijtsma@gmail.com>
+---
+ Documentation/devicetree/bindings/sram/sram.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-> --- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-> @@ -606,6 +606,15 @@ mfis: system-controller@e6260000 {
->                         status =3D "disabled";
->                 };
->
-> +               gptp: ptp@e6449000 {
-> +                       compatible =3D "renesas,r8a779g0-gptp", "renesas,=
-rcar-gen4-gptp";
-> +                       reg =3D <0 0xe6449000 0 0x500>;
+diff --git a/Documentation/devicetree/bindings/sram/sram.yaml b/Documentation/devicetree/bindings/sram/sram.yaml
+index 6ee0b14..a6353ab 100644
+--- a/Documentation/devicetree/bindings/sram/sram.yaml
++++ b/Documentation/devicetree/bindings/sram/sram.yaml
+@@ -42,6 +42,7 @@ properties:
+         - qcom,maili-imem
+         - qcom,milos-imem
+         - qcom,rpm-msg-ram
++        - qcom,sc8180x-imem
+         - qcom,shikra-imem
+         - rockchip,rk3288-pmu-sram
+         - samsung,exynos850-acpm-sram
 
-Can you please remind me again where I can find this base address in
-the documentation?
-The size looks too small to me, though, as there are registers at offsets
-0x500 - 0x788.
+-- 
+2.56.0
 
-> +                       clocks =3D <&cpg CPG_MOD 2723>;
-> +                       power-domains =3D <&sysc R8A779G0_PD_ALWAYS_ON>;
-> +                       resets =3D <&cpg 2723>;
-> +                       status =3D "disabled";
-> +               };
-> +
->                 tsn0: ethernet@e6460000 {
->                         compatible =3D "renesas,r8a779g0-ethertsn", "rene=
-sas,rcar-gen4-ethertsn";
->                         reg =3D <0 0xe6460000 0 0x7000>,
 
-The rest LGTM, the bindings don't descripe the two gPTP interrupts,
-so they cannot be added to the DTS yet.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
