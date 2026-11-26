@@ -1,71 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795685552;
-	b=uc284lS0sMzglCmjnPX4My+hB/P4cnnRkD99WSnNmJAGe70vi3gGblg1fesd7vo1RL2L
-	 fNbmbxxBB+ZTBhwMTXGSEpT8fMc3HVgkcWDFsyIm13oibeRw/v2rKVWoUAPdEWHcglYNc
-	 U2UkWvwBAwmnonYDkPV5vkxI3f8rYwMZ7hl7NhTtva1dkY9OzKwqLICVhruQ/EXM0y4OB
-	 6/mKiLhVh6g7z5RDqS6pUIrx/PpCiXNceZJtxPW9/ZidSHcK7fhHgy+dvtHzmPfwsV9fE
-	 EVWHmboWGB3V59nKY2gkNiaEIhp8b3OXuP4anHfK8i3L2xJyKsW2GBIcklMzH2jG+dA==
+	t=1795685566;
+	b=pDUN0QuNpVQcs/aIVilVEgU3sB7KvKfjpBs6WZRbsusNOTErteeuEJK/Kt/shcbHtYiO
+	 TbIccmi1hKoxKdzWHzQ+add8oY/88qgfV0M213+PqxhQQjXd9bf95h35YJpSOkBUbta50
+	 c9XbpOwJCVOoHcV96pD6hMh8uFav5rRDBLHGv0NnjzqWuuzP2Zy1AC6VfyDrdfpl1+xti
+	 n9AcWW1PkkGtboA+PLcqz7+7RJ3ZqTpwsBLb508DUM6IBMnxQJF+FEltDy9JMph1+u4Vr
+	 6VndoOofDnvXerLdTUZ/oL4kB2vgJDqZprCutgGaUVwmRi9Un3EHkNeJUjW0mBfAsCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795685552;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=k97771Z8FzE3DqumF944ddIXlJqYU9QrTeylE9F0vK8=;
-	b=p7ls+HowH3x9Ioio9ZW0i7zY1Hf4j7S0ZEpeIUHf8TtonJmwqeg8bWg81nG7v/jXrgOv
-	 SrK3d3z0v6J753eEj7KFtZPnrlaREi/yAb9YPAgju1EvMO2N04z5+tez/cUO2Ecd933A3
-	 q9o0jTxpc2npPwyRiLZZ3LjyR738wnLdOKf317ip4qnyChlwF2gDR9UvXTotONNbhkWzf
-	 PbXy/KHdCFOt5tBbgLAc8KQibmjEgNflf+Ak3uEUCZctJe8fjv/DeXnSJYbM67vjRbd6r
-	 OjRIgZQXMMiAhuatfay/GUf5WHhov7D09bDWGBahiffyt3S0YXD204SnlHw1SdR+GUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795685566;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=YJ39x8lAt8ZTmbqJbIQTqGRvVeWCSi4YBiCTj9hQGWs=;
+	b=IQN69qfHwffR1/gRrSQEtM3ADeSKrtNCRmhUTBy0C/NyceY8LFgfVY6HTGOPV0/hTgJh
+	 rPKKrZAqxZfs5ZCg/j8vXIiNRfOod2JOlOF0WOd/M2DeJSNz9EBplEkyHLedL7We3rkds
+	 EbPysKhoWezPqs0wtGQqorwF+KJ7yjo/rWrIG3sGfUTF3hu7iDzQGf0ZrZB0slGw59ukA
+	 fxI/eHaF1lp2Cx9dmLStZtsZjI4JpPHBKIa5SjAgrPytxNUC+0o474B8OBHZSo/C5waFm
+	 m5wsPbuohO54dGM+z4fTQ6NzoHzjQ90HmFZV/XcO6dH3jCa3NwIcKHG/aUn1HTHabeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="JfycLV/X";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ldw5W+T5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 3C204606A31E;
-	Thu, 26 Nov 2026 09:32:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FAA9606A31E
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 09:32:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JfycLV/X
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A3E6D1F000C4;
-	Thu, 26 Nov 2026 09:32:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ldw5W+T5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B22F41F000C6;
+	Thu, 26 Nov 2026 09:32:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795685551;
-	bh=k97771Z8FzE3DqumF944ddIXlJqYU9QrTeylE9F0vK8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JfycLV/XA23DU9QWWbk335hn9BiFSTG2F83xPm9eihA8hYYXY61JEuiVxIQmpXR7D
-	 QkDAjPTPIAa81FEZQM8o4OezkrmfkzBvLkKdkf6WZ8YAcA4xCt3CAYSE+jzEQO3vjx
-	 QKrPM8JHhU5eq1Rv/Z3lKfKa/oAmWAfpTdBdqPMb4XgJ2QnDKKfcSGVPr1yLP2AP8M
-	 AsxgIg3N3GkbOQTX1KtCCvtEo9Bi99M+pyhdtuIOf3MWSUroCNlSqtCy2sOeTdr25+
-	 qDh97siTL+bJYJgcGXX8em4rMkNEnwMp7NMnoYJMhnnLirRPM65Xn8eMFVnaydu06O
-	 zIrvK1L6hY3yg==
-Date: Thu, 26 Nov 2026 10:32:28 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Alejandro Colomar <alx+linux-hardening@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, 
-	Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andy@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v7 4/4] device property: Fix fwnode_name_eq() for empty
- node names
-Message-ID: <ytxtn2ew62vxuxoinkf33gjntl33ijycjouzutlfcydkh7usm6@ad47ocprfu23>
-References: <cover.1795639368.git.alx@kernel.org>
- <396395e1d02ca080da67cfd91a1c49058b2676b6.1795639368.git.alx@kernel.org>
- <awdaYz9NNVv5fHv9@ashevche-desk.local>
- <awddHt_xvc-lIygA@devuan>
+	s=k20260515; t=1795685565;
+	bh=YJ39x8lAt8ZTmbqJbIQTqGRvVeWCSi4YBiCTj9hQGWs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ldw5W+T5gCxzXKWPd8oithRdxOw41IiUI624JekvM3IdC8U2WAjdw1chSL82m0+pE
+	 qo6g+Bjpg3n4fPvxM99GMjoNQUOu61zdnjbmwthAdwE+0/SMW2qk1q5TiVNG+ju0Fd
+	 56K6FGamVm3g+RVEhdeJUAOKPPaPix2M7DAD7t/+4DsEl6fDJV1oHZ9k9Kx04KlBUd
+	 3T71hi58q/oII+Sxh5DypzNVj57mjCDq+0Yyds67S/yogbc3XelxUOka7wOaokcMNI
+	 UQAEsKHKnc5GUrW8xJgcwzpgaBTZW64/F3obIuo9zuOpZZfsFnEYVfrQJZ+N4mwQwn
+	 /1ij1fVdVawNg==
+Message-ID: <sashiko-outbox-235140@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 10/10] gtrace: rvtrace: Add copyto_auxbuf callback for
+ pre-ratified encoder and funnel
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Leo Yu-Chi Liang" <leo.liang@sifive.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261126-send-preratified-trace-v1-10-1e686fd75be7@sifive.com>
+References: <20261126-send-preratified-trace-v1-0-1e686fd75be7@sifive.com>
+ <20261126-send-preratified-trace-v1-10-1e686fd75be7@sifive.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Nov 2026 09:32:45 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,70 +60,130 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <awddHt_xvc-lIygA@devuan>
 
-On Wed, Nov 25, 2026 at 11:18:16PM +0100, Alejandro Colomar wrote:
-> Hi Andy,
-> 
-> > Date: 2026-11-26 00:00:03+0200
-> > From: Andy Shevchenko <andriy.shevchenko@intel.com>
-> >
-> > On Wed, Nov 25, 2026 at 10:03:55PM +0100, Alejandro Colomar wrote:
-> > > str_has_prefix() returns the prefix length on match and 0 on mismatch,
-> > > so the mistmatch case can't be told from "empty prefix matched an empty
-> > > string".
-> > > 
-> > > For instance: the OF root node's name as returned by
-> > > fwnode_get_name() is "" and will return 0 for any name matched against
-> > > it and since len is 0 too, fwnode_name_eq() will return true.
-> > > 
-> > > Let's use strprefix() instead, which also makes this function simpler.
-> > 
-> > ...
-> > 
-> > > Message-ID: <avrSUUM3HMgxTNpl@kekkonen.localdomain>
-> > > Message-ID: <nat4ilqmzzpuyrjbuahl367ip22tfnmjorydlppuwqiscxaujo@kf63j4lb3flk>
-> > > Message-ID: <nat4ilqmzzpuyrjbuahl367ip22tfnmjorydlppuwqiscxaujo@kf63j4lb3flk>
-> > 
-> > What is this?
-> 
-> git-am(1) has --message-id and the corresponding am.messageId, which
-> stores the Message-ID from the email header field from which the patch
-> is taken, to document where the patch was taken from.  It is stored by
-> git-am(1) right below the last trailer tag from the patch (which should
-> be the 'Signed-off-by' of the author), and before the 'Signed-off-by'
-> appended by git-am(1) itself.
-> 
-> 	$ MANWIDTH=64 man git-am | grep -A5 messageId
-> 	     am.messageId
-> 		 Add a Message-ID trailer based on the email header to
-> 		 the commit when using git‐am(1) (see git‐interpret‐
-> 		 trailers(1)). See also the --message-id and
-> 		 --no-message-id options.
-> 
-> It's useful to document where those tags come from, in case it's
-> historically useful.
-> 
-> I've extended its use to other tags I take from emails.
-> 
-> > Is it documented tag nowadays?
-> 
-> It is not documented in the kernel, AFAIK.  It is documented in
-> git-am(1).  I included it, because I find it useful.  Feel free to drop
-> it if it's not wanted (I can remove in in v8 if it's not wanted).
-> 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] gtrace: rvtrace: type confusion and NULL deref in
+  rvtrace_ramsink_cleanup()
+- [Medium] gtrace: rvtrace: missing rvtrace_comp_poll_empty() in
+  rvtrace_encoder_stop()
+--
 
-Yeah, don't use it. In general try to stick with the tags listed in
-Documentation/process/5.Posting.rst.
+commit 50f4d76e6d06a1e94d9b5cf4a9095834e649bfc1
+Author: Eric Lin <eric.lin@sifive.com>
 
-I've too never seen Message-ID in a commit footer before.
+gtrace: rvtrace: Add copyto_auxbuf callback for pre-ratified encoder and fu=
+nnel
 
-With those removed:
+This commit adds rvtrace_v0_ramsink_copyto_auxbuf() to copy trace data
+from pre-ratified encoders and funnels acting as sinks into the perf AUX
+buffer, and updates gtrace_path_copyto_auxbuf() to invoke copyto_auxbuf()
+only on the path's sink component.
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> diff --git a/drivers/hwtracing/gtrace/rvtrace-encoder.c b/drivers/hwtraci=
+ng/gtrace/rvtrace-encoder.c
+> index 8d2f7ac5e0fe4..a854c4695351c 100644
+> --- a/drivers/hwtracing/gtrace/rvtrace-encoder.c
+> +++ b/drivers/hwtracing/gtrace/rvtrace-encoder.c
+> @@ -164,6 +164,15 @@ static int rvtrace_encoder_probe(struct gtrace_compo=
+nent *comp)
+>  	return 0;
+>  }
+> =20
+> +static size_t rvtrace_encoder_copyto_auxbuf(struct gtrace_component *com=
+p,
+> +					    struct gtrace_perf_auxbuf *buf,
+> +					    u64 *format)
+> +{
+> +	struct rvtrace_encoder_priv *priv =3D dev_get_drvdata(&comp->dev);
+> +
+> +	return rvtrace_v0_ramsink_copyto_auxbuf(comp, priv->sink, buf, format);
+> +}
 
-Bart
+[Severity: Medium]
+Can rvtrace_encoder_copyto_auxbuf() read the hardware write pointer and
+copy the DMA buffer before pending trace writes have drained when a
+pre-ratified encoder acts as a sink?
+
+Unlike rvtrace_funnel_stop() and rvtrace_ramsink_stop(),
+rvtrace_encoder_stop() does not call rvtrace_comp_poll_empty(comp) after
+gtrace_disable_component(comp):
+
+drivers/hwtracing/gtrace/rvtrace-encoder.c:rvtrace_encoder_stop() {
+    ...
+	err =3D gtrace_disable_component(comp);
+	if (err)
+		dev_err(&comp->dev, "failed to disable encoder.\n");
+
+	return ret ?: err;
+}
+
+When gtrace_event_stop() calls gtrace_path_stop() followed immediately by
+gtrace_path_copyto_auxbuf(), copying before
+RVTRACE_COMPONENT_CTRL_EMPTY_SHIFT asserts can truncate the trace data in
+the perf AUX buffer.
+
+[ ... ]
+
+> diff --git a/drivers/hwtracing/gtrace/rvtrace-ramsink.c b/drivers/hwtraci=
+ng/gtrace/rvtrace-ramsink.c
+> index f183dcd71c7c0..cc0a5785bda40 100644
+> --- a/drivers/hwtracing/gtrace/rvtrace-ramsink.c
+> +++ b/drivers/hwtracing/gtrace/rvtrace-ramsink.c
+
+[ ... ]
+
+> @@ -448,6 +455,28 @@ void rvtrace_v0_ramsink_release(struct gtrace_compon=
+ent *comp,
+>  	of_reserved_mem_device_release(comp->pdata->dev);
+>  }
+>  EXPORT_SYMBOL_GPL(rvtrace_v0_ramsink_release);
+> +
+> +/**
+> + * rvtrace_v0_ramsink_copyto_auxbuf() - Copy trace data from the sink em=
+bedded
+> + * in a pre-ratified trace encoder/funnel into the perf AUX buffer.
+> + * @comp:   Pre-ratified trace encoder/funnel component.
+> + * @priv:   Sink private data returned by rvtrace_v0_ramsink_setup().
+> + * @buf:    Perf AUX buffer.
+> + * @format: Trace format of the copied data.
+> + *
+> + * Return: Number of bytes copied, 0 if the component doesn't act as a s=
+ink.
+> + */
+> +size_t rvtrace_v0_ramsink_copyto_auxbuf(struct gtrace_component *comp,
+> +					struct rvtrace_ramsink_priv *priv,
+> +					struct gtrace_perf_auxbuf *buf,
+> +					u64 *format)
+> +{
+> +	if (!priv)
+> +		return 0;
+> +
+> +	return __rvtrace_ramsink_copyto_auxbuf(comp, priv, buf, format);
+> +}
+> +EXPORT_SYMBOL_GPL(rvtrace_v0_ramsink_copyto_auxbuf);
+
+[Severity: High]
+While rvtrace_v0_ramsink_copyto_auxbuf() passes priv explicitly to
+__rvtrace_ramsink_copyto_auxbuf(), doesn't rvtrace_v0_ramsink_release()
+right above still drop its priv argument and read dev_get_drvdata() via
+rvtrace_ramsink_cleanup()?
+
+drivers/hwtracing/gtrace/rvtrace-ramsink.c:rvtrace_ramsink_cleanup() {
+	struct rvtrace_ramsink_priv *priv =3D dev_get_drvdata(&comp->dev);
+
+	dma_free_coherent(comp->pdata->dev, priv->alloc_size, priv->alloc_va, priv=
+->alloc_start);
+}
+
+For a pre-ratified encoder or funnel, comp->dev driver data holds struct
+rvtrace_encoder_priv or struct rvtrace_funnel_priv rather than struct
+rvtrace_ramsink_priv (and is still NULL if gtrace_enable_component()
+fails in rvtrace_funnel_probe()).  Calling rvtrace_v0_ramsink_release()
+on probe failure or driver unbind either dereferences NULL or reads past
+the end of the encoder/funnel private struct and passes garbage to
+dma_free_coherent(), while leaking the sink's coherent DMA buffer.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-send-prera=
+tified-trace-v1-0-1e686fd75be7@sifive.com?part=3D10
