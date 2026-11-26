@@ -1,66 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795702714;
-	b=aI6RY/woUlPCXoFnlCwn0Fyxl0feB3Y3eLo9bjZXvE2ZTfySMGTZg9k1WRePO0tzHuct
-	 DdLllQvs2snZ2asvO5VExhCu+rbirsKUVrGj9ymjQ33gcAN0E3hw8Ki3LQLjvuHIROFFJ
-	 7dCo0Cz6YAiMg62UEQbm6vd7Tgmk4x6Tmsq4Kpa4w/b4jG1e/fvD8c+5KVUlJ8iMtsBLI
-	 aul1+U/Bd1RuLKuB1B0H5U/eBdKp5oeO/UVwZh1VKXsvF1C/w2YijkNtl+Azj5F79ttBU
-	 ZLF5h90icICSNSlCvZLHKHIn5qKS6fW1mXmtcLhV05TDYNDHcXC6kucLtqoxxvySOPA==
+	t=1795702842;
+	b=mwmSmA1xGC6kb7zPSngY9jEznkROafXip0F/yVy4rPzlQj1E1U52OKNUmD9JzI63hXto
+	 VMV0CgVsnGMaXZln293c24THU21o6//qh4flOPXQBNIF28gP9J3EA9sVktdCoDe0fSo2Y
+	 CYjWN/sNPvR8FQ1/3dNpI7ArLszx3v2tsYnJjsbwiTRybPMrhv/lASiVkI3/zkWn+Mwsx
+	 rLBUtwrGWOtcJqZGMzAStOyARFGtPPMII28Lx2ppuw4OVrBRe7W6vJqzf+MurK3Fnsip/
+	 1Fxbuxhm0GGl1ndjc8fEkTtq5IXnzO/afdQ3mERpSTPLuYOGL+VJ8kYTU1vsb63reog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795702714;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=NyKzTXadaH80KPU41rwaODjR1cCn4hE+RiYMnZpd86g=;
-	b=hnPWp49HbeFGWBNcRo9l0LOoTO84syeYQWFcpKNmOEVx2xPBNP/fYy5/dBkfrWby5CJb
-	 LgaDu0gKk7a9X27sGnF5ekP54KeolAVEVu9N3QVTDh42NgWdcnQwEWH1axWdXT2QsnWdD
-	 m5BT03zvEoWouwJE99G0LaUifClHFYaaLpebvrTgz7L64hEENxBDWFcz7XVcHWhFpmhoM
-	 b3qgjuywwkZonTfI95Ugl9Nw4sc1PXD1dZaiWSP3bFF00KVLXzF9F3Vm4LRu0nFTh46vu
-	 teT14Ack2A/y+H02vQ5hPeU0kAlm2cu8CatUbQzUhiCvxTUWMTB/IuF4WgA4mWsT38Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795702842;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=hVqWDpkrRMuAndnDnhhjmf+Wfu5DBaUbLM5+gDgB7vI=;
+	b=0HUhO3YrtbtH9stGYsyM1fmqIax72otTxgBmQydpA5dPSK82de4usqiT3Ro3xlC2xCTd
+	 ZdinGGoWeFrAhrN0th66RVJ3P78zT6YVXWSvf9rG5xq6CHyUO0JiCGZCc/gzhstcxdSgI
+	 CGfu21bIMhs7M0MGjwWZ/VI61O6z6xQn7US21N7jKwYjqUQtphiAM3VA84fzrQxTolUVV
+	 euI8Sd2fdAmaP9dlXZ+PzmYVKSiQn/Ye2Dj5uHdLEqJtvMEV/gKGx54mrFOddNIvUYE4j
+	 3Btg05KFDChb7hZkY9b6mwtWDbq9sjwp0D7dNDWuJICqXTYpDTOmFGEt20pzh9wDwyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TKkG0YX2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MV0fU99o;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E62DB606A31E;
-	Thu, 26 Nov 2026 14:18:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58698606A31C;
+	Thu, 26 Nov 2026 14:20:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58698606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TKkG0YX2
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 0721D1F000D1;
-	Thu, 26 Nov 2026 14:18:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795702713;
-	bh=NyKzTXadaH80KPU41rwaODjR1cCn4hE+RiYMnZpd86g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TKkG0YX2wb7BkJBT5asY8jsFXrQuwOipsZzhH1M+s97eq57mxGxAVspA9aqxFr0Hr
-	 9neyTwJY+BHUAYaaHfuU10yUrLzQGp7ycUQWDNTFUyhxVjmfdz3iggeF3XU8ZB4c3f
-	 pZUQ3eICTufypMiM0p/bNzAbXp36P8eamOlf4ImvMPz6awcJ1DjPqsnGsiSyGwKpbh
-	 P2RFvo3LeHh+dMgbhDrftSeP5hZpl2NeCw45q1OU/44oI2PPlxw631sma+ciNlTA6F
-	 6umxiR38hL4E1QuAlqx3q+5NAVSIYOyyoog8HlNZF+mpB9wA/UbqqOcqdVBDmSbKND
-	 2M0+hbriCKn6Q==
-Date: Thu, 26 Nov 2026 15:18:29 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Xilin Wu <sophon@radxa.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, 
-	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Linus Walleij <linusw@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>, 
-	dragon@radxa.com
-Subject: Re: [PATCH v4 4/4] firmware: qcom: scm: Allow QSEECOM for Radxa
- Dragon Q8B
-Message-ID: <p3kffrgkkxa2gzszqa73rro6vcxtc3aho4srjvinq4cxfbierh@xm3esomojnns>
-References: <20261029-q8b-dts-v4-0-e8e7438f5545@radxa.com>
- <20261029-q8b-dts-v4-4-e8e7438f5545@radxa.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MV0fU99o
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795702842; x=1827238842;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=4IfPtfotXa0k6AjefeK9B8zQzqGXUrlT/drqTYhZLPs=;
+  b=MV0fU99oKBmUeBg3WXQ+C/ou6h0TPdmD35+qZazV38Y2orXyZb0NBm9Q
+   ufavV8GAxKToJSFvbSEgs/QSH3PW3CqJpLT1aQ8G+/iK5NKSRIvObYDYS
+   7WIvJ+eBsstUMBFgxEJiEK8gdSYwKQeQNqIew8zi7DH+QrkQ7qL3O8igy
+   YjEx3ObvEBqxxfPodzG6BxsvVVjJU9f1cUdk0sg3aFUg/ToK+1+a39VtM
+   Yts/0rnBFtwoSS78tNuOIzMy6D7n69rDsitFRMr1tSo/tPv4a/Oy+WgoM
+   XWjX++hqa/gdgkSMsAtDbcijTeNyQlFpVXhkKmedp75laUU5p2CJmR05n
+   w==;
+X-CSE-ConnectionGUID: BjvUO6WUQhGfj3RlS+k3wQ==
+X-CSE-MsgGUID: ih4bZ318RMGdwSagGtYi0g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11978"; a="4504981"
+X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
+   d="scan'208";a="4504981"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Nov 2026 06:20:41 -0800
+X-CSE-ConnectionGUID: 4C1iud5/Qty4C9W9y03/+A==
+X-CSE-MsgGUID: DBECi6YJS4+TKp7nh4agTw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
+   d="scan'208";a="12188387"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.208])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Nov 2026 06:20:37 -0800
+Date: Thu, 26 Nov 2026 16:20:35 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: robertijtsma@gmail.com
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iio: light: add ams OSRAM TCS3430 XYZ and ambient
+ light sensor driver
+Message-ID: <awhAMzB83rSV9UUZ@ashevche-desk.local>
+References: <20261126-iio-tcs3430-v2-0-6c5329d20919@gmail.com>
+ <20261126-iio-tcs3430-v2-2-6c5329d20919@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,13 +87,211 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261029-q8b-dts-v4-4-e8e7438f5545@radxa.com>
+In-Reply-To: <20261126-iio-tcs3430-v2-2-6c5329d20919@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Oct 29, 2026 at 06:13:38PM +0800, Xilin Wu wrote:
-> Add Radxa Dragon Q8B to the QSEECOM allowlist for enabling access to
-> efivars and uefi bootloader.
+On Thu, Nov 26, 2026 at 09:11:48AM +0100, Robert Ijtsma via B4 Relay wrote:
+
+> Add an IIO driver for the ams OSRAM TCS3430 ambient light and CIE 1931
+> XYZ tristimulus color sensor (found at I2C address 0x39 on devices such
+> as the Microsoft Surface Pro X).
 > 
-> Signed-off-by: Xilin Wu <sophon@radxa.com>
-> ---
+> The driver exposes:
+> - Illuminance (photopic Y channel) with raw counts and lux scale
+> - Modified intensity channels for X, Y, Z, and IR1
+> - Selectable scale and integration time via the IIO GTS helper across
+>   1x/4x/16x/64x/128x gain and 50.04/100.08/200.16/400.32 ms integration
+>   time settings
+> - Regulator management and system sleep suspend/resume support
+> 
+> Tested on Microsoft Surface Pro X SQ2 (SC8180X).
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+...
+
+> +config TCS3430
+> +	tristate "ams OSRAM TCS3430 ambient light and XYZ color sensor"
+
+Make this, top comment in the driver and MODULE_DESCRIPTION() text to be very
+similar if not the same.
+
+> +	depends on I2C
+> +	select IIO_GTS_HELPER
+> +	select REGMAP_I2C
+> +	help
+> +	  If you say yes here you get support for the ams OSRAM TCS3430
+> +	  ambient light and CIE 1931 XYZ tristimulus color sensor.
+> +
+> +	  This driver can also be built as a module.  If so, the module
+> +	  will be called tcs3430.
+
+...
+
+> +#include <linux/array_size.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/device.h>
+> +#include <linux/err.h>
+> +#include <linux/i2c.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/pm.h>
+> +#include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/types.h>
+
+...
+
+> +static const struct regmap_config tcs3430_regmap_config = {
+> +	.name = "tcs3430",
+> +	.reg_bits = 8,
+> +	.val_bits = 8,
+> +	.max_register = TCS3430_REG_INTENAB,
+
+No cache? Why?
+
+> +};
+
+...
+
+With
+
+	struct regmap *map = data->regmap;
+
+at the top of the function helps with this...
+
+> +	ret = regmap_write(data->regmap, TCS3430_REG_CFG3,
+> +			   TCS3430_CFG3_DEFAULT);
+
+...to become this.
+
+	ret = regmap_write(map, TCS3430_REG_CFG3, TCS3430_CFG3_DEFAULT);
+
+> +	if (ret)
+> +		return ret;
+
+You may use this trick elsewhere to achieve better readability.
+
+...
+
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW: {
+> +		__le16 raw;
+> +
+> +		guard(mutex)(&data->lock);
+
++ Blank line to make guard()() visible at a glance. Ditto for all such cases.
+
+> +		ret = regmap_bulk_read(data->regmap, chan->address, &raw,
+> +				       sizeof(raw));
+> +		if (ret)
+> +			return ret;
+> +		*val = le16_to_cpu(raw);
+> +		return IIO_VAL_INT;
+> +	}
+
+...
+
+> +static int tcs3430_set_scale(struct tcs3430_data *data, int val, int val2)
+> +{
+> +	int gain_sel, time_sel, ret;
+> +	bool keep_time = false;
+> +
+> +	ret = iio_gts_find_gain_sel_for_scale_using_time(&data->gts, data->atime,
+> +							 val, val2, &gain_sel);
+> +	if (!ret) {
+
+Why non-standard pattern?
+
+> +		keep_time = true;
+> +		time_sel = data->atime;
+> +	} else {
+> +		ret = iio_gts_find_gain_time_sel_for_scale(&data->gts, val, val2,
+> +							   &gain_sel, &time_sel);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	if (!keep_time) {
+> +		ret = tcs3430_apply_itime(data, time_sel);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return tcs3430_apply_gain(data, gain_sel);
+> +}
+
+...
+
+> +static int tcs3430_set_itime(struct tcs3430_data *data, int val, int val2)
+> +{
+> +	struct device *dev = regmap_get_device(data->regmap);
+> +	int prev_gain, prev_time, new_gain, gain_sel, time_sel, ret;
+> +	bool in_range;
+
+Better to rename to avoid confusion with generic in_range() helper.
+
+> +
+> +	if (val || !iio_gts_valid_time(&data->gts, val2))
+> +		return -EINVAL;
+> +
+> +	prev_time = iio_gts_find_int_time_by_sel(&data->gts, data->atime);
+> +	if (prev_time < 0)
+> +		return prev_time;
+> +	if (prev_time == val2)
+> +		return 0;
+> +
+> +	prev_gain = iio_gts_find_gain_by_sel(&data->gts, data->gain_sel);
+> +	if (prev_gain < 0)
+> +		return prev_gain;
+> +
+> +	ret = iio_gts_find_new_gain_by_gain_time_min(&data->gts, prev_gain,
+> +						     prev_time, val2,
+> +						     &new_gain, &in_range);
+> +	if (ret)
+> +		return ret;
+> +	if (!in_range)
+
+> +		dev_dbg(dev, "optimal gain out of range for integration time %d\n",
+> +			val2);
+
+I would make it a single line despite the length.
+
+> +
+> +	time_sel = iio_gts_find_sel_by_int_time(&data->gts, val2);
+> +	if (time_sel < 0)
+> +		return time_sel;
+> +
+> +	gain_sel = iio_gts_find_sel_by_gain(&data->gts, new_gain);
+> +	if (gain_sel < 0)
+> +		return gain_sel;
+> +
+> +	ret = tcs3430_apply_itime(data, time_sel);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return tcs3430_apply_gain(data, gain_sel);
+> +}
+
+...
+
+> +static DEFINE_SIMPLE_DEV_PM_OPS(tcs3430_pm_ops, tcs3430_suspend,
+> +				tcs3430_resume);
+
+A single line
+
+static DEFINE_SIMPLE_DEV_PM_OPS(tcs3430_pm_ops, tcs3430_suspend, tcs3430_resume);
+
+or wrap on a logical borders
+
+static DEFINE_SIMPLE_DEV_PM_OPS(tcs3430_pm_ops,
+				tcs3430_suspend, tcs3430_resume);
+
+But the above is only 81 character long.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
