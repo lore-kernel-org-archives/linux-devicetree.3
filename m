@@ -1,45 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795715537;
-	b=KFfl/exT03GmZ4UZxUp3bB31HCvHDedzFcVoMlCE3sb2ktz0NcBEL4t0kNUaBg715I/n
-	 M5A3/IVKB+MlxYWfYpCLjxPusnBBUvNa48RMHTg+XiidpeNOqEDqCwG30TfmxoBRjPyhP
-	 O+wzYx3l2UF79hJUR7funZvsNpxb0EgXXsLQ1NFzt7lCJmHtAytRZkHpSRrGI5HBlzL3e
-	 H8SM0d5ZSVXi1w89lBskvtH9vd63H8YQYVG7AV+qKaDWuJdxS5v4/QR45FxslXDTXGSB9
-	 TiLmamEp3OeX0CBr6D4z1ShrZMhZtAqPDkMqYUTsvS/TrukeFMxb48z2z7C0HqU2Btg==
+	t=1795716011;
+	b=xJerhqWLtjBBhwUrLYajk8iKFVsAfKBdoog+HIRk71sA6bCOkjjmS9RNuF/IsXG6SZqo
+	 TWMIQzj4ThCV8B4FOidSpBd6e62kBIaKahc8Nt3gHYQJ4ghKFvmb4mun67e7C472nZOTO
+	 6HZw4PKClqxoYnIxkx/L19aMZ4uKZr7DIVAj8D5phlJpvSf+SvMfxehw4skrZfki2h8y+
+	 poAYNEEa/QB+frB36pYn1Yzs7teNq7pVxiEwPXuKwzPR4bXsttAvbNZ0ldNAbOhyxpOkZ
+	 bn6aiUpG5694vwuBUtLBkLfsG9oUH4hsg3uySD9kt6xgAsXCAOOi7shqDhILvKhdq8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795715537;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=e2qPZaCwApnkHeNTxU5gmYVTrcRMGjT5CR7CxpFXYAY=;
-	b=qb+qnksELtD2s6cLIGqNa9qrk30ET3Rlu/9tgRSXtL43n2PG70s58Jp1FXl3+LGUZ6Hz
-	 NbN4YnL//mZjeaONRmc/Vjv8gtCaixSWNzJCH8soEL5r98OIPSTl28Agav9oIK45sMB0O
-	 t/1U84Wu7MwDCKYvM2GeCVMxKzJg0OVUR64bIvSxq9PSMu5+hMzB06xpYeW3ljrkkRpSQ
-	 oVl3D++gMlEvuJGeTrN+dYjmvEqrZcr9PbZtOtyP+o3/BDFWkDfSUqc+I513vIRBpkkqG
-	 pEdwWFBcdaz5HL5F5sqngqjnAmwUzFGAQdQ/FM3UQsvOAMyuQf5PzOHi3FdRwQsS3+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795716011;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=5mZYwwjR9BTTW24PV5T2QjIZNCAR6U+aLWboOrrOn58=;
+	b=4pKbvSoXoh7YjtmbGiaq5AyQ1i7FtyFvGZMbxW9VaKkWvQdUXVCz4SaTf+uAMDD0uDFf
+	 YTPGD9cdgqv2YSBgStLy4zVDDnGVpgfsD1F9my2XSWMy9CQ5VwD7oteua+b9nYp32FTtg
+	 KtPd0ZlsJct8KndqePUadu+DbaZJTznDKOdufZSFjvhdrWZOgchtGmrdLkDL3wcjVepIv
+	 vDFH4SVrgbrJ+h7El2pIdLZHFrHvwCwUH0nvNc3zToZ87DklAd9LoRrIMuWc8GxdlbIQv
+	 x6eBrHdtcNHenwpL2useNBN8EdB+wWnKmKgU8WqsL9qr48yKze0WKdMre4+/33gzCIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PYTvcMN9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jd4Irl6N;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF41606A31C;
-	Thu, 26 Nov 2026 17:52:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16A66606A321;
+	Thu, 26 Nov 2026 18:00:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PYTvcMN9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A5C81F000C6;
-	Thu, 26 Nov 2026 17:52:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jd4Irl6N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F14101F000C0;
+	Thu, 26 Nov 2026 18:00:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795715537;
-	bh=e2qPZaCwApnkHeNTxU5gmYVTrcRMGjT5CR7CxpFXYAY=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=PYTvcMN9lZW7fyQ9+GY6Ol6crsOkGmkg9KNQrPPGvNVNHlzHKvECvaFn5Ba6w4OH8
-	 uhVH985MnqUqoxjyFHLE/ea5iWNgXpeMbOmlT/2PAhBlEiJqXyB9e/PiPTYHv4rfdJ
-	 VH7npLAJz6UcgCHSCG/z2mET+bhgQuq8Vsbkg8B9UIJ9vMGrk4i5FMNofGzMxvU+Ks
-	 tIC39zzbmsu5YCnA6CdCfpxpv/NBiH1XEo2CHPeYtDmwUF3WEckuPngRzrvB+XEZ6E
-	 T4syiBgZtNPTRzrTzuWH6BWLvGHJ1etFhJlJfHiSAIGk1SCO67tVSJiwxD6bQ2OgGe
-	 /RF1YGt8RFzbg==
+	s=k20260515; t=1795716010;
+	bh=5mZYwwjR9BTTW24PV5T2QjIZNCAR6U+aLWboOrrOn58=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jd4Irl6NjHTm5ga04mdXXy27iVW0/978dP+4cTYLUsR1KBehjRDgoKcICH7rScuDR
+	 T72oUr6egLkU2Es7bhpgTbIrt9z6QDYe4g4WZTiqjuyfMRhFuTAHtjuUczSMZFRY/9
+	 4QpbMmR8p9z/HF0GdAiqPuxiyUboeO1ktfS7LbFMee+ibJ4IRiKKu/yxnmqvbpS8i1
+	 TAOdIyPAcB8+BOQlWvRAY1OWN9vO6na2y8geXARyP+XebXB8BgF++9cjFziRnqUdJZ
+	 9UQv7QoHAMmsK4XipMC59VJGSrduRY7Hi8oFBlBfDieye9NovLRFzQavXfSQxexhgN
+	 SNntZ0KQF4icw==
+Date: Thu, 26 Nov 2026 18:00:05 +0000
+From: Conor Dooley <conor@kernel.org>
+To: "Marouene Boubakri (OSS)" <marouene.boubakri@oss.nxp.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Anup Patel <anup@brainfault.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Radu Rendec <radu@rendec.net>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 7/8] riscv: dts: openhwgroup: add CVA6 APU on Digilent
+ Genesys 2
+Message-ID: <20261126-sage-subscript-abb9ea294ca2@spud>
+References: <20261102141727.640769-1-marouene.boubakri@oss.nxp.com>
+ <20261102141727.640769-8-marouene.boubakri@oss.nxp.com>
+ <20261102-salsa-cartel-dd4f4b2a9639@spud>
+ <AM9PR04MB758686FCAE3D9C4A713B6E98FC422@AM9PR04MB7586.eurprd04.prod.outlook.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -49,65 +69,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 3/4] ASoC: xlnx: formatter: set a 64-bit DMA mask
-From: Mark Brown <broonie@kernel.org>
-To: Dhanunjanrao Katta <katta.dhanunjanrao@amd.com>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Vincenzo Frascino <vincenzo.frascino@arm.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Michal Simek <michal.simek@amd.com>, 
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- naveen.gaddipati@amd.com
-In-Reply-To: <20261125114839.3642735-4-katta.dhanunjanrao@amd.com>
-References: <20261125114839.3642735-1-katta.dhanunjanrao@amd.com>
- <20261125114839.3642735-4-katta.dhanunjanrao@amd.com>
-Date: Thu, 26 Nov 2026 17:52:11 +0000
-Message-Id: <179571553180.142532.15022384187541501041.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1284; i=broonie@kernel.org;
- h=from:subject:message-id; bh=Bgbg9/4roZ2jmgAhJQvlkgRt3vbL3rcl5gZVwVsDy7o=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI5Cs/4NBs/u5h45Mb7M6xF93x2NH1x+CfUKXnMNOOm0
- s+LR7vDOkpZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRHxcZGX7Xi01zso31OLnU
- f8O6NtFVk5Zd/DW7/uitQw93rhDuV2JlZGhZlfNgjouXzkPj62FmkaHL/nSbP7hw7TBXlSO/YbC
- IGSMA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="MpbRAbGZwGn7X0O5"
+Content-Disposition: inline
+In-Reply-To: <AM9PR04MB758686FCAE3D9C4A713B6E98FC422@AM9PR04MB7586.eurprd04.prod.outlook.com>
 
-> hw_params splits the ring buffer address over the LSB and MSB buffer
-> address registers, but the device is left on the default 32-bit mask.
-> The coherent buffer therefore always comes from below 4G and the MSB
-> register is only ever written as zero.
-> 
-> Set a 64-bit mask so the buffer can sit in high memory as well.
-> 
-> Signed-off-by: Dhanunjanrao Katta <katta.dhanunjanrao@amd.com>
-> ---
->  sound/soc/xilinx/xlnx_formatter_pcm.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/sound/soc/xilinx/xlnx_formatter_pcm.c b/sound/soc/xilinx/xlnx_formatter_pcm.c
-> index fa7419439ec7..57901c9466a0 100644
-> --- a/sound/soc/xilinx/xlnx_formatter_pcm.c
-> +++ b/sound/soc/xilinx/xlnx_formatter_pcm.c
-> @@ -8,6 +8,7 @@
->  
->  #include <linux/bitfield.h>
->  #include <linux/clk.h>
-> +#include <linux/dma-mapping.h>
->  #include <linux/io.h>
->  #include <linux/module.h>
->  #include <linux/sizes.h>
-> @@ -598,6 +599,11 @@ static int xlnx_formatter_pcm_probe(struct platform_device *pdev)
->  	struct device *dev = &pdev->dev;
->  	struct clk *axi_clk, *aud_mclk, *axis_clk;
->  
-> +	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(64));
+--MpbRAbGZwGn7X0O5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Is this always safe, can we have instances restricted to 32 bits?
+On Thu, Nov 26, 2026 at 04:38:56PM +0000, Marouene Boubakri (OSS) wrote:
+> Hi Conor,
+>=20
+> Thanks for the review, and for the acks on patches 1 to 4.
+>=20
+>=20
+> NXP Confidential
+> On Mon, Nov 02, 2026 at 07:30:41PM +0000, Conor Dooley wrote:
+> > > +RISC-V OPENHW GROUP SoC SUPPORT
+> > > +M: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
+> > > +L: linux-riscv@lists.infradead.org
+> > > +S: Maintained
+> > > +F: Documentation/devicetree/bindings/riscv/openhwgroup.yaml
+> > > +F: arch/riscv/boot/dts/openhwgroup/
+> >
+> > There's no git tree here, are you expecting me to apply the patches for
+> > your platform?
+>=20
+> Yes, if that is okay with you. I don't have a tree for this: the platform
+> is small and I expect very few patches. I will review and test whatever
+> comes in for it. I can add your tree as T: in this entry, or list the
+> directory under RISC-V MISC SOC SUPPORT instead, whichever you prefer.
+> If the platform grows I am happy to set up a tree and send you pull
+> requests instead.
 
--- 
-Mark Brown <broonie@kernel.org>
+Sure, I suppose I can. Keep this entry and add the dts dir to my misc
+entry.
+
+--MpbRAbGZwGn7X0O5
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCawhzoQAKCRB4tDGHoIJi
+0s6kAP4gXmSFfhK0zfOCFBXSFG1/xn4r/TZJv18+DgrkOYf7LwEAqLrQ2A9IL3OG
+SJ7Lomm/LvhzXbJ6vLkmKeV6VrShoAc=
+=i6yE
+-----END PGP SIGNATURE-----
+
+--MpbRAbGZwGn7X0O5--
