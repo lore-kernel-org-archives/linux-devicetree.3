@@ -1,87 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795703915;
-	b=kkzKHiKjbKLj5mCtKpJEhpVn7leCnpHZMUTYf5Lyhch79zc06ZsvieKolA+nThXW/AoA
-	 99wpkNc3H425DsGkwUwrVA62ywYL8dHx+jaFPXN4IDlMOjMrmlqN0jv5TUguGKVi2U9lr
-	 iVH6TabP9VACmtMYfHvPIxr0Svpt3SUxKEz5IsYhys0undQ4yamnikTRXrcIyjtdDfuqj
-	 0onwsIpddIXfgFRmtWcKjV+0zre6pMLyZGNXhAJ5T+kOnfKXlUPVcif0seKJP+ThSi2eO
-	 kGQLRBP13JjoLYwkPDU2co7bAaIvNC2tXdGZ08HER2WnIba0WgNUNrZsPcrX3TJc2kA==
+	t=1795703957;
+	b=spbCgD6o8de+yDuwju7f/aDYyOLz1EYExJHj2QMun1YI6HHfhlGbRG/SXOXMICGgrxk5
+	 PhiVXuyF+tqZoCNfIKPQjf7P+Rdpdki6pdI3Y9TeN7hYBj90ExbZLmktYIVxN3XN7Pfo/
+	 6y6bmAw7Qsy96NjWfkUqnO8Gv2SB8GntgR8ameGvgZ91b2xq5dS2tdjE6V9ApoNBEOmnb
+	 zORtxyU8FLGV1sC7Bdymy6y9D5YB56MY1msFPe5IBFfApKjAXsH1RiCutIa2lh0sArACv
+	 pwt2/ivv/ZzlvUKE7j+CZ+kwmlTymEnYZIX0xxwMfGENpyuIHS4KLNugpUDuOrjpOgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795703915;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795703957;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
 	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=auCcba+5d77RO1uYXgMttg2oy3VWOurHghWnl0cLv30=;
-	b=AhQEVvy9KxSs1l6yEyR2VEaxlRL3LRM6PLP11TK83wTdpwlySCJbZyNLH0jHKCgq6n9A
-	 JEDldVY3oH3Lg3mASZ1Y/PJCt/4TdMXTjspWMBffMQ7jDZEPoYLMADC/cKXDDJMRSQ/B6
-	 pM6wAC/OcBGHY7Fxd05bRRLhiuLM0xs0Hl8KYJf1vRiBPuWpK2VjPUFi1OLFYDWDmU8G/
-	 6VV0RNaUiAvADZwzoyjZYK43DgEEYCJ5OJ8Z9nJpasUNvd7er8jF1xk9qd+eiKkfYeugI
-	 FiGYV4Wx+g2jYl7SDg+FZSC54GO3YqVvPmI20FC1+m0toNVOjXW1aq43Ulu3qfUIxkg==
+	bh=NpCp8gTUV7b7urT+XT+vwa1wDWyVOE1SIMBZubybyy8=;
+	b=ExAWB8j02M1n8dMKB9h7pVzvqe6MaCWv9IHuUOPAU8Gd6WQWk/NaJhetd45HPa+9GFeD
+	 f9VI4Uaqy3flvXEy9vTQekDQxpLct+FYg8RbWQzTLHDDBcpYq6o5d+OAFbw5i0E44rU6V
+	 qEKavqGqj2CWiagUKr0pbwDbbbUUi2El/O9LDtPiwYrau2wTZS8mbsPM5g+eHLJdkW8Za
+	 KBM22zUBSmwp1qXI00hXfEWVbRjCrFDh62o97t9o391/pWXrFVs5K5x0nxW25HyhpHdU+
+	 KaJb0Hb1iTYISqPmd1LixQwz6uBcDAz7np8+RW45dwV/IwJRx88BbuZXzJaHt37oT+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=suse.com;
 	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=WnMPnIzC;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b="DxDZK/jy";
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 175C0606A31E
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 14:38:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 175C0606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528F2606A332
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 14:39:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 528F2606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=WnMPnIzC
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4bba60271d7so17116305e9.2
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:38:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=DxDZK/jy
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4bb666304fdso70719535e9.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:39:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1795703912; x=1796308712; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1795703955; x=1796308755; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:date:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=auCcba+5d77RO1uYXgMttg2oy3VWOurHghWnl0cLv30=;
-        b=WnMPnIzCdls3owP/R7yn2u4u0fUOEWTcVkLBsniilxqyGNDXTQ4mYtnNLW3jq/gu8c
-         JPS6XwAQwe668dr05qBwoRf0yembIvH2CAhC+xD8WP+BUPu2x4ClIkjwObp9imYTKk52
-         lnj0RGIaYTyR+Z6WA1w2C4afowfHBTIE6Nb8KHlB7IuGRKAu+h+V/HPe5eHILMCfzJOX
-         yfV/voIjnBtVa99WV+7BRTtcAJCkH7Z6caSMesferB2eX/KNe0Wl17xIQIPl3rIV603U
-         CJeJK0MAOKn2FlslWKKSsBesSuwXYQhexEcxP4WxvsX30dh/dcuhROsUUVhT1G25gxpv
-         XJzA==
+        bh=NpCp8gTUV7b7urT+XT+vwa1wDWyVOE1SIMBZubybyy8=;
+        b=DxDZK/jyi9VtiHb0cvgE58g9Zl0do5MkmhZxfg9HKejt3c1xlfARiOTzb7plD1PB4N
+         amkbczFI1s1d78cXWITqNkqIm5d8kK0LSLher2MRfjuYpCSUQ0hZRsAOfLh+6XJJrPdS
+         RVHW2e6bPkr0P4HwLVdE5v/bmwylFwFMy0mvSggD6kGWaD6jtQf3LbVdfZA/kzMv9r/y
+         pBRm1NvnFydhwmd8MZowSVVqGse/OwP9R2OOg9GE2TH/N5UZnlG9w0inDe6z5y73XXWz
+         tTU6LbmXcWw6yR8h4ER69y3B9fvsoWBoY8XnMrRAicRb+c7BPiwcl+5RbjYsj54NVRQn
+         JH7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795703912; x=1796308712;
+        d=1e100.net; s=20260707; t=1795703955; x=1796308755;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=auCcba+5d77RO1uYXgMttg2oy3VWOurHghWnl0cLv30=;
-        b=Wit2vGHldj1FVXu/GRnbePgCudCyKCIqvgWjh/D4gICp/FwlOVMHlc7U37vbUaorfg
-         +6sxK3+//IBvxg0wQ70/yakGmPLV6SKlmdpruU3x8Gdd4Io/XvALfuYiBqT0yQdeEQER
-         NR0OaiPnZfTHZsqMEzZqjHbLleovlZ/USLY43Et3Tqc8vLHkcR1ITlUxgSwSl7f5b2FN
-         vSQqpLk0H+aJPT52D7RY45ynIPzJcR/w2gjErW+sHObqjB+3qaTcJ7uKKfs6cBUwdyXV
-         RBIPZfuQQa7NTUy2jKK5y4LkiES4DTANsDyZrqzEBNhDNARF8wghBCZNAkpyXsTLvmMT
-         x5og==
-X-Forwarded-Encrypted: i=1; AL+hErFj645C18MHbLgpXkmdV17g95c7J+95sa8oUPGSzlMaiUM6IP3KydJ399kLZFvX3HJLCWb2WyXjAUt+@vger.kernel.org
-X-Gm-Message-State: APuU4Z9q4QTKwWrnEtUKCqCObgdGVFNWE1sfbs0iWTQKzYpv5enEmI/4
-	MU9EAvrcvrwlAC1ULq9Zq8G8riwq1+zdRApb/z50o4Leq0iT1GnH4QVV8zIvle/19+w=
-X-Gm-Gg: AZFdTZeylsxVW58N+KuSpGM0rn71nG0vayl4wynJbIsj3xok4AmJ9KT/7CxDUdFzaYP
-	I0XE04/FJanQEm6i26W95pbfmxlq+sAKMCTMolNLXBg8X/y5MIif1NuzaB6KhaRTW8PUkzli6Ce
-	liqTi7R3nlabXJ1r0z86Tx7SHECsZWoPeoYsbBIlA4hajirLaEMww8E5b6WoAiAHfFUwp/UC9D8
-	h3quB9RP5lXFOdR0ORU1xv6aH+7wA13FAQRMAcdgFqrGLTyl7bTLfBm/aOXP6Tce06FurnWAyXb
-	1LZCtKmAukrQRxEm+kVYTx319KwhRQ/IgttB/LWTQGbiQXxzMsKakADCMI5rzkObdI6yVl4VRJf
-	wdq3UqG8wADMjQbdVJmMOTySwoBidXthulyG+CYz6M+MT/7I3ZufKxJyLSXgeogP1bmnmXyRio5
-	kotn8+t0aHr477J0wYtZUfW9zPWQwPsWnQ4COFJxzbe/4GLPY3wjTsgp/NefdbvbXTaZwfENiWP
-	oWC9wiFuOeMkO40QtK4+uCBSr/O1jln9vlKTGWYHpxU/iv8udx8SwmJASq7cMEWkkABfGE44pHe
-	WeYYJg7l9P7F8VEVY3S++N/Kj5Qzdw==
-X-Received: by 2002:a05:600c:4e16:b0:4bb:69b2:d3df with SMTP id 5b1f17b1804b1-4bb88813024mr437965725e9.25.1795703912479;
-        Thu, 26 Nov 2026 06:38:32 -0800 (PST)
+        bh=NpCp8gTUV7b7urT+XT+vwa1wDWyVOE1SIMBZubybyy8=;
+        b=qHazbTICcLqXis70S1iCGrla6+vetHuytI0qrlHTji4N0XaHtdiJr2KB2EjbHi3S0p
+         F7GIDbMQQ/psw5R33d69j93ptwMUmSvEezw2k6MdTR3x75pFq2A1K9RVevNmho/ICi4l
+         ptZia3BTARYHYp8K98x8hK5iBrC6MMXkYU8kEH4ewbpsVaMY4NpU4/aaavIAnqf0ynAz
+         h2NvKYQvDRU6rAcHuihyPBg/whodUJn6mm1XAiqVOl1z7b2RupErIJksnIkBrcfKf3lO
+         a/hblM+vHs3QVAbom6UbFlmig/sx29M928AI+cgrudmLiwEdh6TEm+QEV4HRZp093lxB
+         tDKQ==
+X-Forwarded-Encrypted: i=1; AL+hErHKgeFg5VrCgNmbJxvq/FLwAnQPqkSbj14xGUlPAgGru51SnDIVcZdcPnHkQm0S+EhopX8Jpoj/8yc1@vger.kernel.org
+X-Gm-Message-State: APuU4Z92hAo5m3NAOv+ASzF4qIqAtNArZdUP1Qjc5NSZYNihqctqWfin
+	5H4WwqeL7dTcKmdjYSRwAGmXY2orudaiG56aJiDKIFcGaqFPCqJh9Cju2k4Zj8VSBCo=
+X-Gm-Gg: AZFdTZcOmjtDHe0uzKMxpLnpXEK7+BHn0a17OKAP1+iA6CyBYNCmonYZc4Ff7SOOZIR
+	3HC2gL+OstQ3B0Z09v8Ote4TXAReLGFWEGhk1eE/1umg4TtVBbUPY4RPRqCyKOglDU5P0irqb/P
+	vbgaiPpoO6JoQe27wwi2bt6t0+la12nYgG01cCCSgf2gBC3/3AcLFrn4k9R5TUB3swDtQOv6WCC
+	XnhLQc2O42ArDtVJl9Kq5K31E5lxFyX2i4SyvOQ1V/xIpywa8+rtbMIZaGJ8z7WXW3Iq3/GuoGg
+	0EDF5pc5Fuyao80G9mom9FhpV85SiGplmZ7YgQlE1RdDr8eVg/RhvlRbOMSDY4qNE91Y6CbyrXQ
+	5+BWtcA27BfiFI9okGFGEcvUFmQ/k3WkE3cO5CZsLJMsehUbVRSwNi8g9womPsxTstCnIrFqRH8
+	6snkI64yF7YTE61LN4HY7LIYe49fTpKttAOfgd07ytFwebnsMbq0WbJAWLiv/Ark0RMEE8uSXCY
+	v7KGusCajB6pUf5T8dF2uD62Kpl0dWUryukmjAXc2vb8WTT3OExMNNxNwSs8ng56ZDiJuNHKT02
+	kNWmZzvEfFSNz1ihRXAJjH5Z3GLo
+X-Received: by 2002:a05:600c:154c:b0:4bb:6a78:7c42 with SMTP id 5b1f17b1804b1-4bb887c3428mr428700785e9.1.1795703954785;
+        Thu, 26 Nov 2026 06:39:14 -0800 (PST)
 Received: from localhost ([195.94.148.180])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884865b1sm615439805e9.5.2026.11.26.06.38.32
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853a9846sm712460975e9.11.2026.11.26.06.39.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 06:38:32 -0800 (PST)
+        Thu, 26 Nov 2026 06:39:14 -0800 (PST)
 From: Andrea della Porta <andrea.porta@suse.com>
 X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Thu, 26 Nov 2026 15:42:32 +0100
+Date: Thu, 26 Nov 2026 15:43:14 +0100
 To: Frank Li <Frank.li@oss.nxp.com>
 Cc: Andrea della Porta <andrea.porta@suse.com>,
 	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
@@ -100,12 +100,12 @@ Cc: Andrea della Porta <andrea.porta@suse.com>,
 	Robin Murphy <robin.murphy@arm.com>,
 	linux-rpi-kernel@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 06/28] dt-bindings: dma: brcm,bcm2835-dma: Document
- dma-channel-mask and DREQ flags
-Message-ID: <awhFWBteSWqZ5keD@apocalypse>
+Subject: Re: [PATCH v3 07/28] dmaengine: bcm2835: Support common
+ dma-channel-mask
+Message-ID: <awhFghuBMy8IzMSs@apocalypse>
 References: <20261123145728.29082-1-andrea.porta@suse.com>
- <20261123145728.29082-7-andrea.porta@suse.com>
- <awXnR8jz-Nd4QLJ_@lizhi-Precision-Tower-5810>
+ <20261123145728.29082-8-andrea.porta@suse.com>
+ <awXoAqQhSWa95FH9@lizhi-Precision-Tower-5810>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,100 +117,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <awXnR8jz-Nd4QLJ_@lizhi-Precision-Tower-5810>
+In-Reply-To: <awXoAqQhSWa95FH9@lizhi-Precision-Tower-5810>
 
 Hi Frank,
 
-On 14:36 Tue 24 Nov     , Frank Li wrote:
-> On Mon, Nov 23, 2026 at 03:56:44PM +0100, Andrea della Porta wrote:
-> > The available channels are currently described by the vendor specific
-> > brcm,dma-channel-mask property, while the generic dma-channel-mask
-> > property from dma-common.yaml carries exactly the same information.
-> > Allow the generic property and mark the vendor one as deprecated,
-> > requiring at least one of them, so that device trees can provide both
-> > for compatibility with older kernels.
+On 14:39 Tue 24 Nov     , Frank Li wrote:
+> On Mon, Nov 23, 2026 at 03:56:45PM +0100, Andrea della Porta wrote:
+> > Nowadays there is a generic property for dma-channel-mask in the DMA
+> > controller binding. So prefer this one instead of the old vendor specific
+> > one. Print a warning in case the old one is used. Btw use the result of
+> > of_property_read_u32() as return code in error case.
 > >
-> > The single specifier cell is also not limited to the DREQ number: the
-> > driver interprets some of the upper bits as per-channel flags (AXI
-> > priorities, wide accesses, burst and write-response handling). Document
-> > the meaning of those bits.
-> >
+> > Signed-off-by: Stefan Wahren <stefan.wahren@i2se.com>
 > > Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
 > > ---
-> >  .../bindings/dma/brcm,bcm2835-dma.yaml        | 26 ++++++++++++++++---
-> >  1 file changed, 23 insertions(+), 3 deletions(-)
+> >  drivers/dma/bcm2835-dma.c | 19 +++++++++++++------
+> >  1 file changed, 13 insertions(+), 6 deletions(-)
 > >
-> > diff --git a/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml b/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
-> > index c9b9a5490826..f619e395cf0d 100644
-> > --- a/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
-> > +++ b/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
-> > @@ -37,15 +37,30 @@ properties:
-> >      maxItems: 16
+> > diff --git a/drivers/dma/bcm2835-dma.c b/drivers/dma/bcm2835-dma.c
+> > index 51e3a40dbaec..1087157fb242 100644
+> > --- a/drivers/dma/bcm2835-dma.c
+> > +++ b/drivers/dma/bcm2835-dma.c
+> > @@ -991,12 +991,19 @@ static int bcm2835_dma_probe(struct platform_device *pdev)
+> >  	}
 > >
-> >    '#dma-cells':
-> > -    description: The single cell represents the DREQ number.
-> > +    description: |
-> > +      The single cell contains the DREQ number in bits 0-4, optionally
-> > +      combined with the following per-channel flags:
-> > +        bits 16-19: AXI priority
-> > +        bits 20-23: AXI panic priority
-> > +        bit 24: use wide (128-bit) source reads
-> > +        bit 25: use wide (128-bit) destination writes
-> > +        bit 27: do not wait for AXI write responses
-> > +        bit 28: wait for outstanding writes before signalling completion
-> > +        bit 29: do not pause the channel when the debug signal is asserted
-> > +        bit 30: use multi-beat bursts
+> >  	/* Request DMA channel mask from device tree */
+> > -	if (of_property_read_u32(pdev->dev.of_node,
+> > -				 "brcm,dma-channel-mask",
+> > -				 &chans_available)) {
+> > -		dev_err(&pdev->dev, "Failed to get channel mask\n");
+> > -		rc = -EINVAL;
+> > -		goto err_no_dma;
+> > +	rc = of_property_read_u32(pdev->dev.of_node, "dma-channel-mask",
+> > +				  &chans_available);
+> > +
+> > +	if (rc) {
+> > +		/* Try deprecated property */
+> > +		if (of_property_read_u32(pdev->dev.of_node,
+> > +					 "brcm,dma-channel-mask",
+> > +					 &chans_available)) {
+> > +			dev_err(&pdev->dev, "Failed to get channel mask\n");
+> > +			goto err_no_dma;
+> > +		}
+> > +
+> > +		dev_warn(&pdev->dev, "Please update DT blob\n");
 > 
-> Add header file for such defination.
+> "Please update DT by replace brcm,dma-channel-mask with dma-channel-mask\n"
 
-Ack, in v4, the header will be include/dt-bindings/dma/brcm,bcm2835-dma.h, used
-by both the driver and the device trees.
+Ack.
 
-Thanks,
+Cheers,
 Andrea
 
 > 
 > Frank
-> 
-> >      const: 1
+> >  	}
 > >
-> > +  dma-channel-mask:
-> > +    maxItems: 1
-> > +
-> >    brcm,dma-channel-mask:
-> >      $ref: /schemas/types.yaml#/definitions/uint32
-> > +    deprecated: true
-> >      description:
-> >        Bitmask of available DMA channels in ascending order that are
-> >        not reserved by firmware and are available to the
-> >        kernel. i.e. first channel corresponds to LSB.
-> > +      Use the generic dma-channel-mask property instead.
-> >
-> >  unevaluatedProperties: false
-> >
-> > @@ -54,7 +69,12 @@ required:
-> >    - reg
-> >    - interrupts
-> >    - "#dma-cells"
-> > -  - brcm,dma-channel-mask
-> > +
-> > +anyOf:
-> > +  - required:
-> > +      - dma-channel-mask
-> > +  - required:
-> > +      - brcm,dma-channel-mask
-> >
-> >  examples:
-> >    - |
-> > @@ -96,7 +116,7 @@ examples:
-> >                          "dma14",
-> >                          "dma-shared-all";
-> >          #dma-cells = <1>;
-> > -        brcm,dma-channel-mask = <0x7f35>;
-> > +        dma-channel-mask = <0x7f35>;
-> >      };
-> >
-> >  ...
+> >  	/* get irqs for each channel that we support */
 > > --
 > > 2.51.0
 > >
