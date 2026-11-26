@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795703461;
-	b=3tov2Uv8eYpRw94uIelNgv6+sC1N2XkpsAlsPFVd5DDgKe6UV7osSqFjWTZTt3l4asN7
-	 kZBNUjyWWhqu5JpJVTxq8ZRfZCbrPlnDBGMTlw91UN1j3i89MMVeJVfYio0oPHJO70p5o
-	 1eDPkcYwJYVbNoOUKMsre1dJN3xQdGPsVNY/SXDwChc4PepU6vXHoxmFx3V6iJ673uWZ7
-	 xMpcA0JGsO53Oi7QYxn5p0ZpuVNk63DqIxK9btN6bX5O/sGSM13l4Orl/9tmJF1KMVpjN
-	 BKV4mVGBBzBhobke2nTZJwy91nXeLjOBNVlfHunFcURsM9bYLttamOQ+tLZb67MQURA==
+	t=1795703468;
+	b=otjl1viG2NpYh+8jL9yiApZcQPHzq2df+LhmEyr+gT4YTPzRihvV5KEg9n5CCoegEIcZ
+	 aKmgapuMUxX16ZqM4zOfg2PmQuZsloQLLDyrmb7oC7uIKzddguokE9YrtDEkERRhcC7wa
+	 UWxVnGmaKBhCB56orZgPxvkvmPnBlkQDSo2SjGcNB9PiXdmsFYN3J+w+vd9SeCaXDcpV2
+	 ZHDEB8D4nk250pIDCaDXFzak87gpRvjK8Jn67HsREd93QBPdqvJFeltD39voJaZOd/Odg
+	 Hh9Y+UA+V4sZ0JMDz2PUQeRAAwiAHrwHF8jfOuQ1Atvp9jeOwMlW1oLOLzS3mzlk1xQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795703461;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795703468;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=b75Uo34PUw4iKamZCCZe1xXf0ksyUJZPIAvMHwurv6A=;
-	b=3x+6ZV932gufhcT8UaMg44jx5DJLFIJSSu2EjjpIqowfWcCZq7tzc4v885ZNxda7RdUr
-	 185t7XZe2qjErcHnd5srfPKw4HlyCOPvHqrFd1P+Id6yYr9MNDFJFk27FH8/RAZYJ58Kj
-	 J0wpm4z+MNvrikV9paZ2Ns1cT8KhsLiBOXKWalT5a+LzAdQ/jzR8eg5TihacK/ZprTVFr
-	 ch3WBfUQ8GOJcAW2Phft6Thp5RqeEsXgf+zIR+qQoeBmANY1TZ0EDzqlET5vbKuCs2hhK
-	 +Nv84knqCFbIDLPNdP6j2LY3o5XOyMA3S7XvCY6UbYTKQoiTH3vSqP7U5r43r5/B7dw==
+	bh=7cKGcElw+LyKahzEfoUDXXu+nuhjcfc86ohLMOUpCCU=;
+	b=xtqJvR7KVuo3oGMUoa6BR6sZlNNwXx2vd+SVkMoUgMsXEINZdNbReRjUBx2n3Gv/385O
+	 HFbH7gfN5mlW39B3ivoXe6uVoI63r46HoA2ioJQSHMP64k+uDvbQujkRReRNrtoKb73yy
+	 2h3WB8xlJDkvbNPTPVYWMWjpg2UWO++vi1CHtcLNUQt8LRWujJ3+UMoUiCoa8570BVjUl
+	 xm58mcaU64UTVb2VobXgD4Ok08W+BBrdgmyn1An98pJGgh2rRX21hk9dldZfAdZaJpFb4
+	 DLtw2qTnKRePs5ASsBE3lbttGHCnz2T7IhVEi7YDVMkUh4gi4RyosMIeekMGe/4Ek3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bd0XZfJG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2KxkNk0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F824606A33B;
-	Thu, 26 Nov 2026 14:31:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B845606A6BA;
+	Thu, 26 Nov 2026 14:31:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bd0XZfJG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB2E41F000CA;
-	Thu, 26 Nov 2026 14:30:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2KxkNk0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FD581F000CA;
+	Thu, 26 Nov 2026 14:31:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795703460;
-	bh=b75Uo34PUw4iKamZCCZe1xXf0ksyUJZPIAvMHwurv6A=;
+	s=k20260515; t=1795703468;
+	bh=7cKGcElw+LyKahzEfoUDXXu+nuhjcfc86ohLMOUpCCU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bd0XZfJGoEh8+eXTYsgR8Z7oZnjS21PkrS8yTzRHXwy8bmykTZhAkUKXG4GwTOK2M
-	 gK0DaqH0/ziDXSlqQuZQbCeF9sN1DSg/xQ/kBkathsLZnv7NgJRfsZeItj+peVdNJm
-	 FK+LOxRF2LZo+F0BHtty1l3JtkE9Y7GB43FduhTGk4UykLbIdUJmiX2gfwM13Huoum
-	 /rBBTa8YLyd2U5bUcQi/Z88CLPS9fajydGVagKMk1Z/DfjApdJD0NghbWSFETEGEke
-	 6aElkbJpkvESKmqP2IoKl+2UpevnOH7RrhYQbasS83V+J4JeuYtG/3oF2ZvASMtSTW
-	 MJ7IelZLGbzew==
+	b=j2KxkNk0xHj89jBGgiHwOiPHo0AqQ6dTWLChX7vOwKi9+zwWm6XE7zoPsxXwC5nAp
+	 QK8a8fRlpaPcmkYekmkwINoUd6paRpB/Fl/wPej9Q2yinkEBW1Ib2IBSZFAaTFV7Jg
+	 75zAyIVNqFIhQkpbbGH8neG12bqjuOdxyZTz20OlXz3xnuUMVAVVO9vFOJ7368i6a/
+	 54k4cq/GfUKeuQC4QZ1DjWekeMMiRmSUVmCfHfT34OgVqLbRYK1whA2dHofudnKxrv
+	 V9wRaLa4t82ia6B8Fd3ihIdknmsQhc6ZBatE7VMImw6DjihpvdQd/2Ieggb0VoA4Dk
+	 4tNp0woVkPE0A==
 From: Geert Uytterhoeven <geert@kernel.org>
 To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
 	Rob Herring <robh@kernel.org>,
@@ -51,12 +51,10 @@ To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
 Cc: linux-pwm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-renesas-soc@vger.kernel.org,
-	Khanh Le <khanh.le.xr@renesas.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v2 1/6] dt-bindings: pwm: renesas,tpu-pwm: Add support for R-Car X5H
-Date: Thu, 26 Nov 2026 15:30:36 +0100
-Message-ID: <dd79d734b5e9d3de3c418b92130f51514fe08c3a.1795702568.git.geert+renesas@glider.be>
+	Geert Uytterhoeven <geert+renesas@glider.be>
+Subject: [PATCH v2 3/6] pwm: rcar: Use FIELD_PREP() for PWMCR_CC0 access
+Date: Thu, 26 Nov 2026 15:30:38 +0100
+Message-ID: <5ade99984b1ca21438a1977b65b51795774dc891.1795702568.git.geert+renesas@glider.be>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1795702568.git.geert+renesas@glider.be>
 References: <cover.1795702568.git.geert+renesas@glider.be>
@@ -71,33 +69,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Khanh Le <khanh.le.xr@renesas.com>
+From: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Document support for the 16-Bit Timer Pulse Unit (TPU) in the Renesas
-R-Car X5H (R8A78000) SoC.
+Use the FIELD_PREP() helper instead of open-coding the same operation.
+Drop the now unused RCAR_PWMCR_CC0_SHIFT definition, and redefine
+RCAR_PWMCR_CC0_SHIFT using GENMASK() while at it.
 
-Signed-off-by: Khanh Le <khanh.le.xr@renesas.com>
 Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
 v2:
-  - Add Acked-by.
+  - No changes.
 ---
- Documentation/devicetree/bindings/pwm/renesas,tpu-pwm.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/pwm/pwm-rcar.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/pwm/renesas,tpu-pwm.yaml b/Documentation/devicetree/bindings/pwm/renesas,tpu-pwm.yaml
-index f85ee5d20ccbb3f9..144a88ff53e5633b 100644
---- a/Documentation/devicetree/bindings/pwm/renesas,tpu-pwm.yaml
-+++ b/Documentation/devicetree/bindings/pwm/renesas,tpu-pwm.yaml
-@@ -33,6 +33,7 @@ properties:
-           - renesas,tpu-r8a779a0  # R-Car V3U
-           - renesas,tpu-r8a779g0  # R-Car V4H
-           - renesas,tpu-r8a779h0  # R-Car V4M
-+          - renesas,tpu-r8a78000  # R-Car X5H
-       - const: renesas,tpu
+diff --git a/drivers/pwm/pwm-rcar.c b/drivers/pwm/pwm-rcar.c
+index 1733cd700693713e..4641f258df531baf 100644
+--- a/drivers/pwm/pwm-rcar.c
++++ b/drivers/pwm/pwm-rcar.c
+@@ -25,8 +25,7 @@
+ #define RCAR_PWM_MAX_CYCLE	1023
  
-   reg:
+ #define RCAR_PWMCR		0x00
+-#define  RCAR_PWMCR_CC0_MASK	0x000f0000
+-#define  RCAR_PWMCR_CC0_SHIFT	16
++#define  RCAR_PWMCR_CC0_MASK	GENMASK(19, 16)
+ #define  RCAR_PWMCR_CCMD	BIT(15)
+ #define  RCAR_PWMCR_SYNC	BIT(11)
+ #define  RCAR_PWMCR_SS0		BIT(4)
+@@ -99,7 +98,7 @@ static void rcar_pwm_set_clock_control(struct rcar_pwm_chip *rp,
+ 
+ 	div >>= 1;
+ 
+-	value |= div << RCAR_PWMCR_CC0_SHIFT;
++	value |= FIELD_PREP(RCAR_PWMCR_CC0_MASK, div);
+ 	rcar_pwm_write(rp, value, RCAR_PWMCR);
+ }
+ 
 -- 
 2.43.0
 
