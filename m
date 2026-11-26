@@ -1,120 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795679060;
-	b=2G9JEtx5Bs1u7+Z1AHqgKu/m6bldyPJDWpqiUiJ9nSvOglBQgxWPNxEQLowskqGTK5B0
-	 lWfvKWiWZ8b9lK5cTW13S5STo1bcW0g77zuBlvWB2GKOiwj04UR2GZfQ8yBXs2valTfsW
-	 f09RB23hguOZWGA7XPWFTQGBdcCCDtvbh2sMJu+mMbtE0faGkIsV/EJwraAK819QN+akf
-	 2ZuwgSfeuRiagTNioU8gjB/dp0Bj2g/KnGaR3JqwMZznk2v+oigmQYJpdwCaGwWQOtLMe
-	 3UcG4NbZSvvyi4Q5CBGb6kHAVhfqwKSUpFnnZqg6uOK/Izxk/PnkRXGspxpV6NCLdqw==
+	t=1795679136;
+	b=iHT/J5TD0KVrHlOqOLRGSTITHbac+MVZCTH6Qx5ddUrr5Xka5Bo9QAq66z33Im0ciKKr
+	 XZ4uXOafOibIHF3QaFgyoK7OVNxJKerlLoiv2x5NmZwE8CkkbC68nELb8hYut0giYC2jn
+	 kIr+061F60cGVlAAQKT2J2EFXH9eccWccGyL5AsN01KVTQ8De7PAlDDt7XTsQZQ0238UH
+	 cF2CoBMhhREUApBXRGbso5Datk7WF9mCfNw2ul4zn7NwIQKM9bd310fxoszPyoH3k82wl
+	 cL0W1brcpCugyaYWRQXs6s1vgSg3VB2/fz4XSr1lDnU7i9c/0qkQPU0JhiIfkL2TYUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795679060;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=G7aKyVjdYavK2ZAELbW1cotgkHAtEELC6+iiVeRDFQ4=;
-	b=mMcnpvwEozD0xQjezwer3sWBXisdXEO9QrBD0gzZw5aJZ+TRz8alNkovtyopqCgPynKZ
-	 5FVYeKA4yL/PPs5EIlh0EGytO2UC+xZsdqyQHVEFpXtNE11L/JYdPTAsNhvREH1wYOpUu
-	 IFJW+yvLuTGTE1EItmN4XV75Pe8fTikEYnbWFs9Mf+TvjWthbz2XiDZmBAJMECtxm3TCn
-	 iftBfAoJgYiDQDzUprGwvgrePjnDEgStGGBdqZC1T4Rp1XM3UinrsFug3XpIlcgsD79QA
-	 TbIVad9sH/I4UADTPGYrmAayUhxfq6+bcTrAH3JZ4kUnRak1NMvG/KH6jH3dOS/548w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795679136;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=A9K6RkgQ1vHlkb7fqWCFJaJDYD0d1tdrNCpLiTMotOM=;
+	b=QxftzjsMtzN10xZampDTs0AV8LcwN3QEcTJVTKfxoEoAAJpHrqG7wPrKc11+Q28MUu6K
+	 GRE7/nkCnCVJIg6Yh/SS/JrFAnDGpwMhHazMe2fP8gLjWLgf9SIUw2Nlf2TaZXFNbmz5K
+	 uDrlcJUNA1h5tVVs8a2UaGc9d5BKfQaXFDD5ToIcKfcez5YQ1RJHJ7kk7SFrYoDMwnsnN
+	 Sk23RpFS2nieVXE8yTdG67fCUSx/3m89ZbSymajfNVyZmlSSNBSCGiuFmNOm+gblWNdxz
+	 qu1z2P8g0SY52KL6u82MUYmG5Ob0QcByXhZtzkywh5aluN8LYUrU43WMQSiLYwjZeeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=D2I91NFM;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Qpc+GDZN;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=I2bC3kAR;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4161F606A326
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 07:44:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4161F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8975C606A326;
+	Thu, 26 Nov 2026 07:45:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8975C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=D2I91NFM;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Qpc+GDZN
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQ7AweQ695016
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 07:44:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=G7aKyVjdYavK2ZAELbW1cotg
-	kHAtEELC6+iiVeRDFQ4=; b=D2I91NFMrsCgWpmcTIk+zto9ft+X0bo1UdjxwLH1
-	86unbUWiUZ5NlhmZnvnO2pnnqWCwXjkU4pcsMw7ytJ6PoDmB5sUfY9b5WewhbZeV
-	tJFU8Sa+fAVnp8gvjzUOcAR5g+fiOM7d+lDKMW4Af0LR28gVtthxVtjlLXw+1KeZ
-	Qdl17zNAN8h0l7jqj/aSONnJ4k/j6lRwjqdfz0YF53AG8j21Yy9sYUalpwT3owCL
-	/J24RdpPV2pgtPlPSeEGcRFWa5UVbQACVMYL1RL72zP6cAML0a19PP3+Mq/DRCi7
-	7Q9ifxYYYtXqVDazBQjQe6RCzZPFT8HRDeKntrwpU5NkyQ==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j6fw7r5rq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 07:44:18 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-38355b03cb8so6311851eec.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 23:44:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795679058; x=1796283858; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=G7aKyVjdYavK2ZAELbW1cotgkHAtEELC6+iiVeRDFQ4=;
-        b=Qpc+GDZNgG4nRVPTRMYQCDfZM3xgo0w9Z6KMAR5DlWA0unDniM/GuHb/CyhhljVfht
-         0W/zWPmtJN15c/wi24UCmV1/uzz9VAIF/rOnNmsaZBoWBxHQaglSsWm01ieR53xh9P90
-         47CRBdfb0dcerxCV5Mtc0IKTOTK9ecxVUCJTolUw6q036RqloBdf+3cj7lGmAEBYkIjt
-         S4aVzTUHBJChXvDE9sLshZoi2XWhWg1xbz3zW6+rIlrnyLGeCrL+o+sUvJy5f8U89uwf
-         0KXVCSgQsjirOFpTspa5ZtfsFRH8psZcPy5+PV3VMs8eWbZsyPfcMh9NuxTp+JAc73z/
-         gRsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795679058; x=1796283858;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=G7aKyVjdYavK2ZAELbW1cotgkHAtEELC6+iiVeRDFQ4=;
-        b=OAfEZcmJYj5u3o89hBF1B9gVg/Gv3jkbo20G4a2RVe7EYZcae3WfFlsbYIHyPAmmAa
-         Ag0td4gMIP8V7vrZlpFA4rS4GKa3lqMpIDGK6jvq0xqUmuHxl6UKRgEF9I6vE1SFoaOK
-         XuvjTlP7DnaM4Bwt+p8gguvj2A2mdPynr8BpZA3IAXBqFQHn5CnDA3AJoUwIxyCtWKg2
-         n4G7iJRJqKdZkhf77L+I6QPP0SxVhmx9XvQhK8VfR7rZCE413N7PWKJkqtZT+MAX22Yz
-         2Is5rPGfhma0bFZR3pSgPgr6Xdc/hs/U9+Jc2EEj2653ozMCM+7Za2PKkxnt1EhsMGWf
-         iNvg==
-X-Forwarded-Encrypted: i=1; AL+hErEH9lZd8sNRcc83jqz7inZLiOP72zygL65T2+Kw8/imyw0MXYC39Ija/M0f20akfTQcbcnDL1+r0IG2@vger.kernel.org
-X-Gm-Message-State: APuU4Z+lJXp45up35u478lAm2xLDVWM3O481W0ssh/2DIZUVReqA1VgZ
-	OeQkPeb9kEJ7cGaIxghek25Ioz76o/PxoKF3h04KC90QiAWDKFfx1gEFMaXFg2NeTckGqPf+haG
-	0hBy+Iu66d5cu1e9ofGrnb/Am/hdVd9MDn5TjkZEDw9FI68/WL8nrDNKd05P26dPI
-X-Gm-Gg: AZFdTZcMEFDf9vw45fG3jlyifdtzWvIJ87a/E0fzcIB3Sz4mdzutRLgxHdYlKpPdrag
-	u1GSOEVYjJpBYDSV9UWS7q8fBKrmnAckWRMZFYuQ4jpQSER8SatFzaD6zFdsCxfXbmb+B5RjuQf
-	8HHHxrP2EPb1AuuXi4wb4lG/Du3edUD++IvJAglkPO8Mlhe9GHHq7dDkTom1SFoPABGpumNSmg9
-	XE9RvYIYX1iJDhvmOACCUZUuoGDAUW1F+GUw27sSRmGTMVR7zOZL6hVMcoduuodCIL/2CuNkZwG
-	amO4t7zyP0aegZc2eQacycCJAItQn6gy2ZkNr3UyRdAdkqDMjLobYdRSeA/AUrgXM0N4f9JnygQ
-	aKcWL2kJALFN6yRbS15qJ0gDG6B9xibPkHYH7gunDF0jfhFEXBXNINgFOtcBPxPT+gkVgmY0FJu
-	k9XQwJgOiH5UlqwpYJHS93DV8=
-X-Received: by 2002:a05:7300:cf87:b0:386:565b:4f9b with SMTP id 5a478bee46e88-386565b529dmr16390653eec.36.1795679057778;
-        Wed, 25 Nov 2026 23:44:17 -0800 (PST)
-X-Received: by 2002:a05:7300:cf87:b0:386:565b:4f9b with SMTP id 5a478bee46e88-386565b529dmr16390634eec.36.1795679057224;
-        Wed, 25 Nov 2026 23:44:17 -0800 (PST)
-Received: from hu-petche-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38566fdce48sm64100626eec.14.2026.11.25.23.44.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 23:44:16 -0800 (PST)
-Date: Wed, 25 Nov 2026 23:44:15 -0800
-From: Peter Chen <peter.chen@oss.qualcomm.com>
-To: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
-Cc: Thinh.Nguyen@synopsys.com, gregkh@linuxfoundation.org,
-        linux-usb@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        krishna.kurapati@oss.qualcomm.com,
-        krzysztof.kozlowski@oss.qualcomm.com
-Subject: Re: [PATCH v5 02/11] usb: dwc3: qcom: Disarm wakeup IRQs on system
- suspend without wakeup
-Message-ID: <awfjT6DQ0beqlLUn@hu-petche-lv.qualcomm.com>
-References: <20261123104727.1539149-1-faisal.hassan@oss.qualcomm.com>
- <20261123104727.1539149-3-faisal.hassan@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=I2bC3kAR
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 645BEC2B9C5;
+	Thu, 26 Nov 2026 07:45:39 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0393E60237;
+	Thu, 26 Nov 2026 07:45:31 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A831811E69637;
+	Thu, 26 Nov 2026 08:45:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795679129; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=A9K6RkgQ1vHlkb7fqWCFJaJDYD0d1tdrNCpLiTMotOM=;
+	b=I2bC3kARiYxoBsF1f+GjPGDVb4kaUokJHLW+5C42qhHq52CSQ9zsrIuk/7wmdZKlub5MZD
+	Nzsqmi0SUZBcPItT2P0XsYf7xNk5Hhut+grWrrmVOLRWAbaWM3cSarLt8fZO1YUvnOX0id
+	WlKa5KHF7EPV62Ahm99bqtlJqoU8M+q7p6WYVlZiot6dRJhnOYlhBdk9Au0zjbYPU77r7g
+	DnnAUqpVK3/EwsyuLfCCfNYMFRRd5MZ8TOLpkoMg2oqanenUsw100MNj34SBScKJIwGZ/v
+	QY98US3y+nEbanJrhqkKxvVZlRyeka+yG+WaovW9MMLiUXYF3cqc4sg9Pg+GDw==
+Message-ID: <79d96092-732a-4162-aac5-f53114f55472@bootlin.com>
+Date: Thu, 26 Nov 2026 08:45:19 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -124,87 +62,175 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261123104727.1539149-3-faisal.hassan@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDAyOSBTYWx0ZWRfX495mcELSPlqq
- 4ir2I+GEZl6V8pAESC7KcGx0bYnbj0iephdKRU49p9yFBSH2NO1V3quk9M10KF88vHHm7/lnOjf
- M9AFDIEw0PbqL2zz/glmJuhqqG4cDjg=
-X-Proofpoint-GUID: d82DEEJmdKWmI3puWmxFHmYTBCDe6ecI
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDAyOSBTYWx0ZWRfX9Er61kgM05fF
- 7gJvPndaUAx8Oa2WT8/FD1uBX1P5z8BJ8VvJNtIKHIUckw5b2jLR5a+b/TRAaU6TWiV5Z2rEJ6L
- +1VoNoy7j/wA7ftJ4h8YBOHVaq9cummyboQyv2+/ECt7EPxf/eum8vIHTlwaTJRL2hVDG+zql4v
- dB1FWszY2JH9f4zLf3Enm9Wt7f8LnLla2rotlwRVHkUwpZ1Q8ku5vQgCKm4aHxXWovWDndF7e0W
- i7hgHvw32UgYdRVP2DvUHEouJ0rQyL9hW3r+DkkRSvDcZ+1Z0JFcTbm+mqqGqyeWJ1kF4yj9mWZ
- T6ynEmoQ3m2bFQm7hcCS9acmYIdzuvocNTS1uIHSuD3Zq7vJcDfdfDqS/cY+1YuZKfBMrWGYh8v
- iDrKIg8SH3IcmiM+84LJFHrvpDiKGkL2i6bcPGutyYERzZc0Gr1JbMDmgYuP5LJ2oWmjbI5UfiB
- KvCPoQnXIgSxheUJfYQ==
-X-Proofpoint-ORIG-GUID: d82DEEJmdKWmI3puWmxFHmYTBCDe6ecI
-X-Authority-Analysis: v=2.4 cv=ePeGH3p1 c=1 sm=1 tr=0 ts=6b07e352 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=BlGo1tluQEYad71Xd-AA:9 a=CjuIK1q_8ugA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-26_02,2026-11-25_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 clxscore=1015 adultscore=0
- lowpriorityscore=0 bulkscore=0 phishscore=0 malwarescore=0 spamscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611260029
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v5 2/2] net: stmmac: dwmac-rk: Add RK3572 support
+To: 1579567540@qq.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ David Wu <david.wu@rock-chips.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20261123-add-board-ok3572-c-net-v5-0-8ec9012b578f@qq.com>
+ <20261123-add-board-ok3572-c-net-v5-2-8ec9012b578f@qq.com>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20261123-add-board-ok3572-c-net-v5-2-8ec9012b578f@qq.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 26-11-23 16:17:17, Faisal Hassan wrote:
-> Runtime suspend always arms the wakeup interrupts in host mode, even if
-> the device is not wakeup capable. If the controller is still runtime
-> suspended when system suspend runs without wakeup enabled, the
-> interrupts stay armed as wakeup sources, so they can still wake the
-> system. System resume does not disarm them either, as it only does so
-> when wakeup is enabled, so they remain armed after resume and the next
-> runtime suspend arms them a second time.
+
+
+On 11/23/26 04:07, Cunhao Lu via B4 Relay wrote:
+> From: Cunhao Lu <1579567540@qq.com>
 > 
-> Disarm them in system suspend when the controller is already runtime
-> suspended and wakeup is not enabled, so the state matches what a system
-> suspend without a preceding runtime suspend would have left.
+> The RK3572 has two GMAC controllers with separate mode and clock control
+> registers in the PHP and NVM0 GRFs. RGMII delay lines are configured
+> through the IOC.
 > 
-> Signed-off-by: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
+> Add the register layout and delay callback for both controllers so the
+> Rockchip glue driver can configure their RGMII and RMII interfaces and
+> select the appropriate clocks for each link speed. Skip parsing the
+> deprecated tx_delay and rx_delay properties for RK3572.
+> 
+> Signed-off-by: Cunhao Lu <1579567540@qq.com>
 
-Reviewed-by: Peter Chen <peter.chen@oss.qualcomm.com>
+I think the RGMII handling is good now,
 
-Peter
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+
+Maxime
+
 > ---
->  drivers/usb/dwc3/dwc3-qcom.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
+> Changes in v5:
+> - Use skip_rgmii_delay_props to control tx_delay and rx_delay parsing.
 > 
-> diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
-> index 7a7225b900b3..18db19cf2065 100644
-> --- a/drivers/usb/dwc3/dwc3-qcom.c
-> +++ b/drivers/usb/dwc3/dwc3-qcom.c
-> @@ -350,8 +350,16 @@ static int dwc3_qcom_suspend(struct dwc3_qcom *qcom, pm_message_t msg)
->  	u32 val;
->  	int i, ret;
+> Changes in v4:
+> - Skip legacy delay properties and disable MAC RGMII delays on RK3572.
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 75 ++++++++++++++++++++++++--
+>  1 file changed, 71 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> index ad2bae308323..01fec12aa16a 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> @@ -66,6 +66,9 @@ struct rk_gmac_ops {
+>  	bool supports_rgmii;
+>  	bool supports_rmii;
+>  	bool supports_sgmii;
+> +	/* Skip parsing legacy tx_delay and rx_delay properties on new SoCs. */
+> +	bool skip_rgmii_delay_props;
+> +
+>  	bool php_grf_required;
+>  	bool regs_valid;
+>  	u32 regs[];
+> @@ -900,6 +903,67 @@ static const struct rk_gmac_ops rk3568_ops = {
+>  	},
+>  };
 >  
-> -	if (qcom->is_suspended)
-> +	if (qcom->is_suspended) {
-> +		/*
-> +		 * Runtime suspend arms the wakeup interrupts in host mode
-> +		 * regardless of the device wakeup setting. If system suspend
-> +		 * runs without wakeup, disarm them here, as resume will not.
-> +		 */
-> +		if (dwc3_qcom_is_host(qcom) && !wakeup)
-> +			dwc3_qcom_disable_interrupts(qcom);
->  		return 0;
+> +#define RK3572_VCCIO0_3_VO_IOC_CON1		0x10608
+> +#define RK3572_VCCIO1_2_4_VI_IOC_CON1		0x12604
+> +#define RK3572_VCCIO5_6_IOC_MISC0		0x14630
+> +#define RK3572_PHP_GRF_GMAC0_CON		0x0070
+> +#define RK3572_NVM0_GRF_GMAC1_CON		0x0020
+> +
+> +static int rk3572_init(struct rk_priv_data *bsp_priv)
+> +{
+> +	switch (bsp_priv->id) {
+> +	case 0:
+> +		bsp_priv->gmac_grf_reg = RK3572_PHP_GRF_GMAC0_CON;
+> +		break;
+> +	case 1:
+> +		bsp_priv->gmac_grf_reg = RK3572_NVM0_GRF_GMAC1_CON;
+> +		break;
+> +	default:
+> +		return -EINVAL;
 > +	}
+> +
+> +	bsp_priv->clock_grf_reg = bsp_priv->gmac_grf_reg;
+> +	return 0;
+> +}
+> +
+> +static void rk3572_set_to_rgmii(struct rk_priv_data *bsp_priv,
+> +				int __always_unused tx_delay,
+> +				int __always_unused rx_delay)
+> +{
+> +	u32 val = GRF_CLR_BIT(15) | GRF_CLR_BIT(7);
+> +
+> +	if (bsp_priv->id == 1) {
+> +		regmap_write(bsp_priv->php_grf, RK3572_VCCIO0_3_VO_IOC_CON1, val);
+> +		regmap_write(bsp_priv->php_grf, RK3572_VCCIO5_6_IOC_MISC0, val);
+> +	} else {
+> +		regmap_write(bsp_priv->php_grf, RK3572_VCCIO1_2_4_VI_IOC_CON1, val);
+> +	}
+> +}
+> +
+> +static const struct rk_gmac_ops rk3572_ops = {
+> +	.init = rk3572_init,
+> +	.set_to_rgmii = rk3572_set_to_rgmii,
+> +
+> +	.gmac_phy_intf_sel_mask = GENMASK_U16(11, 9),
+> +	.gmac_rmii_mode_mask = BIT_U16(3),
+> +
+> +	.clock.io_clksel_io_mask = BIT_U16(7),
+> +	.clock.gmii_clk_sel_mask = GENMASK_U16(6, 5),
+> +	.clock.rmii_clk_sel_mask = BIT_U16(5),
+> +	.clock.rmii_gate_en_mask = BIT_U16(4),
+> +
+> +	.supports_rmii = true,
+> +	.skip_rgmii_delay_props = true,
+> +
+> +	.php_grf_required = true,
+> +	.regs_valid = true,
+> +	.regs = {
+> +		0x29d20000, /* gmac0 */
+> +		0x2a040000, /* gmac1 */
+> +		0x0, /* sentinel */
+> +	},
+> +};
+> +
+>  /* VCCIO0_1_3_IOC */
+>  #define RK3576_VCCIO0_1_3_IOC_CON2		0X6408
+>  #define RK3576_VCCIO0_1_3_IOC_CON3		0X640c
+> @@ -1341,8 +1405,9 @@ static struct rk_priv_data *rk_gmac_setup(struct platform_device *pdev,
+>  	 * provide (see rk_gmac_powerup()), so only the delay values for
+>  	 * those directions are needed.
+>  	 */
+> -	if (bsp_priv->phy_iface == PHY_INTERFACE_MODE_RGMII ||
+> -	    bsp_priv->phy_iface == PHY_INTERFACE_MODE_RGMII_RXID) {
+> +	if (!ops->skip_rgmii_delay_props &&
+> +	    (bsp_priv->phy_iface == PHY_INTERFACE_MODE_RGMII ||
+> +	     bsp_priv->phy_iface == PHY_INTERFACE_MODE_RGMII_RXID)) {
+>  		ret = of_property_read_u32(dev->of_node, "tx_delay", &value);
+>  		if (ret) {
+>  			bsp_priv->tx_delay = 0x30;
+> @@ -1355,8 +1420,9 @@ static struct rk_priv_data *rk_gmac_setup(struct platform_device *pdev,
+>  		}
+>  	}
 >  
->  	for (i = 0; i < qcom->num_ports; i++) {
->  		val = readl(qcom->qscratch_base + pwr_evnt_irq_stat_reg[i]);
-> -- 
-> 2.34.1
+> -	if (bsp_priv->phy_iface == PHY_INTERFACE_MODE_RGMII ||
+> -	    bsp_priv->phy_iface == PHY_INTERFACE_MODE_RGMII_TXID) {
+> +	if (!ops->skip_rgmii_delay_props &&
+> +	    (bsp_priv->phy_iface == PHY_INTERFACE_MODE_RGMII ||
+> +	     bsp_priv->phy_iface == PHY_INTERFACE_MODE_RGMII_TXID)) {
+>  		ret = of_property_read_u32(dev->of_node, "rx_delay", &value);
+>  		if (ret) {
+>  			bsp_priv->rx_delay = 0x10;
+> @@ -1736,6 +1802,7 @@ static const struct of_device_id rk_gmac_dwmac_match[] = {
+>  	{ .compatible = "rockchip,rk3506-gmac", .data = &rk3506_ops },
+>  	{ .compatible = "rockchip,rk3528-gmac", .data = &rk3528_ops },
+>  	{ .compatible = "rockchip,rk3568-gmac", .data = &rk3568_ops },
+> +	{ .compatible = "rockchip,rk3572-gmac", .data = &rk3572_ops },
+>  	{ .compatible = "rockchip,rk3576-gmac", .data = &rk3576_ops },
+>  	{ .compatible = "rockchip,rk3588-gmac", .data = &rk3588_ops },
+>  	{ .compatible = "rockchip,rv1108-gmac", .data = &rv1108_ops },
 > 
 
--- 
-
-Thanks,
-Peter Chen
