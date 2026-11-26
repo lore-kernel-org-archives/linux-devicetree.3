@@ -1,100 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795685920;
-	b=1t5RH3JSv2gHbx+69U6c6RUMPEbp164RkQQBkMUWtol98Fo8iy47A0MudocIlrhMWHLI
-	 cgYPeLQHk1BHkLTOCL3UbgpHi9oRkCoumJUdSZzxTd2ne6Cxxeb7TB6AZKhXT4uTcXYiD
-	 1gx9+9FAOezHDsD0f61KawL9ixWc3mC6dOcbLVXkuu/EoEAsKMfQ/nTz03PddZHduXzMK
-	 CDCvpZDjAOili2rIxGsVqIWe5M0ujalGr9O/AnoLW0nhOwk2wUcU0xL0dsndYu2r0AHlq
-	 Vwg0ng73igL/IPCtQ8XwoDoQHErQ90Rzm5Y3tiQUlNijiRHXuZ5uUEuKoYyJp7LuuoQ==
+	t=1795686105;
+	b=GsNfj14fUjMtH0QR9A8JSEm+1uGw0Z867R/J46G/tLN2CRtwQvRSCfeAdCUYk8aH81nP
+	 1Z9uFofN2GgprbvdfLTkN+qj8xyj40BZSRD36aRJYPVFdFbOOrjckkLwo3kT4LOO+UXaj
+	 XgdbwYwbR54GKXV0fysVlQcpY+k7f7l3WnUW79iCDGa87H8INwcTlOLf8qSlIT4mSBBjZ
+	 dg2Pd0ltYnF0OyHGHRT89f1NuaBFntVC50pGeudpU2z21MkTH9+co4a8tgcWikETu5wbe
+	 ssaP/1+W/tNemK9S6Ckdv2ZkdJrkjb08mgOFwhmV2CHQpLvTXea6fa3PVWObjzF/eRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795685920;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=3dcSItid+640QQ6B4SJ+u9MysfBoiq2+UtuyGaK2ZU8=;
-	b=KLHykDChh+XyAyImkOdWfi6yIWvdZnFORlUOipLBIce6zhpTmn+3FZ39zI7IWbLt8iCC
-	 t8SoLUmue2QQKGKGQ0cPry7zrRWflAiDiYzJv80xGBDykZ0Fwg4Z7EnOV/W4tgaxfB+nN
-	 jj/gybfAX55rFHBHTjRrtBQkkltffN+KYkyiz3q/gBanMJ2Ou7YTmH3b0fTHQm08TWIM/
-	 DRhcjSQ/cRcc9Q2x8uSa6vLoLw6Fgn77yMceQU2kPjQz+MX830qRAk/KhyU6Z9/Ui74iL
-	 /CrmuPM51K//RKrgAB00w9MROHp4exRCCpGoQYRbgvVf+dVchMuH/kkd/OWyRKO0xGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795686105;
+	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
+	 X-CM-SenderInfo;
+	bh=GNDASP6rUCpmwiRkOCnx/Y4DoNB2hqMJAKRW/SDyyqQ=;
+	b=pI5JHvd7jBoQ0xal6Eq3NgDtWUjjCZDidF+cUJR6ZvcNJa7EyxKcdR8cL1jjJSVgrgum
+	 uuvb4X5ZJ3+m3qYuTx/3X08cAki/LhYVp66UFAq6c2nAOggLp6UTCDjKbOvxlOjl7KZlF
+	 9FtF0nLssEAzsqYVU5uI13Gd6xDAsg7KRSpOFcnWsucvb/scpnLdjwigN47AtfAB8SKDb
+	 Utt526y0J2yTMJDoqWe4pXADin3e/NU29XOS8/2/1YTVYTfMZNMs+VGY2/2ayZebs8J4k
+	 AwxALKyPNbTS01uEQtG8Dfnp8N5yvpo1VucW3SHYV94oEGW0s74TU5w9TSHrv1xxOeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OQuHJbEk;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985A0606A687
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 09:38:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 985A0606A687
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OQuHJbEk
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-386ab9ab619so8886151eec.1
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 01:38:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795685920; x=1796290720; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3dcSItid+640QQ6B4SJ+u9MysfBoiq2+UtuyGaK2ZU8=;
-        b=OQuHJbEkv6SkaSz8rAnRV8NWVYuVN7xnPksPb3UOji7J3c3KM2kl5kXJYeNDMIcpEM
-         6veLsMMf5XFsrLFwsGyMnbmJERHNkWXWNFNTDNafv7tLD07NP2tQS+5IjP2iwD1OpBFZ
-         HR0XXn9okyg6nHI1vo9IsF1v77NxsXpHWzdOSDTpZ4dX2Pfdn5KnHwGEDMWIQcUZSpUf
-         adMztKfwPR1SaqH1mHgmKiTAQ1BBdd0vUV8ntvZd8i6gCWiW2nq3h9ftP/o0kw60Q9Ft
-         ErK9z93Tt+JMQ27lnMZRPAiNwvHwO/DGVvRqpcNt21+o8Dn5NBTek6X5dsXnYk7FsFL1
-         altA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795685920; x=1796290720;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3dcSItid+640QQ6B4SJ+u9MysfBoiq2+UtuyGaK2ZU8=;
-        b=c6eK/HjVWX9NC0Vhx173T4dSLJ/ldYC9hGx5hCOK21LroUbs4SiXirjiT7PGkwW+8x
-         fGb6MEEuZ6/8wH0anqp7IuwOTira38NPB3Rcgs5jwZ9o+GaoCuLQUtZyF7vhPyB/Pg2y
-         4Zr4LCdLBJHOmcBymeqe5kG72PWsxJa3l0ArpaCyZdQPfs45GU966CGpo1k/GZZF/7Ie
-         e/6gFHiBBBk8ZeR7Cf0/BIRM0kB8Zs9EmRe9hREnfqh7VTaX3LAqvBvkJaYaBV227xVg
-         zqqmJwRpLJDNsL0wIoaR//KF0GSCWKEBPltt/WCC1rgPBEKomYr+dTyWRo9hK3SoRgFu
-         Dnkg==
-X-Forwarded-Encrypted: i=1; AL+hErGIIVsilz76DC2g923lqUmXr+JDuzDI+tBKc3Zqyy98Gtn4mrtBFwr9P8awFczmsj45roQtMpNiunwu@vger.kernel.org
-X-Gm-Message-State: APuU4Z/QM+6xRH1IMkLTJt19EmZjT9+gZ1kWWMWrHP3TiPmLNZu7inek
-	a01pahvnTZTBqS0fZAME36b15PJTx2rfwN0airniQjaK5SXFfFoUVJqP
-X-Gm-Gg: AZFdTZeXbkaAYGkEdujkqKwF7Jg0tPpqL1NW/a7wz/+lsm0xcKxtAYlTmA1I9rVnT4R
-	cgCuRBE8JpeI8P4vzRq0dboRDAMbQqj6soNFdV8u7isGFO608LtYsUrUJId7nXkb6uoao86EBdk
-	TNYntlPYMFJLut4d7ahMavYs2BWDGPFw7fK+XwL4QDnNCDVVZ9Px+ZzNaWW+qVU3tfKU25tskdd
-	WE2G5BV7HXfEbrRqB+o6HLeM7/VlZx+3Cah9mqzg49HkB2T9LxoBraCtY1BM5Z/h+6Oq3JmH3xN
-	SiN69rgYo/iaI7aPlq6d+VkmQ+lClpJEnwWvq8QuUMkYwtyKQEQdJ7IqRKRf+NQd8nwto6huJx7
-	1lt3l1B4o5ooFL9BQJfG1jxseuVs3c6V4NloaeYXnPdt0UAog+gOmhED9qgShhg30UDv/d5zUkt
-	k8QG5z+T8mgmWNwjzNPu89GoCgqPnQBgy+9qTEMhHFMipG5llP83VDwo2vqZetiWCyUQICLe4vU
-	B6Ah4x9J8Sb9WWNkUiFV41nAKLvOuazY/4896Pw92rB1deX0tezzW/nRrCspeUuD10hF4Seq7jH
-	Pac45ZW0mMdiBZ0NxE/l80mBL6QqgVG5cQR8d+hfDblMd3flgalknA==
-X-Received: by 2002:a05:693c:60d4:b0:369:fe81:a575 with SMTP id 5a478bee46e88-3857111f203mr25335643eec.35.1795685919741;
-        Thu, 26 Nov 2026 01:38:39 -0800 (PST)
-Received: from 192.168.1.36 ([2402:a00:163:2ce9:ad38:eaaf:b00d:c452])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-386aa203267sm32600571eec.0.2026.11.26.01.38.35
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 26 Nov 2026 01:38:39 -0800 (PST)
-From: Ajit Singh <blfizzyy@gmail.com>
-To: romain.gantois@bootlin.com
-Cc: gregkh@linuxfoundation.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	heikki.krogerus@linux.intel.com,
-	linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ajit Singh <blfizzyy@gmail.com>
-Subject: [PATCH v2 2/2] usb: typec: mux: tusb1046: Support no-hpd
-Date: Thu, 26 Nov 2026 15:08:19 +0530
-Message-ID: <20261126093819.76480-3-blfizzyy@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261126093819.76480-1-blfizzyy@gmail.com>
-References: <20261126093819.76480-1-blfizzyy@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516C5606A326;
+	Thu, 26 Nov 2026 09:41:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 516C5606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.207])
+	by APP-03 (Coremail) with SMTP id rQCowABXY5TN_gdrxEHXAQ--.17711S2;
+	Thu, 26 Nov 2026 17:41:34 +0800 (CST)
+Message-ID: <2da5ea0d928af93418c54f70ea52bd9b1f0fc36d.camel@iscas.ac.cn>
+Subject: Re: [PATCH v4 2/2] phy: add a driver for T-Head TH1520 USB PHY
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Drew Fustini <fustini@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>,  Manivannan Sadhasivam	 <mani@kernel.org>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Philipp Zabel	 <p.zabel@pengutronix.de>, Wei
+ Fu <wefu@redhat.com>, Drew Fustini	 <dfustini@tenstorrent.com>,
+ linux-phy@lists.infradead.org, 	devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 	linux-riscv@lists.infradead.org, Han Gao
+ <rabenda.cn@gmail.com>
+Date: Thu, 26 Nov 2026 17:41:33 +0800
+In-Reply-To: <83e1a995131aaed2a7e1119f97254c6b460dbbb3.camel@iscas.ac.cn>
+References: <20261103081444.1983071-1-zhengxingda@iscas.ac.cn>
+		 <20261103081444.1983071-3-zhengxingda@iscas.ac.cn>
+		 <awXrnQVKZBXKsV2c@thelio>
+	 <83e1a995131aaed2a7e1119f97254c6b460dbbb3.camel@iscas.ac.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,80 +64,115 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowABXY5TN_gdrxEHXAQ--.17711S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGr45trW8uF15tF47JF13urg_yoW5CF4Upa
+	yrGF4YkF4ktFnFka1fKr1UCFyFyw1xXFy5WryfJ34fZF90kr1fXay3tF98uFWDXrWrW3y2
+	qF15tFy3CF1Yy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
+	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+	67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+	x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
+	UI43ZEXa7IU5IAp7UUUUU==
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-When HPD_IN has no usable hardware signal, set HPDIN_OVERRIDE over
-I2C in DisplayPort Alt Mode so the device treats HPD_IN as asserted.
-Clear the override when leaving DisplayPort mode, and preserve the
-existing register value on boards without no-hpd.
+=E5=9C=A8 2026-11-26=E5=9B=9B=E7=9A=84 17:33 +0800=EF=BC=8CIcenowy Zheng=E5=
+=86=99=E9=81=93=EF=BC=9A
+> =E5=9C=A8 2026-11-24=E4=BA=8C=E7=9A=84 11:55 -0800=EF=BC=8CDrew Fustini=
+=E5=86=99=E9=81=93=EF=BC=9A
+> > On Tue, Nov 03, 2026 at 04:14:44PM +0800, Icenowy Zheng wrote:
+> > > The USB PHY on T-Head TH1520 SoC is a Synopsys USB 3.0 FemtoPHY, with
+> > > some PHY parameters exported as another system controller along with =
+it.
+> > >=20
+> > > A few PHY parameters have unusable defaults. Add a driver that progra=
+ms
+> > > them before releasing the PHY from reset in addition to
+> > > clock/reset/regulator management.
+> > >=20
+> > > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> > > ---
+> > > Changes in v4:
+> > > - Make exit callback always success to prevent PHY state machine desy=
+nc
+> > >   with clk/rst state as suggested by Sashiko.
+> > > - Re-wrap some comments targetting full 80 columns.
+> > > - Use dev_err_probe for PHY creation error handling, to prevent spamm=
+ing
+> > >   the kernel log with -EPROBE_DEFER.
+> > > Changes in v3:
+> > > - Use fsleep() to replace udelay(), and add proper inclusion of
+> > >   linux/delay.h for this function. (fsleep() suggested by Drew and
+> > >   inclusion suggested by Sashiko)
+> > > - Adapt Drew's suggestion on the wording of the commit message's 2nd
+> > >   paragraph.
+> > > Changes in v2:
+> > > - Removed unreferenced register names.
+> > > - Changed the behavior to leaving bus clock on instead of binding it =
+to
+> > >   the regmap.
+> > > - Removed early return for reset deassert failure in phy exit callbac=
+k.
+> > > - Tweaked the Kconfig item (removed default value and added "select
+> > >   REGMAP_MMIO).
+> > >=20
+> > >  drivers/phy/Kconfig                |   1 +
+> > >  drivers/phy/Makefile               |   1 +
+> > >  drivers/phy/thead/Kconfig          |  12 ++
+> > >  drivers/phy/thead/Makefile         |   2 +
+> > >  drivers/phy/thead/phy-th1520-usb.c | 179 +++++++++++++++++++++++++++=
+++
+> > >  5 files changed, 195 insertions(+)
+> > >  create mode 100644 drivers/phy/thead/Kconfig
+> > >  create mode 100644 drivers/phy/thead/Makefile
+> > >  create mode 100644 drivers/phy/thead/phy-th1520-usb.c
+> >=20
+> > Sorry for the delay in review. I think binding and driver dir should be
+> > added under thead soc support in MAINTAINERS, right?
+>=20
+> I am adding it, but maybe it'd be worth to add a N: clause into the
+> MAINTAINERS file?
+>=20
+> Although this wouldn't belong to this patchset.
 
-Signed-off-by: Ajit Singh <blfizzyy@gmail.com>
----
- drivers/usb/typec/mux/tusb1046.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+Well to prevent merging conflict, maybe it'd be better to substitute the
+file list with an N: item in a commit going through the SoC tree, and
+prevent changing this file in the PHY tree.
 
-diff --git a/drivers/usb/typec/mux/tusb1046.c b/drivers/usb/typec/mux/tusb1046.c
-index 34ef81f75693..50a856c8245d 100644
---- a/drivers/usb/typec/mux/tusb1046.c
-+++ b/drivers/usb/typec/mux/tusb1046.c
-@@ -21,6 +21,7 @@
- /* General register bits */
- #define TUSB1046_GENERAL_FLIPSEL BIT(2)
- #define TUSB1046_GENERAL_CTLSEL  GENMASK(1, 0)
-+#define TUSB1046_GENERAL_HPDIN_OVERRIDE BIT(3)
- 
- /* Mux modes */
- #define TUSB1046_CTLSEL_DISABLED          0x0
-@@ -32,6 +33,7 @@ struct tusb1046_priv {
- 	struct i2c_client *client;
- 	struct typec_switch_dev *sw;
- 	struct typec_mux_dev *mux;
-+	bool no_hpd;
- 
- 	/* Lock General register during accesses */
- 	struct mutex general_reg_lock;
-@@ -44,6 +46,7 @@ static int tusb1046_mux_set(struct typec_mux_dev *mux,
- 	struct i2c_client *client = priv->client;
- 	struct device *dev = &client->dev;
- 	int mode, val, ret = 0;
-+	bool dp_active = false;
- 
- 	if (state->mode >= TYPEC_STATE_MODAL &&
- 	    state->alt->svid != USB_TYPEC_DP_SID)
-@@ -67,9 +70,11 @@ static int tusb1046_mux_set(struct typec_mux_dev *mux,
- 	case TYPEC_DP_STATE_C:
- 	case TYPEC_DP_STATE_E:
- 		mode = TUSB1046_CTLSEL_4LANE_DP;
-+		dp_active = true;
- 		break;
- 	case TYPEC_DP_STATE_D:
- 		mode = TUSB1046_CTLSEL_USB3_AND_2LANE_DP;
-+		dp_active = true;
- 		break;
- 	case TYPEC_STATE_SAFE:
- 	default:
-@@ -80,6 +85,13 @@ static int tusb1046_mux_set(struct typec_mux_dev *mux,
- 	val &= ~TUSB1046_GENERAL_CTLSEL;
- 	val |= mode;
- 
-+	if (priv->no_hpd) {
-+		if (dp_active)
-+			val |= TUSB1046_GENERAL_HPDIN_OVERRIDE;
-+		else
-+			val &= ~TUSB1046_GENERAL_HPDIN_OVERRIDE;
-+	}
-+
- 	ret = i2c_smbus_write_byte_data(client, TUSB1046_REG_GENERAL, val);
- 
- out_unlock:
-@@ -131,6 +143,7 @@ static int tusb1046_i2c_probe(struct i2c_client *client)
- 		return -ENOMEM;
- 
- 	priv->client = client;
-+	priv->no_hpd = device_property_read_bool(dev, "no-hpd");
- 
- 	mutex_init(&priv->general_reg_lock);
- 
--- 
-2.50.1 (Apple Git-155)
+Thanks,
+Icenowy
+
+>=20
+> Thanks,
+> Icenowy
+>=20
+> >=20
+> > > +struct th1520_usb_phy {
+> > > +	struct platform_device *pdev;
+> >=20
+> > It seems that pdev is only assigned in th1520_usb_phy_probe() and never
+> > read. I think it can be dropped.
+> >=20
+> > With those addressed:
+> >=20
+> > Reviewed-by: Drew Fustini <fustini@kernel.org>
+> >=20
+> > BTW, I see that I never applied the MISC clock patches (1 to 3) from th=
+e
+> > v1 series [1] like I said I would. Do you still want me to apply them?
+> > If so, I will fix up the platform data check for usb_suspend_div_clk in
+> > patch 2 when applying.
+> >=20
+> > Thanks,
+> > Drew
+> >=20
+> > [1] https://lore.kernel.org/r/20260507081710.4090814-1-zhengxingda@isca=
+s.ac.cn/
 
