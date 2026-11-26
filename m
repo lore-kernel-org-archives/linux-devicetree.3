@@ -1,95 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795686979;
-	b=EtPW/Y58nq6ESNWNcyiMeTm5HJ+jrzUXK1WhpoE2sbwHO75z5WEmu4aeoSezwHIN8RYA
-	 9YR+9/TiAAwmi4dEY7uKq3k/fjDFhCpMK7CBcCFJG1zKOYERFQ3ogqymaEWrFdKTN/Qur
-	 fQoOkMOpvpDQr4k/Y1j8JaqiyMi8bmOw28TTzYdfepGf37KIEk9jsnbIVFV+39c12vkX7
-	 dGI7+aem/7/raRsK5m6oWhr3grtjjS68sRlGwJBdvbBB9cBJf0dZZ68AMi7OPRDQ88v5h
-	 FQm1AtxXvhCRwwfApUIhrwWrNfrdv5jSz/fpyGXecadteShi1laLsZw1e8+DqySvOmw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	b=HFvHUWPCiwkcdSlkdtU6TYEfiTfsZ8L0J4CumoRQTHw6Cauf6YB0UvwUZiSAqRbJd7Ku
+	 d8LybFhvC5EqYBKP6QGfhsBLMWBFy4tgfb4GEW3tXj7RH5k17+NgPak8s4WdnbLbxdfRj
+	 33cxeSh9dcZtxxyBW++ZiIA3EbGNL3lRnA8o937VbLS4Yp7FV6B6mfRBjJFG6G1lyvUDp
+	 VZwLPfqsjsBXxXpM4HgNmvWasc3GEjaecxAjEfHJtyseIy6PInJtuSQVKdiXyjpDEIB7M
+	 9raplyuTtsXBBBatImNk8CvJXQkEZAnuLPobahqUp17D+bMp87AVBRVKp0FXXx7snEw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795686979;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=UTxBBDRdhc56uqY7dTLggSPsTJlq0p+BQ17MfausoEQ=;
-	b=UWDxPXKFGbhgg06E0t7nAgbxeUBPZ8albFWtbj50sn25FmwqEXAHr4nc3aZq9PCo0Tfa
-	 DQgFXqy9lDbY8S5TpESAf6B0JWeZPIF/eH2hhayYWID3OVCyv4h4lYM2b0LjioE8RO76b
-	 FmX7SPcQlkqekp6DIF5G0KaViqNfU4VqrIxqQFiNHrIXw/dQWET6OlQgobHBlrcxhIcBZ
-	 TYQKSJkTCC1zUIXU9sydSoze+ncTTq7MkrGK8WnNiBWztr+deLiRS+NwYfj2YvzwTpqsv
-	 jpxGMtEmAaxhrjPgXV0nRvAyw7uUR5ymFS/g0+RayDjzbhPWgp70jiXJ5ME5gHpE0CQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cherry.de;
-	spf=pass smtp.mailfrom=cherry.de;
-	dkim=pass header.d=cherry.de header.i=@cherry.de header.a=rsa-sha256 header.s=selector1 header.b=bYSuU8bY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.52
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013052.outbound.protection.outlook.com [40.107.159.52])
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=GOcHW9tjnWPfy3JGXVh2ns2aT+hFNZ4ZuKMYEvOVVpw=;
+	b=JtAvBe8DnJ5TNliUi73SzDCzh02oNlHvSITs+o4CLW55Idon3B9Ic0LtPozuBreMH4CT
+	 EfdCWeyFyKhAayzigPXSmsfwG1cI+8EUfSH1sPaTmIaPOzZFP/PMbFhSJLc6HCS3m0XFM
+	 ICu5t7nSZr7WwgVRSR2R8ahUhn9ZxsVTvMRQiSlfyx+Dfv3jmKlwTevqsxCeuV/Q8FUFX
+	 72Mib7yuzkpheLXXxbrChh/wxzRyMTC2PQbI0+98vGJ0eU/cQCcuSDdAQnFtTKVTNeL4L
+	 V0Su82qRTWEjYqai/eSBZeWjO4GT1q94ozaIIrX/u+8QhPtLNko+dkJT01plUW/1H0g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Xc2GvF+v;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="G/Z9mgt9";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FA83606A323
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 09:56:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FA83606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cherry.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherry.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E596B606A336
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 09:56:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E596B606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cherry.de header.i=@cherry.de header.a=rsa-sha256 header.s=selector1 header.b=bYSuU8bY
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AP3fhHypnFG8/tYIt3asMOt+JFW/2j5occyNVPjzvsq6kd57WO0311FaxyIcX3LpcDhyTL8kQGCoZSomjOsPzyF4QU0VXFlFyrN7A2EFjRdTBVNWqms3T7TJcU+bP8g2thKd/WdyE7Th+HWDmTN8hZ8QRPuYLTgUy3Rng3P7aX/NSP0NjGiGw50OW5+xbgfUJLqTGsAR9q/yeODVw8xAiSFv3BAyuh4bcuB1L+hbZFjTVKBqUM+gMxqKih+VKk+6liq0EkZz0YJjGGG6RQS1tl7KGzcrF96cjBXemACeGKZXl+xz1TPEhUxvndfsSQE/haDNsEqRSNMEwFKnlD2WYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UTxBBDRdhc56uqY7dTLggSPsTJlq0p+BQ17MfausoEQ=;
- b=YZWiwGrpGyOWJiFjIcwjDBcJUrRzX3eLBjJkmtEiB/aYfg00lX4VUa/LM0KtQ1ELMJKVDdbZfYkVvOPtj60YzzWa6dgRI9W6HjFI8odPuJmVFQzhieGWEkgyXpdWGIq5Wzd9L6Vm6xr7O2uAKAq2Z0dKHYAcCjI/erDLwfVqBoJx1VNaP3hYM8uqUtUcPDNG28bIsoGtDQV59D/mLVG7ixlXl9xYF2sethM+Gldz+nyuKiAfz/hCSHcErDMjoXvuRoVsoGFd4K1oABiFJn8q5GLyoa7jPEzKKGIOl/3hFqeX2V9n6dva8QFsykyL6RFwB1dH4m8Adjgb4mKN/ubkFQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=cherry.de; dmarc=pass action=none header.from=cherry.de;
- dkim=pass header.d=cherry.de; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cherry.de;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UTxBBDRdhc56uqY7dTLggSPsTJlq0p+BQ17MfausoEQ=;
- b=bYSuU8bYW2KWD6c1JpadaFOdGTRXx8MEKILpEMBi33AycPPZ9bf2A+MgZPnugQEq24eW5m7mSjTY+HC/c/tQgmC2bAcuj90J2KKcryomKFTP4bK+VbUmqiok+jyvo193fyz9vVnAhz/d44FytRGNClhtWCx88WlqUHGHPtFREMw=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=cherry.de;
-Received: from PA3PR04MB11153.eurprd04.prod.outlook.com (2603:10a6:102:4ab::7)
- by BR0PR04MB614562.eurprd04.prod.outlook.com (2603:10a6:2c8:4c::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Thu, 26 Nov
- 2026 09:56:13 +0000
-Received: from PA3PR04MB11153.eurprd04.prod.outlook.com
- ([fe80::6b02:c0eb:95a4:3c3d]) by PA3PR04MB11153.eurprd04.prod.outlook.com
- ([fe80::6b02:c0eb:95a4:3c3d%5]) with mapi id 15.21.0662.004; Thu, 26 Nov 2026
- 09:56:13 +0000
-Message-ID: <c6930807-24de-49c2-adcb-5dbbc3da0c45@cherry.de>
-Date: Thu, 26 Nov 2026 10:56:12 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: rockchip: Add CD GPIO to Orange Pi 5/5B/5Pro
-To: Dang Huynh <dang.huynh@mainlining.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
-References: <20261121-orange-pi-5-sdcard-v1-1-e431e7c46ba0@mainlining.org>
-Content-Language: en-US
-From: Quentin Schulz <quentin.schulz@cherry.de>
-In-Reply-To: <20261121-orange-pi-5-sdcard-v1-1-e431e7c46ba0@mainlining.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: VIUP296CA0100.AUTP296.PROD.OUTLOOK.COM
- (2603:10a6:800:351::10) To PA3PR04MB11153.eurprd04.prod.outlook.com
- (2603:10a6:102:4ab::7)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Xc2GvF+v;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=G/Z9mgt9
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQ7BBbw3548522
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 09:56:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=GOcHW9tjnWPfy3JGXVh2ns2a
+	T+hFNZ4ZuKMYEvOVVpw=; b=Xc2GvF+vY25WDOEhoJkPfrYHO+KliSW7FhBBwGbz
+	lp/Q8RwpCWg2jS99vjSCijjKDNdtLH4cXHmH6qyGflt3RI1nv4Kt12YL6ivyfwnB
+	Aoz2nu96rAoKH1PK6cO8a4K0PrKHiqohWchFDwn29ApJuNBaoiAsjzDoRLcjiBFZ
+	AvTaGyGMe6F4bufKrpm+ggWroLaNtRw7PFDjIIIyj/piBxUoy/c6jnj7yVZs5e/R
+	8Vb1nLuuHaC0ZibjLndy6qOSagAyrEaQW4GDDNKlA99xtaBO4ppl0ZHxjD00KVCd
+	vLJFCRrKcPtTzayHdz8WYXNmGrGF/czJReEKfuR6JCofoQ==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j62vaud51-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 09:56:18 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30bcb065bfdso7121692eec.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 01:56:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795686978; x=1796291778; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GOcHW9tjnWPfy3JGXVh2ns2aT+hFNZ4ZuKMYEvOVVpw=;
+        b=G/Z9mgt97fMagk0x7M17tFwcAgSxSSMPS9tmvT8hl5L5HG4RMFwKhM4tR8uWOtJZI3
+         sBZ26l1va25YCs91zS3CZiGlK3aSGVSGir9yee4SLJh+pqdt6SxSefc6BT5MJTYMEwmn
+         tLyziWBJIvlcGG8ruAfejVT95Qf6dEO+W9oZ88KuL8X57+634cvY5ygcsDDX8h63b6/o
+         KJj8jvqO4Ee3XTofNv/IReA7bdJ4gj8iZDBkDqRf73CdocoQ+pamO8jGcms9MT60A9VC
+         VrH0Dd+mRjjGOzMdNciuHteMpUGiC4uyOjXCTzqTPDstOoiD09boDNp5YAG18GQ2ODve
+         hiQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795686978; x=1796291778;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GOcHW9tjnWPfy3JGXVh2ns2aT+hFNZ4ZuKMYEvOVVpw=;
+        b=lhe5pPImkNodiwVdUwXdzLKO05+b539PvSXRomOCFZetPgTJe8F/uLWJR7VVNCKqy4
+         TRG+LMnn5kexF/J0yDobtYxvZo1m10K1ba42TOJY3IlAHufZT/w8/dyEJLz3aK97GXx2
+         bwjCvSsP5JtHbQvi89v3CH7Va7Gz4V62xiWVNl3w6q0zfgcsZY/PhHvKWaRiBZSCmUXd
+         bb6NlP4OZVcbU3jzg6UFNbnDNHleXoEfcUeb4iD1b7Ctn4uopcubEPHWoo+EQ99hn2O5
+         3uWFxK1VmlW03T9eEA/lWJMM8rbuBtv7gSraMdDZXBjD5uTnz2dVP3x76f4VcuvzrdUi
+         Glxg==
+X-Forwarded-Encrypted: i=1; AL+hErG7+AnJyzg6d7qomzv73vf+Zq+en6HkjgcQGxp4wpNxs9IteBx2S4uUyflqK3Ll3VHxK8P1X/1X5j8v@vger.kernel.org
+X-Gm-Message-State: APuU4Z/cf1iU7MSu8L88vKzW19dmrFK6J+doaRl5DIkASg6rSPnmwPZR
+	3PIPXJ0lDdtpvl2GbPet5eNqaoVhUVBVpvEi4JFfWi5ZLc7WrHpmZtBuyx3hwG/SlOUuEYFyAAj
+	wFkjukBz2SJSMPxIwnl/xqKtKsCd20xrxKDknR9jSdawbpRBdmlIHCrkOGjKC5ZTO
+X-Gm-Gg: AZFdTZcIMtYyH+i6GV3xtSeqf++jtDIYFjMDkbgwBzNNaUVLoHSS9L01eiZBA7JlLiT
+	yOdz/jdgNlYyHNTlIWNz7F2rpHbCxPwaqdNv3kNOD4QzGMYq/YM6ueUYVab8HIojeHbQROTevu6
+	1RkGHmqwIXC1OlY93zDZ0SvnxU1/eLYFVxHV9xeC9ErZ4q00ue9DdCmsOKAEZQWoPJF6h57xvya
+	JjzCMbniXzCaCgXANSHovzqQ57CoWD+h3XPpvFhnP35GCISMjzMHfDjPV0hOm2/AnnShWawTxBq
+	G7akpvT5MzhKe+9GtSQ7biDjsIAxBraWHYtIow6WQBzIYXmrR9T96B36EqNvC9+amsy4Tr2mvnJ
+	8ah8sr0rYp8BSLICXV3EwIDTH1P55bgBsN9aCH0g+QCtO0I13LeoBLbZeDzcVZQHwn+91zd6kSf
+	wgg60dD+kU9uhBqbjK4kPUdQ==
+X-Received: by 2002:a05:7301:182:b0:386:b4db:74d3 with SMTP id 5a478bee46e88-386b4db7924mr10926693eec.21.1795686977541;
+        Thu, 26 Nov 2026 01:56:17 -0800 (PST)
+X-Received: by 2002:a05:7301:182:b0:386:b4db:74d3 with SMTP id 5a478bee46e88-386b4db7924mr10926679eec.21.1795686977053;
+        Thu, 26 Nov 2026 01:56:17 -0800 (PST)
+Received: from hu-petche-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-386aaae4960sm33923950eec.18.2026.11.26.01.56.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 01:56:16 -0800 (PST)
+Date: Thu, 26 Nov 2026 01:56:14 -0800
+From: Peter Chen <peter.chen@oss.qualcomm.com>
+To: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
+Cc: Thinh.Nguyen@synopsys.com, gregkh@linuxfoundation.org,
+        Philipp Zabel <p.zabel@pengutronix.de>, linux-usb@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, krishna.kurapati@oss.qualcomm.com,
+        krzysztof.kozlowski@oss.qualcomm.com,
+        Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
+        Sriram Dash <sriram.dash@oss.qualcomm.com>
+Subject: Re: [PATCH v5 09/11] usb: dwc3: qcom: Assert controller reset on
+ remove and probe failure
+Message-ID: <awgCPsPdiQDgPUR6@hu-petche-lv.qualcomm.com>
+References: <20261123104727.1539149-1-faisal.hassan@oss.qualcomm.com>
+ <20261123104727.1539149-10-faisal.hassan@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -99,111 +126,79 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA3PR04MB11153:EE_|BR0PR04MB614562:EE_
-X-MS-Office365-Filtering-Correlation-Id: 30ba5659-a324-4c82-9ee7-08df4ba38142
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|22082099003|18002099003|4133799003|261028144727099003|56012099006|11063799006|261102123227099003|261026140227099003|261022105027099003|261021121427099003|261009223027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	FfVtQwS4yAcptXCUo9f3YFjAwQkVG5naiaJ3oojSdwucXtLVkyJiq33QOR2Issj5IVC9yyLwE4i5U08VPJ5Q6Ez2tmb5LkeiapTkrL2G8z7kaBOEgcMQZP8VImrXJabzcRjGCXjN5ZsyHtzB21BAIpAAKbKP4hGN1cDn0IiVOhUtLpoIWzIZ8Ur+jLUu/tZkYpMtHtCtc8Ipoc8dLDBWsEh0Noe3dPr6Xhbr5x6bsSXe52Sz6bnpdvtUE6UnjWQmESKCLIu5/UJjp51heWDB2dknaA7d5q512UFAdOzEjcwranEPIYpccgGJWY9PUf3sJST1cyXxKgZyi1S4v6BqLIPTNKqn/+CbB3HXlQ40u8S954rVU/Wq0Tqus7SNx+ZxxRgxW/3DslyBNn7N0FTLjdE6b17O193/H4f73CN55IZXiMx4l366OzxpVX6Bm4qfqJRrLgX+tlArzm5tc5fDjG2WRAFqJNHi7WU2i6nizAwVCQYThx8oztWga2HF+JQ85YeThnkFA2HdMerYod7/WZ/tYNmWTOyQbQXwsOz3N7Wd+UujAHbst/1j/B53GHLh2mRYw9UE9/c6AIBcJK7F9STUWnRhVab8y318RkphcQA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA3PR04MB11153.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(22082099003)(18002099003)(4133799003)(261028144727099003)(56012099006)(11063799006)(261102123227099003)(261026140227099003)(261022105027099003)(261021121427099003)(261009223027099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?STVmNStLWDVDbkR0NWc0L1Y3WW9IWGVqMzh0TVlwazZ0Y1FMUmlYRU9JMGRL?=
- =?utf-8?B?NHJJWVMveDFaRkJubE5HK3hqTEFpdjRFWlNDZVRod1N6TjJsdmFzLzQ3SzNZ?=
- =?utf-8?B?S0Nkb2tJR0loVTA3V2xVMTE1REVpRFlvVmpKSXZFc2ZtUktyRFJjbjdiVGp5?=
- =?utf-8?B?dzAvSDh2bnhmSTJMRE1YbUZ5WVdSMDNzZHZ1MjBTazJpbFY3T2FkRlA3SThW?=
- =?utf-8?B?eDRxQ1ZyWjBmN24rQmk4OG5aZnQ4S0lpUWZwUDZGdFpua0xnTG0xc21RdEh0?=
- =?utf-8?B?VVlQNnk1cTVod3hsR1NKTThHeTVGS0I2ZHlkSEdEOXAvYURnYklvSS92NjZt?=
- =?utf-8?B?RG9lcFRwK25oVzAvMERQam5iM0V3L1ZoY0JOZ1Q0clRzRG1vMlFJZnN4R1Vn?=
- =?utf-8?B?WHBrZmNiSWRKYlBwVkhqTnVUTlloQjA1dmpJYTdrZGFVUWVwNlhoanIrVzA4?=
- =?utf-8?B?ZW9lYmVpUXVQYVBHZUlsbFJ6R3pjbzA4NElXVGJWZE1TeEt5UFZMQXJqN1pk?=
- =?utf-8?B?SWkxemhOZmlDUU9Tc1NLUTFqV1ROTzJBSmJabFNQY1NRbVJ2ZUc2VFBMUSsx?=
- =?utf-8?B?QXdMQXZUL1NjbnI4RzBtNXU3M2ZMOGNocFZxNlhFdlE1ZkphZE5TNWdCMVhZ?=
- =?utf-8?B?RzJ3d1lFNW1jU05tWVhvcWV5bVpCeENaRk1rbk1zTmwzZzFKVXFTYjZBQnZw?=
- =?utf-8?B?czRZMDZ1bjlNM280dE5XVjlocTFSOHd1ZUhDUWJmQVR6U3FYUnYyNE1tSGJM?=
- =?utf-8?B?aHhPTEhqdXBQTlFBNE53YzBibGh4ZUw1RFF3MlI5eFROd2VpbzVTcFhmeUdx?=
- =?utf-8?B?NThBelJiWTBhNk1zZThYWFBnazY2VWNCRXg5Skd5QndOU3BvN014dmVvTER6?=
- =?utf-8?B?ZDNHZnl2VzI2cXc4N1lHY0x4K3hhL0RhZmtBM1U1L0lLNDRreW9vWmNhNU5E?=
- =?utf-8?B?bjZZbTAvRmw3eGk5MHczYU1RVG5UTnpuYVp1WGFOOFk5enozNFUxUmp6VDVl?=
- =?utf-8?B?ZktRb2o2RVgxNXA4cjh6cjl0WEEyNkxKb1Ivb2xpcUpvUlg4R1hZc2hyajkv?=
- =?utf-8?B?VkwwOGJiY0JyN2VzeFhOcGR2T1I1dlN2bWZ1REJodklxWk14dFN4UzBFcTMz?=
- =?utf-8?B?U2tWcE9Odk1Gc0EyYW9HRnBsUzc3ckxVa0MxNUg4NWREWkZBb2x2TGJRU1hr?=
- =?utf-8?B?TXVpQUo5VnUyVllVaHF2K2pQL0ZCMmZOWStPbE0vMjZNVi9LU2FJeWdVbkpC?=
- =?utf-8?B?N0tFQlQ0VmVUeEpWeVFKZmFWMnhKU3BocXNsck85cVB3akZHTXYzVE1oSURQ?=
- =?utf-8?B?VG5URkwvZmNJYnh4TmQxOXJmdHpYd0xjTUdGUmdKZXBHaVVqYTg5bjBxVlEy?=
- =?utf-8?B?M0V6SlV4WDVpY1FMcFBQNzEvQ1M1M3B0Mld5eENQYlhTQUhOdE9BQ2JxbGYx?=
- =?utf-8?B?UndQbjRjUTA2d0VGZUdlMTFRWkdDUXhCeUlxVlZUSXJzZlVxZ0dsMGgza0V1?=
- =?utf-8?B?VUJOeG81cW4vTTkwTUdxdUd4ZFJjeVBnc08xMXE2aTZoVEFwV2xQUnRZMGd6?=
- =?utf-8?B?WEI5bnNSNW9pTFFhelVmc3hWdHNWRzQ3Z3prbnkxU05qa24zZmh2RnUvbVpS?=
- =?utf-8?B?T000SG9mMzM2aEZNblVsRGxqTHBqdEZLUFB4RmxSQjNPcjBzT2gxaDRmN3Fo?=
- =?utf-8?B?UlZheVZWMG8rMngwTGRsZmp6SU9UTGcveDJiMzJEMVQ4L0JpQnBGcVZqUUdr?=
- =?utf-8?B?ZmJzQ1pTbWRpb0E4NG1MY3JqT0cvN2lnWllUK1M5Wmhjb0E5S29UYWlTOGhD?=
- =?utf-8?B?QXhZeGJyQk5vTTY1Z0lTTEplZEs0MVVUQ2p2aDlqbFI4NUtxRnhKVGM0YUgx?=
- =?utf-8?B?RlFQSEhJZXBSMnlvM0Juc0ppMlowR215Rnh1eVBHK2JTQVllcjJMcGw0ZFMv?=
- =?utf-8?B?ZDZwUTZnVUdQNUxrbkIyNnhsTm9pMVowZjVTYW5QUkN1ODVwWlpVZjBtWnc2?=
- =?utf-8?B?MG01WGptb0QxSE5ORjZweUgxVVNKQkNwSTFmc3pDdEVsV3RkRjZISy9velZZ?=
- =?utf-8?B?eWlMaHhveENkSStuMnhWY0NiMVQ1aTZPa1VOZGh2NVl1R3U5SXlnc3c1UjBo?=
- =?utf-8?B?SXIzZ0p5Zk53MkkzTCtlRjJBZWdBQmpCNjI1MkRFQitCMUJZT3pZTXNOeXRM?=
- =?utf-8?B?b28rMFJXMkkrd3RFZkNNUXZkMyttdm1ORDZvQW95VmdHa2tDK2FqNHRiczdL?=
- =?utf-8?B?cVRWbUs0cWZLQXRwWXVvRktSQjhZbThXVmN2NVBsdDIwNEpEK1BqU28wTXJP?=
- =?utf-8?B?RExOVnQ4WmRZd2RNVm80WWQrVFZwekZoVENQdnVYa3NmYU5Bc0ZoQT09?=
-X-OriginatorOrg: cherry.de
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30ba5659-a324-4c82-9ee7-08df4ba38142
-X-MS-Exchange-CrossTenant-AuthSource: PA3PR04MB11153.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2026 09:56:13.1920
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 5e0e1b52-21b5-4e7b-83bb-514ec460677e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sIcLtpMgcz1W53v43XxUtNSUte8gor4ndLSXF8sCV0CARdm3l3hgtYOQRaiuU4ccfhHCuQcNC6G0SLU4j19BdMKb2Mj/kFjL+P6BDJCwdpg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR0PR04MB614562
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261123104727.1539149-10-faisal.hassan@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDAzOCBTYWx0ZWRfX/7s5rtsjNVZD
+ AZMO9uzrEF2QUrGg/fhHRMgWDaZDrn9KULoVKWxv7mGHI2bZsjYogHCGHZVDmk6AMNi/npq3zye
+ 5Tf3WXNMkxXvMQRigSe/jf8LLp0OSM4=
+X-Proofpoint-ORIG-GUID: s-WQ2hLj_a4k98hr2YXJqoYZHlqS8u51
+X-Proofpoint-GUID: s-WQ2hLj_a4k98hr2YXJqoYZHlqS8u51
+X-Authority-Analysis: v=2.4 cv=QZPzLcbv c=1 sm=1 tr=0 ts=6b080242 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=2DI7WhOKpHI9u_kDJrMA:9 a=CjuIK1q_8ugA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDAzOCBTYWx0ZWRfX7P0/RFu6GjGa
+ 4HJKhFJz7qmYBzQ0zGT5qRQ7q3KSEaIYxzaSGxhQLLf7UVbIcGpAFSOZMhD6lu3VPbtO7yvlhko
+ D3zQkHYeO4Vi4kMZXQz9YH6jsKMHRqfTc5j+QYRZL5Sv3IiL5NzC/7xR1CS6t1VZ1RfTxPTg1Sj
+ eo1TjzbTaF5OaTvSCyxCzspUu7hHPQlG5HOCPLl07AQ3mndT67jSh+7nvI58kZKqwu9nnaEHlhq
+ AMhQFLFCjmTQGnJ6ZGL3Lo8hzpHEBlZhHvugXJYju99/PkEauvPVP3jq3U34Ry3I5E014dcOu1n
+ Gm4OJHKew4CqwiXDJwOZOXydylP10wXMr4ViNsH4QRgxSB2w6PwX3aC1usjj5VxD0fUjDQ1EY/y
+ tvFEpZRbEfAhea18qPgQvur944rVgVcctSUjUl9i01HIxMl3QRXFNaP7g62qlVxAWW1Ub5eoduj
+ vDw3SbKhocMUfsS8yXg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-26_02,2026-11-25_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0 phishscore=0
+ adultscore=0 malwarescore=0 impostorscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260038
 
-Hi Dang,
-
-On 11/21/26 8:03 AM, Dang Huynh wrote:
-> CD GPIO is currently not defined in Orange Pi 5, this breaks
-> SD card hotplugging.
-
-That's not the issue. The issue is that the card detect signal is muxed 
-in the SDMMC_DET function (c.f. sdmmc_det in rk3588-base.dtsi) and that 
-relies on the SDMMC controller being powered on to detect such an event. 
-This cannot work when the controller is in runtime suspend, so we have a 
-chicken and the egg problem. The card detect should resume the 
-controller, but it can only work when the controller is running. Hence 
-why we now go for the gpio function (via cd-gpios) instead. See
-c7a9549ce46e ("arm64: dts: rockchip: Switch microSD card detect to gpio 
-on Radxa ROCK 5 ITX/5C") for an example.> > The SDMMC_DET_L pin is 
-connected to GPIO0_A4 on both OPi 5[0],
-> OPi 5B[1] and OPi 5 Pro[2].
+On 26-11-23 16:17:24, Faisal Hassan wrote:
+> The controller is taken out of reset at probe, but nothing puts it back
+> into reset when the driver is removed or when probe fails after that
+> point. The controller is left running when its clocks are gated, and a
+> later bind starts from whatever state it was left in.
 > 
-> [0]: https://drive.google.com/file/d/1Wsp-Q7IyG0Ky_W-z1n5oXcFG4oqIbtOb/view?usp=sharing
-> [1]: https://drive.google.com/file/d/19iPdpAXhA1vFkVOgG5Sz7L6cV8BB6004/view?usp=sharing
-> [2]: https://drive.google.com/file/d/1qs1DratHuh7C6J6MEtQIwUsiSrg8qgTi/view?usp=sharing
+> Assert the reset before disabling the clocks on remove and on the probe
+> error path, so the controller is held in reset while unused.
 > 
-> Signed-off-by: Dang Huynh <dang.huynh@mainlining.org>
+> Co-developed-by: Shazad Hussain <shazad.hussain@oss.qualcomm.com>
+> Signed-off-by: Shazad Hussain <shazad.hussain@oss.qualcomm.com>
+> Co-developed-by: Sriram Dash <sriram.dash@oss.qualcomm.com>
+> Signed-off-by: Sriram Dash <sriram.dash@oss.qualcomm.com>
+> Signed-off-by: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
 > ---
->   arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi | 1 +
->   1 file changed, 1 insertion(+)
+>  drivers/usb/dwc3/dwc3-qcom.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
-> index 2db6ee95e504..8fbb0ba19b74 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
-> @@ -282,6 +282,7 @@ &sdhci {
->   &sdmmc {
->   	bus-width = <4>;
->   	cap-sd-highspeed;
-> +	cd-gpios = <&gpio0 RK_PA4 GPIO_ACTIVE_LOW>;
+> diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
+> index 50fca06c83d4..61a3e3c38f59 100644
+> --- a/drivers/usb/dwc3/dwc3-qcom.c
+> +++ b/drivers/usb/dwc3/dwc3-qcom.c
+> @@ -804,6 +804,7 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
+>  remove_core:
+>  	dwc3_core_remove(&qcom->dwc);
+>  clk_disable:
+> +	reset_control_assert(qcom->resets);
+>  	clk_bulk_disable_unprepare(qcom->num_clocks, qcom->clks);
+>  
+>  	return ret;
+> @@ -818,6 +819,7 @@ static void dwc3_qcom_remove(struct platform_device *pdev)
+>  		return;
+>  
+>  	dwc3_core_remove(&qcom->dwc);
+> +	reset_control_assert(qcom->resets);
+>  	clk_bulk_disable_unprepare(qcom->num_clocks, qcom->clks);
+>  	dwc3_qcom_interconnect_exit(qcom);
+>  
 
-issue: missing pinmuxing
+Reviewed-by: Peter Chen <peter.chen@oss.qualcomm.com>
 
-You need to configure the pinmux and pinconf for this pin (via pinctrl-0 
-and we require repeating pinctrl-names wherever pinctrl-0 is modified).
+-- 
 
-Cheers,
-Quentin
+Thanks,
+Peter Chen
