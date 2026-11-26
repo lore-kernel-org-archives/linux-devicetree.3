@@ -1,79 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795732833;
-	b=dbcHeHMPgi8etB6Vg193DMAzWER5hFtPykV9XZSn/50Yf5/3SpEYRZeXz9thmhFj20po
-	 Ph63ZbknTSLymNxAzWSIbt+pnZWx7M441oeUOecIrp+NLCj0HPzIiNRrW66ZBvr04VQGP
-	 9hGu6TtbI2b/HE6cvK4v4dt7V4SAiZnYHQhUqumTYfAc6JHa0nULt1hiJ0cT3pS71w8vh
-	 S+ZWymETJLlqQno+GiAMNXXy4Z8aZBMAKf9+E9V+m5QfmPIfwitupJZEy8NKCZXvvOrnd
-	 zNIoYEXRO6AMlngiy3FqkM2JKaQz3/hQ1SmIUy02FYMtExLpKzxyDeT5AN0tg2WICPA==
+	t=1795733940;
+	b=EAHvuvK5oREVkfCP02XDffFphJuQZ+oBQwPJ1n5xQCbqy06iG6hClXAsptkE3crzseM+
+	 9QsduK4Zo7sxDF3IzuSz9/zXvdLWLzWm2Cf5wjCfcgpKgdyE8K+JpB6jLVBQSTvyYQhaS
+	 VSOcP/R2zZHiRsHz4AmBa5U0izbT6N5kBnakejlXBZgTjqGS5SBs86v1B1V2PFkt0Z+Ss
+	 jpeCYU/rWxvnMV05ivTcWWryi6h5Z7PYdDRR+t1fmNsW1NsvsLlf2TyclHawg/pFwjjIw
+	 Of3j5WRmU7gKp03HpjcbhmkjdfQiSrhF05RPsfxBjQi8K+9gTq0ErU7JqRY6aPSAKmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795732833;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=5/KydILYgp1MqJro7NmxMhzqTKDk500tIwuyQxLYRaw=;
-	b=dnPDEmPxtEhKhcvLZ5a+v+ByEudFjIfJoLveKTefwSAM/zil6VFlnep9xPE+8EiSGOK0
-	 fOjfX+RkW6erdiWO4lULPl6qzLfUKgSn5l8OXTE+VbGxBH8e/bcS5GGbKEgfy8Z1Jt80C
-	 58KyRfwKP8uyx7Vgu0BqG75Xq+UfMwlfYl0fMAOaFJZwIJKUaS/CUEEEP9LqD7/zC5uUO
-	 ParshY5bw6d4SsCSskBgz/DFq1XLn0wMdESW209BgL+/3fx9PsNnFa1ciCXEwC6xrKegJ
-	 CpYZGexFcTNL5HX6aJtGs3dv0xhm2jaRbQXkhsSUNKy0tO/TO68mI+xjZy5E1/7kSww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795733940;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=eQ3XZgcfne08OZRayaFimVT27JBgjtpxLB8nQ0J/qqM=;
+	b=JgZM87VEt3nhzzYVSTZ+KZB34eU45Jd1eKMHAtcN6zFf30zSzb9Yp+Yh3rXytjVgVbfN
+	 mHI4JitDpcX5P4fJdqUDMMkGDvo36bwo65174P8tV6gJ3aOxll4TKZpzXyz+Xoo6iCRsq
+	 DlSu2UGw4wNZhbSHph0SlwMBE6DVxlJYALCAWWlABJ3lIGGimIcTuViiD2Tm9C1rRSbCF
+	 fgcs7+8XrMRtOOFuwEBhWNGR7ta4s8W8ZJYEk++khw3YiBQv8kSO2pWTkzsyW8W14u1SB
+	 G/s0yNI7Dc3KU3vcslZay9bRu+e5eJZmDc/ejs905wIAUIPzQgvGZDSae4JnSeH7I6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=ZQzn9QkR;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TgXkPu9A;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C9F6606A31C
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 22:40:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C9F6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D2B606A321;
+	Thu, 26 Nov 2026 22:58:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=ZQzn9QkR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=5/Ky
-	dILYgp1MqJro7NmxMhzqTKDk500tIwuyQxLYRaw=; b=ZQzn9QkRXYYLVXowFjeF
-	9/KwQCXjfY7n1nL3GRsUbl6bPgLD0vY97rUitxizM3BkCevuOeT7/3L+1Jw9lXFX
-	Xb7bzITN5dCF6T/wHcopj3IjWtxrEav3YvfNbfabmJNr0mclhlzQd9wa7u++A6CQ
-	/P/uPO75jjRAajIdM1fZ7WWsFXVYjRCNiKrpdnc6tIaITSLCgEu20N/NtXfCmW7W
-	QE3XmECpWUkHDR/mApGR/C2esic6WTNqCU7JRoSLMj5BKc9ufO16GiLFX96aJl/5
-	6buZZQXBxCTN5bTeqc9OUZIzsstzhvsU6eW0MVEMUU7VMFxE4KjOPrbtNBLZltPl
-	Vg==
-Received: (qmail 1773729 invoked from network); 26 Nov 2026 23:40:29 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 26 Nov 2026 23:40:29 +0100
-X-UD-Smtp-Session: l3s3148p1@zClqoTVhHKUujnv5
-Date: Thu, 26 Nov 2026 23:40:28 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
-	Shawn Lin <Shawn.lin@rock-chips.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
-	Niklas Cassel <cassel@kernel.org>,
-	Wilfred Mallawa <wilfred.mallawa@wdc.com>,
-	Serge Semin <fancer.lancer@gmail.com>, linux-pci@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 17/17] arm64: dts: renesas: r8a779h0: Describe the
- PCIe AER interrupt
-Message-ID: <awi1WNQZ8jEGLQaS@shikoro>
-References: <20261020031049.969895-1-den@valinux.co.jp>
- <20261020031049.969895-18-den@valinux.co.jp>
- <CAMuHMdWk9pZdJ+eh0dNHrZSMVDe84_rsvmrD=pC1Fjy9wEyp1Q@mail.gmail.com>
- <awhXFPlyc3vnmjtC@z790sl>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TgXkPu9A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F4991F00893;
+	Thu, 26 Nov 2026 22:58:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795733939;
+	bh=eQ3XZgcfne08OZRayaFimVT27JBgjtpxLB8nQ0J/qqM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=TgXkPu9AB3r6g0hC4oWCUEQjM3xgTMNLEA6Q2nz1IdeklKZ7CXC5gfHgAP5F6sTVM
+	 boKQgYnLDB+DrE6DLUc1M3vKllpolDebR19FixggIj2nuS8SVlHQ8TMv3tAywv2ilz
+	 jexa3FYTPbvjfqA1h3hzF3l6a1aQjeW8FuMXjMoNQ1ltQZ96SZ/y4Bd1mhad6s007w
+	 x+eh/jdKxvUpxwwjRClXJ4IjMZibSGDZV7852C8z8NnPdR7duGcY2nXAiG+HMWpK9U
+	 kBIU50uqu9TLLkDNWtDDGVg9ZHco9SDXMLcEGwRZArVyC1eaQ47o02DqGIGbIxX/39
+	 PpCwh4sdlVU/A==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Stephan Gerhold <stephan@gerhold.net>, 
+ Gerard Marull-Paretas <gerard@teslabs.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261122093419.72135-1-gerard@teslabs.com>
+References: <20261122093419.72135-1-gerard@teslabs.com>
+Subject: Re: [PATCH] ASoC: dt-bindings: awinic,aw8738: Add AW8155
+Message-Id: <179572344828.838304.1477789304494424188.b4-ty@b4>
+Date: Thu, 26 Nov 2026 20:04:08 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,47 +60,46 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="+Y/kQlCkEpvPUpzt"
-Content-Disposition: inline
-In-Reply-To: <awhXFPlyc3vnmjtC@z790sl>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1115; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=dN1XoFfvDhknEOK32ZaxBQfLA9V+Mi3UN3do4aJB6C8=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI5dm7wCu02Feo+btBhLnL7Uqjr/m8LPn5lEMjVfSr4Z
+ tLRL7ctOkpZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjARIVeGf3rlr2LUrizbsHV5
+ Ucfy8KPuzbEuC5t3XVs8J1fn/fsLP4sZ/mceaWiRun7Ow06C49qssn85p8K0ue7u4pQNn5Cfw+T
+ 4lBUA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
---+Y/kQlCkEpvPUpzt
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Sun, 22 Nov 2026 10:34:19 +0100, Gerard Marull-Paretas wrote:
+> ASoC: dt-bindings: awinic,aw8738: Add AW8155
 
-Hi Koichiro Den-san,
+Applied to
 
-> Mani, mind if I ask whether the series still in your review queue (it looks so
-> on patchwork [1]), or whether there's no hope of it landing for some reason?
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
 
-You added more people to CC and got no response. Maybe it is time to
-send out v6 now? Maybe this will get attention then... sometimes it is
-easier to talk over code.
+Thanks!
 
-Happy hacking,
+[1/1] ASoC: dt-bindings: awinic,aw8738: Add AW8155
+      https://git.kernel.org/broonie/sound/c/f3ea554859ba
 
-   Wolfram
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
---+Y/kQlCkEpvPUpzt
-Content-Type: application/pgp-signature; name=signature.asc
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
------BEGIN PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmsItVgACgkQFA3kzBSg
-KbZIMhAAk+dqUXk+MuLSLKoKuO+Biu//82UdOdypJYIsTOH8C2ycdMkd3QyKQZlu
-Mfz0AsrrExl6f1eoDVrtgSl4PbDPwC+FGkomdl5+xjLhHydSj4vVYMyb2aRA+LR0
-FsCQVkNdQxionGgQ7sKtdryFannXETGGywUvtL3Q0V/sCpwh7sUl21LExUjS0Ie6
-YfMZgElbXsn2dEn23FHE7PveumSWapjOty/qFrwZJStaaDKaO1grsrOQkeuYJcnJ
-YAEHfF2//Oh/V9LK5y2AZT05q7QqFskU3FtXBJKop3j7gPZ1oovfN3Lm+k9CpLUc
-b8KjFDMgo6obv1G2m6Hlbd8IjnyDrPJPEO/ameJCSAc3aQsZKZIVUEztEXWcBkbp
-lxnfj3Vl8XZ/+yef6huoegXbbpABGTjQ1ocbAd8/71HW5295mmHN8Bto3fSYW7dJ
-Yi7W5UGSpfEX6cvPxVogZk4HplZy42ThA8lYPc7H+Y/v4XgN26O/zz1Epnvt1jqP
-pg8wK12mdXpu/N1QABqieSOgQAMUdw6kdbWB428a8Z5c4iRw4RlfZ6mPkx/tc8oy
-KG8A1ogmewmI9hMFaXuPTu/tMtdqFKaDEO7aoEyztTjgFSni4TEEy5Cwp+DSKu2z
-s1+kNTcY/uSNPe6iFtXgfq3WO945rGDoz/OzotdgNKI/c3n538Q=
-=pJea
------END PGP SIGNATURE-----
+Thanks,
+Mark
 
---+Y/kQlCkEpvPUpzt--
