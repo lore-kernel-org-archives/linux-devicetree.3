@@ -1,121 +1,120 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795678829;
-	b=fjHRNW5v4TDAYH/aaYTW+/O8YH/ecuS7k/7ugi93teBrXX8Ap2f6AkTnKGlMjwR8c3B0
-	 tbomr/UwtEQBMfCQ/7EmiIQ3eyZyqdmIiJQ/nGGcMJPRLzRI6Ffnp/YogmyUrro7xc0HS
-	 F62zCi19sudiAFfCs9BenvhoPAZIFJEzVgDaHGt0yyVQn1F+rHF+hF2T36zR977Wielw6
-	 NpZlaeYV3GHIHB0kto+4gOvK/01EhXKpYewdcUaxEGP7ZQ3Q0pyrEMuzVArg4Zp9O7+aJ
-	 /JmplJdmK66poRc+ANqY95lgNu4briETgZA2kYKkVDzTtRAKIfWTdoy6Y9iWGcDfN3Q==
+	t=1795679060;
+	b=2G9JEtx5Bs1u7+Z1AHqgKu/m6bldyPJDWpqiUiJ9nSvOglBQgxWPNxEQLowskqGTK5B0
+	 lWfvKWiWZ8b9lK5cTW13S5STo1bcW0g77zuBlvWB2GKOiwj04UR2GZfQ8yBXs2valTfsW
+	 f09RB23hguOZWGA7XPWFTQGBdcCCDtvbh2sMJu+mMbtE0faGkIsV/EJwraAK819QN+akf
+	 2ZuwgSfeuRiagTNioU8gjB/dp0Bj2g/KnGaR3JqwMZznk2v+oigmQYJpdwCaGwWQOtLMe
+	 3UcG4NbZSvvyi4Q5CBGb6kHAVhfqwKSUpFnnZqg6uOK/Izxk/PnkRXGspxpV6NCLdqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795678829;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795679060;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
 	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=sXWlGCRC9JQkumWInitkE8i9IQlzJPF9vbX50igGRpE=;
-	b=RQNyoKPjQbkbJ4u9UQW3YF/AjpRRdiLZiofQ1Qm26HECX2zgQ8Ac3xjRnTzls0WBUVPo
-	 aUnR8YqDewfdKpaOB9VNw+s0WGmTYUY38wYN9uMwcMdMJSfhVOUz1tlFmqbE0ByCvna2M
-	 sY1WWQH6/56YmIGqmqFnwM3Py0Zbxb77l4KRl6yGIOux9krsNM1w5OK49KlnLuhS7bbSr
-	 xuCa4FVFKL9WT7VdQ1HgJ1HlxLCRuWfjfGeJ42pa8xFdmklVW7FgOt+PhMBhPUdfpP6VL
-	 8YUAhUYCu7Pa4pC7XCP6kIM/pmWYMMrXWY3BlBYClL7RowVxWkEaFk5Xnsy+4Hq6PWw==
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=G7aKyVjdYavK2ZAELbW1cotgkHAtEELC6+iiVeRDFQ4=;
+	b=mMcnpvwEozD0xQjezwer3sWBXisdXEO9QrBD0gzZw5aJZ+TRz8alNkovtyopqCgPynKZ
+	 5FVYeKA4yL/PPs5EIlh0EGytO2UC+xZsdqyQHVEFpXtNE11L/JYdPTAsNhvREH1wYOpUu
+	 IFJW+yvLuTGTE1EItmN4XV75Pe8fTikEYnbWFs9Mf+TvjWthbz2XiDZmBAJMECtxm3TCn
+	 iftBfAoJgYiDQDzUprGwvgrePjnDEgStGGBdqZC1T4Rp1XM3UinrsFug3XpIlcgsD79QA
+	 TbIVad9sH/I4UADTPGYrmAayUhxfq6+bcTrAH3JZ4kUnRak1NMvG/KH6jH3dOS/548w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=O3r9h3Eo;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HbhqQaTt;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=D2I91NFM;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Qpc+GDZN;
 	arc=none smtp.remote-ip=205.220.180.131
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52114606A696
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 07:40:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52114606A696
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4161F606A326
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 07:44:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4161F606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=O3r9h3Eo;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HbhqQaTt
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQ7D3P9062464
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 07:40:27 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=D2I91NFM;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Qpc+GDZN
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQ7AweQ695016
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 07:44:19 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=sXWlGCRC9JQkumWInitkE8i9
-	IQlzJPF9vbX50igGRpE=; b=O3r9h3EosuF9La/6Gk7uOPkO4ocLiXnApEIAq0JS
-	iwKgxZwIGDvt9pNdEIF4kg6QTVy+0uGoQUvInBreDTq5wxmPe4raq10qjgEDx7gw
-	XRsbdE3bKZGT/zOH3xJpEzKRQZQBjwQnwI5VSPfaH3B+TNCEtOKrl0u63w8vDNGU
-	SfG3Aq76yZ0r1PbEdj+aG8j5TTkpP9GuDPuHfZ23RdwzcTuSs0sY/twBfH8v2fwO
-	xoaK+fDgSNB2OxS5b+AtTecoTxS88YFn2klbbOfsaBQmEc5swCkiiMztSbSLeYDR
-	eeI6dTBfmkxJ2C+Dna+XftGJ3zlNETyh1RVjYs+/K0RVSA==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j61ark8qh-1
+	:references:subject:to; s=qcppdkim1; bh=G7aKyVjdYavK2ZAELbW1cotg
+	kHAtEELC6+iiVeRDFQ4=; b=D2I91NFMrsCgWpmcTIk+zto9ft+X0bo1UdjxwLH1
+	86unbUWiUZ5NlhmZnvnO2pnnqWCwXjkU4pcsMw7ytJ6PoDmB5sUfY9b5WewhbZeV
+	tJFU8Sa+fAVnp8gvjzUOcAR5g+fiOM7d+lDKMW4Af0LR28gVtthxVtjlLXw+1KeZ
+	Qdl17zNAN8h0l7jqj/aSONnJ4k/j6lRwjqdfz0YF53AG8j21Yy9sYUalpwT3owCL
+	/J24RdpPV2pgtPlPSeEGcRFWa5UVbQACVMYL1RL72zP6cAML0a19PP3+Mq/DRCi7
+	7Q9ifxYYYtXqVDazBQjQe6RCzZPFT8HRDeKntrwpU5NkyQ==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j6fw7r5rq-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 07:40:27 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3854627c1c8so9225747eec.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 23:40:26 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 07:44:18 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-38355b03cb8so6311851eec.0
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 23:44:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795678826; x=1796283626; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1795679058; x=1796283858; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=sXWlGCRC9JQkumWInitkE8i9IQlzJPF9vbX50igGRpE=;
-        b=HbhqQaTtUpIVHEYSZ/lBnCTkaiQmQU9BVp4ByHYxoHK7iB5Se6gMVgigWKa2RsKXqp
-         ajWpl3lojcKhFfRrNdMSIaE0yEUrjhOf/WPSaumhIs4RtgsFoYRD8y2GdrwZc5Yd7jFF
-         4R4V684rPRqQzBf6sGySOFgQMKWEVK3FBMC90QVU4ITpgNzxcaNrn5eU9lxcouzo9iYW
-         ok/Pc5mKmuY/sx+3IjOcON6exSgQkxe9W07ldnmYwx0qmR1UwrZ+o2yurcZOTRxeiACf
-         v/9M4YPVAQTwOKp0jFeuPYPxoK+oHHi0XNFRDtaBF+3f42hXUFmUuNPKQtZdYj/YH6xb
-         pQ9Q==
+        bh=G7aKyVjdYavK2ZAELbW1cotgkHAtEELC6+iiVeRDFQ4=;
+        b=Qpc+GDZNgG4nRVPTRMYQCDfZM3xgo0w9Z6KMAR5DlWA0unDniM/GuHb/CyhhljVfht
+         0W/zWPmtJN15c/wi24UCmV1/uzz9VAIF/rOnNmsaZBoWBxHQaglSsWm01ieR53xh9P90
+         47CRBdfb0dcerxCV5Mtc0IKTOTK9ecxVUCJTolUw6q036RqloBdf+3cj7lGmAEBYkIjt
+         S4aVzTUHBJChXvDE9sLshZoi2XWhWg1xbz3zW6+rIlrnyLGeCrL+o+sUvJy5f8U89uwf
+         0KXVCSgQsjirOFpTspa5ZtfsFRH8psZcPy5+PV3VMs8eWbZsyPfcMh9NuxTp+JAc73z/
+         gRsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795678826; x=1796283626;
+        d=1e100.net; s=20260707; t=1795679058; x=1796283858;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sXWlGCRC9JQkumWInitkE8i9IQlzJPF9vbX50igGRpE=;
-        b=tZkeeM89aRNGY3b7PoxwkSoyBZiJh5EhtDwMJ6Kiqb0HNI/YDzAOEg3EM57hHENhFn
-         HwaqD0rsdWPsUVAxcEssFgXj2QhbGcMo77Eni/VOldcYSorweVQFo650BV7FIe1EXfGv
-         hO0E6/uf5Hw3bZINSRqyoDJR3p/CIqCCcErbGGFL79OEIocL0H8TTa1Q2s7Oi5EBQGId
-         SQLvF8joC2lUTWwhDfGpwQuJzi06mBHwy/u6ezDWi+ADZdKZkDUlfjEdwR+zvyJiwgy+
-         WobPyb0/0menFXC7bJsVrzZ5YDDClEMXO39TZeagvZ0GjOtGIUtmC91ildeZTjWuDsN7
-         b+nA==
-X-Forwarded-Encrypted: i=1; AL+hErG3ANkmtRTxgZny6ELkOAGNW3Y0vrb3TxJKioJnUR2myqa9fzscKfyT8OTXUaR64f1QxeFdstEnxYkt@vger.kernel.org
-X-Gm-Message-State: APuU4Z8a8+O3K4ptgnhkb10Xuj2g8wiLRnGjLGDor8OyoYVskddM+QsA
-	q6ID5u9w8/nTIJFSxQmwWGQQqLiKGi/7RRDPB42OmbL0zfaUhhZfgMqbQGlRr0E/Fv9P5Eb4+0Y
-	y1fSTB7OrJ7tUo4qb/1+PwRny83gGXyeubCdeKH8Nr5ucTzIOfXYpAhiZ5UyVxJyX
-X-Gm-Gg: AZFdTZfas0uXgpbNogev4dZkstl74p40AyTM2ygHl8fR/BOy/yR1vADr2oFW2g6Woln
-	f98+gvo9URcouF5XBQMq8+XuBF678Ru5YhUp3X3/AfS99uiajp+q3QUKacabe0nhhq0TzklYDX6
-	dGtj6rTTnmhKBnr2HGlpc9WOo/Z78NRPeU4xikn9f3CsOBqC6dWYYtxWDcYbxXGlACdY7R2PIYI
-	4kSRv1vqkOKm0Q4S4GTqTTTwMJmbiDnISRqmtyFqN4sfEyUl8HK6rU7g1ztsb7H/z1eKy61SCd7
-	I7Y+Cf18D8CYsAZVfHum6D1O1987cyA+O5792cEBPoTlFauOAFbW/fS9WFkKOjRyiugz11jYWL9
-	yjhUBhIF58a4qlz2lNCZM97QdKdJG4gwafJMD2yWStPtNxZICy8rgwuWq5GrgJAUTrdlFeEGkWJ
-	6/AZ1ljgcP/e1hT+PZ2wTMB2g=
-X-Received: by 2002:a05:7301:2108:b0:386:b99:8ff9 with SMTP id 5a478bee46e88-3860b999354mr18107023eec.40.1795678825957;
-        Wed, 25 Nov 2026 23:40:25 -0800 (PST)
-X-Received: by 2002:a05:7301:2108:b0:386:b99:8ff9 with SMTP id 5a478bee46e88-3860b999354mr18106995eec.40.1795678825418;
-        Wed, 25 Nov 2026 23:40:25 -0800 (PST)
+        bh=G7aKyVjdYavK2ZAELbW1cotgkHAtEELC6+iiVeRDFQ4=;
+        b=OAfEZcmJYj5u3o89hBF1B9gVg/Gv3jkbo20G4a2RVe7EYZcae3WfFlsbYIHyPAmmAa
+         Ag0td4gMIP8V7vrZlpFA4rS4GKa3lqMpIDGK6jvq0xqUmuHxl6UKRgEF9I6vE1SFoaOK
+         XuvjTlP7DnaM4Bwt+p8gguvj2A2mdPynr8BpZA3IAXBqFQHn5CnDA3AJoUwIxyCtWKg2
+         n4G7iJRJqKdZkhf77L+I6QPP0SxVhmx9XvQhK8VfR7rZCE413N7PWKJkqtZT+MAX22Yz
+         2Is5rPGfhma0bFZR3pSgPgr6Xdc/hs/U9+Jc2EEj2653ozMCM+7Za2PKkxnt1EhsMGWf
+         iNvg==
+X-Forwarded-Encrypted: i=1; AL+hErEH9lZd8sNRcc83jqz7inZLiOP72zygL65T2+Kw8/imyw0MXYC39Ija/M0f20akfTQcbcnDL1+r0IG2@vger.kernel.org
+X-Gm-Message-State: APuU4Z+lJXp45up35u478lAm2xLDVWM3O481W0ssh/2DIZUVReqA1VgZ
+	OeQkPeb9kEJ7cGaIxghek25Ioz76o/PxoKF3h04KC90QiAWDKFfx1gEFMaXFg2NeTckGqPf+haG
+	0hBy+Iu66d5cu1e9ofGrnb/Am/hdVd9MDn5TjkZEDw9FI68/WL8nrDNKd05P26dPI
+X-Gm-Gg: AZFdTZcMEFDf9vw45fG3jlyifdtzWvIJ87a/E0fzcIB3Sz4mdzutRLgxHdYlKpPdrag
+	u1GSOEVYjJpBYDSV9UWS7q8fBKrmnAckWRMZFYuQ4jpQSER8SatFzaD6zFdsCxfXbmb+B5RjuQf
+	8HHHxrP2EPb1AuuXi4wb4lG/Du3edUD++IvJAglkPO8Mlhe9GHHq7dDkTom1SFoPABGpumNSmg9
+	XE9RvYIYX1iJDhvmOACCUZUuoGDAUW1F+GUw27sSRmGTMVR7zOZL6hVMcoduuodCIL/2CuNkZwG
+	amO4t7zyP0aegZc2eQacycCJAItQn6gy2ZkNr3UyRdAdkqDMjLobYdRSeA/AUrgXM0N4f9JnygQ
+	aKcWL2kJALFN6yRbS15qJ0gDG6B9xibPkHYH7gunDF0jfhFEXBXNINgFOtcBPxPT+gkVgmY0FJu
+	k9XQwJgOiH5UlqwpYJHS93DV8=
+X-Received: by 2002:a05:7300:cf87:b0:386:565b:4f9b with SMTP id 5a478bee46e88-386565b529dmr16390653eec.36.1795679057778;
+        Wed, 25 Nov 2026 23:44:17 -0800 (PST)
+X-Received: by 2002:a05:7300:cf87:b0:386:565b:4f9b with SMTP id 5a478bee46e88-386565b529dmr16390634eec.36.1795679057224;
+        Wed, 25 Nov 2026 23:44:17 -0800 (PST)
 Received: from hu-petche-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-386992b404bsm47180909eec.1.2026.11.25.23.40.24
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38566fdce48sm64100626eec.14.2026.11.25.23.44.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 23:40:25 -0800 (PST)
-Date: Wed, 25 Nov 2026 23:40:23 -0800
+        Wed, 25 Nov 2026 23:44:16 -0800 (PST)
+Date: Wed, 25 Nov 2026 23:44:15 -0800
 From: Peter Chen <peter.chen@oss.qualcomm.com>
 To: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
 Cc: Thinh.Nguyen@synopsys.com, gregkh@linuxfoundation.org,
         linux-usb@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
         krishna.kurapati@oss.qualcomm.com,
-        krzysztof.kozlowski@oss.qualcomm.com,
-        Sriram Dash <sriram.dash@oss.qualcomm.com>
-Subject: Re: [PATCH v5 01/11] usb: dwc3: qcom: Distinguish PM and runtime
- suspend/resume paths
-Message-ID: <awfiZ8IE4UMuiO7P@hu-petche-lv.qualcomm.com>
+        krzysztof.kozlowski@oss.qualcomm.com
+Subject: Re: [PATCH v5 02/11] usb: dwc3: qcom: Disarm wakeup IRQs on system
+ suspend without wakeup
+Message-ID: <awfjT6DQ0beqlLUn@hu-petche-lv.qualcomm.com>
 References: <20261123104727.1539149-1-faisal.hassan@oss.qualcomm.com>
- <20261123104727.1539149-2-faisal.hassan@oss.qualcomm.com>
+ <20261123104727.1539149-3-faisal.hassan@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -127,147 +126,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261123104727.1539149-2-faisal.hassan@oss.qualcomm.com>
-X-Proofpoint-GUID: 3wQg6oHnI5M4YmPFfZYfM21JlYFeRIl7
-X-Authority-Analysis: v=2.4 cv=OIOyTiaB c=1 sm=1 tr=0 ts=6b07e26b cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+In-Reply-To: <20261123104727.1539149-3-faisal.hassan@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDAyOSBTYWx0ZWRfX495mcELSPlqq
+ 4ir2I+GEZl6V8pAESC7KcGx0bYnbj0iephdKRU49p9yFBSH2NO1V3quk9M10KF88vHHm7/lnOjf
+ M9AFDIEw0PbqL2zz/glmJuhqqG4cDjg=
+X-Proofpoint-GUID: d82DEEJmdKWmI3puWmxFHmYTBCDe6ecI
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDAyOSBTYWx0ZWRfX9Er61kgM05fF
+ 7gJvPndaUAx8Oa2WT8/FD1uBX1P5z8BJ8VvJNtIKHIUckw5b2jLR5a+b/TRAaU6TWiV5Z2rEJ6L
+ +1VoNoy7j/wA7ftJ4h8YBOHVaq9cummyboQyv2+/ECt7EPxf/eum8vIHTlwaTJRL2hVDG+zql4v
+ dB1FWszY2JH9f4zLf3Enm9Wt7f8LnLla2rotlwRVHkUwpZ1Q8ku5vQgCKm4aHxXWovWDndF7e0W
+ i7hgHvw32UgYdRVP2DvUHEouJ0rQyL9hW3r+DkkRSvDcZ+1Z0JFcTbm+mqqGqyeWJ1kF4yj9mWZ
+ T6ynEmoQ3m2bFQm7hcCS9acmYIdzuvocNTS1uIHSuD3Zq7vJcDfdfDqS/cY+1YuZKfBMrWGYh8v
+ iDrKIg8SH3IcmiM+84LJFHrvpDiKGkL2i6bcPGutyYERzZc0Gr1JbMDmgYuP5LJ2oWmjbI5UfiB
+ KvCPoQnXIgSxheUJfYQ==
+X-Proofpoint-ORIG-GUID: d82DEEJmdKWmI3puWmxFHmYTBCDe6ecI
+X-Authority-Analysis: v=2.4 cv=ePeGH3p1 c=1 sm=1 tr=0 ts=6b07e352 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=jIQo8A4GAAAA:8 a=Y18rF2VYFuf4IdEaWfYA:9 a=CjuIK1q_8ugA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-ORIG-GUID: 3wQg6oHnI5M4YmPFfZYfM21JlYFeRIl7
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDAyOSBTYWx0ZWRfXybQWIntoYVkd
- RgWSs5bXFsEE/jGjhjyjrOKTWM35SW8GYqScWydlqUG3pGlN4UGIFNZOqmIgQUoE4KL2UxQJorf
- b0KmVtpKs8i1CFfwbgZBiaFgVgqjv9E=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDAyOSBTYWx0ZWRfX2Pm+5cCA6GZB
- NA2jMqXa+Lm1xUzSZgLo4IuReBzZlsai0e8uvQKmaCr2sL9Z08s4/5mNo+CTW1Qo2FCzQ/pA5oW
- HALlR53hbFiTvVZZQLyfcLjW1wISefUXl8oYfvETHCWpMyktkPJXid1zzeztofn4IbqnYv1tkiv
- ZdldSbRdlMyO3vRw4RL5g/KrAdbM93XKeXKPO0DRrYO0DtAgZ7fh8BH9qK75Hh1E1GWR3SaPMuK
- 6v1OHp8qGKYV2QHu2gZD0NZNp6lG7JpHKktdlU2sn23QEk+xyFRhqdwBDt2MVzelavWVlyIam9d
- 715uB7/sYuFY0F0kn5qiCanSAhxXLsC+SuaeGU9W+EjWdUOQCpjc/HJY6fsZOjsBkTRl2jS2zGM
- humWq9aa5ZFcvnLUmTo47ZJhPwGQAbCadHRA+GU5nC8H4LLhLf0MT1/+mbOal6FWEbYzEyVtFK+
- LqYyInC/uUWyO+xXBrA==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=BlGo1tluQEYad71Xd-AA:9 a=CjuIK1q_8ugA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-26_02,2026-11-25_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 bulkscore=0 clxscore=1015 phishscore=0
- adultscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260029
+ priorityscore=1501 suspectscore=0 clxscore=1015 adultscore=0
+ lowpriorityscore=0 bulkscore=0 phishscore=0 malwarescore=0 spamscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611260029
 
-On 26-11-23 16:17:16, Faisal Hassan wrote:
-> The dwc3_qcom_suspend() and dwc3_qcom_resume() functions
-> handle both system PM and runtime PM paths but cannot
-> differentiate between them, preventing distinct power
-> management strategies.
+On 26-11-23 16:17:17, Faisal Hassan wrote:
+> Runtime suspend always arms the wakeup interrupts in host mode, even if
+> the device is not wakeup capable. If the controller is still runtime
+> suspended when system suspend runs without wakeup enabled, the
+> interrupts stay armed as wakeup sources, so they can still wake the
+> system. System resume does not disarm them either, as it only does so
+> when wakeup is enabled, so they remain armed after resume and the next
+> runtime suspend arms them a second time.
 > 
-> Refactor suspend/resume functions to accept pm_message_t
-> instead of boolean wakeup flags. Use PMSG_IS_AUTO()
-> to identify runtime PM (PMSG_AUTO_SUSPEND/RESUME) versus
-> system PM (PMSG_SUSPEND/RESUME) paths.
+> Disarm them in system suspend when the controller is already runtime
+> suspended and wakeup is not enabled, so the state matches what a system
+> suspend without a preceding runtime suspend would have left.
 > 
-> Preserve existing wakeup behavior: always enable wakeup
-> for runtime suspend, check device_may_wakeup() for system
-> suspend.
-> 
-> Follow dwc3/core.c pattern to enable future per-path
-> strategies like differentiated power states.
-> 
-> Co-developed-by: Sriram Dash <sriram.dash@oss.qualcomm.com>
-> Signed-off-by: Sriram Dash <sriram.dash@oss.qualcomm.com>
 > Signed-off-by: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
-> Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-> Reviewed-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
 
 Reviewed-by: Peter Chen <peter.chen@oss.qualcomm.com>
 
 Peter
 > ---
->  drivers/usb/dwc3/dwc3-qcom.c | 25 +++++++++++++++++--------
->  1 file changed, 17 insertions(+), 8 deletions(-)
+>  drivers/usb/dwc3/dwc3-qcom.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
 > 
 > diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
-> index d44f093ac243..7a7225b900b3 100644
+> index 7a7225b900b3..18db19cf2065 100644
 > --- a/drivers/usb/dwc3/dwc3-qcom.c
 > +++ b/drivers/usb/dwc3/dwc3-qcom.c
-> @@ -335,8 +335,18 @@ static void dwc3_qcom_enable_interrupts(struct dwc3_qcom *qcom)
->  		dwc3_qcom_enable_port_interrupts(&qcom->ports[i]);
->  }
->  
-> -static int dwc3_qcom_suspend(struct dwc3_qcom *qcom, bool wakeup)
-> +/*
-> + * For runtime PM, always enable wakeup.
-> + * For system PM, check device wakeup capability.
-> + */
-> +static bool dwc3_qcom_wakeup_enabled(struct dwc3_qcom *qcom, pm_message_t msg)
-> +{
-> +	return PMSG_IS_AUTO(msg) || device_may_wakeup(qcom->dev);
-> +}
-> +
-> +static int dwc3_qcom_suspend(struct dwc3_qcom *qcom, pm_message_t msg)
->  {
-> +	bool wakeup = dwc3_qcom_wakeup_enabled(qcom, msg);
+> @@ -350,8 +350,16 @@ static int dwc3_qcom_suspend(struct dwc3_qcom *qcom, pm_message_t msg)
 >  	u32 val;
 >  	int i, ret;
 >  
-> @@ -369,8 +379,9 @@ static int dwc3_qcom_suspend(struct dwc3_qcom *qcom, bool wakeup)
->  	return 0;
->  }
+> -	if (qcom->is_suspended)
+> +	if (qcom->is_suspended) {
+> +		/*
+> +		 * Runtime suspend arms the wakeup interrupts in host mode
+> +		 * regardless of the device wakeup setting. If system suspend
+> +		 * runs without wakeup, disarm them here, as resume will not.
+> +		 */
+> +		if (dwc3_qcom_is_host(qcom) && !wakeup)
+> +			dwc3_qcom_disable_interrupts(qcom);
+>  		return 0;
+> +	}
 >  
-> -static int dwc3_qcom_resume(struct dwc3_qcom *qcom, bool wakeup)
-> +static int dwc3_qcom_resume(struct dwc3_qcom *qcom, pm_message_t msg)
->  {
-> +	bool wakeup = dwc3_qcom_wakeup_enabled(qcom, msg);
->  	int ret;
->  	int i;
->  
-> @@ -750,14 +761,13 @@ static int dwc3_qcom_pm_suspend(struct device *dev)
->  {
->  	struct dwc3 *dwc = dev_get_drvdata(dev);
->  	struct dwc3_qcom *qcom = to_dwc3_qcom(dwc);
-> -	bool wakeup = device_may_wakeup(dev);
->  	int ret;
->  
->  	ret = dwc3_pm_suspend(&qcom->dwc);
->  	if (ret)
->  		return ret;
->  
-> -	ret = dwc3_qcom_suspend(qcom, wakeup);
-> +	ret = dwc3_qcom_suspend(qcom, PMSG_SUSPEND);
->  	if (ret)
->  		return ret;
->  
-> @@ -770,10 +780,9 @@ static int dwc3_qcom_pm_resume(struct device *dev)
->  {
->  	struct dwc3 *dwc = dev_get_drvdata(dev);
->  	struct dwc3_qcom *qcom = to_dwc3_qcom(dwc);
-> -	bool wakeup = device_may_wakeup(dev);
->  	int ret;
->  
-> -	ret = dwc3_qcom_resume(qcom, wakeup);
-> +	ret = dwc3_qcom_resume(qcom, PMSG_RESUME);
->  	if (ret)
->  		return ret;
->  
-> @@ -810,7 +819,7 @@ static int dwc3_qcom_runtime_suspend(struct device *dev)
->  	if (ret)
->  		return ret;
->  
-> -	return dwc3_qcom_suspend(qcom, true);
-> +	return dwc3_qcom_suspend(qcom, PMSG_AUTO_SUSPEND);
->  }
->  
->  static int dwc3_qcom_runtime_resume(struct device *dev)
-> @@ -819,7 +828,7 @@ static int dwc3_qcom_runtime_resume(struct device *dev)
->  	struct dwc3_qcom *qcom = to_dwc3_qcom(dwc);
->  	int ret;
->  
-> -	ret = dwc3_qcom_resume(qcom, true);
-> +	ret = dwc3_qcom_resume(qcom, PMSG_AUTO_RESUME);
->  	if (ret)
->  		return ret;
->  
+>  	for (i = 0; i < qcom->num_ports; i++) {
+>  		val = readl(qcom->qscratch_base + pwr_evnt_irq_stat_reg[i]);
 > -- 
 > 2.34.1
 > 
