@@ -1,112 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795674656;
-	b=1eT//Tx9yOPFXcoBH/sWmYWnYyCiUWcKsyB20AMz/AWPzApWYsS5+S0n9vMwqoJRXAi4
-	 7I1gHGTEcURkxjQ4qz8AYOztDU4RppW9eKZe1wG3CGaoCq+IYRViIjTJgCOYayJ78610k
-	 Ljze8KwT83Ek3uhGRvgVA7ZeTBs0YNByYRcx94V3+9zmVo/rdZwN97znLJnqXKLn13nPA
-	 q5yfhrXNpv26M/PY4ypEubZHimSeuHG7NkQ8I5rkH0RrMMrJj/gIvKusDsJ6yjpBpuYVo
-	 t3GE+FeEP/RUIYMy0gf+dIX9nCSuQO+0+0sX7EIjvUsWLXDFEs6HxgPfYSQNahzgb4g==
+	t=1795674665;
+	b=mDRzoiS+f/O208QeOy0l5s73RvmdNSjO86AMeil7iILPZYTFXas6CSlbTS1M+huL4QIO
+	 +00vI+mofPy4W5K1ZtjAd9E/0z9klsUocAHe/A19nYAeWMKegaLEt+q/eUEuwRNS99GVP
+	 VEhXNYjLHB4MNDH4vxk0cZHYR5RcDFGonaUFxx7R7K7TGAgJoJrBP66i2TwUD0N8oE7FT
+	 gqu84m3ydfJ3eF+v+htIzCi7qSFcRrTVaackPOvj9WL81cTEclajhW/z+QOerymZjHc5/
+	 4aZxGa/gmQMTZUomeWA5YrZlPJ8BjD5L1ygfv3TgJiOItdMbJ0FCUgKSckXKhYh4WlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795674656;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795674665;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=RvgyFotzKS+hdDkrX6HYEJDgngjZPzcGsNSVyTC0FVM=;
-	b=lfnCUOXB6cmHyeZHk9AGfRJAs1aw+HRnxetCEl3cshie5rfIOBAeOvCT16rSDD8wOdmK
-	 RvLnDyXbk6onRQTjXY4LHcsU81+ZDH9H4fCu9QKjADfOMj1H6KaXlFkCEgxV9IwJOqiw5
-	 FQfo5BdJBuQl2s3KNEsGMfJROKpgyG7MONFbtaC3kbzRPV1uGY/990ClsINOKNOpCRjA2
-	 l1Oq9THICE2mbXWTKs7SHS5bUTBUWRy/vC+qqXZvhB61+lqoCMKyh9Z84Qh+EIGJZ0w2R
-	 PpHVlmp7uRoi8RHQsob5BA0GnMVkZ/TNxxSh84kOl6UWkiDjyvniYZjl1jdfnLXSLxA==
+	bh=TpWghRRvmYLzudQ3henUwyrMbKAZ60J9VUe5nLBlujM=;
+	b=GKDbxohyReWXtbwp59b4tf35hZG3S5lGpqpMAAHque+Gg8YI36qTMXhqYfI+tzKVQfSL
+	 Zy5Yvt6JoyjkXkIU43wfPTh+g/muu9o7HSj2Aw2dpQyO2BaEHTzE9MTplFWTP36UN9jXJ
+	 rCakMsAHhRWOLlUPaBx0RG5mhyzqLC8ztwgMj1x3WTfEq0xK4+Ox9Ko4Q9WZ+d4OUJM2v
+	 46zP0BLfYsVX4PTt260QrSFh4B+VurOz68dzMZuHgwnWRhwLLg+QLkf+BHLIaQQDMPeTh
+	 XjWfkmkx/N51gXed3GQ3FVDp66od/KMYTITzeAWI6mI51YXlw8jLSUvZ79Ef+p7jkZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=him2RwER;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kk3DBxsD;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Vltlr6IG;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TOR15M8I;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A9BE606A329
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:30:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A9BE606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41B5F606A31C
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:31:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41B5F606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=him2RwER;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kk3DBxsD
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQ37Rm13731009
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:30:55 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Vltlr6IG;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TOR15M8I
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQ36JQB1157428
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:31:03 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	RvgyFotzKS+hdDkrX6HYEJDgngjZPzcGsNSVyTC0FVM=; b=him2RwER3q52KBax
-	7qbjPwe6nizWroBbskqNVFm6kBswwk9cPdLwURJRE7/Jo0Vmgkbk/xMJ4mRH0CCX
-	u056VduwUIngEEwM++z35ZnhxgdkPQdzmh6xbnnCW3DRxOI+5azz/1pot2ndeSNY
-	j9qMrPUb7oYBhqcoq9yiXIAdIRy2VXVVG7xxfYQeAYkgD1Tx8GpfW5LpFCMI3tnt
-	WREnCsi0Hoq9a9OHufqy3D/AjOzr6nuIcV8rH2s1PkcsHIWq39bk+4CO9Uz+wSC1
-	SPyP3S+zHPvce/sjxnNn7RuZUIc/2wEMph/goOZeUsQdaGnOoRbzk+cI/aVeJ0kE
-	Knoq4g==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j61ark0x5-1
+	TpWghRRvmYLzudQ3henUwyrMbKAZ60J9VUe5nLBlujM=; b=Vltlr6IGIQenfBXI
+	cH9VKTLVGsJ9RnlFxWuUKYFxC7f86bPzqjpmjlaQtzMO8tItrIIytako93ocjs8g
+	Ezlwab3b30yYHb1yYVZa7iOujjRgBpVjsEbsZ4DM42P68RzQrC42gWL0U+GX3C25
+	TmdB2WfZtRP0FwX+nRgyV4Y+LRnahxU/dS6keRXJN3RYcOdnVKFRxfcKp+HjR+oI
+	4FTjyiAN9XFFguk+fnxJizeuTUzoYYAUMpj1QeNraXg9UL5/2g2ux0oYaqrnSo7W
+	n7fcd7mF/C3vVSgaNFS+Atz6dttevN22lH48Hx3Hc4lSAGNm6k58d/FxRx5Rs1HH
+	AuyBTA==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j62aejrrs-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:30:54 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2f0e3ffabe0so11681925ad.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 22:30:54 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:31:03 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ee04c49451so78270105ad.2
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 22:31:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795674654; x=1796279454; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1795674663; x=1796279463; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RvgyFotzKS+hdDkrX6HYEJDgngjZPzcGsNSVyTC0FVM=;
-        b=kk3DBxsD6U71YjEmiUf0DrFDiOCFiocuYCOmMzWwu+vjtIwcLTkuNz77khm4RleFyW
-         7qSJZ+8HRlDEQDhBt6MLsrAgsxd0l1cXydPc9Q4HuKx3xu1/Zj3EP1fynlVjDVvZqj/S
-         ZuAeZeulV/HMUh7CprX+pQ9ROs+eQp6HpCiT7WOTIoLLj9+Zp1Rfy90FVqRdEORb3YiY
-         Q223Rg7u5WWAWUEzsMmbV0hL9NSKmK4w72HzCFJMD4aHLiKruHsssWApHhyrHtiDnR3l
-         eEjdwuNH0NU6gTkIlzsULVW3LOcdVzspB0pRMwEMp8o7d9j3DXERV3T5v7Vn7W3MPMdy
-         Zn3A==
+        bh=TpWghRRvmYLzudQ3henUwyrMbKAZ60J9VUe5nLBlujM=;
+        b=TOR15M8IGXAd8n/tyCuedqwGSb/K3+Brp18olgnOLT01AtNh6nn7r/XJQcvQo5MFCb
+         9lB/dFJOk+00+Id9fE/E1kVLsCULD0L0ixKMlJ3dOES/ZwVvk5gYMx+U28mz5xXWEO4s
+         UjuO06jQFNeb+Nk7AwWnlzWAJSP6K5+Spl8v5mq2VGdxNYntQ7z+h00dI+cXSJxprzPI
+         gQFlx+gGLLo54F/mwish592gJ8+VktsMyuaJMt+FNcgXTIRcjiquU9B9Z0dGk0RfWtv2
+         ypR1j1ZZnoyj2tqgBpIBzZLdetuxpS9uFvykIamfMM+V1dojZIqzCsEEufG7qIPm7anY
+         e/pg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795674654; x=1796279454;
+        d=1e100.net; s=20260707; t=1795674663; x=1796279463;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RvgyFotzKS+hdDkrX6HYEJDgngjZPzcGsNSVyTC0FVM=;
-        b=RsNxzwMvnDf8HAArKu1XDFpc52nFDiSem4+DYPg4s78X43U71MXEWtI2+oLUeZ9DxH
-         kavY1xBaCr/fYq4UnfQ/6mji3LP5aX/PXb7AFaiAvaAkE8nPX6sRmUQGgM2ZnIoLDngd
-         zY95csorXo3p+jJA0vdRVQWvr76jpLKkIsPNdjCLXAfYkU2uBvwP+FFiFITxhOO9vFpD
-         xCl0QXILOB4O1syD5JX9gY4jYcMA0QckIOR4PYb/ZexelZK3SoUTVcFCQi6zhCka93e9
-         EKoddgJMAcUBP0ur1KdFYYr6xhPwFBge6rBlH9mbNJ4v4mTYgeQKZLDSW5ojuXc/WKsx
-         rLgg==
-X-Forwarded-Encrypted: i=1; AL+hErEDJzuv3m8lxq8NDqXKAD3G3vqMFl2v2IYIemjpWegszdhv9ZBbYsuRwxyQpl/fSuXFQCUfQ0i7a802@vger.kernel.org
-X-Gm-Message-State: APuU4Z+xkMJNmHAFftRRYfADDdIx8XgAUusDhNVcmp5M3pRRrYBx+NFt
-	gF8wYnSwKmyCBZ7/m0rMj54V/zfNppzk3CWkgoe06YY9DiHpHKHT1LPSj5ElcLDXccv9SeuTtGY
-	6ALm2FmQ9ZteYqPfBC7lIJndex6XBscOA4KkT0X2yFt/6JT5RK18ALcE3eIfvS88N
-X-Gm-Gg: AZFdTZdRiT5qxfJH8pcmlk9vvSqDeqIcVYCDiPftaHEACYwV3mRb0yLKQwKjhWlMwS+
-	rwyyhDGmfLFExKdqTet+b8DPvaa4k6GBfLvKNFSUFz2QgVE7A7Rzltl45om4lfP4FgMuTOsJyDp
-	J8GVTDPTBZedIObvk5uggF9lWgHCm0isGGRg7wgwQTYh2QhI1Pjqgue032spngE+BdBtTn8nKCw
-	TxSeESQPlaosLTx0B8QV/Kmo7FxnppiFXZ0LpI3fSpavF6bEXJQYN64I8bpcLII1rqyoAXsp+02
-	okogVbT0xZB+V3cP4qRwiykzZ5KiaEDK1bvJLeaA7sLbtPILnpRl6w4vyI+uayd80qb2q8EXkpb
-	7gd4I0a5vn1rXsdvBapM6ujkyth5KyaWnYkY+OTZirORUG9Zcq6o6ZT9NwY6rrRLqQjhI1UEHPl
-	MqYtGRG20+
-X-Received: by 2002:a17:902:d60f:b0:2e2:c283:354f with SMTP id d9443c01a7336-2f0b9123089mr78776345ad.28.1795674653298;
-        Wed, 25 Nov 2026 22:30:53 -0800 (PST)
-X-Received: by 2002:a17:902:d60f:b0:2e2:c283:354f with SMTP id d9443c01a7336-2f0b9123089mr78776035ad.28.1795674652695;
-        Wed, 25 Nov 2026 22:30:52 -0800 (PST)
+        bh=TpWghRRvmYLzudQ3henUwyrMbKAZ60J9VUe5nLBlujM=;
+        b=sOB/O6lVPshhPosHi9Wy5ryLMZOY+oDLXSpq2uwu8nUWERIHeQLQoDmQZOqcYAOOZ9
+         YTTswCHeYdkm5SsR08GejHh2yxAsYl90MjxupjdU8Mmtyeq9l4wgYMEx2UQhnSxKZ2cL
+         Ez5cTUSKgpz9Qo33MzHTfVB7g2/39iB0IFfZsMBB+dJSjeJaawmEZIovkUSxmeKBWIWt
+         yYHJhzx9c4l26BmnlURD3GJehlRNG6UYTBPdW+Dlav82cp7+4+6ZNP7D94w0w7fI1BDs
+         rXDIohbh+bIfRZEtJK3FbnTrsrzyy+7HM0Qmb7hv6zLMtQjQ1133hGuI614hWqTPBj1Y
+         ivrw==
+X-Forwarded-Encrypted: i=1; AL+hErEAZZbXkOqC+j2+aTbBws4eNlmm/pI1q44rNTuiQRdiWPz3Xx2W5ViP0rFoOh+fhqEgRfiLnrLOghaM@vger.kernel.org
+X-Gm-Message-State: APuU4Z/PlAzoGDyeaDwNHTsyoUAM2xPG8BAZGAY197OfP0Z7r6DsAHTS
+	P+/VBo6/hZK+qAnhJ+zdUA9M6cRXv+d+MSHLaXF+SmRI5sVgD8JJQrE1wwNao2OLurI7tOBMDeq
+	2LdLo+GfOIToZgL0PKT/ZiDm6i1Arb81Veh9fnxRca14jkyveXpr5haJ8O/DB+Heb
+X-Gm-Gg: AZFdTZeZMyqyb2jC4sRsxDDB8nlM9xKoCKcfSWCoQbllcYlKnrVBWtPqTBZzhS4nJIG
+	sEPGAPm5BJMvzDxp/2+3eixLB643T4HfIsc1RsuGXWu+ZqPS8FbNy+NHsvmHQfJ+yC9BKZBvhHU
+	BuZpmJD07qinD+QKpl/wHnPWe5vZPriVkZXlsoim+qFpRh4HdAcEhjLRB/sf1vOputV9YflAwhN
+	GhV5fWjNWUQ/T9GLvuEi/pbqDy6yXtaE04Chf3xvrwErYYbpJmdxGf469761f/H7XXMh3Mn4hit
+	KvOcCI2TqePUiIlsv4DKJOf3R1wrh8YZZwpHzDm+/eR5djQrirSQyU9Wa0BrJ8u6EFrx4TbB1ga
+	0W4mpJzWBeVlj9c6JGhNPLjpG5E49O9RAo9BXIQf6Q+58IpnV/VMMBs9RXdrPmIvafNHBZBnLvM
+	7uQ3eJpBn0
+X-Received: by 2002:a17:902:ef45:b0:2f0:39c6:8ec8 with SMTP id d9443c01a7336-2f03ef4430bmr202899335ad.2.1795674662085;
+        Wed, 25 Nov 2026 22:31:02 -0800 (PST)
+X-Received: by 2002:a17:902:ef45:b0:2f0:39c6:8ec8 with SMTP id d9443c01a7336-2f03ef4430bmr202899045ad.2.1795674661342;
+        Wed, 25 Nov 2026 22:31:01 -0800 (PST)
 Received: from hu-jshekhar-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03f147a9esm97159715ad.72.2026.11.25.22.30.44
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03f147a9esm97159715ad.72.2026.11.25.22.30.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 22:30:52 -0800 (PST)
+        Wed, 25 Nov 2026 22:31:00 -0800 (PST)
 From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Date: Thu, 26 Nov 2026 11:59:18 +0530
-Subject: [PATCH v3 10/21] drm/msm/dcp: Add DCP CRTCs
+Date: Thu, 26 Nov 2026 11:59:19 +0530
+Subject: [PATCH v3 11/21] drm/msm/dcp: Add DCP planes
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -118,7 +118,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-jshekhar-v3-dcp-v3-10-f1e9d7505039@oss.qualcomm.com>
+Message-Id: <20261126-jshekhar-v3-dcp-v3-11-f1e9d7505039@oss.qualcomm.com>
 References: <20261126-jshekhar-v3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com>
 In-Reply-To: <20261126-jshekhar-v3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -147,919 +147,1265 @@ Cc: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>,
         linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
         linaro-mm-sig@lists.linaro.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795674555; l=26301;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795674555; l=38932;
  i=jayant.shekhar@oss.qualcomm.com; s=20260925; h=from:subject:message-id;
- bh=4zU4F6F/99xRXeW7TI5wmsuC/efjzhHYgODuIaIkVn8=;
- b=qGdeLM+6jrQ7Kq4wm6uTFK1F9ZWFfcS2R0grlBGFITKNM+mF+FFw0Z159TQvpIi6ZS7Fo53fO
- vK4hWwb4hQwCqaMFB+JHWkFVuZzmeS0kI8qTUuk+fYizA1FllMVY6KW
+ bh=aI0z5TuGJ0esFg6WMSSTSN1LwByKUHcBFmQCfbnftz8=;
+ b=SrIdgEJTYvAdMKyMIBYNG4pth+44XEOmiY00iRQsNN5nZYrd7xA//WwOu6JAibNDMIcs3tQzk
+ uTijkoj0Dm8Do9DEr+ltedza7Kr7giogeTO81R84tmlDf8bZpiKeuJI
 X-Developer-Key: i=jayant.shekhar@oss.qualcomm.com; a=ed25519;
  pk=saYTwtCCpug4b0Hz0jHFoATgDtdhFVicwMzDJo2z5ZE=
-X-Proofpoint-GUID: 1pMnzDQl06V3FINSnAj4DB5ip9mHswR6
-X-Authority-Analysis: v=2.4 cv=OIOyTiaB c=1 sm=1 tr=0 ts=6b07d21e cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDAyNCBTYWx0ZWRfX+EJc6RERguCx
+ D9gdZdwB/uidt/5mIHbZu25yOY5lIyWuxItTJRqN1yT6aD1KZR/YzelaRNkW26nh8HgTO+ArV2Q
+ Jdxtb/c//7pMkrgb3w7XuvrpZwNMmBsm9qdo3ydGpgQkmTM7coXVb+r/+5peia0oVfdXaAnRIGk
+ En6sgtlWcHVbqxaFpZ2o7sTy7gmAt7gFUY/WsAPBGwNa8b6KyL4HctMQLa3kwC4BCQMLodFsBq7
+ 2Sqr+Vo3utmyHIDbXd2CAfrc+mCTYgBKzvBc7qlXb5Zi5oIbK+wXZxz0pCSIKfME6OL98SQkyh6
+ RbWM98qLHvuIes618aubGfZgo53JFKgihkOCw4yU1PrlHPLTxUY0RH3xOZe1l021BVbkTaRdfai
+ Xns1w/z2jl2bCOkWReJmAGXET/7pNce/gV8oJptV5vBMSLd3A73GgnI7JgzF+klLzRqcUV/Ig80
+ sRIIqbeZrdNAngF8yWg==
+X-Proofpoint-GUID: InTQL7rtpo24nmGzmrO8kKO3OiCi-4iY
+X-Proofpoint-ORIG-GUID: InTQL7rtpo24nmGzmrO8kKO3OiCi-4iY
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDAyNCBTYWx0ZWRfXy0nb9qwlTZqA
+ NVxNOn9aHO7vywa+3LtCIpFZju3/qKfgV97086qClb5Sbn/mZJNTZTH4ggbiqwPrTgjfXgnnIbG
+ ARSB+kzGkQTjPReOu6oxO2NekqVpnts=
+X-Authority-Analysis: v=2.4 cv=PqoG/AM3 c=1 sm=1 tr=0 ts=6b07d227 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=V6dx341SavrEW83xMVAA:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-ORIG-GUID: 1pMnzDQl06V3FINSnAj4DB5ip9mHswR6
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDAyNCBTYWx0ZWRfX3upOD7OPB7pc
- SwRBmlJrM2c8/72z+h11b9wi3jDolknhKQnsVYJtEFzuboc13jkGYqwfyT2UnaDNA0+hBYdWduI
- TneQ37DGOAseeK47gS+TzQvk2/Gy1Vk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDAyNCBTYWx0ZWRfX9y4TWObTMDLD
- Ns/xZDZKgmLO2yUwqt/5CWdBP+1D9G3CZ9NdK7oLw20T1nSqxBdU9LIplo7R5TNK1p6NtmySyKw
- pqN9acKavyMwnbjBWRrgG6AzuakbaKaMglrYcgc8155hvyns17TUseJ8/belSGB8SGsf13YD40c
- vKQgnXlrfzdyvGWRBKSgZWZhPiX5B0F1OwVQtcDwQa9XTEqnHtfqH7NxhpEieVI+fPGydSRsEsB
- fu1r3VXrRJG/7YVd6r96PBdRfCU0Igo1XBL1ODqBNA57BYynaXVhh7xHlSmsRZug4tRm++GvsjQ
- 9AkKSF0Btzjl+0djblhlZpiuIH12O6pOTqenq9sgurXIZr5aK/LCjoQWXtaCu/mnJiCEiSX+nGO
- ifh8+8SasDjqZU77AgSxDIYKp/VyJUyyhGHqo675HLj1cLYdJUhdLytkB8UspMMVWTsROUNCQnX
- 5dDmFuvARz16Ca3i9qw==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=K24J6YuaatAtwjXtsW4A:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-26_01,2026-11-25_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 bulkscore=0 clxscore=1015 phishscore=0
- adultscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 priorityscore=1501
+ phishscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 bulkscore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260024
 
-Create DRM CRTC objects to expose firmware-owned displays through the
-MSM DRM driver. Track display topology and firmware sessions so atomic
-modesetting and frame completion can be handled per display.
+Expose DCP overlay planes through the DRM plane API. Userspace needs
+normal atomic plane state while the firmware-owned pipeline requires
+validated formats, assigned pipes, mapped buffers, bandwidth votes,
+and HFI property packets.
 
-Implement CRTC objects, display lookup, session state, and vblank handling.
+Implement plane validation, format and scaling checks, firmware pipe
+assignment, framebuffer mapping, bandwidth calculation, atomic state
+handling, and HFI updates and disables.
 
 Assisted-by: LLM
 Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/Makefile          |   2 +
- drivers/gpu/drm/msm/dcp/dcp_crtc.c    | 665 ++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/msm/dcp/dcp_crtc.h    |  85 +++++
- drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c |  21 ++
- drivers/gpu/drm/msm/dcp/dcp_dpu_kms.h |  54 +++
- 5 files changed, 827 insertions(+)
+ drivers/gpu/drm/msm/Makefile              |    1 +
+ drivers/gpu/drm/msm/dcp/dcp_crtc.c        |   35 +
+ drivers/gpu/drm/msm/dcp/dcp_plane.c       | 1042 +++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/dcp/dcp_plane.h       |   36 +
+ drivers/gpu/drm/msm/dcp/dcp_plane_state.h |   37 +
+ 5 files changed, 1151 insertions(+)
 
 diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
-index 6a75bec4e95e..738abdc98714 100644
+index 738abdc98714..d0fbd8bdd49a 100644
 --- a/drivers/gpu/drm/msm/Makefile
 +++ b/drivers/gpu/drm/msm/Makefile
-@@ -72,6 +72,8 @@ msm-display-$(CONFIG_DRM_MSM_MDP5) += \
- 	disp/mdp5/mdp5_smp.o \
- 
+@@ -74,6 +74,7 @@ msm-display-$(CONFIG_DRM_MSM_MDP5) += \
  msm-display-$(CONFIG_DRM_MSM_DCP) += \
-+	dcp/dcp_crtc.o \
-+	dcp/dcp_dpu_kms.o \
+ 	dcp/dcp_crtc.o \
+ 	dcp/dcp_dpu_kms.o \
++	dcp/dcp_plane.o \
  	dcp/dcp_hfi_core.o \
  	dcp/dcp_hfi_crtc.o \
  	dcp/dcp_hfi_dsi.o \
 diff --git a/drivers/gpu/drm/msm/dcp/dcp_crtc.c b/drivers/gpu/drm/msm/dcp/dcp_crtc.c
-new file mode 100644
-index 000000000000..512da8c4ddbc
---- /dev/null
+index 512da8c4ddbc..f58667ca458e 100644
+--- a/drivers/gpu/drm/msm/dcp/dcp_crtc.c
 +++ b/drivers/gpu/drm/msm/dcp/dcp_crtc.c
-@@ -0,0 +1,665 @@
+@@ -84,6 +84,36 @@ dcp_crtc_atomic_create_state(struct drm_crtc *crtc)
+ 	return &cstate->base;
+ }
+ 
++static void dcp_crtc_aggregate_bw(struct drm_crtc_state *crtc_state,
++				  bool enable)
++{
++	struct dcp_crtc_state *cstate = to_dcp_crtc_state(crtc_state);
++	struct drm_plane *plane;
++	const struct drm_plane_state *pstate;
++
++	cstate->dram_ib  = 0;
++	cstate->dram_ab  = 0;
++	cstate->llcc_ib  = 0;
++	cstate->llcc_ab  = 0;
++	cstate->core_clk = 0;
++
++	if (!enable)
++		return;
++
++	drm_atomic_crtc_state_for_each_plane_state(plane, pstate, crtc_state) {
++		if (!pstate->visible)
++			continue;
++
++		const struct dcp_plane_state *dcp_pstate = to_dcp_plane_state(pstate);
++
++		cstate->dram_ib  = max(cstate->dram_ib, dcp_pstate->fetch_bw);
++		cstate->dram_ab += dcp_pstate->fetch_bw;
++		cstate->llcc_ib  = max(cstate->llcc_ib, dcp_pstate->fetch_bw);
++		cstate->llcc_ab += dcp_pstate->fetch_bw;
++		cstate->core_clk = max(cstate->core_clk, dcp_pstate->clk);
++	}
++}
++
+ static enum drm_mode_status
+ dcp_crtc_mode_valid(struct drm_crtc *crtc,
+ 		    const struct drm_display_mode *mode)
+@@ -336,6 +366,9 @@ void dcp_crtc_complete_commit(struct drm_crtc *crtc)
+ 	struct dcp_crtc_state *cstate = to_dcp_crtc_state(crtc->state);
+ 	unsigned long flags;
+ 
++	if (!crtc->state->active)
++		dcp_crtc_aggregate_bw(crtc->state, false);
++
+ 	spin_lock_irqsave(&crtc->dev->event_lock, flags);
+ 	if (dcp_crtc->event) {
+ 		drm_dbg_driver(crtc->dev,
+@@ -538,6 +571,8 @@ static int dcp_crtc_atomic_check(struct drm_crtc *crtc,
+ 		return -E2BIG;
+ 	}
+ 
++	dcp_crtc_aggregate_bw(crtc_state, true);
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/dcp/dcp_plane.c b/drivers/gpu/drm/msm/dcp/dcp_plane.c
+new file mode 100644
+index 000000000000..ff6ce28d61c8
+--- /dev/null
++++ b/drivers/gpu/drm/msm/dcp/dcp_plane.c
+@@ -0,0 +1,1042 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
 + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ * DCP CRTC implementation.
++ *
++ * DCP plane state validation and HFI property packet construction.
 + */
 +
++#include <linux/math64.h>
 +#include <linux/slab.h>
-+#include <linux/spinlock.h>
-+#include <linux/wait.h>
++#include <linux/string.h>
 +
 +#include <drm/drm_atomic.h>
 +#include <drm/drm_atomic_helper.h>
 +#include <drm/drm_blend.h>
-+#include <drm/drm_crtc.h>
++#include <drm/drm_damage_helper.h>
++#include <drm/drm_fourcc.h>
 +#include <drm/drm_framebuffer.h>
++#include <drm/drm_gem_atomic_helper.h>
++#include <drm/drm_plane.h>
 +#include <drm/drm_rect.h>
-+#include <drm/drm_vblank.h>
-+
-+#include <drm/drm_managed.h>
 +
 +#include "msm_drv.h"
 +
 +#include "dcp_crtc.h"
-+#include "dcp_drv.h"
 +#include "dcp_hfi.h"
 +#include "dcp_dpu_kms.h"
++#include "dcp_plane.h"
 +
-+#include "hfi/hfi_defs_display.h"
-+#include "hfi/hfi_properties_display.h"
++#define DCP_ZPOS_MAX			255
++#define DCP_MAX_IMG_WIDTH		0x3FFF
++#define DCP_MAX_IMG_HEIGHT		0x3FFF
++#define DCP_SSPP_MAX_PITCH_SIZE	0xFF00
++#define DCP_MAX_UPSCALE_RATIO	20
++#define DCP_MAX_DOWNSCALE_RATIO	4
 +
-+#define DCP_FRAME_DONE_TIMEOUT_MS	500
++static const u32 dcp_plane_formats[] = {
++	DRM_FORMAT_ARGB8888, DRM_FORMAT_ABGR8888,
++	DRM_FORMAT_RGBA8888, DRM_FORMAT_BGRA8888,
++	DRM_FORMAT_XRGB8888, DRM_FORMAT_XBGR8888,
++	DRM_FORMAT_RGBX8888, DRM_FORMAT_BGRX8888,
++	DRM_FORMAT_RGB888,   DRM_FORMAT_BGR888,
++	DRM_FORMAT_RGB565,   DRM_FORMAT_BGR565,
++	DRM_FORMAT_ARGB1555, DRM_FORMAT_ABGR1555,
++	DRM_FORMAT_RGBA5551, DRM_FORMAT_BGRA5551,
++	DRM_FORMAT_XRGB1555, DRM_FORMAT_XBGR1555,
++	DRM_FORMAT_RGBX5551, DRM_FORMAT_BGRX5551,
++	DRM_FORMAT_ARGB4444, DRM_FORMAT_ABGR4444,
++	DRM_FORMAT_RGBA4444, DRM_FORMAT_BGRA4444,
++	DRM_FORMAT_XRGB4444, DRM_FORMAT_XBGR4444,
++	DRM_FORMAT_RGBX4444, DRM_FORMAT_BGRX4444,
++	DRM_FORMAT_ARGB2101010, DRM_FORMAT_XRGB2101010,
++	DRM_FORMAT_ABGR2101010, DRM_FORMAT_XBGR2101010,
++	DRM_FORMAT_NV12, DRM_FORMAT_NV21,
++	DRM_FORMAT_P010, DRM_FORMAT_YUV420, DRM_FORMAT_YVU420,
++};
 +
-+static struct dcp_dpu_kms *dcp_crtc_get_kms(struct drm_crtc *crtc)
++static const u64 dcp_format_modifiers[] = {
++	DRM_FORMAT_MOD_QCOM_COMPRESSED,
++	DRM_FORMAT_MOD_LINEAR,
++	DRM_FORMAT_MOD_INVALID,
++};
++
++static struct dcp_dpu_kms *_dcp_plane_get_kms(struct drm_plane *plane)
 +{
-+	struct msm_drm_private *priv = crtc->dev->dev_private;
++	struct msm_drm_private *priv = plane->dev->dev_private;
 +
 +	return to_dcp_dpu_kms(priv->kms);
 +}
 +
-+static struct drm_crtc_state *
-+dcp_crtc_atomic_duplicate_state(struct drm_crtc *crtc)
++static bool dcp_plane_hfi_pipe_valid(struct dcp_dpu_kms *dcp_kms, u32 pipe_id)
 +{
-+	struct dcp_crtc_state *cstate;
-+
-+	if (WARN_ON(!crtc->state))
-+		return NULL;
-+
-+	cstate = kzalloc_obj(*cstate, GFP_KERNEL);
-+	if (!cstate)
-+		return NULL;
-+
-+	__drm_atomic_helper_crtc_duplicate_state(crtc, &cstate->base);
-+
-+	cstate->topology_mixer_count =
-+		to_dcp_crtc_state(crtc->state)->topology_mixer_count;
-+	cstate->topology_bits_per_component =
-+		to_dcp_crtc_state(crtc->state)->topology_bits_per_component;
-+	memcpy(cstate->mixer_roi, to_dcp_crtc_state(crtc->state)->mixer_roi,
-+	       sizeof(cstate->mixer_roi));
-+	return &cstate->base;
-+}
-+
-+static void dcp_crtc_atomic_destroy_state(struct drm_crtc *crtc,
-+					  struct drm_crtc_state *state)
-+{
-+	struct dcp_crtc_state *cstate = to_dcp_crtc_state(state);
-+
-+	__drm_atomic_helper_crtc_destroy_state(state);
-+	kfree(cstate);
-+}
-+
-+static struct drm_crtc_state *
-+dcp_crtc_atomic_create_state(struct drm_crtc *crtc)
-+{
-+	struct dcp_crtc_state *cstate;
-+
-+	cstate = kzalloc_obj(*cstate, GFP_KERNEL);
-+	if (!cstate)
-+		return ERR_PTR(-ENOMEM);
-+
-+	__drm_atomic_helper_crtc_state_init(&cstate->base, crtc);
-+	cstate->topology_mixer_count = 1;
-+	cstate->topology_bits_per_component = 8;
-+	return &cstate->base;
-+}
-+
-+static enum drm_mode_status
-+dcp_crtc_mode_valid(struct drm_crtc *crtc,
-+		    const struct drm_display_mode *mode)
-+{
-+	struct dcp_dpu_kms *kms = dcp_crtc_get_kms(crtc);
-+
-+	if (mode->hdisplay > kms->caps->max_width)
-+		return MODE_BAD_WIDTH;
-+
-+	return MODE_OK;
-+}
-+
-+static void dcp_crtc_atomic_begin(struct drm_crtc *crtc,
-+				  struct drm_atomic_commit *state)
-+{
-+	struct dcp_crtc *dcp_crtc = to_dcp_crtc(crtc);
-+	struct dcp_crtc_state *cstate = to_dcp_crtc_state(crtc->state);
-+	struct dcp_dpu_kms *dcp_kms = dcp_crtc_get_kms(crtc);
-+	u32 mixer_count;
-+	u32 session_id;
++	const struct dcp_caps *caps;
 +	u32 i;
-+	int ret;
++
++	if (!dcp_kms->caps)
++		return false;
++
++	caps = dcp_kms->caps;
++	for (i = 0; i < caps->num_vig_pipes; i++)
++		if (caps->vig_pipe_ids[i] == pipe_id)
++			return true;
++
++	for (i = 0; i < caps->num_dma_pipes; i++)
++		if (caps->dma_pipe_ids[i] == pipe_id)
++			return true;
++
++	return false;
++}
++
++static bool dcp_plane_pipe_is_vig(const struct dcp_caps *caps, u32 pipe_id)
++{
++	u32 i;
++
++	for (i = 0; i < caps->num_vig_pipes; i++)
++		if (caps->vig_pipe_ids[i] == pipe_id)
++			return true;
++
++	return false;
++}
++
++static bool dcp_plane_pipe_busy(struct drm_atomic_commit *state,
++				struct drm_plane *self, u32 pipe_id)
++{
++	struct drm_plane *plane;
++	struct drm_plane_state *plane_state;
++	struct drm_plane *iter_plane;
++	struct drm_plane_state *new_plane_state;
++	int i;
++
++	drm_for_each_plane(plane, state->dev) {
++		if (plane == self)
++			continue;
++
++		plane_state = plane->state;
++		for_each_new_plane_in_state(state, iter_plane, new_plane_state, i) {
++			if (iter_plane == plane) {
++				plane_state = new_plane_state;
++				break;
++			}
++		}
++
++		if (plane_state && plane_state->crtc && plane_state->visible &&
++		    to_dcp_plane_state(plane_state)->hfi_pipe_id == pipe_id)
++			return true;
++	}
++
++	return false;
++}
++
++static u32 dcp_plane_assign_pipe(struct dcp_dpu_kms *dcp_kms,
++				 struct drm_atomic_commit *state,
++				 struct drm_plane *plane,
++				 struct dcp_plane_state *pstate,
++				 bool yuv, bool scaling)
++{
++	const struct dcp_caps *caps = dcp_kms->caps;
++	u32 i, pipe_id;
++
++	/* YUV scanout requires a VIG pipe with the CSC path. */
++	if (dcp_plane_hfi_pipe_valid(dcp_kms, pstate->hfi_pipe_id) &&
++	    (!yuv || dcp_plane_pipe_is_vig(caps, pstate->hfi_pipe_id)) &&
++	    (!scaling || dcp_plane_pipe_is_vig(caps, pstate->hfi_pipe_id)) &&
++	    !dcp_plane_pipe_busy(state, plane, pstate->hfi_pipe_id))
++		return pstate->hfi_pipe_id;
 +
 +	/*
-+	 * MSM commits pass flags=0 to drm_atomic_helper_commit_planes().
-+	 * ACTIVE_ONLY would also skip atomic_flush() for inactive CRTCs, where
-+	 * this driver still needs to capture pending DRM events.
++	 * R1/virtual pipes are intentionally not allocated as independent
++	 * planes yet. They require transactional physical-pipe/R1 ownership
++	 * and multirect programming, which will be added with the resource
++	 * manager.
 +	 */
-+	if (!crtc->state->active)
-+		return;
-+	if (!dcp_kms->commit_pm_active) {
-+		cstate->hfi_error = -EIO;
-+		return;
++	for (i = 0; i < caps->num_vig_pipes; i++) {
++		pipe_id = caps->vig_pipe_ids[i];
++		if (!dcp_plane_pipe_busy(state, plane, pipe_id))
++			return pipe_id;
 +	}
 +
-+	if (!dcp_crtc_get_session(crtc, &session_id)) {
-+		cstate->hfi_error = -ENODEV;
-+		return;
++	if (yuv || scaling)
++		return U32_MAX;
++
++	for (i = 0; i < caps->num_dma_pipes; i++) {
++		pipe_id = caps->dma_pipe_ids[i];
++		if (!dcp_plane_pipe_busy(state, plane, pipe_id))
++			return pipe_id;
 +	}
 +
-+	if (cstate->core_clk > 0 || cstate->dram_ib > 0) {
-+		ret = dcp_hfi_crtc_set_bw(dcp_kms->hfi, session_id,
-+					  cstate->dram_ib,  cstate->dram_ab,
-+					  cstate->llcc_ib,  cstate->llcc_ab,
-+					  cstate->core_clk);
-+		if (ret) {
-+			cstate->hfi_error = ret;
-+			return;
-+		}
++	return U32_MAX;
++}
++
++static const struct {
++	u32 fourcc;
++	u64 modifier;
++	u32 hfi_fmt;
++} dcp_fmt_table[] = {
++	{ DRM_FORMAT_ABGR8888,    DRM_FORMAT_MOD_QCOM_COMPRESSED, HFI_COLOR_FORMAT_UBWC_RGBA8888 },
++	{ DRM_FORMAT_XBGR8888,    DRM_FORMAT_MOD_QCOM_COMPRESSED, HFI_COLOR_FORMAT_UBWC_RGBX8888 },
++	{ DRM_FORMAT_ABGR2101010, DRM_FORMAT_MOD_QCOM_COMPRESSED,
++		HFI_COLOR_FORMAT_UBWC_RGBA10_10_10_2 },
++	{ DRM_FORMAT_XBGR2101010, DRM_FORMAT_MOD_QCOM_COMPRESSED,
++		HFI_COLOR_FORMAT_UBWC_RGBX10_10_10_2 },
++	{ DRM_FORMAT_BGR565,      DRM_FORMAT_MOD_QCOM_COMPRESSED, HFI_COLOR_FORMAT_UBWC_RGB565 },
++	{ DRM_FORMAT_NV12,        DRM_FORMAT_MOD_QCOM_COMPRESSED, HFI_COLOR_FORMAT_UBWC_NV12 },
++	{ DRM_FORMAT_P010,        DRM_FORMAT_MOD_QCOM_COMPRESSED, HFI_COLOR_FORMAT_UBWC_P010 },
++
++	{ DRM_FORMAT_RGB565,       DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_BGR565 },
++	{ DRM_FORMAT_BGR565,       DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_RGB565 },
++	{ DRM_FORMAT_RGB888,       DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_BGR888 },
++	{ DRM_FORMAT_BGR888,       DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_RGB888 },
++	{ DRM_FORMAT_ARGB8888,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_BGRA8888 },
++	{ DRM_FORMAT_ABGR8888,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_RGBA8888 },
++	{ DRM_FORMAT_RGBA8888,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_ABGR8888 },
++	{ DRM_FORMAT_BGRA8888,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_ARGB8888 },
++	{ DRM_FORMAT_XRGB8888,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_BGRX8888 },
++	{ DRM_FORMAT_XBGR8888,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_RGBX8888 },
++	{ DRM_FORMAT_RGBX8888,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_XBGR8888 },
++	{ DRM_FORMAT_BGRX8888,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_XRGB8888 },
++	{ DRM_FORMAT_ARGB2101010,  DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_BGRA10_10_10_2 },
++	{ DRM_FORMAT_ABGR2101010,  DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_RGBA10_10_10_2 },
++	{ DRM_FORMAT_RGBA1010102,  DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_ABGR2_10_10_10 },
++	{ DRM_FORMAT_BGRA1010102,  DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_ARGB2_10_10_10 },
++	{ DRM_FORMAT_XRGB2101010,  DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_BGRX10_10_10_2 },
++	{ DRM_FORMAT_XBGR2101010,  DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_RGBX10_10_10_2 },
++	{ DRM_FORMAT_RGBX1010102,  DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_XBGR2_10_10_10 },
++	{ DRM_FORMAT_BGRX1010102,  DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_XRGB2_10_10_10 },
++	{ DRM_FORMAT_ARGB1555,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_BGRA5551 },
++	{ DRM_FORMAT_ABGR1555,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_RGBA5551 },
++	{ DRM_FORMAT_RGBA5551,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_ABGR1555 },
++	{ DRM_FORMAT_BGRA5551,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_ARGB1555 },
++	{ DRM_FORMAT_XRGB1555,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_BGRX5551 },
++	{ DRM_FORMAT_XBGR1555,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_RGBX5551 },
++	{ DRM_FORMAT_RGBX5551,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_XBGR1555 },
++	{ DRM_FORMAT_BGRX5551,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_XRGB1555 },
++	{ DRM_FORMAT_ARGB4444,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_BGRA4444 },
++	{ DRM_FORMAT_ABGR4444,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_RGBA4444 },
++	{ DRM_FORMAT_RGBA4444,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_ABGR4444 },
++	{ DRM_FORMAT_BGRA4444,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_ARGB4444 },
++	{ DRM_FORMAT_XRGB4444,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_BGRX4444 },
++	{ DRM_FORMAT_XBGR4444,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_RGBX4444 },
++	{ DRM_FORMAT_RGBX4444,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_XBGR4444 },
++	{ DRM_FORMAT_BGRX4444,     DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_XRGB4444 },
++	{ DRM_FORMAT_YUV420,       DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_YU12 },
++	{ DRM_FORMAT_YVU420,       DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_YV12 },
++	{ DRM_FORMAT_NV12,         DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_NV12 },
++	{ DRM_FORMAT_NV21,         DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_NV21 },
++	{ DRM_FORMAT_P010,         DRM_FORMAT_MOD_LINEAR, HFI_COLOR_FORMAT_P010 },
++};
++
++static u32 dcp_drm_to_hfi_format(u32 fourcc, u64 modifier)
++{
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(dcp_fmt_table); i++) {
++		if (dcp_fmt_table[i].fourcc == fourcc &&
++		    dcp_fmt_table[i].modifier == modifier)
++			return dcp_fmt_table[i].hfi_fmt;
 +	}
 +
-+	mixer_count = cstate->topology_mixer_count;
-+	if (mixer_count < 1 || mixer_count > DCP_MAX_MIXERS) {
-+		cstate->hfi_error = -EINVAL;
-+		return;
-+	}
-+	for (i = 0; i < mixer_count; i++) {
-+		struct drm_rect *roi = &cstate->mixer_roi[i];
++	return U32_MAX;
++}
 +
-+		if (drm_rect_width(roi) <= 0 || drm_rect_height(roi) <= 0) {
-+			drm_err(crtc->dev, "CRTC%u: invalid zero-sized LM%u ROI\n",
-+				dcp_crtc->display_id, i);
-+			cstate->hfi_error = -EINVAL;
-+			return;
-+		}
++static u32 dcp_drm_to_hfi_rotation(u32 drm_rotation)
++{
++	u32 hfi_rot = 0;
 +
-+		ret = dcp_hfi_crtc_set_resource(dcp_kms->hfi, session_id,
-+						i, drm_rect_width(roi),
-+						drm_rect_height(roi),
-+						roi->x1, roi->y1);
-+		if (ret) {
-+			cstate->hfi_error = ret;
-+			return;
-+		}
-+	}
++	if (drm_rotation & DRM_MODE_ROTATE_0)
++		hfi_rot |= HFI_DISPLAY_ROTATION_0;
++	if (drm_rotation & DRM_MODE_ROTATE_90)
++		hfi_rot |= HFI_DISPLAY_ROTATION_90;
++	if (drm_rotation & DRM_MODE_ROTATE_180)
++		hfi_rot |= HFI_DISPLAY_ROTATION_180;
++	if (drm_rotation & DRM_MODE_ROTATE_270)
++		hfi_rot |= HFI_DISPLAY_ROTATION_270;
++	if (drm_rotation & DRM_MODE_REFLECT_X)
++		hfi_rot |= HFI_DISPLAY_REFLECT_X;
++	if (drm_rotation & DRM_MODE_REFLECT_Y)
++		hfi_rot |= HFI_DISPLAY_REFLECT_Y;
 +
-+	ret = dcp_hfi_crtc_set_dest_roi(dcp_kms->hfi, session_id, 0, 0,
-+					crtc->state->adjusted_mode.hdisplay,
-+					crtc->state->adjusted_mode.vdisplay);
-+	if (ret) {
-+		cstate->hfi_error = ret;
-+		return;
++	if (!hfi_rot)
++		hfi_rot = HFI_DISPLAY_ROTATION_0;
++
++	return hfi_rot;
++}
++
++static u32 dcp_drm_to_hfi_blend_op(u32 drm_blend_mode)
++{
++	switch (drm_blend_mode) {
++	case DRM_MODE_BLEND_PIXEL_NONE:	return HFI_BLEND_OP_OPAQUE;
++	case DRM_MODE_BLEND_PREMULTI:	return HFI_BLEND_OP_PREMULTIPLIED;
++	case DRM_MODE_BLEND_COVERAGE:	return HFI_BLEND_OP_COVERAGE;
++	default:			return HFI_BLEND_OP_NOT_DEFINED;
 +	}
 +}
 +
-+static void dcp_crtc_atomic_flush(struct drm_crtc *crtc,
-+				  struct drm_atomic_commit *state)
++static u16 dcp_compute_bg_alpha(u32 pixel_blend_mode, u16 fg_alpha)
 +{
-+	struct dcp_crtc *dcp_crtc = to_dcp_crtc(crtc);
-+	struct dcp_crtc_state *cstate = to_dcp_crtc_state(crtc->state);
-+	struct dcp_dpu_kms *dcp_kms = dcp_crtc_get_kms(crtc);
-+	unsigned long flags;
-+	u32 session_id;
-+	int ret;
-+
-+	/* Inactive CRTCs may carry an event but must not receive HFI updates. */
-+	if (!crtc->state->enable || !crtc->state->active)
-+		goto flush_done;
-+	drm_dbg_driver(crtc->dev, "DCP_FLUSH CRTC%u mask=0x%x err=%d\n",
-+		       dcp_crtc->display_id, crtc->state->plane_mask,
-+		       cstate->hfi_error);
-+
-+	if (!dcp_crtc_get_session(crtc, &session_id)) {
-+		drm_dbg_driver(crtc->dev,
-+			       "CRTC%u: atomic flush without HFI session\n",
-+			       dcp_crtc->display_id);
-+		goto flush_done;
-+	}
-+
-+	if (cstate->hfi_error)
-+		goto flush_done;
-+
-+	ret = dcp_hfi_crtc_set_scan_sequence_id(dcp_kms->hfi, session_id,
-+						++dcp_crtc->commit_seq_id);
-+	if (ret)
-+		goto flush_error;
-+
-+	ret = dcp_hfi_crtc_set_autorefresh(dcp_kms->hfi,
-+					   session_id, true, 1);
-+	if (ret)
-+		goto flush_error;
-+
-+	goto flush_done;
-+
-+flush_error:
-+	cstate->hfi_error = ret;
-+
-+flush_done:
-+	spin_lock_irqsave(&crtc->dev->event_lock, flags);
-+	dcp_crtc->event = crtc->state->event;
-+	crtc->state->event = NULL;
-+	spin_unlock_irqrestore(&crtc->dev->event_lock, flags);
-+}
-+
-+void dcp_crtc_set_session(struct drm_crtc *crtc, u32 session_id)
-+{
-+	struct dcp_crtc *dcp_crtc;
-+	unsigned long flags;
-+
-+	dcp_crtc = to_dcp_crtc(crtc);
-+	spin_lock_irqsave(&dcp_crtc->spin_lock, flags);
-+	dcp_crtc->session_id = session_id;
-+	dcp_crtc->session_valid = true;
-+	spin_unlock_irqrestore(&dcp_crtc->spin_lock, flags);
-+}
-+
-+void dcp_crtc_clear_session(struct drm_crtc *crtc)
-+{
-+	struct dcp_crtc *dcp_crtc;
-+	unsigned long flags;
-+
-+	dcp_crtc = to_dcp_crtc(crtc);
-+	spin_lock_irqsave(&dcp_crtc->spin_lock, flags);
-+	dcp_crtc->session_valid = false;
-+	dcp_crtc->session_id = 0;
-+	spin_unlock_irqrestore(&dcp_crtc->spin_lock, flags);
-+}
-+
-+bool dcp_crtc_get_session(struct drm_crtc *crtc, u32 *session_id)
-+{
-+	struct dcp_crtc *dcp_crtc;
-+	unsigned long flags;
-+	bool valid;
-+
-+	dcp_crtc = to_dcp_crtc(crtc);
-+	spin_lock_irqsave(&dcp_crtc->spin_lock, flags);
-+	valid = dcp_crtc->session_valid;
-+	if (valid)
-+		*session_id = dcp_crtc->session_id;
-+	spin_unlock_irqrestore(&dcp_crtc->spin_lock, flags);
-+
-+	return valid;
-+}
-+
-+void dcp_crtc_set_topology_state(struct drm_crtc_state *state,
-+				 u32 mixer_count,
-+				 u32 bits_per_component)
-+{
-+	struct dcp_crtc_state *cstate = to_dcp_crtc_state(state);
-+
-+	cstate->topology_mixer_count = mixer_count;
-+	cstate->topology_bits_per_component = bits_per_component;
-+}
-+
-+void dcp_crtc_commit_kickoff(struct drm_crtc *crtc)
-+{
-+	struct dcp_crtc *dcp_crtc = to_dcp_crtc(crtc);
-+	struct dcp_dpu_kms *dcp_kms = dcp_crtc_get_kms(crtc);
-+	struct dcp_crtc_state *cstate = to_dcp_crtc_state(crtc->state);
-+	u32 session_id;
-+	int ret;
-+
-+	if (cstate->hfi_error) {
-+		drm_err(crtc->dev,
-+			"DCP_TRIGGER CRTC%u suppressed after HFI error %d\n",
-+			dcp_crtc->display_id, cstate->hfi_error);
-+		return;
-+	}
-+
-+	if (!dcp_crtc_get_session(crtc, &session_id)) {
-+		drm_warn(crtc->dev,
-+			 "CRTC%u: no active session, skipping FRAME_TRIGGER\n",
-+			 dcp_crtc->display_id);
-+		return;
-+	}
-+
-+	/* MSM serializes commits, so only one frame completion may be pending. */
-+	if (atomic_cmpxchg(&dcp_crtc->pending_kickoff_cnt, 0, 1)) {
-+		drm_err(crtc->dev,
-+			"CRTC%u: frame completion already pending (dropped commit_seq_id=%u, in-flight pending_seq_id=%u)\n",
-+			dcp_crtc->display_id, dcp_crtc->commit_seq_id,
-+			dcp_crtc->pending_seq_id);
-+		cstate->hfi_error = -EBUSY;
-+		return;
-+	}
-+	dcp_crtc->pending_seq_id = dcp_crtc->commit_seq_id;
-+
-+	ret = dcp_hfi_display_commit(dcp_kms->hfi, session_id);
-+	if (ret) {
-+		drm_err(crtc->dev,
-+			"HFI commit failed for CRTC%u (session=%u): %d\n",
-+			dcp_crtc->display_id, session_id, ret);
-+		atomic_dec(&dcp_crtc->pending_kickoff_cnt);
-+		wake_up(&dcp_crtc->frame_done_wq);
++	switch (pixel_blend_mode) {
++	case DRM_MODE_BLEND_PIXEL_NONE:
++		return DRM_BLEND_ALPHA_OPAQUE - fg_alpha;
++	case DRM_MODE_BLEND_PREMULTI:
++	case DRM_MODE_BLEND_COVERAGE:
++		return (fg_alpha != DRM_BLEND_ALPHA_OPAQUE) ? fg_alpha : 0;
++	default:
++		return DRM_BLEND_ALPHA_OPAQUE;
 +	}
 +}
 +
-+void dcp_crtc_wait_for_commit_done(struct drm_crtc *crtc)
++static u32 dcp_hfi_scale_alpha(const struct drm_plane_state *state, u32 alpha)
 +{
-+	struct dcp_crtc *dcp_crtc = to_dcp_crtc(crtc);
-+	unsigned long timeout = msecs_to_jiffies(DCP_FRAME_DONE_TIMEOUT_MS);
++	if (to_dcp_crtc_state(state->crtc->state)->topology_bits_per_component >= 10)
++		return alpha;
 +
-+	if (!atomic_read(&dcp_crtc->pending_kickoff_cnt))
-+		return;
-+
-+	if (!wait_event_timeout(dcp_crtc->frame_done_wq,
-+				atomic_read(&dcp_crtc->pending_kickoff_cnt) == 0,
-+				timeout)) {
-+		drm_err(crtc->dev,
-+			"frame done timeout for CRTC%u pending_seq_id=%u commit_seq_id=%u\n",
-+			dcp_crtc->display_id, dcp_crtc->pending_seq_id,
-+			dcp_crtc->commit_seq_id);
-+		atomic_set(&dcp_crtc->pending_kickoff_cnt, 0);
-+	}
++	return alpha << 8;
 +}
 +
-+void dcp_crtc_complete_commit(struct drm_crtc *crtc)
++static u64 dcp_plane_calc_bw(u32 bpp,
++			     const struct drm_display_mode *mode,
++			     const struct drm_rect *src,
++			     const struct drm_rect *dst)
 +{
-+	struct dcp_crtc *dcp_crtc = to_dcp_crtc(crtc);
-+	struct dcp_crtc_state *cstate = to_dcp_crtc_state(crtc->state);
-+	unsigned long flags;
++	int src_w = drm_rect_width(src) >> 16;
++	int src_h = drm_rect_height(src) >> 16;
++	int dst_h = drm_rect_height(dst);
++	int fps   = drm_mode_vrefresh(mode);
++	int vbp   = mode->vtotal - mode->vsync_end;
++	int vpw   = mode->vsync_end - mode->vsync_start;
++	int vfp   = mode->vsync_start - mode->vdisplay;
++	u32 hw_latency = 25;
++	u64 scale_factor = (src_h > dst_h) ? mult_frac(src_h, 1, dst_h) : 1;
++	u64 plane_bw, prefill_bw;
 +
-+	spin_lock_irqsave(&crtc->dev->event_lock, flags);
-+	if (dcp_crtc->event) {
-+		drm_dbg_driver(crtc->dev,
-+			       "DCP_TS CRTC%u: page-flip event send time=%lld vblank_count=%llu commit_seq_id=%u pending_seq_id=%u hfi_error=%d%s\n",
-+			       dcp_crtc->display_id, ktime_to_ns(ktime_get()),
-+			       drm_crtc_vblank_count(crtc),
-+			       dcp_crtc->commit_seq_id, dcp_crtc->pending_seq_id,
-+			       cstate->hfi_error,
-+			       dcp_crtc->commit_seq_id != dcp_crtc->pending_seq_id ?
-+			       " MISMATCH-UNCONFIRMED-FRAME" : "");
-+		drm_crtc_send_vblank_event(crtc, dcp_crtc->event);
-+		dcp_crtc->event = NULL;
-+	}
-+	spin_unlock_irqrestore(&crtc->dev->event_lock, flags);
-+}
++	plane_bw = (u64)src_w * mode->vtotal * fps * bpp * scale_factor;
++	prefill_bw = plane_bw * hw_latency;
 +
-+int dcp_crtc_vblank(struct drm_crtc *crtc, bool enable)
-+{
-+	struct dcp_dpu_kms *dcp_kms = dcp_crtc_get_kms(crtc);
-+	u32 session_id;
-+	int ret;
-+
-+	/* A published session implies KMS/HFI setup has completed. */
-+	if (!dcp_crtc_get_session(crtc, &session_id))
-+		return -ENODEV;
-+
-+	if (enable)
-+		ret = dcp_hfi_display_event_register_async(dcp_kms->hfi,
-+							   session_id, HFI_EVENT_VSYNC);
++	if ((vbp + vpw) > hw_latency)
++		do_div(prefill_bw, (vbp + vpw));
++	else if ((vbp + vpw + vfp) < hw_latency)
++		do_div(prefill_bw, (vbp + vpw + vfp));
 +	else
-+		ret = dcp_hfi_display_event_deregister_async(dcp_kms->hfi,
-+							     session_id, HFI_EVENT_VSYNC);
++		do_div(prefill_bw, hw_latency);
++
++	/* HFI DRAM/LLCC votes are expressed in Kbps. */
++	return div_u64(max(plane_bw, prefill_bw), 1000);
++}
++
++static u64 dcp_plane_calc_clk(const struct drm_display_mode *mode,
++			      const struct drm_rect *src,
++			      const struct drm_rect *dst)
++{
++	int src_h = drm_rect_height(src) >> 16;
++	int dst_w = drm_rect_width(dst);
++	int dst_h = drm_rect_height(dst);
++	int fps   = drm_mode_vrefresh(mode);
++	u64 clk   = (u64)dst_w * mode->vtotal * fps;
++
++	if (src_h > dst_h) {
++		clk *= src_h;
++		do_div(clk, dst_h);
++	}
++	return clk;
++}
++
++void dcp_plane_calc_perf(const struct drm_plane_state *state,
++			 const struct drm_display_mode *mode,
++			 struct dcp_plane_perf *perf)
++{
++	struct drm_rect src, dst;
++	u32 bpp;
++
++	memset(perf, 0, sizeof(*perf));
++
++	if (!state || !state->visible || !state->fb || !mode || !mode->clock ||
++	    !drm_mode_vrefresh(mode))
++		return;
++
++	src = drm_plane_state_src(state);
++	dst = drm_plane_state_dest(state);
++	bpp = drm_format_info_bpp(state->fb->format, 0);
++
++	perf->fetch_bw = dcp_plane_calc_bw(bpp, mode, &src, &dst);
++	perf->clk = dcp_plane_calc_clk(mode, &src, &dst);
++}
++
++static inline u32 *prop_u32(u32 *p, u32 prop_id, u32 lid, u32 val)
++{
++	*p++ = HFI_PACK_KEY(prop_id, 0, 2);
++	*p++ = lid;
++	*p++ = val;
++	return p;
++}
++
++static inline u32 *prop_roi(u32 *p, u32 prop_id, u32 lid,
++			    u32 x, u32 y, u32 w, u32 h)
++{
++	*p++ = HFI_PACK_KEY(prop_id, 0, 5);
++	*p++ = lid;
++	*p++ = x; *p++ = y; *p++ = w; *p++ = h;
++	return p;
++}
++
++static inline u32 *prop_attach(u32 *p, u32 lid)
++{
++	*p++ = HFI_PACK_KEY(HFI_PROPERTY_DISPLAY_ATTACH_LAYER, 0, 1);
++	*p++ = lid;
++	return p;
++}
++
++static inline u32 *prop_src_addr(u32 *p, u32 lid,
++				 const dma_addr_t *iova, u32 hfi_fmt)
++{
++	/* The firmware format is struct hfi_plane_buff: all low words,
++	 * followed by all high words, then the common descriptor fields.
++	 */
++	p += HFI_PACK(p, HFI_PROPERTY_LAYER_SRC_ADDR, lid,
++		      lower_32_bits(iova[0]), lower_32_bits(iova[1]),
++		      lower_32_bits(iova[2]), lower_32_bits(iova[3]),
++		      upper_32_bits(iova[0]), upper_32_bits(iova[1]),
++		      upper_32_bits(iova[2]), upper_32_bits(iova[3]),
++		      0, 0, 0, hfi_fmt);
++	return p;
++}
++
++static inline u32 *prop_stride(u32 *p, u32 lid, const u32 *pitches)
++{
++	int i;
++
++	*p++ = HFI_PACK_KEY(HFI_PROPERTY_LAYER_STRIDE, 0, 5);
++	*p++ = lid;
++	for (i = 0; i < 4; i++)
++		*p++ = pitches[i];
++	return p;
++}
++
++static inline u32 *prop_cache_attr(u32 *p, u32 lid, u32 state, u32 op)
++{
++	*p++ = HFI_PACK_KEY(HFI_PROPERTY_LAYER_CACHE_ATTR, 0, 3);
++	*p++ = lid;
++	*p++ = state;
++	*p++ = op;
++	return p;
++}
++
++static int dcp_plane_build_one_hfi_props_packet(struct dcp_plane_state *pstate,
++						const struct drm_plane_state *state,
++						u32 session_id, u32 packet_id,
++						u8 *packet)
++{
++	struct drm_framebuffer *fb = state->fb;
++	struct hfi_cmd_buff_hdl hdl;
++	struct hfi_header_info hdr_info;
++	struct hfi_packet_info pkt_info;
++	u32 payload[DCP_PLANE_PROP_PKT_MAX_SIZE / sizeof(u32)];
++	u32 *p = payload;
++	u32 *num_props_ptr;
++	u32 num_props = 0;
++	u32 hfi_format;
++	u32 hfi_rotation;
++	u32 hfi_blend_op;
++	u32 pitches[4] = { 0 };
++	dma_addr_t fb_iova[HFI_MAX_PLANES] = { 0 };
++	u32 src_x, src_y, src_w, src_h;
++	u32 dst_x, dst_y, dst_w, dst_h;
++	u32 hfi_alpha, hfi_bg_alpha;
++	u32 lid = pstate->hfi_pipe_id;
++	int i, ret;
++	u32 payload_words;
++
++	hfi_format = pstate->hfi_format;
++
++	hfi_rotation = dcp_drm_to_hfi_rotation(state->rotation);
++	hfi_blend_op = dcp_drm_to_hfi_blend_op(state->pixel_blend_mode);
++
++	src_x = state->src_x >> 16;
++	src_y = state->src_y >> 16;
++	src_w = state->src_w >> 16;
++	src_h = state->src_h >> 16;
++	dst_x = state->crtc_x;
++	dst_y = state->crtc_y;
++	dst_w = state->crtc_w;
++	dst_h = state->crtc_h;
++
++	hfi_alpha = dcp_hfi_scale_alpha(state, state->alpha);
++	hfi_bg_alpha = dcp_hfi_scale_alpha(state,
++					   dcp_compute_bg_alpha(state->pixel_blend_mode,
++								state->alpha));
++
++	for (i = 0; i < 4 && i < fb->format->num_planes; i++)
++		pitches[i] = fb->pitches[i];
++
++	for (i = 0; i < HFI_MAX_PLANES && i < fb->format->num_planes; i++)
++		fb_iova[i] = msm_framebuffer_iova(fb, i);
++
++	num_props_ptr = p++;
++
++	p = prop_roi(p, HFI_PROPERTY_LAYER_SRC_ROI, lid,
++		     src_x, src_y, src_w, src_h);
++	num_props++;
++
++	p = prop_roi(p, HFI_PROPERTY_LAYER_DEST_ROI, lid,
++		     dst_x, dst_y, dst_w, dst_h);
++	num_props++;
++
++	p = prop_attach(p, lid);
++	num_props++;
++
++	p = prop_src_addr(p, lid, fb_iova, hfi_format);
++	num_props++;
++
++	p = prop_stride(p, lid, pitches);
++	num_props++;
++
++	p = prop_u32(p, HFI_PROPERTY_LAYER_SRC_FORMAT, lid, hfi_format);
++	num_props++;
++
++	p = prop_u32(p, HFI_PROPERTY_LAYER_ROTATION, lid, hfi_rotation);
++	num_props++;
++
++	p = prop_cache_attr(p, lid,
++			    HFI_CACHE_STATE_DISABLE,
++			    HFI_CACHE_OP_TYPE_NONE);
++	num_props++;
++
++	p = prop_u32(p, HFI_PROPERTY_LAYER_ZPOS, lid,
++		     state->normalized_zpos);
++	num_props++;
++
++	p = prop_u32(p, HFI_PROPERTY_LAYER_ALPHA, lid, hfi_alpha);
++	num_props++;
++
++	p = prop_u32(p, HFI_PROPERTY_LAYER_BG_ALPHA, lid, hfi_bg_alpha);
++	num_props++;
++
++	p = prop_u32(p, HFI_PROPERTY_LAYER_BLEND_TYPE, lid, hfi_blend_op);
++	num_props++;
++
++	p = prop_u32(p, HFI_PROPERTY_LAYER_SRC_IMG_SIZE_W, lid,
++		     pstate->src_img_w);
++	num_props++;
++
++	p = prop_u32(p, HFI_PROPERTY_LAYER_SRC_IMG_SIZE_H, lid,
++		     pstate->src_img_h);
++	num_props++;
++
++	*num_props_ptr = num_props;
++
++	payload_words = p - payload;
++
++	hdl.cmd_buffer = packet;
++	hdl.size       = DCP_PLANE_PROP_PKT_MAX_SIZE;
++
++	hdr_info.num_packets   = 0;
++	hdr_info.cmd_buff_type = HFI_CMD_BUFF_DISPLAY;
++	hdr_info.object_id     = session_id;
++	hdr_info.header_id     = packet_id;
++
++	ret = hfi_create_header(&hdl, &hdr_info);
 +	if (ret)
 +		return ret;
 +
++	pkt_info.cmd          = HFI_COMMAND_DISPLAY_SET_PROPERTY;
++	pkt_info.id           = session_id & 0xFFFF;
++	pkt_info.flags        = HFI_TX_FLAGS_NON_DISCARDABLE;
++	pkt_info.packet_id    = packet_id;
++	pkt_info.payload_type = HFI_PAYLOAD_U32_ARRAY;
++	pkt_info.payload_size = payload_words * sizeof(u32);
++	pkt_info.payload_ptr  = payload;
++
++	ret = hfi_create_full_packet(&hdl, &pkt_info);
++	if (ret) {
++		pstate->prop_pkt_size = 0;
++		return ret;
++	}
++
++	pstate->prop_pkt_size = hfi_get_header_size(&hdl);
++
++	drm_dbg_driver(state->plane->dev,
++		       "DCP_COMMIT p=%u pipe=%u src=%ux%u+%ux%u dst=%ux%u+%ux%u fmt=0x%x mod=0x%llx alpha=%u bg_alpha=%u props=%u words=%u size=%zu\n",
++		       state->plane->base.id, lid, src_x, src_y, src_w, src_h,
++		       dst_x, dst_y, dst_w, dst_h, hfi_format, fb->modifier,
++		       hfi_alpha, hfi_bg_alpha, num_props, payload_words,
++		       pstate->prop_pkt_size);
 +	return 0;
 +}
 +
-+static void dcp_crtc_vblank_callback(struct drm_crtc *crtc, u64 timestamp_ns)
++static int dcp_plane_build_hfi_props_packet(struct dcp_plane_state *pstate,
++					    const struct drm_plane_state *state,
++					    u32 session_id, u32 packet_id)
 +{
-+	struct dcp_crtc *dcp_crtc = to_dcp_crtc(crtc);
-+
-+	/* DRM owns the vblank enable state and filters late HFI callbacks. */
-+	if (!READ_ONCE(drm_crtc_vblank_crtc(crtc)->enabled))
-+		return;
-+
-+	if (timestamp_ns)
-+		WRITE_ONCE(dcp_crtc->hw_vblank_timestamp_ns, timestamp_ns);
-+
-+	if (ktime_compare(dcp_crtc->vblank_cb_time, ktime_set(0, 0)) == 0)
-+		dcp_crtc->vblank_cb_time = ktime_get();
-+	else
-+		dcp_crtc->vblank_cb_count++;
-+
-+	drm_dbg_driver(crtc->dev,
-+		       "DCP_TS CRTC%u: HFI VSYNC time=%lld hw_time=%llu vblank_count=%llu (pre-handle)\n",
-+		       dcp_crtc->display_id, ktime_to_ns(ktime_get()),
-+		       timestamp_ns, drm_crtc_vblank_count(crtc));
-+	drm_crtc_handle_vblank(crtc);
-+}
-+
-+static struct drm_crtc *dcp_crtc_find_by_session_id(struct dcp_dpu_kms *dcp_kms,
-+						    u32 session_id)
-+{
-+	struct drm_crtc *crtc;
-+	u32 active_session_id;
-+	unsigned int i;
-+
-+	for (i = 0; i < dcp_kms->num_crtcs; i++) {
-+		crtc = dcp_kms->crtcs[i].crtc;
-+		if (crtc && dcp_crtc_get_session(crtc, &active_session_id) &&
-+		    active_session_id == session_id)
-+			return crtc;
-+	}
-+
-+	return NULL;
-+}
-+
-+void dcp_crtc_hfi_vblank_cb(struct dcp_drv *drv, u32 session_id, u64 timestamp_ns)
-+{
-+	struct drm_crtc *crtc;
-+
-+	/* Ignore async events until KMS is linked during probe or teardown. */
-+	if (!drv || !drv->kms)
-+		return;
-+
-+	crtc = dcp_crtc_find_by_session_id(drv->kms, session_id);
-+	if (!crtc) {
-+		drm_err_ratelimited(drv->kms->dev,
-+				    "unknown CRTC for HFI VSYNC session %u\n",
-+				    session_id);
-+		return;
-+	}
-+
-+	dcp_crtc_vblank_callback(crtc, timestamp_ns);
-+}
-+
-+void dcp_crtc_hfi_frame_done_cb(struct dcp_drv *drv, u32 session_id,
-+				u32 sequence_id, u64 timestamp_ns)
-+{
-+	struct dcp_dpu_kms *dcp_kms;
-+	struct dcp_crtc *dcp_crtc;
-+	struct drm_crtc *crtc;
-+
-+	/* Ignore async events until KMS is linked during probe or teardown. */
-+	if (!drv || !drv->kms)
-+		return;
-+
-+	dcp_kms = drv->kms;
-+	crtc = dcp_crtc_find_by_session_id(dcp_kms, session_id);
-+	if (!crtc) {
-+		drm_err_ratelimited(dcp_kms->dev,
-+				    "unknown CRTC for HFI frame-done session %u seq=%u\n",
-+				    session_id, sequence_id);
-+		return;
-+	}
-+
-+	dcp_crtc = to_dcp_crtc(crtc);
-+	/* A single pending commit makes equality valid across sequence wrap. */
-+	if (sequence_id != dcp_crtc->pending_seq_id) {
-+		drm_warn(crtc->dev,
-+			 "CRTC%u: ignoring stale FRAME_SCAN_COMPLETE seq=%u expected=%u\n",
-+			 dcp_crtc->display_id, sequence_id,
-+			 dcp_crtc->pending_seq_id);
-+		return;
-+	}
-+	drm_dbg_driver(crtc->dev,
-+		       "DCP_TS CRTC%u: FRAME_SCAN_COMPLETE seq=%u time=%lld hw_time=%llu vblank_count=%llu\n",
-+		       dcp_crtc->display_id, sequence_id,
-+		       ktime_to_ns(ktime_get()), timestamp_ns,
-+		       drm_crtc_vblank_count(crtc));
-+	atomic_add_unless(&dcp_crtc->pending_kickoff_cnt, -1, 0);
-+	wake_up(&dcp_crtc->frame_done_wq);
-+}
-+
-+static int dcp_crtc_setup_mixer_rois(struct drm_crtc *crtc,
-+				     struct drm_crtc_state *crtc_state,
-+				     struct dcp_crtc_state *cstate)
-+{
-+	const struct drm_display_mode *mode = &crtc_state->adjusted_mode;
-+	u32 mixer_count = cstate->topology_mixer_count;
-+	u32 mixer_width = mode->hdisplay / mixer_count;
-+	u32 i;
-+
-+	if (!mixer_width)
-+		return -EINVAL;
-+
-+	for (i = 0; i < mixer_count; i++) {
-+		struct drm_rect *roi = &cstate->mixer_roi[i];
-+
-+		roi->x1 = (mode->hdisplay * i) / mixer_count;
-+		roi->y1 = 0;
-+		roi->x2 = (mode->hdisplay * (i + 1)) / mixer_count;
-+		roi->y2 = mode->vdisplay;
-+		drm_dbg_driver(crtc->dev,
-+			       "DCP_CHECK CRTC%u LM%u roi=(%d,%d %dx%d)\n",
-+				to_dcp_crtc(crtc)->display_id, i,
-+				roi->x1, roi->y1,
-+				drm_rect_width(roi), drm_rect_height(roi));
-+	}
-+
-+	return 0;
-+}
-+
-+static int dcp_crtc_atomic_check(struct drm_crtc *crtc,
-+				 struct drm_atomic_commit *state)
-+{
-+	struct dcp_dpu_kms *dcp_kms = dcp_crtc_get_kms(crtc);
-+	struct drm_crtc_state *crtc_state =
-+		drm_atomic_get_new_crtc_state(state, crtc);
-+	struct dcp_crtc_state *cstate = to_dcp_crtc_state(crtc_state);
-+	u32 mixer_count;
 +	int ret;
 +
-+	drm_dbg_atomic(crtc->dev, "CRTC%u: atomic_check enable=%d active=%d mode=%s\n",
-+		       crtc->base.id, crtc_state->enable, crtc_state->active,
-+		       crtc_state->mode.name[0] ? crtc_state->mode.name : "none");
++	pstate->prop_pkt_size = 0;
 +
-+	if (!crtc_state->enable || !crtc_state->active)
++	ret = dcp_plane_build_one_hfi_props_packet(pstate, state, session_id,
++						   packet_id, pstate->prop_pkt);
++	return ret;
++}
++
++static int dcp_plane_prepare_fb(struct drm_plane *plane,
++				struct drm_plane_state *new_state)
++{
++	struct dcp_plane_state *pstate = to_dcp_plane_state(new_state);
++	int ret;
++
++	drm_dbg_driver(plane->dev,
++		       "plane%u: prepare_fb fb=%u\n",
++		       plane->base.id,
++		       new_state->fb ? new_state->fb->base.id : 0);
++
++	if (!new_state->fb)
 +		return 0;
 +
-+	mixer_count = cstate->topology_mixer_count;
-+	if (mixer_count < 1 || mixer_count > DCP_MAX_MIXERS) {
-+		drm_dbg_atomic(crtc->dev,
-+			       "CRTC%u: invalid mixer count %u (limit 1..%u)\n",
-+				crtc->base.id, mixer_count, DCP_MAX_MIXERS);
-+		return -EINVAL;
-+	}
-+
-+	ret = dcp_crtc_setup_mixer_rois(crtc, crtc_state, cstate);
++	ret = drm_gem_plane_helper_prepare_fb(plane, new_state);
 +	if (ret)
 +		return ret;
 +
-+	if (crtc_state->adjusted_mode.hdisplay > dcp_kms->caps->max_width) {
-+		drm_dbg_atomic(crtc->dev,
-+			       "CRTC%u: mode width %d exceeds DCP max width %u\n",
-+			       crtc->base.id,
-+			       crtc_state->adjusted_mode.hdisplay,
-+			       dcp_kms->caps->max_width);
++	ret = msm_framebuffer_prepare(new_state->fb, pstate->needs_dirtyfb);
++	if (ret) {
++		drm_err(plane->dev, "plane%u: framebuffer prepare failed: %d\n",
++			plane->base.id, ret);
++		return ret;
++	}
++
++	return 0;
++}
++
++static void dcp_plane_cleanup_fb(struct drm_plane *plane,
++				 struct drm_plane_state *old_state)
++{
++	struct dcp_plane_state *pstate = to_dcp_plane_state(old_state);
++
++	drm_dbg_driver(plane->dev,
++		       "plane%u: cleanup_fb fb=%u\n",
++		       plane->base.id,
++		       old_state->fb ? old_state->fb->base.id : 0);
++
++	if (!old_state->fb)
++		return;
++
++	msm_framebuffer_cleanup(old_state->fb, pstate->needs_dirtyfb);
++}
++
++static int dcp_plane_atomic_check(struct drm_plane *plane,
++				  struct drm_atomic_commit *state)
++{
++	struct drm_plane_state *new_state =
++		drm_atomic_get_new_plane_state(state, plane);
++	struct dcp_plane_state *pstate = to_dcp_plane_state(new_state);
++	struct dcp_dpu_kms *dcp_kms = _dcp_plane_get_kms(plane);
++	struct drm_crtc_state *crtc_state;
++	struct drm_rect src;
++	struct drm_rect fb_rect = { 0 };
++	int min_scale = DRM_PLANE_NO_SCALING;
++	int max_scale = DRM_PLANE_NO_SCALING;
++	bool scaling;
++	int ret, i;
++	struct dcp_plane_perf perf;
++
++	drm_dbg_driver(plane->dev,
++		       "DCP_CHECK plane%u pipe=%u src=(%u,%u %ux%u) dst=(%d,%d %ux%u)\n",
++			plane->base.id, pstate->hfi_pipe_id,
++			new_state->src_x >> 16, new_state->src_y >> 16,
++			new_state->src_w >> 16, new_state->src_h >> 16,
++			new_state->crtc_x, new_state->crtc_y,
++			new_state->crtc_w, new_state->crtc_h);
++
++	pstate->prop_pkt_size = 0;
++	pstate->fetch_bw = 0;
++	pstate->clk = 0;
++
++	if (!new_state->crtc)
++		return 0;
++
++	crtc_state = drm_atomic_get_new_crtc_state(state, new_state->crtc);
++	if (IS_ERR(crtc_state)) {
++		ret = PTR_ERR(crtc_state);
++		drm_err(plane->dev, "plane%u: failed to get CRTC state: %d\n",
++			plane->base.id, ret);
++		return ret;
++	}
++
++	if (!new_state->fb)
++		return 0;
++
++	scaling = new_state->src_w != ((u32)new_state->crtc_w << 16) ||
++			  new_state->src_h != ((u32)new_state->crtc_h << 16);
++
++	pstate->hfi_pipe_id = dcp_plane_assign_pipe(dcp_kms, state, plane,
++						    pstate, new_state->fb->format->is_yuv,
++						    scaling);
++	if (pstate->hfi_pipe_id == U32_MAX) {
++		drm_err(plane->dev, "plane%u: no compatible HFI pipe available\n",
++			plane->base.id);
++		return -ENOSPC;
++	}
++
++	if (dcp_plane_pipe_is_vig(dcp_kms->caps, pstate->hfi_pipe_id)) {
++		min_scale = FRAC_16_16(1, DCP_MAX_UPSCALE_RATIO);
++		max_scale = DCP_MAX_DOWNSCALE_RATIO << 16;
++	}
++
++	ret = drm_atomic_helper_check_plane_state(new_state, crtc_state,
++						  min_scale, max_scale,
++						  true, true);
++	if (ret) {
++		drm_err(plane->dev, "plane%u: plane state check failed: %d\n",
++			plane->base.id, ret);
++		return ret;
++	}
++
++	if (!new_state->visible)
++		return 0;
++	if (new_state->crtc_x < 0 || new_state->crtc_y < 0 ||
++	    new_state->crtc_w <= 0 || new_state->crtc_h <= 0 ||
++	    (u64)new_state->crtc_x + new_state->crtc_w >
++			crtc_state->adjusted_mode.hdisplay ||
++	    (u64)new_state->crtc_y + new_state->crtc_h >
++			crtc_state->adjusted_mode.vdisplay) {
++		drm_err(plane->dev,
++			"plane%u: destination out of bounds: (%d,%d %ux%u), mode %ux%u\n",
++			plane->base.id, new_state->crtc_x, new_state->crtc_y,
++			new_state->crtc_w, new_state->crtc_h,
++			crtc_state->adjusted_mode.hdisplay,
++			crtc_state->adjusted_mode.vdisplay);
++		return -EINVAL;
++	}
++
++	if (new_state->normalized_zpos >= DCP_MAX_BLEND_STAGES) {
++		drm_dbg_atomic(plane->dev,
++			       "plane%u: zpos %u exceeds blend stages %u\n",
++				plane->base.id, new_state->normalized_zpos,
++				DCP_MAX_BLEND_STAGES);
++		return -EINVAL;
++	}
++
++	dcp_plane_calc_perf(new_state, &crtc_state->adjusted_mode, &perf);
++	pstate->fetch_bw = perf.fetch_bw;
++	pstate->clk = perf.clk;
++
++	pstate->hfi_format = dcp_drm_to_hfi_format(new_state->fb->format->format,
++						   new_state->fb->modifier);
++	if (pstate->hfi_format == U32_MAX) {
++		drm_dbg_atomic(plane->dev, "plane%u: unsupported format 0x%x mod 0x%llx\n",
++			       plane->base.id,
++				 new_state->fb->format->format,
++				 new_state->fb->modifier);
++		drm_err(plane->dev,
++			"plane%u: unsupported format 0x%x modifier 0x%llx\n",
++			plane->base.id, new_state->fb->format->format,
++			new_state->fb->modifier);
++		return -EINVAL;
++	}
++
++	fb_rect.x2 = new_state->fb->width;
++	fb_rect.y2 = new_state->fb->height;
++
++	if (drm_rect_width(&fb_rect) > DCP_MAX_IMG_WIDTH ||
++	    drm_rect_height(&fb_rect) > DCP_MAX_IMG_HEIGHT) {
++		drm_err(plane->dev,
++			"plane%u: framebuffer too large: %ux%u (limit %ux%u)\n",
++			plane->base.id, new_state->fb->width, new_state->fb->height,
++			DCP_MAX_IMG_WIDTH, DCP_MAX_IMG_HEIGHT);
 +		return -E2BIG;
 +	}
 +
++	for (i = 0; i < new_state->fb->format->num_planes; i++) {
++		if (new_state->fb->pitches[i] > DCP_SSPP_MAX_PITCH_SIZE) {
++			drm_err(plane->dev,
++				"plane%u: pitch[%d]=%u exceeds limit %u\n",
++				plane->base.id, i, new_state->fb->pitches[i],
++				DCP_SSPP_MAX_PITCH_SIZE);
++			return -E2BIG;
++		}
++	}
++
++	src = drm_plane_state_src(new_state);
++
++	pstate->src_img_w = new_state->fb->width;
++	pstate->src_img_h = new_state->fb->height;
++
++	if (new_state->fb->format->is_yuv) {
++		u32 src_x = src.x1 >> 16;
++		u32 src_y = src.y1 >> 16;
++		u32 src_w = drm_rect_width(&src) >> 16;
++		u32 src_h = drm_rect_height(&src) >> 16;
++
++		if (src_w < 2 || src_h < 2) {
++			drm_err(plane->dev,
++				"plane%u: YUV source too small: %ux%u\n",
++				plane->base.id, src_w, src_h);
++			return -EINVAL;
++		}
++
++		if (src_x & 0x1 || src_y & 0x1 || src_w & 0x1 || src_h & 0x1) {
++			drm_err(plane->dev,
++				"plane%u: unaligned YUV source: (%u,%u %ux%u)\n",
++				plane->base.id, src_x, src_y, src_w, src_h);
++			return -EINVAL;
++		}
++	}
++
 +	return 0;
 +}
 +
-+static u32 dcp_crtc_get_vblank_counter(struct drm_crtc *crtc)
++static void dcp_plane_set_hfi_error(const struct drm_plane_state *state, int ret)
 +{
-+	return drm_crtc_vblank_count(crtc);
++	struct dcp_crtc_state *cstate;
++
++	cstate = to_dcp_crtc_state(state->crtc->state);
++	if (!cstate->hfi_error)
++		cstate->hfi_error = ret;
 +}
 +
-+static bool dcp_crtc_get_vblank_timestamp(struct drm_crtc *crtc, int *max_error,
-+					  ktime_t *vblank_time, bool in_vblank_irq)
++static int dcp_plane_submit_update(struct drm_plane *plane,
++				   struct drm_plane_state *new_state)
 +{
-+	struct dcp_crtc *dcp_crtc = to_dcp_crtc(crtc);
-+	u64 timestamp_ns = READ_ONCE(dcp_crtc->hw_vblank_timestamp_ns);
-+
-+	if (!timestamp_ns)
-+		return false;
-+
-+	*vblank_time = ns_to_ktime(timestamp_ns);
-+	return true;
-+}
-+
-+static void dcp_crtc_atomic_enable(struct drm_crtc *crtc,
-+				   struct drm_atomic_commit *state)
-+{
-+	struct dcp_dpu_kms *dcp_kms = dcp_crtc_get_kms(crtc);
-+	struct dcp_crtc_state *cstate = to_dcp_crtc_state(crtc->state);
++	struct dcp_plane_state *pstate = to_dcp_plane_state(new_state);
++	struct dcp_dpu_kms *dcp_kms = _dcp_plane_get_kms(plane);
 +	u32 session_id;
 +	int ret;
 +
-+	if (!dcp_crtc_get_session(crtc, &session_id))
-+		return;
-+
-+	ret = dcp_hfi_crtc_set_power_mode(dcp_kms->hfi, session_id,
-+					  HFI_MODE_DPMS_ON);
-+	if (ret) {
-+		drm_err(crtc->dev, "CRTC%u: DPMS ON failed: %d\n",
-+			to_dcp_crtc(crtc)->display_id, ret);
-+		cstate->hfi_error = ret;
++	if (!dcp_crtc_get_session(new_state->crtc, &session_id)) {
++		drm_dbg_driver(plane->dev,
++			       "plane%u: update before HFI session open, deferring\n",
++			       plane->base.id);
++		return 0;
 +	}
 +
-+	drm_crtc_vblank_on(crtc);
++	pstate->prop_pkt_id =
++		(u32)atomic_inc_return(&dcp_kms->hfi->packet_id);
++
++	ret = dcp_plane_build_hfi_props_packet(pstate, new_state, session_id,
++					       pstate->prop_pkt_id);
++	if (ret)
++		return ret;
++
++	ret = dcp_hfi_submit_prop_pkt(dcp_kms->hfi, pstate->prop_pkt,
++				      pstate->prop_pkt_size);
++	if (ret)
++		return ret;
++
++	drm_dbg_driver(plane->dev,
++		       "plane%u: submitted HFI update pipe=%u bytes=%zu\n",
++		       plane->base.id, pstate->hfi_pipe_id, pstate->prop_pkt_size);
++
++	return 0;
 +}
 +
-+static void dcp_crtc_atomic_disable(struct drm_crtc *crtc,
++static int dcp_plane_submit_disable(struct drm_plane *plane,
++				    struct drm_plane_state *old_state)
++{
++	struct dcp_plane_state *pstate = to_dcp_plane_state(old_state);
++	struct dcp_dpu_kms *dcp_kms = _dcp_plane_get_kms(plane);
++	u32 session_id;
++
++	if (!old_state->crtc)
++		return 0;
++
++	if (!dcp_crtc_get_session(old_state->crtc, &session_id)) {
++		drm_dbg_driver(plane->dev,
++			       "plane%u: disable after HFI session close, skipping detach\n",
++			       plane->base.id);
++		return 0;
++	}
++
++	return dcp_hfi_plane_disable(dcp_kms->hfi, session_id,
++				     pstate->hfi_pipe_id);
++}
++
++static void dcp_plane_atomic_update(struct drm_plane *plane,
 +				    struct drm_atomic_commit *state)
 +{
-+	struct dcp_dpu_kms *dcp_kms = dcp_crtc_get_kms(crtc);
-+	struct dcp_crtc_state *cstate = to_dcp_crtc_state(crtc->state);
-+	u32 session_id;
++	struct drm_plane_state *new_state =
++		drm_atomic_get_new_plane_state(state, plane);
++	struct dcp_plane_state *pstate = to_dcp_plane_state(new_state);
 +	int ret;
 +
-+	if (dcp_crtc_get_session(crtc, &session_id)) {
-+		ret = dcp_hfi_crtc_set_bw(dcp_kms->hfi, session_id, 0, 0, 0, 0, 0);
-+		if (ret) {
-+			drm_err(crtc->dev,
-+				"CRTC%u: clearing bandwidth vote failed: %d\n",
-+				to_dcp_crtc(crtc)->display_id, ret);
-+			cstate->hfi_error = ret;
-+		}
++	drm_dbg_driver(plane->dev,
++		       "plane%u: atomic_update visible=%d fb=%u pipe_id=%u\n",
++		       plane->base.id, new_state->visible,
++		       new_state->fb ? new_state->fb->base.id : 0,
++		       pstate->hfi_pipe_id);
 +
-+		ret = dcp_hfi_crtc_set_power_mode(dcp_kms->hfi, session_id,
-+						  HFI_MODE_DPMS_OFF);
-+		if (ret) {
-+			drm_err(crtc->dev, "CRTC%u: DPMS OFF failed: %d\n",
-+				to_dcp_crtc(crtc)->display_id, ret);
-+			cstate->hfi_error = ret;
-+		}
-+	}
++	pstate->prop_pkt_size = 0;
 +
-+	drm_crtc_vblank_off(crtc);
-+}
++	if (!new_state->visible || !new_state->fb)
++		return;
 +
-+static const struct drm_crtc_funcs dcp_crtc_funcs = {
-+	.set_config             = drm_atomic_helper_set_config,
-+	.page_flip              = drm_atomic_helper_page_flip,
-+	.atomic_create_state    = dcp_crtc_atomic_create_state,
-+	.atomic_duplicate_state = dcp_crtc_atomic_duplicate_state,
-+	.atomic_destroy_state   = dcp_crtc_atomic_destroy_state,
-+	.enable_vblank          = msm_crtc_enable_vblank,
-+	.disable_vblank         = msm_crtc_disable_vblank,
-+	.get_vblank_counter     = dcp_crtc_get_vblank_counter,
-+	.get_vblank_timestamp   = dcp_crtc_get_vblank_timestamp,
-+};
-+
-+static const struct drm_crtc_helper_funcs dcp_crtc_helper_funcs = {
-+	.atomic_check         = dcp_crtc_atomic_check,
-+	.atomic_enable        = dcp_crtc_atomic_enable,
-+	.atomic_disable       = dcp_crtc_atomic_disable,
-+	.atomic_begin         = dcp_crtc_atomic_begin,
-+	.atomic_flush         = dcp_crtc_atomic_flush,
-+	.mode_valid           = dcp_crtc_mode_valid,
-+};
-+
-+struct drm_crtc *dcp_crtc_init(struct dcp_dpu_kms *kms,
-+			       struct drm_plane *primary_plane,
-+			       u32 display_id)
-+{
-+	struct drm_device *dev = kms->dev;
-+	struct dcp_crtc *dcp_crtc;
-+	int ret;
-+
-+	dcp_crtc = drmm_kzalloc(dev, sizeof(*dcp_crtc), GFP_KERNEL);
-+	if (!dcp_crtc)
-+		return ERR_PTR(-ENOMEM);
-+
-+	dcp_crtc->display_id = display_id;
-+
-+	spin_lock_init(&dcp_crtc->spin_lock);
-+	init_waitqueue_head(&dcp_crtc->frame_done_wq);
-+	atomic_set(&dcp_crtc->pending_kickoff_cnt, 0);
-+
-+	ret = drmm_crtc_init_with_planes(dev, &dcp_crtc->base,
-+					 primary_plane, NULL,
-+					 &dcp_crtc_funcs,
-+					 NULL);
++	ret = dcp_plane_submit_update(plane, new_state);
 +	if (ret) {
-+		drm_err(dev, "CRTC%u init failed: %d\n", display_id, ret);
-+		return ERR_PTR(ret);
++		drm_err(plane->dev,
++			"plane%u: HFI update failed: %d\n", plane->base.id, ret);
++		dcp_plane_set_hfi_error(new_state, ret);
++		return;
++	}
++}
++
++static void dcp_plane_atomic_disable(struct drm_plane *plane,
++				     struct drm_atomic_commit *state)
++{
++	struct drm_plane_state *old_state =
++		drm_atomic_get_old_plane_state(state, plane);
++	struct dcp_plane_state *pstate = to_dcp_plane_state(old_state);
++	int ret;
++
++	drm_dbg_driver(plane->dev,
++		       "plane%u: atomic_disable pipe_id=%u\n",
++		       plane->base.id, pstate->hfi_pipe_id);
++
++	ret = dcp_plane_submit_disable(plane, old_state);
++	if (ret) {
++		drm_err(plane->dev,
++			"plane%u: HFI detach failed: %d\n", plane->base.id, ret);
++		dcp_plane_set_hfi_error(old_state, ret);
 +	}
 +
-+	drm_crtc_helper_add(&dcp_crtc->base, &dcp_crtc_helper_funcs);
-+
-+	drm_dbg_driver(dev, "CRTC%u initialized\n", display_id);
-+	return &dcp_crtc->base;
++	pstate->prop_pkt_size = 0;
++	pstate->prop_pkt_id = 0;
 +}
-diff --git a/drivers/gpu/drm/msm/dcp/dcp_crtc.h b/drivers/gpu/drm/msm/dcp/dcp_crtc.h
++
++static struct drm_plane_state *
++dcp_plane_atomic_duplicate_state(struct drm_plane *plane)
++{
++	struct dcp_plane_state *pstate, *old_pstate;
++
++	if (WARN_ON(!plane->state))
++		return NULL;
++
++	old_pstate = to_dcp_plane_state(plane->state);
++	pstate = kzalloc_obj(*pstate, GFP_KERNEL);
++	if (!pstate)
++		return NULL;
++
++	__drm_atomic_helper_plane_duplicate_state(plane, &pstate->base);
++	pstate->hfi_pipe_id     = old_pstate->hfi_pipe_id;
++	pstate->src_img_w       = old_pstate->src_img_w;
++	pstate->src_img_h       = old_pstate->src_img_h;
++	pstate->fetch_bw       = old_pstate->fetch_bw;
++	pstate->clk            = old_pstate->clk;
++	pstate->needs_dirtyfb  = old_pstate->needs_dirtyfb;
++	pstate->prop_pkt_size   = 0;
++	pstate->prop_pkt_id     = old_pstate->prop_pkt_id;
++
++	return &pstate->base;
++}
++
++static void dcp_plane_atomic_destroy_state(struct drm_plane *plane,
++					   struct drm_plane_state *state)
++{
++	__drm_atomic_helper_plane_destroy_state(state);
++	kfree(to_dcp_plane_state(state));
++}
++
++static struct drm_plane_state *
++dcp_plane_atomic_create_state(struct drm_plane *plane)
++{
++	struct dcp_plane_state *pstate;
++	u32 hfi_pipe_id = to_dcp_plane(plane)->hfi_pipe_id;
++
++	pstate = kzalloc_obj(*pstate, GFP_KERNEL);
++	if (!pstate)
++		return NULL;
++
++	__drm_atomic_helper_plane_state_init(&pstate->base, plane);
++	pstate->hfi_pipe_id = hfi_pipe_id;
++
++	return &pstate->base;
++}
++
++static void dcp_plane_atomic_print_state(struct drm_printer *p,
++					 const struct drm_plane_state *state)
++{
++	const struct dcp_plane_state *pstate = to_dcp_plane_state(state);
++
++	drm_printf(p, "\tprop_pkt_size=%zu\n", pstate->prop_pkt_size);
++	drm_printf(p, "\thfi_pipe_id=%u\n", pstate->hfi_pipe_id);
++
++	if (pstate->prop_pkt_size) {
++		u32 hfi_rot = dcp_drm_to_hfi_rotation(state->rotation);
++
++		drm_printf(p, "\thfi_format=0x%x\n", pstate->hfi_format);
++		drm_printf(p, "\thfi_rotation=0x%x\n", hfi_rot);
++	}
++}
++
++static bool dcp_plane_format_mod_supported(struct drm_plane *plane,
++					   u32 format, uint64_t modifier)
++{
++	if (modifier == DRM_FORMAT_MOD_LINEAR)
++		return true;
++
++	if (modifier == DRM_FORMAT_MOD_QCOM_COMPRESSED)
++		return dcp_drm_to_hfi_format(format, modifier) != U32_MAX;
++
++	return false;
++}
++
++static const struct drm_plane_helper_funcs dcp_plane_helper_funcs = {
++	.prepare_fb     = dcp_plane_prepare_fb,
++	.cleanup_fb     = dcp_plane_cleanup_fb,
++	.atomic_check   = dcp_plane_atomic_check,
++	.atomic_update  = dcp_plane_atomic_update,
++	.atomic_disable = dcp_plane_atomic_disable,
++};
++
++static const struct drm_plane_funcs dcp_plane_funcs = {
++	.update_plane           = drm_atomic_helper_update_plane,
++	.disable_plane          = drm_atomic_helper_disable_plane,
++	.atomic_create_state    = dcp_plane_atomic_create_state,
++	.atomic_duplicate_state = dcp_plane_atomic_duplicate_state,
++	.atomic_destroy_state   = dcp_plane_atomic_destroy_state,
++	.format_mod_supported   = dcp_plane_format_mod_supported,
++	.atomic_print_state     = dcp_plane_atomic_print_state,
++};
++
++struct drm_plane *dcp_plane_init(struct drm_device *dev,
++				 u32 hfi_pipe_id,
++				 enum drm_plane_type type,
++				 unsigned long possible_crtcs)
++{
++	struct dcp_plane *dcp_plane;
++	struct drm_plane *plane;
++	int ret;
++
++	dcp_plane = drmm_universal_plane_alloc(dev, struct dcp_plane, base,
++					       possible_crtcs,
++							       &dcp_plane_funcs,
++							       dcp_plane_formats,
++							       ARRAY_SIZE(dcp_plane_formats),
++							       dcp_format_modifiers,
++					   type, NULL);
++	if (IS_ERR(dcp_plane))
++		return ERR_CAST(dcp_plane);
++
++	plane = &dcp_plane->base;
++	drm_plane_helper_add(plane, &dcp_plane_helper_funcs);
++
++	ret = drm_plane_create_zpos_property(plane, 0, 0, DCP_ZPOS_MAX);
++	if (ret)
++		drm_dbg_driver(plane->dev, "plane%u: zpos property failed\n", hfi_pipe_id);
++
++	drm_plane_create_alpha_property(plane);
++
++	drm_plane_create_blend_mode_property(plane,
++					     BIT(DRM_MODE_BLEND_PIXEL_NONE) |
++		BIT(DRM_MODE_BLEND_PREMULTI) |
++		BIT(DRM_MODE_BLEND_COVERAGE));
++
++	drm_plane_create_rotation_property(plane,
++					   DRM_MODE_ROTATE_0,
++		DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_90 |
++		DRM_MODE_ROTATE_180 | DRM_MODE_ROTATE_270 |
++		DRM_MODE_REFLECT_X | DRM_MODE_REFLECT_Y);
++
++	drm_plane_enable_fb_damage_clips(plane);
++
++	dcp_plane->hfi_pipe_id = hfi_pipe_id;
++	if (plane->state)
++		to_dcp_plane_state(plane->state)->hfi_pipe_id = hfi_pipe_id;
++
++	drm_dbg_driver(dev, "plane initialized (type=%d, hfi_pipe_id=%u)\n",
++		       type, hfi_pipe_id);
++	return plane;
++}
+diff --git a/drivers/gpu/drm/msm/dcp/dcp_plane.h b/drivers/gpu/drm/msm/dcp/dcp_plane.h
 new file mode 100644
-index 000000000000..b6a435a686c5
+index 000000000000..377a156c046a
 --- /dev/null
-+++ b/drivers/gpu/drm/msm/dcp/dcp_crtc.h
-@@ -0,0 +1,85 @@
++++ b/drivers/gpu/drm/msm/dcp/dcp_plane.h
+@@ -0,0 +1,36 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
 + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 + *
-+ * DCP CRTC implementation.
++ * DCP plane implementation and API.
 + */
 +
-+#ifndef __DCP_CRTC_H__
-+#define __DCP_CRTC_H__
++#ifndef __DCP_PLANE_H__
++#define __DCP_PLANE_H__
 +
-+#include <linux/completion.h>
-+#include <linux/spinlock.h>
-+
-+#include <drm/drm_crtc.h>
-+#include <drm/drm_rect.h>
++#include "dcp_plane_state.h"
 +
 +struct dcp_dpu_kms;
-+struct drm_plane;
++struct drm_display_mode;
 +
-+#define DCP_MAX_MIXERS 6
-+#define DCP_MAX_BLEND_STAGES 12
-+
-+struct dcp_crtc {
-+	struct drm_crtc base;
-+	u32 display_id;
-+	u32 session_id;
-+	/* Set after DISPLAY_ENABLE; cleared after display teardown. ID zero is valid. */
-+	bool session_valid;
-+
-+	struct drm_pending_vblank_event *event;
-+	wait_queue_head_t frame_done_wq;
-+	atomic_t          pending_kickoff_cnt;
-+	/* Protects CRTC-local vblank and commit state. */
-+	spinlock_t        spin_lock;
-+	u32     vblank_cb_count;
-+	ktime_t vblank_cb_time;
-+	/* Latest firmware-reported VSYNC timestamp; 0 until the first HFI VSYNC. */
-+	u64     hw_vblank_timestamp_ns;
-+	bool    enabled;
-+	u32 commit_seq_id;
-+	u32 pending_seq_id;
++struct dcp_plane_perf {
++	u64 fetch_bw;
++	u64 clk;
 +};
 +
-+struct dcp_crtc_state {
-+	struct drm_crtc_state base;
-+
-+	u32 topology_mixer_count;
-+	u32 topology_bits_per_component;
-+	struct drm_rect mixer_roi[DCP_MAX_MIXERS];
-+
-+	int hfi_error;
-+	u64 bw_ctl;
-+
-+	u64 dram_ib;
-+	u64 dram_ab;
-+	u64 llcc_ib;
-+	u64 llcc_ab;
-+	u64 core_clk;
++struct dcp_plane {
++	struct drm_plane base;
++	u32 hfi_pipe_id;
 +};
 +
-+#define to_dcp_crtc(x)       container_of(x, struct dcp_crtc, base)
-+#define to_dcp_crtc_state(x) container_of(x, struct dcp_crtc_state, base)
++#define to_dcp_plane(x) container_of(x, struct dcp_plane, base)
 +
-+struct drm_crtc *dcp_crtc_init(struct dcp_dpu_kms *kms,
-+			       struct drm_plane *primary_plane,
-+			       u32 display_id);
++void dcp_plane_calc_perf(const struct drm_plane_state *state,
++			 const struct drm_display_mode *mode,
++			 struct dcp_plane_perf *perf);
++struct drm_plane *dcp_plane_init(struct drm_device *dev,
++				 u32 hfi_pipe_id,
++				 enum drm_plane_type type,
++				 unsigned long possible_crtcs);
 +
-+void dcp_crtc_commit_kickoff(struct drm_crtc *crtc);
-+void dcp_crtc_wait_for_commit_done(struct drm_crtc *crtc);
-+void dcp_crtc_complete_commit(struct drm_crtc *crtc);
-+int dcp_crtc_vblank(struct drm_crtc *crtc, bool enable);
-+
-+struct dcp_drv;
-+void dcp_crtc_hfi_vblank_cb(struct dcp_drv *drv, u32 session_id, u64 timestamp_ns);
-+void dcp_crtc_hfi_frame_done_cb(struct dcp_drv *drv, u32 session_id,
-+				u32 sequence_id, u64 timestamp_ns);
-+
-+void dcp_crtc_set_session(struct drm_crtc *crtc, u32 session_id);
-+void dcp_crtc_clear_session(struct drm_crtc *crtc);
-+bool dcp_crtc_get_session(struct drm_crtc *crtc, u32 *session_id);
-+void dcp_crtc_set_topology_state(struct drm_crtc_state *state,
-+				 u32 mixer_count,
-+				 u32 bits_per_component);
-+
-+#endif /* __DCP_CRTC_H__ */
-diff --git a/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c b/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c
++#endif /* __DCP_PLANE_H__ */
+diff --git a/drivers/gpu/drm/msm/dcp/dcp_plane_state.h b/drivers/gpu/drm/msm/dcp/dcp_plane_state.h
 new file mode 100644
-index 000000000000..44b1c2200aee
+index 000000000000..aafa93cb69b9
 --- /dev/null
-+++ b/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c
-@@ -0,0 +1,21 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ * DCP KMS driver.
-+ */
-+
-+#include <drm/drm_crtc.h>
-+
-+#include "dcp_dpu_kms.h"
-+
-+struct drm_crtc *dcp_dpu_kms_get_crtc(struct dcp_dpu_kms *dcp_kms,
-+				      u32 display_id)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < dcp_kms->num_crtcs; i++)
-+		if (dcp_kms->crtcs[i].display_id == display_id)
-+			return dcp_kms->crtcs[i].crtc;
-+
-+	return NULL;
-+}
-diff --git a/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.h b/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.h
-new file mode 100644
-index 000000000000..f8010fc5d32f
---- /dev/null
-+++ b/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.h
-@@ -0,0 +1,54 @@
++++ b/drivers/gpu/drm/msm/dcp/dcp_plane_state.h
+@@ -0,0 +1,37 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
 + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ * DCP KMS state.
++ *
++ * DCP plane state definitions.
 + */
 +
-+#ifndef __DCP_DPU_KMS_H__
-+#define __DCP_DPU_KMS_H__
++#ifndef __DCP_PLANE_STATE_H__
++#define __DCP_PLANE_STATE_H__
 +
-+#include <linux/spinlock.h>
++#include <drm/drm_plane.h>
 +
-+#include "msm_drv.h"
-+#include "msm_kms.h"
++#define DCP_PLANE_PROP_PKT_MAX_SIZE	512
 +
-+struct dcp_hfi;
-+struct dcp_caps;
-+struct dcp_dsi_bridge;
-+struct dcp_drv;
-+struct drm_crtc;
++struct dcp_plane_state {
++	struct drm_plane_state base;
 +
-+#define DCP_DPU_AUTOSUSPEND_DELAY_MS	5000
-+#define DCP_DPU_MAX_CRTCS	4
-+#define DCP_DPU_MAX_PLANES	12
++	u64 fetch_bw;
++	u64 clk;
 +
-+struct dcp_dpu_kms {
-+	struct msm_kms		 base;
-+	struct drm_device	*dev;
-+	struct device		*pm_dev;
-+	struct dcp_drv		*drv;
-+	struct dcp_hfi		*hfi;
-+	struct dcp_caps		*caps;
-+	struct device_node	*dpus_np;
-+	struct device		*iommu_dev;
-+	bool			 rpm_enabled;
-+	bool			 commit_pm_active;
-+	struct dcp_dsi_bridge	*dsi_bridge[2];
-+	struct {
-+		struct drm_crtc *crtc;
-+		u32 display_id;
-+	} crtcs[DCP_DPU_MAX_CRTCS];
-+	unsigned int num_crtcs;
++	u8     prop_pkt[DCP_PLANE_PROP_PKT_MAX_SIZE];
++	size_t prop_pkt_size;
++	u32 prop_pkt_id;
++
++	bool needs_dirtyfb;
++
++	u32 src_img_w;
++	u32 src_img_h;
++
++	u32 hfi_pipe_id;
++	u32 hfi_format;
 +};
 +
-+#define to_dcp_dpu_kms(x) container_of(x, struct dcp_dpu_kms, base)
-+struct drm_crtc *dcp_dpu_kms_get_crtc(struct dcp_dpu_kms *dcp_kms,
-+				      u32 display_id);
-+int dcp_dpu_kms_prepare_crtc_session(struct dcp_dpu_kms *dcp_kms,
-+				     struct drm_crtc *crtc);
++#define to_dcp_plane_state(x) \
++	container_of(x, struct dcp_plane_state, base)
 +
-+int dcp_dpu_drm_obj_init(struct dcp_dpu_kms *dcp_kms);
-+extern const struct msm_kms_funcs dcp_dpu_kms_funcs;
-+int dcp_kms_init(struct drm_device *ddev);
-+
-+#endif /* __DCP_DPU_KMS_H__ */
++#endif /* __DCP_PLANE_STATE_H__ */
 
 -- 
 2.43.0
