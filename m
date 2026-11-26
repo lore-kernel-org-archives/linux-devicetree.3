@@ -1,111 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795704474;
-	b=OBe3ODh+wPVO8DwSAGD7jgfcoXcY64kMdeOo4Jj6ZYfozScK0oK4E0+F2OeZS57nPkAR
-	 kNuk4m+pjHLWL7w/Ip0VkMgtjDTdsT4jrweXGKWtbr676f66yNOztCnAESK59XlIGVpu3
-	 BN5eOfHPfh+84ude+9EmZR6VQz6B2CrzrRmzcyq6i/nBXxbKtA6+o+Sr7vlzP2n7LuiuV
-	 1MAbvRX8xvnNULtLeBYcrz3SPXSQUiPQBhSK0/9gDEMx7y1wO+Lz0IhNinO+A1/ERjheN
-	 J/7yq+wPCubsU3hbWKx/BpbEwLiGBNICqoeLMgLa4b875nucHTE34DehkHvfE/uyP8Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795704474;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=8+yhG4UOZ9G9+Wb+KCpqRp/WNdBbXiIFvkS5c66yNN4=;
-	b=N0WH+KK602oLFat5QGNw3nc4CFSxWyIbY3yU+bCUb/0nHAXwkR0WRzsOBae6y6iWNd5p
-	 TBpQICmhadbKTVyQYncznEaVi5ldz7RAxDOHzwpjgEQU/iIl+LEXnsTxNCjU0bOd6JKfC
-	 Sd88mdkjnSvupSVD72THk3YpQk4voNkiHpTqo6fZVMM6EBsre1yMiM8UmrM/u+2FY+jIT
-	 U1Wdqlz4jazJ3Yy2o+85O202NB26XX2NXhXaAW7dbM+areNKkprk2jfmIrOvKR2yBtt3X
-	 iWRXTUD+GAJPg/7/dLkZmwN2C3/axuMk13lP4RkhHip5Igiq6m2rn2teeiYjxjaJZ7w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fel4mEEB;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=f+tGsvsU;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795704482;
+	b=UhKORsj97HcjEkMTtEt5YZnCUJQvBEaNMAvz3UTJXQQzbH2oJJndXtmvtJWhC/kNr8gk
+	 Ht8Z+hiUZq+OBOChQjviBfZUFscmwjIVeKy9F2sXc866xnE8ldrmGkiXbMRMXnE3kMPE3
+	 mqO2b+aaOQikjgPlEZfs1ML7eKrtDPI4J6ByTX+/7csXL+UjEhv+RITJhayyqNGHK7Ejn
+	 O+GhYHCr5/V9H+ijaX7UYk+X9SEaVdgVvC2/SKxu4fs8D+baw06uDcqlSf1CrX7syaSfA
+	 CtZoD2UgmNg7/JRQoF5OdCIQKuwwMNjdLvWerclpCpu+SW0ZeoTGEZNVDOSJU+qoiBg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795704482;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:From:Subject:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=CwSn3IxPnWQnNuEMWigXgquDOhOEOJkNnTuCOP0I400=;
+	b=ngxTPmW4ksUOzAeKUPT5EUN534KOXkYZeDixmwXSUKD7YSjv3FhxqxOlzWfK8TkyM8u4
+	 PI3qNjEZSWHTa1udiMeOKs+EqbTa7q3VK8mDHlXlZa0HZRCDkqN1m0gIjY6V7BQmaL9dT
+	 1XTV8E/xf3CsETZThzbJ4Pihw/hucNCCNhMXZpvmpTCcP1dL5fwOqAdffxTuLNnz41T7H
+	 fkJRtiiIymDBayNZDtTalpmbn4hnoFgG8HjOP83VkViAABuzhYp2lm+iS9rWYosFKZrME
+	 S2Pk5lQQuYzAAolch7r4dJO1uUqzHsOeCNljKKKiorG6Y1nyw6OklxRS1Hnyp9knNGg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="bYajAI/I";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0A2A606A31E
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 14:47:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0A2A606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09681606A31E;
+	Thu, 26 Nov 2026 14:48:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09681606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fel4mEEB;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=f+tGsvsU
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQEV3f33170999
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 14:47:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	8+yhG4UOZ9G9+Wb+KCpqRp/WNdBbXiIFvkS5c66yNN4=; b=fel4mEEBzuPxWI/Q
-	FGaSuwN1amKxr7mb6Uqomci/2589jz2JZTO9djkwS0SgTG0ZifkeXngRrAEPBRP5
-	g7V1MDzMFfBsa9rNfDx/RS+VEZoTNhEpO16hkCqRcFVLXQ7m7Jy3YwT9HPRqWjZu
-	7rNrKoGnG62YilLD5dsv04FxAUlDjlgbBQvGhJbTx8ReqIxHqf18GLTkCv2wuk52
-	TEkrwaOAMEnwBv39Jn759OLHCpqTmDeaN+gIRYxcZXucprGeiQE4sEPleTFJzkx3
-	MVn3DsuZfD+A+90gmjYtNf+oaHrXON6vrcr6Wy8SjuifYsDbBRtH5FqcFTmegNhT
-	tUTQOA==
-Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j66qfbc2e-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 14:47:52 +0000 (GMT)
-Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5ec78f43e7fso317481e0c.0
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:47:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795704472; x=1796309272; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8+yhG4UOZ9G9+Wb+KCpqRp/WNdBbXiIFvkS5c66yNN4=;
-        b=f+tGsvsUrrrqGMJf6NdrLJjK6GvQNnh2hUoi/AIzlpk1JkMJvOYPvRaq5wCcjQp5nq
-         eq5JEhzrb/OHqzHcBHuOZn3QHWdmS/4+P3YSltL9AxiuTMMvVAse5avVLkWcRwpo8FcL
-         ikr2CeKmsqJdxlHTyr9thpHCPrUimxSFCOmHkdxvNGD4acfaqrdrEZKEQlEr3U2kaNjt
-         BJm0fPXHR4UYi0OiRDcNmAl1OPxHNP+llnka8IiFd1ieCsSTKAtzYc2SDMlVT99lE/XI
-         AWv/+/pn0rFWhP3UaXTqYcrscXjxcwfR4wSX5JlOjs1nZ6e/qP+e8+O/WBeA5yY7EaH6
-         rNqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795704472; x=1796309272;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8+yhG4UOZ9G9+Wb+KCpqRp/WNdBbXiIFvkS5c66yNN4=;
-        b=K8tSBDnu11za1Fo+2ePtGKQ/FjYQfHIzHRJMxLCwGlPagW41ZKBw0FtlhRj+QSgjJG
-         etGyQgb51nzg24K9AusIUlZo9OQYIQ6kGlUrHWDmpydNGFCKXcKrcTMujZ5K3KbyuN0O
-         tkXHF8ybdlmnq85h0Qa751TWGWAqtGqrZv5By4kZ9t8aoVEAG8oYh1FhhD9EmhcPYFhQ
-         XFPNHV7BAbKaf8oXPlMe/bXvWmBphEse7uJyxTL3GElMrK2Co1l2O5/WOKW10Rkk0g31
-         z/yal85Mwla71L2z4WHj6tajm/9BW/T3J7EaSXtAtPrZgF5VibVt+BA0gqC8kx/GviM1
-         bmrA==
-X-Forwarded-Encrypted: i=1; AL+hErE6ZYNBz1VJ4z5JQOsPf0lKT1pHGgzX70ly04PyXRgtJ5M9jI2xisSh+8MEvm64HMIJXeIZDFeCqpAJ@vger.kernel.org
-X-Gm-Message-State: APuU4Z9s1cXeX9x00rNxsbPijuJliVDDVtZRmzsJ4XGUHfF+Bs8G6v9r
-	vsGTInhfaCNhedXPwqXUL1JfZqVpU22aK2RdaotLXE299AjiNtMJYvotyF1y3JRwb+xGzNO6H4T
-	smW6FDjtZ+1ry9PwRm/i63ka6RYMlVi36G2X29qb0cjxvSsUAmyvET6Yhx+CNGdBQQLcgFSs8
-X-Gm-Gg: AZFdTZcyBRrO54OkjxjDGsJkODmx/BC5S2ZGCV7ExmG4OYTCiSNSX8LM7c1RG4EaNj5
-	5Pf2M/TfrerYEwkMT6aozedDC9GtaetVDZA6Y2pYnzgNfRVdI2Qsj/VYEKpcHpmC1SOTTPcMdHj
-	+gJpuly5G+hZp+B+ruyfyfmpr6U+4mmq9n/k/ws2uMJVbphWc3VHQbpVfPiRTHgDjaePsIMWyWJ
-	VorQwExuJtGRwk2E44fhnB+lF0og3gbAaZWJmma+u9n/eHqKFzG/WEpOKH6UMEIdceWE6OoqdIJ
-	WpFg2S8pNBfZHTKYv28MKFuSt0S0c0ooi4/BXaj4574+hCXWIQiqb7WgC/im2Q0LxbRFhz0wMZw
-	1OfYQPJ/Bd3zw8ULnCWPLdEj2TBEOub8ZqMTKjk6PXDpnaJovpeoUj7XoLAv+KweGUyHN8pA=
-X-Received: by 2002:a05:6122:2b1:b0:5d2:d60c:6c48 with SMTP id 71dfb90a1353d-5ee8ad0ec78mr13495183e0c.0.1795704471726;
-        Thu, 26 Nov 2026 06:47:51 -0800 (PST)
-X-Received: by 2002:a05:6122:2b1:b0:5d2:d60c:6c48 with SMTP id 71dfb90a1353d-5ee8ad0ec78mr13495130e0c.0.1795704471268;
-        Thu, 26 Nov 2026 06:47:51 -0800 (PST)
-Received: from [192.168.226.72] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba6f8fa5b9sm8301224a12.37.2026.11.26.06.47.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Nov 2026 06:47:50 -0800 (PST)
-Message-ID: <a005f8a1-76a2-46ce-b328-2063bc307758@oss.qualcomm.com>
-Date: Thu, 26 Nov 2026 15:47:47 +0100
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=bYajAI/I
+Received: from [127.0.0.1] (unknown [IPv6:2a02:560:5c0a:3200:9ebf:dff:fe00:fdb5])
+	(Authenticated sender: sha@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 150E7200509;
+	Thu, 26 Nov 2026 15:47:59 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795704479;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CwSn3IxPnWQnNuEMWigXgquDOhOEOJkNnTuCOP0I400=;
+	b=bYajAI/IsMcgPwVKbmzV1C2VEFHKncFPeMKWUYz3Fbzh+bPnqUDSzIzQhx7dBhYoN8B6HE
+	w/avMgyXjGpbhljnE8DcRaSNgXUknPJW5//lJrWP2pTu9nwdgz9kD2VY+t/8oT7AaBZot/
+	7sgWmZQxvmR75fWZFz9h6vOt9kld1KxZPkt35vucKNjZnaNHA/9OZ6zZqMNBTw/0POfEXO
+	k8ITLZjERy6vnl4BcY1Lk6Omr7wyCmgdxucCDzABvviWnrJ40Lp1Fgzv6tUgbzwZCjozti
+	O9cDr2EUlLz/jo3PmVL95YCRve7G5jSZBGHNwycbDoTxE6V522vATosrvvhBWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795704479;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CwSn3IxPnWQnNuEMWigXgquDOhOEOJkNnTuCOP0I400=;
+	b=bMxE2pAfkjuYOU8JXx17mkmz0Wpo1GrA1s0dSUR19VscEfYiqyEfs6Z8OMVLA59ELxCk47
+	kHH+HDP7dPAKNpn9hkuQgNA6eHTGJ80GpC9SCkfv/Tsi7nAjT0AMHmZz3TdxDEfnoG8pOv
+	FB2VPxi9i6NL2ODawYaqy8ZZJRW4vkBb0vE8dJjeunOp9vM3LLp/7PEcwFRsglmffmlTij
+	J7SFHESrM7XzSZU5nnupDMPykTshvDJPQ2My8344MOIsAphZFSjBlaRGpEplmNsog92uhI
+	AkDXSFg8wElO7Rt63paCm4b0J6bGcvmU5TGu6U8F0DxmHXey4P8decFnQNx1HA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795704479; a=rsa-sha256;
+	cv=none;
+	b=d2ILFSzrXVxsxurlL6rz4hrNp1SV0/ovD5q3PfTA+KoJX6TiY0vYZ1T3PZ4gz6hccwg1lt
+	5HL2FEvlhtfjAcTHWofQTIg979QG8ApWapNB16xrAJtJIN9eTiPYF6+iy3xapW6iGfANjX
+	6kBIf1BUV4WODK/IlV3LceA72Ai519c0N6+RL+7Qe7EroUEmSS2/LNSo5EbexE7ldXv00C
+	UwjUW+aX3yhanFu+MlhXLHoNcaD2BmNYaCWH1NGRBONTgIR19UYnETL5a9Wfi/RDSCYhje
+	D3JZQ+iCK1KHi83OMqBCdZ4WRKjr6M7H29DupVo1MxDHINW+SYrfWRyv44N1dw==
+Message-ID: <2445b4e1-9aa7-46fa-bc97-5c0048532f05@pengutronix.de>
+From: "Sascha Hauer" <s.hauer@pengutronix.de>
+Subject: Re: [PATCH v4 0/9] media: synopsys: hdmirx: support an HDMI bridge
+ in front of the receiver
+To: "Hans Verkuil" <hverkuil+cisco@kernel.org>
+Cc: "Sascha Hauer" <s.hauer@pengutronix.de>, "Dmitry Osipenko" <dmitry.osipenko@collabora.com>, "Mauro
+ Carvalho Chehab" <mchehab@kernel.org>, "Hans Verkuil" <hverkuil@kernel.org>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Dingxian Wen" <shawn.wen@rock-chips.com>, "Shreeya
+ Patel" <shreeya.patel@collabora.com>, "Gerald Loacker" <gerald.loacker@wolfvision.net>, "Lucas
+ Sinn" <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, kernel@collabora.com, linux-kernel@vger.kernel.org, "Conor
+ Dooley" <conor.dooley@microchip.com>
+In-Reply-To: <3a633b4a-8b48-42d3-b197-05cad11f7f71@kernel.org>
+References: <20261116-hdmirx-media-v4-0-7aee4a0a273e@pengutronix.de>
+ <3a633b4a-8b48-42d3-b197-05cad11f7f71@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Nov 2026 14:47:58 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,85 +96,103 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] drm/msm/a6xx: Add Adreno 753 support
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, Shivam Rawat <shivrawa@qti.qualcomm.com>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-References: <20261118-nord-gpu1-v2-0-8d6d9908b7c5@oss.qualcomm.com>
- <20261118-nord-gpu1-v2-1-8d6d9908b7c5@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261118-nord-gpu1-v2-1-8d6d9908b7c5@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: vVsij2FnJ3qQPbJyAGiVt0LmfG1kB6T-
-X-Proofpoint-GUID: vVsij2FnJ3qQPbJyAGiVt0LmfG1kB6T-
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDA1NyBTYWx0ZWRfX1Z+ld+oU2//f
- lEXZkns0n+2H0uUdnR6md+ugWljqVBxai8VxV1k2Mz2Yc0sx4GG8kOzoT8qmuQtOV9/PZnASbTL
- zDagLC+Or6Ok7wHEClFzovvdrq/a1/I=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDA1NyBTYWx0ZWRfX8df+0dP/g/XX
- bd13RnMfc/ST98wpUJ0RXDgKwSTsltT55ZzsIc4fv6KBxO71C31xl4rE0/OgCkO0vt4DvevwIew
- ZjgsD4Xv6bnUKemeDtsbjpP5NH4FlIDWSUTcda684FiDud8WkJ1Nx5ww/dSJ9Od0t7tY/HZJ3lH
- 4sJmPawVnSN6yMCdbERAMZdpS/jKCMd7jQ81x+QZQ6I9uiw6klQSRfM7xmBAwmHODI15LkXrlTM
- 4415Dc+bsE20kCX6fez83ryYrdRYtV9WP2f15JTQWUJzSFR+EpW/opu/40rC/xAndxpe26/1389
- ttxAT1ffmcMMDAwTy2Cv4EPf3iWQMvew1aFbpA+ymwUMCkaxISGnRFZ6NpMndCduTTXl+tv6P81
- 837tkZReoCpbZBJPzyuUOGhYrpM7kkysOz56lgpeiWCfYIuVSUq1hhxEcwJyWPh4MMLMmpIjhxa
- fPIM6NzTzLxJKm4bRNw==
-X-Authority-Analysis: v=2.4 cv=Q5VHcI2a c=1 sm=1 tr=0 ts=6b084698 cx=c_pps
- a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=GS9hGxBgXBVpQNT4ZgUA:9 a=QEXdDO2ut3YA:10
- a=tNoRWFLymzeba-QzToBc:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-26_03,2026-11-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 spamscore=0 adultscore=0 bulkscore=0
- priorityscore=1501 suspectscore=0 malwarescore=0 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260057
 
-On 11/18/26 12:00 AM, Akhil P Oommen wrote:
-> From: Shivam Rawat <shivrawa@qti.qualcomm.com>
-> 
-> Adreno 753 is the primary GPU in the Qualcomm Nord SoC and belongs to
-> the A7xx Gen3 family. It is derived from A750 and shares the same
-> IP-level configuration: protected registers, pwrup/IFPC register lists,
-> GBIF CX registers, gmu_cgc_mode, 3MB GMEM, bus BCMs and preemption
-> record size. The differences visible to the KMD are the chip id
-> (0x43051701), the GMU chip id (0x70d0000) and the gen71300 SQE and GMU
-> firmware.
+Hi Hans,
 
-[...]
+On 2026-11-25 19:47, Hans Verkuil wrote:
+> Hi Sascha,
+>=20
+> On 16/11/2026 16:19, Sascha Hauer wrote:
+> > The Synopsys HDMI receiver driver assumes the HDMI connector belongs to
+> > it: the connector's +5V line arrives on hpd-gpios, and there is nothing
+> > between the source and the receiver. On the board this series comes from
+> > that is not the case. An HDMI bridge owns the connector, the receiver
+> > sits behind it, and the two are described by an OF graph endpoint.
+> >=20
+> > Three things follow from that, and the series is arranged in that order.
+> >=20
+> > Patches 1-2 give the driver a media device and register the video device
+> > as an entity with a sink pad. On their own they add a graph with one no=
+de
+> > in it; they exist so that there is somewhere for the bridge to appear.
+> >=20
+> > Patches 3-4 add the endpoint to the binding and bind the remote subdev
+> > through a v4l2 async notifier, linking its source pad to the receiver's
+> > sink pad. Such a board cannot provide hpd-gpios, so the binding requires
+> > either hpd-gpios or the port. Without an endpoint in the device tree the
+> > driver keeps working exactly as before, so boards wired straight to the
+> > connector are unaffected.
+> >=20
+> > Patch 5 is fallout from the wait for signal lock, which was bounded by =
+an
+> > iteration count whose duration came from the 5V debounce it called
+> > each time round. That debounce goes away on a board with no hpd-gpios
+> > later in the series, so the wait gets a real timeout first.
+> >=20
+> > Patches 6-9 are the 5V state itself. Patch 6 stops probe requiring an
+> > interrupt for hpd-gpios. Patch 7 makes v4l2_device_unregister_subdev()
+> > wait for notifications already in flight. Nothing kept a subdev from
+> > notifying a v4l2_device that was unbinding it; that is not new with this
+> > series, as asynchronously bound subdevs sending V4L2_EVENT_SOURCE_CHANGE
+> > race the same way today. Patch 8 adds V4L2_DEVICE_NOTIFY_RX_POWER_PRESE=
+NT,
+> > and patch 9 has the receiver set v4l2_dev.notify and take the state from
+> > whatever is bound in front of it. The notification is only an edge, as
+> > the 5V interrupt is with hpd-gpios: the hotplug worker then asks the
+> > subdev through g_input_status(), so nothing is cached that could go
+> > stale against bind or unbind. Without a det_irq there is nothing to
+> > disable across suspend and remove either, so patch 9 disables the
+> > hotplug work items themselves instead of cancelling them. Patch 7 is
+> > what lets the notify callback read sd->v4l2_dev while the subdev is
+> > being unbound.
+>=20
+> So I would like to merge patches 1-6, but take more time reviewing 7-9.
+>=20
+> So those may or may not go in in time for the next rc1. Would that be
+> OK with you? Or do you prefer that I just wait with that?
 
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -651,6 +651,9 @@ static void a6xx_set_hwcg(struct msm_gpu *gpu, bool state)
->  	if (!(adreno_gpu->info->a6xx->hwcg || adreno_is_a7xx(adreno_gpu)))
->  		return;
->  
-> +	if (adreno_is_a753(adreno_gpu))
-> +		state = false;
+I am happy with patches 1-6 going upstream now. I'll then send a rework
+for patches 7-9 only next time.
 
-Is that intended?
+>=20
+> I'm not really happy with patches 7 and 9, but I can't put my finger on t=
+he
+> 'why' yet. Well, other than that it feels overly complicated. I think that
+> AI did part of the work, since it definitely has that feel: long and some=
+what
+> rambling commit logs, use of rarely used APIs (scru), etc.
 
-Konrad
+I'll shorten the commit messages, they are really too long and not to the p=
+oint.
+
+>
+> Perhaps look into rewriting the commit logs for 7 and 9, and see if there
+> is an easier-to-understand implementation for patch 7.
+
+Patch 7 isn't grown on my own motivation, it goes down to a sashiko finding
+here:
+
+https://sashiko.dev/#/patchset/20260923-hdmirx-media-v1-0-ea3d77d4a5f3@peng=
+utronix.de?part=3D9
+
+An alternative approach would be to forbid calling v4l2_subdev_notify()
+from unregistered subdevices. struct v4l2_subdev_internal_ops has
+(un)registered hooks which subdev drivers could use to stop sending
+notifications. That would require fixing some drivers though. Would you
+prefer that?
+
+> It might also be better
+> to move patch 7 to the end since it is really independent of the other ch=
+anges.
+
+Ok.
+
+Regards,
+ Sascha
+
+--
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+
