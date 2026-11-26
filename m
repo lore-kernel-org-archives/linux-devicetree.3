@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795708934;
-	b=xLkuWrUD9XEXCYg0VgfZhRhy+1POG1m4kKY4N4bgt1fFsFViYZCM7Mat8Q4KEPYaGJA5
-	 ECgRZhq3hCWTSxnZaI75S3upeGVz1nXrEShzxxqlURTxo0qqmzlkNRP3AXdlykWbIr8Na
-	 NuCzDV5jKPkO4kACTnbOaVCiF0zHd8t5o/RapJptAJGBDzfmhehxlo7e8XPtNRf0WJptd
-	 R5Is5TO38g8uxeOm9XUfJQpBe8D5Mp+EDdMJ+O+fnBgK9HSGkqPtyWShvXwO1kZWs1FsO
-	 ab1aammW1dbrYgwyRSzx6NwZYkeT8QqxboftY+3KqKk9XA4uqcGYM7zivPYsntzGQqA==
+	t=1795708941;
+	b=hSsAAOK/1pqcYBbxjOA0QKxvE78m1/3w6v/mDGjdTBZ40pLfFwXk3cRudwnripaX3RX5
+	 miS3bOUlGx1NKOyCGZJlzMUJAeRLq3cqvkJq8DmG6jj266aoR/F4bDoXRyJaDZ0AhxtJu
+	 2IY/ZwHadUFOvGOSNcsGg/TrDQMMaGyPNX3F2vAaGZi7VI1e5Hot72LtLcfag/hm0G6CR
+	 FpyJjcKQcSF1YxJQWF5sVM9ovE3vNQyutqccvW/3N6ZuGqMjJS1R+SLU7WLvAt7uiLPx4
+	 73yqkIUnrZ4atbWZr6nUBZgTdW/HLjIPpPBUVFWFKYpaP5QxyrgmETZeDy+uFG69IFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795708934;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795708941;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=1zNw8Pd/JqrMGg4lyFXAavmYqzgxCJ5fQLfj1g0DY+s=;
-	b=tfJZSc4gYVwwuhnK2V27DUEKoHCxQcSbh+UUlijAjZeANat7qRjCtyAImb5ky7FS7aZv
-	 M4STdSAb9bhynxXoMBM0BbnPxMrHo9YA9qhhQZCkZAu2jQ/EZle/HQcMpJHL95FzhSMZD
-	 5DCd9gbLoPYtwzIAlEUziWWe8BBbqhlTDrscVXi7KfhVMOgjlK0C5EkDRd2xO+xvN8mSo
-	 RXqN6j9QQeRuxkKlvUG9zQt0F60IzbaZRRJaK9ZZaduttnwTd/r9YPrv1IIWzO1lKPxBb
-	 LiyL+48/gRlopunCH+j7f+rc/mn6Xm0RFe0sGzTnsJb8m7Ewx32Uu6gm/VpPaWOd3dw==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=UX5EMYaljBql84e3y1nR3Qy8isjY8RdoPr5CAQsVxp8=;
+	b=amDYTaz8BZy23KjXS6Ire4wil0CSZmTyxqvgYK/1hEUk/yvsCCdzM+7F7VxJuxSuErxj
+	 KkchlDHwcdmQ/chIKKwC1aQw4LRxg5e5k++lm4idSnNKRlx+CqQiFQ31OGiA3wNoBeUMn
+	 8QRMH67fe3By7pQWKh5EG5I9Oz8kxX8sK9HEsCtcYABZtQd86IJScXZ8DTj+4d0jj+QiJ
+	 F3hiEfp+wDPQuslMVRJJSazZmeumPbm0QJESzK5OH2U4l6FsPWoVA1JFc0RXFtRAVwzYk
+	 VhUjBRnxMK/c1fhxtSbQOwG+5a/pi5XI+/1oC7HuWjYKtUXBs2vdPpW/iWESgFQnAsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E9bQezl+;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cj1hNSUm;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F0E606A326
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 16:02:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4F0E606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C32606A31C
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 16:02:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80C32606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E9bQezl+
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-386bd881d39so7236138eec.1
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 08:02:13 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cj1hNSUm
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3282db206d3so3210020eec.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 08:02:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795708933; x=1796313733; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1zNw8Pd/JqrMGg4lyFXAavmYqzgxCJ5fQLfj1g0DY+s=;
-        b=E9bQezl+vPZRAppt6clVXbH3hbgfRDZf0rswzMJyoSWjKBowSAqAq8E1HU2mNQHv/e
-         hAY0IlC9A1AXXT8MtWHR3aa/4oynKVCvWn5Z+YNX8vw0mqK+Dh0eqeZIFGL+0SxnCSBq
-         Mk9gH1cLS9bsCsexp8bc3eDLbAzyxpI1/X3BankRU/uth+Zc9AvwIfdavE8Z36Tv23zv
-         ibVA1foAD+ZHQN1jLaIelhipLcz978kPhiTSu1if2SIM196ZOsMmh5wHPhe7ymFkz/3P
-         VD9P8JDy1Gj2Kk79kjzCoOdgsvb+5Wjzyiyl9ALBc7s42lCZ94M5JlyBjTAxbJ71tIOS
-         +Mwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795708933; x=1796313733;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1795708941; x=1796313741; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1zNw8Pd/JqrMGg4lyFXAavmYqzgxCJ5fQLfj1g0DY+s=;
-        b=ElUvhTWjiytZHaKLKkJREFrNmiZz+PfbsgTxTu4Ow2sV9T7mH9qvYLRPProwZt+rJ5
-         YQUJAbK2AwOCjw/qmYn9q+4jIF2B0ibvxD4CISOFRBrnYJEBmtVZs5gYDmHo6wRioDqJ
-         FOvTw/suXUg/TChDmG7RprS6B4oshmqu+BmEPhiRZ60Jua84VrELhDBl4fyessZ4bW8G
-         gxk2DurMaspg+EefzjbTy8HsMjTDUUXoEHbW+hQr9cEsD8e7HWqUSaQNARmbG+tH9W1K
-         MVLVBjMBvpP5G8tO/iRIwRCsBjj+8/tQSMGPPL6kuE0+uIdmH5f93KnVaOcsGkNxNWdy
-         Qckw==
-X-Forwarded-Encrypted: i=1; AL+hErFv2ws431EIP9zkL9OSMJudqGqbqCwaAW6MHxUzdm5x1owpuiagZGVC6V1ZErfdhPM7PgeE1kq12ivF@vger.kernel.org
-X-Gm-Message-State: APuU4Z+6rHCiF5ZBIFS2a1w6EBRD4kDvwMcJlSxr6Jda9sWorgtggKaR
-	l8ZoqdBJQRDzuK5yiY28x5xgNyGlEpY2cuOP6QM+rO9tDlPUTwmdNqzd
-X-Gm-Gg: AZFdTZcI0vemXk9Zs+ZMqrgUy0hhkImwSsRjezDe/8QfWcJOUXwlgR/KfKwudVDC5hc
-	aUhe1e1p5gPeVwYIFaUvtGRoMErC3QLQzSvg6b/mLo1oAN+zDcN52gQTj3+2+u8kMkpL9pMa5fA
-	C36jUMHZIcmFs7xeL7lRSRBk/LNQ0BqJa5UUaBBqXxtg0bRyCrkdbFSAUbyv8zw3JfFmcowndez
-	Ws38ZLSb35u3j0NOr315Z9EpirADL2h6CidwuQuv/qrL64ElbUkBIveHm/8DxT0ZfdavoNHF3e+
-	IAp2/Bb4yQvu7eujs5EurLjmZ+Yv2Qs0G/5MPPbiu85jSulqcTPjoWm3rDFByr4LaMqJdSZJV8C
-	W/1nDcv8tWvF8PX2Dmjlc55JDlVXsnDke69FPOnrUclBaPJ71KfvxhufuEBlRLxTTh1k9PqVhL0
-	G/nsT8jWixfod1fgJrYDPBfLvKO8Ul4TpTp3uKB0VS+8vE3DtqbyfADwgFZATwZOOn1cmbsXkSm
-	V1D/fhSDHHOuQSCXkBSCRid/sz/4c1EJFbmmOXpTD96NIBIfYXPVaXBCOaTtrk+AYeSng80kzYn
-	FcpfWfzfRdVrTHJUiuDtBgAeMIdBHAGLkW3OrgYmhJMkdA==
-X-Received: by 2002:a05:7301:3f0a:b0:384:8f9:bbf6 with SMTP id 5a478bee46e88-3857180d3b2mr34804423eec.38.1795708932635;
-        Thu, 26 Nov 2026 08:02:12 -0800 (PST)
+        bh=UX5EMYaljBql84e3y1nR3Qy8isjY8RdoPr5CAQsVxp8=;
+        b=cj1hNSUmQ3U4aMeccg61gW2DRXYn8E4PjoEVbH/MmIxFeJSoOc+r7/Fk02eXTOcto3
+         Jb1i3NbC5mtd8tugWor3XTcoYMieiEv2aq324IGwQ4dI8V/xnGAf+ADRj9vO3LP48+Su
+         xdwCDg7ZVJy05+hVw+2TJxIdz3AZQ7XKPyNr6P3ApVKqph6ivVNFAMjyhUfyma7+XhXk
+         5em1sO3O216bxEYbM/CBE14GjJaL/QK9cYuHx1X3cMMNhm8kCmoi/C0LI8XnDXEDBvTx
+         xJqGTJ3qmweJLIJ0L51dmJsOBH1/FREjJG00Y3YLf/uLD1A7a2ThuqCS5ar+SO7UzsmL
+         tTug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795708941; x=1796313741;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UX5EMYaljBql84e3y1nR3Qy8isjY8RdoPr5CAQsVxp8=;
+        b=YRj7gQbBWu36RJiIa94VMfA2j3xtTL4DRvyKmjVavWUmNIoxa41Emo0pknEHPIjyU6
+         ZGf7EqeckByIbiElhQf/NTqj1AaSIBq9lg9NDPTEWsNk/0+s3/aUuXIRSp3AFfD2snPv
+         vorJy3Cksch5ycTdYtirHxssk7Q8/hGQ/Xq7jeGyW/uI8Ap4PDfowvYPBZssNPFNQw0d
+         V7mzZXKhphRFVy/HDG6gXq/GwbvOQ//Gi9/WJb7YtqHwsTy26DiKKdHRxuSlAouRrY91
+         rY6NJpojE57KVuVAecpddygfb/Bps35yowl67xV8PuK03XS5Uv+pB7t4uxmgiV6JqpaO
+         q1kg==
+X-Forwarded-Encrypted: i=1; AL+hErGyMwHr+fqO0osYUEmENtELtCW1GDHUStmcv/i82TB1Fup89CoaJLFYhjl0ilsQ1GfbrJQ5IgxXE/D4@vger.kernel.org
+X-Gm-Message-State: APuU4Z/02AvvRH12Rafno5JSUqjmJwy6Jgd+NXyqxJOcS8SNq0WPgxxQ
+	vGFZs4SRT39DyA2XmmlrtsXMWJIiZIAc0ptNHOUPymqtYjt40kfqKw6h
+X-Gm-Gg: AZFdTZeJsNuxhhInBkzIV+dJ0pvhf6DV85NigJwpudJyrfMph4BL2oGgvyUJ5mKp7Xx
+	8iNdKf0946hKpooSjFzcAqhX4AiM+BM+CzyP2nb4LdE+dP90z2TgEW3KZyqsE0kwH0eVyJYhcs0
+	W3kWmXvvCWaJxCDV3nqZyu9xKDSUUSQHD6zITyPzh5piX+kExGOcTW+3+W0lhdGqwZcRx2X89v+
+	4CYe1Fb82IKtrnnIhLqS/cWkroQLmzg4jSeT3HMcd5Mu7mE2JQsP39MoOu+Cnzmgqo5qe4C2N1m
+	bHDA7kutgQfq647ZfehJBkQ0OlQ+2PIOhD3LpXHgBw2HecyLhNK8Qj4EqH/LqXB8gLY3i6gMin8
+	pGgl8y6OK8hoQ/om/HimGgLhsEqvNcq7RmdHJvNguRWXpPyhpHiT8zShRetfIAFQJsQXh8U0nLV
+	c9fapzTLwB7jfDplk1aOBHuCNOsPS3IX0Gj4rVoQBeneXcqBWdDiVwf+6ATBTCl8osKsaWfusXC
+	wz2Fb4DILRPEHUnWEGrwSnT/JrMpnMKEVkCrEQ2KuU9rs4nedELR5Nx2Lem333mfjIU9/v2qI1e
+	02SzpeA8e9vUQVr1rjac5pXnakdp7Lg+A7LQxKkO6prV
+X-Received: by 2002:a05:7301:a23:b0:386:9ad5:6641 with SMTP id 5a478bee46e88-3869ad56b0emr18510797eec.32.1795708939894;
+        Thu, 26 Nov 2026 08:02:19 -0800 (PST)
 Received: from localhost.localdomain ([183.82.206.18])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38566cd46c5sm80062260eec.11.2026.11.26.08.02.07
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38566cd46c5sm80062260eec.11.2026.11.26.08.02.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 08:02:12 -0800 (PST)
+        Thu, 26 Nov 2026 08:02:19 -0800 (PST)
 From: dineshkumarv85@gmail.com
 X-Google-Original-From: dinesh.v@adlinktech.com
 To: Frank.Li@nxp.com,
@@ -91,10 +92,12 @@ Cc: daniel.baluta@nxp.com,
 	kernel@pengutronix.de,
 	festevam@gmail.com,
 	Dinesh kumar v <dineshkumarv85@gmail.com>
-Subject: [PATCH v5 0/3] arm64: dts: imx95: Add ADLINK LEC-iMX95 board support
-Date: Thu, 26 Nov 2026 21:30:59 +0530
-Message-Id: <20261126160102.52163-1-dinesh.v@adlinktech.com>
+Subject: [PATCH v5 1/3] dt-bindings: vendor-prefixes: Add ADLINK
+Date: Thu, 26 Nov 2026 21:31:00 +0530
+Message-Id: <20261126160102.52163-2-dinesh.v@adlinktech.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261126160102.52163-1-dinesh.v@adlinktech.com>
+References: <20261126160102.52163-1-dinesh.v@adlinktech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,38 +111,27 @@ Content-Transfer-Encoding: 8bit
 
 From: Dinesh kumar v <dineshkumarv85@gmail.com>
 
-This series adds Device Tree support for the ADLINK LEC-iMX95
-SMARC module and IPI SMARC carrier board based on the NXP i.MX95
-application processor.
+Add the ADLINK Technology vendor prefix for device tree compatible strings.
 
-The series includes:
- - Add ADLINK Technology vendor prefix.
- - Add the ADLINK LEC-iMX95 board compatible string.
- - Add Device Tree support for the LEC-iMX95 module and IPI SMARC
-   carrier board.
+Signed-off-by: Dinesh kumar v <dineshkumarv85@gmail.com>
+Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Changes in v5:
- - Remove duplicate GPIO expander mapping comments.
- - Consolidate GPIO mapping information into gpio-line-names.
- - Update SX1509 GPIO line descriptions based on the latest schematics.
- - Add Reviewed-by tag from Daniel Baluta to the vendor-prefix patch.
-
-Link: https://lore.kernel.org/r/20261125113845.297658-1-dineshkumarv85@gmail.com
-
-Dinesh kumar v (3):
-  dt-bindings: vendor-prefixes: Add ADLINK
-  dt-bindings: arm: fsl: Add ADLINK LEC-iMX95
-  arm64: dts: imx95: Add ADLINK LEC-iMX95 board support
-
- .../devicetree/bindings/arm/fsl.yaml          |   6 +
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- arch/arm64/boot/dts/freescale/Makefile        |   1 +
- .../dts/freescale/imx95-lec-ipi-smarc.dts     | 118 ++++
- arch/arm64/boot/dts/freescale/imx95-lec.dtsi  | 609 ++++++++++++++++++
- 5 files changed, 736 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx95-lec-ipi-smarc.dts
- create mode 100644 arch/arm64/boot/dts/freescale/imx95-lec.dtsi
-
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index e467da45cd7a..162a4a9d8c18 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -68,6 +68,8 @@ patternProperties:
+     description: Analog Devices, Inc.
+   "^adieng,.*":
+     description: ADI Engineering, Inc.
++  "^adlink,.*":
++    description: ADLINK Technology Inc.
+   "^admatec,.*":
+     description: admatec GmbH
+   "^advantech,.*":
 -- 
 2.25.1
 
