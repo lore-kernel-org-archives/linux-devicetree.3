@@ -1,61 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795656567;
-	b=bmkwoydXL1waicK69yys37cEWb7kAV4sefFCAbN0Pom+GT9LNK+74ylXVcLa2J2ZHCZ+
-	 vQWLZktMF2wf5nvWgr13viT7NK18z1m39hYYGxksv6WdAXXYA3zbp1PBktKprVa0/5vYv
-	 rxfF7utXI3eFvtddRd1I3huSNdZLyobeg22Zzswb6s8V2iNgSbZOAArNFytOCwDADFpcr
-	 dmTEIS5+n7pGXvXIplE3r5M3bQwwq3jF2WuaUOvLnN3x2E8J3utfFI5e2d9xCl2ssvroH
-	 TsaoifTsLR5ZDcsnb+ZKP4/9iN91jVKoEwyGPvCPKWYgwj0xTbvfiq28mg8DqqU7hpg==
+	t=1795656723;
+	b=IZs8Bo7KLw8X5I6q6VhpxaELqX86f6jh0Dh92hVq4GBDjgfTu+a77hzNPCOaVAd/WEbS
+	 L5xeSnDPm2LRILgbxLKUbrgOpvIya5yhwNKwgyubENUGb1lNMYBLd+cBvLUWfR6XZY/d6
+	 nXHi5uvOiFXmDF6o9xNuCyx+KpUxO2SZJb/uJHNbJdUUd92qOO4aJhuqmDypnCL7Db2LE
+	 2ba+8zXuR5iIx+G/UgT5lULSQd/PjpU+JBoUucJMyXdFsWMkFTx3aGsPuA0fCyM4Oc33A
+	 IhRpzcAeMCV0afXfc4fj327BeAmLrGbYQXwz4wsbAl0wDnBe4e2Z+USK4wNexwwV9Gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795656567;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=lYfAzimQeKYglGy8WwevUdBKNNX60VKjrnfwkOqQRfo=;
-	b=ubUSlFJabHz3l3TZv2mUaYfL+wvigDv9QCVjHVHzFRcZc+jvYlpz2vVcbw0O0jd3n+HG
-	 PO4AOzrYfq9epYzEwPjQ4GWibHOkeMsx2L1FXcktGpHn+C2Wqbw2gtQRKjv6TkSp4Q7LG
-	 70ZgJ0wm8IPAy3M4nMIAWAhNFY31kQSdqVGUxe149C81eLbKV1UPTrifVvbTbGtGYcln4
-	 Km5dvglfoDdoFdHB4EiTjHl0nc+epQP0VZC1/iq3kEiPH51QYleXdp9yNFZtTN4xfEYtF
-	 OcBZk9vqKxwOgbRYuI8FRbPuU7EnT95rniNaf2C1onmWUxC9PJnoE3DZq8rGxPH+MxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795656723;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Y5MBZfmGLNA/6nRHb8tOyTmORJI8NWg4GR+vitJiBIg=;
+	b=O92zTDtRdt6h1ZNcSoSyBQPhdkV9WFKCwLDc0Sh0ckKaU8gaI67St6UAMahRwh7AR8Xg
+	 C56Q18wwfrp/X7k2kFjyPWDFed7rQjYDMvE0dErEkJYGqWJNU9NtQngQE+A6Dcg2QvC2q
+	 RdcM3dnr5RWx3kYBzVCIVbw2gE6aM0uILEN4qoc2yj5lQTbNWhSucXdTO7SetKzsSiqda
+	 8SV5jzcdjKwL7vVEbMcxmF+gYphIXVRCosTY5/PgZWzvoGNuM9LRUCNahfiem7n/jBDeJ
+	 0IYks0ChTMxHhrx/xZANrv90PKh6ZIJd/ZdiSygI8Kdl4NpzY2CqhVpndR0aFQdL9qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dxMUR0dD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GXoIZ03y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CB17606A31E;
-	Thu, 26 Nov 2026 01:29:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F32F8606A31E
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 01:32:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dxMUR0dD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A00E1F000C0;
-	Thu, 26 Nov 2026 01:29:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GXoIZ03y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 468291F000EB;
+	Thu, 26 Nov 2026 01:32:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795656567;
-	bh=lYfAzimQeKYglGy8WwevUdBKNNX60VKjrnfwkOqQRfo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=dxMUR0dDne2xCfqgdQJjwD5xehGGP8/ybUT5OTPtfm+bfLou496LTRhExMEH2h2Li
-	 3AE4DFFh492a84zIJdULB7X2kIkhCnMqZxLRfoiOYN748O0HjXBkFqq8bJg/jST+P1
-	 gpPGb9+RacItd1fqshv88tbU6aoEhN0/NazKtWA8QF9n5ISTsKxwbxnjGNF7gmUTv/
-	 Oqx8inzQDu8P1Gc53ZHklmmM1DIgMSLnJrhi8stN7eK1q0+J1GgzugQgamup+OoXOy
-	 m0HuTEo9qnCgdt4hrYyioBVx4I8bghC++UCZhWUAgBQYkz76FIvNVsyboBsll3bhAd
-	 AFWMW5vQwzxKw==
-Date: Thu, 26 Nov 2026 01:29:19 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Joseph Telaak <joseph@telaak.dev>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Peter Rosin
- <peda@lysator.liu.se>, Michael Hennerich <Michael.Hennerich@analog.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux@analog.com, devicetree@vger.kernel.org,
- Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v2 0/6] iio: potentiometer: mcp4018: Add Analog Devices
- AD5246
-Message-ID: <20261126012919.4a3e9004@jic23-hlaptop>
-In-Reply-To: <20261125-iio-ad5246-v2-0-8feeb630f0b6@telaak.dev>
-References: <20261125-iio-ad5246-v2-0-8feeb630f0b6@telaak.dev>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1795656722;
+	bh=Y5MBZfmGLNA/6nRHb8tOyTmORJI8NWg4GR+vitJiBIg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GXoIZ03yvo7DcNx2QnsL0+y72wkmp6jYXKWBHAfhKyySwO/+5b32LBALREB9uytvc
+	 TsaPMDW8a9leX8GyNPDZfL+ZobFWtHUZjDW9fhGfZOi9X2TbyhKbghAxE07ZSwJnIA
+	 8ryV/NXX8GOrZBGApJqVXwbNi5o5MRIzGQCtZYMNQPeUmU6ynABf17O+M5GnLRKLYZ
+	 Ytq9aAXc0V6a40gnDj9kUzoygle1C3I+stinygdsTG3stEXKf75XP1CO1ehkLCg1B1
+	 MSoGfW0GK83VGvJtnIbVYkZajfstdmOmIOUnqDM+Lu/VBTiXRPqpzoTnUrxuBud/B8
+	 KlMTwMuYbBnMg==
+Message-ID: <sashiko-outbox-234551@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 07/11] arm64: dts: rockchip: Add USB-C DP AltMode for
+ Gameforce Ace
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261126-rockchip-usb-c-dp-altmode-v1-7-7991eb5bb426@collabora.com>
+References: <20261126-rockchip-usb-c-dp-altmode-v1-0-7991eb5bb426@collabora.com>
+ <20261126-rockchip-usb-c-dp-altmode-v1-7-7991eb5bb426@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Nov 2026 01:32:01 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,25 +60,72 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Wed, 25 Nov 2026 15:22:27 -0500
-Joseph Telaak <joseph@telaak.dev> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] arm64: dts: rockchip: missing altmodes node in Gameforce Ace
+  connector
+--
 
-> The AD5246 is a 128-position I2C rheostat that speaks the MCP4017/18/19
-> protocol. This series adds it to the mcp4018 driver, so it can be an IIO
-> channel provider for an in-kernel consumer.
-> 
-> Patch 1 moves the out_resistance*_raw_available ABI to the generic file,
-> patch 2 reports the wiper range, patch 3 adds the binding, patch 4 turns
-> on the vdd supply, patch 5 moves the scale divisor into the per-part
-> config, and patch 6 adds the parts.
-> 
-Applied to the testing branch of iio.git. That means it is now queued up for
-the next merge window.
+commit f7aa33c43ca95ec2ee7b6fa1f45573f338a6a9a6
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-Thanks,
+arm64: dts: rockchip: Add USB-C DP AltMode for Gameforce Ace
 
-Jonathan
+This commit enables dp0, connects the DisplayPort and USBDP PHY OF graph
+endpoints to the USB-C connector, and drops rockchip,dp-lane-mux from
+usbdp_phy0 for the Gameforce Ace.
+
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-gameforce-ace.dts b/arc=
+h/arm64/boot/dts/rockchip/rk3588s-gameforce-ace.dts
+> index 5ffc94b70813c..4bfa442d762c5 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3588s-gameforce-ace.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-gameforce-ace.dts
+
+[ ... ]
+
+> @@ -685,22 +701,22 @@ ports {
+> =20
+>  				port@0 {
+>  					reg =3D <0>;
+> -					usbc0_orien_sw: endpoint {
+> -						remote-endpoint =3D <&usbdp_phy0_orientation_switch>;
+> +					usbc0_hs: endpoint {
+> +						remote-endpoint =3D <&usb_host0_xhci_hs>;
+>  					};
+>  				};
+> =20
+>  				port@1 {
+>  					reg =3D <1>;
+> -					usbc0_role_sw: endpoint {
+> -						remote-endpoint =3D <&dwc3_0_role_switch>;
+> +					usbc0_ss: endpoint {
+> +						remote-endpoint =3D <&usbdp_phy0_ss_out>;
+>  					};
+>  				};
+> =20
+>  				port@2 {
+>  					reg =3D <2>;
+> -					dp_altmode_mux: endpoint {
+> -						remote-endpoint =3D <&usbdp_phy0_dp_altmode_mux>;
+> +					usbc0_sbu: endpoint {
+> +						remote-endpoint =3D <&usbdp_phy0_dp_out>;
+>  					};
+>  				};
+>  			};
+
+[Severity: High]
+Does the usb-c-connector node under fusb302 also need an altmodes child
+node advertising DisplayPort AltMode (SVID 0xff01)?
+
+During port registration, tcpm_register_port() ->
+typec_port_register_altmodes() looks up the "altmodes" child node on the
+connector and returns without registering any port alternate mode when it
+is absent.  When a DisplayPort AltMode partner is attached, matching
+against port->port_altmode fails and typec_probe() rejects the partner
+altmode with -ENODEV before dp_altmode_probe() can run, while the static
+rockchip,dp-lane-mux property on usbdp_phy0 has also been removed.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-rockchip-u=
+sb-c-dp-altmode-v1-0-7991eb5bb426@collabora.com?part=3D7
