@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795700749;
-	b=2NIPx7r+6JhNPRt+UEdSKC5JNZ8uYFvpG+JHkIrF6YpJIoaB5/SV7QWUJTNkGLnbQJLS
-	 CKyRwX+F6oECOFuQz47W55IIBfjI6614LFWHAFwGTOFab7/751UcSJi/X11KgAVZ7i5Hf
-	 iH3SFZQ742pq38eum164ENZfTR1SbICzbl408oPkfF08ZSBWHfhFLidFE/Hd3s2CKnbya
-	 NMCKfo1WJuxS4L7O8TkeDU3cAqRk2CFLRIoINkM5lbs5GIBpvOM6C3gzPwDvsOUW3hbKA
-	 FwAGuu16t8s8RNvlF6P3HApp/aYEpUZFBvW99PrIrDAPxvcXCvWXlnmNd4H6etuWZqg==
+	t=1795700754;
+	b=cu++QJX2ihv20pPkMi4Us6KilH/UXQrjFOu9/NZ3TNktVJAi8Z4la+Tlujk4+KjXTeDf
+	 Wjz56tTNBidkiwbZLuyUVori6uLNhn6sVYnVV4ekbZg9hGtRwPQ4AIfMwJ/ousw176WXB
+	 1GxPqPT5ybgrEEg20yvr4E7mvKo3CqJx/QDPjSGnu68mQ0NmN9utlAoT5d+JwBYJ3th4r
+	 7YFD9UuwF+xToXldXmYNFOb0bac8fUzCLotYFVFvzqNo8NeTCU798+4bhWw2NkIN1HJ3Y
+	 vvIts2r19diY7cjXB7Rg+t3fB+RrwMG9PQMTru+fqMvGHgGx3xl8y3xiCT8n2goeiGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795700749;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795700754;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=OmdsYsPFM6ffXZsc8MJ2vr1mOgPKajCl2Rdgv1f2VDI=;
-	b=SLnkO2nhZwQaMI93DABhUwZhssAoyI/NIHywwF7GHD3J1vQwv/ZqFjKa4Dgly/PPHbcE
-	 TqmRpgaHwwjrc8kvqGivYIiKgkjqksTr2guuc+vxzByQc8j/p8OSdGydr9PUjiD6UDe/L
-	 /FM1yKFTsOhjoWEUpzqWqcf8YyVl9yb/RI/t5BppPLmo8iM8pSpGA6N0cpF7QXUYJon30
-	 01BAxRDBIvGHfWuwYPdob2rGQLHl3vgxWn6cABuXdFB5ETbO26ck5Siylo1I+H7SvGl8X
-	 pmoWRTjezlWdroxwxGkf4ECxavM7mjpCb5vX80NLKKgXF3WaqsWSH4xhEDHzAThagKQ==
+	bh=AGp5k6yvB5O4Nzjylhojf51Y4TTtW9noFGxg71y0m6M=;
+	b=3z11obE+a6qET3At4lRfmZbaXvuRBo2TwVq9Zh9FBA5OGItSwVsmiGN6yWryBFoJ77Zp
+	 WrppST4TnT57euQY4HeZoykWeKpS2O+d3y7AvDt9k7tBxI6y8ZY2rFEemxN+POxwjJr3/
+	 LKB6PFDrPFiHvlS/Iyt8J8QDgRxCpFmADcN5xkIAw7A3Xf06K62CSmdctbvDaX7Q/E7Kt
+	 7R5XdIWLAhIaIOvrsGNgJyWzNSdVf+izGqsqb9xvMeJKfMu9sa7zyYFCGkGHNiPRI2hju
+	 d6YHbYDg4AnAKLVY2USgHSaE4xd8WlXy2AYD1xkzcH9S79bozOm1mEpgKWj1EFrkWHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=igIfrBDx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oyqWEEtX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 445F7606A321;
-	Thu, 26 Nov 2026 13:45:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AE88606A323;
+	Thu, 26 Nov 2026 13:45:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=igIfrBDx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFDEE1F000D0;
-	Thu, 26 Nov 2026 13:45:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oyqWEEtX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC7691F000D4;
+	Thu, 26 Nov 2026 13:45:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795700748;
-	bh=OmdsYsPFM6ffXZsc8MJ2vr1mOgPKajCl2Rdgv1f2VDI=;
+	s=k20260515; t=1795700753;
+	bh=AGp5k6yvB5O4Nzjylhojf51Y4TTtW9noFGxg71y0m6M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=igIfrBDxicSyMfFKWAQapEBL/i5nq9kBKJEy70Iz1bizHvJBgH9fzPivOyUE/xABS
-	 fMHM2yyJiqHzs6J/SuDixJmTffZSAHz/higaExYzWfq7lmHM/Da1jrWjk00z5rmiqq
-	 MXdiqJujJ5vUyi+DXwgMcCle854Rsp4AkTy0zjFf70qGlnuzM20xzVc5hF7sNBrOsL
-	 TwBNBnw24pz37ckEWIx/gIG9fmCixziW4YAQdobG4CTcIvg4EzwVdjb64AMDAhZmhi
-	 ofteAw31kBGKV00uD1/h0z6dclE3p0V4Wv5xlxt6C/cfrZ/N14BX8nsz7GCJQT1xcV
-	 nWe/B0Gb6tuLA==
+	b=oyqWEEtX7yVgIbjSRkBKL9u8LW01wGZOsjBzrwAo4xb7z6KVrpadF+h1r7EUDZLCw
+	 yAhMTaulDukbM2HJ9a5lUY/2A/Nd3K+99z0p3rsXjfieILoziQvMU9fDfczB9gMXCq
+	 G+YLnyxmX3r8md0VkTt9mKiObZwSpolukMbMfzsQU1onzGMh/+jT1XBApyhF++3IQs
+	 N5iVbdZJESOAhipivYup4UJuqH3f1nTR9u6vb0eIBWuBUjflm7haakLneRXhSqUHJt
+	 LnrsJkyiUczliLJV0i6mucf9GtpnZhM3YVGejSwKuX7g6LjsG+a3FEYWNWb+9Nl9SC
+	 0Nro5BsbYIBlQ==
 From: Vladimir Zapolskiy <vz@kernel.org>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
 	Jessica Zhang <jesszhan0024@gmail.com>,
@@ -57,10 +57,10 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	devicetree@vger.kernel.org,
 	Abel Vesa <abelvesa@kernel.org>,
 	linux-arm-msm@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v2 02/10] dt-bindings: display: panel: novatek,nt36672e: Add bias enable GPIO
-Date: Thu, 26 Nov 2026 15:45:00 +0200
-Message-ID: <20261126134508.320700-3-vz@kernel.org>
+	linux-gpio@vger.kernel.org
+Subject: [PATCH v2 03/10] drm/panel: novatek-nt36672e: Fix the reset GPIO polarity
+Date: Thu, 26 Nov 2026 15:45:01 +0200
+Message-ID: <20261126134508.320700-4-vz@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261126134508.320700-1-vz@kernel.org>
 References: <20261126134508.320700-1-vz@kernel.org>
@@ -75,96 +75,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The pair of positive and negative bias supplies of an NT36672E panel,
-AVDD and AVEE, also known as VSP and VSN, are either provided by the host,
-or generated on the panel module itself. In the latter case the module
-exposes only a bias enable signal with no need to describe the supplies.
+The RESET_N pin of NT36672E panels is an active low signal, however
+the driver drives the reset GPIO with inverted logical values, thus
+the reset GPIO has to be described as active high in device trees,
+which contradicts the panel hardware as well as the panel-common.yaml
+convention.
 
-Make the AVDD and AVEE supplies optional, but require them to be
-described together as the indivisible pair, and add an optional enable
-GPIO for the bias enable signal of the panel module, which excludes
-the bias supplies, if present in the actual device tree node.
+Fix the driver to assert the reset GPIO to put the panel into reset,
+and to deassert it to release the panel from reset along with adding
+a gpiolib-of quirk, which enforces the active low polarity of the
+NT36672E panel reset GPIO. With the quirk the reset signal levels
+remain unchanged for dtbs, which describe the reset GPIO as active
+high, and device trees, which describe it as active low, start to work.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Linus Walleij <linusw@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org
 Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
 ---
- .../display/panel/novatek,nt36672e.yaml       | 38 ++++++++++++++-----
- 1 file changed, 29 insertions(+), 9 deletions(-)
+ drivers/gpio/gpiolib-of.c                      | 9 +++++++++
+ drivers/gpu/drm/panel/panel-novatek-nt36672e.c | 8 ++++----
+ 2 files changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt36672e.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt36672e.yaml
-index dabee16bee22..c4ebc7df3344 100644
---- a/Documentation/devicetree/bindings/display/panel/novatek,nt36672e.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/novatek,nt36672e.yaml
-@@ -9,9 +9,6 @@ title: Novatek NT36672E LCD DSI Panel
- maintainers:
-   - Ritesh Kumar <quic_riteshk@quicinc.com>
+diff --git a/drivers/gpio/gpiolib-of.c b/drivers/gpio/gpiolib-of.c
+index 8bc4562608e1..2e14173196e9 100644
+--- a/drivers/gpio/gpiolib-of.c
++++ b/drivers/gpio/gpiolib-of.c
+@@ -248,6 +248,15 @@ static void of_gpio_try_fixup_polarity(const struct device_node *np,
+ 		 * compatible.
+ 		 */
+ 		{ "sdw10217201000",	"powerdown-gpios", false },
++#endif
++#if IS_ENABLED(CONFIG_DRM_PANEL_NOVATEK_NT36672E)
++		/*
++		 * The RESET_N pin of Novatek NT36672E panels is an active low
++		 * signal, however the panel driver and the device trees used
++		 * the inverted polarity and described the reset GPIO as
++		 * active high.
++		 */
++		{ "novatek,nt36672e",	"reset-gpios",	false },
+ #endif
+ 	};
+ 	unsigned int i;
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672e.c b/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
+index 85902338f10d..364e0855280f 100644
+--- a/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
++++ b/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
+@@ -372,12 +372,12 @@ static int nt36672e_power_on(struct nt36672e_panel *ctx)
+ 	 * Reset sequence of nt36672e panel requires the panel to be out of reset
+ 	 * for 10ms, followed by being held in reset for 10ms and then out again.
+ 	 */
+-	gpiod_set_value(ctx->reset_gpio, 1);
+-	usleep_range(10000, 20000);
+ 	gpiod_set_value(ctx->reset_gpio, 0);
+ 	usleep_range(10000, 20000);
+ 	gpiod_set_value(ctx->reset_gpio, 1);
+ 	usleep_range(10000, 20000);
++	gpiod_set_value(ctx->reset_gpio, 0);
++	usleep_range(10000, 20000);
  
--allOf:
--  - $ref: panel-common.yaml#
--
- properties:
-   compatible:
-     const: novatek,nt36672e
-@@ -21,8 +18,20 @@ properties:
-     description: DSI virtual channel
+ 	return 0;
+ }
+@@ -387,7 +387,7 @@ static int nt36672e_power_off(struct nt36672e_panel *ctx)
+ 	struct mipi_dsi_device *dsi = ctx->dsi;
+ 	int ret = 0;
  
-   vddi-supply: true
--  avdd-supply: true
--  avee-supply: true
-+
-+  avdd-supply:
-+    description: Positive bias supply of the panel
-+
-+  avee-supply:
-+    description: Negative bias supply of the panel
-+
-+  enable-gpios:
-+    maxItems: 1
-+    description:
-+      GPIO connected to the bias enable signal of the panel module, which
-+      switches on the positive and negative bias supplies generated on the
-+      module. The signal is active high.
-+
-   port: true
-   reset-gpios: true
-   backlight: true
-@@ -31,10 +40,22 @@ required:
-   - compatible
-   - reg
-   - vddi-supply
--  - avdd-supply
--  - avee-supply
-   - reset-gpios
+-	gpiod_set_value(ctx->reset_gpio, 0);
++	gpiod_set_value(ctx->reset_gpio, 1);
  
-+dependentRequired:
-+  avdd-supply: [avee-supply]
-+  avee-supply: [avdd-supply]
-+
-+allOf:
-+  - $ref: panel-common.yaml#
-+  - if:
-+      required:
-+        - enable-gpios
-+    then:
-+      properties:
-+        avdd-supply: false
-+        avee-supply: false
-+
- additionalProperties: false
+ 	ret = regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
+ 	if (ret)
+@@ -544,7 +544,7 @@ static int nt36672e_panel_probe(struct mipi_dsi_device *dsi)
+ 	if (ret < 0)
+ 		return ret;
  
- examples:
-@@ -47,11 +68,10 @@ examples:
-             compatible = "novatek,nt36672e";
-             reg = <0>;
- 
-+            enable-gpios = <&pmic_gpios 8 GPIO_ACTIVE_HIGH>;
-             reset-gpios = <&tlmm 44 GPIO_ACTIVE_LOW>;
- 
-             vddi-supply = <&vreg_l8c_1p8>;
--            avdd-supply = <&disp_avdd>;
--            avee-supply = <&disp_avee>;
- 
-             backlight = <&pwm_backlight>;
+-	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
++	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
+ 	if (IS_ERR(ctx->reset_gpio))
+ 		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio), "Failed to get reset-gpios\n");
  
 -- 
 2.51.0
