@@ -1,56 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795696024;
-	b=O8pN2lNTP1R63TMC61e/plsFflLbJDS5+locXn2bbn1WEIgmbuNzjyyAM2SsvzRqJoFl
-	 lXKohjM1LCDIhUxHmGeMY48RbGeIPfJxxAK3Hg++Qe5eG3Lq5dehk3H0oq7D76wf4lQTv
-	 SxympJ9Mbr8xO7iybMPXdTPl7M689xqOAGcrbb4aU3A5PXxK2xc/Zq4b61Ac3KGpq5m8+
-	 VTSlHdWKOVhmoTcdytGAPPVPZRXyuHyXRX6aado6BXWoYAwLpksLtbquC+RNNz7b7lXjX
-	 G6qMWqec1t7ZPAZikOmCtr6Cp9BSCMv6fojVlgJk0/TB3VAKgCMh4IuQerFLz93n3Hw==
+	t=1795696108;
+	b=B7EDAlq5mYtnsAGiXgTwjENz2mL7J4cURq3yKLG6zn6h/h+NS+eEwVHghys6z1WSuAK2
+	 R6HuUxzDqvlMpdGomnKVROtDAE7dl8HTf9oDP5PvCtfPW9YUAvN5IWmK4UmHdPqeNDCLQ
+	 TWCLb8k43UWkOH1r006NOPfVzkMyZqZLDAMoZjkd433UrzIbGraqP/ijQyOZYZIwHf6ai
+	 hR875aMfQjbhNTFNmH9Vq0KUnGnrw8zINuZt/4cyUWbOhPtGApZSJ0zjgugb7N2CSUYPQ
+	 cdf3Q+Hd972iZwaq3PDAUKw2QBFF0b/69SXbX3XAnwgB/KrjjW5Se/Kc38ibHhjjwww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795696024;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=buL1FiulKeK1iwhQPIEYkRhya5tcSTIzBwY4LNs6UxY=;
-	b=VrVmvQzVabpMFYlkWt7WikqW+trBxW6S7yD5XFDwZouG9nj569qK71BgFr6TY6M0oSXu
-	 hEy/hZw5Z5lHBFAMS+TH7a4WlK1++1p+q8cEjI55uIhB4sTszLHhdSgFN24ioMBVFyV5d
-	 25qAPWcUnjvBCSTQ0XcxY/aS3twNHlqLnKCKpaYdf1ilDAQBm9CaAB2AlY0amCDvDfd+a
-	 BSkk7tE0i8H6y7g+wBdMQyEKZxtz+MX2ukcnywirq04r7GDmBQmumyDadlExe0FhcGm8J
-	 4GA9igpt5LGEoN2ywQDbN0eS6tn9eJJ7RaE5WHZbYj2pmj3wCl+FnZI54m6goPHdljA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795696108;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=xu4Hob4T/c2RBRj9oSFW3u62G/KKa3D4oPKEkYrOGh0=;
+	b=24w+zplW4Nth3cJY4GkN0rEgry3H5rv+jgFng2ZEsIE+vjrYMr/A7FgIxUIBrZJjKYiy
+	 Svv/new8yvgG7AloDR9Q+AWjxQoqKErChPfP5BaPP9SNOPSGPN4bTm9yLjE5cNPG9YptM
+	 KIDp+g9/zOIdMjJCBZsLHm30e9003sA97Rr1ZInFFo95cawoJx5p0vng9DyLfsAu7zrti
+	 hflhn8qSVDWOSnnt6e0S4CYWyvtaX2iWDSulmF9SJNQBkulHfjPUIIYvzd1XB4yUQFtAA
+	 R2xzBf1nqj7dGbVRyu8cyEGvbs3L6BNqkxc0SxaEzP/f0MT4rXjBBYOFTVQL5GWffDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LpB4evE8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=glider.be;
+	spf=pass smtp.mailfrom=glider.be;
+	dkim=pass header.d=glider.be header.i=@glider.be header.a=rsa-sha256 header.s=fm1 header.b=e6OCY5HE;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=gPHaXeVY;
+	arc=none smtp.remote-ip=103.168.172.137
+Received: from flow-a2-smtp.messagingengine.com (flow-a2-smtp.messagingengine.com [103.168.172.137])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8269E606A326;
-	Thu, 26 Nov 2026 12:27:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E903606A31C
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 12:28:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E903606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=glider.be
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=glider.be
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LpB4evE8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17F701F000C6;
-	Thu, 26 Nov 2026 12:27:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795696024;
-	bh=buL1FiulKeK1iwhQPIEYkRhya5tcSTIzBwY4LNs6UxY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LpB4evE8aDeAE7OKTSNXGdJWHWSovVSKX+b0BLQfZjUofIqbw48o34TxUOzkZfRJ9
-	 DtwtTrZCGeaHMRwi3NMAlAPyujXO1YzyWbyQp88SgI8ltu/eN9meQgQ/rL958JnfaW
-	 kQjGn7dsXrFwGqoWyP4RFsfTalN5J0CsYlBGKJZBQnB6kVNDFXcq86KCWb3F6kqeh7
-	 jWNQB3yRZXPd8DUiViUIgzdT4iVc4skkD8IMURld7zFxjRVTbDB8zBU0xOAUb5NFem
-	 gkT9vzgv0+JB8rZox+hoGClb4NVnGCrw8U/KCWAWDpE7zMWzpEqVWPlMb7om+20VKk
-	 mj6xNpD8GhzzQ==
-Message-ID: <sashiko-outbox-235501@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 2/4] string: Add strprefix()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alejandro Colomar" <alx@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <a688f0a1c20afadeed42ec4645b44de75874c223.1795695151.git.alx@kernel.org>
-References: <cover.1795695151.git.alx@kernel.org>
- <a688f0a1c20afadeed42ec4645b44de75874c223.1795695151.git.alx@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 12:27:03 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=glider.be header.i=@glider.be header.a=rsa-sha256 header.s=fm1 header.b=e6OCY5HE;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=gPHaXeVY
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailflow.phl.internal (Postfix) with ESMTP id 4B6A2138063E
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 07:28:26 -0500 (EST)
+Received: from ams-imap-13 ([10.64.2.33])
+  by ams-compute-02.internal (MEProxy); Thu, 26 Nov 2026 07:28:26 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=glider.be; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1795696101;
+	 x=1795699701; bh=xu4Hob4T/c2RBRj9oSFW3u62G/KKa3D4oPKEkYrOGh0=; b=
+	e6OCY5HEsHMWHDpNXuor4iPuoUZRz06OnWHRGx/Ba40dgAc6p6p/mYAxy+wY5LRR
+	JeUV2w/vhulJh1cNFQtCqxlRQBwJ8z1ZAwb44G6SxLAE7TK8dxzFTkB8/MNdEYDN
+	Cgsw70JHXhX8zRa3qRQONfffGFLQMBiLEd5LKhTTrDEM7vyWwmsETbX8SfUludqI
+	FpN1Iw8sAUxQpUCc997EFsnnWP2ComIns+MtIhUmClaGfp3r6UnAbqyjgn8s5ibZ
+	7K2ehZuRBPU0C6fP2IeaHaDF9hO+ixpnLJ4qDm+FIIfQk3YLGOiiF07R3sr2IWtR
+	yROge4h1CIePk9TBBlnveQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1795696101; x=
+	1795699701; bh=xu4Hob4T/c2RBRj9oSFW3u62G/KKa3D4oPKEkYrOGh0=; b=g
+	PHaXeVYZ/awO7BEIXECg9Z9mXPu5macsqgjq5m/8KsyzM0r0GinSKa+LDTmPypPU
+	wUem9iJ9ynhVjSv/fB4OXr361SQWYQUvUD8a9y6kna9fZ6vyRh7g88eICT4ekHlY
+	WRDg/Z4Q/4UnGYlGYve8WM3H7Zy5dijr4wd8mxY5LLTNwh54jVFrakYnNK/5BvKO
+	xkNT6huE2oQWBzXSVMDX4iF8znKYV8kpaUVYGWVXFmudhWIutNo4UqHZ5wTUOr1M
+	t+dhRNMd+jhM/DsWxXQM8g0ISBhZCIqYIBq7upvYUP+oM/Li0ACHaTs50JyCHHZG
+	4kkepmtkG+b93LOCTHmbw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=glider.be a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795696101; d=glider.be;
+	mf=PGdlZXJ0K3JlbmVzYXNAZ2xpZGVyLmJlPg==;
+	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+	s=fm1:rsa-sha256:pJcbP9ULLF/9i+l+3HwUQNQVZ57eyy7QhyBcYJ08Kn5/z9v
+	68LEEEci6wb3NVvORYyrXmxYV/og2AcOOUXWEokBZyz46lujB/LX8fl313X+7zcC
+	9ddiCPCA5va+NLk7X4orQIXJrus9RMxSDBAXeco0niAPLat8Iu4ou7VWg6UdO5ps
+	iZhSyhHGdButTCmlZurfxfdEY4SUKwwDs+wliuYr2ht1Sxiwxnw9+jnXqcHtUlUJ
+	ZqSCZbeDIfdkhJumOAGljWSuMwMJRT1UZY58OG+IVzG9ZywT4KKQ/YE8celC+a5g
+	4DQafRSxyXIKc5fkUAjtnfm9tXnBEYeykHbsSGg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:jkOwiisYvaimaD7aEFu0qippkfrPA824FSsblOr4xpw=:OiNd1Uft4081bt2SCEBPZKHGE7rtaoQoTYPz7jv/7Oc=;
+X-ME-Sender: <xms:4SUIa7cGedfw092ux_ZCeI0sjCj4irwMpx6uQj2nyUJ7zoL7W46U7A>
+    <xme:4SUIa8AZ0zhhDP4t7IeiSnEWG_U9fP4k94KqN5sln3DvzAAp1v0MooMx9tGDnuEwe
+    fW49hCOWagmPy-mm5Np3dDIVYuhux8DAPTLu6_p5djkX_eAR9i4ZTl1>
+X-ME-Proxy-Cause: dmFkZTGVm0NwrNPzjnsePArY1oNZC8jCvyBd1JNrwF5KI+JZaZ2MpkN+KcCFQFw0MoHSUX
+    6vEsjBKhDtCDDqGJbDtk1/F8fxeAfSIqmXJJQMjVt6vG6UD2h5npdRupHgDcaDs268kS4l
+    aZ98Ye4pgHukWz2ktCJ0OHs4JQ2IUYRnOOLksu3TJpR7N4vaotEtoQEADjvZI6MXUCZHzF
+    VAvrj433NYrLM/wLUnJ/LVskJORGCahkPXm+7f4QAh9iSHp669vTPxdmEZ2z+VAeYELGL1
+    RcKNCume5IIJJeDcG1PvBkfNTUcPYCkJUbv98fvlv8SzX59Z6/+VPhvMKmCDt2SoRM0yVc
+    8MZtBZw3up6rtTYZd1sTXDOv/asORVwHreP2NYDYFk81oGYxOMRTXrb3Cj/DzeM1WoNtmY
+    uSCltdT5SYTv4veZj0XHJf0ymdCEZSKcNFBz14Im6WttQhvzKeNZZomlMxcZ8Ho8alJ4nc
+    2g7RwBV4BrMLLCAvzuueIrah78IKPmpgere9RGE276BLeL0znRut4UPdhta1CeuyOm1t6q
+    +2ioy79p/duh7zcJOmW6IlwbiU4Ri760w2jBixK9uX2947W1tHr4iVB9dxn9ez7EzJ3/bJ
+    +8tMvM+rLhcKFSkiS3UjQxjz3Eb4rzFWJsC9aTCPOA4gYI94jLpioivHgWKw
+X-ME-Proxy: <xmx:4yUIa72EDJ56HSB41dkGWe1HGZD3vTaywXNDV2SiEGgfmlWJPkGhOg>
+    <xmx:4yUIayMk0fmBKWyeCGEm2tCvHK_slq2nP5Ww6yZtSju0Rj1lbc0sEA>
+    <xmx:4yUIa7biYLjmHB3Uw83X0njxb5EP6YGHSGpqlIAUxLMHwlG6KrE0mg>
+    <xmx:4yUIawyKIrND_LjniQUbp1BuIfxbsxzz71Vmd74EiS7XpfuUJi5iYA>
+    <xmx:5CUIa7mYZAIs0an1vbImXT_aQ14qy83LK5YxBf01KlK3UyXqeIydKqUY>
+Feedback-ID: ia0f84a9e:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 65656F800A1; Thu, 26 Nov 2026 07:28:17 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,62 +114,138 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-ThreadId: AJ3dJRnBKuuc
+Date: Thu, 26 Nov 2026 13:27:57 +0100
+From: "Geert Uytterhoeven" <geert+renesas@glider.be>
+To: "Biju Das" <biju.das.jz@bp.renesas.com>,
+ "Biju Das" <biju.das.au@gmail.com>
+Cc: "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "Magnus Damm" <magnus.damm@gmail.com>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Jonathan Cameron" <jic23@kernel.org>,
+ "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>
+Message-Id: <3b689e6a-98ad-422c-8b67-45d4a44377f2@app.fastmail.com>
+In-Reply-To: 
+ <TYYPR01MB66036BB057404C15BB64E57B86422@TYYPR01MB6603.jpnprd01.prod.outlook.com>
+References: <20261125-usb_rzg3l-v9-0-ea14d3ab8a53@bp.renesas.com>
+ <20261125-usb_rzg3l-v9-1-ea14d3ab8a53@bp.renesas.com>
+ <a152df0a-0b0b-4193-b3ac-ee0df0350802@app.fastmail.com>
+ <TYYPR01MB66036BB057404C15BB64E57B86422@TYYPR01MB6603.jpnprd01.prod.outlook.com>
+Subject: Re: [PATCH v9 1/4] arm64: dts: renesas: r9a08g046: Enable TSU
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] string: kernel-doc parse failure on strprefix() due to
-  __nonnull_args()
+Hi Biju,
+
+On Thu, Nov 26, 2026, at 12:53, Biju Das wrote:
+>> From: Geert Uytterhoeven <geert+renesas@glider.be>
+>> On Wed, Nov 25, 2026, at 12:05, Biju Das wrote:
+>> > From: Biju Das <biju.das.jz@bp.renesas.com>
+>> >
+>> > Add #cooling-cells to the CPU nodes, and describe the ADC1 (used
+>> > exclusively by the TSU) and TSU nodes along with a CPU thermal zone
+>> > using passive and critical trip points, with CPU frequency cooling
+>> > maps for thermal mitigation.
+>> >
+>> > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+>> 
+>> Thanks for your patch!
+>> 
+>> > --- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+>> > +++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+>> 
+>> > @@ -381,6 +385,37 @@ scif5: serial@1004e000 {
+>> >  			status = "disabled";
+>> >  		};
+>> >
+>> > +		adc1: adc@108c0000 {
+>> > +			compatible = "renesas,r9a08g046-adc1";
+>> > +			reg = <0 0x108c0000 0 0x10000>;
+>> > +			interrupts = <GIC_SPI 378 IRQ_TYPE_EDGE_RISING>;
+>> > +			clocks = <&cpg CPG_MOD R9A08G046_ADC1_ADCLK>,
+>> > +				 <&cpg CPG_MOD R9A08G046_ADC1_PCLK>;
+>> > +			clock-names = "adclk", "pclk";
+>> > +			resets = <&cpg R9A08G046_ADC1_PRESETN>,
+>> > +				 <&cpg R9A08G046_ADC1_ADRST_N>;
+>> > +			reset-names = "presetn", "adrst-n";
+>> > +			power-domains = <&cpg>;
+>> > +			#address-cells = <1>;
+>> > +			#size-cells = <0>;
+>> > +			#io-channel-cells = <1>;
+>> > +
+>> > +			channel@8 {
+>> > +				reg = <8>;
+>> > +			};
+>> > +		};
+>> > +
+>> > +		tsu: thermal@108d0000 {
+>> > +			compatible = "renesas,r9a08g046-tsu";
+>> > +			reg = <0 0x108d0000 0 0x10000>;
+>> > +			clocks = <&cpg CPG_MOD R9A08G046_TSU_PCLK>;
+>> > +			resets = <&cpg R9A08G046_TSU_PRESETN>;
+>> > +			power-domains = <&cpg>;
+>> > +			#thermal-sensor-cells = <0>;
+>> > +			io-channels = <&adc1 0>;
+>> 
+>> <&adc1 8>
+>
+> With the above entries, I get below error as adc1 has a single channel
+>
+> https://elixir.bootlin.com/linux/v7.4-rc1/source/drivers/iio/inkern.c#L135
+>
+> [   15.067383] iio iio:device0: invalid channel index 8
+
+I am not surprised ;-)
+
+>> You cannot have "channel@8" in the ADC node and magically assume consumers should refer to this using
+>> "<&adc1 0>".
+>
+> ADC1 has single channel and HW manual says it is ADCR8(A/D conversion 
+> result register 8)
+> That is the reason for channel@8.
+>
+> You mean I should use channel@0 instead to avoid the above error as a 
+> single channel
+> registered by iio??
+> 	channel@0 {
+> 			reg = <8>;
+> 	}
+
+No, DT describes hardware, and the hardware manual says it is channel 8
+(and FWIW, the "reg" property must match the unit address).  If you
+want to deviate from this (I think you don't), you would need a DT
+bindings header file.
+
+>> I don't buy your rationale in [1]:
+>> 
+>>    "There is a mapping between internal Linux array index (0) and the actual hardware channel ID (8).
+>> 
+>>     See the code
+>>     https://elixir.bootlin.com/linux/v7.3-rc3/source/drivers/iio/adc/rzg2l_adc.c#L354"
+>> 
+>> This mapping is in the driver, and there is no mention of it in the DT bindings.
+>> This means the driver must be fixed first, too.
+>
+> OK. You mean I should add custom of_xlate in driver?
+>
+> Please let me know if you prefer adding .of_xlate to the ADC driver
+> so we can use <&adc1 8> in the DTS, or keeping <&adc1 0> with the default
+> simple xlate.
+
+Please add an .of_xlate() function, so (possibly sparse) hardware
+channel numbers are mapped properly to software channels.
+Thanks!
+
+Gr{oetje,eeting}s,
+
+                                                Geert
+
 --
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-commit fa176bccb75ab1dcd9cc8e153bcc5112c790bc7c
-Author: Alejandro Colomar <alx@kernel.org>
-
-string: Add strprefix()
-
-This commit adds the strprefix() helper to return a pointer after a matched
-prefix or NULL on mismatch, along with KUnit tests.
-
-> diff --git a/include/linux/string.h b/include/linux/string.h
-> index 9b3e578d9aca1..a6a1953c52e35 100644
-> --- a/include/linux/string.h
-> +++ b/include/linux/string.h
-> @@ -557,16 +557,34 @@ void memcpy_and_pad(void *dest, size_t dest_len, co=
-nst void *src, size_t count,
->  	       sizeof(*(obj)) - offsetof(typeof(*(obj)), member));	\
->  })
-> =20
-> +/**
-> + * strprefix - string prefix
-> + * @s: The string to be tested
-> + * @prefix: The string to see if @s starts with
-> + *
-> + * This function determines whether the string pointed to by @s
-> + * starts with the sequence of characters
-> + * (excluding the terminating null character)
-> + * in the string pointed to by @prefix.
-> + *
-> + * Returns:
-> + * *  @s + strlen(@prefix) if @s starts with @prefix
-> + * *  NULL if @s does not start with @prefix
-> + */
-> +__nonnull_args(1, 2)
-> +static inline char *strprefix(const char *s, const char *prefix)
-> +{
-> +	size_t len =3D strlen(prefix);
-> +	return strncmp(s, prefix, len) =3D=3D 0 ? (char *) s + len : NULL;
-> +}
-
-[Severity: Low]
-Does __nonnull_args(1, 2) break scripts/kernel-doc parsing for strprefix()?
-
-CTransforms.function_xforms in tools/lib/python/kdoc/xforms_lists.py does n=
-ot
-strip __nonnull_args(), so kernel-doc mistakes __nonnull_args for the funct=
-ion
-identifier when processing include/linux/string.h (included by
-Documentation/core-api/kernel-api.rst), emitting prototype mismatch warnings
-and omitting strprefix() from the generated documentation.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795695151.gi=
-t.alx@kernel.org?part=3D2
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                                            -- Linus Torvalds
