@@ -1,101 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795709137;
-	b=bzqKloSO/Pr1qm9RCtu5pM/zZgOTNDbZimbJEN4ZiNQgSbCkpXlyg3d3HoEdZGdzsv4d
-	 AqVyCfXP1xAgDl+2zx6wlQG93Vlj12HUb7pjJu8es276w+klF7Dyn2cyW7PFO3Lyxj69x
-	 9lMyuxaLzMjLkuJTxEhDqdsHBZ/5+ZH3bbeo6w2L4VlNpOV/xHJDUxsodNIz6lrXgNRqV
-	 eckDMS2KJudS6mOwgBdXbzu0sdnLgip8V5G/k4pVCC1FXgFw3xNSKxI4OITQyegPqFskG
-	 /kIvLlX52d6WcEzeW6N4Z+AjcG7XQESUPwgD/NbyRkUMxrZflBgfCBwhAfS3LLD6wmg==
+	t=1795709479;
+	b=iEWBPedsdJH7x6br7wgGCUiVxILdo0Z8sYdALI2j7TcU2QbTet4wYkAOiXxUaNXkq7xp
+	 18F7ptLbfLATB+baawnhnK5rRUJDKr8/mRgirAj8KdWG9LJACMJu1AjVqLUCBE/Mrvsdy
+	 TXWCVkmtMzBx+hYbS7Zy2Jplc3iOfvTPeEtqJcoO/10VyOqAlMMweqO+cpSWCoxzZfGTZ
+	 Nkw6UEO72G81YraKf8eLAdsxz+8FSATIiVcHB+7lKOixFNuH8xE2k9c/Q4EL6Ymw/lypC
+	 S+ROLfx7KI+3W5FtnlUwtyHqkWUZRdQxIcCsYhQcQu8gJzCXgvTfPApRopF9Km5Kp2w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795709137;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=SUnFJ20ylsoLsoRM/3+fupg/CFOT8c8i8zd/epg5cmI=;
-	b=hnqGj6iwYrEpcR/b5xurXzFWRzDvzP5q4WEHgjzH7XpivkSjsIwFXvABA9hxG4hfho2P
-	 zyyhHIW1sZeCUcEJWwQuDbkpf+1WB8SK+RvQjRu5DUaWLGu78MmD0DpG1IWYc+fJKpsIz
-	 PGl4ymhynZLz+o9jzokXxd903rranK0kJ4/AwuD0V+HbZ7Fw+F33iQm5GK4ZGi/78VllN
-	 91XY6BwKzUFpfwcWYJPyb0Wbb7u8/S7pMg8MXz1c0SUQpqwZBDwtg7QenANU7nbjqrva4
-	 czVK1zhvLQJhlqnAtTNF/a4NyHNqDZ+9sm0f12+IHjD91tcF/sCqG+QgYqqW4caZvPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795709479;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=TvxjHITJOzjmt+7iOw1sa4TYT9yXQN/3c21i5WbJxoE=;
+	b=UP3lVQq5yRC8qq+qFmXCYjsgyL5caqCqacVF5rR36bBKs0c+LT9Ha6mYxRhbGCQ/K3ei
+	 p0iotVOWcfeLTjlIGznvBQEqOLAvXR/3E62YDSmYtT+xlw4q9FMfguRKL7Uu1o5ZDczUA
+	 eMG9HPNH7dk9B7OGzyaeEV1GbNaHQ2vXhDbNS5jRUXvlnBKQ9Itf+me3xtDOsTA2mr32/
+	 lwN3drPMAgZsp5dTA1pf7qgbrgQicBLVQwMngSaE+ddaM15XpzkWsvZ+shsqDsHcsq1Nc
+	 4Ufg5fdZQjvhvKO3hAK89to5V9Mk0sX1jJLoeBhXfUegiHsQwgaS0a4O4KWiVdgY3Uw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LHSFx1QJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fC25/bpc";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FDE3606A31C;
+	Thu, 26 Nov 2026 16:11:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fC25/bpc
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795709479;
+	b=ECRd0ikZqTkS+byBgmBPZpxA07NNnJg4BZJbFibOVXGNnYNnDba/dTXkCvYks/pijn2N
+	 kzKGiCiaQUv0XtPfdR8hz3TZoeE98ZzKjS/Jzs7osvj4wFhGpUHG53WZewO1EPoHH4LsD
+	 0fbE8XN7sMWuOB9KOMQmQvjMKAIe8s9h7VXWK20V0heK69QVj6kbgnGTmjd1rZSnvFpGY
+	 96bg9KmUyBmJ0FVmIN2ImYaLCRVD4xbS5FWxzPbl9rsOWva4nrcy847Q9RHMDcAf2Af/V
+	 Ggaquo7gvG/Am/bscJBxN0B5FOK9OzwOn0uGBfa3bu4xu1rhuBKxQ4GHo97sv/hTClw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795709479;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=TvxjHITJOzjmt+7iOw1sa4TYT9yXQN/3c21i5WbJxoE=;
+	b=Kz2L/NRa4QfkzTnxuGCVpWY0LC6PHG7hax/bhv5QJ4fh1HJMo/5MTCbsXAzdbO4SX65C
+	 o04L8rVtxWz10+EfydiQ7xDUNSor/dp9F7tRXogweUHRn3LclaR7z8ghpHJM8Mm7r8Y0u
+	 OwS0ysnPqNzbeEX2UIRmrSED6LYvvOV+oc0iOP5nWgY1lLiJfCLh/Nh9Wogu/1zS5mX8L
+	 bH8pXITRHKQtvPMUG2/2CgoUYv6kHExnn69P9pNCyQOHwQE0Tr+zMSXQ4vq8T35Gatvk+
+	 aSIFOuMl69pb0IF7xTlWVkejOZunwbcSnD0c0BTgv/EhKsGpFZHCZy6lV31kFs1gzjg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFC72606A321
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 16:05:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFC72606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LHSFx1QJ
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-386d1859e1cso1636351eec.0
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 08:05:36 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795709136; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pPczLSu0q2GiefewZc9OG7bkEXwYWeVrfly4WihNPA4egC2GR1gKSFIia+TnJRS6nJ
-         rPLuMF30cubirXrOospg1elaI4lX+sncExUK938BEDRqdS39Zv5DBgwCohYAhFdZwDIO
-         Vu4QfK7R276Ezsj97Gqqh+mq+vp7odYiSYH4iDxzbf+DCYEuGLIsz4C10djpTEsXunvG
-         U9gA0Q9CMgFy+Qbhoo1ejXSzEh4n/yZTiGSoVLTIGi429ZQle8FMzoOuZOlWJNjPbQkO
-         9iAnHDpQTWvhgJcDNSi16Ec7pZGJYwINMWpBJkpBmeHaeezU/3zWxDW7Uv3Ra/RU0mLw
-         goKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=SUnFJ20ylsoLsoRM/3+fupg/CFOT8c8i8zd/epg5cmI=;
-        fh=BT9XqHiX7PtrHcJRLNezUhWOHYiQss0XHYs+qn3iWws=;
-        b=fpjQve47SWvvIg8jQ6Td6JtHEujkVx+OcxOEGLsZkcwbuEnOEmecYH6A0JekX/rV+k
-         yq3YCL4UK0Kv8w3SfSePHsyQpIf5qqP+42EMicJAEhrNplf/4FpldwmhOeWfWg0gul/M
-         Bzgh1JQQGKFGJT3XBtNHoBJHH9VTVl1/9AbPq6tnys70peRB5+NK2WELm0/1OiZrxDQY
-         JgVHMBaiMnHheVNXLd5YM1Un6vkVVR4fooK9op+IBJLzOHN46o0CCcZpLo7xF+qOXLY6
-         LlIe/UWeqCdWg5MkbSk3XXpq1QQHd66qXKABd6FFlM9Ga2UJvOlnwSRhk3m0ITxdIBzz
-         /iqg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795709136; x=1796313936; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SUnFJ20ylsoLsoRM/3+fupg/CFOT8c8i8zd/epg5cmI=;
-        b=LHSFx1QJD64NxrJTjVySmgdy1+QyIpvCZsYsHetuKrtGZ73f+yuvN6vVAQpjFgMJUi
-         VMebqlntGR9XwTnjXCDaI+DIdtf3eb2aF7NzhdKB+TAA1SpPsymVwDdhRZSoDISFZBhy
-         gT3iGb69VLDLPi9SbtnLFXY/8PaeK0RPmcJMc/viANOYEle757NWA7VFKq9hCFqzP2lG
-         PHdadIr7rt0xyZDOTl/9sp4H2DE1XwTnuwY+DK2k8n1YF40bHvHKVFg9lhRaEeysJymQ
-         egJfvS/KrIqmEnVEjlJQrOyfCZ07jPJk5/NRhra/84mmDWdhjgDezO0k8WppPYOSFRyl
-         cHKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795709136; x=1796313936;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SUnFJ20ylsoLsoRM/3+fupg/CFOT8c8i8zd/epg5cmI=;
-        b=YzlFnuNrszr3kEZAXJacVEipp4sNKnas4z4WuckMDM6yo8N272kt5rrnkCCTgYrFsY
-         dCj1TKYgpUtyUjRLndtq+tUcpkvRDj+D7R+CVE+FJOMaaMZ7sngPD7xLnJDu07ai971k
-         OiZM7CVlAJJK5Ny6xWfNt8Jr0cE6ClJ5B/Gz2EqOSG8aHylzzXZyc9BVOqu/S/HlAObQ
-         JcRnvRuNHAMR+Yof/StSSYQTdikbR5aOlp8qzbQSpVeVQAQHbpIjwwd6I5NTJK5tncUi
-         GWU2+n/dfXwO0s/vqSwTqvmM2gDsMg5p/ET4iL5EBAtbiNEHcoL+zBx7F19Bpk5yANNr
-         M7Vw==
-X-Forwarded-Encrypted: i=1; AL+hErHId2n5Nf9rypC3vqtt56EohMpJhv5BPVtKD8Mk7541iEN9mKkCX1MlXqxe1zbw4Xebe7Cr1wQp/fGX@vger.kernel.org
-X-Gm-Message-State: APuU4Z8m0cjb28L8PEYYLCmqwdlZC9kMZNxnVa8xErblvYJONEezZcOe
-	Q5IHaQulrYFuOx36V/MxaTB6INGf7FnDsn9fZCQwQZpsUb1ipDPJSH2QyoLiQSNR1oNBR0aqvia
-	yHxSCcOX3BOHtdDWVVMhTBxNcEAipzdKqxg==
-X-Gm-Gg: AZFdTZeqCF3XewEdWnPe9IRz+EOgppBuBNlFY3vnxb3xqOV0yxN0avXBbdMqhnbnEDP
-	ZLcZ1ccdc+f6cXbvLuH3a62GQz8UC8V7PRgGjD17ckGJLMlu1WZNRuXbqbenCXqUmBOwePvLxOa
-	CjkjUg8FnwbzMz0jcbJlvz9dtkYzeK/KOxWcR5LsKXtL6IZkrVgtqtvBhgKrGTLXahmF4R8NZqB
-	5i1nz8AXaBpo4Twc7yOHep5vWvTOG71SZEzWi1ugGtnmUDMnBgGGv1GKPwE3GAqueHLIywjg5yR
-	2hHB3nKg5RasgFBWjDjBTfHikFNhrkly7fAL4Gre+7L4BjddzX8u9R2kggra+DEdCceOloDvPM4
-	OOWp9L8AqVYcBJhdKY4H3ZeNfdHDZjJzsarco/1r27Rs04dxTXWQ5qxqDrudLIRLc/TvEhZz1zU
-	LOOvoqWP3qxgEPWrRuCkDbwH2Q/hOp8w==
-X-Received: by 2002:a05:7301:b8c:b0:36a:2f6c:490e with SMTP id
- 5a478bee46e88-384b3986ef2mr24979842eec.6.1795709136002; Thu, 26 Nov 2026
- 08:05:36 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id C12351F000D2;
+	Thu, 26 Nov 2026 16:11:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795709479;
+	bh=TvxjHITJOzjmt+7iOw1sa4TYT9yXQN/3c21i5WbJxoE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=fC25/bpc9sAgJvvw19dH9ct8KP5sFEW7E1yN6Qkgg303vKlWj1MGS637kY9jFrk2x
+	 uhAokkp0+wdqzi5Kj7zGsyZCspQsxD3YoUKMhb1dXfYkHnnVBQkCzK6/X8qKW4PU7S
+	 cH10yMskoFdAHWVucuoZAqrDjMLusc3QDkqqEJcSZ0AZoXGAhoQOc02cifsR5UCDao
+	 Bogga7HwkFGX19aIWTKt86IkuRZpcb9QtV7k7sVBjny6k0ZX+jedV1JUCkUiaDlDvW
+	 fFCnBCLIQneZdy1DLs9ZyqQCPyZnn3OdhIMe2QZq0fllgIUywCQghvd6036OP6ALja
+	 hV52xgUy0ek4A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 45B164D621;
+	Thu, 26 Nov 2026 16:11:14 +0000 (UTC)
+From: Kyle Hendry via B4 Relay <devnull+khendry.reliablecontrols.com@kernel.org>
+Date: Thu, 26 Nov 2026 08:11:05 -0800
+Subject: [PATCH v4 1/3] dt-bindings: clock: r9a06g032-sysctrl: Document
+ reset cells
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,35 +83,90 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261123150224.199601-1-clamor95@gmail.com> <20261123150224.199601-2-clamor95@gmail.com>
- <CAPVz0n1GzY5BJLUZrdCgJHrkZ+45Kix7VP05EJeiY5FVycwKBA@mail.gmail.com> <9a9cac1b-edaa-429e-a5b5-46adba2841ab@sirena.org.uk>
-In-Reply-To: <9a9cac1b-edaa-429e-a5b5-46adba2841ab@sirena.org.uk>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Thu, 26 Nov 2026 18:05:24 +0200
-X-Gm-Features: Aa3M54q_Z-vb7dO5r0L6AcMqg8jjKTFPI9XHDJLIFJzWvQsLcNuaX0nGCAYJczI
-Message-ID: <CAPVz0n2-0e6L57FZBwz_azNOq-1Bn6023vke-=KB3a+GmyPjCA@mail.gmail.com>
-Subject: Re: [PATCH v6 1/5] regulator: dt-bindings: maxim,max8907: Convert to
- DT schema
-To: Mark Brown <broonie@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, mfd@lists.linux.dev, 
-	Conor Dooley <conor+dt@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261126-rzn1-miic-resets-v4-1-4f73af81d779@reliablecontrols.com>
+References: <20261126-rzn1-miic-resets-v4-0-4f73af81d779@reliablecontrols.com>
+In-Reply-To: <20261126-rzn1-miic-resets-v4-0-4f73af81d779@reliablecontrols.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+ Kyle Hendry <khendry@reliablecontrols.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795709473; l=1840;
+ i=khendry@reliablecontrols.com; s=20260813; h=from:subject:message-id;
+ bh=3gnuD7B0CFK427B4+Q3tucnWjRFrW/+a9MUpmAlxi/c=;
+ b=uBwZ0w9aQfhNCo86A+BL4hHvpW1wO25a02PvcZpTvqwyHpqh6c5qOFfOyyHeV1tARcmPDjkzU
+ pxumqbQdZ8PAUK8HXeOvKIQjfTS7PqKMkBXNYl5VS9F+vAU90KNkwZG
+X-Developer-Key: i=khendry@reliablecontrols.com; a=ed25519;
+ pk=gbK6oghz3qBlBiaGCsEzALLOtj5VklmsuolHQNhDV5M=
+X-Endpoint-Received: by B4 Relay for khendry@reliablecontrols.com/20260813
+ with auth_id=946
+X-Original-From: Kyle Hendry <khendry@reliablecontrols.com>
+Reply-To: khendry@reliablecontrols.com
+Content-Transfer-Encoding: 7bit
 
-=D1=87=D1=82, 26 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 18:0=
-3 Mark Brown <broonie@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Thu, Nov 26, 2026 at 05:52:22PM +0200, Svyatoslav Ryhel wrote:
->
-> > This patch is prerequisite for MAX8907 LED patch. Since Lee is quite
-> > strict to what he picks maybe you can pick this, LED and ADC[1] device
-> > tree patches?
->
-> Please send a coherent series that can actually be applied, it's too
-> much work to pick random patches out of independent serieses.  In
-> general you should try to avoid dependencies on in flight serieses, it
-> makes everything much harder to manage.
+From: Kyle Hendry <khendry@reliablecontrols.com>
 
-Ok. This is how work with Lee and mfd usually looks like :(
+Update the rzn1 system controller to indicate it can be a reset controller
+and add defines for miic resets
+
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
+---
+ .../devicetree/bindings/clock/renesas,r9a06g032-sysctrl.yaml         | 5 +++++
+ include/dt-bindings/clock/r9a06g032-sysctrl.h                        | 3 +++
+ 2 files changed, 8 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/clock/renesas,r9a06g032-sysctrl.yaml b/Documentation/devicetree/bindings/clock/renesas,r9a06g032-sysctrl.yaml
+index 26d94cedc871..70ccc315a10c 100644
+--- a/Documentation/devicetree/bindings/clock/renesas,r9a06g032-sysctrl.yaml
++++ b/Documentation/devicetree/bindings/clock/renesas,r9a06g032-sysctrl.yaml
+@@ -36,6 +36,9 @@ properties:
+   '#clock-cells':
+     const: 1
+ 
++  '#reset-cells':
++    const: 1
++
+   '#power-domain-cells':
+     const: 0
+ 
+@@ -56,6 +59,7 @@ required:
+   - clocks
+   - clock-names
+   - '#clock-cells'
++  - '#reset-cells'
+   - '#power-domain-cells'
+ 
+ additionalProperties: false
+@@ -69,5 +73,6 @@ examples:
+                      <&ext_rgmii_ref>;
+             clock-names = "mclk", "rtc", "jtag", "rgmii_ref_ext";
+             #clock-cells = <1>;
++            #reset-cells = <1>;
+             #power-domain-cells = <0>;
+     };
+diff --git a/include/dt-bindings/clock/r9a06g032-sysctrl.h b/include/dt-bindings/clock/r9a06g032-sysctrl.h
+index d9d7b8b4f426..244f5b221642 100644
+--- a/include/dt-bindings/clock/r9a06g032-sysctrl.h
++++ b/include/dt-bindings/clock/r9a06g032-sysctrl.h
+@@ -146,4 +146,7 @@
+ #define R9A06G032_CLK_UART6		152
+ #define R9A06G032_CLK_UART7		153
+ 
++#define R9A06G032_RST_TS		0
++#define R9A06G032_RST_MIIC		1
++
+ #endif /* __DT_BINDINGS_R9A06G032_SYSCTRL_H__ */
+
+-- 
+2.53.0
+
+
