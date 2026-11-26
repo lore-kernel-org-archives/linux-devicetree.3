@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795725235;
-	b=sEADMmWsyHf7KNDsf9YvWTyzp3morW/FTnE4CzR6HFn1i/spwV7Wr0MINa3C9LcDinpG
-	 9DuxJ+vsYBgBf/6NYhA/X8PEdDkARjUvkBkP1jebWsAuV04hXJCfDAcjaH8swpr9P1KFz
-	 r4qmcNFR0FPLHvik/dEEf6/0seoSQcyOW4J5VFUEzkEODGni0fmXPbR/qgRpdb+l4fw2u
-	 vVoKLgwi692TJxllv39VUwWyZ22lFO0K73Mv/Our4Kgc+QXy1Qxpi0juyscCiH/XvBdqd
-	 QG+qV+8R8Q121xDiyNss1LJySBf+k9ZiwdXbFZNsdfkiT51onlpro6INheO3HmRJ74g==
+	t=1795725242;
+	b=0y9LGeDBfjKAyBPp9Bhivl1qtOtKmcjb+VZ3qvxi4abJWKCOlUg/AcytwopvXcikPmjY
+	 XCFF532VKbZoz/CDOOaDNYE4Fo0mceazTALoljCULPZix5Qc1Pwgowlwjo/LVXg3idMNg
+	 VpUJsGKkHTljR4+qPvrJAtDfS40X4HnCil5sd17mkobN/m0ke0l69oYjbyuf7E6h1BbJE
+	 eG7Im1NcTlIXMGOEK/hz/zl3kkJc9CjaN4LS+q5tldt+tC1eDSPvu3VhI4JvGYFY9mrVv
+	 kUUi70N8RTY00ALSvhafC2REOymM79/d9uk4GnIi1q+lAaHAVhEJXzf2OkPQAiRVlnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795725235;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795725242;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 Content-Type:MIME-Version:Content-Transfer-Encoding;
-	bh=r1XVIRh3fQHS2h4Sz3Sym6iq1PD22XfOzca3/RkWwfE=;
-	b=kl+2aUN1UnP4g1bcSZXyR32sNsBj187RWINoBBDLXWG4zAnYWIo/rzxDpm/c28ro8HTh
-	 lCByvK1WWGZuYact1B0o+78xeKlml48gqVysqOnXXPVG4KJ/w0G6JLrtYb2/0i3sbSFVD
-	 xrAf6M56fyQDTEEosGVRacDMbpxdHlERN7PfpU1d3LgUMK3L3qdOgutMkG4aBXOORPSVE
-	 Wc406tE37emQ95lTNuXnummEDNs6kkRqus+O2hzplX+1zh+QTLipjPJH7j4Bwcg/zfCEI
-	 0EjR65oNHt3OXaeBwoyGeO+WE0xq/Gw2WPIcnAV32ch7DS7lNngLnk/jeSPOxoFz/ZQ==
+	bh=sbsvamPXVVsk6WUGKrA0iCW9sEFQvSqMVX1Sf+ynGWM=;
+	b=GFgxl4pKvLbvGfXV/ZUx41sIV+OQCPLX76p/3ckNE+BTRf/XUltbYX75Pnxy7cJDJlqs
+	 sDHmqyNDteO14d9mVepLcFdkXFqmQjxJxm+s5s2vpVRv0D454ERjifXM0CactRbbPuTQo
+	 HxncMhOkQqbXqTX0NTvVUiYG4MdW7M/As4wVkR2rTev9Ab5Sb12Jo2zlFBupecc/M/CTN
+	 A0WFLhGrNUTJ30oPs4VCBvN358ALnRt3UOJcKWynH2fZs42Q6gE9swOAgnmqZZc4kXISK
+	 Q0GguaVnrlQAR19fXDoUNoF8/DYcWOos90M5YvI5Rc0GR4PZu2rbh2W2xZ1TT/rN9xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ki7lj7Iz;
-	arc=none smtp.remote-ip=209.85.160.47
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fz3HcMez;
+	arc=none smtp.remote-ip=209.85.210.47
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D673606A32E
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 20:33:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D673606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D60B606A31E
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 20:34:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D60B606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ki7lj7Iz
-Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-4932b13c4ccso4125529fac.3
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 12:33:55 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fz3HcMez
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-847ac7ccd85so4171983a34.3
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 12:34:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795725234; x=1796330034; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795725241; x=1796330041; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:content-type:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=r1XVIRh3fQHS2h4Sz3Sym6iq1PD22XfOzca3/RkWwfE=;
-        b=ki7lj7IzqYkWadwnqj6PgQlP9aUyGwgU5E6yX6pdQV3YeHU1khswnjP+jW5pftsJ7C
-         pnt+f1ngrIJ2bmBCHrG4FW/0/vhgDJXdVWuGQwLf83LcE8uBAjgR6ujhbwxkvSHofQXZ
-         asrOrtlakJUqMZ9EVGAnWlkUZCh7MU8McKfGDZjePn1L+QTpHpwRONn3wuebp6gB6vWU
-         IpEF8r0arMvF9klc4QSs5BvQzqUM4dJRhyFeL9E6BgRJy4ZCX5fZe+SGfo5UL18yQM1t
-         mf79GpaG4qogum7upxuxPTUL/HZDgK/iTQcXnApXO9nB9IjFJNQZbUGj5/jIG2T+YeQJ
-         sMdQ==
+        bh=sbsvamPXVVsk6WUGKrA0iCW9sEFQvSqMVX1Sf+ynGWM=;
+        b=fz3HcMezGU86xcQBiXAtOQzCmQrdU+nIxnG+Xrqwv4M/D/HCecflXsaHJKFxSLds4G
+         A6PKNB1YV200bUo3FtONGIid22PLKAI9AhlA1DweyLX539FRMqybOpNFd9f/hRRvBPrY
+         wLdcq7eI7bnyzDQxsftrF9QGG76bNdmjkPYX+43De9adVNwffe0xps3ayGtqwQ4eaq5e
+         vPiLS6l2rQUDmTNswPh6xGEcxIJn/PVAlnhpT5BjDE0T459fE+e/ujIN4L4jp+wzQDKm
+         yu0NmQqnv9AFO3VdakCzqT0pCdRWkrrKTMfhfNilnbFdjuh+152dPAXBOE3IMjJmgis7
+         HnUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795725234; x=1796330034;
+        d=1e100.net; s=20260707; t=1795725241; x=1796330041;
         h=content-transfer-encoding:mime-version:content-type:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=r1XVIRh3fQHS2h4Sz3Sym6iq1PD22XfOzca3/RkWwfE=;
-        b=SnCeryZD6q33vSLr4J24soopKdSsFoyhOCEh/iFwdg1aBmyVdeBtWc/6WgBGWdvdHL
-         RcHUvd+czjKqCAwPJbwEnukfEN6fk7VmkH3CjFnaVEyt9xN6yjeaJ1vJc0IBbkJcpnty
-         kkpMHLDc8C17rOBIg33stFvMFOOg6BAI3QLKN2B6ZcnijbIpsFBsGkFO3nS+JdG3NVIb
-         Jni6RqRFPK1sE1jEQQWVsmAq3G0VolYLedyXHdmTMXiNEYHTihlbO6flipqhuxsSas5y
-         9dUTglhpFqoPa8qL/RTy+FUeVOtBBo4C9Aof6Mptt0+diENsW2Eexc1h8g1pUvpKk7Vx
-         2oIQ==
-X-Forwarded-Encrypted: i=1; AL+hErG6DIAsGBCRofObbsIgQOw5B/rAfUzsuoZ7y3LMy43H8010SOUsF/bmk79ecwgcBduntlXJ7/7FipBe@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ot2lygiFf9Y4uex0ntw7HTsxRFSjul8K+B+JrjS+WuHYJu9SF
-	wXUxPBHK6kbbPWhyytaZ1KFuLtIXasmljSKT+CO6FnYOQWqs24TfNjf8
-X-Gm-Gg: AZFdTZeFTvBbb0yPTNXdQRYb54OBr2DWM1dgwWK6esDHzTDBkKs3iRIVJUZiblIQo+h
-	47McXSFkd3HGva0EtK3X+PnRhkUyp9zE09O9loblRvYWvjezy9VVA3cBzF523cKLxKgJP5e/6RI
-	rj3/XtxGeP8Zxvrzm/+HV+Oi8H8TQ2jWkiP7v4wIt+QxLTRLt9D47sTrk2Y2uAbHfrUcGcqzEWs
-	Klbde+ybGViaJGu6B74Hj8ftL2xm5DbEDere3uLFl+vos1etTCFcL/nxKIwzyg8q3RlDLOymSZK
-	e4Zoy+oM+TcevYOkPFyIKg4rFDZa7fOdb2RAUjeZ1wN9xctpW0WyDa2oynnDl90Nf/QBsby0sX2
-	+H9a3zgpIPemqQc9lSQTVfhUR8HQUhOQFQo7W1y1/U6ORaMZ83+cL0y5K7WalFM2GXp0u116xTu
-	62sX6Gk6GI7ZguKWlg2iI3W9Lo8XBkOgR+O6eKhEvon1c/cJhR8wsUKXaTOezkswHTJHoX6Q02N
-	qVQKDQcjji3SSrHL1BDVu9E/UiarMtaDWPscY8NVYQFxHC+SjvcKE6wRSLQsnYuumTWHJdkN9yu
-	z9XVJSLJPDOdR7OdgT2HADPUoSWk6v9I2ktecQZk6zGC8slFONElKo364NZxzZfgCsitek1KYv0
-	xRcr7Pv4=
-X-Received: by 2002:a05:6808:4fd4:b0:55c:859:adc with SMTP id 5614622812f47-57a0c5bfaaamr27052957b6e.55.1795725234464;
-        Thu, 26 Nov 2026 12:33:54 -0800 (PST)
+        bh=sbsvamPXVVsk6WUGKrA0iCW9sEFQvSqMVX1Sf+ynGWM=;
+        b=y1yt8hxFD3zLC1QRcZfuqIEnaz9s891zBxlfan+RcQr/OteQ08ooPgQFWQGWhp1Nm6
+         O+YMdiN/ryQ2qeF4sBCo4s2rw0D9lOstuMZBaF3kq7KfZ2XSjAlL5grH0qNKa9ees7QJ
+         uJHgQ+1RDOcf/21Xeqq9zX9V9BAV6MGQi1SHVb+X+mHrkjidUFudb+Jiju7U5nQtlrrA
+         nfye5gn3Fnw5ipOg7LuDe8dM79DDaMuWPIo3rVzdMPsqob4YwJKj4eLglr62tZIhEImS
+         AyNnPa43yXPlZH5TqIiy+vzdrYpkdXyufHOvpPm1qNU+eaaijOogKNRZ80kSBd6uQHEg
+         2+UQ==
+X-Forwarded-Encrypted: i=1; AL+hErGG3hPD6qIerzWMkxrmj4UpvvFeHaACq2fhSiblvW1uUH6+/kobbwjmcKHHgsE4GlZf7i3eFJuWJLY2@vger.kernel.org
+X-Gm-Message-State: APuU4Z8087QV6toK5CSAtNwurh/nMoo3Qlt4jYE9Vo3j1y23GJ1H6DkW
+	E1nPVtg8kR1/29vT3aKvPbjH6W0Q6efeekZYH9f7b7h2G7UP9ZqGVfBU
+X-Gm-Gg: AZFdTZeg8/fBjLiC1/fw+jjRX5e0ju0DnApOFh8Vs3016lesjqW0A751Brwl1vl78eL
+	2Ork4kUrNmOiFHcPQEYQFJmNWIMemwJTzM8TfaZch9zCEYYIcPM8f7/B2HF7ULFOX3aIDE4e6tE
+	sjV0UjdwKu81XM4FIq3G/0LhRK/W47Kn/UOLnHhpRfKdRikvJeY0lij7KPF1ALcJkfkFqu6Og7D
+	v7OUy7O4JS6Abqo3izhDMsmkEbbQulGL/t9x4yu/lXWj08U811fCTB8CpSWYmJtOOC8jNbDqVXq
+	kmZz3zKnVaBoguP7dfb+iUVD4arxrUnyy/xOAnE7GrzQpjLxmzJGs0Qsw6Km1Ax+3s7Wlfb30gH
+	xEoxpa1iG3AtPFzPlF/rimsCGLdqx3DACf7XprHVN+pUvmtSbUVpDCliuIjasRR6nw9mYuDfwCf
+	ec0Kv6jfO8agBQOg/Z5cz3oQsc6NytaeGg63FhTLMDBjzxWRxEDQDFluhzg6gmGGvjiVISKm34r
+	2tYqmWGGNRZ3bTcJfj7Fm4a2bouK8RLbjv90NZJ94d8eXRdaCTRFW7XAGj6sWADdGDbfKAkJxtD
+	kCe2ILFmfuXTMr2HF4rnsgdGHVdgSkmv2CWiskQHmCyAtgXopiii3uwbvWUcLcDvI5/+LC87FaQ
+	TpIjxaB8=
+X-Received: by 2002:a05:6830:438f:b0:862:aa2b:eae4 with SMTP id 46e09a7af769-863159e9bd9mr23567439a34.24.1795725241022;
+        Thu, 26 Nov 2026 12:34:01 -0800 (PST)
 Received: from AMD.home.internal (dhcp-9-244-8-156.gobrightspeed.net. [9.244.8.156])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-57a31929223sm17049002b6e.1.2026.11.26.12.33.52
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8631692f049sm16133926a34.25.2026.11.26.12.33.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 12:33:54 -0800 (PST)
+        Thu, 26 Nov 2026 12:34:00 -0800 (PST)
 From: Enzo Adriano <enzo.adriano.code@gmail.com>
-To: andre.przywara@arm.com,
-	wens@kernel.org
-Cc: robh@kernel.org,
+To: wens@kernel.org
+Cc: andre.przywara@arm.com,
+	robh@kernel.org,
 	krzk+dt@kernel.org,
 	conor+dt@kernel.org,
 	jernej.skrabec@gmail.com,
@@ -100,12 +100,12 @@ Cc: robh@kernel.org,
 	Alexander Sverdlin <alex@sverdlin.org>,
 	Jun Yan <jerrysteve1101@gmail.com>,
 	Lukas Schmid <lukas.schmid@netcube.li>
-Subject: Re: [PATCH v5 2/3] arm64: dts: allwinner: add A733 SoC description
-Date: Thu, 26 Nov 2026 15:33:52 -0500
-Message-ID: <20261125-a733-02-soc@gmail.com>
+Subject: Re: [PATCH v5 3/3] arm64: dts: allwinner: add Radxa Cubie A7S board
+Date: Thu, 26 Nov 2026 15:33:58 -0500
+Message-ID: <20261125-a733-03-board@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <0e94af87-71d1-4a5c-a2bb-218a2306db27@arm.com>
-References: <20261121-a733-cubie-a7s-dt-v5-0@gmail.com> <20261121-a733-cubie-a7s-dt-v5-2@gmail.com> <CAGb2v64c5oirvfq7R3a1CWQCydfOOipcRD7dhSFAb=zczRdTHw@mail.gmail.com> <0e94af87-71d1-4a5c-a2bb-218a2306db27@arm.com>
+In-Reply-To: <CAGb2v64p4GvDMDKzDLfedDQCexD+=gu3+YxMAt=ARj4bZxR_eA@mail.gmail.com>
+References: <20261121-a733-cubie-a7s-dt-v5-0@gmail.com> <20261121-a733-cubie-a7s-dt-v5-3@gmail.com> <CAGb2v64p4GvDMDKzDLfedDQCexD+=gu3+YxMAt=ARj4bZxR_eA@mail.gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -118,36 +118,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> > This should be evident from the schematic itself (the pins are used for
-> > I2C). And then the datasheet would tell you which mux value it is.
+> "PS" is a separate output from the PMIC's "PS" pins. It is fed from
+> the "DCIN" pins and has some internal resistance and a zener diode (if
+> the block diagram is to be believed) for some poor regulation. In
+> practice I would expect at least a little bit of voltage drop here.
 
-A7S schematic sheets 7 and 16 show PG8/PG9 going to the EEPROM.
-A733 Datasheet section 4.2.6, table 4-36 gives function 6 for TWI0
-SCK/SDA. The v6 commit message cites both. In v6 the I2C0 group has
-/omit-if-no-ref/ and the RTC clock include follows the A733 clock headers.
+Sheet 4 shows VCC5V0_SYS feeding DCIN. PS feeds the buck inputs and
+UP11. I've described the two nets separately and used LDO2V5-INPUT for
+the downstream rail. I've also renamed the oscillator, reordered the
+regulators and removed cap-sdio-irq and the blank lines before status.
 
-> > Someone please test the PMU.
+> > +       cd-gpios = <&pio 5 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+> Please actually test this.
 
-On the A7S with v4 I pinned perf to each of CPUs 0-7. Cycles and
-instructions counted on all eight. Sampling cycles at period 100000
-delivered 193 or 194 samples per CPU, all on the requested CPU. Its
-PPI 7 interrupt count increased by exactly the number of samples.
-The two PMU nodes and their interrupt partitions are unchanged through v6.
-Norman also verified PMU counting and overflow interrupts on all eight
-CPUs on his A7S with v5 [3].
-Vinicius also reports PMU counting and overflow interrupts on both
-core types on his A7Z v1.11 [1].
+On a Cubie A7S with the posted v5 DTB and Vinicius's EINT-mux fix,
+MMC0 reported four-bit SD high-speed at 50 MHz and 3.3 V. One read of
+the first 16 MiB matched the vendor kernel's SHA-256. The mismatch on
+the earlier 4 MiB read at offset 16 MiB is still unexplained. The
+EINT-mux fix is now in pinctrl fixes as a256b8c8083e [1].
 
-> So I wonder if you could take just that binding patch already, to not
-> block progress here?
+On his A7S with v5, Norman verified that PF6 reports the card present,
+MMC write/readback matches, EEPROM reads work, both LEDs switch visibly,
+and warm reboot and power-off work [3]. The v6 cover lists A7S card
+hotplug, EEPROM writes and write protection, and 1.8 V SD signalling as
+untested. The v6 DTBs have yet to run on hardware.
 
-The binding is Vinicius's v2 3/4 [2]. It adds the A733 compatible with
-the DW APB UART fallback and has Conor's ack. Taking it separately
-would cover the DT dependency. My console tests also used Vinicius's
-driver changes.
+> > +                       reg_dcdc9: dcdc9 {
+> Missing voltage range.
 
-[1] https://lore.kernel.org/r/20261125124139.23869-1-vinicius.eduardo.pedrosa@gmail.com
-[2] https://lore.kernel.org/r/09f3a181436e6f19317224e583c2fdaa787797d7.1792439398.git.vinicius.eduardo.pedrosa@gmail.com
+DCDC9 reads back 1.240 V on A7S. Vinicius cites a 1.2 V ELDOIN minimum
+from the AXP318W datasheet draft [2]. I've used 1.240 V for both bounds.
+
+> > +                       reg_eldo1: eldo1 {
+> Missing voltage range.
+
+For ELDO1, schematic sheets 4-5 label LPDDR5 VDD2L as 0.9 V. The
+regulator reports 1.075 V after firmware DRAM training on the A7S.
+Do you have a validated VDD2L range for this memory, or would you
+prefer to preserve the firmware setting until the range is confirmed?
+
+I'll wait for the AXP318W series before asking you to take the board.
+
+[1] https://lore.kernel.org/r/CAD++jL=xA7eZUeb30xOnCZ8uRy0UE7q8h=8AA4p-tmiBf3Sb9g@mail.gmail.com
+[2] https://lore.kernel.org/r/nh-1384c024-38de-4962-9d4f-a0bfb55471a6@google.com
 [3] https://lore.kernel.org/r/CqGMQaDysL6l016qtEM8oOEnYUMKACgmwLUbb0wruVAzPcwiqrz00WCOhTrhkVEaZt1YB3xfucXdEc-ZFi-sCPgn69RNqtW0v4Gn_HjQZXs=@proton.me
 
 Thanks,
