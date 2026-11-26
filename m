@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795653446;
-	b=MTDuN2xMOfvjnZ4hM/cv+CN4xZbGB3CZcgzKqLYWntbt0/IauCjsYVpSI+hk1Nd/sj3f
-	 gG+UeteS8CCPmiOudUYFj/Wj7ugtLXZK+ryVQEpEVwIuR2ZUaZ38cco/sTkh7MyM2GQty
-	 LYVjp2xrexUEVS0EfasrVSY5BpkMDtWxLy7873RCPpk5gz4QsV3xFtFoR4Tz1M/o3vFzs
-	 N6Fj8q8xIkgwaMxfOq2lOsMnHjZwLLV8hwdOvrhhmKFB/ZAEfyFFzzqmE8sbVmFQEIOad
-	 4LL8NDuCYo6bc5KUrO+mP6SP+/X74YFJmxm4+iIl85HL275Pd5Ax1/EYS1yZ9CSYNew==
+	t=1795653448;
+	b=ymcDg0whazQjmEu8iAxQUXRSL6K1GZdXg8Lerf4ezESxzYFN1X6KNKTQeM3binZbPWQC
+	 AsPM1xMPfIexQFwVVMin6vFgYhCsCPOk73IBGrkL3pUj8/2rCZeY5hr0sKPpLDdYp+nTx
+	 RKeKODp/x5dJW6EeR7pEB4e6Xs91cE6GtJY+uElZUmVyv0qOOrZ/aJ45gmc/xGT6LcJl8
+	 nuG5d4JP2mUxJyvtn7yAEm4xSKSY2qhtHAeUlAINyuNKAlDj7nRNgZquYJSNJAhWUfGkC
+	 7yXqvlY7dhfZxvuTyNtCRBEl7L7C0Axmx8aSUV4/wNLt+czhtkGWow60no4BxuUSkoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795653446;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795653448;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=NCQTtxn/Sil4DrmbNSeKcCD6R/mM62YVDCQe+KaRvfk=;
-	b=XD9UncYz0IrKuTfOwxwte/6S5LfXHKLDnVqHqIChn2ixLNkHq8E5IH4mtWuwd5YyRgJf
-	 dzzJ11WEdUwdL5PLp+k/u2SJnU2RfotPr2osWXOHow2UOFm29GpyaQKscURmSGUUNKJJt
-	 /WCxFwmsO9c+tz9IshxeARmrm7RFRHQ2Z56DFUkylqiLYtvPYKqsHqgT/xFDChNCaix7+
-	 WSnyk6RZnJbW5ykZYu36l+xQ6PDdjaJElE1rDWOtZ5Ir/0DEooHwtkHksD9tkBGN4v/4s
-	 fc8vOv9BIWQZZayKCvUy4VqrhCrmxMUC7m6L3MOW/MtOfkkPmeIrAEM5zLTyBSeB0/w==
+	bh=RJJEKth71su8ijwD4sLTXvMtrVDCPMMgyByFqaz/oQo=;
+	b=1BhJBtos33ENeVP7AOWKK52AmwLR+0Hb7YnXndVkBh5IIJz2DlIhp2x5IhKzmwpZ6UOV
+	 fgsyUIAKAmiLOa0YcmexBmC0zg/96RD7cbe3rQWQhuCfrCelWEBn+pLEhbdLZ2xnKen9a
+	 BeQ9iLDBK+m8aJDYoWhm+teJP8o3MPq/H+EcGSzsKt4X6qKmNFqeUjk4G1lQycrdrvcs9
+	 VwCDRYCNKHBvvpGrCxnjlvd2dVPUnnIgi/GtBWjJEmVi7DODGOE0bl2xbYDMKIASJmnpT
+	 fS0DaSlL++vQUHsF7zuAPfCFJsi4v4Q/xdyung12odKXH1pjKix1DIFnboA0902b7zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HKbh0d3w;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ceOlNlAI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51DB2606A31E
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 00:37:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 539A3606A31E
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 00:37:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HKbh0d3w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 812A51F000D4;
-	Thu, 26 Nov 2026 00:37:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ceOlNlAI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B61411F000CA;
+	Thu, 26 Nov 2026 00:37:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795653445;
-	bh=NCQTtxn/Sil4DrmbNSeKcCD6R/mM62YVDCQe+KaRvfk=;
+	s=k20260515; t=1795653448;
+	bh=RJJEKth71su8ijwD4sLTXvMtrVDCPMMgyByFqaz/oQo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=HKbh0d3wY3fle5r6+bAaq41TZh/NK9OTmfPjg7C6Dkm3i/jgRJYadFd9Fox84t1iU
-	 EiiUmfNTDPyRsGubBHazqvbbw3jmkqDq+1BSfaOm8gUisO5kQnadp4eps6aEyZYez1
-	 8UkrSfmf89xE5+Ej0qA7LDpeznv+PPXs6rlqrM32ut/I7XJ+uZdzxd9hv515qfHfjX
-	 QEf2AAAzyRWBpLayejpG0jASaiwlbV6FuAgx0nPsYFj45Kj3b5MAeTLpDPft9Dq5jT
-	 tFnGe/UMLqMB4j+k1PbUnRzSETdcr/oJeUDLajyn1iidF3NQSjgxhZ52sdlDTH2DNH
-	 bYMqHObIkrcYA==
+	b=ceOlNlAI8jWcjtj0pVBLJ8Bzek+JpTtDXZt63v+2R1xAN8ZOEssdxGrCJi05A9EO2
+	 YO8kh43KPPrFMfnncFAAFXjnbEAC8Rmslasm1rGevYhlLxORzZKkASP+CbQG1nZ0uu
+	 V7igDm3urcAVWLi6HPLqE+vgUi4tm8BxkjW6blwH5jK3qNMLF0oGvb5gcsdmlVvhSX
+	 PaoeXMJDLQM3DaVGZx+pMRFbeYvg+mkuInWxamLVZlDz3kb5WF5NmCVKuIw5Mbzhfx
+	 X97cUOSMcrcv1IfLIb2AHT5loluhb+83suglhqUpN6A6yj6gZxekJW8RsVmrnxh9vf
+	 shpzaARuU69kg==
 From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 26 Nov 2026 01:37:12 +0100
-Subject: [PATCH 08/20] ARM: dts: ux500: Give DSI panels their unit
- addresses
+Date: Thu, 26 Nov 2026 01:37:13 +0100
+Subject: [PATCH 09/20] ARM: dts: ux500: Remove unused IIO channel
+ inheritance on Janice
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-ux500-dts-after-powerdomains-v1-8-791cd62d8870@kernel.org>
+Message-Id: <20261126-ux500-dts-after-powerdomains-v1-9-791cd62d8870@kernel.org>
 References: <20261126-ux500-dts-after-powerdomains-v1-0-791cd62d8870@kernel.org>
 In-Reply-To: <20261126-ux500-dts-after-powerdomains-v1-0-791cd62d8870@kernel.org>
 To: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -64,84 +64,29 @@ To: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
 Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org
 X-Mailer: b4 0.16.0
 
-The panel children have reg = <0> and must be named panel@0. This also
-allows the DSI controller schema to match them. Found with CHECK_DTBS=1.
+The current-sense-shunt provider has no child consumers that inherit
+its channels. Drop io-channel-ranges, which is not part of its binding.
+The proximity sensor references this provider directly. Found with
+CHECK_DTBS=1.
 
-Fixes: f4bdfcc29a8b ("ARM: dts: Ux500: Add MCDE and Samsung display")
+Fixes: 78894adedd87 ("ARM: dts: ux500: Add a device tree for Janice")
 Signed-off-by: Linus Walleij <linusw@kernel.org>
 ---
- arch/arm/boot/dts/st/ste-href-stuib.dtsi          | 2 +-
- arch/arm/boot/dts/st/ste-href-tvk1281618-r2.dtsi  | 2 +-
- arch/arm/boot/dts/st/ste-href-tvk1281618-r3.dtsi  | 2 +-
- arch/arm/boot/dts/st/ste-ux500-samsung-kyle.dts   | 2 +-
- arch/arm/boot/dts/st/ste-ux500-samsung-skomer.dts | 2 +-
- 5 files changed, 5 insertions(+), 5 deletions(-)
+ arch/arm/boot/dts/st/ste-ux500-samsung-janice.dts | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/st/ste-href-stuib.dtsi b/arch/arm/boot/dts/st/ste-href-stuib.dtsi
-index a7a7146980bd..09c8be0ad7ea 100644
---- a/arch/arm/boot/dts/st/ste-href-stuib.dtsi
-+++ b/arch/arm/boot/dts/st/ste-href-stuib.dtsi
-@@ -199,7 +199,7 @@ mcde@a0350000 {
- 			status = "okay";
+diff --git a/arch/arm/boot/dts/st/ste-ux500-samsung-janice.dts b/arch/arm/boot/dts/st/ste-ux500-samsung-janice.dts
+index 1ab09e8d8d2d..f0ccf370710f 100644
+--- a/arch/arm/boot/dts/st/ste-ux500-samsung-janice.dts
++++ b/arch/arm/boot/dts/st/ste-ux500-samsung-janice.dts
+@@ -321,7 +321,6 @@ gp2a_shunt: current-sense-shunt {
+ 		io-channels = <&gpadc 0x07>;
+ 		shunt-resistor-micro-ohms = <15000000>; /* 15 ohms c:a */
+ 		#io-channel-cells = <0>;
+-		io-channel-ranges;
+ 	};
  
- 			dsi@a0351000 {
--				panel {
-+				panel@0 {
- 					compatible = "samsung,s6d16d0";
- 					reg = <0>;
- 					vdd1-supply = <&ab8500_ldo_aux1_reg>;
-diff --git a/arch/arm/boot/dts/st/ste-href-tvk1281618-r2.dtsi b/arch/arm/boot/dts/st/ste-href-tvk1281618-r2.dtsi
-index 391e69769941..fb9d796c77cc 100644
---- a/arch/arm/boot/dts/st/ste-href-tvk1281618-r2.dtsi
-+++ b/arch/arm/boot/dts/st/ste-href-tvk1281618-r2.dtsi
-@@ -214,7 +214,7 @@ mcde@a0350000 {
- 			status = "okay";
- 
- 			dsi@a0351000 {
--				panel {
-+				panel@0 {
- 					compatible = "samsung,s6d16d0";
- 					reg = <0>;
- 					vdd1-supply = <&ab8500_ldo_aux1_reg>;
-diff --git a/arch/arm/boot/dts/st/ste-href-tvk1281618-r3.dtsi b/arch/arm/boot/dts/st/ste-href-tvk1281618-r3.dtsi
-index c5acb60c15c9..1764ddcdf08b 100644
---- a/arch/arm/boot/dts/st/ste-href-tvk1281618-r3.dtsi
-+++ b/arch/arm/boot/dts/st/ste-href-tvk1281618-r3.dtsi
-@@ -156,7 +156,7 @@ mcde@a0350000 {
- 			status = "okay";
- 
- 			dsi@a0351000 {
--				panel {
-+				panel@0 {
- 					compatible = "sony,acx424akp";
- 					reg = <0>;
- 					vddi-supply = <&ab8500_ldo_aux1_reg>;
-diff --git a/arch/arm/boot/dts/st/ste-ux500-samsung-kyle.dts b/arch/arm/boot/dts/st/ste-ux500-samsung-kyle.dts
-index dad2844169b1..61023711f113 100644
---- a/arch/arm/boot/dts/st/ste-ux500-samsung-kyle.dts
-+++ b/arch/arm/boot/dts/st/ste-ux500-samsung-kyle.dts
-@@ -481,7 +481,7 @@ mcde@a0350000 {
- 			pinctrl-0 = <&dsi_default_mode>;
- 
- 			dsi@a0351000 {
--				panel {
-+				panel@0 {
- 					/*
- 					 * NT35510-based Hydis HVA40WV1
- 					 * Apparently some Kyle models can have a NT35512 fitted
-diff --git a/arch/arm/boot/dts/st/ste-ux500-samsung-skomer.dts b/arch/arm/boot/dts/st/ste-ux500-samsung-skomer.dts
-index 9aaf42014efe..a10710beff32 100644
---- a/arch/arm/boot/dts/st/ste-ux500-samsung-skomer.dts
-+++ b/arch/arm/boot/dts/st/ste-ux500-samsung-skomer.dts
-@@ -472,7 +472,7 @@ mcde@a0350000 {
- 			pinctrl-0 = <&dsi_default_mode>;
- 
- 			dsi@a0351000 {
--				panel {
-+				panel@0 {
- 					/* NT35510-based Hydis HVA40WV1 */
- 					compatible = "hydis,hva40wv1", "novatek,nt35510";
- 					reg = <0>;
+ 	/* Bit-banged I2C on GPIO196 and GPIO197 also called "TOUCHKEY_I2C" */
 
 -- 
 2.56.1
