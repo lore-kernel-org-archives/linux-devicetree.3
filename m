@@ -1,111 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795703380;
-	b=H2x3eOTHk3rWdPXtsxainY4zVvpvUY4y9RXp+PDCKboJJhxdNFZfebyKXESAiASiLXw5
-	 SytmpaUq4BZ+ZtPqSsuqgZ9U4N76rx+2Wxh/Ul4ZOq5+o61Hcg/ZawGnEhTJezwj71fCJ
-	 9wP0hCMSuu0kS7LPxVYMFDM3DbPC6O9tuufsHatQ9JGAQzjNTmoBxYiMcktd5XUdfX+M3
-	 bw1dZ4+6qLHwblxHLGqo1ph08kc/8XAL7F20TP1SMNrM5E0zZm7RN2yZfgvFsLzpFnXln
-	 6pk572ei1a3Kqr5yKJUEOJ0z3SJgIzJAvEz7CpCrCn+p7ueH73BFxbm6e6Hc3dM0qHQ==
+	t=1795703404;
+	b=Bk05HkxcIebQ+YNXLoAGGHzr/N7sjdYBrFMS97VQgH1CchEmCWtKtz0tHr2o9iHSzYQm
+	 ku0oejnunFdZf06TNS09Y3nNvwhA0/JXcQGoOnXq6aM7vx35RgWj9Jrv3F2OnuI05+2R7
+	 9BN94qZlIMZIvY7owgvfKKDRau7Oy6svj0MCCZQHs/51MX7yF/yo1CwmmrAIuIgLML91X
+	 TVeKBZI7d6+k6JlxEYOiM0/JnjkqSXHIVHqjGaT2XPMZlxVup1LmIrnSMFuaxmgj7DC/X
+	 XeOJIdpWLbkARSWCg+bue8SBT/bRM0K0iA8enfZ87tMCODe95JPjRedHeB2ISwDD3wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795703380;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Go0TMbxFIn6Uh64J5GWsZj276nuCgaJAlCWObxr0QGU=;
-	b=DADJQfnV4Orgt3TdJwAftyVrNDD/qSwZkFdReR7hkihTs4dERQCcAz9qIdh09EyHMkSn
-	 PtVBN/7l/XH0vrD5lEFNZQAocLFtIR0I4spwZoUyEopjckFKII3UhkSsepzprnrz2WcLj
-	 XWljX7Xp3nAWMWxCqvAyk4PfMSuRAopnZVBBBAjocUMrPzDIf7bzhI/FewF2/vOuuMwE1
-	 sqJovEYdOvZeV8MrpkVkzUf66hpiMUNn8ONOEjoU1AWkd1XHv/OFxv6N6aVomjG7T9n4i
-	 w+oEsxnGEkHK3wPSnhyihawZjffRH6j4iz9509uaJG1r7R6fSL9GY2XoIGj4qQPOmwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795703404;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=ZYKSqpNm7JmeDVDfHCjbjXW2efJm2SoQYSo8R7KD5hY=;
+	b=Uv8rcoBURFk6ukyx48Jr5rlEzWqpNzYe3JAk+p+VncHc+qETmUs2tikthqsmlISQQ2XZ
+	 ZFOA+G8lZEU+gxDTySXxP37xKhqkNn6vUpo+dSW5OBiZbQncq1Q0bFb6xi71aE79LOTRx
+	 HnToYo1iMq9KcM2S3WPw3eSzEZHbnInBXlE86ctqhVXqbiofdxhiiMfFdG7f4Aicqld76
+	 rfHTB+B90voIVFxztSFyL9l6H4g/8szyp5iE9h+/LlGlcKTKxB4XAENFXRrA8G8Uxm1i9
+	 8y5Gb4vWoVCuzrd7ECACl/ldpe7bd6HxtX0DBOY6jXToVklyokD/c++BPlsf32f7Cjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Pxj5aToy;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fLQJCho7;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QXWn8OVu;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F7F0606A31C
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 14:29:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F7F0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F05E606A68C
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 14:30:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F05E606A68C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Pxj5aToy
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so59366145e9.2
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:29:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fLQJCho7;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QXWn8OVu
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQBVNOY3893640
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 14:30:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ZYKSqpNm7JmeDVDfHCjbjXW2efJm2SoQYSo8R7KD5hY=; b=fLQJCho7UC8UCfin
+	bajE0cFg1J/8Pw3XuXRvnKPdu7FNMrJG5Crue6GGgTXll1dlK3SyvSOE4Esg+BZi
+	/1pIR82MvIbclgjYxvznLpFJj6GpU+/1Z4PXPwQT7mC6w5tWNIn7dao2jZ7VNXyR
+	JW45x/4cFUDDYvCOoJKvuzdZrTmCCfwMN6Xv3P175H9n7UShF0BVTCCpmJaQn4uD
+	Zac3qSfe+cS4JAmkMGlCIyGK9i0PUpG1wM4j9VfNniLHkKc9bP8/B9tnI1h1qyfc
+	33i6SxLCYKSMIZvPgQ5FuM30lm3EGm48p8333M248Iih7dxFtyFENs7077KFkAGx
+	yCPMLA==
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j6hm816t9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 14:30:02 +0000 (GMT)
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-85f012673cfso1358061a34.2
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:30:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1795703377; x=1796308177; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Go0TMbxFIn6Uh64J5GWsZj276nuCgaJAlCWObxr0QGU=;
-        b=Pxj5aToyp5zuyslVpU32TLw31Yz1JmqJCNehyB9UtgFts7ql+nnycG9J6q0lsbhSsP
-         clym1pTOgpVt8qUXmCVR5mi0IgHAs6C4YnDr0rlCZ8mnJFDMLP8hFrrJbrBNJrGYjOam
-         EcKk7wFteJmcNzTI/HaIoQrJq8adsEJ8RdcezFqcfmrIAUTsP8Doao4AwcMhHY7WxHqJ
-         rVhbakdJjBHok1eivCk3Ie85UoiolkddoINOJ4OUnfkpFXd1trx4E6ZEFEfAdv1vKGpI
-         mG0CWOS6vxI5b23AaXLHFEix2fJ2Ja07mMn85uigHbVDfOq++0Gfoj+FbG3R6Y09gxNK
-         9w3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795703378; x=1796308178;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1795703402; x=1796308202; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Go0TMbxFIn6Uh64J5GWsZj276nuCgaJAlCWObxr0QGU=;
-        b=aRhFckefskI7my+F06yuwNwGUAzoj7FtTg16KhP5MsETIE9XvpuCcwpcezeFAZKRLz
-         B8YC94/DtvPM29vekvK6oDbFqRuhLzKcIvSIpZyyEfN2Eq/5eEnmzyCR3OMBuudClVyV
-         8AVx/pJ0H9KYt+f3Qzst40lUtoz2PW8GBjyUUhsT5xv6PovBLRmziJJ7TZMllIxCQT4Z
-         9onHf0w8xeq/HnuITC397fuJ8hOSr+CgixLEJqmI3JcqEe52go7aSRcA/o70aYdY3Gri
-         AC+I8rbL/w76jM4bPNWD35xsS1zn/ClLUTE9mE1s1trisDDCIwaLm63PKckBdYBOMRV1
-         cWeg==
-X-Forwarded-Encrypted: i=1; AL+hErHVklUKTRGmRF7SstfeCKdG+1ubNck0vMLKk4huZ0o4rATCiT7nbuP96AiNIsZAwkazXtUPhQKWgv27@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ThZyn9ODaYx0u6YIcSwUf0c1VB04+jxPklarILyjCtsnh2H6q
-	Rq2H/j0AHQs0Yzi/tMn4i0nzy0unCgo8YCkLk5ARYiXrLPkIhii/KpcGK3MsSj/DCac=
-X-Gm-Gg: AZFdTZeCVwaa7gzTko27Q+BH9wroDr3BJjJV1Oeb1afsNyuyG2G268o2nAekCBfzoth
-	THczLODHe7Ya7locHoRF+WGLp5N75gZspcswO/cZ8IyswIrmvvvWR1vPFWpjiHNaGfrRRHsDdI0
-	c5Ix8BUsPEDELD0h1hQTNYpWyxr0lGEYJYCfggNsRsCI4AF7KLR5j+WZgIEVn4FR6rneeiWVQTw
-	x0iw5B+qSXOuXLmpzC67oSjST9wgEPOCFEmXb/r8434N73lT3O+mr30aaM6CqjNZooghU6SELBP
-	QRFgNp1Tnk6X+qtXzeWkKwFISIhDFEOursETmzwW6YKBa8pFRkUSksuh6qeo2IsFH29okcglJzf
-	z0AO7WRasDguh4KyMYCZwHzKnx9p/fgj9Ft/x+weNnsWsI9j9N4V4QWob6E+hTkEgzHdAtWxTfW
-	B1jCgS36Zu/KpS9XU0Km/JXHJLBE/04wAiLRA19vBgBP+VImo0ga1CZjTDfLfC69a4OYT/+0z4P
-	o+twwOFGlxGO2QaFkRSIOH7m+cTK5NQdNot2NOwjeNKtqowcDNnZSykeHxmlFbJkRPNpfAgELjJ
-	LMihkyv4HZz9sTuigrNgz56JEFmr
-X-Received: by 2002:a05:600c:a085:b0:4a5:26b8:4507 with SMTP id 5b1f17b1804b1-4bb8881e6c6mr419119205e9.21.1795703377520;
-        Thu, 26 Nov 2026 06:29:37 -0800 (PST)
-Received: from localhost ([195.94.148.180])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb906e4ce6sm365232415e9.4.2026.11.26.06.29.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 06:29:37 -0800 (PST)
-From: Andrea della Porta <andrea.porta@suse.com>
-X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Thu, 26 Nov 2026 15:33:37 +0100
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Andrea della Porta <andrea.porta@suse.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	dmaengine@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Saenz Julienne <nsaenz@kernel.org>,
-	Stefan Wahren <wahrenst@gmx.net>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Phil Elwell <phil@raspberrypi.com>,
-	Dom Cobley <popcornmix@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 03/28] dmaengine: bcm2835: Add NO_WAIT_RESP,
- DMA_WIDE_SOURCE and DMA_WIDE_DEST flag
-Message-ID: <awhDQbBKe0vLWbdr@apocalypse>
-References: <20261123145728.29082-1-andrea.porta@suse.com>
- <20261123145728.29082-4-andrea.porta@suse.com>
- <awXlR5RAVl8XMVxA@lizhi-Precision-Tower-5810>
+        bh=ZYKSqpNm7JmeDVDfHCjbjXW2efJm2SoQYSo8R7KD5hY=;
+        b=QXWn8OVuCOIu9WD7DSH9yQCOnFipNMk3z3IlqwXuBiGLi3I/ANAZLf876MCv3tB1Ic
+         QH9snTgaRGec4Xo5y0wruSIZlIbCflnjZCPwsXavEcrBwm69k6b8d3zaX8yAo0o2Xrb5
+         wuG+e1IoCfyG3XY6U/TDpX+E137d1Udc59MG+vMq0Yftlx74/XILXMXFMW0cIjdlTLNG
+         E2+D5R64zMTIoy1HSWGkrg04AG5PvsVQFfYJw7RFFr898u/HgH+LJC+48UgzQEFVtQXJ
+         G2WFmzc3OqZW3965r39frGMXMp+KKT95bL3zIhp6JUKK8Iw1kBq1b/iA1NVrk/gvptoI
+         /pmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795703402; x=1796308202;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZYKSqpNm7JmeDVDfHCjbjXW2efJm2SoQYSo8R7KD5hY=;
+        b=GADUZSEbQ9e8iOF7/1AZS3lHtbL3VPAUCuUsHB2vX7tDvIgp/KLg/dx2ckcHs7sxLr
+         8DYBUT2SuHPvQiEiHy4iMNWE1chliLi6nnGRzsQFjzwD0jo6h55zh89Z5y1E0vGS+VPB
+         CrCSArWUfbVUNkN0xs768GBjFw3J5khKcg0VuEupaRx7n2uoakyYdn0b0NaIF70zUpAp
+         nfpOv8pniqIeJcNXKplS2f9bT6cw4eS9OF9XHjCftXjFCo+7tbGYJi2q1iVi1f+w9ACK
+         xONzq07hHm24nCT3PXxt/teQZ9EO7ghZqDX4ivM067WPVcgB6TbksH3v+uS+aYjM4qae
+         CbOA==
+X-Forwarded-Encrypted: i=1; AL+hErHzWGx2BuMETRhwmX5PwtcNpL3h0qYgkU7ekEv3Bc/1xUjTfRAGEmLFGQ1hCFrYPEvg053v7ddUqIXR@vger.kernel.org
+X-Gm-Message-State: APuU4Z+WUPO8TNNSB8LxM/dAzagBSwFYDLnBJcHhmC3n8aHR92qf1HMl
+	MnHUCYl+SOSIAvzwnNatzCHLXLRpkIt5VNyb40mRZV7tzazgd6pWyAFDNmCfZf5I2cUP/iA+9js
+	1pMLN24oYgHt0IqQ931zj03YKddzE7B1/B2uXo7ujgC57yqxJxPURwSKNMzTnevy1
+X-Gm-Gg: AZFdTZdnOhy1zB92fw3O+vNLlI9puuFQmwmyDk3wKpqkCL3x5zj7z6PLeMiBKwEn6rO
+	OtW4vyoIus8XSGM7tC1mfleoxq7JNFoXOAp1pDGEDQVWIqE8TEAaDfsgRfxBZDj9oUfpumi2Q3O
+	NXN9Nxie2vbi4m5BEdX6KK894LjTS8K4AX48lrjCzLOdueC/QDY8xmACOQ5RwWPODuiFqchBt4I
+	qbbvoYKFdomblAcQov+js6JUKGfIrRybvB191EJ0qdy6w/uKuer5AbIBLHr2V56MaRuftlqEUO7
+	IiuXxq9ZBpHKgwMe8PwCv5Mx8k86pWif3UfOn35/b+xBJ14EHiMPCLbmXN6POmKnX/QJOu0rZ3w
+	T4YBLYLqhD7SgEMbWvx7rlnjRJoOKrZpKcr3GqRdmecxI0Iz1Ricdjshis/9AvKqr3A23Bqk=
+X-Received: by 2002:a05:6830:2a88:b0:845:3cfe:5f2 with SMTP id 46e09a7af769-86314ff95bemr34000815a34.0.1795703402230;
+        Thu, 26 Nov 2026 06:30:02 -0800 (PST)
+X-Received: by 2002:a05:6830:2a88:b0:845:3cfe:5f2 with SMTP id 46e09a7af769-86314ff95bemr34000765a34.0.1795703401810;
+        Thu, 26 Nov 2026 06:30:01 -0800 (PST)
+Received: from [192.168.226.72] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513aea28f4sm782697166b.33.2026.11.26.06.29.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Nov 2026 06:30:01 -0800 (PST)
+Message-ID: <56ac1346-3164-4418-a00a-168323787535@oss.qualcomm.com>
+Date: Thu, 26 Nov 2026 15:29:57 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,105 +115,70 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <awXlR5RAVl8XMVxA@lizhi-Precision-Tower-5810>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/5] drm/msm/adreno: Add speedbins for A660 GPU
+To: me@fromdisposition.org, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org
+References: <20261105-b4-sm8350-gpu-v1-0-a7175cdd6512@fromdisposition.org>
+ <20261105-b4-sm8350-gpu-v1-4-a7175cdd6512@fromdisposition.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261105-b4-sm8350-gpu-v1-4-a7175cdd6512@fromdisposition.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: kfEhP87OKQTwcejiVGOwOqj-gqGq4g1R
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDA1NiBTYWx0ZWRfX8IK0HT4AkZv4
+ TOrRJ6bAy9CrC9rOMYGm7FxMubkK5UmaO3C88NvDnrjAivMyVz0GSqKsusCZiLUwqv+0WL8qeC/
+ g1doGiTHzoBMZdCGyOSzX1jMtkjvFrU=
+X-Proofpoint-GUID: kfEhP87OKQTwcejiVGOwOqj-gqGq4g1R
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDA1NiBTYWx0ZWRfX+uIkCuBov3Ch
+ 5b/kF56Efw4cvqow5WntE/13arfGcWiH78+H35JhaQG33CAKQxjxzH9JdMYxbiHFPiSaivPtoEA
+ r7cUeXEtlGKHwM4f0sV5zAOk2kuo+Q3dkS/yzRXT5AqBJfTxgiOPU1Ik5Ba5zRfN0RWtlhd9RBw
+ MUMpYxqDtznizQ2RNEi7MstsK910SiTTC4qdkxcXrvLRSFXDY9fpIbY5rNTr/CtgoWxfuTTBu9b
+ +xhy/IBFrdZNm1X4ZjPRsPdsKejncAMQKlFPllut8Q0gWB6USxuFIzulb3SgCG0JG3Ay3D8aZkJ
+ V7Rgyf3FQN64hIqsi9Xo4JCOTz9LvQkBDbaD+ON5yHG8oKVm5AXXw5y1gIkhGIjz8g168KbxfVg
+ LooT1dxxoAWRs6HnpsXAg5o9iOjTc31oPHx+vCHe0PA7WCCVAKl8162zBT1sRI7kpHHoRg7nIlO
+ Tw6ROOVU+oAAHycRIig==
+X-Authority-Analysis: v=2.4 cv=O/usLx9W c=1 sm=1 tr=0 ts=6b08426a cx=c_pps
+ a=7uPEO8VhqeOX8vTJ3z8K6Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=Tt5JBQAfAAAA:8 a=LR9blauW7GWGG1yPYK4A:9 a=QEXdDO2ut3YA:10
+ a=EXS-LbY8YePsIyqnH6vw:22 a=kpHMOrJS8sLNr5ru0mYA:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-26_03,2026-11-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 bulkscore=0 adultscore=0 clxscore=1015
+ impostorscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260056
 
-Hi Frank,
-
-On 14:28 Tue 24 Nov     , Frank Li wrote:
-> On Mon, Nov 23, 2026 at 03:56:41PM +0100, Andrea della Porta wrote:
-> > From: Phil Elwell <phil@raspberrypi.com>
-> >
-> > Use bit 27 of the dreq value (the second cell of the DT DMA descriptor)
-> > to request that the WAIT_RESP bit is not set.
-> >
-> > Use (reserved) bits 24 and 25 of the dreq value
-> > (the second cell of the DT DMA descriptor) to request
-> > that wide source reads or wide dest writes are required
-> >
-> > Signed-off-by: Dom Cobley <popcornmix@gmail.com>
-> > Signed-off-by: Phil Elwell <phil@raspberrypi.com>
-> > Co-developed-by: Andrea della Porta <andrea.porta@suse.com>
-> > Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
-> > ---
-> >  drivers/dma/bcm2835-dma.c | 25 +++++++++++++++++++++----
-> >  1 file changed, 21 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/dma/bcm2835-dma.c b/drivers/dma/bcm2835-dma.c
-> > index 690f5ba1c439..118ba2f71dc8 100644
-> > --- a/drivers/dma/bcm2835-dma.c
-> > +++ b/drivers/dma/bcm2835-dma.c
-> > @@ -145,6 +145,21 @@ struct bcm2835_desc {
-> >  #define BCM2835_DMA_WAIT(x)	(((x) & 31) << 21) /* add DMA-wait cycles */
-> >  #define BCM2835_DMA_NO_WIDE_BURSTS BIT(26) /* no 2 beat write bursts */
-> >
-> > +/* A fake bit to request that the driver doesn't set the WAIT_RESP bit. */
-> > +#define BCM2835_DMA_NO_WAIT_RESP BIT(27)
-> > +#define WAIT_RESP(x) (((x) & BCM2835_DMA_NO_WAIT_RESP) ? \
-> > +		      0 : BCM2835_DMA_WAIT_RESP)
-> > +
+On 11/5/26 2:30 PM, Demeter Barna via B4 Relay wrote:
+> From: Demeter Barna <me@fromdisposition.org>
 > 
-> why need recorder these information at in hardware control block if it
-> is reserved by hardware?
-
-These bits are never written to the control block: they live in the upper bits of
-the DREQ cell of the DT specifier and the driver translates them into the S_WIDTH/
-D_WIDTH/WAIT_RESP bits of TI. *_PER_MAP() masks the DREQ to 5 bits, so nothing leaks
-into the hardware.
-v4 will move the definitions to a dt-bindings header and adds a comment to make
-this clear.
-
-Regards,
-Andrea
-
+> The SM8350 GPU comes in speed bins, read from QFPROM 0x17b bits 7:5.
+> Qualcomm's GPU tables for this SoC give:
 > 
-> Frank
-> 
-> > +/* A fake bit to request that the driver requires wide reads */
-> > +#define BCM2835_DMA_WIDE_SOURCE BIT(24)
-> > +#define WIDE_SOURCE(x) (((x) & BCM2835_DMA_WIDE_SOURCE) ? \
-> > +		      BCM2835_DMA_S_WIDTH : 0)
-> > +
-> > +/* A fake bit to request that the driver requires wide writes */
-> > +#define BCM2835_DMA_WIDE_DEST BIT(25)
-> > +#define WIDE_DEST(x) (((x) & BCM2835_DMA_WIDE_DEST) ? \
-> > +		      BCM2835_DMA_D_WIDTH : 0)
-> > +
-> >  /* debug register bits */
-> >  #define BCM2835_DMA_DEBUG_LAST_NOT_SET_ERR	BIT(0)
-> >  #define BCM2835_DMA_DEBUG_FIFO_ERR		BIT(1)
-> > @@ -605,8 +620,9 @@ static struct dma_async_tx_descriptor *bcm2835_dma_prep_dma_memcpy(
-> >  {
-> >  	struct bcm2835_chan *c = to_bcm2835_dma_chan(chan);
-> >  	struct bcm2835_desc *d;
-> > -	u32 info = BCM2835_DMA_D_INC | BCM2835_DMA_S_INC;
-> > -	u32 extra = BCM2835_DMA_INT_EN | BCM2835_DMA_WAIT_RESP;
-> > +	u32 info = BCM2835_DMA_D_INC | BCM2835_DMA_S_INC |
-> > +		   WAIT_RESP(c->dreq) | WIDE_SOURCE(c->dreq) | WIDE_DEST(c->dreq);
-> > +	u32 extra = BCM2835_DMA_INT_EN;
-> >  	size_t max_len = bcm2835_dma_max_frame_length(c);
-> >  	size_t frames;
-> >
-> > @@ -636,7 +652,8 @@ static struct dma_async_tx_descriptor *bcm2835_dma_prep_slave_sg(
-> >  	struct bcm2835_chan *c = to_bcm2835_dma_chan(chan);
-> >  	struct bcm2835_desc *d;
-> >  	dma_addr_t src = 0, dst = 0;
-> > -	u32 info = BCM2835_DMA_WAIT_RESP;
-> > +	u32 info = WAIT_RESP(c->dreq) |
-> > +		   WIDE_SOURCE(c->dreq) | WIDE_DEST(c->dreq);
-> >  	u32 extra = BCM2835_DMA_INT_EN;
-> >  	size_t frames;
-> >
-> > @@ -688,7 +705,7 @@ static struct dma_async_tx_descriptor *bcm2835_dma_prep_dma_cyclic(
-> >  	struct bcm2835_chan *c = to_bcm2835_dma_chan(chan);
-> >  	struct bcm2835_desc *d;
-> >  	dma_addr_t src, dst;
-> > -	u32 info = BCM2835_DMA_WAIT_RESP;
-> > +	u32 info = WAIT_RESP(c->dreq) | WIDE_SOURCE(c->dreq) | WIDE_DEST(c->dreq);
-> >  	u32 extra = 0;
-> >  	size_t max_len = bcm2835_dma_max_frame_length(c);
-> >  	size_t frames;
-> > --
-> > 2.51.0
-> >
+>   fuse 1, 3:     up to 900 MHz
+>   fuse 0, 5, 7:  up to 840 MHz
+>   fuse 4:        up to 738 MHz
+
+I only see at most 2 bins, what's your source?
+
+Konrad
