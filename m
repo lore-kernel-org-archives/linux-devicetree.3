@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795673594;
-	b=0HWom+INDhaFStQpoAvN0miO4HqdsrHxq7rN6NeNnmeTpE4xmw9eavaaqABQ6/ehu1ne
-	 P/7ZRZtXLTO4O6f6zAWkVdRcwjN54nYDHHt4H5DzJomJnYZ+BKFmP0ajwGRNBs4wM1Hcz
-	 jj/tCpyD1Zm3RCvOCxvjG4HZX0qNfRJDPTbrRsT6hNagpgK3N9vSDH8uGQ1IHg6a/c0Il
-	 cRk63TFmhIEaTllrbXsC/J1b6hWV5TTttBW272Gl1Dz51P3vxC+8eKwKq3caqjbTejqPU
-	 yzjo2oPwq0agyPlhIWLWV/MyMEaP43wE+Cz/lwemisgd4Hc6Z//Wl6XfbRxJfpJIY1Q==
+	t=1795674045;
+	b=l0ogak1fjbeMJuVMS7MKM+ODHyh7o6XyK9Yxl+WMCZYbK9fPabw9F+64cQgvih2PTOmY
+	 EQu4KNGndnmtp4PinQQlyTwxXrt3X80s2dJgRtdK73c+wi40K9iZcOUTuTXXrflXs2nH0
+	 2JbiijmWaiEg4soevxio9IJV9gBcKz06ZYfOM9LpXJ1NinqYZxs7gW0c8VZWLB2LBKsA8
+	 JmN9W/AaajbLP4ALt+TD8wXtpQgYEmHEAzd+HuMUQ7ppINwx2MOc7BOixTvRzPDOj6z23
+	 IEzreqrdkoQtR+3B+XxedMkZkICdgXWP1fNoFYR18oNDgpFIYHlD8NMw9AFHXeLPbSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795673594;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795674045;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=iLHgSF/n7XKvLP1gIjWglwvMShWzX1CPzOnA5uOo/UA=;
-	b=Q6YBSs8mIZXF0oKKeShM1CVtnOv5LYv89pUSoh1YCunHoiyvFkw0UyQVh2Ot/0BommyP
-	 B5TBdlZFXjHEEXAzaAOrYFSQQ9EeO2AuVc2lYq4ERo3NH8BTJQ5qdbALzXlRMUNAV3gR/
-	 oyiWNOPA+P+l0FEtS3xVgF4gK20yzqxzKaUkZaU695+AnLHC6M3BJE4Q7hprVX5fKrCBw
-	 QpFKBoUDevThxziDT6oyKsZ/sJpdElkTuMI9QtBLCN6oQ3Q1adWlqW2xlsErI+2sNzm5f
-	 pkdQjxCa5r0eYevudLyYhGE73bzf25e5o678EHKsdVfn6GVsbKYowZL+Rqgobi96S5g==
+	bh=7AsEqIqBwmPNzMxGSW2qOQTcuIO5i20OQd78g1l9to4=;
+	b=vKtRD2+lrQX47EQgHrn5RC/PFTqQFSLUrDyzECAaMXiG4XHg3imF+pP947QxNLOx//CJ
+	 WSYRRPOEGJoiVihbv058NGpgxSOcagUs1CDw/E9/vMWULjMAi8HsdLD5mk9AnnpTGxtFu
+	 9Cu6pUzrI59qhSKQ4uQ7bRHx9hV2bA7YDZnOImwVo1X0jFW2Va7XASgfspDjJ68BKvZ+n
+	 8y2SeCNEvWKPttgZbvY5GAW7r7QyaoMOgLkDDhpdSyH4mL6Ut4UC3nD8sv6DZl1EWUVQ2
+	 vyr3jhkbpsg5bwm5yD4qDcVniBjwZjvsfu9/r7aYac9b7D5dRAD0tb6q5KIAPy9yzeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=anBStro1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=moT4nAwR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6809606A323
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:13:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DCB6606A31C
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:20:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=anBStro1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DF461F000C0;
-	Thu, 26 Nov 2026 06:13:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=moT4nAwR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDF881F000D1;
+	Thu, 26 Nov 2026 06:20:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795673594;
-	bh=iLHgSF/n7XKvLP1gIjWglwvMShWzX1CPzOnA5uOo/UA=;
+	s=k20260515; t=1795674045;
+	bh=7AsEqIqBwmPNzMxGSW2qOQTcuIO5i20OQd78g1l9to4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=anBStro1tUkQacVN4eXXDJrXHhMLJDCdp9hrpWVeFWdru3xESklNMONn8n+AfSvxA
-	 7DV5sL6ichqEox+xstvNfFrFdhN9HDxcLGQJ1hIHhSM0IWmxg4BE9EmzSmHXz9Q8dd
-	 cSU/E0Ijvc8/e2BC9fHVs80PRun3Mn3bpdhTCqAHU9ba22yABPmfeJ2+avNvzd3v56
-	 pEmCuRlAtY3C+64d+8xREtsWcsRoHN0cx1i6Gr5HIO6rSm2Z5cJxwaGCL6MELr6eJe
-	 dwyodyqCFaplNnYF+Gg5FVoew8hoVdw4TzBGZSlCx+XoFsiTQmR9rrQEW2q4P+iU0A
-	 0da10C7hfVEpQ==
-Message-ID: <sashiko-outbox-234829@kernel.org>
+	b=moT4nAwR4LQISbyRJ6WQ87ypRRIdf0SmJKEmke0ugxpL/aUPJhIYG1YQu0nz9EnMi
+	 VZg+a8I14U9CU61La5wgwnPJQ4TJokGva8zNmELLSjlfkrYH/NsnDCDyu6oc6cL445
+	 7DifJgMp08r8Xst4LIWVsUy6fBdjvRGMumY6VLOevzvoxGG9/DDEsOXVRlvMCJjmwH
+	 wdOCV0Hq8UNnP8J7YjU/dyFI6Za6fzVphBaJe19GIUB9+5H4M6XYP+l5NrW1bekdLx
+	 cbOHfFF9jqljPpMgCkirBlMV0mLQZEOgnNwU+5CPILQKNtXicwZf88WKhdmyVrV81s
+	 kZqmBurbLJ87g==
+Message-ID: <sashiko-outbox-234833@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/5] dt-bindings: display: add CIX Sky1 DisplayPort
- transmitter
+Subject: Re: [PATCH v5 4/5] drm/bridge: trilinear: add the DPTX core and
+ build glue
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Luo Liu" <Luo.Liu@cixtech.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261126060003.3979478-2-Luo.Liu@cixtech.com>
+In-Reply-To: <20261126060003.3979478-5-Luo.Liu@cixtech.com>
 References: <20261126060003.3979478-1-Luo.Liu@cixtech.com>
- <20261126060003.3979478-2-Luo.Liu@cixtech.com>
+ <20261126060003.3979478-5-Luo.Liu@cixtech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 06:13:14 +0000
+Date: Thu, 26 Nov 2026 06:20:44 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,64 +61,311 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] dt-bindings: display: cix,sky1-dp: missing ports/port@1 and
-  aux-bus in schema
+Thank you for your contribution! Sashiko AI review found 4 potential
+issues to consider:
+- [High] drm/bridge: trilinear: suspend race in dptx_prepare() and
+  dptx_unprepare()
+- [Medium] drm/bridge: trilinear: dptx_pm_prepare() clears force_hpd
+  before core_off
+- [Medium] drm/bridge: trilinear: dptx_detect() race drops HPD
+  notification in worker
+- [Medium] drm/bridge: trilinear: dptx_host_deinit() disables host
+  before AUX poweroff
 --
 
-commit 0fd2cf4952ac57efa52ecd81791109f84491673b
+commit e4c145e1af987165c679844b15b259c9b490d6af
 Author: Luo Liu <Luo.Liu@cixtech.com>
 
-dt-bindings: display: add CIX Sky1 DisplayPort transmitter
+drm/bridge: trilinear: add the DPTX core and build glue
 
-This commit adds the Device Tree binding schema for the Trilinear
-DisplayPort transmitter integrated on CIX Sky1.
+This commit adds the Trilinear DPTX bridge core, including probe, system
+sleep, hotplug workers, and stream state management, and hooks the driver
+into the DRM bridge Kconfig and Makefile.
 
-> diff --git a/Documentation/devicetree/bindings/display/cix,sky1-dp.yaml b=
-/Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
+> diff --git a/drivers/gpu/drm/bridge/trilinear/dptx_core.c b/drivers/gpu/d=
+rm/bridge/trilinear/dptx_core.c
 > new file mode 100644
-> index 0000000000000..2cb4dbb8d5fe5
+> index 0000000000000..532f4fe0577f2
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
-> @@ -0,0 +1,102 @@
+> +++ b/drivers/gpu/drm/bridge/trilinear/dptx_core.c
+> @@ -0,0 +1,1080 @@
 
 [ ... ]
 
-> +  port:
-> +    $ref: /schemas/graph.yaml#/properties/port
-> +    description:
-> +      Video input from the Mali D71 display pipeline (Komeda) that drives
-> +      this controller. The link to the sink is through phys (USB-C combo=
- PHY
-> +      or the native DP PHY), not a second OF graph port on the DPTX.
+> +static void dptx_host_deinit(struct dptx_dev *dp)
+> +{
+> +	if (dp->state & DPTX_STATE_READY)
+> +		dptx_core_off(dp);
 > +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - clocks
-> +  - clock-names
-> +  - interrupts
-> +  - resets
-> +  - phys
-> +  - port
+> +	if (!(dp->state & DPTX_STATE_INITIALIZED))
+> +		return;
 > +
-> +additionalProperties: false
+> +	dp->hw->ops->host_enable(dp->hw, false);
+> +	phy_exit(dp->phy);
+> +
+> +	drm_dp_dpcd_set_powered(&dp->hw->aux, false);
+> +	dp->hw->ops->apb_clock(dp->hw, false);
+> +
+> +	dp->state &=3D ~(DPTX_STATE_INITIALIZED | DPTX_STATE_INIT_TRAIN);
+> +}
 
 [Severity: Medium]
-Should this schema define a ports container with port@0 (input) and
-port@1 (output), as well as an optional aux-bus property for eDP panels,
-instead of requiring a single unnumbered top-level port node?
+Should drm_dp_dpcd_set_powered(&dp->hw->aux, false) run before
+host_enable(dp->hw, false) and phy_exit(dp->phy)?
 
-The phys property only references the local SoC PHY provider and does not
-describe downstream sink or AUX bus topology.  In addition, an output port
-cannot be added as an optional property later while a top-level unnumbered
-port node is required: of_graph_get_port_by_id() scopes port lookup
-exclusively to a ports child node whenever one is present, so a board DTS
-adding ports/port@1 would hide an SoC DTSI top-level port node unless the
-binding is migrated from port to ports.
+DPCD transactions through /dev/drm_dp_auxN serialize on aux.hw_mutex and
+aux.powered_down rather than dp->lock.  Disabling the transmitter and
+exiting the PHY before marking the AUX channel powered down lets a
+concurrent DPCD access run dptx_hw_aux_transfer() while the host and PHY
+are being torn down.
+
+[ ... ]
+
+> +static int dptx_detect_locked(struct dptx_dev *dp)
+> +{
+> +	int ret;
+> +
+> +	if (dp->released) {
+> +		ret =3D -ENODEV;
+> +		goto out;
+> +	}
+> +
+> +	if (dp->state & DPTX_STATE_SUSPENDED) {
+> +		ret =3D -EBUSY;
+> +		goto out;
+> +	}
+> +
+> +	if (!(dp->state & DPTX_STATE_INITIALIZED)) {
+> +		dev_warn_once(dp->dev, "detect with uninitialized host\n");
+> +		ret =3D -ENODEV;
+> +		goto out;
+> +	}
+> +
+> +	if (!dptx_get_hpd_state(dp)) {
+> +		dptx_handle_disconnect(dp);
+> +		ret =3D -ENODEV;
+> +		goto out;
+> +	}
+> +
+> +	ret =3D dptx_handle_connect(dp);
+> +
+> +out:
+> +	dp->status =3D dptx_ret_to_status(ret);
+> +
+> +	return ret;
+> +}
+
+[ ... ]
+
+> +static void dptx_hpd_event_work_func(struct work_struct *work)
+> +{
+> +	struct dptx_dev *dp =3D container_of(work, struct dptx_dev,
+> +					 hpd_event_work.work);
+> +	enum drm_connector_status old_status;
+> +	enum drm_connector_status status;
+> +	bool hpd;
+> +
+> +	scoped_guard(mutex, &dp->lock) {
+> +		if (dptx_hpd_work_aborted(dp))
+> +			return;
+> +
+> +		old_status =3D dp->status;
+> +		hpd =3D dptx_get_hpd_state(dp);
+> +	}
+> +
+> +	if (hpd && dp->oob_hpd && !dptx_wait_phy_dp_mode(dp))
+> +		return;
+> +
+> +	scoped_guard(mutex, &dp->lock) {
+> +		if (dptx_hpd_work_aborted(dp))
+> +			return;
+> +
+> +		status =3D dptx_ret_to_status(dptx_detect_locked(dp));
+> +	}
+> +
+> +	if (old_status !=3D status && dp->bridge.dev)
+> +		dptx_notify_hpd(dp, status);
+> +}
+
+[Severity: Medium]
+Can a concurrent dptx_detect() call update dp->status and cause
+dptx_hpd_event_work_func() to drop its HPD notification?
+
+CPU0 (hpd_event_work)             CPU1 (connector probe / modeset)
+dptx_queue_hpd_event()
+                                  dptx_detect()
+                                    lock(&dp->lock)
+                                    dptx_detect_locked()
+                                      dp->status =3D connected
+                                    unlock(&dp->lock)
+dptx_hpd_event_work_func()
+  lock(&dp->lock)
+  old_status =3D dp->status
+  ...
+  status =3D dptx_detect_locked()
+  unlock(&dp->lock)
+  old_status !=3D status            <-- false, dptx_notify_hpd() skipped
+
+The same mismatch can happen on OOB hotplug when dptx_hpd_event_work_func()
+captures old_status =3D=3D connector_status_connected, drops dp->lock in
+dptx_wait_phy_dp_mode(), and a concurrent dptx_bridge_detect() probes
+before the PHY enters PHY_MODE_DP (setting dp->status and the DRM
+connector to disconnected): once the PHY enters DP mode and
+dptx_detect_locked() succeeds, status matches old_status and
+dptx_notify_hpd() is skipped, leaving the DRM connector state disconnected.
+
+[ ... ]
+
+> +static int dptx_pm_prepare(struct dptx_dev *dp)
+> +{
+> +	scoped_guard(mutex, &dp->lock) {
+> +		dptx_irq_off(dp);
+> +		dp->state |=3D DPTX_STATE_SUSPENDED;
+> +	}
+> +
+> +	dptx_cancel_hpd_works(dp);
+> +
+> +	scoped_guard(mutex, &dp->lock) {
+> +		if (!(dp->state & DPTX_STATE_SUSPENDED)) {
+> +			dptx_irq_off(dp);
+> +			dp->state |=3D DPTX_STATE_SUSPENDED;
+> +		}
+> +
+> +		if (!dp->active_stream_cnt)
+> +			dptx_host_deinit(dp);
+> +		dp->status =3D connector_status_unknown;
+> +		dp->force_hpd =3D connector_status_unknown;
+> +		dp->state &=3D ~DPTX_STATE_CONNECTED;
+> +	}
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+When dp->active_stream_cnt is non-zero during dptx_pm_prepare(), does
+clearing dp->force_hpd here prevent dptx_core_off() from powering down a
+USB-C sink in D3?
+
+When a stream is still active, dptx_pm_prepare() defers dptx_host_deinit()
+to the suspend-time atomic disable commit in dptx_unprepare(), which calls
+dptx_core_off() -> dpcd_power_down(dp->hw, dptx_get_hpd_state(dp)).  On
+oob_hpd transmitters hardware HPD is not wired, so once dp->force_hpd is
+reset to connector_status_unknown, dptx_get_hpd_state() returns false and
+dptx_hw_dpcd_power_down() skips writing DP_SET_POWER_D3.
+
+[ ... ]
+
+> +static int dptx_prepare(struct dptx_dev *dp)
+> +{
+> +	int ret;
+> +
+> +	guard(mutex)(&dp->lock);
+> +
+> +	if (dp->released)
+> +		return -ENODEV;
+> +
+> +	/* The controller's resume commit can precede dptx_pm_complete(). */
+> +	ret =3D dptx_host_resume(dp);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (dp->state & DPTX_STATE_ENABLED)
+> +		return 0;
+> +
+> +	if (!(dp->state & DPTX_STATE_INITIALIZED)) {
+> +		ret =3D dptx_host_init(dp);
+> +		if (ret)
+> +			return ret;
+> +	} else if (dp->state & DPTX_STATE_READY) {
+> +		/* core_on() finished, but the stream never became ENABLED. */
+> +		dptx_core_off(dp);
+> +	}
+> +
+> +	if (!dptx_get_hpd_state(dp)) {
+> +		if (!dp->oob_hpd ||
+> +		    dp->force_hpd !=3D connector_status_unknown ||
+> +		    phy_get_mode(dp->phy) !=3D PHY_MODE_DP ||
+> +		    !dp->hw->ops->sink_present(dp->hw))
+> +			return -ENODEV;
+> +
+> +		dp->force_hpd =3D connector_status_connected;
+> +	}
+> +
+> +	return dptx_handle_connect(dp);
+> +}
+> +
+> +static int dptx_unprepare(struct dptx_dev *dp)
+> +{
+> +	if (dp->active_stream_cnt)
+> +		return 0;
+> +
+> +	if (!(dp->state & (DPTX_STATE_ENABLED | DPTX_STATE_READY)))
+> +		return 0;
+> +
+> +	dptx_core_off(dp);
+> +
+> +	/* dptx_pm_prepare() may have run before this suspend-time commit. */
+> +	if (dp->state & DPTX_STATE_SUSPENDED)
+> +		dptx_host_deinit(dp);
+> +
+> +	dp->state &=3D ~DPTX_STATE_ENABLED;
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+Can an atomic enable racing with or running after dptx_pm_prepare() leave
+the host initialized and dp->irq armed across system suspend or shutdown?
+
+CPU0 (suspend / shutdown)         CPU1 (atomic enable)
+dptx_pm_prepare()
+  lock(&dp->lock)
+  dptx_irq_off()
+  dp->state |=3D DPTX_STATE_SUSPENDED
+  unlock(&dp->lock)
+  dptx_cancel_hpd_works()
+                                  dptx_bridge_atomic_enable()
+                                    dptx_prepare()
+                                      lock(&dp->lock)
+                                      dptx_host_resume()
+                                        dptx_host_init()
+                                        enable_irq(dp->irq)
+                                        dp->state &=3D ~DPTX_STATE_SUSPENDED
+                                      unlock(&dp->lock)
+                                    <HPD IRQ queues hpd_event_work>
+  lock(&dp->lock)
+  dptx_irq_off()
+  dp->state |=3D DPTX_STATE_SUSPENDED
+  dptx_host_deinit()
+  unlock(&dp->lock)
+                                    dptx_bridge_mode_set()
+                                      dptx_detect() -> -EBUSY
+                                    dptx_unprepare()
+                                      !(state & (ENABLED | READY))
+                                      return 0  <-- skips dptx_host_deinit()
+
+There are three related issues in this path:
+
+First, if dptx_prepare() runs after dptx_pm_prepare() has already finished
+(for example after trilinear_dptx_suspend() or trilinear_dptx_shutdown()),
+dptx_host_resume() re-initializes the host, calls enable_irq(dp->irq), and
+clears DPTX_STATE_SUSPENDED, and nothing reinstates DPTX_STATE_SUSPENDED
+or disables dp->irq afterwards.
+
+Second, in dptx_unprepare(), the early return when neither
+DPTX_STATE_ENABLED nor DPTX_STATE_READY is set sits above the
+DPTX_STATE_SUSPENDED check, so when dptx_bridge_atomic_enable() fails in
+dptx_bridge_mode_set() or dptx_core_on() and jumps to err_unprepare,
+dptx_unprepare() returns without calling dptx_host_deinit().
+
+Third, when dptx_prepare() runs while dptx_pm_prepare() has dropped
+dp->lock for dptx_cancel_hpd_works(), dptx_host_resume() re-enables
+dp->irq without dp->hpd_stopped set, so an interrupt can re-queue
+hpd_event_work or hpd_irq_work after dptx_cancel_hpd_works() has returned;
+and if dptx_encoder_enable() finishes before dptx_pm_prepare() re-acquires
+dp->lock, dp->active_stream_cnt is non-zero and dptx_pm_prepare() returns
+without calling dptx_host_deinit().
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126060003.3979=
-478-1-Luo.Liu@cixtech.com?part=3D1
+478-1-Luo.Liu@cixtech.com?part=3D4
