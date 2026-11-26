@@ -1,62 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795655739;
-	b=UMos3YW9hYJ5ui3K4b7EEyWblBtXRyfe3KDkZNfcz+nDwcT3zqoe5G50wPTZDBIPD6+a
-	 2YZ0jTiUxts0AAjhZervlZgMub5VALqERLHKrasGSlmS18W/wXo0FRZUCWuHlYfqAHpoq
-	 KIMJKNQqhBJ8P8lDoYt2itVJhpfnyvxDKh5NJqLnq30uZ9CI4QS2nMh9qSUg79FAWyGM3
-	 XIintm4UUARNG93QsThj6DTfLl27+OAf4g6GEhXXQC2205grmvSljyiCwQceArji44syh
-	 10gFM39e0SZoRMRT8+eobzpRc5zeTGbsXQdQ4EBQ2my7Rvi5H3Fh8HvpecQLrxQK1og==
+	b=IRTbcX2NE2VxlTrfuEW2LyCKLnFXPOdPcixQ6V5c/CrKnc6pZ1n35BzlEXILoMvprTSY
+	 3JbJ+NeQxBvWyswLHSz8N7OjaqUbuAQmP7XDBsAhhN1kvUdXs0GWkgS+Vic0t2at8eEfZ
+	 A7MCLyw2J+zA5Btm+6TV/I7JvKSOVw9gf3OJXtkWpKmQ5nlCH+oaCDEZNAklFGbUri3CT
+	 2WtrpQD/A7MP50158yZ7UPa5t21ysfKT2+afi8vrgIuY4jQisXGYN1WR2peYEjUtjrhvW
+	 k7CFYEgxYo9XLoWjBgcTagTKwBiBZgxvwDK9rcRjAI9g83p3JnemC9UQJoXS6u8u3LQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795655739;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=9UJ+q7zIGlZFEE68HiZ/mvBeBCv8598/0azGk8CdL9A=;
-	b=Wc8ZN98XkYcyo+WSEhE92fLJTcu1rkfqJwGqnirwyy827Af+P04rmZig5HqImDKniuY5
-	 sEbjT3QAm5yZC1/ihI+AAd3ILm4F2r7HuiwUKeiKeajlpEr+y7O5Gz+y1EYGe1BqtkJ6h
-	 lfqMrDRS/lALz3aVj4ziSN2FhEa530/jW9P61edHKv7iCbuieRJaAo01QWsGyPsMDpwlP
-	 BGRMWEEB3P/jyQ3stAkxn5aW4cnBpt0sYt3MOxj4uZVshJduz480o16Zf2BojR5nerGHq
-	 SxSar3+4dkwyITB6uelZjRoorP5SvOfRcddJT/FHcei5GoAq4CqZUINNFCUvweUnyZw==
+	bh=WkHN9A3Y86juNKLrEVQSy/VEql3aXHqCYmFvIrSVDmo=;
+	b=VUTDE/+oViPMFWenhseWaFbIEfwQRDL2gXUMEMl2Wp+hk/t8Y8HSZIlWAxhxf2RGvI/F
+	 ARGnXVAvT8ET982H9rzgmAqW2s1I66xtkkqYcf7prBh3/uqpWpm7f3nR2gr+XXC8zS4YT
+	 d+fstBfO3qp0urUvczwdTklcOztWrmu0eiD6tbjXQF20zjADCBoX0HtogTU1uGSlQPVfo
+	 d0gHnyoZeHoGZExnd5VjQ3qac8klF3Feyr92vWx3Y5cVk9kzz7MkDboZb9l0Z/aNTKoZx
+	 +G7xRgxd1FWoQrI1eVUu9MaCJlSTRmD1ONcHRmAKOu+aqc1rVeOqcoHFTUOX+gwcQTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=o56NrrI8;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=NYg1LOrC;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89B81606A68B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A815D606A691;
 	Thu, 26 Nov 2026 01:15:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89B81606A68B
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A815D606A691
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=o56NrrI8
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=NYg1LOrC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1795655734;
-	bh=1AftK+nexroecJNvfTH6e3M9x+eZJLRIy9WcYptEJ3E=;
+	bh=TReSjAabIH0w5Lp+llK+KbrOfk2KHaTLEr6xiB4QYtw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=o56NrrI8f/to+Yy0Nk5B7U/zTcLr3EqzYRIvRz8P5hQNsnJ+Yaq/LrxmbI1xKQwxb
-	 X+n44Ok9Ki375NlorQOPKz2yTMUGGFSBEbNg/EDd1ammCB5AQJLtqWspA/pijlTc51
-	 6RTiO8mpOZD/VT5+p9n+1Q+3OBzDGuHgsJE8N42ngn3F9n8AyE/Nd+tV1awoQUixk/
-	 a6ER9w1gK9nrkiPKH3ANoAK6TRhchW6Y8GTAq2BJ8wAsdhFiNzcK80IdYswVej8wvn
-	 8yV0FQxtN4I3zmX4ErrnA3WAJrWM3ooECPS9zxiY0PXOT5ipayL8nhKub63Pv/bFGP
-	 6TXm4G2Pn5PTQ==
+	b=NYg1LOrCSTei0r9BiVMobgCs4/RupeRK9GY1Tt/Hj54AEJLw4bh9YwjoXOGCmG/JV
+	 nCVRp8rFrrB1F7AIXfb3ADVD9+wmzbDiEQE9/GNYkaJqIbqruokCWrV0OBRgvmu4SJ
+	 qguOaFPFUHJT3+jF0iekIj22FxpiyQR6pHEywM/+bFVA3ksXFbAkfOpeBE3DVZ4/dz
+	 WL9UnSeYHBo+fQBevUYVIRunpRBtIY/E1hJTXNa5X4TUkNBxtEI+7iizuMFlafNjrP
+	 r10CfEy9EIjqJRZ4od69NxKifKY6a5r0Opcso6w4QQnOcVyf0FipZi7fA3EN7f4ZAc
+	 WZ1Cc1+D2+LgA==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 612EE17E120C;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 6B6DB17E12EB;
 	Thu, 26 Nov 2026 02:15:34 +0100 (CET)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id C742148003A; Thu, 26 Nov 2026 02:15:33 +0100 (CET)
+	id CAD2F480041; Thu, 26 Nov 2026 02:15:33 +0100 (CET)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 26 Nov 2026 02:14:34 +0100
-Subject: [PATCH 06/11] arm64: dts: rockchip: Add USB-C DP AltMode for
- ArmSom Sige5
+Date: Thu, 26 Nov 2026 02:14:36 +0100
+Subject: [PATCH 08/11] arm64: dts: rockchip: Add USB-C DP AltMode for
+ RG-Vita-Pro
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,7 +68,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-rockchip-usb-c-dp-altmode-v1-6-7991eb5bb426@collabora.com>
+Message-Id: <20261126-rockchip-usb-c-dp-altmode-v1-8-7991eb5bb426@collabora.com>
 References: <20261126-rockchip-usb-c-dp-altmode-v1-0-7991eb5bb426@collabora.com>
 In-Reply-To: <20261126-rockchip-usb-c-dp-altmode-v1-0-7991eb5bb426@collabora.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -78,37 +78,39 @@ Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
  kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2880;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3047;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=1AftK+nexroecJNvfTH6e3M9x+eZJLRIy9WcYptEJ3E=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGsHiDUNlc6OPUljMla6BEFVhg7xM4LJpd3TN
- mgU4WL/hnur5YkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJrB4g1AAoJENju1/PI
- O/qaP5YP/Ri67zn4bCF3Nig8rX/X1XytrwhLU9q/co5aS7kk7GHFc/Jm0UFKbHEcu7E3C/RGZfa
- gif8RNiN8uStNMy1J+3JoZaAtQvz1zETpb1M1/bfvI4eatoJZePXMy7MlwGeyX7IT6YUM2ulYAg
- LKkIJOwu2ldgXmcUjd952og6KW4q60NXNBS7E1C3sAOTkz5Zu+iu44JnSO+wglnU3ze9u67ohV6
- rx+BzHNMrWVq0/3RkLY+p7PzZFd+dSydiyPk6uFtbXoPOPir0QDXwOIr5cL2fXyVQ+lFM4KUzSW
- WVfIXWut1zFGCu/kyzwAvO5A6yFoq0MUWbG7M94GwwRI3iqIR24PwHlWi3op5wVK4h+Sor5OcMu
- PQ6Y2hNhO/szUgJR2ywWsQUl0yD8yQmDZ+exsQOg3PvwK9uyInmtLU1912/JqJ+VfHjFEoVnUJv
- 9cgfBjOq7vwT0825Gq4YbhBczulgtPNxbduBkKRhjApNL/SDqccpl2T/m8s5DZpf4QsP/PT6LqJ
- xNDb/1kJz5x75X1RuqgRqrpMoXGhpzEVJaLa9NJO6FiauK5Iu5BZoVv9+F97N0gPOI+MnSbW6ZB
- 2EQWzOW+2SLwQA52mz3zGY/SBQBTi7u5JZZSDdeiW6n0iwHXhifHx3anHISiavS1MhshsbtS8wF
- ho0xbweHGyylK2NmnNi42sQ==
+ bh=TReSjAabIH0w5Lp+llK+KbrOfk2KHaTLEr6xiB4QYtw=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGsHiDVHBf/7Z0cjKNlvICvyct4R2IeoVQJIe
+ nBcZ/Vd4hxj7IkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJrB4g1AAoJENju1/PI
+ O/qar3sP/2dGaRUH/H/vMuhjMk7X2iJZT3+qyME4NWYuAzLVDrehc0+zLt4+G7mFPKWo5uMRxbN
+ C5Ii1HDZABNGSqU7Z1ZRTq9lMc0lWdDTR9nnGC4ozM6pAdr8RcfXSAiyNXqe3xikIGgqMwSMMRI
+ HuW9loHRmgLIi/Wf4/+vUKLNpMOZlmAvpTjYs2hUKFnJyVerrvuJXP8/V41bVQEwonsH77vF4U9
+ WhSY1uTtBUVTg1bjlLJEITAa6W56HJczIp1gA/mu26MSkCi8rpMJKXctMKjsJXsgL6fvn/Byljd
+ bAntLIsg2XX0gQ1OG5LiBPttBxbXIvxkWHlvwhuVqSE2A0W+OninjxHhmG6/T3kgiauixyH2WVo
+ Yq7amQ1lALH0UrGxruqRBtzD45Ej6mRTok/m5ByCaAl23MOuOuQBkt8gDPmHPfWOv6fDjHR4EXq
+ YlxNPXh4QAMM7zt2XKj1FGBfEfl3FzItSzmZF7zhewSvYTD8b9jncFDSRs5ErUeCyNKAu6/TL7d
+ HO8knERt1UB7r/Em9WVHsOF0LMlGE1DA9Xf84Pgnb2h/o6qafPSsOHcNRC0y4mPDFV2M1aOoGtW
+ o9dsjD0yFDbip9JoLdk3GpzS2Avd8oxsbDExfhdbVCb4bnwVuIFEoQCK5YUP84hQmeLJtYd4sSd
+ ZeuXh7NcLrI5XGYEc/vorhQ==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Enable USB-C DP AltMode for the ArmSom Sige5.
+Properly describe the USB-C setup incl. DP AltMode support, which also
+fixes the USBDP PHY ports description for the RG-Vita-Pro, so that it
+follows the documented ABI.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- .../boot/dts/rockchip/rk3576-armsom-sige5.dts      | 76 +++++++++++++++++++---
- 1 file changed, 66 insertions(+), 10 deletions(-)
+ .../dts/rockchip/rk3576-anbernic-rg-vita-pro.dts   | 78 +++++++++++++++++++---
+ 1 file changed, 68 insertions(+), 10 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-armsom-sige5.dts b/arch/arm64/boot/dts/rockchip/rk3576-armsom-sige5.dts
-index f50824966860..ce9c4ddd2c33 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-armsom-sige5.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-armsom-sige5.dts
-@@ -272,6 +272,22 @@ &cpu_l3 {
- 	cpu-supply = <&vdd_cpu_lit_s0>;
+diff --git a/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts b/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts
+index 85576a437f7b..5da90f3792a1 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts
+@@ -469,6 +469,22 @@ mipi_out_panel: endpoint {
+ 	};
  };
  
 +&dp {
@@ -116,8 +118,8 @@ index f50824966860..ce9c4ddd2c33 100644
 +};
 +
 +&dp0_in {
-+	dp0_in_vp1: endpoint {
-+		remote-endpoint = <&vp1_out_dp0>;
++	dp0_in_vp2: endpoint {
++		remote-endpoint = <&vp2_out_dp0>;
 +	};
 +};
 +
@@ -127,10 +129,10 @@ index f50824966860..ce9c4ddd2c33 100644
 +	};
 +};
 +
- &gmac0 {
- 	phy-mode = "rgmii-id";
- 	clock_in_out = "output";
-@@ -722,20 +738,22 @@ ports {
+ &gpu {
+ 	mali-supply = <&vdd_gpu_s0>;
+ 	status = "okay";
+@@ -932,22 +948,25 @@ ports {
  
  				port@0 {
  					reg = <0>;
@@ -157,26 +159,26 @@ index f50824966860..ce9c4ddd2c33 100644
 +						remote-endpoint = <&usbdp_phy0_dp_out>;
  					};
  				};
- 			};
-@@ -999,14 +1017,14 @@ ports {
- 		port@0 {
- 			reg = <0>;
- 			usb_drd0_hs_ep: endpoint {
--				remote-endpoint = <&usbc0_hs_ep>;
-+				remote-endpoint = <&usbc0_hs>;
- 			};
- 		};
- 
- 		port@1 {
- 			reg = <1>;
- 			usb_drd0_ss_ep: endpoint {
--				remote-endpoint = <&usbc0_ss_ep>;
-+				remote-endpoint = <&usbdp_phy_ss_in>;
++
  			};
  		};
  	};
-@@ -1026,9 +1044,40 @@ &usbdp_phy {
- 	sbu2-dc-gpios = <&gpio2 RK_PA7 GPIO_ACTIVE_HIGH>;
+@@ -1221,6 +1240,13 @@ vp1_out_dsi: endpoint@ROCKCHIP_VOP2_EP_MIPI0 {
+ 	};
+ };
+ 
++&vp2 {
++	vp2_out_dp0: endpoint@a {
++		reg = <ROCKCHIP_VOP2_EP_DP0>;
++		remote-endpoint = <&dp0_in_vp2>;
++	};
++};
++
+ &u2phy0 {
+ 	status = "okay";
+ };
+@@ -1258,9 +1284,40 @@ &usbdp_phy {
+ 	sbu2-dc-gpios = <&gpio4 RK_PB7 GPIO_ACTIVE_HIGH>;
  	status = "okay";
  
 -	port {
@@ -219,17 +221,25 @@ index f50824966860..ce9c4ddd2c33 100644
  		};
  	};
  };
-@@ -1047,3 +1096,10 @@ vp0_out_hdmi: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
- 		remote-endpoint = <&hdmi_in_vp0>;
+@@ -1277,15 +1334,16 @@ ports {
+ 		port@0 {
+ 			reg = <0>;
+ 			usb_drd0_hs_ep: endpoint {
+-				remote-endpoint = <&usbc0_hs_ep>;
++				remote-endpoint = <&usbc0_hs>;
+ 			};
+ 		};
+ 
+ 		port@1 {
+ 			reg = <1>;
+ 			usb_drd0_ss_ep: endpoint {
+-				remote-endpoint = <&usbc0_ss_ep>;
++				remote-endpoint = <&usbdp_phy_ss_in>;
+ 			};
+ 		};
  	};
- };
 +
-+&vp1 {
-+	vp1_out_dp0: endpoint@a {
-+		reg = <ROCKCHIP_VOP2_EP_DP0>;
-+		remote-endpoint = <&dp0_in_vp1>;
-+	};
-+};
+ };
 
 -- 
 2.53.0
