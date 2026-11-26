@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795653455;
-	b=rXzETCxO+z7ar3XnDjemz3LA2Dw1RdguvFDE/GR0H9qHHto/csB6y9bxosgU9I2436rq
-	 b364YkvPMKdmPbUSmwPX7oFVBl4TJB3PpPp7kpKwRGes9H2RHszNQBJohTl6zkJ2JhCGU
-	 lbOUpyOniEJQRxCf3yj5j1Zz6yAVlf5BZD/iGFtarbBA8n3jN1veI0eQHYMWbx1Iz9O8O
-	 HuhVve7KqCpTR0mgIvfd+feOCRqwtN2mzTKb7gglFZyI/lZlO3Mki1sRDfcZwfCdFebhA
-	 TyB5BZQl8pSsElQb9Dn2kOX5hVN6kIMjNoiQvkhz3Tnsgsd1sgtAn1Vz2AHjFvPasiQ==
+	t=1795653457;
+	b=lNcjKf7W+36nqmrjAd9kYwZ1uTSttEoOIm9fk9R7Wp5Tkz44JAD1VTMSaFGOtrUxJk9Q
+	 d9aSyCQE1nZU/o5GwLK6SdwrEWl9+/9PWtI/dhr+lcMdM4FdGYk5FLxe8WJViZx6BPoRE
+	 eBXRvSW+4tSu15MHqHAiB++LkgthMqs97MXa7lqn0WuIpMPr4qfa0tgLIz/E3rilkCmt1
+	 DIERXDZAZhKFUafuI+aLjdyrPZa/pW2tpk3KDcuNCc1YaHaQx1ZdUAE16EAcJlve2MLFa
+	 Xo+QjEWOd1nCGWEGHRt4ZWeDtBCiIh0gNKOSs5kSKhLRvGuYvo/y4+SI3/Ze9ac/LMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795653455;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795653457;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=Yjf1nlid2RxibMkFZUC9F480BQC7qNJljbiK4xF8UDk=;
-	b=URmE1YGWrVrlIPGhV29hVq8le4ZumPqpZ31WOPbbpasFcqGB5AeVU18jxqZPiym4BO7x
-	 ozhpNo6v/IPqL9Jj8ui7DUDdKXPrbhYCN37Y25arogbycWZMetYhlS+5W7grk0Cllne8p
-	 SlTX3YbFVR/17u50hMX/GoPkD6LXXWBN2HU+q2/OnBPDVc187C38nSDipNokaYc2qUbWW
-	 mcekQ68loK44/36aDLnWXrRyg/Ioj/d0jeLRnWA+90bW+KZ0nMiSpSSg8jZ3RFKZqmIjL
-	 lXGYblsnvugGkwP/pQsuK83ykPIMwm+QWXqDKRW0XS1Tsrb4epsfFCB5uZtz4BflLgQ==
+	bh=97qLk5qZEben3Ei0lHE03MZiWrEcGrpcpEHOGYx2x1I=;
+	b=T8M0+vpdQ8jM4HIf34Jha9yTPDG0Ve0+b6lt3nM2fi1Hxc+/kyqesuOoezOWUF+kDBlD
+	 44Ra9QFTY/MXjDygLcJoOzAlq7JqUEzsSdSe1qxCaiOW58sbXoM8odn4ijAxneHNfEOW5
+	 tjtrC26c5LYcnarz+zI+V1BJPt8/KKtTDDssDKCODLmQ6ndmicttK8B0X7nW98N3LTHjy
+	 r7ikbTRe4zspG9WtEtYcij8aTqKl8KPpZBwY3Db53tPxtWO6qrXFydcXn3myFXVMcr/u4
+	 EFAS4mNUzufFuZNRltrDlVOcVY1x4AwQm5IWKhMhSuvwSQhT7gziu3o/kWrp8WoaLSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HRXGlQyF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=omMnXaoo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60331606A31E
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 00:37:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F572606A31E
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 00:37:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HRXGlQyF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8508B1F000F4;
-	Thu, 26 Nov 2026 00:37:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=omMnXaoo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADC021F000C0;
+	Thu, 26 Nov 2026 00:37:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795653455;
-	bh=Yjf1nlid2RxibMkFZUC9F480BQC7qNJljbiK4xF8UDk=;
+	s=k20260515; t=1795653456;
+	bh=97qLk5qZEben3Ei0lHE03MZiWrEcGrpcpEHOGYx2x1I=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=HRXGlQyFOJIiYY6JJr/klzenYd8IG9NMhYp+IiTJbFuGn1wWrpzZk+yg+nCw/BghA
-	 4LDSX5naELQt2sqC7tKRaSV3E2y0F6D26r6y1zz1yN4VE7+NAVrJoLmlSlWhgm+odm
-	 O28Jk5CmbORk1PvuQn6apxwW9QUMQLf7M8NuNwSjz4GFi7Rw/UzXjnTTlwPub+MlYP
-	 euFDYaI81zCcaIlzhKmhcO9Yv+VAMJ290XHNzVmVOofQnBomh+bk7FqOZEoC1N95H2
-	 CM0yRfbwQk5tnsadg5rsKJgFnAesLn6wMhkG3ln1PTWRdEL5TzqDGjdy+wJ0oC0+OY
-	 E6L0SMdZ/1A2Q==
+	b=omMnXaooTyt7Fd4c4+SmIHqi4dqsf7FD9hdwQfwYfnbz0vuqJ0wm9SvOzL8ctwpft
+	 qy+xYX9EeCruKhc5wOvUG1/ktUh/nDrz6ow6jqwD7uu8KvOMlsqQPLhK3CVFqwlbv1
+	 NwD/RNt8SMly6WeJw3X6w4ATEpmoCVayWiOsNAwUC1o6y4iyC4sd2KWS5I68r6CGBr
+	 MGPrY4QrpL9QIEdD+TX9Ju91XBD4fX0n8dpGRO9huS6pfNrWDcWWwPO3UY39pjXbE/
+	 53rW2hwlq+F6bQmwDBaAKMiNAyKG2aNJUTopF02mWqAXkFK2I0czqTyhEWL3darfL3
+	 ADD/PU/DShWAA==
 From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 26 Nov 2026 01:37:16 +0100
-Subject: [PATCH 12/20] ARM: dts: ux500: Correct the PL011 functional clock
- names
+Date: Thu, 26 Nov 2026 01:37:17 +0100
+Subject: [PATCH 13/20] ARM: dts: ux500: Correct the STMPE interrupt pin
+ property
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-ux500-dts-after-powerdomains-v1-12-791cd62d8870@kernel.org>
+Message-Id: <20261126-ux500-dts-after-powerdomains-v1-13-791cd62d8870@kernel.org>
 References: <20261126-ux500-dts-after-powerdomains-v1-0-791cd62d8870@kernel.org>
 In-Reply-To: <20261126-ux500-dts-after-powerdomains-v1-0-791cd62d8870@kernel.org>
 To: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -64,47 +64,29 @@ To: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
 Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org
 X-Mailer: b4 0.16.0
 
-The PL011 binding calls the functional clock uartclk. Use that name
-for all three UARTs; the clock specifiers stay unchanged. Found with
-CHECK_DTBS=1.
+Nomadik pin configuration groups use pins, not ste,pins. Correct
+the STUIB STMPE IRQ configuration so its pull-up is applied. Found
+while validating with the converted pin controller schema.
 
-Fixes: 5a323fb4f759 ("ARM: ux500: Supply the UART clocks lookup to the DBX500 DT")
+Fixes: 07523a6cb6f8 ("ARM: dts: ux500: set pull-up on STUIB STMPE IRQ line")
 Signed-off-by: Linus Walleij <linusw@kernel.org>
 ---
- arch/arm/boot/dts/st/ste-dbx5x0.dtsi | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ arch/arm/boot/dts/st/ste-href-stuib.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/st/ste-dbx5x0.dtsi b/arch/arm/boot/dts/st/ste-dbx5x0.dtsi
-index 2682e250b23c..7bb09b45698d 100644
---- a/arch/arm/boot/dts/st/ste-dbx5x0.dtsi
-+++ b/arch/arm/boot/dts/st/ste-dbx5x0.dtsi
-@@ -881,7 +881,7 @@ serial0: serial@80120000 {
- 			dma-names = "rx", "tx";
- 
- 			clocks = <&prcc_kclk 1 0>, <&prcc_pclk 1 0>;
--			clock-names = "uart", "apb_pclk";
-+			clock-names = "uartclk", "apb_pclk";
- 			power-domains = <&pm_domains DOMAIN_VAPE>;
- 			resets = <&prcc_reset DB8500_PRCC_1 DB8500_PRCC_1_RESET_UART0>;
- 
-@@ -898,7 +898,7 @@ serial1: serial@80121000 {
- 			dma-names = "rx", "tx";
- 
- 			clocks = <&prcc_kclk 1 1>, <&prcc_pclk 1 1>;
--			clock-names = "uart", "apb_pclk";
-+			clock-names = "uartclk", "apb_pclk";
- 			power-domains = <&pm_domains DOMAIN_VAPE>;
- 			resets = <&prcc_reset DB8500_PRCC_1 DB8500_PRCC_1_RESET_UART1>;
- 
-@@ -915,7 +915,7 @@ serial2: serial@80007000 {
- 			dma-names = "rx", "tx";
- 
- 			clocks = <&prcc_kclk 3 6>, <&prcc_pclk 3 6>;
--			clock-names = "uart", "apb_pclk";
-+			clock-names = "uartclk", "apb_pclk";
- 			power-domains = <&pm_domains DOMAIN_VAPE>;
- 			resets = <&prcc_reset DB8500_PRCC_3 DB8500_PRCC_3_RESET_UART2>;
- 
+diff --git a/arch/arm/boot/dts/st/ste-href-stuib.dtsi b/arch/arm/boot/dts/st/ste-href-stuib.dtsi
+index 1f0f4ed74fd2..e2bd0418bb7a 100644
+--- a/arch/arm/boot/dts/st/ste-href-stuib.dtsi
++++ b/arch/arm/boot/dts/st/ste-href-stuib.dtsi
+@@ -128,7 +128,7 @@ pinctrl {
+ 			stmpe {
+ 				stmpe_stuib_mode: stmpe_stuib {
+ 					stuib_cfg {
+-						ste,pins = "GPIO218_AH11";
++						pins = "GPIO218_AH11";
+ 						ste,config = <&gpio_in_pu>;
+ 					};
+ 				};
 
 -- 
 2.56.1
