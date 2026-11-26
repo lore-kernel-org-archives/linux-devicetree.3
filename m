@@ -1,57 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795675012;
-	b=rJC1kWOFX/Xz3je4wCUeOhHkfVRYBvyEX3Md83+B7sHWfIsSHtjmql97xkksLUvzjspw
-	 7zQlcRAiEeL9vFumYrYAdjdztAHbAA5xfNbaOWQxUIixEZgVeQW6BqKowiay5EOlRL4R5
-	 3ruM14GXotvTI6AX+bLSrlOBPCERGMzH17pdkQR0W9VLgHOLzfy5I1HFI3b9QfIHN+c88
-	 SjbtE7IPp5dcJSA1ESTbCm3V7cUVcNQKZtfbuAVKm1zk71nxrMZEscj3xktQ8NlxROKBz
-	 0TxXh8tCZBt42YbSdZQ7DeDp+da3aOEq8ok000WWNB7QwfAYOq7UbR3pNachG5yOsyg==
+	t=1795675143;
+	b=z9jdGpGJoPBa06KI6bT+n9BuPSmv/hp+Nv3yjgXSEt0DzR40UUMSVxv8k/JHXw7kyxUq
+	 oeQE4f/aN6qyJNUJx313fn1foBbTtVSFYFTVDXl/oqmUyyfZC724vY1v/zkJ7T3eBkvnj
+	 CopF7LLUDRynL27I6fCgYjylp+vVmKOd8n9xWPVZkLuOdlb7MYJHYBoNBZg8Wv67zItD7
+	 lV8k/2B7lgKcAboW4ymNQajRxVxb4L+8VrU7lxAHqZbkSEKf8UoMufar5q1bgdIcyP3TL
+	 scF+LVjo9oTxQhmcGqQk2eVojy9iByGpJKjrazjcZh+HwUw3beW4JpGzTUNQ/Z5kOKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795675012;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=TQ0bhFNxLA5rNozi+byxc3f4+9nmmzwZDoF/bNfDYMk=;
-	b=EeyqXqOqvmO/lEbLnfL3VDOVw6CeIbF0QYFUzRSEEE7C+lUI4VaQmeUVgTXIqe6mySSI
-	 IpGWgFvyxwpudZdRgh2r+Hnj287Lrb5pcVJY4tH7rc1I9WCcWdsYUpQrSAD+8cEKYtJWJ
-	 zVu39Ov2/Q9DY5LFAyvcSucjwT9WJc93Yw1XeGFTEBZChQW5FZ8we4JtZARJTXjKn+HdU
-	 bHlEn8e+61bzXVku6WEi45NHGFsqLZUYq2QKQQSDzy+40u77+eBO7HyeszQJ7D3XFFG8r
-	 TVvbhirYAEB54686q/kXapT9QHAvIHoqsol+cU4NW7eY5HVZiln3frF/9q8rHcaAeRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795675143;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=b4ne9ThXtt69HR6jnoMjn534RR6i78BAndXqgjI1v44=;
+	b=IKWCdwK4umptNyN6woqhu6ld5/ezN3fPgWNdDb10kdDzYN6oeHSO4cMUQIVImUmZzJj3
+	 rcZh0GOSjHfX5PZiNM+6JRnMSZFBPnlmRjSJQ99WLQ42GVTkQZuc658pB1KViTqMQCRLq
+	 DSCqv6GWwcGsw5RgKVHtGpP2GOm3fzyiwwnJ/o58NHbYg/G78hCxmLYPNND8W8cOFC33Q
+	 0ci+tR7v8udKZY8rXA6HDJX4UGj4e0htpz6afgej+V+TeykKGk3CMnRuPBv9yI3EAknj9
+	 esz2uN5/scV8dfReCIs/NeQAcXXrJffQ0RpHH2Nmw2vIzLkvUkEkPeZdMocrfi5uYiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kPU4u94Y;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=d-silva.org;
+	spf=pass smtp.mailfrom=d-silva.org;
+	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=TErgIb5q;
+	arc=none smtp.remote-ip=119.15.109.137
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11320606A31C;
-	Thu, 26 Nov 2026 06:36:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 321BD606A31E;
+	Thu, 26 Nov 2026 06:39:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 321BD606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kPU4u94Y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47E441F000C0;
-	Thu, 26 Nov 2026 06:36:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795675011;
-	bh=TQ0bhFNxLA5rNozi+byxc3f4+9nmmzwZDoF/bNfDYMk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kPU4u94Yq4TsHgPOm98jjn2zduSDCmoU/IC0UYg4rPZ6lg9F7SLkNa63vEDLb/lFF
-	 IRZ4A1vrXwSxSJxcBt66O5UcGMYRWfHWvuZ0gjfoad8EzvLIZ1qSJfMtP5nM9U+8RN
-	 NXwhfGzA/cVADV6ZLytnGfSgZG6UyPGaQRXNXVsCAkjaKsVZLQinLv8GeCMJXhvG0M
-	 CD2PDqxuC6fZYvhLfA/Q+LgxRK3DfoMx/6pt84GT0SGxRnQfQVFB+8lwgApFvn3x/t
-	 GhMDe8wJqrbA5ir9qUo6APV3bEiGDkjNzZD8TjO+SfSeczZuwlmhr6zKZFwh2j+0Q6
-	 68eIlyOluL8tA==
-Message-ID: <sashiko-outbox-234870@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: virtio: Add Qualcomm DCP transport
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
-Cc: virtualization@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, "Michael
- S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
-In-Reply-To: <20261126-jshekhar-qcom-virtio-dcp-v1-1-7b49bda74916@oss.qualcomm.com>
-References: <20261126-jshekhar-qcom-virtio-dcp-v1-0-7b49bda74916@oss.qualcomm.com>
- <20261126-jshekhar-qcom-virtio-dcp-v1-1-7b49bda74916@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=TErgIb5q
+Received: from hawking.lan (ntp.lan [10.0.1.1])
+	by www.nmnhosting.com (Postfix) with ESMTPSA id 87AC4403EF;
+	Thu, 26 Nov 2026 17:38:50 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1795675130;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=b4ne9ThXtt69HR6jnoMjn534RR6i78BAndXqgjI1v44=;
+	b=TErgIb5qsIr4OV+W5Ma7ioOeWnaMFhSpCd4MzCnP038vthBJlHi2praUjyZZDC1cWbu9aG
+	TztwVABXzFWDIL1+33mia2y/spQxUZ8CYV+/b2vzzMw49EnyShHNTTpv9gOpzevC7U2djl
+	fLKaYMOQCUFMly6QnlsVO7jhmIcTS+HuMK6MZlzOUU4bbGurEOE4jErv0dn2EEXhXr8sAx
+	Afm/DOoGoUD5H9O96eIvAzbH6IY4LuDr7Men/2yUyQD1CgaTxABXH1PXaaE9Gzl8HUuFz2
+	aBHtCkTCRg3n8VSI/AQhmwnsYjEUV4s3b8b0VJvbtYpw4lKerdgeLQj5876AWQ==
+Message-ID: <45cc88379ea6cce9ca77b513c53b9e54677fac20.camel@d-silva.org>
+Subject: Re: [PATCH 0/5] net: stmmac: dwmac-sun55i: Add Allwinner A733
+ GMAC210 support
+From: Alastair D'Silva <alastair@d-silva.org>
+To: Junhui Liu <junhui.liu@pigmoral.tech>, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S . Miller"	 <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski	 <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai	
+ <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel
+ Holland	 <samuel@sholland.org>, Maxime Chevallier
+ <maxime.chevallier@bootlin.com>,  Maxime Ripard <mripard@kernel.org>,
+ Jerome Brunet <jbrunet@baylibre.com>
+Date: Thu, 26 Nov 2026 17:38:50 +1100
+In-Reply-To: <DN4XLH7YJ13T.3O62DYGNJ67FQ@pigmoral.tech>
+References: <20261125130613.4191841-1-alastair@d-silva.org>
+	 <DN4XLH7YJ13T.3O62DYGNJ67FQ@pigmoral.tech>
+Autocrypt: addr=alastair@d-silva.org; prefer-encrypt=mutual;
+ keydata=mQINBGactvoBEADBFM2HqfQUUM4j40ZQPyYzmnM8S6zrycO0ipDDPMs7nZMzyzGzOdqfS
+ VB/tuYvZOOKVWzJuWJ5aT/YyHx54r3L+D5hTkEG0sXPVJky3yTS9sbHEMSLBHb8TVVuhPVPuieV4g
+ Nkqg5POMTidk8xAw50WpV++tUlewXVSciehnuCQPXhXMP7FcCh4uO8LdN7E8m7ir1LafKTFfoWPah
+ KVT8NGG9r+ucrFcN5F+VnHxTDaI68yRPkNdtUWmp22wIX1KwDCtKFrndYO4p5Hv2hlDKomsuIIHHn
+ muQGRwuh0xpf0nVJNF8ETZHMzxQLfo3e/HvxBFOTkwY9w7CuuQFZchbhS0I3PfmGT0+jiNcdfqjDC
+ fPPB5uhy+DkR6wO72vuwFYUrpU2mdliDSdKEtWBHulnXMJjpBOXetfIwhI8G2dTVg59lN5i9DvJZc
+ 7y1Sp+qfZQ4P9qpYZyQEKR4GNDOdnm6F2LW2cZkcyAU/Ii765zdDMTQMIzZNSxT/FcDd0K1voTNRl
+ QHbQw+kmIMhzSv2JefcC9oNbE0XYzcBDNP5T3O/4itOQ90GCKQEPAbIPeBjlQif7kkyvo/H6yv4s9
+ duuK7zbJD9AID/+KGLkpU3p68VDB/C2ZSb9rQz3p1CJNSfsX/CPk7sPqA7RKZ4a2B0hSJ2pJCncNZ
+ KXtMlkkm/FmewARAQABtCdBbGFzdGFpciBEJ1NpbHZhIDxhbGFzdGFpckBkLXNpbHZhLm9yZz6JAl
+ EEEwEKADsWIQTQGemDFwqYyU/dBWv75AdnjVo60gUCZpy2+gIbAwULCQgHAgIiAgYVCgkICwIEFgI
+ DAQIeBwIXgAAKCRD75AdnjVo60qHZEACJnLfpS71Hk8bX0CLCNJ5wgqdZD3pBHEdbv9Ux9kRlZp4a
+ ZFwlg9ltwBjl2dZP3PLtD9xQdsdYKVippKd5a7ZZC2y81oDaHjeC9LnPYn8+ce3mGE/+gRyoNfToY
+ N06DeUNJKSlZ9t11UIqZCgfp12u16/Yrigy8C4ihEeHXlLhNX6JkeJR5gsHXJnC7vSuMZY+Qz2R72
+ ZidWg+cd2WDMGop5sbTvc+55q94A7vTMlWzaix5HdbEUA3sd2U0dMBju5QodRGGhDQMcCu64TydRD
+ MtMzzOk9ThJ036ze3HASWGOppyQmaw58k+XNzbHlr9Sc1LsFUNF7zpWXac2rzlywbyRAdFIT/TC76
+ hy9zOkwIo2nwA/tdIwLx1j0UZPpAMQmcDUvJqZh6sE+fv6HN0yMPr+sSYJmriMt8Z6leCEHQXOHVI
+ SI5z5FvV3coMmHYRq6aXpfs/8SLiYgkV3B0HE/E18Y3j1OkeLYoqIH1VfzQZeCSL/S77NYvk60/MV
+ 1HFSyqLdUR3uWZI4uZzoEcMoB0GX33uCTp2Ntc00+wSntwekCUQLCMLUb7dZrbpVuobHoWWtkiD2I
+ uE5kAiaVwwwzM0BUwiM6VzVoKbeECz93rdsNtwoDqM0NtzoISC46H/BKVQ9mRNXDO4ThEBpJ4H2Tn
+ mPNRYYcR0u2mNy1EJII04w==
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 06:36:50 +0000
+User-Agent: Evolution 3.56.2-9 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,126 +100,34 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [Medium] dt-bindings: virtio: missing referenced qcom,dcp.yaml schema
-- [Medium] dt-bindings: virtio: invalid per-item uint32 ref in
-  iommu-ranges
-- [Low] dt-bindings: virtio: use per-entry items list for interrupts
-- [Low] dt-bindings: virtio: DTS example fails dt-check-style strict
-  checks
---
 
-commit 32acdab74d03f0d1136a352cb6b5c3095b26176f
-Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+On Thu, 2026-11-26 at 14:33 +0800, Junhui Liu wrote:
+> Hi Alastair,
+>=20
+> On Wed Nov 25, 2026 at 9:06 PM CST, Alastair D'Silva wrote:
+> > This series enables Gigabit Ethernet (GMAC0) on the Allwinner A733 SoC
+> > and the Xunlong Orange Pi 4 Pro board.
+> >=20
+> > The goal is working 1000BASE-T RGMII Ethernet with mainline drivers and
+> > bindings. Tested on the Orange Pi 4 Pro with a YT8531 PHY (DHCP, ping,
+> > and iperf3 at 1Gbps/Full).
+>=20
+<snip>
+> There is already a series [1] posted adding A733 GMAC210 support.
+> Did you check that?
+>=20
+> I think it would be better to add Ethernet support for Orange Pi 4 Pro
+> based on that series.
+>=20
+> [1] https://lore.kernel.org/all/20260923-allwinner-a733-gmac-support-v3-0=
+-
+> 15735155a789@baylibre.com/
 
-dt-bindings: virtio: Add Qualcomm DCP transport
+Ah, I completely missed that! I'll test & review it.
 
-This commit adds a Device Tree binding schema for the Qualcomm DCP VirtIO
-transport wrapper.
-
-> diff --git a/Documentation/devicetree/bindings/virtio/qcom,dcp-virtio.yam=
-l b/Documentation/devicetree/bindings/virtio/qcom,dcp-virtio.yaml
-> new file mode 100644
-> index 0000000000000..46b0e53468be0
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/virtio/qcom,dcp-virtio.yaml
-> @@ -0,0 +1,147 @@
-
-[ ... ]
-
-> +  interrupts-extended:
-> +    minItems: 2
-> +    maxItems: 2
-> +    description: The VirtIO-MMIO and DCP power-notify interrupts, in tha=
-t order.
-
-[Severity: Low]
-When a property has a fixed set of ordered entries, DT binding schemas
-describe each entry in an items list instead of using minItems/maxItems
-with a combined description.  Defining interrupts (in properties and
-required) with two per-entry description items also lets dtschema accept
-interrupts-extended automatically in DTS nodes and examples.
-
-> +
-> +  iommus:
-> +    maxItems: 1
-> +
-> +  iommu-ranges:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    description: |
-> +      The firmware-visible IOVA range, specified using the parent bus's
-> +      #address-cells followed by its #size-cells. The DCP transport uses=
- two
-> +      cells for each, encoding a 64-bit IOVA base followed by a 64-bit r=
-ange
-> +      size.
-> +    items:
-> +      - description: IOVA base, high cell
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +      - description: IOVA base, low cell
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +      - description: IOVA range size, high cell
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +      - description: IOVA range size, low cell
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-
-[Severity: Medium]
-Does make dt_binding_check fail on the per-item uint32 $ref entries under
-iommu-ranges?
-
-Because iommu-ranges already has $ref:
-/schemas/types.yaml#/definitions/uint32-array, each entry under items
-describes a single 32-bit cell validated against meta-schemas/cell.yaml,
-which does not permit $ref (and /schemas/types.yaml#/definitions/uint32 is
-a property-level type).  Dropping the per-item $ref lines and keeping only
-the description entries avoids the schema validation failure.
-
-> +
-> +  dma-coherent: true
-> +
-> +  mboxes:
-> +    maxItems: 1
-> +
-> +  mbox-names:
-> +    const: dcp-power-tx
-> +
-> +  display-subsystem:
-> +    $ref: ../display/msm/qcom,dcp.yaml#
-
-[Severity: Medium]
-Does make dt_binding_check fail to resolve ../display/msm/qcom,dcp.yaml#?
-
-Documentation/devicetree/bindings/display/msm/qcom,dcp.yaml is not present
-in the tree, so validating this schema and the display-subsystem child
-node in the example fails with an unresolvable reference error.  The
-qcom,dcp.yaml schema needs to be present before this binding (and
-referenced as /schemas/display/msm/qcom,dcp.yaml#).
-
-[ ... ]
-
-> +    / {
-> +        compatible =3D "qcom,hawi-mtp", "qcom,hawi";
-> +        model =3D "Qualcomm Technologies, Inc. Hawi MTP";
-> +        #address-cells =3D <2>;
-> +        #size-cells =3D <2>;
-
-[ ... ]
-
-> +                    port@1 {
-> +                        reg =3D <1>;
-> +                        dcp_intf1_out: endpoint {
-> +                            remote-endpoint =3D <&panel_dcp_in>;
-> +                        };
-> +                    };
-
-[Severity: Low]
-In the example, scripts/dtc/dt-check-style --mode=3Dstrict reports two style
-warnings: in a root node model should precede compatible (or a simple soc
-bus node can be used instead of /), and in port@1 a blank line is needed
-between reg =3D <1>; and the dcp_intf1_out: endpoint child node.
+Cheers,
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-jshekhar-q=
-com-virtio-dcp-v1-0-7b49bda74916@oss.qualcomm.com?part=3D1
+Alastair D'Silva
