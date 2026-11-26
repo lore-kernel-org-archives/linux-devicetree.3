@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795692234;
-	b=gMhSd7ihQTpWFDzFTOyCUa3mYXwjAE9kbrnZXYXh0DOwsm+Dc2xSGG3PJdrCFa6xqowC
-	 zpDn8p1nQ7ufYhsc2LXf0/00gk0CWVRHVu/NnCHsH2gns3JNrjc67AEwmcQenvXHUgEvl
-	 Wzvd/JTCLW0E9+G2Nvi+/ukpFfGjGOzi5KFliDGUWVgmuc3VdIpDmbJvhl8HlGCC+S0ub
-	 5qLOXcCDCDQPyjmp67L3mOuzTpLloFTQvtiwfwUSVIYI21n1EH4X6uccffNkvurxrs8Eg
-	 zqtMW+CLdR0WuyGkm7unKj84YQ1BNALqjySI2I6/c3YpCqJYWWAi4O6FKZmUja7RWAQ==
+	t=1795692241;
+	b=U8SyfHFc041lC1+OmAojjZT+oKrzujoKQDIXp1tLYjU0+spq+smo/4LY9+kJ8qffQmIt
+	 t+N2dDACr66NIQZWP8e+/bxEc6EGiT6yPo0SrM98r1rZia5cjI2NDd2ufFIc0Ead6X9YN
+	 8oe55J/Zkr6kGBM0Gr+/0pHoAh5+6v35jiwfwiog/tPhF0KNT/u77bLzfJMVkRUzpK0Du
+	 mOuUycC74BEOVzMwAUITItTcCREMHLxGNJMUcYADIFv+9J/OcdYoyhWraxEEZPuj6l3dJ
+	 LX0Jk8o0DCbxgftlnL2GTDeSHiktmHtFrnm4l7ZI2ZwlNsY17sdAMi+3mJ/UE9EDjiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795692234;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795692241;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=s2EtH40azXOiVVPp8DW/wpG+i0QUJgTJ57XpXp+fCSw=;
-	b=pwAU91Q/fg7Nbeai22MWklwgg4Kot579Gg4u+mUtg4k/wzacL2nV27Q+BNfAP9ouZcC9
-	 5cwk+LhVGxV6XWca/SInW+ZPR8Q+sETjKQDgTBLmyb0sTW7+R2wUwBoXolmdYqgkGLFcJ
-	 YoiAGx0ppKWyU+bJFeCHcl6pSU6cQ3UThRXm2hnlENwZB1RNO7vQmq+8xRSo6+OmabsSS
-	 V7PLHEOfNoH2oaN4zL499qSRo7+RqHcAUzXqrWe7ontuXNi5Gh7UqJSaKCMPdt11Hvn06
-	 fX6sAzMTj6RRU70dGpWw4xFLUy23QuXshbrd3a0gNmSfspW8OaMJEog4ysGhI9aJ4eA==
+	bh=VwsLFudVYxAHVPd8Pq52BGkeWhNG+2iCPX3GrxsYvHU=;
+	b=xb7bSarXB2aXOg4bQT3ybmjp3KgxSAS1LxflAouEvaDm4uZPduMtnUXdv2tdS7KYX3K6
+	 HZLwvAOhu/NWT9rpwcRo0+0XECwXxbLDtUHRjrz8cvs2uVtKcIC+W7A3i9Vei18X0yUqX
+	 F4QaL7zyLJFErNZ2bmexrBXMAqVq/Na0IYRJq5vi2HYTzyaZMyvPw+Wl9hCN/eoWlWTKw
+	 LaYQrbAU8kER0WBIXlvPbz8b4dDi8PheiFrU7gAY5Gq5etr3n6lwCUjsc+rkqM5BWhZH5
+	 fPsC1OUiYBzBMlvfMRTxGxpWSds/HQuMcrRRZE/wopgJe+yHD5VO7J/ohMDLwiktuaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=W8jIZRRw;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=QzrXw7Pd;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 601F2606A321;
-	Thu, 26 Nov 2026 11:23:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 601F2606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35B060A2600;
+	Thu, 26 Nov 2026 11:24:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F35B060A2600
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=W8jIZRRw
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=QzrXw7Pd
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 44E7BC2B9C9;
-	Thu, 26 Nov 2026 11:24:01 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id ADF264E4179E;
+	Thu, 26 Nov 2026 11:23:59 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id F0A4C60237;
-	Thu, 26 Nov 2026 11:23:52 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5CFE011E6B361;
-	Thu, 26 Nov 2026 12:23:44 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 842C060237;
+	Thu, 26 Nov 2026 11:23:59 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AA19F11E6B324;
+	Thu, 26 Nov 2026 12:23:54 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795692227; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1795692237; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=s2EtH40azXOiVVPp8DW/wpG+i0QUJgTJ57XpXp+fCSw=;
-	b=W8jIZRRwDgc8bJXgmk1G6lztz6kE8vENPn2tAKCgbj7L67WRsorMLT/k5rfvFQ6dqGK/xJ
-	eiaEF4bREYlfzHI7Kaw2sw+D9Ibhp6rxGT3bTUZdw/+654fdpcxSPZLtys70RUWMEKn0hM
-	0jVBdCS63A0AHCDcwleuyQ3MPZQd718y9OTDn2+ked/pnICly5CixhUrldEpZOzpgBhz0p
-	dXXxxiP2ag7ci9PAQ+iC6XNxlVn0w+TQkBv/bZT/YSu49UlJsePsZOPTVGK29NX7b+mYM+
-	NHW91vUIwGYSWqPIi5jbye4/lbDoHF3MALsgTMmnZYzof9fHX/IJ6K81YD/sog==
+	bh=VwsLFudVYxAHVPd8Pq52BGkeWhNG+2iCPX3GrxsYvHU=;
+	b=QzrXw7PdwiMRt5tbP6r7iM9ScT/U8OdOlVp2D/TqjvoxQk0te/sUI+6mZen5JFfxacoetP
+	4BXCeU7og4rGFt/dxsKNcwbC5WiEuJY4ENuN+bFzwupp6aqqf7zxYy8jACu/KF6EXplmyz
+	9fuEP+KuMpM9OT3U6St0QGTCOBnn8maQUD16vullrXo1cG+4uKKerdl7zu1OWpSK6IssaS
+	b4OF8JK1QdJ6vi4QgK1RaatvG+hDta/LC8MHAeWnkMqy+jGfRvdxfMvHqSX0fyCCAMt4sp
+	eAknqaYntOvt7MAmF6yZNEnhlNIGcImpbJCWISfFsaMzoR7dGkmEIrHlVL7rZg==
 From: Herve Codina <herve.codina@bootlin.com>
 To: David Gibson <david@gibson.dropbear.id.au>,
 	Rob Herring <robh@kernel.org>,
@@ -70,9 +70,9 @@ Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
 	Luca Ceresoli <luca.ceresoli@bootlin.com>,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 	Herve Codina <herve.codina@bootlin.com>
-Subject: [PATCH v4 08/22] tests: treegen: Introduce tree harness
-Date: Thu, 26 Nov 2026 12:22:25 +0100
-Message-ID: <20261126112239.636284-9-herve.codina@bootlin.com>
+Subject: [PATCH v4 10/22] tests: treegen: Export tree generation primitives
+Date: Thu, 26 Nov 2026 12:22:27 +0100
+Message-ID: <20261126112239.636284-11-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261126112239.636284-1-herve.codina@bootlin.com>
 References: <20261126112239.636284-1-herve.codina@bootlin.com>
@@ -88,39 +88,323 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-Tree harnesses allow grouping tree generation.
+Tree generation primitives are statically defined in treegen.c.
 
-Harnesses and related tree generation can be moved to specific source
-files exporting only the harness to main().
+In order to allow harnesses and related tree generation to be grouped in
+specific source files, export the generation primitives.
 
-treegen.c will be split in that direction, and the introduced harness is
-a needed feature for this split.
-
-Apart from some display in main(), no functional changes.
+No functional changes.
 
 Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 ---
- tests/treegen.c | 68 +++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 49 insertions(+), 19 deletions(-)
+ tests/treegen.c | 63 +++++++++++++++++--------------------
+ tests/treegen.h | 83 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 111 insertions(+), 35 deletions(-)
+ create mode 100644 tests/treegen.h
 
 diff --git a/tests/treegen.c b/tests/treegen.c
-index 2321a6c3..f210a525 100644
+index f210a525..b65f8eb5 100644
 --- a/tests/treegen.c
 +++ b/tests/treegen.c
-@@ -789,13 +789,28 @@ static struct buf make_bad_proplen(void)
- 	return b;
+@@ -20,18 +20,11 @@
+ #include "testdata.h"
+ #include "util.h"
+ 
+-/*
+- * Buffer with write cursor.  Emit helpers write at the cursor, advance it, and
+- * return the offset at which data was written.
+- */
+-struct buf {
+-	char *data;
+-	size_t size, cursor;
+-};
++#include "treegen.h"
+ 
+ #define CHUNKSIZE	1024
+ 
+-static struct buf buf_init(void)
++struct buf buf_init(void)
+ {
+ 	struct buf b = { NULL, 0, 0 };
+ 
+@@ -40,7 +33,7 @@ static struct buf buf_init(void)
+ 
+ /* Low-level helpers */
+ 
+-static size_t emit_bytes(struct buf *b, const void *data, int len)
++size_t emit_bytes(struct buf *b, const void *data, int len)
+ {
+ 	size_t off = b->cursor;
+ 
+@@ -59,28 +52,28 @@ static size_t emit_bytes(struct buf *b, const void *data, int len)
+ 	return off;
  }
  
--/* Tree table and main */
--
--static struct {
+-static size_t emit_u32(struct buf *b, uint32_t val)
++size_t emit_u32(struct buf *b, uint32_t val)
+ {
+ 	fdt32_t beval = cpu_to_fdt32(val);
+ 
+ 	return emit_bytes(b, &beval, sizeof(beval));
+ }
+ 
+-static size_t emit_u64(struct buf *b, uint64_t val)
++size_t emit_u64(struct buf *b, uint64_t val)
+ {
+ 	fdt64_t beval = cpu_to_fdt64(val);
+ 
+ 	return emit_bytes(b, &beval, sizeof(beval));
+ }
+ 
+-static size_t emit_string(struct buf *b, const char *str)
++size_t emit_string(struct buf *b, const char *str)
+ {
+ 	return emit_bytes(b, str, strlen(str) + 1);
+ }
+ 
+ #define MAX_ALIGNMENT	8
+ 
+-static size_t emit_align(struct buf *b, size_t alignment)
++size_t emit_align(struct buf *b, size_t alignment)
+ {
+ 	size_t pad = ((b->cursor + alignment - 1) & ~(alignment - 1)) - b->cursor;
+ 	static const char zeros[MAX_ALIGNMENT];
+@@ -91,12 +84,12 @@ static size_t emit_align(struct buf *b, size_t alignment)
+ 	return emit_bytes(b, zeros, pad);
+ }
+ 
+-static size_t start_block(struct buf *b)
++size_t start_block(struct buf *b)
+ {
+ 	return b->cursor;
+ }
+ 
+-static void fill_prop_name(struct buf *b, size_t strs, size_t prop, size_t stroff)
++void fill_prop_name(struct buf *b, size_t strs, size_t prop, size_t stroff)
+ {
+ 	struct fdt_property *fp = (struct fdt_property *)(b->data + prop);
+ 
+@@ -105,8 +98,8 @@ static void fill_prop_name(struct buf *b, size_t strs, size_t prop, size_t strof
+ 
+ /* FDT structure helpers */
+ 
+-static size_t emit_fdt_header_vers(struct buf *b, uint32_t version,
+-				   uint32_t last_comp_version)
++size_t emit_fdt_header_vers(struct buf *b, uint32_t version,
++			    uint32_t last_comp_version)
+ {
+ 	size_t off = emit_u32(b, FDT_MAGIC);
+ 
+@@ -122,19 +115,19 @@ static size_t emit_fdt_header_vers(struct buf *b, uint32_t version,
+ 	return off;
+ }
+ 
+-static size_t emit_fdt_header(struct buf *b)
++size_t emit_fdt_header(struct buf *b)
+ {
+ 	return emit_fdt_header_vers(b, 0x11, 0x10);
+ }
+ 
+-static void finish_rsvmap(struct buf *b, size_t hdr, size_t rsvmap)
++void finish_rsvmap(struct buf *b, size_t hdr, size_t rsvmap)
+ {
+ 	struct fdt_header *fh = (struct fdt_header *)(b->data + hdr);
+ 
+ 	fh->off_mem_rsvmap = cpu_to_fdt32(rsvmap - hdr);
+ }
+ 
+-static void finish_struct_block(struct buf *b, size_t hdr, size_t start)
++void finish_struct_block(struct buf *b, size_t hdr, size_t start)
+ {
+ 	struct fdt_header *fh = (struct fdt_header *)(b->data + hdr);
+ 
+@@ -142,7 +135,7 @@ static void finish_struct_block(struct buf *b, size_t hdr, size_t start)
+ 	fh->size_dt_struct = cpu_to_fdt32(b->cursor - start);
+ }
+ 
+-static void finish_strings_block(struct buf *b, size_t hdr, size_t start)
++void finish_strings_block(struct buf *b, size_t hdr, size_t start)
+ {
+ 	struct fdt_header *fh = (struct fdt_header *)(b->data + hdr);
+ 
+@@ -150,14 +143,14 @@ static void finish_strings_block(struct buf *b, size_t hdr, size_t start)
+ 	fh->size_dt_strings = cpu_to_fdt32(b->cursor - start);
+ }
+ 
+-static void finish_totalsize(struct buf *b, size_t hdr)
++void finish_totalsize(struct buf *b, size_t hdr)
+ {
+ 	struct fdt_header *fh = (struct fdt_header *)(b->data + hdr);
+ 
+ 	fh->totalsize = cpu_to_fdt32(b->cursor - hdr);
+ }
+ 
+-static size_t emit_rsvmap_entry(struct buf *b, uint64_t addr, uint64_t size)
++size_t emit_rsvmap_entry(struct buf *b, uint64_t addr, uint64_t size)
+ {
+ 	size_t off = emit_u64(b, addr);
+ 
+@@ -165,12 +158,12 @@ static size_t emit_rsvmap_entry(struct buf *b, uint64_t addr, uint64_t size)
+ 	return off;
+ }
+ 
+-static size_t emit_rsvmap_term(struct buf *b)
++size_t emit_rsvmap_term(struct buf *b)
+ {
+ 	return emit_rsvmap_entry(b, 0, 0);
+ }
+ 
+-static void emit_rsvmap_empty(struct buf *b, size_t hdr)
++void emit_rsvmap_empty(struct buf *b, size_t hdr)
+ {
+ 	size_t rsvmap = start_block(b);
+ 
+@@ -178,7 +171,7 @@ static void emit_rsvmap_empty(struct buf *b, size_t hdr)
+ 	finish_rsvmap(b, hdr, rsvmap);
+ }
+ 
+-static size_t emit_begin_node(struct buf *b, const char *name)
++size_t emit_begin_node(struct buf *b, const char *name)
+ {
+ 	size_t off = emit_u32(b, FDT_BEGIN_NODE);
+ 
+@@ -187,17 +180,17 @@ static size_t emit_begin_node(struct buf *b, const char *name)
+ 	return off;
+ }
+ 
+-static size_t emit_end_node(struct buf *b)
++size_t emit_end_node(struct buf *b)
+ {
+ 	return emit_u32(b, FDT_END_NODE);
+ }
+ 
+-static size_t emit_fdt_end(struct buf *b)
++size_t emit_fdt_end(struct buf *b)
+ {
+ 	return emit_u32(b, FDT_END);
+ }
+ 
+-static size_t emit_prop_header(struct buf *b, int nameoff, int len)
++size_t emit_prop_header(struct buf *b, int nameoff, int len)
+ {
+ 	size_t off = emit_u32(b, FDT_PROP);
+ 
+@@ -206,12 +199,12 @@ static size_t emit_prop_header(struct buf *b, int nameoff, int len)
+ 	return off;
+ }
+ 
+-static size_t emit_prop_nil(struct buf *b, int nameoff)
++size_t emit_prop_nil(struct buf *b, int nameoff)
+ {
+ 	return emit_prop_header(b, nameoff, 0);
+ }
+ 
+-static size_t emit_prop_u32(struct buf *b, int nameoff, uint32_t val)
++size_t emit_prop_u32(struct buf *b, int nameoff, uint32_t val)
+ {
+ 	size_t off = emit_prop_header(b, nameoff, 4);
+ 
+@@ -219,7 +212,7 @@ static size_t emit_prop_u32(struct buf *b, int nameoff, uint32_t val)
+ 	return off;
+ }
+ 
+-static size_t emit_prop_u64(struct buf *b, int nameoff, uint64_t val)
++size_t emit_prop_u64(struct buf *b, int nameoff, uint64_t val)
+ {
+ 	size_t off = emit_prop_header(b, nameoff, 8);
+ 
+@@ -227,7 +220,7 @@ static size_t emit_prop_u64(struct buf *b, int nameoff, uint64_t val)
+ 	return off;
+ }
+ 
+-static size_t emit_prop_str(struct buf *b, int nameoff, const char *str)
++size_t emit_prop_str(struct buf *b, int nameoff, const char *str)
+ {
+ 	int len = strlen(str) + 1;
+ 	size_t off = emit_prop_header(b, nameoff, len);
+@@ -240,7 +233,7 @@ static size_t emit_prop_str(struct buf *b, int nameoff, const char *str)
+ #define emit_prop_strings(b, nameoff, ...) \
+ 	emit_prop_strings_(b, nameoff, __VA_ARGS__, NULL)
+ 
+-static size_t emit_prop_strings_(struct buf *b, int nameoff, ...)
++size_t emit_prop_strings_(struct buf *b, int nameoff, ...)
+ {
+ 	size_t off = emit_prop_header(b, nameoff, 0);
+ 	size_t start = b->cursor;
+diff --git a/tests/treegen.h b/tests/treegen.h
+new file mode 100644
+index 00000000..8512085d
+--- /dev/null
++++ b/tests/treegen.h
+@@ -0,0 +1,83 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++#ifndef TREEGEN_H
++#define TREEGEN_H
++/*
++ * treegen - generate test device tree blobs
++ *
++ */
++#include <stddef.h>
++#include <stdint.h>
++#include "tests.h" /* ARRAY_SIZE() */
++
++/*
++ * Buffer with write cursor.  Emit helpers write at the cursor, advance it, and
++ * return the offset at which data was written.
++ */
++struct buf {
++	char *data;
++	size_t size, cursor;
++};
++
++struct buf buf_init(void);
++
++/* Low-level helpers */
++size_t emit_bytes(struct buf *b, const void *data, int len);
++size_t emit_u32(struct buf *b, uint32_t val);
++size_t emit_u64(struct buf *b, uint64_t val);
++size_t emit_string(struct buf *b, const char *str);
++size_t emit_align(struct buf *b, size_t alignment);
++
++size_t start_block(struct buf *b);
++
++void fill_prop_name(struct buf *b, size_t strs, size_t prop, size_t stroff);
++
++/* FDT structure helpers */
++size_t emit_fdt_header_vers(struct buf *b, uint32_t version,
++			    uint32_t last_comp_version);
++size_t emit_fdt_header(struct buf *b);
++
++void finish_rsvmap(struct buf *b, size_t hdr, size_t rsvmap);
++void finish_struct_block(struct buf *b, size_t hdr, size_t start);
++void finish_strings_block(struct buf *b, size_t hdr, size_t start);
++void finish_totalsize(struct buf *b, size_t hdr);
++
++size_t emit_rsvmap_entry(struct buf *b, uint64_t addr, uint64_t size);
++size_t emit_rsvmap_term(struct buf *b);
++void emit_rsvmap_empty(struct buf *b, size_t hdr);
++
++size_t emit_begin_node(struct buf *b, const char *name);
++size_t emit_end_node(struct buf *b);
++size_t emit_fdt_end(struct buf *b);
++size_t emit_prop_header(struct buf *b, int nameoff, int len);
++size_t emit_prop_nil(struct buf *b, int nameoff);
++size_t emit_prop_u32(struct buf *b, int nameoff, uint32_t val);
++size_t emit_prop_u64(struct buf *b, int nameoff, uint64_t val);
++size_t emit_prop_str(struct buf *b, int nameoff, const char *str);
++
++#define emit_prop_strings(b, nameoff, ...) \
++	emit_prop_strings_(b, nameoff, __VA_ARGS__, NULL)
++
++size_t emit_prop_strings_(struct buf *b, int nameoff, ...);
++
++
 +/* Tree generator */
 +struct treegen {
- 	struct buf (*generator)(void);
- 	const char *filename;
--} trees[] = {
++	struct buf (*generator)(void);
++	const char *filename;
 +};
- #define TREE(name)	{ make_##name, #name ".dtb" }
++#define TREE(name)	{ make_##name, #name ".dtb" }
 +
 +/* Tree harness */
 +struct treeharness {
@@ -135,76 +419,7 @@ index 2321a6c3..f210a525 100644
 +		.nb_treegen = ARRAY_SIZE(tab_treegen_), \
 +	}
 +
-+/* Tree base generators */
-+static const struct treegen treegens[] = {
- 	TREE(test_tree1),
- 	TREE(bad_node_char), TREE(bad_node_format), TREE(bad_prop_char),
- 	TREE(ovf_size_strings),
-@@ -808,9 +823,17 @@ static struct {
- 	TREE(bad_proplen),
- };
- 
-+/* Tree base harness */
-+struct treeharness treeharness_base = TREEHARNESS("base", treegens);
-+
-+/* Tree harnesses */
-+static const struct treeharness *tab_treeharness[] = {
-+	&treeharness_base,
-+};
-+
- int main(int argc, char *argv[])
- {
--	unsigned int i;
-+	unsigned int i, j;
- 
- 	if (argc != 2) {
- 		fprintf(stderr, "Usage: %s <output-dir>\n", argv[0]);
-@@ -822,24 +845,31 @@ int main(int argc, char *argv[])
- 		return 1;
- 	}
- 
--	for (i = 0; i < ARRAY_SIZE(trees); i++) {
--		struct buf b = trees[i].generator();
--		const char *filename = trees[i].filename;
--		int fd;
--		ssize_t ret;
-+	for (i = 0; i < ARRAY_SIZE(tab_treeharness); i++) {
-+		const struct treeharness *treeharness = tab_treeharness[i];
-+
-+		printf("Harness \"%s\"\n", treeharness->name);
-+
-+		for (j = 0; j < treeharness->nb_treegen; j++) {
-+			const struct treegen *treegen = &treeharness->tab_treegen[j];
-+			struct buf b = treegen->generator();
-+			const char *filename = treegen->filename;
-+			int fd;
-+			ssize_t ret;
- 
--		printf("Tree \"%s\", %zu bytes\n", filename, b.cursor);
-+			printf("  Tree \"%s\", %zu bytes\n", filename, b.cursor);
- 
--		fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
--		if (fd < 0)
--			perror("open()");
-+			fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-+			if (fd < 0)
-+				perror("open()");
- 
--		ret = write(fd, b.data, b.cursor);
--		if (ret < 0 || (size_t)ret != b.cursor)
--			perror("write()");
-+			ret = write(fd, b.data, b.cursor);
-+			if (ret < 0 || (size_t)ret != b.cursor)
-+				perror("write()");
- 
--		close(fd);
--		free(b.data);
-+			close(fd);
-+			free(b.data);
-+		}
- 	}
- 
- 	return 0;
++#endif /* TREEGEN_H */
 -- 
 2.56.1
 
