@@ -1,99 +1,39 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.167.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1795683337;
-	b=gGCCuZ3OzFFbqa2IQqbNgxuwBITbG3w+5nibYl9LaxXtKg/IJjjvrytqpEcQj93eZ/rZ
-	 8fQp9VJeS3WKz+5iUvJKLP/XGGahjmpYp7kP+yiGgBlZFnHzrZqc6IiHA8tDlS3pQbOwu
-	 u8STV0Hhj9DuZQtV3YLvaVxXa+FqICDPsttFnZdjTgb/V6d7gDTZIg4STL8wyy2UhCZLh
-	 vXjodeslKsZBzKcrWrjkCPHYpRt9Okfs47ENo8GrIQrygaGfdtaNsRynzX+CUXWQ83WyF
-	 gAcjMhsgrSggpEWjsLW+wrNnvoerBDefG9UoOYCc6FVdTRjv1FWy9FmF6FHzSMAHk9w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795683337;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=QKThXZIRAMEkOiH8X0ve/DDQDh2imYfE9WZ4cHyq7O4=;
-	b=qSH9UXoMvjqMRgoW64oitqUlJ2K3xIjta+CUnb+JkXSAavRbYUHEjdMW44sa3yqMBMQL
-	 LxkmCKI0NFhit4aR6+7+VXkvYNWoT2g2SOv7QtoZCF5Ssty4Zqb8pb6QPWBqq6uNTUKlD
-	 H1ADSMF0dLCdpbA0sCAKje8RW9kKxnH9bexutjlGNlwac722lpfR+j9YY6uR9lraxpOsM
-	 OLjVyY57h2LnHS3qjSttTJfqk8uPpfHK8Zm5syHy8oVKaOajNPYwufu/19c4h62Iy3L5W
-	 srfG5+cvVSnAnBj077ANuAJUiQno3+df2pfyhz7iCXtZXn3zt5pOmy66NZJdisbCT5Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rfMg87DP;
-	arc=fail smtp.remote-ip=209.85.167.45
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8026606A33F
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 08:55:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8026606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rfMg87DP
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5c154a41f8aso523083e87.2
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 00:55:36 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795683335; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SCoEAmHvBB/gW2eh+YCQZvjc6xSNkS3kfAVm8YEQuZm7/Kcdbg2SsQP5tcHAjnrZ4R
-         NIqEtMe0e3zrtwnzW1nBkEy1TxWuf+uxW+wA5JkZdu/4mbDsgeDT+svKg5GPnOJr5ygU
-         8k6+gvxzNaMnPkv1JcUh79LS0JkftTSBw/uUBrXPHFQ8vEuZnV2SaVJam7aBb8BvdnKA
-         7S1TNVUlcnDskaIl+mf4kbB1ZtD3O8yOok3QI8+lLvq6LVcKJg7xrv3heI9KZDy5PaHz
-         B6tVyuMDporSxA+LWHK00OIMpB7xLp3ogpPTUw4ihSujO6//yTGS/5kGjgCEi74aY03i
-         ATvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=QKThXZIRAMEkOiH8X0ve/DDQDh2imYfE9WZ4cHyq7O4=;
-        fh=hL+UGGpGNSpshwMbt2y/rw2T1/KjKF7HRgxfnl1W6vs=;
-        b=G1JB6MwPmoaRuTb9rDXDG2u4myN8avM3q4wh/SF5Rh1Ncsmlrktpy9Bd0jOxE6BQWD
-         7wTMQhAzD2eK3iRPE8rglK+BTodjiWWvcFj96AnrzTVZsnH3W5vmraGOpvd7w7Zj6TE5
-         N7fQ79MQ83l6dJy5uReRxit/RQ55R/r9mKH5Zdt3vAOYIW7tTWH8kIkXwpPELDaPbDuN
-         Pl0daMiHX+uFMSgqGEn2bI/V5fX5oxQmMG81xEUBg0eMTHaxMrirnYI+G6GfYP3MNq5d
-         CAiMVV0qwODreXJCnQFiUk8bUONZaEqDs0OilxzjdvghXAUdKzwRA4hkR76tQpZlNvSp
-         U16A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795683335; x=1796288135; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QKThXZIRAMEkOiH8X0ve/DDQDh2imYfE9WZ4cHyq7O4=;
-        b=rfMg87DPvIeaAt7WefjGyrL7uSD0uquLqmcawwAuuF0LDc6gm3phN9FgQ1hfcvNK4P
-         vZUlpOYWEPZRvkrmo+Mh5OCC14KnFgEHDnbHYBX4t18bjdh2rj5ugU6P0+GkO8jWovOn
-         RMvM770R8L//+znfMXxpcv0SQZZi9vdNe75S8ImFMsKJ3Q1QjbmRT2JJOl8FScurQcSB
-         0tqg3bunvtmzuZ2dkoxsxh5Ib9cTPnZ3eF/Om7ll6kPxuzPcCWzJbprFtufbqrH4s7/U
-         t9YQ1tkr9xcfscV4PTDAcngJBXvdMP87j158ZHdpSixSopf2JQM3kDHgOT41E84eKBAk
-         k6bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795683335; x=1796288135;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=QKThXZIRAMEkOiH8X0ve/DDQDh2imYfE9WZ4cHyq7O4=;
-        b=GRPb+ady3cK4dP3klZCgZdhOrkSKlUQWD55oLYi40WuAubjEU92RZiiXoAJak0xnFY
-         raqm9lHntqeXFObKadqBk1Lx0FNwhuFEknN450zkRc8lSL5yNvCjtc6ERPFC2ePztQmo
-         QROBvxgKamaN/5dx7S0S14LUM5VVHhYINSTUDNSOl9wzQoRd6fWTne5ah+YI0i0gJppS
-         WaM1PcOgr1nVZrLwUzftJiDxHU8r9jyv2NWhQPHLMvNqoQnH0lhWJTEXXziTTLGVntvQ
-         Yvj2xtTyr/nzRD7g5R5VNePKtuPGJiZV5GIBC1tMqM3xWyUxVrNSPgDo0xVakMuU//vb
-         kBlw==
-X-Forwarded-Encrypted: i=1; AL+hErEBWUW9auqbjI5Wqxp6E0wXwwhPUJjvpAg7M8aZtlVWyOCHt3LWtbzXsJxdy7su9QqoXxEVxGB7rRkE@vger.kernel.org
-X-Gm-Message-State: APuU4Z/5KaUWd6jitrf9Mch6DGyxV69Li6Nq6F7FokEqEKGHaZY0C6NE
-	osKcXjYZLgHCB/qj+onDlYOLrazNi/6oSFBoWwUWi+1t9cIKzPuViVha0e5/4wmOFT+gXGK8hNQ
-	OOJT8tTNinvChXnPEs+EC71Q2u5KItcw=
-X-Gm-Gg: AZFdTZdrJFAEA6x1iZJQ9FTckPmTEioq6ypfYDe20BOEQjc6nPt+rQGdZHpZT2TtmWE
-	L4FiaePo4ORTJFRAf/yjw3myiKTFRI5cmG/+s99PI/1wDUN7sK+BWMab+8n5xuc1ApFwp8TYTU9
-	BsHefD1NDh5cMCP1ZlHPm+xA+P0JoBuHUJNuWFaDsEDuyCqQ3Xd/y/5iLIRMktjl4p5japu5LIx
-	jWj9ftFopjw+tUw7g/Gxi7m/hlV6Mwb2PhFGdrvNbOOrUx/S9no7hZjw6vm/GjOqb9JVKztDl4K
-	X+GAOQNaURqVmfATbrjXnD2ibAiFEWLMQK8nmtraM4XM3y60fXQOw34JLtsj2Oa8nyS2Pe12J5S
-	L4xznWWdrSzry/GrTXiwF8Ahzu82Q+FPg4WS6Qkx0fjcEY4o92YOjOtt4vm2JJIaLEf+LaBE=
-X-Received: by 2002:a05:6512:1151:b0:5c0:62:7fc3 with SMTP id
- 2adb3069b0e04-5c1bc7ceb5fmr8223250e87.5.1795683334857; Thu, 26 Nov 2026
- 00:55:34 -0800 (PST)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.47.186.116
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795683487;
+	b=tCbw8EXIIElOwoqOIP+bBE8LAyrMzxFg91kqQtlDVJcggMnxbyPdSXxrdhSgrJr8jxKB
+	 M9I6hG/6iiHoeiEIUuOZe/NhpALdGPfrCiUeTUBogH5+z3/vcCn7cM24gnIZWtAvxYb+x
+	 kI8nEexRp/AITJj6uiPbaIpNKIIGJhbRah1HZaus+Xn0Rjmy21jLdc9CQN921vBTOZT3o
+	 rauNbQS5jcBgxprjSSWg77drkARdClxICHMbk+V7rq2TyqfIm20FHa4hKa22dp/nJ25I6
+	 V/pB6A3k82+zOE5t4uzPRxUSDyI6bF21ZjTQzhkXIxW6oI+ztqXcZR2Tyi5B8UAjOlA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795683487;
+	h=DMARC-Filter:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=BgUK9oaFdyXin1lgzf8qRszxIDm3APhe/vomNphtJXc=;
+	b=glfH8o9ynWI7fSivcUpEb4bBWRgSFl3Que6wnpPT7IoBEt8i+23AA/VT+lam4ws6T332
+	 vsuu+kZtwcU3Cb79Ztb4GE7kpIPxWgI88bsdL6KVxyUyCbjOCHbvbNVWpS0S66zAwFBXa
+	 STbG0HOxN4kU40lG8si3Le0LcVXRAst8mC127+VVJv8r8ILdRmoYaw8zM+v+ftHlfvqrE
+	 rraxLjNtS8bQTB2cRzjSefmqphitc/UxMCvgbNtWNaaOGzB1V49zAaMI5KwCtaAopk3G3
+	 IUTpkQncIHMVxfzHeJtGGKiMa5Jbkrs4xBuiLnz4wTfPmLRcofXNiIR3FEsPRNooPkg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=krgm.moe;
+	spf=pass smtp.mailfrom=krgm.moe;
+	arc=none smtp.remote-ip=103.47.186.116
+Received: from krgm.moe (krgm.moe [103.47.186.116])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F1101606A32D;
+	Thu, 26 Nov 2026 08:58:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1101606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=krgm.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=krgm.moe
+Received: from [10.42.0.96] (unknown [114.242.206.180])
+	by krgm.moe (Postfix) with ESMTPSA id BFC8482E;
+	Thu, 26 Nov 2026 14:28:01 +0530 (IST)
+From: SignKirigami <prcups@krgm.moe>
+Subject: [PATCH v2 0/2] Add Qualcomm Netrani TLMM support
+Date: Thu, 26 Nov 2026 16:53:36 +0800
+Message-Id: <20261126-netrani-tlmm-v1-v2-0-3426fca870c1@krgm.moe>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,29 +43,64 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261113-mmu600-php-v1-0-231196049a3b@gmail.com>
- <20261113-mmu600-php-v1-1-231196049a3b@gmail.com> <20261123-quirky-scallop-of-beauty-c662b7@quoll>
-In-Reply-To: <20261123-quirky-scallop-of-beauty-c662b7@quoll>
-From: Arun Iyengar <aiyengar1990@gmail.com>
-Date: Thu, 26 Nov 2026 00:55:22 -0800
-X-Gm-Features: Aa3M54pFlibDAmDC24529Pztyl31CflHnU5Me60OGDKTLA2a_3s21NJ2pQ1ALv8
-Message-ID: <CAEy9hNX-TiThoXZ9+Q7j=bB7PpNBr7Wjz8_sH7C081HXka4xHA@mail.gmail.com>
-Subject: Re: [PATCH 1/9] dt-bindings: net: rockchip-dwmac: Allow iommus
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	David Wu <david.wu@rock-chips.com>, Damien Le Moal <dlemoal@kernel.org>, 
-	Niklas Cassel <cassel@kernel.org>, Serge Semin <fancer.lancer@gmail.com>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-ide@vger.kernel.org, Pranjal Shrivastava <praan@google.com>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, iommu@lists.linux.dev, 
-	Shawn Lin <shawn.lin@rock-chips.com>, 
-	Sebastian Reichel <sebastian.reichel@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBREr0L+2hpaUIsr72FYFPiFr7aYtjYa0
+ rtbcG0ym5fMvFnAoyP0cC4WcBjJ02wziF0B/aTsiIyGzCBKceRc1MxicMoSCw9jWORMDHV1kqj
+ 1UDWQV0+Hmt6b8dr+2L+6G/Zh1ayNiXyY3We7jHzt/bfnlKzUstZKHHgnm8vdjWZvZoQ2pfQF7
+ ESReb8AAAA=
+X-Change-ID: 20261124-netrani-tlmm-v1-2d4378effd39
+To: Bartosz Golaszewski <brgl@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ SignKirigami <prcups@krgm.moe>
+X-Mailer: b4 0.15.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1241; i=prcups@krgm.moe;
+ h=from:subject:message-id; bh=H2v0GLisVhuxZKqFC60HupVKyrx7zpAFbm4Bg+dcurU=;
+ b=owEBCQL2/ZANAwAIAV0dOJt2umJjAcsmYgBrB/Ru/xudg5U+A3lNDTKew4qHRGbpVW8xclJcA
+ xLr0LZoox2JAc8EAAEIADkWIQRSClJ2zjncUdNU0FFdHTibdrpiYwUCawf0bhsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwwLDIACgkQXR04m3a6YmMP6Av/Wpu7G20wfDvEPyPWUrDo9nkktXjFeLP
+ irkKBAoH4QHJgj7FipYQ00leEb2uKgroB2617g9lsEpM1+4htdq+4HO6Ha8QYbLZRCwRyQWZxGS
+ DVlxA81a5WylRMLF6V75Qoewu7L/EjqsNFBN1JL4CEQcz/MF3sFnlyDdNbQ97mWzjlP/D56nllv
+ dBh5fzB39UuS+f8lwcxwSrBBuVHJ1eoRLZu8DJrSvOb9yWv0MDCVSREf2Sxwo8ml660RfkrDG9A
+ KckhPWmknNnZQ1xcpQREgnifQP9uR7rLX6SwQES51DdGuFsN2sbWPgE1vsxhTl1KevUlu4bad5K
+ 1sICBFN8dN+2au0jdMkWXlcUcPR9wbMONfx9bvENhGYrw8XOYlran6p3CYPBvqhBr4XMM1oX9wK
+ VAPdW3lEWWmwAPYWfWIqm94jhWnK7Mhfx/lQXXEEV0KmUQfOHnguIckLPZrxWDHCAUNSb0259+t
+ FKZPnq7TSfeOeBZYTMrSszxi4aajoB7
+X-Developer-Key: i=prcups@krgm.moe; a=openpgp;
+ fpr=520A5276CE39DC51D354D0515D1D389B76BA6263
 
-Sorry, I missed the report. v2 allows iommus only on the RK3588
-compatibles and drops the nested ifs in 3/9. It follows once the
-arm-smmu-v3 clocks/resets binding it needs is settled.
+Add the pinctrl binding and TLMM driver for Qualcomm Netrani
+(SM7435). The driver reuses the existing Qualcomm pinctrl infrastructure.
+
+Signed-off-by: SignKirigami <prcups@krgm.moe>
+---
+Changes in v2:
+- Constrain the pins array and GPIO count limits correctly.
+- Inherit common pincontroller properties with unevaluatedProperties.
+- Consolidate QUPV3, CCI, ATest, QDSS, phase-flag, PRNG and UIM function names.
+- Fix the UART example to use the function supported by GPIO22 and GPIO23.
+- Register eGPIO as a GPIO-compatible pinfunction.
+- Link to v1: https://patch.msgid.link/20261124-netrani-tlmm-v1-v1-0-0f84fa251b89@krgm.moe
+
+---
+SignKirigami (2):
+      dt-bindings: pinctrl: Add Qualcomm Netrani TLMM
+      pinctrl: qcom: Add Netrani TLMM support
+
+ .../bindings/pinctrl/qcom,netrani-tlmm.yaml        |  130 ++
+ drivers/pinctrl/qcom/Kconfig.msm                   |   10 +
+ drivers/pinctrl/qcom/Makefile                      |    1 +
+ drivers/pinctrl/qcom/pinctrl-netrani.c             | 1328 ++++++++++++++++++++
+ 4 files changed, 1469 insertions(+)
+---
+base-commit: fd2d5e9417a86d015a4c7b9759d2d3d6182fcd7b
+change-id: 20261124-netrani-tlmm-v1-2d4378effd39
+
+Best regards,
+--  
+SignKirigami <prcups@krgm.moe>
+
