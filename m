@@ -1,85 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795716205;
-	b=JtQiQv5p8m6Vy1RAG/7CtNI9hVQ7bRUpMyuDQSMJTM5KEsaKjptCLA1KICJk0Bvu8j9x
-	 KRAcBOgHN+i20635hM4Jb/+8cUPXJZymL455xItbHRySXLHRKv0+og8iD5iVVAdih4JK1
-	 yhwGZb5gb/HwCM5OHoGDpoOTlt29KqFn97cNji8HsuZt3A+4uwBnPb1FsEFdhqpnhLbrW
-	 yMXYwkTDn6jJEtcnyBhtS98PVh1Qi9RaIwr52Ckt80TeBP2KIUJSJgZNT1c+pUFYTNmqQ
-	 WzPN0jGzSxpovsC0d4IrUqXV2hU1NgPMmDNsNH3hIxDBAXXuRSTqZ0wQzcQcm5zU+mg==
+	t=1795716206;
+	b=osn+4YaI+GWsVVwiQSnrJPsrdi4MTgdeMx/Pii/yftIwfNqex8TyLUWnXVTZwvecx5Xs
+	 yEm1LacCVdCrEZWrOqMR7qe4O22zFcK94tAW7yHN1AuSG/h6edWfH3scmSVpKLlWIVH/g
+	 HIaz4DWHLLimWY1NqzsCmI2gm3wXnxRj+d2v7DUMJny+50m9eiqZAr93zVPFHmApTz2t+
+	 h5BOoIY9lBOciiVE+EbmWR9k/MdUz+PbpPNp6MCx0+D2HsctFk5gtGsoGk7GYL4Px2FV+
+	 VuuhdXpa/ynm3J2Gdh+2LZ5tb6K2Ib0dPj5HxKLLZfN5ZHpt0xnWj2wq6izKbfDeJsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795716205;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795716206;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=WuHE4xVuwPbHoJJDUazvRjThuTJ3/8xHzVYiIGey9/0=;
-	b=zh3CQk5DeRCh+HMfjsuzQ8+n+Ez9bMEbcTpyLjVy6z5JlHE7F6k7N3YKeysntDGaXIln
-	 AmnZt0LENvPND//9uxRd27F3YQViUgbNUE7sCMKY1Y3VkndYMobiZnJG+04uOwQiNVxBd
-	 0iiiolRpCOvyFyLN2tR6JnSjZIFopXlQJ7UgKjAiKyz3YYUD3qg1Yfn5iD4zQu70Cuy9q
-	 668k5uwaMjMAFtbtNIa5hgC3OxPxdrm6uHkMmSLo7kZtFuIzncgJRYNuaVUavg0ahNBOP
-	 3HmogaZbn0PFLOk032nSmG4ls5hCdf4lduJind4QzBErjg6W4MXkY8H6GtFUoHY7e3Q==
+	bh=LmCDPWjrupqURISIQ2o3XzZ15fkxpkvR1tEng3naGzY=;
+	b=E/KzXUA2kbqpOUDoRwc4GaZqOz9Ad+8D1GuDr5CJ7A2K2UcZ3KtF1UaJzKQlhn4x5jUK
+	 4qL5lCW7p49zmXgVJWQm8ZOabP0cjrWWwk56fFjtnnGoi9HwiQfOyqK0k36jMZKSFLlyG
+	 5zZTGGeUQECJUIsnYLhVNE9AlAGewtIbHzqN6XSPd7YWS2nLwhK6pxMVYAT7YBgomKhWq
+	 WTKSJec/LHqBvOLVqJXextV5Ny3orhuGT+fANGMJzk/Ka9/hAxK0S0SjnuYN5uionwxUV
+	 cKUJm2l1+nGWW432+aulNMB8j1NysAdWwVjylt/fKfyAapI60mNg5Iv4XJ1g76XKJEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jGbETmZr;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DGGVAdVL;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1D8606A68D
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 18:03:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA1D8606A68D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A3D606A326
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 18:03:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06A3D606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jGbETmZr
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48e3b22e971so3876659f8f.0
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 10:03:24 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DGGVAdVL
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4a7b8abe209so5703768f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 10:03:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795716203; x=1796321003; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795716204; x=1796321004; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WuHE4xVuwPbHoJJDUazvRjThuTJ3/8xHzVYiIGey9/0=;
-        b=jGbETmZrNFtM3pjEYK+LBOFQJe1WmjF008+9gjsGBzCLSb0JE/OYF+KYRWj1XcMROt
-         3POEgILHWdzhVjbHNhZLx+2qTXqB6AdFRMTAgLf6IeIsndzkbmliAz2Ox1OcRtJrcIrd
-         xk1rzlUiATS/MXYMRgvXBjzmkhPLYZNV28tifShqgYNcFNYHp2Z2UMK+mtxYNURFtZAY
-         wd4+KGbt38dvG9wPr3nfLvdc5H6OW1KTUq2AvktbP6deXZPTpjh/zMv0ZrJrQEA0Knlk
-         n0ksfpVkIm4x+C+dmpiQVbycwSe11RMfq13C0DtflN+aQjMu9N849pnEo8d8/U+jU38d
-         01Mg==
+        bh=LmCDPWjrupqURISIQ2o3XzZ15fkxpkvR1tEng3naGzY=;
+        b=DGGVAdVLWwih4xQPhZ2nnJebAZpgbfU4u502n00NfGcvLwApQNQ3BYmAbvcGaZiX7j
+         HLkHsUi2Onuu5nwO+TjosgxIveO06TBLS5DPcgUiGRrIDJIttnf9oWO610xi83/czv8f
+         6IppHNWJAG6baCilpfrBQMH2hfGK+A7sEo1K3CC/m+f6ccIq7Hm8p5X8WUKMgYX/RxtK
+         Y8XXduL56beknK1frfxBkUOyX6JeshUDeSlsCnLVgoq0isvWAsDJjtD16MZJw7gQwBII
+         8tqRUPAM/sd0362h1C3yjcvm7eMEM8TY0gPQyY0X+hiiWyy0OEl4GmE2S33uOnvVEsVc
+         2TRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795716203; x=1796321003;
+        d=1e100.net; s=20260707; t=1795716204; x=1796321004;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WuHE4xVuwPbHoJJDUazvRjThuTJ3/8xHzVYiIGey9/0=;
-        b=BVwrHGVrLccJLJGpBz3BEPVK6+k4T+CsNPJ7DfOdtWOZrCVUaIrlGGGvEy7SGfZLwg
-         p4EATlhVujGegVb+FkqOpvcmcAWetkp80kYp1AIknN5DU8glk/e+wCa5QROLDVh1YtmP
-         r2RntuSMHxe5zejYLVc5Dh70KjJw8Fj/rf3bvLMq8b+QmPwUGk0MQ8n6DBUmoXkA7huQ
-         9Ihmy9BbVDMCLDhS6K1QRiuRFtX01Lp1DN4q4Q3QFMEnmWZLsXUaiioV973MfbTLT4bI
-         w1MWcdD4rlIuC1aAzFIRUiWOB1N0Fo/5cmyN6Rco2Xl9FiO6gR+IoucFdnpHB9WAcbm4
-         hwqw==
-X-Forwarded-Encrypted: i=1; AL+hErG9HQydjCGBoxBSN6PxJ6So+HHJp8f6D0Qs/lRt5xgraRW75OHYuS487ODiGWJDWZoaykh0UjxUvavI@vger.kernel.org
-X-Gm-Message-State: APuU4Z/di+3v4zZz13Uqs/oZin3otEdwTvN2387oJchznKhyfMJedQvM
-	PPocHt40jc8TqDp2439s9Ym7cZFCHmySjbxkvqR4wPA0Ig8LAqtjMVQ=
-X-Gm-Gg: AZFdTZf+/uAiFJjrw5jmN0r9BGIJOBFcuY8pwCGmRt9FswAImYGM3MJm9indfbOwjEI
-	kRLueRtE9PHqMKTsHOJ23ry2X+gjW1KHlJdpMfNxyv48m2Ot+nEC2088ISJbyc/1Lt5Ii5yFWlx
-	zCthl8Rg0GaM6tGI0cfkwfc7Cmgo70zXQzVvPJcMDbsSpz67Yq5m4LkS6/1aqiHPHZ8G7+tm/em
-	XBdchxEliFHDhiLHq8mGl737nNyszKmcFyzSH7pduiYD3v0+F3v9Zzq7zivD0ltL5CbxZqWBsz1
-	ayk8wrJ+z8CWQYvKLR5yL+UPK9Zq3ulrFWi2F/lryf/RC2QexWCd+Rc5no0T0TLCFfwOc6Y3kRN
-	ZrdRlztb/WTlGZ5bB+2z3UjuUN+DqmZ11r8CMhxKXEEoQBB0fBq2d2hckBlXDd7PfuyvNGFysUs
-	MVnT1qyye+8lJ8fAZW0D0wlvuS0jhsiv8Tp2TTsOqkThKpitd2izOQfH3ZGXReP6h/Q2Ui+zT3Z
-	Z6mM+6QAn2FfS1BFT3COGW94JfOxPkeLAuB6d5+sWpzhgVYOGibUgBBMrGShoJya886sLbgA7UQ
-	3qE5IOiNr4gxxVin2r1+HNT1fkP/miaeA04gN8lZfbCV0uTWn52/p35bEbOcljhk+EsaJAzdpnn
-	GML6Ht7NnDyDmb84EuH6bDxoYnip+XoIc+1GBKxOsjWdwV3zOu0v41+Smg89KtOxxk32Fvo7P8N
-	dSGCCD
-X-Received: by 2002:adf:e008:0:20b0:48f:bba5:732e with SMTP id ffacd0b85a97d-4abb560e1c7mr30064709f8f.57.1795716203246;
-        Thu, 26 Nov 2026 10:03:23 -0800 (PST)
+        bh=LmCDPWjrupqURISIQ2o3XzZ15fkxpkvR1tEng3naGzY=;
+        b=pAWofMdGpVap3EVCoZcEUCbszytfy13vEh8S8v/Wu2+j4RE9eHxFDLSFGlHDTnktG9
+         rd6mepHvumHkAlp8ihkQjd5YXEcM3pHfsv9IyMRWAmcx7pHCl9/tmoRKLKc5oMfttq7h
+         A4Wno5oyhMwZUNJ8PDnUDYEF6wGvlBzkmAjqYrOHq/XGKg7LTJGzXI+mIp6BDvCTEC/Z
+         3tI6K0HwVBfOs9Dbo/d/TRdVrSVslV0EjXEKYkNnHmCMR5rx8R3o24/wNhN9U4HVDsvg
+         WtgseSDMtH2XJtABxHNVyk46qgWvKRZsJmbvyWbYguNWpb2Ch8dJqf22yk4CcEwmnBrY
+         HaMg==
+X-Forwarded-Encrypted: i=1; AL+hErEjVmzrFwoJW/kATsIr7T3tsz+LfsuOrSdMe4affCJH60sAZV1TOmnY+BVOcEXwZS8jVLqqnuAl8VHR@vger.kernel.org
+X-Gm-Message-State: APuU4Z80P1jDno6hlA28HMCI3z+kVL99zpj8kziQVxs+0A2ZSh/WkLKu
+	GlfzmTBwdZHOtmvq3h+wUT8sR7JJpcvl1ZfLP2s6XoflEPgMO0fqgVQ=
+X-Gm-Gg: AZFdTZddnr6SbLfQbmAfAVWpl8MyDM0rQSPqol3byLdNfPaiuiIFoBum55y6l938BXp
+	DrmD8X8Ne9o+b5n5dCSAdhOsqWzwgbLyIlnEUxSOHX6ZLVYMRvUNHCu2SBUYMXgD37YaOgSjFqf
+	AqsGtAQJwp1d/zW8fX9QDVEDQEzjGPq2JMEYrTui8nwALO9XbA2gSUhe7thtXVMPMJ8yENsBxUN
+	1XALBZ7etoG5KHl1oytHUefDjmvLx2pXMO21luhOs0+rvk4TxgYLJnJKy9wjv2wkJl1LUPvP2Ko
+	ObqEbwbSAC41fC7FWjLWybjP0n4WZqiLBhfK1eTUU1WWmpm8Q5p2j9paGSVQ1itdi8lIvgcUNF1
+	So6elFfCrgMpeFZvnOKd2q2XOOXYfMaeaN98lJrP8eCZCLNCDOg4XG+fzKjKDZtSyOGNoIjrOzL
+	sR/xTK6koaLd2QADIK3g3tWJttE6LOb4VIDDBja8XpLxAoV3naP5ofnLzEEaEAYOqll8uUvd4ox
+	bOyH5CsSpjLX5PgbFpY4cwRXQAk9uTH6wk/77baT2p8YpwuY9Rmq8INiP0U3gGJJxkiUNmxE4li
+	6H+fmerWeUuUkXO6oKT9PEEMfBQ70mO6gXSGdxUo8eVpHCegA0Mb8kc+AYXFVu9JPvO3HmrMsai
+	jmTze/JZ0gi2UWQgLLpkw+GuJjsjumbqJ5+0JV6DgZokRqLUyNEW7CGtNNfU=
+X-Received: by 2002:a05:6000:288c:b0:4b4:2ce4:6dc1 with SMTP id ffacd0b85a97d-4b42ce46e7cmr24569293f8f.44.1795716204212;
+        Thu, 26 Nov 2026 10:03:24 -0800 (PST)
 Received: from localhost.localdomain (host-94-89-17-99.business.telecomitalia.it. [94.89.17.99])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b2052c8sm42265115f8f.41.2026.11.26.10.03.22
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b2052c8sm42265115f8f.41.2026.11.26.10.03.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 10:03:22 -0800 (PST)
+        Thu, 26 Nov 2026 10:03:23 -0800 (PST)
 From: Gianfranco Mariotti <gianfranco.mariotti94@gmail.com>
 To: Linus Walleij <linusw@kernel.org>,
 	Bartosz Golaszewski <brgl@kernel.org>,
@@ -93,9 +92,9 @@ Cc: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Gianfranco Mariotti <gianfranco.mariotti94@gmail.com>
-Subject: [PATCH 4/5] gpio: fxl6408: Add pull-up and pull-down bias configuration
-Date: Thu, 26 Nov 2026 19:03:14 +0100
-Message-Id: <20261126180315.98034-5-gianfranco.mariotti94@gmail.com>
+Subject: [PATCH 5/5] gpio: fxl6408: Add interrupt controller support
+Date: Thu, 26 Nov 2026 19:03:15 +0100
+Message-Id: <20261126180315.98034-6-gianfranco.mariotti94@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20261126180315.98034-1-gianfranco.mariotti94@gmail.com>
 References: <20261126180315.98034-1-gianfranco.mariotti94@gmail.com>
@@ -110,126 +109,226 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The FXL6408 and PI4IOE5V6408 GPIO expanders provide per-pin programmable
-pull-up / pull-down resistor selection (register 0x0d) and enable
-control (register 0x0b).
+The FXL6408 and PI4IOE5V6408 GPIO expanders feature an open-drain
+active-low interrupt output asserted when an unmasked input transitions
+away from the state programmed in INPUT_DEFAULT_STATE (register 0x09).
+Reading INT_STS (register 0x13) clears all latched interrupt status bits
+and releases the INT line, requiring the input to return to its default
+state before another interrupt is generated.
 
-Expose both registers in the regmap access tables and wire up the
-gpio-regmap .set_config callback to support PIN_CONFIG_BIAS_DISABLE,
-PIN_CONFIG_BIAS_PULL_UP, and PIN_CONFIG_BIAS_PULL_DOWN.
+Wire up interrupt controller support via regmap-irq and gpio-regmap for
+rising and falling edge triggers, mark the clear-on-read registers
+(DEVICE_ID and INT_STS) as precious, and clear RST_INT on system resume
+in case power was lost during suspend.
 
 Signed-off-by: Gianfranco Mariotti <gianfranco.mariotti94@gmail.com>
 ---
- drivers/gpio/gpio-fxl6408.c | 47 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 47 insertions(+)
+ drivers/gpio/Kconfig        |   2 +
+ drivers/gpio/gpio-fxl6408.c | 101 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 103 insertions(+)
 
+diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
+index 0e197fd2bd6d2..a622cee9df1bd 100644
+--- a/drivers/gpio/Kconfig
++++ b/drivers/gpio/Kconfig
+@@ -1204,8 +1204,10 @@ config GPIO_ADNP
+ 
+ config GPIO_FXL6408
+ 	tristate "FXL6408 I2C GPIO expander"
++	select GPIOLIB_IRQCHIP
+ 	select GPIO_REGMAP
+ 	select REGMAP_I2C
++	select REGMAP_IRQ
+ 	help
+ 	  GPIO driver for Fairchild Semiconductor FXL6408 GPIO expander.
+ 
 diff --git a/drivers/gpio/gpio-fxl6408.c b/drivers/gpio/gpio-fxl6408.c
-index 5132177ab2837..ae9003fc513a1 100644
+index ae9003fc513a1..d503383fb119b 100644
 --- a/drivers/gpio/gpio-fxl6408.c
 +++ b/drivers/gpio/gpio-fxl6408.c
-@@ -7,6 +7,7 @@
-  * Author: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
-  */
- 
-+#include <linux/bits.h>
- #include <linux/delay.h>
- #include <linux/err.h>
+@@ -13,11 +13,14 @@
  #include <linux/gpio/consumer.h>
-@@ -14,6 +15,7 @@
+ #include <linux/gpio/regmap.h>
  #include <linux/i2c.h>
++#include <linux/interrupt.h>
++#include <linux/irq.h>
  #include <linux/kernel.h>
  #include <linux/module.h>
-+#include <linux/pinctrl/pinconf-generic.h>
+ #include <linux/pinctrl/pinconf-generic.h>
  #include <linux/regmap.h>
  #include <linux/regulator/consumer.h>
++#include <linux/slab.h>
  
-@@ -33,6 +35,12 @@
+ #define FXL6408_REG_DEVICE_ID		0x01
+ #define FXL6408_MF_FAIRCHILD		0b101
+@@ -35,6 +38,12 @@
  /* Bits here make the output High-Z, instead of the OUTPUT value. */
  #define FXL6408_REG_OUTPUT_HIGH_Z	0x07
  
-+/* Bits here enable either pull-up or pull-down according to FXL6408_REG_PULL_UP. */
-+#define FXL6408_REG_PULL_ENABLE		0x0b
++/*
++ * Bits here define the expected input state of the GPIO.
++ * INT_STS bits are set when the input transitions away from this value.
++ */
++#define FXL6408_REG_INPUT_DEFAULT_STATE	0x09
 +
-+/* Bits set here (when PULL_ENABLE is set) select pull-up instead of pull-down. */
-+#define FXL6408_REG_PULL_UP		0x0d
-+
+ /* Bits here enable either pull-up or pull-down according to FXL6408_REG_PULL_UP. */
+ #define FXL6408_REG_PULL_ENABLE		0x0b
+ 
+@@ -44,6 +53,9 @@
  /* Returns the current status (1 = HIGH) of the input pins. */
  #define FXL6408_REG_INPUT_STATUS	0x0f
  
-@@ -51,6 +59,8 @@ static const struct regmap_range rd_range[] = {
++/* Bits set here mask (disable) interrupts from the corresponding input pins. */
++#define FXL6408_REG_INT_MASK		0x11
++
+ /*
+  * Return the current interrupt status
+  * This bit is HIGH if input GPIO != default state (register 09h).
+@@ -59,9 +71,12 @@ static const struct regmap_range rd_range[] = {
  	{ FXL6408_REG_IO_DIR, FXL6408_REG_IO_DIR },
  	{ FXL6408_REG_OUTPUT, FXL6408_REG_OUTPUT },
  	{ FXL6408_REG_OUTPUT_HIGH_Z, FXL6408_REG_OUTPUT_HIGH_Z },
-+	{ FXL6408_REG_PULL_ENABLE, FXL6408_REG_PULL_ENABLE },
-+	{ FXL6408_REG_PULL_UP, FXL6408_REG_PULL_UP },
++	{ FXL6408_REG_INPUT_DEFAULT_STATE, FXL6408_REG_INPUT_DEFAULT_STATE },
+ 	{ FXL6408_REG_PULL_ENABLE, FXL6408_REG_PULL_ENABLE },
+ 	{ FXL6408_REG_PULL_UP, FXL6408_REG_PULL_UP },
  	{ FXL6408_REG_INPUT_STATUS, FXL6408_REG_INPUT_STATUS },
++	{ FXL6408_REG_INT_MASK, FXL6408_REG_INT_MASK },
++	{ FXL6408_REG_INT_STS, FXL6408_REG_INT_STS },
  };
  
-@@ -59,6 +69,8 @@ static const struct regmap_range wr_range[] = {
+ static const struct regmap_range wr_range[] = {
+@@ -69,13 +84,21 @@ static const struct regmap_range wr_range[] = {
  	{ FXL6408_REG_IO_DIR, FXL6408_REG_IO_DIR },
  	{ FXL6408_REG_OUTPUT, FXL6408_REG_OUTPUT },
  	{ FXL6408_REG_OUTPUT_HIGH_Z, FXL6408_REG_OUTPUT_HIGH_Z },
-+	{ FXL6408_REG_PULL_ENABLE, FXL6408_REG_PULL_ENABLE },
-+	{ FXL6408_REG_PULL_UP, FXL6408_REG_PULL_UP },
++	{ FXL6408_REG_INPUT_DEFAULT_STATE, FXL6408_REG_INPUT_DEFAULT_STATE },
+ 	{ FXL6408_REG_PULL_ENABLE, FXL6408_REG_PULL_ENABLE },
+ 	{ FXL6408_REG_PULL_UP, FXL6408_REG_PULL_UP },
++	{ FXL6408_REG_INT_MASK, FXL6408_REG_INT_MASK },
  };
  
  static const struct regmap_range volatile_range[] = {
-@@ -96,6 +108,38 @@ static const struct regmap_config regmap = {
+ 	{ FXL6408_REG_DEVICE_ID, FXL6408_REG_DEVICE_ID },
+ 	{ FXL6408_REG_INPUT_STATUS, FXL6408_REG_INPUT_STATUS },
++	{ FXL6408_REG_INT_STS, FXL6408_REG_INT_STS },
++};
++
++static const struct regmap_range precious_range[] = {
++	{ FXL6408_REG_DEVICE_ID, FXL6408_REG_DEVICE_ID },
++	{ FXL6408_REG_INT_STS, FXL6408_REG_INT_STS },
+ };
+ 
+ static const struct regmap_access_table rd_table = {
+@@ -93,6 +116,11 @@ static const struct regmap_access_table volatile_table = {
+ 	.n_yes_ranges = ARRAY_SIZE(volatile_range),
+ };
+ 
++static const struct regmap_access_table precious_table = {
++	.yes_ranges = precious_range,
++	.n_yes_ranges = ARRAY_SIZE(precious_range),
++};
++
+ static const struct regmap_config regmap = {
+ 	.reg_bits = 8,
+ 	.val_bits = 8,
+@@ -103,11 +131,53 @@ static const struct regmap_config regmap = {
+ 	.wr_table = &wr_table,
+ 	.rd_table = &rd_table,
+ 	.volatile_table = &volatile_table,
++	.precious_table = &precious_table,
+ 
+ 	.cache_type = REGCACHE_MAPLE,
  	.num_reg_defaults_raw = FXL6408_REG_INT_STS + 1,
  };
  
-+static int fxl6408_gpio_set_config(struct gpio_regmap *gpio,
-+				   struct gpio_chip *chip,
-+				   unsigned int offset, unsigned long config)
-+{
-+	struct regmap *regmap = gpio_regmap_get_drvdata(gpio);
-+	unsigned int mask = BIT(offset);
-+	unsigned int enable = 0, pullup = 0;
-+	int ret;
++static const unsigned int fxl6408_irq_config_base[] = {
++	FXL6408_REG_INPUT_DEFAULT_STATE,
++};
 +
-+	switch (pinconf_to_config_param(config)) {
-+	case PIN_CONFIG_BIAS_DISABLE:
++#define FXL6408_REGMAP_IRQ(_n)						\
++	[_n] = {							\
++		.mask = BIT(_n),					\
++		.type = {						\
++			.types_supported = IRQ_TYPE_SENSE_MASK,		\
++		},							\
++	}
++
++static const struct regmap_irq fxl6408_regmap_irqs[FXL6408_NGPIO] = {
++	FXL6408_REGMAP_IRQ(0),
++	FXL6408_REGMAP_IRQ(1),
++	FXL6408_REGMAP_IRQ(2),
++	FXL6408_REGMAP_IRQ(3),
++	FXL6408_REGMAP_IRQ(4),
++	FXL6408_REGMAP_IRQ(5),
++	FXL6408_REGMAP_IRQ(6),
++	FXL6408_REGMAP_IRQ(7),
++};
++
++static int fxl6408_irq_set_type_config(unsigned int **buf, unsigned int type,
++				       const struct regmap_irq *irq_data,
++				       int idx, void *irq_drv_data)
++{
++	switch (type) {
++	case IRQ_TYPE_EDGE_FALLING:
++		buf[0][idx] |= irq_data->mask;
 +		break;
-+	case PIN_CONFIG_BIAS_PULL_UP:
-+		enable = mask;
-+		pullup = mask;
-+		break;
-+	case PIN_CONFIG_BIAS_PULL_DOWN:
-+		enable = mask;
++	case IRQ_TYPE_EDGE_RISING:
++		buf[0][idx] &= ~irq_data->mask;
 +		break;
 +	default:
-+		return -ENOTSUPP;
++		return -EINVAL;
 +	}
 +
-+	if (enable) {
-+		ret = regmap_update_bits(regmap, FXL6408_REG_PULL_UP, mask, pullup);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return regmap_update_bits(regmap, FXL6408_REG_PULL_ENABLE, mask, enable);
++	return 0;
 +}
 +
- static int fxl6408_identify(struct device *dev, struct regmap *regmap)
- {
- 	int val, ret;
-@@ -126,6 +170,7 @@ static int fxl6408_probe(struct i2c_client *client)
- 		.reg_set_base = GPIO_REGMAP_ADDR(FXL6408_REG_OUTPUT),
- 		.reg_dir_out_base = GPIO_REGMAP_ADDR(FXL6408_REG_IO_DIR),
- 		.ngpio_per_reg = FXL6408_NGPIO,
-+		.set_config = fxl6408_gpio_set_config,
- 	};
- 
- 	ret = devm_regulator_bulk_get_enable(dev, ARRAY_SIZE(fxl6408_supplies),
-@@ -148,6 +193,8 @@ static int fxl6408_probe(struct i2c_client *client)
- 		return dev_err_probe(dev, PTR_ERR(gpio_config.regmap),
- 				     "failed to allocate register map\n");
- 
-+	gpio_config.drvdata = gpio_config.regmap;
-+
- 	ret = fxl6408_identify(dev, gpio_config.regmap);
+ static int fxl6408_gpio_set_config(struct gpio_regmap *gpio,
+ 				   struct gpio_chip *chip,
+ 				   unsigned int offset, unsigned long config)
+@@ -206,12 +276,43 @@ static int fxl6408_probe(struct i2c_client *client)
  	if (ret)
- 		return ret;
+ 		return dev_err_probe(dev, ret, "failed to write 'output high Z' register\n");
+ 
++	if (client->irq > 0) {
++		struct regmap_irq_chip *irq_chip;
++
++		irq_chip = devm_kzalloc_obj(dev, *irq_chip);
++		if (!irq_chip)
++			return -ENOMEM;
++
++		irq_chip->name = dev_name(dev);
++		irq_chip->status_base = FXL6408_REG_INT_STS;
++		irq_chip->mask_base = FXL6408_REG_INT_MASK;
++		irq_chip->config_base = fxl6408_irq_config_base;
++		irq_chip->num_config_bases = ARRAY_SIZE(fxl6408_irq_config_base);
++		irq_chip->num_config_regs = 1;
++		irq_chip->num_regs = 1;
++		irq_chip->irqs = fxl6408_regmap_irqs;
++		irq_chip->num_irqs = ARRAY_SIZE(fxl6408_regmap_irqs);
++		irq_chip->init_ack_masked = true;
++		irq_chip->clear_on_unmask = true;
++		irq_chip->set_type_config = fxl6408_irq_set_type_config;
++
++		gpio_config.regmap_irq_chip = irq_chip;
++		gpio_config.regmap_irq_line = client->irq;
++		gpio_config.regmap_irq_flags = IRQF_ONESHOT | IRQF_SHARED;
++	}
++
+ 	return PTR_ERR_OR_ZERO(devm_gpio_regmap_register(dev, &gpio_config));
+ }
+ 
+ static int fxl6408_resume(struct device *dev)
+ {
+ 	struct regmap *regmap = dev_get_drvdata(dev);
++	int val, ret;
++
++	/* Clear RST_INT in case power was lost during suspend. */
++	ret = regmap_read(regmap, FXL6408_REG_DEVICE_ID, &val);
++	if (ret)
++		return ret;
+ 
+ 	regcache_mark_dirty(regmap);
+ 	return regcache_sync(regmap);
 -- 
 2.25.1
 
