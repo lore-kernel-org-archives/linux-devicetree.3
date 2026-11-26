@@ -1,96 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795693263;
-	b=qYmM83ZudnwNyDvXcqEqYCFkAQFM67QMs+1RrdvW8i12Y7nDOmbxgswIP/7/X+O9//ch
-	 nB4SPkKDnszCNX1CzJLpwKkmMOnlp9QHbs/LeXb5ek4dBdVeNqKa0zakrPb0o8sId9tHl
-	 j1Rp4ZOFRm0dT/ZUftVH6wZQazVwN/fm0dvJnzJbdEkns7H1zxlfT1jEkteL7vPhUs18f
-	 46G/7FDfFaSZw0RMpTC3DKSp68kej8E4TxBYp0sW5RH5LE3SuiJHfOj17N6vGfiIxZSQi
-	 QRx4zQ7soZwfaYw2magZaWYb6qCRd0Xf9WaE2hnFu1Av4DHax6Nc3/hqlAgGqXFowmA==
+	t=1795693314;
+	b=PP4TH1XHWfp4ExZ+qQfDA+aa3b7Qhk3dkSoI8B7/QyUqAyLZwOn2qGGta+3f4GsPJoZa
+	 HJas+UCoy8awos+KwLpXyLw540W1ffCFilAloi/UioX2TiOpNDZVFg78xActDEA5Agsay
+	 FaDUZ0i6LfyYMWqcdVYmCF/3n19isvKIh1RosbcWJDCKSjyY/Ry+8oISl5rpVNPZlJj4h
+	 +lKe3fENBKllBSYlObnr6Hr5FDocRuO25/peklLOrl5zO6Tx7xWzZJ43oxBIdu9/eBeLJ
+	 gCe+11mb1vbxac7ifClaPtjMXXNodZ5ut/pUeW6drCNRhtnWVE3h63AERuMAKEuZb8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795693263;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Subject:In-Reply-To:References:Date:Message-ID:
-	 Content-Transfer-Encoding:MIME-Version:Content-Type:Cc;
-	bh=uxM1VmLjZ2nxPUWhti3qYeNXknEDXlY7brHt5kBUuxQ=;
-	b=nW5vpTigDbF5/U4PjD/BIy3m6dIp+/vZXphAi800f4xwjVLsDcpfg8SsLP3Q43w8Bjeu
-	 /eGbfE4k08IxHmMZuQrPpT4R3LNpbopfrqjBcimW6/GyzHwieMlfSFhZaO1D+Mq1tmH8c
-	 fITu+CAJ6iKqiMVpF7YLSmQAtniT4G7X/5QEKLZK6BW+XpqcWZRLDlB6ZxvI4n/rJCeIE
-	 Q00//T20ZboYA3gQ8ic0tqp0R4uNNEX6XzoUfV/9YsyhgBnRz5QBDZK4clmIUp9DyuJAd
-	 0Q+ti/URVob7eEThd9VEaKcWyX2uAC39zwidgjdf+LBVG4EPIt1bmMpIpAOpr10rfyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795693314;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=DJG6C5Ero1qN6LklfzNtNFJqT5fpGtkjPW2pDnA23f8=;
+	b=vlxG03xK6ye+L/9vuMf/zm8sU1sB7Xu3ZbnY7idpucJRB057SGraWEXeBNtpbUtyXCSC
+	 XWAYDEaiBtVw2Ylg6/XDtFqDzMUO2g1KIAc0PXdhQS9brqtRHuZ8Z7gYGHVSZjI4LCf+7
+	 y81OGB8B/SOBnFOJna6C07QyVzQFv9DrVRNsiUhH/Jj6b4qCwg6CIzdQ+DuFORkk+X5aZ
+	 UseasPXIwuzkRc+/8/XRgS7BeMwmr/AqHKH4QkE6K3iIBXGMQ+Fh1iXs8fHuspysdzZJK
+	 s7VMmKe6IF963Dtu8Q/r/kbRzRhewmPB5vZeWE1I/3Yob9PqmjzIAH5nzEz1Kuce1xQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s7MVX8Dc;
-	arc=none smtp.remote-ip=209.85.167.50
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=K2irAsMB;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=cpAPKrWL;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A14606A31E
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 11:41:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19A14606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD4B606A31C
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 11:41:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BD4B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s7MVX8Dc
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5c14f3dab66so6787912e87.0
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 03:41:02 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=K2irAsMB;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=cpAPKrWL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1795693312;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DJG6C5Ero1qN6LklfzNtNFJqT5fpGtkjPW2pDnA23f8=;
+	b=K2irAsMBoCyzCeBiE2grniHcwiSgJQ0VD03GXqcx6GJFgkyeuF6Xn00XRO2LQZltyYPBlc
+	DJV5E6dmvH+2FDXRIRdKMEqV60Cjo/QO7gSwQXgeMMiUhcPknHC5NTPyZh8elpwei+PN4E
+	W6vGTUWtul/YJo/rnMpf70KkQWK9Rco=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-446-e3O9tDljP1isjxM1NjPYtw-1; Thu, 26 Nov 2026 11:41:50 +0000
+X-MC-Unique: e3O9tDljP1isjxM1NjPYtw-1
+X-Mimecast-MFC-AGG-ID: e3O9tDljP1isjxM1NjPYtw_1795693309
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a009f82bedso48909835e9.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 03:41:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795693261; x=1796298061; darn=vger.kernel.org;
-        h=cc:content-type:mime-version:content-transfer-encoding:message-id
-         :date:references:in-reply-to:subject:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uxM1VmLjZ2nxPUWhti3qYeNXknEDXlY7brHt5kBUuxQ=;
-        b=s7MVX8DckHQUo/rJSqIhTusO9NO6ZbOfaabeSgRRNIo0GzyIdVGfS+T8dndnj3Vpz8
-         mk4Y72ou3B4lbLRpKtUMqvkfaNeIzScnQ79Q5nY//ZIbM32F9EUWOV00lewsm7NFhdbb
-         gpX+z/mnzp0FznPcbuYReEshmW/RajNIKjXoTU8V1jaDhN9W9TQ5lb3IU2S8WY5EUvJr
-         mznWf33Ak6i0SaOCyxt/FxhBtoRO/i/8bgXtNPz4j9RqxFbkTgZK/Aa6JTnxknCAfkaG
-         GAOxjefzCKxpq1Xk/O5SxYCzMi1Bzb99D8a5+bqPCL2A+V4eCJBgYRDAYdQ5TaOAnT5Q
-         OyZg==
+        d=redhat.com; s=google; t=1795693309; x=1796298109; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DJG6C5Ero1qN6LklfzNtNFJqT5fpGtkjPW2pDnA23f8=;
+        b=cpAPKrWLpxMn2A+LqmSyrfK1NZ94p+I2+Gn9uiZA4C9lGz+92v0LZDYhnWC+AwhIaq
+         52U3rAZiFY2+84nMYYWD1n3fXRfAH+3tEvLJUO+NtNa0bfdplyvc6YArbYoOkytnWlMq
+         Txgnc6LFH+khNYCfTPhhDxP/cHTQIp2+ITUHUiAHG8so/PlFveVhTVBPXy8hrJFRZfXC
+         N8B5nH7mS0/+To+ITSgkzILKWSrXpof7DpTGzDVhKKdeROT/oClL2DffrZR/5zUbVprE
+         VzFi/TWDm6S7nsJP3tHOljeTc9bziZYz3v2mNijsO4VZekhOLTYPBmdjKE5Wl+rRiZxh
+         ZzEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795693261; x=1796298061;
-        h=cc:content-type:mime-version:content-transfer-encoding:message-id
-         :date:references:in-reply-to:subject:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1795693309; x=1796298109;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=uxM1VmLjZ2nxPUWhti3qYeNXknEDXlY7brHt5kBUuxQ=;
-        b=Si+XhkLdPhbXe/MC3p7NtH4wIUC8MioDTNhAI3tM9HStVFsdSG/9ZrUXgfa/9KRRGx
-         I3ggGAC3V3QMlvLjwUKkgd8xVuF3Bp6aelRFRZy2t4RrT3btEshyNLBVRY1w53eeUULQ
-         /Zq4SYz22kZ/l1JyMc+mviNVI1aRKBRMdJMX0SlnBh2etzhuIzQioOHdWEsKOIYQWFFK
-         HQxz1cEclM+oomOGr25CqFfwdUIXBni/Gx59oxrykK925wZPpYAmyonjeyF6fzktmaGs
-         cffAwNzBJ2c1EFbI0EsByrTu937gGJG0jH7WFy2VkuPwauQVNE7hTjxIUMdByy1mo8r5
-         uQ2A==
-X-Forwarded-Encrypted: i=1; AL+hErE0Kck42iIF0bor4L+hNHXAW8z/XV/eSvdNHFKs/Rj32z7NZQ4IRyJDnTCB16FIIB9W3Z8WqVFjsZLs@vger.kernel.org
-X-Gm-Message-State: APuU4Z98nG7ly5CIwoamVuS+7Ni5bXDPC5GCGFQm62p7Z1kPnMAPtxeR
-	56lUM79QersFBEchtZ/T0OxhEmFI6bMcw/wvvB+FgKViMOow6XHufn1W
-X-Gm-Gg: AZFdTZduH+sKH+K4nEgHbteAvuPI2535wkYgWACU5V15we/3qs6RFe1z+zrwDJvs21g
-	7up378No4+r+v2e47vFEYx0MBujefPEyoWyhIXxASn6FALi+ty0PLXdtyhtJBakjyWoa7FiICB5
-	vh04RwwCX3AIvc1By4Sj4p5IIpw7gNmmeDdMYbpyFKmv41Ah/RKK61eTstigocxUkPrr7uq8OG5
-	lhUz8SpumlnL6TWMHTkPamIaM1EW0Kv3YyM/qN8dhYoDI+q11ftDYg19J8VuYU1eH9RuL/saTk6
-	3hnR3CSaLnTet1jH4ZjPZp9ikvbhV/LIhmIe4gcy4PlOKpIgF7QH/UMctLfMVyuaE3XCJ11kw7T
-	15dQpqQoaIaI7ggvBBviJiaIFZKgpddb7van9PzyeoOz2J//2GapgXTs3ecLKNGYo2ePTTS2pw3
-	Z+Pw4h4Lv2ZQWYV8sbDJjDAlri8hFpZe6xALWvPoBHiBZ9nApMv3qEuqBf2PAzqE4sq0S/VY64b
-	q2wv70zwmOtthxcUQuqeRxeI2YTycNIc0Bdf2r0Y9MF47ERcaQYNdBQW8QT3YMNaymZ0kyUA9Ex
-	0dEPxa/k8C4iftFYMIfyHJ6vr1FzaEVsqFQPr2wAD3VWNIG44cW35PxTa+74T/vsFoGcv+leOGW
-	J
-X-Received: by 2002:a05:6512:2509:b0:5bf:ce43:979b with SMTP id 2adb3069b0e04-5c1b7c0725bmr5707863e87.21.1795693261054;
-        Thu, 26 Nov 2026 03:41:01 -0800 (PST)
-Received: from [127.0.1.1] (ip-024-180.users.dtel.ru. [91.210.24.180])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bd0419b7sm5153112e87.55.2026.11.26.03.40.59
+        bh=DJG6C5Ero1qN6LklfzNtNFJqT5fpGtkjPW2pDnA23f8=;
+        b=ajkNH18J4yGrE7kLqdR2VkXIndraHby7/R7kU4I9aU2RR1IFV8STQBV6w9DcJCYBfB
+         ID37EBmf5iB5nECu3iSkqMUTnhrwVDsazd0kiZaVA2s/qezA424NX2ocsPj6GCRZqEkG
+         sFLpaUH1+PRnL6FUb7I1QwK73EEChc68m3I9fA1yNngmbeQj6xO3/GYdZqefmbqNDZ8I
+         0Tpu6ozsBOzWcnMPQ8wMKQugApzR+dy8CGwpWFgdW24ucY9MKIXCAp2dY1ljwwCMguiH
+         /T7eXKqaUFYwkLAkQT9LJaAHpwJNn1xP/4qpWtqINaQWM5rbu5uKInXiXlq4lgoFqcvZ
+         FQrQ==
+X-Forwarded-Encrypted: i=1; AL+hErG3gSjCjeGTEeD6xq1iLwB1Sd8jyCeWSlxwDxiG1wzIhEmOU/SQuHhPzUVLfj61QUa3ddP5kAyPIyFk@vger.kernel.org
+X-Gm-Message-State: APuU4Z/VgGGnncg5rbFm2bUEYae17RyF+Gx1bSpEdMyU7w7rfxDW55JQ
+	ympfh+Kw4BfN4QponHD1vm8Rb+zvcNXGBFZorxd4e+yixfBYDh9GaMuThbu3qePu+ShllbUc5iz
+	EZesavWplUgdi+RbLL1/t7JFSJhWK1RUWbF8cyBLqwlv6ivBAK3Fag+rhcPXF/jw=
+X-Gm-Gg: AZFdTZdnILOs0ToZaNIuGKvDUFKzT0xK4xmodFKKgaNjufw/+NDhVUhaPcu0MKwu8pv
+	9uQuMqeJ6uOSSwi92qrnzns4oaKoAczDcl6K3qchazTYt9klHv6smCkWvJXaCHL9S3/FXrMzmft
+	Yrv0I7u7lwpxLj8aM85TeaBNwd+b4G6rKHHjZChB8tt4zhuy1tP50VdGmSnXbfWC4mwfSZNB+wF
+	qvtX4cUK6qGYBQ8+j4a9cjsBTmaSWvMCaJ83QMzkVoBtEVtWA6zjaFwrlh8R019nzkjvAOGQ/Wh
+	WfpkTvxR72HAxVZESJL1YEJsiauVSuNvFEJyADO7of94DbNBnYtHhZAeHV0vUEpvDpY2yCkVmSG
+	5VOZHhnOzAkt2jvsIpS85aswdkNtaCZ4G8upSAIN/iuc=
+X-Received: by 2002:a05:600c:1d8c:b0:4bb:5345:606b with SMTP id 5b1f17b1804b1-4bb8882358dmr413594745e9.31.1795693308780;
+        Thu, 26 Nov 2026 03:41:48 -0800 (PST)
+X-Received: by 2002:a05:600c:1d8c:b0:4bb:5345:606b with SMTP id 5b1f17b1804b1-4bb8882358dmr413594085e9.31.1795693308074;
+        Thu, 26 Nov 2026 03:41:48 -0800 (PST)
+Received: from redhat.com ([2a0d:6fc0:1529:2e00:86ec:bef7:c309:ba1f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bba6a0d65fsm123557165e9.3.2026.11.26.03.41.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 03:41:00 -0800 (PST)
-From: Fil Dunsky <filipp.dunsky@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Subject:
- Re: [PATCH v2 2/3] mtd: rawnand: Add Cortina CS7542 controller support
-In-Reply-To: <87jylzyi5g.fsf@bootlin.com>
-References: <20261123-b4-cs7542-nand-v2-0-9d9f08608534@gmail.com>
- <20261123-b4-cs7542-nand-v2-2-9d9f08608534@gmail.com>
- <87jylzyi5g.fsf@bootlin.com>
-Date: Thu, 26 Nov 2026 14:37:51 +0300
-Message-ID: <179569307151.4.4443063730583761343@gmail.com>
-Content-Transfer-Encoding: 8bit
+        Thu, 26 Nov 2026 03:41:47 -0800 (PST)
+Date: Thu, 26 Nov 2026 06:41:44 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Cc: Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Flemin Jose <flemin.jose@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org, virtualization@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] virtio: Add Qualcomm VirtIO transport wrapper
+Message-ID: <20261126063719-mutt-send-email-mst@kernel.org>
+References: <20261126-jshekhar-qcom-virtio-dcp-v1-0-7b49bda74916@oss.qualcomm.com>
+ <20261126-jshekhar-qcom-virtio-dcp-v1-3-7b49bda74916@oss.qualcomm.com>
+ <20261126012921-mutt-send-email-mst@kernel.org>
+ <1515086f-ff6c-4a4e-b74e-f43b13eed713@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -100,45 +125,710 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format="fixed"
-Cc: Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-mtd@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1515086f-ff6c-4a4e-b74e-f43b13eed713@oss.qualcomm.com>
 
-Hi Miquel,
+On Thu, Nov 26, 2026 at 03:33:53PM +0530, Jayant Shekhar wrote:
+> 
+> On 26-11-2026 12:05, Michael S. Tsirkin wrote:
+> > On Thu, Nov 26, 2026 at 11:54:01AM +0530, Jayant Shekhar wrote:
+> > > Add the Qualcomm-specific VirtIO transport required by DCP firmware.
+> > > 
+> > > The transport sends an IPCC power notification before accessing the
+> > > VirtIO MMIO registers, then registers a VirtIO device directly.
+> > > 
+> > > Implement MMIO configuration access, feature negotiation, virtqueue
+> > > setup, interrupt handling, reset, DMA setup, and suspend/resume
+> > > sequencing in the transport. Keep power-management ordering in the
+> > > transport so VirtIO queues are quiesced before DCP power changes.
+> > > 
+> > > Assisted-by: LLM
+> > > Signed-off-by: Jayant Shekhar<jayant.shekhar@oss.qualcomm.com>
+> > So VIRTIO_ID_VENDOR you defined in patch 2 is completely unused?
+> > Why did you bother?
+> > 
+> 
+> I have split the DCP driver series into two:
+> 
+> 1) Adds Add the Qualcomm-specific VirtIO transport (this one)
+> 
+> 2) Add Qualcomm DCP display support (separate series)
+> 
+> https://lore.kernel.org/all/20261126-jshekhar-v3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com/
+> 
+> Below patch uses the VIRTIO_ID_VENDOR
+> 
+> https://lore.kernel.org/all/20261126-jshekhar-v3-dcp-v3-18-f1e9d7505039@oss.qualcomm.com/
 
-Thanks for reviewing both patches. You are right: I put restrictions of
-the initial driver into the hardware binding. The SDK definitions have
-two chip selects, 8/16-bit bus support, Hamming with 256/512-byte steps,
-and BCH. I have removed the ECC restrictions and described both chip
-selects in the local v4 candidate.
 
-The 256-byte Hamming step is intentional for Almond+: it uses three ECC
-bytes per step, or 24 bytes for a 2048-byte page, matching the stock
-layout. The v3 hardware test read the existing flash and wrote/erased a
-temporary UBI volume with that layout. This does not imply that the
-controller is limited to that ECC configuration.
+so move this patch there?
 
-I also found the AXI bus attachment, flash IRQ at GIC SPI 18, and flash
-reset at global reset bit 14 in the vendor sources. The updated binding
-describes these and the banked data aperture. PIO does not claim the SSP
-DMA engine shared with the network engine. The driver retains the
-firmware bus timing and does not pulse the flash reset at probe.
+And this, from that patch:
 
-For the driver, the local candidate now separates supports_op() from
-execution and checks the sequencer format/capacity rather than an opcode
-whitelist. The Hamming callbacks use nand_read_page_op() and
-nand_prog_page_op(), with their commands and addresses passed through
-exec_op(). Software ECC uses the core monolithic raw-page helpers.
-I have also corrected the parameter alignment and run checkpatch.
++static const struct virtio_device_id dcp_virtio_id_table[] = {
++	{ VIRTIO_ID_VENDOR, VIRTIO_DEV_ANY_ID },
++	{ 0 },
++};
++MODULE_DEVICE_TABLE(virtio, dcp_virtio_id_table);
 
-v3 had already been posted before these replies arrived. I am collecting
-both reviews into v4 rather than sending another partial revision. The
-ARM build and tests against the real core operation builders pass; the
-new Hamming register/data sequence also agrees with v3 in the host
-model. I will check the changed path on Almond+ before posting v4.
 
-Thanks,
-Fil
+is not going to fly. Fill in your vendor ID please.
+
+> 
+> > > ---
+> > >   drivers/virtio/Kconfig                |  11 ++
+> > >   drivers/virtio/Makefile               |   2 +
+> > >   drivers/virtio/virtio_mmio.c          |  17 +--
+> > >   drivers/virtio/virtio_mmio.h          |  21 +++
+> > >   drivers/virtio/virtio_qcom_dcp.c      | 273 ++++++++++++++++++++++++++++++++++
+> > >   drivers/virtio/virtio_qcom_dcp_ipcc.c | 193 ++++++++++++++++++++++++
+> > >   drivers/virtio/virtio_qcom_dcp_ipcc.h |  41 +++++
+> > >   7 files changed, 544 insertions(+), 14 deletions(-)
+> > Oh great a pile of vendor specific code in virtio, with the vendor
+> > explicitly saying on the virtio ML that no specs will be published,
+> > ever.  And it seems to be your assumption that I'll be signing up to
+> > maintain this?
+> > 
+> > 
+> The transport uses the standard VirtIO-MMIO register layout and virtqueue
+> operations; it does not define a new MMIO protocol. IPCC is a Qualcomm
+> platform sideband needed to wake DCP before MMIO access and to signal
+> response-queue notifications.
+> 
+> I agree that the maintenance ownership is separate concern that need to be
+> addressed.
+> 
+> 
+> > > diff --git a/drivers/virtio/Kconfig b/drivers/virtio/Kconfig
+> > > index ce5bc0d9ea28..838ae5671c28 100644
+> > > --- a/drivers/virtio/Kconfig
+> > > +++ b/drivers/virtio/Kconfig
+> > > @@ -160,6 +160,17 @@ config VIRTIO_MMIO
+> > >    	 If unsure, say N.
+> > > +config VIRTIO_QCOM_DCP
+> > > +	tristate "Qualcomm DCP VirtIO transport"
+> > > +	depends on VIRTIO_MMIO
+> > > +	depends on QCOM_IPCC
+> > > +	depends on OF
+> > > +	help
+> > > +	  This driver provides the Qualcomm DCP-specific platform transport for
+> > > +	  QPSFI VirtIO devices. It reuses the standard VirtIO-MMIO configuration
+> > > +	  and virtqueue support, and handles the IPCC power-notification channel
+> > > +	  used to wake DCP and forward response notifications.
+> > > +
+> > >   config VIRTIO_MMIO_CMDLINE_DEVICES
+> > >   	bool "Memory mapped virtio devices parameter parsing"
+> > >   	depends on VIRTIO_MMIO
+> > > diff --git a/drivers/virtio/Makefile b/drivers/virtio/Makefile
+> > > index eefcfe90d6b8..c922fb5bff16 100644
+> > > --- a/drivers/virtio/Makefile
+> > > +++ b/drivers/virtio/Makefile
+> > > @@ -3,6 +3,8 @@ obj-$(CONFIG_VIRTIO) += virtio.o virtio_ring.o
+> > >   obj-$(CONFIG_VIRTIO_ANCHOR) += virtio_anchor.o
+> > >   obj-$(CONFIG_VIRTIO_PCI_LIB) += virtio_pci_modern_dev.o
+> > >   obj-$(CONFIG_VIRTIO_PCI_LIB_LEGACY) += virtio_pci_legacy_dev.o
+> > > +obj-$(CONFIG_VIRTIO_QCOM_DCP) += qcom_dcp_virtio.o
+> > > +qcom_dcp_virtio-y := virtio_qcom_dcp.o virtio_qcom_dcp_ipcc.o
+> > >   obj-$(CONFIG_VIRTIO_MMIO) += virtio_mmio.o
+> > >   obj-$(CONFIG_VIRTIO_PCI) += virtio_pci.o
+> > >   virtio_pci-y := virtio_pci_modern.o virtio_pci_common.o
+> > > diff --git a/drivers/virtio/virtio_mmio.c b/drivers/virtio/virtio_mmio.c
+> > > index c403a025006e..348809b9ebfe 100644
+> > > --- a/drivers/virtio/virtio_mmio.c
+> > > +++ b/drivers/virtio/virtio_mmio.c
+> > > @@ -71,7 +71,7 @@
+> > >   #include <uapi/linux/virtio_mmio.h>
+> > >   #include <linux/virtio_ring.h>
+> > > -
+> > > +#include "virtio_mmio.h"
+> > >   /* The alignment to use between consumer and producer parts of vring.
+> > >    * Currently hardcoded to the page size. */
+> > > @@ -81,18 +81,6 @@
+> > >   #define to_virtio_mmio_device(_plat_dev) \
+> > >   	container_of(_plat_dev, struct virtio_mmio_device, vdev)
+> > > -
+> > > -struct virtio_mmio_device {
+> > > -	struct virtio_device vdev;
+> > > -	struct platform_device *pdev;
+> > > -
+> > > -	void __iomem *base;
+> > > -	unsigned long version;
+> > > -
+> > > -	/* True if enable_irq_wake() succeeded for the shared IRQ. */
+> > > -	bool wake_irq_enabled;
+> > > -};
+> > > -
+> > >   /* Configuration interface */
+> > >   static u64 vm_get_features(struct virtio_device *vdev)
+> > > @@ -536,7 +524,7 @@ static bool vm_get_shm_region(struct virtio_device *vdev,
+> > >   	return true;
+> > >   }
+> > > -static const struct virtio_config_ops virtio_mmio_config_ops = {
+> > > +const struct virtio_config_ops virtio_mmio_config_ops = {
+> > >   	.get		= vm_get,
+> > >   	.set		= vm_set,
+> > >   	.generation	= vm_generation,
+> > > @@ -551,6 +539,7 @@ static const struct virtio_config_ops virtio_mmio_config_ops = {
+> > >   	.get_shm_region = vm_get_shm_region,
+> > >   	.synchronize_cbs = vm_synchronize_cbs,
+> > >   };
+> > > +EXPORT_SYMBOL_GPL(virtio_mmio_config_ops);
+> > >   #ifdef CONFIG_PM_SLEEP
+> > >   static int virtio_mmio_freeze(struct device *dev)
+> > > diff --git a/drivers/virtio/virtio_mmio.h b/drivers/virtio/virtio_mmio.h
+> > > new file mode 100644
+> > > index 000000000000..a80904ed73e2
+> > > --- /dev/null
+> > > +++ b/drivers/virtio/virtio_mmio.h
+> > > @@ -0,0 +1,21 @@
+> > > +/* SPDX-License-Identifier: GPL-2.0-only */
+> > > +#ifndef _DRIVERS_VIRTIO_VIRTIO_MMIO_H
+> > > +#define _DRIVERS_VIRTIO_VIRTIO_MMIO_H
+> > > +
+> > > +#include <linux/io.h>
+> > > +#include <linux/platform_device.h>
+> > > +#include <linux/virtio.h>
+> > > +#include <linux/virtio_config.h>
+> > > +
+> > > +struct virtio_mmio_device {
+> > > +	struct virtio_device vdev;
+> > > +	struct platform_device *pdev;
+> > > +	void __iomem *base;
+> > > +	unsigned long version;
+> > > +	/* True if enable_irq_wake() succeeded for the shared IRQ. */
+> > > +	bool wake_irq_enabled;
+> > > +};
+> > > +
+> > > +extern const struct virtio_config_ops virtio_mmio_config_ops;
+> > > +
+> > > +#endif /* _DRIVERS_VIRTIO_VIRTIO_MMIO_H */
+> > > diff --git a/drivers/virtio/virtio_qcom_dcp.c b/drivers/virtio/virtio_qcom_dcp.c
+> > > new file mode 100644
+> > > index 000000000000..a5443f2dbc4b
+> > > --- /dev/null
+> > > +++ b/drivers/virtio/virtio_qcom_dcp.c
+> > > @@ -0,0 +1,273 @@
+> > > +// SPDX-License-Identifier: GPL-2.0-only
+> > > +/*
+> > > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> > > + *
+> > > + * Qualcomm DCP VirtIO transport.
+> > > + */
+> > > +
+> > > +#include <linux/dma-mapping.h>
+> > > +#include <linux/io.h>
+> > > +#include <linux/module.h>
+> > > +#include <linux/of.h>
+> > > +#include <linux/platform_device.h>
+> > > +#include <linux/pm.h>
+> > > +#include <linux/slab.h>
+> > > +#include <linux/string.h>
+> > > +#include <linux/virtio.h>
+> > > +#include <linux/virtio_config.h>
+> > > +#include <uapi/linux/virtio_mmio.h>
+> > > +
+> > > +#include "virtio_mmio.h"
+> > > +#include "virtio_qcom_dcp_ipcc.h"
+> > > +
+> > > +struct dcp_virtio_transport {
+> > > +	struct virtio_mmio_device mmio;
+> > > +	struct virtio_config_ops config_ops;
+> > > +	struct dcp_ipcc ipcc;
+> > > +};
+> > > +
+> > > +static struct dcp_virtio_transport *
+> > > +to_dcp_virtio_transport(struct virtio_mmio_device *mmio)
+> > > +{
+> > > +	return container_of(mmio, struct dcp_virtio_transport, mmio);
+> > > +}
+> > > +
+> > > +static void dcp_virtio_synchronize_cbs(struct virtio_device *vdev)
+> > > +{
+> > > +	struct virtio_mmio_device *mmio =
+> > > +		container_of(vdev, struct virtio_mmio_device, vdev);
+> > > +	struct dcp_virtio_transport *transport = to_dcp_virtio_transport(mmio);
+> > > +
+> > > +	virtio_mmio_config_ops.synchronize_cbs(vdev);
+> > > +	dcp_ipcc_synchronize(&transport->ipcc);
+> > > +}
+> > > +
+> > > +static int dcp_virtio_find_vqs(struct virtio_device *vdev, unsigned int nvqs,
+> > > +			       struct virtqueue *vqs[],
+> > > +			       struct virtqueue_info vqs_info[],
+> > > +			       struct irq_affinity *desc)
+> > > +{
+> > > +	struct virtio_mmio_device *mmio =
+> > > +		container_of(vdev, struct virtio_mmio_device, vdev);
+> > > +	struct dcp_virtio_transport *transport = to_dcp_virtio_transport(mmio);
+> > > +	unsigned int i;
+> > > +	int ret;
+> > > +
+> > > +	ret = virtio_mmio_config_ops.find_vqs(vdev, nvqs, vqs, vqs_info, desc);
+> > > +	if (ret)
+> > > +		return ret;
+> > > +
+> > > +	for (i = 0; i < nvqs; i++) {
+> > > +		if (vqs[i] && vqs_info[i].name && !strcmp(vqs_info[i].name, "resp")) {
+> > > +			dcp_ipcc_set_resp_vq(&transport->ipcc, vqs[i]);
+> > > +			break;
+> > > +		}
+> > > +	}
+> > > +
+> > > +	return 0;
+> > > +}
+> > > +
+> > > +static void dcp_virtio_del_vqs(struct virtio_device *vdev)
+> > > +{
+> > > +	struct virtio_mmio_device *mmio =
+> > > +		container_of(vdev, struct virtio_mmio_device, vdev);
+> > > +	struct dcp_virtio_transport *transport = to_dcp_virtio_transport(mmio);
+> > > +
+> > > +	dcp_ipcc_set_resp_vq(&transport->ipcc, NULL);
+> > > +	virtio_mmio_config_ops.del_vqs(vdev);
+> > > +}
+> > > +
+> > > +static void dcp_virtio_release_dev(struct device *dev)
+> > > +{
+> > > +	struct virtio_device *vdev = container_of(dev, struct virtio_device, dev);
+> > > +	struct virtio_mmio_device *mmio =
+> > > +		container_of(vdev, struct virtio_mmio_device, vdev);
+> > > +	struct dcp_virtio_transport *transport = to_dcp_virtio_transport(mmio);
+> > > +
+> > > +	kfree(transport);
+> > > +}
+> > > +
+> > > +static int dcp_virtio_init_device(struct dcp_virtio_transport *transport,
+> > > +				  struct platform_device *pdev)
+> > > +{
+> > > +	struct virtio_mmio_device *mmio = &transport->mmio;
+> > > +	unsigned long magic;
+> > > +	int ret;
+> > > +
+> > > +	mmio->vdev.dev.parent = &pdev->dev;
+> > > +	mmio->vdev.config = &transport->config_ops;
+> > > +	mmio->pdev = pdev;
+> > > +
+> > > +	mmio->base = devm_platform_ioremap_resource(pdev, 0);
+> > > +	if (IS_ERR(mmio->base))
+> > > +		return PTR_ERR(mmio->base);
+> > > +
+> > > +	magic = readl(mmio->base + VIRTIO_MMIO_MAGIC_VALUE);
+> > > +	if (magic != ('v' | 'i' << 8 | 'r' << 16 | 't' << 24)) {
+> > > +		dev_warn(&pdev->dev, "Wrong magic value 0x%08lx!\n", magic);
+> > > +		return -ENODEV;
+> > > +	}
+> > > +
+> > > +	mmio->version = readl(mmio->base + VIRTIO_MMIO_VERSION);
+> > > +	if (mmio->version < 1 || mmio->version > 3) {
+> > > +		dev_err(&pdev->dev, "Version %ld not supported!\n", mmio->version);
+> > > +		return -ENXIO;
+> > > +	}
+> > > +
+> > > +	mmio->vdev.id.device = readl(mmio->base + VIRTIO_MMIO_DEVICE_ID);
+> > > +	if (!mmio->vdev.id.device)
+> > > +		return -ENODEV;
+> > > +
+> > > +	mmio->vdev.id.vendor = readl(mmio->base + VIRTIO_MMIO_VENDOR_ID);
+> > > +
+> > > +	if (mmio->version == 1) {
+> > > +		writel(PAGE_SIZE, mmio->base + VIRTIO_MMIO_GUEST_PAGE_SIZE);
+> > > +		ret = dma_set_mask(&pdev->dev, DMA_BIT_MASK(64));
+> > > +		if (!ret)
+> > > +			dma_set_coherent_mask(&pdev->dev,
+> > > +					      DMA_BIT_MASK(32 + PAGE_SHIFT));
+> > > +	} else {
+> > > +		ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(64));
+> > > +	}
+> > > +	if (ret)
+> > > +		ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
+> > > +	if (ret)
+> > > +		dev_warn(&pdev->dev,
+> > > +			 "Failed to enable 64-bit or 32-bit DMA. Trying to continue, but this might not work.\n");
+> > > +
+> > > +	return 0;
+> > > +}
+> > > +
+> > > +static int dcp_virtio_transport_probe(struct platform_device *pdev)
+> > > +{
+> > > +	struct dcp_virtio_transport *transport;
+> > > +	struct virtio_mmio_device *mmio;
+> > > +	int ret;
+> > > +
+> > > +	transport = kzalloc_obj(*transport);
+> > > +	if (!transport)
+> > > +		return -ENOMEM;
+> > > +
+> > > +	mmio = &transport->mmio;
+> > > +	mmio->vdev.dev.release = dcp_virtio_release_dev;
+> > > +	transport->config_ops = virtio_mmio_config_ops;
+> > > +	transport->config_ops.find_vqs = dcp_virtio_find_vqs;
+> > > +	transport->config_ops.del_vqs = dcp_virtio_del_vqs;
+> > > +	transport->config_ops.synchronize_cbs = dcp_virtio_synchronize_cbs;
+> > > +
+> > > +	ret = dcp_ipcc_init(&transport->ipcc, &pdev->dev, 1);
+> > > +	if (ret) {
+> > > +		kfree(transport);
+> > > +		return ret;
+> > > +	}
+> > > +
+> > > +	/* Wake DCP before the first access to the VirtIO MMIO registers. */
+> > > +	ret = dcp_ipcc_send_power_notify(&transport->ipcc);
+> > > +	if (ret)
+> > > +		goto err_ipcc;
+> > > +
+> > > +	ret = dcp_virtio_init_device(transport, pdev);
+> > > +	if (ret)
+> > > +		goto err_ipcc;
+> > > +
+> > > +	platform_set_drvdata(pdev, transport);
+> > > +
+> > > +	ret = register_virtio_device(&mmio->vdev);
+> > > +	if (ret) {
+> > > +		platform_set_drvdata(pdev, NULL);
+> > > +		dcp_ipcc_deinit(&transport->ipcc);
+> > > +		put_device(&mmio->vdev.dev);
+> > > +		return ret;
+> > > +	}
+> > > +
+> > > +	return 0;
+> > > +
+> > > +err_ipcc:
+> > > +	dcp_ipcc_deinit(&transport->ipcc);
+> > > +	kfree(transport);
+> > > +	return ret;
+> > > +}
+> > > +
+> > > +static void dcp_virtio_transport_remove(struct platform_device *pdev)
+> > > +{
+> > > +	struct dcp_virtio_transport *transport = platform_get_drvdata(pdev);
+> > > +
+> > > +	/* Keep the embedded virtio_device alive until IPCC teardown is complete. */
+> > > +	get_device(&transport->mmio.vdev.dev);
+> > > +	unregister_virtio_device(&transport->mmio.vdev);
+> > > +	platform_set_drvdata(pdev, NULL);
+> > > +	dcp_ipcc_deinit(&transport->ipcc);
+> > > +	put_device(&transport->mmio.vdev.dev);
+> > > +}
+> > > +
+> > > +#ifdef CONFIG_PM_SLEEP
+> > > +static int dcp_virtio_transport_suspend(struct device *dev)
+> > > +{
+> > > +	struct dcp_virtio_transport *transport = dev_get_drvdata(dev);
+> > > +	int ret;
+> > > +
+> > > +	ret = virtio_device_freeze(&transport->mmio.vdev);
+> > > +	if (ret)
+> > > +		return ret;
+> > > +
+> > > +	ret = dcp_ipcc_enable_irq_wake(&transport->ipcc);
+> > > +	if (ret)
+> > > +		goto err_restore;
+> > > +
+> > > +	ret = dcp_ipcc_send_power_notify(&transport->ipcc);
+> > > +	if (ret) {
+> > > +		dcp_ipcc_disable_irq_wake(&transport->ipcc);
+> > > +		goto err_restore;
+> > > +	}
+> > > +
+> > > +	return 0;
+> > > +
+> > > +err_restore:
+> > > +	virtio_device_restore(&transport->mmio.vdev);
+> > > +	return ret;
+> > > +}
+> > > +
+> > > +static int dcp_virtio_transport_resume(struct device *dev)
+> > > +{
+> > > +	struct dcp_virtio_transport *transport = dev_get_drvdata(dev);
+> > > +	struct virtio_mmio_device *mmio = &transport->mmio;
+> > > +	int ret;
+> > > +
+> > > +	ret = dcp_ipcc_send_power_notify(&transport->ipcc);
+> > > +	if (ret) {
+> > > +		dcp_ipcc_disable_irq_wake(&transport->ipcc);
+> > > +		return ret;
+> > > +	}
+> > > +
+> > > +	dcp_ipcc_disable_irq_wake(&transport->ipcc);
+> > > +	if (mmio->version == 1)
+> > > +		writel(PAGE_SIZE, mmio->base + VIRTIO_MMIO_GUEST_PAGE_SIZE);
+> > > +
+> > > +	return virtio_device_restore(&mmio->vdev);
+> > > +}
+> > > +
+> > > +#endif
+> > > +static const struct dev_pm_ops dcp_virtio_transport_pm_ops = {
+> > > +	SET_SYSTEM_SLEEP_PM_OPS(dcp_virtio_transport_suspend,
+> > > +				dcp_virtio_transport_resume)
+> > > +};
+> > > +
+> > > +static const struct of_device_id dcp_virtio_transport_of_match[] = {
+> > > +	{ .compatible = "qcom,dcp-virtio" },
+> > > +	{ }
+> > > +};
+> > > +MODULE_DEVICE_TABLE(of, dcp_virtio_transport_of_match);
+> > > +
+> > > +static struct platform_driver dcp_virtio_transport_driver = {
+> > > +	.probe = dcp_virtio_transport_probe,
+> > > +	.remove = dcp_virtio_transport_remove,
+> > > +	.driver = {
+> > > +		.name = "qcom-dcp-virtio",
+> > > +		.of_match_table = dcp_virtio_transport_of_match,
+> > > +		.pm = pm_sleep_ptr(&dcp_virtio_transport_pm_ops),
+> > > +	},
+> > > +};
+> > > +module_platform_driver(dcp_virtio_transport_driver);
+> > > +
+> > > +MODULE_DESCRIPTION("Qualcomm DCP VirtIO transport");
+> > > +MODULE_LICENSE("GPL");
+> > > diff --git a/drivers/virtio/virtio_qcom_dcp_ipcc.c b/drivers/virtio/virtio_qcom_dcp_ipcc.c
+> > > new file mode 100644
+> > > index 000000000000..1d83bcc69d5c
+> > > --- /dev/null
+> > > +++ b/drivers/virtio/virtio_qcom_dcp_ipcc.c
+> > > @@ -0,0 +1,193 @@
+> > > +// SPDX-License-Identifier: GPL-2.0-only
+> > > +/*
+> > > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> > > + *
+> > > + * DCP IPCC power-notify mailbox client. It wakes DCP during power
+> > > + * transitions and routes firmware notifications to the VirtIO response
+> > > + * queue.
+> > > + */
+> > > +
+> > > +#include <linux/device.h>
+> > > +#include <linux/err.h>
+> > > +#include <linux/jiffies.h>
+> > > +#include <linux/interrupt.h>
+> > > +#include <linux/mailbox_client.h>
+> > > +#include <linux/mutex.h>
+> > > +#include <linux/of_irq.h>
+> > > +#include <linux/string.h>
+> > > +#include <linux/virtio.h>
+> > > +#include <linux/virtio_ring.h>
+> > > +
+> > > +#include "virtio_qcom_dcp_ipcc.h"
+> > > +
+> > > +#define DCP_IPCC_POWER_NOTIFY_TIMEOUT_MS	10000
+> > > +
+> > > +static void dcp_ipcc_handle_rx(struct dcp_ipcc *ipcc)
+> > > +{
+> > > +	unsigned long flags;
+> > > +
+> > > +	spin_lock_irqsave(&ipcc->state_lock, flags);
+> > > +	if (ipcc->shutting_down) {
+> > > +		spin_unlock_irqrestore(&ipcc->state_lock, flags);
+> > > +		return;
+> > > +	}
+> > > +
+> > > +	complete(&ipcc->power_notify_done);
+> > > +	if (ipcc->resp_vq)
+> > > +		vring_interrupt(0, ipcc->resp_vq);
+> > > +
+> > > +	spin_unlock_irqrestore(&ipcc->state_lock, flags);
+> > > +}
+> > > +
+> > > +static irqreturn_t dcp_ipcc_power_notify_irq(int irq, void *data)
+> > > +{
+> > > +	struct dcp_ipcc *ipcc = data;
+> > > +
+> > > +	dcp_ipcc_handle_rx(ipcc);
+> > > +
+> > > +	return IRQ_HANDLED;
+> > > +}
+> > > +
+> > > +static void dcp_ipcc_rx_callback(struct mbox_client *cl, void *data)
+> > > +{
+> > > +	struct dcp_ipcc *ipcc = container_of(cl, struct dcp_ipcc, client);
+> > > +
+> > > +	dcp_ipcc_handle_rx(ipcc);
+> > > +}
+> > > +
+> > > +static void dcp_ipcc_free_channel(void *data)
+> > > +{
+> > > +	mbox_free_channel(data);
+> > > +}
+> > > +
+> > > +int dcp_ipcc_init(struct dcp_ipcc *ipcc, struct device *dev, unsigned int irq_index)
+> > > +{
+> > > +	int irq, ret;
+> > > +
+> > > +	memset(ipcc, 0, sizeof(*ipcc));
+> > > +	init_completion(&ipcc->power_notify_done);
+> > > +	mutex_init(&ipcc->power_notify_lock);
+> > > +	spin_lock_init(&ipcc->state_lock);
+> > > +
+> > > +	ipcc->client.dev          = dev;
+> > > +	ipcc->client.tx_block     = false;
+> > > +	ipcc->client.tx_tout      = 0;
+> > > +	ipcc->client.knows_txdone = true;
+> > > +	ipcc->client.rx_callback  = dcp_ipcc_rx_callback;
+> > > +
+> > > +	ipcc->power_chan = mbox_request_channel(&ipcc->client, 0);
+> > > +	if (IS_ERR(ipcc->power_chan)) {
+> > > +		ret = PTR_ERR(ipcc->power_chan);
+> > > +		if (ret != -EPROBE_DEFER)
+> > > +			dev_err(dev, "IPCC: failed to get DCP power channel: %d\n", ret);
+> > > +		return ret;
+> > > +	}
+> > > +
+> > > +	ret = devm_add_action_or_reset(dev, dcp_ipcc_free_channel,
+> > > +				       ipcc->power_chan);
+> > > +	if (ret) {
+> > > +		ipcc->power_chan = NULL;
+> > > +		return ret;
+> > > +	}
+> > > +
+> > > +	irq = of_irq_get(dev->of_node, irq_index);
+> > > +	if (irq <= 0) {
+> > > +		ret = dev_err_probe(dev, irq ? irq : -EINVAL,
+> > > +				    "failed to get required power notify IRQ\n");
+> > > +		goto err_free_channel;
+> > > +	}
+> > > +
+> > > +	ret = devm_request_irq(dev, irq, dcp_ipcc_power_notify_irq, 0,
+> > > +			       "dcp-power-notify", ipcc);
+> > > +	if (ret) {
+> > > +		ret = dev_err_probe(dev, ret,
+> > > +				    "failed to request power notify IRQ %d\n", irq);
+> > > +		goto err_free_channel;
+> > > +	}
+> > > +
+> > > +	ipcc->power_notify_irq = irq;
+> > > +
+> > > +	return 0;
+> > > +
+> > > +err_free_channel:
+> > > +	devm_release_action(dev, dcp_ipcc_free_channel, ipcc->power_chan);
+> > > +	ipcc->power_chan = NULL;
+> > > +	return ret;
+> > > +}
+> > > +
+> > > +void dcp_ipcc_set_resp_vq(struct dcp_ipcc *ipcc, struct virtqueue *resp_vq)
+> > > +{
+> > > +	unsigned long flags;
+> > > +
+> > > +	spin_lock_irqsave(&ipcc->state_lock, flags);
+> > > +	if (!ipcc->shutting_down)
+> > > +		ipcc->resp_vq = resp_vq;
+> > > +	spin_unlock_irqrestore(&ipcc->state_lock, flags);
+> > > +}
+> > > +
+> > > +void dcp_ipcc_synchronize(struct dcp_ipcc *ipcc)
+> > > +{
+> > > +	unsigned long flags;
+> > > +
+> > > +	spin_lock_irqsave(&ipcc->state_lock, flags);
+> > > +	spin_unlock_irqrestore(&ipcc->state_lock, flags);
+> > > +}
+> > > +
+> > > +void dcp_ipcc_deinit(struct dcp_ipcc *ipcc)
+> > > +{
+> > > +	struct device *dev = ipcc->client.dev;
+> > > +	unsigned long flags;
+> > > +
+> > > +	mutex_lock(&ipcc->power_notify_lock);
+> > > +
+> > > +	spin_lock_irqsave(&ipcc->state_lock, flags);
+> > > +	ipcc->shutting_down = true;
+> > > +	ipcc->resp_vq = NULL;
+> > > +	spin_unlock_irqrestore(&ipcc->state_lock, flags);
+> > > +
+> > > +	devm_free_irq(dev, ipcc->power_notify_irq, ipcc);
+> > > +	devm_release_action(dev, dcp_ipcc_free_channel, ipcc->power_chan);
+> > > +	mutex_unlock(&ipcc->power_notify_lock);
+> > > +}
+> > > +
+> > > +int dcp_ipcc_enable_irq_wake(struct dcp_ipcc *ipcc)
+> > > +{
+> > > +	return enable_irq_wake(ipcc->power_notify_irq);
+> > > +}
+> > > +
+> > > +void dcp_ipcc_disable_irq_wake(struct dcp_ipcc *ipcc)
+> > > +{
+> > > +	disable_irq_wake(ipcc->power_notify_irq);
+> > > +}
+> > > +
+> > > +int dcp_ipcc_send_power_notify(struct dcp_ipcc *ipcc)
+> > > +{
+> > > +	unsigned long timeout;
+> > > +	int ret;
+> > > +
+> > > +	mutex_lock(&ipcc->power_notify_lock);
+> > > +
+> > > +	reinit_completion(&ipcc->power_notify_done);
+> > > +
+> > > +	ret = mbox_send_message(ipcc->power_chan, NULL);
+> > > +	mbox_client_txdone(ipcc->power_chan, ret);
+> > > +	if (ret < 0) {
+> > > +		dev_err(ipcc->client.dev,
+> > > +			"IPCC TX: power notify failed: %d\n", ret);
+> > > +		goto out_unlock;
+> > > +	}
+> > > +
+> > > +	timeout = wait_for_completion_timeout(&ipcc->power_notify_done,
+> > > +					      msecs_to_jiffies(DCP_IPCC_POWER_NOTIFY_TIMEOUT_MS));
+> > > +	if (!timeout) {
+> > > +		dev_err(ipcc->client.dev,
+> > > +			"IPCC power notify acknowledgment timed out\n");
+> > > +		ret = -ETIMEDOUT;
+> > > +	} else {
+> > > +		ret = 0;
+> > > +	}
+> > > +
+> > > +out_unlock:
+> > > +	mutex_unlock(&ipcc->power_notify_lock);
+> > > +	return ret;
+> > > +}
+> > > diff --git a/drivers/virtio/virtio_qcom_dcp_ipcc.h b/drivers/virtio/virtio_qcom_dcp_ipcc.h
+> > > new file mode 100644
+> > > index 000000000000..f855fe8adec1
+> > > --- /dev/null
+> > > +++ b/drivers/virtio/virtio_qcom_dcp_ipcc.h
+> > > @@ -0,0 +1,41 @@
+> > > +/* SPDX-License-Identifier: GPL-2.0-only */
+> > > +/*
+> > > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> > > + *
+> > > + * IPCC power-notify mailbox interface for DCP firmware.
+> > > + *
+> > > + */
+> > > +
+> > > +#ifndef __VIRTIO_QCOM_DCP_IPCC_H__
+> > > +#define __VIRTIO_QCOM_DCP_IPCC_H__
+> > > +
+> > > +#include <linux/completion.h>
+> > > +#include <linux/mailbox_client.h>
+> > > +#include <linux/mutex.h>
+> > > +#include <linux/spinlock.h>
+> > > +
+> > > +struct device;
+> > > +struct virtqueue;
+> > > +
+> > > +struct dcp_ipcc {
+> > > +	struct mbox_client client;
+> > > +	struct mbox_chan *power_chan;
+> > > +	struct virtqueue *resp_vq;
+> > > +	struct completion power_notify_done;
+> > > +	/* Serializes concurrent power-notify transactions. */
+> > > +	struct mutex power_notify_lock;
+> > > +	/* Protects callback state and response queue access. */
+> > > +	spinlock_t state_lock;
+> > > +	bool shutting_down;
+> > > +	int power_notify_irq;
+> > > +};
+> > > +
+> > > +int dcp_ipcc_init(struct dcp_ipcc *ipcc, struct device *dev, unsigned int irq_index);
+> > > +void dcp_ipcc_set_resp_vq(struct dcp_ipcc *ipcc, struct virtqueue *resp_vq);
+> > > +void dcp_ipcc_synchronize(struct dcp_ipcc *ipcc);
+> > > +void dcp_ipcc_deinit(struct dcp_ipcc *ipcc);
+> > > +int dcp_ipcc_send_power_notify(struct dcp_ipcc *ipcc);
+> > > +int dcp_ipcc_enable_irq_wake(struct dcp_ipcc *ipcc);
+> > > +void dcp_ipcc_disable_irq_wake(struct dcp_ipcc *ipcc);
+> > > +
+> > > +#endif /* __VIRTIO_QCOM_DCP_IPCC_H__ */
+> > > 
+> > > -- 
+> > > 2.43.0
 
