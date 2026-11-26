@@ -1,70 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795664107;
-	b=3kXzpuOxlprbmHDVU1MANjV9fq7MZlshZwTiO2l9mx2HBJijytVAchEPC0mGhLXsgaSI
-	 eCdXfN+FA8jXnKmpTSTYS7wcdapvUPjEWUD9WYDogUKrDZLc/fLcVpsGMbOh2M0ywo+v/
-	 SZY1iMr9Z0ZgO00clNCYnruhwFkYD+bgJ4obYYk5Jx2TiqftY/Us2Pgk0Shw5hJphKFy6
-	 XfDDMC+sLTZX07lhe3r3MJvfOHGLlAnVTY+EqGVNpdvjZV80hF9e+EAUL4APO0y84iK0C
-	 ZNWHsLgib6PJ86kJQPwmfn/k8TmTxv5Qc1FjHQ7V6dlfHy5yuQxr7v2jKDjNL6BUdqQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795664107;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=eLTl/g4KujQMDMJRE5SGlmdd6FwGilnbsGquUL596h8=;
-	b=hrun/wRpFAEoyjLxgzl4kN2cg7aGKxpkEZgTOxX4bS/06Xiogt1C6YJB3riqYpzARNCn
-	 0Kz8mvx2ZjLblQE5TVBy915e6CkLWN+/LZqY+2R0RkR8zkUFfvafvE4goX7hdqKID2MtU
-	 IKHxVi7OMHJpackoZYpBnu8nLmnLUH19bfpHOoIvacE/sGlha2thevoASbdjiDvCAY3MB
-	 jz1KzvpUBjY1QGHjDbd0Xs2Y2uIWkwGtpldHTlETDb4kusnxmKk2HZZcPdRWObCuslvPZ
-	 S63/gh/uYCnU/lBTjuWO5ScjIdsT2JNL4NkfxyySQ2Ks+kiGp0ouGqhm6hHQjZC3fbw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wydd6obe;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.120
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795664328;
+	b=fvk1Kdz+E0Ai/1jk0CqGFGswK99k/IkMcALGzgNb3Mxwz0WSVVUlaD/MRHjAYqVl75/d
+	 dVkJCkV2S37v89onuKBSVDfqUSZ6X4mx2rNJS7GnU0n4gDcHMKi8VjtU0AGXTBr2GJrmt
+	 Od1qwt3tV4jRDLQJ4wMKFXeP/u4HJcoayVGx1QQ0KtE9odEJciV1TrGqfla/OnXzGjzsR
+	 9GdJXZecizEqrvZatprk14w3f8o5E+PDl6l1E1Iu1r0EYC8IBtL8pTBGx/fyfSIh9Skbi
+	 UwlG6/yIgX654RG//sZ+6Okm/fKynB6zAEEH/kCJWb1BTVWdPs1D2hcLd4WXAIoEO6g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795664328;
+	h=DMARC-Filter:DKIM-Signature:Received:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To:X-ZohoMailClient;
+	bh=4FiZB15xhKIOJGy2ZwbI3s6k8WVaPRsBBgY+WA+DbhU=;
+	b=1E7wzQUVjEuyWckeH6RV4RecjP1DDFren9hTjuEUltpe7b1KvIudT2FWjlAv6uJ4A81d
+	 lyLZJdofdcVcGX9q7bSA8krQ303JpYwK0Ca7y37Y3CAnFM+WIeMiktKokJJL3MGoejJyX
+	 HpaSuIZDkKrpWZuosalceYZwTojSBWOAH8AymbeefoAu/x7M8IEJWJ3YtdNHzx5BHEcmT
+	 fcTtMC3vk9pnv73rN7Rsrsdu2YPnfDYzkZ19Wy6RiJx9iwsEBXXzHR90fyBvz8oUHHxzg
+	 MmGuYt07bvMHC9rP+ideEuWjF0iF2ogJVxK6fw1vDMAO9jqXhzU1iqkozJv7zsmAyhw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pigmoral.tech;
+	spf=pass smtp.mailfrom=pigmoral.tech;
+	dkim=pass header.d=pigmoral.tech header.i=@pigmoral.tech header.a=rsa-sha256 header.s=zmail header.b=EQ9IfgrN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.120
+Received: from sender5-pp-g120.zoho.com (sender5-pp-g120.zoho.com [165.173.182.120])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F96F606A681;
-	Thu, 26 Nov 2026 03:35:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA8AF606A321;
+	Thu, 26 Nov 2026 03:38:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA8AF606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wydd6obe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BE961F000CA;
-	Thu, 26 Nov 2026 03:35:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795664107;
-	bh=eLTl/g4KujQMDMJRE5SGlmdd6FwGilnbsGquUL596h8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Wydd6obeDDnnMoBmCABx2tOj/QAl9LEtPWVxC6KCxmRoq2Zfo39bzAZFDFlpXTkBQ
-	 lE0gq+czLOXL2f9HZC9aI3ka322E+OX/LZf2qqFl4gzX9sAq/OT6oDfzBx0f/LNTji
-	 zK34mvlgh1kqHlbGFKO0lunn2Zd9kmzwKNRxQo8r/swKtUy43e4tJ9tLD8IB/lL5Ej
-	 3OssgYLpb+L/Mipg1+E0z8813fKvtzIpjHADZph4bxvBMyT1NB/wQ+c3jsrD9Od+XA
-	 3S19iSmE05BHp0KpQaIk/BQo+CfVzNlHJPSF8v/bKCY8to+BEmVsmWlZCwhtsW16To
-	 ISKSQSEbgaeuw==
-From: "Martin K. Petersen (Oracle)" <mkp@kernel.org>
-To: Alim Akhtar <alim.akhtar@samsung.com>,
-	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
-	Ajay Neeli <ajay.neeli@amd.com>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Pedro Sousa <pedrom.sousa@synopsys.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Bean Huo <beanhuo@micron.com>,
-	Stanley Jhu <stanleyjhu@google.com>,
-	Conor Dooley <conor@kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-scsi@vger.kernel.org,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Minda Chen <minda.chen@starfivetech.com>
-Cc: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 0/4] Add StarFive JHB100 soc UFS platform driver
-Date: Wed, 25 Nov 2026 22:34:50 -0500
-Message-ID: <179566062780.467514.17583582227952888451.b4-ty@b4>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261112075616.118436-1-minda.chen@starfivetech.com>
-References: <20261112075616.118436-1-minda.chen@starfivetech.com>
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=@pigmoral.tech header.a=rsa-sha256 header.s=zmail header.b=EQ9IfgrN
+ARC-Seal: i=1; a=rsa-sha256; t=1795664266; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=DCST9ByL27Upx2hl0RzcqKcwt9Z7EVBalVed5KTX5p0dqKgovEq5o1KKe0YRBS+WcivtXbO2HcSsag7nrcXRTvRkdF4ReXXxt9iz1s9PoVOFQmi11LbzT9r9B/kIjmriAHMWtZhI0m0IKdtNWOgQqyyY7Juu1hLpt/ZwF3YvN7A=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1795664266; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=4FiZB15xhKIOJGy2ZwbI3s6k8WVaPRsBBgY+WA+DbhU=; 
+	b=lf8eHZZofR8MSZAryQsfxNMzo5nZCqRPrbimNdazOKSxaVgEnEWR/uLPY3JABWWMxEx00UTdHuMZsxS+SSV4W6jOFX1Pi4Acpks+U4XjEI1LxRRFyOdmOv9gBhq8shkdbZAH5IRd82yXsBpFzdPm5yALBN6RiHDsEb5EArE4SAE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: a=rsa-sha256; b=EQ9IfgrNgxR+Fh8LE3AvioVr5xbMX20L/NC1Z/s6ccpmAAcOkqIZk9M8kr1WRakP3rPB+5QW3B8Um0A1PiQPrZg5YshCazvMMtRztBSlhCuqO5kYenDFYKWtlDV8c8ZnJ9wfsjd94X0fu1WcsaTvBvnW5SygE1tQv93AXACAkOg=; c=relaxed/relaxed; s=zmail; d=pigmoral.tech; v=1; bh=4FiZB15xhKIOJGy2ZwbI3s6k8WVaPRsBBgY+WA+DbhU=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1795664265088521.0475713937745;
+	Wed, 25 Nov 2026 19:37:45 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,31 +55,100 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 26 Nov 2026 11:37:34 +0800
+Message-Id: <DN4TUQIL3J9N.XYYN5MTODT2C@pigmoral.tech>
+Cc: <linux-clk@vger.kernel.org>, <linux-sunxi@lists.linux.dev>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ "Andre Przywara" <andre.przywara@arm.com>, <netdev@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>, "Jerome
+ Brunet" <jbrunet@baylibre.com>, "Enzo Adriano"
+ <enzo.adriano.code@gmail.com>, "Norman Herms" <dockseed@proton.me>,
+ "Vinicius Pedrosa" <vinicius.eduardo.pedrosa@gmail.com>
+Subject: Re: [PATCH v7 4/8] clk: sunxi-ng: a733: Add PLL clocks support
+From: "Junhui Liu" <junhui.liu@pigmoral.tech>
+To: "Alastair D'Silva" <alastair@d-silva.org>, "Junhui Liu"
+ <junhui.liu@pigmoral.tech>, "Stephen Boyd" <sboyd@kernel.org>, "Brian
+ Masney" <bmasney+clk@redhat.com>, "Jerome Brunet"
+ <jbrunet+clk@baylibre.com>, "Chen-Yu Tsai" <wens@kernel.org>, "Jernej
+ Skrabec" <jernej.skrabec@gmail.com>, "Samuel Holland"
+ <samuel@sholland.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Philipp Zabel" <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>,
+ "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Alexandre Ghiti" <alex@ghiti.fr>, "Richard Cochran"
+ <richardcochran@gmail.com>
+X-Mailer: aerc 0.22.0
+References: <20261112-a733-clk-v7-4-db7c5451ffa2@pigmoral.tech>
+ <20261125122452.3966873-1-alastair@d-silva.org>
+In-Reply-To: <20261125122452.3966873-1-alastair@d-silva.org>
+X-ZohoMailClient: External
 
-On Thu, 12 Nov 2026 15:56:12 +0800, Minda Chen wrote:
+Hi Alastair,
 
-> JHB100 is a Starfive new RISC-V SoC for datacenter BMC (BaseBoard
-> Managent Controller). Similar with Aspeed 27x0.
-> 
-> JHB100 contain 1 UFS 3.1 interface and using Synopsys designware
-> UFS controller/unipro/M-PHY. The ufs-starfive.c contain JHB100
-> UFS platform driver, unipro driver and M-PHY driver.
-> 
-> [...]
+On Wed Nov 25, 2026 at 8:24 PM CST, Alastair D'Silva wrote:
+> Hi Junhui,
+>
+> On Thu, 12 Nov 2026, Junhui Liu wrote:
+>> static struct ccu_nkmp pll_ref_clk =3D {
+>> ...
+>> };
+>> ...
+>> static CLK_FIXED_FACTOR_HWS(sys_24M_clk, "sys-24M", pll_ref_hws, 1, 1, 0=
+);
+>
+> While testing this v7 series on the OrangePi 4 Pro (24 MHz HOSC), ttyS0
 
-Applied to 7.5/scsi-queue, thanks!
+Before ordering an Orange Pi 4 Pro to investigate this, I checked its
+schematic, "OPI 4 PRO V1_3_2_20260109.pdf". Y1 is marked
+"26M-20pF-10ppm", with a "USE 26M" note, and the CK-SEL resistors are
+configured for 26 MHz.
 
-[1/4] scsi: ufs: dt-bindings: starfive: Add UFS Host Controller for JHB100 SoC
-      https://git.kernel.org/mkp/scsi/c/11a756096813
-[2/4] scsi: ufs: amd-versal2: Make PHY register DME attribute tables per-call
-      https://git.kernel.org/mkp/scsi/c/454284cf3f39
-[3/4] scsi: ufs: dwc: Rename amd-versal2 read/write PHY API and move to dwc common file
-      https://git.kernel.org/mkp/scsi/c/b65d9e54e5bb
-[4/4] scsi: ufs: starfive: Add UFS support for StarFive JHB100 SoC
-      https://git.kernel.org/mkp/scsi/c/715aa02a2de9
+Could you double check the crystal frequency on your board?
 
--- 
-Martin K. Petersen
+> switches from earlycon to garbled output with:
+>
+>   2500000.serial: ttyS0 MMIO32:0x0000000002500000 (irq =3D 414, base_baud=
+ =3D 1384615) is a 16550A
+>
+> Because the hardware bypasses pll-ref (0x02002000) when HOSC is 24 MHz,
+> sys-24M physically runs at 24 MHz from HOSC, while pll-ref remains
+> disabled with reset/unprogrammed N=3D12, M=3D13 fields. Since
+> ccu_nkmp_ops.recalc_rate() computes parent_rate * N / M regardless of
+> the enable bit, pll-ref reports 24000000 * 12 / 13 =3D 22153846 Hz.
+
+I also noticed that your DTS in your U-Boot patch sets sets the
+oscillator frequency to 24 MHz. If the board actually uses a 26 MHz
+crystal, but the DTB used by Linux declares 24 MHz, the PLL_REF N/M
+ratio of 12/13 would give:
+
+  Actual:   26000000 * 12 / 13 =3D 24000000 Hz
+  Reported: 24000000 * 12 / 13 =3D 22153846 Hz
+
+This would also explain the reported rate and UART baud error.
+
+Could you check the oscillator frequency in the DTB Linux is using and
+share the raw values of PLL_REF_CTRL (0x02002000) and RTC_XO_CTRL0
+(0x07090160)? That should help distinguish these possibilities.
+
+>
+> sys-24M, apb-uart, and bus-uart0 inherit 22153846 Hz instead of
+> 24000000 Hz, so 8250_dw calculates base_baud =3D 1384615 (instead of
+> 1500000) and programs divisor 12 instead of 13 (+8.3% baud error).
+>
+> If pll-ref is disabled/bypassed (or if sys-24M is physically fixed at
+> 24 MHz as the comment describes), either pll_ref_clk needs a recalc_rate
+> that returns 24 MHz when disabled/bypassed, or sys_24M_clk should not
+> inherit an unenabled pll-ref N/M ratio.
+>
+> Tested on OrangePi 4 Pro (Allwinner A733).
+>
+> Thanks,
+> Alastair
+
+--=20
+Best regards,
+Junhui Liu
+
