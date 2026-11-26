@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795716202;
-	b=ca1xWVp7SoGaMP8WsUCtwU2bm/OT4uM4MtoXvFID/pRxaW89sAp1tQE/ix+0vQQbxaR7
-	 Q37x3GY1QAoiElJe401cptS6n+0MjI3sI25VvYmBhGkNpL4uKd4rJ9NbVom445v+SGyJq
-	 3NiFTjG7FaAlRyo99zs/pDiV4a5VnsK2RD/z5mV2gR5mqH3Ybxwj8mlwC+RAZlkXMjDS2
-	 io7hdTv/1LMrwLuHwb/Ie6BtZpuF5cZ+t+qNnt7Cmpmu7RFbtrh92knwkaOPwJ4GRiyZ0
-	 GT8UcahiIBEDqotehtWZleJybd+dl775/UFcgVwOziAeOg2aHYhLyONtZ9T2DWvRijg==
+	t=1795716203;
+	b=EdaUzyP4W41T9Peaxmx7SxQWWod4sFlAw9r86UuH1gRrskrKzqqNIUnJopuOecMcwewA
+	 O/gbz4jVC9RlxqNu0MTFPGSEzLpLBFwuHxsjpOYnWWkda059LGcqV/YXArkx6KNhJlinK
+	 8oDb/KjTzOl4k93i2ZayJ688g4gd7MLXifJ70Q8PiiWjtc4E+zk2f1GVghuo9+EIFd+az
+	 civULi/wuGdkTleSw1g3Cc73bOktMmL8b4WCzmKhpj7GfbZwrIEL0IHe+RRbdo6ttXHcc
+	 D0tbMnA6fzrepJXSGwSUkDCfrjUzwc+8E7A+JKDEeonWyeX0hZeuIDxZBFLl3xLWKgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795716202;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795716203;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=byjiEAVbgVFr0Nir+Ue5CFd2zsKVy7OkbkAJjnT09DI=;
-	b=4sHXr5HqnxqtG/5B53CYOgHWhaG+b0WFq37coYNLKvXnppqfYeuGafIdz2IeccaimYR5
-	 NPrJfRppXa0+tiWg6G+rn0IxMJEwVoGD7jlwHcCmgMYBk+76QgpnTfJIdxKsF99d+YD7t
-	 qXR+BOs22cygyOKebwLgbIGOFOWuh4zFfGNH0FHT4Gp14O/1AwsqsPh3auWyLTJAtGhev
-	 R/OuYRV+Fj9RxN0gNOfcFMbj7I8VNZWGW7hPxjkZJsjuERVaPni9L+tQxxPzj/lh5uhVt
-	 mAun2w+HWRV11Nad9NsUVuo83N87d/12/bQpxceporvG5DM6Eo0tPeBLxHHX8QoFN3A==
+	bh=I9bKQN8g3f7XpsfQpR52IE9Iq4xxM0LX7R6BIa4pL78=;
+	b=hBUo9XRqePYAnfG1g4/OVBpHDYkvmgk9nchfX8axDU5BRQ0T11BuHrq1TzedNC3uv0EH
+	 hl8UUPcon/kCvt2vxRFxT3VrSD1fFZnSrIGnuv1DSPtD/+XF71JWs4RGm8KOSCxwwyqAs
+	 Bc4WQz4vPJywt5YwzTdFflRkBWVx1v4PlB3ezk1TmJal3i/Uo+FZG+3q1UVLBBJFDwimL
+	 kgtp+XQA2uo0ZBjUIffeUj+1r+/AZ1V5TcosflYK/8lfUXw+V2FQefZlQevZyDyb7DZV1
+	 xqUqzlZjcYFbK9Z7sAwXuH+/eNkGKJr3S/+aDjoxF2sk+y5vti1Tt504nQs/o5g+RKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="NAK/uEvn";
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GA9pe8S2;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 019AE606A32D
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 18:03:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 019AE606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 049CE606A33D
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 18:03:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 049CE606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NAK/uEvn
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48e47347279so4468881f8f.1
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 10:03:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GA9pe8S2
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4bba60271d7so19070635e9.2
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 10:03:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795716200; x=1796321000; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795716201; x=1796321001; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=byjiEAVbgVFr0Nir+Ue5CFd2zsKVy7OkbkAJjnT09DI=;
-        b=NAK/uEvnGhKF+M0LNPHchp71K9d6SgR6eBnLmdYlhqJ1KvCK/46Wt1KOoRWjBXWu6l
-         WOCZDbdb0Ovx0QxqWmOmyDm7ULACSwAYC5cMYH5V+tNW8T4mG2akD47or0ZbbjtYBulx
-         6p3piW3ShqB2/U00vqg55ttqjeL9TdWoSiJ3iB4PZKI+JhQgrkW4+2D830//EvEuKmPe
-         MqpRdoJt3vbGESd5rlyWwLEMgaExPGhDIC4QmXTiE4da0FtRAxOonWCdqLhm6Fwo3Y2E
-         yU8Xig+sETNRy/ZZ6uPY95qiTrLgKw925GwiEXj2rtrZwMnqnTIfYMYDzpgnF0NVyISC
-         Ayrg==
+        bh=I9bKQN8g3f7XpsfQpR52IE9Iq4xxM0LX7R6BIa4pL78=;
+        b=GA9pe8S2GnC2F9xZxNvpyr3BF1l710P69sQAM8eV8RHAmUzz3h7DIOO1BnTBrqyebp
+         qsW763nIsa+a4QUUbmXmH3KGue/E32NVP6N86kgmBhmXdSDBUOV1WmwotGvVcPWZAP/u
+         2yGOUT48umXJSU2UKSu0xyL52V1imrCU5m5+uZ5WLDBO/nP1wMdmQQgd/kdpLvIjwBtQ
+         QHl5btH4TrGYZieaoT/WSsswgT4iAlJI5kIB18CFta6sZR67m3mlrdHiXQMYQTEkkcJp
+         KUE91ziprHVtE2dkZcEe/hA4lOzrI5qUnLbAgkfOljzroSHeLsfCiT6J5LzRUfYfTNg6
+         g8yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795716200; x=1796321000;
+        d=1e100.net; s=20260707; t=1795716201; x=1796321001;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=byjiEAVbgVFr0Nir+Ue5CFd2zsKVy7OkbkAJjnT09DI=;
-        b=CxSUTptL+DRUL2CnQqIj3XD5fv4Lb+ax4ae5g5Qgh3WZ8Tr2kwfjz8cgBq5l2UYGHa
-         qa9sdwtfauI6HVE5n6frBHgNmGzn5CHoL14ZY3zG3JYrCPtjCpLL+Tt7fDF0J/UniNSa
-         vIVHDTgm/1D6Az9obHs38HKvYaCBI24BrnRZ3SyecgHFtUfT1SI8Ew0H7nI32qhqDr0X
-         +9SAJfY2a9sISUsUuIq79vn7CDcM8QJW/UnqqMgj51ECMLP23wOqSkYeITYd2pMC5Urm
-         rzx5oK6G3S+R1Ji25Gkxw0rMIzinpHE8BX2jDFQmP68IZgOSU+Oejsz0ECaImfY67fzR
-         LBwA==
-X-Forwarded-Encrypted: i=1; AL+hErGLBxenFYyHH+CJf2CQRIlSlEl7IGbSjMG2bkqzgAsjVMQJSpcKEioaoEEM/9opZZ8LAADnX0Ydc0Bu@vger.kernel.org
-X-Gm-Message-State: APuU4Z8XEH/+1/ZKOjlljmauZbkkAx4mX0PMDLer207SHVXPucLdpS8b
-	ObvS23g7hCFYTetBXFtPcu475RkdLwlPP/fYuPAdVMcUe4bt85fP04o=
-X-Gm-Gg: AZFdTZefvuiOoiC5XwCCEuDC02mycekp3GNsn/FBb2Ac5quGIe4ptiiIuvgWwGUsuRm
-	TF14KNtA5z9oeP2HkO1wN9vvR5+ZxwC6hSLlgYdS+WwukncLiqn1JfpmD5Mr8/8UxYkxA8w9AL7
-	OXbhqtAQa0uxkXEWScTu2lvvonbL3zZCbmQ0eHGgFrZKarVry/jdP3XBlr5/ihvu5sA+8ffuy3r
-	vdNJdUs9LkOkhqWcoJ7sjYIuPaDnLI6hGCN5I5sKMlKNc7VXFJk93ul3uk5f+suwHHOzGC3AYSX
-	4SDK20A6y2MN/n5OidtuYEIaLBVfNcCvvapBTWceg3qT9RsEMledYIaqC0TEkEVvG0bUiq7Byoz
-	O0kOc0sB2VJsQie+FPnwm+Vkk2WCjsg6d7/mw7xWI5+EA1N/VSzVM4rIYFVWF8VORU3MTpDQG7p
-	BMNEtDQjwzFClJ960yRL37GtK81Ptq3JltMGacu3embTKsqXg0er89+dsUsjmvyxIUZq3IXEkAX
-	jtNrJinFwWja0kQGpHVEr3IWsocoq+Sy+4iu6Qj8p3rHSMHPBGUW7DYuD11vH8IcGQ4WY0ESXue
-	dBbXiQpADi1tRJbt1xCb45CN1wsQlo2cihpzvXbuAuoQbeA4xPH+8plxznr8ttahn4SwtfTkq/9
-	wIpWSIQ0fkyUe1Z1AevLRtkhUA2AewTGrAolQ/piXQdPHH1zPXkuSKJtCfW0=
-X-Received: by 2002:a05:6000:1789:b0:491:971a:c568 with SMTP id ffacd0b85a97d-4abb3861356mr40253790f8f.10.1795716200322;
-        Thu, 26 Nov 2026 10:03:20 -0800 (PST)
+        bh=I9bKQN8g3f7XpsfQpR52IE9Iq4xxM0LX7R6BIa4pL78=;
+        b=Ma159ao/yw0VuDMLAfqXzANIVHHfKR8aFwk9/4L/Po6Iwm/wcgK/H4+SW1+7b5xoRI
+         mroTT85KojeZzrL1HklRSqqy/qZjwxDiuS5ayuHTIhTFqp6czfFaawC0Fw/37rbNXuG/
+         +Dm2GlfUOL4zDQCG8fo8mB4e64vEKcb4+FNNoATwP5ZuZq/XfBdVpVLGvb6bDuQ2ewBb
+         qE4BKo3ZE0qC0D55Dt4MqoUj1pRt5/3G55z9Q3DMBMAkOlIfxH3Q/oge4tNuEPhXge8+
+         z9GxJBDyc8P3NiPcQyxIXu3liWLY1J2YfLkatJOinxzzlgQORBkvN6pjKeqGimOEegU5
+         c3eg==
+X-Forwarded-Encrypted: i=1; AL+hErEJxa96kfi+GpgdiDfo1NV3RYb0OBkWFei5u71VcSrB4FyAsu+Ac1xkqIPUEdsLshdWzQMs2tQIMVPd@vger.kernel.org
+X-Gm-Message-State: APuU4Z/j/H+2LTj3XYPWRhqR5N8KrBUFI/hk1fHDeSEX+KZT84qcW6Wr
+	N2aJtZEDVYG0M5+An0tCL5qXI/43gto6ai9VCxVQtHoM3yjptFx8LXk=
+X-Gm-Gg: AZFdTZd7ovUDJP0tYsBvNyyl1HIKuRhVWVp0L+V/qC7T5ElGYTd+WwUOOFQ9f3FLmV+
+	102Ju4IrHNXz2qqY18JY9DeDwK/BnCDMJPnTnHmPV0x5B4XE8jQ56lAjuobAocX2Lex7fIceqtU
+	B9AyEIWmFamfu3e2I9IJU+0POT64E01LPcgbqKxmG4PREUabfWFcWIZNdaPXCVzBW7rDPb78vUv
+	W1EGEsxI73EUxOktvzBJ76CCuBxuPPBHKZsTB0aWspLlj0miJ3ibVUnLTd2QxH79/SX63VFIQ90
+	SNo809fo+XnX/MK5isffUx3MPY12o/mEmRl2gApH4dWP3L/Zpj4Yae5wSLZwXSdHMjt8S2g3vb9
+	1eETBuEg7Nz0QEr/lmoJkdk7j8LhScGIz+czYZi+eVNxeV8KFrh6XNNNFhN0qBLm6ATMiW2FTla
+	6QYdSQAXqb/rZElGkaOuePQ78Cd9kFynKH14hpxlV7zOB1zIqzbs6UUVHO5PdzFF8qw4Aj1Qg25
+	uhZRBN29cNZyhGwUOp6Z5PS573Hessbg3GyUxmiw7q+6E9q4ppw4UaS3QWCTadKuOCX3Zomcyuy
+	139zjKsleb/ZzYnD7YXteJZ+chExBdeCErc0PLMB7cGXcUcwVQFv5NAiDaLnTg/9M+E6bzsWbIV
+	eqUuvxV55Ayvn8p2KCtVqk8kmFaWdE5h/sf31jMS8uUeJAvGWQUwX51xfyio=
+X-Received: by 2002:a05:600c:a4b:b0:4a1:dade:f049 with SMTP id 5b1f17b1804b1-4bb88806292mr454614305e9.15.1795716201307;
+        Thu, 26 Nov 2026 10:03:21 -0800 (PST)
 Received: from localhost.localdomain (host-94-89-17-99.business.telecomitalia.it. [94.89.17.99])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b2052c8sm42265115f8f.41.2026.11.26.10.03.19
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b2052c8sm42265115f8f.41.2026.11.26.10.03.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 10:03:20 -0800 (PST)
+        Thu, 26 Nov 2026 10:03:21 -0800 (PST)
 From: Gianfranco Mariotti <gianfranco.mariotti94@gmail.com>
 To: Linus Walleij <linusw@kernel.org>,
 	Bartosz Golaszewski <brgl@kernel.org>,
@@ -92,9 +92,9 @@ Cc: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Gianfranco Mariotti <gianfranco.mariotti94@gmail.com>
-Subject: [PATCH 1/5] gpio: fxl6408: Fix reserved register access and disable burst transfers
-Date: Thu, 26 Nov 2026 19:03:11 +0100
-Message-Id: <20261126180315.98034-2-gianfranco.mariotti94@gmail.com>
+Subject: [PATCH 2/5] dt-bindings: gpio: Split fcs,fxl6408 from trivial-gpio and add diodes,pi4ioe5v6408
+Date: Thu, 26 Nov 2026 19:03:12 +0100
+Message-Id: <20261126180315.98034-3-gianfranco.mariotti94@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20261126180315.98034-1-gianfranco.mariotti94@gmail.com>
 References: <20261126180315.98034-1-gianfranco.mariotti94@gmail.com>
@@ -109,60 +109,138 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-All valid registers on the FXL6408 are at odd addresses (0x01..0x13),
-while all even addresses (0x02..0x12) are marked Reserved in the
-datasheet. In addition, the FXL6408 datasheet explicitly states that I2C
-burst read and write modes are not supported.
+The Fairchild FXL6408 and its pin- and register-compatible second source
+Diodes Incorporated PI4IOE5V6408 provide an active-low hardware reset
+input, dual power rails (I2C bus and GPIO port bank), and an open-drain
+interrupt output.
 
-Currently rd_range and wr_range specify { FXL6408_REG_IO_DIR,
-FXL6408_REG_OUTPUT } (0x03..0x05), which exposes the reserved register
-0x04 to regcache_hw_init() and debugfs, and causes REGCACHE_MAPLE to
-group 0x03..0x05 into a contiguous block that regcache_sync() attempts
-to restore with a multi-byte raw I2C write on resume. Meanwhile, the
-read/write OUTPUT_HIGH_Z register (0x07) was omitted from rd_range.
+Move fcs,fxl6408 out of trivial-gpio.yaml back into a dedicated schema
+to document reset-gpios, power supplies, and interrupt controller
+properties, and add the diodes,pi4ioe5v6408 compatible with fallback to
+fcs,fxl6408.
 
-List only the valid odd registers in rd_range and wr_range, include
-FXL6408_REG_OUTPUT_HIGH_Z in rd_range, and set use_single_read and
-use_single_write in regmap_config.
-
-Fixes: 03810031c91d ("gpio: fxl6408: add I2C GPIO expander driver")
 Signed-off-by: Gianfranco Mariotti <gianfranco.mariotti94@gmail.com>
 ---
- drivers/gpio/gpio-fxl6408.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ .../devicetree/bindings/gpio/fcs,fxl6408.yaml | 97 +++++++++++++++++++
+ .../bindings/gpio/trivial-gpio.yaml           |  1 -
+ 2 files changed, 97 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/gpio/fcs,fxl6408.yaml
 
-diff --git a/drivers/gpio/gpio-fxl6408.c b/drivers/gpio/gpio-fxl6408.c
-index 8a7e70180efd9..9f80ea1214e03 100644
---- a/drivers/gpio/gpio-fxl6408.c
-+++ b/drivers/gpio/gpio-fxl6408.c
-@@ -45,13 +45,16 @@
- 
- static const struct regmap_range rd_range[] = {
- 	{ FXL6408_REG_DEVICE_ID, FXL6408_REG_DEVICE_ID },
--	{ FXL6408_REG_IO_DIR, FXL6408_REG_OUTPUT },
-+	{ FXL6408_REG_IO_DIR, FXL6408_REG_IO_DIR },
-+	{ FXL6408_REG_OUTPUT, FXL6408_REG_OUTPUT },
-+	{ FXL6408_REG_OUTPUT_HIGH_Z, FXL6408_REG_OUTPUT_HIGH_Z },
- 	{ FXL6408_REG_INPUT_STATUS, FXL6408_REG_INPUT_STATUS },
- };
- 
- static const struct regmap_range wr_range[] = {
- 	{ FXL6408_REG_DEVICE_ID, FXL6408_REG_DEVICE_ID },
--	{ FXL6408_REG_IO_DIR, FXL6408_REG_OUTPUT },
-+	{ FXL6408_REG_IO_DIR, FXL6408_REG_IO_DIR },
-+	{ FXL6408_REG_OUTPUT, FXL6408_REG_OUTPUT },
- 	{ FXL6408_REG_OUTPUT_HIGH_Z, FXL6408_REG_OUTPUT_HIGH_Z },
- };
- 
-@@ -78,6 +81,8 @@ static const struct regmap_access_table volatile_table = {
- static const struct regmap_config regmap = {
- 	.reg_bits = 8,
- 	.val_bits = 8,
-+	.use_single_read = true,
-+	.use_single_write = true,
- 
- 	.max_register = FXL6408_REG_INT_STS,
- 	.wr_table = &wr_table,
+diff --git a/Documentation/devicetree/bindings/gpio/fcs,fxl6408.yaml b/Documentation/devicetree/bindings/gpio/fcs,fxl6408.yaml
+new file mode 100644
+index 0000000000000..5977aa026ec14
+--- /dev/null
++++ b/Documentation/devicetree/bindings/gpio/fcs,fxl6408.yaml
+@@ -0,0 +1,97 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/gpio/fcs,fxl6408.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Fairchild FXL6408 I2C GPIO Expander
++
++maintainers:
++  - Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - const: diodes,pi4ioe5v6408
++          - const: fcs,fxl6408
++      - const: fcs,fxl6408
++
++  reg:
++    maxItems: 1
++
++  "#gpio-cells":
++    const: 2
++
++  gpio-controller: true
++
++  gpio-line-names:
++    minItems: 1
++    maxItems: 8
++
++  interrupts:
++    maxItems: 1
++
++  interrupt-controller: true
++
++  "#interrupt-cells":
++    const: 2
++
++  reset-gpios:
++    maxItems: 1
++    description: Active-low GPIO connected to the RESET pin.
++
++  vcc-supply:
++    description: I2C-bus interface power supply (VCC / VDD(I2C_bus)).
++
++  vddio-supply:
++    description: GPIO port power supply (VDDIO / VDD(P)).
++
++  wakeup-source: true
++
++dependencies:
++  interrupt-controller: [ interrupts ]
++  "#interrupt-cells": [ interrupt-controller ]
++  wakeup-source: [ interrupts ]
++
++patternProperties:
++  "^(hog-[0-9]+|.+-hog(-[0-9]+)?)$":
++    type: object
++    required:
++      - gpio-hog
++
++required:
++  - compatible
++  - reg
++  - gpio-controller
++  - "#gpio-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        gpio@43 {
++            compatible = "diodes,pi4ioe5v6408", "fcs,fxl6408";
++            reg = <0x43>;
++            gpio-controller;
++            #gpio-cells = <2>;
++            interrupt-parent = <&gpio1>;
++            interrupts = <5 IRQ_TYPE_LEVEL_LOW>;
++            interrupt-controller;
++            #interrupt-cells = <2>;
++            reset-gpios = <&gpio1 6 GPIO_ACTIVE_LOW>;
++            vcc-supply = <&reg_1v8>;
++            vddio-supply = <&reg_3v3>;
++            gpio-line-names = "Wi-Fi_W_DISABLE", "Wi-Fi_WKUP_WLAN",
++                              "PWR_EN_+V3.3_WiFi_N", "PCIe_REF_CLK_EN",
++                              "USB_RESET_N", "USB_BYPASS_N", "Wi-Fi_PDn",
++                              "Wi-Fi_WKUP_BT";
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/gpio/trivial-gpio.yaml b/Documentation/devicetree/bindings/gpio/trivial-gpio.yaml
+index fe9b14a72d698..aca42dd1ad20a 100644
+--- a/Documentation/devicetree/bindings/gpio/trivial-gpio.yaml
++++ b/Documentation/devicetree/bindings/gpio/trivial-gpio.yaml
+@@ -21,7 +21,6 @@ properties:
+           - cirrus,ep7209-gpio
+           - cznic,moxtet-gpio
+           - dlg,slg7xl45106
+-          - fcs,fxl6408
+           - fsl,ls1046aqds-fpga-gpio-stat-pres2
+           - fsl,lx2160ardb-fpga-gpio-sfp
+           - gateworks,pld-gpio
 -- 
 2.25.1
 
