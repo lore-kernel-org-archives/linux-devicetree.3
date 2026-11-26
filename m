@@ -1,76 +1,43 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.203.31.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795681567;
-	b=ivhizHTgz0RU/A79MwBETl3KOIfNpVXeg4tNa2Ih843ggv6EUDrE93E/0ZKZq6ejKCC9
-	 AmVPOe3hxxyEhRumvsKbFfk/dDhp3IyGSIyZ7bpowa3Av0xVbc6CBNQRZAy4aKnocVg3a
-	 f/Ge31po15HN/Hq5ZFrv7eOSP3wcvpNwElLXJ2zauTOOENbvQ9Tm/1n1oR3QihxC+7CNg
-	 FZ/b2FY4zgt1kK1gerCFkmU1egLRCTVZI1RZ45J2J1GfAjCuktHrmk5YGMfVLa5EuxeHR
-	 NaSHDxJyTW5X7D739ztW5Z6+gJ+ZrTLbcoCRUyqUjp8c56YelJsRZhtHMmQwm4UFoUg==
+	t=1795681639;
+	b=iAVObOEsNhfbA8rL6HPCB/R/fDRIhME4LbqPwUs6aCHkq/JeNFE0p/LNaLc1fUM25Fxz
+	 Gy8YsPV66PJAeKZdyNzw/HDpLhAvEvEMqW/yravfyyhTsHiKtOcmhNt2aNmvSTrQh7C1s
+	 odl8aQRy6VCH4emYFNXR4kG+j2CHgcMvT0pqQyuWctwd6cK++rnhmfEFO7EkkmHbCGhqO
+	 w0fVBXsPJgV8lCFo/ppFNHjQAuuIctDk4krwzaNzaxbUe/xYfc6RcDt00mkI2mgmPXYBf
+	 w+IKrl96sQHQMpwUx0t9JAgjhc40QstT1AVD29H5QCwKIP8464sX4LreNiub5ScUh7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795681567;
-	h=DMARC-Filter:DKIM-Signature:X-secureTransport-forwarded:From:
-	 Complaints-To:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
-	 References:In-Reply-To:Accept-Language:Content-Language:
-	 X-MS-Has-Attach:X-MS-TNEF-Correlator:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=GhXefzmZY9gWz2XO5wKueke+JFfkFr9M9YsFaTjCOvU=;
-	b=xEUtAmvS9k4JnUqcvyUQdtDABZwp7p3esCuFaDL5te++7GTuwhbxvJUveISkGtZ5qhIx
-	 Zml+IE/img5n7UZRLeGIj0k+B5xa8+8Z/4xGycIK+/kcZvD0GXFISt+rRHXmZp7ZEu66m
-	 pupNNYfb3lJsSjVhVxgopW1r/Cbyf7Bh7tp4gAijW8GaWJhHizyCdZD4LT1nl0hnPea4P
-	 ZgI1Uh4oiQ4ea7gGNcbzv7MKzjsm7ry6xPSy1bZuzgaRQ0UWRTho55/nxdzfsFd5uCN/c
-	 cDZLHgTIJ0NAIST/+rHbS/LZ85b+dHrkBAoI+bhD2YQzbmSHyfXmS8Oprg/6zohFIdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795681639;
+	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
+	 X-CM-SenderInfo;
+	bh=UVP94qkra3NeZRByxo8XfGEpavoS46ZaTdo5vMtYzGw=;
+	b=t+KgYqayiJ6LP9ZICtf2PkaNtA4CWo8+jB8NmSnZrslCwIU0cmN353aTDfZX5hvFtmHo
+	 G4nq21QdzY0GbvcpLOBce1ZRGoQv6HGpOLcJilVh2z4JRPZwqjRZ7QieMjGDXqsf8mAz9
+	 t9QwUntkWlYfhotr2yrgjQssEjpE3KMCTXCsIcUWIYHcOtTJFQlh/qq+ILzHzhxiw89YN
+	 jYwH3A0kor/YbmS62+QA2bBYkSKOX8DHVPmrlHWFZBYNWfqCxHqJWNrEdF+wwvGe650CW
+	 SuODxF0nDHeMtDiWyCCTiKD3M416LRDCoIKEpT4ZqOQ0iX9VKZDuVokTy/Cfc3A4I1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dh-electronics.com;
-	spf=pass smtp.mailfrom=dh-electronics.com;
-	dkim=pass header.d=dh-electronics.com header.i=@dh-electronics.com header.a=rsa-sha256 header.s=dhelectronicscom header.b=KRftRRxu;
-	arc=none smtp.remote-ip=116.203.31.6
-Received: from mx3.securetransport.de (mx3.securetransport.de [116.203.31.6])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF5C1606A31E
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 08:26:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF5C1606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dh-electronics.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dh-electronics.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dh-electronics.com header.i=@dh-electronics.com header.a=rsa-sha256 header.s=dhelectronicscom header.b=KRftRRxu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dh-electronics.com;
-	s=dhelectronicscom; t=1795681531;
-	bh=GhXefzmZY9gWz2XO5wKueke+JFfkFr9M9YsFaTjCOvU=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
-	b=KRftRRxuzHKoEGcsihtRYRfYTQ6HNy40Yr3998Pnsqg9qdd/TxNAIGeNHnXkPCiKf
-	 XrsxZ/yuPY4TwPRukW/voTuKw/ZcmGOZjm3LeDb6kMj5MdiJ1sJHNXdAivn0QsRLBy
-	 vJeRHR/jzwmZbS7MKCy5O2zycaHaNrqk5y+5DExOoEqPs5Kk54XhiEel1WLBBY5A6m
-	 rYh9nznVIWPmBWlyGM9K/JkFHc4/GFz1b7iL2+j7UsvNnpL7jcyiBz2lXAc4bpL5tQ
-	 9h2K7teuffOQwg6Pq4gTogXckCFK7fnYdiDb54hQnTkY1V9MtI1C7Et+heExTUOyjb
-	 FJE6kftpUt5jQ==
-X-secureTransport-forwarded: yes
-From: Christoph Niedermaier <cniedermaier@dh-electronics.com>
-Complaints-To: abuse@cubewerk.de
-To: Marek Vasut <marex@nabladev.com>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>
-CC: Pascal Zimmermann <pzimmermann@dh-electronics.com>, Conor Dooley
-	<conor+dt@kernel.org>, Fabio Estevam <festevam@gmail.com>, Frank Li
-	<Frank.Li@nxp.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring
-	<robh@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, kernel
-	<kernel@dh-electronics.com>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "imx@lists.linux.dev" <imx@lists.linux.dev>
-Subject: RE: [PATCH V2] ARM: dts: imx6ull-dhcom: Change eMMC pin configuration
-Thread-Topic: [PATCH V2] ARM: dts: imx6ull-dhcom: Change eMMC pin
- configuration
-Thread-Index: AQHdfNxvka56chsGIUmKS9A5oSlWCbc+vxUAgAFGNIA=
-Date: Thu, 26 Nov 2026 08:25:29 +0000
-Message-ID: <4ef4ff8128b049d59a0ab23bea906468@dh-electronics.com>
-References: <20261125125621.6734-1-cniedermaier@dh-electronics.com>
- <a57373f2-dfb2-4344-8e2c-6621a623d170@nabladev.com>
-In-Reply-To: <a57373f2-dfb2-4344-8e2c-6621a623d170@nabladev.com>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D731606A31C;
+	Thu, 26 Nov 2026 08:27:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D731606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.207])
+	by APP-03 (Coremail) with SMTP id rQCowABncJFW7QdrHy_WAQ--.21303S2;
+	Thu, 26 Nov 2026 16:27:02 +0800 (CST)
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Date: Thu, 26 Nov 2026 16:26:58 +0800
+Subject: [PATCH v2] dt-bindings: usb: vialab,vl817: derive subnodes from
+ usb-hub.yaml
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -80,13 +47,87 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261126-vl817-uneval-prop-v2-1-9640b58d37db@iscas.ac.cn>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ6CMBBFr0JmbUmnNVRceQ/DotRBxpDStNBoC
+ HcXcO/yJe+/v0CiyJTgWiwQKXPi0W+gTgW43vonCX5sDEqqClGdRR4uaMTsKdtBhDgGURulybR
+ OVx3CtguROn4fzXvz4zS3L3LTHtqNntM0xs9xmnH3/vUzCilQGydr3bVayhsnZ1NpXek8NOu6f
+ gHgcSUaxgAAAA==
+X-Change-ID: 20261124-vl817-uneval-prop-9723e7bc36f1
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Matthias Kaehlcke <mka@chromium.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Anand Moon <linux.amoon@gmail.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Icenowy Zheng <uwu@icenowy.me>, 
+ Han Gao <rabenda.cn@gmail.com>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
+X-Mailer: b4 0.15.0
+X-CM-TRANSID:rQCowABncJFW7QdrHy_WAQ--.21303S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CF1kuryDGrykuw4xArWUArb_yoW8Wr4xpF
+	4akFsrK3Zxt342ga1v9F4xua1rJas8Ars7GrykXa1qga15Aan8Jws8K3s8WF4DWFWxuFW3
+	CFWqkF15tws2kaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
+	VFxhVjvjDU0xZFpf9x0JUd-B_UUUUU=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-RnJvbTogTWFyZWsgVmFzdXQgPG1hcmV4QG5hYmxhZGV2LmNvbT4NClNlbnQ6IFdlZG5lc2RheSwg
-Tm92ZW1iZXIgMjUsIDIwMjYgMjo1NyBQTQ0KPiBPbiAxMS8yNS8yNiAxOjU2IFBNLCBDaHJpc3Rv
-cGggTmllZGVybWFpZXIgd3JvdGU6DQo+PiBGcm9tOiBQYXNjYWwgWmltbWVybWFubiA8cHppbW1l
-cm1hbm5AZGgtZWxlY3Ryb25pY3MuY29tPg0KPj4NCj4+IFRlc3RzIGhhdmUgc2hvd24gdGhhdCwg
-d2l0aCB0aGUgY3VycmVudCBwaW4gY29uZmlndXJhdGlvbiBvZiB0aGUNCj4+IGVNTUMgKHVzZGhj
-MiBpbnRlcmZhY2UpIHJlYWQgZXJyb3JzIGNhbiBvY2N1ciB3aXRoIGEgY2VydGFpbg0KPj4gdHlw
-ZSBvZiBlTU1DIGNoaXBzLg0KPiANCj4gV2hpY2ggY2hpcHMgYXJlIHRob3NlID8NCg0KVGhlIHBy
-b2JsZW1zIG9jY3VycmVkIHdpdGggY2hpcHMgZnJvbSBNYWNyb25peC4NCg0KUmVnYXJkcw0KQ2hy
-aXN0b3BoDQo=
+Currently the binding for VL817, a USB hub chip, doesn't allow either
+OF graph ports or attached devices to exist as subnodes.
+
+Change the parent schema to usb-hub.yaml and set unevaluatedProperties
+to false (instead of additionalProperties) to allow subnodes defined in
+the hub schema, including OF graph ports and pattern-matched downstream
+devices.
+
+Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+---
+Changes in v2:
+- Stop to deduplicate properties from usb-*.yaml.
+- Squash the remaining 2 patches into one.
+- Link to v1: https://patch.msgid.link/20261124-vl817-uneval-prop-v1-0-137c093fb300@iscas.ac.cn
+---
+ Documentation/devicetree/bindings/usb/vialab,vl817.yaml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/usb/vialab,vl817.yaml b/Documentation/devicetree/bindings/usb/vialab,vl817.yaml
+index c815010ba9c2e..1900444bec31c 100644
+--- a/Documentation/devicetree/bindings/usb/vialab,vl817.yaml
++++ b/Documentation/devicetree/bindings/usb/vialab,vl817.yaml
+@@ -10,7 +10,7 @@ maintainers:
+   - Anand Moon <linux.amoon@gmail.com>
+ 
+ allOf:
+-  - $ref: usb-device.yaml#
++  - $ref: usb-hub.yaml#
+ 
+ properties:
+   compatible:
+@@ -40,7 +40,7 @@ required:
+   - vdd-supply
+   - peer-hub
+ 
+-additionalProperties: false
++unevaluatedProperties: false
+ 
+ examples:
+   - |
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261124-vl817-uneval-prop-9723e7bc36f1
+
+Best regards,
+--  
+Icenowy Zheng <zhengxingda@iscas.ac.cn>
+
