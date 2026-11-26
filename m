@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795654137;
-	b=0asPdzc/+ocWlknKXfwhSNA3XbZxdilqlvVnBDfYCKAovfomk9l4W1B01frUPPQaO2oK
-	 tHYP8PlEXrDWxrubSfqbGc8BKAJKEN6tRT5Y8p1MmXhShXT9dC354+LtvBKegkAGFLmiW
-	 +xxFzCkLFFYAe7sYGMuUBXrdPX6s9YPTHoLGIFGN5i6yUVPIIH4MRoALcM6n1jVCnsvE9
-	 tMMEz5/38qHJ/juNfkwQV/CUlCyv/SGJuCRVZ5IDgfm5FasHuD0ZbyQiRE6LboNPykfBe
-	 obqN3BlXQxADwEq/y074jw+nA5wShBE0GSJuIYRfJxd4ldryG8pyaA4ntaonMNX0J2w==
+	t=1795654157;
+	b=4ETfSRrB+4/9wGSMvq3Q4KiGTiOwDN6lwIOsz/KA4zMfCyF6UkM8SlKR+0Lpx/Bnp8tc
+	 tvqB2O+/5YA1x8E1vR+PqxMqaAlikOGpHDB7IFQgYshycCq3DCtyP0iBC9ayJAhp9wT2/
+	 Zv757uP7rCRL1rHKXaKoih5jztgF9wLtjyT83jahOCfn4QDyFyceTjgZVAaMuzNBCyssa
+	 AoEFM6T84+R6fEDy6zc2O4DCKZsquFGdc2kq1bk7HmoSFkUODOq8PEKxIHqlh6q169ZeU
+	 82lGCsbiyusbh6iJg0TJZCWqs7pdot9JYUsqCHNmY6/ajeYVvI2Dx2Cybg7j3r+W9fQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795654137;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795654157;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=fGevdPLEWYMGm0p0gUQeCib6GTDwvKg+JSOz5ROMOew=;
-	b=Bhq+AQFLwO//jc67OGD3Xc124e6TZeabOwyn5SA8Z71WdQYGXXg0GE7Gty1cmCNvB5QR
-	 oRWz3S47Y9iZXiCE78Xjcu8cTKCk4Ho31xTFh/53c7hbA2EgpFxl3OdWPR79DmhY+oVn0
-	 dJyjYYbF+t3EFN+uiC5/UoUTN69HhEgJua3WxRVHndvcQMJ1InsM1TyobP2p+aHybLNSn
-	 BgFA8UiXoG2Q/YK2AR89MpSOIXLlVQwiME2BfXsnmzf4KQzzgPuqgUPYyOpUcYmNXrQwi
-	 FiNmETvDTu6GwU3cidTZTR2oTqi/m2CFEN2Exzze38VFcRAq4Sy1Av3+nFQCCz3xFAQ==
+	bh=ZH7wIRa8HvBD1WFzsZXyuYww4crO0sAmsO3sq1M+jg4=;
+	b=Ejn2HEOej0PNl5z9kRu0H+ASibo6Qh/1tG8aiNiaFsoBLTVY6Dfu8OdlMz+fErLZcnVW
+	 mXjB0rBvbu/apIOzJa0rLK642FHo6AWz1MBnwbDWq1GWIDeC9ejwsiJDXSuBm6N/fwLR2
+	 SQ/7ZDqi3972tJ4Nn09PDX/VSFS2piwPf5I/JUsS7pimsj49zDvaayoVsCJUDH/8C9x+I
+	 m0h9o0wbszc29jIvVxjbvIK5NJCsta1dEnn3xyvOap0i+csQhIqx4aWYcikbdb0gNBtqE
+	 sx+S3eVVrri46IxSMVx9G0Hn1Oa3EQ1pupLR4FKhxrIRVjyvPF7ytztaZGGbjdxE+oA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aV3TW5wd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=og9ID4EB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FE0F606A31E
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 00:48:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78DD606A31E
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 00:49:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aV3TW5wd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6DE61F000CA;
-	Thu, 26 Nov 2026 00:48:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=og9ID4EB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CB971F000CA;
+	Thu, 26 Nov 2026 00:49:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795654137;
-	bh=fGevdPLEWYMGm0p0gUQeCib6GTDwvKg+JSOz5ROMOew=;
+	s=k20260515; t=1795654157;
+	bh=ZH7wIRa8HvBD1WFzsZXyuYww4crO0sAmsO3sq1M+jg4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aV3TW5wdRs6aagAvzJMs3VTqq+HEu4Sp44WpwLptYAKYmAnRyh5iyEvDmwqPpHA/a
-	 RYK8J/rdQHJHTCxlS8wdUTRNR1gwSkmIRQPoNWtr7558fMuWJUwV86rfVekNZH1Xxo
-	 b9iWGnSsz3AQ7oZERxCI1DR0xj4zojouFgHIylBDlIgAUoIqQqCIz8ehlX6Vn8Snz7
-	 OdrYg+QfbDrjRzmUPPwppjiUDw2K7ovDqtMOabTKwT2vJ+B8Gult1aUGmK0+eUwgpj
-	 lsh79KFVckvC4xr1nS+c+wSlbSOr0G3SnkwOMyWcn6sVivi21T/lCQmPJkwige7c/N
-	 /MqOjePtVxS3Q==
-Message-ID: <sashiko-outbox-234501@kernel.org>
+	b=og9ID4EBY9mbuQgUw+C3cdJh0qoKayyFvG4wJVQRaguPN90E1oTP3HPMerSjViO8b
+	 WYMtql709UM3f2VA+mcWI7aCxbwj6dOfdID0+CWShnlSAuZJTfRN3QEJ9oWIDc6muk
+	 fPMuVE4XWT3/mbW1z6dvwRKZbDn0Co33N0bZRPfF9d5JrvIA0mq48/1JWClzspPivX
+	 BOPofwHSFRTJSsGdrYsOe5wbEyLdx3uI3ahpSPitfbKkTyRSR3JK9Q5X6/R0OhTagc
+	 mTyPujoSo2ew+dgnuvkCp1zQNtRPOd+0YO8Q0q2TzEpYtV5gq8TW3VakGOVZKxvrnH
+	 vXP9eieyOnkIg==
+Message-ID: <sashiko-outbox-234502@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 17/20] ARM: dts: nomadik: Correct controller and clock
- unit addresses
+Subject: Re: [PATCH 18/20] ARM: dts: ux500: Move the pin controller out of
+ the simple bus
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Linus Walleij" <linusw@kernel.org>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261126-ux500-dts-after-powerdomains-v1-17-791cd62d8870@kernel.org>
+In-Reply-To: <20261126-ux500-dts-after-powerdomains-v1-18-791cd62d8870@kernel.org>
 References: <20261126-ux500-dts-after-powerdomains-v1-0-791cd62d8870@kernel.org>
- <20261126-ux500-dts-after-powerdomains-v1-17-791cd62d8870@kernel.org>
+ <20261126-ux500-dts-after-powerdomains-v1-18-791cd62d8870@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 00:48:56 +0000
+Date: Thu, 26 Nov 2026 00:49:17 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,55 +63,67 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Low] ARM: dts: nomadik: i2c-bitbang and pinctrl i2c rename split
-  mismatch in series
+- [High] ARM: dts: ux500: pinctrl node before soc breaks
+  nmk_pinctrl_probe() GPIO lookup
 --
 
-commit 9061c78263d91688b3a0d397630719dc23e3bad7
+commit fe9e72b390eb8a161cbbc201a9ac8765c960dd3d
 Author: Linus Walleij <linusw@kernel.org>
 
-ARM: dts: nomadik: Correct controller and clock unit addresses
+ARM: dts: ux500: Move the pin controller out of the simple bus
 
-This commit adds MMIO unit addresses to the Nomadik I2C and L2
-cache-controller node names and removes dummy unit addresses from clock
-nodes without reg properties.
+This commit moves the pinctrl node and its board-specific extensions out of
+the /soc simple-bus node to the root node across the Ux500 device trees.
 
-> diff --git a/arch/arm/boot/dts/st/ste-nomadik-stn8815.dtsi b/arch/arm/boo=
-t/dts/st/ste-nomadik-stn8815.dtsi
-> index 4eba7c9433688..76db00fcba188 100644
-> --- a/arch/arm/boot/dts/st/ste-nomadik-stn8815.dtsi
-> +++ b/arch/arm/boot/dts/st/ste-nomadik-stn8815.dtsi
-[ ... ]
-> @@ -139,7 +139,7 @@ mmcsd_default_cfg1 {
->  				};
->  			};
+> diff --git a/arch/arm/boot/dts/st/ste-dbx5x0.dtsi b/arch/arm/boot/dts/st/=
+ste-dbx5x0.dtsi
+> index 920d07fbf00e7..05d91367a38af 100644
+> --- a/arch/arm/boot/dts/st/ste-dbx5x0.dtsi
+> +++ b/arch/arm/boot/dts/st/ste-dbx5x0.dtsi
+> @@ -107,6 +107,14 @@ map0 {
 >  		};
-> -		i2c-0 {
-> +		i2c0 {
->  			i2c0_default_mux: i2c0_mux {
->  				i2c0_default_mux {
->  					function =3D "i2c0";
-> @@ -153,7 +153,7 @@ i2c0_default_cfg {
->  				};
->  			};
->  		};
-> -		i2c-1 {
-> +		i2c1 {
->  			i2c1_default_mux: i2c1_mux {
->  				i2c1_default_mux {
->  					function =3D "i2c1";
+>  	};
+> =20
+> +	pinctrl: pinctrl {
+> +		compatible =3D "stericsson,db8500-pinctrl";
+> +		nomadik-gpio-chips =3D <&gpio0>, <&gpio1>, <&gpio2>, <&gpio3>,
+> +					<&gpio4>, <&gpio5>, <&gpio6>, <&gpio7>,
+> +					<&gpio8>;
+> +		prcm =3D <&prcmu>;
+> +	};
+> +
+>  	soc {
+>  		#address-cells =3D <1>;
+>  		#size-cells =3D <1>;
 
-[Severity: Low]
-Were the Nomadik I2C changes split across this patch and the earlier commit
-"ARM: dts: ux500: Use valid I2C bus node names" by mistake?
+[Severity: High]
+Does placing pinctrl before the soc node cause nmk_pinctrl_probe() to
+run before the gpio0..gpio8 platform devices exist?
 
-That earlier ux500 patch already renamed gpio-i2c to i2c-bitbang in
-ste-nomadik-s8815.dts (which this commit's message describes as happening
-here), and also renamed the Nomadik I2C controller and pinctrl child nodes
-from i2c0 and i2c1 to i2c-0 and i2c-1.  This patch then renames the I2C
-controller nodes a second time to i2c@101f8000 and i2c@101f7000 and reverts
-the pinctrl child node names back to i2c0 and i2c1.
+nmk_pinctrl_driver is registered at core_initcall, and nomadik-gpio-chips
+is not parsed by fw_devlink.  When of_platform_populate() walks the root
+children in DTB order, it creates and probes /pinctrl before descending
+into /soc to create gpio0..gpio8.  nmk_gpio_populate_chip() then fails
+to find the GPIO platform devices on platform_bus_type:
+
+drivers/pinctrl/nomadik/pinctrl-nomadik.c:nmk_pinctrl_probe() {
+    ...
+		nmk_chip =3D nmk_gpio_populate_chip(gpio_fwnode, pdev);
+		if (IS_ERR(nmk_chip))
+			dev_err(&pdev->dev,
+				"could not populate nmk chip struct - continue anyway\n");
+    ...
+}
+
+Because nmk_pinctrl_probe() continues and registers the pinctrl device
+with nmk_gpio_chips[] unpopulated, claiming pinctrl hogs fails with
+-EINVAL, and drivers that probe before subsys_initcall(nmk_gpio_init)
+(such as the PL011 UART driver at arch_initcall) fail
+pinctrl_bind_pins() with -EINVAL.
+
+Placing the pinctrl node after the soc node ensures that the GPIO
+platform devices under /soc are registered before /pinctrl is created.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-ux500-dts-=
-after-powerdomains-v1-0-791cd62d8870@kernel.org?part=3D17
+after-powerdomains-v1-0-791cd62d8870@kernel.org?part=3D18
