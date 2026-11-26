@@ -1,81 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795702842;
-	b=mwmSmA1xGC6kb7zPSngY9jEznkROafXip0F/yVy4rPzlQj1E1U52OKNUmD9JzI63hXto
-	 VMV0CgVsnGMaXZln293c24THU21o6//qh4flOPXQBNIF28gP9J3EA9sVktdCoDe0fSo2Y
-	 CYjWN/sNPvR8FQ1/3dNpI7ArLszx3v2tsYnJjsbwiTRybPMrhv/lASiVkI3/zkWn+Mwsx
-	 rLBUtwrGWOtcJqZGMzAStOyARFGtPPMII28Lx2ppuw4OVrBRe7W6vJqzf+MurK3Fnsip/
-	 1Fxbuxhm0GGl1ndjc8fEkTtq5IXnzO/afdQ3mERpSTPLuYOGL+VJ8kYTU1vsb63reog==
+	t=1795702920;
+	b=T8f4Q0a1NPNic8HumsGO6S7clXpmkTEp+MSFdEDBHjporHV8CfIMVBD2J4QxGU0GeY2l
+	 TayUFTEDs3atYsCmsl9owHfi/j8e+Ns5yym0s65elYhEFFyL0/s9B6Fj+UtSJPhNduNx6
+	 foks5ZBc8xCCasUmgYIZDxrqdmWVo/OIsWwy6nHddds+bbuEEAzIENVFcxDs8Ss0CDIYs
+	 DERCFs1mFAGpUprWqqwZXrTFKwkaOXsaqgN/GTtJGpmFkSPa0WOp0ntCWaRLZewqOnU1A
+	 pjRgunOcfgu8YQFPWjwdD/LwCGo/4VC65Kvglzw0WvccEKHss9AHMFF4b+qJiOBGOFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795702842;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=hVqWDpkrRMuAndnDnhhjmf+Wfu5DBaUbLM5+gDgB7vI=;
-	b=0HUhO3YrtbtH9stGYsyM1fmqIax72otTxgBmQydpA5dPSK82de4usqiT3Ro3xlC2xCTd
-	 ZdinGGoWeFrAhrN0th66RVJ3P78zT6YVXWSvf9rG5xq6CHyUO0JiCGZCc/gzhstcxdSgI
-	 CGfu21bIMhs7M0MGjwWZ/VI61O6z6xQn7US21N7jKwYjqUQtphiAM3VA84fzrQxTolUVV
-	 euI8Sd2fdAmaP9dlXZ+PzmYVKSiQn/Ye2Dj5uHdLEqJtvMEV/gKGx54mrFOddNIvUYE4j
-	 3Btg05KFDChb7hZkY9b6mwtWDbq9sjwp0D7dNDWuJICqXTYpDTOmFGEt20pzh9wDwyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795702920;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=3qO+cKDCyoLTk5ZwPdAZ2/NZCnSWYAmAoadmXtEy00E=;
+	b=cSsgH0CPvxbEvkziRbn/nNXnNRYkIbB9y1PdGq9R+599XojrZY5c1f7hlxGWVCjtokPn
+	 1KhxkGmbO8lzb8fu8AJLGxQG+YozvjLwROT+8Al8n0xDLRLUFRyoQqMNXOt33hYPPCjiU
+	 xnlSD114zw8qvIHpRhS0BUxe+Xs1NmQsAA+FXni/rB1D86n8GL2Ooi6R2QeKpGc7RKnCu
+	 unDug0b4ze9glKCD9p+2xCM4whAtQiT77rf1hNnrkTlzFyg7WGmB4hsrOPMI/bErw0i7J
+	 S1nGgBBfsbfDwSjGLGbI/MvN0dqW9+HqGV6glwLq3C0AQqBwMcS5jN2vGt77SzY9/qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MV0fU99o;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=PbsRhuus;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58698606A31C;
-	Thu, 26 Nov 2026 14:20:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58698606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C0DD606A336
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 14:21:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C0DD606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MV0fU99o
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795702842; x=1827238842;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=4IfPtfotXa0k6AjefeK9B8zQzqGXUrlT/drqTYhZLPs=;
-  b=MV0fU99oKBmUeBg3WXQ+C/ou6h0TPdmD35+qZazV38Y2orXyZb0NBm9Q
-   ufavV8GAxKToJSFvbSEgs/QSH3PW3CqJpLT1aQ8G+/iK5NKSRIvObYDYS
-   7WIvJ+eBsstUMBFgxEJiEK8gdSYwKQeQNqIew8zi7DH+QrkQ7qL3O8igy
-   YjEx3ObvEBqxxfPodzG6BxsvVVjJU9f1cUdk0sg3aFUg/ToK+1+a39VtM
-   Yts/0rnBFtwoSS78tNuOIzMy6D7n69rDsitFRMr1tSo/tPv4a/Oy+WgoM
-   XWjX++hqa/gdgkSMsAtDbcijTeNyQlFpVXhkKmedp75laUU5p2CJmR05n
-   w==;
-X-CSE-ConnectionGUID: BjvUO6WUQhGfj3RlS+k3wQ==
-X-CSE-MsgGUID: ih4bZ318RMGdwSagGtYi0g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11978"; a="4504981"
-X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
-   d="scan'208";a="4504981"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Nov 2026 06:20:41 -0800
-X-CSE-ConnectionGUID: 4C1iud5/Qty4C9W9y03/+A==
-X-CSE-MsgGUID: DBECi6YJS4+TKp7nh4agTw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
-   d="scan'208";a="12188387"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.208])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Nov 2026 06:20:37 -0800
-Date: Thu, 26 Nov 2026 16:20:35 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: robertijtsma@gmail.com
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=PbsRhuus
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4b467581b98so68817605e9.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:21:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1795702918; x=1796307718; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3qO+cKDCyoLTk5ZwPdAZ2/NZCnSWYAmAoadmXtEy00E=;
+        b=PbsRhuussMyQu1C9Z87U0zbKtI5UnEuDaxErAUa7VDsBHDhsXOGybk0MseNYgdS0WG
+         3mp9KsvAeOdmhlcSsViIJgXJKbQB3ng+oNlNAGniIZcJmQMLwT2Pz3Brzw9BwMwInfSH
+         1y4zlblZhDKwtkNoqvX0eFpvBJehVvQtpFK84rpdkG85M8YXQRzpnc66czzHFMN7eUWx
+         /8yPAzE9EgmntLslEXnXJryayLZGqTOwnPL+BDXjTvUDgk5/y6h48xMO0FMYOAlmClxT
+         hFmII7Gavou1Aaa9OnAnucLeaCSoGPc65bYTx41ZC2EB9wQ6IReFIy4vkWncwgl1ztL8
+         Mltg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795702918; x=1796307718;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3qO+cKDCyoLTk5ZwPdAZ2/NZCnSWYAmAoadmXtEy00E=;
+        b=gjYa8h3fvXtfs7eveF8+mzblVhgYzvFi4Q2bgxQKUJ2R8koRNd2Zy4yxZHHD/9L8Uw
+         vzF7HMtd5KtTgo/U9xhIM8DyY75xtqVp3WwNyv5YON8+nfotDuAKvZJWy8VvX9jUbgGj
+         ZTXDDuRDq22Qdyzyv0cZ6eMFNdbiLwULr2LiyC+iW7W4J94qzsB3Fy2WvFeszaXpb0cy
+         Jnsl8k+tFoxpmd0e6RkcDUFKN/wNfYTArwffwFCytjg6/+VFL25bzhwlao0PQFZJjiLN
+         hRgxPaoVI7oyNnks5fgVgKd73F+NTViET8b/U9jK7uGyWka9xneoh1m1dtlD2u3sBgEw
+         Eadg==
+X-Forwarded-Encrypted: i=1; AL+hErHA/rMC+zxxMdY1Vw28kCj7mHV6fndi/IIhY+21uLY5F5XNhMh43s25iG+Z6Z+z3b9rDT0sfUtOVKEg@vger.kernel.org
+X-Gm-Message-State: APuU4Z9nd74LPhxftfbueRZb1rAMRB5UPtqOgBTApI6gj9XC5zUdPQKy
+	2J3a/SdBw4pOnzEJiexCRamIvAayWf7mTrQzjXl5SlqgK4m0COgB8Lb/71yqnrIIF/U=
+X-Gm-Gg: AZFdTZdKSS/pHNs++Lcz/ONOQb+DTMXxmRaYafMN7/iTvxBjAn/4yh29TmviCp8B9na
+	qLXx7RHzqoWcuQboWVk/e7rr8ZF44IF95iz73SZHV0lSIkgdcV8/P9qTX6DibqSPm+NLYxusqnA
+	mUnMyunIb30ORA1wy+G6ClYX2XhpQ6hwY6ZxXRQ9yhSazTRDBH5II5OsGK2s2MB88OocS1JWtNX
+	fN90TMETnqmGZh6qRT4LF28Mz9DVpElXddyJZ3KKhYTBHGFyKw9yhZXDgbjO61dS6A+GPK8lzlU
+	h5h8JHNCpY/ozmSgAzgBB78iU/s7UbUwFDrPurOu/EAedNWYJZezy2YxLeo0La/h62zuLWGXSG8
+	h7bO1H1pEsotK9DwMtZ08ol8Lmkf4UEfr3e5pbrtCRxWunDNxjlscGgBIQKxSCDZJ2LPBir2Shz
+	mywzd+nDbvJqrx56H+QL9mOqTiXJ7wGx6t+c21yEGy0j3oJ2PZJrXxTLPZ8HFwkT+2MLfrCNFMM
+	2E2cnq3h+8ys24emKarmLXrMsoPX9BI4qZ+RMvkGAeQjBNcGtPN/LE3s8d4BAyAiaH7QQbHwUTe
+	hTFpEFfMiY1lHQYG4wwXrMUE8ZLj
+X-Received: by 2002:a05:600c:a08b:b0:4bb:6651:9eda with SMTP id 5b1f17b1804b1-4bb88922ca4mr401901655e9.14.1795702917688;
+        Thu, 26 Nov 2026 06:21:57 -0800 (PST)
+Received: from localhost ([195.94.148.180])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884b7515sm831228715e9.13.2026.11.26.06.21.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 06:21:57 -0800 (PST)
+From: Andrea della Porta <andrea.porta@suse.com>
+X-Google-Original-From: Andrea della Porta <aporta@suse.de>
+Date: Thu, 26 Nov 2026 15:25:56 +0100
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Andrea della Porta <andrea.porta@suse.com>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	dmaengine@vger.kernel.org, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: light: add ams OSRAM TCS3430 XYZ and ambient
- light sensor driver
-Message-ID: <awhAMzB83rSV9UUZ@ashevche-desk.local>
-References: <20261126-iio-tcs3430-v2-0-6c5329d20919@gmail.com>
- <20261126-iio-tcs3430-v2-2-6c5329d20919@gmail.com>
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Saenz Julienne <nsaenz@kernel.org>,
+	Stefan Wahren <wahrenst@gmx.net>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Phil Elwell <phil@raspberrypi.com>,
+	Dom Cobley <popcornmix@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 01/28] dmaengine: bcm2835: Fix coding style issues and
+ a typo
+Message-ID: <awhBdHDVnmxNhQOM@apocalypse>
+References: <20261123145728.29082-1-andrea.porta@suse.com>
+ <20261123145728.29082-2-andrea.porta@suse.com>
+ <awXhjjB_9-N7RRBi@lizhi-Precision-Tower-5810>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -87,211 +117,76 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261126-iio-tcs3430-v2-2-6c5329d20919@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <awXhjjB_9-N7RRBi@lizhi-Precision-Tower-5810>
 
-On Thu, Nov 26, 2026 at 09:11:48AM +0100, Robert Ijtsma via B4 Relay wrote:
+Hi Frank,
 
-> Add an IIO driver for the ams OSRAM TCS3430 ambient light and CIE 1931
-> XYZ tristimulus color sensor (found at I2C address 0x39 on devices such
-> as the Microsoft Surface Pro X).
+On 14:12 Tue 24 Nov     , Frank Li wrote:
+> On Mon, Nov 23, 2026 at 03:56:39PM +0100, Andrea della Porta wrote:
+> > Fix the coding style issues reported by checkpatch: use u32 instead of
+> > uint32_t, add the missing parentheses around macro arguments, which
+> > could lead to operator precedence issues, drop superfluous parentheses
+> > and long int, and align the function arguments. Also fix a typo in a
+> > comment ('missmatch').
+> >
+> > Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
+> > ---
+> >  drivers/dma/bcm2835-dma.c | 83 ++++++++++++++++++++-------------------
+> >  1 file changed, 42 insertions(+), 41 deletions(-)
+> >
+> > diff --git a/drivers/dma/bcm2835-dma.c b/drivers/dma/bcm2835-dma.c
+> > index 06d830d36882..b19182c6e3df 100644
+> > --- a/drivers/dma/bcm2835-dma.c
+> > +++ b/drivers/dma/bcm2835-dma.c
+> > @@ -51,13 +51,13 @@ struct bcm2835_dmadev {
+> >  };
+> >
+> >  struct bcm2835_dma_cb {
+> > -	uint32_t info;
+> > -	uint32_t src;
+> > -	uint32_t dst;
+> > -	uint32_t length;
+> > -	uint32_t stride;
+> > -	uint32_t next;
+> > -	uint32_t pad[2];
+> > +	u32 info;
+> > +	u32 src;
+> > +	u32 dst;
+> > +	u32 length;
+> > +	u32 stride;
+> > +	u32 next;
+> > +	u32 pad[2];
+> >  };
+> >
+> >  struct bcm2835_cb_entry {
+> > @@ -116,8 +116,8 @@ struct bcm2835_desc {
+> >  					       * AXI-write to ack
+> >  					       */
+> >  #define BCM2835_DMA_ERR		BIT(8)
+> > -#define BCM2835_DMA_PRIORITY(x) ((x & 15) << 16) /* AXI priority */
+> > -#define BCM2835_DMA_PANIC_PRIORITY(x) ((x & 15) << 20) /* panic priority */
+> > +#define BCM2835_DMA_PRIORITY(x) (((x) & 15) << 16) /* AXI priority */
+> > +#define BCM2835_DMA_PANIC_PRIORITY(x) (((x) & 15) << 20) /* panic priority */
+> >  /* current value of TI.BCM2835_DMA_WAIT_RESP */
+> >  #define BCM2835_DMA_WAIT_FOR_WRITES BIT(28)
+> >  #define BCM2835_DMA_DIS_DEBUG	BIT(29) /* disable debug pause signal */
+> > @@ -136,9 +136,9 @@ struct bcm2835_desc {
+> >  #define BCM2835_DMA_S_WIDTH	BIT(9) /* 128bit writes if set */
+> >  #define BCM2835_DMA_S_DREQ	BIT(10) /* enable SREQ for source */
+> >  #define BCM2835_DMA_S_IGNORE	BIT(11) /* ignore source reads - read 0 */
+> > -#define BCM2835_DMA_BURST_LENGTH(x) ((x & 15) << 12)
+> > -#define BCM2835_DMA_PER_MAP(x)	((x & 31) << 16) /* REQ source */
+> > -#define BCM2835_DMA_WAIT(x)	((x & 31) << 21) /* add DMA-wait cycles */
+> > +#define BCM2835_DMA_BURST_LENGTH(x) (((x) & 15) << 12)
+> > +#define BCM2835_DMA_PER_MAP(x)	(((x) & 31) << 16) /* REQ source */
+> > +#define BCM2835_DMA_WAIT(x)	(((x) & 31) << 21) /* add DMA-wait cycles */
 > 
-> The driver exposes:
-> - Illuminance (photopic Y channel) with raw counts and lux scale
-> - Modified intensity channels for X, Y, Z, and IR1
-> - Selectable scale and integration time via the IIO GTS helper across
->   1x/4x/16x/64x/128x gain and 50.04/100.08/200.16/400.32 ms integration
->   time settings
-> - Regulator management and system sleep suspend/resume support
+> You touch these code, can you shift to use FIELD_PREP() macro ?
+
+Done in v4: the register field macros now use FIELD_PREP.
+
+Many thanks,
+Andrea
+
 > 
-> Tested on Microsoft Surface Pro X SQ2 (SC8180X).
-
-...
-
-> +config TCS3430
-> +	tristate "ams OSRAM TCS3430 ambient light and XYZ color sensor"
-
-Make this, top comment in the driver and MODULE_DESCRIPTION() text to be very
-similar if not the same.
-
-> +	depends on I2C
-> +	select IIO_GTS_HELPER
-> +	select REGMAP_I2C
-> +	help
-> +	  If you say yes here you get support for the ams OSRAM TCS3430
-> +	  ambient light and CIE 1931 XYZ tristimulus color sensor.
-> +
-> +	  This driver can also be built as a module.  If so, the module
-> +	  will be called tcs3430.
-
-...
-
-> +#include <linux/array_size.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/bits.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/device.h>
-> +#include <linux/err.h>
-> +#include <linux/i2c.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/pm.h>
-> +#include <linux/regmap.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/types.h>
-
-...
-
-> +static const struct regmap_config tcs3430_regmap_config = {
-> +	.name = "tcs3430",
-> +	.reg_bits = 8,
-> +	.val_bits = 8,
-> +	.max_register = TCS3430_REG_INTENAB,
-
-No cache? Why?
-
-> +};
-
-...
-
-With
-
-	struct regmap *map = data->regmap;
-
-at the top of the function helps with this...
-
-> +	ret = regmap_write(data->regmap, TCS3430_REG_CFG3,
-> +			   TCS3430_CFG3_DEFAULT);
-
-...to become this.
-
-	ret = regmap_write(map, TCS3430_REG_CFG3, TCS3430_CFG3_DEFAULT);
-
-> +	if (ret)
-> +		return ret;
-
-You may use this trick elsewhere to achieve better readability.
-
-...
-
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW: {
-> +		__le16 raw;
-> +
-> +		guard(mutex)(&data->lock);
-
-+ Blank line to make guard()() visible at a glance. Ditto for all such cases.
-
-> +		ret = regmap_bulk_read(data->regmap, chan->address, &raw,
-> +				       sizeof(raw));
-> +		if (ret)
-> +			return ret;
-> +		*val = le16_to_cpu(raw);
-> +		return IIO_VAL_INT;
-> +	}
-
-...
-
-> +static int tcs3430_set_scale(struct tcs3430_data *data, int val, int val2)
-> +{
-> +	int gain_sel, time_sel, ret;
-> +	bool keep_time = false;
-> +
-> +	ret = iio_gts_find_gain_sel_for_scale_using_time(&data->gts, data->atime,
-> +							 val, val2, &gain_sel);
-> +	if (!ret) {
-
-Why non-standard pattern?
-
-> +		keep_time = true;
-> +		time_sel = data->atime;
-> +	} else {
-> +		ret = iio_gts_find_gain_time_sel_for_scale(&data->gts, val, val2,
-> +							   &gain_sel, &time_sel);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	if (!keep_time) {
-> +		ret = tcs3430_apply_itime(data, time_sel);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return tcs3430_apply_gain(data, gain_sel);
-> +}
-
-...
-
-> +static int tcs3430_set_itime(struct tcs3430_data *data, int val, int val2)
-> +{
-> +	struct device *dev = regmap_get_device(data->regmap);
-> +	int prev_gain, prev_time, new_gain, gain_sel, time_sel, ret;
-> +	bool in_range;
-
-Better to rename to avoid confusion with generic in_range() helper.
-
-> +
-> +	if (val || !iio_gts_valid_time(&data->gts, val2))
-> +		return -EINVAL;
-> +
-> +	prev_time = iio_gts_find_int_time_by_sel(&data->gts, data->atime);
-> +	if (prev_time < 0)
-> +		return prev_time;
-> +	if (prev_time == val2)
-> +		return 0;
-> +
-> +	prev_gain = iio_gts_find_gain_by_sel(&data->gts, data->gain_sel);
-> +	if (prev_gain < 0)
-> +		return prev_gain;
-> +
-> +	ret = iio_gts_find_new_gain_by_gain_time_min(&data->gts, prev_gain,
-> +						     prev_time, val2,
-> +						     &new_gain, &in_range);
-> +	if (ret)
-> +		return ret;
-> +	if (!in_range)
-
-> +		dev_dbg(dev, "optimal gain out of range for integration time %d\n",
-> +			val2);
-
-I would make it a single line despite the length.
-
-> +
-> +	time_sel = iio_gts_find_sel_by_int_time(&data->gts, val2);
-> +	if (time_sel < 0)
-> +		return time_sel;
-> +
-> +	gain_sel = iio_gts_find_sel_by_gain(&data->gts, new_gain);
-> +	if (gain_sel < 0)
-> +		return gain_sel;
-> +
-> +	ret = tcs3430_apply_itime(data, time_sel);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return tcs3430_apply_gain(data, gain_sel);
-> +}
-
-...
-
-> +static DEFINE_SIMPLE_DEV_PM_OPS(tcs3430_pm_ops, tcs3430_suspend,
-> +				tcs3430_resume);
-
-A single line
-
-static DEFINE_SIMPLE_DEV_PM_OPS(tcs3430_pm_ops, tcs3430_suspend, tcs3430_resume);
-
-or wrap on a logical borders
-
-static DEFINE_SIMPLE_DEV_PM_OPS(tcs3430_pm_ops,
-				tcs3430_suspend, tcs3430_resume);
-
-But the above is only 81 character long.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+> Frank
