@@ -1,90 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795684053;
-	b=M0xUA/hD+pBl0mRMK3VG7dChGqBZ2PymNBjA1Kjg+7cAH91tz5QfLVqrr/CtZAHD0ZS/
-	 mF4Xumf335fSnUV5cruOJIoaXBvCGpnGwpTMhugtfbQBoqyh4di3zrt9rLuAIpPK5RJJ+
-	 kIOZMfLcvI771NP3n1kkrYgn3EUWmxF5bQOdXu7s55bRgnq96ftbCWgwPC5b8KXOK8pxo
-	 Wsqfjajtn976z24CXGp/IxFofoGk1P9MGYPx+KZI4J7Zj5RLr7vDqXX3DkD6JTZnZQcq0
-	 L9yWUg8WzfEvbuTR2/x8xYMrJaYs3HymCmmXGltdzC5xPzMtB/DZnY0p5YyBRbbf1ZQ==
+	t=1795684180;
+	b=JJrUY0MewTCYqu4XN5Zko88WGxAKhP8z9hq7LVStbX7QXAD3u8ZLA0ctQs2b8i3fF+/y
+	 ntgTqlQFY1sE4BJ4ESIjfqgjVaD/j7daHrxqSNTS6NQwFUopommzVR9hgo7TicvYzHfad
+	 jLHL6KTqt/ZZGPN0FCsuq/vPQHgnx88onbwISigqra6U1zWgOPyElLmNfCuHDCHOGlbkD
+	 t8FnuankszuZKcrVKPl2U2stP7yGpc7NTSDEyLi7SEkAp9bmVCId0oSp0hPm0zdsEoGoG
+	 nR+qfQRG0w2k9EB63tQUfh1SqaR5cj3XDZNPmqzmMOEgQTeq5CGEtRpndHO7C4bcJyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795684053;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795684180;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=VzYWNHwLyf/zZi3eZLCKNgKiDGvpaD8KYJ/QuAC6W+c=;
-	b=uN/KoclbLdkYYb8lWanMSlJ4CinB2GAaRQPF1B4zYYw7MViz+OemxghDm92EQVHM0evK
-	 UvFqaM8Nz2tBVJlN6G9NNER6FdKlCmS2cNY+oFN0wkslmT2NPIWeeBx6LDdxsLkJBKOQ4
-	 /ivB8Azo8AVRwd+HDRitgzGJ9SI8bqpjyeu+hvw/uaFZCWIl9vZxyJkzrX/nuLDKLKk6R
-	 svW7rNY+xZQcIpU08+E++SZJ0tXI3g5iTwKNuQdK4I4z0p1WEfHmY307Hoq0DQrd1hYwt
-	 FBYSpCILGuN5oAxtj3lhxbdUc3Cl+N5EXXVrSN/rL6NTV8zI9WMxEsQh1VV4JoBLSMA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=6j+nTtkEYU+rOhympPIn3n18jdsCRRFadJNhZJaK9Nw=;
+	b=bKMrCLO0MU1WNFuWhA1ESRdlzjw5vVLCKopB4axRvn9Oi6xXj1JoHatO/kQh/aRxs7K0
+	 3zG/EpR2WTouO6eav57Z02OeHopie9ZQmhPh8czOPPQUYjEfU568hsJgaBBfJMFDJ4Io6
+	 ilz3GWEIOM/YxwtqYkHz2iAoRVt3oDz74921oYFsfJ8AKkn8J22thNuSkvF8nET7JSSem
+	 KCVl8VGGze3rZpPXP+UfXekyaLrSof0g3UdZshXoa11v3xq7qEaUjwdy0nQ4P4RzoJVkh
+	 0nGKEjwFTdyjkwTftYYff6gNijAKCQ1/y0FPMgPcAyp9pzenUvOG+wSH2hVa4DTCdjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sifive.com;
-	spf=pass smtp.mailfrom=sifive.com;
-	dkim=pass header.d=sifive.com header.i=@sifive.com header.a=rsa-sha256 header.s=google header.b=iD36uBXN;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c0ofdAHN;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CEBE60A3812
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 09:07:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CEBE60A3812
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 549DC606A323
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 09:09:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 549DC606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.a=rsa-sha256 header.s=google header.b=iD36uBXN
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-386bd881d39so6507640eec.1
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 01:07:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c0ofdAHN
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3866a784546so9262316eec.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 01:09:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sifive.com; s=google; t=1795684052; x=1796288852; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VzYWNHwLyf/zZi3eZLCKNgKiDGvpaD8KYJ/QuAC6W+c=;
-        b=iD36uBXNpvXIrnAABL8igzKgUd//l5xA0BUYY27Md9jpHjBGbf0iQ8D5GP9MBt8/vr
-         7ylK8AR62Q7QzB7spBOyPEs/OJGBltqueZ+pLmpakeFlSm+p9d1lxWQ5g/oumpLFpIRB
-         UpcNnHhJ5+52nKQvO7zX7cTiDTAOYlGgRD6Z3gt3jZJwySa5Nv+Dz/SMednsXbnZ+MtG
-         8f8BSVyXMnVoz76b3bAp13apaChzHDIMMqZm9NE9dF92MUKEnR4a+wADDhvRxskfegCe
-         1bBbpjv7rYDg7UYPAsuuQ/u63zF8QbKD49auwxN5C+9Yoo4ki8aI6NA9sFaceXlfS95P
-         PRTw==
+        d=gmail.com; s=20260707; t=1795684179; x=1796288979; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6j+nTtkEYU+rOhympPIn3n18jdsCRRFadJNhZJaK9Nw=;
+        b=c0ofdAHNY6p0nzbi9Dd4vE0hr2HXmbCm+t/BaPPRiML3TtygeYvKsvz7coqZTaQw3A
+         C8FKJbFMnncb0ucyGWpjtoBDkM5D/O6JRp/EA5oayMDp88hW/4kLu8UXec2L9L9j4ki2
+         8LMVLFzq9EiG8IofVsgucdi4zooQ5tya4KzCd9b3GcdBWkAGuYMPMfiLVgiRoTwiLDzX
+         m4ql+oxmeScoE96yqesSyiZSilZq7cflvrXk2ZeKypst+8CmcopPtrw4Bs3wmwVU5ro5
+         QDjuV+fRpX0ol+8iydPMFK5kJtuUHTOV+M6rr9uYsn0uCSIPUs0QfswvegX5Tztl8iaG
+         9oBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795684052; x=1796288852;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VzYWNHwLyf/zZi3eZLCKNgKiDGvpaD8KYJ/QuAC6W+c=;
-        b=PqEFUkkDb+QminxorsmKKvBp6ejsZ7krpW3CsrK7A2naKNEOyGdgJDg5lZff10ngyF
-         Ya6AoYAIhCjG5VmLClr2KlK4nIwhL18Nmpq4aG67bvP1NCOvPBAPrK/n/54R+K5l4fER
-         jSg4c4OgvwUHCOFVB7k8zLTVuYtcIHhSix9ZHqYLNJc3GvF6mrc/rK+0wkpUrq4N1Rne
-         LzhJVLYc8JmX79IeCePMhM4Nufx0uA2O5A+ahIOcVkx5YNnilrMBv7uZawhbl8Z/moCq
-         6kCqwWtTHbJwXVAQ33dO73lZTj5uWVdbXNfdLePyWNJ/UKjyT5ax8MdiLhq03v5ScE77
-         jU7w==
-X-Forwarded-Encrypted: i=1; AL+hErEoCguzGKcvI6gjCxMt3x4eFaxqWQ/ZTkYYIVwnroYfzaPJTDudOCBWgJtHfMPfR/Or7rqNCSzghSIV@vger.kernel.org
-X-Gm-Message-State: APuU4Z9gaH1lH0d2UqljXxn0P0pXAmPFrj4bxNxnb2KirTJCJrLvQKIR
-	1zyB78UyRx8kMFDqckaKVDoR742enBGZb4UBLGOyMcmfOTAV6Vyggs0o4huHD038qUmUsZlv7ms
-	F37ZmXWM/hQ1kPoCRMp07oVPJF8hWjGd6k9dYUdOUoFlHos3rcfJsBn6WZiMJlGBmuDS5qE3SNG
-	/XjFswjMymdL9s6wlK3YOu0riYebG+Vq1uTRo1YXlQWnYsNNG2dA==
-X-Gm-Gg: AZFdTZfhdzZ/zXQbpkGMfV0YJe01I3BAvWE35e8fAfXIp6+dhx/AtsMgdSjcJCu9oGU
-	jhfl/MF+B2lG5ocgBXzJMy5MlOL9V3VGL1lU7vWyxU3sBLP72ysvaElQ0jSWCGGlyjIB6b3NK3L
-	Ge8Kx36zndq2g5itt05fdVdEV1onS0IYfMlAT/woNFzzgAfYd/L45spn7V1Ooea+b7SRg/4u7Gf
-	Xm/ET3ScXscmzetM3bFNa0VmfWsSjIXeRqNctgSbpy+adsAuerUJZPfl1E5/wRuozuC//EOwjJJ
-	wqa+jSuBwBHxGrfHcUQB5x33TGbDiBE79NSwB613IH8fdyXOwWZKv9F1+YPAxkacSBnIP3PMmLi
-	7vI/HTCnm/PjOXG9hk8cKHQ6AKuxfF/soaC05kf09kkH9Y9N2o7snEsk8dr/4oOnjGn2YvneYR2
-	OwNqmVLpOY7mu4i6M1TDr8OSCO8kLpTbZ2l5yHWkyZq9lO0swoLbYgXqnuxLS+rcSG3spABsOVX
-	opjSlAK7/MUrz752WSlGpCqoRD+BBQUPo3Qt1ADoguBi/1pWy9u00RD/dZVGO0Ovu6oUtVU7lVK
-	jtNPc6hrKW5/V7wizhdhbsXpkO3cebqnb/6P2Mp4i5FI
-X-Received: by 2002:a05:7300:2156:b0:386:42f5:37c4 with SMTP id 5a478bee46e88-38642f53d72mr26613125eec.6.1795684052116;
-        Thu, 26 Nov 2026 01:07:32 -0800 (PST)
-Received: from sw08.internal.sifive.com ([4.53.31.132])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e7fc3sm54058730eec.8.2026.11.26.01.07.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 01:07:31 -0800 (PST)
-From: Leo Yu-Chi Liang <leo.liang@sifive.com>
-Date: Thu, 26 Nov 2026 01:07:16 -0800
-Subject: [PATCH 10/10] gtrace: rvtrace: Add copyto_auxbuf callback for
- pre-ratified encoder and funnel
+        d=1e100.net; s=20260707; t=1795684179; x=1796288979;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6j+nTtkEYU+rOhympPIn3n18jdsCRRFadJNhZJaK9Nw=;
+        b=yMLFexARypDJ/qJyiJe/eaiZDGRi1mzZUsnQhKpmDsOSDk7Bvv5kyRo3DP0jNeipOA
+         3sHoAqWj4vi/FT3WTgPzQBynZuEtQ9ms7ultr594GC6H1MtGfBww2vhPnHA1j31PvxsC
+         XaCWa2BSZKeVKr7oCAeKygspCGaCaitZBeoDAKIJrnHHp4t8XPsyN6pQ/nucoWJIOE8u
+         6Vj6Bcufdnfa5JVhFd0KwppjPCZnmtJSqdpBv2g3pgh1mS3fZ4FcugMoJ4dvDqmApfko
+         7w3plB76i+84SyIWgw0ryK2M8D+Vy+dU9e/kWiZlTX853iYkaelvDmIf9q9cc5I+OcgL
+         bQ3g==
+X-Forwarded-Encrypted: i=1; AL+hErGSjN200zqBoZkdlVNgmiRk+RlZ+M9LA0H63+EHA6TA1RvMvUb7/7afsVj5ovKvSeyFFsL2VShjOrdP@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ozfcXavzThWrDI+z2yrpdk9+vKF0VSeBf0P0vkaKRdcI3m1nd
+	aPUTVvkW91epc6+zkN0sXQWNqvfr3hKDW4sS4N0ibrGwvlfIQql5aRd2
+X-Gm-Gg: AZFdTZd3huEXZsjnsH0x64lZrnL5xU5fezeXNrwvkZbYa4ObzDwlc5Ly4IufCwqQCjw
+	sd7EUvoFbEYLheQ2PwUH8PLtyIXWzw9izZQcxhK5cruAIa3e3p5biZtm1FbuKy+GTNDK7W6ylaB
+	e0gCZlvQOq8rmtwoYzc7sdPG1vZxjaktZ40XrD2PAzPiehqI0cxbGifmZXohgu96vtCGx/cyBMH
+	1IhSZYzAnD/D8kxMnf/u01zxjRn7zkAnNtA02blaB93unypNvJ88B8UuQq33XB1Zr6wBQ+NuSvW
+	YCh74YJjaD2oiJxxhlyTILzHHNmZ+tDt7OtvJhq+YzCZMuyZJTVNQxEqs6aqKTxEMZwNjypHCZE
+	G5+TjqYdcrZiqAky1YdKsduobDR1lAwUDPKQah43XE6IrR1jtKUkXc/WrWzuOCI1l5uIDNGiuko
+	x7i8FEpHmOaMGQAl/mG/ArgyRbTH9vwnaij2nKe5dny5tGMQkse4BkEvY8HSTUOaRGlNRQKQyCm
+	LVgyGMhS/N0nv/pNVabtQBycmXqSlLjUD/BB+P1l/Lvhki+pW4mRDjq4/M65QKxaf43I+vq/wXo
+	g6ZRm79Hhblbjq1/RxOCOTcJkHqvxBfud7ebtiuxGPx80jJOagoIDBXo/bZ9Hw3fhzvNduBijA=
+	=
+X-Received: by 2002:a05:7300:d08a:b0:386:240c:19dd with SMTP id 5a478bee46e88-386241b6dc4mr18249807eec.9.1795684179444;
+        Thu, 26 Nov 2026 01:09:39 -0800 (PST)
+Received: from 192.168.1.36 ([2402:a00:163:2ce9:ad38:eaaf:b00d:c452])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385646633d0sm108374649eec.3.2026.11.26.01.09.34
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 26 Nov 2026 01:09:38 -0800 (PST)
+From: Ajit Singh <blfizzyy@gmail.com>
+To: andersson@kernel.org
+Cc: konradybcio@kernel.org,
+	abelvesa@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ajit Singh <blfizzyy@gmail.com>
+Subject: [PATCH v3 0/1] arm64: dts: qcom: Add Vicharak Axon Pro
+Date: Thu, 26 Nov 2026 14:39:27 +0530
+Message-ID: <20261126090928.73637-1-blfizzyy@gmail.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,249 +102,32 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-send-preratified-trace-v1-10-1e686fd75be7@sifive.com>
-References: <20261126-send-preratified-trace-v1-0-1e686fd75be7@sifive.com>
-In-Reply-To: <20261126-send-preratified-trace-v1-0-1e686fd75be7@sifive.com>
-To: Mayuresh Chitale <mchitale@gmail.com>, Anup Patel <anup@brainfault.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Samuel Holland <samuel.holland@sifive.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>
-Cc: linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Leo Yu-Chi Liang <leo.liang@sifive.com>, 
- linmin@eswincomputing.com, vincent.chen@sifive.com, 
- luyulin@eswincomputing.com, pritesh.patel@einfochips.com, 
- ganboing@gmail.com, dongxuyang@eswincomputing.com, 
- pinkesh.vaghela@einfochips.com, nick.hu@sifive.com, eric.lin@sifive.com, 
- huangyifeng@eswincomputing.com, darshan.prajapati@einfochips.com
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
 
-From: Eric Lin <eric.lin@sifive.com>
+Add initial devicetree support for the Vicharak Axon Pro SBC based on
+the Qualcomm QCS9075 platform.
 
-Unlike the standard RISC-V trace ramsink, which is an independent
-device, the pre-ratified ramsink are embedded within the trace encoder
-or funnel MMIO registers.
+The board description includes the debug UART, UFS, USB 2.0 host with
+an onboard hub, PCIe1 (NVMe), GPIO LEDs, GPU and DSPs.
 
-When pre-ratified encoder and funnel components act as a sink, the
-trace data must be copied from the trace buffer to the perf AUX buffer
-after tracing is stopped. To support this, add
-rvtrace_v0_ramsink_copyto_auxbuf() which shares the copy logic with the
-standard ramsink, and use it to implement the copyto_auxbuf callback of
-the encoder and funnel drivers. The callback copies nothing when the
-component doesn't act as a sink.
+The compatible string was merged separately as a917cf9dc0e9
+("dt-bindings: arm: qcom: Add Vicharak Axon Pro").
 
-Note: an encoder or funnel component may be in the middle of a given
-path, so gtrace_path_copyto_auxbuf() now only invokes the copyto_auxbuf()
-callback of the path's sink instead of the first component in the path
-implementing it.
+Changes in v3:
+- Rebase on linux-next and include lemans-embedded.dtsi after the
+  platform resource split in 1f90a2bab7f6.
+- Drop the binding patch, which is already merged.
 
-Co-developed-by: Nick Hu <nick.hu@sifive.com>
-Signed-off-by: Nick Hu <nick.hu@sifive.com>
-Co-developed-by: Vincent Chen <vincent.chen@sifive.com>
-Signed-off-by: Vincent Chen <vincent.chen@sifive.com>
-Signed-off-by: Eric Lin <eric.lin@sifive.com>
-Signed-off-by: Leo Yu-Chi Liang <leo.liang@sifive.com>
----
- drivers/hwtracing/gtrace/gtrace-core.c     | 19 ++++++++-------
- drivers/hwtracing/gtrace/rvtrace-encoder.c | 10 ++++++++
- drivers/hwtracing/gtrace/rvtrace-funnel.c  | 10 ++++++++
- drivers/hwtracing/gtrace/rvtrace-ramsink.c | 37 ++++++++++++++++++++++++++----
- drivers/hwtracing/gtrace/rvtrace-ramsink.h | 12 ++++++++++
- 5 files changed, 74 insertions(+), 14 deletions(-)
+Link to v2: https://lore.kernel.org/r/20261030074404.33517-1-blfizzyy@gmail.com
 
-diff --git a/drivers/hwtracing/gtrace/gtrace-core.c b/drivers/hwtracing/gtrace/gtrace-core.c
-index 6fe71c5cd0cf..7a818d647372 100644
---- a/drivers/hwtracing/gtrace/gtrace-core.c
-+++ b/drivers/hwtracing/gtrace/gtrace-core.c
-@@ -714,10 +714,9 @@ int gtrace_path_copyto_auxbuf(struct gtrace_path *path,
- 			      struct gtrace_perf_auxbuf *buf,
- 			      size_t *bytes_copied, u64 *format)
- {
--	struct gtrace_comp_priv *sink = to_gtrace_comp_priv(gtrace_path_sink(path));
-+	struct gtrace_component *comp = gtrace_path_sink(path);
-+	struct gtrace_comp_priv *sink = to_gtrace_comp_priv(comp);
- 	const struct gtrace_driver *gtdrv;
--	struct gtrace_component *comp;
--	struct gtrace_path_node *node;
- 	int ret = -EOPNOTSUPP;
- 	unsigned long flags;
- 
-@@ -735,15 +734,15 @@ int gtrace_path_copyto_auxbuf(struct gtrace_path *path,
- 		goto out;
- 	}
- 
--	list_for_each_entry(node, &path->comp_list, head) {
--		comp = node->comp;
--		gtdrv = to_gtrace_driver(comp->dev.driver);
--		if (!gtdrv || !gtdrv->copyto_auxbuf)
--			continue;
--
-+	/*
-+	 * Only the sink of the path holds the trace data. Other components in
-+	 * the path may implement copyto_auxbuf() as well, e.g. when they embed
-+	 * a sink which is only used when they are at the end of a path.
-+	 */
-+	gtdrv = to_gtrace_driver(comp->dev.driver);
-+	if (gtdrv && gtdrv->copyto_auxbuf) {
- 		*bytes_copied = gtdrv->copyto_auxbuf(comp, buf, format);
- 		ret = 0;
--		break;
- 	}
- out:
- 	raw_spin_unlock_irqrestore(&sink->lock, flags);
-diff --git a/drivers/hwtracing/gtrace/rvtrace-encoder.c b/drivers/hwtracing/gtrace/rvtrace-encoder.c
-index 8d2f7ac5e0fe..a854c4695351 100644
---- a/drivers/hwtracing/gtrace/rvtrace-encoder.c
-+++ b/drivers/hwtracing/gtrace/rvtrace-encoder.c
-@@ -164,6 +164,15 @@ static int rvtrace_encoder_probe(struct gtrace_component *comp)
- 	return 0;
- }
- 
-+static size_t rvtrace_encoder_copyto_auxbuf(struct gtrace_component *comp,
-+					    struct gtrace_perf_auxbuf *buf,
-+					    u64 *format)
-+{
-+	struct rvtrace_encoder_priv *priv = dev_get_drvdata(&comp->dev);
-+
-+	return rvtrace_v0_ramsink_copyto_auxbuf(comp, priv->sink, buf, format);
-+}
-+
- static void rvtrace_encoder_remove(struct gtrace_component *comp)
- {
- 	struct rvtrace_encoder_priv *priv = dev_get_drvdata(&comp->dev);
-@@ -261,6 +270,7 @@ static const struct gtrace_component_id rvtrace_encoder_ids[] = {
- 
- static struct gtrace_driver rvtrace_encoder_driver = {
- 	.id_table = rvtrace_encoder_ids,
-+	.copyto_auxbuf = rvtrace_encoder_copyto_auxbuf,
- 	.probe = rvtrace_encoder_probe,
- 	.remove = rvtrace_encoder_remove,
- 	.start = rvtrace_encoder_start,
-diff --git a/drivers/hwtracing/gtrace/rvtrace-funnel.c b/drivers/hwtracing/gtrace/rvtrace-funnel.c
-index 463e504aaa92..48d1084957c1 100644
---- a/drivers/hwtracing/gtrace/rvtrace-funnel.c
-+++ b/drivers/hwtracing/gtrace/rvtrace-funnel.c
-@@ -75,6 +75,15 @@ static int rvtrace_funnel_probe(struct gtrace_component *comp)
- 	return 0;
- }
- 
-+static size_t rvtrace_funnel_copyto_auxbuf(struct gtrace_component *comp,
-+					   struct gtrace_perf_auxbuf *buf,
-+					   u64 *format)
-+{
-+	struct rvtrace_funnel_priv *priv = dev_get_drvdata(&comp->dev);
-+
-+	return rvtrace_v0_ramsink_copyto_auxbuf(comp, priv->sink, buf, format);
-+}
-+
- static void rvtrace_funnel_remove(struct gtrace_component *comp)
- {
- 	struct rvtrace_funnel_priv *priv = dev_get_drvdata(&comp->dev);
-@@ -95,6 +104,7 @@ static const struct gtrace_component_id rvtrace_funnel_ids[] = {
- 
- static struct gtrace_driver rvtrace_funnel_driver = {
- 	.id_table = rvtrace_funnel_ids,
-+	.copyto_auxbuf = rvtrace_funnel_copyto_auxbuf,
- 	.start = rvtrace_funnel_start,
- 	.stop = rvtrace_funnel_stop,
- 	.probe = rvtrace_funnel_probe,
-diff --git a/drivers/hwtracing/gtrace/rvtrace-ramsink.c b/drivers/hwtracing/gtrace/rvtrace-ramsink.c
-index f183dcd71c7c..cc0a5785bda4 100644
---- a/drivers/hwtracing/gtrace/rvtrace-ramsink.c
-+++ b/drivers/hwtracing/gtrace/rvtrace-ramsink.c
-@@ -188,11 +188,11 @@ static void tbuf_to_pbuf_copy(struct trace_buf *src, struct trace_buf *dst, size
- 	}
- }
- 
--static size_t rvtrace_ramsink_copyto_auxbuf(struct gtrace_component *comp,
--					    struct gtrace_perf_auxbuf *buf,
--					    u64 *format)
-+static size_t __rvtrace_ramsink_copyto_auxbuf(struct gtrace_component *comp,
-+					      struct rvtrace_ramsink_priv *priv,
-+					      struct gtrace_perf_auxbuf *buf,
-+					      u64 *format)
- {
--	struct rvtrace_ramsink_priv *priv = dev_get_drvdata(&comp->dev);
- 	const struct rvtrace_ramsink_regs *regs = priv->regs;
- 	struct trace_buf src, dst;
- 	size_t bytes = 0;
-@@ -231,6 +231,13 @@ static size_t rvtrace_ramsink_copyto_auxbuf(struct gtrace_component *comp,
- 	return bytes;
- }
- 
-+static size_t rvtrace_ramsink_copyto_auxbuf(struct gtrace_component *comp,
-+					    struct gtrace_perf_auxbuf *buf,
-+					    u64 *format)
-+{
-+	return __rvtrace_ramsink_copyto_auxbuf(comp, dev_get_drvdata(&comp->dev), buf, format);
-+}
-+
- static int rvtrace_ramsink_setup_buf(struct gtrace_component *comp,
- 				     struct rvtrace_ramsink_priv *priv)
- {
-@@ -448,6 +455,28 @@ void rvtrace_v0_ramsink_release(struct gtrace_component *comp,
- 	of_reserved_mem_device_release(comp->pdata->dev);
- }
- EXPORT_SYMBOL_GPL(rvtrace_v0_ramsink_release);
-+
-+/**
-+ * rvtrace_v0_ramsink_copyto_auxbuf() - Copy trace data from the sink embedded
-+ * in a pre-ratified trace encoder/funnel into the perf AUX buffer.
-+ * @comp:   Pre-ratified trace encoder/funnel component.
-+ * @priv:   Sink private data returned by rvtrace_v0_ramsink_setup().
-+ * @buf:    Perf AUX buffer.
-+ * @format: Trace format of the copied data.
-+ *
-+ * Return: Number of bytes copied, 0 if the component doesn't act as a sink.
-+ */
-+size_t rvtrace_v0_ramsink_copyto_auxbuf(struct gtrace_component *comp,
-+					struct rvtrace_ramsink_priv *priv,
-+					struct gtrace_perf_auxbuf *buf,
-+					u64 *format)
-+{
-+	if (!priv)
-+		return 0;
-+
-+	return __rvtrace_ramsink_copyto_auxbuf(comp, priv, buf, format);
-+}
-+EXPORT_SYMBOL_GPL(rvtrace_v0_ramsink_copyto_auxbuf);
- #endif /* CONFIG_RVTRACE_V0 */
- 
- static int rvtrace_ramsink_probe(struct gtrace_component *comp)
-diff --git a/drivers/hwtracing/gtrace/rvtrace-ramsink.h b/drivers/hwtracing/gtrace/rvtrace-ramsink.h
-index 0c1b346af8c0..ff767da7f861 100644
---- a/drivers/hwtracing/gtrace/rvtrace-ramsink.h
-+++ b/drivers/hwtracing/gtrace/rvtrace-ramsink.h
-@@ -15,6 +15,10 @@ struct rvtrace_ramsink_priv;
- struct rvtrace_ramsink_priv *rvtrace_v0_ramsink_setup(struct gtrace_component *comp);
- void rvtrace_v0_ramsink_release(struct gtrace_component *comp,
- 				struct rvtrace_ramsink_priv *priv);
-+size_t rvtrace_v0_ramsink_copyto_auxbuf(struct gtrace_component *comp,
-+					struct rvtrace_ramsink_priv *priv,
-+					struct gtrace_perf_auxbuf *buf,
-+					u64 *format);
- #else
- static inline struct rvtrace_ramsink_priv *
- rvtrace_v0_ramsink_setup(struct gtrace_component *comp)
-@@ -26,6 +30,14 @@ static inline void rvtrace_v0_ramsink_release(struct gtrace_component *comp,
- 					      struct rvtrace_ramsink_priv *priv)
- {
- }
-+
-+static inline size_t rvtrace_v0_ramsink_copyto_auxbuf(struct gtrace_component *comp,
-+						      struct rvtrace_ramsink_priv *priv,
-+						      struct gtrace_perf_auxbuf *buf,
-+						      u64 *format)
-+{
-+	return 0;
-+}
- #endif
- 
- #endif /* __RVTRACE_RAMSINK_H__ */
+Ajit Singh (1):
+  arm64: dts: qcom: lemans: Add Vicharak Axon Pro
+
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ .../dts/qcom/lemans-vicharak-axon-pro.dts     | 514 ++++++++++++++++++
+ 2 files changed, 515 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/lemans-vicharak-axon-pro.dts
 
 -- 
-2.43.7
+2.50.1 (Apple Git-155)
 
