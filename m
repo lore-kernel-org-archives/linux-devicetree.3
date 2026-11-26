@@ -1,55 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795654972;
-	b=XBnlyf+Wm1cmhaFLW62iXJ9vRk3YTfRkFAJaMrM5cR5+2n07SB6BflsptQRZZJbXRGnR
-	 gp5Ackf7oNKhOUojgQhXxECATBBBuxNqzTGzG1HbBPSY0cJG6U7neZD8ZXf1H2q10qsHd
-	 ClQ7zwE9kNzqJhB58K8UtqHxcbKgfGUhucRN8cFz9J7gHJDS3H/G9nki+6m8c9hzv73Mi
-	 EzyQIMNMdgp/iWSn8Jp7RAFgDs106hw5uTTDGysQDehOPf2EYMuy0tfZBZFiYMG/Vg9+r
-	 lvefefRbTMQCQo6CwhS2L6FIZwIT5SPLsP5qOzbrU0FqnA4kFsX17nX8hh0qxYWNpCg==
+	t=1795655133;
+	b=fNYgJv9nmCM10dTX2OI6fCNhxJIgVSHZnC5dgiOqLlW2vSWHMr2E7qhqbqOTKVQCqhsK
+	 iMms6CxHJQh08V2J9PtIjDKROALQ9Td7hjw0hQfLspu6PZUmwo9EurF5p+wMz9xl5BhqK
+	 Gs7WuRO1Pd/+VyxPeslVivTQLMoLit1aUmSrwJgbTCqnaeXhNW4mxVB2dLhwdeDeID03D
+	 5ebvslO52gdb6OjuwO74eDehJyuKxcz7Z2AG0VTwgMHfupQLxtaoO67kB31XdXOlHkdMk
+	 MB2P1Pbv+OOs/s6M8NHT9qlEEgrBkw2xF0P/HoKAMVj6xB96Loex8T6GhKuR6gBiNpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795654972;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=szOvPNyxohILp8ypzy0QBe0wsGgv+77VvcXMFL1pBiI=;
-	b=qfKpt8gtphMYK0xRFy09fKLYCAiZOTMBqyI8XInA2EFYpx7AEzA1UoaTs2OMO+Xq5Y1f
-	 F1fMY9FtrigWuzWOzoZO4XWDPr5X9zagQAy3J1TQpaS0DEYc8L+MffUYKDNrszFRIf3RZ
-	 RiErVak5BjrlYUfIifClJUMWi8sgFqW76lk6UPn8rycqqdDg36rWPY1jqrogQAUI8U94G
-	 hao5cVVM5rZqgQd7bg+PePpHefwGetv5T8Jmr63PsRbiy6OXOO62B1HUKnTt8J4hMzmTQ
-	 FA4WUraeeQSV3MdyJqA5zZ9VBH5OcXkZe8dlHKYTJAUydKBjCXNxHYz1nBKP6FiYVJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795655133;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=qRpQAEjbRWH0r5g7MXwq/UpiaEON6BpLBkYKni8ayh0=;
+	b=sZygAt2TRM7CjTRjU58mcbze3a1CJOwE4SsoOkI5DyU2c0tezd126B+o28Lqh3nF5lpi
+	 mltZDjVHNpOKu+lJeRCGVCpy9az0pVmOvwe9KI6ewYSl/vbHTszRUqDOaleF/tt0AulbK
+	 MqXrUlkkMx8hPCZVdXShN9PXOWjvvsD+hGcnOMqABC8QUdbRdu2r/vMlnrEPQHM4n9Cns
+	 fGm0rihPiH3zMNTbOXrOqpLlqgl4xCeoMjnHv/d7HfIruFciyBzzCDHOm89PszbL5LNvr
+	 1gLJo7s4bx/cfCbSbmJdidHxUphNtenAHW+WSt09vBmRQC3RkOH8CGYY27QeNVsl9wA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GxivgSKK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D830606A327
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 01:02:52 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="N6/cYmSL";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DCBD4606A31E;
+	Thu, 26 Nov 2026 01:05:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCBD4606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GxivgSKK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BEEF1F000F0
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 01:02:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795654972;
-	bh=szOvPNyxohILp8ypzy0QBe0wsGgv+77VvcXMFL1pBiI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=GxivgSKKpMAbosqUk66Yg4iqBddCw16F7dBmuZ/OIP0+CNyedhqtebgAKbjN+lZA2
-	 XzrsTS5KEpJLSeD7i+R2egKS22N6blaIWVzB/WxRu41zP6lA0V7+QCkPZvpkqw7h5Q
-	 DcOPg02AYjxyC9fGtPeZRjn5JjC4cMvQzgeZQxsOnejhZh008h9JVM8EDPJVQul17m
-	 7Q/84bX6YEho/gL8wI/w9xIbCWrZKQ6eQ6loBY+e89YwfZc5xTsc96jiVKhMtbisPC
-	 5IYou1zn8i7X+GbyR/XnCH4jYewJzSOCfd0jwZdQwc4RUmVL5gRGW+fKTKoc70yQ3j
-	 Fom+4k4F7afMA==
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5bcdae234ecso906719e87.3
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 17:02:51 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEiaaOZaYKVbLQDD5RxCz/2Ax/jE30cL9e9Ytdfw4oUFSgwLz6Fy9K6oHDFdt2iKPyxjvFwSaMre595@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Dj59u3IzVV2J5zMVvZWckME+8ClBwknvzgINgZQ51XbiuBP4B
-	phxTzmY0/1c5Jse6CUstA6pPnwMI9ejdy6PTwQLjpwY+T8fKX5m+SKkjKDJKKqETie/61uWcdmh
-	fIcjR6xXt8KLtFn7Ov+4f7oE0XbATh8A=
-X-Received: by 2002:a05:6512:b9d:b0:5c1:5975:a6d0 with SMTP id
- 2adb3069b0e04-5c1bc813d73mr5576689e87.49.1795654970525; Wed, 25 Nov 2026
- 17:02:50 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=N6/cYmSL
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9813E1596;
+	Wed, 25 Nov 2026 17:05:28 -0800 (PST)
+Received: from [10.43.3.73] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1607E3F632;
+	Wed, 25 Nov 2026 17:05:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795655131; bh=c+M9C5R7IaV7aTw3Nf4cb/CDqUlPqYRMkhd7EMv4HRE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=N6/cYmSLbhG8aliXW5w93tk/mDSePs79g3T6DAWxzmaBtF1T9+ukEJ9KcOKSjFFAp
+	 wqBqXz98NcEPqU/u38jc3cAr5Vi78JmQxnJr88UpJH8Ek1S46gl98t4jNIjLsuIqwO
+	 ocCXR0LLLC3UISJ111FRB67rAB5HOWvaPfnjtpUY=
+Message-ID: <0750993c-1f37-46e1-884d-a4d2cffc76f7@arm.com>
+Date: Thu, 26 Nov 2026 01:05:26 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,37 +53,100 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-0-fbdce4565a5c@free.fr>
- <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-3-fbdce4565a5c@free.fr>
- <avs4l1otw6ACW5P4@SMW015318> <avs9fmJqYShOIPMK@l3017729.home>
-In-Reply-To: <avs9fmJqYShOIPMK@l3017729.home>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 26 Nov 2026 02:02:38 +0100
-X-Gmail-Original-Message-ID: <CAD++jLnF07h3Ng5O=xcgKhTEkV9ij2ptzktAfi2Kt45smdEjpw@mail.gmail.com>
-X-Gm-Features: Aa3M54pY2u0gcwGTwDEHxrFaQf4DHIpe5Fj8K7AAC6iAolS08Y7XLFFoVNzoAr8
-Message-ID: <CAD++jLnF07h3Ng5O=xcgKhTEkV9ij2ptzktAfi2Kt45smdEjpw@mail.gmail.com>
-Subject: Re: [PATCH v6 3/5] soc: fsl: guts: add the RCW override of the pad muxes
-To: Vincent Jardin <vjardin@free.fr>
-Cc: Frank Li <Frank.li@oss.nxp.com>, Dong Aisheng <aisheng.dong@nxp.com>, 
-	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, NXP S32 Linux Team <s32@nxp.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
-	imx@lists.linux.dev, Vladimir Oltean <vladimir.oltean@nxp.com>, 
-	Ioana Ciornei <ioana.ciornei@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] arm64: dts: allwinner: a133: Add KickPi K5C
+To: rajanyadav0307@gmail.com, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ Paul Kocialkowski <paulk@sys-base.io>
+References: <20261120-k5c-dt-v1-v1-0-d9681df67bc0@gmail.com>
+ <20261120-k5c-dt-v1-v1-4-d9681df67bc0@gmail.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20261120-k5c-dt-v1-v1-4-d9681df67bc0@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 16, 2026 at 6:30=E2=80=AFPM Vincent Jardin <vjardin@free.fr> wr=
-ote:
+Hi,
 
-> Then, since it was unclear for me if the patch 1..4 are through
-> pinctrl and 5 thru imx (please, Linus Walleij) ?
+On 11/20/26 08:22, Rajan Yadav via B4 Relay wrote:
+> From: Rajan Yadav <rajanyadav0307@gmail.com>
+> 
+> The KickPi K5C is a single board computer with an Allwinner A133 SoC.
+> Mainline Linux has no support for it yet; its factory firmware runs a
+> vendor Linux 4.9 kernel. Add a device tree for PCB version V1.3, which
+> has:
+> - 2 GB DDR3 DRAM, 8-bit eMMC (HS200) and a micro SD card slot
+> - an X-Powers AXP707 PMIC, which drives VDD-CPU from DCDC2 and DCDC3
+>    in dual phase mode
+> - a HYM8563 RTC on I2C3 (PH12/PH13)
+> - power input through a 12 V DC jack or the USB-C port (5 V)
+> - two USB-A ports behind an on-board USB hub on USB1, whose power
+>    switch is enabled by PL8
+> - a blue status LED on PL10
+> - the debug UART on PB9/PB10
+> 
+> The regulator assignment and the pins come from the board schematic
+> (V1.3) and were checked against the vendor's device tree and on the
+> board. The pin bank supplies are the same as on the Baijie HelperBoard
+> A133. All tests were done with the board powered through the USB-C
+> port.
+> 
+> Mainline has no binding for the AXP707. Its chip ID register reads 0x51,
+> which U-Boot's AXP803 code accepts, it works with the AXP803 driver, and
+> the vendor device tree also describes it as an AXP803, so the PMIC node
+> uses the AXP803 compatible.
 
-I could do that as long as I have the proper ACKs.
+... as on every other A133 board, so please drop the lengthy explanation.
 
-Yours,
-Linus Walleij
+> Not described yet:
+> - Ethernet: the board has a Maxio MAE0621A PHY, which needs a driver
+>    that is not in mainline yet
+
+Is that so? In the v1.3 schematic that I am looking at, it shows a 
+Realtek RTL 8211F, and also the board pictures on the KickPi website 
+clearly show a Realtek logo on the chip next to the magnetics and the 
+Ethernet socket.
+So what is going on here?
+
+And besides, even if you have a Maxio PHY: how is this clocked? Does it 
+have an external crystal oscillator? Or is it clocked via some PWM / 
+clock fanout pin from the SoC? Only in the latter case you need the PHY 
+driver, with a crystal it should work with the generic clause22 
+compatible string. Once we get a driver, the code will auto-detect the 
+PHY ID and use that driver, for a potentially improved feature set.
+
+Cheers,
+Andre
+
+
+
+> - the Wi-Fi/BT module (VS6621S40, Seekwave SWT6621S) on MMC1: there is
+>    no mainline driver for it, and in my tests its SDIO card did not come
+>    up after a cold boot, so the slot is left out until that is understood
+> - USB data on the USB-C port (USB0): the vendor's firmware uses it as
+>    a peripheral port, but I could not test that yet
+> - the RTC alarm interrupt on PB8: first tests pass, and it will follow
+>    in a separate patch after more testing
+> - display, camera, audio, the IR receiver, the fan header and the
+>    battery connector
+> 
+> The CPU uses the A100 OPP table, like the other A133 boards today.
+> 
+> Claude Code (Anthropic) drafted this device tree and its message from
+> the schematic, KickPi's documentation, the vendor device tree (as a
+> reference for values only) and my board measurements; I reviewed it
+> and tested it on a KickPi K5C.
+> 
+> Suggested-by: Andre Przywara <andre.przywara@arm.com>
+> Link: https://lore.kernel.org/all/d4d89cf9-884d-424b-927d-5b6692f50327@arm.com/
+> Signed-off-by: Rajan Yadav <rajanyadav0307@gmail.com>
+> ---
+>   arch/arm64/boot/dts/allwinner/Makefile             |   1 +
+>   .../boot/dts/allwinner/sun50i-a133-kickpi-k5c.dts  | 228 +++++++++++++++++++++
+>   2 files changed, 229 insertions(+)
+> 
