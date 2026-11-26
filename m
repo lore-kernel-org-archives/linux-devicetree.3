@@ -1,57 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795701550;
-	b=lc8brltZZuO0Z5Tgp74QgZJZBttbRHuagDBoLpChFwtQLOG/+zs7N7ESQJPuhXmkhkS5
-	 AcM/iTZN9sJaFqiRMHQxrDCE8fNcnkebH5nzt8xr3G3tIp+O0fqy+2cT2KiwTIMj1Xc4r
-	 ovuy3JCevYeQxTkaPu9lX+rggeQJMMynEBUb0ccayZE812i7KVSkMwLWHpdWW8kl+FeQa
-	 6U7PF21pLU89KNgCj69LKbZNuulJ3zrrl8ewOsLdkQsCUQOZta57aoE3ZQYKHBTTLhx10
-	 RSpn+TpAGF15qM37rz9vuFDbz9ayAs51++UyNSu81Q587De64yc5X6AdtkSuPAtHJHg==
+	t=1795701695;
+	b=CdEYvXvx/vrU1TfG7Y3+aVZlZjI/hAPJnC71May0Et2MaTzAe/WCVx5VoCxGRTdWDIm1
+	 2KgcgEPVVY8F635mR5Wmz5PhEP4xU+6o9uxbdmuWTLizxmxGTM4GMCJa8wL9NwjApUxkV
+	 opgdL9A6BYtkpTPXKAKzHMMTwW0ytIQkMzkQTdgf7SuXew08x7S8hg0QtsdDuycNg0PiK
+	 FAEKLHYQkngywDQaooQn2cr0HRqZfMa9uJDODrL/Wc3qbAp640cKa30cmzZ9Iz0+dn82m
+	 V4+Do2DJ3oDS7jwwzkYi05nXK+xCKN392k45h8ahChZ2Ae5YvGsM3DFasIgMWXFiapQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795701550;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=BUnBxZ5TOpW1AE3y1XW0jFiWlj+sMinsf6/9xM46Lqc=;
-	b=0mhyv67du+rf8gVeq6kCcMEpofLRLXsyOYQg+NDIyWIxh5ZJAmlJjbnIeP6ps9I1vGcW
-	 aWDyk6PzZGtZbujmjgxRnsFSiqdtieKMBHw5yEZe6yYXrswEtLlBgOi3EFAocwNodKlvB
-	 dog8khc/yYeIaRagz2WzvPfoLSTxw8pOoJbaWwg/xWOvw+bEAqWH5k6P035ZokIYfEkNC
-	 o/KutyVf9UX5MNLgrMkCGXhfnDqx3UQYpAuHpleL9sosEdpuSjFRy/GI9dhPvgQYtKzOv
-	 gSTnGKLkZQD6Md7DqNxEsmu7iQXQJsRoRBCPs36xpuoBYXiadtv/jaNopfyV6fJj7NQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795701695;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=wNad8aGHa4/tIJ1y5EBj81nrFIm9e9hCQQtF7l5nDIY=;
+	b=N5KGmT1e/6G0MxJU+tO8+2it+DdrrNoXR3CWoOm7GXyYadbOOec0LrhA0oZR97lxyGRT
+	 V0KJ7qtvJlEcu2V/TLijkxWcPC4md7BPM/CPpmhYXisMwZRT88WXdFPjvKwcBfp3Mo/SZ
+	 I22PXOd+EMEE6FNr+G0sEqP2SUgj2t7wWbY4YGCnMiPz74puu3hhC4WO/3gbgruiGq/vB
+	 wAb2mDsdeK7BqldMOivM6u26M8Vhuc3Er1teh7PAzCiv28Mh3i1yohhK+SG3yZcblbHJn
+	 b0eXqx97iqlW6fTFpBIqmgUfA2eb4l4QTDwHaBifuC3ag5o+sd6oYwvV4wOco2tNH6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V1QHmQrE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TrmFEPoZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47F35606A31C
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 13:59:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA22606A31C;
+	Thu, 26 Nov 2026 14:01:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V1QHmQrE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91B721F000CF;
-	Thu, 26 Nov 2026 13:59:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TrmFEPoZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E241F1F000C4;
+	Thu, 26 Nov 2026 14:01:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795701549;
-	bh=BUnBxZ5TOpW1AE3y1XW0jFiWlj+sMinsf6/9xM46Lqc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=V1QHmQrEthigKZd/JGcLzshP5iEKCV5VRSuYtJR9YgalJ9D8sLKYqmLlPd2pZHaHB
-	 KmT3jz1ThIPl4JRSC2s7QGIZCKhupJDlAHYcI64M/OsPHw7Gl0W7+Mse0UvGASZJdB
-	 tn57Jk/HwVml0eXRIIpPba8hnBJCVK1Y58T65gVEPLQGzCPZCObr9zr2EGWTMd5Gyh
-	 ETG5z9NeHkxcL3gcLsl56B+DAKMIhOqySCsvUZVF/rOKJfsnKWbdAER0xU5rRuqmy5
-	 W+TkSNmSlDMwDACgOK2OJOWSOWS42vawvxOQYVlJ+X5VSYY78ZYtY20Cp1taHOmNmD
-	 rJNLpMj/uo/Jg==
-Message-ID: <sashiko-outbox-235666@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 08/10] arm64: dts: qcom: sm8450-hdk: Add display card
- overlay
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vladimir Zapolskiy" <vz@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261126134508.320700-9-vz@kernel.org>
-References: <20261126134508.320700-1-vz@kernel.org>
- <20261126134508.320700-9-vz@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 13:59:09 +0000
+	s=k20260515; t=1795701695;
+	bh=wNad8aGHa4/tIJ1y5EBj81nrFIm9e9hCQQtF7l5nDIY=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=TrmFEPoZXfgUxvRkBH8yU8kXTjF1KuoGclUL4zDFvcCFj7rXLA5CzIDnMQ1UaG9bN
+	 T5qZXaHRkJ/2ZzP/t+SohQ9qDR3ZiCR7PM7fPFPN4avcuLf601iyPJXyV+7miAQGu1
+	 xHKHluAT7d07Upus7x5m/sGpxBlAChMICgQ0M3siMX710eIMpvFA8C515AG4IqsdJh
+	 IOaEg2L1ScHj5wK3dZZ0ACgQEhDE8/94E2NraDImRIaQNWMWzIpopM97G1HD2kWuUf
+	 jWl138QdRGV7FF0PQuBUPnwEl9SrlDtmHCL6HpZprJ2hrEVpqgb/XOuYLPN0yTs3NT
+	 cBuJMbi/iJpKQ==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,74 +48,43 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v5 2/4] regulator: core: Parse
+ regulator-off-on-delay-us generically
+From: Mark Brown <broonie@kernel.org>
+To: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
+ Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, 
+ Saikiran <bjsaikiran@gmail.com>
+In-Reply-To: <20261027-regulator-off-on-delay-v5-2-f9c3b128c6d0@oss.qualcomm.com>
+References: <20261027-regulator-off-on-delay-v5-0-f9c3b128c6d0@oss.qualcomm.com>
+ <20261027-regulator-off-on-delay-v5-2-f9c3b128c6d0@oss.qualcomm.com>
+Date: Thu, 26 Nov 2026 14:01:30 +0000
+Message-Id: <179570169045.142532.16106966799227228984.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=479; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=KdfCQNV3a8eJP9eLdbdXsgwj3MPsywhJnLY4FkqlhXc=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI5rHebCn2e2x+ZcLVM6dVWlynLlN50bXnPv+3dX7fTY
+ kut672TOkpZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRPXKMDJeW+yV8nJprs2fK
+ ytvuL4OvC1+Jsjgu2Lfgo+7E5UE6DNsZ/nDfWXysr+Gm4ZMPFi/tprF+/lMyN677vZ3tDrlHb9X
+ 7/zIBAA==
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] arm64: dts: qcom: sm8450-hdk sound probe fails due to enabled
-  HDMI DAI link
---
+> off_on_delay is normally fixed per regulator type in regulator_desc,
+> e.g. hardcoded for every LDO a driver supports. But the delay a rail
+> needs before it's safe to re-enable can depend on board-specific
+> factors like attached bulk capacitance, not just the regulator type,
+> so some individual regulators need a different value than their
+> type's default.
 
-commit 2845e74d5b67d8963c4614b68345c54b82ab8dfb
-Author: Vladimir Zapolskiy <vz@kernel.org>
+This doesn't apply against current code, please check and resend.
 
-arm64: dts: qcom: sm8450-hdk: Add display card overlay
-
-This commit adds a devicetree overlay for the SM8450 HDK external display
-card with a Novatek NT36672E DSI panel and disables the mutually exclusive
-on-board Lontium LT9611UXC HDMI bridge.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sm8450-hdk-display-card.dtso b/arch=
-/arm64/boot/dts/qcom/sm8450-hdk-display-card.dtso
-> new file mode 100644
-> index 0000000000000..3fcaae7f2abc0
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm8450-hdk-display-card.dtso
-> @@ -0,0 +1,144 @@
-
-[ ... ]
-
-> +/* Disable HDMI bridge related nodes (mutually exclusive with the displa=
-y card) */
-> +
-> +&i2c9 {
-> +	status =3D "disabled";
-> +};
-> +
-> +&lt9611_1v2 {
-> +	status =3D "disabled";
-> +};
-> +
-> +&lt9611_3v3 {
-> +	status =3D "disabled";
-> +};
-> +
-> +&lt9611_codec {
-> +	status =3D "disabled";
-> +};
-
-[Severity: High]
-Does disabling lt9611_codec without disabling the HDMI MI2S DAI link under
-&sound break the sound card probe?
-
-In arch/arm64/boot/dts/qcom/sm8450-hdk.dts, the prim-mi2s-dai-link child no=
-de
-of &sound remains enabled and references <&lt9611_codec 0>:
-
-arch/arm64/boot/dts/qcom/sm8450-hdk.dts:
-	prim-mi2s-dai-link {
-		link-name =3D "HDMI Playback";
-		...
-		codec {
-			sound-dai =3D <&lt9611_codec 0>;
-		};
-
-When qcom_snd_parse_of() iterates the available child nodes of &sound,
-snd_soc_of_get_dai_link_codecs() fails with -EPROBE_DEFER because
-lt9611_codec is disabled and never registers a codec component, preventing
-the entire sound card from registering.  Like sm8550-hdk-display-card.dtso,
-prim-mi2s-dai-link can be given a label in sm8450-hdk.dts and disabled in
-this overlay.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126134508.3207=
-00-1-vz@kernel.org?part=3D8
+-- 
+Mark Brown <broonie@kernel.org>
