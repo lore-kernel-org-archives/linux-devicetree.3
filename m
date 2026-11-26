@@ -1,110 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795669855;
-	b=2OXXuYCF2RGT71DtduIcoDPcfW24iyRM6H3ACZv4Acm8rxwuku6JQ47QzQJnS8p5bw0Y
-	 Ron9myGeML8hHFRWFLaW6Y93wwn/y7H3j40MOgeu0A8uISxAcGu41v/WqI1oUfRXx8j87
-	 MwA9byfD1ha1yFoYDLC+lek+b4gdG+tEQg256Wz85lelM3tDWoU66QJ0NNai7QJGoqIbp
-	 WzXCFlxPRKUJQ3mPU1h1wZtuOOIy40wNN4003krFV/XtGOBzJPHl3T1/i5V6HyFAtn/dY
-	 38BZQn8ny9FMg9D5cHtGjwDwzeA4WMc6HI24k2Ql5yoDfguUFI/v5FveWpizKV1k/og==
+	t=1795670465;
+	b=37VDy5wXh4ItsIq0p45Re7iV5L6OWiRkUYBD61quIMWL/OZG6FyFba3O563gW0epj9sk
+	 jkxxSszbi9fDkddHKGnTgrYWCf4AGhvbwR8Umtg9q/QZsf15yi7cp9ZRpzr2oRhc/Q5qx
+	 hHjAD1OzmbWHlbvFg5YX514DaxiQyS9VVxYuf0cd4pGJXrqHNuu5r9crHzoknXDLLmvNr
+	 /KJNrI+7T9XLC7vQrS+X4IiMHkNhBhUzrKiWHPy87AY/Piy7na5tALNJFI6Imw3+ujCuD
+	 zqEEl4cwyaB1aBH2dExI4H0UlBrUhB0Ne7HmwO/7gnQq22tAOdykpfovEWQRf5RXwGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795669855;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=snVo1HNElaQNXOPEvwHsx/ZOqgseUpxA8o54IYlLJqs=;
-	b=Dja9Ifx2PaMuoiE3c5uYsdrRnEfhYRGwNxQRkhnSzc/jOOBQcWm5LFDOGjSEC6rQuZS2
-	 tyGlmWC7qQT6guY4zBCFPqnX+KRVBJAHoqpUMM+PJw//v3BPoAgLsn+pF9EFSkD4TbRqB
-	 3W2LGI9FdoCbpy0JWvpDgLVOTt2DjktZxNflrbIsFMw2IlIm6MuJfq65LdMze02DJRmYd
-	 JvfupTHn8P1nGxalhdi4WERgz9sVNxfHjJks0CKXfEMPqjS3AQldio9nnaAqErigo7njj
-	 xyzwcPZOz4BwFyjuNYzAhJUXZIsduLlP3dfWUyPj757j2Z2mOJd74jTDRHIL/ltgJIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795670465;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=9IGvHQF73alEoj112r5lUUW1Yg+2wm87TDakeFNsZLA=;
+	b=ZCYhy1JP6yT9OAbQc+/4nZKWGDyoAvYrhK84iubIbd6Y0qFZ6Tv+kKqg2PS8AZZlpeG9
+	 VsY6eqhkQjlkx01HNuTWFOE3XjHWBcqxB2QES34OolP0q6ioh8Dytd4PZMiiaH/HCvmaE
+	 MTyiBlcDLFlWM+ZcFbSp4IYvsS0x6HRuE7ae5PajWFFo0fe65Hi7yRrCxwKGJQmvN5lTW
+	 tcR/rSqQdjQZES6KhQi67+WixQf+TLlJpn//iLmz2KRQZmvmaKuYrA7SK0LUxXF/mu2Oh
+	 WHxmMf4xW8DA8+wmROcPrLnBDD+hW57N4as6Zik3UFLjPMTAYvdfV7t+YoGkanzcdkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=koo80xtt;
-	arc=none smtp.remote-ip=74.125.82.49
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F6FC606A323
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 05:10:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F6FC606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=dBxRt763;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B6970606A31E;
+	Thu, 26 Nov 2026 05:21:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6970606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=koo80xtt
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1b3b4944a0eso5005867c88.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 21:10:55 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=dBxRt763
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795669854; x=1796274654; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=snVo1HNElaQNXOPEvwHsx/ZOqgseUpxA8o54IYlLJqs=;
-        b=koo80xttp8geMgFWEU8bag5Cp8NMbqNHiK7kwUEroiZTZ29SdBiyGGotzYoiu33bTa
-         UwY/ptC145WUKHWBA3x8fQXypO5iGoJWBzrQa2siyDjf6QleJy3SlzLiFSjtpNBjWe/Z
-         5w6olFcNx37XXa94u4v/C9gbqIJS10mENTxBmCudh2SAB1iuNImFNr1XQSZ8dLWcLzo5
-         s7l605ESWnqrRYxZNVLgRDqQsYxX2Cxxat93m6kGhcp/Uy8bb/OB3gMKYEi5VufiL8S4
-         cFavEYRuNUHr2c943YG3QEsDfSPrMUyN8QHZKiCv+91BrB/EXTtqOaUvAomAAoKij+mg
-         cwgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795669854; x=1796274654;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=snVo1HNElaQNXOPEvwHsx/ZOqgseUpxA8o54IYlLJqs=;
-        b=CkT2rf6mpo9LJhc7bHs6SyNgDn3t9TjSPW8tpqX1+F29hFMbo/uvcOTpbF0sFF3PNg
-         a6sSGSwkaoR0p/nG4/srmzFsricSrjerN+OuYBG9uWXjuDHolpscQow8BiL4gSfAF5Pu
-         peKEDl8iLC3dw/CR2E+sYE4FAsgtMMoEK6WVlo8n7y2iGYpQg2O55DR3YfenuCJN5t3S
-         fd2Udr/Nj+qhMCy05zSHfhtnVCMutHrfjAWITYCf/+B2vg5aHJC3IL12SXBdBHcpjiPP
-         PiskSpZ5Bdd5MTvRyTgcg7N56XcGTFwRbCcWL9MHZv0g2EtBisKvF4TfkLrqfRlnlH8V
-         zS+A==
-X-Forwarded-Encrypted: i=1; AL+hErFXygzdphlL+jNDa4a5DRsyCWQa3d1nhoi+V1b3RejA7TJv28lnoxd71ERXAd3so0IKmhiFAlmRhDlV@vger.kernel.org
-X-Gm-Message-State: APuU4Z9h2cR14tTuFBn5Zu24UsnAFcserxSlIJNqu6O6LCsPTQMeV5eb
-	N4Nq68e3jBG4V2nPke38LtpXwXkO7VWOBpidT7jDud3Ef2h4WYvldTxDiAZ4sOXn9rE=
-X-Gm-Gg: AZFdTZeI32uybXrWAaEUYki1Ah0a+sI+gP51CGv7/LPz3gAOjvfb7BPZi+piidwsbtt
-	Z0e8A88r+PbwoRiuOi/uARGnDsOL+Llyv0R24DllXuvy0uHer0aDiGUx1O6rKcrs72MB8k50QW4
-	nUa4ykGGHCLOY9yJAJ7O5nOu8q+g/5hgZYPs13066AJfe8gcgHbRzYE1BtpWhCtE1ISkQ+SI57H
-	Mv/N389nJujoCq41XTCdP/HxFqPjnaG6go7WfynTDLhtOdCcyUVX/3jsROtxsN19Lzp0sU3dJHu
-	C3WeGjCM4Mg4CAbmrzcLas8sd9TTp6pJssZtOv4fonqsWSxgBDXyJg8YGWj1ypqK/cCpegEW8ER
-	VKfe7n6DktsQA+FoiR9uidJ8Gq6GIqKTkbAEnRbqlCR+xoMOMeaYuZmUF0j1T1P5Q5rKwTQ/MZ6
-	VXEE9h34BabNgS1nkoPFNqlnfU5Fb8oCq62cds+2tnSt/p3SyNgx8idVGuUOaI03t7iwOC5NGpM
-	KD6Veaw9fz6yF0MGgD0FDqvHUKVChJefvPTZhh3AKhb2VA6l0xx+XPHFP8QyM71z9ojieIVK6an
-	3SlmW3CLmZSlQWqPHsCKk31vEmjdmQ==
-X-Received: by 2002:a05:7022:3f07:b0:138:30b1:4c00 with SMTP id a92af1059eb24-1b5567b5685mr22918571c88.3.1795669853936;
-        Wed, 25 Nov 2026 21:10:53 -0800 (PST)
-Received: from localhost ([122.172.83.36])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b55ff0e4e6sm38643650c88.11.2026.11.25.21.10.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 21:10:53 -0800 (PST)
-Date: Thu, 26 Nov 2026 10:40:50 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Chuan Liu <chuan.liu@amlogic.com>
-Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Christian Hewitt <christianshewitt@gmail.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	christian.koever-draxl@student.uibk.ac.at,
-	neil.armstrong@linaro.org, sboyd@kernel.org, bmasney+clk@redhat.com,
-	khilman@baylibre.com, rafael@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
-	Christian Stefan =?iso-8859-1?Q?K=F6v=E9r-Draxl?= <ckoever@outlook.de>
-Subject: Re: [PATCH 4/4] cpufreq: add an Amlogic speed-bin driver
-Message-ID: <awe_Wur5fVbeqV2d@vireshk-B250M-D3H>
-References: <at7lXEqds7ukoR2V@vireshk-B250M-D3H>
- <1jbj8gkff1.fsf@starbuckisacylon.baylibre.com>
- <at8WfX_G0tfTlFrm@vireshk-B250M-D3H>
- <9556e959-daf3-4c85-8794-9613e7e7a9ae@gmail.com>
- <A45EC676-5B14-4932-A4CF-87ED3B71108D@gmail.com>
- <4a51e879-708c-49dc-a08a-3f64eeec8bbf@amlogic.com>
- <CAFBinCBkJJeRPKLFBA9KYjwXMxFjow_NOtvFoKRQdxD=rOPW3w@mail.gmail.com>
- <48b333a3-ef88-4739-a087-3ed9d8ec60a4@amlogic.com>
- <CAFBinCCgmRmk--W53wqdJhF-SzJbai--s7wyzDNt3LpfN00spw@mail.gmail.com>
- <b606819a-661e-4488-b5fb-9e786de463c6@amlogic.com>
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=9IGvHQF73alEoj112r5lUUW1Yg+2wm87TD
+	akeFNsZLA=; b=dBxRt7632IMzXEYNZvZUhP5wxPE+8C0/cxNki/ny9KZ3GILhwl
+	MvSlWxDfAZs8KyEo8nmCI5qiKcvnRYT8fDfFTQKPRWl/4DORv+Hf2qC+vgBUnz8z
+	KwQGfmH4pynOMXkbFoVE337eLHtBGMfjuGiv0cRGA4w/KShyQp3nWg0N8=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.224.120])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgDHNSq5wQdreQ77AA--.266S3;
+	Thu, 26 Nov 2026 13:20:58 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: andersson@kernel.org,
+	konradybcio@kernel.org
+Cc: abelvesa@kernel.org,
+	mitltlatltl@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v10 1/2] dt-bindings: arm: qcom: document the Lenovo Legion Y700 Gen4
+Date: Thu, 26 Nov 2026 13:20:56 +0800
+Message-ID: <20261126052057.1544590-2-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261126052057.1544590-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261126052057.1544590-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,34 +67,52 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b606819a-661e-4488-b5fb-9e786de463c6@amlogic.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgDHNSq5wQdreQ77AA--.266S3
+X-Coremail-Antispam: 1UD129KBjvdXoW7JF1kAr18uFW5Jryftr18Zrb_yoWDGrcEya
+	1xX3W0van3JFnYgrs8Zan3tF15Jw48Xr97Aw15tFn2y34qy398Caykt34xAryUur47ur1f
+	uF48Gr9IkwsrGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb9xYjsxI4VWxJwAYFVCjjxCrM7AC8VAFwI0_Xr0_Wr1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l82xGYIkIc2x26280x7
+	IE14v26r18M28IrcIa0xkI8VCY1x0267AKxVWUCVW8JwA2ocxC64kIII0Yj41l84x0c7CE
+	w4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6x
+	kF7I0E14v26r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIE
+	c7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I
+	8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCF
+	s4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY1x
+	0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_GrWl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC
+	6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWw
+	C2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_
+	JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJV
+	WUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIY
+	CTnIWIevJa73UjIFyTuYvjxU2DDGUUUUU
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARECB2sGHiAuFQA8sB
 
-On 23-11-26, 20:23, Chuan Liu wrote:
-> I have already completed the support on A9, but cpufreq-dt currently only
-> supports the single-clock case, for example:
-> dt_cpufreq_early_init()
->   ->dev_pm_opp_init_cpufreq_table()
->     ->dev_pm_opp_find_freq_ceil()
->       ->_find_key_ceil()
->         ->assert_single_clk()
-> 
-> set_target()
->   ->dev_pm_opp_set_rate()
->     ->_find_freq_ceil()
->       ->assert_single_clk()
-> 
-> Both of the interfaces above are limited to "single_clk", so SoCs that need
-> to adjust the DSU clock in coordination with the CPU clock (such as SM1, S7,
-> A9, etc. mentioned above) cannot directly work on top of cpufreq-dt.
+The Lenovo Legion Y700 Gen4 is an SM8750 tablet that ships with the
+lenovo,elden board compatible. Add it to the SM8750 section of the
+Qualcomm board binding.
 
-Have you tried something like this ?
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+Changes in v10:
+- Unchanged since v9.  Carry the Acked-by Krzysztof gave on v8 1/2
+  (2026-11-25T12:04:02Z): v9 was posted after it but missed the tag.
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-drivers/ufs/core/ufshcd.c:int ufshcd_opp_config_clks(struct device *dev, struct opp_table *opp_table,
-
-Finding the right OPP should be done based on the primary clock only (right ?),
-but configuring multiple clocks is possible via the OPP core.
-
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 121ca557ce..a32cfb30a1 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -1220,6 +1220,7 @@ properties:
+ 
+       - items:
+           - enum:
++              - lenovo,elden
+               - qcom,sm8750-mtp
+               - qcom,sm8750-qrd
+           - const: qcom,sm8750
 -- 
-viresh
+2.53.0
+
