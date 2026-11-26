@@ -1,62 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795718394;
-	b=MSctGsE7UjU84/bnHdIJD6XrPJ7Ew6/gkZ6FhyvsS6IcSN/N03nlXjT1IuPXk3OPIESF
-	 ze2EEiwX8GtDOtYbEECSVr1X4C9rDSW1yL5VGw3QCFPIaiWOeqFdWEyNxaZX7lACDtXW6
-	 GCik/NCFA8y5AN0JNRteUd5XqVF2aXyVHiRYo40W5qxFrPvhSgr2dcaAIbFxWp3VCku3z
-	 n8bIxEeRuhrdFk9dxWIQJx30dqoU9liBo+oUpimN2SxQdgVlkDXiLeCOLTYJqSwSN6LpU
-	 OcOiNiwJkiVKyAF1tZei6JEOz7NVoXPaDDrxYU60VGIKQX3Vajyt1xy7V+YR7+E5/1w==
+	t=1795718536;
+	b=bhoTa0cgEXDrweE426/ACDmUpsKaHQAsFpI+E9vu8/Sj2uJG++A3ckp1Srlv8/3OQrQ5
+	 7RVJPaB65//wRgRfwtcpVEgfERiUfwVdSVhs4uVVWWhZISJ6zB3Qx5LIN2qaBJH1Oqdkn
+	 ISLbClJbQ0kqhS6S2nrNpMIkbq9fjfBVgCpvTscwbR5PBjLz88RDYOkGAUkd1SOFdx+1p
+	 AjSX1SHkv5MVukxEliuYuy9OKXxSVy1mLTBX1YsS6liWgMnH/akzmJi0KY1Unok1C1PI/
+	 /uKS24Yr1J0uwCU8WaWY3pQ1geXuUW1JKKIj6JhpXj+r4Gl/Dq63DKBkYpJHHPzYPoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795718394;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=YSTzqRwhJELRsBttl0aXsnSnkGgl9o+9N6c89t9SOdc=;
-	b=eR8bjzs3CnQTepoAx5i9GfPgmWP4djP4qSSM7Ja4zituHBKjifD7cJUlMFdbwtUfJr8H
-	 gI3W0Xogz3WuuNCNA1KyoAKkIQuwxqOP4py2cslo67Z497VBYBuPj0uGYj2UPKN1P3AzY
-	 E6DKYxONyZEwnQTK0YS3mbjbHRsH5830tyz/x/uRKKHQxvh88pObBGRsorpqaTJTTJEPa
-	 wp4Ta3WeCMhyM/0pDh2tKAntsF2df8IRqiC6wVMsw9NbaxT/sEiBvTfbSrSRxTozvMX+k
-	 i0YpV4jw22BQ/VraWDDoHUn7xPv3jOZcN/QHxLWzLih1ZwjbmkeHSmYZ4tyNQX2g6DA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795718536;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=TmIlGqYRKL1N0DbrflYbwLWHTPbsYPsvR4Gqt4JhWS0=;
+	b=ziK6gDDPR/kklxgAUnT4/XyVAsJn0ubTODnU9BGOskZ7yyZXiG+u/EOyne8J/1n12Qyo
+	 nKwKe2I8RS/QaS2/X+qqXw70dR0/2EgUAqcA65c5PwhUx6O1H5Doq6DUJmOOiJ74KUFZp
+	 c2Wjo9KreSfKtloNCMTIIPBJCP5jQULLhtWhUr2+/AmsK40oi9WmHAQEKB7v3wGcALvzr
+	 QuWlX31Q6ZTkgn3comSa0srnzeFgUF4/QkORd1lcRQeHcjoHS3aecbcm3I3l6PM3w5Ujz
+	 gnYklno3IIeScosbbTJXp6Q0R3hYcILAhnQdO19AUrMSZdC9IXQIsXRdjijvo0aDr5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UdwaDnjP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=free.fr;
+	spf=pass smtp.mailfrom=free.fr;
+	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=Aa6U7TmI;
+	arc=none smtp.remote-ip=212.27.42.3
+Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12AE7606A31C;
-	Thu, 26 Nov 2026 18:39:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D69606A31E;
+	Thu, 26 Nov 2026 18:42:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87D69606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UdwaDnjP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 174701F000C0;
-	Thu, 26 Nov 2026 18:39:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795718393;
-	bh=YSTzqRwhJELRsBttl0aXsnSnkGgl9o+9N6c89t9SOdc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UdwaDnjPGZvf8z73Rf0Dsyl1eO9t1u2CZq+QPxqNMz6P8icWAyxOcT3CgZt5DobFg
-	 T0TJcK4TCh8QfpreXQHh3aOUmOEDq/LZZ8IrWd33hyxVRkOFHVRA8EySgwf3JWga8h
-	 NiJNRBheXyUnpNThBwUuqShPUidg+Xg+f+OjAcJKCclS8yQp6oNZw5nhYpsfIBeOJM
-	 839h33IXwnz8sB1GtEc8bXGPlxdpu01KamUHYxv0+VaPbos02oZEyMrzXwimnl9OJq
-	 V3sJ6+1NbO7Z8zjvURLXbo3D2G6wwjC6/9YbJrexCyAydwSF8h0KvUZIolEkXruvj4
-	 1HRx0zqE8ls2g==
-Subject:
- Re: [PATCH net-next v6 3/3] net: phy: dap8211r: add PHY LED control support
-From: netdev-bot+sashiko@kernel.org
-To: a.shimko.dev@gmail.com
-Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- maxime.chevallier@bootlin.com, pavel@ucw.cz, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-leds@vger.kernel.org,
- netdev@vger.kernel.org
-Date: Thu, 26 Nov 2026 18:39:52 +0000
-Message-ID: <179571839263.3135.10510245952431569206@kernel.org>
-In-Reply-To: <20261125183742.3039752-4-a.shimko.dev@gmail.com>
-References: <20261125183742.3039752-4-a.shimko.dev@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=Aa6U7TmI
+Received: from L30177.local (unknown [78.240.251.125])
+	(Authenticated sender: vjardin@free.fr)
+	by smtp3-g21.free.fr (Postfix) with ESMTPSA id 60E9A13F8A7;
+	Thu, 26 Nov 2026 19:41:42 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1795718527;
+	bh=RdqlfcRYRyRN/alGMnwzCeIIWGVeJlTeO4EFT1U28HY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Aa6U7TmI2pqdSQbqnVAZ9wKX17hNwrxb7sJCGV9smHxFQfk8SZWDVGYgaykp5Bf+o
+	 Opuxeg1dm6O2Towg5dhvaWuHtmKMVxBIpCDJOJUzALDj0tAlCADAWMldG++WYO4dsN
+	 tDKK5u0vaKg0Hh0rViFgV+Z7rXpZrG6kvHPnaxKg9+faXcARzsIOmnPngTAZJ1RQeY
+	 AZKeO66aAoBCbr2OWpSffyoctoL1hHR+Y9O5W9fT+//ct768q/Pc8Nn2hEz+EkLXrS
+	 fh+6gnFi83iGV1NNb8Hvel5dZrW6Ix3LBfLHl8lPGGBHCoQYeaY5+SmE2AeSVI3HwU
+	 ecFfi6TA2wvLg==
+Date: Thu, 26 Nov 2026 19:41:40 +0100
+From: Vincent Jardin <vjardin@free.fr>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	NXP S32 Linux Team <s32@nxp.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev, Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Ioana Ciornei <ioana.ciornei@nxp.com>
+Subject: Re: [PATCH v8 0/6] lx2160a: change the pad muxes through the RCW
+ override
+Message-ID: <awh9ZB5V3vG0gg4S@L30177.local>
+References: <20261118-for-upstream-lx2160a-rcw-pinmux-v1-v8-0-d01bc837593e@free.fr>
+ <CAD++jLnRWZrLfyBGGOikx_eeYXirahuB7E7yuDhB6KoSAQoA5w@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,176 +77,36 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAD++jLnRWZrLfyBGGOikx_eeYXirahuB7E7yuDhB6KoSAQoA5w@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Hi Linus,
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0
+On Thu, Nov 26, 2026 at 01:53:00PM +0100, Linus Walleij wrote:
+> Once the review is complete, can I merge all patches except the DTSI
+> patch through the pin control tree, i.e. does it have the right ACKs?
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Yes for patch 1/6 to 4/6, however, I believe that 1/6 needs an ack't
+from a DTS maintainers. The status is the following:
 
-- [Medium] dap8211r_led_hw_control_get() (drivers/net/phy/dap8211r.c:322)
-  builds its rules only from LED_x_CON (0xA00C + index, read at line…
-- [Medium] Speculative, because it depends on the reset scope of
-  DAP8211R_PHY_CON (0xA001) bit 15, which the code cannot show.
+- 1/6 dt-bindings: pinctrl: Reviewed-by Frank Li and Vladimir Oltean,
+  but TBC if any DTS maintainer Ack, is needed ?
 
---
+- 2/6 dt-bindings: soc: fsl: Reviewed-by Rob Herring, Frank Li and
+  Vladimir Oltean
 
-net: phy: dap8211r: add PHY LED control support
+- 3/6 soc: fsl: guts: Acked-by Frank Li (fsl tree) and Christophe Leroy,
+  Reviewed-by Vladimir Oltean
 
-This commit adds LED support for the three LEDs on the DAP8211R PHY. It
-adds a dap8211r_write_ext() helper and implements the led_brightness_set,
-led_hw_is_supported, led_hw_control_set and led_hw_control_get callbacks.
+- 4/6 pinctrl: Reviewed-by Frank Li and Vladimir Oltean
 
-> diff --git a/drivers/net/phy/dap8211r.c b/drivers/net/phy/dap8211r.c
-> index 1fe20efd394d7..b029b53dc7ba2 100644
-> --- a/drivers/net/phy/dap8211r.c
-> +++ b/drivers/net/phy/dap8211r.c
+Regarding the DTS, if my understanding is correct, please,
+Rob, Krzysztof, Conor: could you have a look at 1/6 ?
 
-[ ... ]
+Then, the two DTSI patches, 5/6 and 6/6, will go through Frank once 1/6 to 4/6
+are in your tree, as he wrote:
+   https://lore.kernel.org/all/awebHKtul2FHepc7@SMW015318/
 
-> @@ -114,6 +190,189 @@ static int dap8211r_modify_ext(struct phy_device *phydev, u16 reg, u16 mask, u16
->  	return ret;
->  }
->  
-> +/**
-> + * dap8211r_led_brightness_set() - Modify the LEDs common control register
-> + * @phydev: PHY device structure
-> + * @index: LED index
-> + * @value: ON/OFF value for force mode of the LED
-> + *
-> + * Enables force mode and sets the LED to ON/OFF state.
-> + * It will be disabled when hardware LED control is requested.
-
-[ ... ]
-
-> +	if (value != LED_OFF)
-> +		set |= DAP8211R_LED_FORCE_ON(index);
-> +
-> +	return dap8211r_modify_ext(phydev, DAP8211R_LED_COMCON, mask, set);
-> +}
-
-[ ... ]
-
-> +static int dap8211r_led_hw_control_set(struct phy_device *phydev, u8 index, unsigned long rules)
-> +{
-
-[ ... ]
-
-> +	ret = dap8211r_write_ext(phydev, led_reg, led_mode);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return dap8211r_modify_ext(phydev, DAP8211R_LED_COMCON,
-> +				   DAP8211R_LED_FORCE_EN(index), 0);
-> +}
-
-[Severity: Medium]
-Will this LED setup survive the next call to dap8211r_config_init()? The
-driver keeps no copy of LED_COMCON or LED0..2_CON. config_init does a chip
-software reset and then reprograms only RGMII_CON:
-
-drivers/net/phy/dap8211r.c:dap8211r_config_init() {
-    ...
-	ret = dap8211r_modify_ext(phydev, DAP8211R_PHY_CON, DAP8211R_PHY_SW_RST, 0);
-    ...
-	ret = dap8211r_modify_ext(phydev, DAP8211R_RGMII_CON, DAP8211R_RGMII_CONFIG_MASK, set);
-    ...
-}
-
-config_init runs again from phy_init_hw(). phy_attach_direct() calls
-phy_init_hw(), so for MAC drivers that connect the PHY in ndo_open this
-happens on every ifup. mdio_bus_phy_resume() calls it too. The LED
-classdevs are registered only once, at probe.
-
-DAP8211R_PHY_SW_RST might also reset 0xA00B-0xA00E to their defaults. In
-that case the LEDs would go back to power-on behaviour after an
-ifdown/ifup or a suspend/resume. Meanwhile ledtrig-netdev would keep
-hw_control=true and its cached mode, or the LED core would keep its cached
-brightness.
-
-This depends on the reset scope of PHY_CON bit 15, and the code doesn't
-show it. If the LED registers survive the reset, this doesn't apply.
-
-Can the reset scope be confirmed? If the LED registers are cleared, could
-they be restored after the reset?
-
-> +static int dap8211r_led_hw_control_get(struct phy_device *phydev, u8 index, unsigned long *rules)
-> +{
-
-[ ... ]
-
-> +	led_mode = dap8211r_read_ext(phydev, led_reg);
-> +	if (led_mode < 0)
-> +		return led_mode;
-
-[Severity: Medium]
-Should this also check DAP8211R_LED_FORCE_EN(index) in DAP8211R_LED_COMCON?
-
-dap8211r_led_brightness_set() sets that bit and leaves LED_x_CON alone.
-The old rules stay in the register while the LED is forced on or off. Only
-dap8211r_led_hw_control_set() clears FORCE_EN.
-
-Consider switching the trigger from netdev to none:
-
-echo none > trigger
-  led_trigger_remove()
-    led_trigger_set(led_cdev, NULL)
-      __led_trigger_set()
-        led_set_brightness(led_cdev, LED_OFF)
-          ...
-            dap8211r_led_brightness_set()   <- FORCE_EN set, forced off
-
-In the same way, writing a non-zero value to brightness while no trigger
-is set leaves the LED forced on.
-
-Then switch back to netdev:
-
-echo netdev > trigger
-  __led_trigger_set()
-    flush_work(&led_cdev->set_brightness_work);
-    netdev_trig_activate()
-
-When the PHY has an attached netdev, netdev_trig_activate() does:
-
-    trigger_data->hw_control = true;
-    set_device_name(trigger_data, name, strlen(name));
-
-    rc = led_cdev->hw_control_get(led_cdev, &mode);
-    if (!rc)
-        trigger_data->mode = mode;
-
-On this path, set_device_name() skips set_baseline_state():
-
-    /* Skip if we're called from netdev_trig_activate() and hw_control is true */
-    if (!trigger_data->hw_control || led_get_trigger_data(trigger_data->led_cdev))
-        set_baseline_state(trigger_data);
-
-hw_control_set() is never called, so FORCE_EN stays set. hw_control_get()
-then returns 0 with the stale LED_x_CON rules.
-
-Does the LED then stay forced off (or on) while sysfs shows netdev as
-offloaded with link/rx/tx set? It looks like it only recovers when a mode
-attribute or device_name is written again.
-
-That doesn't match the kernel-doc above either, which says force mode
-"will be disabled when hardware LED control is requested".
-
-For comparison, gpy_led_brightness_set() in mxl-gpy.c clears the hardware
-rule register on LED_OFF:
-
-	if (value == LED_OFF)
-		return phy_write_mmd(phydev, MDIO_MMD_VEND1, VSPEC1_LED(index), 0);
-
-One option is for hw_control_get() to return no rules or an error when
-FORCE_EN(index) is set. Another is for brightness_set() to clear LED_x_CON.
-Would either of those work here?
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261125183742.3039752-1-a.shimko.dev%40gmail.com
+Thank you,
+  Vincent
