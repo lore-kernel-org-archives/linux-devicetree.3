@@ -1,111 +1,122 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795695114;
-	b=1coRVKg9P7zrO81KaZBFrFaS+UMXzzL8c9kBrgRI3T4ACREe5vAdrwAVGh3FUt2mrRBg
-	 EPpHNiTaClRoQsBWLW9JVdAUJBrVib7ovXJYsX8wW2hF6Z6mNQe9O8n3tm4y4hadl2yul
-	 CAub660A/60IvF/akGP0kErnTG/eghmkquvzI8a9EyErlclkyimud41j3acT5PzKA3TyC
-	 hFfjyVpTASSHtFDr65R2r+GTAWooQwOFVxeUHynUrh/y7YDbUHh0AiVkYjxQeJ6Mwi4Qi
-	 Sq5PfUteIcK+rTFM4ShZUNTcaUqyfsWGupKlB94Omm+TgOZ79QvvEj+0h3pxwtobmDA==
+	t=1795695115;
+	b=a5KmI7FMSRtpk2wxqYfML1t2isaHVRNHkX1oLn4rsumnKt2cIO/HKLM2NCit4WMUSgrO
+	 EPPbf7x5idtdNiyVAHlwTFWYBXDcIEP3ihQKVLWBtBNbJ33wgqVjMbbq41Vh1qnO8lcG6
+	 GQHd17jx1f0XCzxNxivAyXme9zdT2P0n285Ba56tjuKAYxCiSDQabqXCc5AdW6WhA8cDI
+	 Et4MSDvI4DzhrxPtHnt47pZI7Y2/qxENbjQffT4PHX5mXoby8fxHyYYx8gIzDACTIi4Cr
+	 EhXq6r3R9eX8NcaSoRxniyHQ4FVCoIUkcCdXcz50FbnKIDkN7chQ2GpjRJZY/OPh15Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795695114;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795695115;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
-	 Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=6YcqAiMhjLIcHfIkqluvjER3LnqVCQYeKkQbLJ8BJqM=;
-	b=u2pvOonCiZXRyP9wNB4l6Qw/rRvWiOM7yyfNyrZ6tZgUtHWzXxTQm7e+QjO0Fohyse/B
-	 5Dx5EMOQRmJzQN1lsYrc7tfo9FT8UyvcELKMHKi/ooMWTEC+QCGsPSNAeWNjRVdiP3yOU
-	 PNGhhv46gQhDejunFf9qPuaEuQA9FCDhGYRUEMLc+lvr0jgB2NMAPuYyiLK+df+W0iYNV
-	 uHD9ApD2wxctdsY+uODgUOFOVLdJOLUhbX/jwUpvsoX5ONFdyGjRNV9avz5LqZTkoFwKf
-	 CNiTzMZY2daZKeYorqAmZNWszoG0VZOryQ8Ds0/Hwrg1ugndOPNNPxl4IlUH7O4El7w==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=0ZGbNTlnuESZhYgot/UdfNh+dFpS9FLgU6tMHPcOxq8=;
+	b=chgEN7ErxuOKea+AzHy9DfI2/9qYbZ5ZpjJ7yn7IwODXfvm67APQG+22apeHXi8xELqL
+	 zQKwqeQUgpzQ8idk0oahZy4NRw/nqFaxjcSErWXHzUBVyvnQQaDUW1WBcmx6u7sAtufiC
+	 nsAAeet5nI4uI9WcFwxK1Da7fNbbIbv4t2CFv9EEcqjxodH8vQVyuHqW7RBRagO0RiA2t
+	 iHdMA03yHhne1js+gUSKCpJ2K14KZwanJP1MX1ag8/oHj0v2w0/VdmNquegpulp9EKVy0
+	 w98lOPjaEh0dp6zWb5WMJtgPuKk6UKJdSXMV4WSXtVtLlXpgrhCCXnwBmwxw3oiNODw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=R4NCSVD6;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XlnjWHCd;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TVnwCm3B;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RqaldHDg;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77237606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6807606A338
 	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 12:11:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77237606A331
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6807606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=R4NCSVD6;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XlnjWHCd
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQBVSQn1497082
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 12:11:53 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TVnwCm3B;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RqaldHDg
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQBVqo32264012
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 12:11:54 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=6YcqAiMhjLIcHfIkqluvjE
-	R3LnqVCQYeKkQbLJ8BJqM=; b=R4NCSVD6joHRx5pwlHZETz6Subt0+tJ1TzyaQs
-	vynses9Pl0D4ZN3clt9/1O+H2a5eEcahne2X4D+rj21ezBeK4tFCdTclcKRDHie7
-	FK3wIyXnUFjP33TS1A3mnypdc2JNPlzFrqJ86sH8EjGZPXE25P1FvrmJloRhbAdn
-	+uAWzJHK4bxmkvsgGJ2I8hS6VuuriR5AAOsuDPTVK4ZSbDvP4kWfbWitH72ivrZl
-	TdM0vgAZsVv65s0Oj0f0TQQF19xd1D//hBTYfRWGwh8AYyidbe4qzRDPN+0RCgQg
-	fpQUPzdmm9b9QxK0ESU8M5f6fbXxPC8YmmPKEYlrzbodW7JA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j662y30dj-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	0ZGbNTlnuESZhYgot/UdfNh+dFpS9FLgU6tMHPcOxq8=; b=TVnwCm3BFhST469q
+	W3Q6ybS7ehK5CMZ1UQUCWNkbr5efhFUJcEBbH99aCRPKmgBLHMxQrHzBnCOQal6M
+	cER09U1khLDmWMXOROkL8xguz30ugpeyYy3cDOiKwVe53xN18lxE3z6w9s3/rEcS
+	eahNbd5w7BS4XN//mDixTtX4qiJDLTFrEKfiJBlSfHsK/GW5Kt5sZ8HQ1e0Iu7YD
+	8AX9QjhDGgqG4KgsuGmoHXzwkhP/9zAR3JZe2HyZTEKCSxCwGJIGlJSGA3/JG1y4
+	uua0yi2795S1JBaj/oHlk0YNk0QSyisykhBJAJXoTmF2lvBj3dQQa8IEoPRff7K4
+	6G5hWA==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j62aem1ma-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 12:11:52 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f20addba1so1038800685a.1
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 04:11:52 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 12:11:54 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-30bcb065bfdso7225148eec.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 04:11:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795695112; x=1796299912; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=6YcqAiMhjLIcHfIkqluvjER3LnqVCQYeKkQbLJ8BJqM=;
-        b=XlnjWHCdZ91Z6lpCkxS/UGi9x22G2f6OdYlvzjg1B22Qo81jgKpNoBWSqi+RIqu6R8
-         RgDfaEBl9yIFjnQt73CBLc8JrAiaLAU7pKQPn9PrLEAbnHNUvFcOxW7eaGsgDWcw+hMq
-         z+BF1c9px/ncK5rNuhg/j3VfEgUPOs5+zvm95Hncz1MbqAgY92DBJXKAVslgonBzqitX
-         Krmauk/IyO1HLzmpIJ69yuyb8LwiGl2hhB52TH2NHjfXaSGfcxOv+AahgbRQwBx67Oxy
-         AEvbBclX7M2IJoqAbeozsvzdxCGR2uUEUx4JyRcRo49Jiv5USPiLCPxJ72dAaCKn61Rn
-         Tl/A==
+        d=oss.qualcomm.com; s=google; t=1795695113; x=1796299913; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0ZGbNTlnuESZhYgot/UdfNh+dFpS9FLgU6tMHPcOxq8=;
+        b=RqaldHDgYBRSEXoYsnYtqNVnsBtOQyzm0eGiYEcCZO3vzVtJCjdHrtvq480ECl1rux
+         xop5FL4RwrZch25G6RaFFHXr1MdCp/NAbUDOH/Gu/IS1DWZRw3jBFpmKP285CnFDMvJs
+         OPTSICMdjsllaJsPn+7UqqJo89JWASxWx2kxHxFlGlCSx9QMnK8O5JSK8ShSnGpBcTiD
+         N1/1Wfzs3NTFVaXV9jNQbr1V9y1lIG0BxN3iaoICu35wT3nsRPjN5oBsAfYQulr2M1zF
+         JlclStqQZSZ7viTgJC0EIfOLZ3Jtuk5iQrX4KogmujLJ7p8Ls6tD9b5B6PSlYF8wuL7f
+         56nQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795695112; x=1796299912;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=6YcqAiMhjLIcHfIkqluvjER3LnqVCQYeKkQbLJ8BJqM=;
-        b=Ow4qq0ImwFSWo1u43k2JYtfn1W5JxlYShrtaxxlY7T6sZnXPCtwPYOMKQEEDrlypzz
-         +EA7cZEZGLsE6oNSf7cVvSYRvho41YuR1PvL0daX3rS7f4TAYcpONMw8AUDbb+0LGVCk
-         6qNznKNzgyNF/gm3VEXpTM+g+GxPfso5pB3leL9HaGp3sFreQUykourPLmuNffUxNPh7
-         doqpRe1wJ8TADahp/DjxaCiDTY6DKSEv5RoHoetdNEOwRbatcyvaYUR0QxFqZfyteL13
-         3aI2HfZILLL6fdP56BRBY/iP7wp7trayL4//KfYSl/nckgzpMmGUJgfnllEiOOpir0XV
-         eDmQ==
-X-Forwarded-Encrypted: i=1; AL+hErG2jbep9h72ownwfJQalCHaFUbStALsFaEU16dXfnPGyrsjnCDfcO/Je79y7xATHEgPX7xjm0yLnDhD@vger.kernel.org
-X-Gm-Message-State: APuU4Z+LriXxiEflZqWASEuIDVay26fSO6es5JnYzyoNda/vPRWIV/t6
-	NKetCVZ5aG0MQL0bNsAC/+rX19kbaNLsJCI763nB9Bz/P7j6N/ypwf/iSVm28+X7YH0x6HlwWzj
-	BZwL3C7Bg8osUZJwjlwlk80fNPFDCwomsL1oXhM+XJZCqwZjO4tys3jqV0f9wlz01Dm6rvnHd
-X-Gm-Gg: AZFdTZcBqkRfVmtTZcYVcL35hIOwrBy/HRHoJU41pFJd2WZjVXDU4p7ZFvjJvmwvzTm
-	DV4aD6ktGe/NHSNvQWKvCn/WDtJgu4/nuWKDDReOWNrR/gUYEOrSQ0RjLvwQ5D6gYMjldrtGOE+
-	iI166IQSoAiAV1ze/NS1URs9H1jF37DmM4Swyd0P8h+E6fLaMj6jaMXIL3lYv1pKEFkZwt23Dtn
-	+GL5w1BsAufw+xaw4M4kbNg5XlOOlLtlEeh6RTVleQdXi+nxHevfVkF1xBibsu2P7ax1QRgHEiZ
-	Uae79Sr774EcX9qQxrlvxyCk5bethLh1UouzmmV9CqaLPded3YbGIuFS8VF1nwkHH/EKy0ZPq/o
-	kZy0wgVA27BLlKZ9iE3/8DzuQQpNVa29mHl4N3k1dOQW1N3Ji/DaHA9uogMTxcEeK/2eKKhb/tH
-	V/AUT03SPUf+VP
-X-Received: by 2002:a05:620a:4606:b0:93f:22af:cce7 with SMTP id af79cd13be357-949ba7cbc42mr3765731585a.12.1795695111737;
-        Thu, 26 Nov 2026 04:11:51 -0800 (PST)
-X-Received: by 2002:a05:620a:4606:b0:93f:22af:cce7 with SMTP id af79cd13be357-949ba7cbc42mr3765725185a.12.1795695111286;
-        Thu, 26 Nov 2026 04:11:51 -0800 (PST)
-Received: from [127.0.1.1] (93-159-22-70.cgnat.inetia.pl. [93.159.22.70])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513ae8f70fsm748736566b.40.2026.11.26.04.11.49
+        d=1e100.net; s=20260707; t=1795695113; x=1796299913;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0ZGbNTlnuESZhYgot/UdfNh+dFpS9FLgU6tMHPcOxq8=;
+        b=qK1wVYcLfC1G3LJLo4UNB81w8Rwig3VXe/2Zd6PE19x/MNkUXcPNCYk6uHvpLl0qh+
+         JRwwqajnrFaibAWDLskc2EfZX9nBKb+bbAgN1xVo5s0Tr9jbTt/WM5/o7zK/xmUCrpZD
+         c4gpvH6ryANZum+8WDqrTgXdYxnr9zt5PXe2BgBG2tqfbqwSfPa7e/1ZVvrrQbu5kVzo
+         QG1tqM5yhLAV1zCTugBH/ZYMxOHUDcMY+S9F2zTSpmJ2q5baG3N5ZZvls7/HEE5dJnhE
+         C1/tLV5a1ikkNVqpxrL1dzb9aLz81wPdkvAWPLnYb60tIOgceT7ZTkQLK7D86XGvUpZB
+         lORQ==
+X-Forwarded-Encrypted: i=1; AL+hErH8FfKXLnXuLzSbanVWSTwDt87dkVuidbbql4N6wzS2AAu3hHu0Jh7Bn2Lp+vByIyfwfrIv6P2O+T2J@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xUoaJ7EoV+mnjUol8PqYBsfTWpJy8SfaxyQttiz0cnaPskymn
+	KHfS2jGRGUJ2ODlDX52iKUa6tRxHtNAWQPMxLspwl1o+OfABi58OBg12cUHf+JTrToWoKfRr6ch
+	yLmerHCp1uDo8eCNQKPzna+BH+wuUiH3SaUE2IQSEyqKJVHgBPbh5VoZkN8CJS7Fe
+X-Gm-Gg: AZFdTZejiS2DxiLj2kzZa2rmG6/9Ps+ESUn4nfyThvkZO4AhfF0OEgdbkOAW13XUHLU
+	QTokjJfjQPOVhzllFiKuPA5Nf0eLv/XnhdA6roO5XB5I9eKBKrk8Q3RvL26lYhIyomm6GgIJeSJ
+	ppvOy86g/lHS6G21bGWCPuocOHcyeHRM28ujqvVFYlZfdNJoCYwcgS2yutODhMtwdlm/4XZN9uN
+	1CBL+sawBZs5qlhKR4kcH4XMhEL6THzY9EM/8V/jQsRxG65dmNXaAB3dEtN0m3O4+dQYByQrDZ7
+	t8UDShWAEtXCL5Nv7ofmDQZe5yzZWGPsyDwo4ZHsOo7r8ot+DIhzy+9f6bD/qJhxIPUZfdyjlST
+	bR6yEl1NQD7916rn1nN8FU0QdbPMM4d0bw/IIj0W9WpfU+dmMOe7yikieChsIWq0SyHzDnQK85j
+	f7YQ==
+X-Received: by 2002:a05:7301:c089:b0:372:14fb:2573 with SMTP id 5a478bee46e88-3856fd5bf76mr20747689eec.20.1795695113238;
+        Thu, 26 Nov 2026 04:11:53 -0800 (PST)
+X-Received: by 2002:a05:7301:c089:b0:372:14fb:2573 with SMTP id 5a478bee46e88-3856fd5bf76mr20747674eec.20.1795695112716;
+        Thu, 26 Nov 2026 04:11:52 -0800 (PST)
+Received: from hu-akakum-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385f68bc0adsm58457549eec.13.2026.11.26.04.11.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 04:11:50 -0800 (PST)
-From: Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>
-Subject: [PATCH v2 0/2] arm64: dts: qcom: agatti: EL2 overlay and QUP
- firmware for the Arduino UNO Q
-Date: Thu, 26 Nov 2026 13:11:38 +0100
-Message-Id: <20261126-agatti-el2-v2-0-1ed468b4c52b@oss.qualcomm.com>
+        Thu, 26 Nov 2026 04:11:52 -0800 (PST)
+From: Akash Kumar <akash.kumar@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@linaro.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org
+Subject: [PATCH v5 2/2] arm64: dts: qcom: talos-lyra-evk: Wire up CYPD6129 USB Type-C ports
+Date: Thu, 26 Nov 2026 17:41:40 +0530
+Message-ID: <20261126121140.1716190-3-akash.kumar@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261126121140.1716190-1-akash.kumar@oss.qualcomm.com>
+References: <20261126121140.1716190-1-akash.kumar@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,98 +126,284 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22MwQ6DIBAFf8XsuRihSGtP/Y/GA8FFN1GxQEkbw
- 7+Xeu7lJfOSmR0CesIAt2oHj4kCubWAOFVgJr2OyGgoDKIRinOhmB51jMRwFsxeTHPubGukVVC
- EzaOl9xF79IUnCtH5z9FO/Pf+zSTOGiZRtHZQ0vLuench1M+Xno1blroM9DnnL34ibnyrAAAA
-X-Change-ID: 20261126-agatti-el2-f7c039f5c4f6
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDA0NyBTYWx0ZWRfX7ovx7BaEYzl8
- ithlH5Pp6kwue6KcEGlBeT4fOIhmUawq+UI759vp/95F2udP+HYNJtGzua+Vdmk4kEVQBa+RnOx
- GAZmmD26KQt+ycIhp2z5NW7EfBKVYiN814sZZck2RcIjrRdL955On5VMUOtq28cnvKVaiidwIeU
- lINtgi1GjylrAnGJHDFabKf7J8yDE23aUWXpx6MlB3P5JtF7n3zTf72WoXhe9uR2HqH3rmKSbY6
- /0O45RPBjH+wjdThFyJBb/MJHEOr3wsoJnutQZfR06sLlluX+J64KDApWxdP+d2lUyqOZuKpOhy
- 3idn/n2k5AmAWoPXMwKiY0jGqhSZ6mWuEvMmbpV90c46wNMO+c8NUuUDvdJg278xdLJjLGwQJAL
- XjQSnb2Q619/u1C1crxsET+9c1mgDxlprFg+YNV/Mvh1CSG9sOyL2qZ23vKGjmAwXSNkWR4Hwhu
- Ku+3XNJ35L0vMwmXrhQ==
-X-Proofpoint-GUID: xAlNL2Qu9L9T-OxTsAFkqWsFNFzCAva-
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDA0NyBTYWx0ZWRfX1xGPO8JdNsIq
- u/b3kVfN4CCiRNzinWkrXIGIf5b9VvoXGgDSA4jhFcjji5O0VvxQ1EbXjnX9mRD5oxWrXmKRASS
- 4dlMqxo7pJGH/HfgatGxnw6F1VUQUwg=
-X-Proofpoint-ORIG-GUID: xAlNL2Qu9L9T-OxTsAFkqWsFNFzCAva-
-X-Authority-Analysis: v=2.4 cv=W/KtxhWk c=1 sm=1 tr=0 ts=6b082208 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=ySe+0nHqNG5yihRO1pIWsw==:17
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDA0NyBTYWx0ZWRfXzQfQuftlfi/c
+ 6cihdYbXmG51bOrVSTzSLAtDuwO2x+3F9cpndk43/f/1r1cIychOFNdkovqiFYamZztKzeXC2yI
+ AVasNSyo3etrl2NcpttQHIEqvhJwP07nkBtkQnM0Vf/JdVHWgKsnCYfqgE38Bmtn4CtaaMGQgf/
+ ATTgcKWkjtrdr+wdRUY0R6i/3ahCB1QcDjcC4rRLq3qVdTwitdHuX+B8ErJwPZrbbI2gyGjWufl
+ H9iJjg/KzEPykEYCiXOr9AAGah+D4aB4oqWpjKiHcgKtiR0/JG3Q+UfQz677CZiEiG9ygrHGfcZ
+ Smbo4HQqjkyselDFWtqGhWwfKBLakAveS01JJcYE21E0KiYjLyu+gMzjncRTlivPOWFKSIxdrfk
+ lmTWYIAKD7od0FTKfmfF13L3zp2qWR8Jqy7ZkVbN2Xr8PFtpFbABD7aKzcWhSvMJ/9KjY0zNK2y
+ zPRtid0lysfnAGJ/W6Q==
+X-Proofpoint-GUID: BMm5bRTT8xBiyWLqgvIWn8PzLBJSxSyF
+X-Proofpoint-ORIG-GUID: BMm5bRTT8xBiyWLqgvIWn8PzLBJSxSyF
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDA0NyBTYWx0ZWRfX2my++yCwWvXz
+ YcOcINI8VbnX9Y1TfIGf+r3mhH/bnZNWIAMWFPII1HkRwtAmP6mgp05Z7MDMMMIfw7N5Ek0Bseb
+ PG6uez7jsHl0JNaV5X15yZfz2Pk1QAc=
+X-Authority-Analysis: v=2.4 cv=PqoG/AM3 c=1 sm=1 tr=0 ts=6b08220a cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=_Zj8K6houdA7szA-FsQA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=fMFum6Eq_5t3XPXbPEkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-26_03,2026-11-26_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 phishscore=0 malwarescore=0 adultscore=0
- suspectscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
+ phishscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 bulkscore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260047
 
-The Arduino UNO Q (QRB2210) can boot an open firmware chain: TF-A and
-OP-TEE in place of QTEE, no hypervisor, so Linux runs at EL2. These
-two patches are the DT side that this chain needs and that does not
-belong in the base board file.
+Add the CYPD6129 UCSI PD controller (typec@40) on i2c5, along with its
+GPIO86 interrupt line and the PM8150 GPIO10 VBUS-enable control. The PD
+controller chip is part of the SoC/SoM card, so it is added to
+talos-lyra-evk-som.dtsi.
 
-- Patch 1 names the GENI QUP firmware, so geni-se loads it when the
-  boot firmware has not. Where the engines are already programmed, as
-  with QTEE, the drivers do not read the property.
-- Patch 2 adds agatti-el2.dtso, following the existing -el2 overlays:
-  zap shader off, SMMU streams for the ADSP remoteproc and for the
-  WLAN firmware (as kodiak-el2.dtso has it).
+The two USB-C connectors themselves, and the endpoint wiring that
+routes them to usb_1/usb_2's dwc3 controllers and the USB QMP PHY, are
+carrier-board-specific — a different carrier board could wire the same
+SoM differently — so connector@0/connector@1 and the related
+usb_1/usb_1_dwc3_hs/usb_2/usb_2_dwc3_hs/usb_qmpphy_out endpoints are
+added to talos-lyra-evk.dts, extending the som.dtsi's typec@40 node by
+path.
 
-Loading the QUP firmware on this SoC also needs the geni-se fix in [1].
+connector@1 additionally routes its SBU lines through a GPIO-controlled
+SBU mux (onnn,fsusb43l10x), since connector@1's physical Type-C port
+carries SuperSpeed and SBU while connector@0's port is USB-HS-only by
+hardware design. The SBU mux lives on the carrier board, so it is added
+to talos-lyra-evk.dts along with the TLMM GPIO64 VBUS boost enable
+fixed regulator that supplies the USB daughter-card connector's VBUS.
 
-Tested on the Arduino UNO Q with TF-A + OP-TEE, Linux at EL2: I2C, SPI
-and the Bluetooth UART probe, the GPU renders without a zap shader, the
-ADSP starts over PAS with no SMMU faults, and WiFi associates.
+Add orientation-gpios to the typec@40 node so CC orientation can be
+read for both connectors: connector@0 is USB-HS-only, so it gets the
+<0> placeholder, while connector@1 reports orientation via TLMM
+GPIO104. GPIO104 was already used for the carrier board's DP
+hot-plug-detect pin, so move dp_hot_plug_det to GPIO80 to free it up.
 
-Patch 1 was also booted on the stock QTEE + Gunyah chain, with and
-without the property: the same serial engines probe and the same I2C
-devices answer in both cases.
-
-dtbs_check (qrb2210-arduino-imola, qrb2210-arduino-imola-el2,
-qrb2210-rb1) is clean.
-
-[1] https://lore.kernel.org/r/20261114-geni-minicore-v1-1-a825dd549664@oss.qualcomm.com
-
+Signed-off-by: Akash Kumar <akash.kumar@oss.qualcomm.com>
 ---
-Changes in v2:
-- Squashed the WLAN firmware stream patch into the overlay patch
-  (Konrad).
-- Collected Reviewed-by on patch 1 from Konrad.
-- Link to v1: https://lore.kernel.org/r/20261126-agatti-el2-v1-0-4e25fd64f198@oss.qualcomm.com
+ .../boot/dts/qcom/talos-lyra-evk-som.dtsi     |  41 +++++++
+ arch/arm64/boot/dts/qcom/talos-lyra-evk.dts   | 109 +++++++++++++++++-
+ 2 files changed, 145 insertions(+), 5 deletions(-)
 
----
-Igor Opaniuk (2):
-      arm64: dts: qcom: qrb2210-arduino-imola: name the QUP firmware
-      arm64: dts: qcom: agatti: add an EL2 overlay
-
- arch/arm64/boot/dts/qcom/Makefile                  |  4 ++++
- arch/arm64/boot/dts/qcom/agatti-el2.dtso           | 25 ++++++++++++++++++++++
- arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts |  2 ++
- 3 files changed, 31 insertions(+)
----
-base-commit: 9437046953b2fb3bf55b36582450ea0267df82a7
-change-id: 20261126-agatti-el2-f7c039f5c4f6
-
-Best regards,
+diff --git a/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi b/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi
+index 94bf2e73889a..c4a8a79a82a2 100644
+--- a/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi
++++ b/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi
+@@ -31,6 +31,16 @@ xo_board_clk: xo-board-clk {
+ 			#clock-cells = <0>;
+ 		};
+ 	};
++
++	regulator-usb1-vbus {
++		compatible = "regulator-fixed";
++		regulator-name = "USB1_VBUS";
++		gpio = <&pm8150_gpios 10 GPIO_ACTIVE_HIGH>;
++		pinctrl-0 = <&usb1_en>;
++		pinctrl-names = "default";
++		enable-active-high;
++		regulator-always-on;
++	};
+ };
+ 
+ &apps_rsc {
+@@ -195,6 +205,28 @@ nvmem-layout {
+ 			#size-cells = <1>;
+ 		};
+ 	};
++
++	typec@40 {
++		compatible = "cypress,cypd6129";
++		reg = <0x40>;
++		interrupts-extended = <&tlmm 86 IRQ_TYPE_LEVEL_LOW>;
++		pinctrl-0 = <&usb0_intr_state>;
++		pinctrl-names = "default";
++		orientation-gpios = <0>, <&tlmm 104 GPIO_ACTIVE_HIGH>;
++		wakeup-source;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++	};
++};
++
++&pm8150_gpios {
++	usb1_en: usb1-en-state {
++		pins = "gpio10";
++		function = "normal";
++		output-enable;
++		power-source = <0>;
++	};
+ };
+ 
+ &qspi {
+@@ -259,6 +291,15 @@ &sdhc_2 {
+ 	status = "okay";
+ };
+ 
++&tlmm {
++	usb0_intr_state: usb0-intr-state {
++		pins = "gpio86";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-up;
++	};
++};
++
+ &uart0 {
+ 	status = "okay";
+ };
+diff --git a/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts b/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
+index bd9980b9259b..572b1e8c9a8a 100644
+--- a/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
++++ b/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
+@@ -4,6 +4,7 @@
+  */
+ /dts-v1/;
+ 
++#include <dt-bindings/gpio/gpio.h>
+ #include "talos-lyra-evk-som.dtsi"
+ 
+ / {
+@@ -22,6 +23,28 @@ dp0_connector_in: endpoint {
+ 			};
+ 		};
+ 	};
++
++	regulator-vbus-boost-5v {
++		compatible = "regulator-fixed";
++		regulator-name = "vreg_vbus_boost_5v";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		gpio = <&tlmm 64 GPIO_ACTIVE_HIGH>;
++		pinctrl-0 = <&vbus_boost_en>;
++		pinctrl-names = "default";
++		enable-active-high;
++		regulator-always-on;
++	};
++
++	sbu-mux {
++		compatible = "onnn,fsusb43l10x", "gpio-sbu-mux";
++
++		port {
++			sbu_mux_in: endpoint {
++				remote-endpoint = <&ccg_typec_con1_sbu>;
++			};
++		};
++	};
+ };
+ 
+ &i2c5 {
+@@ -52,6 +75,66 @@ expander3: gpio@3c {
+ 		#gpio-cells = <2>;
+ 		gpio-controller;
+ 	};
++
++	typec@40 {
++		connector@0 {
++			compatible = "usb-c-connector";
++			reg = <0>;
++			label = "USB-C";
++			data-role = "dual";
++			power-role = "dual";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					ucsi_ccg_port_0_hs: endpoint {
++						remote-endpoint = <&usb_2_dwc3_hs>;
++					};
++				};
++			};
++		};
++
++		connector@1 {
++			compatible = "usb-c-connector";
++			reg = <1>;
++			label = "USB-C";
++			data-role = "dual";
++			power-role = "dual";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					ucsi_ccg_port_1_hs: endpoint {
++						remote-endpoint = <&usb_1_dwc3_hs>;
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++
++					ccg_typec_con1_ss: endpoint {
++						remote-endpoint = <&usb_qmpphy_out>;
++					};
++				};
++
++				port@2 {
++					reg = <2>;
++
++					ccg_typec_con1_sbu: endpoint {
++						remote-endpoint = <&sbu_mux_in>;
++					};
++				};
++			};
++		};
++	};
+ };
+ 
+ &mdss {
+@@ -92,20 +175,36 @@ tpm@0 {
+ 
+ &tlmm {
+ 	dp_hot_plug_det: dp-hot-plug-det-state {
+-		pins = "gpio104";
++		pins = "gpio80";
+ 		function = "dp_hot";
+ 		bias-disable;
+ 	};
++
++	vbus_boost_en: vbus-boost-en-state {
++		pins = "gpio64";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
+ };
+ 
+ &usb_1 {
+-	dr_mode = "peripheral";
+-
+ 	status = "okay";
+ };
+ 
+-&usb_2 {
+-	dr_mode = "host";
++&usb_1_dwc3_hs {
++	remote-endpoint = <&ucsi_ccg_port_1_hs>;
++};
+ 
++&usb_2 {
+ 	status = "okay";
+ };
++
++/* HS only */
++&usb_2_dwc3_hs {
++	remote-endpoint = <&ucsi_ccg_port_0_hs>;
++};
++
++&usb_qmpphy_out {
++	remote-endpoint = <&ccg_typec_con1_ss>;
++};
 -- 
-Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>
+2.43.0
 
