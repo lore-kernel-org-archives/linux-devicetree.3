@@ -1,70 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795711611;
-	b=3Zi88T7EIDigrKbdWiJxv637G/Ama7s7EghaYOrCjFTDwShQm2LR7266dyeDgQi7cJDY
-	 ZQ5FUySjixuaJOebzOHAYdXCbFO2Ql+HZmm00BQvwZhPSmp6KQsMwA8ePy+2ihQi2Lsau
-	 dqap6hpQLSy4fnM1A8rFgzGN+ZNCkirbDxAKizk7oNttvcxCNNMiBzQJbMDc4pWinKNe/
-	 uWzUEQsqAQiSKrjcdVp9e4PRMkQ06r7hNHLIQP0EF1Io8RuGHtHL12joy8t4v8hzKYgRq
-	 i2+cDFL5Lv3TmP8lxUf1F74Uay8ekkEL1qaoypiME4/X89FBN2Pi/MXdVcswWj7WfEQ==
+	t=1795711718;
+	b=e+e1Ycbmuu1zzKY4CWf9829Ds1bh6oTmCkaHSNTCG5moIRFuN6CIRRrZkKiQBMYWtZ2v
+	 ETjY195gL+QSeG4HnvJqL9kVDNzbsTYyMrzXw4vxCzskVlx3nBPoxwPm1vV8cqUo7mwR2
+	 8n1+AdJNH+mNerfV8nMbLj+YK1pGL7v+dtWdKqoI+ZegtnILA44RTtYl2w4JhNWk29GC1
+	 /5CY1yisyRe/oTlJBfcTR3zmvWaoTFAqD26m9tM1HyjnYWd/T9eIO1+33pRU8DyI0e0hL
+	 eiEEeB2ILqpTeSQOSAetwhXt30cJnz5XrtY/GclrgNtxdFzxEk9d3DHbzz/OfMXwpjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795711611;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=ssl/gQ24zAnvrKn3wfey5FZaIYLB01/ilqM+/OBq/bs=;
-	b=iL4pAL7zoZbyuiR/qOIYC79HiYtbJsar3HRNPz10J2wxHJSBcrw7KhNg7UbeF6WrDpcl
-	 YXofTYDdUCpBI7QVpREdqKfJqvpb/1i3IZb0YZHgKQpVVOMnhaRe7fz7FxpPipeX5sYUz
-	 N9pV5q+Sr2nTFT4uuVOoEQ99q/zf48Yw8vCYdiPE2nNz1I83bpQu2Kq9pivLil2bD8XBY
-	 NmPkvyW2HLQkgrmwqE4Tiuk+mesLtrqNZq0OBQI3Q/ZqX0cNeoEhaIrLrhvsWuYL7CoIm
-	 XqU5TOR7HaxsoOo4FUP9WLt1e0AuWjQfmOuVpuVTgzzHw8zcF0o+6VMH+secxFBN0Sw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795711718;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ZVsq7HzzR584tpf1ZxWh8VZbyO/31x1/Kte9UhSSi5A=;
+	b=x8fxHMVWbAz1qh4Yei2nsntlSvX5SkV7vZOZb+ilefkgTVxZgJBTQ7YEPKZtFauf/G7w
+	 CA58wt36oQawryQmSENv4MNCFjobS2M/t17lDctoA0WQb2VM//INDSZrs6+yP4jHlEZLz
+	 VtFtKGz/4Y0NgOB4uL3GeJLKn00kFw8PkxclbFSqnUO5DX7l0KqZbNXkshvN5ZFLh+hcv
+	 IMpS7WZ6xDRrlrW+YUQDqyi9vqC3S5xQBEkz4yVniySkVG1z6Ch0XYU/CHQ7kbprXKbR2
+	 YzFPQchJPnQ0Ec9AZHq9y4UTTZhH3zUin52/uioFHbx8PleO0jfmifNYGIAVh0NtriA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b="YV/VkjWu";
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=tuxon.dev;
+	spf=pass smtp.mailfrom=tuxon.dev;
+	dkim=pass header.d=tuxon.dev header.i=@tuxon.dev header.a=rsa-sha256 header.s=google header.b=Tpi3UyPb;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A80CE606A326
-	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 16:46:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A80CE606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B50606A31E
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 16:48:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92B50606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=YV/VkjWu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=ssl/
-	gQ24zAnvrKn3wfey5FZaIYLB01/ilqM+/OBq/bs=; b=YV/VkjWuivQRx4JrWSI1
-	9Vn1jU94k6lIKYhilNDU6+3rqqLm/lkDcuMdIQwiNZG6WZKUhZe/Hz/Xo6iI0ekW
-	X50wN/L8r6t2TCGK4y1o+aU/nZrKH/9/KZBS1knGLK1dOkLmNfnQ8X7jFb1OtN53
-	onButIvAZ6VOr6TqE24bVTSqwjLk0pCMkmSTtcj3FvI97kyYy225C+AichiXrO/u
-	fAqDd/jYIQvER+eBcKCKG+RU0wMTgIvUxn8vanbtHevTcO7sH8BNaMvON6oWtjQ2
-	jBNg6WyGbUPFTH7Z7Y2GVUdjka61Ra6cz52K3rcEG7tZV9izmbvT5sT2XcH6Gvw7
-	aA==
-Received: (qmail 1637125 invoked from network); 26 Nov 2026 17:46:45 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 26 Nov 2026 17:46:45 +0100
-X-UD-Smtp-Session: l3s3148p1@Ao5WsDBh8toujnv5
-Date: Thu, 26 Nov 2026 17:46:44 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: khendry@reliablecontrols.com
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/3] clk: renesas: r9a06g032: Add reset controller
-Message-ID: <awhicMkIysHljr04@shikoro>
-References: <20261126-rzn1-miic-resets-v4-0-4f73af81d779@reliablecontrols.com>
- <20261126-rzn1-miic-resets-v4-2-4f73af81d779@reliablecontrols.com>
+	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.a=rsa-sha256 header.s=google header.b=Tpi3UyPb
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-498f5fa5103so4310938f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 08:48:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tuxon.dev; s=google; t=1795711716; x=1796316516; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZVsq7HzzR584tpf1ZxWh8VZbyO/31x1/Kte9UhSSi5A=;
+        b=Tpi3UyPbUEwAbxv2YI8qS6q9I4WYwk9hOYS1KUt0uqR38AocfXhUKn9bDztAP6zGVk
+         DrICgIBQ4IL6V8rxgebQV2Cw/SJsAn3My66XHXVG20DjP6P0WCqcIIq/uD842BvdDNRR
+         qL5HOABwJYkXJgTNOP5FMsk/AwXm/+VXrnSCu94UCMX40qDCFu/PUk71UJ2Em2nMYkTv
+         vfF+czxdeaHPMBR/yEdJBwq4wseagIfJHqJqAQj4xcfl9zvrNmU6ONvX+mtwrzC2PboB
+         GvtcIa/ec/OzirzDUFGcPn/ndoX/0NcnjtZe4koYr+ePazyWjlf5bUvKtkXnLs74jyIM
+         iATQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795711716; x=1796316516;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZVsq7HzzR584tpf1ZxWh8VZbyO/31x1/Kte9UhSSi5A=;
+        b=DaeVYU3n9Hcs2tAFHP+q1dnED0YhhBtWVEhJszmuvDjWXaNjXg9ujqmNjeLEgnk5qf
+         C1l1dADVl+XvHfX+J/rDWfS0WFwLOkWaTU1gDMTFs6NnyHg+gfI7mViU9tpV/De+iRqE
+         ojOHSCwaBkOs8sqcjkJFiQslK/p8jja3V1FbMbOuZfmNOxiQp4DXH29NrLGeWSeZaLqn
+         TXW/A7UP1TzLdRAaq0ZjEH32XVdgAMehhuGOGGommi/aaL/VDyOwBId90wkM3HdI4WEF
+         lc3xXuXD9cdRVD9AK/7lGTsMXyz6EPoLbvRkX4s/ec+1JGmWh6PK9Hx5cMAp3n4Uvkx4
+         H4OA==
+X-Forwarded-Encrypted: i=1; AL+hErH7FAx6g5Aor1y4DE4Ddi1nWWoRFPBA4b9T9BlqqbEYKnVzI3KEFqCBRxKiGTsklKKmMmg5DQCrOChs@vger.kernel.org
+X-Gm-Message-State: APuU4Z90dUAkkDsx5JBaM2Mo2Zuo8jyqifMnmrjfJCiRN1OfGyJNxNjA
+	GtijoUOdxIflb/R6REHaOX3OjwsemXCFXAQ0vjT9aC3ISrpWleEZWhuMLga7wHEifHc=
+X-Gm-Gg: AZFdTZfA9v0qTslS7hGac40bhJwx1rhiwf3XKrSWWNcv1sWlZ6fnzWthIf+UXbLxtdt
+	blwY8jwLFlOA0fnOuD15Pykzkpxnkaj320nMulEKxXoYmywj7E0OxC/p+6ZZoGDwRkvj1aivuhj
+	3vKUxaEVD4V0CogoQZX7UH89M4mEOfIeqs8+hhFQsmOoRnbl+b8vG1wGhY3buMVt6p92f4E4cgM
+	nPm6Es7N+0xcVoq/Rw12rQ4GBDuqdeJ44ZUx98HH/Csk5MaMP9F5Z+ywhqoB/XZoW3EK6WrHvY3
+	y862XoN71oC1/Ks9Pl7Se/j176LXhWnSilXrwyeFbQb22VfDo8niyxtbTIpoGAV+9icyvL9OjB5
+	OkPXUCdcwmevxZmXENUw4hokcYqEM0fsSDlTQa0cZUCea/F529l3JDSLE1pfLtN+YyvLh7mrsm7
+	vwbcIlLs22U17AMl2Hk+YMsxGtsRB4d6o6tYC332oOrtCZ1Zg5W9LaQzuz1G0vYTw6p2xJ1QArc
+	1XygoutLunq3EB9T3JYi03fiy2nrAAs4Nh1Ji/WlFrtXA8pGtlvLESupfEwBe87HmQAFtQEIY5M
+	wkBYbJoMCSiXQftulxvw0ry4+26ItzDY3QWH
+X-Received: by 2002:a5d:5888:0:b0:490:a481:7ac8 with SMTP id ffacd0b85a97d-4abb532ea79mr39988008f8f.29.1795711715830;
+        Thu, 26 Nov 2026 08:48:35 -0800 (PST)
+Received: from [192.168.50.4] ([82.78.167.114])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab658e2d60sm42879947f8f.3.2026.11.26.08.48.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Nov 2026 08:48:35 -0800 (PST)
+Message-ID: <9a269c63-86c1-425e-a892-b37856a26df2@tuxon.dev>
+Date: Thu, 26 Nov 2026 18:48:33 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,55 +92,41 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xmfzo9YHvsZCNSrG"
-Content-Disposition: inline
-In-Reply-To: <20261126-rzn1-miic-resets-v4-2-4f73af81d779@reliablecontrols.com>
-
---xmfzo9YHvsZCNSrG
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Nov 26, 2026 at 08:11:06AM -0800, Kyle Hendry via B4 Relay wrote:
-> From: Kyle Hendry <khendry@reliablecontrols.com>
->=20
-> The rzn1 system controller has two resets that need to be cleared for the
-> mii converter to work. They are not directly associated with any clocks
-> so they need a reset controller to set them.
->=20
-> They are documented in the PWRCTRL_SWITCHCTRL (0x4000C188) register as:
->=20
-> Bit 3: RSTN_CLK25 - Active low Reset for Timestamp signal selection logic
-> Bit 4: RSTN_ETH - Active low Reset for RGMII/RMII Converter (50 MHz).
->=20
-> Add a reset controller and add resets for those bits.
->=20
-> Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
-
-Kudos for adding the comment, too!
-
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/4] can: rcar_canfd: Add Runtime PM support
+To: Geert Uytterhoeven <geert@kernel.org>,
+ Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol
+ <mailhol@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: linux-can@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org,
+ Geert Uytterhoeven <geert+renesas@glider.be>
+References: <cover.1795703576.git.geert+renesas@glider.be>
+ <557fa8a4776e0ee7d6c566b825771075db46b276.1795703576.git.geert+renesas@glider.be>
+Content-Language: en-US
+From: claudiu beznea <claudiu.beznea@tuxon.dev>
+In-Reply-To: <557fa8a4776e0ee7d6c566b825771075db46b276.1795703576.git.geert+renesas@glider.be>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
---xmfzo9YHvsZCNSrG
-Content-Type: application/pgp-signature; name=signature.asc
 
------BEGIN PGP SIGNATURE-----
+On 11/26/26 16:46, Geert Uytterhoeven wrote:
+> From: Geert Uytterhoeven<geert+renesas@glider.be>
+> 
+> On R-Car X5H, the CAN-FD module is part of a power domain.  This means
+> Runtime PM must be used to make sure the domain is powered when needed.
+> The CAN-FD module is part of a Clock Domain on all supported SoCs.
+> Hence remove explicit management of the functional clock, as this is
+> handled automatically by Runtime PM.
+> 
+> Signed-off-by: Geert Uytterhoeven<geert+renesas@glider.be>
+> Reviewed-by: Biju Das<biju.das.jz@bp.renesas.com>
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmsIYnAACgkQFA3kzBSg
-KbYDpQ/+LhlHS62LFJKv8RGRxltBy3PkA2QZE6EnjtFw0TZ2Sm4r3SUQW3WSo2AH
-3DtkIvxmRQvrjwUyqc/CmS17RbOA7RfxxBVquvSNzwxfpBtLHfZrgaGLYMFRUDb0
-Wy1g1VNDwaPXAQemiLoTdPf0tdJkxsasiueiEQitXd10DjnQ4Tzab2RVHZmewQ1q
-Cp7Jc/FbpsVG2YYfpIS8mgjqBoSdLkjRO7mCWa7vzhT1INUv14V25qcbwO9c788e
-E8iJqWZhaLSNsnWrEZQrG1eTjHKW9FTJDo11d1vd41l9Bd5KlRQIdiMEs8Vafn90
-NGetlPQHH8lnldJEt+TLCwak3lehhV5r6851sauXfhDjHLq8/FJFwOl2+VIwjnD/
-MxAvEJJsCbt/IYyjkQZNQxuXUC47L4CjxTSRMgkHDD7W7X0ZtjnMtmM8aPlBiR+n
-cYC2gGwyqcgnT7ZrpGJS0OTRhUhAIWHz3ve74Ef16IbXLlftmEIcbFuPkCHSysVT
-14LnIIM94v2V4L4Q2FtYRV+Tl+MX5M3+RSZHJX0esygsLlyQJN/XgAKcdKJu62jy
-EPLhNVOVqme4u+9xmK0pFiqFS8pHESfylqsX8Fqu6LrGnadqPD59rERzyU5mgvwQ
-+lbMBhM4RC/JHvqusFj5YILKuwViqr33jvkYf2UZrdLShBSvxMo=
-=OzO3
------END PGP SIGNATURE-----
-
---xmfzo9YHvsZCNSrG--
+Reviewed-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Tested-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com> # on RZ/G3S
