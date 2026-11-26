@@ -1,70 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795705513;
-	b=T/xk/flqqAyRZZepMNOe3ABVxHDdkl5D00M/oe6mgHiwlwB0c29MAhSAY4Rnkw7zs0/a
-	 z+Yg83aZZPzN9pyQW0mCsbmX0AA4x5nFe92prwg/xKO4XTLRmA+8WSPaeIP+IzRQnhX/A
-	 8WVub8r/wLz3bPv4XpOmibQYx/LNjtE4BW56pikTMtk8TLKni0mrxayhzTUFT4eoBXRSv
-	 sf7HV1pzw6dHN+scevFByjvE+aCiDc0VXlrhavnaPAbpqqQosFW7YV9tLRoP0PcJDjjb+
-	 /JaPMMY7x7pg08eITeKnsrtb/+dLL9RL0Rv3ASo7xD15bFQz9AtNiB1U7fvidFCTUiw==
+	t=1795705573;
+	b=EFIwF2oK4TMxmhQ5yajJnT8MfT92QiQiUtpFlUHktWfcBE8iXTOreNyIAfXRJUb1GgA2
+	 n7pImym0+Lvb8zz9dT/fN18iUYbc1nJUsW8MWvFAaF7QKUBWIK3DoKLhVVVYbpbhEu3jO
+	 uUymbCqoZHYrW1jrdy2nGozhcgA8MHirH1P3sQBwkIa36Z6KW348pNXRtiTr03UBJ0YQd
+	 9xjoMm3kBiGfe+b9BmMOren2uz2JyxMNjsqXkNMz2NgiJ0y83qkt+MdZDm/ZWKEPeLnFT
+	 eCI9nVBr2UBtbV1DqcCCh04MMrsqLHtjUadRNI1vwcTLGaiIhgtOyqbk1XASl3SSrZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795705513;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=xgw9Cs2alF68ttVVZEfnYrUIUiuSk8K9/fzAeapHAI0=;
-	b=k/VS513WVp0ZyW1NeUpHZrthUpYgtrXDoiwKJ4qXarBAyCq8n4YVbJ3bMDbJ8kiGS8z2
-	 q07EgBzuzHg9dGMsgqeMzFH7NLyHTCS4GBAQnWI90Y1Qkke2QVi+qGRUywGizmFybuKWd
-	 0vXlp04ZVKxm36PWeMKKPsjInCf2R4ygGRuwLf2uBNpcAouaWA4OCbhAAIetgRQobVy83
-	 3Ky24nMn4gI5pU+dv0C6R9FMM7GiQhCKJf2lljSKngn0Pr5+Uxy+VdN04+uMIY9J6IZvH
-	 pR4M82kJT6OpaYQPJDwrqMYXF5hH/fTHqW+t9j7df9mhvloejl14leV9d96fMTBySbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795705573;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ArVfh1wsf+Kth2ceemwq0MhxiQP2TwBL9XnUiqzbYq0=;
+	b=Mt+8VeJ4+Czb+/mj1RYjtCCjU4TaxfuFuyG0i6PYwIPbKS2oJ3GlHUPRLxt8/c+Cjo+d
+	 ORf7NxIWszG3aWnDGzC/941jIETfJurkPORc15Wwj6DLj5oZ2FyASylTEcgz6OHMplS1L
+	 hyggcUBWsfu1VzBC7HQwAdP6tENmaBXuzOyAkxc/Knw5Tpj9yfb28iUQ0oYJ69m80lpku
+	 n1PY38+Qudi2NNy4IPc9RpIDcFwjwdMB2t5sR2pBsB1LkU9O23Ajp/TP4OI4USI09YjIL
+	 aDEeGMZ4Z3Fg9oSuwh79PhxOz9WxH7CsfboEm1ZZhteEadnfkSbVG4YmzgZ1ePusUEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=Q9LTg0t5;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=dZrmxiRN;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98DEB606A686;
-	Thu, 26 Nov 2026 15:05:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98DEB606A686
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFBB7606A321
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 15:06:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFBB7606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=Q9LTg0t5
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=xgw9Cs2alF68ttVVZEfnYrUIUiuSk8K9/fzAeapHAI0=; b=Q9LTg0t5iwzwxgjRUfXVDnEo0J
-	MUIpnGoWGKz4SAnB8COXr7XcVrFzr/3nAygrnbM5+/7izsjYvd5Nwh4Z6HHnPOzNZ/FuAJcFS+b8s
-	uoXOYVuGcF6WjEULHnr+J4Owqm+yQJObnSLJwI4D0U9BcQKTkQZQ7hZa8LDnA6gtywhA=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xWb1t-001b7K-5c; Thu, 26 Nov 2026 16:04:57 +0100
-Date: Thu, 26 Nov 2026 16:04:57 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=dZrmxiRN
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4bb64ef5a14so70788635e9.1
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 07:06:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1795705571; x=1796310371; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ArVfh1wsf+Kth2ceemwq0MhxiQP2TwBL9XnUiqzbYq0=;
+        b=dZrmxiRNELCK7pidOeGv4MJJl/V6zvRCFFnhZ4gc4PHktWahW6j1A81Kjd27oOWOz3
+         WrMIKFApx+hWYq9zbI0oMt1hOPP5UCS1WSE9icu5bhfBrFPpToHOEjj08zNmqm121UqT
+         6M2HkxkmudOobxgqZ+Lf75RFxYp6bn/BDcrbEJMaBeHvGvlpBL4geJawp16opRIkETCJ
+         K+A6SbvI686YrcVn0CkcFEFjQzXPlwQuoJ8DNhHYMQQfekhomo9p1dhMTjyobcpCB4Z0
+         bz+l1RJAJZl+MrIkrU6fwaLsqmtob0rTr77zjvJk73fQ6sG1Di+iRkESMybWgMVPdl/h
+         BieQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795705571; x=1796310371;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ArVfh1wsf+Kth2ceemwq0MhxiQP2TwBL9XnUiqzbYq0=;
+        b=06BPd8yTzKmk60aTCSsxcmly1G4/sLHcHiQ8vhOddtx5LYj/KijozBjWJDoTbNqod8
+         PPxwkb6zT6ZSZxRGNRLoDROC5O/w5YTJ4mIm7Etf/3lYEw0/MkPiJ2QNviU2FkbfFQGn
+         RIa0RII+8HfEObndIyV+YmHEvaQqnLQqYqO1sP1WzSzInt6qLxZ2WdclNgay3bt97ZEm
+         HUasgWWqn4QFk1bBHkD9oQfk0EC3r44qKluaqqv4b8NKZ7zopAiu9Ull7acO13fF1QY8
+         jeQGWufRcLVe7aGNYTXGKpSXfBUTooNaA1S35QCtlvto/0yxNAx2Gg0sKe6Ooe6mnyo0
+         udaA==
+X-Forwarded-Encrypted: i=1; AL+hErHJcyiamAxSGQuIqipnORibOGK6k79pdMfn3ipTB49ucRnD5WLG6EgVcIufDh/QbEEutz1epRJRemmz@vger.kernel.org
+X-Gm-Message-State: APuU4Z8xgAh0d0txwvloxdFsvhOSZoj4kjmpEEZKgFD8BxumXqJHEq5n
+	czDvbOjZJfSjW2/FnEUZwmHM8tcJAMi/QU/2Hs3gaaLV92Rmm3nFugBNrmSEl+VFFLI=
+X-Gm-Gg: AZFdTZckDkng1GsV4wY5HJRcDv3qvt2KFK3rfqjUY5ttksSN76mEfFWWZBCPOgV7VqO
+	iRFrxQHLBo3XSHACWthE21OeTmH9C4i4UTIOZ6X65i9A2gIy4LiVcI3mzXvUNQrH6/vjhWzRebX
+	8LPsZPsQNKUBrLois1AmlcRPOuK1tCNEBomg6tJhhdZ1CQYu343wGwFK7B+5eZrwRGKQoua3Fq8
+	i7OA2XwdAL1j/9zX5IQgs0VXyZdh1q0uweiG6cws5HwRwZQb1aRDt26/KRIQ2j1QtePH0e2ZWn6
+	wckFbI2PMu68OsH/iAWbpwiL/bf3ODRJMAOCc87HFHZeC+36NNSHJ1HxdxkRRXr0C4NPTtZo0gw
+	8YEE4I4k8Uk8vi5N6daYbf7GmjdyVrCiNKz5a2E39EN4zs/z7nxyktg9IpsuQShlvrnbo+faOmI
+	23PSBSIJFOL8vq4hzo0rdvdr4qC78Sg3W52856KkCHo08IMpSHzdPk0kRvsC3xccuYZjhNGox3L
+	N756GLO5DsNkApR/Y02etUtEWHKvTeh+N/JoyBL5mPDzxWyRFTVlErdumcbsgRutRqr4mTguLK4
+	k+w8olLPDq9dl5VuAfL0f+FzlyPJ
+X-Received: by 2002:a05:600c:8287:b0:4a1:6992:f861 with SMTP id 5b1f17b1804b1-4bb887e064dmr436496855e9.1.1795705571098;
+        Thu, 26 Nov 2026 07:06:11 -0800 (PST)
+Received: from localhost ([195.94.148.180])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb9067846esm415663915e9.4.2026.11.26.07.06.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 07:06:10 -0800 (PST)
+From: Andrea della Porta <andrea.porta@suse.com>
+X-Google-Original-From: Andrea della Porta <aporta@suse.de>
+Date: Thu, 26 Nov 2026 16:10:10 +0100
+To: Stefan Wahren <wahrenst@gmx.net>
+Cc: Andrea della Porta <andrea.porta@suse.com>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	dmaengine@vger.kernel.org, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Jerry Ray <jerry.ray@microchip.com>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Bo Mellberg <bo.mellberg@se.com>,
-	Pascal Eberhard <pascal.eberhard@se.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>
-Subject: Re: [PATCH net-next 3/3] net: dsa: lan9303: add LED mode
- configuration
-Message-ID: <4d2a5db3-2829-4383-8f8d-05cf7c94fddc@lunn.ch>
-References: <20261126-lan9303-leds-v1-0-a96731317859@bootlin.com>
- <20261126-lan9303-leds-v1-3-a96731317859@bootlin.com>
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Saenz Julienne <nsaenz@kernel.org>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Phil Elwell <phil@raspberrypi.com>,
+	Dom Cobley <popcornmix@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 06/28] dt-bindings: dma: brcm,bcm2835-dma: Document
+ dma-channel-mask and DREQ flags
+Message-ID: <awhL0itLEAIsK4HR@apocalypse>
+References: <20261123145728.29082-1-andrea.porta@suse.com>
+ <20261123145728.29082-7-andrea.porta@suse.com>
+ <e2d27b2e-db69-4fac-b7f3-28961a9e094c@gmx.net>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,37 +116,105 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261126-lan9303-leds-v1-3-a96731317859@bootlin.com>
+In-Reply-To: <e2d27b2e-db69-4fac-b7f3-28961a9e094c@gmx.net>
 
-On Thu, Nov 26, 2026 at 03:13:45PM +0100, Paul Louvel wrote:
-> The LED function of the LAN9303 and LAN9354 is selected by a single
-> LED_FUN field that applies to all six LED pins of the two external
-> ports.
+Hi Stefan,
+
+On 18:49 Mon 23 Nov     , Stefan Wahren wrote:
+> Hi Andrea,
 > 
-> On some boards the LED straps double as configuration straps for other
-> functions, such as the PHY address or the EEPROM size, so the desired
-> LED mode cannot be strapped and has to be programmed by the driver.
+> Am 23.11.26 um 15:56 schrieb Andrea della Porta:
+> > The available channels are currently described by the vendor specific
+> > brcm,dma-channel-mask property, while the generic dma-channel-mask
+> > property from dma-common.yaml carries exactly the same information.
+> > Allow the generic property and mark the vendor one as deprecated,
+> > requiring at least one of them, so that device trees can provide both
+> > for compatibility with older kernels.
+> > 
+> > The single specifier cell is also not limited to the DREQ number: the
+> > driver interprets some of the upper bits as per-channel flags (AXI
+> > priorities, wide accesses, burst and write-response handling). Document
+> > the meaning of those bits.
+> > 
+> > Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
+> this patch should before the bcm2835-dma patches which modify the dma-cell
+> behavior.
+
+Ack.
+
+> > ---
+> >   .../bindings/dma/brcm,bcm2835-dma.yaml        | 26 ++++++++++++++++---
+> >   1 file changed, 23 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml b/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
+> > index c9b9a5490826..f619e395cf0d 100644
+> > --- a/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
+> > +++ b/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
+> > @@ -37,15 +37,30 @@ properties:
+> >       maxItems: 16
+> >     '#dma-cells':
+> > -    description: The single cell represents the DREQ number.
+> > +    description: |
+> > +      The single cell contains the DREQ number in bits 0-4, optionally
+> > +      combined with the following per-channel flags:
+> > +        bits 16-19: AXI priority
+> > +        bits 20-23: AXI panic priority
+> > +        bit 24: use wide (128-bit) source reads
+> > +        bit 25: use wide (128-bit) destination writes
+> > +        bit 27: do not wait for AXI write responses
+> > +        bit 28: wait for outstanding writes before signalling completion
+> > +        bit 29: do not pause the channel when the debug signal is asserted
+> > +        bit 30: use multi-beat bursts
+> No strong opinion, but mixing DREQ number with per-channel flags is ugly
+
+I agree it isn't pretty, but it is the encoding the downstream DTBs have been
+using for years. Switching to #dma-cells = <2> (or introducing new exotic properties)
+would mean supporting both formats in the driver: I'm trying to play nice here in
+order to not break compatibility with downstream DTBs, which I think should be wise.
+The header I'll add in v4 with the definitions for these flags at least makes the
+device trees readable.
+
+> >       const: 1
+> > +  dma-channel-mask:
+> > +    maxItems: 1
+> > +
+> I think, the dma-channel-mask stuff should be a separate change.
+
+Ack.
+
+Regards,
+Andrea
+
 > 
-> The LED subsystem is not used here: it models each LED independently,
-> while this hardware has one function field for all LEDs.
-
-Ah. This should of been in the cover letter...
-
-[Goes and looks at the data sheet]
-
-https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/00002308A.pdf
-
-So you have the choice of using the pin as a GPIO. So you can
-implement pure on/off. That gives you the minimum you need for
-/sys/class/leds.
-
-TABLE 12-1: LED OPERATION AS A FUNCTION OF LED_FUN[1:0]
-
-The functions are rather scattered all over the place, but i don't see
-a blocker to supporting hardware offload. It will be messy, yes, but
-possible.
-
-We have been pushing back on vendor properties for LEDs for a number
-of years, so i don't really want to add one now.
-
-   Andrew
+> Best regards
+> >     brcm,dma-channel-mask:
+> >       $ref: /schemas/types.yaml#/definitions/uint32
+> > +    deprecated: true
+> >       description:
+> >         Bitmask of available DMA channels in ascending order that are
+> >         not reserved by firmware and are available to the
+> >         kernel. i.e. first channel corresponds to LSB.
+> > +      Use the generic dma-channel-mask property instead.
+> >   unevaluatedProperties: false
+> > @@ -54,7 +69,12 @@ required:
+> >     - reg
+> >     - interrupts
+> >     - "#dma-cells"
+> > -  - brcm,dma-channel-mask
+> > +
+> > +anyOf:
+> > +  - required:
+> > +      - dma-channel-mask
+> > +  - required:
+> > +      - brcm,dma-channel-mask
+> >   examples:
+> >     - |
+> > @@ -96,7 +116,7 @@ examples:
+> >                           "dma14",
+> >                           "dma-shared-all";
+> >           #dma-cells = <1>;
+> > -        brcm,dma-channel-mask = <0x7f35>;
+> > +        dma-channel-mask = <0x7f35>;
+> >       };
+> >   ...
+> 
