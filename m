@@ -1,97 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795675143;
-	b=z9jdGpGJoPBa06KI6bT+n9BuPSmv/hp+Nv3yjgXSEt0DzR40UUMSVxv8k/JHXw7kyxUq
-	 oeQE4f/aN6qyJNUJx313fn1foBbTtVSFYFTVDXl/oqmUyyfZC724vY1v/zkJ7T3eBkvnj
-	 CopF7LLUDRynL27I6fCgYjylp+vVmKOd8n9xWPVZkLuOdlb7MYJHYBoNBZg8Wv67zItD7
-	 lV8k/2B7lgKcAboW4ymNQajRxVxb4L+8VrU7lxAHqZbkSEKf8UoMufar5q1bgdIcyP3TL
-	 scF+LVjo9oTxQhmcGqQk2eVojy9iByGpJKjrazjcZh+HwUw3beW4JpGzTUNQ/Z5kOKw==
+	t=1795675232;
+	b=g5jKDDaqllo4AlFuaxq/4l6+mwk6UqYuBFOTlikv9xuizXrsKM3dG5JHJZODXntyQnF7
+	 22ImnZxouNYO7nxfVMk9PAgpYxx5EFnnsu9IxquB5zM4Unwch7bri3v8Kp3epazwYFZIO
+	 qHsMJihS13ofDtU02w+CkdAU8kimTGCJDMGNPVCpCGKA5Ft4JkGQZnTvWCsR4OoR+t0lc
+	 UJzN2Z0o4SWFwOBPlOFj/r1NrhtYmr6O7bd0b1CxMsM8WPN8agf93Zku3nAVOJ7elaAjG
+	 /ZwkuLp0OIupmrsFHofMO6N5UiYCX3EEK1f27vW05EFHMJxRkjY3vxlFKIrumNLEk2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795675143;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=b4ne9ThXtt69HR6jnoMjn534RR6i78BAndXqgjI1v44=;
-	b=IKWCdwK4umptNyN6woqhu6ld5/ezN3fPgWNdDb10kdDzYN6oeHSO4cMUQIVImUmZzJj3
-	 rcZh0GOSjHfX5PZiNM+6JRnMSZFBPnlmRjSJQ99WLQ42GVTkQZuc658pB1KViTqMQCRLq
-	 DSCqv6GWwcGsw5RgKVHtGpP2GOm3fzyiwwnJ/o58NHbYg/G78hCxmLYPNND8W8cOFC33Q
-	 0ci+tR7v8udKZY8rXA6HDJX4UGj4e0htpz6afgej+V+TeykKGk3CMnRuPBv9yI3EAknj9
-	 esz2uN5/scV8dfReCIs/NeQAcXXrJffQ0RpHH2Nmw2vIzLkvUkEkPeZdMocrfi5uYiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795675232;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=blq4xNLREr8k88dpzUX5hBq/oGQ1KO/MNO42Ak7DyLo=;
+	b=Nq2UIMZ6i4VTSUCBK715J/sYgbBACw4LoBdbSa+nqxQPofvwwqcHu3u+aImwIU/6whc2
+	 avVZLGMiYsx8AkEt8bLxKF3bLouxG59TUqzCJvW8U7gPbDmhuz0+uwjDoBAsVGR8WkVQE
+	 XMmE3K6wTnt9/82LLuMevQc3CDU3HD3YqJEhHL/o0BkDh9fUfzmtpWZ3ciSb0x45wLRrh
+	 6vY3n3cs4ZKwV2XUd2YG+Kernb6Q8gaLa6BlkqNg35D2GvZrWqzjFZAiaxN5Ihz+gBpj3
+	 mdcFc21W66tvIpuuyqBeoJs6lAMYkDkRd90a++/Bahj/xqsAYD5Xj+H0srwCuAVJgJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=d-silva.org;
-	spf=pass smtp.mailfrom=d-silva.org;
-	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=TErgIb5q;
-	arc=none smtp.remote-ip=119.15.109.137
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dVwHVfxk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 321BD606A31E;
-	Thu, 26 Nov 2026 06:39:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 321BD606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1CED606A31C
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 06:40:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=TErgIb5q
-Received: from hawking.lan (ntp.lan [10.0.1.1])
-	by www.nmnhosting.com (Postfix) with ESMTPSA id 87AC4403EF;
-	Thu, 26 Nov 2026 17:38:50 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1795675130;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=b4ne9ThXtt69HR6jnoMjn534RR6i78BAndXqgjI1v44=;
-	b=TErgIb5qsIr4OV+W5Ma7ioOeWnaMFhSpCd4MzCnP038vthBJlHi2praUjyZZDC1cWbu9aG
-	TztwVABXzFWDIL1+33mia2y/spQxUZ8CYV+/b2vzzMw49EnyShHNTTpv9gOpzevC7U2djl
-	fLKaYMOQCUFMly6QnlsVO7jhmIcTS+HuMK6MZlzOUU4bbGurEOE4jErv0dn2EEXhXr8sAx
-	Afm/DOoGoUD5H9O96eIvAzbH6IY4LuDr7Men/2yUyQD1CgaTxABXH1PXaaE9Gzl8HUuFz2
-	aBHtCkTCRg3n8VSI/AQhmwnsYjEUV4s3b8b0VJvbtYpw4lKerdgeLQj5876AWQ==
-Message-ID: <45cc88379ea6cce9ca77b513c53b9e54677fac20.camel@d-silva.org>
-Subject: Re: [PATCH 0/5] net: stmmac: dwmac-sun55i: Add Allwinner A733
- GMAC210 support
-From: Alastair D'Silva <alastair@d-silva.org>
-To: Junhui Liu <junhui.liu@pigmoral.tech>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S . Miller"	 <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski	 <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski	
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai	
- <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel
- Holland	 <samuel@sholland.org>, Maxime Chevallier
- <maxime.chevallier@bootlin.com>,  Maxime Ripard <mripard@kernel.org>,
- Jerome Brunet <jbrunet@baylibre.com>
-Date: Thu, 26 Nov 2026 17:38:50 +1100
-In-Reply-To: <DN4XLH7YJ13T.3O62DYGNJ67FQ@pigmoral.tech>
-References: <20261125130613.4191841-1-alastair@d-silva.org>
-	 <DN4XLH7YJ13T.3O62DYGNJ67FQ@pigmoral.tech>
-Autocrypt: addr=alastair@d-silva.org; prefer-encrypt=mutual;
- keydata=mQINBGactvoBEADBFM2HqfQUUM4j40ZQPyYzmnM8S6zrycO0ipDDPMs7nZMzyzGzOdqfS
- VB/tuYvZOOKVWzJuWJ5aT/YyHx54r3L+D5hTkEG0sXPVJky3yTS9sbHEMSLBHb8TVVuhPVPuieV4g
- Nkqg5POMTidk8xAw50WpV++tUlewXVSciehnuCQPXhXMP7FcCh4uO8LdN7E8m7ir1LafKTFfoWPah
- KVT8NGG9r+ucrFcN5F+VnHxTDaI68yRPkNdtUWmp22wIX1KwDCtKFrndYO4p5Hv2hlDKomsuIIHHn
- muQGRwuh0xpf0nVJNF8ETZHMzxQLfo3e/HvxBFOTkwY9w7CuuQFZchbhS0I3PfmGT0+jiNcdfqjDC
- fPPB5uhy+DkR6wO72vuwFYUrpU2mdliDSdKEtWBHulnXMJjpBOXetfIwhI8G2dTVg59lN5i9DvJZc
- 7y1Sp+qfZQ4P9qpYZyQEKR4GNDOdnm6F2LW2cZkcyAU/Ii765zdDMTQMIzZNSxT/FcDd0K1voTNRl
- QHbQw+kmIMhzSv2JefcC9oNbE0XYzcBDNP5T3O/4itOQ90GCKQEPAbIPeBjlQif7kkyvo/H6yv4s9
- duuK7zbJD9AID/+KGLkpU3p68VDB/C2ZSb9rQz3p1CJNSfsX/CPk7sPqA7RKZ4a2B0hSJ2pJCncNZ
- KXtMlkkm/FmewARAQABtCdBbGFzdGFpciBEJ1NpbHZhIDxhbGFzdGFpckBkLXNpbHZhLm9yZz6JAl
- EEEwEKADsWIQTQGemDFwqYyU/dBWv75AdnjVo60gUCZpy2+gIbAwULCQgHAgIiAgYVCgkICwIEFgI
- DAQIeBwIXgAAKCRD75AdnjVo60qHZEACJnLfpS71Hk8bX0CLCNJ5wgqdZD3pBHEdbv9Ux9kRlZp4a
- ZFwlg9ltwBjl2dZP3PLtD9xQdsdYKVippKd5a7ZZC2y81oDaHjeC9LnPYn8+ce3mGE/+gRyoNfToY
- N06DeUNJKSlZ9t11UIqZCgfp12u16/Yrigy8C4ihEeHXlLhNX6JkeJR5gsHXJnC7vSuMZY+Qz2R72
- ZidWg+cd2WDMGop5sbTvc+55q94A7vTMlWzaix5HdbEUA3sd2U0dMBju5QodRGGhDQMcCu64TydRD
- MtMzzOk9ThJ036ze3HASWGOppyQmaw58k+XNzbHlr9Sc1LsFUNF7zpWXac2rzlywbyRAdFIT/TC76
- hy9zOkwIo2nwA/tdIwLx1j0UZPpAMQmcDUvJqZh6sE+fv6HN0yMPr+sSYJmriMt8Z6leCEHQXOHVI
- SI5z5FvV3coMmHYRq6aXpfs/8SLiYgkV3B0HE/E18Y3j1OkeLYoqIH1VfzQZeCSL/S77NYvk60/MV
- 1HFSyqLdUR3uWZI4uZzoEcMoB0GX33uCTp2Ntc00+wSntwekCUQLCMLUb7dZrbpVuobHoWWtkiD2I
- uE5kAiaVwwwzM0BUwiM6VzVoKbeECz93rdsNtwoDqM0NtzoISC46H/BKVQ9mRNXDO4ThEBpJ4H2Tn
- mPNRYYcR0u2mNy1EJII04w==
-Content-Type: text/plain; charset="UTF-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dVwHVfxk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 114551F000D2;
+	Thu, 26 Nov 2026 06:40:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795675232;
+	bh=blq4xNLREr8k88dpzUX5hBq/oGQ1KO/MNO42Ak7DyLo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dVwHVfxkPblGWq/fxQgHF8+ok/jj2G2xA+15RX/eShDo2G2xNJLBNJ6eHEl5QOMkC
+	 olUk2ljeguMxpRElddLtA504vuUD5HFp8Evhrx/+6cHXpmjnwTi5uOzXJlxrE7jm3j
+	 9YyKVQCcclZMDCIFncqrAokOEYivQv9sXRtgWyVVpY4qSLPka6tenUJdTNAjfFUPt8
+	 egWjtO2abHVKCg/lV9+/K41nKyFpigd6PWd7act3ZDhR0ScyrbF+O1d0zCj6BEERIA
+	 qLELg/nF42zblksyvzcQdHtD3gockxG92qtLaMX0yiQgV5slYiwOO7vr57UJ6wO5FG
+	 2tq83P8KDUb4A==
+Message-ID: <sashiko-outbox-234874@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 05/21] drm/msm/dcp: Add HFI panel definitions
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261126-jshekhar-v3-dcp-v3-5-f1e9d7505039@oss.qualcomm.com>
+References: <20261126-jshekhar-v3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com>
+ <20261126-jshekhar-v3-dcp-v3-5-f1e9d7505039@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+Date: Thu, 26 Nov 2026 06:40:31 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -100,34 +59,70 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] drm/msm/dcp: decimal values prefixed with 0x in
+  hfi_panel_dcs_command_type
+--
 
-On Thu, 2026-11-26 at 14:33 +0800, Junhui Liu wrote:
-> Hi Alastair,
->=20
-> On Wed Nov 25, 2026 at 9:06 PM CST, Alastair D'Silva wrote:
-> > This series enables Gigabit Ethernet (GMAC0) on the Allwinner A733 SoC
-> > and the Xunlong Orange Pi 4 Pro board.
-> >=20
-> > The goal is working 1000BASE-T RGMII Ethernet with mainline drivers and
-> > bindings. Tested on the Orange Pi 4 Pro with a YT8531 PHY (DHCP, ping,
-> > and iperf3 at 1Gbps/Full).
->=20
-<snip>
-> There is already a series [1] posted adding A733 GMAC210 support.
-> Did you check that?
->=20
-> I think it would be better to add Ethernet support for Orange Pi 4 Pro
-> based on that series.
->=20
-> [1] https://lore.kernel.org/all/20260923-allwinner-a733-gmac-support-v3-0=
--
-> 15735155a789@baylibre.com/
+commit d279d718168d7206eea3327b3e453bdfb0781ec8
+Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 
-Ah, I completely missed that! I'll test & review it.
+drm/msm/dcp: Add HFI panel definitions
 
-Cheers,
+This commit adds HFI panel command IDs, property identifiers, and panel
+configuration structures for DSI panel initialization and DCS transfers
+through DCP firmware.
+
+> diff --git a/drivers/gpu/drm/msm/dcp/hfi/hfi_defs_panel.h b/drivers/gpu/d=
+rm/msm/dcp/hfi/hfi_defs_panel.h
+> new file mode 100644
+> index 0000000000000..a38d778898b2d
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/dcp/hfi/hfi_defs_panel.h
+[ ... ]
+> +enum hfi_panel_dcs_command_type {
+> +	HFI_DCS_CMD_PRE_ON                      =3D 0x00000000,
+> +	HFI_DCS_CMD_ON                          =3D 0x00000001,
+> +	HFI_DCS_CMD_VIDEO_ON                    =3D 0x00000002,
+> +	HFI_DCS_CMD_COMMAND_ON                  =3D 0x00000003,
+> +	HFI_DCS_CMD_POST_PANEL_ON               =3D 0x00000004,
+> +	HFI_DCS_CMD_PRE_OFF                     =3D 0x00000005,
+> +	HFI_DCS_CMD_OFF                         =3D 0x00000006,
+> +	HFI_DCS_CMD_POST_OFF                    =3D 0x00000007,
+> +	HFI_DCS_CMD_PRE_RES_SWITCH              =3D 0x00000008,
+> +	HFI_DCS_CMD_RES_SWITCH                  =3D 0x0000009,
+> +	HFI_DCS_CMD_POST_RES_SWITCH             =3D 0x00000010,
+> +	HFI_DCS_CMD_VIDEO_MODE_SWITCH_INS       =3D 0x00000011,
+> +	HFI_DCS_CMD_VIDEO_MODE_SWITCH_OUTS      =3D 0x00000012,
+> +	HFI_DCS_CMD_COMMAND_MODE_SWITCH_INS     =3D 0x00000013,
+> +	HFI_DCS_CMD_COMMAND_MODE_SWITCH_OUTS    =3D 0x00000014,
+> +	HFI_DCS_CMD_PANEL_STATUS                =3D 0x00000015,
+> +	HFI_DCS_CMD_LP1                         =3D 0x00000016,
+> +	HFI_DCS_CMD_LP2                         =3D 0x00000017,
+> +	HFI_DCS_CMD_NOLP                        =3D 0x00000018,
+> +	HFI_DCS_CMD_PPS                         =3D 0x00000019,
+> +	HFI_DCS_CMD_ROI                         =3D 0x00000020,
+> +	HFI_DCS_CMD_TIMING_SWITCH               =3D 0x00000021,
+> +	HFI_DCS_CMD_POST_MODE_SWITCH_ON         =3D 0x00000022,
+> +	HFI_DCS_CMD_QSYNC_ONS                   =3D 0x00000023,
+> +	HFI_DCS_CMD_QSYNC_OFFS                  =3D 0x00000024,
+> +	HFI_DCS_CMD_MAX                         =3D 0x00000025
+> +};
+
+[Severity: Medium]
+Were the decimal values 9 through 25 in enum hfi_panel_dcs_command_type
+prefixed with 0x000000 by mistake?
+
+This skips 0x0a..0x0f and 0x1a..0x1f, shifting every command ID from
+HFI_DCS_CMD_POST_RES_SWITCH onward and setting HFI_DCS_CMD_MAX to 0x25
+(37) instead of 0x19 (25).  Beyond sending wrong command IDs, sizing a
+HFI_PROPERTY_PANEL_DCS_CMD_INFO array of struct
+hfi_panel_dcs_cmd_buffer_info (8 u32 words each) by HFI_DCS_CMD_MAX would
+produce 296 u32 words, overflowing the 8-bit word-count field in
+HFI_PACK_KEY().
 
 --=20
-Alastair D'Silva
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-jshekhar-v=
+3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com?part=3D5
