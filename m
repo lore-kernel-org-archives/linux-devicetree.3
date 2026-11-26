@@ -1,56 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795733940;
-	b=EAHvuvK5oREVkfCP02XDffFphJuQZ+oBQwPJ1n5xQCbqy06iG6hClXAsptkE3crzseM+
-	 9QsduK4Zo7sxDF3IzuSz9/zXvdLWLzWm2Cf5wjCfcgpKgdyE8K+JpB6jLVBQSTvyYQhaS
-	 VSOcP/R2zZHiRsHz4AmBa5U0izbT6N5kBnakejlXBZgTjqGS5SBs86v1B1V2PFkt0Z+Ss
-	 jpeCYU/rWxvnMV05ivTcWWryi6h5Z7PYdDRR+t1fmNsW1NsvsLlf2TyclHawg/pFwjjIw
-	 Of3j5WRmU7gKp03HpjcbhmkjdfQiSrhF05RPsfxBjQi8K+9gTq0ErU7JqRY6aPSAKmA==
+	t=1795734994;
+	b=Uri8jrsszsszonuJ+E/RnqlrN2SoRkIEgPrAVEc2JHuWBDQ/XJsCoXsw5O8BeNklZ0r4
+	 qKbXbzWXXNqFzGpFOPaOkcj6lVpYsQcaQvIZ2xCECLY8xbTkx/87c4nXS1elo46bztqk1
+	 F7hAKqh0bvBKVQ8uKMHamWQWmS/2+inVY/dLxch8Vu+QHK+ME/udWAQlUbOLw+a8ckkwL
+	 BeuQRmXwE2Wfu/rmY/t7wNjKOeg2+GMui2nuqtN2ZsfIUbJ2AZdbk6YgAb/NL8bxuH67V
+	 cj4X9JxgUEMOlzBikFcM2SUDkKpmsr8ohwrWzSrLYvIavELQpJydr1Nqul4X3ecJpVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795733940;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=eQ3XZgcfne08OZRayaFimVT27JBgjtpxLB8nQ0J/qqM=;
-	b=JgZM87VEt3nhzzYVSTZ+KZB34eU45Jd1eKMHAtcN6zFf30zSzb9Yp+Yh3rXytjVgVbfN
-	 mHI4JitDpcX5P4fJdqUDMMkGDvo36bwo65174P8tV6gJ3aOxll4TKZpzXyz+Xoo6iCRsq
-	 DlSu2UGw4wNZhbSHph0SlwMBE6DVxlJYALCAWWlABJ3lIGGimIcTuViiD2Tm9C1rRSbCF
-	 fgcs7+8XrMRtOOFuwEBhWNGR7ta4s8W8ZJYEk++khw3YiBQv8kSO2pWTkzsyW8W14u1SB
-	 G/s0yNI7Dc3KU3vcslZay9bRu+e5eJZmDc/ejs905wIAUIPzQgvGZDSae4JnSeH7I6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795734994;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=WuZ27z0xovqUdABOavKvYadEvNB5Oq4EByhTvKg8Q7A=;
+	b=gPNUdRE3rAKsucuZtYQNdaQFdvr+MVfp9kBlexLUVEb/p7lqRN0Q0FyOd4Zg96Wc69mF
+	 r7FdlpVUipk5G0sqMLmgI8R46zJCvnCVXS9SZDsBJwJzTxPTU+6/TWIb1z+Cr8Mt/3FOj
+	 pvt49RrVkN5AfyzfXWaUMsK5GaLPeBTeZkwJAoIStuHfuh8vd9GDjDhtczOvqVIImmcyN
+	 K570P56X6VzdGopfRYyyA5YWZqh1got6A2utwWWjTRkNwGwmf+we4AzXgIci44s+gG/PA
+	 tnUzSXa43b2b3KiGgGBhVYksXsY1utwtzb95wx2mhS6t2nVX9n3vKijizXhuQaLpUmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TgXkPu9A;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D2B606A321;
-	Thu, 26 Nov 2026 22:58:59 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ouwWjCaY;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 906C6606A321;
+	Thu, 26 Nov 2026 23:16:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 906C6606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TgXkPu9A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F4991F00893;
-	Thu, 26 Nov 2026 22:58:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795733939;
-	bh=eQ3XZgcfne08OZRayaFimVT27JBgjtpxLB8nQ0J/qqM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=TgXkPu9AB3r6g0hC4oWCUEQjM3xgTMNLEA6Q2nz1IdeklKZ7CXC5gfHgAP5F6sTVM
-	 boKQgYnLDB+DrE6DLUc1M3vKllpolDebR19FixggIj2nuS8SVlHQ8TMv3tAywv2ilz
-	 jexa3FYTPbvjfqA1h3hzF3l6a1aQjeW8FuMXjMoNQ1ltQZ96SZ/y4Bd1mhad6s007w
-	 x+eh/jdKxvUpxwwjRClXJ4IjMZibSGDZV7852C8z8NnPdR7duGcY2nXAiG+HMWpK9U
-	 kBIU50uqu9TLLkDNWtDDGVg9ZHco9SDXMLcEGwRZArVyC1eaQ47o02DqGIGbIxX/39
-	 PpCwh4sdlVU/A==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Stephan Gerhold <stephan@gerhold.net>, 
- Gerard Marull-Paretas <gerard@teslabs.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261122093419.72135-1-gerard@teslabs.com>
-References: <20261122093419.72135-1-gerard@teslabs.com>
-Subject: Re: [PATCH] ASoC: dt-bindings: awinic,aw8738: Add AW8155
-Message-Id: <179572344828.838304.1477789304494424188.b4-ty@b4>
-Date: Thu, 26 Nov 2026 20:04:08 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ouwWjCaY
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 16FE01A2D;
+	Thu, 26 Nov 2026 15:16:28 -0800 (PST)
+Received: from [10.43.3.73] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DDB783F632;
+	Thu, 26 Nov 2026 15:16:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795734990; bh=CYKtMaEtkCcjimtyMBfEwa8SM8OpN01EJ3Gl7DRXMis=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ouwWjCaYfGWDpbcqfFTeIwlm3DfC6T694qEKiNs8bdsaHqD4MbGy6MvdDm7UNCO3I
+	 NU15zQok5gZ45ugb2Qv4Ii6FofEOxC9hdpbkUk3aPSp+YkgX+t2hhkp8h3r8giZyPf
+	 l7OxqwwcfFo4ZI85tbV5ac0aIE0CYonlKtE7rQzg=
+Message-ID: <b47222b9-4362-441a-a885-703aa8d3dd6a@arm.com>
+Date: Thu, 26 Nov 2026 23:16:24 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,46 +53,95 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/5] dt-bindings: arm: sunxi: document Radxa Cubie A7A,
+ A7S and A7Z
+To: Enzo Adriano <enzo.adriano.code@gmail.com>, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org,
+ jernej.skrabec@gmail.com, samuel@sholland.org
+Cc: Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Junhui Liu <junhui.liu@pigmoral.tech>,
+ Jerome Brunet <jbrunet@baylibre.com>, Pablo Mazzini <pmazzini@gmail.com>,
+ Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
+ Alexander Sverdlin <alex@sverdlin.org>, Jun Yan <jerrysteve1101@gmail.com>,
+ Lukas Schmid <lukas.schmid@netcube.li>,
+ Cristian Filipescu <filipescu.cristian@gmail.com>,
+ Norman Herms <dockseed@proton.me>
+References: <20261126-a733-cubie-a7s-dt-v6-0@gmail.com>
+ <20261126-a733-cubie-a7s-dt-v6-1@gmail.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20261126-a733-cubie-a7s-dt-v6-1@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1115; i=broonie@kernel.org;
- h=from:subject:message-id; bh=dN1XoFfvDhknEOK32ZaxBQfLA9V+Mi3UN3do4aJB6C8=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI5dm7wCu02Feo+btBhLnL7Uqjr/m8LPn5lEMjVfSr4Z
- tLRL7ctOkpZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjARIVeGf3rlr2LUrizbsHV5
- Ucfy8KPuzbEuC5t3XVs8J1fn/fsLP4sZ/mceaWiRun7Ow06C49qssn85p8K0ue7u4pQNn5Cfw+T
- 4lBUA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Sun, 22 Nov 2026 10:34:19 +0100, Gerard Marull-Paretas wrote:
-> ASoC: dt-bindings: awinic,aw8738: Add AW8155
+Hi,
 
-Applied to
+On 11/26/26 21:35, Enzo Adriano wrote:
+> Document the Radxa Cubie A7A, A7S and A7Z with their Allwinner A733
+> SoC compatible.
+ > The initial device trees for all three boards are> ready to use these 
+entries.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
+Not sure what this sentence is supposed to mean. Please look at other 
+commit messages for that file to see what should be in here.
 
-Thanks!
+> Radxa's Linux 5.15 A7A DTS already uses the same compatible pair.
 
-[1/1] ASoC: dt-bindings: awinic,aw8738: Add AW8155
-      https://git.kernel.org/broonie/sound/c/f3ea554859ba
+That's irrelevant, please drop.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+> Link: https://github.com/radxa/allwinner-device/blob/6d911d1582dcccdb5a4c38be8d3c1ee851019795/configs/cubie_a7a/linux-5.15/board.dts#L5-L9
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Please no links to dodgy vendor patches.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+> Link: https://lore.kernel.org/r/20261111134919.90264-2-vinicius.eduardo.pedrosa@gmail.com
+> Co-developed-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+> Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+> Signed-off-by: Enzo Adriano <enzo.adriano.code@gmail.com>
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+The patch itself looks fine, thanks for putting them all together.
+With the commit message fixed:
 
-Thanks,
-Mark
+Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+
+Cheers,
+Andre
+
+> ---
+> Changes since v5:
+> - Fold in the A7Z compatible from Vinicius's binding patch.
+> - Drop Alexander's Reviewed-by, which covered the A7S entry alone.
+>    Krzysztof acked the A7S and A7Z entries separately. Leave the Acked-by
+>    off the combined patch since it also includes the A7A entry.
+> 
+>   Documentation/devicetree/bindings/arm/sunxi.yaml | 15 +++++++++++++++
+>   1 file changed, 15 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/sunxi.yaml b/Documentation/devicetree/bindings/arm/sunxi.yaml
+> index 7da84e2de748..7a7f96f21f57 100644
+> --- a/Documentation/devicetree/bindings/arm/sunxi.yaml
+> +++ b/Documentation/devicetree/bindings/arm/sunxi.yaml
+> @@ -857,6 +857,21 @@ properties:
+>             - const: radxa,cubie-a5e
+>             - const: allwinner,sun55i-a527
+>   
+> +      - description: Radxa Cubie A7A
+> +        items:
+> +          - const: radxa,cubie-a7a
+> +          - const: allwinner,sun60i-a733
+> +
+> +      - description: Radxa Cubie A7S
+> +        items:
+> +          - const: radxa,cubie-a7s
+> +          - const: allwinner,sun60i-a733
+> +
+> +      - description: Radxa Cubie A7Z
+> +        items:
+> +          - const: radxa,cubie-a7z
+> +          - const: allwinner,sun60i-a733
+> +
+>         - description: Remix Mini PC
+>           items:
+>             - const: jide,remix-mini-pc
 
