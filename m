@@ -1,79 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795684725;
-	b=w7ngTKQKcUi5PByLs0VpEV495FksyQUmoS9CY0+oOPb9cCk852WagPTBS0K5nVu1y/G8
-	 M20nqXLEdNW7wk/Awwby6xcKLAWvJ7hAS+3/2+QqN/QW3QPYy4oIn81hFJaLJTXFgcPVn
-	 la11DmW1rBRPqfbApJF2yrtotScVXJ3Gofnp1c2gR7xF8Hq7zQ2PRps5d55ZEYUZQfl5j
-	 9STci27PKf3NM3FwdNu4mhEIn3N1ywtWnQZSnpFjBrLGEREW25GDxEKPy7K7QEkGeE2/r
-	 K8jIArKef7PwBMXImJd5j6H5xQ1L7RxvBk6YEEask9rN+sBdB3cgtpYUzOruLPEiZYg==
+	t=1795684758;
+	b=zmT4Fzx2en1Uevd2yuE7qVIi3UiegFsrStkiV4yNxJup63LiJ7SPv9NzLWPlSA6PT88W
+	 69CLnRVHYL3JqBkFkeiO5TC0jk4Hb85+M9bVn4VTfsMWN57pyb9fU1lt2fCHtsSaAJI9z
+	 38QNJXqzQCCu7sS2wbC/LIcCjSsHyrdxtJEYsLats9mV1835QEm+no9iID1pNVOXd7Ss4
+	 s9y5LA6L9mtSiv99KKeW4xd8DfoL5iE5dcaq+qlVFd4wwz3YA1312c9gc8m3FSAwfTKP8
+	 BfUsglsLkkh73+LWPtPTK6VAi6KiIpBk3WJiFtu58OZ7YitslOomA1ikWdWQE6+nURg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795684725;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type;
-	bh=Dml2oES2r99mzv0WDYILS7xwOmKhPiDAhWdrvCj8oJQ=;
-	b=pm7W0QCvOgo6A1bv3TAGWlVVQM+F/6Z4yx4d0Y4DmdK8koxCnd6ubzxpISbMiaxXevCo
-	 nyZ1uTNCrZuDxemYrTgYgJQ9mFys13v1RdkwM/AbDHJNhdSex/gWgQaWOfyhDdq9OCugn
-	 tk67KVF+cldaskegU/MpSyWAxBZ+uGKN4R9ZxL/8U+XPCsRl6vd5hJ1Gz0nGY2nelrPFo
-	 SkErjw8myDCSC2zMvq3rBiJgw9TDudazf8zJLZ6GFH2GO0itfFzSCppxBc35cbzoejrcV
-	 SiYFhLFSmixHkt3lLjEVa6U80TApA9jeWYi547u1puPBkEmBXTYR/9tKG3w0bmO5oSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795684758;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=m8GOLTTa8N7SX2uwV3WfZ0IqKa/ZmpeILfiLx4edJ4c=;
+	b=U0nB0F9Gy6HW+U0NS/FUtN5nQxH3bfbrQm7y8O8NoyagIS8LdH4+xMmS1aiUurGVzy4V
+	 jonXY7sWtf0WHgdfibg8yWX8zOMp92htUK4p/dqIjooDEpzyBESSh2cbUhRnCJMpBZqA8
+	 ManUBTbYoUJMHWFSSPv/z12E/AkmKdPpq8U0PQHX/4k2xDTW7yCq7aZlOy1mp4ew4MSgl
+	 U59LDC+cWF7zyu/d+98+mfmsXa12fkJRh4iIlpBqRsg+2jon/DqBHwIum4ciSLaNDJEX0
+	 K2qJq437k53Nw9P8HwbrtpTAb0/szK/dhl/bwmTOd5VJTVslus6WanqiFWFr7a6wBtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=PCAxjKBi;
-	arc=none smtp.remote-ip=68.232.153.233
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hWBKDPEJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5198D606A31E;
-	Thu, 26 Nov 2026 09:18:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5198D606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BD7F606A321
+	for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 09:19:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=PCAxjKBi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1795684725; x=1827220725;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=65Ljyrys+GP8qJ5zbm/Fc5Hox9VUPZjJrPiVH570RXQ=;
-  b=PCAxjKBi6uT+Q/A1jNfRpOfPsjDDah9/GhkvY6Qu42S5HD1RHEmfwNA0
-   Td5rTBZGsuwCIHJxATCOVyNOcwKbEXFBXn8Vjj6T3nj7wtmZjcsAB+0w1
-   RPCN/7aNJrC/3GKhr4immq0zH8R7vJB11Aits0DPOnQq9lpWy0hgYIvJM
-   V9lVWnm6vppFwGKU2z14tec6EjVUzFjom77lUGh0qt2hC+huFW3EkbgUM
-   LN0l/tHZ55j4mk5SEPm4TgC3Egq998QlaQErpxCPjYju0KEyAi1lawG0n
-   VWbFQjZcNYJ0WmTxZZWqUgZkcK4hfjfXrU6hYIoF2TAjdTCd3rIDA4YaF
-   Q==;
-X-CSE-ConnectionGUID: fKU50kOATSme+N/jMfNPvg==
-X-CSE-MsgGUID: kY7Q2SWJSsSVi/KXXgyt+Q==
-X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; 
-   d="scan'208";a="77906060"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 26 Nov 2026 02:18:44 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Thu, 26 Nov 2026 02:18:43 -0700
-Received: from archlinux.mchp-main.com (10.10.85.11) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Thu, 26 Nov 2026 02:18:40 -0700
-From: Mihai Sain <mihai.sain@microchip.com>
-To: <sboyd@kernel.org>, <bmasney+clk@redhat.com>, <jbrunet+clk@baylibre.com>,
-	<nicolas.ferre@microchip.com>, <alexandre.belloni@bootlin.com>,
-	<claudiu.beznea@tuxon.dev>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>
-CC: <linux-clk@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<devicetree@vger.kernel.org>, Mihai Sain <mihai.sain@microchip.com>
-Subject: [PATCH 3/3] ARM: dts: microchip: sam9x7: Fix GMAC TSU clock frequency
-Date: Thu, 26 Nov 2026 11:18:09 +0200
-Message-ID: <20261126091809.13012-4-mihai.sain@microchip.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261126091809.13012-1-mihai.sain@microchip.com>
-References: <20261126091809.13012-1-mihai.sain@microchip.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hWBKDPEJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF4151F000EB;
+	Thu, 26 Nov 2026 09:19:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795684758;
+	bh=m8GOLTTa8N7SX2uwV3WfZ0IqKa/ZmpeILfiLx4edJ4c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hWBKDPEJf9DwQzc2K0IovIJYXQ9TEuw+MtTXI2C9dTlN8zI0WtaacMkDjAHd+egpg
+	 spKzgPRDa+Ic4rTvIHNY9z/KAnFNHM5x3pB4AfheqBpOFH26dr5EcLJxQkeGjRu66/
+	 79stcc7P40+INfMk7ObbXExmo7vvQPBwFULiERp8iyldcruXXlIQW7HOII3cdIp+S3
+	 qf/jPmoB/WBKowFnAac1VOv3Y2gkEBusQzjf+xc/QfhFtIpC20+IcOKIeMtJWrBXLT
+	 2if6V47G6Y06sjgqaJUAr72ALPeexSRYeRPRZJdpjGOjn4Im39PgbpPJqjrbQ1bJdh
+	 NLysZgbsbsRoA==
+Message-ID: <sashiko-outbox-235113@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 09/10] gtrace: rvtrace: Add pre-ratified ramsink setup
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Leo Yu-Chi Liang" <leo.liang@sifive.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261126-send-preratified-trace-v1-9-1e686fd75be7@sifive.com>
+References: <20261126-send-preratified-trace-v1-0-1e686fd75be7@sifive.com>
+ <20261126-send-preratified-trace-v1-9-1e686fd75be7@sifive.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Nov 2026 09:19:17 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,36 +59,63 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 
-According to the datasheet (see link section), chapter 64.6.2,
-the supported TSU clock frequencies are:
-8,10,20,25,40,50,100,125,200,250 MHz.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] gtrace: rvtrace: type confusion and NULL deref in
+  rvtrace_v0_ramsink_release()
+--
 
-Set the clock frequency to 200 MHz, allowing the PMC to derive
-the required frequency from the parrent PLLs.
+commit 270a89ab261cf1fa742d02dd08528a93ecc64e28
+Author: Eric Lin <eric.lin@sifive.com>
 
-Link: https://ww1.microchip.com/downloads/aemDocuments/documents/MPU32/ProductDocuments/DataSheets/SAM9X7-Series-Data-Sheet-DS60001813.pdf
-Signed-off-by: Mihai Sain <mihai.sain@microchip.com>
----
- arch/arm/boot/dts/microchip/sam9x7.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+gtrace: rvtrace: Add pre-ratified ramsink setup
 
-diff --git a/arch/arm/boot/dts/microchip/sam9x7.dtsi b/arch/arm/boot/dts/microchip/sam9x7.dtsi
-index f400d709901f..e77683162239 100644
---- a/arch/arm/boot/dts/microchip/sam9x7.dtsi
-+++ b/arch/arm/boot/dts/microchip/sam9x7.dtsi
-@@ -993,7 +993,7 @@ gmac: ethernet@f802c000 {
- 			clocks = <&pmc PMC_TYPE_PERIPHERAL 24>, <&pmc PMC_TYPE_PERIPHERAL 24>, <&pmc PMC_TYPE_GCK 67>;
- 			clock-names = "hclk", "pclk", "tsu_clk";
- 			assigned-clocks = <&pmc PMC_TYPE_GCK 67>;
--			assigned-clock-rates = <266666666>;
-+			assigned-clock-rates = <200000000>;
- 			status = "disabled";
- 		};
- 
--- 
-2.56.1
+This commit adds setup and release helpers for the system memory ramsink
+embedded in pre-ratified RISC-V trace encoders and funnels, and wires them
+into the encoder and funnel probe and remove paths.
 
+> diff --git a/drivers/hwtracing/gtrace/rvtrace-ramsink.c b/drivers/hwtraci=
+ng/gtrace/rvtrace-ramsink.c
+> index a164db57167f8..f183dcd71c7c0 100644
+> --- a/drivers/hwtracing/gtrace/rvtrace-ramsink.c
+> +++ b/drivers/hwtracing/gtrace/rvtrace-ramsink.c
+[ ... ]
+> @@ -348,6 +352,104 @@ static void rvtrace_ramsink_cleanup(struct gtrace_c=
+omponent *comp)
+>  	dma_free_coherent(comp->pdata->dev, priv->alloc_size, priv->alloc_va, p=
+riv->alloc_start);
+>  }
+> =20
+> +#ifdef CONFIG_RVTRACE_V0
+[ ... ]
+> +void rvtrace_v0_ramsink_release(struct gtrace_component *comp,
+> +				struct rvtrace_ramsink_priv *priv)
+> +{
+> +	if (!priv)
+> +		return;
+> +
+> +	rvtrace_ramsink_cleanup(comp);
+> +	of_reserved_mem_device_release(comp->pdata->dev);
+> +}
+> +EXPORT_SYMBOL_GPL(rvtrace_v0_ramsink_release);
+> +#endif /* CONFIG_RVTRACE_V0 */
+
+[Severity: High]
+Does rvtrace_v0_ramsink_release() pass the wrong private data to
+dma_free_coherent() by calling rvtrace_ramsink_cleanup(comp) instead of
+using priv?
+
+rvtrace_ramsink_cleanup() retrieves priv via dev_get_drvdata(&comp->dev),
+which for a pre-ratified encoder or funnel is struct rvtrace_encoder_priv
+or struct rvtrace_funnel_priv rather than the embedded sink's struct
+rvtrace_ramsink_priv.  In rvtrace_encoder_remove() and
+rvtrace_funnel_remove(), this reads alloc_size, alloc_va and alloc_start
+out-of-bounds from the smaller encoder/funnel private struct and leaks the
+sink's DMA buffer; on the gtrace_enable_component() failure path in
+rvtrace_funnel_probe(), dev_set_drvdata() has not run yet, causing a NULL
+pointer dereference.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-send-prera=
+tified-trace-v1-0-1e686fd75be7@sifive.com?part=3D9
