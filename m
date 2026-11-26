@@ -1,94 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795685514;
-	b=eu4ron6lHP52NdkqofcnYS/wu4lke3WToUmQQXfmu4+ZP/xITKnN9WRVUcxJV5xoZ5HA
-	 Ucf3m7UYEHH1JMv9Cs3+xdF0J6f9+jvpWUSKTe0+SwctxiGk/bJzWnCtOgIvyAvRx6a3y
-	 vCr53x1rJwBr8QljkJjNUKIQaX3+WVJ6nKu/khMkvuTk+YZ2ym86lQ3KI14j0Qhg+MJIe
-	 8ez9Xk8z6JNSawhRH4tNfanDwXI1pDWEybKXI/VHEOBjPUkW1yLTa2Pm32NOBb7+KCjKY
-	 mo4pLOJ3zRm14DJTj+t9LiLivpVIQy/K+wgvoVEneJEX1+lSkilGTr6w5JKAlLcaRFQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795685514;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=XiE2A+nPWbGW/mZXk52KfFKJUg4c3K9Dh4chIc2gpC4=;
-	b=nrRudDak9wI0foL3aNkNkXXzts6q3304lh3KTFfm6vmNjj3iYTLNkZKt+UEO6vDgB0rg
-	 Ns+oqp8C8748bApj7Yvsbx/PBk9gyyw4AB3XUFyomIL2lHZAcN5DWfYGlBQToPWQ3PMWj
-	 7N5N3c9T4jdN8/6+QdFCyoRPPzNInpsNBxVYNdjk0dLpPt8AycPDY4B0tf0DszCk7YwjC
-	 4nrJs+idR7Gn6cLz0sU2RykiRhKu7yCkwz/LvRWM4S+LCzr/6mbdXZUCugVpIzaRq0Y3G
-	 DAS/SPxYMZWcpAFvk149JEVNoSZdJPPim3b2iRM0TxcbkGnBTf53OeD2tJwNF9mDiSQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=SWHOsaxW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795685552;
+	b=uc284lS0sMzglCmjnPX4My+hB/P4cnnRkD99WSnNmJAGe70vi3gGblg1fesd7vo1RL2L
+	 fNbmbxxBB+ZTBhwMTXGSEpT8fMc3HVgkcWDFsyIm13oibeRw/v2rKVWoUAPdEWHcglYNc
+	 U2UkWvwBAwmnonYDkPV5vkxI3f8rYwMZ7hl7NhTtva1dkY9OzKwqLICVhruQ/EXM0y4OB
+	 6/mKiLhVh6g7z5RDqS6pUIrx/PpCiXNceZJtxPW9/ZidSHcK7fhHgy+dvtHzmPfwsV9fE
+	 EVWHmboWGB3V59nKY2gkNiaEIhp8b3OXuP4anHfK8i3L2xJyKsW2GBIcklMzH2jG+dA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795685552;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=k97771Z8FzE3DqumF944ddIXlJqYU9QrTeylE9F0vK8=;
+	b=p7ls+HowH3x9Ioio9ZW0i7zY1Hf4j7S0ZEpeIUHf8TtonJmwqeg8bWg81nG7v/jXrgOv
+	 SrK3d3z0v6J753eEj7KFtZPnrlaREi/yAb9YPAgju1EvMO2N04z5+tez/cUO2Ecd933A3
+	 q9o0jTxpc2npPwyRiLZZ3LjyR738wnLdOKf317ip4qnyChlwF2gDR9UvXTotONNbhkWzf
+	 PbXy/KHdCFOt5tBbgLAc8KQibmjEgNflf+Ak3uEUCZctJe8fjv/DeXnSJYbM67vjRbd6r
+	 OjRIgZQXMMiAhuatfay/GUf5WHhov7D09bDWGBahiffyt3S0YXD204SnlHw1SdR+GUA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="JfycLV/X";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80278606A31E;
-	Thu, 26 Nov 2026 09:31:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80278606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 3C204606A31E;
+	Thu, 26 Nov 2026 09:32:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=SWHOsaxW
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id A0491201A64;
-	Thu, 26 Nov 2026 10:31:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795685505;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XiE2A+nPWbGW/mZXk52KfFKJUg4c3K9Dh4chIc2gpC4=;
-	b=SWHOsaxWA0zf75mAhcC4osWitX6SywANv2RbLcM+5sYJ6tSEaeAZPQ7pzmWTx1Qde6LypC
-	ZUyuXGy1Bi+6pu8TNw7P+nj+0n3EAcCNgSDAEBJ2GZPE3DFL1UQLDEv/erM2p5TUiFMf3v
-	vyx0I0Ka9FY/5y2OPeuyQsiMQoYq/+qx1vufLHOeVY9bzhjLf9Z3NgaSs6wL8Q4KBzKNBO
-	j5MH3FxKZGdQ563XMf0D0ULcycJ7uU4vHOqWAKyjPF0SETRckxEu5R82J16q5+sX4Osa91
-	OCi4FIGc6oPhT0k2Y9IYqEMjuCHgcHevaWj1flNN7+S4yEirOYcaop86ithrYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795685505;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XiE2A+nPWbGW/mZXk52KfFKJUg4c3K9Dh4chIc2gpC4=;
-	b=QjNOwqtDTmxWKFMfwvple8it0GEaYu+5eKaV8wx0mo13I/kgVHcDIxllQT2nOBFxVT84Xw
-	fCBwHCM0ak42VNEa7ICPb1aAD+EJfGSv/LlqnI5hcggfnfVARbBgcidSTYQUlUE8nkNsXC
-	/NARyNy0RabDstavRJ544MqZvoznU5PqDGmzjGeWgrch9GeOCdtLQJdJJ19wP65t9rMrmY
-	St/natczgTmGzg7g5qMtDPodKt4tlg0ADgOdMWhyrZS3FV+AzY5aUHvWljrmBkJIkxeShC
-	U1uAP29wbjHxka5u7igTcGfFl+3h3TYvAmdB33FudGO+STOdoAd0wXgr6x/HAw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795685505; a=rsa-sha256;
-	cv=none;
-	b=RioTwTWTH3V7nOMvNr3+JCxK9ympGMTVLjUQvJHoroWJssJlkQ/SOItCduf+6AcYZJVheU
-	EkmeKp9ImHPVl82NnCHYqs/0Tnh72eSdVOZEXgQO2waCschYSp1/Mqg0oaFR0RXX3AyGP1
-	hpfiRJPoZxO3qVYcaDcu+f7mK4aK5pRAZIyoet1EH08eh8hMNzqmeebpxQZ7xiHHhCcAlg
-	651uuWTdEyeyW1g9qXwkukp26THBbGOSuoLTDfviynHna+ff1/1/E1hLEL/XjgZ6Nl9T7x
-	Dh00eElh8oiTha1Yhw7ZSyrojfir1Q+4Ts52gIy9jfhbK8NbOfdcJMZAuEc9Sw==
-Message-ID: <cc7b9e00a518e234a81f18cbae805babd8452550.camel@pengutronix.de>
-Subject: Re: [PATCH RESEND v2 2/3] reset: amlogic: Add A9 AO reset
- controller support
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: xianwei.zhao@amlogic.com, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Neil
- Armstrong	 <neil.armstrong@linaro.org>, Kevin Hilman
- <khilman@baylibre.com>, Jerome Brunet	 <jbrunet@baylibre.com>, Martin
- Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Thu, 26 Nov 2026 10:31:45 +0100
-In-Reply-To: <20261126-a9-reset-v2-2-e3d850e68725@amlogic.com>
-References: <20261126-a9-reset-v2-0-e3d850e68725@amlogic.com>
-	 <20261126-a9-reset-v2-2-e3d850e68725@amlogic.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JfycLV/X
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A3E6D1F000C4;
+	Thu, 26 Nov 2026 09:32:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795685551;
+	bh=k97771Z8FzE3DqumF944ddIXlJqYU9QrTeylE9F0vK8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JfycLV/XA23DU9QWWbk335hn9BiFSTG2F83xPm9eihA8hYYXY61JEuiVxIQmpXR7D
+	 QkDAjPTPIAa81FEZQM8o4OezkrmfkzBvLkKdkf6WZ8YAcA4xCt3CAYSE+jzEQO3vjx
+	 QKrPM8JHhU5eq1Rv/Z3lKfKa/oAmWAfpTdBdqPMb4XgJ2QnDKKfcSGVPr1yLP2AP8M
+	 AsxgIg3N3GkbOQTX1KtCCvtEo9Bi99M+pyhdtuIOf3MWSUroCNlSqtCy2sOeTdr25+
+	 qDh97siTL+bJYJgcGXX8em4rMkNEnwMp7NMnoYJMhnnLirRPM65Xn8eMFVnaydu06O
+	 zIrvK1L6hY3yg==
+Date: Thu, 26 Nov 2026 10:32:28 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Alejandro Colomar <alx+linux-hardening@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, 
+	Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andy@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v7 4/4] device property: Fix fwnode_name_eq() for empty
+ node names
+Message-ID: <ytxtn2ew62vxuxoinkf33gjntl33ijycjouzutlfcydkh7usm6@ad47ocprfu23>
+References: <cover.1795639368.git.alx@kernel.org>
+ <396395e1d02ca080da67cfd91a1c49058b2676b6.1795639368.git.alx@kernel.org>
+ <awdaYz9NNVv5fHv9@ashevche-desk.local>
+ <awddHt_xvc-lIygA@devuan>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -98,16 +75,69 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <awddHt_xvc-lIygA@devuan>
 
-On Do, 2026-11-26 at 09:24 +0000, Xianwei Zhao via B4 Relay wrote:
-> From: Xianwei Zhao <xianwei.zhao@amlogic.com>
->=20
-> Add the reset configuration and compatible entry for the Amlogic A9 AO
-> reset controller.
->=20
-> Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+On Wed, Nov 25, 2026 at 11:18:16PM +0100, Alejandro Colomar wrote:
+> Hi Andy,
+> 
+> > Date: 2026-11-26 00:00:03+0200
+> > From: Andy Shevchenko <andriy.shevchenko@intel.com>
+> >
+> > On Wed, Nov 25, 2026 at 10:03:55PM +0100, Alejandro Colomar wrote:
+> > > str_has_prefix() returns the prefix length on match and 0 on mismatch,
+> > > so the mistmatch case can't be told from "empty prefix matched an empty
+> > > string".
+> > > 
+> > > For instance: the OF root node's name as returned by
+> > > fwnode_get_name() is "" and will return 0 for any name matched against
+> > > it and since len is 0 too, fwnode_name_eq() will return true.
+> > > 
+> > > Let's use strprefix() instead, which also makes this function simpler.
+> > 
+> > ...
+> > 
+> > > Message-ID: <avrSUUM3HMgxTNpl@kekkonen.localdomain>
+> > > Message-ID: <nat4ilqmzzpuyrjbuahl367ip22tfnmjorydlppuwqiscxaujo@kf63j4lb3flk>
+> > > Message-ID: <nat4ilqmzzpuyrjbuahl367ip22tfnmjorydlppuwqiscxaujo@kf63j4lb3flk>
+> > 
+> > What is this?
+> 
+> git-am(1) has --message-id and the corresponding am.messageId, which
+> stores the Message-ID from the email header field from which the patch
+> is taken, to document where the patch was taken from.  It is stored by
+> git-am(1) right below the last trailer tag from the patch (which should
+> be the 'Signed-off-by' of the author), and before the 'Signed-off-by'
+> appended by git-am(1) itself.
+> 
+> 	$ MANWIDTH=64 man git-am | grep -A5 messageId
+> 	     am.messageId
+> 		 Add a Message-ID trailer based on the email header to
+> 		 the commit when using git‐am(1) (see git‐interpret‐
+> 		 trailers(1)). See also the --message-id and
+> 		 --no-message-id options.
+> 
+> It's useful to document where those tags come from, in case it's
+> historically useful.
+> 
+> I've extended its use to other tags I take from emails.
+> 
+> > Is it documented tag nowadays?
+> 
+> It is not documented in the kernel, AFAIK.  It is documented in
+> git-am(1).  I included it, because I find it useful.  Feel free to drop
+> it if it's not wanted (I can remove in in v8 if it's not wanted).
+> 
 
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+Yeah, don't use it. In general try to stick with the tags listed in
+Documentation/process/5.Posting.rst.
 
-regards
-Philipp
+I've too never seen Message-ID in a commit footer before.
+
+With those removed:
+
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+
+Bart
