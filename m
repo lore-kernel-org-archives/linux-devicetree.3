@@ -1,78 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795770726;
-	b=4g1/w4qtocviC4qvTUrxpv6vWnQqbEYwRMp4O/9K0owqd4EyPiqGDnzq35ffJSIcqilO
-	 gwVeAmQj7OClvLhsIr+zLIphEr1MnCF0y5iTY9ati46R5bl7caxP0zo1JXppvRVDKRM2w
-	 5S6sKJyI2lHRyOrjUWTVy85lnAk0trbcfazGfIjKM3BzJ1ohFzytcGTyhKqULGvyLjwlw
-	 9ZNM2uP1XC/o66THqVyiqMypJP8T0aZwwMxtIJhrnbTlMFI3RovHvr0VVo9cOBf5Yx1Cy
-	 kI+P4AYCTMRbd9ttnqJ4N+z/c1+fQKazRaa/8ddW9rjZrHAKHT72Ao6ryfP8ya0Gi8Q==
+	t=1795770975;
+	b=vPxCOif4W0KeQ7mygxJdw6XUMnXPP5zucrHzYZ0MImNd4CEEw3yCwmfesUwDTKT0H3gf
+	 dsK10P5SpjqjITjyccpJbjI0M5FgDnPRuuKA7xMHb+/LfoShX/lM79w9mRxvYeyA9t34Z
+	 YKQ4D4EkgQdOmNOeq6W50oldy+d9A2CZxVUfnFSHxWRN482tdxeVozwwkMeOaq5N41InJ
+	 JOL6yizCmS/cC3DQCD6kroaYDnPuQwiCdEuk7WURZGHKessFfu098uKtZjUXP6Ea0WOwE
+	 NUpk+WU40yMJKAGJQvUigM01PgGkvwAsEqzFAfvhnxD9RgBNJ8R/0y3Vs4np6k1Vhjg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795770726;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=vNbhO50GiNuaaW+LC5eoTkqY7OMQkS9uvXG8VYmr0iI=;
-	b=fCtRBWoIXZqRRuUqze5+yWCCj58kW2+Ah3Ogx4D0fWGg+dI/z3ZPA8nneVFOGJMgKE13
-	 C4HJb5DNnqGsYnunMAt3dG8awYQoNqhwvnGTeoHqb1xqwn8x0afQKmqyk1B1PF6N8vxaQ
-	 lp8LqhjikcJbZXPL14p7MxpZKLYjLAqYkJhmppml7WxNWzn7NiFPPZVgQRhkG8NCe0+je
-	 F+pjPr8r0Th3VOG2JMrsMhDB/5iHTYZqydJ0GXPyupB5WDWxucbro9MVT2tUhzgvTjzqB
-	 zz/sFAYrBA5EDZ9LH8oSsi5+kPE+qwk/S7iNJiXkqCcJ6tdwvuLXucCvfebGb9vSUCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795770975;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=jDYeL2kmjUbEkqOkiCW9A93olbaNlYCSbdBnZUJhtCA=;
+	b=s+EY8WDaElxdXsHKV+9BZT9WlxHwgEROm+jzS9A6LltTPitPv8dsaoNqc2W4Hg4rtlKa
+	 Uj+k91uDAP+A7yNp5anZ+W3I/ZMza5feTGwyiO0pWeBonr786OmgSCBtvF4ycEya0ygkq
+	 oMSz0go6Nu+PTB9XZubCcHbEAWqIm8iUmGhF7llIv/gXJ4J4SOvhXb1wnPAozLzeCdOno
+	 Hs1bzvTZ/c6R/tnO9MjoBSOC5hGvCCDioA4bo4fIcKMHmfI6QKNvgkdecZQKSoeMklIX0
+	 2pWnvh/UmD8ig2vTg75EKcCKgxtCeBqu/y4v4TXTt59D+CGoRzVIO4HaGuUjvTFuzVQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Q/tyNXfk";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C750606A321;
-	Fri, 27 Nov 2026 09:12:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q/tyNXfk
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795770726;
-	b=pBq5pRcLYlEoum4qApLWrSbVxXPAgM5120Kwfit0QaxKVhPxqzaZcUrdCRuByNv8KFP/
-	 4//rNjY/g9LNok2IaWWm+6VzDdPecOcZQ/Qmaw+nPseLD47ejP0Z2OpfD/xKZYGPqa6mM
-	 SnttyFZXcCS1GVyxhwBy/IJSYfFtemKE0U9BcYFAeXdCibgzFPGqmi6sJ78R/s3a+SZOW
-	 ccbLa2zxawt26zXUxq2nHw0yUBgR7yeHVae1mSaKugL2Z5LLL4UtQzyvh3FdgWc4vrCrK
-	 Ilqkk8ixkwQegh/03ZOJvksWUoLpx+UQSKq6G28akuZ33bHjfMt67pk7pq6n6aWCrvg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795770726;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=vNbhO50GiNuaaW+LC5eoTkqY7OMQkS9uvXG8VYmr0iI=;
-	b=Bn24BkeR4Ppx1phf0T2U9HdW5x4Oh3as6+8bppItjw11RUBapTLNgQnrhRZjnIlVwGEE
-	 XcXPSQddC6E6Ruf5jp9Y3RZYriY9PmEFEPuWYFWsO02cO1SGUIjZ6+hhtaf/lQljV/cvv
-	 sNq3+TldKvC+/65xUcjFWMHDWWXpnapQHzvu/+g896YVvanKPVlfeinzWGWBUGUyT0UbL
-	 +pBMugIr4ELKdTfUDp0SV6kQitiz07/Rfdew2IzS68mSEavzC27vS+WG3RxuiUE0WFeLU
-	 IaaMPn5/NN87+3sDUKRNlsf4zhPZ/fnDzaBGpXsWRTLUoDZNV9Zb0TE2rTCl5RWPxzA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jESfojEM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id CB48C1F00919;
-	Fri, 27 Nov 2026 09:11:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795770726;
-	bh=vNbhO50GiNuaaW+LC5eoTkqY7OMQkS9uvXG8VYmr0iI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Q/tyNXfkQz9lk945sB+nYvQc2n90FZukj45nm21xwTuIK/8SMD2GL+uFDUXyVuA2k
-	 biRcr2KnQqN35XabaD2vVBLtGs1FyyLThJv4DRP52M4UqsQL6XfTy5nYJ1I0IP9mGn
-	 w8JAYMflsLMqwe2Catiy4AqS4ICj6wuFwyTw8dTuMw+cDgsOVJX2ZjwUKodzMrbj83
-	 c8UslySNhvf54R+w5W2JFr17FIgffIX+d5cCYFfg0FxwmRukzXNNdmrx8SnVHyzbO8
-	 L/lF30+gjXGF2zxqJTZxnKDF3JIQXq0leujP75D2IXnu+I0U12VUxncVVJE8I74BCj
-	 ALZsyZzjq7KlA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 58BAD4B690;
-	Fri, 27 Nov 2026 09:11:51 +0000 (UTC)
-From: Jiebing Chen via B4 Relay <devnull+jiebing.chen.amlogic.com@kernel.org>
-Date: Fri, 27 Nov 2026 17:11:26 +0800
-Subject: [PATCH 1/2] clk: meson: axg_audio: add S4 support
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0495C606A32E
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 09:16:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0495C606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jESfojEM
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-385d8a00598so11668040eec.1
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 01:16:13 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795770973; cv=none;
+        d=google.com; s=arc-20260327;
+        b=j4NOey2bHpCkIuDr4g9gnngA202RTIqWY+urac6Qe6n8fejhWTiC+lB3S8KYt6xLqS
+         VbV0Cy1a0DykltjvK6r+Yy/TFrLf3tEN2pbyFrMpaOHOYmsyUl77FfZuOOa7O5Y/pzcz
+         GU4v3wLGvxcR4ogbYwf1VisbCXbJd66mHxMglfsN4J7XJLecGg69bnt3Hz7zCcXdWUd2
+         MVHCOs5kPNuhCU88O4DtYS4PGamLux3frokL5BUpwh/UJ7koK9rRBKCLfhixcfM6Dryu
+         EgTwtGrjpvaSIv3JgaBLbv4Yzi/tGLBwhsMXDRM5wirJf5/Ft6BDbLmMHwNzcWSdevQb
+         L+OQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=jDYeL2kmjUbEkqOkiCW9A93olbaNlYCSbdBnZUJhtCA=;
+        fh=IbH/BB4qfhYK/Vg6Wx91FXxKy4C9r0e68FYMGeMOrZs=;
+        b=IJ5pQaLD2zE4WPVPIfLA+jy1wMink7JYt1qq6/QnAezAFK3Gv7n/JoJzykXYWAVLBT
+         t6XNSGnb+9TcTw7fTeZrf6pSpIj+HVaFAwLW3P3WyhrozxzjuM6x/QH3OlGEZNBEDjNu
+         O1sESv9ubjludhfunjk9VeFgcJOYE/mSKa7bLnWbAb/8YLVDxDla9P9lUI95ZmOfhpBO
+         dMPpReQW05vyYtnQreSPxWJBcKkVodyP5fMezkVtye5oFbgi3ZrHAkCSGREkE6ACsnd1
+         ODNgKc84586i07oOnN2leLtIB2my8eESoUr2iCTREozADMfENIpSSdQ/NUozHV5emmSZ
+         WWGg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795770973; x=1796375773; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jDYeL2kmjUbEkqOkiCW9A93olbaNlYCSbdBnZUJhtCA=;
+        b=jESfojEM1vh73R4wVT9eTNLUEJhRw4r22MGydlhWedCIJk9uJS3oyb2aLr6tLipXeY
+         Phbv4MN9QzyHztsTTiaYFRsFKnhpwpwgrpYBrvIN60hMu0m7bZEtwoAjJI7GGoIJU8SO
+         eH5YaMTTEjolXjlnCrTJb8oHK2FyQ4apqkRXsUkaCIzQO4zYkXWacKQ3pDj71WvCYHWY
+         w5t8NQdurO5Z6T7gj+tX1uPDUkv5mRDvU2Lc5h94Urz9xzubLd4oXpFhE+DDl22BTVZQ
+         jbxzsKlKg8Y2fsCGqXk+J3kOBSgGuGer3wrkCFv6MjR1W5iaAe3d/4Du6Q/jOsdrPuLu
+         uZzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795770973; x=1796375773;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jDYeL2kmjUbEkqOkiCW9A93olbaNlYCSbdBnZUJhtCA=;
+        b=ut86OjcAMYvI3hQSbwLYZNFkNtrH5ylfVzyTfehZ7VJPvoOhzyVvXnWodIXqfzS9jA
+         CF5Pk86uoZv+d12nYSQ9GymX3WsyyOFfUSRSrtM8PToAZ3jBDD1dgnHwBLaYwrD8kUO5
+         68tcYECGDuldTlDEfo2q8lcAMwz28ggJ5djJ/qLh4LV6ql3wiPknJQSzKFggRfEq9g5m
+         1JkrVQms5x3gpcEQDatIFy2FaVXBzLpBylHPZpQPCugZgg+OBjfVW0Gxlbv/HlyOdpt2
+         53CzhvSH239shxU/vzXd0G3Zl8C6CYhh4LJYDr3rtmtkVjyTIeUMssK9QKQt9JZB+ZO3
+         bonQ==
+X-Forwarded-Encrypted: i=1; AL+hErGYcCwPWM/JkyPOK+FPjBQM+wPn7mpLvRsjHedZD2aPmEbERSrJbb/CG1WeC994yCt25vleS/dp/s+T@vger.kernel.org
+X-Gm-Message-State: APuU4Z+tcunXBB29twhHYH77/7yUy1YfLIhrDtrHHdo0sZSLasTQSl0a
+	yhHa5OmpiSAlY+nRBCHEBwxaWLcd7LCIKxKZNEgO0qgl8Igs8ugPQu6BA2UQr4rRmyhIRuVI3PW
+	7Gezq/ODoXbzKUE8vzCLKiLgWQgkf39I=
+X-Gm-Gg: AZFdTZdWUkIzCxppcBKkxX+fnWQ6zaBy480SdIhanxq2+wKOcfWgzqEH/z27zI+nBdi
+	pAiotU8EPmAEgPPLBy9aToW3Yyz0MHr4mecAlV9glhBPhsWX5L0HD9AfmyHRC1Z1cloWHbUhjgB
+	Igo0DBjRVXKTb9URCjILmGT6l2ncwuRcdxgenYvTOWaUnbZwceFI24nrp+ouSOcNhoebYtOTg0k
+	DZWkezcn8lWh/oOIDSD+U0hCZaTqe0HtEY2Ad2OEtqGgcGUR6i5i1p3aH7dBlUzc6B47ARRIsb9
+	s8WEDRkhzaXwL1bjaj8ca9p+L7dCjbSBlEwFlaIpvt2Dpp2s8Hj8LarvQNK1bfPDRIy3dp6wXEq
+	a3Pu6StpaNpgsZ5ty3mxLHpdRk+HU39+D2J2nlAwy7xfQXG8/FAfp8DGx+E8/qJAiUsGE2y6TN9
+	blZs5bWMaLb1ROJ3Xicxm1eQYNhR7QiQ==
+X-Received: by 2002:a05:7300:cf87:b0:386:565b:4f9b with SMTP id
+ 5a478bee46e88-386565b529dmr18908380eec.36.1795770973084; Fri, 27 Nov 2026
+ 01:16:13 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,238 +105,310 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261127-clock_audio-v1-1-cf3ccf6b2bf0@amlogic.com>
-References: <20261127-clock_audio-v1-0-cf3ccf6b2bf0@amlogic.com>
-In-Reply-To: <20261127-clock_audio-v1-0-cf3ccf6b2bf0@amlogic.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jerome Brunet <jbrunet@baylibre.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Jiebing Chen <jiebing.chen@amlogic.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795770705; l=9384;
- i=jiebing.chen@amlogic.com; s=20250110; h=from:subject:message-id;
- bh=mSlr+PYl6Kv5xTlb1MKaLQhx8bgwIvHXfLMJnftHOWU=;
- b=yJFWDQe4AoJ+cVnWcaS1RiTwY2nykrbPRkeIaE/ZR/SjMfwyzm/BB6EZO8HWFWKjEl7vP/NUz
- 3//8lG6RuV5BmdmiYZGmo3OL32O0/BjH+fSLqUrjWsk406MoM3PPumz
-X-Developer-Key: i=jiebing.chen@amlogic.com; a=ed25519;
- pk=6rFvvF45A84pLNRy03hfUHeROxHCnZ+1KAGw/DoqKic=
-X-Endpoint-Received: by B4 Relay for jiebing.chen@amlogic.com/20250110 with
- auth_id=316
-X-Original-From: Jiebing Chen <jiebing.chen@amlogic.com>
-Reply-To: jiebing.chen@amlogic.com
-Content-Transfer-Encoding: 7bit
+References: <20261122081820.53199-1-clamor95@gmail.com> <20261122081820.53199-7-clamor95@gmail.com>
+ <CQmBXmddTJ6v1iTnbDfQLA@nvidia.com>
+In-Reply-To: <CQmBXmddTJ6v1iTnbDfQLA@nvidia.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Fri, 27 Nov 2026 11:16:01 +0200
+X-Gm-Features: Aa3M54qH8gYf5As35TKTatFm5o7bkTT2Je6sUBOdI-CDd1BicPTc8yLdRQYINpY
+Message-ID: <CAPVz0n14uUMdQYb+v_cKMiXRudND9fgKpqQWmGUO65BcCuciUA@mail.gmail.com>
+Subject: Re: [PATCH v8 06/12] drm/tegra: dc: Add elements required by Tegra
+ MIPI DBI
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Jiebing Chen <jiebing.chen@amlogic.com>
+=D0=BF=D1=82, 27 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 06:5=
+6 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Sunday, November 22, 2026 5:18=E2=80=AFPM Svyatoslav Ryhel wrote:
+> > Add DC register definitions with additional fields in preparation for
+> > adding the 8-bit CPU interface (MIPI DBI).
+>
+> Maybe also mention that some whitespace cleanup has been done.
+>
 
-Add S4 support the axg audio clock controllers, Compared with the
-previous version, the selection of the audio's clock and data pad
-will be designed in the form of pinmux control. The purpose of doing
-this is to distinguish between clock control and pin control selection.
+sure
 
-Signed-off-by: Jiebing Chen <jiebing.chen@amlogic.com>
----
- drivers/clk/meson/axg-audio.c | 165 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 165 insertions(+)
+> >
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > ---
+> >  drivers/gpu/drm/tegra/dc.h | 194 ++++++++++++++++++++++++++++++++++---
+> >  1 file changed, 183 insertions(+), 11 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/tegra/dc.h b/drivers/gpu/drm/tegra/dc.h
+> > index 0cb0515968b35..e8913c5530a2d 100644
+> > --- a/drivers/gpu/drm/tegra/dc.h
+> > +++ b/drivers/gpu/drm/tegra/dc.h
+> > @@ -272,14 +272,150 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+> >  #define  DC_COM_CRC_CONTROL_WAIT (1 << 1)
+> >  #define  DC_COM_CRC_CONTROL_ENABLE (1 << 0)
+> >  #define DC_COM_CRC_CHECKSUM                  0x301
+> > -#define DC_COM_PIN_OUTPUT_ENABLE(x) (0x302 + (x))
+> > -#define DC_COM_PIN_OUTPUT_POLARITY(x) (0x306 + (x))
+> > -#define LVS_OUTPUT_POLARITY_LOW (1 << 28)
+> > -#define LHS_OUTPUT_POLARITY_LOW (1 << 30)
+> > -#define DC_COM_PIN_OUTPUT_DATA(x) (0x30a + (x))
+> > -#define DC_COM_PIN_INPUT_ENABLE(x) (0x30e + (x))
+> > -#define DC_COM_PIN_INPUT_DATA(x) (0x312 + (x))
+> > -#define DC_COM_PIN_OUTPUT_SELECT(x) (0x314 + (x))
+> > +
+> > +#define DC_COM_PIN_OUTPUT_ENABLE(x)          (0x302 + (x))
+> > +#define DC_COM_PIN_OUTPUT_POLARITY(x)                (0x306 + (x))
+> > +#define LVS_OUTPUT_POLARITY_LOW                      BIT(28)
+> > +#define LHS_OUTPUT_POLARITY_LOW                      BIT(30)
+> > +#define DC_COM_PIN_OUTPUT_DATA(x)            (0x30a + (x))
+> > +/* Pin unmask is 1 bit above position of the pin in the OUTPUT_DATA re=
+gister */
+> > +#define PIN_UNMASK(x)                                BIT((x) + 1)
+> > +#define DC_COM_PIN_INPUT_ENABLE(x)           (0x30e + (x))
+> > +
+> > +/*
+> > + * The definitions below describe pin positions in the DC_COM_PIN_OUTP=
+UT_ENABLE(x),
+> > + * DC_COM_PIN_OUTPUT_POLARITY(x), DC_COM_PIN_OUTPUT_DATA(x), and
+> > + * DC_COM_PIN_INPUT_ENABLE(x) registers. The comment before each group=
+ indicates
+> > + * the index of the register (the x value).
+> > + */
+> > +
+> > +/* 0 */
+> > +#define PIN_LD0                                      0
+> > +#define PIN_LD1                                      2
+> > +#define PIN_LD2                                      4
+> > +#define PIN_LD3                                      6
+> > +#define PIN_LD4                                      8
+> > +#define PIN_LD5                                      10
+> > +#define PIN_LD6                                      12
+> > +#define PIN_LD7                                      14
+> > +#define PIN_LD8                                      16
+> > +#define PIN_LD9                                      18
+> > +#define PIN_LD10                             20
+> > +#define PIN_LD11                             22
+> > +#define PIN_LD12                             24
+> > +#define PIN_LD13                             26
+> > +#define PIN_LD14                             28
+> > +#define PIN_LD15                             30
+> > +
+> > +/* 1 */
+> > +#define PIN_LD16                             0
+> > +#define PIN_LD17                             2
+> > +#define PIN_LPW0                             16
+> > +#define PIN_LPW1                             18
+> > +#define PIN_LPW2                             20
+> > +#define PIN_LSC0                             24
+> > +#define PIN_LSC1                             26
+> > +#define PIN_LVS                                      28
+> > +#define PIN_LHS                                      30
+> > +
+> > +/* 2 */
+> > +#define PIN_LHP0                             0
+> > +#define PIN_LHP1                             2
+> > +#define PIN_LHP2                             4
+> > +#define PIN_LVP0                             8
+> > +#define PIN_LVP1                             10
+> > +#define PIN_LM0                                      16
+> > +#define PIN_LM1                                      18
+> > +#define PIN_LDI                                      20
+> > +#define PIN_LPP                                      22
+> > +
+> > +/* 3 */
+> > +#define PIN_LSCK                             0
+> > +#define PIN_LSDA                             2
+> > +#define PIN_LCSN                             4
+> > +#define PIN_LDC                                      6
+> > +#define PIN_LSPI                             8
+> > +#define PIN_LSDI                             10
+> > +
+> > +#define DC_COM_PIN_INPUT_DATA(x)             (0x312 + (x))
+> > +
+> > +/*
+> > + * DC_COM_PIN_OUTPUT_SELECT(x) is a set of 7 registers that allow sele=
+cting
+> > + * one of 7 functions for each pin using 3 bits. Clearing all bits set=
+s
+> > + * the pin to its primary function, while setting them to 1 configures=
+ it
+> > + * as a GPIO output. Other functions are unique to each pin. For detai=
+ls,
+> > + * check "23.7.17 DC_COM_PIN_OUTPUT_SELECT0_0" in the Tegra30 TRM.
+> > + */
+> > +#define DC_COM_PIN_OUTPUT_SELECT(x)          (0x314 + (x))
+> > +#define PIN_OUTPUT_SELECT_MASK(x)            (0x7 << (x))
+> > +#define PIN_OUTPUT_SELECT_PRIM(x)            (0 << (x))
+> > +#define PIN_OUTPUT_SELECT_OUT(x)             (1 << (x))
+> > +#define PIN_OUTPUT_SELECT_F2(x)                      (2 << (x))
+> > +#define PIN_OUTPUT_SELECT_F3(x)                      (3 << (x))
+> > +#define PIN_OUTPUT_SELECT_F4(x)                      (4 << (x))
+> > +#define PIN_OUTPUT_SELECT_F5(x)                      (5 << (x))
+> > +#define PIN_OUTPUT_SELECT_F6(x)                      (6 << (x))
+> > +#define PIN_OUTPUT_SELECT_F7(x)                      (7 << (x))
+> > +
+> > +/*
+> > + * The definitions below describe pin offset in the DC_COM_PIN_OUTPUT_=
+SELECT(x)
+> > + * registers. The comment before each group indicates the index of the=
+ register
+> > + * (the x value).
+> > + */
+> > +
+> > +/* 0 */
+> > +#define PIN_OUTPUT_SELECT_LD0                        0
+> > +#define PIN_OUTPUT_SELECT_LD1                        4
+> > +#define PIN_OUTPUT_SELECT_LD2                        8
+> > +#define PIN_OUTPUT_SELECT_LD3                        12
+> > +#define PIN_OUTPUT_SELECT_LD4                        16
+> > +#define PIN_OUTPUT_SELECT_LD5                        20
+> > +#define PIN_OUTPUT_SELECT_LD6                        24
+> > +#define PIN_OUTPUT_SELECT_LD7                        28
+> > +
+> > +/* 1 */
+> > +#define PIN_OUTPUT_SELECT_LD8                        0
+> > +#define PIN_OUTPUT_SELECT_LD9                        4
+> > +#define PIN_OUTPUT_SELECT_LD10                       8
+> > +#define PIN_OUTPUT_SELECT_LD11                       12
+> > +#define PIN_OUTPUT_SELECT_LD12                       16
+> > +#define PIN_OUTPUT_SELECT_LD13                       20
+> > +#define PIN_OUTPUT_SELECT_LD14                       24
+> > +#define PIN_OUTPUT_SELECT_LD15                       28
+> > +
+> > +/* 2 */
+> > +#define PIN_OUTPUT_SELECT_LD16                       0
+> > +#define PIN_OUTPUT_SELECT_LD17                       4
+> > +
+> > +/* 3 */
+> > +#define PIN_OUTPUT_SELECT_LPW0                       0
+> > +#define PIN_OUTPUT_SELECT_LPW1                       4
+> > +#define PIN_OUTPUT_SELECT_LPW2                       8
+> > +#define PIN_OUTPUT_SELECT_LSC0                       16
+> > +#define PIN_OUTPUT_SELECT_LSC1                       20
+> > +#define PIN_OUTPUT_SELECT_LVS                        24
+> > +#define PIN_OUTPUT_SELECT_LHS                        28
+> > +
+> > +/* 4 */
+> > +#define PIN_OUTPUT_SELECT_LHP0                       0
+> > +#define PIN_OUTPUT_SELECT_LHP1                       4
+> > +#define PIN_OUTPUT_SELECT_LHP2                       8
+> > +#define PIN_OUTPUT_SELECT_LVP0                       16
+> > +#define PIN_OUTPUT_SELECT_LVP1                       20
+> > +
+> > +/* 5 */
+> > +#define PIN_OUTPUT_SELECT_LM0                        0
+> > +#define PIN_OUTPUT_SELECT_LM1                        4
+> > +#define PIN_OUTPUT_SELECT_LDI                        8
+> > +#define PIN_OUTPUT_SELECT_LPP                        12
+> > +
+> > +/* 6 */
+> > +#define PIN_OUTPUT_SELECT_LSCK                       0
+> > +#define PIN_OUTPUT_SELECT_LSDA                       4
+> > +#define PIN_OUTPUT_SELECT_LCSN                       8
+> > +#define PIN_OUTPUT_SELECT_LDC                        12
+> > +#define PIN_OUTPUT_SELECT_LSPI                       16
+> > +#define PIN_OUTPUT_SELECT_LSDI                       20
+>
+> It becomes apparent here that the PIN_* and PIN_OUTPUT_SELECT_* are kind
+> of redundant as the pins are in the same order, the stride (and thus
+> register indexing) is just different. Hence, I think it would be cleaner
+> to have ..
+>
+> #define PIN_LD0         0
+> #define PIN_LD1         1
+> ...
+>
+> and then
+>
+> #define PIN_REGISTER_INDEX(pin)         ((pin) / 16)
+> #define PIN_SHIFT(pin)                  (((pin) % 16) * 2)
+>
+> #define PIN_SELECT_REGISTER_INDEX(pin)  ((pin) / 8)
+> #define PIN_SELECT_SHIFT(pin)           (((pin) % 8) * 4)
+>
+> This will also simplify the tegra_dbi_idx tables since they can just
+> store the pin index, and the register index (and shift) can be
+> calculated based on that.
+>
 
-diff --git a/drivers/clk/meson/axg-audio.c b/drivers/clk/meson/axg-audio.c
-index fd7eca652261..ab8c05b0509e 100644
---- a/drivers/clk/meson/axg-audio.c
-+++ b/drivers/clk/meson/axg-audio.c
-@@ -1150,6 +1150,159 @@ static struct clk_hw *g12a_audio_hw_clks[] = {
- 	[AUD_CLKID_TOP]			= &axg_aud_top,
- };
- 
-+/*
-+ * Array of all S4 clocks provided by this provider
-+ * The input clocks of the controller will be populated at runtime
-+ */
-+static struct clk_hw *s4_audio_hw_clks[] = {
-+	[AUD_CLKID_DDR_ARB]		= &ddr_arb.hw,
-+	[AUD_CLKID_PDM]			= &pdm.hw,
-+	[AUD_CLKID_TDMIN_A]		= &tdmin_a.hw,
-+	[AUD_CLKID_TDMIN_B]		= &tdmin_b.hw,
-+	[AUD_CLKID_TDMIN_C]		= &tdmin_c.hw,
-+	[AUD_CLKID_TDMIN_LB]		= &tdmin_lb.hw,
-+	[AUD_CLKID_TDMOUT_A]		= &tdmout_a.hw,
-+	[AUD_CLKID_TDMOUT_B]		= &tdmout_b.hw,
-+	[AUD_CLKID_TDMOUT_C]		= &tdmout_c.hw,
-+	[AUD_CLKID_FRDDR_A]		= &frddr_a.hw,
-+	[AUD_CLKID_FRDDR_B]		= &frddr_b.hw,
-+	[AUD_CLKID_FRDDR_C]		= &frddr_c.hw,
-+	[AUD_CLKID_TODDR_A]		= &toddr_a.hw,
-+	[AUD_CLKID_TODDR_B]		= &toddr_b.hw,
-+	[AUD_CLKID_TODDR_C]		= &toddr_c.hw,
-+	[AUD_CLKID_LOOPBACK]		= &loopback.hw,
-+	[AUD_CLKID_SPDIFIN]		= &spdifin.hw,
-+	[AUD_CLKID_SPDIFOUT]		= &spdifout.hw,
-+	[AUD_CLKID_RESAMPLE]		= &resample.hw,
-+	[AUD_CLKID_SPDIFOUT_B]		= &spdifout_b.hw,
-+	[AUD_CLKID_MST_A_MCLK_SEL]	= &sm1_mst_a_mclk_sel.hw,
-+	[AUD_CLKID_MST_B_MCLK_SEL]	= &sm1_mst_b_mclk_sel.hw,
-+	[AUD_CLKID_MST_C_MCLK_SEL]	= &sm1_mst_c_mclk_sel.hw,
-+	[AUD_CLKID_MST_D_MCLK_SEL]	= &sm1_mst_d_mclk_sel.hw,
-+	[AUD_CLKID_MST_E_MCLK_SEL]	= &sm1_mst_e_mclk_sel.hw,
-+	[AUD_CLKID_MST_F_MCLK_SEL]	= &sm1_mst_f_mclk_sel.hw,
-+	[AUD_CLKID_MST_A_MCLK_DIV]	= &sm1_mst_a_mclk_div.hw,
-+	[AUD_CLKID_MST_B_MCLK_DIV]	= &sm1_mst_b_mclk_div.hw,
-+	[AUD_CLKID_MST_C_MCLK_DIV]	= &sm1_mst_c_mclk_div.hw,
-+	[AUD_CLKID_MST_D_MCLK_DIV]	= &sm1_mst_d_mclk_div.hw,
-+	[AUD_CLKID_MST_E_MCLK_DIV]	= &sm1_mst_e_mclk_div.hw,
-+	[AUD_CLKID_MST_F_MCLK_DIV]	= &sm1_mst_f_mclk_div.hw,
-+	[AUD_CLKID_MST_A_MCLK]		= &sm1_mst_a_mclk.hw,
-+	[AUD_CLKID_MST_B_MCLK]		= &sm1_mst_b_mclk.hw,
-+	[AUD_CLKID_MST_C_MCLK]		= &sm1_mst_c_mclk.hw,
-+	[AUD_CLKID_MST_D_MCLK]		= &sm1_mst_d_mclk.hw,
-+	[AUD_CLKID_MST_E_MCLK]		= &sm1_mst_e_mclk.hw,
-+	[AUD_CLKID_MST_F_MCLK]		= &sm1_mst_f_mclk.hw,
-+	[AUD_CLKID_SPDIFOUT_CLK_SEL]	= &spdifout_clk_sel.hw,
-+	[AUD_CLKID_SPDIFOUT_CLK_DIV]	= &spdifout_clk_div.hw,
-+	[AUD_CLKID_SPDIFOUT_CLK]	= &spdifout_clk.hw,
-+	[AUD_CLKID_SPDIFOUT_B_CLK_SEL]	= &spdifout_b_clk_sel.hw,
-+	[AUD_CLKID_SPDIFOUT_B_CLK_DIV]	= &spdifout_b_clk_div.hw,
-+	[AUD_CLKID_SPDIFOUT_B_CLK]	= &spdifout_b_clk.hw,
-+	[AUD_CLKID_SPDIFIN_CLK_SEL]	= &spdifin_clk_sel.hw,
-+	[AUD_CLKID_SPDIFIN_CLK_DIV]	= &spdifin_clk_div.hw,
-+	[AUD_CLKID_SPDIFIN_CLK]		= &spdifin_clk.hw,
-+	[AUD_CLKID_PDM_DCLK_SEL]	= &pdm_dclk_sel.hw,
-+	[AUD_CLKID_PDM_DCLK_DIV]	= &pdm_dclk_div.hw,
-+	[AUD_CLKID_PDM_DCLK]		= &pdm_dclk.hw,
-+	[AUD_CLKID_PDM_SYSCLK_SEL]	= &pdm_sysclk_sel.hw,
-+	[AUD_CLKID_PDM_SYSCLK_DIV]	= &pdm_sysclk_div.hw,
-+	[AUD_CLKID_PDM_SYSCLK]		= &pdm_sysclk.hw,
-+	[AUD_CLKID_MST_A_SCLK_PRE_EN]	= &mst_a_sclk_pre_en.hw,
-+	[AUD_CLKID_MST_B_SCLK_PRE_EN]	= &mst_b_sclk_pre_en.hw,
-+	[AUD_CLKID_MST_C_SCLK_PRE_EN]	= &mst_c_sclk_pre_en.hw,
-+	[AUD_CLKID_MST_D_SCLK_PRE_EN]	= &mst_d_sclk_pre_en.hw,
-+	[AUD_CLKID_MST_E_SCLK_PRE_EN]	= &mst_e_sclk_pre_en.hw,
-+	[AUD_CLKID_MST_F_SCLK_PRE_EN]	= &mst_f_sclk_pre_en.hw,
-+	[AUD_CLKID_MST_A_SCLK_DIV]	= &mst_a_sclk_div.hw,
-+	[AUD_CLKID_MST_B_SCLK_DIV]	= &mst_b_sclk_div.hw,
-+	[AUD_CLKID_MST_C_SCLK_DIV]	= &mst_c_sclk_div.hw,
-+	[AUD_CLKID_MST_D_SCLK_DIV]	= &mst_d_sclk_div.hw,
-+	[AUD_CLKID_MST_E_SCLK_DIV]	= &mst_e_sclk_div.hw,
-+	[AUD_CLKID_MST_F_SCLK_DIV]	= &mst_f_sclk_div.hw,
-+	[AUD_CLKID_MST_A_SCLK_POST_EN]	= &mst_a_sclk_post_en.hw,
-+	[AUD_CLKID_MST_B_SCLK_POST_EN]	= &mst_b_sclk_post_en.hw,
-+	[AUD_CLKID_MST_C_SCLK_POST_EN]	= &mst_c_sclk_post_en.hw,
-+	[AUD_CLKID_MST_D_SCLK_POST_EN]	= &mst_d_sclk_post_en.hw,
-+	[AUD_CLKID_MST_E_SCLK_POST_EN]	= &mst_e_sclk_post_en.hw,
-+	[AUD_CLKID_MST_F_SCLK_POST_EN]	= &mst_f_sclk_post_en.hw,
-+	[AUD_CLKID_MST_A_SCLK]		= &mst_a_sclk.hw,
-+	[AUD_CLKID_MST_B_SCLK]		= &mst_b_sclk.hw,
-+	[AUD_CLKID_MST_C_SCLK]		= &mst_c_sclk.hw,
-+	[AUD_CLKID_MST_D_SCLK]		= &mst_d_sclk.hw,
-+	[AUD_CLKID_MST_E_SCLK]		= &mst_e_sclk.hw,
-+	[AUD_CLKID_MST_F_SCLK]		= &mst_f_sclk.hw,
-+	[AUD_CLKID_MST_A_LRCLK_DIV]	= &mst_a_lrclk_div.hw,
-+	[AUD_CLKID_MST_B_LRCLK_DIV]	= &mst_b_lrclk_div.hw,
-+	[AUD_CLKID_MST_C_LRCLK_DIV]	= &mst_c_lrclk_div.hw,
-+	[AUD_CLKID_MST_D_LRCLK_DIV]	= &mst_d_lrclk_div.hw,
-+	[AUD_CLKID_MST_E_LRCLK_DIV]	= &mst_e_lrclk_div.hw,
-+	[AUD_CLKID_MST_F_LRCLK_DIV]	= &mst_f_lrclk_div.hw,
-+	[AUD_CLKID_MST_A_LRCLK]		= &mst_a_lrclk.hw,
-+	[AUD_CLKID_MST_B_LRCLK]		= &mst_b_lrclk.hw,
-+	[AUD_CLKID_MST_C_LRCLK]		= &mst_c_lrclk.hw,
-+	[AUD_CLKID_MST_D_LRCLK]		= &mst_d_lrclk.hw,
-+	[AUD_CLKID_MST_E_LRCLK]		= &mst_e_lrclk.hw,
-+	[AUD_CLKID_MST_F_LRCLK]		= &mst_f_lrclk.hw,
-+	[AUD_CLKID_TDMIN_A_SCLK_SEL]	= &tdmin_a_sclk_sel.hw,
-+	[AUD_CLKID_TDMIN_B_SCLK_SEL]	= &tdmin_b_sclk_sel.hw,
-+	[AUD_CLKID_TDMIN_C_SCLK_SEL]	= &tdmin_c_sclk_sel.hw,
-+	[AUD_CLKID_TDMIN_LB_SCLK_SEL]	= &tdmin_lb_sclk_sel.hw,
-+	[AUD_CLKID_TDMOUT_A_SCLK_SEL]	= &tdmout_a_sclk_sel.hw,
-+	[AUD_CLKID_TDMOUT_B_SCLK_SEL]	= &tdmout_b_sclk_sel.hw,
-+	[AUD_CLKID_TDMOUT_C_SCLK_SEL]	= &tdmout_c_sclk_sel.hw,
-+	[AUD_CLKID_TDMIN_A_SCLK_PRE_EN]	= &tdmin_a_sclk_pre_en.hw,
-+	[AUD_CLKID_TDMIN_B_SCLK_PRE_EN]	= &tdmin_b_sclk_pre_en.hw,
-+	[AUD_CLKID_TDMIN_C_SCLK_PRE_EN]	= &tdmin_c_sclk_pre_en.hw,
-+	[AUD_CLKID_TDMIN_LB_SCLK_PRE_EN] = &tdmin_lb_sclk_pre_en.hw,
-+	[AUD_CLKID_TDMOUT_A_SCLK_PRE_EN] = &tdmout_a_sclk_pre_en.hw,
-+	[AUD_CLKID_TDMOUT_B_SCLK_PRE_EN] = &tdmout_b_sclk_pre_en.hw,
-+	[AUD_CLKID_TDMOUT_C_SCLK_PRE_EN] = &tdmout_c_sclk_pre_en.hw,
-+	[AUD_CLKID_TDMIN_A_SCLK_POST_EN] = &tdmin_a_sclk_post_en.hw,
-+	[AUD_CLKID_TDMIN_B_SCLK_POST_EN] = &tdmin_b_sclk_post_en.hw,
-+	[AUD_CLKID_TDMIN_C_SCLK_POST_EN] = &tdmin_c_sclk_post_en.hw,
-+	[AUD_CLKID_TDMIN_LB_SCLK_POST_EN] = &tdmin_lb_sclk_post_en.hw,
-+	[AUD_CLKID_TDMOUT_A_SCLK_POST_EN] = &tdmout_a_sclk_post_en.hw,
-+	[AUD_CLKID_TDMOUT_B_SCLK_POST_EN] = &tdmout_b_sclk_post_en.hw,
-+	[AUD_CLKID_TDMOUT_C_SCLK_POST_EN] = &tdmout_c_sclk_post_en.hw,
-+	[AUD_CLKID_TDMIN_A_SCLK]	= &tdmin_a_sclk.hw,
-+	[AUD_CLKID_TDMIN_B_SCLK]	= &tdmin_b_sclk.hw,
-+	[AUD_CLKID_TDMIN_C_SCLK]	= &tdmin_c_sclk.hw,
-+	[AUD_CLKID_TDMIN_LB_SCLK]	= &tdmin_lb_sclk.hw,
-+	[AUD_CLKID_TDMOUT_A_SCLK]	= &g12a_tdmout_a_sclk.hw,
-+	[AUD_CLKID_TDMOUT_B_SCLK]	= &g12a_tdmout_b_sclk.hw,
-+	[AUD_CLKID_TDMOUT_C_SCLK]	= &g12a_tdmout_c_sclk.hw,
-+	[AUD_CLKID_TDMIN_A_LRCLK]	= &tdmin_a_lrclk.hw,
-+	[AUD_CLKID_TDMIN_B_LRCLK]	= &tdmin_b_lrclk.hw,
-+	[AUD_CLKID_TDMIN_C_LRCLK]	= &tdmin_c_lrclk.hw,
-+	[AUD_CLKID_TDMIN_LB_LRCLK]	= &tdmin_lb_lrclk.hw,
-+	[AUD_CLKID_TDMOUT_A_LRCLK]	= &tdmout_a_lrclk.hw,
-+	[AUD_CLKID_TDMOUT_B_LRCLK]	= &tdmout_b_lrclk.hw,
-+	[AUD_CLKID_TDMOUT_C_LRCLK]	= &tdmout_c_lrclk.hw,
-+	[AUD_CLKID_TOP]			= &sm1_aud_top.hw,
-+	[AUD_CLKID_TORAM]		= &toram.hw,
-+	[AUD_CLKID_EQDRC]		= &eqdrc.hw,
-+	[AUD_CLKID_RESAMPLE_B]		= &resample_b.hw,
-+	[AUD_CLKID_TOVAD]		= &tovad.hw,
-+	[AUD_CLKID_LOCKER]		= &locker.hw,
-+	[AUD_CLKID_SPDIFIN_LB]		= &spdifin_lb.hw,
-+	[AUD_CLKID_FRDDR_D]		= &frddr_d.hw,
-+	[AUD_CLKID_TODDR_D]		= &toddr_d.hw,
-+	[AUD_CLKID_LOOPBACK_B]		= &loopback_b.hw,
-+	[AUD_CLKID_CLK81_EN]		= &sm1_clk81_en.hw,
-+	[AUD_CLKID_SYSCLK_A_DIV]	= &sm1_sysclk_a_div.hw,
-+	[AUD_CLKID_SYSCLK_A_EN]		= &sm1_sysclk_a_en.hw,
-+	[AUD_CLKID_SYSCLK_B_DIV]	= &sm1_sysclk_b_div.hw,
-+	[AUD_CLKID_SYSCLK_B_EN]		= &sm1_sysclk_b_en.hw,
-+	[AUD_CLKID_EARCRX]		= &earcrx.hw,
-+	[AUD_CLKID_EARCRX_CMDC_SEL]	= &sm1_earcrx_cmdc_clk_sel.hw,
-+	[AUD_CLKID_EARCRX_CMDC_DIV]	= &sm1_earcrx_cmdc_clk_div.hw,
-+	[AUD_CLKID_EARCRX_CMDC]		= &sm1_earcrx_cmdc_clk.hw,
-+	[AUD_CLKID_EARCRX_DMAC_SEL]	= &sm1_earcrx_dmac_clk_sel.hw,
-+	[AUD_CLKID_EARCRX_DMAC_DIV]	= &sm1_earcrx_dmac_clk_div.hw,
-+	[AUD_CLKID_EARCRX_DMAC]		= &sm1_earcrx_dmac_clk.hw,
-+};
-+
- /*
-  * Array of all SM1 clocks provided by this provider
-  * The input clocks of the controller will be populated at runtime
-@@ -1410,6 +1563,15 @@ static const struct audioclk_data g12a_audioclk_data = {
- 	.max_register = AUDIO_CLK_SPDIFOUT_B_CTRL,
- };
- 
-+static const struct audioclk_data s4_audioclk_data = {
-+	.hw_clks = {
-+		.hws = s4_audio_hw_clks,
-+		.num = ARRAY_SIZE(s4_audio_hw_clks),
-+	},
-+	.rst_drvname = "rst-sm1",
-+	.max_register = AUDIO_EARCRX_DMAC_CLK_CTRL,
-+};
-+
- static const struct audioclk_data sm1_audioclk_data = {
- 	.hw_clks = {
- 		.hws = sm1_audio_hw_clks,
-@@ -1426,6 +1588,9 @@ static const struct of_device_id clkc_match_table[] = {
- 	}, {
- 		.compatible = "amlogic,g12a-audio-clkc",
- 		.data = &g12a_audioclk_data
-+	}, {
-+		.compatible = "amlogic,s4-audio-clkc",
-+		.data = &s4_audioclk_data
- 	}, {
- 		.compatible = "amlogic,sm1-audio-clkc",
- 		.data = &sm1_audioclk_data
+I will look into this. Thanks
 
--- 
-2.52.0
-
-
+> >
+> >  #define DC_COM_PIN_MISC_CONTROL                      0x31b
+> >  #define DC_COM_PIN_PM0_CONTROL                       0x31c
+> > @@ -303,9 +439,15 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+> >  #define  UNDERFLOW_REPORT_ENABLE (1 << 0)
+> >
+> >  #define DC_DISP_DISP_SIGNAL_OPTIONS0         0x400
+> > -#define H_PULSE0_ENABLE (1 <<  8)
+> > -#define H_PULSE1_ENABLE (1 << 10)
+> > -#define H_PULSE2_ENABLE (1 << 12)
+> > +#define H_PULSE0_ENABLE                              BIT(8)
+> > +#define H_PULSE1_ENABLE                              BIT(10)
+> > +#define H_PULSE2_ENABLE                              BIT(12)
+> > +#define V_PULSE0_ENABLE                              BIT(16)
+> > +#define V_PULSE1_ENABLE                              BIT(18)
+> > +#define V_PULSE2_ENABLE                              BIT(19)
+> > +#define V_PULSE3_ENABLE                              BIT(20)
+> > +#define M0_ENABLE                            BIT(24)
+> > +#define M1_ENABLE                            BIT(26)
+> >
+> >  #define DC_DISP_DISP_SIGNAL_OPTIONS1         0x401
+> >
+> > @@ -456,6 +598,22 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+> >  #define DC_DISP_SHIFT_CLOCK_OPTIONS          0x431
+> >  #define  SC1_H_QUALIFIER_NONE        (1 << 16)
+> >  #define  SC0_H_QUALIFIER_NONE        (1 <<  0)
+> > +#define  SC0_H_QUALIFIER(x)                  (((x) & 0x7) <<  0)
+> > +#define  SC1_H_QUALIFIER(x)                  (((x) & 0x7) << 16)
+> > +#define  SC_H_QUALIFIER_DISABLE                      0
+> > +#define  SC_H_QUALIFIER_NONE                 1
+> > +#define  SC_H_QUALIFIER_HACTIVE                      2
+> > +#define  SC_H_QUALIFIER_EXT_HACTIVE          3
+> > +#define  SC_H_QUALIFIER_HPULSE                       4
+> > +#define  SC_H_QUALIFIER_EXT_HPULSE           5
+> > +#define  SC0_V_QUALIFIER(x)                  (((x) & 0x7) <<  3)
+> > +#define  SC1_V_QUALIFIER(x)                  (((x) & 0x7) <<  19)
+> > +#define  SC_V_QUALIFIER_NONE                 0
+> > +#define  SC_V_QUALIFIER_RSVD                 1
+> > +#define  SC_V_QUALIFIER_VACTIVE                      2
+> > +#define  SC_V_QUALIFIER_EXT_VACTIVE          3
+> > +#define  SC_V_QUALIFIER_VPULSE                       4
+> > +#define  SC_V_QUALIFIER_EXT_VPULSE           5
+> >
+> >  #define DC_DISP_DATA_ENABLE_OPTIONS          0x432
+> >  #define DE_SELECT_ACTIVE_BLANK  (0 << 0)
+> > @@ -493,6 +651,20 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+> >  #define DC_DISP_CURSOR_POSITION_NS           0x441
+> >
+> >  #define DC_DISP_INIT_SEQ_CONTROL             0x442
+> > +#define SEND_INIT_SEQUENCE                   BIT(0)
+> > +#define INIT_SEQUENCE_MODE_SPI                       BIT(1)
+> > +#define INIT_SEQUENCE_MODE_PLCD                      0
+> > +#define INIT_SEQ_DC_SIGNAL_SHIFT             4
+> > +#define INIT_SEQ_DC_SIGNAL_MASK                      (0x7 << INIT_SEQ_=
+DC_SIGNAL_SHIFT)
+> > +#define NO_DC_SIGNAL                         0
+> > +#define DC_SIGNAL_VSYNC                              1
+> > +#define DC_SIGNAL_VPULSE0                    2
+> > +#define DC_SIGNAL_VPULSE1                    3
+> > +#define DC_SIGNAL_VPULSE2                    4
+> > +#define DC_SIGNAL_VPULSE3                    5
+> > +#define INIT_SEQ_DC_CONTROL_SHIFT            7
+> > +#define FRAME_INIT_SEQ_CYCLES_SHIFT          8
+> > +
+> >  #define DC_DISP_SPI_INIT_SEQ_DATA_A          0x443
+> >  #define DC_DISP_SPI_INIT_SEQ_DATA_B          0x444
+> >  #define DC_DISP_SPI_INIT_SEQ_DATA_C          0x445
+> > --
+> > 2.53.0
+> >
+> >
+>
+>
+>
+>
