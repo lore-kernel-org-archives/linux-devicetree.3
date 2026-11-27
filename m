@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795743656;
-	b=tdSzJ/+t10UH3VWpC0k2f+860bCmx37m/xjxT9eOZgK2zSa3ul73y3gSroytJ1t0kXNy
-	 C+gcWGHkuO+0VywfmGXswlXbYoNzS7I1YcM0JD5TasDm9TxcBiKvJzYKFbnJWn9wbMqNl
-	 hiGbW5cFN65DU54PDjt3/VD0BB4ck/lCcMMjiZ0k9pZUf1aDqTl1GMwKIpIUsvWKOU+P6
-	 UoOyRQ5MkA8fK5iMJ58vcfVONy5mewGlpitYlHydmhQhyyp/50fdRwiDI3TE8f3j44Sof
-	 kr2ZqwIn+hbkwv5AtK6ZFcRdu6gxajLGeKWAaXfKyHNjHEJ9pocK4wioXAiy+1tdndg==
+	t=1795743768;
+	b=VhQoh+4PuzaUaC6FUYVkH7VEBnOxhZRzH1wkCqKMCg/qzA6AM3LkhO8qll05+b5H66Dm
+	 PxGAnzFnY8qfgcNMu0sqzJIcJbUk9TAiufQp6pUI/bnF2Z5wKqxzImrHXHLiIDVujHyf6
+	 PShcJDqf28YLE5Wo7PpYtwCpNryvbc86H/kOHoue2PcwEcDizJBV3M8F7G2vKB+/Bm3sC
+	 YGVuwfxyFt/PcCci15ZNfAg25XHIfVzm9R/kKrEIogcrrPytQj3K9rjDNhu4Mv2bjUwhp
+	 Jdl39HR2nyu4ptfYWnxxGYhgRdzQZjxaIziDENvB3/lOxoDImHWS+UPAcIl6dMqsBug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795743656;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795743768;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=ZfsNo4E4bHGYzeWdwCvMJVtk08IzlcvsSGgsUj4aMBY=;
-	b=T3jf7MByS69vnFHYoUPEJaZ8flYfzAjvS/GDXOo6mBmJRw6irQN6zTolNfOHuqjDAKFe
-	 qiRmluh9zbEFyXDfqoe9mLmYsuCMIM2JFhSF2P8CwNHAwa4DE3FtX5P255zKTYDY/Cze0
-	 0I6HcdkeGOvPrdl8WnEBCQqS12vqbdgdnTY/AW+YKIvZBUc3rkz05nQtS9j4k3wt7Fqmr
-	 rMWH69NocxLq2QzJszoom4U4uhJWQ4wqHne0EShzDAVK4IaPXwPeXKh54LIdyEdfByQBh
-	 O86lw5bHvTVYnFrLMitihxCeUZLILWgD+llr2JNGtL8pzWdk7skJ/UfebQMggsdunYQ==
+	bh=XQbp+iYf+670Cjd0nc3KeQiLuIKrITL/6+mOjWe48x4=;
+	b=w2+L1FJYkq7j6C3Ozb89Legej91XttOk8cScu9r7dAfP5r2zgrP9ncThY12/e4USftiu
+	 GgnNcyQLzW+tP9Z69lx+Z8+FqeThux01sXwYCDTTrr1jMqA9A/0Rc1hAn6PidtHWZhMBo
+	 mtncGcU4EO5xSCyCtZGgeIRDJZTo2sijOSaK+d/E+MofhOyjdFV4e7c77zB/ZeWQNdbiw
+	 kL+sST86NuXEJ6fgKspO4lx9oynVffn0o9ktxVPxAshNHXvYTFd5mHjXSgV1ckR8wb07r
+	 8zsfWT5DpBD+UzOVKRWvFTnL+m9H65P3fW7fffyD7HlqEJ9sSy7yqGbXy9dPfPTknlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="IpF2/UNj";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cte8CXDh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E73606A31C;
-	Fri, 27 Nov 2026 01:40:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB82F606A31C;
+	Fri, 27 Nov 2026 01:42:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IpF2/UNj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 035261F000C1;
-	Fri, 27 Nov 2026 01:40:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cte8CXDh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 126811F0089B;
+	Fri, 27 Nov 2026 01:42:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795743656;
-	bh=ZfsNo4E4bHGYzeWdwCvMJVtk08IzlcvsSGgsUj4aMBY=;
+	s=k20260515; t=1795743768;
+	bh=XQbp+iYf+670Cjd0nc3KeQiLuIKrITL/6+mOjWe48x4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=IpF2/UNjssFQ5BoqVwBJ6LHrVSbLMeQzZbtDEEPw+Sf6PWhzX/SmOLKNTSXgtZg/Q
-	 uqUdUiY+qvCLp9xseKjFlyzXjKAhXHovyVxC4OFQMEKp1LVPr81cf5RYkkgyoLDd2X
-	 RUfrRt13G6rMXSInjWaI2dbZ7ObLRmz9qopHjt+u6k4F7ZwpjM7DPjPYhEGXme+n5+
-	 WByLo+Zlqe66WaGaD1bTsdROYp2/hIRbBkmBBIF2Lnjd4IMVyMyakYApKUa7H8jcRp
-	 KlaychPj2TWUxFnl1aU6KwPFI3rNlv1DmvBZVXHJ5AmGuNBTskqgw5wR8COpx0XQcM
-	 TfbCuqnqmbWXw==
-Message-ID: <e281de75-7294-4f7c-a570-d51cceb70c24@kernel.org>
-Date: Fri, 27 Nov 2026 02:40:50 +0100
+	b=Cte8CXDh4YKfZj+U0TA+dURXZ/vAlvQ/kLh9gS6a4N9b665NhTA2+ndJtTOCH7aPh
+	 sZXxQhTaNFcWI+9GCrPpjLGDt8pG5qmku2zQ6y3qQN4qSqmMh+elTU0raGINHv1EJq
+	 1qzH6RIzG0V4q2SD18mWSF0HJlEBwKzoHjtsKSthTMjmRrnsqxmlgIoSS5ASXWHwFp
+	 X3llXG0PUbtzkeF+rsaG9mGyWiJBegAM/n1gJLrE3+AMQ4+YuXOWSWPcn6wKgzoLfg
+	 LlezuEsuVsWKIOt8pSSmIvJxnq8fomex1LaG4qoSI0AnYhM9C5LkPnAL5h2AP4bQCP
+	 OS8zA9awTY71Q==
+Message-ID: <68d1f55c-ddcf-4081-8111-9773c484ca07@kernel.org>
+Date: Fri, 27 Nov 2026 02:42:43 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,14 +52,16 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/3] dt-bindings: arm: fsl: Add ADLINK LEC-iMX95
-To: dineshkumarv85@gmail.com, Frank.Li@nxp.com, robh@kernel.org,
- conor.dooley@microchip.com, s.hauer@pengutronix.de
-Cc: daniel.baluta@nxp.com, imx@lists.linux.dev, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, kernel@pengutronix.de,
- festevam@gmail.com
-References: <20261126160102.52163-1-dinesh.v@adlinktech.com>
- <20261126160102.52163-3-dinesh.v@adlinktech.com>
+Subject: Re: [PATCH 7/7] arm64: defconfig: enable SDCA class driver and
+ WCD9378 codec
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ andersson@kernel.org, konrad.dybcio@oss.qualcomm.com, abel.vesa@linaro.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261126183806.172485-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20261126183806.172485-8-srinivas.kandagatla@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -105,19 +107,17 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261126160102.52163-3-dinesh.v@adlinktech.com>
+In-Reply-To: <20261126183806.172485-8-srinivas.kandagatla@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26/11/2026 17:01, dineshkumarv85@gmail.com wrote:
-> From: Dinesh kumar v <dineshkumarv85@gmail.com>
-> 
-> Document the ADLINK LEC-iMX95 board compatibles.
+On 26/11/2026 19:38, Srinivas Kandagatla wrote:
+> Enable CONFIG_SND_SOC_SDCA, CONFIG_SND_SOC_SDCA_CLASS and
+> CONFIG_SND_SOC_WCD9378_SDCA so Qualcomm Glymur-based laptops have
+> working headset audio out of the box.
 
-Looks confusing with the actual board. SMARC is often the actual module
-and here you claim board is LEC-IMX95, then what is ipi-smarc?
-
-Explain here hardware briefly.
+All of them? This is board specific, not SoC, thus please name at least
+few upstream examples.
 
 
 Best regards,
