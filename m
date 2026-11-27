@@ -1,13 +1,13 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795776534;
-	b=aPIt2Mitm+tkK5clVyVahnLmQthgb7fChny7f3wgXVR0oCBgR2Np2AJy3DpwIsWXbfpQ
-	 9DiaLiwU0sflzVH4BfgOCp6+aKucGHpjY+GSUcl26UBMDbzDuCWR11DJGSgooI8NNR8U/
-	 gGpFl2ipWIuIaGqbYAqYPEONIS015e/eqSV01t0jSvXxk1Ocj7IaVIPBT1ibjdpVOeQAI
-	 re1tJT5AQ/MPUiGu5jHElfCkw4c9b1caMxhw+pp9YQWnsV9wVcC2MyGAHtrEzIAc18Odq
-	 QXRS1L35FNgW5A2D1T0oTRsmFO5KyQidHelAUtlKmXlFkgZGtIMXG7KarUMq2njc0Sw==
+	t=1795776535;
+	b=k8PsNhl/pJI+PeJBNxiw5rakmNkmL0n5wurv75MZIctY+JJefvwa/xBN+ZRoHidYHCXI
+	 R0CGqvktoQ6V7Iu23qVJF19klUW/rCDrTH+oEXDcsiYo9dhRz2jV2sCPAg5tcpg4GC23Y
+	 Z+zB0mb1DrZV8xDDvXCpjwfJR02+kS0CfuZFznoGURM3V6WMSeJ0rDTqWi1oFh0lLBlNN
+	 QD9cpiKowiLmdwskx/pJQJaANsXP7g97kFs7sRIUBj3vIxgy2Brqbc4E/NpPaAAqbhlTP
+	 8r4xlz9LBFqd+KEsvIWzVAcdJ8iSWNNEy1M1i2xgOhTBgA3hlCJBoWI2cXdCt6/uqOQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795776534;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795776535;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
@@ -24,53 +24,53 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=PDEJ9XbmqbGCeQcukb/Ae7SaEsaOYTz37Xk98JhsQQE=;
-	b=Fxyujt7bUH+hEop1EuunV5fgsyBVMks6gQGkCd1zqbYBeV1qXaOg6Z36zLMNxNJTmgJz
-	 4PaEBZhjZKDbzv0sppLIRRQqWLYax5WmEbeSkbb+DKht+iktksnowDNOXygTp8ffUbSN5
-	 mqI5WmTkvm4jk3oMqu6v3V6PS8o6nB0sMpDKRrjbdBDv5XPrNUdjyqJnyLmgwkpYK6Npz
-	 EZ1iTQZvBizoxrdHLmkuOlip2PYrfSdu61HMQUIHe7lj2P63JFqKhtFRSWJi3G7vJwebU
-	 vTzZWIfJ3TPK2pffu8KeStZjC9Lp9SLp6LDWtUdLtJc1boxVMminKsDyo9cYLG8lIKQ==
+	bh=6Qn6Zl0/iP3d2HrVA35/GBHL05SHJr9GM/8hOAZtNhg=;
+	b=dvR/HkXyUL0xVW6WelVntc4axlA9632XM74Cex1fXM2b3iesFM1jnaAlr/8fUNLMwsDD
+	 po6zhQDDJvzhlry+LO2jxhq34P08AYyX4N+QFp5E/UcAn+XV/M8XDNhbaheipPmJwqnu+
+	 RU0zaL05hbxQeM/K1TcskPM4ipfNNNfBug1CBlVg7bnISTSwTzN67YODZMXpChn1I7eqQ
+	 15IOfru5rZ3DUW6SUP7WG6wQNTJdEScsPgZGFCTXi0rQwBXsgvSlPFyVIWgnEgAyCCQm4
+	 S80KscvdfhoXoWb3qPGFil6cG997+h9w/LKoY6XjObh5Up6p3kCnoWZcmo95R9T9edA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nxp.com;
 	spf=pass smtp.mailfrom=nxp.com;
-	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b="fx0PcT/P";
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=nSOsc7Ah;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.18
 Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013018.outbound.protection.outlook.com [52.101.72.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AAF3606A32D
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 10:48:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AAF3606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CB8C606A332
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 10:48:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CB8C606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=fx0PcT/P
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=nSOsc7Ah
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bTPFERjmj+ZxUh+NxzbB2HuBdT5ghRhZo4u3mCxcDuoSkjkj3Ke8uRPUq21wL7eaVbA66MO3c0fNWvZ4qj/ZSEsKugv+vEpfvF9RpOh+5x3MH0byy6uWIuj0UC9j0RRXyDYPbWvU9yuxBAsyItPT66r5KoLCPLGKQVLn0PKAXOIRDxmS/XL3WU7QKWu1ecsBzQX16a482KLm6N42Ik8Po0Pq91FL1ESRn4tusJcuqohJY7p/6ORkUNcFDvMyGkgL/LoP7GBh8zVGIFAv/Pq0QpwLarCKwpjAByEBuFowFk9ctxQv8VTdzOQalMauzR/gNJIIxUxXk4vrysH+Sxt//A==
+ b=jMSUJH9XnENLTzJkrctf5xdtpQRv7fKDallEJOyUGvzMHmZVLlb5a5LGNQE+mw/siYYS8mN/X094Cb4IHBMzcdGSjFfh0cP3ZCfatP23bB8SBvNR99SAJRzfOu5p6xE7KZSG9N+Ni3R0u45NMM0Us8gju8YytBRm0OGRj4AX+QIpgqeljevdtTd3XJ0bSRVukOCNe8xlp4OBQQOexnj9ib/oX+Q0P5cYBWxzPNXBMhZ5KPxHWnPq6uiufgWY8kJm4vsmGYMmyeHeIIh4WGwzGLwezj9tO/runrNog/WiP6mgDIoCTrLIvmXQPgi5w2S0LCgbQEjY/KH8lNdWQeo8tg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PDEJ9XbmqbGCeQcukb/Ae7SaEsaOYTz37Xk98JhsQQE=;
- b=N46r8Xl/ugys/K+eMdSaNXbV3vXXNEnOyTXJtwSilO3AUnDwclyAU4nKxF3DqjHqLPxfUpp7g2bEWflfL+h34ZlB0lP0fD1zxYJzj1IW4OPmpz6X1MHrl32CuowiMI57LeNK4vunPi9JIQ/r0vTUtQKGzBsojVIa2n5mj8EdzzFN0z+672ZVtb4XBm4TJsqujPKaK1rEg0UmIlN5usWFhezNnNEry6d8VnpxHtjGKRxNoFkIDZkPOXLIoGPU8KhHrJYpycX3GHEtkLlMEhtZBwFxOVHNKsZ1bUb8k8UN3mP1nPLZFXKOfhicGZOaIWu9lS1QUC9WYxXnQ49mcJaOdg==
+ bh=6Qn6Zl0/iP3d2HrVA35/GBHL05SHJr9GM/8hOAZtNhg=;
+ b=pLpc/dRGCZf9pdcCQFuETv59dVmuKnuNoTPpxKKQOMgOG0vtRtI3wkyFr2My42oVsduyTEFEcQCgHQ4/eJ9I3hmVzbnvYVXNFt/bYHfn/Ndulc9hqmmkYKaabxOsZkM58dc9yrjeURU2o+OBatcgqKkq5a0L5LZ5Pq5GcakS012nQQ94zXDGqdO1ayTJzFRFuV45Blgb/7WCX15SJB3reBoNhT+bJAjqPDEDzQeDd1oHMyzl/obKVdBZnsr49KIGPsd9c2gsCRDbl1QR1XLWh6IVebd1u8/t6VSfPuuShIHuLtdoOOl00gLOF/Cp55n2ooQ34fcRSPXz22/dE7NiRQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PDEJ9XbmqbGCeQcukb/Ae7SaEsaOYTz37Xk98JhsQQE=;
- b=fx0PcT/PoKpz/6w1Ajheb2pcBhyumawYC5BzkGlouTAu5+QACwcPUGL70DGP6JEfhcrxI9HWx6zkcLs8gbETiTQAvsQ+xMamNE0+SIf6wp63cbZwcjua4CBgSw+i2ct6UQIR8Zf1VNguO2TrzHlomHKvMx1iYlhklXJYtkCUZQldxg+1RXpnPAejBX7VxM9ZFIWr20oht04iqAPYIs2ccYAKElqBykyuR2nYlKsgvqtO3JA6YHl/amRNWx/9EW3Qi0zx5bDltQbA80sYyIFbRhStDnB2cnn9tJLkGIc9eI/xsM4nmaElrijbgl7I4dDx5AzeYx2WKs2FjFG3ge8Eug==
+ bh=6Qn6Zl0/iP3d2HrVA35/GBHL05SHJr9GM/8hOAZtNhg=;
+ b=nSOsc7AhyXZtkYe0Eb0lVWBQ+AwJBmpXw7Xh7mppimK0Wu8dQH9my5+7W7xjGofZjxYXKanZ3FQowylP4SctuJDGl3nehP1bDnSpgS5eXIg1EUEmUGRCWYUVWjbPLWtnGEotsxrcu92uCcK6bnkm6fSbOYoCZo+WcQIAme9wvOiyfkpg2hTHvIECfmn8PsD6oUtMkwG/S3k2LQvIPHrc7zKrL6/7Oftom4QSPXn03DwuwzL8ktbX5QYJvfBSrOjWCxCp0WrBm8vpZrM9etR0Y6z/W95uxIPtXz0NqlKhuz0oe1Xc/+5TtTFdLbKQoZ9WAc/jPwBuRPDLoKSn8QbXBA==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nxp.com;
 Received: from MI9PR04MB019273.eurprd04.prod.outlook.com
  (2603:10a6:290:d3::17) by PA4PR04MB7999.eurprd04.prod.outlook.com
  (2603:10a6:102:c0::7) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.6; Fri, 27 Nov
- 2026 10:48:51 +0000
+ 2026 10:48:53 +0000
 Received: from MI9PR04MB019273.eurprd04.prod.outlook.com
  ([fe80::263c:943a:dcb0:29d8]) by MI9PR04MB019273.eurprd04.prod.outlook.com
  ([fe80::263c:943a:dcb0:29d8%5]) with mapi id 15.21.0662.004; Fri, 27 Nov 2026
- 10:48:51 +0000
+ 10:48:53 +0000
 From: Ioana Ciornei <ioana.ciornei@nxp.com>
 To: Frank Li <Frank.Li@nxp.com>,
 	Sascha Hauer <s.hauer@pengutronix.de>,
@@ -82,16 +82,16 @@ Cc: kernel@pengutronix.dd,
 	Conor Dooley <conor+dt@kernel.org>,
 	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH 4/5] arm64: dts: ls208xa-qds: describe the on-board SFP+ cages
-Date: Fri, 27 Nov 2026 12:48:19 +0200
-Message-Id: <20261127104820.1990733-5-ioana.ciornei@nxp.com>
+Subject: [PATCH 5/5] arm64: dts: ls208xa-qds: add overlay for on-board SFP+ cages
+Date: Fri, 27 Nov 2026 12:48:20 +0200
+Message-Id: <20261127104820.1990733-6-ioana.ciornei@nxp.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261127104820.1990733-1-ioana.ciornei@nxp.com>
 References: <20261127104820.1990733-1-ioana.ciornei@nxp.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: FR4P281CA0003.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c8::14) To MI9PR04MB019273.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR2P281CA0131.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9e::14) To MI9PR04MB019273.eurprd04.prod.outlook.com
  (2603:10a6:290:d3::17)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -104,201 +104,191 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: MI9PR04MB019273:EE_|PA4PR04MB7999:EE_
-X-MS-Office365-Filtering-Correlation-Id: eaa4fd06-5c9c-4459-daae-08df4c74062f
+X-MS-Office365-Filtering-Correlation-Id: 6304c69f-e4db-4385-580e-08df4c74075b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|23010399003|1800799024|366016|261009223027099003|6133799003|18002099003|22082099003|3023799007|56012099006|11063799006|261102123227099003|261026140227099003|261026121527099003|261028144727099003|261021121427099003|10067099003|261022105027099003|261022075727099003;
+	BCL:0;ARA:13230040|19092799006|376014|23010399003|1800799024|366016|261009223027099003|18002099003|22082099003|3023799007|56012099006|11063799006|261102123227099003|261021121427099003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	aF/KBJ2sp6/xJmg3d2SZpqC66XRl8Nf8QvU0VgALsAYl5rP9+JX7bSPpRuyqKLTN8tiDTzvRDpe401TkoUaG34fjy5YjKplsISLnQEtghAl8xdzyIv8TY1Z5QNXa7L+vGA8RxR/xCAqFSkmlRf0H34ZvVEdNoBdD+9XVNUMOwfaBgROXwdKJ7eMi9G5g7kMfsZrDtE5nqoQVuNIa2HwAeMiex5KCOLvziySmbB5Oe+Hd0K4ESjE3Paif3PNAtiYnBg4lEuh7W2AAjLKLcyGK63MwsECc5ayLgZVoCu2z4lZRbk7KUpN70NYrtrjwEE2P+AFlwTsua/y2UrtrWeSivA7d7mrSVi1yucOlnrrR+j+rxzgq3pbzb1pbxojLKjkErRvB+neC3LL7YUzXenGAt0/YLoKwzimR6/3X4pxUdReNqn4+2aJIJ+HQbCM1AOGTc09lwzXUovmrNFNXA5dqvU/ArOQj/HmqD7keGzb/vEk4z82edX34De/qve3pC+vVmQ5K7U60xeZvMERudwva6r4+nLgWen0O00H2VEhFF3XmJYyj0ImNPcLXq9CEewDzZCX9oMb5xPcb/hTinWDel0d8mXXHbxNGhIzMjIcpad9D3+KoamCtT6i/ux89uxRD0yJHO6lvDegKMViPb4xQLf3QQ0TSePDkUxf+mz18Dp4=
+	XD/GrLOQjM6RG39aF4SL8SpX3ydbLOggRvMQPTjqhF7nDsTpWnKqYi9Cmy1fYHHUPRtCCm/jI3qnDwpLLPANh4TvqGJqTlGsNczD4Fztut0dXabmo0KwBp+f+8isTxEmuF14JvnmgZZGrWk63Ean5175NIEhSRIXwpQd/g8SVtdRvFOTckVOFLoxnPEmRT0pZojMxSChLmd+4zrwBSjCf9keLXi8aRglRBC6QWig+5eFtzOT2UGxGcqSH4XKl/bZCQtnLe+R+3WUXlpHYZvmUIhaKPwka4sSvGnIaZj8WSr7iKA6Oe4rw8im67BV+RrpqC4B1Q8m3ykgEiB60X6JTfkgT4Z+kU1fqKb210XX931kLCdc/tKvKM4pFDeeFOLADwpyBC1sEKIYfxuchM53AzOEZBJ1cc6pDtfNTLub/2FUrmpHvBLzWr0iNdGN19kLY65oawxdV5dPerOpiSh3ACD2O2BhcoDse+mZbgJDUoOoZXwI3mk8KdRJOo5KyzxH5WvJIgcUsEYQtBn9HTDEgVIh65j5cDutVMzCliZjS2Qwhks6b50icjXAisMOZ7zYKond1D7C8UzxB10SwkRM+vxAJFzDX58bL2KtR597xp/jUZDUSJ5tLtbIEfHF++PPO81SvV4sR7QYpVPm255+0WiwTTiQShYNNxdRCOntrtU=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB019273.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(23010399003)(1800799024)(366016)(261009223027099003)(6133799003)(18002099003)(22082099003)(3023799007)(56012099006)(11063799006)(261102123227099003)(261026140227099003)(261026121527099003)(261028144727099003)(261021121427099003)(10067099003)(261022105027099003)(261022075727099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB019273.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(23010399003)(1800799024)(366016)(261009223027099003)(18002099003)(22082099003)(3023799007)(56012099006)(11063799006)(261102123227099003)(261021121427099003)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?t9aLleL7IeLAbuHq1OxFdCoqYEviIvzaM4yEJ0WQOgOeoANApPN9Kf4QKMMt?=
- =?us-ascii?Q?yot5mWFHEwq9we0RJQkDpYzx0LujUvkloXkK2fcRJ8tSFkxBM8ZIB/8qFziH?=
- =?us-ascii?Q?fXmqEDolt7kn1rmw9XwyB4Tf3kZHxFAN3LTaRB21df9GOuuYIaClUw0t2e2g?=
- =?us-ascii?Q?WU2WbeYIxLWEea/5U0gldUrRAg+RPNDP/W0Bp6UGHRBI7vqvTjNxz0p0BXk3?=
- =?us-ascii?Q?Gj5h6dFywjkc3vzWAGJqO0zA3gvQZdJROyE40CfzFOuU9BsCxw/3Rz3DmO/T?=
- =?us-ascii?Q?zyOg5Af483bHtTFE4392mAnBjpZiJK3mhgznsxXzmgaiFVzogtSXZEnGv3oa?=
- =?us-ascii?Q?aH4YoerPolXTwzPXWtLRE9oiGyuj2+jZ1NzM/sf8/xHuVO3HqCrS3/MyYSW6?=
- =?us-ascii?Q?qbHIiTv2dOAHH2LPBWQL3Iu+mGsRqM0HCQGAoXUauiWSXR5TS5Df1u7ut1m0?=
- =?us-ascii?Q?k8v3QNsTBos1Lr718iI0WTlb2Y6WPO1eoXgBwqllENvFZhqfSijbD7fPUjwB?=
- =?us-ascii?Q?XNqLH4goHfgbx81BN9bJwJPD/X+UuuYprb5r1ykSqIxAHmkO5yvdpqhNLm6r?=
- =?us-ascii?Q?fZxrHZsSexDgTXJTk2F4K4Ywj+IDkY8uLrp6ry9XCfHZCX7nQmG7Mps1UDmR?=
- =?us-ascii?Q?RH8uPslkGkDIC97e/F2nXQfha5xqnP2vky35Wf+gwjX1QOELgbwroS0raBIx?=
- =?us-ascii?Q?ZFCVWWeibjD26NOYf7IGq5P79qubdOajI8HgySibj7qeKRcpAbvX24OkM6U3?=
- =?us-ascii?Q?3M7E1ZkY7SZyYSSSY/x/769H1Kmipsa6QzTsU5FS+K8AgLHQfonBxt5NsRDi?=
- =?us-ascii?Q?Hcyo/367nWdhBRMI3Sl6bj1GdCcTHWXXPA056/eGTN+RqLucUP5K9voYk9vB?=
- =?us-ascii?Q?4vBCjr94844YSwOWwu5wGWUUIyH5ys1JntF4NdkW7LuvX6bOd0vLS7vRqSa6?=
- =?us-ascii?Q?5B3ErthmKUC3zUiduXNYymlScqAIF3UWtCSrnyQ7xbOZW6HOsy6PjCoy2SBu?=
- =?us-ascii?Q?XB7QQU97K3xEA7p27EEpeusov4z0ackkC94/rfijOZF2UZf+BZXbSn82A/kV?=
- =?us-ascii?Q?7Xqzw3vW/P3F3W5BFKMYimKNqMcMw5/OXAypoAkCJvT7UC7COqA0oyCAMJ3u?=
- =?us-ascii?Q?fGoRqSk5JFcmaMFRLUtoq7R0PpBVN+B849Kxf5oTT8ykYm8W9EGbLewUYyfA?=
- =?us-ascii?Q?TW4mNu5Ydv2Bnmj128zuiwuQsvFXxMI2gyMa+s0487dcfX97aTxgvXPJvHEk?=
- =?us-ascii?Q?iCnGETp8QYslJJhaVK61lJ536ep3JacHpB0NF6HVjMEanvHbUIeFzWKRQUI3?=
- =?us-ascii?Q?aRvOS9e21aT1ktYwLjv0Nl3aE9SiPMpzB2NK8HsbkAoPH8gxeTU1dU9sJlnP?=
- =?us-ascii?Q?Kiu42DAyawOlSRCjti0i0BTyT6cz+mYIdnPpKF2MFtexKmwRCuQRXmvt0cBy?=
- =?us-ascii?Q?fP50B6hILFJ4fzqgRBa+3vLXx8ie1usy8tVhlTmGBGG7aexGnZ3CtfJ4TyOK?=
- =?us-ascii?Q?O1xpn1/zh8QaGmKQnzbYQ9ZhZgcg9VnLJpCqfC5kN9FWkUV+cIWV3VRMSsMe?=
- =?us-ascii?Q?qhKMwK0dIUfTtPsFxDNSa9Tb8odyExEpJb1YB9RI8IC6K5HtDCMAsl6i5qXs?=
- =?us-ascii?Q?pYMVjNP4iuyC6auMYb6IPCgH0aYNPeNQ9vHoa3uIz1dzBhz1ljpGlArTLuqM?=
- =?us-ascii?Q?nbq90E/TW11X5PxKs2Vd1baNBHVu7Qzx1b6Lv+CC3ZQC7B5QNu3WdzOnuQ9G?=
- =?us-ascii?Q?7+ctdZdpCw=3D=3D?=
+	=?us-ascii?Q?ihsZ+I+sFVTZjr8p5e0fSpSbJ2vFrBjOp3so/M2BduzQdt20h0h7NdpyP11U?=
+ =?us-ascii?Q?5Oz+5/etUynkXPtY5nS3mEQzlp1eG7bdrx/OHiGMAaFy/ggb/wM6nL6CqDiC?=
+ =?us-ascii?Q?61RQepTifSycsRyc3LFFKk8uFYyI+1LtVVwGRQj8HCjs9i9D/7Kl8/0thfqK?=
+ =?us-ascii?Q?APwQry4zafOIik/zb7vwvdTEOr3ganued5RUr/C2qT3Ju7a0/cBTTX/GFicp?=
+ =?us-ascii?Q?opo4IlbuegzE/iLNsI9+zy/IU97NDd96RUMedTRvE5P3HKCfYRd5ouVdsG2W?=
+ =?us-ascii?Q?RO2y4TpMyDrCWmLJK5EBQfi7s/hVuEQUDTjhSycg3JicIuwO8KWuAu10obMX?=
+ =?us-ascii?Q?GmhyoxZplCrEk84QEWFwARYZSmhwy9WAZHIlcWD27zFzJjOwGlg/fCq4T5xa?=
+ =?us-ascii?Q?9f54KRO2cdRDaUaBG5C0F/tmYTsDWT53nuLDyjN5ASjNbH2DHOriXzTOB9sV?=
+ =?us-ascii?Q?6IQDw83MjJgpjpVUz6VTifA78uRyZxw4SslKzSyj+7Tl7cOaN8Rpg+oENAA/?=
+ =?us-ascii?Q?yj6ORRB00K9SBB6GA6j0Zrw/UUxOhoJsTCVPZxIVXHu1wG6+7aYT1hrxjQ1x?=
+ =?us-ascii?Q?3lYuQhtJokOIEDBslfLDg0CvSL0fqUa60WGFj7MILMIhEGacUKVwQ7pI4NG/?=
+ =?us-ascii?Q?3dXYUH+mjjP9mhgs1v6fJfKo/e/e75Bx0ZqBj+4W7GJK4uqOPJ7EBYIbSFVa?=
+ =?us-ascii?Q?j2NzRToLW/dLPT3jByA9d24cq1OB2yPlGJHFqXOQTS0SDYKFD8qAgB21Pmg0?=
+ =?us-ascii?Q?BxskcEBHe8pjU1lUlzaao8PQ17lH5AjYACZSBedjLR3T+6R2MRaA1GOy6aTS?=
+ =?us-ascii?Q?jMdI2bVYeWp34iHVq28niFD5qeDCjk8vWRwDuAPGWOGg5Gv/P9WSar1VddY3?=
+ =?us-ascii?Q?Tupu1Vi2yCH13gL5OtPFO0I9C6FuDifZirxahIbpGWLz4VyNkgta8HJDvd+L?=
+ =?us-ascii?Q?Aqf097o87v6PSespFl3vxbr2Rjj+arTKerkLHsuLynaV5KcgqMGrNXyY16rM?=
+ =?us-ascii?Q?659ZtFLLAhcYVqH70Zw4j3BvTADR/MIPN83BYhTQIaya0O9vpzqkCkVY+aSn?=
+ =?us-ascii?Q?NpTsZgpLZBNFpq5xwwMEXbSUqxOthDDHJ15UYbrNTqvNmtXF2+1GNmjJtY7V?=
+ =?us-ascii?Q?+up3C7Cwv7Tj5VasGwleItG0BSX4pBgcPio1QclF6IqCc4JZhuI5dCco+pRT?=
+ =?us-ascii?Q?WFf7n5It/2NjQR48m1Koplplsja2K7lXA0O/+rP9HCK4tfNX4FKnhweDcjUF?=
+ =?us-ascii?Q?Rj6A4KhYjgecjO5FyG/eCGjVu5slIGn/tb5BwQ8ha16gNKlXh9GPJRSIUUE1?=
+ =?us-ascii?Q?f0sifN19osTi+qHFoP09HX+YE/LPP5U1MAtNWjoAVG7GSLb8ObFxN+CHz3V9?=
+ =?us-ascii?Q?SatQ3wp2gGrbUv1Hql5ALgxIZpt5bSYtQ91B40RlKF+cbe8BrV0jpFjw6bTH?=
+ =?us-ascii?Q?zSgf6A7kwt4tvpVS4X90W1ZKQIpvIQN8LOMaNPcJ+6nHaeEVznbY4dUwhart?=
+ =?us-ascii?Q?osQkmkOQ2ghYavPObcSpNM3v6rbAlSbyF74WxyRjqxlqFmHoAal7cTCkyNpr?=
+ =?us-ascii?Q?E4j5QJmtFqWnVObdMdv/XgSW+GOULTJ/MflIg+uhm12qc4O6t5JnX1SiTc1u?=
+ =?us-ascii?Q?gf2BOw+R/os+LWY+SoVUkdkDqifz/MmELxsO8n2+1Kk/EBwAl2WsWNEIxrV6?=
+ =?us-ascii?Q?kdYgv+eQcT4MoLkDqZdDm8qbkpJmhjOKa4KAdEQExGZwg1m510E5dNQm68Tc?=
+ =?us-ascii?Q?5ykjO/Ik4g=3D=3D?=
 X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eaa4fd06-5c9c-4459-daae-08df4c74062f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6304c69f-e4db-4385-580e-08df4c74075b
 X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB019273.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 10:48:51.4225
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 10:48:53.4271
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GxAgMICYZ2acGFV9JTMQFC8BUrHCWgJrE1kdUC0GuOyw5S5+WMrzxnjA5lEaHg+KzqJEtSs3vcO5dDyxSSb5Fw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: RrxMVCgx59EEXKI0663XsLolv2ygfag03dv+oOcn6VrqKw2CbAvdW7SVTkT7UFwdntD16QB/NbNMmEoUJKBQ3Q==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7999
 
-The LS208xAQDS boards have 8 on-board SFP+ cages. Describe all of these
-cages and their associated I2C buses.
+When the RCW protocol for SerDes 1 is 0x2A, all eight lanes of the
+SerDes block run XFI. With the board DIP switches configured to route
+them to the on-board SFP+ cages, DPMAC1-8 are each connected to one of
+the cages.
 
-Even though these SFP+ cages are on-board, only with certain DIP switch
-configurations and RCW protocols the associated SerDes lanes will get
-routed to them. This is why any updates done to the ethernet nodes will
-get done in a separate overlay file which can be used when necessary.
+Add an overlay which updates the DPMAC1-8 nodes for this use case: link
+each DPMAC to its SFP+ cage and SerDes 1 lane, use in-band status and
+enable the internal MDIO buses holding their PCS.
+
+The LS2088AQDS board can also have retimers between the SerDes lanes and
+the SFP+ cages. The fsl-ls2088a-qds-sfp-retimer-bypass.dtb targets the
+setup in which these retimers are bypassed, so they are not described.
 
 Signed-off-by: Ioana Ciornei <ioana.ciornei@nxp.com>
 ---
- .../boot/dts/freescale/fsl-ls208xa-qds.dtsi   | 111 ++++++++++++++++++
- 1 file changed, 111 insertions(+)
+ arch/arm64/boot/dts/freescale/Makefile        |  4 +
+ .../fsl-ls208xa-qds-sd1-2a-sfp+.dtso          | 91 +++++++++++++++++++
+ 2 files changed, 95 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/freescale/fsl-ls208xa-qds-sd1-2a-sfp+.dtso
 
-diff --git a/arch/arm64/boot/dts/freescale/fsl-ls208xa-qds.dtsi b/arch/arm64/boot/dts/freescale/fsl-ls208xa-qds.dtsi
-index 556d8c5f3180..2d2dbf1fac74 100644
---- a/arch/arm64/boot/dts/freescale/fsl-ls208xa-qds.dtsi
-+++ b/arch/arm64/boot/dts/freescale/fsl-ls208xa-qds.dtsi
-@@ -9,6 +9,56 @@
-  *
-  */
- 
-+/ {
-+	sfp1: sfp-1 {
-+		compatible = "sff,sfp";
-+		i2c-bus = <&sfp1_i2c>;
-+		maximum-power-milliwatt = <2000>;
-+	};
+diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+index 5f6aa5e78548..087e163ce61e 100644
+--- a/arch/arm64/boot/dts/freescale/Makefile
++++ b/arch/arm64/boot/dts/freescale/Makefile
+@@ -43,6 +43,10 @@ DTC_FLAGS_fsl-ls2080a-simu := -Wno-interrupt_map
+ dtb-$(CONFIG_ARCH_LAYERSCAPE) += fsl-ls2080a-simu.dtb
+ DTC_FLAGS_fsl-ls2088a-qds := -Wno-interrupt_map
+ dtb-$(CONFIG_ARCH_LAYERSCAPE) += fsl-ls2088a-qds.dtb
++fsl-ls2088a-qds-sfp-retimer-bypass-dtbs := \
++	fsl-ls2088a-qds.dtb \
++	fsl-ls208xa-qds-sd1-2a-sfp+.dtbo
++dtb-$(CONFIG_ARCH_LAYERSCAPE) += fsl-ls2088a-qds-sfp-retimer-bypass.dtb
+ DTC_FLAGS_fsl-ls2088a-rdb := -Wno-interrupt_map
+ dtb-$(CONFIG_ARCH_LAYERSCAPE) += fsl-ls2088a-rdb.dtb
+ DTC_FLAGS_fsl-lx2160a-bluebox3 := -Wno-interrupt_map
+diff --git a/arch/arm64/boot/dts/freescale/fsl-ls208xa-qds-sd1-2a-sfp+.dtso b/arch/arm64/boot/dts/freescale/fsl-ls208xa-qds-sd1-2a-sfp+.dtso
+new file mode 100644
+index 000000000000..af38190a0bc1
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/fsl-ls208xa-qds-sd1-2a-sfp+.dtso
+@@ -0,0 +1,91 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright 2026 NXP
++ */
 +
-+	sfp2: sfp-2 {
-+		compatible = "sff,sfp";
-+		i2c-bus = <&sfp2_i2c>;
-+		maximum-power-milliwatt = <2000>;
-+	};
++/dts-v1/;
++/plugin/;
 +
-+	sfp3: sfp-3 {
-+		compatible = "sff,sfp";
-+		i2c-bus = <&sfp3_i2c>;
-+		maximum-power-milliwatt = <2000>;
-+	};
-+
-+	sfp4: sfp-4 {
-+		compatible = "sff,sfp";
-+		i2c-bus = <&sfp4_i2c>;
-+		maximum-power-milliwatt = <2000>;
-+	};
-+
-+	sfp5: sfp-5 {
-+		compatible = "sff,sfp";
-+		i2c-bus = <&sfp5_i2c>;
-+		maximum-power-milliwatt = <2000>;
-+	};
-+
-+	sfp6: sfp-6 {
-+		compatible = "sff,sfp";
-+		i2c-bus = <&sfp6_i2c>;
-+		maximum-power-milliwatt = <2000>;
-+	};
-+
-+	sfp7: sfp-7 {
-+		compatible = "sff,sfp";
-+		i2c-bus = <&sfp7_i2c>;
-+		maximum-power-milliwatt = <2000>;
-+	};
-+
-+	sfp8: sfp-8 {
-+		compatible = "sff,sfp";
-+		i2c-bus = <&sfp8_i2c>;
-+		maximum-power-milliwatt = <2000>;
-+	};
++&dpmac1 {
++	managed = "in-band-status";
++	phys = <&serdes1_lane_h>;
++	sfp = <&sfp1>;
 +};
 +
- /* Update DPMAC connections to external PHYs, under SerDes 0x2a_0x49. */
- &dpmac9 {
- 	phy-handle = <&mdio0_phy12>;
-@@ -146,6 +196,67 @@ adt7481@4c {
- 				reg = <0x4c>;
- 			};
- 		};
++&pcs_mdio1 {
++	status = "okay";
++};
 +
-+		i2c@6 {
-+			reg = <0x6>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
++&dpmac2 {
++	managed = "in-band-status";
++	phys = <&serdes1_lane_g>;
++	sfp = <&sfp2>;
++};
 +
-+			i2c-mux@75 {
-+				compatible = "nxp,pca9547";
-+				reg = <0x75>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
++&pcs_mdio2 {
++	status = "okay";
++};
 +
-+				sfp1_i2c: i2c@0 {
-+					reg = <0x00>;
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+				};
++&dpmac3 {
++	managed = "in-band-status";
++	phys = <&serdes1_lane_f>;
++	sfp = <&sfp3>;
++};
 +
-+				sfp2_i2c: i2c@1 {
-+					reg = <0x01>;
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+				};
++&pcs_mdio3 {
++	status = "okay";
++};
 +
-+				sfp3_i2c: i2c@2 {
-+					reg = <0x02>;
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+				};
++&dpmac4 {
++	managed = "in-band-status";
++	phys = <&serdes1_lane_e>;
++	sfp = <&sfp4>;
++};
 +
-+				sfp4_i2c: i2c@3 {
-+					reg = <0x03>;
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+				};
++&pcs_mdio4 {
++	status = "okay";
++};
 +
-+				sfp5_i2c: i2c@4 {
-+					reg = <0x04>;
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+				};
++&dpmac5 {
++	managed = "in-band-status";
++	phys = <&serdes1_lane_d>;
++	sfp = <&sfp5>;
++};
 +
-+				sfp6_i2c: i2c@5 {
-+					reg = <0x05>;
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+				};
++&pcs_mdio5 {
++	status = "okay";
++};
 +
-+				sfp7_i2c: i2c@6 {
-+					reg = <0x06>;
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+				};
++&dpmac6 {
++	managed = "in-band-status";
++	phys = <&serdes1_lane_c>;
++	sfp = <&sfp6>;
++};
 +
-+				sfp8_i2c: i2c@7 {
-+					reg = <0x07>;
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+				};
-+			};
-+		};
- 	};
- };
- 
++&pcs_mdio6 {
++	status = "okay";
++};
++
++&dpmac7 {
++	managed = "in-band-status";
++	phys = <&serdes1_lane_b>;
++	sfp = <&sfp7>;
++};
++
++&pcs_mdio7 {
++	status = "okay";
++};
++
++&dpmac8 {
++	managed = "in-band-status";
++	phys = <&serdes1_lane_a>;
++	sfp = <&sfp8>;
++};
++
++&pcs_mdio8 {
++	status = "okay";
++};
++
++&serdes1 {
++	status = "okay";
++};
 -- 
 2.25.1
 
