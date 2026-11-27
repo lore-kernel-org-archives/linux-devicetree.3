@@ -1,57 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795770091;
-	b=FMSYqAUR7uP0sWEzMFiTMLrimMh4/Qj/tSUMS9zUlb3bU7E4H6kjT2apQhcBaPxnFA2j
-	 DsuPn7W63kFNRneEACx3cbBypCZ4SGknRbuLbLYTkbDnU6shnKaucmC80HZUzCfELu5Bu
-	 jUbBTQPpYR7P7E9laglENdF0UFiBP+SbR4ESkeE6xHV4HQ8J25zVXGicgmeX2MxF4ta8z
-	 wcyheJfnIjDO0tGAA+/jFIJC+tWiwIim1WmdAzQPoc1Lvq7hBJSJ0fbqUWWOoAu/Jv6d/
-	 GwlnzCue+YTQ+c/Mzm4hoYzrRG40bPYmhmWveqPghT6d06R5NEAgESi8q6C8BLguQJA==
+	t=1795770159;
+	b=nAs9jI7GOuRv44j8opj8nCP1keX8xuco4VPyxdF2owJrPNPCdVlOY+KCliLmBsGNEFxM
+	 HqyGIG+IkW7Q0BDJ4f/VHumAHR3qvnBIJhYM53Zv6EnEqxUOlJJAtao7FsIjVCQ+IH9tf
+	 esVjZYH5v6Rs4KiUjpUHRP36vq/9GqPZZEfyiLJPqJz6pDNvLt0lzY3xva+2HFhcg5Pw1
+	 2tEkJ/Jc2gQm0CW2DAevLaKaULrimqE0k0D37JGQPr7FfwrI7jjWtfbMoz41eQ2nqgg1i
+	 0jsdX8ntf+UdcXnRyKE4I5r8rL5GHeXyDTUPLjJe6Adp8adWm3089lMa9h3rpQ78Uqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795770091;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Pgegmg7NRbEVz4W8ht0sKg5urO7PNtzfI1XlRcABkvY=;
-	b=0otmzx+AHd34RgFVLMLIOE6qYuw2XlFDz4kxO7eKcuiptjJhm81/3b4sPDypKcFIFYE+
-	 Sn7g7ZHVDa1AjLFpPehifGPd3dD82Mr6Cr7EabbGKAN8N5Y4tb5U1sOTbBJetALq6W8nC
-	 Blpm0dNHyHq5xaEO1eicMLS99jb/T071fCSHt9+BNCqtbMxQtVGe/iCMtNTupCJIzB3Yi
-	 J/MSxw6Z+C2PNQI2mCj5Cqb+NqgL1rra8YoJ8dJHIU1hs6XTx5Le9fMAhf5vQX8hZnzM6
-	 7ryZDIjXmFoqFdtpdQxBEwzguVI17qhMob6Vuq2rKeiJkGrwLZrxBcaDpKaB7KcYBIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795770159;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=MddIBkgdQOFDGAQ07Ug9TP59jWzEEbHLbOPRkStxXzo=;
+	b=48pVL3nnnDXXTUNyrKnpYiLoS2OhdviEiln0OY/MmcDo1e870YW0JE0sfye4+LzP58tB
+	 cybkdBKgMdsQmMWg3UyTJkPWuHBTqVuBe1L0SSnOot/eOWuF1l30IaOuRVRMzUJHbJ/zZ
+	 u87bYDiZqp5bLXqgzqdZSzbjy8cCtfa31KGpfaGT319EXmq3FxaHhglmdfBZdVp2DNvwQ
+	 M3A1qihjy3QQnnj0Ltbtfj9O7ahm7MwHACDYHCIsvEScsq1TSHtCoJdDaRq9KFzSYW3ZS
+	 xxpV79pMTFXPZZ67hnj7Ejoj6aXjzG3eLY/BJJbbhNigdjYYqoWTve4jQxK5NvEkzfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="EYX0/FOl";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F9B606A68D;
-	Fri, 27 Nov 2026 09:01:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYX0/FOl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7111A1F00897;
-	Fri, 27 Nov 2026 09:01:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795770090;
-	bh=Pgegmg7NRbEVz4W8ht0sKg5urO7PNtzfI1XlRcABkvY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EYX0/FOlwfsooP0zJ63Su2e6XMGgTmIdS4E+GdOT6bUb9ROKX9i9uM8Y4rr6hxBgl
-	 8XWWBc9ozJSeBqUHZ4Pbjrj0i7jO/M+CwkW7PeTWDnIJ18VSy8tEr4kq4Z8QtGTrLh
-	 1JVOkbC5FvR2DGbE9sCRb7OPMZiWZVF4p3z+jj+xQ30jMy1qlp9kpOHAPk7Y6fUPF1
-	 nwSeKs40hVLOiBK25rWqecZdBjwaT1b7XQVOHsI6/etOZYvLldvxQZI3tF++YYaOOG
-	 TLkB5iuEvq2HX/k4TcKrtUeTJo3QUc5WI9XQrgN50fODkVNbNo42gWTDRkeDBl8A6M
-	 BS5JN6rc/D2lw==
-Message-ID: <sashiko-outbox-236937@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/7] arm64: dts: qcom: eliza-evk: Add DLC0697 DSI0
- overlay
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vishnu Saini" <vishnu.saini@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, linux-leds@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
-In-Reply-To: <20261127-eliza_disp_all-v1-2-a18be7f65fd4@oss.qualcomm.com>
-References: <20261127-eliza_disp_all-v1-0-a18be7f65fd4@oss.qualcomm.com>
- <20261127-eliza_disp_all-v1-2-a18be7f65fd4@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 09:01:30 +0000
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 70321606A32C
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 09:02:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70321606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.69.66])
+	by gateway (Coremail) with SMTP id _____8DxjdIpRwlrVYIjAA--.34927S3;
+	Fri, 27 Nov 2026 17:02:34 +0800 (CST)
+Received: from [127.0.0.1] (unknown [223.64.69.66])
+	by front1 (Coremail) with SMTP id qMiowJDxTs8lRwlrqr43AA--.44776S2;
+	Fri, 27 Nov 2026 17:02:31 +0800 (CST)
+Message-ID: <fc2bca05-a705-4538-9457-da18b478792e@loongson.cn>
+Date: Fri, 27 Nov 2026 17:02:29 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,109 +44,120 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 7/7] thermal/drivers/loongson2: Add Loongson-2K0300
+ support
+To: sashiko-reviews@lists.linux.dev, daniel.lezcano@kernel.org
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
+ Binbin Zhou <zhoubb.aaron@gmail.com>
+References: <cover.1794211535.git.zhoubinbin@loongson.cn>
+ <038de1cc102684e0abad6c25cac0138f065a0311.1794211535.git.zhoubinbin@loongson.cn>
+ <sashiko-outbox-204590@kernel.org>
+From: Binbin Zhou <zhoubinbin@loongson.cn>
+In-Reply-To: <sashiko-outbox-204590@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxTs8lRwlrqr43AA--.44776S2
+X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAQEECGsI5P0GNAABsF
+X-Coremail-Antispam: 1Uk129KBj93XoWxuryDurW7uF4rWF43Aw18JFc_yoW5Zr1Dpa
+	y5Aay5ArWDWrWDZw1jyw48AF4qq3sIyFy3Zrs7K3yruws8A34SgFyUtFy5X34xCrW7JF1U
+	Zrn0qFW7C3Z8ZrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	XVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
+	8JMxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j
+	6r4UMxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
+	AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
+	0xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4
+	v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AK
+	xVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0Urc3UUUUU==
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Medium] arm64: dts: qcom: missing eliza-cqs-evk-ufs composite target
-  for dlc0697
-- [Low] arm64: dts: qcom: eliza-evk-dlc0697-dsi0: non-generic
-  backlight-dlc node name
-- [Low] arm64: dts: qcom: eliza-evk-dlc0697-dsi0: missing TE pin in
-  panel sleep pinctrl
---
 
-commit a242dd77c0d8f9a483c88eacc1ef24d22e9ef51f
-Author: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
 
-arm64: dts: qcom: eliza-evk: Add DLC0697 DSI0 overlay
+On 2026/11/9 16:32, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [Medium] thermal/drivers/loongson2: unmasked trip IRQ in
+>    ls2k0300_thermal_hw_init()
+> --
+> 
+> commit 024ebeb46fbe6ba2893fe68297ad030cb9ce5fe2
+> Author: Binbin Zhou <zhoubinbin@loongson.cn>
+> 
+> thermal/drivers/loongson2: Add Loongson-2K0300 support
+> 
+> This commit adds thermal sensor support for the Loongson-2K0300 SoC,
+> reading calibration data from the CHIP ID syscon registers and falling
+> back to an uncalibrated slope if the initial reading is out of range.
+> 
+>> diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongson2_thermal.c
+>> index 4ce162dfb1229..68e6105051c60 100644
+>> --- a/drivers/thermal/loongson2_thermal.c
+>> +++ b/drivers/thermal/loongson2_thermal.c
+> [ ... ]
+>> @@ -87,6 +122,107 @@ static int loongson2_thermal_set_trips(struct thermal_zone_device *tz, int low,
+> [ ... ]
+>> +static int ls2k0300_thermal_hw_init(struct platform_device *pdev,
+>> +				    struct loongson2_thermal_data *data)
+>> +{
+>> +	struct device *dev = &pdev->dev;
+>> +	int ret;
+>> +
+>> +	data->regmap_cfg = syscon_regmap_lookup_by_phandle(dev->of_node, "loongson,chipid");
+>> +	if (IS_ERR(data->regmap_cfg))
+>> +		return PTR_ERR(data->regmap_cfg);
+>> +
+>> +	ret = ls2k0300_thermal_read_calib(data);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "failed to read calibration data");
+>> +
+>> +	writel(LS2K0300_THSENS_INIT_MASK, data->ctrl_reg + LS2K0300_THSENS_CFG_REG);
+>> +
+>> +	/*
+>> +	 * Wait for the ADC to produce the first valid conversion before
+>> +	 * using OUT_REG for the old-fuse sanity check.
+>> +	 */
+>> +	usleep_range(1000, 2000);
+>> +
+>> +	ls2k0300_thermal_detect_old_fuse(dev, data);
+>> +
+>> +	return 0;
+>> +}
+> [ ... ]
+>> @@ -178,6 +314,10 @@ static int ls2k2000_thermal_hw_init(struct platform_device *pdev,
+>>   	return 0;
+>>   }
+>>   
+>> +static const struct thermal_zone_device_ops ls2k0300_thermal_zone_ops = {
+>> +	.get_temp = ls2k0300_thermal_get_temp,
+>> +};
+> 
+> [Severity: Medium]
+> Can this cause a thermal interrupt storm on Loongson-2K0300 if trip
+> interrupts were left enabled by firmware or a previous kernel across
+> kexec?
+> 
+> Unlike ls2k1000_thermal_hw_init() and ls2k2000_thermal_hw_init(),
+> ls2k0300_thermal_hw_init() does not clear LOONGSON2_THSENS_STATUS_REG or
+> disable trip-point interrupts, while loongson2_thermal_probe() still
+> unconditionally registers loongson2_thermal_irq_thread().  Because
+> ls2k0300_thermal_zone_ops omits .set_trips, thermal_zone_device_update()
+> in the IRQ handler cannot update the hardware trip window or mask the
+> interrupt enable bit, so the comparator will keep re-asserting the
+> level-triggered interrupt on subsequent ADC conversions.
 
-This commit adds a devicetree overlay for the Qualcomm Eliza EVK to enable
-the DLC0697 panel on the DSI0 B2B connector and disables the default HDMI
-bridge path.
+The Loongson-2K0300 thermal sensor hardware does not have a trip-point 
+comparator circuit — so .set_trips is intentionally absent, so I think 
+the interrupt-storm scenario you describe cannot occur on this SoC variant.
+> 
 
-> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom=
-/Makefile
-> index 19310879349d0..64c61aa9cd8c1 100644
-> --- a/arch/arm64/boot/dts/qcom/Makefile
-> +++ b/arch/arm64/boot/dts/qcom/Makefile
-> @@ -14,7 +14,10 @@ dtb-$(CONFIG_ARCH_QCOM)	+=3D apq8094-sony-xperia-kitak=
-ami-karin_windy.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+=3D apq8096-db820c.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+=3D apq8096sg-db820c.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+=3D apq8096-ifc6640.dtb
-> +eliza-cqs-evk-emmc-dlc0697-dsi0-dtbs :=3D eliza-cqs-evk-emmc.dtb eliza-e=
-vk-dlc0697-dsi0.dtbo
->  dtb-$(CONFIG_ARCH_QCOM)	+=3D eliza-cqs-evk-emmc.dtb
-> +dtb-$(CONFIG_ARCH_QCOM)	+=3D eliza-cqs-evk-emmc-dlc0697-dsi0.dtb
-> +dtb-$(CONFIG_ARCH_QCOM)	+=3D eliza-evk-dlc0697-dsi0.dtbo
->  dtb-$(CONFIG_ARCH_QCOM)	+=3D eliza-cqs-evk-ufs.dtb
+-- 
+Thanks.
+Binbin
 
-[Severity: Medium]
-Should there also be an eliza-cqs-evk-ufs-dlc0697-dsi0-dtbs composite
-target for eliza-cqs-evk-ufs.dtb?
-
-eliza-cqs-evk-ufs.dts includes the same eliza-evk.dtsi carrier board
-description targeted by eliza-evk-dlc0697-dsi0.dtso.  Because
-scripts/Makefile.dtbs only passes -@ to base DTBs referenced in a *-dtbs
-composite rule, omitting the UFS composite target also leaves
-eliza-cqs-evk-ufs.dtb compiled without __symbols__, preventing the overlay
-from being applied to the UFS EVK variant at build or boot time.
-
-Also, eliza-evk-dlc0697-dsi0.dtbo is placed before eliza-cqs-evk-ufs.dtb,
-out of alphabetical order.
-
-> diff --git a/arch/arm64/boot/dts/qcom/eliza-evk-dlc0697-dsi0.dtso b/arch/=
-arm64/boot/dts/qcom/eliza-evk-dlc0697-dsi0.dtso
-> new file mode 100644
-> index 0000000000000..a0a68d3976637
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/eliza-evk-dlc0697-dsi0.dtso
-> @@ -0,0 +1,75 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +
-> +&{/} {
-> +	backlight_dlc: backlight-dlc {
-> +		compatible =3D "gpio-backlight";
-> +		gpios =3D <&pm7550_gpios 2 GPIO_ACTIVE_HIGH>;
-> +	};
-> +};
-
-[Severity: Low]
-Should this node use the generic name "backlight" instead of
-"backlight-dlc" (i.e. backlight_dlc: backlight)?  The base board files do
-not define a root backlight node, so there is no naming collision.
-
-[ ... ]
-
-> +&mdss_dsi0 {
-> +	#address-cells =3D <1>;
-> +	#size-cells =3D <0>;
-> +
-> +	panel@0 {
-> +		compatible =3D "dlc,dlc0697", "ilitek,ili7807s";
-> +		reg =3D <0>;
-> +		backlight =3D <&backlight_dlc>;
-> +		reset-gpios =3D <&tlmm 12 GPIO_ACTIVE_LOW>;
-> +		avdd-supply =3D <&vreg_disp_3p3>;
-> +		avee-supply =3D <&vreg_disp_3p3>;
-> +		vddi-supply =3D <&vreg_l8b>;
-> +		pinctrl-0 =3D <&dlc_panel_rst_n>, <&dlc_panel_te_pin>;
-> +		pinctrl-1 =3D <&dlc_panel_rst_n_suspend>;
-> +		pinctrl-names =3D "default", "sleep";
-
-[Severity: Low]
-Should pinctrl-1 also include <&dlc_panel_te_pin>, as done in
-eliza-mtp.dts?  Omitting it causes pinctrl_commit_state() to release pinmux
-ownership of gpio17 (mdp_vsync) when transitioning to the sleep state.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127-eliza_disp=
-_all-v1-0-a18be7f65fd4@oss.qualcomm.com?part=3D2
