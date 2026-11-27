@@ -1,45 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795781686;
-	b=oevkK55jMkjnecOdHTj6dCl67UDFF/6Wa7ZiyUaNdX4Re1ftjDzboSnDPDxGL1gUk656
-	 L/ogpykISIw40FIR8cJvfS6/useVn6IJf98PkIctmP9Ub0xw1Ylky9NmBIqxPb4EcdgyU
-	 psLIgWbmxGBqZfDtMsi9qxTeLhjrLZh4ggQPP837UNJCIOlUiT7JJ3s/uF3lWbJKgzeEL
-	 NQer3E1QT34P1MYwkYsLGE/6jdjLqEuJ4g+b9TrUU6+8OZYM2YdPryE9OfQhKgjyN1i+n
-	 rQ+ufj89yiLdRQKi0u2u3865bdN//NEUG4wSzzvPj9xE2tc3U7farHCO5i+66UfxPyA==
+	t=1795781693;
+	b=XEfWcAggRQJ6abuKBFO8xZTWmtkM0Ly1YlvRg707rWYGUg9iQSKwk2VI/TCeDKaD0pmC
+	 Pdd/WbWq1N47sZavP4yLKmD+03wov3GZmJgdtyazDo605pvtDYG31lObXEcuJrodQbFcX
+	 XmRc2Xt9q0iu1DxHMYxsygVfkMIXe+WdwM4q54fqyEHgRqS8kIrAUymmQwScQt3p1b6Nw
+	 B7PyWhbUs7cWtdpVYon+C1YJmmtK0LaErBkC5aZorVSX0ABrzSQWUNFUUkioy1RxDukbr
+	 g337+ZgQY2A6AhiLKEnax3kXwl/7fV6syXljxnPmwdgEuxlaiW9twQku61pesuTg5dg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795781686;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=3w20wn8ciMIi314K9ZKRgL922tIUAQ1fVj1q7jFt11I=;
-	b=YVbqdJTquLn3SjFgyy9SKFu4FYtxD+XqF/htujHQvVqAq/NxMzFUk6ITPp4HqP/5TgmS
-	 4/IDO1LWa8gz6HyKpcY3NgDtphsHzpNFTZ97VKHA+nm+YO38r56YWbOGejxfQ2d7WCSWn
-	 SIZ3jdKd6DPYjlM/L1301KESuQX/TzSqkbyPPHdpsaI67/yzC5iFPqliBzor3/85Jx822
-	 oVVpauVlisyHpD8bRejx4qrE8+pO2yMTe+3ryl0BghJegNDX7nUWmUz5VBn0iKzBeiwwi
-	 lBExA7t9PioPw0EWsPNjbbidw9NU/zYIyrJPE0GfKiwnwqHhDUXshPGPNHbU9qpkBIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795781693;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=cleNDJpyMwlEBL17eRU13w6kn3iEKvIT+1gdk3IytiU=;
+	b=vbF+iXTAc5aLB4Be5V5CMEXUax6DCjLWiHqe6nW7IqXP35b6XS6tGT7JbqaVNCqzydNs
+	 fJ3Y/WM3vvqD+maHH+pa/4qfGGViLy8GQBmjeGtV1emFvuXPYVq6XPcp7X4U6w2JVu0vo
+	 sno1pLpajJDrFk2flUbxKI5i/MNTSA+TYQqZ0gg39bnroPN84gARAwu3+Iv7ZKYrpUctY
+	 LH2d04xsNmDhX4k5v6JBmHzBd2so+nzqxmA1o+FywlCTxwW+iWK4MVn/FEP5p9hiVpPbJ
+	 xSLRAcvb/dcrhwQ/wqlTuUFEBb4Jdr6VkZ9W7hXb9xMEneWsD9kd8SSUIz9BUOeQaDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrGEsf9R;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8JDFsKt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F8B3606A323;
-	Fri, 27 Nov 2026 12:14:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9E3F606A31C;
+	Fri, 27 Nov 2026 12:14:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrGEsf9R
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AA841F000C1;
-	Fri, 27 Nov 2026 12:14:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8JDFsKt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C0261F0089A;
+	Fri, 27 Nov 2026 12:14:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795781685;
-	bh=3w20wn8ciMIi314K9ZKRgL922tIUAQ1fVj1q7jFt11I=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=JrGEsf9RGSAi95mThpsPZiqwBb8CPAROQvgPolW2qIJ2xXEk5VJKACzsGFeqPtsMk
-	 12STunPm5NpI3riSYWarempFNzU3lBP52Nu9ASxRNvvlCt5tbzD/Hw69Mx3qSnEwze
-	 Tixfxfhgo095X1TISXxrvq2kWiGqVrUKHT1E9npI8SB7mKrHS/umAuWt+Hx6/XLiPW
-	 CxkomSEuUSy3wQR8uAzWuBAWKwnbwVNUjdHwpE1WFY5jnYft8hPuN8KnQgWOuemKqt
-	 DFUFi5a6yGXRGOdEjpfbF1YQa23ZPwEuA+i7DRrh/a6UUpOg1fAbG/YbyqIeU2kgn0
-	 fWfCj2t0bN5wQ==
+	s=k20260515; t=1795781692;
+	bh=cleNDJpyMwlEBL17eRU13w6kn3iEKvIT+1gdk3IytiU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=V8JDFsKtETP+zHNB131/9ZZTmUEUaWmoJ9uuozJ2Ar7hcOYExlDQQdgaxI66mmw8N
+	 x4iOjfSrs9sJPlt+Wh/SLGUePAMmmOHoELDM/qSR+npAVUmZhkFvGK9B/KGlwKi+Lg
+	 LBya1hm0uWZZMdhnE2hSnuMcznZ9l4H2IxtsGBi874mWV/5YpF7oALFZs3AGpRQ6/b
+	 Z/Lh63eBegZ42isIPHSWx+J6QWJSymLwEIelL00KelbAkyWEW40ZcDbGLUVhddx4+u
+	 AUzo4whBGJK0vfLycdG9HgZOEYsuj1kyu0LWUsN6XREtyKbdYNbHnzOfcvJ7DM57Tq
+	 UNcQloaHzBbZA==
+Message-ID: <sashiko-outbox-237339@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v14 05/30] crypto: amlogic - Remove clock input
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jose Nieto" <jnieto.alaber@gmail.com>, "Corentin Labbe" <clabbe@baylibre.com>, "Herbert
+ Xu" <herbert@gondor.apana.org.au>
+Cc: linux-crypto@vger.kernel.org, linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, "Neil
+ Armstrong" <neil.armstrong@linaro.org>, "Martin Blumenstingl" <martin.blumenstingl@googlemail.com>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Alexey Romanov" <romanov.alexey2000@gmail.com>
+In-Reply-To: <20261127120103.1532882-6-jnieto.alaber@gmail.com>
+References: <20261126193241.1471372-1-jnieto.alaber@gmail.com>
+ <20261127120103.1532882-1-jnieto.alaber@gmail.com>
+ <20261127120103.1532882-6-jnieto.alaber@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 27 Nov 2026 12:14:51 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -48,52 +64,66 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 0/8] arm64: Unmap FF-A lent memory from direct map
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: catalin.marinas@arm.com, will@kernel.org, rppt@kernel.org, 
- akpm@linux-foundation.org, m.szyprowski@samsung.com, jenswi@kernel.org, 
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- mark.rutland@arm.com, robin.murphy@arm.com, hch@lst.de, 
- ryan.roberts@arm.com, sumit.garg@kernel.org, sudeep.holla@kernel.org, 
- ardb@kernel.org, thierry.reding@kernel.org, david@kernel.org, 
- danielmentz@google.com, linux-arm-kernel@lists.infradead.org, 
- linux-mm@kvack.org, iommu@lists.linux.dev, op-tee@lists.trustedfirmware.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261111110738.872947-1-vdonnefort@google.com>
-References: <20261111110738.872947-1-vdonnefort@google.com>
-Date: Fri, 27 Nov 2026 17:44:23 +0530
-Message-Id: <179578166371.172025.10770561998032628043.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=764; i=sumit.garg@kernel.org;
- h=from:subject:message-id; bh=H72B6Re7Lfo3dYJpngqffII6YfaUb4iqb0oxwd+0b1c=;
- b=owGbwMvMwCV2RWpxpe9rmzmMp9WSGLI5SzTqKoX2v6poOjM7Tepq5Ht5my8u93hEPXlY96rGb
- llxtjyvo5SFQYyLQVZMkSX167dp24T+1YZaneCBmcPKBDKEgYtTACZyuYeRYavT7sI3m/SebpyX
- onf6hgPXAYGpWw5ElojkKeqEbHUztmH4w+Vd9c3uxqQ7AhKnb8xtPv11xZuQkk5zO+20IpOs84t
- N+AA=
-X-Developer-Key: i=sumit.garg@kernel.org; a=openpgp;
- fpr=65F5F696B612FE7D553AC80CD41AA3794DEB3C9C
 
-> This series is a follow-up to the discussion that has started here [1].
-> 
-> When memory is lent to the Secure world via FF-A, CPU speculative
-> accesses from NS to the lent pages can still occur as long as it retains
-> a cacheable mapping to it.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] crypto: amlogic - meson_crypto_probe() drops required DT
+  clock enablement
+--
 
-One thing I forgot to ask during last review, in case of hypervisor
-support like pKVM how are going to handle unmap from stage-2? As I can
-see from code pKVM doesn't support FF-A lend calls to unmap pages from
-stage-2.
+commit 4232268afc2acbf7008e7d08e5f42bc81d020538
+Author: Alexey Romanov <romanov.alexey2000@gmail.com>
 
-I think overall it is important to unmap memory from both stage-1 and
-stage-2 to avoid CPU speculative accesses from NS when memory is lent to
-the secure world. Is there plan to support stage-2 unmapping like in
-case of pKVM?
+crypto: amlogic - Remove clock input
 
--Sumit
+This commit removes the devm_clk_get_enabled() call from meson_crypto_probe=
+()
+and drops the busclk member from struct meson_dev.
 
--- 
-Sumit Garg <sumit.garg@kernel.org>
+> diff --git a/drivers/crypto/amlogic/amlogic-gxl-core.c b/drivers/crypto/a=
+mlogic/amlogic-gxl-core.c
+> index 24ef7d5a56075..37224d75edfbf 100644
+> --- a/drivers/crypto/amlogic/amlogic-gxl-core.c
+> +++ b/drivers/crypto/amlogic/amlogic-gxl-core.c
+[ ... ]
+> @@ -267,13 +266,6 @@ static int meson_crypto_probe(struct platform_device=
+ *pdev)
+>  	if (IS_ERR(mc->base))
+>  		return PTR_ERR(mc->base);
+> =20
+> -	mc->busclk =3D devm_clk_get_enabled(&pdev->dev, "blkmv");
+> -	if (IS_ERR(mc->busclk)) {
+> -		err =3D PTR_ERR(mc->busclk);
+> -		dev_err(&pdev->dev, "Cannot get/enable core clock err=3D%d\n", err);
+> -		return err;
+> -	}
+> -
+>  	err =3D meson_allocate_chanlist(mc);
+>  	if (err)
+>  		return err;
+
+[Severity: Medium]
+Should meson_crypto_probe() pass NULL to devm_clk_get_enabled() instead of
+dropping clock enablement altogether?
+
+Earlier in this series, commit "dt-bindings: crypto: amlogic,gxl-crypto:
+correct clk and interrupt lines" states that the crypto block is clocked by
+clk81 rather than blkmv, removes only clock-names, and keeps clocks as a
+required property in
+Documentation/devicetree/bindings/crypto/amlogic,gxl-crypto.yaml:
+
+  required:
+    - compatible
+    - reg
+    - interrupts
+    - clocks
+
+Without devm_clk_get_enabled(&pdev->dev, NULL), the required clock defined =
+in
+the binding and device tree nodes is never claimed or enabled by the driver,
+leaving the crypto DMA engine unclocked if the gate is not kept on by the
+bootloader or temporary CLK_IS_CRITICAL / CLK_IGNORE_UNUSED flags.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127120103.1532=
+882-1-jnieto.alaber@gmail.com?part=3D5
