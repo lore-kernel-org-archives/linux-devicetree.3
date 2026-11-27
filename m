@@ -1,114 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795802856;
-	b=UxD8uGoW6WFKW33KEM1Ic6if1D+487wUJS7+UeAN1Z6yJnsclO5gV+nSyxtT7BDr/I2f
-	 XMtoKT/OBYtfWjhyqwoaCl/JzteQEQoV4L34xYunpCOya1HfIpPBJwRxellVpcYEpQ7ri
-	 JK8wGmNlID5X/sobY3ARlhrJqEtZQEtNv0RWEriYgpF6AkRbYib24JsaK+tvvX+GTRQ0o
-	 YwbrU8Fyz16ft+JlsLqnFhr488cH8BiWUMVVop1hb7dbKr5hH8Kpwjv3+9WYDCmmeHBHb
-	 C8cdH0kXz23chGVjdHRQEA9t42bw5iesVfjnOuA7BVaBit/ED2WUi9uOJm4/TLMDjcw==
+	t=1795803166;
+	b=mHctbFavJAwXslwtNDgX/KgGKThjNSIoHlsaUwMae4+rS8G7in1zGME5vK9zVB3Vm0BM
+	 LFAGAshFxPdWzrm0XXXK/GOjGg5xXRQ8hfXAQ+WjyO/Jkagk0Jrfi844y5qZhjAhMGEYz
+	 /1cD9REgeJ10gCW2uUby0xl8YYhXAbrNa3+XpZn0GMJcETZ8heoO7YJ/uJHl8y7W2tg/e
+	 9ZItfRee8mRme12m8eqn+DdhfokjHavMe6AZTrFunU4lMv5KF8S/otKBIAgYyqQ1nz60e
+	 YUHvt5WSM2bn0QWna0stLUxXOKUqbc7KsDiPgTB6DzdSeXEphysDsmoa23i+cpJXFOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795802856;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Type:MIME-Version:Content-Transfer-Encoding;
-	bh=C+jIPjNvYn3h9h+TJTZMShL4W1q3aCeTVBe375LBwnw=;
-	b=C75A4Ls4t9pPzWfAgOo2UuLxOLzWgaWD09rcJXlC+tfV+EkReleMAIy0bW7RomPJ1v/g
-	 jckg4St/2j15Xk8cJ9aqpgML6ubRykFbGap2rkRdcU3MDTq/aCb4lgcsg3F74EyHGM/3h
-	 cWcWDUPPWz+z3SAF/x50VqCz9yh/KV3t+xzlJodwQJCnuH6Uj06NA6ItIkx0Q9VQFmc0j
-	 i/uKIYWExhwGuXCM8EvRKmMWpV+iY1PXh83JHhva6KLkbQdgaY7C8zdMGz0Pevu7m9B+z
-	 aqBpbCENofGtLpZ8fHe1OaEPknwqtMaiXCR155XNGyvOBd6+lekE6Vqq15usI3bU+tA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795803166;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=g4XjkTeEPorowL6TGZItvt/dW091Sbnkdr9qWSWKFsw=;
+	b=0a9EK7y4SAfY0TKwDqUV0IuvS/jeHrT5RAGMFB1PIfrcJopj9hBtv1+wYV9198/M9I9X
+	 XC5IcpXxwUtcK1qd5CJMborZfDC0m/pdMCckQKriDOKvzcnYJJ0To88W4kA2euGM/DuJY
+	 j9YuZ1Qj7EyCPGW/IYSZJJIU7KuVr5TE3eoh7sqq4WJfEXY0bMFX0bY3/B8QSiuglOa2t
+	 dnTESqHh/JMAHfM8t9Bj0+SR4frwWqlCzfWgiSlHzAM9Se6t/MJfYGRHsFHt9rZwq+Qzb
+	 /YLr7nFx9+BUBPfdGPUjbLuVlAaNVpIWBeWWuwfO6Jc2A7xB26qOTUMqdIaAQwe8J9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ew+YTy+r;
-	arc=none smtp.remote-ip=209.85.161.48
-Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=protonmail.com;
+	spf=pass smtp.mailfrom=protonmail.com;
+	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=VXmBLnO5;
+	arc=none smtp.remote-ip=79.135.106.28
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch [79.135.106.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D4D2606A33C
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 18:07:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D4D2606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE50606A31C
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 18:12:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FE50606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ew+YTy+r
-Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-7190d9bdb2cso5007725eaf.0
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 10:07:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795802855; x=1796407655; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=C+jIPjNvYn3h9h+TJTZMShL4W1q3aCeTVBe375LBwnw=;
-        b=Ew+YTy+rT7UB3gv4my5hKMMNui51RIpOLMv+lYaERfblHEx27inOvOiZLANtrQz13m
-         adSVUWcE05Oyqt3ZDZuFYpIDqU6vCMDvQkpOSBP8iP3ED3WNPY6gDHNrWhtBTNC56KCl
-         +GND4pZlItV9kABH2WagloaPtBk2dQEayg7pGs2WV/yjrwCFfvRlrHMH+SbkPvOjFSKa
-         ivy6oxuUU0gHFzQfY900KjfoRy5I6Y4D+nGIsfMvHM1pchBSTuL5GW/9vWEXNvuTK3PZ
-         WCXkN0UGGXnRXDgDmwRRYFhsjkKKyzZoqS/HVkWLXuj7jtR2a2ExgE+4GWvDMif5xU8R
-         kYsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795802855; x=1796407655;
-        h=content-transfer-encoding:mime-version:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C+jIPjNvYn3h9h+TJTZMShL4W1q3aCeTVBe375LBwnw=;
-        b=awXBaxQw9MqlDsVmRDwVZ0Db6O+Ue5EE0r3eFT7mXjZM43bRs3eH+RpSgyBRgfrq2y
-         0joXjdT8zEg2qkhjdzcE8TfKjEJZ4oUySUrNNywCrG5rLcCWXNvnru11FYoqYrhBP0Fv
-         Hlq2exRibFEQp2j8VHSykzpzBWkB0C5qI8BoLsgGQvA/P/QlxD4SBq2Fg31HJ1yFgZfm
-         VHR4bcY23IyUPYQtgIsCPid6r5kd4Z6s7AlY55RvcHcaqs4ZWftCvlo/E8Eum8dsA02Q
-         4Ig1+yflen6dI3wvBeBIzQbFXc4BR368L6I1tH1PMGPZP5c/0o325b1UbwDsBnfvzh40
-         Kxog==
-X-Forwarded-Encrypted: i=1; AL+hErEIE+u5Vq9S1EvPIycRBW8Z4g6c4s5FpEYihgckcjOhkNytUQuFy/Od4S3pMxdVjZ2ggXavG8YHKZbJ@vger.kernel.org
-X-Gm-Message-State: APuU4Z/aMNqTScul5sZOb+lphmeaIoBUWEe/zg2dXUJdpgCp0rislDbs
-	9dIcSQ6okZNYQcvajpAksFsFBGV3vkFYaI9bQT59CXqC24Rg8Eam/oF2
-X-Gm-Gg: AZFdTZe8e28EMexy/XX03De2CZWUa2TCfNPano0f23RQuZvuFvcflysgxviH8OI6COm
-	vG2KV5XG/veYEWwkgX4nd3RHDPNtu1G6lFoq78xhxwuPhAteKwzbEStWK7Dvgp7NhwtC2HpSinR
-	fE9pP4Z4538c5sv5yAMy4L3rj1PNf937uM6LSuNKlu5jgA9H9/39wKaJ49tdSggMGhmeTINdFmZ
-	8dOh+WlX9v8jJrmqAQhb+EGGOKz7jxJJFnfyE9T3msadIbcEvPq+0I+hIEooDH0WfRHzyMjisfL
-	4ltnVwuwsq4GZXWVZE6eAWJcVotlnO+rV/Sz737PzsiRcEl5cPJfeGdLCSkrX582keHWnIF6ktT
-	aMi/6AZoXCDiK7O4tbgonQJc2Zmhvc6kJcT8OLgJeP6k4Nv5/VFYqU8EiUam3kDd8CUu1InhyKp
-	hlTVMWLYZxIAr5J21VnTyx0PRosq7dpvIqxxVRZaRJT/tHdtOgiB+1wa4Y3rM7sWhi9JPUN2A2k
-	XnZdloBISWGyDlnYPB6uTBH4sWoqMy6QFHT4IBw6e4NXOXMNA7U6JPTqwnp6VJ8WJt//tpkadET
-	9FJXq7fBW6Tri1DWlxSca86EPtbXMBMPg2osGh3gsyTzg9dGmkUv6HJjJMfgIQVHs/p2LliOcgo
-	hSrxFKdzzdoydXJBhPS+HcdeLe6Q=
-X-Received: by 2002:a05:6820:3410:20b0:717:da:ba40 with SMTP id 006d021491bc7-71b394956cdmr13815414eaf.26.1795802854800;
-        Fri, 27 Nov 2026 10:07:34 -0800 (PST)
-Received: from AMD.home.internal (dhcp-9-244-8-156.gobrightspeed.net. [9.244.8.156])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b38015c46sm16618767eaf.4.2026.11.27.10.07.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 10:07:34 -0800 (PST)
-From: Enzo Adriano <enzo.adriano.code@gmail.com>
-To: dockseed@proton.me
-Cc: andre.przywara@arm.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	wens@kernel.org,
-	jernej.skrabec@gmail.com,
-	samuel@sholland.org,
-	Maxime Ripard <mripard@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Junhui Liu <junhui.liu@pigmoral.tech>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Pablo Mazzini <pmazzini@gmail.com>,
-	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
-	Alexander Sverdlin <alex@sverdlin.org>,
-	Jun Yan <jerrysteve1101@gmail.com>,
-	Lukas Schmid <lukas.schmid@netcube.li>,
-	Cristian Filipescu <filipescu.cristian@gmail.com>
-Subject: Re: [PATCH v6 3/5] arm64: dts: allwinner: add Radxa Cubie A7S board
-Date: Fri, 27 Nov 2026 13:07:32 -0500
-Message-ID: <20261127-a733-dt-v6-05-reply@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <z51JFKDjnRGxR5v8f-2sigY7Ih39S9_hQJF-C7-0jwRzGvAZcyniqmAsBFOyj_Vci0JDoXGMbuWcop6uSGRMUon5bqjJFMIjMk9jN8TbaLU=@proton.me>
-References: <20261126-a733-cubie-a7s-dt-v6-0@gmail.com> <20261126-a733-cubie-a7s-dt-v6-3@gmail.com> <z51JFKDjnRGxR5v8f-2sigY7Ih39S9_hQJF-C7-0jwRzGvAZcyniqmAsBFOyj_Vci0JDoXGMbuWcop6uSGRMUon5bqjJFMIjMk9jN8TbaLU=@proton.me>
-Content-Type: text/plain; charset="us-ascii"
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=VXmBLnO5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1795803158; x=1796062358;
+	bh=g4XjkTeEPorowL6TGZItvt/dW091Sbnkdr9qWSWKFsw=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=VXmBLnO5/cti5FpDWa6tnZ0X0x1Uo6/ihGFibv4xMx/41pfr1ie0ISxHu+0gP94o8
+	 LiDJfqNHSmIpgRB97B1Fzar0fBtj/yHtfvvBKzGlzLQjaDdreYaNJVgj5gtbp8+LUm
+	 BK1CaB3s16sypcJxjB9e6SgMB9EFiPXsK+zz/Ni5S5DMvHHbQHSb8G0DBQ8honoKvf
+	 5Gw+GBswRwU5Nkh/lgsTNVOusr2i6oGQ8f21tH3PqgSElJSlgUHK2B9ezzsxMe7Wt3
+	 WYaboM+HqUTnszU/8wVad7bggWCEgsljt1jNNXiUWy+MHw71jdAn0jTeLraem1BzOs
+	 fGnj1iaeRA+rA==
+Date: Fri, 27 Nov 2026 18:12:33 +0000
+To: iasnezhkov@gmail.com
+From: Roman Vivchar <rva333@protonmail.com>
+Cc: matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, amergnat@baylibre.com, me@adomerle.pw, devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 3/3] soc: mediatek: mtk-pmic-pwrap: Add MT6789 support
+Message-ID: <czEp-CqZIp301roqRSqIALy9ubTnOg7uHv75zRifEAuhIS0f1zSU45eKzIC3fZfiUnaahQK6yVuQvthvHZOt267Mpt13X55ERh2A6HJRTic=@protonmail.com>
+In-Reply-To: <20261127030009.10572-4-iasnezhkov@gmail.com>
+References: <20261127030009.10572-1-iasnezhkov@gmail.com> <20261127030009.10572-4-iasnezhkov@gmail.com>
+Feedback-ID: 173184497:user:proton
+X-Pm-Message-ID: a252025cd58c9cc04ec8fb1af0e63707bf4d7bfb
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -118,31 +64,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-> The cover lists CPU/cache topology as untested: all eight CPUs are in
-> one cluster, as described. Patch 2/5 mentions the shared L3, but the
-> DTSI has no cache nodes, so the kernel falls back to reporting L2 as
-> shared by all eight CPUs as well (index2 shared_cpu_list 0-7).
+On Friday, November 27th, 2026 at 5:00 AM, Ilia Snezhkov via B4 Relay <devn=
+ull+iasnezhkov.gmail.com@kernel.org> wrote:
 
-Right. v7 rewords 2/5 so it no longer claims the shared L3 is
-described.
+> From: Arseniy Velikanov <me@adomerle.pw>
+>=20
+> Add PMIC-Wrapper support for the MediaTek MT6789 (Helio G99) SoC.
+>=20
+> MT6789 uses the PMIF-SPI arbiter interface with bank 3 interrupt
+> registers (INT_EN at 0x450, INT_FLG at 0x458, INT_CLR at 0x45C, mask
+> 0x180000) and WACS2 software interface at 0x880..0x8A8. Register offsets
+> and wrapper parameters are verified on live MT6789 hardware (iKKO
+> MindOne, MT6366 PMIC).
+>=20
+> Signed-off-by: Arseniy Velikanov <me@adomerle.pw>
+> Signed-off-by: Ilia Snezhkov <iasnezhkov@gmail.com>
+> ---
+> Changes since v2:
+> - Added PWRAP_INT_FLG (0x458) and PWRAP_INT_CLR (0x45C) matching bank 3
+>   PWRAP_INT_EN (0x450).
 
-> The EEPROM probes as writable. It holds Radxa's factory data, and
-> our own DT reads the MAC address from it at 0x9e, so read-only might be
-> worth considering.
+I don't see INT_FLG and INT_CLR in the 5.10 kernel [1]. Where did you
+find them?
 
-Agreed, v7 marks it read-only.
+Also, the series doesn't apply on next-20261125. It might be due to
+recent mt6572 changes. Please rebase.
 
-> Card hotplug, listed as untested in the cover, works with Vinicius'
-> "do not switch the mux to read IRQ lines" fix (a256b8c8083e) on top:
-> pulling the card gives "card removed" and reinserting it gives "new
-> high speed SDXC card". Without that fix the PF6 level follows the card,
-> but the card detect interrupt never fires, so the A7S needs it for
-> hotplug.
+[1] https://github.com/xiaomi-mt6789-devs/kernel_xiaomi-yunluo/blob/d92da04=
+1e3ad824c273877abeeeb07c145c37d02/drivers/soc/mediatek/mtk-pmic-wrap.c#L667
 
-v7's cover letter names Vinicius' "pinctrl: sunxi: a733: do not switch
-the mux to read IRQ lines" as needed for card-detect interrupts on the
-A7S.
-
-Enzo
+Best regards,
+Roman
