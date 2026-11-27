@@ -1,107 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.28
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795782398;
-	b=rJWyJh/NQZ//0BWeYUhpR0WV9Yd3Ll77QxabN1AcfT2fGn1mBh71QH1cNV8q7PfGYP+u
-	 kazwcPineSo2ZhuIEBs68PRreykiQaCQDSESaDSjbn80b4+1n+pRA2CMjsqsunOQg982B
-	 Uzjgj5bbMONVIXytvFoLVqUeRRfO2eWSEguTNBiLqUM4PsydeOEujablDvx9dDfMWKHso
-	 Sqt8c6oQ2Dg6XQ7mEdFfyTn6y6JWnZhIrGzAU52cxv4kNJoq40bghRwrQ7vW00GGjMb1R
-	 hX03DwtFVAJLibG2Wpfn495GVStYFkKmaxICSrNE+Zlss43jJH6Apeu3ljHkiXDulLA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795782398;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:Content-Transfer-Encoding:
-	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=gWjhJ60jVRGf/66/XDSbcWr0uLMGOs5GIgCdqJwlPH4=;
-	b=xDEcE1mMNxbvTqb2VpZ/oBUTOYQc+VfswYd1UZgdS5cz1InisJNz+eRA2PYHBbQ9suHf
-	 sHsWCfhTpPf+7RyExNa5FBf8/LDOa9Cq9oKD1a+jbL85qT3AWP31tHILXNVaSQHxkQZ4O
-	 ubfNEenurjplB0fCqBvrRzUUDbK5h5nh95eUg2NczBjil0/PTw6Fw/YpoBtFvk3I3WzYh
-	 J+7Dp7U4T9vo2mHIanI+uW6u/G0sPcuftb9dhikmrwoVlJW4zBcIm1o+3wssEmAmKKOuP
-	 J/XD+5WI3wA+YOw/ORrJByuJmWnIIUfqd/sNWfJTKyBzX33yV1jgRK0jl4yqu2bsR+g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=LM3TbVUo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.28
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012028.outbound.protection.outlook.com [40.107.209.28])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795782454;
+	b=2G+uDFHtXtSR5I0EivSjw6TxmZEycPaAAjKZBCxTXPPKFSaNmJzvziTETIm7IcE996+W
+	 J/UmP9/wS6tP+987ocGLxJCbydJZcsq4bKZwvmH2VwarK86j26pgih3sZxbQEDuaqUtu0
+	 o5tYPJzO1x4RoAK1QEMrh7LoUG+g7jLd9y2t91LqE9EAWUR1kyyXWYBzMRaCzPE3F0Fvd
+	 kyKH8MvmCY3ri0Onuy2lr/3sZeFe17SM06wZIo68yhFwfKo+0FVYy5Q6GGka/rpdgmSVu
+	 vG2YeVNRvriuLNw3NGJRGMF7FQRq5MSBQgE1z+GKF+V1VAgns5ARSEjk+P6HSw2nE7A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795782454;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=uB3byrI6j5a3+iN0MqWtCUyxgozP13CLCuikc54zyEQ=;
+	b=BhHztmFvIE77YfQnoub80CqXV2ms3E7i+scGR6Kl8hc63Lzrlu84wkuxGObTyDrMryox
+	 x/8nJ8H+MD1a+iJZ18MupQzuoQGAX7K5DhOshB46amZ5S8/Pt9396u/705IBVsd429k1j
+	 tOCbDCZhY7iUlXQSw0k3TeJz8v4Nw3AwaGkYEcxondqiZx1pUmkhRf90UgCAJrBv9jw0R
+	 oBA5iN6J/j14SuVWRk9buuCocULEpCFAyzzftUb4EtFV7k77Zkr/04AnPQV9QxtWrsQqO
+	 OKP2L2h1PlZFSuKJTd9FVSUhe5uUrvGUBAVfjGDPl/O5j98jFtkNfAYz2vm0j3+Lyfw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BXLSJ3JX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A364B606A31C;
-	Fri, 27 Nov 2026 12:26:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A364B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC5EC606A31C;
+	Fri, 27 Nov 2026 12:27:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=LM3TbVUo
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wQYx43AUjCT/XtNUi9DFdSOeccW+wDOjGlEp2pxErGBizjKgqZsd/IwL2gBo8FwKuH0CZxtIuFKu5XioCwJYPE6WnvOVEtArNUX4Da3Z7tyeJpa/5IotJiG2Xl0bK0pXOS+4VGQOxHfvtWuPXFLUj/VjShtZyMMjD3CDdgCO8xe6QR96+634ZwXJUB1sXnnfY/Fsxyh3D5J5D9ZQVRru4J0oi7i9Dk5CnqyRJc+pRWV34RCNfSYspbzMX+QgkLJMGYSc8DcKoxfPkd3SqTc3eBqEeQoGA7dyWPKN4SMX4ESEk27jY4j8Fo48kKWDWHDfCgh8r2ddAkCvy6c6RYDnqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gWjhJ60jVRGf/66/XDSbcWr0uLMGOs5GIgCdqJwlPH4=;
- b=PN+K+/nYdazEL09iR+CMvy5D4IKW859AIWSO6X31jQdnfqNeHP3hDjwCyMQSC7QOgRDldxFYNQfY4pUk/wTgdWlaPeqraiPyKCE1+7E3XYW78EAWVB8lNMkM1f3jG2QhfFHt/dM1ADFFoTyMEBsUBjynob9AIUjIgqSc58NPa/eBVT+n5c6nAJyTUBen6j5BTUl1xpGtgBKztkhD+c3FuFFXaR2mxynhgcSUxgbmDLQRtWWz/z7BX9q/ZYn2S/8PNAGbhrTmiLYZ9nCjkqdGhuZrxUanSNZcWF8vzhaxcJa7e80V+mJPmclbqAwTz5att5O914gmeie3rbQOhhs6yA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gWjhJ60jVRGf/66/XDSbcWr0uLMGOs5GIgCdqJwlPH4=;
- b=LM3TbVUoFSquuqBjDdtm4Hpg1Nb+LpR04yD7B2GPhmlaT9JLx6Vx1eEDAMUP9JkGXej8TBQoxhwEWrlEcuh6rez5sR/LTc7FkORiJhwpRu5SIaQQu4//iRzt1QrQlTJs/6mnsdrhRp2VtjvF92T/tFWPjpPASF1r3eQ9kuL97E+I2O5J28ZW4BkyEIkw6m/Qyef88UbMlJ5fLBxL7mGeLKSt23H1n6JB/hG8cRY+R8AVGw1MnFnJlYxho/5HM+X1qLm88a7bjPXDv7czlbdPUFe/3DRI9+rkCftkhcCoQHc5XrONwT6Q/DPwYYh+7Z7IDTv++piY6H3NC84uHmdX6w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by DS6PR12MB765380.namprd12.prod.outlook.com (2603:10b6:8:411::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.11; Fri, 27 Nov
- 2026 12:26:33 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0662.004; Fri, 27 Nov 2026
- 12:26:32 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-To: devicetree@vger.kernel.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, Svyatoslav Ryhel <clamor95@gmail.com>
-Subject:
- Re: [PATCH v8 10/12] drm/tegra: rgb: Parameterize configuration based on bus
- flags
-Date: Fri, 27 Nov 2026 21:26:28 +0900
-Message-ID: <kaWzD58LSXePk8E_XcD28g@nvidia.com>
-In-Reply-To:
- <CAPVz0n1xeNP=rv3qDMG06aSWRLTVvCfuo5tFyt9fz7KDTySV0A@mail.gmail.com>
-References:
- <20261122081820.53199-1-clamor95@gmail.com>
- <CAPVz0n3YEoq5dg4+sHfd74rT8x_R9DEv1eTzW7UHVKEABGa-BQ@mail.gmail.com>
- <CAPVz0n1xeNP=rv3qDMG06aSWRLTVvCfuo5tFyt9fz7KDTySV0A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BXLSJ3JX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C04701F00893;
+	Fri, 27 Nov 2026 12:27:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795782454;
+	bh=uB3byrI6j5a3+iN0MqWtCUyxgozP13CLCuikc54zyEQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BXLSJ3JXe8EAWw8ljYND85NufYlJetHC1DhVUSSXg/Qo+qur5BYhy/7tZ2FcN5P5w
+	 Xu08FMUbKzL/2ASMjwD2lO2E9vzYLeqsDW7Hip+Tw6U37BA2Fik0lPZ6FR0TmrShLG
+	 eZxq/etJLFNefKWt3Vjh381KsGAUFW7/LFAJagw433kkIzUIV1+pqwaoNZaceqnkk4
+	 5poYTNOiCBYOsAKdkpDuTYy72UQfRcPlzq3jCQ6D9jfujXk+/XtKPsh0CdhGjrR4sI
+	 +uKolPEp7s+zusGY8EautUabq0JqMBRG1eaUyqT01EVsXfyccLDk82CnPTzYTioIan
+	 d8LJ1GGNm6kIA==
+Message-ID: <sashiko-outbox-237390@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v14 15/30] crypto: amlogic - Add support for G12-series
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jose Nieto" <jnieto.alaber@gmail.com>, "Corentin Labbe" <clabbe@baylibre.com>, "Herbert
+ Xu" <herbert@gondor.apana.org.au>
+Cc: linux-crypto@vger.kernel.org, linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, "Neil
+ Armstrong" <neil.armstrong@linaro.org>, "Martin Blumenstingl" <martin.blumenstingl@googlemail.com>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Alexey Romanov" <romanov.alexey2000@gmail.com>
+In-Reply-To: <20261127120103.1532882-16-jnieto.alaber@gmail.com>
+References: <20261126193241.1471372-1-jnieto.alaber@gmail.com>
+ <20261127120103.1532882-1-jnieto.alaber@gmail.com>
+ <20261127120103.1532882-16-jnieto.alaber@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: TY6P301CA0011.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:3be::15) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+Date: Fri, 27 Nov 2026 12:27:33 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,145 +64,187 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DS6PR12MB765380:EE_
-X-MS-Office365-Filtering-Correlation-Id: cb79a553-fc70-4090-e49f-08df4c81ab92
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|10070799003|366016|1800799024|376014|261102123227099003|261028144727099003|261022105027099003|261022075727099003|261021121427099003|261026140227099003|261026121527099003|4143699003|11063799006|56012099006|10067099003|22082099003|18002099003|6133799003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	ViInzIFgbFH39Ea1qxpu2NXJnPn+zGsweMdcnhwJbpViufsOgjDYzyMQavCBr5wB/ev4S+cHdJomcbD0S8rP1hJokKFGG5uRMZavrmIOWN/FSHPTJH/U4gg5PYHjR883mLm5J91Kcdw0lBWgjAT+pa0rXg7iDTfwW5o5jE4vPlvRQHiGBhpNs10zuAqYrFfnZ+w7S9R6iHjPmUU4ikW5FcFzGGyOHWpXAGX8ffdjcz2QP7xuFL3l3bObDe8psSZzqprqrK0C9/4i05lqDMuFaspGSeBtiHebonOzvvOWlHuaglKhPaR5I0hRrLKH2gvOLFbyu4KM3LG2MEmwhlYrjGqac72TVKBqk0ocacFWfVMZHvossI+eAETP25UQf9I1Ko5ftJByme3FZjJlphvZsVCmSxqxOiYUhC1CSFbJgkeIPOm8QOlIOBMLle0d1vIcrE+ErRKyet8D9uwAN2TT0c6WGrnOrLyXCOW19nYW0bzlO9WooFimyT/F5/3QpIMxTxYQKkxVSLKH7Aj3opkHFu6el4lOaFbQrgaEFiF7NqfNvocT8SUMQ0BTEySfngSlO9tTdrGRJh6eJDrikPRIJZ7nmLXppcTtpeMapy81P8n0uGTYdVR3lev8m/3YwBRO16wooEUEJR3S7OIGERMhPNjRgvlDa7DRpxnFVUsEPMs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(10070799003)(366016)(1800799024)(376014)(261102123227099003)(261028144727099003)(261022105027099003)(261022075727099003)(261021121427099003)(261026140227099003)(261026121527099003)(4143699003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(6133799003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YnkwK2VWY04yU05mSVkyRjhaWFRCcnIvTjFCNVR4WDU5RlJZNFFDb3BjZ2w5?=
- =?utf-8?B?TEhtR1VDUW9SNFFWODlZdjR0bjZvWE1qN2dSbEhVSExaQWgxcjMrS0o4WStH?=
- =?utf-8?B?SEZHVmg1dUlFM25MUjN2Y2JZTjVNdWYyd0tKYTI5a0ZVNEkvNVE3V1daRzRj?=
- =?utf-8?B?dnJTRjMrSTlmNW1iUks4eTVPUGptYlRSaUpZcTU5bUJFV2lENDZ5dm9wTmRH?=
- =?utf-8?B?SkVkb3h4eTM0RjVMaEtlRzMwaFo4bXdabWhNNW5sOXVab3BXaDc2bEFZUVl0?=
- =?utf-8?B?ekxVcDRGTlRac2Y0bDZKWVZXdHVNdC9mUmNDRVFib08xbHNwRWJndWF3WE5v?=
- =?utf-8?B?eEpPL05VWnZOU2t2MzI1enl1TzFsUTBvYXg2UHRZSHdQRHVoNGhBRnNtbjZY?=
- =?utf-8?B?VmxpbHdLUWM1Z3FQLzZsbTJCaDFJY0EvQnQ0ZVZnWk83RFlaVzRJcytaZXIr?=
- =?utf-8?B?R0FkQXBaT2JMZDFoR1hCeStqcmFTaFJMN3c2NS9Wc3pWNm1sZEZZOXJyYUFm?=
- =?utf-8?B?VWV1MTc3c05uWmxmT29MblJzRk5KaW45OXQvb083WjF5Qi95T1Rvd1FmSUxx?=
- =?utf-8?B?MlFZblF4SHRWTzE0NmdxMjgxS0t5WDFLMVY3NkUrNmZ3NklkMjdsOTdIT3M3?=
- =?utf-8?B?YmdQSWpBU1ZaMUF4Z1NWYUlhMU5uNjZBQ3BPbGIrcmxXMGNZdFlpaHRFd2s4?=
- =?utf-8?B?V1E3ckdBQytGUHJyRkg2ZDRucFJyZ2dxc1NHcnBMLzJrbVZrRklJeW1qb1Z3?=
- =?utf-8?B?WXhPT1ExZUtyWGlQYzRRY3dWY0ZyMkRUQ3MrMUVpZjlLWUYzL3ZvbFJwTE9E?=
- =?utf-8?B?WGlSNUZEa2sySkNOUDNZeUdDOXpVNTFaazBwWjVPdXpZWkZXVmpCZzlpV3dk?=
- =?utf-8?B?UUxlWUU4NUxkc0pGVU5nSEZhZmdHRTRvWWxNelA4Vk5vNGYwMmZJdDI1OVlG?=
- =?utf-8?B?NWhXNkxxMHZZUC9GelJVU1ZOQisvalVIV2ZxMUJ5V2hkenFjWGR2WVRiNXNU?=
- =?utf-8?B?UXJVT3BXNWJQWXR2cGFJK2cwQnpzbERYZVJ0U0YyejJmaVhyWTYvK1pEZG9K?=
- =?utf-8?B?d2FOQi91dE1sb2ZITHQwRnFaRTEwb3RQSW9lN0N6d2VxNU9EbkdGTzJWUndw?=
- =?utf-8?B?QXk4QTJzQnlMUGVmSWxmYVhTbTVwOXAwb0NQeThwaUVrQ2lGUnkzRTY4cWhL?=
- =?utf-8?B?bjgyOEdWeFJUd1NNbVNBUUVLOXhwb1EyYUZIeXM5citibS8xdU9TZkorTERQ?=
- =?utf-8?B?c1kzNUpucTJSdjlLSThBL3BMSTh4N3VqaW5pZXVycWVvdmRKNXRxb3owYWU3?=
- =?utf-8?B?b0dGOWNHektUT3JHN2ZlMkp3RGpGSjlIanNFWmZ2UEF3alh3TmQwclBSUUlk?=
- =?utf-8?B?RG03aWZvalVwN3lQVXV4a25DQjVuNXZ4a3V6RmRtaDk0RmJiK09SNmxrbTB4?=
- =?utf-8?B?RklyL04yRkNqZW5wTm84bER2bGhBQ0hYQkNvbjFXdTI5SnFtT0FPRWo5Y1dB?=
- =?utf-8?B?Y3pwSnhzbjYxTWFoNjFXeXVzYzRMeW0vODlybzlnYjBFSFhET0tTRmdrSUpT?=
- =?utf-8?B?S2hyRitBc3M5WHBpeUMySXh6WE0yRGJ3U0g3MXdXZlYvazY2dW83L0tkdkpT?=
- =?utf-8?B?dG42R0VDMFJpS2V0OXJIRVRNOW9acDNtNDlXenlvNEVJUFBiaUFobGtKcHd4?=
- =?utf-8?B?ZGhVN2tUMFd2OFQ2QU43RGVBSVRDNHFVcERiaUVjdjVKYW4wMmxtWldsZVV3?=
- =?utf-8?B?SkMzZk9zMklEWndITWtkalMvYmhPelZKbi9TVXl5OGMvbVFXSU5MaU9MdkFE?=
- =?utf-8?B?SHc1VjZYUDlsbjc0RHgzU2RKNGR4eXRraTZmejNleEp0OC9KaU1JWEJQWlor?=
- =?utf-8?B?blVGL2pYQU1rT2FRbnMxcjFJSktYejZEdG9panZyVktOcFZtd0RRbTNkclZV?=
- =?utf-8?B?RU8rM0dkeDN5RDhqdUExU0NSa0FIeUFCYlJQcktRQUZOV3Y0ZTk3LzU2SzFz?=
- =?utf-8?B?NmZ5aDBhMjNPU1RDSE51YjBoL1JMWmlTMk9qaXdjQjIxZ215SmlFbE1OMnJ2?=
- =?utf-8?B?Qkl5aVZLVUFyNHlOV1JsbkowenBKK001ZXhLa1AwOUo4NTJrRkpQbFVJN2VU?=
- =?utf-8?B?M0VuYjNLZVpQTll0QnEzNFI1K2ZGUlkyTkFiOEo0OFQ2VVVOYUg5eHM1VFVx?=
- =?utf-8?B?aUltSVcrMU9OSjF2SGNsUEJxTW9hMkFUZjhLRFZETTMxbkRTZGk2RTNLTDVY?=
- =?utf-8?B?WnVZL3p1c1lVUUwzNkw2UFk1eExQVWZFQ0kxYXlRL054UHpMR0E2T0JiZk03?=
- =?utf-8?B?YmNtYTh3L3NxTit0Y1hzYnRXcEdIWmZaZlRMSzBqTlpJQnNBSGZvMU1XU0N1?=
- =?utf-8?Q?DMaeP5gAxnul3AzZuRq6K5ExPHhSJiTAu4aLljQgrDGn1?=
-X-MS-Exchange-AntiSpam-MessageData-1: OW0TC1u5DQkgEw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cb79a553-fc70-4090-e49f-08df4c81ab92
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 12:26:32.4955
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tWSQWWQ4RXzewlHexBIsvHpWz4jmSLFvhVYATytVoyLNTDt/FRvlfCP7AYQ5fThO2uTzXU/GphzL9/hA3i+Lyg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB765380
 
-On Friday, November 27, 2026 6:41=E2=80=AFPM Svyatoslav Ryhel wrote:
-> =D0=BF=D1=82, 27 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 11=
-:21 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > =D0=BF=D1=82, 27 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
-08:22 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > On Sunday, November 22, 2026 5:18=E2=80=AFPM Svyatoslav Ryhel wrote:
-> > > > Parameterize configuration based on bus flags passed from the bridg=
-e or
-> > > > panel. The list of supported flags includes now pixel clock polarit=
-y,
-> > > > display enable (DE) polarity, and data alignment.
-> > > >
-> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > ---
-> ...
-> > > > +     /* configure DATA order and alignment */
-> > > > +     value =3D DISP_DATA_FORMAT_DF1P1C | DISP_ORDER_RED_BLUE;
-> > > > +
-> > > > +     if (bus_flags & DRM_BUS_FLAG_DATA_LSB_TO_MSB)
-> > > > +             value |=3D DISP_ALIGNMENT_LSB;
-> > > > +     else
-> > > > +             value &=3D ~DISP_ALIGNMENT_LSB;
-> > >
-> > > DRM_BUS_FLAG_DATA_LSB_TO_MSB does not seem the correct thing to check
-> > > here. According to the TRM, DISP_ALIGNMENT doesn't swap between LSB/M=
-SB
-> > > bit ordering in a classical way, instead:
-> > >
-> > >   // DISP_DATA_ALIGNMENT =3D 0 (MSB)
-> > >   LD[23:0] =3D {R[1:0], G[1:0], B[1:0],
-> > >               R[7:2], G[7:2], B[7:2]};
-> > >
-> > >   // DISP_DATA_ALIGNMENT =3D 1 (LSB)
-> > >   LD[23:0] =3D {R[7:0], G[7:0], B[7:0]};
-> > >
-> > > I suppose MSB is more natural for 18-bit panels and LSB for 24-bit
-> > > panels depending on the layout. So the correct value depends on how t=
-he
-> > > panel is wired to the SoC on the board. Hence, I think we should
-> > > describe this with a new property in device tree under rgb/dbi or
-> > > endpoint node. Something like 'nvidia,rgb888-wiring' for LSB? And
-> > > document that this means the above kind of wiring - not all RGB888
-> > > panels use it.
-> > >
-> >
-> > Ugh, why is this so confusing...
-> >
->=20
-> Using 'nvidia,rgb888-wiring' may be confusing since as you mentioned
-> not all RGB888 panels use it. I can add 'nvidia,data-alignment' to rgb
-> properties and set 0 to msb (default) and 1 to lsb, or directly set
-> boolean `nvidia,data-alignment-lsb`. Let me know which is preferred.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issues to consider:
+- [High] crypto: amlogic: 0-byte SHA DMA desc on partial update in
+  meson_hasher_do_one_request()
+- [High] crypto: amlogic: double completion on error in
+  meson_hasher_do_one_request()
+- [High] crypto: amlogic: broken key/IV descriptors and shared keyiv in
+  meson_cipher()
+- [Medium] crypto: amlogic: partial_addr DMA leak on
+  meson_kick_hardware() timeout
+--
 
-data-alignment is a very ambiguous name if one isn't deeply familiar=20
-with the hardware, hence I was thinking something a bit clearer would be=20
-better.
+commit 6d405eb12267511d2b1777a56617785870d3b0c4
+Author: Alexey Romanov <romanov.alexey2000@gmail.com>
 
-I agree nvidia,rgb888-wiring isn't the best either, but I'm not sure=20
-what would be the best choice here, off-hand.
+crypto: amlogic - Add support for G12-series
 
->=20
-> > > > +
-> > > >       tegra_dc_writel(rgb->dc, value, DC_DISP_DISP_INTERFACE_CONTRO=
-L);
-> > > >
-> > > >       tegra_dc_commit(rgb->dc);
-> > > > --
-> > > > 2.53.0
-> > > >
+This commit adds platform data and the "amlogic,g12a-crypto" device tree
+match entry to support the crypto engine and hardware hasher on Amlogic
+G12-series SoCs.
 
+> diff --git a/drivers/crypto/amlogic/amlogic-gxl-core.c b/drivers/crypto/a=
+mlogic/amlogic-gxl-core.c
+> index f530e238812eb..0fb0da20e06b2 100644
+> --- a/drivers/crypto/amlogic/amlogic-gxl-core.c
+> +++ b/drivers/crypto/amlogic/amlogic-gxl-core.c
+> @@ -282,11 +282,23 @@ static const struct meson_pdata meson_gxl_pdata =3D=
+ {
+>  	.support_192bit_key =3D true,
+>  };
+> =20
+> +static const struct meson_pdata meson_g12a_pdata =3D {
+> +	.descs_reg =3D 0x0,
+> +	.status_reg =3D 0x8,
+> +	.setup_desc_cnt =3D 1,
+> +	.hasher_supported =3D true,
+> +	.support_192bit_key =3D false,
+> +};
 
+[Severity: High]
+Enabling hasher_supported on G12A activates meson_hasher_do_one_request(),
+where non-block-aligned crypto_ahash_update() calls can program a 0-length
+DMA descriptor from physical address 0x0.
 
+drivers/crypto/amlogic/amlogic-gxl-hasher.c:meson_hasher_do_one_request() {
+    ...
+		meson_setup_state_descs(&ctx);
 
+		if (rctx->partial_size && rctx->partial_size < blocksize) {
+			ret =3D meson_fill_partial_buffer(&ctx, len);
+			if (ret)
+				goto fail;
+		} else if (len && len < blocksize) {
+			memcpy(rctx->partial, sg_virt(ctx.src_sg) + ctx.src_offset, len);
+
+			rctx->partial_size =3D len;
+			ctx.nbytes -=3D len;
+			ctx.src_offset +=3D len;
+		}
+    ...
+		if (!ctx.todo && ctx.nbytes)
+			continue;
+
+		if (!ctx.todo && !rctx->final_req && !ctx.tloffset)
+			continue;
+
+		if (meson_setup_data_descs(&ctx)) {
+			ret =3D meson_kick_hardware(&ctx);
+    ...
+}
+
+When an update request buffers a trailing sub-block tail (< blocksize) into
+rctx->partial while ctx.tloffset is already non-zero (either because an
+earlier iteration queued full blocks without setting DESC_LAST while
+ctx.nbytes was non-zero, or because meson_setup_state_descs() queued a state
+descriptor at the top of the loop when rctx->begin_req is false), ctx.nbytes
+becomes 0 while ctx.todo and ctx.src_addr remain 0.  Both continue guards
+evaluate to false, so execution falls through to meson_setup_data_descs()
+and meson_kick_hardware() with a 0-byte descriptor at src_addr 0 (and the
+later commit "crypto: amlogic: hasher: add one-shot digest path" only guards
+the rctx->final_req case).
+
+In addition, on final() requests (where rctx->final_req is true and
+ctx.nbytes is forced to 0), meson_hasher_req_map() and
+meson_hasher_req_unmap() only check !req->nbytes, while the loop reads
+sg_dma_len(ctx.src_sg) whenever req->src is non-NULL even when ctx.nbytes is
+0.
+
+[Severity: High]
+When meson_hasher_do_one_request() fails (for example on a DMA mapping error
+or a hardware timeout in meson_kick_hardware()), can returning a negative
+ret after crypto_finalize_hash_request() complete the request twice?
+
+drivers/crypto/amlogic/amlogic-gxl-hasher.c:meson_hasher_do_one_request() {
+    ...
+	local_bh_disable();
+	crypto_finalize_hash_request(engine, req, ret);
+	local_bh_enable();
+
+	return ret;
+}
+
+Because engine->retry_support is false, crypto_pump_requests() treats a
+negative return from do_one_request() as an unfinalized error and calls
+crypto_request_complete() a second time, risking a use-after-free if the
+completion callback freed the request.  Like meson_handle_cipher_request(),
+this should return 0 after calling crypto_finalize_hash_request().
+
+[Severity: Medium]
+Does meson_kick_hardware() leak the rctx->partial_addr DMA mapping when
+wait_for_completion_timeout() fails?
+
+drivers/crypto/amlogic/amlogic-gxl-hasher.c:meson_kick_hardware() {
+    ...
+	ret =3D wait_for_completion_timeout(&flow->complete,
+					  msecs_to_jiffies(500));
+	if (ret =3D=3D 0) {
+		dev_err(mc->dev, "DMA timeout for flow %d\n", rctx->flow);
+		return -EINVAL;
+	} else if (ret < 0) {
+		dev_err(mc->dev, "Waiting for DMA completion is failed (%d)\n", ret);
+		return ret;
+	}
+
+	if (rctx->partial_mapped) {
+		dma_unmap_single(mc->dev, rctx->partial_addr,
+				 rctx->partial_size,
+				 DMA_TO_DEVICE);
+    ...
+}
+
+When meson_fill_partial_buffer() DMA-maps rctx->partial, a timeout returns
+before reaching dma_unmap_single(), and the fail path in
+meson_hasher_do_one_request() only unmaps req->src and ctx.state_addr.
+
+[Severity: High]
+Can concurrent or multi-batch skcipher requests in meson_cipher() corrupt
+the key and IV or read outside the DMA mapping?
+
+drivers/crypto/amlogic/amlogic-gxl-cipher.c:meson_setup_keyiv_descs() {
+    ...
+	if (blockmode =3D=3D DESC_OPMODE_CBC) {
+		memcpy(op->keyiv + AES_MAX_KEY_SIZE, ctx->areq->iv, ivsize);
+		dma_sync_single_for_device(mc->dev, ctx->keyiv.addr,
+					   ctx->keyiv.len, DMA_TO_DEVICE);
+	}
+
+	for (i =3D 0; i < mc->pdata->setup_desc_cnt; i++) {
+		struct meson_desc *desc =3D
+			&mc->chanlist[rctx->flow].tl[ctx->tloffset];
+		int offset =3D i * 16;
+
+		desc->t_src =3D cpu_to_le32(ctx->keyiv.addr + offset);
+		desc->t_dst =3D cpu_to_le32(offset);
+		desc->t_status =3D cpu_to_le32(DESC_OWN | DESC_MODE_KEY | ctx->keyiv.len);
+
+		ctx->tloffset++;
+	}
+}
+
+First, op->keyiv lives in struct meson_cipher_tfm_ctx rather than the
+per-request context, so concurrent CBC requests on the same transform
+dispatched across different hardware flows overwrite op->keyiv +
+AES_MAX_KEY_SIZE and race on dma_map_single() and dma_unmap_single() of
+op->keyiv.
+
+Second, each setup descriptor programs the full ctx->keyiv.len from
+ctx->keyiv.addr + i * 16, reading past the 48-byte op->keyiv buffer and
+DMA mapping when setup_desc_cnt is 3; the later commit "crypto: amlogic: fix
+setup descriptor lengths and CBC IV copy" divides ctx->keyiv.len by
+setup_desc_cnt, which in ECB mode (where ctx->keyiv.len is 16 or 32)
+truncates the descriptor length to 16 / 3 =3D 5 or 32 / 3 =3D 10 bytes and =
+still
+accesses offsets 16 and 32 outside the DMA-mapped key buffer.
+
+Third, that later commit removes the CBC IV copy and DMA sync from
+meson_setup_keyiv_descs(), so multi-batch CBC requests exceeding MAXDESC
+descriptors reload the stale initial IV from op->keyiv on subsequent batches
+after meson_kick_hardware() updates ctx->areq->iv.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127120103.1532=
+882-1-jnieto.alaber@gmail.com?part=3D15
