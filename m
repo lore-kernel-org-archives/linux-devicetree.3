@@ -1,47 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795743768;
-	b=VhQoh+4PuzaUaC6FUYVkH7VEBnOxhZRzH1wkCqKMCg/qzA6AM3LkhO8qll05+b5H66Dm
-	 PxGAnzFnY8qfgcNMu0sqzJIcJbUk9TAiufQp6pUI/bnF2Z5wKqxzImrHXHLiIDVujHyf6
-	 PShcJDqf28YLE5Wo7PpYtwCpNryvbc86H/kOHoue2PcwEcDizJBV3M8F7G2vKB+/Bm3sC
-	 YGVuwfxyFt/PcCci15ZNfAg25XHIfVzm9R/kKrEIogcrrPytQj3K9rjDNhu4Mv2bjUwhp
-	 Jdl39HR2nyu4ptfYWnxxGYhgRdzQZjxaIziDENvB3/lOxoDImHWS+UPAcIl6dMqsBug==
+	t=1795743800;
+	b=2KjAqcY7vHS7WjsfwV+pc/bjPUSp/OjgE0nH7Rf2kIpiNr2f+QFtQp48ev42jKa4fskH
+	 Gbo6SBbBM6d9q2dblsWusg73Rm0VFtrd3ZHyDb85oupRc74UOiM6x/LasJNzKV7+9mFU4
+	 XvcJ/lrsyo8d2h6J5lbYgrx979emzk3exp41cXkpDNs+zwJl6e6USNycBq55MThMK4UZW
+	 EX6/IDVkmvAEJOKORXs0/RC6KJo/B1iJ8C8J/9KpxXA1aoSgMoLCg8TLdnCibPOZgzibT
+	 nqwNPYSIbNBhiafBM43cIfb1aDzPL80TOjBovrvJjklxZPxLMfDHh6V9aPgMsRB7Iug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795743768;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=XQbp+iYf+670Cjd0nc3KeQiLuIKrITL/6+mOjWe48x4=;
-	b=w2+L1FJYkq7j6C3Ozb89Legej91XttOk8cScu9r7dAfP5r2zgrP9ncThY12/e4USftiu
-	 GgnNcyQLzW+tP9Z69lx+Z8+FqeThux01sXwYCDTTrr1jMqA9A/0Rc1hAn6PidtHWZhMBo
-	 mtncGcU4EO5xSCyCtZGgeIRDJZTo2sijOSaK+d/E+MofhOyjdFV4e7c77zB/ZeWQNdbiw
-	 kL+sST86NuXEJ6fgKspO4lx9oynVffn0o9ktxVPxAshNHXvYTFd5mHjXSgV1ckR8wb07r
-	 8zsfWT5DpBD+UzOVKRWvFTnL+m9H65P3fW7fffyD7HlqEJ9sSy7yqGbXy9dPfPTknlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795743800;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Y/ZQbh30QVryTCiZlteV2hYSBClLcTqEk7Mc1ddXGBE=;
+	b=5GBS+OXvPwhW+C+WZJ0DEuCxwYorwBElBTBQivW3cKGEb0ab3UT1oCuF6bSNfyLEXDCT
+	 f/XgtBBwT/OaPv+6z8Vannvwy8NBjYxugE3UN5BfHj8EBjZlmL5pny01ZNbm0HDCOGQ1N
+	 G9iqQP8AG97Cxb7mb7MZ4bRdjtwJDHrnPs0pyi6w+PKBG3YrW1HusOb8gW8BwcKqYAKKp
+	 6Efjjuw6zomEjJ86KddwdoLPZcL6FYwd2nSdhyM208Xrs7UfNX1WT1jXIhHlNnjK28fxz
+	 eW1ixJx56z96zkuxDhbK/ujvDsu9FAcLeexCLJn+bblMOjMI6kNMHF42YBoxWTEnDbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cte8CXDh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m9OOVRIm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB82F606A31C;
-	Fri, 27 Nov 2026 01:42:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 335FD606A31E;
+	Fri, 27 Nov 2026 01:43:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cte8CXDh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 126811F0089B;
-	Fri, 27 Nov 2026 01:42:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m9OOVRIm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B3A31F000C1;
+	Fri, 27 Nov 2026 01:43:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795743768;
-	bh=XQbp+iYf+670Cjd0nc3KeQiLuIKrITL/6+mOjWe48x4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Cte8CXDh4YKfZj+U0TA+dURXZ/vAlvQ/kLh9gS6a4N9b665NhTA2+ndJtTOCH7aPh
-	 sZXxQhTaNFcWI+9GCrPpjLGDt8pG5qmku2zQ6y3qQN4qSqmMh+elTU0raGINHv1EJq
-	 1qzH6RIzG0V4q2SD18mWSF0HJlEBwKzoHjtsKSthTMjmRrnsqxmlgIoSS5ASXWHwFp
-	 X3llXG0PUbtzkeF+rsaG9mGyWiJBegAM/n1gJLrE3+AMQ4+YuXOWSWPcn6wKgzoLfg
-	 LlezuEsuVsWKIOt8pSSmIvJxnq8fomex1LaG4qoSI0AnYhM9C5LkPnAL5h2AP4bQCP
-	 OS8zA9awTY71Q==
-Message-ID: <68d1f55c-ddcf-4081-8111-9773c484ca07@kernel.org>
-Date: Fri, 27 Nov 2026 02:42:43 +0100
+	s=k20260515; t=1795743799;
+	bh=Y/ZQbh30QVryTCiZlteV2hYSBClLcTqEk7Mc1ddXGBE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=m9OOVRIm3/j5XNAoOLQcydd9DwOMZxWAAoo9RJWN88EJ7pZ9jO+AQgLoyWiA8WBKg
+	 otKEKjIN0O9beYXaY8as7F/c4qESGjjgt7sJwXutVXu5i9eov03sbDdP50dxay26B4
+	 aYaBF5MQ0fAhNp3nHUipV8QoCtofIPaBfcUMte7MklFIlNz9DaCL0ao4P0t3ZfIcpQ
+	 1+SRJOo2uQoE/fBhQ+xNIW3mL9+NxsY8RJOW4u2G6CrfIhmo9uEw5Ed8G+AZx53bW2
+	 VUHr8FU4AQ/GVMkmofn8fwkOrCaFTsgg4f7kYBfu2HNwuLm1aciOF/0xZ7xaQ2IrDE
+	 7wR111cYEhnlA==
+Subject: Re: [PATCH net-next v4 5/5] net: hix5hd2_gmac: Support fixed-link
+From: netdev-bot+sashiko@kernel.org
+To: mmyangfl@gmail.com
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, shenjian15@huawei.com,
+ shaojijie@huawei.com, devicetree@vger.kernel.org
+Date: Fri, 27 Nov 2026 01:43:18 +0000
+Message-ID: <179574379856.3135.451399791466560621@kernel.org>
+In-Reply-To: <20261126005524.4156940-6-mmyangfl@gmail.com>
+References: <20261126005524.4156940-6-mmyangfl@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,74 +63,133 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/7] arm64: defconfig: enable SDCA class driver and
- WCD9378 codec
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- andersson@kernel.org, konrad.dybcio@oss.qualcomm.com, abel.vesa@linaro.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261126183806.172485-1-srinivas.kandagatla@oss.qualcomm.com>
- <20261126183806.172485-8-srinivas.kandagatla@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261126183806.172485-8-srinivas.kandagatla@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 26/11/2026 19:38, Srinivas Kandagatla wrote:
-> Enable CONFIG_SND_SOC_SDCA, CONFIG_SND_SOC_SDCA_CLASS and
-> CONFIG_SND_SOC_WCD9378_SDCA so Qualcomm Glymur-based laptops have
-> working headset audio out of the box.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-All of them? This is board specific, not SoC, thus please name at least
-few upstream examples.
+Critical: 0 · High: 1 · Medium: 1 · Low: 0
 
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Best regards,
-Krzysztof
+- [High] hix5hd2_dev_remove() in
+  drivers/net/ethernet/hisilicon/hix5hd2_gmac.c still calls…
+- [Medium] The commit message says phy-handle takes precedence over
+  of_phy_is_fixed_link() (for managed = "in-band-status").
+
+--
+
+net: hix5hd2_gmac: Support fixed-link
+
+This patch adds fixed-link support to hix5hd2_gmac. When the node has no
+phy-handle, the driver now registers a fixed PHY from the MAC node. It
+also skips MDIO bus registration for a fixed link unless an "mdio" child
+node is present.
+
+> diff --git a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
+> index b3b2aa1b76988..eeb7221c0cde8 100644
+> --- a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
+> +++ b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
+
+[ ... ]
+
+> +	bus = NULL;
+>  	mdio_np = of_get_available_child_by_name(node, "mdio");
+> -	ret = of_mdiobus_register(bus, mdio_np ?: node);
+> +	if (mdio_np || (priv->phy_node != node &&
+> +			!of_phy_is_fixed_link(node))) {
+
+[Severity: Medium]
+The commit message says:
+
+    of_phy_is_fixed_link() also returns true for managed = "in-band-status";
+    give phy-handle precedence over it, like fec and gianfar.
+
+Does this condition keep that precedence for bus registration?
+
+priv->phy_node == node only happens when the fixed-link branch ran, and
+of_phy_is_fixed_link(node) is already true there. So the test reduces to
+"mdio_np || !of_phy_is_fixed_link(node)".
+
+of_phy_is_fixed_link() in drivers/net/mdio/of_mdio.c returns true for any
+managed value other than "auto":
+
+	err = of_property_read_string(np, "managed", &managed);
+	if (err == 0 && strcmp(managed, "auto") != 0)
+		return true;
+
+Consider a node with phy-handle, managed = "in-band-status", and the PHY
+as a direct child of the MAC node with no "mdio" subnode. The
+hisilicon,hisi-gmac-v1.yaml binding only forbids direct PHY children
+when fixed-link is present, so this layout is allowed.
+
+For that node of_mdiobus_register() is never called, so the PHY is never
+created. hix5hd2_net_open() then fails here:
+
+	phy = of_phy_connect(dev, priv->phy_node,
+			     &hix5hd2_adjust_link, 0, priv->phy_mode);
+	if (!phy) {
+		...
+		return -ENODEV;
+
+Before this patch the bus was always registered on mdio_np ?: node, and
+this layout worked. This configuration also leaves priv->bus NULL, which
+leads to the remove issue below.
+
+Would "mdio_np || priv->phy_node != node" be the intended test here?
+
+> +		bus = devm_mdiobus_alloc(dev);
+> +		if (!bus) {
+> +			ret = -ENOMEM;
+> +			of_node_put(mdio_np);
+> +			goto out_phy_node;
+> +		}
+> +
+> +		bus->priv = priv;
+> +		bus->name = "hix5hd2_mii_bus";
+> +		bus->read = hix5hd2_mdio_read;
+> +		bus->write = hix5hd2_mdio_write;
+> +		bus->parent = &pdev->dev;
+> +		snprintf(bus->id, MII_BUS_ID_SIZE, "%s-mii",
+> +			 dev_name(&pdev->dev));
+> +		priv->bus = bus;
+
+[ ... ]
+
+> @@ -1294,6 +1314,8 @@ static void hix5hd2_dev_remove(struct platform_device *pdev)
+>  	if (HAS_CAP_TSO(priv->hw_cap))
+>  		hix5hd2_destroy_sg_desc_queue(priv);
+>  	hix5hd2_destroy_hw_desc_queue(priv);
+> +	if (priv->phy_node == pdev->dev.of_node)
+> +		of_phy_deregister_fixed_link(pdev->dev.of_node);
+>  	of_node_put(priv->phy_node);
+>  }
+
+[Severity: High]
+Can hix5hd2_dev_remove() dereference a NULL priv->bus now?
+
+Just above this hunk, remove still does:
+
+	unregister_netdev(ndev);
+	cancel_work_sync(&priv->tx_timeout_task);
+	mdiobus_unregister(priv->bus);
+
+With this patch, hix5hd2_dev_probe() only allocates the bus and sets
+priv->bus inside the new conditional block. Take the fixed-link case
+this patch adds support for, with no phy-handle and no "mdio" child.
+Probe succeeds and priv->bus stays NULL, because the private area from
+devm_alloc_etherdev() is zeroed.
+
+On unbind or rmmod, mdiobus_unregister() dereferences bus right away:
+
+	if (WARN_ON_ONCE(bus->state != MDIOBUS_REGISTERED))
+		return;
+
+The probe error path gained an "if (bus)" check. Does remove need the
+same check on priv->bus?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261126005524.4156940-1-mmyangfl%40gmail.com
