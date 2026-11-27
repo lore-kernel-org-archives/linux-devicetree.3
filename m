@@ -1,60 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795804605;
-	b=TiQZLC6R966gIqTKHQTn+HndRuzGp6TcQhH4XnWpVJxxFK6UGVJKkJOFjMity7LMAP9D
-	 Hrzmts/h70HPCFwtJPNMdzxZgwYm8XkvJ0DbJkxaD9lXIfULLHthItFzTZGeqG5isyvzQ
-	 YmlGxbCm15uHl+AWtJpVAV8Q5uC5GtLehJxBuZEZk91YwfdN/hTOh7RrngGN6JsFwA/WY
-	 R+jvnjaBz2nnhxqKCr17hXqLFcjHkIfIUmcA3nXI3V2ALuAdHNXvHkurGKoo1pyDjMEY9
-	 ljEx0Z7gA+THShAfTqXGwTRXixECsV+mPKTZ6tCklPdPNdZ+7aoqnKhJH6VfsyvUZEg==
+	t=1795804616;
+	b=2xNvJ5p7xZm4b5I5Q0PY18SPo/cB36PcgQPJbZoBpSnk1JoCAmmVzImjQvbTOQqrXvLG
+	 ncRIa7pdA3Fw1RQe+MFYgAz1MZOjd2PepCfGxU0+jBcYDo8QNrLX5UXnGyYeBRxx+oMBb
+	 7oUBDqL5FqfoeIV2NXtCWLVljrXj59j8kOQSD/qyOPSec0sf4Ag7cAvS17dw1X/Q+wU/y
+	 WGh3AnScpl9IPHyuEHEb5yOho/ax/VPX21Up5OAiAfhSOeSpAH3KsOoT+/7hcPV92LC06
+	 4akGBBun5OhsG8K1GiQouPNG9GccRiHvS065R5ege6HFr+YfFfx7qs/fWSbGRxnA71Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795804605;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=tA8Aa2jEbLtXL6FwWF9YXfWBQgC7Lngh2MOgaijaglg=;
-	b=e2ZV/AiGNFHTQ7aRkt0qRiHJxgHNz8o48/4+HQeBVzWPCqK6DyM/FMyjiIgzG1qMBfOs
-	 lmHUNiftnbPw7omcdJi8e5Lm8Bpo4DkE0QWTjO+aZaFxRQzCVGY9Iv7mvzHG3d2F6c14K
-	 r2aAqm4v0wpOf6+uySwaamkXNaVodWDYUN6FMjNlaIT2N9Y3AdYwrkmvTlyLtA8kPI5UP
-	 ID/FRaNJ0qYuZ+jU/rY3Nmq6F3ANw6QtFIK4shbK1EP6HuOgelMoZC17pilEYmow776vJ
-	 qOXxWFd4kUW1EgnqsB9YayB6aOpRhdrHdW7vWSKx//vyqxInGhghHX2JAMlcYh7mF2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795804616;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=G8NnEquHh6JPrt5WKM/35q0o6NTyLXSxP+cYgYnFdys=;
+	b=kTNUpiX7mGMlTjyZNdo3OWbbOJTJN1x8BdXmwb+z1BjOwoj2Oi9WFjwpMnShM/B2tn47
+	 8FvDC7wvKC8AhR2ZXor3EKEdrrkcmk/ygwHsdGWnXNFbnNTLZ90HYbBPWxNthcdE/lrs5
+	 lq+loYf2dxe6qulWgAUzWDS8Hbs8bLL96UuPqai7cWh1UWm/liPq6JvGpu29I0vRXKdgj
+	 12cLR+Wrc97pIb8HE19rdtIpGp5iW5wz47MqDGoPI3wsl4PGeYX2DCmDQEI/Ama/HZtgh
+	 9Zf7Nxklw1ygm1gaVx98JJBQta6RvvRZIMbDDz1fTzJGdTYRcT/btePjHoV9Bcr9d5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VdPaOGGn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64CCA606A327;
-	Fri, 27 Nov 2026 18:36:45 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=b43+c8Cg;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6B3C7606A32C;
+	Fri, 27 Nov 2026 18:36:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B3C7606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VdPaOGGn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EE1C1F00893;
-	Fri, 27 Nov 2026 18:36:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795804604;
-	bh=tA8Aa2jEbLtXL6FwWF9YXfWBQgC7Lngh2MOgaijaglg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VdPaOGGn/6sH+6m+tO/URPTlIQ2FUq8PDf6jXvAyHSzeSjlTA1w3kSIkYoTpqY1sp
-	 JcByLFZyK4K4wnqT/KT3RcK0MDJ5/pU3477M6lDyZNqC75vQX4ECNQ5cPMmz52tZnU
-	 fu+yuJ7u/QjwwQjWXxKczIR15Wz2PyV02VUBEHFyK6RTUY/Oy8BvylpGx6NG//jbST
-	 7HHjPx3xkNlA9xU5lvVpNcC3qf8EbtVOMYIf5fDG6c+lU/BOowratD9+lOWDwj1aiw
-	 pieyIY3QamTGrAKVc3/Vt0QmN4YaXPORxOln+LENcJy1Ziq5tNHnffizId4Bu8D5PJ
-	 cqX4ICnSk2vgg==
-Date: Fri, 27 Nov 2026 18:36:39 +0000
-From: Conor Dooley <conor@kernel.org>
-To: marouene.boubakri@oss.nxp.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Anup Patel <anup@brainfault.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Radu Rendec <radu@rendec.net>, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/8] riscv: add OpenHW Group CVA6 APU on Digilent
- Genesys 2
-Message-ID: <20261127-portal-sulfur-cf29c003666a@spud>
-References: <20261126164632.978624-1-marouene.boubakri@oss.nxp.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=b43+c8Cg
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C5EAC1575;
+	Fri, 27 Nov 2026 10:36:52 -0800 (PST)
+Received: from [10.33.50.35] (e142021.arm.com [10.33.50.35])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A6D623F86C;
+	Fri, 27 Nov 2026 10:36:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795804615; bh=6ifu5kHm5pa1d98fpL6HG21zQD2uf+dZa/ElH6oL+Po=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=b43+c8Cg4WzasHC2UHK7/jdi18rQBwVZBc/LIiJEKn5ZFBSfL2YVSHmum9dYopHpX
+	 8OWP0Rbke/ucNh6SaIdyrIob3sYstfEZM9D3p0mCkQ6rySMpwS42Nm/47wYzESNUpd
+	 ZwDmP+375fMIpueHrm7xRx9WdUlVnu4x5+fy59Hs=
+Message-ID: <5cde8317-61c0-4405-915f-44fcc3c54389@arm.com>
+Date: Fri, 27 Nov 2026 18:36:49 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,61 +53,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ywVelhjtDLhaqdrs"
-Content-Disposition: inline
-In-Reply-To: <20261126164632.978624-1-marouene.boubakri@oss.nxp.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 5/5] arm64: dts: allwinner: add Radxa Cubie A7A board
+To: Enzo Adriano <enzo.adriano.code@gmail.com>
+Cc: Jerome Brunet <jbrunet@baylibre.com>, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org,
+ jernej.skrabec@gmail.com, samuel@sholland.org,
+ Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Junhui Liu <junhui.liu@pigmoral.tech>,
+ Pablo Mazzini <pmazzini@gmail.com>,
+ Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
+ Alexander Sverdlin <alex@sverdlin.org>, Jun Yan <jerrysteve1101@gmail.com>,
+ Lukas Schmid <lukas.schmid@netcube.li>,
+ Cristian Filipescu <filipescu.cristian@gmail.com>,
+ Norman Herms <dockseed@proton.me>
+References: <20261126-a733-cubie-a7s-dt-v6-0@gmail.com>
+ <20261126-a733-cubie-a7s-dt-v6-5@gmail.com>
+ <1jik1ild9n.fsf@starbuckisacylon.baylibre.com>
+ <4c9ea902-24fd-4065-82b7-41d6df43b082@arm.com>
+ <20261127-a733-dt-v6-04-reply@gmail.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20261127-a733-dt-v6-04-reply@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---ywVelhjtDLhaqdrs
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Enzo,
 
-On Thu, Nov 26, 2026 at 05:46:24PM +0100, marouene.boubakri@oss.nxp.com wro=
-te:
-> From: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
->=20
-> This series adds support for the OpenHW Group CVA6 APU, the FPGA SoC
-> built around the CVA6 core (https://github.com/openhwgroup/cva6,
-> corev_apu/fpga, release v5.3.0), running on the Digilent Genesys 2.
->=20
-> Both configurations of the core built for this board are covered: the
-> 64-bit cv64a6 (rv64imafdc plus B, Zcb, Zicond and Zkn, Sv39, 1 GiB) and
-> the 32-bit cv32a6 (rv32ima, Sv32, 128 MiB). The SoC description is
-> shared in a dtsi and the two board .dts files only carry the core
-> specific properties and the memory size.
->=20
-> The peripherals use existing bindings: 8250 UART, Xilinx SPI with an
-> mmc-spi-slot, Xilinx GPIO with gpio-leds, SiFive compatible CLINT and
-> PLIC. Patches 1 to 5 add the vendor prefix and the compatible strings
-> these bindings need, patch 6 the ARCH_OPENHWGROUP Kconfig option,
-> patch 7 the device trees and the MAINTAINERS entry, patch 8 enables the
-> platform in the defconfig.
->=20
-> The lowRISC Ethernet controller and the PULP timer of the platform have
-> no upstream bindings yet and are left out of the device trees.
->=20
-> The bindings and the device trees have been validated with
-> dt_binding_check and dtbs_check. The v1 device trees were booted with
-> the cv64a6 configuration on the Genesys 2 from U-Boot 2026.10; the v2
-> changes and the cv32a6 configuration are build tested.
+thanks for taking care and making the changes!
 
-I've applied this stuff, should appear in linux-next soonTM. No b4-ty
-email, I cocked it up messing about with the new (to me) --resolve
-option..
+On 11/27/26 19:07, Enzo Adriano wrote:
+>> Ah, indeed, good catch.
+> 
+> Thanks. v7 uses <&reg_bldo1> for vcc-pk-supply, with a note in the
+> patch.
+
+Yes, thanks.
+
+> On a different point: shall v7 rename osc32k-clk to clock-osc32k, as on
+> the A7S and A7Z? The schema still accepts the old name (deprecated), and
+> CHECK_DTBS is clean.
+
+Yes, it would be great if you could change that, too.
+
+> Also, is no-1-8-v on &mmc0 fine with you? It ties to Jernej's question
+> on 2/5 [1] and your reply [2].
+
+With no vqmmc, and vmmc pointing to a 3.3V regulator, I think it doesn't 
+matter, no one would negotiate 1.8V anyway. And we didn't use that 
+property before. I am not even sure it is correct for the A733, since 
+the host controller DOES support 1.8V, it's just not "wired up" yet.
+So unless someone screams, please leave it out (and feel free to do the 
+same on the A7S). Eventually we will need to drop that property anyway.
 
 Cheers,
-Conor.
+Andre
 
---ywVelhjtDLhaqdrs
-Content-Type: application/pgp-signature; name=signature.asc
+> 
+> [1] https://lore.kernel.org/r/p3YaXlLJTguQBGnWyMpb1w@gmail.com
+> [2]
+> https://lore.kernel.org/r/9ab5f851-1b56-49ed-bfdd-46abdbdda1c0@arm.com
+> 
+> Enzo
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCawnNtwAKCRB4tDGHoIJi
-0gXhAQCn5D8IZ1KelVmP5Mr7HS/M1Ip5p/l/fFRJ75Q0PhB6tAEAp0FnuMPtu9h+
-AuVc5fJ2EXtTVMSoSecjtjnCmVEaYw8=
-=B3c7
------END PGP SIGNATURE-----
-
---ywVelhjtDLhaqdrs--
