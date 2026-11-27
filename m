@@ -1,112 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795805662;
-	b=rs+QmngnVYySzghcx+2wE+a2qwu2tYAfHunpbGeZmr1r0dlPlWkFoPPPbfBGyh9lCYbm
-	 //gzmJwpAdA3qsvh1I85veVqAfxZC1U/dhQhw71to+N/G/qBOPzyH3NK/bIsc/OIswtEB
-	 lNwL5wFaD/jVHaDqZJVUOjowi6q8BXxza1To+idJCkAl/VrnCBq/0MAQg2N1PAdFqKPRh
-	 aZ47g9pjnqTxr6u6I+LdSDoT3rZRWsy30Nx4vgkpjEsZiUUdaZII7bpfAWtgozCTsRiS3
-	 CQRFlMi6BsjM2X2/2PPde6b0j3Zm217HL8tivxkTddlkNq2Tz1DpY3AU7Gq9ZBFQbqw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795805662;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=51kGECU7mnaWff1zdYP1hH1erxWAFEkfyrjZFzcM8y8=;
-	b=Blb5kbgetIXM+/u/hLk+ydo1AoOjI+vM3aCxaNJ47WBJvQoSjMO0cz6iy3gMsvpiZxbR
-	 sRfIKiLNB7yrd/Vdb8rolIi+3s2TajV4aBXOtMOMwGbU2zvALhP7JUpzglwbrZO+G2SdU
-	 TOWOF6/pFEGeBa7x5XXUgK1ytztDXY/TQQZ8QPGsnRfeNEbV0jWHfMCIqR0oj0a1hTq1n
-	 zmI0IGP3oALVeh9T+40ZSSZC1cF2CA6xeddzjHqswGgoIUF597Cd5jMRcA+5qH02l/qUx
-	 o4o3b5BucpOhWB4+yVOknVEIufWQPe8PuFWZU3q+wnzD0vBclGFlLTHAwm8vsoJkmsQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=ScU7ieTa;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795806358;
+	b=QNaXjs62HeQdTDU+IpjQdDyNJi6lySfZnF77xsmhMkr3i0mOn90HULt6KDlpMP3sPGWP
+	 37fwOLVAomrhPC3XFs0RV0SnhXTzK28H7f+7Dr/NNfRy/k6Y54lYjpcS0ghiw8xdSlhe4
+	 CVIn5Uoc2YPh4qpx/b1uxGNjqrVzJ+GwBBKc+afS3LkLphk5BWPMqOfUOOXjHIRNODF2A
+	 mhKPiM8MNisXvAB2J5WeCrxgWXsnF3tNaUj0hZ3vtCWnPUPNWVwDGHnjk/i7IhTcNfgRX
+	 9rUd6iBoi4PO9lPZ98ktWPUpJiGlO7/KlWXvb9UY+/oCYlYmJBrcsmNbS/ff9vwfj7A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795806358;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=zNT2+KtUd9oxOXZ7VJVA4bdniUDvQzJvv3ytvWd8DDA=;
+	b=jwkdkKU/qWWqxKwXzpfa+MY2fLKzCaoh6Zn0qyLeZLQYKQ2zkzWfB7yNY1y/bzIlur3g
+	 2GjV84lC7LB1kk82FdNCJqB/ofqKYcRGoejffxMLsvkQRBNQHC0W17DBuDmmm0ClScuSC
+	 e2Z+mHMxxg0GzdavOAtURuLIXWP9Tnewh7YUlmxBi4HcCiLDJQVmsj9OVqJ/rbySk5CN/
+	 SiawCe+sRVqu1rovbgEMoOT4eRYsyWJCoKhBvx7bcaxkJm9FSf15HhBZ2MM6O7WTBbHjE
+	 OZzxCk9fGvD+gAVJpTURvddtrfU4B3AT3gF7ZR8gv6SuR5ywOsPtsb+AX7yHaf9ytmA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TpVwf8k5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A457A606A31C;
+	Fri, 27 Nov 2026 19:05:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TpVwf8k5
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795806358;
+	b=HIcVUlwFsD4lxt3491ogqvuQeYQqsQHrkxsokLHc56DM1vuG4kX3N/vG4A7q0KJZ4bU+
+	 RmO8TrXX+om3ww7tXffRaGYbSObEcPXx47i5aqTUrB3C2grkCaBzT38Kg+LlL1rMZRgGl
+	 apfFYRlYDzaDFFq3bPXrBJE5UH8MmP6HeEoQjse4UkU3X7e6OUKsRl0dEQiS1lhTRG4Tt
+	 5NMXdvOfk9Z25ZvHH8ySMwVwvZF3R8GXRROkIA5bMyHB/IERCaNI5w2Nw1p/R51r+AejU
+	 q9S/KT5UUiYjaAqhMlK2s6GsG3P0TqBeSFBrvepqYFinnolcuWfOeq0re4JfGUDsNig==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795806358;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=zNT2+KtUd9oxOXZ7VJVA4bdniUDvQzJvv3ytvWd8DDA=;
+	b=pelG5yZIsbgt0OoreCBPUHn+wffK0dRRaiW6799qJKIytutGG6CBJ8F2YRJAO+oF8zFz
+	 /78WcqirBoJMyHS26Y90beXscVMm1R3e6gxvQgY8XYYs1NPbsghZqcXexCm1PJmrhoGec
+	 wGaAWRbUWFXoIMGixqMjvVrbvA7GwOm6RKIa6NAj4NwGdpSoOBTWFhukhtgrE1xe+maHh
+	 WUOAt58HKlnhdN549wRxtjMAKen0+beW+eoAlks65Yr9O1kHe6KnoZ7nAkZuftfJLO9kQ
+	 pPwAQvYHyDQC/nWdrRSkDscW3m10L9Vp9O1iyUGD7plwqk7LE/ffAo/i2yh+yUHayJg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86DC4606A31E
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 18:54:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86DC4606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=ScU7ieTa
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4a68190a2a7so7143406f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 10:54:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1795805660; x=1796410460; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=51kGECU7mnaWff1zdYP1hH1erxWAFEkfyrjZFzcM8y8=;
-        b=ScU7ieTaj4/9UFIPvuUfx9G5EKDJiKsPDiD+bWJVvXYg4+4shgY+3ihB99m0356vjy
-         0ATG6HJjRGZDGvInK7zSRAsmzUv1dzu0+gQsYIO9/KbflI4LZNvFtp20yl61lCuWvoKp
-         eOG/WbgvNrXB6GOZDaZ2JN1bPgkY0a7jd1xYNTnqb7YkekWAQ2iaCBikx2bgynaaXEsy
-         JD7U6RI4BYNDSJBW+0Oy+Kf3NXBxS/lShpuZN21QiTZ+lPUHXru4OCPu46lFboL/rcSY
-         qHSi+1tcpvMP+c4oAwdNgVRyIkUoib/C5M/QZ01l2yE2TZpBdAAx2rzvm+Q5W0DMrNQP
-         5rjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795805660; x=1796410460;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=51kGECU7mnaWff1zdYP1hH1erxWAFEkfyrjZFzcM8y8=;
-        b=bZlJ33qHAAnG9p8l6IUHRtg6Cy323KdFQt4kmrwGPA/XvwmXeOvugmpzYfxU/H3urU
-         2uDmTKkEuUb35Xl58IWPB7jc9mV7iN/nuzzbNHDO67cTUqOe38OFRJb8TgAVW1dQnWOD
-         pU0VtrnpcCXs/I1MxsXgzirYRmblLojulOYPK/n8GeA9G5zZHuASNRMLk+rBekxjoy06
-         VMfXmaMr7a0SdLd3tuDaYOCPgYGBnycMeYhjsdQ4AEBARBvBfoaQe+XJGGwX6lR6VjqE
-         ZBpBp1EQoLOIv9WugVKWYYKX7Olu5sdREotLRfUPwlVvb3RqXPSluysisfk2NfISrpC7
-         7ymw==
-X-Forwarded-Encrypted: i=1; AL+hErHBle9xFdFpqsVPlUrjHH4+4HDC6pgJHKy1ZrIodeO4JAnUhtHJ9MKo39jCxYnxoXr4BUiFaPWldvLd@vger.kernel.org
-X-Gm-Message-State: APuU4Z/G6zHexan/npSIpbqo/+QGv1Th9hYs0M/o8ghhvTqkvT+UFx4w
-	JIrBWhZbccq9PKmB2+pG528gX7nZubz/3Y3CvFTX3WrbiyX15X1qQbuRoRVxY3njJD4=
-X-Gm-Gg: AZFdTZeEM9GxpByukBHoPO2wRYim23knYDTe9gu566mP+BIPTcZb3LumNbLKaJpjBEL
-	7FiLftBx4W1B6n5OnFlb/4m3NapbuudZ+mBGn0uSGbiPgEtNMqtmV4Xp8iNTTAG2CnVoLMPBdTc
-	d44r//JhIe/n3VvE/MXNkHziHnTgNo/GyC54scPEt7n17k9AD6Z0IfWPz/rt4+lmKMz1gTA/67Y
-	LTl6JRbR+bD5v6+NlpjilPcalbn2TrA1+iBO+LCZep80CQ8B4vXW3ztARYOMETlAZGEdvgSbECt
-	Jfb0LO+pH9ECxc/3YG0HSAf2NsaUxvS3HZ5OoXKv5vERbdNwstGyGCfmVfdMUpHyQJ29z/OvzAK
-	24hsic4vofwDNGf8I1MyPE181jWOLaQTNOTwxJkwjvbtgetVnWj3GTuvIrWqH5TgOb5WYG6ULhp
-	aHwlDTcSARsIxafqoUefwMpjDLyjtsKTxIlv18H96XQ8w6Iva+T+kLv4N7Tojw98ETL+SgXmHVq
-	zoVoq6U8qzalP+J8QSwbWArl1mVUSfzACz+zpld4e5pVA15gpp31ln7m89gAInsTBZrMSPa4mNL
-	cCkTMmnC1VmRR45R54F7Dwb839Pc
-X-Received: by 2002:a05:600c:3484:b0:4a2:133:45e1 with SMTP id 5b1f17b1804b1-4bb88812f16mr523283925e9.24.1795805659913;
-        Fri, 27 Nov 2026 10:54:19 -0800 (PST)
-Received: from localhost ([195.94.148.180])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bbab390cf5sm234366765e9.7.2026.11.27.10.54.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 10:54:19 -0800 (PST)
-From: Andrea della Porta <andrea.porta@suse.com>
-X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Fri, 27 Nov 2026 19:58:19 +0100
-To: Stefan Wahren <wahrenst@gmx.net>
-Cc: Andrea della Porta <andrea.porta@suse.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	dmaengine@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Saenz Julienne <nsaenz@kernel.org>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Phil Elwell <phil@raspberrypi.com>,
-	Dom Cobley <popcornmix@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 06/28] dt-bindings: dma: brcm,bcm2835-dma: Document
- dma-channel-mask and DREQ flags
-Message-ID: <awnSy5BOabcnj73I@apocalypse>
-References: <20261123145728.29082-1-andrea.porta@suse.com>
- <20261123145728.29082-7-andrea.porta@suse.com>
- <e2d27b2e-db69-4fac-b7f3-28961a9e094c@gmx.net>
- <awhL0itLEAIsK4HR@apocalypse>
- <ba983cd0-68d7-4184-ab75-d79f2666520c@gmx.net>
+	by smtp.kernel.org (Postfix) with ESMTPS id 524681F00899;
+	Fri, 27 Nov 2026 19:05:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795806358;
+	bh=zNT2+KtUd9oxOXZ7VJVA4bdniUDvQzJvv3ytvWd8DDA=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=TpVwf8k5d3rzLD5KonaXgw/hnrr7wpsvFaZrU2fY9sG+Nn3wmt5ElSJ/QOojG+V9m
+	 TXeDzpdz5NyJ6uAcyXsQAZdEQGVqEaaJKYC26tuMDgf8O35wDPHGzXlZEkZCHMckUF
+	 3ok3HnuK2urVu41EDCPbAVyvCT44LQF6oDnSgRhYIgLuXwS1eoM7NtqATi9YmBnsEj
+	 h2M8hawn/pustxj1MqABV59kQJTsxvQchwANwfm0x47nus2mVk509pnt0jakXKnPtY
+	 cTMk+fdTg2xmU6j+dCBbTaUiepkb/Rc4TG4WMAxwW9L5Zi/VFWcxEJtaR1YwV9FHch
+	 R+TbdRqMMc28Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D48744DD78;
+	Fri, 27 Nov 2026 19:05:53 +0000 (UTC)
+From: Venkat Yadlapati via B4 Relay <devnull+venkat.yadlapati.yahoo.com@kernel.org>
+Subject: [PATCH v2 0/2] interconnect: qcom: Add the Molokai interconnect
+ providers
+Date: Sat, 28 Nov 2026 00:35:52 +0530
+Message-Id: <20261128-molokai-icc-v2-0-7806842d166b@yahoo.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,122 +84,100 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ba983cd0-68d7-4184-ab75-d79f2666520c@gmx.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1WNyw6CMBBFf4XM2ppO5enK/zAsahlkVBjTIpEQ/
+ l3AuHB5knPPnSCQZwpwjCbwNHBg6RYwuwhcY7srKa4WBqNNimgy1cpD7pYVO6fwgLF1lS6KJId
+ l8fRU83urncsvh9flRq5fE6vRcOjFj9vdgKv3K+d/5QGVVjYhzJK41nlanUbbiOydtFDO8/wBS
+ 1UXvrgAAAA=
+X-Change-ID: 20261127-molokai-icc-1314acd09958
+To: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Abel Vesa <abel.vesa@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795806352; l=3168;
+ i=venkat.yadlapati@yahoo.com; s=20261023; h=from:subject:message-id;
+ bh=OLY8f5RTTQRtYbj7FHrGwVS/UNeuccZVvC2l7+O5rZo=;
+ b=SOG3hH0S+ubC5Vw2XwK5K8aZedCtRBe7ctvfFALmoPiygSz23zInbTqpjpO9bpIWFnFGwqxzA
+ 2uF52Nlpc0EClItGhM1JU5vxxSEZMwCt6lBIUpryy+Rihz8JyzatJyC
+X-Developer-Key: i=venkat.yadlapati@yahoo.com; a=ed25519;
+ pk=e8KStCtEMvUP1Se/riB/KVnDAQFEVR2Dw2PcuA8/eME=
+X-Endpoint-Received: by B4 Relay for venkat.yadlapati@yahoo.com/20261023
+ with auth_id=1303
+X-Original-From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+Reply-To: venkat.yadlapati@yahoo.com
 
-Hi Stefan,
+Molokai (SM8845) is derived from Kaanapali, but its NoCs are not the
+same: the aggregate NoC is split into aggre1 and aggre2, the MMSS NoC
+config and service ports are split into HF and SF halves, many QoS
+ports moved, and QUP4, SDCC4, SP, QPACE and a few config slaves are
+gone. This series adds the binding and a Molokai driver.
 
-On 19:23 Fri 27 Nov     , Stefan Wahren wrote:
-> Hi Andrea,
-> 
-> Am 26.11.26 um 16:10 schrieb Andrea della Porta:
-> > Hi Stefan,
-> > 
-> > On 18:49 Mon 23 Nov     , Stefan Wahren wrote:
-> > > Hi Andrea,
-> > > 
-> > > Am 23.11.26 um 15:56 schrieb Andrea della Porta:
-> > > > The available channels are currently described by the vendor specific
-> > > > brcm,dma-channel-mask property, while the generic dma-channel-mask
-> > > > property from dma-common.yaml carries exactly the same information.
-> > > > Allow the generic property and mark the vendor one as deprecated,
-> > > > requiring at least one of them, so that device trees can provide both
-> > > > for compatibility with older kernels.
-> > > > 
-> > > > The single specifier cell is also not limited to the DREQ number: the
-> > > > driver interprets some of the upper bits as per-channel flags (AXI
-> > > > priorities, wide accesses, burst and write-response handling). Document
-> > > > the meaning of those bits.
-> > > > 
-> > > > Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
-> > > this patch should before the bcm2835-dma patches which modify the dma-cell
-> > > behavior.
-> > Ack.
-> > 
-> > > > ---
-> > > >    .../bindings/dma/brcm,bcm2835-dma.yaml        | 26 ++++++++++++++++---
-> > > >    1 file changed, 23 insertions(+), 3 deletions(-)
-> > > > 
-> > > > diff --git a/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml b/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
-> > > > index c9b9a5490826..f619e395cf0d 100644
-> > > > --- a/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
-> > > > +++ b/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
-> > > > @@ -37,15 +37,30 @@ properties:
-> > > >        maxItems: 16
-> > > >      '#dma-cells':
-> > > > -    description: The single cell represents the DREQ number.
-> > > > +    description: |
-> > > > +      The single cell contains the DREQ number in bits 0-4, optionally
-> > > > +      combined with the following per-channel flags:
-> > > > +        bits 16-19: AXI priority
-> > > > +        bits 20-23: AXI panic priority
-> > > > +        bit 24: use wide (128-bit) source reads
-> > > > +        bit 25: use wide (128-bit) destination writes
-> > > > +        bit 27: do not wait for AXI write responses
-> > > > +        bit 28: wait for outstanding writes before signalling completion
-> > > > +        bit 29: do not pause the channel when the debug signal is asserted
-> > > > +        bit 30: use multi-beat bursts
-> > > No strong opinion, but mixing DREQ number with per-channel flags is ugly
-> > I agree it isn't pretty, but it is the encoding the downstream DTBs have been
-> > using for years. Switching to #dma-cells = <2> (or introducing new exotic properties)
-> > would mean supporting both formats in the driver: I'm trying to play nice here in
-> > order to not break compatibility with downstream DTBs, which I think should be wise.
-> > The header I'll add in v4 with the definitions for these flags at least makes the
-> > device trees readable.
-> as I said I don't have strong opinion about this.
-> 
-> Imho adding these configuration bits to the DREQ number was a downstream
-> hack. Furthermore providing some kind of compatibility with downstream was
-> never intended and cannot be guaranteed.
+It replaces "interconnect: qcom: Don't read back BCMs without an RPMh
+address" [1], where Konrad asked to fix the driver instead. Molokai used
+the Kaanapali driver, which votes on the QPC0 BCM that the Molokai
+command DB does not have; the read back of that BCM hung RPMh. The
+Molokai driver has no QPC0, and it programs the Molokai QoS offsets
+instead of the Kaanapali ones.
 
-Fine then, let's move those flags to teh second dma cell.
+The topology and QoS settings come from the Molokai driver in
+Motorola's downstream kernel. The upstream Kaanapali driver matches the
+downstream Kaanapali one node for node, so the driver is the Kaanapali
+one with the downstream Kaanapali to Molokai differences applied.
 
-Thanks,
-Andrea
+The binding header includes the Kaanapali one and only adds the new
+MMSS nodes: molokai.dtsi builds on kaanapali.dtsi and inherits its
+interconnect paths, and a header with its own numbering would redefine
+the same macros with other values. If a standalone header is preferred,
+molokai.dtsi would have to override every inherited interconnect path,
+or stop building on kaanapali.dtsi; I can rework it that way.
 
-> 
-> Best regards
-> > 
-> > > >        const: 1
-> > > > +  dma-channel-mask:
-> > > > +    maxItems: 1
-> > > > +
-> > > I think, the dma-channel-mask stuff should be a separate change.
-> > Ack.
-> > 
-> > Regards,
-> > Andrea
-> > 
-> > > Best regards
-> > > >      brcm,dma-channel-mask:
-> > > >        $ref: /schemas/types.yaml#/definitions/uint32
-> > > > +    deprecated: true
-> > > >        description:
-> > > >          Bitmask of available DMA channels in ascending order that are
-> > > >          not reserved by firmware and are available to the
-> > > >          kernel. i.e. first channel corresponds to LSB.
-> > > > +      Use the generic dma-channel-mask property instead.
-> > > >    unevaluatedProperties: false
-> > > > @@ -54,7 +69,12 @@ required:
-> > > >      - reg
-> > > >      - interrupts
-> > > >      - "#dma-cells"
-> > > > -  - brcm,dma-channel-mask
-> > > > +
-> > > > +anyOf:
-> > > > +  - required:
-> > > > +      - dma-channel-mask
-> > > > +  - required:
-> > > > +      - brcm,dma-channel-mask
-> > > >    examples:
-> > > >      - |
-> > > > @@ -96,7 +116,7 @@ examples:
-> > > >                            "dma14",
-> > > >                            "dma-shared-all";
-> > > >            #dma-cells = <1>;
-> > > > -        brcm,dma-channel-mask = <0x7f35>;
-> > > > +        dma-channel-mask = <0x7f35>;
-> > > >        };
-> > > >    ...
-> 
+Tested on the Motorola Signature with molokai.dtsi switched to these
+providers (Molokai SoC series v5 [2]) and the generic
+read back fix reverted: all 14 providers probe, there are no RPMh
+timeouts, and the display, GPU, touchscreen and audio work with QoS
+programming enabled.
+
+[1] https://lore.kernel.org/all/20261123-icc-bcm-readback-v2-1-bacee81398e5@yahoo.com/
+[2] https://lore.kernel.org/all/20261128-molokai-soc-v5-0-144801dfad7f@yahoo.com/
+
+I used an LLM (Claude) to help write these patches and their commit
+messages. I reviewed all of them and tested the result on the device.
+
+Signed-off-by: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+---
+Changes in v2:
+- Route the crypto engine through the A2NOC slave instead of A1NOC: it
+  sits on aggre2, the downstream A1NOC link was left over from Kaanapali
+  (Sashiko). Tested: the SCM crypto path now goes through
+  qnm_aggre2_noc.
+- Cover: point to v5 of the Molokai SoC series.
+- Link to v1: https://patch.msgid.link/20261128-molokai-icc-v1-0-a5e1754f086d@yahoo.com
+
+---
+Venkat Yadlapati (2):
+      dt-bindings: interconnect: qcom: Add Molokai RPMh NoC
+      interconnect: qcom: Add Molokai interconnect provider driver
+
+ .../bindings/interconnect/qcom,molokai-rpmh.yaml   |  144 ++
+ drivers/interconnect/qcom/Kconfig                  |   11 +
+ drivers/interconnect/qcom/Makefile                 |    2 +
+ drivers/interconnect/qcom/molokai.c                | 1753 ++++++++++++++++++++
+ .../dt-bindings/interconnect/qcom,molokai-rpmh.h   |   26 +
+ 5 files changed, 1936 insertions(+)
+---
+base-commit: e5aad2bdbbee783611d32599f89cea3f12f9593d
+change-id: 20261127-molokai-icc-1314acd09958
+
+Best regards,
+--  
+Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+
+
