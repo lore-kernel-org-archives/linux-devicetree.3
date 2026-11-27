@@ -1,90 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795781504;
-	b=IyZiHryqNDqZgkZhy9anw/FBc+WI1OeFiu3f7lm7xK7U9BVyetLMvOGBQGEeQGzVWAZp
-	 blbU9tdG6Cn6JkWdllsNfSRPOei03JaDVY7WOMjF9uboTJxeJPwOsPNkDUEiata1n+yHj
-	 INdMzL+lZcFE93hZz+peaLIHp3f9IWhXjUqIpwxV6e9YR5c0foTdhOIpKSR1N2pmsRsPf
-	 cxoA4xcwaVb6jyMUCcSXi3SDCpIuuNJOuUJ7XmefLjgWynoAEl2nIiLZzGgHnf2WHgnDT
-	 vcaIjvWcMbI8NKMidJ2Kqrd+wPeTnGyypkxiLArCo/t4TTmc3bSB9TgIdGguqknU4ew==
+	t=1795781512;
+	b=y08q/1/i+FRRCgYbkcO8l4V4sukOhBZZuM78DjD2PGpMGnnXLNhxwpnv3OK4oSOYkf1J
+	 K4gsWX5X9ln1lfy4fmyHqn6Zf9pfQR+/g15Bo8UDlMg3fDskXveQhHQIR3Mk2LeqBHdOH
+	 Orj2dwE3dDWKqTG3HamNTuhwWxHPheLi651Pz2LRV9qnFrtiEh/TFiZsaPRa5n1M3prsu
+	 4DV+5RnPLCOHPtYT0PXFJcicqGV5BXcz/4At1dBEMGPdKYS7/9oEe/6fvLGumtDJ/npcx
+	 EiGp7FD987cNXDJ/5hpjSru9M7/ZkRm+U8FZT9Q8D78KpRVX3xF3gIO2ttpWH3vfd4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795781504;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Bm0qgyTwGAnzbvTI065ip0cEVkfj4VNUXrWOH1TrcSc=;
-	b=ZnHt8Kla4PKhHfeO8F8ZgTv7MEQ0WyNHxt9NcjcZGRHWBvtrylbuDkbVjs3yq6bx+cBG
-	 PSl05M0+QFpmA5lZptvAEdiocAdTW4Wb/9U/gxkhO0zofPPk5Pn6TDOdXbErBP3/orKAr
-	 i+hZzViVENSmZh5SqwBD9L+IE/FUwr7KxmSGJBZd7wAXDl/+aKyM/kLF72ClN2howyFqM
-	 Z2LbL/+4phZqgLG2MFORT2VdtFbOfI49uDJ6CjSedrngF55sRB7g3NpFabwSLUGvfk2Hr
-	 IW+LR01lsMqo/2+4eGN+O7nfGWcTGCmBMbdgy5YfPGpbDQLToaSs2qboAjmNj3aR5Lg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795781512;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=U2UKqho7RiqZPSkkcPut/1/ppKVpudTdBMODtt9mKNk=;
+	b=EzJ0TGo4IPlPETZoco75TEXxzFYKkBK111/PChsF7ZOlO3HXnzfJs9IxAKS6SVKPQwsh
+	 1KMoG7Y/m/kfj2fuueq659K2xEh90HeBmqjFx1Z7Cw4AOHc3ak4Ek+7jyAkVGSxkp2mdZ
+	 IrQUQ0i8GGGRDLDyAhn0IfdmLQ93fcsqQT9AwfJqPinpr2AwxU3GYI6UsK9oXx1iffy2k
+	 mRzaexVN5APljYlp/ICCRL78GC5h5al7e0rptya1E7EBB04wk7jP2WpVkk/6Akoxh2b/Z
+	 QmyRNiSw22BOG2A07wBnBZJBqteAkSyKx6y/qS/Fa7KeqlgQ86GbRpfGiRFQwsPkgtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=TCDQOCPj;
-	arc=none smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SxYJjrQC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6AF606A31E
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 12:11:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A6AF606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D850606A31C;
+	Fri, 27 Nov 2026 12:11:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=TCDQOCPj
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3b4a93d0814so2845062a91.1
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 04:11:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1795781503; x=1796386303; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Bm0qgyTwGAnzbvTI065ip0cEVkfj4VNUXrWOH1TrcSc=;
-        b=TCDQOCPjbPiYmV0XZ41YC1MB+b33tMYqj6lw6xjva03I7e7wEEXXP/646WFRZbCRm9
-         XDlJet2an2yi76CUuy0f/PHo/8EJGG/okTk1hxhrbv8zpEyvjo+7XoK4uMtI32e0gc3O
-         3ZLOuULRMMHIWA7JfPBpoBFaLd6IcLgZ67rgo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795781503; x=1796386303;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Bm0qgyTwGAnzbvTI065ip0cEVkfj4VNUXrWOH1TrcSc=;
-        b=T8aug79xyilJUKsXcYU0JPrQsOaPKAl7UsPu54yuSgjL1vjkckOgHg0rr6EmRmr5E8
-         dODP794giHlUNDQHg9QbwSM43hNOR9klM4mjlc+V9jDJh/9rsMe9IoK93zmkGUSvbRsI
-         On3rtYMAugH07XhIW5wIuAea+wQTvExsNRMyTSFW2P5sPRaBoGdnQIwuKBj5wRDOjQ/C
-         pMpWQCZpQO67I2PunU+CHbHWKYswsQ/Ao/EQvqK8AHpRBez3ZlidoIfb1Wx3Gms29hpF
-         zof9/8QxRrV4y6/uhxHCsXjxfTwDy/SDRmE7OTy+cRfwnx9LvG6h4SKL+XBflWtisxLc
-         fJjA==
-X-Forwarded-Encrypted: i=1; AL+hErEEuUg8E+DnEQPk6452tjhOHLN5fLLUyn2giBEvhUGeLMl9kxfSGXcgws2DcYyy/HO5uXUB4ihkQr4L@vger.kernel.org
-X-Gm-Message-State: APuU4Z96E03VzRqxK9lrocREWrufRlCQOxjiqB2O7eEOHLsR5fkVuvOI
-	Xa805vIo7iWdrV5TCii8LWm0LTPdF6LnHz5t/YrgDaQGB2E4ZPwNXAeRC66OQprOsSgW3AHKuGN
-	ijHFQGA==
-X-Gm-Gg: AZFdTZfW+hfRnpK6qcKlzAGhxq1+uVEEftwolIOJPxrhhZdIQBbvRt4o6vg1z9Zz1Fl
-	b7WXFkwFlKjknBm4MhVtooHgYyIaK21i3kulo4Ms3ijVBSmlJUVXaxhg710pRT3G2NejAsjwSTU
-	De8bAq874BrAicF5cWeS1Khi3hVqFp0KaG61fj17Innjo0zsEvdfk/5ZqjtwjY0zxk/gGMgiNol
-	uxrUbGUHia00NyVnylgqYMWkIK3VTWcHdBNqoj648wuhqXkRscaBWH96dNm80EHJRExTfforufL
-	Ln4nma6dKZN4cnvLVi2jCSJGH7ZtDhNMkCkMXZ6pNax+LMJKAYZtcDYsSf2qtLzLyoJ+2afU5Me
-	oP/8i7pLF1bn+xdqoB0/V6Dmr6uZmuTRvwSkgDsrDXQjd4vrzblkiMds8MWBo55/J4g7X5MHBxm
-	68eBSCaDvMu3hYibrsCW8avITIdqHVblFPx4urYmiRt4F6KMOn2v9i40VTNh08CmCRaTvNEwnnX
-	e6QuG7js8r0qlcFQciZOocMTC8OcwBFVfglbTDeLo6OvFavJGnCGFfz37rFnExgvlQVgaAIcOAY
-	eCQ5+v8Y3hwMXbWuEJWNUavKiRfRDV7mNE6V7KbQVv2yDLT9SiPPNaNA7uzrgCzrDtY=
-X-Received: by 2002:a17:90a:ec88:b0:3b3:7759:d2da with SMTP id 98e67ed59e1d1-3b41c7b6355mr22385458a91.5.1795781503203;
-        Fri, 27 Nov 2026 04:11:43 -0800 (PST)
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com. [74.125.82.181])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405d97356sm39895349a91.13.2026.11.27.04.11.41
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 27 Nov 2026 04:11:41 -0800 (PST)
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-38692f62b22so10799854eec.0
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 04:11:41 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGrlEBsQcRH8oEywEfoRn4CL2I/d8Ce0Op40MtGw75PdbHZbwj6UpwAlZ/Z+kWvxO+n/B3nyhvmwlrc@vger.kernel.org
-X-Received: by 2002:a05:7300:d0af:b0:386:a3fe:4503 with SMTP id
- 5a478bee46e88-386a3fe46b5mr17622667eec.41.1795781500168; Fri, 27 Nov 2026
- 04:11:40 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SxYJjrQC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25C861F0089B;
+	Fri, 27 Nov 2026 12:11:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795781511;
+	bh=U2UKqho7RiqZPSkkcPut/1/ppKVpudTdBMODtt9mKNk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=SxYJjrQCoXn8jKpccGPJV92RABj6dtqWFrQ+kJnGiCfY0XOjMjtJSgws8GZXXDA/A
+	 bAW4mMITA5O0Y6A5PUke3SL9+twwjt83hNafHGIWXt8jp6T3wwy96ZE45oTPvuOcbJ
+	 6CnS27JzH/XecIX0kzp9fujcqV29vwZlWw8SKR9ycL67FCXHmr4eLgvIoe3KWGX6Wc
+	 uf57GL5l5OJ2rVAX1bdHPVDgvfW5V+ovSlUeSDieDqW/DoVjwoOOXi37N/co2Yui1/
+	 IQmKI2tfk1WDUtbPyHemX+6U72wEkVSuVRak8sY0Tj+1PPNoe8F7jOLbQvaKAnhh14
+	 LueO+DMUR4w+w==
+Message-ID: <sashiko-outbox-237327@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v14 03/30] crypto: amlogic - Don't hardcode IRQ count
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jose Nieto" <jnieto.alaber@gmail.com>, "Corentin Labbe" <clabbe@baylibre.com>, "Herbert
+ Xu" <herbert@gondor.apana.org.au>
+Cc: linux-crypto@vger.kernel.org, linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, "Neil
+ Armstrong" <neil.armstrong@linaro.org>, "Martin Blumenstingl" <martin.blumenstingl@googlemail.com>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Alexey Romanov" <romanov.alexey2000@gmail.com>
+In-Reply-To: <20261127120103.1532882-4-jnieto.alaber@gmail.com>
+References: <20261126193241.1471372-1-jnieto.alaber@gmail.com>
+ <20261127120103.1532882-1-jnieto.alaber@gmail.com>
+ <20261127120103.1532882-4-jnieto.alaber@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 27 Nov 2026 12:11:50 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,456 +64,75 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com> <20260714114414.184512-40-angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20260714114414.184512-40-angelogioacchino.delregno@collabora.com>
-From: Fei Shao <fshao@chromium.org>
-Date: Fri, 27 Nov 2026 20:11:02 +0800
-X-Gmail-Original-Message-ID: <CAC=S1nhVwaXYehnkOhZtp1HVMPbgf3hHyq0nzUa0xBZKZtSc2w@mail.gmail.com>
-X-Gm-Features: Aa3M54oBRoREnUteIhw_cWqJHnKQjoLmcsIuuFawJHqYqFGvJvM1giC0E8ZPK6Q
-Message-ID: <CAC=S1nhVwaXYehnkOhZtp1HVMPbgf3hHyq0nzUa0xBZKZtSc2w@mail.gmail.com>
-Subject: Re: [PATCH v2 39/46] drm/mediatek: Introduce MediaTek Asynchronous
- DirectLink Controller
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com, 
-	simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
-	tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	matthias.bgg@gmail.com, dri-devel@lists.freedesktop.org, 
-	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	justin.yeh@mediatek.com, jason-jh.lin@mediatek.com, kernel@collabora.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 14, 2026 at 7:47=E2=80=AFPM AngeloGioacchino Del Regno
-<angelogioacchino.delregno@collabora.com> wrote:
->
-> Add support for the MediaTek Display Controller's Asynchronous
-> Direct Link Controller.
->
-> This is responsible for managing internal I/O connections between
-> multiple display controllers in a leader to follower(s) topology,
-> adding the ability to enable data exchange between multimedia
-> related controllers and the display controller(s), and between
-> multiple display controllers, effectively changing the hardware
-> capabilities of multiple display output paths.
->
-> For example, this could be used to support multiple outputs with
-> lower resolution and/or color depth, or to support less outputs
-> but with high resolution and/or color depth, up to 8k60 in some
-> MediaTek SoCs like MT8196.
->
-> Moreover please note that, on new generation SoCs, (MT8196, MT8894,
-> MT6991, MT6993, etc), the Asynchronous DirectLink (DL_ASYNC) sub
-> component is required to be set up in order to achieve any display
-> output at all as, differently from slightly older ones (MT8195)
-> where a display controller reset resulted in default valid outputs
-> being set, the new ones have a "muted" configuration by default.
->
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
-abora.com>
-> ---
->  drivers/gpu/drm/mediatek/Makefile             |   1 +
->  drivers/gpu/drm/mediatek/mtk_ddp_comp.c       |  42 +-
->  drivers/gpu/drm/mediatek/mtk_ddp_comp.h       |  33 +-
->  .../gpu/drm/mediatek/mtk_disp_directlink.c    | 434 ++++++++++++++++++
->  drivers/gpu/drm/mediatek/mtk_disp_drv.h       |  12 +
->  drivers/gpu/drm/mediatek/mtk_drm_drv.c        | 160 ++++++-
->  drivers/gpu/drm/mediatek/mtk_drm_drv.h        |   1 +
->  include/linux/soc/mediatek/mtk-mmsys.h        |   4 +
->  8 files changed, 661 insertions(+), 26 deletions(-)
->  create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_directlink.c
->
-[snip]
-> +       of_port =3D of_graph_get_port_by_id(node, of_port_id);
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] crypto: amlogic - IRQ requested before init_completion() in
+  probe
+--
 
-`of_port` is never released with `of_node_put()` on any return path.
+commit b42c58d2650be1044e0fec0a7ef8758413b304b6
+Author: Alexey Romanov <romanov.alexey2000@gmail.com>
 
-> +       if (!of_port)
-> +               return -ENOENT;
-> +
-> +       for_each_of_graph_port_endpoint(of_port, ep)
-> +               num_links++;
-> +
-> +       clks =3D devm_kcalloc(dev, num_links, sizeof(*clks), GFP_KERNEL);
-> +       if (!clks)
-> +               return -ENOMEM;
-> +
-> +       link_ids =3D devm_kcalloc(dev, num_links, sizeof(*link_ids), GFP_=
-KERNEL);
-> +       if (!link_ids)
-> +               return -ENOMEM;
-> +
-> +       i =3D 0;
-> +       for_each_of_graph_port_endpoint(of_port, ep) {
-> +               struct of_endpoint endpoint;
-> +               u32 hw_port_id;
-> +               int ret;
-> +
-> +               ret =3D of_graph_parse_endpoint(ep, &endpoint);
-> +               if (ret)
-> +                       continue;
-> +
-> +               ret =3D of_property_read_u32(ep, "mediatek,port-id", &hw_=
-port_id);
-> +               link_ids[i] =3D ret ? endpoint.id : hw_port_id;
-> +               clks[i] =3D devm_get_clk_from_child(dev, ep, NULL);
+crypto: amlogic - Don't hardcode IRQ count
 
-`clks[]` and `link_ids[]` are populated sequentially
-(`0..num_links-1`), while mtk_direct_link_config() /
-mtk_direct_link_clk_enable() etc. index them by `comp->inst_id`. If
-endpoint `reg` values are sparse or don't start at 0, this reads out
-of bounds or hits the wrong entry.
+This commit replaces the hardcoded MAXFLOW constant with a dynamic flow
+count queried via platform_irq_count() and moves per-flow IRQ registration
+into meson_allocate_chanlist().
 
-Maybe calculate `max_ep_id`, size the arrays by `max_ep_id + 1`, and
-index by `endpoint.id` (with bounds checking), or look up the entry by
-`endpoint.id`.
+> diff --git a/drivers/crypto/amlogic/amlogic-gxl-core.c b/drivers/crypto/a=
+mlogic/amlogic-gxl-core.c
+> index 48dbdf4520348..b6933be39a377 100644
+> --- a/drivers/crypto/amlogic/amlogic-gxl-core.c
+> +++ b/drivers/crypto/amlogic/amlogic-gxl-core.c
 
-> +               if (IS_ERR(clks[i])) {
+[ ... ]
 
-Early return inside `for_each_of_graph_port_endpoint()` leaks `ep`
-(missing `of_node_put(ep)`).
-
-> +                       return dev_err_probe(dev, PTR_ERR(clks[i]),
-> +                                            "Could not get clock\n");
-> +               }
-> +               i++;
-> +       }
-> +       dl_port->clks =3D clks;
-> +       dl_port->link_ids =3D link_ids;
-> +       dl_port->num_links =3D num_links;
-> +
-> +       return 0;
-> +}
-> +
-> +static int mtk_direct_link_probe(struct platform_device *pdev)
-> +{
-> +       struct device *dev =3D &pdev->dev;
-> +       struct device_node *main_node =3D dev->of_node;
-> +       struct mtk_direct_link *dl_async;
-> +       int in_mtx_id, out_mtx_id;
-> +       unsigned int num_ports;
-> +       int i, ret;
-> +
-> +       dl_async =3D devm_kzalloc(dev, sizeof(*dl_async), GFP_KERNEL);
-> +       if (!dl_async)
-> +               return -ENOMEM;
-> +
-> +       dl_async->data =3D device_get_match_data(dev);
-> +
-> +       dl_async->regs =3D of_iomap(dev->of_node, 0);
-
-of_iomap() returns NULL on failure rather than an ERR_PTR, and leaks
-the mapping on unbind. Use devm_platform_ioremap_resource(pdev, 0).
-
-> +       if (IS_ERR(dl_async->regs))
-> +               return dev_err_probe(&pdev->dev, PTR_ERR(dl_async->regs),
-> +                                    "Could not get regs\n");
-> +
-> +       num_ports =3D of_graph_get_port_count(main_node);
-> +       if (num_ports =3D=3D 0)
-> +               return dev_err_probe(dev, -ENOENT, "No Input/Output ports=
- found.\n");
-> +
-> +       /*
-> +        * Get the Trigger ID for DL_IN_0 and for DL_OUT_0, as all of the=
- other
-> +        * HW ports have linearly increasing IDs.
-> +        */
-> +       in_mtx_id =3D mtk_ddp_comp_get_mutex_trigger(main_node, MTK_DISP_=
-DL_IN);
-> +       out_mtx_id =3D mtk_ddp_comp_get_mutex_trigger(main_node, MTK_DISP=
-_DL_OUT);
-> +       switch (num_ports) {
-> +       default:
-> +               /* fallthrough */
-> +       case 2:
-> +               if (in_mtx_id && out_mtx_id) {
-> +                       ret =3D 0;
-> +                       break;
-> +               }
-> +
-> +               ret =3D in_mtx_id < 0 ? in_mtx_id : out_mtx_id;
-> +               break;
-> +       case 1:
-> +               if (in_mtx_id || out_mtx_id) {
-
-mtk_ddp_comp_get_mutex_trigger() returns negative error codes, while
-ID 0 is valid. Check with `>=3D 0` explicitly.
-
-> +                       if (in_mtx_id < 0)
-> +                               in_mtx_id =3D 0;
-> +                       if (out_mtx_id < 0)
-> +                               out_mtx_id =3D 0;
-> +
-> +                       ret =3D 0;
-> +                       break;
-> +               }
-> +
-> +               ret =3D in_mtx_id < 0 ? in_mtx_id : out_mtx_id;
-> +               break;
-> +       }
-> +
-> +       if (ret)
-> +               return dev_err_probe(dev, ret, "Could not get %s port 0 t=
-rigger ID\n",
-> +                                    in_mtx_id < 0 ? "input" : "output");
-> +
-> +       if (in_mtx_id > U8_MAX || out_mtx_id > U8_MAX)
-> +               return dev_err_probe(dev, -EINVAL, "Implausible trigger I=
-D found\n");
-> +
-> +       /* IDs are now validated and safe to assign */
-> +       dl_async->dl_port[MTK_DISP_DL_IN].p0_mtx_trig_id =3D in_mtx_id;
-> +       dl_async->dl_port[MTK_DISP_DL_OUT].p0_mtx_trig_id =3D out_mtx_id;
-> +
-> +       i =3D 0;
-> +       for_each_of_graph_port(main_node, port_node) {
-> +               u32 port_id;
-> +
-> +               of_property_read_u32(port_node, "reg", &port_id);
-> +               if (port_id > 1)
-> +                       continue;
-> +
-> +               ret =3D mtk_direct_link_port_probe(dev, &dl_async->dl_por=
-t[i], port_id);
-> +               if (ret)
-
-Pass `&dl_async->dl_port[port_id]` instead of `i`.
-
-mtk_direct_link_get_port() indexes `dl_port[]` by MTK_DISP_DL_IN (0)
-and MTK_DISP_DL_OUT (1), so on an output-only node (port@1), using `i`
-(0) populates `dl_port[0]` and leaves `dl_port[MTK_DISP_DL_OUT]`
-uninitialized.
-
-Also, `port_id` is uninitialized if reg is missing, and early return
-inside `for_each_of_graph_port()` leaks `port_node`.
-
-> diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/med=
-iatek/mtk_drm_drv.c
-> index 75b3fd56d6af..4f39df23c51e 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-> @@ -804,10 +822,27 @@ static int mtk_drm_of_get_first_input(struct device=
- *dev, struct device_node *no
->         if (ret)
->                 return -ENOENT;
->
-> -       inst_id =3D mtk_ddp_comp_get_id(ep_dev_node, comp_type);
-> +       inst_id =3D mtk_ddp_comp_get_id(ep_dev_node, ep_in, comp_type);
->         if (inst_id < 0)
->                 return inst_id;
->
-> +       if (comp_type =3D=3D MTK_DISP_DIRECT_LINK) {
-> +               struct device_node *remote_port =3D of_graph_get_remote_p=
-ort(ep_in);
-> +
-> +               /* If there's a remote port this input is active, otherwi=
-se it's unused */
-> +               if (!remote_port)
-> +                       return -ENOENT;
-> +               of_node_put(remote_port);
-> +
-> +               /* All even ports describe inputs, all odd ports describe=
- outputs */
-> +               comp_type =3D (crtc_endpoint + 1) % 2 ?
-> +                           MTK_DISP_DIRECT_LINK_IN : MTK_DISP_DIRECT_LIN=
-K_OUT;
-
-`ep_in` and `ep_dev_node` were already put earlier in this function
-(patch 37/46).
-
-Also, `ep_in` is fetched from hardcoded `port@0` and `crtc_endpoint`
-is the CRTC index (`0 =3D MAIN`, `1 =3D EXT`, ...), so `(crtc_endpoint +
-1) % 2` misclassifies `CRTC_EXT` (`endpoint@1`) as
-`MTK_DISP_DIRECT_LINK_OUT`; this is always `MTK_DISP_DIRECT_LINK_IN`.
-
-> +
-> +               dev_dbg(dev, "Found First DirectLink %s with port %pOF an=
-d ID %u\n",
-> +                       comp_type =3D=3D MTK_DISP_DIRECT_LINK_OUT ? "OUT"=
- : "IN",
-> +                       ep_in, crtc_endpoint);
-> +       }
-> +
->         /* All ok! Pass the Component ID to the caller. */
->         comp_def->type =3D comp_type;
->         comp_def->inst_id =3D inst_id;
-> @@ -848,7 +883,7 @@ static int mtk_drm_of_get_ddp_ep_cid(struct device *d=
-ev, struct device_node *nod
->                                      struct mtk_drm_comp_definition *comp=
-_def,
->                                      bool controller_arch_v2)
+> @@ -154,13 +154,31 @@ static void meson_free_chanlist(struct meson_dev *m=
+c, int i)
+>   */
+>  static int meson_allocate_chanlist(struct meson_dev *mc)
 >  {
-> -       struct device_node *ep_dev_node, *ep_out;
-> +       struct device_node *ep_dev_node, *ep_out, *remote_ep;
->         enum mtk_ddp_comp_type comp_type;
->         int ret;
->
-> @@ -856,10 +891,16 @@ static int mtk_drm_of_get_ddp_ep_cid(struct device =
-*dev, struct device_node *nod
->         if (!ep_out)
->                 return -EINVAL;
->
-> -       ep_dev_node =3D of_graph_get_remote_port_parent(ep_out);
-> +       remote_ep =3D of_graph_get_remote_endpoint(ep_out);
->         of_node_put(ep_out);
-> -       if (!ep_dev_node)
-> +       if (!remote_ep)
-> +               return -ENOENT;
+> +	struct platform_device *pdev =3D to_platform_device(mc->dev);
+>  	int i, err;
+> =20
+> -	mc->chanlist =3D devm_kzalloc_objs(mc->dev, struct meson_flow, MAXFLOW);
+> +	mc->flow_cnt =3D platform_irq_count(pdev);
+> +	if (mc->flow_cnt <=3D 0) {
+> +		dev_err(mc->dev, "No IRQs defined\n");
+> +		return -ENODEV;
+> +	}
 > +
-> +       ep_dev_node =3D of_graph_get_port_parent(remote_ep);
-> +       if (!ep_dev_node) {
-> +               of_node_put(remote_ep);
->                 return -EINVAL;
-> +       };
->
->         /*
->          * Pass the next node pointer regardless of failures in the later=
- code
-> @@ -877,17 +918,20 @@ static int mtk_drm_of_get_ddp_ep_cid(struct device =
-*dev, struct device_node *nod
->                         dev_dbg(dev, "Found connection to external mmsys =
-%pOF\n",
->                                 rmt_ctrlr_node);
->
-> -                       of_node_put(ep_dev_node);
->                         of_node_put(rmt_ctrlr_node);
-> +                       of_node_put(remote_ep);
->                         return -EREMOTE;
->                 }
->         }
->
-> -       if (!of_device_is_available(ep_dev_node))
-> +       if (!of_device_is_available(ep_dev_node)) {
-> +               of_node_put(remote_ep);
->                 return -ENODEV;
-> +       }
->
->         ret =3D mtk_drm_of_get_ddp_comp_type(ep_dev_node, &comp_type);
->         if (ret) {
-> +               of_node_put(remote_ep);
->                 if (mtk_ovl_adaptor_is_comp_present(ep_dev_node)) {
->                         comp_def->type =3D MTK_DISP_OVL_ADAPTOR;
->                         comp_def->inst_id =3D 0;
-> @@ -897,10 +941,26 @@ static int mtk_drm_of_get_ddp_ep_cid(struct device =
-*dev, struct device_node *nod
->                 return ret;
->         }
->
-> -       ret =3D mtk_ddp_comp_get_id(ep_dev_node, comp_type);
-> +       ret =3D mtk_ddp_comp_get_id(ep_dev_node, remote_ep, comp_type);
-> +       of_node_put(remote_ep);
->         if (ret < 0)
->                 return ret;
->
-> +       if (comp_type =3D=3D MTK_DISP_DIRECT_LINK) {
-> +               struct device_node *remote_port =3D of_graph_get_remote_p=
-ort(ep_out);
-> +               u32 port_id;
+> +	mc->chanlist =3D devm_kzalloc_objs(mc->dev, struct meson_flow, mc->flow=
+_cnt);
+>  	if (!mc->chanlist)
+>  		return -ENOMEM;
+> =20
+> -	for (i =3D 0; i < MAXFLOW; i++) {
+> +	for (i =3D 0; i < mc->flow_cnt; i++) {
+> +		mc->chanlist[i].irq =3D platform_get_irq(pdev, i);
+> +		if (mc->chanlist[i].irq < 0)
+> +			return mc->chanlist[i].irq;
 > +
-> +               of_property_read_u32(remote_port, "reg", &port_id);
-> +               of_node_put(remote_port);
+> +		err =3D devm_request_irq(mc->dev, mc->chanlist[i].irq,
+> +				       meson_irq_handler, 0, "aml-crypto", mc);
+> +		if (err < 0) {
+> +			dev_err(mc->dev, "Cannot request IRQ for flow %d\n", i);
+> +			return err;
+> +		}
 > +
-> +               /* All even ports describe inputs, all odd ports describe=
- outputs */
-> +               comp_type =3D (port_id + 1) % 2 ? MTK_DISP_DIRECT_LINK_IN=
- : MTK_DISP_DIRECT_LINK_OUT;
-> +
-> +               dev_dbg(dev, "Found DirectLink %s with port %pOF and ID %=
-u\n",
-> +                       comp_type =3D=3D MTK_DISP_DIRECT_LINK_OUT ? "OUT"=
- : "IN",
-> +                       remote_port, port_id);
-> +       }
+>  		init_completion(&mc->chanlist[i].complete);
 
-`ep_out` was already put above, `remote_port` is logged after
-`of_node_put()`, and `port_id` is uninitialized if `remote_port` is
-NULL or lacks "reg".
+[Severity: Medium]
+Can meson_irq_handler() fire before init_completion() initializes
+mc->chanlist[i].complete?
 
-> +
->         /* All ok! Pass the Component ID to the caller. */
->         comp_def->type =3D comp_type;
->         comp_def->inst_id =3D ret;
-> @@ -1200,8 +1278,13 @@ static int mtk_drm_probe(struct platform_device *p=
-dev)
->
->         hash_init(private->hlist.ddp_list);
->
-> +       if (of_graph_is_present(phandle))
-> +               node =3D phandle;
-> +       else
-> +               node =3D of_find_node_by_name(phandle, "direct-link");
+Moving devm_request_irq() ahead of init_completion() enables the IRQ
+while mc->chanlist[i].complete is still zero-filled, so a pending
+interrupt with a non-zero flow status register will call complete() on an
+uninitialized swait_queue_head and dereference a NULL task_list.next
+pointer.
 
-of_find_node_by_name() calls of_node_put(phandle) on borrowed
-`dev->parent->of_node`, walks the whole DT past phandle, and leaks the
-returned node.
-Use of_get_child_by_name(phandle, "direct-link") and put it when done.
-
-> @@ -1273,12 +1363,45 @@ static int mtk_drm_probe(struct platform_device *=
-pdev)
->                                                    node);
->                 }
->
-> -               ret =3D mtk_ddp_comp_init(dev, node, &private->hlist,
-> -                                       private->data->mmsys_id,
-> -                                       comp_type, comp_inst_id);
-> -               if (ret) {
-> -                       of_node_put(node);
-> -                       goto err_node;
-> +               if (comp_type =3D=3D MTK_DISP_DIRECT_LINK) {
-> +                       for_each_of_graph_port(node, port) {
-> +                               u32 port_id;
-> +
-> +                               of_property_read_u32(port, "reg", &port_i=
-d);
-> +                               if (port_id > 1)
-> +                                       continue;
-> +
-> +                               /* Even ports are inputs, odd ports are o=
-utputs */
-> +                               if (port_id % 2)
-> +                                       comp_type =3D MTK_DISP_DIRECT_LIN=
-K_OUT;
-
-`comp_type` is modified in place without being reset for even ports.
-If port@1 appears before port@0 in DT (not preferred, but possible),
-`comp_type` becomes `MTK_DISP_DIRECT_LINK_OUT` on the first iteration
-and stays `OUT` for port@0 on the next iteration (also carried into
-patch 40/46).
-
-Compute the type per port instead, e.g. port_type =3D (port_id % 2) ?
-MTK_DISP_DIRECT_LINK_OUT : MTK_DISP_DIRECT_LINK_IN;
-
-> +
-> +                               for_each_of_graph_port_endpoint(port, ep)=
- {
-> +                                       struct of_endpoint of_ep;
-> +
-> +                                       ret =3D of_graph_parse_endpoint(e=
-p, &of_ep);
-> +                                       if (ret)
-> +                                               break;
-> +
-> +                                       ret =3D mtk_ddp_comp_init(dev, no=
-de, &private->hlist,
-> +                                                               private->=
-data->mmsys_id,
-> +                                                               comp_type=
-, of_ep.id);
-> +                                       if (ret)
-> +                                               break;
-> +                               }
-> +
-> +                               if (ret) {
-> +                                       of_node_put(node);
-> +                                       goto err_node;
-> +                               }
-
-Similarly, breaking out of `for_each_of_graph_port_endpoint()` leaks
-`ep`, and jumping out of `for_each_of_graph_port()` via `goto
-err_node` leaks `port` (missing `of_node_put()`, also carried into
-patch 40/46).
-
-Regards,
-Fei
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127120103.1532=
+882-1-jnieto.alaber@gmail.com?part=3D3
