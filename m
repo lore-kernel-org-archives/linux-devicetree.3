@@ -1,107 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.71
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795782050;
-	b=osDzdKA20zf7C5G06fTPz62fDKILu9TUKytNz4eKpQHhR19QV/zwel3WuAOipZVlOjvz
-	 oGAq3JLtD+nYAoAazRKiPcE+02Ij/OWCe9G5xdESE8qvYMR/oXXGRUnH5zqjVCaWUDIrc
-	 383HqteaaxVe4O78CYK3zxY78Mfb8kdnixaXfhwj7yMmvkZb9hgqKLpLEx8d69ndcshXW
-	 sgsivBXtwQfeiVkXiGb8o3gm7sgyo0eliA3CNcAyQtovrXkt16lnvD2vQA8cTruGEupWD
-	 sZfWUbpZ606EjT7iphclfQxswqIfOHEpKLmWmCH7n1K5ddfLbut/46HrXo63Gc6LPkg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795782050;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:Content-Transfer-Encoding:
-	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=iZaJlBxklrKrbntWwCEFd67ugxTK9ihbgeLxzUI1ixw=;
-	b=u9+PfE0Ix7drlw6eVrw3rbNFwSceRbCioWvF/wnTA3Io+6twbuASWHVpiTF5muK4aW5k
-	 lG8Z9hFTnppDP213i1LGXs7gLExC25IB5QeY4WGwlqBHELKnLxyg6jGH3HUKO8CLBtNeA
-	 PEmfv7keW/Y8smpbtGCrndZaVaDawthfILoR+A97Y61YKwgcbsshKtIZs67jtyNMzFtoN
-	 V7fUiH86jDX/0nWtisrNIfVR+DLnYwjWAaljtWx90rIgQVwf5VeWxNZRmg26pFFisRFYW
-	 o2ni4a/tBwLDmER8nGtzdexfyqDeHjfIqNbeBhsNOySdkHlZ6G5nLVP2hqAN5/JT23g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=eccrOlce;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.71
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011071.outbound.protection.outlook.com [40.107.208.71])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795782079;
+	b=ZM+ial6T/8bSwHonRkh1xc105qfgz16GWq6RA7SDotkS8Tgf6L4WIPtDQzADc2VLzjhr
+	 o4X/ZSHxSTPkz+Qo4FDQ4jUDj9EWwM+t05z4vfBSXVeaaLShY6AyDC0orszbKVV2iMea6
+	 CQT4clKErvOwmN3yXLTttPirKeDLW/AhxpbUy77abU3iKtP76wvbp6onZ+oNK/KuljAhx
+	 +HMuTdUwV60vUHR6IhNAzFJXIHLaW1qfqaCPEZ4gCqIt13Xis2+Q2xMcG85GdPLuVD6X8
+	 Tjsmf/8UJIknNAwRmZzoc/RUvem5rtn+LjhZPIOBrcE706S2dLARtZTzdRrx+bXeiRA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795782079;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=ZFwKN1Fa/NE4ipfk2II223W7kJwBqBxqrAot+Ny010o=;
+	b=TasIHJmtBTfjIk3yaufRjgGTutSGGmSjnFgWkbmjugRDH64d6A87UxJxYq+bpnQq5Ozh
+	 Y22YE5VB/53Dv090TXIul/8QvBd1bKcXHgdunon050P0YxyvbYGLt7z7iiCJyydWYmM6T
+	 2iQPU00o8tbzES8yN9m/nZ0a3/CrjCcSJFVLTcgq6VRwlSzxcF1wxrryWxcyx4i0cCswy
+	 Wmel2Bahc4zNN/YmOofpLMlp6IHn0pfanObnwQYDYqD0orW0hlOGWWed0An/7zlrYehN/
+	 6pWEBHQbCC512EP6x5v0s6BDPgq12LeUJT8x3qdesrKLJcM8JzgRIBa8JUnh3Glui5w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RWxrjGMr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B39606A32D;
-	Fri, 27 Nov 2026 12:20:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77B39606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F1B9606A335;
+	Fri, 27 Nov 2026 12:21:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=eccrOlce
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oioaLbKtw8qhsigFOHostIg+WS9vZmP8LKsrHPO3WiMNzLfl7X4xf0nVdpODSdZlPwedYedvHYLmdnrPg0HLSBX79Kt4rgdqYlcSq+ZTps/vXI3ZyvLFCjEvqDfmJTqCSDkRFpQ3thA2M4vfCg7aL8aNNdH5ccI9cHAmKCguML1gBxYPECOqR7mtZBNhK2AGokJf3gXokaBPGQOe1UTljeEpCfOq4xOZvawsMOhsbWoxkEoq1CC5eh+2nVk5O7emrH0SNKC59FOBZuauwv+v7iAKFq2ZBLH0RPkNvAd81j372JTO/BW6njQKLrSgU7oiIEImXnhaWxh+k0KXhvkzbA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iZaJlBxklrKrbntWwCEFd67ugxTK9ihbgeLxzUI1ixw=;
- b=j0WaIGdD48SQFVJ5QWSjv7Bdqv8O368uV4nATak3OONptI3ocgqcIOXJ2HVloj6wVgmMrCfPwsQ3GH8DfVSsPY9KpiwY4YyXZM7Y7f0tUtM2sK73hysDXutbY83cMKrtHPlDBnpe/ogV/p5d8XdLuQ3IKVrWlR8DX0lRnvM2P3wCnSoIijBzlhULs7+4rGE2DotiGKsHP7fmCzF4NOAYAirnNoZWlln2rRjDaCDL0bP0R21pYZs8uWiHnXQfLM6kc+diG7ARl8fHUVL5pZOxER/GrJ2ZHHFtSxSVM4b+f+WTNb1un74rSFDEhiFX38mbu/BOTXw0icsyWlJS2aCpYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iZaJlBxklrKrbntWwCEFd67ugxTK9ihbgeLxzUI1ixw=;
- b=eccrOlcejzvp6avlY3zp3FgRuGu2EIu8i9/O9NFe6kTUUQ/bIWBKNjn845F7R969NBJqrfv+oG0+uLaabydge/K4fvM+TU5PN6X6goh5yydyFvaHOb7/GW6c95DJ6//cDU9pMcqR8xO+KZq9XX8aTXG+5zmQ+DIHzR/YF4eDCYy+f4NptT7c/LxSJA5iF7GLC7uvBlI7o2cqBTulWZWj7mhFGdlTumXl4x8QwuE2ZwXSYGShcadA7k8cgfPdK7y/qoZpi1FVLjY1L42l2kTWFnYA8Xo7skg17pmtbkeh7gyWNJbswnHuu2wf632EIJmaJumZ6EXhAiTOVCynCQen2g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by DS5PPFB8FBD73EA.namprd12.prod.outlook.com (2603:10b6:f:fc00::65e) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.9; Fri, 27 Nov
- 2026 12:20:43 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0662.004; Fri, 27 Nov 2026
- 12:20:42 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-To: devicetree@vger.kernel.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, Svyatoslav Ryhel <clamor95@gmail.com>
-Subject:
- Re: [PATCH v8 02/12] drm/panel: panel-hitachi-tx10d07vm0baa: Convert to use
- MIPI DBI bus
-Date: Fri, 27 Nov 2026 21:16:51 +0900
-Message-ID: <uQ14beL2SOumMxaLqMFc4w@nvidia.com>
-In-Reply-To:
- <CAPVz0n0Qyekm7qUyCVFMTDSuVSw=1my4x-rgiafp3+mQ_sgk3Q@mail.gmail.com>
-References:
- <20261122081820.53199-1-clamor95@gmail.com>
- <hlO8KiQKSi62yShZAIyhpw@nvidia.com>
- <CAPVz0n0Qyekm7qUyCVFMTDSuVSw=1my4x-rgiafp3+mQ_sgk3Q@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RWxrjGMr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4357F1F00924;
+	Fri, 27 Nov 2026 12:21:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795782078;
+	bh=ZFwKN1Fa/NE4ipfk2II223W7kJwBqBxqrAot+Ny010o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RWxrjGMrLFKBHEJheFxE7/iq0h4YMlWz6RPpUp3+P81zuuC+O+ihcEnzFmD7v4oc+
+	 RogJ6bK4vz9CQYgTlFKZFrXJNpeTZFrrq68XDObdZjNoHGdtW2yr5TeExZH7mtOTjN
+	 KKM3LCPsaJW0jXoKWpFMIQ+2JaQBX0WZvvaYg7xrvP/AUF+xeRKbJKwbuuCXmTDfhD
+	 X8rrSWwXLhG3nAKOK9v64goz6Wq/CvEq2UrLEENAaQ9+rZMKD1M953XJwUaNt9Vqsd
+	 pnq4t5m3GMibofju4oHUdC6sNTH/rZquv4skOs9x7wkoYpWf4G+fHnpGznNtcyxULi
+	 VkreUYCuGNDiw==
+Message-ID: <sashiko-outbox-237356@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v14 27/30] crypto: amlogic: fix probe and algorithm
+ registration error paths
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jose Nieto" <jnieto.alaber@gmail.com>, "Corentin Labbe" <clabbe@baylibre.com>, "Herbert
+ Xu" <herbert@gondor.apana.org.au>
+Cc: linux-crypto@vger.kernel.org, linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, "Neil
+ Armstrong" <neil.armstrong@linaro.org>, "Martin Blumenstingl" <martin.blumenstingl@googlemail.com>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>
+In-Reply-To: <20261127120103.1532882-28-jnieto.alaber@gmail.com>
+References: <20261126193241.1471372-1-jnieto.alaber@gmail.com>
+ <20261127120103.1532882-1-jnieto.alaber@gmail.com>
+ <20261127120103.1532882-28-jnieto.alaber@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: TYCP286CA0247.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:456::18) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+Date: Fri, 27 Nov 2026 12:21:17 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,219 +65,118 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DS5PPFB8FBD73EA:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7da671f5-8676-4cc7-6f57-08df4c80db2c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|10070799003|7416014|376014|10067099003|56012099006|261022075727099003|261022105027099003|261022113327099003|261028144727099003|261026121527099003|261026140227099003|261021121427099003|261021123027099003|261102123227099003|261009223027099003|22082099003|18002099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	p66KKkEIejSwtTCtzNc8IoyPqg9jEN/s7EFgQ5VJjxnc+GtnwbuQN9Vk8OfT7fo+PSFHNzGSpTtdQLXooDBhnim2jIvDqnD5IyviDpg6wXd4/KKMBrJtF/cfJhgj2XXU596gW1+/UtIwDQt5uNCeC5i/uBAdL2NrMskqBkfnTB8WipWXm3V7yzI6d7wdMTtNuZY1owY6WtpNq3wZdne6yd5yvcMWl8V2HSSbDYrTehsVOf1SZpkuBqpEpSwEcUm6aXk4qOrU3l28K4+ovDX1YIkXi1UZNU+9xCHvBZGgC/uuZDEuji4OOUamX2KawS5NGNAEnBVAumEAjyrSxtvZ7Xi4QDC/9f08hknXuKTI/l8jCszmRchNQWx1Hl+UkdLgaL+kYp1v2duw8jQc8ZGpL4o5scyS3arrj0JBASrPpGvf0AM0M0UwobE/WRVFEKMUhAnQXM5C8TA4SflNsPXtQUrLtU2KPgnDALzOm1R4AIg32dRou/t+WQodcMsSoOhQnY44mbWmsfQFvXPT7/MnPXwr4yKfSlkGh4uOIljtYBsaXEdjcNc9fN/c9+wilCKKscIzsiqssg80rkqJv44awfICXlQ31RrvMejN7cdPBulm39t7ntII5sjpBcbiPHoX+BOsRmzE5hH/z2i5e8AH173mZsmxqDXtV0rVzxkBIxM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(10070799003)(7416014)(376014)(10067099003)(56012099006)(261022075727099003)(261022105027099003)(261022113327099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021121427099003)(261021123027099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SkpNODhTT2hodVNEMDV5NzdRU0ZlMlovY01rcFY3alpvOXRFWmxnYkZQeEtB?=
- =?utf-8?B?SmY5bEN2SEFTWFhBNzg4UFJNQ01kc0ZkVzhzMUgyaGVzdHRtbnpYZVUwTFll?=
- =?utf-8?B?QmduaFliREQvUDIrYjZUQlZ0Q3Q2aGlSQitUM2NFbTIrYzhUQk9NMHFjVysy?=
- =?utf-8?B?MnMvUjEvTHFaempBT3hDa0xqdGhBZk9xZnRZZWFBSjR0NmZLeCt3VnZzZm13?=
- =?utf-8?B?UWY2NXprZHJyQVh0NVFLYmI2RW83bVNyelkvUUF6ZnYwbzJ4bWJHMlNPQ0gz?=
- =?utf-8?B?ZlkyN2xTWHVlN3d5RnlaeWRFK0dZZjRpWVJONFlNODBuOUoyWnFiaDBOc0FJ?=
- =?utf-8?B?elFtUmRDOG5URWNoWDNBaU8vZHJnQ0tROU40bHZRQjZYYlRPTzdZYmVSYXRE?=
- =?utf-8?B?M3l3ZlpyNXFiVmdtM0xQMkdtTVlDM3JWVDN4MUF4cmk5cTlQQ2t2cmJiRWRF?=
- =?utf-8?B?Wm9KYmNzckRpVlFRNjB4djVkRktvYkg2RVV0SzI5bHQvMDRQclR5VXRXL1dD?=
- =?utf-8?B?ZTBjS1B2NU5nYjArTXcvZnhKUm1vVjhZUU5HVWVnL2k0cDFhK1RRR1FETDU1?=
- =?utf-8?B?MkRRUTBEd1BGcCtIb2s4aFFqTmtZWnhNMmJicW5DUjZ0QXNLc3FEcVNGc3hi?=
- =?utf-8?B?ZVJyRkthcitVK1dIblBKOEhmRzZPd0tWNDF6Yk9jMHhhR2lraDVzTUNCK3VC?=
- =?utf-8?B?Z092S3B6MCtTN0NxbUpPbjJJdkhQMDFwUkNDS09CbWZlNnIvNVZFNjZmaUY5?=
- =?utf-8?B?TXJXUmhWVjgzeDhFMWFBSGtiTzlhTmxlQzdvSStkODF4Zmg0ZzQ2OEpaeVpW?=
- =?utf-8?B?aE1rQjBOOE1QUVVmc2QwNFJqR1FLRGpDZyswQ2hEcFZ4MFhWVkx6U1JDNE9w?=
- =?utf-8?B?THhCZk5JazIrOFR2YmdxV01QMHJsbDZWTmh4RU1yNXhkNTZFWUh6ZWRGd1FG?=
- =?utf-8?B?SnVjQTJ5WGdwNHlmd2hVNVNrRmV6R3hTVXNpNjFtbmNIaU5zWklZUHcwTGp3?=
- =?utf-8?B?NXdrTlVjaWlsMTI3NU1rYzY0SXp1TUhWOXJvOTMxTHdzNDFlcnNpNk9GMEdq?=
- =?utf-8?B?aW5kMDVLRjFCNTJ2a21FeWFPc3duODVlQXc1SEtxTnJNR3V2NjFWQnVyUHI1?=
- =?utf-8?B?dVJNOFRKazljUHFGbjZBSzF3M2ZjRFhBN2ExQkxWQ1JkMlYzVTZLaVBlRTRo?=
- =?utf-8?B?T21reXNxcjBKSUpwYTlSMENjQXY4OElueDFyR2phRm1DYThYa0ZMVUYyMzF0?=
- =?utf-8?B?SmpGVWlaemQ5dmxWNjl6VCtuVTBRMFQ2c0N6QzZkbk9YVEFLUk1tQ3pIamxv?=
- =?utf-8?B?UC94bE8wNEVPa3pZdVFGWi91OTNQRWZUaDJMSnpsYUpLTTVsWE43RG51Rnoz?=
- =?utf-8?B?OUxGVkdUbThMN3h1d3VUN3V4WXB3T0pBU2NEeWRWZkJGNFhCZENtNVdPT0xJ?=
- =?utf-8?B?RnF6VDZyclhQNmptRDZObUZ6eGcyT1JmaDVNMTdxRWVLSDljTTlmMnphQ3Fq?=
- =?utf-8?B?VStocXAzRmZKR0lQY2syUHQ1U0g1U3hpVWtrS3dPQUVyUFV5cDJFRmRYdjhI?=
- =?utf-8?B?SnpNVUkwQWU5RE5TL3RFNFlmWEhQbVcrK3kwSXR4Wmxpd1kxdXNQSEdxV3dW?=
- =?utf-8?B?ajJxRmlHOW5aV1Jwb1djTFc2VEFkUktDMnlKRDhiV3VIT3B6Q1ZlQWhsaTlC?=
- =?utf-8?B?Rzd0bStlOCtqYkgyNHVGa0hadCtjc0F1a1BKd3JaTU9CaURGWlNFMVdvcGNP?=
- =?utf-8?B?alUvekhEWnR6WCtjbVJYR3JVTU90Vzd2NVd4RDNLMVd6YUhvemg2OGRUcEx3?=
- =?utf-8?B?NkhZY09HR2FPTmp0QkFVNit6eVZHVEF5UEM3bERLY0NnVzVsa3I4QUtkWE1p?=
- =?utf-8?B?ZjFXc1RpQzhIZGNvaTk0THdncjQ5N0JxQS9HUzFWQjFpNEFsaWpYRVpJM0pr?=
- =?utf-8?B?cEI0bWNCdVJaSWZ4Yks0aHhvYTRsVDJESGxwd3RNTEZudVZKU2grcHl0V0Iz?=
- =?utf-8?B?UVdLNzAxRzBGWXJsLzVReEExSHRrNVp3Wm5EUC9LRzM0Q0FrcFJtcGxmWVhn?=
- =?utf-8?B?ZFdaOEhtZzhLUnplSUVieVRtU0VUcFJCL1d3bStSdVlJTDR2Ri9TTnhGalZq?=
- =?utf-8?B?MTNUTVZxa2NyYTVTZGY2eWR4K1c5VFVXUUFVNGl3TjkzRDhhWHNEZncydXRZ?=
- =?utf-8?B?Y3dMcmRFWU9xRGh6azBIU0NHL0pYK29yT3JGN1JQNTlsem96NnpIdnVZU0lD?=
- =?utf-8?B?MmdmNzVSeFVUWTJTM0xNYXBiMUtZTVAwaUZjRzkxNml4M3g3SW5jU1ZYa1Bl?=
- =?utf-8?B?dDdESHBuR0V4QzVkSGdJeGlLM1NsUmhTTVZoVFE2N3JGV21YRzk4b3g0eHBL?=
- =?utf-8?Q?S3VCsEMNiAG3HfFd84U8EncDbI1bQ7kmeqnUNNctrcdZB?=
-X-MS-Exchange-AntiSpam-MessageData-1: lXw6C31D5OPvYQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7da671f5-8676-4cc7-6f57-08df4c80db2c
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 12:20:42.8627
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Xo/AerZYIfmVyu155E+PsLvIKvIO8rUsV+IhxdGWQ37sByoBD7qpMQxuqLitPW7lNtllOtcnp1dl6w/HcAOANA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPFB8FBD73EA
 
-On Friday, November 27, 2026 6:10=E2=80=AFPM Svyatoslav Ryhel wrote:
-> =D0=BF=D1=82, 27 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 06=
-:23 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > On Sunday, November 22, 2026 5:18=E2=80=AFPM Svyatoslav Ryhel wrote:
-> > > Switch from a generic platform driver to a dedicated MIPI DBI Type B
-> > > driver.
-> > >
-> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > ---
-> > >  .../drm/panel/panel-hitachi-tx10d07vm0baa.c   | 25 +++++++++--------=
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] crypto: amlogic: stale mc pointers left by
+  meson_unregister_algs()
+- [Medium] crypto: amlogic: completion initialized after IRQ in
+  meson_allocate_chanlist()
 --
-> > >  1 file changed, 12 insertions(+), 13 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c b/dr=
-ivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
-> > > index 83c2af1be9755..318ece68b7806 100644
-> > > --- a/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
-> > > +++ b/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
-> > > @@ -14,6 +14,7 @@
-> > >  #include <video/mipi_display.h>
-> > >
-> > >  #include <drm/drm_mipi_dbi.h>
-> > > +#include <drm/drm_mipi_dbi_bus.h>
-> > >  #include <drm/drm_modes.h>
-> > >  #include <drm/drm_of.h>
-> > >  #include <drm/drm_panel.h>
-> >
-> > You should now be able to get rid of includes of of_platform.h
-> > (replacing with of.h) and platform_device.h. Agent says drm_of.h and
-> > property.h are also unused.
-> >
-> > > @@ -25,7 +26,7 @@ static const struct regulator_bulk_data hitachi_tx1=
-0d07vm0baa_supplies[] =3D {
-> > >
-> > >  struct hitachi_tx10d07vm0baa {
-> > >       struct drm_panel panel;
-> > > -     struct mipi_dbi *dbi;
-> > > +     struct mipi_dbi_device *dbidev;
-> > >
-> > >       struct regulator_bulk_data *supplies;
-> > >       struct gpio_desc *reset_gpio;
-> > > @@ -40,9 +41,10 @@ static inline struct hitachi_tx10d07vm0baa *to_hit=
-achi_tx10d07vm0baa(struct drm_
-> > >  ({ \
-> > >       const u8 d[] =3D { seq }; \
-> > >       struct drm_panel *panel =3D &(priv)->panel; \
-> > > +     struct mipi_dbi_device *dbidev =3D (priv)->dbidev; \
-> > >       struct device *dev =3D panel->dev; \
-> > >       int ret; \
-> > > -     ret =3D mipi_dbi_command_stackbuf((priv)->dbi, cmd, d, ARRAY_SI=
-ZE(d)); \
-> > > +     ret =3D mipi_dbi_command_stackbuf((dbidev)->dbi, cmd, d, ARRAY_=
-SIZE(d)); \
-> > >       if (ret) \
-> > >               dev_err_ratelimited(dev, "error %d when sending command=
- %#02x\n", ret, cmd); \
-> > >       ret; \
-> > > @@ -54,10 +56,6 @@ static int hitachi_tx10d07vm0baa_prepare(struct dr=
-m_panel *panel)
-> > >       struct device *dev =3D panel->dev;
-> > >       int ret;
-> > >
-> > > -     priv->dbi =3D dev_get_drvdata(dev->parent);
-> > > -     if (!priv->dbi)
-> > > -             return -ENODEV;
-> > > -
-> > >       gpiod_set_value_cansleep(priv->reset_gpio, 1);
-> > >
-> > >       ret =3D regulator_bulk_enable(ARRAY_SIZE(hitachi_tx10d07vm0baa_=
-supplies), priv->supplies);
-> > > @@ -243,9 +241,9 @@ static const struct drm_panel_funcs hitachi_tx10d=
-07vm0baa_panel_funcs =3D {
-> > >       .get_modes =3D hitachi_tx10d07vm0baa_get_modes,
-> > >  };
-> >
-> > Unnecessary semicolon here.
-> >
-> > >
-> > > -static int hitachi_tx10d07vm0baa_probe(struct platform_device *pdev)
-> > > +static int hitachi_tx10d07vm0baa_probe(struct mipi_dbi_device *dbide=
-v)
-> > >  {
-> > > -     struct device *dev =3D &pdev->dev;
-> > > +     struct device *dev =3D &dbidev->dev;
-> > >       struct hitachi_tx10d07vm0baa *priv;
-> > >       int ret;
-> > >
-> > > @@ -264,6 +262,9 @@ static int hitachi_tx10d07vm0baa_probe(struct pla=
-tform_device *pdev)
-> > >               return dev_err_probe(dev, PTR_ERR(priv->reset_gpio),
-> > >                                    "Failed to get reset gpio\n");
-> > >
-> > > +     priv->dbidev =3D dbidev;
-> > > +     mipi_dbi_set_drvdata(dbidev, priv);
-> > > +
-> > >       ret =3D drm_panel_of_backlight(&priv->panel);
-> > >       if (ret)
-> > >               return dev_err_probe(dev, ret, "Failed to get backlight=
-\n");
-> > > @@ -272,9 +273,7 @@ static int hitachi_tx10d07vm0baa_probe(struct pla=
-tform_device *pdev)
-> > >       if (ret)
-> > >               return dev_err_probe(dev, ret, "Failed to add panel\n")=
-;
-> > >
-> > > -     platform_set_drvdata(pdev, priv);
-> > > -
-> > > -     return 0;
-> > > +     return devm_mipi_dbi_attach(dev, dbidev);
-> > >  }
-> > >
-> > >  static const struct of_device_id hitachi_tx10d07vm0baa_of_match[] =
-=3D {
-> > > @@ -283,14 +282,14 @@ static const struct of_device_id hitachi_tx10d0=
-7vm0baa_of_match[] =3D {
-> > >  };
-> > >  MODULE_DEVICE_TABLE(of, hitachi_tx10d07vm0baa_of_match);
-> > >
-> > > -static struct platform_driver hitachi_tx10d07vm0baa_driver =3D {
-> > > +static struct mipi_dbi_driver hitachi_tx10d07vm0baa_driver =3D {
-> > >       .driver =3D {
-> > >               .name =3D "panel-hitachi-tx10d07vm0baa",
-> > >               .of_match_table =3D hitachi_tx10d07vm0baa_of_match,
-> > >       },
-> > >       .probe =3D hitachi_tx10d07vm0baa_probe,
-> > >  };
-> > > -module_platform_driver(hitachi_tx10d07vm0baa_driver);
-> > > +module_mipi_dbi_driver(hitachi_tx10d07vm0baa_driver);
-> > >
-> > >  MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
-> > >  MODULE_DESCRIPTION("HITACHI TX10D07VM0BAA MIPI DBI Type B panel driv=
-er");
-> > > --
-> > > 2.53.0
-> > >
-> > >
->=20
-> I agree that your suggestions are ok, but they are out of scope of
-> this patch. They would require either dedicated commits or can be sent
-> as followups later on since they do not cause bugs.
 
-I don't see why the include changes are out of scope. The platform=20
-driver was including platform includes but now it's no longer a platform=20
-driver so it shouldn't include platform driver stuff. The rest are minor=20
-enough that I think they can be included as well.
+commit 6f6ab6fadcd8280a6a563ddcf1e8fea62b447b00
+Author: Jose Nieto <jnieto.alaber@gmail.com>
 
+crypto: amlogic: fix probe and algorithm registration error paths
 
+This commit updates meson_allocate_chanlist() to propagate negative
+return values from platform_irq_count() and unwind allocated channels on
+IRQ failure, and clears algs[i].mc on registration failure in
+meson_register_algs().
 
+> diff --git a/drivers/crypto/amlogic/amlogic-gxl-core.c b/drivers/crypto/a=
+mlogic/amlogic-gxl-core.c
+> index 8ce3f66407537..c11d7d8250eae 100644
+> --- a/drivers/crypto/amlogic/amlogic-gxl-core.c
+> +++ b/drivers/crypto/amlogic/amlogic-gxl-core.c
+
+[ ... ]
+
+> @@ -117,14 +119,18 @@ static int meson_allocate_chanlist(struct meson_dev=
+ *mc)
+> =20
+>  	for (i =3D 0; i < mc->flow_cnt; i++) {
+>  		mc->chanlist[i].irq =3D platform_get_irq(pdev, i);
+> -		if (mc->chanlist[i].irq < 0)
+> -			return mc->chanlist[i].irq;
+> +		if (mc->chanlist[i].irq < 0) {
+> +			err =3D mc->chanlist[i].irq;
+> +			i--;
+> +			goto error_engine;
+> +		}
+> =20
+>  		err =3D devm_request_irq(mc->dev, mc->chanlist[i].irq,
+>  				       meson_irq_handler, 0, "aml-crypto", mc);
+>  		if (err < 0) {
+>  			dev_err(mc->dev, "Cannot request IRQ for flow %d\n", i);
+> -			return err;
+> +			i--;
+> +			goto error_engine;
+>  		}
+> =20
+>  		init_completion(&mc->chanlist[i].complete);
+
+[Severity: Medium]
+Can meson_irq_handler() fire before mc->chanlist[i].complete is
+initialized?
+
+devm_request_irq() enables the interrupt before init_completion() runs.
+If a pending interrupt is raised in that window, meson_irq_handler()
+calls complete(&mc->chanlist[flow].complete) on a zeroed completion whose
+wait.task_list pointers are still NULL, causing a NULL pointer
+dereference in swake_up_locked().  Initializing the completion before
+requesting the IRQ avoids this window.
+
+> @@ -169,6 +175,7 @@ int meson_register_algs(struct meson_dev *mc, struct =
+meson_alg_template *algs,
+>  			if (err) {
+>  				dev_err(mc->dev, "Fail to register %s\n",
+>  					algs[i].alg.skcipher.base.base.cra_name);
+> +				algs[i].mc =3D NULL;
+>  				meson_unregister_algs(mc, algs, count);
+>  				return err;
+>  			}
+> @@ -178,6 +185,7 @@ int meson_register_algs(struct meson_dev *mc, struct =
+meson_alg_template *algs,
+>  			if (err) {
+>  				dev_err(mc->dev, "Fail to register %s\n",
+>  					algs[i].alg.ahash.base.halg.base.cra_name);
+> +				algs[i].mc =3D NULL;
+>  				meson_unregister_algs(mc, algs, count);
+>  				return err;
+>  			}
+
+[Severity: Medium]
+Does meson_unregister_algs() leave stale non-NULL algs[i].mc pointers in
+the static algorithm template arrays?
+
+drivers/crypto/amlogic/amlogic-gxl-core.c:meson_unregister_algs() {
+	for (i =3D 0; i < count; i++) {
+		if (!algs[i].mc)
+			continue;
+		switch (algs[i].type) {
+		case CRYPTO_ALG_TYPE_SKCIPHER:
+			crypto_engine_unregister_skcipher(&algs[i].alg.skcipher);
+			break;
+		case CRYPTO_ALG_TYPE_AHASH:
+			crypto_engine_unregister_ahash(&algs[i].alg.ahash);
+			break;
+		}
+	}
+}
+
+Because the template arrays in amlogic-gxl-cipher.c and
+amlogic-gxl-hasher.c are static and meson_unregister_algs() does not clear
+algs[i].mc after unregistering, any unbind or probe rollback leaves
+dangling mc pointers across all entries.  If a later probe fails partway
+through meson_register_algs() at index i < count - 1, clearing only
+algs[i].mc still leaves algs[i + 1 .. count - 1].mc non-NULL from the
+previous run, so meson_unregister_algs(mc, algs, count) will try to
+unregister algorithms that were not registered and hit WARN_ON() in
+crypto_unregister_alg().  Clearing algs[i].mc =3D NULL in
+meson_unregister_algs() (or passing i instead of count on rollback) would
+prevent this.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127120103.1532=
+882-1-jnieto.alaber@gmail.com?part=3D27
