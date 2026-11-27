@@ -1,107 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795761447;
-	b=22Do9oxn+13mRKLRnWiYuiNGId6/jKontXXXeQFU08YNvSuPTptAbzEcddCNvT0clGm2
-	 CEtFKFQsZzrw1axQsduoQcd2xv2LNTdswwxioCkwxE6E/BxCKPGXpHXxy52QDHl+ktY9S
-	 qzCvLRUy2FkCf27McUEEfsDeqPP8k2ymzQ1tf0Vigp5qLPjoUjUZe+TksuEd+cnrb3A+p
-	 p0iMv5BIBd3I+DZf+cRLbAS7JY+a22H39XYAX8+LFoerI1eilCAhx1DF8UrfOezaVDfAG
-	 7+By/PjPVfrgS/XIpSr9vXHZ+IAWs+nAFtVfJoS1KOHKhyeaKq3jLX4JPF0CAZnf+Ow==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795761447;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ouFPTWJhXr8TTmjO4pfxOnzGc0miXfirhT0XeCsCiFY=;
-	b=u2pgAVaDjWYAGisoPx3Unz90+EUgShU0JDE/yv6VQm28ZWJ7754gsY3XqVJ3keHxFG9R
-	 Ht3+4GWWPJcupVq/TR3zNRIr1KqSS1zmxVKow102q5Hw2O+Frw0zRQFn90u6jCppyRRBa
-	 AXbrdAkhTBySqJk9pDPt+0syPltF5DAp2dGnv1zJOPk8RpLf9rWWxGdXrgYwlgYGnuA30
-	 aH5shruljTN5IucwqGnzeRQD4AMHtszx188H0zCw+7MsC79caTRNj74TNyH2Lp/cghIDf
-	 9p8jdPhctDJWeiIoFHLo/q+Jo4Wq78t3pBWat6rDHaTZAeA2Bq0WUnOODe0Ng3Pik6A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ejt1OiXS;
-	arc=none smtp.remote-ip=209.85.167.49
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.102
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795761818;
+	b=zf2tRnOEvdNrDp2YLtOL1xB6tNMYnKtaKlmmVEtB0ZNxZ3Eri19jSDBP4DXWSDa39/Wo
+	 DT3+lzHr2/8o8nQOxD00j6BmvR20J4Xvm6SkHN7YKtsZOAoVr2gqgCFnTasrcio4LY5OB
+	 5sx6Zl7ZnleRhYM4Ix+lBu3nfu+dGx6Yi0NQFHaH44k4375BOGS3VMP8hq8jP+Ja3/SXI
+	 yn/TMH3rwhV2RJ8D8lkFuJNXPu3aRryOPWjniEVwSFVL85RSHy/TmTS4h2Ej6yZpNTxBn
+	 ehTLFK9hvsDlrh9pZkedBtw4Az8v804NWMIODDrqzPvTXaGiprqc1S2jlGMk5IDgblA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795761818;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:From:To:Cc:References:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-TrafficTypeDiagnostic:X-MS-PublicTrafficType:client-request-id:
+	 request-id:X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=PmzkZL98IFVLVO1AVH100KZlsT1wHhOSsnXCSCBipzc=;
+	b=r+k9G2UtGcThM6ryTXY4Resk+W7sqBdYtw9C0+02cw4oU2QeOXPrB9bVZYK9Y+4Fym4E
+	 lecaP0KLhioj/fPNZJG+9wT3mvlGkizXk3KtrrTsd6czBVzgfkmZOS4TAgXNUrKsN8qJZ
+	 Aug35VMBJHliw5s4Lz/IZh36LLe7EcBySdWnhOOrBg/hdCrAQzHbELflhrGPsT/ZwU6Vz
+	 39i3ylqhjjU6qKZH0BJXgpvwvqcRKyj0CrXSgUJGB2UwMPTlvA2VEBLg+Gb8Gg0mdgXa0
+	 7c+OIb4QUBLqBEZDE/WzRl4Q9DEmgqhDhEpoZ1lo4Jjorwfwf/6ZrB4ydnccCkZEQ6g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amlogic.com;
+	spf=pass smtp.mailfrom=amlogic.com;
+	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=SHN7+LKm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.102
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023102.outbound.protection.outlook.com [52.101.127.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87AC1606A331
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 06:37:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87AC1606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ACFD606A324;
+	Fri, 27 Nov 2026 06:43:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2ACFD606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ejt1OiXS
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5bcdae234ecso2603569e87.3
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 22:37:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795761446; x=1796366246; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ouFPTWJhXr8TTmjO4pfxOnzGc0miXfirhT0XeCsCiFY=;
-        b=ejt1OiXS6TGkz5nOvbhO4FJrfLcTWb/7xMm7PRKPenH2EOTSwcVSX6QQNvM8sBincD
-         PonAoKVbQs3aNHNZuNeLaAxuRnCuCFu/dEhaslarw+FrNooBywWG+ZQsMDOn8aHutmMd
-         QauZtV08VJSSg3lbKBxRoBnrij42Q1kHv9XJz/+CUyEZ/FC5+h49RtmB9ZYI5Z73Nkja
-         8/Sjy8ZEnFm0FeS1xXlqkLYQAHSmLiGPGH4uKTVCq3Sp5ae1+fS/AgXaGTDF77MT8M6x
-         SO/2k19zhAbYmrZglrLaY5i3tJhahxbhg/RYjU9nc05qI/kfCD8e42qyGNsJ3Xyi7bwy
-         MSVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795761446; x=1796366246;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ouFPTWJhXr8TTmjO4pfxOnzGc0miXfirhT0XeCsCiFY=;
-        b=qRutvXGv0wN1Q+Ol+ZeioagBae5qZUoPFfhx3aYVv5tDuD8V/wjKZ4xZ0nISH7Rt+Q
-         qdCBhSojJ1PKFLlDWPCHzbS9EzaUUEF0lCN6fJ+f9x6nXdVQTqVCfzDkOuzD/YEK+wtR
-         YT+xmqT7hPkZLUsCRUyeYJiWGIzm0QM8zEz2evIkwfEOzF8s4xLApaS+fPgXd0DtgpfC
-         D597dRUpTEb7O319b4TbfhIZ4jmE7UPCStSwNQ19IpqbK3YClSkiENUjF3J/SLq3uyJa
-         8AZC5olB5m1L1LxC75P8k2xrv1iggEkA4yh8tTVc4p2CEfoB5g2Xpo32deZYfSGG/g9h
-         ywgw==
-X-Forwarded-Encrypted: i=1; AL+hErHpGjtfy+wqsECusLl2zNpc3APgvnq177zT0pQdRiudqhpR9sgl2i0lzdDCjjy9ng3Naf47jdDjlmeT@vger.kernel.org
-X-Gm-Message-State: APuU4Z+tpQTn8FB0kDvhCafTOyLCirnUll3PeoHT/Ym6Y3wBd3kGl8u4
-	YG6PfqhlNmzWJwZzO3HlhMWdZU7o7F1xcfDFbn6vs2/YKsqAwwu1acKv
-X-Gm-Gg: AZFdTZfN1L7Vp8/55VDqFoxguGwqBj2XfjV4OgXGy5lSc1lf1ZynxZt3TrRpDf6t0oV
-	cGd80n1UKRd3fETPgCEBM9K8Xzh9BSAl24Tv2tdF43m2z0CN/XtiVikaY4SHu8FtKmhlBPyIYZ5
-	ct6SHs4x+rvCRmj2S3nqtUuVxHU1jl/9/7MAzbxCOUSS2HmDm0lw8sp5xFTM0vwx79HHlHYxl/E
-	GnFd4id6ZJ522+yn0wPf9Cm0fymsJLuIBOC+4t9/oclRLT5fZ5Z55tX+ixQZOvHJnEJgaZHn5CC
-	vNHmo5yo81Bm4DIZW61CG/8QmzB+uQzHISpx5rTJV4qdORJOgDauIUY0PVDsLUTuRB0Tmbt8VV/
-	s2mmJI1xoJgTC4oub6cO55W0RZiJTPE1JYyI+/Xq8Wu4Coo6FySWxB0cKVFB+xD9AuzeIwkXJEo
-	elQ0XopUUzle4izPHt4duEDUMrhHIZzd8spvLYhW13Y0sEUDBt+RZQDKQir5CCEP7Q2QG0HbFIG
-	2/9CNqhRceQqAK8mAE28fizhBpSU9uH36E9ruVa4xFQv3gswYrgXiriuWYmxHrGjk3LjTHcsJah
-	vuCb/SuKV18giSHaurxIdD1ZOuLBjQ==
-X-Received: by 2002:a05:6512:1585:b0:5c0:4e3:a416 with SMTP id 2adb3069b0e04-5c1bc68009emr6417631e87.1.1795761445656;
-        Thu, 26 Nov 2026 22:37:25 -0800 (PST)
-Received: from NB-6746.. ([188.243.183.76])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bd01772esm5618994e87.39.2026.11.26.22.37.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 22:37:25 -0800 (PST)
-From: Artem Shimko <a.shimko.dev@gmail.com>
-To: andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	maxime.chevallier@bootlin.com,
-	pavel@ucw.cz
-Cc: Artem Shimko <a.shimko.dev@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-leds@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH net-next v7 3/3] net: phy: dap8211r: add PHY LED control support
-Date: Fri, 27 Nov 2026 09:37:05 +0300
-Message-ID: <20261127063708.3074433-4-a.shimko.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261127063708.3074433-1-a.shimko.dev@gmail.com>
-References: <20261127063708.3074433-1-a.shimko.dev@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=SHN7+LKm
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=R/I4LrVda4qNTJ15c74hTedwBNJTefgypE3HaEiME9ubZ2bZTsClwOzW5h5sQUDIcz1j30AgzI5plzSpPniz5hYr65iF6c03RMMueRwQuV+Y0YkMxy+ULpUlY9U7zZPn7syV/YbqlAa2XW0RP38k2diW22fb3PvZOd5pAlruN1yKhjYJ+XwsOeKlnqFGZIMSkMB98+SOTlmxJXFf6YuXUOAwWfZG5izxuGu8xIrA/1cEby+ptkXouWuKgMcywDilABEBW+TsFnKsq5ZGKCpqTaXFhJbcN78dhGHpJwLq/kLl2q3Z34oWd4H5H0nic35dv60lVKJNhCN8wPUDhhwKPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PmzkZL98IFVLVO1AVH100KZlsT1wHhOSsnXCSCBipzc=;
+ b=SrAQ1K18Ptk9ZLPoSRS45Vr/1c6OwmgWWxYUyByVgqksHY3Vyjv1gOpZ1qt0poSbkRzkLgIejXtT6MBgNJSGx2r9B9TPJ7lE1fYLNjrfh/94frkC59BrJ0pI/OQ8/SgtXt2L50mtX8CU4q7RVS++UR6eGZ/4nHDM6qsWZ1/CuI3P3RbKCS/LoqJ53Q72LnI1qrDe9yhZUfiKQOOsfwNvBgrW/db90Ii6ShYzPx44c28Mb3jFeqr1lgbZVVPjHW/mFG+usbSdVQJcpkRHu1FvIZgCoETBs1wxZwFz5QFc9/aLQsTk1I1gYMPJDpWS6jwBw7In/C1VPto231XEjSUs8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PmzkZL98IFVLVO1AVH100KZlsT1wHhOSsnXCSCBipzc=;
+ b=SHN7+LKmiBoiXVIttvkxn2a6QU6mLeje/HZlq0xlMomUKh9MOjJZE/EbA2TXN/MpAq+32u/PI8ahjKPUYkQnCyrOjLt2TIMzcgcKlpNFrvfxu2gHqTxtJgdvUvuEeali+Fn4nOd3fTXBGESNYVMg4qJ/h/PEzgptoKbMxovLhJDvizkhmxLAcUhPq2gwi26qvk7aiSXONWFGNKbeXC/szDmq1g5+FWnUsZSpKOWLGms2bxB2XGaRZYezsscki8Ac0amU+ZCIgMN0mVJBBR5PK7YAnra9VH0APwPiaSlAOOPgKcQtiLKM7e7Api6Cre8hMsnBt9h58LlQpcpyweDE8g==
+Received: from KL1PR03MB7149.apcprd03.prod.outlook.com (2603:1096:820:ca::7)
+ by KUZPR03MB9712.apcprd03.prod.outlook.com with HTTP via P2P; Fri, 27 Nov
+ 2026 06:43:33 +0000
+Received: from KL1PR03MB7149.apcprd03.prod.outlook.com
+ ([fe80::2f06:12a:fff0:6506]) by KL1PR03MB7149.apcprd03.prod.outlook.com
+ ([fe80::2f06:12a:fff0:6506%3]) with mapi id 15.21.0662.004; Fri, 27 Nov 2026
+ 06:43:33 +0000
+Message-ID: <0548866d-8214-47f1-9dba-06629240993b@amlogic.com>
+Date: Fri, 27 Nov 2026 14:43:30 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC RFT v2 3/3] clk: meson: pll: Remove the dedicated n
+ parameter
+From: Jian Hu <jian.hu@amlogic.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-amlogic@lists.infradead.org,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20261029-meson_refactor_n-v2-0-ff4ac74e527b@amlogic.com>
+ <20261029-meson_refactor_n-v2-3-ff4ac74e527b@amlogic.com>
+ <179390104085.2573818.48733523079260500.b4-review@b4>
+ <98fc8cb8-186b-493e-b74c-d8625d11dab1@amlogic.com>
+In-Reply-To: <98fc8cb8-186b-493e-b74c-d8625d11dab1@amlogic.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SI2PR01CA0033.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:192::23) To KL1PR03MB7149.apcprd03.prod.outlook.com
+ (2603:1096:820:ca::7)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -111,332 +103,121 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-TrafficTypeDiagnostic: KL1PR03MB7149:EE_|KUZPR03MB9712:EE_
+X-MS-PublicTrafficType: Email
+client-request-id: 9f45ff7d-be43-4d4b-9c4e-1c40968ef6be
+request-id: f0f2b47f-b404-4840-262b-08df4c51c176
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|22082099003|18002099003|261009223027099003|56012099006|4143699003|11063799006|261021135927099003|261022105027099003|261026121527099003|261028144727099003|261026140227099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	GuJZASr9mX9kdMGCT4cGmLwftaYxCpUU01MU+VtqJuLRIK6lDjs+97EJPUTl2gyvTj/0oiRyvjRqr6BdvAjcXaOHkRK5n8h6vOn/EMFI3KFz4VJ4C4V5yW06n03ZBLwbbwPMYidBlIFVmFm2OVMwpNZKMH/iDJeE9nfydfk4of+sxMu8YAaOR/IBrJNgdLpe3lpnqh4OJjBKPJTYhfjZJQvy3iE2RdNsrDytxis4a+c8MwWb99JeBhFkSjyyG2QSEetc8N/GLCRTbrfjF/L2CWOKBz4tdBcDkV7bocaB+d/p6GY7P1984JKr99ma4KGwBowsNpjLoOgw9CS0Mu96J/710iBE+IPGALbHmWyvqwOXI6uKy155RBQG5wclj74x/sKl6i13m/lQJf7dHCVcBfgA/QlrTwfeGnP3gGyNrsdctQX8ajWUCK074HiV31xlZqgnzZGlgvb1VFYRDpv2DtIxKKJO33eCAy6lLcqs0JciD92CQUjxU8iFwkqqwaEg8nWCWLNICH8d+UfCiXtRf2zHRayVEVUgpG3ZkR6cKbMmR7YEh9bQ0qcTI1IWiGlS/UCFlzQeTKI9m5pqI9MKvKLCUQO/vOYOcn2eWEwd+kzL7qgWPdtN0kZp2ttdoyIDLpBDwdxNtkU7mHorslJpHvMeiSnAoqeSFjbkzRlZtY8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(22082099003)(18002099003)(261009223027099003)(56012099006)(4143699003)(11063799006)(261021135927099003)(261022105027099003)(261026121527099003)(261028144727099003)(261026140227099003)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UngrVHhiSHlNZWJlTk1BWUlIS1lLcmdDOWhJZmZtKzZNck5mVmhEYTVNSW5T?=
+ =?utf-8?B?VS80aFFGSy9VU1NuZnhGSlpuY3B3WkxkeTNmdXpqaStVM3FlVUVrdnBqMEVF?=
+ =?utf-8?B?citDTkQxMktyWDdGSndBZFI2d0RyeTFyT1FQVm1YSmpNOGpvT09jbVhKZGhX?=
+ =?utf-8?B?N2ovWXlnQ1MzUWtwUnJlWmVzaUpCSG1tWVhXa1lUb0h1azVKNTdidGt2NE1V?=
+ =?utf-8?B?dXZ5MHhpZ0RuNVllVmkyYnJWOWFrakUxU0JXZittendGRkEwZkFwMWIydnRm?=
+ =?utf-8?B?TU8vSjJ6OUZwRXhnVXZQUGdBbjV6bTBlVlQzajVJYXhMTU4yRGU5Vi9WYUhS?=
+ =?utf-8?B?cUxZc25ZYkZ4YWpnam1sYTNCZE56QkpiaThIUGJFblFQbVUrYzNsK0dWaWVa?=
+ =?utf-8?B?VUQ2ekVSb2RVNHlxVWxab09jUzQ1NlhiT1hjUTNXa1FBeDVRREVQZDgyNUFW?=
+ =?utf-8?B?Rk9mL2E5MTRQdzlRS1pnYkpzUitjTno2dFdnNjMrejBKcEx5YTVMVmFPdlZI?=
+ =?utf-8?B?eVJjZkVNVHRjK01sUkhOKzFFNlY0WGV3T1MySTNGUUI0QVJJR0c3UVZ5QVVE?=
+ =?utf-8?B?WEl6Y1pCUm0xcFIzc1h1ZkZqYnZXWkJDL0NLY2pKQkZzN3ZHUzBvVGhvQjhP?=
+ =?utf-8?B?aDV2QWJYejk4TmhxN1hlNFRPQlpFWFpkM3grRE11NjhPcjV1cW9ybnlnQW9T?=
+ =?utf-8?B?VnJyNnFqT3ROSWFqWGE3c0dXakZwNTg2dzlPdGhwMVNMUEJzMHJrTjVvQlVs?=
+ =?utf-8?B?SnZGWW1PQ0lxQmNEdmFFbnZRVHJ2cUhNZU4yM1pEY2VxZUgwM0NOSW9mTzNJ?=
+ =?utf-8?B?NUtnZG4rU1J1Vnl0Qk14UzdZd3Rabnl6bFVnS1lYL0I3VEZFYVdpRTN0THRw?=
+ =?utf-8?B?Z3QzNHBYcXZHWVdWb1RJQWE2a1crOEZ2MmpyTllDeWo4bi9mTG1Ud3dCbnFj?=
+ =?utf-8?B?RnJFUG9naURCcE5nYTI0L3lMS0pwWk92b3BPWDJ1QTBqTXVHMjJLR1FPc0Zz?=
+ =?utf-8?B?U1BZMVdvZkZZK0Z5VUFBY01OQUxWVFJTUFRQMWZ0R3M2NXVDWnllQlllaUlT?=
+ =?utf-8?B?ZEd0QWt1U3prWU9pYXBKRitPQmR2K1BXN3Uzb0gvb25BVTBydVRvemtTcWhJ?=
+ =?utf-8?B?TUx3djkxeWJVNUxvZ3Yvd1ZMUE1SN2h3Znd3SktYczdlcFlaYjJhUUwvQ0VI?=
+ =?utf-8?B?YzQ4dHVMc3FvNDRtdTVPQ1VxcXRNYStTSkFVbk9tUDJHZlR2OVFLZUlGOTJG?=
+ =?utf-8?B?V2hDODNhRVlqV1gwS0pxazNoTkpSby9VV3h3aWR4K01DcG9vWS9oMjlteG16?=
+ =?utf-8?B?NGNvanZHTEdmNEpBVEkzdlBPQ2FQOVVVK3p2T05qaXo2cDY4cDg3UGwzV1Fw?=
+ =?utf-8?B?YzRzTDNtTkg1dGtaWkRzZU9vbGN1Rm43bVVVeGpiaVg1MmRLOEZsUVBKUW56?=
+ =?utf-8?B?TGNNUjVjNUhHZjdweDZHMGhYVWNNTTc1b2cyR2xyVjl0MkJMbEZCd2YwWFlj?=
+ =?utf-8?B?MG9xQlVVVGwvL1JDNDdJUmFsbHA5WkRmYXMwVm5jNTNpNXVEQTNhZDZwbE1O?=
+ =?utf-8?B?TXhZRFR5VHlyQm4zU1BkbStGeVFjbVY3RklNUHJUODlBWmhBY1hIVzc1K2tw?=
+ =?utf-8?B?eTkxS29heHBXMmI2SlVPcnBNU253MWdZWWt5SUpqdjNYR0ZMS1FMb1RzZVNv?=
+ =?utf-8?B?amg2K3dKZVRUZE1VOTcwVTVUNC85aFY2Y2FUSEIwMmJMK0pNTDFGK05KNFAx?=
+ =?utf-8?B?TW9BTno5TzBFR2ExRWZFQXgyOEpkTFB3Z3JycHdNRlNBd1k4WjV5ZHVWend0?=
+ =?utf-8?B?dW4zS2krcExINCs1WklGcWhZK3ErWG5MWW8wQ2RmNmJJVlVqaVpQL1NwMml4?=
+ =?utf-8?B?N21Xc3BTUVdwQXJ4aThxSHRBamFhdG5MeUxZWUxBSkgwbUtrU3Q3UXhZTjFS?=
+ =?utf-8?B?RUhyeVo3azFGbmNVK0xSL1NwSnFvdG1oazcyNW5aL1lzcHZCclpKY2RDcUc5?=
+ =?utf-8?B?aFg3VkVvWU1DbExvOEtJTFBaVnkwZnlCTVJ5a29IM1ZHajhlaGNLL1FDOWJ1?=
+ =?utf-8?B?dHd6a0lVaE83bmd3QU05bUZDdkM1Q2h5RFpwUUNiN0ZINnl2UzBFM1dBREF5?=
+ =?utf-8?B?a3ViYUtQdWQwWTZTRUtNRWo3d2RpYmtOMmRZbnQxa1lmQkI1cW5wZnlwTnBw?=
+ =?utf-8?B?dEJwNy94VUl6QzlBc09JMnFYQjluaE1OMnVCS09mdnFiQ3NzMGE4Y1JZK1Vx?=
+ =?utf-8?B?bDJIbDE5SGxvREE0bjcvYzNXTEUrNjZlb2xVekJoUy9TaVFZZjlueGNsTUFK?=
+ =?utf-8?B?MkRyWk1ISW5lV2d3SkZpRUJBeFhwZWFiem1CWmZIajNBWXF5VWxtQT09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0f2b47f-b404-4840-262b-08df4c51c176
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB7149.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 06:43:33.5619
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CL8tXCE8mcdnhCUCu1mQImTAbz2hRbNhaHBoo1NELvN1mHJ2QvAftBPojHcTSmGQnWOf/QPyz/+f3LHeSn7AUQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUZPR03MB9712
 
-Add support for hardware-controlled LEDs and brightness on the DAP8211R
-PHY. The chip exposes three LEDs that can be programmed to react to link,
-speed, duplex, and TX/RX activity or be driven via the force mode.
 
-Add the dap8211r_write_ext() helper to access extended registers via the
-PHY indirect access registers, and implement callbacks for:
-led_brightness_set(), led_hw_is_supported(), led_hw_control_set(),
-led_hw_control_get().
+On 11/25/2026 9:06 PM, Jian Hu wrote:
+>
+> On 11/6/2026 1:50 AM, Jerome Brunet wrote:
+>
 
-Signed-off-by: Artem Shimko <a.shimko.dev@gmail.com>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
----
- drivers/net/phy/dap8211r.c | 270 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 270 insertions(+)
+[ ... ]
 
-diff --git a/drivers/net/phy/dap8211r.c b/drivers/net/phy/dap8211r.c
-index 1fe20efd394d..c6d18312c8c3 100644
---- a/drivers/net/phy/dap8211r.c
-+++ b/drivers/net/phy/dap8211r.c
-@@ -12,6 +12,7 @@
-  */
- 
- #include <linux/bitfield.h>
-+#include <linux/bitops.h>
- #include <linux/errno.h>
- #include <linux/ethtool.h>
- #include <linux/kernel.h>
-@@ -57,6 +58,56 @@
-  */
- #define DAP8211R_DEFAULT_DEL_SEL	0xD
- 
-+#define DAP8211R_LED_ID_0		0
-+#define DAP8211R_LED_ID_1		1
-+#define DAP8211R_LED_ID_2		2
-+
-+/*
-+ * LED_COMCON force mode bits, per LED:
-+ * bit 2 - FORCE_EN (enable force mode for this LED)
-+ * bit 1:0 - FORCE_MODE: 00 = OFF, 01 = ON, 10 = blink mode1, 11 = blink mode2
-+ *
-+ * Only ON/OFF is supported.
-+ */
-+#define DAP8211R_LED_COMCON		0xA00B
-+#define DAP8211R_LED_FORCE_MODE_EN	BIT(2)
-+#define DAP8211R_LED_FORCE_MODE_MASK	GENMASK(1, 0)
-+#define DAP8211R_LED_FORCE_MODE_ON	FIELD_PREP(DAP8211R_LED_FORCE_MODE_MASK, 1)
-+
-+#define DAP8211R_LED_FORCE_EN(idx)	(DAP8211R_LED_FORCE_MODE_EN << 3 * (idx))
-+#define DAP8211R_LED_FORCE_ON(idx)	(DAP8211R_LED_FORCE_MODE_ON << 3 * (idx))
-+#define DAP8211R_LED_FORCE_MASK(idx)	(DAP8211R_LED_FORCE_MODE_MASK << 3 * (idx))
-+
-+#define DAP8211R_LED_0_CON		0xA00C
-+#define DAP8211R_LED_ACT_BLINK		BIT(13)
-+#define DAP8211R_LED_FULL_DUPLEX	BIT(12)
-+#define DAP8211R_LED_HALF_DUPLEX	BIT(11)
-+#define DAP8211R_LED_TX			BIT(10)
-+#define DAP8211R_LED_RX			BIT(9)
-+#define DAP8211R_LED_LINK_1000		BIT(6)
-+#define DAP8211R_LED_LINK_100		BIT(5)
-+#define DAP8211R_LED_LINK_10		BIT(4)
-+
-+#define DAP8211R_LED_LINK		(DAP8211R_LED_LINK_10	| \
-+					DAP8211R_LED_LINK_100	| \
-+					DAP8211R_LED_LINK_1000)
-+
-+#define DAP8211R_LED_SUPPORTED_TRG	(BIT(TRIGGER_NETDEV_LINK)	| \
-+					BIT(TRIGGER_NETDEV_LINK_10)	| \
-+					BIT(TRIGGER_NETDEV_LINK_100)	| \
-+					BIT(TRIGGER_NETDEV_LINK_1000)	| \
-+					BIT(TRIGGER_NETDEV_TX)		| \
-+					BIT(TRIGGER_NETDEV_RX)		| \
-+					BIT(TRIGGER_NETDEV_HALF_DUPLEX)	| \
-+					BIT(TRIGGER_NETDEV_FULL_DUPLEX))
-+
-+#define DAP8211R_LED_SUPPORTED_MASK	(DAP8211R_LED_ACT_BLINK		| \
-+					DAP8211R_LED_FULL_DUPLEX	| \
-+					DAP8211R_LED_HALF_DUPLEX	| \
-+					DAP8211R_LED_TX			| \
-+					DAP8211R_LED_RX			| \
-+					DAP8211R_LED_LINK)
-+
- static const int dap8211r_internal_delay[] = {0, 150, 300, 450, 600, 750, 900,
- 					      1050, 1200, 1350, 1500, 1650, 1800,
- 					      1950, 2100, 2250};
-@@ -87,6 +138,31 @@ static int dap8211r_read_ext(struct phy_device *phydev, u16 reg)
- 	return ret;
- }
- 
-+/**
-+ * dap8211r_write_ext() - Write extended register
-+ * @phydev: PHY device structure
-+ * @reg: Extended register address
-+ * @data: Data to write
-+ *
-+ * Writes a PHY extended register using the indirect access method.
-+ *
-+ * Return: 0 on success, or negative error code
-+ */
-+static int dap8211r_write_ext(struct phy_device *phydev, u16 reg, u16 data)
-+{
-+	int ret;
-+
-+	phy_lock_mdio_bus(phydev);
-+	ret = __phy_write(phydev, DAP8211R_EXT_ADD, reg);
-+	if (ret < 0)
-+		goto out;
-+
-+	ret = __phy_write(phydev, DAP8211R_EXT_DATA, data);
-+out:
-+	phy_unlock_mdio_bus(phydev);
-+	return ret;
-+}
-+
- /**
-  * dap8211r_modify_ext() - Modify extended register bits
-  * @phydev: PHY device structure
-@@ -114,6 +190,196 @@ static int dap8211r_modify_ext(struct phy_device *phydev, u16 reg, u16 mask, u16
- 	return ret;
- }
- 
-+/**
-+ * dap8211r_led_brightness_set() - Modify the LEDs common control register
-+ * @phydev: PHY device structure
-+ * @index: LED index
-+ * @value: ON/OFF value for force mode of the LED
-+ *
-+ * Clears the LED control register, enables force mode and sets the LED to
-+ * ON/OFF state. Force mode will be disabled when hardware LED control is
-+ * requested.
-+ *
-+ * Return: 0 on success, -EINVAL for an invalid LED index, or a negative error code
-+ */
-+static int dap8211r_led_brightness_set(struct phy_device *phydev, u8 index,
-+				       enum led_brightness value)
-+{
-+	u16 set, mask, led_reg;
-+	int ret;
-+
-+	switch (index) {
-+	case DAP8211R_LED_ID_0 ... DAP8211R_LED_ID_2:
-+		mask = DAP8211R_LED_FORCE_MASK(index);
-+		set = DAP8211R_LED_FORCE_EN(index);
-+		led_reg = DAP8211R_LED_0_CON + index;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (value != LED_OFF)
-+		set |= DAP8211R_LED_FORCE_ON(index);
-+
-+	ret = dap8211r_write_ext(phydev, led_reg, 0);
-+	if (ret)
-+		return ret;
-+
-+	return dap8211r_modify_ext(phydev, DAP8211R_LED_COMCON, mask, set);
-+}
-+
-+/**
-+ * dap8211r_led_hw_is_supported() - Check if the requested LED rules are supported
-+ * @phydev: PHY device structure
-+ * @index: LED index
-+ * @rules: Bitmask of requested netdev trigger rules
-+ *
-+ * Validates the requested combination of rules which can be represented in the
-+ * hardware register.
-+ *
-+ * Return: 0 on success, -EINVAL for an invalid LED index,
-+ *         or -EOPNOTSUPP if any requested rule is not supported by the PHY
-+ */
-+static int dap8211r_led_hw_is_supported(struct phy_device *phydev, u8 index, unsigned long rules)
-+{
-+	switch (index) {
-+	case DAP8211R_LED_ID_0 ... DAP8211R_LED_ID_2:
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return (rules & ~DAP8211R_LED_SUPPORTED_TRG) ? -EOPNOTSUPP : 0;
-+}
-+
-+/**
-+ * dap8211r_led_hw_control_set() - Write the LED control register
-+ * @phydev: PHY device structure
-+ * @index: LED index
-+ * @rules: Bitmask of requested netdev trigger rules
-+ *
-+ * Disables force mode and translates the requested trigger rules into
-+ * the corresponding bit positions of the LED control register and writes
-+ * the resulting value to the PHY.
-+ *
-+ * Note that the ACT_BLINK bit (13) must be set together with TX/RX rules,
-+ * otherwise the LED will not blink on traffic if no other rule (such as
-+ * link or duplex) is active.
-+ *
-+ * Return: 0 on success, -EINVAL for an invalid LED index, or a negative error code
-+ */
-+static int dap8211r_led_hw_control_set(struct phy_device *phydev, u8 index, unsigned long rules)
-+{
-+	u16 led_mode = 0, led_reg;
-+	int ret;
-+
-+	switch (index) {
-+	case DAP8211R_LED_ID_0 ... DAP8211R_LED_ID_2:
-+		led_reg = DAP8211R_LED_0_CON + index;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK, &rules))
-+		led_mode |= DAP8211R_LED_LINK;
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK_10, &rules))
-+		led_mode |= DAP8211R_LED_LINK_10;
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK_100, &rules))
-+		led_mode |= DAP8211R_LED_LINK_100;
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK_1000, &rules))
-+		led_mode |= DAP8211R_LED_LINK_1000;
-+
-+	if (test_bit(TRIGGER_NETDEV_RX, &rules))
-+		led_mode |= DAP8211R_LED_RX | DAP8211R_LED_ACT_BLINK;
-+
-+	if (test_bit(TRIGGER_NETDEV_TX, &rules))
-+		led_mode |= DAP8211R_LED_TX | DAP8211R_LED_ACT_BLINK;
-+
-+	if (test_bit(TRIGGER_NETDEV_HALF_DUPLEX, &rules))
-+		led_mode |= DAP8211R_LED_HALF_DUPLEX;
-+
-+	if (test_bit(TRIGGER_NETDEV_FULL_DUPLEX, &rules))
-+		led_mode |= DAP8211R_LED_FULL_DUPLEX;
-+
-+	ret = dap8211r_write_ext(phydev, led_reg, led_mode);
-+	if (ret)
-+		return ret;
-+
-+	return dap8211r_modify_ext(phydev, DAP8211R_LED_COMCON,
-+				   DAP8211R_LED_FORCE_EN(index), 0);
-+}
-+
-+/**
-+ * dap8211r_led_hw_control_get() - Read the current LED configuration
-+ * @phydev: PHY device structure
-+ * @index: LED index
-+ * @rules: Pointer to a bitmask where the current rules will be stored
-+ *
-+ * Reads the LED control register and translates the hardware bit
-+ * positions back into the corresponding netdev trigger rules bitmask.
-+ *
-+ * Return: 0 on success, -EINVAL for an invalid LED index, -EOPNOTSUPP if the
-+ *         current hardware configuration cannot be represented in rules, or a
-+ *         negative error code
-+ */
-+static int dap8211r_led_hw_control_get(struct phy_device *phydev, u8 index, unsigned long *rules)
-+{
-+	u16 led_reg;
-+	int led_mode = 0;
-+
-+	switch (index) {
-+	case DAP8211R_LED_ID_0 ... DAP8211R_LED_ID_2:
-+		led_reg = DAP8211R_LED_0_CON + index;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	led_mode = dap8211r_read_ext(phydev, led_reg);
-+	if (led_mode < 0)
-+		return led_mode;
-+
-+	if (led_mode & ~DAP8211R_LED_SUPPORTED_MASK)
-+		return -EOPNOTSUPP;
-+
-+	if (!!(led_mode & DAP8211R_LED_ACT_BLINK) !=
-+	    !!(led_mode & (DAP8211R_LED_RX | DAP8211R_LED_TX)))
-+		return -EOPNOTSUPP;
-+
-+	if ((led_mode & DAP8211R_LED_LINK) == DAP8211R_LED_LINK) {
-+		__set_bit(TRIGGER_NETDEV_LINK, rules);
-+	} else {
-+		if (led_mode & DAP8211R_LED_LINK_10)
-+			__set_bit(TRIGGER_NETDEV_LINK_10, rules);
-+
-+		if (led_mode & DAP8211R_LED_LINK_100)
-+			__set_bit(TRIGGER_NETDEV_LINK_100, rules);
-+
-+		if (led_mode & DAP8211R_LED_LINK_1000)
-+			__set_bit(TRIGGER_NETDEV_LINK_1000, rules);
-+	}
-+
-+	if ((led_mode & DAP8211R_LED_RX) &&
-+	    (led_mode & DAP8211R_LED_ACT_BLINK))
-+		__set_bit(TRIGGER_NETDEV_RX, rules);
-+
-+	if ((led_mode & DAP8211R_LED_TX) &&
-+	    (led_mode & DAP8211R_LED_ACT_BLINK))
-+		__set_bit(TRIGGER_NETDEV_TX, rules);
-+
-+	if (led_mode & DAP8211R_LED_HALF_DUPLEX)
-+		__set_bit(TRIGGER_NETDEV_HALF_DUPLEX, rules);
-+
-+	if (led_mode & DAP8211R_LED_FULL_DUPLEX)
-+		__set_bit(TRIGGER_NETDEV_FULL_DUPLEX, rules);
-+
-+	return 0;
-+}
-+
- /**
-  * dap8211r_config_init() - Initialize PHY
-  * @phydev: PHY device structure
-@@ -202,6 +468,10 @@ static struct phy_driver dap8211r_driver[] = {
- 		.config_aneg	= genphy_config_aneg,
- 		.suspend	= genphy_suspend,
- 		.resume		= genphy_resume,
-+		.led_brightness_set	= dap8211r_led_brightness_set,
-+		.led_hw_is_supported	= dap8211r_led_hw_is_supported,
-+		.led_hw_control_set	= dap8211r_led_hw_control_set,
-+		.led_hw_control_get	= dap8211r_led_hw_control_get,
- 	},
- };
- module_phy_driver(dap8211r_driver);
--- 
-2.43.0
+>>>
+>>> -struct pll_params_table {
+>>> -     unsigned int    m;
+>>> -     unsigned int    n;
+>>> +struct pll_mult_table {
+>> nit: a struct with a single member. A plain 0-terminated
+>> `const unsigned int *` list of multipliers would do
+>>
+>> Also, there are spaces instead of a tab before `m`.
+>
+>
+> Ok, I'll remove the single-member struct and switch to a 0-terminated 
+> unsigned int array.
+>
+> The helper's table pointer will be updated to 'const unsigned int *'.
+>
+> The spacing issue is resolved as a result.
+>
+>
+> To avoid ending this series with a mechanical patch touching every SoC.
+>
+> I will submit a separate patch before the per-SoC changes to add a 
+> 'mult_table' member
+>
+> to the 'struct meson_meson_clk_pll_data' structure.
+>
+
+A short follow-up on the table conversion I described earlier.
+
+I said I would add a separate "const unsigned int *" member and convert the
+SoC tables one by one. I would rather keep the existing member name 'table',
+instead of adding a second table name.
+
+The G12A/Meson8/AXG table converts will be submitted together with the final
+removing 'n' patch.
+
+>>> +     unsigned int    m;
+>>>   };
+>>>
+[ ... ]
+
+--
+
+Jian
 
