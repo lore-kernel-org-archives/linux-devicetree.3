@@ -1,57 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795813725;
-	b=s09N5VSOb6OSZ4zea0wPR4HgZsVaqz4Xy5I7DhWyNsdftvNy7YhKYwRuwjTXLwTk6Ila
-	 JuSa/w8+zQEW/e7heE4DmsIm/MFfmZXe6z2XZNM5hq7oLXdgFkziYFYxvF52ndqKecRAP
-	 6u+1mhhQ9FSlq2r/raJmWJVWixd0va0+5xv2Q87WciRRfpEHaqKdey0svlOVdHzT5TX04
-	 ElaHOEVf4n/BAhPMw4vrFJGjePHyL4kGYYpSk0Z/1cRF0G9wnvB1ybhxPr6tHDoEyKw+A
-	 MC//4pBf08DQ5h8tX0pwGAw0OALeNmydH3FZCO5jQ8mo2ImkBkDQ+lu/o5NL6sAF1/Q==
+	t=1795815060;
+	b=z6giBwB0suIqwxbPz0KcEHEieOsK50VtM105XzywyKGOh5mfXDaczI7/iWUiUG48WDLX
+	 Dl33R4u1wiI+9MsLJHoKALizwbjjaD3vf951/HSvHhzXdDDI1mRD42JjViFfj6HKIX1xB
+	 ZrbVo1MOlaUi/kYTTR/CizeIQCTmfBIzOVxYw0VZR9UI1DC9LH2j7julBNrxVWVngJa25
+	 D9O56ZwnFLgpt2cri12wrjbKLokWAAPSBwIDojHnuX2v6nVlMEwffXqoji0QhQ3w+0iDA
+	 r7nk7iqPIJkPwnmdVqNRTtMG/6W/sO8zQF44YUyty2bDcpjZfXijbWoE2DWukpgr0MQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795813725;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=c4W7SUgkY80T/W6rva0H75utzY+o7vHBi6RFHWwkm0M=;
-	b=tMbEozpE9FigfUO84X2N3hwGbTdWVjeAUjCPg+qMDmgw2FtjazB4XF5nDWhSa3rGZwOK
-	 TQtHETuZn+Ed6lrmtCuZALq60zcr1K8OfGxZtLY46gaTD9flY0epv49QaDuNy1uqqIRbd
-	 Dg5HOIM19p68rz5qCh+IliFAtjsQDLDqKaX5Y8i22ERIL17M6q4l92xQKi80hVLtotysy
-	 1M1EM8OSVPxeYxAc/j6iWcG4NMW7o+DgZqh99QbRNIxfz+f5vRBqGqpM0BzYzxkUSkGlE
-	 oMZgtY9P1lYtOcRQYQSYWtJimR7D9tuY+w6+JD3I0Od5//YtAtN/ywAt+hYyjjbWjlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795815060;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=q3m2yyt50RINKi6ioBAszyxO/hF+Qz9GpX0rwheQRCQ=;
+	b=L30VgIvQHh8DUaGKoi5SQI7wUp4pA0+Y4eQ08MxXfwcQLxcB57S1Mo7Q/KBkG434D3Ll
+	 XtQKQHBVNTwJu3ciQ0y6mGL0hSmG/8CUoF3k5chgptgK7QAUwuOTxLzJRUegBWZ6bB9pl
+	 Y7jywf97fToGUQdO1qctfyjtcdO953PuHNmHbzdwOiZl6NwKoaEWR0pZypE+KV2ngU/I/
+	 fNxf0QAz1FOL8BxjApJedvVcW0e7srwELGWrM1DsNNs6xHMRVQvt/crkhn+rLmPXvxd6+
+	 NRcV6LgQQcalDrIS02CN3VcKfNGJljzKSg/wLaSt1tkmfECmllgPfW18NL1z8FRZELQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hDC/X8mL";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=e5V8y1Ur;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76C13606A31C
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 21:08:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F238606A31C;
+	Fri, 27 Nov 2026 21:30:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F238606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hDC/X8mL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E6F41F00893;
-	Fri, 27 Nov 2026 21:08:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795813725;
-	bh=c4W7SUgkY80T/W6rva0H75utzY+o7vHBi6RFHWwkm0M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hDC/X8mLmSzPInDR/MWxkARIclB/Shu/1p4uaWDFm+bSszbbaBKYAecFVRvTYL/x0
-	 0r5gm7zchh/MxodEG+C945WdAf7103AZmxU/HO/h6Ey5+u9ZXWdEONaIuYRgoUDDrQ
-	 LwZGfLXRgJ3RV8hm0+Abk3BTOaTck29bfcS9vnoSj7CUWOxQBAQcTzayv43EF2YqYr
-	 TVFkzjTAVEN1AGlvi4QROeZdFguz5TiKt37v3iYhdtQYdy7EsKFjLWpuBN+SQTKaf5
-	 bg+G/OlwYQdyobEq9N56yHznN7Nr+WazdhhLfz3MxbLVHsZkpDCCCO1UWAZ1C1ST30
-	 4p0yzgCCmVMvA==
-Message-ID: <sashiko-outbox-238282@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] ARM: dts: cortina: Describe CS7542 peripheral
- controllers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fil Dunsky" <filipp.dunsky@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261127-b4-cs7542-peripherals-dts-v1-1-7ce24b842b3a@gmail.com>
-References: <20261127-b4-cs7542-peripherals-dts-v1-0-7ce24b842b3a@gmail.com>
- <20261127-b4-cs7542-peripherals-dts-v1-1-7ce24b842b3a@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 21:08:44 +0000
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=e5V8y1Ur
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=q3m2yyt50RINKi6ioBAszyxO/hF+Qz9GpX0rwheQRCQ=; b=e5V8y1UrtccmyPxmIkUjF2ky3U
+	exC1EK59wpjZe9T+uL8fDgx5yQnFLqvPPdf5wVpYR4AJDFvFarpaJ0we3NixMOBz5+Laf3+VkDQ7c
+	gGFyGoHCP2domoIm+STqlYwwvxhnqjGKFJp4CATKCk7mjuX4buNRea9eF2/OCuvT5QKSOsg9LJtxy
+	nBhWutwfY3LNRTLq8udK7VI8Xer4qBRRmVo6k5Yy53uJn5cAssMH+2HjAOh2r6o05sUCp5yAxDq/q
+	iZx2haoFDURMSaUDE0TqY/u7XuVnsgsJF/a+SomX4q0VkDbQ5+b83JCXnYzlI8whw7zKYHkXjGKJQ
+	7BICBRrQ==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chanwoo Choi <cwchoi00@gmail.com>,
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	kernel@collabora.com
+Subject: Re: [PATCH v3 0/6] arm64: dts: rockchip: add RK3588 DFI clocks and RK3576 DFI
+Date: Fri, 27 Nov 2026 22:30:41 +0100
+Message-ID: <179581499871.254621.2470437130945394639.b4-ty@b4>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261126-dfi-clocks-and-rk3576-support-v3-0-0f33c1b8df48@collabora.com>
+References: <20261126-dfi-clocks-and-rk3576-support-v3-0-0f33c1b8df48@collabora.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,70 +73,36 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] ARM: dts: cortina: removing apb_clk from cs7542.dtsi breaks
-  Almond+ DTB build
-- [Low] ARM: dts: cortina: commit message inaccurately claims to
-  describe watchdog
---
 
-commit d07ba40aaacde20e83aa5aeeab7822915790b944
-Author: Fil Dunsky <filipp.dunsky@gmail.com>
+On Thu, 26 Nov 2026 15:52:35 +0100, Sebastian Reichel wrote:
+> When RK3588 DFI support was added, support for the clocks was missed.
+> This series fixes that and also adds the clocks for RK3576 as well as
+> RK3576 DFI node itself.
+> 
+> The DT binding for the DFI side already got merged together with the
+> driver changes today, so there is no dependencies for this series:
+> 
+> [...]
 
-ARM: dts: cortina: Describe CS7542 peripheral controllers
+Applied, thanks!
 
-This commit adds device tree nodes for the CS7542 SoC peripheral
-controllers and switches existing clock consumers from the fixed APB clock
-node to the global syscon clock provider.
+[1/6] dt-bindings: clock: rk3588: add PCLK_DDR_MON_CH clocks
+      commit: 76c1bc06e04007247ca47e45d7313c24ac0b2570
+[2/6] dt-bindings: clock: rk3576: add more DFI clocks
+      commit: 2268455f297ec61b42ab44dfeaf982d2af370255
+[3/6] clk: rockchip: rk3588: add PCLK_DDR_MON_CH gate branches
+      commit: 2fb95541b66c05384c75259f06d51efa69e16bca
+[4/6] clk: rockchip: rk3576: add missing DFI clock branch
+      commit: 8b8862a19dc62e1fd838ce3eafd43382f78d4d01
+[5/6] arm64: dts: rockchip: add dfi clocks on RK3588
+      commit: 6046a394edaff1e6f67911ebe4ef0f508a9f82cf
+[6/6] arm64: dts: rockchip: add DFI node to RK3576
+      commit: b4f857a1d2ca5999295247933d29ebaf3b5377db
 
-> Describe the shared global clock and pin controllers, peripheral
-> interrupt controller and GPIO banks, I2C, watchdog, RTC, TRNG, NAND PIO
-> controller, MDIO, network engine and three PCIe root ports.
-
-[Severity: Low]
-Is listing watchdog here accurate?  Unlike the other controllers listed in
-this paragraph, watchdog@f8000620 was already added in commit 626ef62af03f
-("ARM: dts: cortina: Add CS7542 SoC and Securifi Almond+ board") and only
-has its clocks phandle updated to <&global CS7542_CLK_APB> in this patch.
-
-> diff --git a/arch/arm/boot/dts/cortina/cs7542.dtsi b/arch/arm/boot/dts/co=
-rtina/cs7542.dtsi
-> index 29b0b7da86670..3d827502c9b90 100644
-> --- a/arch/arm/boot/dts/cortina/cs7542.dtsi
-> +++ b/arch/arm/boot/dts/cortina/cs7542.dtsi
-> @@ -10,11 +12,10 @@ / {
->  	#size-cells =3D <1>;
->  	interrupt-parent =3D <&gic>;
-> =20
-> -	/* Rate is selected by the boot strap pins, set by the board */
-> -	apb_clk: clock-apb {
-> +	ref24: clock-24mhz {
->  		compatible =3D "fixed-clock";
->  		#clock-cells =3D <0>;
-> -		clock-output-names =3D "apb";
-> +		clock-frequency =3D <24000000>;
->  	};
-
-[Severity: High]
-Does removing apb_clk here break building cs7542-securifi-almondplus.dtb at
-this point in the series?
-
-arch/arm/boot/dts/cortina/cs7542-securifi-almondplus.dts includes
-cs7542.dtsi and still references &apb_clk:
-
-arch/arm/boot/dts/cortina/cs7542-securifi-almondplus.dts:
-    ...
-    &apb_clk {
-    	clock-frequency =3D <150000000>;
-    };
-
-Building DTBs with CONFIG_ARCH_CORTINA_ACCESS=3Dy fails in dtc with an
-unresolved phandle reference at this commit, breaking bisection until the
-later commit "ARM: dts: cortina: Enable Almond+ board peripherals" removes
-the &apb_clk reference from the board DTS.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127-b4-cs7542-=
-peripherals-dts-v1-0-7ce24b842b3a@gmail.com?part=3D1
+Best regards,
+-- 
+Heiko Stuebner <heiko@sntech.de>
