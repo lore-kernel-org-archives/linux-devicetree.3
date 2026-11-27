@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795781950;
-	b=cKeVkaGg9sOHlCsS1k66JpoKZMOMVVvCNQxAT3owHXApTaTASkpW9tGWhVzsqC9f3f8F
-	 lyHmgOhuA8THkWiSp8tNnz0yHXefJRuceO6EzzutvX1P++Y3tU3Sq4mvN5nEhUbFYSJgJ
-	 +r8Xc5ZW60tjjmx8QKPe4tZ+Rh+rfhqzcrPdpgOJrSNBDGxeYS1MmvRByRwjq0OSbtv2S
-	 6zLz8msrawPSWelKEUrBfe/5dWE9efv4aRvghis3vFtzbHdBU2lVUpWbviYJipjq1qiLy
-	 iWMrob7TQIN5gEG7nwUMBUVtBKAZo+8mdm1+9Uun63kLtRZ0kM8iAt+ptbBfMk/b7JA==
+	t=1795781951;
+	b=HSQa+6MNQgaKyLtKDy3PWtT9B+90IdVjijFkZtOeM8/edvEGdbtpuP7qLN5aVHcl+p5T
+	 W9CFPO6Cq++/gLOdxURUNTbg4kR/ndRWBGh1N6gWOJM2MYQ9Xf5zMR7EhSmgoT6MGmQwm
+	 Yir6J5qGqR48MQe88+wg9ToGHzYGV2JUOAM2GwzSch7ORvfn9pnqdk93HmigTZRJWJHEg
+	 Jrc0udIVLUX95uR2IT369s8ec4fv+uGvXF/0WFjLmWTr0NNt4Bwo/fq7TNq0FXmmcyMsb
+	 56RzVprYhDXpPgk7YQGx9UMGhZ+Kb+v/gYXJk77Zo2UhpovJUqs4UFbjKu6dWKJ6ODA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795781950;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795781951;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=FJiexXTSlxEVBWHHiNKT7/m3bjHZ5GMDcxr2m0W45pE=;
-	b=vXTv7WvFvVdONUXG9c56cex4WmTfZNN9Jt2pBhpUb7qjzgz3UR99t8DvyDqlD4dZL+Za
-	 ZHk7XDXUqbnMdsRInlm/n4xaUPTF/j7TNaqnCHQkbvQJwddZNH3hca30hNJgZcjWrfReZ
-	 Wr/n9md4c1FI9nQWjlyAahQaaiTStkvIjbY1Dto93FXmzMjZ221nv45sQc2/f/esbfExw
-	 Mpzl9B9txUu7p7XrM2tTaor3lCcRKf+hAp1v5bY6Kkrz3NPzXSHZ+n6uCZrIie7A1uQlE
-	 88rw5onDWHdHQFu629DzAG2724ZIJtCWS0N0ASuMMRtxfm9hRMDelHUgn6SXLbmnzuw==
+	bh=jDAcxjc/NLdfruGXejtq5CjFyH7icsEJFXVAPztuGkg=;
+	b=MKIfvWnQYnxfNli7SNf4IPkJy/mVBHuLG8Q7UBpAr+cjXc8nJM8kgKk6jO7yzI7hkQVZ
+	 3KlC9l7PxBG6V3s5K3qzGyl1p/MOMa+a/dJQViJk13m3mPRoeMafMdtgAXVoqdnvb5jnT
+	 wExFtcc/wY6244kXU8KYNjw/b1PMPxUyjQ1c2VJnCExYs6E7oLP55hzAmMfJqvsAcPpWb
+	 lZPQqkK6MoSwptnup0Eqt0r1KUM8cP2ucD/D/qumCRyNNdVSAM8pJbvO/rscUbtG6D8QF
+	 0cj3BdEqY8/U37mbvWTOnqE2+HfMP1E3wVaXfRS+43knFgjWLrGqIz2sPHFtyV5nh1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=suse.com;
 	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Getvt7G8;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=QwHAvUEs;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF277606A697
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 12:19:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF277606A697
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9488A60A6F70
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 12:19:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9488A60A6F70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Getvt7G8
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-498f5fa5103so4778673f8f.2
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 04:19:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=QwHAvUEs
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so102800015e9.1
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 04:19:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1795781948; x=1796386748; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1795781950; x=1796386750; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FJiexXTSlxEVBWHHiNKT7/m3bjHZ5GMDcxr2m0W45pE=;
-        b=Getvt7G8eSb1RZwibv5o6nlKIuLl1gXVHyInFEKgrdAJ6qq3zNyopzCvxUWXIpXhm4
-         xFFWCfUdr11s0yKnQpNP6qNVchSShrzhF1QJ2FN68h97Gp+dYJyboN6QMUNy/489N7NB
-         FqOQh4kB11N7qhxxgGe3VPKsqPZ4eHWitUDQLYhv/Z9fl1nKg3p17LRRwPV48RLfl6N7
-         Fwga9PhbLkSIOK395H7PsiENgdgBobIq1nEzg6zzwuU8OJFS2Vm/fG1vfuvnnOpRrCXl
-         YX5F5OhLU85nyqa7B1rSvMZmlYyfmaMpSif+weHnNiSZ/lsZv0sGxpBrclxKpTb5VY9c
-         noMQ==
+        bh=jDAcxjc/NLdfruGXejtq5CjFyH7icsEJFXVAPztuGkg=;
+        b=QwHAvUEsw12xL16WMiii9FWI8EXvEz5OrNGIHF4zMZg/uJWDoisFrJmYe0qLa3XKrM
+         ydGt14klz3Fd4hImeUtMMG06YftkIrp4ePdhKlYLioEhMmTja8TIzs6IXgBmDloCVT0z
+         P31zuxVdupXCKvRPv6p8td2V8GbUZlSWh0eMO9GN03ImF9FBuxNNd5PVrJJYItmi8sDK
+         th+oZqBBkE8DYusUHXIjzeyNmv66rnTFSVpkq7y7+nQ9mmYtsngg6wwdGjt1Ppqsbu/F
+         OOPmLIV3Jk4FWTI/P27B3iMCTdk6XhD8yA+pK12ioQOZTm70ZiZu61hsnZqIDimvaSSO
+         gWig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795781948; x=1796386748;
+        d=1e100.net; s=20260707; t=1795781950; x=1796386750;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FJiexXTSlxEVBWHHiNKT7/m3bjHZ5GMDcxr2m0W45pE=;
-        b=vzLxz1Hp+pUCWSK8QZe+ci2lV4Av57FYuXMBcD7nbeh1t61T5OawoTg4jZWoZx4bbC
-         K0RalylEZ53IJqDghjj9fIVbpbTyeWZI4OaI5GZsr1qgo5X6Y/Tt5KWO+Fk7oFS0kw8A
-         Ni72tWSAM+TLMrEEClpZfOBhtXXzEHJ4w8REHr26Ssry2qnV+NjpDOzFoaRNaMVCl0lA
-         lcmjhjL7EcJxkBfLMRginW3SU7OZBY0noq6OFDsbD8L9SnAMZhAe869kTuWkaZ1lN3Wl
-         3QaGC/FcpejhE23hhIGnqKSwvCjz1KKKpEPqHpFAXpTYkwkfCt0mQSu+yNQs718tkjaX
-         WMPg==
-X-Forwarded-Encrypted: i=1; AL+hErFcVW+0XZBOSqzm2JLgKOqaJNXpzFx4dtV6DXiCkhSmT+kMGQdzCtaJVy6Ydvyb2RXXFQtpHkcs/m6k@vger.kernel.org
-X-Gm-Message-State: APuU4Z+LQJ1dC2mJ6qBslPEXBlJqROyIrD0O0PchYe6ddSeLq9ZbD6rL
-	Vn0P1J3cso2rijmxXhysfAB78S1s5DSAoDgGAwQkG6Cv/MwvVWYTkmaRg9GkzUd5oxU=
-X-Gm-Gg: AZFdTZd9BM8ri32nXNd8SWr62GAB/Tq0ZXSJlGWSC+RQuUUMy6WdZ9iTt7x9xQpt7M9
-	OerJsia33eTEbaJ1RHxz69aYrxHul47exPFI45dTu4sUL5ONxu6lojXvLsvPW3oajiZAZ7CqSQF
-	22YWU64GYv25NkgASIaVypZg9pLthX5CW1MSOzrhwvlnqPppHmjBqjPrq85y7eEFqLbID2MIOf4
-	D7Zp8q9dF25DtsJ43b6fMYCFVg91IYqthFS1zV0vdg9XK4bLsR56LGslTyCLyhxcWrRpB5T8xDk
-	Hx6/UVI8BQG+Rstbpdtpt/AlJGQGL7LBku712q3Tt1aQiAYdvgCH1QqNiw4imP/EGR1TixG0y+z
-	Y022TXgcp+Pl+fW23f/ycKw6Wa7IZ/s3yA4+uwXtIfDvZ2ugGpSDhnDVuJtKnIK6/YYEVFZwnD9
-	vtVo5GmHRsCHwRzET3GArqKxhPIi+HSagdDIXWDMN25PI0s1PJwr//ZZK7B2EkakUK8ykTPJnxU
-	fzBwhP0ZE8q+uER8uUxZz6+QGP37IGTWnH/IME8gT3JxASUNM4BkPw9cjKsCY5qzX6EKNZ682Zv
-	u/D9NWZs1Yp6oogK53sTYOUpbr7p
-X-Received: by 2002:a5d:5d08:0:b0:4a6:4f91:284c with SMTP id ffacd0b85a97d-4abb83116bdmr54504811f8f.51.1795781948269;
-        Fri, 27 Nov 2026 04:19:08 -0800 (PST)
+        bh=jDAcxjc/NLdfruGXejtq5CjFyH7icsEJFXVAPztuGkg=;
+        b=aqNUpwEjiWKSXDwFdowJ+cXkXo34tUpPkTd/p7u51aOUPLuPfCeiv5yXoDBsIjWi3z
+         Geu3dKnWtOXPmw7s/PEjha6ql4QvqKGE3QtAKANG0JvrkPSyOgaZLmovEfbT3fvy1rJ3
+         cV0jF2aW7Vljh60K+Re2x0wBlfTYOj5RPvzgBiMrMkdZCI/nz9rggeGBOfJ8sQzQAImV
+         r2IEeFPpcjrssKG1SFecaqUubYWo8Zx1dzZN/DK9pNu4+Yh3HzKzdTt0wfsRcrhjABG8
+         3oIOsNnaA0vfNe3OMlIwg6cQEdpZnx5hz5e0my3IflkdMYxzfYWHrniaUvQlTVilI1Yh
+         Lh2g==
+X-Forwarded-Encrypted: i=1; AL+hErFQDdMEQ35UXq5S/r6Bk9iBmPoDJ+h4ztqQNmksfLIY6XEFkUf/6lUy8mluk5QCo9TSxbDrCEmJ66/U@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Iab5PuZsCJj6AOuRSaKDIN2Yy1Nj+KMHJAp8EnB0bPmUR9YTZ
+	PclB/+fCQZ6EjWDzUyHlcgCI+floiO8UEzhKM9wpXflKfs3WONtR6BYFITEqD286EWg=
+X-Gm-Gg: AZFdTZfuR4JCUN/bSFtE7ughTgVXpOyH/T/3jwzCpA1w70oZnrW71LLwYt22tRzbf6L
+	k7IOTmIAgKxHD9KFpHxX2LfQ5RM0u9Vq2eqpgt2WR9ruy+6vLB8buZIAQWWUTMe6I3ATqGNlfVc
+	z1XAvkxOOgkVy7AXrnq2jKmQE7D0kFctTYFUg5/JBx0ItIXN6geK742AKlz2RrBXB4FwO98YKt/
+	nqw3IcTCj305pmdgg2B6kjsHue0dE3iA94ISwuAqfKfRmwi0l9vOxCtI+0HFNA1pTrU1Y0P1Tlp
+	+fvGJvxE6DVzfLKM9WMrbQT8QgmDAeXITQLLbfoqx3rbmVST/caFZVteAuR6Z1g3Z3aEas2qlev
+	Gm4cbyi4Isytifl4CCzA2MuQYDC5+4mdwbrp57U9BH+madUuSP5uE93CzcGkjTtbFMh/Usu5nS4
+	jooVF73PIcBvW91dPjqYzycHCfnUcgvXaFnKVrzAdkO0scEOkTpdp5zYblEBKisCNn6Vv3SB/96
+	JLPyl/nUHUAga/42DFScdNuCa3n1gs4uGl9cAzM1kkeZ6OWMMjX4Ul5VfzzDLI5OodIf1oXJDKO
+	thQfQ/K67cyACJtyWiHMMRSDdTpo
+X-Received: by 2002:a05:600c:5901:b0:4bb:5e8a:7c9c with SMTP id 5b1f17b1804b1-4bb861467c8mr415882465e9.7.1795781949777;
+        Fri, 27 Nov 2026 04:19:09 -0800 (PST)
 Received: from localhost ([195.94.148.180])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab658e2d60sm47947814f8f.3.2026.11.27.04.19.07
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab69bf680fsm53811123f8f.14.2026.11.27.04.19.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 04:19:07 -0800 (PST)
+        Fri, 27 Nov 2026 04:19:09 -0800 (PST)
 From: Andrea della Porta <andrea.porta@suse.com>
 To: Vinod Koul <vkoul@kernel.org>
 Cc: Frank Li <Frank.Li@kernel.org>,
@@ -101,9 +101,9 @@ Cc: Frank Li <Frank.Li@kernel.org>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Andrea della Porta <andrea.porta@suse.com>
-Subject: [PATCH v4 19/28] ARM: dts: broadcom: Describe the peripheral window in dma-ranges
-Date: Fri, 27 Nov 2026 13:22:09 +0100
-Message-ID: <20261127122236.4976-20-andrea.porta@suse.com>
+Subject: [PATCH v4 20/28] dmaengine: bcm2835: Support channel subsets in a controller instance
+Date: Fri, 27 Nov 2026 13:22:10 +0100
+Message-ID: <20261127122236.4976-21-andrea.porta@suse.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261127122236.4976-1-andrea.porta@suse.com>
 References: <20261127122236.4976-1-andrea.porta@suse.com>
@@ -118,82 +118,187 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The DMA controllers of the BCM283x family see the peripherals at their
-VideoCore bus addresses, i.e. at the child addresses of the soc bus.
-This translation is not described by the dma-ranges property, which only
-covers the RAM, so that the DMA engine driver cannot translate the CPU
-physical addresses of the peripheral FIFOs and had to rely on its
-clients providing bus addresses instead.
+On BCM2711 the last four channels of the DMA block use a different, 40-bit
+programming model, and are going to be described by a separate DT node
+whose reg property only covers those channels. The driver however
+assumes that the register range always starts with channel 0.
 
-Add the peripheral window to dma-ranges, mirroring the ranges property
-(minus the ARM local peripherals, which are not reachable by the DMA
-controllers), so that dma_map_resource() can do the translation.
+Derive the index of the first channel from the physical address of the
+register range, which is possible since the DMA block is 4 KiB aligned,
+and only consider the channels covered by it. Channel numbers, and thus
+the dma-channel-mask and interrupt-names properties, keep referring to
+the whole DMA block.
 
-This does not change the bus DMA limit of the devices on these buses,
-which is still given by the RAM window except on BCM2835, where it is
-raised from 0x5fffffff to 0x7fffffff without affecting the DMA mask
-derived from it. On BCM2836/BCM2837 the highest CPU address covered by
-dma-ranges grows from 0x3effffff to 0x3fffffff, which does not affect the
-size of ZONE_DMA as there is no RAM above 0x3f000000.
+Also describe in the platform data which channels of the block use its
+programming model, and ignore the other ones: some device trees, e.g. the
+downstream BCM2712 one, describe channels with different programming
+models using the same compatible, and driving them with the wrong one
+could corrupt memory.
 
-BCM2711 is deliberately left alone: its peripherals sit at 0xfc000000 and
-above, so describing them in the dma-ranges of the soc bus would raise
-the highest CPU address reachable through it from 1 GiB to almost 4 GiB.
-On arm64, of_dma_get_max_cpu_address() would then no longer be limited
-by the soc bus, growing ZONE_DMA and the SWIOTLB buffer beyond the RAM
-the legacy DMA masters can reach. The legacy DMA controller of BCM2711
-keeps using the ranges fallback of the DMA engine driver, which yields
-the same addresses.
+While at it, initialize all the entries of the IRQ array, as the
+detection of shared interrupts looks at all of them, and report the
+number of channels actually initialized.
 
 Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
 ---
- arch/arm/boot/dts/broadcom/bcm2835.dtsi | 3 ++-
- arch/arm/boot/dts/broadcom/bcm2836.dtsi | 3 ++-
- arch/arm/boot/dts/broadcom/bcm2837.dtsi | 3 ++-
- 3 files changed, 6 insertions(+), 3 deletions(-)
+ drivers/dma/bcm2835-dma.c | 58 +++++++++++++++++++++++++++++++++------
+ 1 file changed, 49 insertions(+), 9 deletions(-)
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm2835.dtsi b/arch/arm/boot/dts/broadcom/bcm2835.dtsi
-index 15cb331febbb..3a9719e2fadc 100644
---- a/arch/arm/boot/dts/broadcom/bcm2835.dtsi
-+++ b/arch/arm/boot/dts/broadcom/bcm2835.dtsi
-@@ -35,7 +35,8 @@ cpu@0 {
+diff --git a/drivers/dma/bcm2835-dma.c b/drivers/dma/bcm2835-dma.c
+index 42ec9be7a8f7..8379b26a80ae 100644
+--- a/drivers/dma/bcm2835-dma.c
++++ b/drivers/dma/bcm2835-dma.c
+@@ -45,6 +45,7 @@
+  * struct bcm2835_dmadev - BCM2835 DMA controller
+  * @ddev: DMA device
+  * @base: base address of register map
++ * @chan_start: index of the first channel in the register map
+  * @zero_page: bus address of zero page (to detect transactions copying from
+  *	zero page and avoid accessing memory if so)
+  * @cfg: platform specific description of the DMA channels
+@@ -54,6 +55,7 @@
+ struct bcm2835_dmadev {
+ 	struct dma_device ddev;
+ 	void __iomem *base;
++	unsigned int chan_start;
+ 	dma_addr_t zero_page;
+ 	const struct bcm2835_dma_cfg *cfg;
+ 	bool map_resource;
+@@ -132,6 +134,7 @@ struct bcm2835_chan {
+  * @abort: stop and reset a channel
+  * @legacy_bus_addr: translate a slave address for device trees which do not
+  *	describe the peripheral window in dma-ranges
++ * @chan_mask: channels of the DMA block using this programming model
+  */
+ struct bcm2835_dma_cfg {
+ 	u32 cs_reg;
+@@ -166,6 +169,7 @@ struct bcm2835_dma_cfg {
+ 	void (*abort)(struct bcm2835_chan *c);
  
- 	soc {
- 		ranges = <0x7e000000 0x20000000 0x02000000>;
--		dma-ranges = <0x40000000 0x00000000 0x20000000>;
-+		dma-ranges = <0x40000000 0x00000000 0x20000000>,
-+			     <0x7e000000 0x20000000 0x02000000>;
- 	};
+ 	u64 (*legacy_bus_addr)(struct device *dev, phys_addr_t phys);
++	u32 chan_mask;
+ };
  
- 	arm-pmu {
-diff --git a/arch/arm/boot/dts/broadcom/bcm2836.dtsi b/arch/arm/boot/dts/broadcom/bcm2836.dtsi
-index 783fe624ba68..4ab7769c056a 100644
---- a/arch/arm/boot/dts/broadcom/bcm2836.dtsi
-+++ b/arch/arm/boot/dts/broadcom/bcm2836.dtsi
-@@ -8,7 +8,8 @@ / {
- 	soc {
- 		ranges = <0x7e000000 0x3f000000 0x1000000>,
- 			 <0x40000000 0x40000000 0x00001000>;
--		dma-ranges = <0xc0000000 0x00000000 0x3f000000>;
-+		dma-ranges = <0xc0000000 0x00000000 0x3f000000>,
-+			     <0x7e000000 0x3f000000 0x01000000>;
+ struct bcm2835_desc {
+@@ -275,7 +279,8 @@ struct bcm2835_desc {
+ #define BCM2835_DMA_DATA_TYPE_S128	16
  
- 		local_intc: interrupt-controller@40000000 {
- 			compatible = "brcm,bcm2836-l1-intc";
-diff --git a/arch/arm/boot/dts/broadcom/bcm2837.dtsi b/arch/arm/boot/dts/broadcom/bcm2837.dtsi
-index c281697142b1..ba44cfb07668 100644
---- a/arch/arm/boot/dts/broadcom/bcm2837.dtsi
-+++ b/arch/arm/boot/dts/broadcom/bcm2837.dtsi
-@@ -7,7 +7,8 @@ / {
- 	soc {
- 		ranges = <0x7e000000 0x3f000000 0x1000000>,
- 			 <0x40000000 0x40000000 0x00001000>;
--		dma-ranges = <0xc0000000 0x00000000 0x3f000000>;
-+		dma-ranges = <0xc0000000 0x00000000 0x3f000000>,
-+			     <0x7e000000 0x3f000000 0x01000000>;
+ /* Valid only for channels 0 - 14, 15 has its own base address */
+-#define BCM2835_DMA_CHAN(n)	((n) << 8) /* Base address */
++#define BCM2835_DMA_CHAN_SIZE	0x100
++#define BCM2835_DMA_CHAN(n)	((n) * BCM2835_DMA_CHAN_SIZE) /* Base address */
+ #define BCM2835_DMA_CHANIO(base, n) ((base) + BCM2835_DMA_CHAN(n))
  
- 		local_intc: interrupt-controller@40000000 {
- 			compatible = "brcm,bcm2836-l1-intc";
+ /* the max dma length for different channels */
+@@ -1189,7 +1194,7 @@ static int bcm2835_dma_chan_init(struct bcm2835_dmadev *d, int chan_id,
+ 	c->vc.desc_free = bcm2835_dma_desc_free;
+ 	vchan_init(&c->vc, &d->ddev);
+ 
+-	c->chan_base = BCM2835_DMA_CHANIO(d->base, chan_id);
++	c->chan_base = BCM2835_DMA_CHANIO(d->base, chan_id - d->chan_start);
+ 	c->ch = chan_id;
+ 	c->irq_number = irq;
+ 	c->irq_flags = irq_flags;
+@@ -1237,6 +1242,7 @@ static const struct bcm2835_dma_cfg bcm2835_data = {
+ 	.abort = bcm2835_dma_abort_chan,
+ 
+ 	.legacy_bus_addr = bcm2835_dma_legacy_bus_addr,
++	.chan_mask = GENMASK(BCM2835_DMA_MAX_DMA_CHAN_SUPPORTED, 0),
+ };
+ 
+ static const struct of_device_id bcm2835_dma_of_match[] = {
+@@ -1335,6 +1341,7 @@ static int bcm2835_dma_probe(struct platform_device *pdev)
+ 	int irq_flags;
+ 	u32 chans_available;
+ 	char chan_name[BCM2835_DMA_CHAN_NAME_SIZE];
++	int chan_count, chan_start, chan_end;
+ 
+ 	if (!pdev->dev.dma_mask)
+ 		pdev->dev.dma_mask = &pdev->dev.coherent_dma_mask;
+@@ -1360,7 +1367,19 @@ static int bcm2835_dma_probe(struct platform_device *pdev)
+ 	if (IS_ERR(base))
+ 		return PTR_ERR(base);
+ 
++	/*
++	 * The channels of a DMA block can be split across multiple instances,
++	 * e.g. because they have a different programming model. The block
++	 * itself is 4 KiB aligned, so the position of the first channel of
++	 * this instance can be derived from the physical register address.
++	 */
++	chan_start = (res->start / BCM2835_DMA_CHAN_SIZE) & 0xf;
++	chan_count = resource_size(res) / BCM2835_DMA_CHAN_SIZE;
++	chan_end = min(chan_start + chan_count,
++		       BCM2835_DMA_MAX_DMA_CHAN_SUPPORTED + 1);
++
+ 	od->base = base;
++	od->chan_start = chan_start;
+ 
+ 	od->map_resource = bcm2835_dma_mmio_in_dma_ranges(&pdev->dev,
+ 							  res->start);
+@@ -1418,13 +1437,30 @@ static int bcm2835_dma_probe(struct platform_device *pdev)
+ 			 "Please update the DT, replacing brcm,dma-channel-mask with dma-channel-mask\n");
+ 	}
+ 
++	/*
++	 * Never drive channels with a different programming model, which
++	 * some device trees put in the same node.
++	 */
++	if (chans_available & ~od->cfg->chan_mask) {
++		dev_warn(&pdev->dev, "ignoring unsupported channels %#x\n",
++			 chans_available & ~od->cfg->chan_mask);
++		chans_available &= od->cfg->chan_mask;
++		if (!chans_available) {
++			rc = -ENODEV;
++			goto err_no_dma;
++		}
++	}
++
++	for (i = 0; i <= BCM2835_DMA_MAX_DMA_CHAN_SUPPORTED; i++)
++		irq[i] = -1;
++
+ 	/* get irqs for each channel that we support */
+-	for (i = 0; i <= BCM2835_DMA_MAX_DMA_CHAN_SUPPORTED; i++) {
++	for (i = chan_start; i < chan_end; i++) {
++		int index = i - chan_start;
++
+ 		/* skip masked out channels */
+-		if (!(chans_available & (1 << i))) {
+-			irq[i] = -1;
++		if (!(chans_available & (1 << i)))
+ 			continue;
+-		}
+ 
+ 		/* get the named irq */
+ 		snprintf(chan_name, sizeof(chan_name), "dma%i", i);
+@@ -1439,11 +1475,13 @@ static int bcm2835_dma_probe(struct platform_device *pdev)
+ 		 * in case of channel >= 11
+ 		 * use the 11th interrupt and that is shared
+ 		 */
+-		irq[i] = platform_get_irq(pdev, i < 11 ? i : 11);
++		irq[i] = platform_get_irq(pdev, index < 11 ? index : 11);
+ 	}
+ 
++	chan_count = 0;
++
+ 	/* get irqs for each channel */
+-	for (i = 0; i <= BCM2835_DMA_MAX_DMA_CHAN_SUPPORTED; i++) {
++	for (i = chan_start; i < chan_end; i++) {
+ 		/* skip channels without irq */
+ 		if (irq[i] < 0)
+ 			continue;
+@@ -1460,9 +1498,11 @@ static int bcm2835_dma_probe(struct platform_device *pdev)
+ 		rc = bcm2835_dma_chan_init(od, i, irq[i], irq_flags);
+ 		if (rc)
+ 			goto err_no_dma;
++
++		chan_count++;
+ 	}
+ 
+-	dev_dbg(&pdev->dev, "Initialized %i DMA channels\n", i);
++	dev_dbg(&pdev->dev, "Initialized %i DMA channels\n", chan_count);
+ 
+ 	/* Device-tree DMA controller registration */
+ 	rc = of_dma_controller_register(pdev->dev.of_node,
 -- 
 2.51.0
 
