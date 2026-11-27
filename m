@@ -1,57 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795791711;
-	b=YZ63lBx+xgDmkYDTExdTSdc/4Hdao1m0wZoy/NCId69bFKlYA/I6Ocri7KRK3oHOo0eT
-	 sQR1xNzLmWCyMMgx1fQa4ChgGCelFV8cYPzigaiCpc5KZP3bQTcMetL8x7D7Wz016i9eZ
-	 PL4VCeAJCgznfj523gqZSgtU7dG2hf9LKcefGwQusczvAz36cOx2z5m8G1EldHuWXP/nI
-	 pTW+A7y4GeXCB9diiEfP3MlTJ0URGTNFOs2jAsKqA3Jq8OtGLxUItzd96pz8mEvnIz3fU
-	 kKNWB1R4Vu5vDrLVi8dVJmfo25S+EM6WOROq4E6CiPTptLt23arN+ASUFCP6pOqVXbQ==
+	t=1795791715;
+	b=WnMfhW6q9D1yQZ3sQ28aCyHKkscrbprw2x+cfUFKv13m/FSUpJ7DwPiik4sIVwKcPfbN
+	 6HBTSeAr6Mx7UZ1fI6b7GBebNQeXcKBuA3KFpDMj3xXnzPKTXpkadnSO6LP3SD5aF1Jx+
+	 fkkfXan4Rp7apBPEWuR/qLAvXevdhBhQsmjwomJHkAeoxSN46AG5OPrdHtbb6A2RBJ0Pi
+	 dtA4yo0hY/b3Jtf8Sz1p7Zx2uourrUXRK9ByCDxjTD2WjntBlNRV9WKi+m92s1vi9949r
+	 s4CfNdDmJxI1B4yo+opLtJE85qrcIt22hi/T1hU2aw3O7zTWZrPBZJxnlXvU6c2Xmew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795791711;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=165byr1M0l/CeIEcaE8a3IYPkA/L/GtUZnNCwNGI1gs=;
-	b=AJ2R+vYon6KOm4YNYMelImVF7svUYFUkQu2OjWukSqJg2k+S+Te1I6yIN/LuCb+8wjdv
-	 0BYWjAVgFqn3E/s+IIYjJLkLLM7aL2Zf0WiOUkzTdgCLo60qbvyhw6VdmCh5hRGvoxixW
-	 e5RldDOcL5Lkbzt+oBbxwcmnVDdfhqNnpWDQIKol8fWeSzFlCbnKE0/HDh8xETIkHZLkf
-	 WEHGgvurseeZcm1FJn+UfoFyf8WPQpDzx1BfYzs1nTkL4pyjn70daNSQYK+l+wHJ9ac+s
-	 0vcridwp/UM1Z8RIbRR2CkGJ5UBC6w0zOS6ICCnsPu55a9VZkw72eS9q9Yequ7Z2gmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795791715;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=VpcqBZLqN/HeuRlLjFgGKqVL/4WFgrZfbDvk+IxriQ0=;
+	b=hRsSyj5jewzrx6XJkkll5v8UhJe1b0b7K05+2JKK8RgcMPulC59QKOsosBeY6ofUd0qI
+	 LUowTq+kjZIfHRxOdyUy2v4GgahtCtG1bTrw6k6SbWKZCHCJDtLOw5R8oaQos37i+cMKb
+	 7/rQ8yXPsJR0NHEBWBLptnkEsy5559soVnrPpeCwHBe9/7aIoIa6dDNAZmvQLqo5OOKzx
+	 43QadKBqMeHBPx4DEA3NPxyEgyLtcS+/2bDQeCdYKe+1xWBQTDxdI9veryvD78N0cHYYo
+	 dJ2NtlboA5+YAsgYxzkC84lkqgCR7qY2jkLjRy6cexxUhkOVTfCYsAxb2LZnpnsOZow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MBbHMQfT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D8CC606A31E
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 15:01:51 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=afDIj2Rv;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7835E606A321;
+	Fri, 27 Nov 2026 15:01:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7835E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MBbHMQfT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C965D1F00893;
-	Fri, 27 Nov 2026 15:01:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795791711;
-	bh=165byr1M0l/CeIEcaE8a3IYPkA/L/GtUZnNCwNGI1gs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MBbHMQfTaF6sKHmSbh8YWC7ACD9QyETYqZ34Wt7A1dkNn4BCTaa36LHyQJhNGKfex
-	 38Yn85f2B7bz8cFzDqKPoiDHG3n6EA43+ZJyQe4EWFU2KClyeEnK6oWmUlb6nYX34j
-	 0a1p380hf/95QQAXKV4kQZaudsX8suPUjbq8ZXWXkihPK85dLBLmQwbI4kftJthZmu
-	 +LUg8CTHtu5ohQHeRmbBfPyn8xQ/3ZtCI29MSE+Wd9CDlqKuC8c4lRMrSSWDjBcv+d
-	 wl+KDQaDcyK6ILA5KFtaxsNk7XZUgvf6QW4laQUlCbDYMbyiMRU0vPlIdvK9sreYBv
-	 CBuI3I/JkWo1Q==
-Message-ID: <sashiko-outbox-237660@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 04/10] arm64: dts: qcom: x1e80100-crd: Add ov08x40
- RGB sensor on CSIPHY4
-Reply-To: sashiko-reviews@lists.linux.dev
-To: bod@kernel.org
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261127-x1e-camss-csi2-phy-dtsi-v8-4-2793b8e5138c@kernel.org>
-References: <20261127-x1e-camss-csi2-phy-dtsi-v8-0-2793b8e5138c@kernel.org>
- <20261127-x1e-camss-csi2-phy-dtsi-v8-4-2793b8e5138c@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 15:01:50 +0000
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=afDIj2Rv
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EE051169E;
+	Fri, 27 Nov 2026 07:01:50 -0800 (PST)
+Received: from [10.33.50.35] (e142021.arm.com [10.33.50.35])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 379C23F86C;
+	Fri, 27 Nov 2026 07:01:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795791713; bh=GBuVEdT6Zk0TtC4GdX7BeaJsy82EnhV3Za6uLt8WTuk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=afDIj2Rv/AZ2ZhaedD+aQ7/sM6pMctKhmHlqaThdPXbkWWLZ4rcX8AcTCYZk6jJXG
+	 HGrxsvcAwyS8kWygKXkQ3GHFJl9XcSI9+TEGxkyufaA5nodgFsxPh6y3xsf6KQ9SC9
+	 yhvFJbx2UnmuEj5FjgywnCf1EwU86QSEsgs2Jwlc=
+Message-ID: <49872d49-ddcb-4cd9-b4a5-ae6ab95e115f@arm.com>
+Date: Fri, 27 Nov 2026 15:01:49 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,71 +52,98 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND v3 2/3] dt-bindings: pinctrl: sun55i-a523: one
+ interrupt per implemented bank
+To: Pablo Mazzini <pmazzini@gmail.com>, Linus Walleij <linusw@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-sunxi@lists.linux.dev
+References: <20261124215048.42074-1-pmazzini@gmail.com>
+ <20261124215048.42074-3-pmazzini@gmail.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20261124215048.42074-3-pmazzini@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] arm64: dts: qcom: x1-crd: enabling camss breaks probe on
-  x1p42100-crd
-- [Low] arm64: dts: qcom: x1-crd: camss, cci1, and csiphy4 nodes out of
-  order
---
+Hi,
 
-commit 098c8f2639f0b304989a093be6403952d3f9f1a6
-Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+On 11/24/26 22:50, Pablo Mazzini wrote:
+> The A523 and A733 have no PA pins, the A523's PA IRQ bank is not
+> implemented, and the driver no longer counts it. Go back to one
 
-arm64: dts: qcom: x1e80100-crd: Add ov08x40 RGB sensor on CSIPHY4
+                    ^^^^^^^^^^
 
-This commit enables camss, cci1, and csiphy4 in x1-crd.dtsi and defines
-the ov08x40 RGB camera sensor node on cci1_i2c1.
+Just for the records: some Linux driver implementation is not relevant 
+for a binding. This (or rather the changed, but undocumented semantic on 
+how to count the IRQs) is a breaking change, unfortunately (and it's me 
+to blame), but I think it's the more sustainable solution than the 
+existing one. And since this is a revert, it's somewhat confined, and we 
+can backport the Linux changes to mitigate the problems. The A523 IRQs 
+were broken from the beginning, and my original change just somewhat 
+papered over the problem.
 
-> diff --git a/arch/arm64/boot/dts/qcom/x1-crd.dtsi b/arch/arm64/boot/dts/q=
-com/x1-crd.dtsi
-> index 71c819aa2d43c..5f66e23e694db 100644
-> --- a/arch/arm64/boot/dts/qcom/x1-crd.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/x1-crd.dtsi
-[ ... ]
-> @@ -933,6 +935,70 @@ &gpu {
->  	status =3D "okay";
->  };
-> =20
-> +&camss {
-> +	status =3D "okay";
-> +};
+> interrupt, and one debounce period, per implemented bank: 10 for both.
+> 
+> This reverts commit 11f25ac56372 ("dt-bindings: pinctrl: sun55i-a523:
+> increase IRQ banks number").
+> 
 
-[Severity: Medium]
-Does enabling &camss in x1-crd.dtsi break camss_probe() on x1p42100-crd?
+I wonder if we should have a Fixes: tag here? Pointing to the revert? 
+It's somewhat debatable if that makes sense for a binding patch, though.
 
-x1p42100-crd.dts includes both purwa.dtsi and x1-crd.dtsi.  purwa.dtsi
-switches &camcc to "qcom,x1p42100-camcc" while keeping the hamoa.dtsi
-&camss node ("qcom,x1e80100-camss"), which references CAM_CC_IFE_1_GDSC
-and the IFE1 clocks.  Because drivers/clk/qcom/camcc-x1p42100.c leaves
-CAM_CC_IFE_1_GDSC and the IFE1 clocks unpopulated, msm_vfe_subdev_init()
-for vfe1 fails when attaching the "ife1" power domain and clocks on
-x1p42100-crd.
 
-> +
-> +&camss_csiphy4_in_port {
-> +	camss_csiphy4_inep: endpoint {
-> +		data-lanes =3D <1 2 3 4>;
-> +		remote-endpoint =3D <&csiphy4_out_ep>;
-> +	};
-> +};
-> +
-> +&cci1 {
-> +	status =3D "okay";
-> +};
-[ ... ]
-> +&csiphy4_out_port {
-> +	csiphy4_out_ep: endpoint {
-> +		remote-endpoint =3D <&camss_csiphy4_inep>;
-> +	};
-> +};
+The actual change is fine:
 
-[Severity: Low]
-This isn't a bug, but the top-level label references in x1-crd.dtsi are
-sorted alphabetically, so &camss through &csiphy4_out_port should sit
-before &gpu (after &apps_rsc).
+> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+> Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127-x1e-camss-=
-csi2-phy-dtsi-v8-0-2793b8e5138c@kernel.org?part=3D4
+Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+
+Cheers,
+Andre
+
+> ---
+>   .../bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml   | 8 ++++----
+>   1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml
+> index d7d0ba32ced4..c04b04acf6e4 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml
+> @@ -36,7 +36,7 @@ properties:
+>   
+>     interrupts:
+>       minItems: 2
+> -    maxItems: 11
+> +    maxItems: 10
+>       description:
+>         One interrupt per external interrupt bank supported on the
+>         controller, sorted by bank number ascending order.
+> @@ -63,7 +63,7 @@ properties:
+>         bank found in the controller
+>       $ref: /schemas/types.yaml#/definitions/uint32-array
+>       minItems: 2
+> -    maxItems: 11
+> +    maxItems: 10
+>   
+>   patternProperties:
+>     # It's pretty scary, but the basic idea is that:
+> @@ -133,8 +133,8 @@ allOf:
+>       then:
+>         properties:
+>           interrupts:
+> -          minItems: 11
+> -          maxItems: 11
+> +          minItems: 10
+> +          maxItems: 10
+>   
+>     - if:
+>         properties:
+
