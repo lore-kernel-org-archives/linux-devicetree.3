@@ -1,55 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795800277;
-	b=25uvtQGq/Prj7m/N4H9u7Dq82GHmviEJllk7e4wM+NegCIrxgGlFaVCn9JVHgUZl6yX8
-	 E+A/xxogAIsWs9zvIGe3CV18sAdLfn1r4KOKXrlI8UGkTV0fqJT2vg9jwbqTDWVEKKvL6
-	 bfERd6XAz+uq9O1vOqWJnRZiPvxuRwCIltor28jSLpOuTyHvjwkgA3O/rXPHaeEs3IAV0
-	 /XJDMDOLIJpp7Fbh+HK50m0Z6jScCe1M2xV0D7KF7Lv6bEk8k2C0/8Q7wbpDbCKlB6TRT
-	 /N4dYwu7eK/mpLfM4toKSnjC0FuNcgyODzy/qpPL/Ybjw7QjmXR/Dwx8wnhE3i/FQWQ==
+	t=1795800928;
+	b=sLuroQLNPyYrU/VLkAuwcS2vNKZdrc/ZH2iTbMeXeT8nmP9PGz4xjEpofL9JzeskBYON
+	 Ua2Mez1mkoN8tRH/dS4J2aFBDrQK+OHrOPBB3H6rp4DlAgdzjP65d7DEI74HpKwhZ/Isp
+	 JBDEgGiRFPq0WvnAs42HUnG928mDzngq+PQyH9tNJhV1Mzm4Z/aTBB0OgssYmIbclVs7T
+	 r1QjvFplJq++RBZGa88AceLhDBhvisPL30OrPYR52SUSwFMqnRQmzxPev9nPaB9NrExCG
+	 6Nasy7wov0E1X7sCKmxbdpYS4W8FIXj2rIyAQ5vVMUdH1FOnVIqR8m1Frz3/QXjL57w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795800277;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
-	bh=kFFbZKkKUFjl9tVqzC+oYl95ClW2/a5f1vqAFZ408qc=;
-	b=Un8M9dr3x43heY4eBRvDQUZnOzQz/fhAL/aOfpL048v23Y9rafRCbn9+aoXEHdRqf6LP
-	 pfhFASXBHBJ/BDnoKQh0Sd1J/Yg2fZdnMcLYSozc6UqKSC++yBRKahz4q6Y+5jmgpEVlf
-	 uL/z4yTkN6Ue76K3isjR8Zgmjm8GNfjAZk56zF6lAF4RMF5HRgSZLM/Ew1uk/GpWxp32a
-	 VVXK28FPfRCkPrJKwVvJO6sgJVYWYwrj688x9/oj3lQieSQCQPYPUpCsY8znLmEINRDOK
-	 n/Q7haMmQY2d1wHASvGS6oWmIVgfL/PoBU9WatnXliPVqFwD7T2TdeNhtlHcpxiai0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795800928;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=lyzGhuMOMHlziF4wP2PnDrjLAU20OQZJbENrKw1pfsE=;
+	b=zNKZIgeD7qGdMdE6a7aFi7Il1LpKV77l3GoT4e2e4c6fE9JWbd1xX/7kLMIVzAyMpa5Q
+	 pJq9RVtLPdcVuxS9+A1D2H3/SfEl5OOrWy25O5sOVzTUIkFyMYxcWf7ZAtSeqaA45CYVe
+	 uCDdWAwIEtAKjrm11LbsbNZ7A1GKsOT+vAlRd5Uf3/xSnbOPgXwTAqpQyfP9kjDF+R15U
+	 ROwtv8k9vJ7MMo9P1U2eo3O98sAWJVma2P+t8XQVquvUXLSI/O+AzO4YQjg7Tvp8nkZqd
+	 dcc6aiB9vWhNXDyKesYVqoLrV3Glq4jaTrmsXdNPMsLdwcaBwUovoreryzpgKrv2/TA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=awUl84Kg;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="S/SvVStQ";
+	arc=none smtp.remote-ip=209.85.222.46
+Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com [209.85.222.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F107E606A321
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 17:24:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F107E606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FEF1606A326
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 17:35:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FEF1606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=awUl84Kg
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 73331C2AC4C;
-	Fri, 27 Nov 2026 17:24:43 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 98D4A6049C;
-	Fri, 27 Nov 2026 17:24:34 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AD05311E90D6D;
-	Fri, 27 Nov 2026 18:24:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795800268; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=kFFbZKkKUFjl9tVqzC+oYl95ClW2/a5f1vqAFZ408qc=;
-	b=awUl84KgO2Tm8Ca8KlUgbZ0m1USDz/UO8HsjwvOEeg7c7/7bsXmrNQgyMg+nQdLi4uO2ch
-	64mKLCWE9YANSnZUTY4Uy6ZSnUiTbf1HhU6gILRF8gAddrfVlaYi+z/s3lwv128HIBscq2
-	0LS777YEpIi0ksZtBY8cf8fIkJ19NUOnpnZ2zv5k2rwTHAkqia+lozqXhq3PSJIrIjASas
-	IxoPz3F36wGf4Zd8+ZvwUdOkOipwcURIzMJLqUxBVwPPwjCl5GB90Y9CrHNolx/b8nLGXD
-	cGW7KXrEBwCZh76xkoWfizA9Hh1ymE6X8ESqtXNnXnqq0H88O0seFMepZpEpmA==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S/SvVStQ
+Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-98fea7e52b7so5000456241.0
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 09:35:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795800927; x=1796405727; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lyzGhuMOMHlziF4wP2PnDrjLAU20OQZJbENrKw1pfsE=;
+        b=S/SvVStQ9BV/S2eTTDgJun4UmOgunU3vwvBrgNrWH9Dizpk97OCwK7FV25aNhv6kgX
+         WND/5PjMvY1SHa6c8XIzM4l+rpUN4MqfnP7TIr6AFNjx5CYLysFffAqvGa6rAjel6y6g
+         KwNuALiw6Dns3YgddLc8jij/3gd6+zzVaLsKtfDMZEW2M5ShwAt9fCU1DoBUhFld4wEE
+         xrgKnmsZAUBW2PToiVR3Kc79b+jc+5LdAc8gXvIyM8vM1uAcjdKOFzt2GTdiR1zSwOmx
+         EJyUlDjLTzRuJfo61I1LBCS1ssN392+7+cM7r8dp2vwVk2wva1aIS9/G0GrXC3gWuPrA
+         wgPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795800927; x=1796405727;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=lyzGhuMOMHlziF4wP2PnDrjLAU20OQZJbENrKw1pfsE=;
+        b=s9A2WSPHxkdopcSZAVVY4jH9+Q3EcoAzn3yg18GERXo4azud9cc54QvT2osTw2EP07
+         1VBCLuHj9CnexBQlawzgaq5Vdyzdi5BgYSy9njdpi8DgtDgGaGDKy+5ZmxlaJsr+D8QN
+         UsxlpYWP9tEMqTv5baJxP8C3PEGme1mPplMwK/+j7vnBsLMW/OoYT26JEBOwJ2XbTx0s
+         dQEgxOff2z0gGMfcDkW8LnPTKb+dbii7laquYUFrZ16sbKicO/11bMiNT7BfiDIgHAXE
+         ALqbXzy4lNi4wv8e+ZbFABgJIiyZKMUs/wQsYKnufl7/sQFg7HK1w582+E6rC0ujfDS5
+         BnGg==
+X-Forwarded-Encrypted: i=1; AL+hErHxquNYekiu+rafP0Kq1z8gUEFhxOkRVyxThOK0y9lB5IN2u+gZQMcS2aTOMpCt5J1JszSxFy6GY2Mq@vger.kernel.org
+X-Gm-Message-State: APuU4Z8gQBr/kFGun3ZcBMAOuknqVG7zyuMJ5FNuGPD9OpK0pbEyLkVV
+	qE5teqVNKNtMPxI2L/j3OBpaKa+82h9NjzhtY8CM9dn6Hf3mboz1hADT
+X-Gm-Gg: AZFdTZcJkkfM45UmLCMDWvfmD9iCg5gshhuDGKi3bnT+y5mjY4uSEN9fsPgzlL7D1xx
+	5rTxQwocxSrOqsTRf5FAWssGV5AqKuJRDPplxCmDXqH+nig+QhoDKFCRbMiE5tmyd1yWCFW5WZZ
+	OISIV4t+xOB62iL/JY/pTI8ujQUx6N/WGQXIuKAYCompm7OYh2CBoLsG54MwOFMxmbNU98wmCEU
+	styQ4o6+o5mJXSOgg/nziCxnAMU2icrtw77uSdnipO3Au/De5vNe0Jcd3tzNhe/pcFcQCC5fFNS
+	niuRtcRPpSL81iJYAGBjID79v7sZSUcgrSxbN8/S8LcqCGrvuTfnlD1cqoIkmsWpNiNXvchgjNv
+	q6WtBwS5ISTLJX8e8oIxuEh+4mhiV8LaSaOp0yy5xof2b2Vni4oGa112bvVNo3+7rHqmZsNIJgV
+	U0hZdYFp77GkPEW94I7l/nrdM58jFd6KXfeEWSbxN5IPObIpmZD882a+Ro37F5hTlkq4+BwsjeF
+	UhqBr2slwHw49s0Z3LwajL4mV8UpwMyczDL6EuNqQL1rMM0qamgfFz+EPVI7kpVrtZJqls4cqfM
+	S8Gq74XAb2MqztL+JVVxiq1IWbPBrcCScg==
+X-Received: by 2002:a05:6102:b03:b0:7c3:c0b9:9028 with SMTP id ada2fe7eead31-7d739450a75mr15786710137.24.1795800926783;
+        Fri, 27 Nov 2026 09:35:26 -0800 (PST)
+Received: from [127.0.1.1] ([2804:1b3:a700:1033:f688:69e1:e4d:ce91])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99e6e0686b1sm26107747241.10.2026.11.27.09.35.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Nov 2026 09:35:26 -0800 (PST)
+From: Leonardo Costa <leoreis.costa@gmail.com>
+Date: Fri, 27 Nov 2026 14:34:52 -0300
+Subject: [PATCH] arm64: dts: imx95-aquila-lotus: Add internal voltage
+ monitoring
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,73 +94,79 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 2/2] drm/panel: raydium-rm68200: Set prepare_prev_first
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Stefan Ghetu <stefan.ghetu@nxp.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
- devicetree@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, Conor Dooley <conor+dt@kernel.org>, 
- David Airlie <airlied@gmail.com>, Fabio Estevam <festevam@gmail.com>, 
- =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Jonas Karlman <jonas@kwiboo.se>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Maxime Ripard <mripard@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Philippe Cornu <philippe.cornu@foss.st.com>, 
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
- Robert Chiras <robert.chiras@nxp.com>, Robert Foss <rfoss@kernel.org>, 
- Rob Herring <robh@kernel.org>, Sam Ravnborg <sam@ravnborg.org>, 
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Yannick Fertre <yannick.fertre@foss.st.com>
-In-Reply-To: <20261125075455.772826-3-stefan.ghetu@nxp.com>
-References: <20261125075455.772826-1-stefan.ghetu@nxp.com>
- <20261125075455.772826-3-stefan.ghetu@nxp.com>
-Date: Fri, 27 Nov 2026 18:23:58 +0100
-Message-Id: <179580023805.1981164.14144325145950560136.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Message-Id: <20261127-v1-aquila-imx95-lotus-add-missing-nodes-v1-1-162c7ad8c302@toradex.com>
+X-B4-Tracking: v=1; b=H4sIADy/CWsC/x3NwQrCMAyA4VcZORtoiivoq4iHsGQzsLXauDEYe
+ 3eLx+/y/we4VlOHe3dA1c3cSm6gSwfDi/OkaNIMMcREFBNuhPxZbWa0Zb/1OJfv6sgiuJi75Ql
+ zEXWUkJh7CqOGK7Tau+po+//0eJ7nD3Ngo5t5AAAA
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: linux-bsp@toradex.com, devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Leonardo Costa <leonardo.costa@toradex.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795800922; l=1592;
+ i=leonardo.costa@toradex.com; s=20261001; h=from:subject:message-id;
+ bh=ZxK2MgG5q/LBAnoBWmanwjQtuKQAwsd2KRSb3AQNx0U=;
+ b=fZ3SskkRL+/kfEm2nx7HRYt46R1l2PAl/6TN9QxLtD4GvefiuN0cqUMqFN68SMXgstgNXiBP8
+ sY8QNLeMM/vBzuFC3QyrLocz+cMYwskiJBnsKtSaP6+1StD2RJak0PX
+X-Developer-Key: i=leonardo.costa@toradex.com; a=ed25519;
+ pk=4xvoVLDt+NxIz9D8BJHhT0fD43Ig6XgSDw4jRN/gHzk=
 
-> rm68200_unprepare() sends MIPI_DCS_SET_DISPLAY_OFF and
-> MIPI_DCS_ENTER_SLEEP_MODE, and rm68200_prepare() sends the init
-> sequence followed by MIPI_DCS_EXIT_SLEEP_MODE and
-> MIPI_DCS_SET_DISPLAY_ON. All of these need a working DSI link.
->
-> By default, the panel bridge is prepared before the upstream DSI host
-> bridge's ->atomic_pre_enable() and unprepared after the DSI host
-> bridge's ->atomic_post_disable(). A DSI host that tears down the link
-> in ->atomic_post_disable() therefore does so before the panel has sent
-> its shutdown commands.
->
-> Set prepare_prev_first so the panel is prepared after, and unprepared
-> before, the DSI host bridge, which is what a panel driven by DCS
-> commands from its prepare/unprepare callbacks requires.
->
-> Signed-off-by: Stefan Ghetu <stefan.ghetu@nxp.com>
->
-> diff --git a/drivers/gpu/drm/panel/panel-raydium-rm68200.c b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
-> index c535dc931903..cc87f587ca78 100644
-> --- a/drivers/gpu/drm/panel/panel-raydium-rm68200.c
-> +++ b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
-> @@ -360,6 +360,8 @@ static int rm68200_probe(struct mipi_dsi_device *dsi)
->  	if (ret)
->  		return ret;
->
-> +	ctx->panel.prepare_prev_first = true;
-> +
->  	drm_panel_add(&ctx->panel);
->
->  	ret = mipi_dsi_attach(dsi);
+From: Leonardo Costa <leonardo.costa@toradex.com>
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+The Lotus Carrier board routes its 5V, 3.3V and 1.8V internal voltages
+through resistor dividers to ADC_[123]. Add the voltage dividers so that
+the internal voltages can be monitored.
 
+Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+---
+ .../boot/dts/freescale/imx95-aquila-lotus.dts      | 24 ++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx95-aquila-lotus.dts b/arch/arm64/boot/dts/freescale/imx95-aquila-lotus.dts
+index 4ae600636106b..7c20df249eb20 100644
+--- a/arch/arm64/boot/dts/freescale/imx95-aquila-lotus.dts
++++ b/arch/arm64/boot/dts/freescale/imx95-aquila-lotus.dts
+@@ -34,6 +34,30 @@ dp_1_connector_in: endpoint {
+ 		};
+ 	};
+ 
++	lotus-1v8-voltage {
++		compatible = "voltage-divider";
++		full-ohms = <39000>; /* 12k + 27k */
++		/* Aquila ADC_3 */
++		io-channels = <&adc1 2>;
++		output-ohms = <27000>;
++	};
++
++	lotus-3v3-voltage {
++		compatible = "voltage-divider";
++		full-ohms = <54000>; /* 27k + 27k */
++		/* Aquila ADC_2 */
++		io-channels = <&adc1 1>;
++		output-ohms = <27000>;
++	};
++
++	lotus-5v-voltage {
++		compatible = "voltage-divider";
++		full-ohms = <39000>; /* 27k + 12k */
++		/* Aquila ADC_1 */
++		io-channels = <&adc1 0>;
++		output-ohms = <12000>;
++	};
++
+ 	reg_dp_3p3v: regulator-dp-3p3v {
+ 		compatible = "regulator-fixed";
+ 		pinctrl-names = "default";
+
+---
+base-commit: ebe46fb6c3c40292eb647d0bfd5d1beb05b923c4
+change-id: 20261126-v1-aquila-imx95-lotus-add-missing-nodes-d06aa510fe04
+
+Best regards,
 -- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Leonardo Costa <leonardo.costa@toradex.com>
 
