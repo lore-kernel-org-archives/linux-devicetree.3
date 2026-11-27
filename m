@@ -1,61 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=92.121.34.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795771829;
-	b=qipHCEbsWr5zIvANoLkbB/kG0cDBpW5SbcBJEdxTi3FKp+N/sIxdfYDgKyF0KbKVVV3Y
-	 MLq+n8v7x4EEXH9IgeHvNu1LeCXgh0WYSxsYu6HVKAQ7DFnsV+0cb9f+RjaFHnK3Ajo7J
-	 3yQLMhR+GKtl9Oqj3ngOAvzI62/jnCD5Bpf9GVofKvax8UJqjWDCKJObmJW1Y5h40dVZ1
-	 eQqFsWFqiphIbkE1mm9xyVZ8Qqa7jIPT1ZxmjBxRFtwVtCRYp2nhh9IpHlyW8uII1cb5I
-	 LrPOn1xqHQj7jZjAQjw3xG4PiF9fy6FUmyft/XFDt7vQr+nbyFu4zwoqi+Nvv3Bf9CQ==
+	t=1795771988;
+	b=zVVTSrYiOTxK6/xd/mrgShHPcZouHzme5euJISfCQneHWm9PBjlaywJwHw5Nfx5omtB5
+	 pGerPxfFaLC2yp5kzlAnGXaT12wYsc3ckKSO7qLLZoWd6+phe2/VoXj15aSxUs8GkTwMk
+	 +x/ibG4qeW3wm7QIfsYAXNJm8EKKVCXaCvX6Q8B7JmQduh9WRC5xfTymtl5E27AJ7tDqu
+	 cKzfltjHODhulB98upO4m9Wj9SJ324V6OsiHOLeqeTQR9FCV8eIbP91lgh5syXXTZO2lr
+	 cv9PqT9OUHlxZx1TyO13dDVS7MLwM1KMM4tTbiBiAdSxSLTYFu56dIT+I9GCqgiV/WQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795771829;
-	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Virus-Scanned;
-	bh=kbYNNhBz6CwZpMRT22iSiPDx3yk5IGhzvctdNhPZigE=;
-	b=MBw/oAZJ7UPkp53EtZuL9Q/rmr7GdCEDpp4KaieexT07Kygnw90eB0gti73dt12U8zy3
-	 mzZ5GlFTCoUNIWkO4PhaGcuR42oef/os/APghN82b24KSdgX0BPQJUxxzbBBKUOBaI2zY
-	 CIICRun4bdAE99bSGGk1jv/TCPEfzLI86LuzlbTb/EHcUJyVd2qxZwtQSn8EhRVcrGZlg
-	 S2YJ/zu6OswOUeGS/T7sK/+hu/AHK45Y26WevoLObAKRQ1BEeycEnueN3jtPdHV4EGaeT
-	 9P1zRyafduZaTT8TMrL7d7lIAjtfCAAVpVkTcoHoKk0SuwkI0QzE+yv46ZXvdzyyHsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795771988;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=z0HAmZPkkL929InieJ6NG6YqendguBQ6bWYFHNZs/RU=;
+	b=hitWOFRcTkt5OUNteB9vZAnZLpeR/jT7mOKxn/CXx1H00V5pyORcpVrmGrNGU9tmAJxF
+	 UBswwkFMDH6vo6tfMgWV8k9K/OFKLSccmwzrUBEzoWltMIG/6sfeKzNh4sj3i6DXsrlix
+	 6KDrvKbx404pN/WeuUU41LZC4tWQYcUtaQVcoorRiZWZCcY+gPGIc732IxLV+Lop/9802
+	 jnpReZfGA4WrGWK51h5hwGWWm/z8WTKASco66DTY04QopGNps2OT/L/CtI2C4HFRP3LG9
+	 q7J9S7dR4n8zDCPl3Hymq0u/XdggYKpDKd/q/uRxY7+qgYpJHO4fE3C9B6gRnna7J0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	arc=none smtp.remote-ip=92.121.34.21
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=NJQYqT06;
+	arc=none smtp.remote-ip=209.85.215.182
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CCFC606A335;
-	Fri, 27 Nov 2026 09:30:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CCFC606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Received: from inva021.nxp.com (localhost [127.0.0.1])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id E96A720001A;
-	Fri, 27 Nov 2026 10:30:25 +0100 (CET)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 969B2200018;
-	Fri, 27 Nov 2026 10:30:25 +0100 (CET)
-Received: from lsv031125.swis.in-blr01.nxp.com (lsv031125.swis.in-blr01.nxp.com [10.12.177.172])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 3DCAF18000B7;
-	Fri, 27 Nov 2026 17:30:23 +0800 (+08)
-From: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
-To: andi.shyti@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	peda@lysator.liu.se,
-	linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: vikash.bansal@nxp.com,
-	priyanka.jain@nxp.com,
-	Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
-Subject: [PATCH v3 2/2] i2c: mux: Add NXP PCA9641 I2C bus master arbiter driver
-Date: Fri, 27 Nov 2026 15:00:13 +0530
-Message-Id: <20261127093013.2857245-3-shivprakash.gupta@nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261127093013.2857245-1-shivprakash.gupta@nxp.com>
-References: <20261127093013.2857245-1-shivprakash.gupta@nxp.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C6C606A32E
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 09:33:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87C6C606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=NJQYqT06
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-ccca948203aso5565160a12.3
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 01:33:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1795771988; x=1796376788; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=z0HAmZPkkL929InieJ6NG6YqendguBQ6bWYFHNZs/RU=;
+        b=NJQYqT06QI3WDOOkjOyAttrx1U60LpgMP9aZXjzm9Tc995xd5iC1EDjOSmE48Y3tsg
+         YuuotDnsksXWr6xfUYBRRlItBOF057t/orqoeTOWHcsTKXkNkg/bA+GbdCS7Jd+pM4E1
+         Hq4pKEKA7Xnwig6hKc95/lbRBrxmbwjC3iOM8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795771988; x=1796376788;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=z0HAmZPkkL929InieJ6NG6YqendguBQ6bWYFHNZs/RU=;
+        b=ozrEPfVIxnKOrWkQ+pxEV7sbYu8kiglHe981Ou9jTeXko7mlyAqnRA6XWSA48g5u0T
+         zYCPQEY2CrKLKxwTOztqGHhs9OEWB/fxkxKlp2/ymQMoWt6t6rsS21Yywie/aNm36A9a
+         yg1lCwl73igKWgFJ7s3OOsV1SbC/HyPkRZV0xuCoIoug4bCqZ/FSTvanXIombjuZ8pqJ
+         K2DTa7IPgxrZodWVmV94i7AD0+Q97Z4ine4bP4pd5TGAMrhuMKN0bMI6yx7zvsuKd3TQ
+         aJctqkNDG3hFy7eLYxVsZrpY6dGeLTPlu06/IIl6h0cCYkj+m5Ckch5Fm4p9qTa9F29h
+         KDVw==
+X-Forwarded-Encrypted: i=1; AL+hErEtOYDrdfboeBA941FxfHnqv9PzI/o6iOMd+nRlGwbX7HIBCCDNve739GgmB5acZtqo6peMUmWvYNAF@vger.kernel.org
+X-Gm-Message-State: APuU4Z92PE3VF7zSfxiz4nErLBRLA66aSCRf4VaOWTwWZa+S31T6IMyw
+	1UUZCo+BUd6b9s1ucwL0kBDDS+XuPtFiGm5o7piiX4I60LE8AHlQ6QAdCRCFIqyY9CRQxP5rzmo
+	8vIibuw==
+X-Gm-Gg: AZFdTZef0P3Xr8J0JFTr584Hanm1baGBmEsoWPMWUm9OE7yiLiZapaLPXfvBEcmfRtv
+	mMAQwd58phtotTObitLfY2QDKf5AvBFFWG1EyugiwIPleyimxWHuC7drUUvB21/0TF98RDWuWub
+	W7PFJtgCYwjgjMKS6gInhx8EH4UJ1eiUbGWWFf5050k0abPeLLoz3GJS9grZ4cvbgnMKlafbUb/
+	WvcjTslq0XzqUyfJWvDPErxnXKLG/zQeLfbTfzGCoYJe3m/Y17s/G5FbV3thj5fERL4NwkBkPKH
+	4d4X4feu1MAVAiH0JlJMiVZ6aYNAmaD2gytMfsNfAXU42WVyzUQBVC9yT9uduWfek46I3Yv9LKH
+	I69V4gFpZs0DU3YX3kuxSxqiNBGDb56ZcAHFGPdkWZOYEPZeV6DntlZftqglzECF5n3MiM/FYC7
+	aFYDw3RsE9dz1DKNJDbnvNuixVKiN4sGkwcB4LMfXAOTUyjnbrAj+QdVQ0WfcGc2bW5WxSE0MPO
+	k3klBp/KFbvWROTilQO89bAa7HmsZFrmxSRAbcJb++wWTmdAJB+dk5Rw9yUwK75ii6pnMBmVzFc
+	9jHiFG+X6RsIAr5SigyAiY+Ff1yxC5oZoEhkY3PvXhJgLfZhXYMa11SOlMwTPYxIoWA=
+X-Received: by 2002:a17:90b:134e:b0:3b0:a7e7:68f5 with SMTP id 98e67ed59e1d1-3b41c7b638bmr19582728a91.7.1795771987804;
+        Fri, 27 Nov 2026 01:33:07 -0800 (PST)
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com. [74.125.82.171])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b44b7c6513sm17896870a91.4.2026.11.27.01.33.06
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 27 Nov 2026 01:33:07 -0800 (PST)
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-385c497bf94so7535466eec.1
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 01:33:06 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEA8UYE9sW49USyD7P+MzxiM+VFDYPIyPvXUEmsuiTHswWxS0CaB40F/gPQxCkygN8rv3XodNAVCqOh@vger.kernel.org
+X-Received: by 2002:a05:693c:414e:10b0:386:a1ae:6762 with SMTP id
+ 5a478bee46e88-386a1ae6d5fmr20784587eec.36.1795771985456; Fri, 27 Nov 2026
+ 01:33:05 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,561 +94,134 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: ClamAV using ClamSMTP
+References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com> <20260714114414.184512-38-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260714114414.184512-38-angelogioacchino.delregno@collabora.com>
+From: Fei Shao <fshao@chromium.org>
+Date: Fri, 27 Nov 2026 17:32:28 +0800
+X-Gmail-Original-Message-ID: <CAC=S1niK0HHMLpm+i9YLTeASvhM=qDy6oD2t24pa_32wKNsuqg@mail.gmail.com>
+X-Gm-Features: Aa3M54pRArGKHVMgeqwG1e8L5StTOP94fleg1U4pb_vICTi6qu6Nmly90U-l36k
+Message-ID: <CAC=S1niK0HHMLpm+i9YLTeASvhM=qDy6oD2t24pa_32wKNsuqg@mail.gmail.com>
+Subject: Re: [PATCH v2 37/46] drm/mediatek: Prepare path builder for
+ multi-controller architecture
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com, 
+	simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+	tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	matthias.bgg@gmail.com, dri-devel@lists.freedesktop.org, 
+	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	justin.yeh@mediatek.com, jason-jh.lin@mediatek.com, kernel@collabora.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a driver for the NXP PCA9641 2-to-1 I2C bus master arbiter.
+On Tue, Jul 14, 2026 at 7:46=E2=80=AFPM AngeloGioacchino Del Regno
+<angelogioacchino.delregno@collabora.com> wrote:
+>
+> In preparation for adding support for the new display controllers
+> featuring multi-controller w/DirectLink architecture, expand the
+> path builder to recognize whether a hardware component in display
+> controller related output path is getting its input from internal
+> or from any external (to itself, but still internal to the SoC)
+> display controller component.
+>
+> When an output path is found, it is also necessary to understand
+> the enablement order (in terms of mmsys/mutex other than PM) of
+> the controllers, as that cannot be done randomly: for this, the
+> initial path builder will start storing an indication to whether
+> a component is either in a leader or in a follower controller,
+> and then a new function mtk_drm_set_path_orders(), called when
+> binding all components, when initializing KMS, takes care of the
+> looping through the path and setting up the order between all
+> of the follower display controllers.
+>
+> As of this point, no multi-controller SoCs are introduced yet,
+> so this code will not bring any functional change on any of the
+> currently supported SoCs / display controllers.
+>
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
+abora.com>
+> ---
+>  drivers/gpu/drm/mediatek/mtk_ddp_comp.c   |   2 +
+>  drivers/gpu/drm/mediatek/mtk_ddp_comp.h   |   2 +
+>  drivers/gpu/drm/mediatek/mtk_drm_drv.c    | 374 ++++++++++++++++++++--
+>  drivers/gpu/drm/mediatek/mtk_drm_drv.h    |   2 +
+>  drivers/gpu/drm/mediatek/mtk_drm_legacy.c |   3 +-
+>  5 files changed, 351 insertions(+), 32 deletions(-)
+>
+[snip]
+> diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/med=
+iatek/mtk_drm_drv.c
+> index cccdd58b848a..75b3fd56d6af 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+> @@ -185,17 +185,26 @@ static int mtk_drm_match(struct device *dev, const =
+void *data)
+>  static bool mtk_drm_get_all_drm_priv(struct device *dev)
+>  {
+>         struct mtk_drm_private *drm_priv =3D dev_get_drvdata(dev);
+> -       struct mtk_drm_private *all_drm_priv[MAX_CRTC];
+> +       struct mtk_drm_private **all_drm_priv;
+>         struct mtk_drm_private *temp_drm_priv;
+>         struct device_node *phandle =3D dev->parent->of_node;
+>         const struct of_device_id *of_id;
+>         struct device_node *node;
+>         struct device *drm_dev;
+>         unsigned int cnt =3D 0;
+> +       bool all_privs_found;
+>         int i, j;
+>
+> +       dev_vdbg(dev, "Populating private data for all controllers on ID%=
+u\n",
+> +                drm_priv->data->mmsys_id);
+> +
+> +       /* Avoid variable length arrays and allocate an array of pointers=
+ to privs */
+> +       all_drm_priv =3D kmalloc_array(drm_priv->data->mmsys_dev_num,
+> +                                    sizeof(struct mtk_drm_private *), GF=
+P_KERNEL);
+> +       if (!all_drm_priv)
+> +               return -ENOMEM;
 
-The PCA9641 allows two upstream I2C masters to share a single downstream
-slave bus using a lock/grant protocol: a master asserts LOCK_REQ, waits
-for LOCK_GRANT, sets BUS_CONNECT to close the switch, performs
-transactions, then clears LOCK_REQ to release the bus.
+mtk_drm_get_all_drm_priv() returns bool. Return false here or change
+it to return an int instead.
 
-The driver supports interrupt-assisted arbitration when INT0/INT1 is
-connected to a GPIO. The interrupt is requested as an exclusive hard IRQ
-that is disabled while idle and armed only in select_chan(). The handler
-disables the line and wakes the waiter, which always re-reads LOCK_GRANT.
-Polling mode is used when no usable interrupt is configured.
+> +static void mtk_drm_set_path_orders(struct mtk_drm_private **all_drm_pri=
+vate)
+> +{
+[snip]
+> +                               /*
+> +                                * Paths are per-output: set order for th=
+e new output
+> +                                * by finding the order of the same outpu=
+t number of
+> +                                * the previous controller and incrementi=
+ng it by one
+> +                                */
+> +                               src_path =3D &src_priv->data->output_path=
+s[i];
+> +                               src_order =3D src_path->len ? src_path->o=
+rder : 0;
+> +                               if (cur_path->order <=3D src_order) {
+> +                                       cur_path->order =3D src_order + 1=
+;
+> +
+> +                                       /* Order found: check next CRTC n=
+ow! */
+> +                                       order_found =3D true;
+> +                                       break;
+> +                               }
+> +                       }
+> +               } while (!order_found && max_iterations--);
 
-Signed-off-by: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
----
- MAINTAINERS                         |   7 +
- drivers/i2c/muxes/Kconfig           |  15 +
- drivers/i2c/muxes/Makefile          |   1 +
- drivers/i2c/muxes/i2c-mux-pca9641.c | 468 ++++++++++++++++++++++++++++
- 4 files changed, 491 insertions(+)
- create mode 100644 drivers/i2c/muxes/i2c-mux-pca9641.c
+IIUC, this only works for up to a 3-controller chain, which needs at
+most 1 update (0, 1, 1 -> 0, 1, 2). When there are 4 or more
+controllers in a chain, it needs at least 2 updates (0, 1, 1, 1 -> 0,
+1, 2, 3), but the loop stops after the first update (`break` +
+`!order_found`), leaving the orders as (0, 1, 2, 1). On the other
+hand, when no updates are needed, `!order_found` spins
+`max_iterations` times unnecessarily.
+We need a loop that stops only when no more updates are needed, i.e.,
+drop `break;` and loop `while (order_found && max_iterations--)`.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 742c4e6b291f..78d74ceb1822 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -20333,6 +20333,13 @@ L:	linux-i3c@lists.infradead.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
- 
-+NXP PCA9641 I2C BUS MASTER ARBITER DRIVER
-+M:	Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
-+L:	linux-i2c@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/i2c/nxp,pca9641.yaml
-+F:	drivers/i2c/muxes/i2c-mux-pca9641.c
-+
- NXP PF5300/PF5301/PF5302 PMIC REGULATOR DEVICE DRIVER
- M:	Woodrow Douglass <wdouglass@carnegierobotics.com>
- S:	Maintained
-diff --git a/drivers/i2c/muxes/Kconfig b/drivers/i2c/muxes/Kconfig
-index 6d2f66810cdc..57d2ae8b30f7 100644
---- a/drivers/i2c/muxes/Kconfig
-+++ b/drivers/i2c/muxes/Kconfig
-@@ -64,6 +64,21 @@ config I2C_MUX_PCA9541
- 	  This driver can also be built as a module.  If so, the module
- 	  will be called i2c-mux-pca9541.
- 
-+config I2C_MUX_PCA9641
-+	tristate "NXP PCA9641 I2C Master Arbiter"
-+	help
-+	  If you say yes here you get support for the NXP PCA9641
-+	  2-to-1 I2C bus master arbiter.
-+
-+	  The PCA9641 arbitrates between two upstream I2C masters competing
-+	  for a single downstream slave bus using a lock/grant ownership
-+	  model. The driver waits for ownership by polling or, when an
-+	  interrupt line is described and usable, by using the INT0/INT1
-+	  output. Atomic I2C transfers are not supported.
-+
-+	  This driver can also be built as a module.  If so, the module
-+	  will be called i2c-mux-pca9641.
-+
- config I2C_MUX_PCA954x
- 	tristate "NXP PCA954x/PCA984x and Maxim MAX735x/MAX736x I2C Mux/switches"
- 	depends on GPIOLIB || COMPILE_TEST
-diff --git a/drivers/i2c/muxes/Makefile b/drivers/i2c/muxes/Makefile
-index 4b24f49515a7..a50df4013224 100644
---- a/drivers/i2c/muxes/Makefile
-+++ b/drivers/i2c/muxes/Makefile
-@@ -12,6 +12,7 @@ obj-$(CONFIG_I2C_MUX_LTC4306)	+= i2c-mux-ltc4306.o
- obj-$(CONFIG_I2C_MUX_MLXCPLD)	+= i2c-mux-mlxcpld.o
- obj-$(CONFIG_I2C_MUX_MULE)	+= i2c-mux-mule.o
- obj-$(CONFIG_I2C_MUX_PCA9541)	+= i2c-mux-pca9541.o
-+obj-$(CONFIG_I2C_MUX_PCA9641)	+= i2c-mux-pca9641.o
- obj-$(CONFIG_I2C_MUX_PCA954x)	+= i2c-mux-pca954x.o
- obj-$(CONFIG_I2C_MUX_PINCTRL)	+= i2c-mux-pinctrl.o
- obj-$(CONFIG_I2C_MUX_REG)	+= i2c-mux-reg.o
-diff --git a/drivers/i2c/muxes/i2c-mux-pca9641.c b/drivers/i2c/muxes/i2c-mux-pca9641.c
-new file mode 100644
-index 000000000000..b7a7ed421219
---- /dev/null
-+++ b/drivers/i2c/muxes/i2c-mux-pca9641.c
-@@ -0,0 +1,468 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * I2C bus master arbiter driver for the NXP PCA9641
-+ *
-+ * Copyright (C) 2026 Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
-+ * Based on i2c-mux-pca9541.c by Guenter Roeck <linux@roeck-us.net>
-+ *
-+ * Datasheet: https://www.nxp.com/docs/en/data-sheet/PCA9641.pdf
-+ */
-+
-+#include <linux/atomic.h>
-+#include <linux/bitops.h>
-+#include <linux/completion.h>
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/i2c.h>
-+#include <linux/i2c-mux.h>
-+#include <linux/interrupt.h>
-+#include <linux/irq.h>
-+#include <linux/jiffies.h>
-+#include <linux/ktime.h>
-+#include <linux/module.h>
-+#include <linux/preempt.h>
-+#include <linux/workqueue.h>
-+
-+#define PCA9641_ID		0x00
-+#define PCA9641_CONTR		0x01
-+#define PCA9641_RT		0x03
-+#define PCA9641_INT_STATUS	0x04
-+#define PCA9641_INT_MSK		0x05
-+
-+#define PCA9641_CTL_LOCK_REQ	BIT(0)
-+#define PCA9641_CTL_LOCK_GRANT	BIT(1)
-+#define PCA9641_CTL_BUS_CONNECT	BIT(2)
-+
-+#define PCA9641_INTS_BUS_LOST	BIT(1)
-+#define PCA9641_INTS_LOCK_GRANT	BIT(2)
-+#define PCA9641_INTS_ARB	(PCA9641_INTS_BUS_LOST | PCA9641_INTS_LOCK_GRANT)
-+#define PCA9641_MSK_ALL		0x7f
-+#define PCA9641_MSK_GRANT_ONLY	(PCA9641_MSK_ALL & ~PCA9641_INTS_LOCK_GRANT)
-+
-+#define PCA9641_ID_MAGIC	0x38
-+#define PCA9641_POLL_US		1000
-+#define PCA9641_IRQ_CHECK_MS	50
-+#define PCA9641_RECOVERY_MS	100
-+
-+struct pca9641 {
-+	struct i2c_client *client;
-+	struct completion grant;
-+	struct delayed_work recovery_work;
-+	atomic_t irq_fired;
-+	int irq;
-+	bool selected;
-+	bool release_pending;
-+	bool irq_cleanup_pending;
-+};
-+
-+/* The mux core holds the parent adapter lock around select and deselect. */
-+static int pca9641_reg_write(struct i2c_client *client, u8 reg, u8 val)
-+{
-+	union i2c_smbus_data data = { .byte = val };
-+
-+	return __i2c_smbus_xfer(client->adapter, client->addr, client->flags,
-+				I2C_SMBUS_WRITE, reg, I2C_SMBUS_BYTE_DATA,
-+				&data);
-+}
-+
-+static int pca9641_reg_read(struct i2c_client *client, u8 reg)
-+{
-+	union i2c_smbus_data data;
-+	int ret;
-+
-+	ret = __i2c_smbus_xfer(client->adapter, client->addr, client->flags,
-+			       I2C_SMBUS_READ, reg, I2C_SMBUS_BYTE_DATA,
-+			       &data);
-+	return ret ?: data.byte;
-+}
-+
-+/* No atomic transfers: the arbiter can wait for an external master. */
-+static bool pca9641_cannot_sleep(void)
-+{
-+	return irqs_disabled() ||
-+	       (IS_ENABLED(CONFIG_PREEMPT_COUNT) && !preemptible());
-+}
-+
-+/* Retain failure state because the mux core may discard deselect errors. */
-+static int pca9641_release_bus(struct pca9641 *data)
-+{
-+	struct i2c_client *client = data->client;
-+	int ret;
-+
-+	ret = pca9641_reg_write(client, PCA9641_CONTR, 0);
-+	if (ret)
-+		ret = pca9641_reg_write(client, PCA9641_CONTR, 0);
-+	data->release_pending = !!ret;
-+	if (ret)
-+		dev_err_ratelimited(&client->dev,
-+				    "Failed to release bus: %d\n", ret);
-+	return ret;
-+}
-+
-+static int pca9641_mask_irqs(struct pca9641 *data)
-+{
-+	struct i2c_client *client = data->client;
-+	int ret;
-+
-+	data->irq_cleanup_pending = true;
-+	ret = pca9641_reg_write(client, PCA9641_INT_MSK, PCA9641_MSK_ALL);
-+	if (ret)
-+		return ret;
-+
-+	ret = pca9641_reg_write(client, PCA9641_INT_STATUS, PCA9641_INTS_ARB);
-+	if (!ret)
-+		data->irq_cleanup_pending = false;
-+	return ret;
-+}
-+
-+/* Retry failed cleanup even if no transfer follows; a peer may be waiting. */
-+static void pca9641_schedule_recovery(struct pca9641 *data)
-+{
-+	if (data->release_pending || data->irq_cleanup_pending)
-+		queue_delayed_work(system_freezable_wq, &data->recovery_work,
-+				   msecs_to_jiffies(PCA9641_RECOVERY_MS));
-+}
-+
-+static void pca9641_recovery_work(struct work_struct *work)
-+{
-+	struct pca9641 *data = container_of(to_delayed_work(work),
-+					   struct pca9641, recovery_work);
-+	struct i2c_client *client = data->client;
-+	int ret;
-+
-+	i2c_lock_bus(client->adapter, I2C_LOCK_SEGMENT);
-+	if (data->irq_cleanup_pending) {
-+		ret = pca9641_mask_irqs(data);
-+		if (ret)
-+			dev_err_ratelimited(&client->dev,
-+					    "Failed to mask/clear IRQ: %d\n", ret);
-+	}
-+	if (data->release_pending)
-+		pca9641_release_bus(data);
-+	pca9641_schedule_recovery(data);
-+	i2c_unlock_bus(client->adapter, I2C_LOCK_SEGMENT);
-+}
-+
-+/* No I2C access here (waiter holds the lock); disable the level IRQ first. */
-+static irqreturn_t pca9641_irq_handler(int irq, void *dev_id)
-+{
-+	struct pca9641 *data = dev_id;
-+
-+	if (!atomic_xchg(&data->irq_fired, 1))
-+		disable_irq_nosync(irq);
-+	complete(&data->grant);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+/* Slow-bus irqchips may sleep or do I2C in bus-lock callbacks; poll instead. */
-+static bool pca9641_irq_usable(unsigned int irq)
-+{
-+	unsigned int type = irq_get_trigger_type(irq);
-+	struct irq_data *d = irq_get_irq_data(irq);
-+	struct irq_chip *chip;
-+
-+	if (!d || (type != IRQ_TYPE_LEVEL_LOW && type != IRQ_TYPE_EDGE_FALLING))
-+		return false;
-+
-+	while (d) {
-+		chip = irq_data_get_irq_chip(d);
-+		if (!chip || chip->irq_bus_lock || chip->irq_bus_sync_unlock)
-+			return false;
-+#ifdef CONFIG_IRQ_DOMAIN_HIERARCHY
-+		d = d->parent_data;
-+#else
-+		break;
-+#endif
-+	}
-+
-+	return true;
-+}
-+
-+static void pca9641_irq_start(struct pca9641 *data)
-+{
-+	reinit_completion(&data->grant);
-+	atomic_set(&data->irq_fired, 0);
-+	enable_irq(data->irq);
-+}
-+
-+/* Leave exactly one disable held; balance the handler's disable if it ran. */
-+static void pca9641_irq_stop(struct pca9641 *data)
-+{
-+	disable_irq(data->irq);
-+	if (atomic_xchg(&data->irq_fired, 0))
-+		enable_irq(data->irq);
-+}
-+
-+/* Wait for ownership; the hardware status, not the IRQ, is authoritative. */
-+static int pca9641_wait_grant(struct pca9641 *data, ktime_t deadline,
-+			      bool irq_armed)
-+{
-+	struct i2c_client *client = data->client;
-+	unsigned long wait;
-+	s64 remaining;
-+	int ctrl;
-+
-+	for (;;) {
-+		ctrl = pca9641_reg_read(client, PCA9641_CONTR);
-+		if (ctrl < 0)
-+			return ctrl;
-+		if (ctrl & PCA9641_CTL_LOCK_GRANT)
-+			return 0;
-+
-+		remaining = ktime_us_delta(deadline, ktime_get());
-+		if (remaining <= 0)
-+			return -ETIMEDOUT;
-+
-+		if (irq_armed && !atomic_read(&data->irq_fired)) {
-+			/* Periodically check for a lost or miswired IRQ. */
-+			wait = usecs_to_jiffies(min_t(s64, remaining,
-+						      PCA9641_IRQ_CHECK_MS * 1000));
-+			wait_for_completion_timeout(&data->grant, max(1UL, wait));
-+		} else {
-+			usleep_range(PCA9641_POLL_US, PCA9641_POLL_US + 500);
-+		}
-+	}
-+}
-+
-+static int pca9641_select_chan(struct i2c_mux_core *muxc, u32 chan)
-+{
-+	struct pca9641 *data = i2c_mux_priv(muxc);
-+	struct i2c_client *client = data->client;
-+	int ret, cleanup_ret, ctrl;
-+	bool irq_armed = false;
-+	ktime_t deadline;
-+
-+	/* Deselect may run even when select fails; neither may sleep here. */
-+	if (pca9641_cannot_sleep())
-+		return -EOPNOTSUPP;
-+
-+	data->selected = false;
-+	if (data->release_pending) {
-+		ret = pca9641_release_bus(data);
-+		if (ret) {
-+			pca9641_schedule_recovery(data);
-+			return ret;
-+		}
-+	}
-+
-+	ret = pca9641_mask_irqs(data);
-+	if (ret) {
-+		pca9641_schedule_recovery(data);
-+		return ret;
-+	}
-+
-+	/* RT=0 disables the reserve timer; release explicitly after STOP. */
-+	ret = pca9641_reg_write(client, PCA9641_RT, 0);
-+	if (ret)
-+		return ret;
-+
-+	if (data->irq > 0) {
-+		pca9641_irq_start(data);
-+		irq_armed = true;
-+		/* Arm before requesting ownership; BUS_LOST remains masked. */
-+		data->irq_cleanup_pending = true;
-+		ret = pca9641_reg_write(client, PCA9641_INT_MSK,
-+					PCA9641_MSK_GRANT_ONLY);
-+		if (ret)
-+			goto stop_irq;
-+	}
-+
-+	deadline = ktime_add_ms(ktime_get(),
-+				jiffies_to_msecs(max(1, client->adapter->timeout)));
-+	/* Clear optional disconnect, priority and initialization controls. */
-+	data->release_pending = true;
-+	ret = pca9641_reg_write(client, PCA9641_CONTR, PCA9641_CTL_LOCK_REQ);
-+	if (!ret)
-+		ret = pca9641_wait_grant(data, deadline, irq_armed);
-+
-+stop_irq:
-+	if (irq_armed) {
-+		pca9641_irq_stop(data);
-+		cleanup_ret = pca9641_mask_irqs(data);
-+		if (cleanup_ret) {
-+			dev_err_ratelimited(&client->dev,
-+					    "Failed to mask/clear IRQ: %d\n", cleanup_ret);
-+			if (!ret)
-+				ret = cleanup_ret;
-+		}
-+	}
-+	if (ret)
-+		goto release;
-+
-+	ret = pca9641_reg_write(client, PCA9641_CONTR,
-+				PCA9641_CTL_LOCK_REQ | PCA9641_CTL_BUS_CONNECT);
-+	if (ret)
-+		goto release;
-+
-+	ctrl = pca9641_reg_read(client, PCA9641_CONTR);
-+	if (ctrl < 0) {
-+		ret = ctrl;
-+		goto release;
-+	}
-+	if ((ctrl & (PCA9641_CTL_LOCK_REQ | PCA9641_CTL_LOCK_GRANT |
-+		     PCA9641_CTL_BUS_CONNECT)) !=
-+	    (PCA9641_CTL_LOCK_REQ | PCA9641_CTL_LOCK_GRANT |
-+	     PCA9641_CTL_BUS_CONNECT)) {
-+		ret = -EIO;
-+		goto release;
-+	}
-+
-+	data->selected = true;
-+	return 0;
-+
-+release:
-+	if (data->release_pending)
-+		pca9641_release_bus(data);
-+	pca9641_schedule_recovery(data);
-+	return ret;
-+}
-+
-+static int pca9641_release_chan(struct i2c_mux_core *muxc, u32 chan)
-+{
-+	struct pca9641 *data = i2c_mux_priv(muxc);
-+	int ret;
-+
-+	if (pca9641_cannot_sleep())
-+		return -EOPNOTSUPP;
-+
-+	/* The mux core calls deselect even after a failed select. */
-+	if (!data->selected)
-+		return 0;
-+
-+	data->selected = false;
-+	ret = pca9641_release_bus(data);
-+	if (ret)
-+		pca9641_schedule_recovery(data);
-+	return ret;
-+}
-+
-+/* Called only when no downstream transfer can be in progress. */
-+static void pca9641_cleanup(struct pca9641 *data)
-+{
-+	struct i2c_client *client = data->client;
-+	int ret;
-+
-+	/* Cancel outside the parent lock: recovery may be waiting for it. */
-+	cancel_delayed_work_sync(&data->recovery_work);
-+
-+	/* Linux IRQ is already disabled at idle. Never re-enable on removal. */
-+	i2c_lock_bus(client->adapter, I2C_LOCK_SEGMENT);
-+	ret = pca9641_mask_irqs(data);
-+	if (ret)
-+		ret = pca9641_mask_irqs(data);
-+	if (ret)
-+		dev_warn(&client->dev, "Failed to mask/clear IRQ: %d\n", ret);
-+	pca9641_release_bus(data);
-+	i2c_unlock_bus(client->adapter, I2C_LOCK_SEGMENT);
-+}
-+
-+static int pca9641_probe(struct i2c_client *client)
-+{
-+	struct i2c_adapter *adap = client->adapter;
-+	struct i2c_mux_core *muxc;
-+	int id, ret, release_ret;
-+	struct pca9641 *data;
-+
-+	if (client->irq == -EPROBE_DEFER)
-+		return -EPROBE_DEFER;
-+
-+	if (!i2c_check_functionality(adap, I2C_FUNC_SMBUS_BYTE_DATA))
-+		return -EOPNOTSUPP;
-+
-+	id = i2c_smbus_read_byte_data(client, PCA9641_ID);
-+	if (id < 0)
-+		return dev_err_probe(&client->dev, id, "Failed to read ID\n");
-+	if (id != PCA9641_ID_MAGIC)
-+		return dev_err_probe(&client->dev, -ENODEV,
-+				     "Unexpected ID 0x%02x\n", id);
-+
-+	muxc = i2c_mux_alloc(adap, &client->dev, 1, sizeof(*data),
-+			     I2C_MUX_ARBITRATOR, pca9641_select_chan,
-+			     pca9641_release_chan);
-+	if (!muxc)
-+		return -ENOMEM;
-+
-+	data = i2c_mux_priv(muxc);
-+	data->client = client;
-+	data->irq = -1;
-+	init_completion(&data->grant);
-+	INIT_DELAYED_WORK(&data->recovery_work, pca9641_recovery_work);
-+	atomic_set(&data->irq_fired, 0);
-+	i2c_set_clientdata(client, muxc);
-+
-+	i2c_lock_bus(adap, I2C_LOCK_SEGMENT);
-+	ret = pca9641_mask_irqs(data);
-+	release_ret = pca9641_release_bus(data);
-+	if (!ret)
-+		ret = release_ret;
-+	if (!ret)
-+		ret = pca9641_reg_write(client, PCA9641_RT, 0);
-+	i2c_unlock_bus(adap, I2C_LOCK_SEGMENT);
-+	if (ret) {
-+		pca9641_cleanup(data);
-+		return dev_err_probe(&client->dev, ret,
-+				     "Failed to initialize arbiter\n");
-+	}
-+
-+	if (client->irq > 0 && !pca9641_irq_usable(client->irq)) {
-+		dev_warn(&client->dev,
-+			 "Unsupported IRQ provider or trigger, polling instead\n");
-+	} else if (client->irq > 0) {
-+		ret = devm_request_irq(&client->dev, client->irq,
-+				       pca9641_irq_handler,
-+				       IRQF_NO_AUTOEN | IRQF_NO_THREAD,
-+				       dev_name(&client->dev), data);
-+		if (ret == -EPROBE_DEFER)
-+			return ret;
-+		if (ret)
-+			dev_warn(&client->dev,
-+				 "Failed to request IRQ (%d), polling instead\n", ret);
-+		else
-+			data->irq = client->irq;
-+	}
-+
-+	ret = i2c_mux_add_adapter(muxc, 0, 0);
-+	if (ret) {
-+		pca9641_cleanup(data);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static void pca9641_remove(struct i2c_client *client)
-+{
-+	struct i2c_mux_core *muxc = i2c_get_clientdata(client);
-+	struct pca9641 *data = i2c_mux_priv(muxc);
-+
-+	i2c_mux_del_adapters(muxc);
-+	pca9641_cleanup(data);
-+}
-+
-+static const struct i2c_device_id pca9641_id[] = {
-+	{ .name = "pca9641" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, pca9641_id);
-+
-+static const struct of_device_id pca9641_of_match[] = {
-+	{ .compatible = "nxp,pca9641" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, pca9641_of_match);
-+
-+static struct i2c_driver pca9641_driver = {
-+	.driver = {
-+		.name = "pca9641",
-+		.of_match_table = pca9641_of_match,
-+	},
-+	.probe = pca9641_probe,
-+	.remove = pca9641_remove,
-+	.id_table = pca9641_id,
-+};
-+module_i2c_driver(pca9641_driver);
-+
-+MODULE_AUTHOR("Shiv Prakash Gupta <shivprakash.gupta@nxp.com>");
-+MODULE_DESCRIPTION("NXP PCA9641 I2C bus master arbiter driver");
-+MODULE_LICENSE("GPL");
--- 
-2.34.1
-
+Regards,
+Fei
