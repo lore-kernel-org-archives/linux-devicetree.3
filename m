@@ -1,60 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795762443;
-	b=R11qFZzWjkKTqq1A+FGkiFyI/dGS62NjYLa81gKTuD9/jUAkMgMQQdD0VEg6B8V6Y63G
-	 fLaw/+HIedjH9jjCfbwUPLIrGy+8pvBMrXreNTpoJkOqIp43ko+2kWwixP8b4xfUZKFS/
-	 Y6M4hyx4rZH6QqMAqIUDNUWCC377qPlZvg+jZBRZqobn1gtlQMZWnrQUZpPGgVb82kXAp
-	 6SoyBjZXZ52BWzIVlBJiQvLdTbnFYcNZ+gHUV/7DOQi2wPr1uL5Wy7tZ/6ka2enyFFhOU
-	 jL4oq8xqeXlCUq8HPinem6QjhwEqvkmVV+Dr86Fzs4g8qTJc1JjB5GBLk/GJIHoCgAw==
+	t=1795762447;
+	b=5a5BjA025AJsR2m9doqvdMzH/NHvKQz9Yxb31IRIB1lm2ATipC9Sfrl+AmRiFilVBJgC
+	 EpNj8gXJJtxQ37SViEb5FD/TsTrvrasiOSidMsJPn9+seeYtJ7mCWszvreEwjjwxfAzbu
+	 xtwt2NQAF63hTvLzuupVkFBEDxEYhlO2pRyHuOyykPbBzhsWJKSB+GNYNIJkKhNtyn1pk
+	 MMlWanYoMKpHDKsbyYH5lBhJrFlZEEfC6e2qWWKw97sVVDe4vDJ2teUeLYdP4ln/ZzVnt
+	 /RTnL6IlPcflvY6FYgTWHeG2eIQlsGOe2v3pVHQDhIcwb88YhFpwhWkiouevgBug/vQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795762443;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=etMIRKpPRyg5p1f5SSu1Q7sUXYF1xtuvPyJAFBd6Q5g=;
-	b=ADnpJ7vvIfXJ+5UKNFvL8Orgz9ziqgKlWWOMlWnYujCDlPlxT2Z48L6Paj7fz4a6SBzN
-	 pNpREh1EnbqhPYx1JHJIC8GjhfNQvxPM/CnGGR1EsmOBFiV5idlpcBfSxEEHCRUXYcoJJ
-	 2S+VOycEMcTtFYWxm/b/NV9vXrmrNR0zFY1itPkILCLRmnYkpTXQPzhZ/KpnV0y1i3wC0
-	 mk1nzrhOGXliXr3YHsRTJzA5gHAycryF4v8RH5PxaYyaG3bAZt04JpDWVaegXgfOAY401
-	 tavXI2lHWquWc8TLl+ugHFGxEyyJjL+UhonADUEIZWN4Csrs+U2mJKBFHttAZB0IbYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795762447;
+	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=+HFIONYMyMDDZopTqPOG1qW817WGxvF++upBMBAVHVk=;
+	b=i61hreZGYwYOqHOxMoCVY2IhxXtoXU5yb8RYPYDeDlwVcBCcH4ohIKHu9aU8DQTtJ26T
+	 hs6jkIn8yZnAGiaV0V2WUmri6Ewv1ioacdvt0k21EZRBrDnOt3HpE8AzZEZHUY2qWiaAY
+	 vqR9Y09pSdM6mnxPtxC+Y826SFJHmcW7J75eU9BZPuxyxN1YV6pIqgfrCqrc3SzfwWRY6
+	 UtxIUhNLTg/njm/gngXgPtvoChybWUVNxwNEPaAlING6M0fZuXILC9ZOf7+dMUyNh08nU
+	 stS0VBD5E492ObPsTFOxM8McyxZAQnA3MikQEwO4nDZ6xjbXxHkx5ok2e5oc/oNLpKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6D8A9606A32D;
-	Fri, 27 Nov 2026 06:54:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D8A9606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [223.64.69.66])
-	by gateway (Coremail) with SMTP id _____8DxztIHKQlrqHojAA--.34423S3;
-	Fri, 27 Nov 2026 14:53:59 +0800 (CST)
-Received: from kernelserver (unknown [223.64.69.66])
-	by front1 (Coremail) with SMTP id qMiowJAxFs3_KAlrXbc3AA--.52846S3;
-	Fri, 27 Nov 2026 14:53:55 +0800 (CST)
-From: Binbin Zhou <zhoubinbin@loongson.cn>
-To: Binbin Zhou <zhoubb.aaron@gmail.com>,
-	Huacai Chen <chenhuacai@loongson.cn>,
-	Rob Herring <robh@kernel.org>,
+	dmarc=pass header.from=d-silva.org;
+	spf=pass smtp.mailfrom=d-silva.org;
+	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=uyVvfU2L;
+	arc=none smtp.remote-ip=119.15.109.137
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C0D606A326;
+	Fri, 27 Nov 2026 06:54:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9C0D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=uyVvfU2L
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id 4DA8B4C958;
+	Fri, 27 Nov 2026 17:53:58 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1795762438;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+HFIONYMyMDDZopTqPOG1qW817WGxvF++upBMBAVHVk=;
+	b=uyVvfU2LFFgEShveIp6KudfaF9C0VMwOrGyn1cgY0PmfJeehYB77FRi7zVcgb1sXpa8A6J
+	0ZA1Dehmwpg73Q22HmGzdmcnVsiWdpJuUhZP1aytn1yLNyt3d0K4q2n9kVpXUVq/q6wd5x
+	GdfIWMLBGlbEXuyI4HDF142MwXRPf7iOviInUl9ARy8NTB60nHHAN8Pzw5Ii7RsF5JvaHC
+	RJVzlkvfpSu8YdF3ppDfzyri/WkqY885h6unkLmnPCw41XCIWKfoYQ0F0Ha0xPlING3Din
+	adXQ6xbtgWPIwyDJQqZeP37UdKOBNWAMCgW3WHL1OZfcpwvmqNIq4rcg2bDXPw==
+X-GPT-Reason: legitimate; the message is a technical patch submission
+	for a Linux kernel device tree, which is a standard developer activity;
+	the sender (alastair@d-silva.org) perfectly matches the recipient
+	mailbox (alastair@d-silva.org) and the content is non-promotional;
+	there are no phishing signals, no URLs, and the content is highly
+	specific to technical development.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Haowei Zheng <zhenghaowei@loongson.cn>
-Cc: Huacai Chen <chenhuacai@kernel.org>,
-	Xuerui Wang <kernel@xen0n.name>,
-	loongarch@lists.linux.dev,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>
+Cc: Maxime Ripard <mripard@kernel.org>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>,
 	devicetree@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	Binbin Zhou <zhoubinbin@loongson.cn>
-Subject: [PATCH v2 1/2] dt-bindings: serial: 8250: Document Loongson-2K3000 UART compatible
-Date: Fri, 27 Nov 2026 14:53:42 +0800
-Message-ID: <c429fd68b6c08e3bf4f9af2bbed40c699cf205a9.1795761142.git.zhoubinbin@loongson.cn>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1795761142.git.zhoubinbin@loongson.cn>
-References: <cover.1795761142.git.zhoubinbin@loongson.cn>
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Alastair D'Silva <alastair@d-silva.org>
+Subject: [PATCH v2 2/2] arm64: dts: allwinner: Add Xunlong OrangePi 4 Pro board
+Date: Fri, 27 Nov 2026 17:53:43 +1100
+Message-ID: <20261127065343.1449675-3-alastair@d-silva.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261127065343.1449675-1-alastair@d-silva.org>
+References: <20261127065343.1449675-1-alastair@d-silva.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,49 +84,109 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAxFs3_KAlrXbc3AA--.52846S3
-X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAQEECGsI5P0GEwAAsj
-X-Coremail-Antispam: 1Uk129KBj9xXoW7JrW5Jw4xur45XrWUWFW5twc_yoWDGFb_Za
-	4Ivw1kurs3AF1F93yYvr4xtr1fXw12kF4kC3Wkt3WkZ3yj9rZ8GFyvk3s8Cr4xWrWDur15
-	urs7GrWI9rsrGosvyTuYvTs0mTUanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUj1kv1TuYvT
-	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
-	cSsGvfJTRUUUbS8YFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
-	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
-	w2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
-	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr1j6F4UJwAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0c
-	Ia020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_
-	WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
-	xGrwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
-	JVW8JwCFI7km07C267AKxVWUXVWUAwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
-	vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IY
-	x2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26c
-	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAF
-	wI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07j2MKZUUUUU=
 
-The Loongson-2K3000 UART does not require MCR/MSR signal inversion,
-unlike earlier Loongson UARTs. Add a dedicated compatible so the driver
-can distinguish it from the existing Loongson UART variants.
+Add the initial devicetree for the Xunlong OrangePi 4 Pro board.
 
-Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
-Signed-off-by: Haowei Zheng <zhenghaowei@loongson.cn>
-Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+Enable UART0 console, SD card (MMC0), and the AXP318W PMIC on R-I2C0.
+Omit audio, WiFi, USB, and Ethernet for follow-on series.
+
+Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
 ---
- Documentation/devicetree/bindings/serial/8250.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/allwinner/Makefile        |  1 +
+ .../allwinner/sun60i-a733-orangepi-4-pro.dts  | 75 +++++++++++++++++++
+ 2 files changed, 76 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-4-pro.dts
 
-diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documentation/devicetree/bindings/serial/8250.yaml
-index 50d5c977afa3..166cb7995b09 100644
---- a/Documentation/devicetree/bindings/serial/8250.yaml
-+++ b/Documentation/devicetree/bindings/serial/8250.yaml
-@@ -137,6 +137,7 @@ properties:
-               - ti,da830-uart
-               - loongson,ls2k0500-uart
-               - loongson,ls2k1500-uart
-+              - loongson,ls2k3000-uart
-           - const: ns16550a
-       - items:
-           - enum:
+diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot/dts/allwinner/Makefile
+index cdeb966031ee..199ce022d94d 100644
+--- a/arch/arm64/boot/dts/allwinner/Makefile
++++ b/arch/arm64/boot/dts/allwinner/Makefile
+@@ -72,3 +72,4 @@ dtb-$(CONFIG_ARCH_SUNXI) += sun55i-t527-orangepi-4a.dtb
+ dtb-$(CONFIG_ARCH_SUNXI) += sun60i-a733-cubie-a7a.dtb
+ dtb-$(CONFIG_ARCH_SUNXI) += sun60i-a733-cubie-a7s.dtb
+ dtb-$(CONFIG_ARCH_SUNXI) += sun60i-a733-cubie-a7z.dtb
++dtb-$(CONFIG_ARCH_SUNXI) += sun60i-a733-orangepi-4-pro.dtb
+diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-4-pro.dts b/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-4-pro.dts
+new file mode 100644
+index 000000000000..374287d962a8
+--- /dev/null
++++ b/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-4-pro.dts
+@@ -0,0 +1,75 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
++/*
++ * Copyright (C) 2026 Alastair D'Silva <alastair@d-silva.org>
++ */
++
++/dts-v1/;
++
++#include "sun60i-a733.dtsi"
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++
++/ {
++	model = "Xunlong OrangePi 4 Pro";
++	compatible = "xunlong,orangepi-4-pro", "allwinner,sun60i-a733";
++
++	aliases {
++		serial0 = &uart0;
++	};
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
++};
++
++&hosc {
++	clock-frequency = <26000000>;
++};
++
++&mmc0 {
++	bus-width = <4>;
++	cd-gpios = <&pio 5 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; /* PF6 */
++	disable-wp;
++	no-1-8-v;
++	vmmc-supply = <&reg_dldo1>;
++	status = "okay";
++};
++
++&r_i2c0 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&r_i2c0_pl_pins>;
++	clock-frequency = <400000>;
++	status = "okay";
++
++	axp318w: pmic@36 {
++		compatible = "x-powers,axp318w";
++		reg = <0x36>;
++		interrupt-parent = <&nmi_intc>;
++		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
++		interrupt-controller;
++		#interrupt-cells = <1>;
++
++		regulators {
++			reg_dcdc2: dcdc2 {
++				regulator-name = "vdd-cpu";
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <1400000>;
++				regulator-always-on;
++			};
++
++			reg_dldo1: dldo1 {
++				regulator-name = "vcc-sd";
++				regulator-min-microvolt = <3300000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-always-on;
++			};
++		};
++	};
++};
++
++&uart0 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart0_pb_pins>;
++	status = "okay";
++};
 -- 
-2.52.0
+2.53.0
 
