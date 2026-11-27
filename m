@@ -1,80 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795762440;
-	b=z73b+ytd9rwYq2rl9YenwHcisRAhTXA4hHK2cdd/MtYTtmHTZ6u4mB/oihlVWGvBGtrh
-	 8f97xUIV/zVWt3sY4SI+52SPiMJMMSnyoXNSQkLFoGr+0aROxfIoy0OlHDPD5pfT1QKVM
-	 Y5YBH5lNJ2TjmhDTdaD8cfMWd8gC4xRkw1QUmMVKrdgjR65uZzO/5xIc5XIWDyV6/ULQP
-	 bb6YxkLyMvh+A3hCY1JSOSREHVAChrgwQ+dl71RRLJOG4OQoDQ2DIk8j16VI49EaBkXfB
-	 9tCC7YqCAutn4grReKeaG/5ElQOXjLOxaSomSWUIYq3U1JI+llQF+7+FhST6rqVVtPg==
+	t=1795762443;
+	b=R11qFZzWjkKTqq1A+FGkiFyI/dGS62NjYLa81gKTuD9/jUAkMgMQQdD0VEg6B8V6Y63G
+	 fLaw/+HIedjH9jjCfbwUPLIrGy+8pvBMrXreNTpoJkOqIp43ko+2kWwixP8b4xfUZKFS/
+	 Y6M4hyx4rZH6QqMAqIUDNUWCC377qPlZvg+jZBRZqobn1gtlQMZWnrQUZpPGgVb82kXAp
+	 6SoyBjZXZ52BWzIVlBJiQvLdTbnFYcNZ+gHUV/7DOQi2wPr1uL5Wy7tZ/6ka2enyFFhOU
+	 jL4oq8xqeXlCUq8HPinem6QjhwEqvkmVV+Dr86Fzs4g8qTJc1JjB5GBLk/GJIHoCgAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795762440;
-	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ncDzTHpCPV4lwKcdX/E+CqJ1ByUzIH55tg22LmuRbMI=;
-	b=5b1e2wYvFSfHFtpR3cC2K8g2+Fu+w95TXeGq4+qjxRiqi57Ed7kSyR9tDkOr/dyhEnxY
-	 IFTG0WabDf+oOVucS41VjSMsw5l4vBX/Met73FrCvnmdvCmqVtUGYFVXuCI2ta+j2L7pS
-	 /KPT/rA9gXHKdToJcw8/x4hktd4EyFU/y6PKqDI9NnMS0AIfqN9QJrDxmh5A5erGy1CF9
-	 NBd0+TGZnLgZfMnfTSzuB+bxLA3sStsTIGNvrkbhQj3m3v71tuikySttMNzIiRrnAYwX8
-	 HScFutCW+IDbmEtOKPMOFA6WvBvQ2kv/jptDYdzrkBu8JZJzI3ZOXuetUpcTletER0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795762443;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=etMIRKpPRyg5p1f5SSu1Q7sUXYF1xtuvPyJAFBd6Q5g=;
+	b=ADnpJ7vvIfXJ+5UKNFvL8Orgz9ziqgKlWWOMlWnYujCDlPlxT2Z48L6Paj7fz4a6SBzN
+	 pNpREh1EnbqhPYx1JHJIC8GjhfNQvxPM/CnGGR1EsmOBFiV5idlpcBfSxEEHCRUXYcoJJ
+	 2S+VOycEMcTtFYWxm/b/NV9vXrmrNR0zFY1itPkILCLRmnYkpTXQPzhZ/KpnV0y1i3wC0
+	 mk1nzrhOGXliXr3YHsRTJzA5gHAycryF4v8RH5PxaYyaG3bAZt04JpDWVaegXgfOAY401
+	 tavXI2lHWquWc8TLl+ugHFGxEyyJjL+UhonADUEIZWN4Csrs+U2mJKBFHttAZB0IbYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=d-silva.org;
-	spf=pass smtp.mailfrom=d-silva.org;
-	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=P0q1BjKX;
-	arc=none smtp.remote-ip=119.15.109.137
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBEE3606A326;
-	Fri, 27 Nov 2026 06:53:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBEE3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=P0q1BjKX
-Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id 17CE74C953;
-	Fri, 27 Nov 2026 17:53:52 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1795762432;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ncDzTHpCPV4lwKcdX/E+CqJ1ByUzIH55tg22LmuRbMI=;
-	b=P0q1BjKXojKbvNl8JdxL3Hi5fPTS0hjWeXi1UtIBm0xTdWw5trRZIVh3c2doFDoiLbZEj8
-	PYmTbVNkmw8uh8Qw/HHYWXiL4RvE1JJCR+EFKYyz3JNyp0bNv2+X6ZSVxPKPWy8pyJ77tj
-	MFUG65jrMPvpH1/tikQZ8ETwGS/Al3Qjy2JG+5Nftdq0aT4xZ+AEjhetIvoijNYUAZ+5CR
-	ITFKVUVxn10SkzFW7hewbeEJ3X6qFhfohxtV6LgMlCP/wNz3VEDPSgjHq/RaR15rqBS+HW
-	6jiN5orSED5xebufw5IqvdywWN0NRmJCymCqTBCalPMRdDyog+FRPiYMSPbX1A==
-X-GPT-Reason: legitimate personal/professional correspondence.
-	The email is a standard Linux kernel patch submission ([PATCH
-	v2 1/2]) regarding hardware bindings for the OrangePi 4 Pro. The
-	sender's identity (alastair@d-silva.org) perfectly matches the
-	intended recipient's domain (alastair@d-silva.org), indicating
-	a personal or trusted communication. There are no links, urgency
-	tactics, or marketing elements present in the body.
-From: Alastair D'Silva <alastair@d-silva.org>
-To: Rob Herring <robh@kernel.org>,
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6D8A9606A32D;
+	Fri, 27 Nov 2026 06:54:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D8A9606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.69.66])
+	by gateway (Coremail) with SMTP id _____8DxztIHKQlrqHojAA--.34423S3;
+	Fri, 27 Nov 2026 14:53:59 +0800 (CST)
+Received: from kernelserver (unknown [223.64.69.66])
+	by front1 (Coremail) with SMTP id qMiowJAxFs3_KAlrXbc3AA--.52846S3;
+	Fri, 27 Nov 2026 14:53:55 +0800 (CST)
+From: Binbin Zhou <zhoubinbin@loongson.cn>
+To: Binbin Zhou <zhoubb.aaron@gmail.com>,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>
-Cc: Maxime Ripard <mripard@kernel.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Haowei Zheng <zhenghaowei@loongson.cn>
+Cc: Huacai Chen <chenhuacai@kernel.org>,
+	Xuerui Wang <kernel@xen0n.name>,
+	loongarch@lists.linux.dev,
 	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Alastair D'Silva <alastair@d-silva.org>
-Subject: [PATCH v2 1/2] dt-bindings: arm: sunxi: Add Xunlong OrangePi 4 Pro
-Date: Fri, 27 Nov 2026 17:53:42 +1100
-Message-ID: <20261127065343.1449675-2-alastair@d-silva.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261127065343.1449675-1-alastair@d-silva.org>
-References: <20261127065343.1449675-1-alastair@d-silva.org>
+	linux-serial@vger.kernel.org,
+	Binbin Zhou <zhoubinbin@loongson.cn>
+Subject: [PATCH v2 1/2] dt-bindings: serial: 8250: Document Loongson-2K3000 UART compatible
+Date: Fri, 27 Nov 2026 14:53:42 +0800
+Message-ID: <c429fd68b6c08e3bf4f9af2bbed40c699cf205a9.1795761142.git.zhoubinbin@loongson.cn>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <cover.1795761142.git.zhoubinbin@loongson.cn>
+References: <cover.1795761142.git.zhoubinbin@loongson.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,30 +65,49 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAxFs3_KAlrXbc3AA--.52846S3
+X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAQEECGsI5P0GEwAAsj
+X-Coremail-Antispam: 1Uk129KBj9xXoW7JrW5Jw4xur45XrWUWFW5twc_yoWDGFb_Za
+	4Ivw1kurs3AF1F93yYvr4xtr1fXw12kF4kC3Wkt3WkZ3yj9rZ8GFyvk3s8Cr4xWrWDur15
+	urs7GrWI9rsrGosvyTuYvTs0mTUanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUbS8YFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr1j6F4UJwAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0c
+	Ia020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_
+	WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
+	xGrwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
+	JVW8JwCFI7km07C267AKxVWUXVWUAwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
+	vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IY
+	x2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26c
+	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAF
+	wI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07j2MKZUUUUU=
 
-Document the Xunlong OrangePi 4 Pro board compatible.
+The Loongson-2K3000 UART does not require MCR/MSR signal inversion,
+unlike earlier Loongson UARTs. Add a dedicated compatible so the driver
+can distinguish it from the existing Loongson UART variants.
 
-Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
+Signed-off-by: Haowei Zheng <zhenghaowei@loongson.cn>
+Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
 ---
- Documentation/devicetree/bindings/arm/sunxi.yaml | 5 +++++
- 1 file changed, 5 insertions(+)
+ Documentation/devicetree/bindings/serial/8250.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/sunxi.yaml b/Documentation/devicetree/bindings/arm/sunxi.yaml
-index 7a7f96f21f57..2fdf614e639a 100644
---- a/Documentation/devicetree/bindings/arm/sunxi.yaml
-+++ b/Documentation/devicetree/bindings/arm/sunxi.yaml
-@@ -1043,6 +1043,11 @@ properties:
-           - const: xunlong,orangepi-4a
-           - const: allwinner,sun55i-t527
- 
-+      - description: Xunlong OrangePi 4 Pro
-+        items:
-+          - const: xunlong,orangepi-4-pro
-+          - const: allwinner,sun60i-a733
-+
-       - description: Xunlong OrangePi Lite
-         items:
-           - const: xunlong,orangepi-lite
+diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documentation/devicetree/bindings/serial/8250.yaml
+index 50d5c977afa3..166cb7995b09 100644
+--- a/Documentation/devicetree/bindings/serial/8250.yaml
++++ b/Documentation/devicetree/bindings/serial/8250.yaml
+@@ -137,6 +137,7 @@ properties:
+               - ti,da830-uart
+               - loongson,ls2k0500-uart
+               - loongson,ls2k1500-uart
++              - loongson,ls2k3000-uart
+           - const: ns16550a
+       - items:
+           - enum:
 -- 
-2.53.0
+2.52.0
 
