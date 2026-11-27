@@ -1,61 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795771640;
-	b=ipbvr5P+oFl1PW8lr2zk8TExafn8j2lBsvQcWbKBfd0nHAg86epMpQjkwAKdaUSG2b8V
-	 CzCEneqb0O59mzTrdjgOvulUHoat/WpbYjP/MXAspwRTVlGnhTgAgCRMVSzLKNk0kbyjm
-	 XD0Vcbg9dD464Jf6AujPtQln07lsuRYc9bmBmcv4V6zGoJN9PmIx+li9dVWo/MUGz80jK
-	 xpXzpGei74DCmu5atAxRawJ8YpeyFkLjQPHzvn2hv9YSREau4Zb//NJVxcuokqWN/rIUP
-	 oTJenR24VJTTsqVe1KxS3nFn5lM+e36rOqhK93mRuLBteJUen5Ryz/6TdF0vqAUUjxA==
+	t=1795771681;
+	b=axK1QP4ZRJYXsAb0u4qGXFLVihSLZXqqTvIEbpczsNcl1TWGYMbAdbtYJRF/9vEby1/L
+	 r7cJAEr9EWDeRxr4/MYZHG2I6sPW5H4wfpdo1A9QL27lntapk8mooKN04fc4p6/LTmC8Y
+	 aJJ7S60avd3hGTZhHB96TQPN8OSGZmlAgzvq+n63xcplvjekumgZ848H0E3Pi4HWlFzKq
+	 hHUGSB9TsngHFRAcnDDGMK+8s2XBoWMSO4Su1uuoJU4RnfmxINYyOxkTRI+TYPlRhVeAJ
+	 dNvj6jgogbQu7W26/mj7+vm2uVF/w0fRdmvk3wXgeANbpLD0n31msj9BXVB9v9PfBkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795771640;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/+gz4x7osdn1mRAdAKNMycVXNMms0/yOgYXMjpmRseY=;
-	b=CclrBG0NmdQIuzuSyuzDeec0sBnl+cNdWiP728CgUZ7auBNWLtYeO+PE/dS/aUnl35Nh
-	 dJKYVkqZ0g8pp5HoG0GYv1nDrjRfzVcPb6rfTW/PlMtyjG2Kwz889sNP267fk0iUHAS92
-	 8PZn9g7nfYZ8mrlDbEQxzUzfJKO1A+N96TMhM1mQbc1esUb2cBn4JFsO/dKHhQ07ZmP38
-	 njDNH+vBckF9lZEOqoU22HqHKIz9QIXw90PAx5adUMV1BpOMEpxZSrrpSCO81LsV9bi+v
-	 yv1OdEi7nAH03lNe8D7iwYu6eDR6sgmIq2RgdnRAGDBSstT0BNTTjYDGsvMU6jIaMPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795771681;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=1U+VUQgPNdFyqdogFGANZrOR29fcq+5XxMuyJyNDdRU=;
+	b=o9nvo12pMTM33IYN9snAy0U722w8IM4i/tgQ9JIM6P7FOxm6jHzZHS89J7tfRw65Jmox
+	 IyLEm/YeTAOew/5SFlKrNSbk744DM7HtWzzWJwHG2W/9qptVM6Wmtrfzk0FoNS0eGXujs
+	 GR5qwpJeymCTHcvr2piUAGJbL2Gq5Ii0Ry/91ABzByJvEO+dwsVY2p28F8fctw8JMgamu
+	 vlXp68bjBPsZl00vT+cj+cySTl9NegCN4C1m7x4NCEEbqpy2CbZhwWZ2jQxiSemkyNDPG
+	 p846q0xH5iJ5IcGWqUKPIxR+pgY2H2NrWewHAukkNn9yfkBJ+jki9w3jljMXPQ378Dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fUmPOHjf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XHl/81gu";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC360606A32D;
-	Fri, 27 Nov 2026 09:27:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58BD3606A321
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 09:28:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fUmPOHjf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E0D41F00A22;
-	Fri, 27 Nov 2026 09:27:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XHl/81gu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FB391F00898;
+	Fri, 27 Nov 2026 09:28:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795771640;
-	bh=/+gz4x7osdn1mRAdAKNMycVXNMms0/yOgYXMjpmRseY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fUmPOHjf4n4111pVeYVvWxiXrY6ZWntXMlJCMQowL9ba2LG5Z5PhYzT5DLkEJEXi2
-	 Z+SIZ+8ZhPkdUz8VlWAyueHqlRVN/1PsmbZ9/HJd2AnMq+tt8+WCbdnldDkKSssMsJ
-	 hMHCDKn6ykBdh9jG3Jl3m0Ewjq5pHcl/UJnM/LhLx5hXrE4+mTDBQYLukVvQUXoKCt
-	 1rHT2PUaILVBSE0c5LOjStzmRIP6e+NuAmTmi9ftDqADkprB78netEOpvDqQbOHkDS
-	 VYAWKZxvTDlPnQfFNNET841idRnxXDsVdYJVj6p5+Rj0ir9P1LsguJbrjYQ+W9dJZE
-	 cXlMIlmMmmVnA==
-Date: Fri, 27 Nov 2026 09:27:15 +0000
-From: Lee Jones <lee@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Andre Przywara <andre.przywara@arm.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Hans de Goede <hansg@kernel.org>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	mfd@lists.linux.dev, linux-sunxi@lists.linux.dev,
-	Sashiko <sashiko-bot@kernel.org>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v8 0/5] regulator: Add X-Powers AXP318W PMIC support
-Message-ID: <20261127092715.GP38590@joneslee-macbookpro.roam.internal>
-References: <20260910-axp318-regulator-v8-0-e906a61a7f3d@baylibre.com>
- <20261127084820.GN38590@joneslee-macbookpro.roam.internal>
- <1jzeuu1vey.fsf@starbuckisacylon.baylibre.com>
+	s=k20260515; t=1795771680;
+	bh=1U+VUQgPNdFyqdogFGANZrOR29fcq+5XxMuyJyNDdRU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XHl/81guaJXPg0IADJ43LaCpk6Xtog3AUEFHySGy+ivIYZaBZD2qQHo1wVkAIxnG2
+	 y5SwfiomD3cTgM1UrkIC0sWaSKY7dLzlbiyJqlY3RFh8n+hDKJouH0YPgF+j+WIyKo
+	 fCFQB6yBJHOa/uxjTMBVxFfAlP59JA4Zb4uXlVF/95UvyZWixqJP0GPELzYa2aY08/
+	 X/TFMWubDVEQZDuKIxFqmenq9CAEkLwxNE4pmr0uoLRNbPNYxs00gbyRlme0exvMuK
+	 qByJB/58oJRulyey3JTXtknBn/S4GAd2jJjTHhzZbAcCXpMADFG0MbTCaHe3OHh1Pi
+	 nyi9UyHivSf1g==
+Message-ID: <sashiko-outbox-236978@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v3 2/3] net: mdio: Add Cortina CS7542 bus
+ controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Fil Dunsky" <filipp.dunsky@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261126-b4-cs7542-mdio-v3-2-35739a0f3225@gmail.com>
+References: <20261126-b4-cs7542-mdio-v3-0-35739a0f3225@gmail.com>
+ <20261126-b4-cs7542-mdio-v3-2-35739a0f3225@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 27 Nov 2026 09:27:59 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,29 +60,63 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1jzeuu1vey.fsf@starbuckisacylon.baylibre.com>
 
-On Fri, 27 Nov 2026, Jerome Brunet wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] net: mdio: missing APB clock enablement in
+  cs75xx_mdio_probe()
+--
 
-> On ven. 27 nov. 2026 at 08:48, Lee Jones <lee@kernel.org> wrote:
-> 
-> > On Thu, 10 Sep 2026, Jerome Brunet wrote:
-> >
-> >> This patch series adds support for the X-Powers AXP318W PMIC, which is
-> >> used recently on new boards with Allwinner SoCs (the A733).
-> >
-> > Doesn't apply.  Please rebase onto v7.4-rc1 and submit a [RESEND].
-> 
-> No worries.
-> 
-> In this cycle, series based on -rc1 and devm_kzalloc() in them tend to
-> conflict in next. This series would be impacted too. I can rebase on -rc2
-> if you'd prefer to avoid this. Just tell which you prefer.
+commit 78d590aee35acd115434c7d0b0c0e975167e8993
+Author: Fil Dunsky <filipp.dunsky@gmail.com>
 
-Yes please.
+net: mdio: Add Cortina CS7542 bus controller
 
--- 
-Lee Jones
+This commit adds a driver for the Cortina Systems CS7542 MDIO bus
+controller supporting Clause 22 PHY register access via polling.
+
+> diff --git a/drivers/net/mdio/mdio-cs75xx.c b/drivers/net/mdio/mdio-cs75x=
+x.c
+> new file mode 100644
+> index 0000000000000..c3d80a983404c
+> --- /dev/null
+> +++ b/drivers/net/mdio/mdio-cs75xx.c
+
+[ ... ]
+
+> +static int cs75xx_mdio_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct cs75xx_mdio *priv;
+> +	struct mii_bus *bus;
+> +	u32 cfg;
+> +
+> +	bus =3D devm_mdiobus_alloc_size(dev, sizeof(*priv));
+> +	if (!bus)
+> +		return -ENOMEM;
+> +
+> +	priv =3D bus->priv;
+> +	priv->base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(priv->base))
+> +		return PTR_ERR(priv->base);
+> +
+> +	cfg =3D readl(priv->base + PER_MDIO_CFG);
+> +	/* The firmware configures the MDC rate; retain its prescaler. */
+> +	cfg |=3D MDIO_CFG_MANUAL;
+> +	writel(cfg, priv->base + PER_MDIO_CFG);
+> +	writel(MDIO_CTRL_DONE, priv->base + PER_MDIO_CTRL);
+
+[Severity: Medium]
+Should cs75xx_mdio_probe() acquire and enable the APB input clock with
+devm_clk_get_enabled() before accessing PER_MDIO_CFG and PER_MDIO_CTRL?
+
+The companion DT binding in Documentation/devicetree/bindings/net/cortina,c=
+s7542-mdio.yaml
+makes clocks a required property.  Even when retaining the firmware
+prescaler, leaving the clock unclaimed means probe accesses can hit an
+unclocked block, or clk_disable_unused can gate the clock later and make
+cs75xx_mdio_read() and cs75xx_mdio_write() time out with -ETIMEDOUT.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-b4-cs7542-=
+mdio-v3-0-35739a0f3225@gmail.com?part=3D2
