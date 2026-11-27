@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795795237;
-	b=zzS3yD3KIUN8WN6gS9LcTOoROJtCv2+gevh26rv8dHWE0dsML6xrwK6FujHz27mOyE+c
-	 z5W1TSKqBmbf7WWn8c8oGsNhwSBljYTK2tQthuJP5IdhZRdiXQBxDo/0hyvcgH8EQ1ghT
-	 haIdezP/OKauD/DR4swj4Os8xpmn4gLhQflhl8Ecpnbwb+kmRJR/6z+NxAgiPGMNehpDh
-	 AoMWyMN9T6cwWxsdbalnON2/7QR7ehEEuUguTH27BjOP1AjUz6FuHobqTtnPpybg9wU23
-	 FMAl9vfA8Wy8hewgOdQRasViv703jWbv29yPEFI9nWVuKlFPYBvsTazXFSg0pepHC7g==
+	t=1795795239;
+	b=FrqBonMiwEz9ufBjSVzJh/UsPCKkQRSGtI/Gk6tJY1WSWOrzNhVoCVPm2hw5VR3EKXdw
+	 H8EHRJ1iP52AvoeTwpXxjPjxiwjLGA/5BdltGZmS/e0ejGf+S0iOeoNm2/R6aAlb4RKSt
+	 dF0Sh+Phz9yy2oiX5XgDLK2O8gz5IPHXaPlDjgTE9DGhTB5fYiNdBFmOegYfb8fENdlmc
+	 UTBq5z64qEIv4vwVWdLWbEWTidh6iHMduMAdCkLCYGq6NNeYoilrOoUnomCFIlunKsVSg
+	 dy5MxpU93blswrfeSRm7WPIBcM9b2xtRxz08BVYLjkEPLmZtilWivySXCKHVTkVMgXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795795237;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795795239;
 	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=UN0eAn+e0nbKcAB63L062tafwgH2f4JxXjZNGtPr1AA=;
-	b=wrwOhu1SmuB9+uUUDlWOBVIOZk4efYiGq107pqzTiBpDVBa8+dWEWn6OTtr4Ys7HDCah
-	 nvMM93VsO1U8AllIbJOvdmRRQ8mTHu0vnneHx175ERGGljJsdoMqDRDYm6m8T0ShMloYY
-	 3CEpKKwFrOB59Zl7aQQMCJq/J+NsSjitroRqhnQK22fOmAuGkngCC70heDlnEWzHZ+rxu
-	 c3Qis1UBbudGedgr4lHwrWugk5IyM/ZpsA4GK/JUA4xoE1rwtx/lHuBgJJilt+qiGI7xY
-	 bFwujrogfimUryGnzhlN+VZ1iVmTiUWCcBJ38JcVb3K7lJdWCHHQA4A0HUPt9/HINuQ==
+	bh=GtTI4H7/p5ukT6tYB3onQgsNbuPUVbCpuIyK8k4GxeY=;
+	b=us71v7F9cVgIlIab3dLvAafaCLEQHI2mo3MHdNp5uF5zkFA6xFBZ3XcWEzxS1+21Jgg1
+	 dbigcWsqu05xlAgkmTYLpfSXPZWS3KYqaZXp+P0Tmg2/pyIutTSSev4wkZC0Kk3iogHxi
+	 GC1UhANjznyaqPm3oRmdf130PftP4BUU1P8vHTY6NDJkYvduKsJ5V9huweJLB5wHIogjL
+	 gtEkQsJFXKjjaAjRjoGMci846AsaE4hyhSlyr6eJA1G3Gvw3/QWiig0LuxhRxwyyN33hj
+	 zmtnmcmk0U1uhwXWj+I6HbJBmJcibQem+F727EaYeqClGK+xb19oNRXj+wLgkH19Myw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=g0NJmXYX;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=irrRBx1e;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B19606A68B;
-	Fri, 27 Nov 2026 16:00:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55B19606A68B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C29860A3807;
+	Fri, 27 Nov 2026 16:00:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C29860A3807
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=g0NJmXYX
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=irrRBx1e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795795235;
-	bh=FggV32bpLJcXvuvizwSglfD4bXDoD8yDJrwTvVQfRmk=;
+	s=mail; t=1795795237;
+	bh=9XODURj1/aPQjhdAIHQAM+FlqP2MtikTuvlHQ/OgkaU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=g0NJmXYXs/lDyDBUn3gj32mth2wJMYXK6BUq/AOP4k82NsCd8+uWlz5KsRdPg0b1z
-	 LlcnueBn3yerFVZ8fCGChbjVYMN/qRqkVOrSIlnzyt45wu47ni6IZfQdDfctZ8fX9H
-	 WXeLlZBPVsbGw89zEGmXe4WBVWALOeuldJaVp2T+BiRKbnZaiqTV4MeiFGHCKslp23
-	 oPDbvJOMnFHq1h8PG6ItMl1gK+9zO3YeyP2f5fxtWingejdGQZRrG/JJBtWd/KomCw
-	 vCeAMsEtXKEvu776VUTTogpYVPHms0sqQ9maGlfakNglXJQXtgleNarPaRGlQ+oSb0
-	 CDuMI90wxaBOA==
+	b=irrRBx1edGYiDyHBAASb84OcIqRdNpySEFIVHAWdHBDOFGpgyeXOe65pOd7MAmjH+
+	 U5rsvoarr75Q3N3mpN2qIqZseGOCkCBH5mFbzGmYzcH683PIGszDCEK3FHQREGBFVf
+	 2LzgdZdODJO0eFZCYCxWGW8wSz7gEeSbsmARaALKlyKQ1Qlk4+dtoypcd+UUdQsksr
+	 SncCPkVNmEFjxXb5hznt4QpyAVYP5OBiMJs/9WO/I1CKrGMLMEsY0T1zaOHM23UvkS
+	 YZ1RS5TZUaYGlgm6NGANcc2sgUICljTJHnNfjXwnP1+0BCqyIFgFpyDh9BxWfCPfjX
+	 8cxnFmZyi22Tw==
 Received: from yukiji.home (unknown [100.64.0.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9F62E17E0A27;
-	Fri, 27 Nov 2026 17:00:34 +0100 (CET)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id F229117E0BA9;
+	Fri, 27 Nov 2026 17:00:35 +0100 (CET)
 From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Fri, 27 Nov 2026 17:00:12 +0100
-Subject: [PATCH v16 09/23] scsi: ufs: mediatek: Rework init function
+Date: Fri, 27 Nov 2026 17:00:13 +0100
+Subject: [PATCH v16 10/23] scsi: ufs: mediatek: Rework the crypt-boost
+ stuff
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,8 +64,8 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-mt8196-ufs-v16-9-6f2568f7c119@collabora.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261127-mt8196-ufs-v16-10-6f2568f7c119@collabora.com>
 References: <20261127-mt8196-ufs-v16-0-6f2568f7c119@collabora.com>
 In-Reply-To: <20261127-mt8196-ufs-v16-0-6f2568f7c119@collabora.com>
 To: Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
@@ -87,124 +88,157 @@ Cc: kernel@collabora.com, linux-arm-kernel@lists.infradead.org,
  linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-scsi@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795795222; l=3144;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795795222; l=4252;
  i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=mWZMkmrw8oWESUKEiLLkb4JgtAG1k0kfXPbf8ghVb88=;
- b=JbLjIXufqhClq8o7Al4YYNjgrxi8kGG9bAowgyyrAgbkG5NEXez4svyhgz8t+jZ3gELSMakRv
- AmsQ4OSPF9DAaBrDkpYwJA9Swu3nz7fk2BiTUrpNT9iEEvoglsY+oXy
+ bh=t+EX1zo42dcM7+KTo8uLwNF/1DfFs3i+4+N5UTCySt0=;
+ b=YyNEmUf3FM2ks2sBgByG3NB+O0JG/jdzvenGC5svvVt/lXjXRg2uJeGVhOH1FHQYxmAMwr7te
+ WiDjOawX3UmCJmTFvdDtpA/smB03pW5RSGkvbZdZaVF7E5+i5a0NnVR
 X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
  pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-Printing an error message on ENOMEM is pointless. The print will not
-work because there is no memory.
+I don't know whether the crypt-boost functionality as it is currently
+implemented is even appropriate for mainline. It might be better done in
+some generic way. But what I do know is that I can rework the code to
+make it less obtuse.
 
-Adding an of_match_device to the init function is pointless. Why would a
-different device with a different probe function ever use the same init
-function? Get rid of it.
+Prefix the boost stuff with the appropriate vendor prefix, remove the
+pointless clock wrappers, and rework the function.
 
-zero-initialising an error variable just so you can then goto a bare
-return statement with that error variable to signal success is also
-pointless, just return directly, there's no unwind being done.
-
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
 Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Reviewed-by: Peter Wang (王信友) <peter.wang@mediatek.com>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 ---
- drivers/ufs/host/ufs-mediatek.c | 43 +++++++++++++++--------------------------
- 1 file changed, 16 insertions(+), 27 deletions(-)
+ drivers/ufs/host/ufs-mediatek.c | 88 +++++++++++++++--------------------------
+ 1 file changed, 31 insertions(+), 57 deletions(-)
 
 diff --git a/drivers/ufs/host/ufs-mediatek.c b/drivers/ufs/host/ufs-mediatek.c
-index 3ebc169b6878..177e406cbc5f 100644
+index 177e406cbc5f..41c477f5d5f3 100644
 --- a/drivers/ufs/host/ufs-mediatek.c
 +++ b/drivers/ufs/host/ufs-mediatek.c
-@@ -54,18 +54,6 @@ static const struct ufs_dev_quirk ufs_mtk_dev_fixups[] = {
- 	{}
- };
- 
--static const struct ufs_mtk_soc_data mt8183_data = {
--	.has_avdd09 = true,
--};
--
--static const struct of_device_id ufs_mtk_of_match[] = {
--	{ .compatible = "mediatek,mt8183-ufshci", .data = &mt8183_data },
--	{ .compatible = "mediatek,mt8192-ufshci" },
--	{ .compatible = "mediatek,mt8195-ufshci" },
--	{},
--};
--MODULE_DEVICE_TABLE(of, ufs_mtk_of_match);
--
- /*
-  * Details of UIC Errors
-  */
-@@ -1328,29 +1316,19 @@ static int ufs_mtk_get_supplies(struct ufs_mtk_host *host)
-  */
- static int ufs_mtk_init(struct ufs_hba *hba)
- {
--	const struct of_device_id *id;
- 	struct device *dev = hba->dev;
- 	struct ufs_mtk_host *host;
- 	struct Scsi_Host *shost = hba->host;
--	int err = 0;
-+	int err;
- 	struct arm_smccc_res res;
- 
- 	host = devm_kzalloc_obj(dev, *host);
--	if (!host) {
--		err = -ENOMEM;
--		dev_info(dev, "%s: no memory for mtk ufs host\n", __func__);
--		goto out;
--	}
-+	if (!host)
-+		return -ENOMEM;
- 
- 	host->hba = hba;
- 	ufshcd_set_variant(hba, host);
- 
--	id = of_match_device(ufs_mtk_of_match, dev);
--	if (!id) {
--		err = -EINVAL;
--		goto out;
--	}
--
- 	/* Initialize host capability */
- 	ufs_mtk_init_host_caps(hba);
- 
-@@ -1426,11 +1404,10 @@ static int ufs_mtk_init(struct ufs_hba *hba)
- 
- 	ufs_mtk_get_hw_ip_version(hba);
- 
--	goto out;
-+	return 0;
- 
- out_variant_clear:
- 	ufshcd_set_variant(hba, NULL);
--out:
- 	return err;
+@@ -617,21 +617,6 @@ static int ufs_mtk_mphy_power_on(struct ufs_hba *hba, bool on)
+ 	return 0;
  }
  
-@@ -2488,6 +2465,18 @@ static const struct ufs_hba_variant_ops ufs_hba_mtk_vops = {
- 	.config_scsi_dev     = ufs_mtk_config_scsi_dev,
- };
+-static int ufs_mtk_get_host_clk(struct device *dev, const char *name,
+-				struct clk **clk_out)
+-{
+-	struct clk *clk;
+-	int err = 0;
+-
+-	clk = devm_clk_get(dev, name);
+-	if (IS_ERR(clk))
+-		err = PTR_ERR(clk);
+-	else
+-		*clk_out = clk;
+-
+-	return err;
+-}
+-
+ static void ufs_mtk_boost_crypt(struct ufs_hba *hba, bool boost)
+ {
+ 	struct ufs_mtk_host *host = ufshcd_get_variant(hba);
+@@ -688,64 +673,53 @@ static void ufs_mtk_boost_crypt(struct ufs_hba *hba, bool boost)
+ 	clk_disable_unprepare(cfg->clk_crypt_mux);
+ }
  
-+static const struct ufs_mtk_soc_data mt8183_data = {
-+	.has_avdd09 = true,
-+};
-+
-+static const struct of_device_id ufs_mtk_of_match[] = {
-+	{ .compatible = "mediatek,mt8183-ufshci", .data = &mt8183_data },
-+	{ .compatible = "mediatek,mt8192-ufshci" },
-+	{ .compatible = "mediatek,mt8195-ufshci" },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, ufs_mtk_of_match);
-+
- /**
-  * ufs_mtk_probe - probe routine of the driver
-  * @pdev: pointer to Platform device handle
+-static int ufs_mtk_init_host_clk(struct ufs_hba *hba, const char *name,
+-				 struct clk **clk)
+-{
+-	int ret;
+-
+-	ret = ufs_mtk_get_host_clk(hba->dev, name, clk);
+-	if (ret) {
+-		dev_info(hba->dev, "%s: failed to get %s: %d", __func__,
+-			 name, ret);
+-	}
+-
+-	return ret;
+-}
+-
+ static void ufs_mtk_init_boost_crypt(struct ufs_hba *hba)
+ {
+ 	struct ufs_mtk_host *host = ufshcd_get_variant(hba);
+ 	struct ufs_mtk_crypt_cfg *cfg;
+ 	struct device *dev = hba->dev;
+-	struct regulator *reg;
+ 	u32 volt;
++	int ret;
+ 
+-	host->crypt = devm_kzalloc_obj(dev, *(host->crypt));
+-	if (!host->crypt)
+-		goto disable_caps;
++	cfg = devm_kzalloc_obj(dev, *cfg);
++	if (!cfg)
++		return;
+ 
+-	reg = devm_regulator_get_optional(dev, "dvfsrc-vcore");
+-	if (IS_ERR(reg)) {
+-		dev_info(dev, "failed to get dvfsrc-vcore: %ld",
+-			 PTR_ERR(reg));
+-		goto disable_caps;
++	cfg->reg_vcore = devm_regulator_get_optional(dev, "dvfsrc-vcore");
++	if (IS_ERR(cfg->reg_vcore)) {
++		dev_err(dev, "Failed to get dvfsrc-vcore: %pe\n", cfg->reg_vcore);
++		return;
+ 	}
+ 
+-	if (of_property_read_u32(dev->of_node, "boost-crypt-vcore-min",
+-				 &volt)) {
+-		dev_info(dev, "failed to get boost-crypt-vcore-min");
+-		goto disable_caps;
++	ret = of_property_read_u32(dev->of_node, "mediatek,boost-crypt-vcore-min",
++				   &volt);
++	if (ret) {
++		dev_err(dev, "Failed to get mediatek,boost-crypt-vcore-min: %pe\n",
++			ERR_PTR(ret));
++		return;
+ 	}
++	cfg->vcore_volt = volt;
+ 
+-	cfg = host->crypt;
+-	if (ufs_mtk_init_host_clk(hba, "crypt_mux",
+-				  &cfg->clk_crypt_mux))
+-		goto disable_caps;
++	cfg->clk_crypt_mux = devm_clk_get(dev, "crypt_mux");
++	if (IS_ERR(cfg->clk_crypt_mux)) {
++		dev_err(dev, "Failed to get clock crypt_mux: %pe\n", cfg->clk_crypt_mux);
++		return;
++	}
+ 
+-	if (ufs_mtk_init_host_clk(hba, "crypt_lp",
+-				  &cfg->clk_crypt_lp))
+-		goto disable_caps;
++	cfg->clk_crypt_lp = devm_clk_get(dev, "crypt_lp");
++	if (IS_ERR(cfg->clk_crypt_lp)) {
++		dev_err(dev, "Failed to get clock crypt_lp: %pe\n", cfg->clk_crypt_lp);
++		return;
++	}
+ 
+-	if (ufs_mtk_init_host_clk(hba, "crypt_perf",
+-				  &cfg->clk_crypt_perf))
+-		goto disable_caps;
++	cfg->clk_crypt_perf = devm_clk_get(dev, "crypt_perf");
++	if (IS_ERR(cfg->clk_crypt_perf)) {
++		dev_err(dev, "Failed to get clock crypt_perf: %pe\n", cfg->clk_crypt_perf);
++		return;
++	}
+ 
+-	cfg->reg_vcore = reg;
+-	cfg->vcore_volt = volt;
++	host->crypt = cfg;
+ 	host->caps |= UFS_MTK_CAP_BOOST_CRYPT_ENGINE;
+-
+-disable_caps:
+-	return;
+ }
+ 
+ static void ufs_mtk_init_host_caps(struct ufs_hba *hba)
 
 -- 
 2.56.1
