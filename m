@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795788071;
-	b=nNwf+Gge9qdvpcqbapuxoW9KjpGQEiSn6pbijLMON3PoGK7VpeVgH1s1jYPnfd5BdOXu
-	 0+znNta6X7NGyw4u5k5zBAqaJ8zb7jSEyHV+Xp4knURopg9TiCUBguSwczChD4AVI6RHj
-	 ws+Y6VtDzJAbRJe8YGlKt0UlKiWVXLW4pW6tHhapk8zxQSdnbmTldXsymH1XDUQ3UzHLe
-	 OymFFSlKmXjjcvx2JA/gVzpPiZfxoYwXoRELqrT4cWW1cOFCJsuKQLIH+cyg/TJVaacA4
-	 WaLrx16H1SAQ0QvkGOugPfbavUP+WHc0G1aioOOv3NRkaPaRhhOst3hfKMlKc7C88ow==
+	t=1795788112;
+	b=s98b3Hf8+xSS7nEfLXb7bG2wem9ReKRgGnthYtRdw+m8VwfneX235bSY2CKUqAmkrDy5
+	 bmG4FlC40tjvEnuB+oO20Hc0ZqBuilPsvSZgbXSbH2erkio2OAIDJ7u4msSeSRhRrrVx9
+	 v7e9U1hZbUOvDaGppqMDtle+oHRCoL76rr9dH0dgXf/Z0vHdqnHQHtA5OpIQQRRY/PrZD
+	 WGjlV8PvcMBApa24b8SEj1EkoD/VfAELeM/HnvlWti1Igz+hqprpzQeOdfIW7l6re6Sa5
+	 JgRH7tJmp0IR8o+kzWL6z7tSdwyouOuZLRkUevW9F5yrg2J+o1kHeCMerO74ZJ/zoAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795788071;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795788112;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=b/RjVZytl4U7onEEBW1fC3PHJ/3e3B7ie9vDK951TfE=;
-	b=gOOLULaw2rEAjJ1uqM6qsH+ThZB1AGpOsrzX4tTgsPF8R3MgabH8Eue4iQNyjdzO23RC
-	 W4/aSOYAgSczJNeCX3SUTobHFxqbUgcimtqP77e0nStnTIrEIwjgrWWfzYe1PHN483MfL
-	 w/k0WFSyRBLr2SWsTgGZsj8fU6RsrKvHa6R9Gia4DnacT92LXNCztyveBEsqsX8eME2rE
-	 1MvGoAnBS+W9q00SRMjiC4N49yK0Ts3TMIN7/NrzpzfzFlPS+lDwc9vYKDdyoFSMNBaaS
-	 GtmeKhoVYLEGvHP0zcrr7Ry/IER/wf+oxpOLcfSEPKvL4x9Znqe0aFC/jkh3REEPz0A==
+	bh=kPd6TTHPPZF1o4owm+NX+PvKg2IQUY4I29eF/MO8HIQ=;
+	b=VrphQk2nkCjbmKTOTuvGrv8NnKnTJRJk8tTql/MXXM+wQdC7rgjOSU3EnKK3EWGwzojG
+	 ZBeKBjtBK7ulPre+n7QGJfBUdLfwxemjNTYe+LEBIprjSvUCwOfgLtsvwVEfapLk1aOWV
+	 2dQltuDDCmTTTjGC1ECF9MrWtcevgWsMAOI0tPQtNfxsMjikRMa6LF8O5N85n8YeLnqNO
+	 5QpECzP9xhwaL3pEDfriemism7DyIxBe942h5RgzE5pSkAFmEyfLq55iRJz2N8/cCXAR6
+	 RzhH3ThC7I2Kg+EvZ324mv/g9IYZJlRYZV/cNfbILYMiUVVuG7cmOnB3wjW9g5zTFig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JdIbRhFn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z8v02QAP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D790606A31E;
-	Fri, 27 Nov 2026 14:01:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F62F606A31C;
+	Fri, 27 Nov 2026 14:01:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JdIbRhFn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D62BD1F000C1;
-	Fri, 27 Nov 2026 14:01:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z8v02QAP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47C901F0089A;
+	Fri, 27 Nov 2026 14:01:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795788070;
-	bh=b/RjVZytl4U7onEEBW1fC3PHJ/3e3B7ie9vDK951TfE=;
+	s=k20260515; t=1795788111;
+	bh=kPd6TTHPPZF1o4owm+NX+PvKg2IQUY4I29eF/MO8HIQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JdIbRhFnrQdorPmMF+9E8EK8KKgLclWuG4mGgiI0Q7wYUuhDxxuwJdhk+KNRwQiuJ
-	 6Ka72MlcgOcUB8WewCYWveOir18mNYHpz8cYLYr9vf4CIQz7gjsInCq07ZKwSA7Tc8
-	 YPi7rCStg6CfMxIZwXJPebNkoUNi/+MxlMx4qvFolRSNtuH1dCemPay3SDGfZabXbQ
-	 d7QuDxR7Uu2gx5xWhEsndezQ3SgjTOPS8LQ6ZftS4Plj5pE6YBTCtOm9WyO5TJEj1z
-	 wv9Atrtg5Iz3EF+vd5W/R93+n8mgUdRfbrOLeDCYi4LSCu7xZTxtug6VFw6R65m2e+
-	 sTSFhD5592vog==
-Message-ID: <sashiko-outbox-237528@kernel.org>
+	b=Z8v02QAPm8lUxNll8MzmgNQeso9m92czo1iF1bUEG/epivqLKj5f8/itDtJmFUknH
+	 MkZ3WYctcx3EMVLQ2iLgLloo5yf3UxVI51cjqH9a2yNT3Q30Wr0iNEGNDo6p2OQJMk
+	 f54Iq3b4t1tyF8/Qp4/fjx6vZKLJ00Al4DjVY5/Ns+46yVU986Igr+GsetsP7SmC+k
+	 dg3RH7IlD0/rhgYBU4uLPOjmY5492Ji5TuYgh7g5m7on0uUQ0frWxwk7Ta/hBMPcqL
+	 hKM4/U2rLmlq/7LXYoEoYD0S681du/CqU41YlNb8avGGiz2Zj88ZkR295wvmFODdh5
+	 SLmSZUarzcnfQ==
+Message-ID: <sashiko-outbox-237529@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/2] ASoC: dt-bindings: qcom,wcd9378-sdw: add
- non-SDCA (mobile) mode
+Subject: Re: [PATCH v5 3/7] media: i2c: add s5k5e8 image sensor driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ravi Hothi" <ravi.hothi@oss.qualcomm.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261127-b4-wcd9378-v3-v3-1-397e5ba2da55@oss.qualcomm.com>
-References: <20261127-b4-wcd9378-v3-v3-0-397e5ba2da55@oss.qualcomm.com>
- <20261127-b4-wcd9378-v3-v3-1-397e5ba2da55@oss.qualcomm.com>
+To: "Hikmah Gumelar" <hikmahgumelar@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261127134507.125513-4-hikmahgumelar@gmail.com>
+References: <20261127134507.125513-1-hikmahgumelar@gmail.com>
+ <20261127134507.125513-4-hikmahgumelar@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 14:01:09 +0000
+Date: Fri, 27 Nov 2026 14:01:50 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,100 +60,169 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] ASoC: dt-bindings: qcom,wcd9378-sdw: qcom,port-mapping not
-  required for RX node
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [Medium] media: i2c: s5k5e8: control writes skipped when !CONFIG_PM in
+  s5k5e8_set_ctrl()
+- [Low] media: i2c: s5k5e8: unused V4L2_CCI_I2C select and duplicate I2C
+  helpers
+- [Low] media: i2c: s5k5e8: deprecated s_stream op used instead of
+  enable_streams
 --
 
-commit 14ae46e896909f194da940d46755798a8c5dcc39
-Author: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
+commit f8cb2239802ac8d357b8e34b78a9d168603a7bc8
+Author: Hikmah Gumelar <hikmahgumelar@gmail.com>
 
-ASoC: dt-bindings: qcom,wcd9378-sdw: add non-SDCA (mobile) mode
+media: i2c: add s5k5e8 image sensor driver
 
-This commit updates the WCD9378 SoundWire binding to describe the
-non-SDCA (mobile) split RX/TX device topology alongside the existing
-SDCA-compliant single-device topology.
+This commit adds a V4L2 subdevice driver for the Samsung S5K5E8 5MP
+MIPI CSI-2 CMOS image sensor.
 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yam=
-l b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
-> index 62d85b1dca7f2..03ee4a4deea61 100644
-> --- a/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
-> +++ b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
+> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+> index 162b8ea026018..4c622e5eef73f 100644
+> --- a/drivers/media/i2c/Kconfig
+> +++ b/drivers/media/i2c/Kconfig
+> @@ -879,6 +879,16 @@ config VIDEO_S5K3M5
+>  	  To compile this driver as a module, choose M here: the
+>  	  module will be called s5k3m5.
+> =20
+> +config VIDEO_S5K5E8
+> +	tristate "Samsung S5K5E8 sensor support"
+> +	select V4L2_CCI_I2C
+> +	help
+> +	  This is a Video4Linux2 sensor-level driver for the Samsung
+> +	  S5K5E8 5MP camera.
+> +
+> +	  To compile this driver as a module, choose M here: the
+> +	  module will be called s5k5e8.
+> +
+>  config VIDEO_S5K5BAF
+>  	tristate "Samsung S5K5BAF sensor support"
+>  	help
+> diff --git a/drivers/media/i2c/s5k5e8.c b/drivers/media/i2c/s5k5e8.c
+> new file mode 100644
+> index 0000000000000..d25b978d7eda6
+> --- /dev/null
+> +++ b/drivers/media/i2c/s5k5e8.c
+> @@ -0,0 +1,567 @@
 
 [ ... ]
 
-> @@ -58,24 +69,93 @@ properties:
->    vdd-mic-bias-supply:
->      description: Mic bias supply.
-> =20
-> +  qcom,micbias1-microvolt:
-> +    description: micbias1 voltage
-> +    minimum: 1800000
-> +    maximum: 2850000
+> +static int s5k5e8_read_reg(struct s5k5e8 *s5k5e8, u16 reg, u32 len, u32 =
+*val)
+> +{
+> +	struct i2c_client *client =3D v4l2_get_subdevdata(&s5k5e8->sd);
+> +	struct i2c_msg msgs[2];
+> +	u8 addr_buf[2], data_buf[4] =3D { 0 };
+> +	int ret;
 > +
-> +  qcom,micbias2-microvolt:
-> +    description: micbias2 voltage
-> +    minimum: 1800000
-> +    maximum: 2850000
+> +	put_unaligned_be16(reg, addr_buf);
+> +	msgs[0].addr =3D client->addr;
+> +	msgs[0].flags =3D 0;
+> +	msgs[0].len =3D 2;
+> +	msgs[0].buf =3D addr_buf;
+> +	msgs[1].addr =3D client->addr;
+> +	msgs[1].flags =3D I2C_M_RD;
+> +	msgs[1].len =3D len;
+> +	msgs[1].buf =3D &data_buf[4 - len];
+> +	ret =3D i2c_transfer(client->adapter, msgs, 2);
+> +	if (ret !=3D 2)
+> +		return ret < 0 ? ret : -EIO;
+> +	*val =3D get_unaligned_be32(data_buf);
+> +	return 0;
+> +}
 > +
-> +  qcom,micbias3-microvolt:
-> +    description: micbias3 voltage
-> +    minimum: 1800000
-> +    maximum: 2850000
+> +static int s5k5e8_write_reg(struct s5k5e8 *s5k5e8, u16 reg, u32 len, u32=
+ val)
+> +{
+> +	struct i2c_client *client =3D v4l2_get_subdevdata(&s5k5e8->sd);
+> +	u8 buf[6];
+> +	int ret;
 > +
->    '#sound-dai-cells':
->      const: 1
-> =20
->  required:
->    - compatible
->    - reg
-> -  - qcom,sdca-compliant
-> -  - qcom,port-mapping
-> -  - reset-gpios
-> -  - vdd-buck-supply
-> -  - vdd-rxtx-supply
-> -  - vdd-io-supply
-> -  - vdd-mic-bias-supply
-> -  - '#sound-dai-cells'
+> +	put_unaligned_be16(reg, buf);
+> +	put_unaligned_be32(val << (8 * (4 - len)), buf + 2);
+> +	ret =3D i2c_master_send(client, buf, len + 2);
+> +	return ret =3D=3D len + 2 ? 0 : (ret < 0 ? ret : -EIO);
+> +}
 > +
-> +allOf:
-> +  - $ref: dai-common.yaml#
+> +static int s5k5e8_write_regs(struct s5k5e8 *s5k5e8, const struct s5k5e8_=
+reg *regs, u32 len)
+> +{
+> +	u32 i;
+> +	int ret;
 > +
-> +  # The device reaching the control register space owns the codec-wide
-> +  # resources and exposes the DAIs. A data-only device describes nothing
-> +  # but its own data path.
-> +  - if:
-> +      anyOf:
-> +        - required:
-> +            - qcom,sdca-compliant
-> +        - required:
-> +            - qcom,rx-device
-> +    then:
-> +      required:
-> +        - qcom,port-mapping
-> +        - reset-gpios
-> +        - vdd-buck-supply
-> +        - vdd-rxtx-supply
-> +        - vdd-io-supply
-> +        - vdd-mic-bias-supply
-> +        - '#sound-dai-cells'
-> +    else:
-> +      properties:
-> +        reset-gpios: false
-> +        vdd-buck-supply: false
-> +        vdd-rxtx-supply: false
-> +        vdd-io-supply: false
-> +        vdd-mic-bias-supply: false
-> +        '#sound-dai-cells': false
+> +	for (i =3D 0; i < len; i++) {
+> +		ret =3D s5k5e8_write_reg(s5k5e8, regs[i].address, 1, regs[i].val);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +	return 0;
+> +}
 
 [Severity: Low]
-Should qcom,port-mapping remain in the top-level required list?
+Could this driver use the V4L2 CCI helpers (devm_cci_regmap_init_i2c(),
+cci_read(), cci_write() and cci_multi_reg_write()) instead of open-coding
+raw I2C transfers?  VIDEO_S5K5E8 already selects V4L2_CCI_I2C in Kconfig,
+which is currently unused.
 
-Moving it into the then branch leaves qcom,port-mapping optional for the
-non-SDCA playback (RX) peer device, which hits the else branch even though
-it needs qcom,port-mapping to describe its data path.
+[ ... ]
+
+> +static int s5k5e8_set_ctrl(struct v4l2_ctrl *ctrl)
+> +{
+> +	struct s5k5e8 *s5k5e8 =3D container_of(ctrl->handler, struct s5k5e8, ct=
+rl_handler);
+> +	int ret =3D 0;
+> +
+> +	if (ctrl->id =3D=3D V4L2_CID_VBLANK) {
+> +		s64 exp_max =3D s5k5e8->cur_mode->height + ctrl->val - 4;
+> +		s64 exp_def =3D min_t(s64, 1960, exp_max);
+> +
+> +		ret =3D __v4l2_ctrl_modify_range(s5k5e8->exposure, 4, exp_max, 1,
+> +					       exp_def);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	ret =3D pm_runtime_get_if_active(s5k5e8->dev);
+> +	if (ret <=3D 0)
+> +		return 0;
+
+[Severity: Medium]
+Does checking ret <=3D 0 here skip all control register writes when
+CONFIG_PM is disabled?
+
+When CONFIG_PM is disabled, pm_runtime_get_if_active() returns -EINVAL, so
+s5k5e8_set_ctrl() returns 0 without writing any registers during both
+__v4l2_ctrl_handler_setup() and runtime control updates.  Checking
+!pm_runtime_get_if_active(s5k5e8->dev) (or using
+pm_runtime_get_if_in_use()) allows register writes to proceed when runtime
+PM is disabled.
+
+[ ... ]
+
+> +static int s5k5e8_set_stream(struct v4l2_subdev *sd, int enable)
+> +{
+> +	struct s5k5e8 *s5k5e8 =3D to_s5k5e8(sd);
+> +	int ret =3D 0;
+> +
+> +	mutex_lock(&s5k5e8->mutex);
+> +	if (s5k5e8->streaming =3D=3D enable) {
+> +		mutex_unlock(&s5k5e8->mutex);
+> +		return 0;
+> +	}
+
+[ ... ]
+
+> +static const struct v4l2_subdev_video_ops s5k5e8_video_ops =3D { .s_stre=
+am =3D s5k5e8_set_stream };
+
+[Severity: Low]
+Should this driver implement v4l2_subdev_pad_ops.enable_streams and
+.disable_streams with v4l2_subdev_s_stream_helper instead of implementing
+the deprecated .s_stream callback directly?  Using the pad stream
+callbacks with the active subdev state lock also avoids manual
+s5k5e8->streaming tracking and the separate s5k5e8->mutex.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127-b4-wcd9378=
--v3-v3-0-397e5ba2da55@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127134507.1255=
+13-1-hikmahgumelar@gmail.com?part=3D3
