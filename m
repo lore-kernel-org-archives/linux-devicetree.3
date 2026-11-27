@@ -1,55 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795759824;
-	b=1hCek6i3QBBy+BXSEN43J0+KfloEnu9ekdUeiFGrti4ftCZKJPFtWnVATVSscLJc9RQR
-	 4Wl6oaiae1a27UvNSqR1UVT1VxwjZvp4EkRRFyogrzQeAU6LKlbrZ6j8oX9q4t4uyKo9D
-	 SBjYuBQB2+ObNnTtTze4+38+pzHef+/hQmeAwb6xVpyaUysBah4xM9lQasVxsv1/gF0dD
-	 i/yWKKzCg65vR4RzboJQJZjwnpLYQYzH2EcdZrQNHUcDnQnxYZ3a5qgtjzVQQRd9f8bzc
-	 N9C2kmuC+Cu5KwlYyu7INlgZ5pH+pEZfoP6hq+eU3+TozLGt0qPhy+xL4xzUGrdjjkw==
+	t=1795759856;
+	b=faHUe1Q8dSxmEn9rGzOchnaaugamPtG7Ip1V1uWA+qTSX/zWOWdrW+jz6ywyOKhW2lex
+	 Q4e8sij8fkAlQPd+3E/S6FeouAU4diXnpjjkyRxHASaS4maP1+Z/0Wry3wzTctlc8K9Vf
+	 dHHV8coLO2RyuSocdOvNLbbDnUIkAcbhFw0O3ANhuS7DNwUGYd+t5q62maAn40zcNg0Qt
+	 2iqU3Jmb0T3nc1PQ1Q1KEXVyPaeb/0O5hmWjyMJpalBDzMBWgNPwidIotFYkSgU77ylrj
+	 QGfHr5fdiTXrYsuJ5EqiiGg7XoEceAENs7WlcxtKkE3LlGLc8y/F4ba236mOOUcTuWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795759824;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:
-	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
-	 X-QQ-RECHKSPAM;
-	bh=E2NeSLXfonrxSY+W49lO191CRD3CyOzI7hF6dMSOWd8=;
-	b=nWpR2MdnsuGcnOD7zq25vH7yI0c4uMncmKfzFUKrFhwHtM6qnkGBCuCKYkOh/Zhlx/i7
-	 krWw46etqdn+H1E27KZFF3H0A3+f39fOrH9DjiqvvqsL44DZoJEYZMiaQJOplA4BK2f57
-	 v3TRRH8Cj2GKhlrXLSNTWcFwmsKfxzd424zIUWo2SNgimk8d4E6LgGYsOhD54GPeixCIl
-	 2B45yGIjHbtJkLmo5qYKY1pELxxMEiLRF9ehGbXN/fuYUGb0uEkswAVDifaL2Oiwbn3FS
-	 cZ8B2f7qqcaZnl2AKUBpbAm+0aIvdDgG2LgsTWaQddj9vkoEHjcNiUJjJqRyLTEUR5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795759856;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=LJzV9SjNCDoNpYW2PABHFxsWCmU54MLMVw2eXG57V+c=;
+	b=R3UTNVdx4kZ+iLZK2XtA4y51u6lUuknZJgWiHJ6QjBQj2m4+W2ZwfoDeTeYcIUtBPDOD
+	 U1PuglZT5hzg/FlFBbSKcbY81pY8BJugiU7SSoXRIAu9jQrrUR5QfLsbtbq9z5WWxq8aO
+	 tMVOq9ZUr736CoX2OfjUQhREQhBBNsTjJhdAH+46GLEt+VLuCUKKEmipliR4EeqyCcQ03
+	 0NXFokqpBLIfP05in1leWDF5dZsoJhJomhyfjvBpCrhjmUG3ayiwlVAjS601A5C5FxjGx
+	 eDIymtluko9buF3naFic4nfm3QTrIc2EbtKvCKt2zDMrkVK4pudXyEE5sJeiP7xBuRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=IlGuBUNf;
-	arc=none smtp.remote-ip=54.206.34.216
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AuqdiLnZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE4B6606A31C;
-	Fri, 27 Nov 2026 06:10:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE4B6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D503606A31C
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 06:10:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=IlGuBUNf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1795759815;
-	bh=E2NeSLXfonrxSY+W49lO191CRD3CyOzI7hF6dMSOWd8=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=IlGuBUNfuc0X+Pt3hn9np8itQgtiT5Y6SrDdfdiN0lIRUOz21aPe8g8Qgadna6M75
-	 bdn2tXw/j7r0us/0BtOSVxF1Yjyjb3TUWZxP8XiPP5Q5qt8PZW/QpXEI/b84/aI1Ze
-	 6Lxe3kwqdBXOal+B4RzUZg3Lpsm30yimKVcfbLH0=
-X-QQ-mid: zesmtpsz4t1795759813ta86aa600
-X-QQ-Originating-IP: n4795X9CtarIxKcBmI9iCqupaEOTuiKZlULc3AJEdYw=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 27 Nov 2026 14:10:11 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 10182266507146119862
-EX-QQ-RecipientCnt: 13
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AuqdiLnZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE9F41F00898;
+	Fri, 27 Nov 2026 06:10:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795759856;
+	bh=LJzV9SjNCDoNpYW2PABHFxsWCmU54MLMVw2eXG57V+c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=AuqdiLnZXFniQVcZcq41yu/VO06SIIuvFXQdNlVR/1CtxsSxsJ+w7GlYLpuOj0lyy
+	 olE/xz62jFF+055lgiDuSFv+Mm1hMsNf/HdzQ2fcctaqa958UUaLaO5XHrFSkkhPCx
+	 gdBXhUVuOSbbzx2wBfULSrr11beCxG6ZayL2wfUGWwNpLtgJGVnEOYP0mCjcyaFd0a
+	 o7t50I5zJUi8CQjSPwcTYWec8P915BbfI8elfv/dq+BkSlUMQXNFLFpnfEDY0yFN2T
+	 x6UVcJN9Oy+x1DQyzUEA0PQedIdYeIEABw7sRcst0xsu2edJGLR2SHYrZmNqRUSMhx
+	 5CO0QXzYnui1g==
+Message-ID: <sashiko-outbox-236687@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 1/5] dt-bindings: display: add CIX Sky1 DisplayPort
+ transmitter
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Luo Liu" <Luo.Liu@cixtech.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261127055807.109667-2-Luo.Liu@cixtech.com>
+References: <20261127055807.109667-1-Luo.Liu@cixtech.com>
+ <20261127055807.109667-2-Luo.Liu@cixtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 27 Nov 2026 06:10:55 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,95 +60,54 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=26ed1f322d44d2ecd4a6afc050eef67eafba067d32d916536e0aeaac7c68;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Fri, 27 Nov 2026 06:10:10 +0000
-Message-Id: <DN5RQ489MNYL.1WRXDMIRHZK6I@linux.spacemit.com>
-Cc: <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 4/4] riscv: dts: spacemit: k3: Set CD pin bias
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Yixun Lan" <dlan@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt"
- <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre
- Ghiti" <alex@ghiti.fr>, "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-X-Mailer: aerc 0.21.0-reader-ipc4
-References: <20261125-09-k3-dt-minor-misc-v1-0-dd887a8eb326@kernel.org>
- <20261125-09-k3-dt-minor-misc-v1-4-dd887a8eb326@kernel.org>
-In-Reply-To: <20261125-09-k3-dt-minor-misc-v1-4-dd887a8eb326@kernel.org>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: M2Wkd4xaa21sg9K06gNCQhOpy5NqUNeHylGFHTUHRUS54J/dciyOcK2m
-	9eXv4P3ojXND0Ganf0qXT4YAoWmg7RhiLAFRmtV5VXtG7uA39zD2Hr/MzOr7Uf37LALxSaB
-	wjoZOj7asVhHnimohIFUbN45xkyGvwUJNFe0ehm2dSmDIqOZ0ngnGbHjO5Z9QdrB5X3B9r9
-	M8DCKpmpqYTyGFgjuXmAAnCP7hAwGnUPY7lRSHe2XLPQAAGxAHkRb4UisLU9r+rkI+6fUhK
-	KGbCZLAUIYn4vgxUdAbtL8d8J1zwflTH0+VLb3P9n5r/we7TNMn8gl2gO3ZvUM767zRkHI8
-	SqDL0RmgWZ/jHcvoS/SFEIfDkkYmNu3iDB3OYFzS3GT2XXQs6dNmoDb7sdFki2Czldcfqof
-	T2k1bpHsw2MPQdp1UQbYryF5OtWXwfUj3WWINxkq2ZXYUkD0pVdkoyBwgwkuwLunBrsVz9u
-	Tx/+w97Ygw3LjhxO0/qXmdrFLy0PYSYV3APcc26ANRYu0mLLY9xSfX4BuIAD/sx66q+9vdC
-	AMsa3AzY9GwQQ/QlvlneFlxhCt+G6cGos1egbz5vFYzUxHKPsWdgEhhaZ90sfGbIK80yzfU
-	ehOKM+7oqy/l0Ectu1XZ6DNxeSwKbhsemW8k7HkgORyFeFFSyDZB9HLQkTMsnpkiQjl/DKy
-	0Ug37aVkif1KhBwUbXfKT5lTDaqGHpbxXqyd4OvsO3NHXLUHPcvAsz4KBgsBcc82Y4cKzIC
-	niPIRdN2qwy5c4QOp4RX0RltNDhlFWNFQU3jfn2ZBUFx2FAPmAiUSvK5Dj2cbYqW/rEDPcu
-	/YsqHuqCnYy+ra3xrA8RoyOVg/U71+lYHpmt+dc0w2f2wNA2RH4vsryNcEbvCQfFN/DhErl
-	POpTbnQmMw+6I3LuAx7LMbJ2JIDd7OvdARgMxHMZIBGLuARJzpLyflgYB7e1N34lXUi001X
-	PzWG5oZ1rex21hKaHvMa79U3A8/L9vPSxRPrWlsl2hrzW0Ogv7gJKHqJOxzuiEMlCxT71+e
-	ce7s3rebJKm3drU2s9sa65n6A0ItU+gOlEYFGe+zwRo/q5MwXoCSq10xUvZD3+vivfnuBZd
-	y7xDJVzXGPYEiS2wOXTgYWdtQfkdXwpRvEsPqQu4rL94TSdcJueQhM=
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
 
---26ed1f322d44d2ecd4a6afc050eef67eafba067d32d916536e0aeaac7c68
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] MAINTAINERS: unexpected devicetree list and missing F: paths in
+  cix dptx
+--
 
-On Wed Nov 25, 2026 at 7:46 AM GMT, Yixun Lan wrote:
-> Explicitly configure the bias settings of the CD (Card Detect) pin
-> for MicroSD card in CoM260-IFX board.
->
-> During the GPIO pin request phase, the pinctrl driver disables bias
-> settings in function spacemit_request_gpio(), this happens to work
-> in kernel side, but doesn't for U-Boot. Adding a flag to fix this.
->
-> Signed-off-by: Yixun Lan <dlan@kernel.org>
->
-> ---
-> K3 Use same SD card slot as K1's MusePi-PRO, which needs PULL_UP.
-> ---
->  arch/riscv/boot/dts/spacemit/k3-com260.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi b/arch/riscv/boo=
-t/dts/spacemit/k3-com260.dtsi
-> index 65c6f49f8591..598a53461afc 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-> @@ -240,7 +240,7 @@ &sdhci0 {
->  	pinctrl-0 =3D <&mmc1_cfg>;
->  	pinctrl-1 =3D <&mmc1_uhs_cfg>;
->  	bus-width =3D <4>;
-> -	cd-gpios =3D <&gpio K3_GPIO(4) GPIO_ACTIVE_HIGH>;
-> +	cd-gpios =3D <&gpio K3_GPIO(4) (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+commit a925e6ee61fd293f46e99dd02a193ee54a3f3d96
+Author: Luo Liu <Luo.Liu@cixtech.com>
 
+dt-bindings: display: add CIX Sky1 DisplayPort transmitter
+
+This commit adds the Device Tree binding schema and MAINTAINERS entry for
+the CIX Sky1 Trilinear DisplayPort transmitter.
+
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index bcade5bfbafe9..b71e46f6fe323 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -6527,6 +6527,18 @@ M:	Satish Kharat <satishkh@cisco.com>
+>  S:	Supported
+>  F:	drivers/infiniband/hw/usnic/
+> =20
+> +CIX SKY1 DISPLAYPORT TRANSMITTER DRIVER
+> +M:	Luo Liu <Luo.Liu@cixtech.com>
+> +M:	Wuyi Shen <wuyi.shen@cixtech.com>
+> +R:	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>
+> +L:	devicetree@vger.kernel.org
+> +L:	dri-devel@lists.freedesktop.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
+> +F:	drivers/gpu/drm/bridge/trilinear/
+> +F:	drivers/gpu/drm/cix/dptx/
+> +F:	include/drm/bridge/trilinear_dp.h
+
+[Severity: Low]
+Should L: devicetree@vger.kernel.org be dropped from this driver entry,
+and the three driver F: lines moved to the patches that create those
+paths?
+
+Documentation/devicetree/ is already covered by OPEN FIRMWARE AND
+FLATTENED DEVICE TREE BINDINGS, so listing devicetree@vger.kernel.org here
+causes scripts/get_maintainer.pl to route non-DT driver patches to the DT
+list.  Also, drivers/gpu/drm/bridge/trilinear/, drivers/gpu/drm/cix/dptx/
+and include/drm/bridge/trilinear_dp.h do not exist at this commit, causing
+scripts/get_maintainer.pl --self-test=3Dpatterns to warn about unmatched F:
+patterns.
 
 --=20
-Troy Mitchell
-
-
---26ed1f322d44d2ecd4a6afc050eef67eafba067d32d916536e0aeaac7c68
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCawkewiEcdHJveS5taXRj
-aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC/aXQEA1ljwDzb2fdP6
-XzncsQ9ip4r67ZDtHNdpKwFVYpXsXskBAJwpqVE+V9wjlbhp5FQodbaCyQVw4YuI
-iJup+srjnbgK
-=BeSR
------END PGP SIGNATURE-----
-
---26ed1f322d44d2ecd4a6afc050eef67eafba067d32d916536e0aeaac7c68--
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127055807.1096=
+67-1-Luo.Liu@cixtech.com?part=3D1
