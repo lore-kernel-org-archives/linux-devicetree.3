@@ -1,89 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795802590;
-	b=2PHe2priSh1xWVsToHclX11/UJkdPp2vYRXLjXExQ6zd0UlLWocqRrXcagNb8oiKi4YW
-	 rOiJHPi8+zjrk2blAKf2WYzYW9i6YZB8Ctw0RfwOgOOoOynmkDXovPuygxO7LZDE7VgUl
-	 qKE40bqDCvAq4SoIE7tdCofqtKdq71Q4mJcThsMq1nQ0I/GRUSAq+PV1qJzH/BRpwYTyz
-	 zJBqXk9PjCvBKBziCxtJvL16a7ZSctoiY794OFZpw7muPAngBZW2YNo6zH1vpe19IOIfT
-	 AAwmWlt7GznVuGS9NLRfVyF8xvT691YNuSoBEOI0eUw1WYHGXqQbFWwsGjcfMRBXVFQ==
+	t=1795802814;
+	b=kpbWB5M1muakkcZvQGj2K6ByDLVCMdWNTkuakE603iMvLZ+YNi2BGnU7Xhfg4zGq/r9E
+	 a/qLO7flM/m+1G1CQaxAQO3hA/pG20oyo3TOgUPLaD1WePp32EdkYwkTxDRAlzu+xvHZI
+	 3MXm3trfzTIdQ8gFeEBc9+HS84jOek1EkcoP1ee4AYgvT0eyftH6LlHI+dZnhFIzz0Tgk
+	 QiQlmoaVOY/syIzF3XERpBUnFC69+iPcx9Zg7QUT9mFGU9Ho3EacqvpHUaZ0PTOJTE/me
+	 GJTz73R1bM2JDT4q9MaWl9jhtKNntxH4wzqswu+kTSacosneHHt45hespoatxyriP4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795802590;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=x7xnjfBKTr55dsR+9SR1TlMfdH6kp9OfyIzQdYDou9s=;
-	b=HSDoFcMJdCFxt4sFLLUOPWOP8n6d4M5Ln8b9tYcPl5PlYVyFFm5oqJUO355AXiSCsLsY
-	 wzYrjzt7j4LsDKW3POnW+eGEe93chaHZ9pPdEZKo2pM1o8IFiOkCxFH0tcJVMmBP/dCcC
-	 ADHwnOKtHMWJ8r9U7E6lVw3/XuIMNYAhbAQs2/aEOJ43EHPJZurz7FBfqjNjFBM0QEr07
-	 +RN2icNv/inTDBb7I9Le3t43My3f2BA5nYwMJ6N8SbV3m9FWIlDBrDt6qrDQTG86UDwfF
-	 i0fq0L/VoQzTK3h7tXpZfMFqvzOFwt2gm8ohMhz0rzUI9LVA6y6DTB7CnYBemKVD9gQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795802814;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Type:MIME-Version:Content-Transfer-Encoding;
+	bh=JMhmizF9rm/NvUf9wXz1bzC79f1tk9PLdnrYZqqxQsQ=;
+	b=Au/An3ZFP1j7ZNmJYRvYfH1Fx+/wUfmteRkrf6FMoQY3GsjXWGjD9hxVe/SOSar+gWtl
+	 FJ3xYsxI1Vsx4u3vFy5wDRbGnHi2aiAMIrrcdVZsf10ET00CpP+7pCWGPyohyWlSopS4f
+	 tpewoNx7jfRmcwV90wycCvlGXxTTmIvakTk6uforA5l7cM+wdsEMXOrovndCZOEhpPAiK
+	 fXygqBH1ZmUuAu7FnX1iYw2GVvyhBSYK5/A9mou7qoBdqFjfAN3xTijIftNHoAeofVeNO
+	 AkuFHfc46t4y0/yJrA9wpU2Nc/KFiJbJD7hKyBRfCb4JtB0z8cuS8M6SN7ZI6inJ9LQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fYyuwQzP;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y9TTNwVj;
+	arc=none smtp.remote-ip=209.85.161.48
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0AFA606A31C;
-	Fri, 27 Nov 2026 18:03:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0AFA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76537606A31E
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 18:06:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76537606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fYyuwQzP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795802589; x=1827338589;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=0oCPoXGZccFOwjHGi/c5jAdfLofswXZp8tXdu2WgyJo=;
-  b=fYyuwQzPQitaFyuNiPrtZ/XTRMMcJ6+xxNXVgdViCdcJu3z27HngfZvZ
-   hn+gFPc0b2CBqI2uuQz3+MrSD74/F2woRejARzK1lcm5awPIU2jHgpSZE
-   vQUquI1DHZVeLtaeu1MaByJCEEHL6MoPMtjrBDexkKXIve3MHIKLET5ae
-   mHuji9zHxIORMzkUjYpKosA3McXNOZr7UNfl8DlV2Ith/kvOLReOjrhto
-   wv8PdRTBhujr3tnFjT22iGhChFnzHQKo0AlZ1lhcJBPkPdVgbhM27UQXa
-   uKgDU2P9WODpVQ26cNZ9dpviYWEDDzOSauKChcYuEJtIV6Tdvf26c4kTj
-   A==;
-X-CSE-ConnectionGUID: Q0r9bdP1TtajVn+rqDWZ2g==
-X-CSE-MsgGUID: o2ncU5YyRhey86HFPUa5qg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11979"; a="4768708"
-X-IronPort-AV: E=Sophos;i="6.27,237,1787036400"; 
-   d="scan'208";a="4768708"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Nov 2026 10:03:08 -0800
-X-CSE-ConnectionGUID: ssRF4HUYRSOXa5jTg7fs+w==
-X-CSE-MsgGUID: oqNlbgkMSCSc3qxDD+pg4w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,237,1787036400"; 
-   d="scan'208";a="12309851"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.188])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Nov 2026 10:03:05 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 1884E11F8C9;
-	Fri, 27 Nov 2026 20:03:09 +0200 (EET)
-Date: Fri, 27 Nov 2026 20:03:09 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Hikmah Gumelar <hikmahgumelar@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org, Abel Vesa <abelvesa@kernel.org>
-Subject: Re: [PATCH v5 3/7] media: i2c: add s5k5e8 image sensor driver
-Message-ID: <awnF3Zbid3lzBC0a@kekkonen.localdomain>
-References: <20261127134507.125513-1-hikmahgumelar@gmail.com>
- <20261127134507.125513-4-hikmahgumelar@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y9TTNwVj
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-71ad099391dso4011808eaf.3
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 10:06:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795802813; x=1796407613; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JMhmizF9rm/NvUf9wXz1bzC79f1tk9PLdnrYZqqxQsQ=;
+        b=y9TTNwVjP6UCmujUMGevJiEol0AFP2ky/lNt5rQkZNqfDtyPQhhWpcRFKHicGdhgtg
+         USPGFmEp6lLjnKVzq0KAJ7E7zLCCHNdQ+lFzNMNu4JP9vgPbAeOs7iOGBuXKAEEK4ZJT
+         emmzmgphfL9jW8KmUU3sHoVnpNfJrK9OCye+FQMb36vnUnB+OIE2OugGUIwieK+Idtub
+         HVegVKuQBjrv/w/ZGFuogmr4POtDyN8FXdgqkG3QVpwpoQ+9iuVcxfts5p+Vk3yrV4Cg
+         LAvV4R3Dc5ZmAmOvQAJJQzVH8EsK6rZpOXsI2g9D+fa1fTYvaEK8YbLmGLHGHdf2ejm/
+         ahhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795802813; x=1796407613;
+        h=content-transfer-encoding:mime-version:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JMhmizF9rm/NvUf9wXz1bzC79f1tk9PLdnrYZqqxQsQ=;
+        b=QfPetli4t5VTTdN1nrR0RMQy6Lj23saL6vV9W5ImZwEKDsHr6Tbftaw2jbqGZy6vil
+         BMVLUTP9AaFiwxZrtW+sdHCLXq9crx2E+dP/igexqpWI8O54zF1UxSAQFRNKJ9fybCEb
+         Yo/TWd4tW3xamd+AyuPsWDGFhwZX6/2J68LRtkcHHB6fiMBnH0Qx6LlGgF5P7PBoQHUR
+         zckdcYrgaRe/U+493SUUeSoVxmMtdsCz00C4GPIHnJpSQXwL0jbRvGJBVTfsG0XvvWY1
+         Krzs95xLpts+s7na8fcFi9vwZByyt0am35ldiB9mUEcyZuXzYT+nPcTWu3fstT24/yll
+         zStw==
+X-Forwarded-Encrypted: i=1; AL+hErFMSdohaIGrv0bBfSkk/kEkkBWuemgRXoo1K+HuOklhVoZLUpwfjPNvCx9zou34So1ZEAIoSdCpoqJK@vger.kernel.org
+X-Gm-Message-State: APuU4Z/4HXY0/t8WTiK2eqpvOur9awdITGxcUdwjrVbI432S9llcP3z8
+	iTItcRfs02KkOWBWL+BNTw35p2JmjcQGTNtMs/DIkfNB+GB3Vt5JBgoL
+X-Gm-Gg: AZFdTZdpTZk9khewLyc4qVrsfHqnKlwHOi+vEvyVyvz3rJQVwHrEx4y+8kSMGKjrnFq
+	iUixc+Kk61ndx1PRwuJs5MmIzqquSdYKYUpokulCMgyev8i7aXALLKOPkmD0eXMWdzLUXwRpGsW
+	BDWyXc1VuT3z84NgRPj52/NY2q47u4T2/JtL4c4cXo75qirsagwbl49ibVE+JOsxkddvcXQ/9/w
+	C5O1J0060ga9DaRe9XbuPEyM0RzUIt3pbeTjfJi3x5YyLUJI+oFsuBfKzdIcoKpw8oayShPGCjY
+	WK0/ird4OrSu0THaOuhmg0Zs8QMrdSChldKbCR3h+1RnDhfs0lt6AjO5osxDmFNXD/qugqab1L7
+	wx+HAtY9ziMvsACrWYcCyjv2jATKyT8tTY9s/YQSY35Q+d3vOLWZJMkjD9RcmVZikxyW1Sd7qR6
+	n6GumPQ7bmfHUw27SggF01liXpDncFpV37LrhXyEwleTIIWpHNqBvz9bI2JjjGFsssB6FwJJ60t
+	y+EuXHU2NjOR799pXtmlgMOy9f3TeeoMAmqGDqRqDgsbcFbwOUTwCpBXocDA39QrpzflfUXB6Wd
+	8Dk8pWEVxdjJnAyx2Y10sBZE0bb15C39bI/WtQVDg/2J8PJjo1ZIdjT/TfhvFmAO8JPbtszn7I2
+	/72s49g==
+X-Received: by 2002:a05:6820:a74d:10b0:708:c97f:5541 with SMTP id 006d021491bc7-71b394868bbmr14209997eaf.37.1795802813364;
+        Fri, 27 Nov 2026 10:06:53 -0800 (PST)
+Received: from AMD.home.internal (dhcp-9-244-8-156.gobrightspeed.net. [9.244.8.156])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-863168f6d33sm17220715a34.18.2026.11.27.10.06.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Nov 2026 10:06:52 -0800 (PST)
+From: Enzo Adriano <enzo.adriano.code@gmail.com>
+To: andre.przywara@arm.com
+Cc: jernej.skrabec@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	wens@kernel.org,
+	samuel@sholland.org,
+	Maxime Ripard <mripard@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Junhui Liu <junhui.liu@pigmoral.tech>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Pablo Mazzini <pmazzini@gmail.com>,
+	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
+	Alexander Sverdlin <alex@sverdlin.org>,
+	Jun Yan <jerrysteve1101@gmail.com>,
+	Lukas Schmid <lukas.schmid@netcube.li>,
+	Cristian Filipescu <filipescu.cristian@gmail.com>,
+	Norman Herms <dockseed@proton.me>
+Subject: Re: [PATCH v6 2/5] arm64: dts: allwinner: add A733 SoC description
+Date: Fri, 27 Nov 2026 13:06:50 -0500
+Message-ID: <20261127-a733-dt-v6-01-reply@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <9ab5f851-1b56-49ed-bfdd-46abdbdda1c0@arm.com>
+References: <20261126-a733-cubie-a7s-dt-v6-0@gmail.com> <20261126-a733-cubie-a7s-dt-v6-2@gmail.com> <p3YaXlLJTguQBGnWyMpb1w@gmail.com> <9ab5f851-1b56-49ed-bfdd-46abdbdda1c0@arm.com>
+Content-Type: text/plain; charset="us-ascii"
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,726 +118,32 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261127134507.125513-4-hikmahgumelar@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Hikmar,
+> But it's still compatible to the D1 MMC controller, isn't it? As in: a
+> driver capable of supporting the D1 MMC IP can also drive the A733 MMC.
+> I think the voltage regulator is a separate problem: it's external to
+> the MMC IP. The vqmmc supply property is documented and usable, and the
+> availability of the regulator it points to is a separate issue.
+> The same as the H616 and A523 have the voltage switch already, but are
+> still compatible to the A100 and D1, respectively.
 
-A few comments below, they probably apply to the other driver as well.
+Agreed, and the manual backs it. The A733 User Manual v1.00, section
+11.3.1, lists SDR 200 MHz at 1.8 V IO for SMHC0, but the SMHC register
+list has no voltage control. The Port F pad voltage is chosen in the
+GPIO block: GPIO_POW_VAL_SET_CTL at 0x0200_0070, bit 0
+VCC_PF_PWR_VOL_SEL (0 = 1.8 V, 1 = 3.3 V, reset 1), section 18.14.6.3.
+So vqmmc for mmc0 would be a regulator provided from the pinctrl side.
 
-On Fri, Nov 27, 2026 at 08:45:03PM +0700, Hikmah Gumelar wrote:
-> Add V4L2 subdev driver for the Samsung S5K5E8 5-megapixel MIPI CSI-2
-> 
+On the A7S (schematic v1.10, sheets 4 and 7) both Port F supplies are
+fixed rails: VCC-IO, 3.3 V from SWOUT2, and VCC18-PF, 1.8 V from CLDO5.
+There is nothing to point vqmmc at today.
 
-This is an odd place for a new paragraph.
+Unless Jernej still prefers dropping the node, v7 keeps mmc0 with the D1
+fallback and no-1-8-v on all three boards. The Port F switch can follow
+when it exists.
 
-> CMOS image sensor supporting 2592x1944 10-bit Bayer output.
-> 
-> Signed-off-by: Hikmah Gumelar <hikmahgumelar@gmail.com>
-> ---
->  MAINTAINERS                |   7 +
->  drivers/media/i2c/Kconfig  |  10 +
->  drivers/media/i2c/Makefile |   1 +
->  drivers/media/i2c/s5k5e8.c | 567 +++++++++++++++++++++++++++++++++++++
->  4 files changed, 585 insertions(+)
->  create mode 100644 drivers/media/i2c/s5k5e8.c
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index f72ce07a4e38..2ac245d4ad7c 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -25007,6 +25007,13 @@ T:	git git://linuxtv.org/media_tree.git
->  F:	Documentation/devicetree/bindings/media/i2c/samsung,s5k3m5.yaml
->  F:	drivers/media/i2c/s5k3m5.c
->  
-> +SAMSUNG S5K5E8 CAMERA SENSOR DRIVER
-> +M:	Hikmah Gumelar <hikmahgumelar@gmail.com>
-> +L:	linux-media@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8.yaml
-> +F:	drivers/media/i2c/s5k5e8.c
-> +
->  SAMSUNG S5K5BAF CAMERA DRIVER
->  M:	Sylwester Nawrocki <s.nawrocki@samsung.com>
->  M:	Andrzej Hajda <andrzej.hajda@intel.com>
-> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-> index 162b8ea02601..4c622e5eef73 100644
-> --- a/drivers/media/i2c/Kconfig
-> +++ b/drivers/media/i2c/Kconfig
-> @@ -879,6 +879,16 @@ config VIDEO_S5K3M5
->  	  To compile this driver as a module, choose M here: the
->  	  module will be called s5k3m5.
->  
-> +config VIDEO_S5K5E8
-> +	tristate "Samsung S5K5E8 sensor support"
-> +	select V4L2_CCI_I2C
-> +	help
-> +	  This is a Video4Linux2 sensor-level driver for the Samsung
-> +	  S5K5E8 5MP camera.
-> +
-> +	  To compile this driver as a module, choose M here: the
-> +	  module will be called s5k5e8.
-> +
->  config VIDEO_S5K5BAF
->  	tristate "Samsung S5K5BAF sensor support"
->  	help
-> diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-> index a750942e9c62..bdcb8f34aca3 100644
-> --- a/drivers/media/i2c/Makefile
-> +++ b/drivers/media/i2c/Makefile
-> @@ -136,6 +136,7 @@ obj-$(CONFIG_VIDEO_RDACM21) += rdacm21.o
->  obj-$(CONFIG_VIDEO_RJ54N1) += rj54n1cb0c.o
->  obj-$(CONFIG_VIDEO_S5C73M3) += s5c73m3/
->  obj-$(CONFIG_VIDEO_S5K3M5) += s5k3m5.o
-> +obj-$(CONFIG_VIDEO_S5K5E8) += s5k5e8.o
->  obj-$(CONFIG_VIDEO_S5K5BAF) += s5k5baf.o
->  obj-$(CONFIG_VIDEO_S5K6A3) += s5k6a3.o
->  obj-$(CONFIG_VIDEO_S5KJN1) += s5kjn1.o
-> diff --git a/drivers/media/i2c/s5k5e8.c b/drivers/media/i2c/s5k5e8.c
-> new file mode 100644
-> index 000000000000..d25b978d7eda
-> --- /dev/null
-> +++ b/drivers/media/i2c/s5k5e8.c
-> @@ -0,0 +1,567 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +#include <linux/clk.h>
-> +#include <linux/delay.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/i2c.h>
-> +#include <linux/module.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/unaligned.h>
-> +#include <media/v4l2-ctrls.h>
-> +#include <media/v4l2-device.h>
-> +#include <media/v4l2-fwnode.h>
-> +
-> +#define S5K5E8_CHIP_ID_REG		0x0000
-> +#define S5K5E8_CHIP_ID			0x5e80
-> +#define S5K5E8_REG_MODE_SELECT		0x0100
-> +#define S5K5E8_MODE_STANDBY		0x00
-> +#define S5K5E8_REG_VTS			0x0340
-> +#define S5K5E8_REG_EXPOSURE		0x0202
-> +#define S5K5E8_REG_ANALOG_GAIN		0x0204
-> +#define S5K5E8_REG_TEST_PATTERN		0x0600
-> +#define S5K5E8_XVCLK_FREQ		24000000
-> +#define S5K5E8_LINK_FREQ_418MHZ		418000000ULL
-> +#define S5K5E8_PIXEL_RATE		167200000ULL
-> +
-> +struct s5k5e8_reg {
-> +	u16 address;
-> +	u8 val;
-> +};
-> +
-> +struct s5k5e8_mode {
-> +	u32 width, height, hts_def, num_regs;
-> +	const struct s5k5e8_reg *regs;
-> +};
-> +
-> +static const char * const s5k5e8_supply_names[] = { "avdd", "dvdd", "dovdd" };
-> +#define S5K5E8_NUM_SUPPLIES ARRAY_SIZE(s5k5e8_supply_names)
+Jernej, if your "emmc" meant SMHC2, I can also drop the unused mmc2
+node; no board enables it.
 
-Please just use ARRAY_SIZE() where you need it.
-
-> +
-> +/* Register initialization tables derived from Xiaomi Mi A1 vendor configuration */
-> +static const struct s5k5e8_reg s5k5e8_common_regs[] = {
-> +	{ 0x0100, 0x00 }, { 0x3906, 0x7e }, { 0x3c01, 0x0f }, { 0x3c14, 0x00 },
-> +	{ 0x3235, 0x08 }, { 0x3063, 0x2e }, { 0x307a, 0x10 }, { 0x307b, 0x0e },
-> +	{ 0x3079, 0x20 }, { 0x3070, 0x05 }, { 0x3067, 0x06 }, { 0x3071, 0x62 },
-> +	{ 0x3072, 0x16 }, { 0x3203, 0x43 }, { 0x3205, 0x43 }, { 0x320b, 0x42 },
-> +	{ 0x3007, 0x00 }, { 0x3008, 0x14 }, { 0x3020, 0x58 }, { 0x300d, 0x34 },
-> +	{ 0x300e, 0x17 }, { 0x3021, 0x02 }, { 0x3010, 0x59 }, { 0x3002, 0x01 },
-> +	{ 0x3005, 0x01 }, { 0x3008, 0x04 }, { 0x300f, 0x70 }, { 0x3010, 0x69 },
-> +	{ 0x3017, 0x10 }, { 0x3019, 0x19 }, { 0x300c, 0x62 }, { 0x3064, 0x10 },
-> +	{ 0x3c08, 0x0e }, { 0x3c09, 0x10 }, { 0x3c31, 0x0d }, { 0x3c32, 0xac },
-
-It'd be nice to have a human-readable macro name as many as possible of
-these registers. Some here are probably 16-bit (or larger) registers, too.
-
-> +};
-> +
-> +static const struct s5k5e8_reg s5k5e8_2592x1944_regs[] = {
-> +	{ 0x0100, 0x00 }, { 0x0136, 0x18 }, { 0x0137, 0x00 }, { 0x0305, 0x06 },
-> +	{ 0x0306, 0x18 }, { 0x0307, 0xa8 }, { 0x0308, 0x34 }, { 0x0309, 0x42 },
-> +	{ 0x3c1f, 0x00 }, { 0x3c17, 0x00 }, { 0x3c0b, 0x04 }, { 0x3c1c, 0x47 },
-> +	{ 0x3c1d, 0x15 }, { 0x3c14, 0x04 }, { 0x3c16, 0x00 }, { 0x0820, 0x03 },
-> +	{ 0x0821, 0x44 }, { 0x0114, 0x01 }, { 0x0344, 0x00 }, { 0x0345, 0x08 },
-> +	{ 0x0346, 0x00 }, { 0x0347, 0x08 }, { 0x0348, 0x0a }, { 0x0349, 0x27 },
-> +	{ 0x034a, 0x07 }, { 0x034b, 0x9f }, { 0x034c, 0x0a }, { 0x034d, 0x20 },
-> +	{ 0x034e, 0x07 }, { 0x034f, 0x98 }, { 0x0900, 0x00 }, { 0x0901, 0x00 },
-> +	{ 0x0381, 0x01 }, { 0x0383, 0x01 }, { 0x0385, 0x01 }, { 0x0387, 0x01 },
-> +	{ 0x0340, 0x07 }, { 0x0341, 0xb0 }, { 0x0342, 0x0b }, { 0x0343, 0x28 },
-> +	{ 0x0200, 0x00 }, { 0x0201, 0x00 }, { 0x0202, 0x03 }, { 0x0203, 0xde },
-> +	{ 0x3303, 0x02 }, { 0x3400, 0x00 }, { 0x323b, 0x02 }, { 0x3301, 0x00 },
-> +	{ 0x3321, 0x04 }, { 0x3306, 0x00 }, { 0x3307, 0x08 }, { 0x3308, 0x0a },
-> +	{ 0x3309, 0x27 }, { 0x330a, 0x01 }, { 0x330b, 0x01 }, { 0x330e, 0x00 },
-> +	{ 0x330f, 0x08 }, { 0x3310, 0x07 }, { 0x3311, 0x9f }, { 0x3312, 0x01 },
-> +	{ 0x3313, 0x01 },
-> +};
-> +
-> +static const struct s5k5e8_mode default_mode = {
-> +		.width = 2592, .height = 1944, .hts_def = 2856,
-> +			.num_regs = ARRAY_SIZE(s5k5e8_2592x1944_regs),
-> +		.regs = s5k5e8_2592x1944_regs,
-> +	};
-
-Indentation could be improved above.
-
-> +
-> +static const s64 link_freq_menu_items[] = { S5K5E8_LINK_FREQ_418MHZ };
-> +
-> +struct s5k5e8 {
-> +	struct device *dev;
-> +	struct v4l2_subdev sd;
-> +	struct media_pad pad;
-> +	struct clk *xvclk;
-> +	struct gpio_desc *reset_gpio;
-> +	struct regulator_bulk_data supplies[S5K5E8_NUM_SUPPLIES];
-> +	struct v4l2_ctrl_handler ctrl_handler;
-> +	struct v4l2_ctrl *link_freq, *hblank, *exposure;
-> +	const struct s5k5e8_mode *cur_mode;
-> +	/* Serialize access to sensor registers and streaming state */
-> +	struct mutex mutex;
-
-Please rely on the sub-device state lock instead (same as control handler's
-lock); see e.g. imx219 for an example.
-
-> +	bool streaming;
-> +};
-> +
-> +static inline struct s5k5e8 *to_s5k5e8(struct v4l2_subdev *sd)
-> +{
-> +	return container_of(sd, struct s5k5e8, sd);
-> +}
-> +
-> +static int s5k5e8_read_reg(struct s5k5e8 *s5k5e8, u16 reg, u32 len, u32 *val)
-> +{
-> +	struct i2c_client *client = v4l2_get_subdevdata(&s5k5e8->sd);
-> +	struct i2c_msg msgs[2];
-> +	u8 addr_buf[2], data_buf[4] = { 0 };
-> +	int ret;
-> +
-> +	put_unaligned_be16(reg, addr_buf);
-> +	msgs[0].addr = client->addr;
-> +	msgs[0].flags = 0;
-> +	msgs[0].len = 2;
-> +	msgs[0].buf = addr_buf;
-> +	msgs[1].addr = client->addr;
-> +	msgs[1].flags = I2C_M_RD;
-> +	msgs[1].len = len;
-> +	msgs[1].buf = &data_buf[4 - len];
-> +	ret = i2c_transfer(client->adapter, msgs, 2);
-> +	if (ret != 2)
-> +		return ret < 0 ? ret : -EIO;
-> +	*val = get_unaligned_be32(data_buf);
-> +	return 0;
-> +}
-> +
-> +static int s5k5e8_write_reg(struct s5k5e8 *s5k5e8, u16 reg, u32 len, u32 val)
-> +{
-> +	struct i2c_client *client = v4l2_get_subdevdata(&s5k5e8->sd);
-> +	u8 buf[6];
-> +	int ret;
-> +
-> +	put_unaligned_be16(reg, buf);
-> +	put_unaligned_be32(val << (8 * (4 - len)), buf + 2);
-> +	ret = i2c_master_send(client, buf, len + 2);
-> +	return ret == len + 2 ? 0 : (ret < 0 ? ret : -EIO);
-> +}
-> +
-> +static int s5k5e8_write_regs(struct s5k5e8 *s5k5e8, const struct s5k5e8_reg *regs, u32 len)
-> +{
-> +	u32 i;
-> +	int ret;
-> +
-> +	for (i = 0; i < len; i++) {
-> +		ret = s5k5e8_write_reg(s5k5e8, regs[i].address, 1, regs[i].val);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +	return 0;
-> +}
-> +
-> +static int s5k5e8_power_on(struct device *dev)
-> +{
-> +	struct s5k5e8 *s5k5e8 = to_s5k5e8(dev_get_drvdata(dev));
-> +	int ret = regulator_bulk_enable(S5K5E8_NUM_SUPPLIES, s5k5e8->supplies);
-> +
-> +	if (ret)
-> +		return ret;
-> +	ret = clk_prepare_enable(s5k5e8->xvclk);
-> +	if (ret) {
-> +		regulator_bulk_disable(S5K5E8_NUM_SUPPLIES, s5k5e8->supplies);
-> +		return ret;
-> +	}
-> +	gpiod_set_value_cansleep(s5k5e8->reset_gpio, 1);
-
-Reset was already asserted here, wasn't it?
-
-> +	usleep_range(1000, 2000);
-> +	gpiod_set_value_cansleep(s5k5e8->reset_gpio, 0);
-> +	usleep_range(3000, 5000);
-> +	return 0;
-> +}
-> +
-> +static int s5k5e8_power_off(struct device *dev)
-> +{
-> +	struct s5k5e8 *s5k5e8 = to_s5k5e8(dev_get_drvdata(dev));
-> +
-> +	if (s5k5e8->reset_gpio)
-
-No need for such checks.
-
-> +		gpiod_set_value_cansleep(s5k5e8->reset_gpio, 1);
-> +	clk_disable_unprepare(s5k5e8->xvclk);
-> +	regulator_bulk_disable(S5K5E8_NUM_SUPPLIES, s5k5e8->supplies);
-> +	return 0;
-> +}
-> +
-> +static int s5k5e8_set_ctrl(struct v4l2_ctrl *ctrl)
-> +{
-> +	struct s5k5e8 *s5k5e8 = container_of(ctrl->handler, struct s5k5e8, ctrl_handler);
-> +	int ret = 0;
-> +
-> +	if (ctrl->id == V4L2_CID_VBLANK) {
-> +		s64 exp_max = s5k5e8->cur_mode->height + ctrl->val - 4;
-> +		s64 exp_def = min_t(s64, 1960, exp_max);
-> +
-> +		ret = __v4l2_ctrl_modify_range(s5k5e8->exposure, 4, exp_max, 1,
-> +					       exp_def);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	ret = pm_runtime_get_if_active(s5k5e8->dev);
-> +	if (ret <= 0)
-
-Just check for zero. I wonder where the above pattern came from; it's not
-the first driver I review today that had the same. No need to assign to ret
-either.
-
-> +		return 0;
-> +	switch (ctrl->id) {
-> +	case V4L2_CID_ANALOGUE_GAIN:
-> +		ret = s5k5e8_write_reg(s5k5e8, S5K5E8_REG_ANALOG_GAIN, 2, ctrl->val);
-> +	break;
-> +	case V4L2_CID_EXPOSURE:
-> +		ret = s5k5e8_write_reg(s5k5e8, S5K5E8_REG_EXPOSURE, 2, ctrl->val);
-> +	break;
-> +	case V4L2_CID_VBLANK:
-> +		ret = s5k5e8_write_reg(s5k5e8, S5K5E8_REG_VTS, 2,
-> +				       s5k5e8->cur_mode->height + ctrl->val);
-> +	break;
-> +	case V4L2_CID_TEST_PATTERN:
-> +		ret = s5k5e8_write_reg(s5k5e8, S5K5E8_REG_TEST_PATTERN, 2, ctrl->val);
-> +	break;
-
-You could also make default case set ret to -EINVAL and unassign ret in
-declaration.
-
-
-> +	}
-> +	pm_runtime_put(s5k5e8->dev);
-> +	return ret;
-> +}
-> +
-> +static const struct v4l2_ctrl_ops s5k5e8_ctrl_ops = { .s_ctrl = s5k5e8_set_ctrl };
-> +static const char * const s5k5e8_test_pattern_menu[] = {
-> +	"Disabled",
-> +	"Solid Color",
-> +	"100% Color Bars",
-> +	"Fade to Grey",
-> +	"PN9",
-> +};
-> +
-> +static int s5k5e8_init_controls(struct s5k5e8 *s5k5e8)
-> +{
-> +	struct v4l2_fwnode_device_properties props;
-> +	struct v4l2_ctrl_handler *hdl = &s5k5e8->ctrl_handler;
-> +	s64 hblank = s5k5e8->cur_mode->hts_def - s5k5e8->cur_mode->width;
-> +	int ret = v4l2_ctrl_handler_init(hdl, 8);
-
-Please don't assign in declaration if you need to validate the result.
-
-> +
-> +	if (ret)
-> +		return ret;
-> +	hdl->lock = &s5k5e8->mutex;
-
-Please don't.
-
-> +	s5k5e8->link_freq = v4l2_ctrl_new_int_menu(hdl, &s5k5e8_ctrl_ops, V4L2_CID_LINK_FREQ,
-> +						   0, 0, link_freq_menu_items);
-> +	if (s5k5e8->link_freq)
-> +		s5k5e8->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-
-See e.g. ov05c10 driver for an example on initialising controls.
-
-> +	v4l2_ctrl_new_std(hdl, &s5k5e8_ctrl_ops, V4L2_CID_PIXEL_RATE,
-> +			  S5K5E8_PIXEL_RATE, S5K5E8_PIXEL_RATE, 1, S5K5E8_PIXEL_RATE);
-> +	v4l2_ctrl_new_std(hdl, &s5k5e8_ctrl_ops, V4L2_CID_VBLANK, 24,
-> +			  0x7fff - s5k5e8->cur_mode->height, 1, 24);
-> +	s5k5e8->hblank = v4l2_ctrl_new_std(hdl, &s5k5e8_ctrl_ops, V4L2_CID_HBLANK, hblank,
-> +					   hblank, 1, hblank);
-> +	if (s5k5e8->hblank)
-> +		s5k5e8->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-> +	v4l2_ctrl_new_std(hdl, &s5k5e8_ctrl_ops, V4L2_CID_ANALOGUE_GAIN, 0x20, 0x200, 1, 0x60);
-> +	s5k5e8->exposure = v4l2_ctrl_new_std(hdl, &s5k5e8_ctrl_ops, V4L2_CID_EXPOSURE, 4, 1964,
-> +					     1, 1960);
-> +	v4l2_ctrl_new_std_menu_items(hdl, &s5k5e8_ctrl_ops, V4L2_CID_TEST_PATTERN, 4, 0, 0,
-> +				     s5k5e8_test_pattern_menu);
-> +	if (hdl->error) {
-> +		ret = hdl->error;
-> +		goto err;
-> +	}
-> +	ret = v4l2_fwnode_device_parse(s5k5e8->dev, &props);
-> +	if (ret)
-> +		goto err;
-> +	ret = v4l2_ctrl_new_fwnode_properties(hdl, &s5k5e8_ctrl_ops, &props);
-> +	if (ret)
-> +		goto err;
-> +	s5k5e8->sd.ctrl_handler = hdl;
-> +	return 0;
-> +err:
-> +	v4l2_ctrl_handler_free(hdl);
-> +	return ret;
-> +}
-> +
-> +static void s5k5e8_update_pad_format(const struct s5k5e8_mode *mode,
-> +				     struct v4l2_mbus_framefmt *fmt)
-> +{
-> +	fmt->width = mode->width;
-> +	fmt->height = mode->height;
-> +	fmt->code = MEDIA_BUS_FMT_SGRBG10_1X10;
-> +	fmt->field = V4L2_FIELD_NONE;
-> +	fmt->colorspace = V4L2_COLORSPACE_SRGB;
-> +	fmt->ycbcr_enc = V4L2_MAP_YCBCR_ENC_DEFAULT(fmt->colorspace);
-> +	fmt->quantization = V4L2_MAP_QUANTIZATION_DEFAULT(true, fmt->colorspace,
-> +							  fmt->ycbcr_enc);
-> +	fmt->xfer_func = V4L2_MAP_XFER_FUNC_DEFAULT(fmt->colorspace);
-> +}
-> +
-> +static int s5k5e8_set_format(struct v4l2_subdev *sd,
-> +			     const struct v4l2_subdev_client_info *ci,
-> +			     struct v4l2_subdev_state *sd_state,
-> +			     struct v4l2_subdev_format *fmt)
-> +{
-> +	struct s5k5e8 *s5k5e8 = to_s5k5e8(sd);
-> +
-> +	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE && s5k5e8->streaming)
-
-You can use media_entity_is_streaming() I think.
-
-> +		return -EBUSY;
-> +
-> +	s5k5e8_update_pad_format(&default_mode, &fmt->format);
-> +	*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
-> +	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE)
-> +		s5k5e8->cur_mode = &default_mode;
-> +
-> +	return 0;
-> +}
-> +
-> +static int s5k5e8_enum_mbus_code(struct v4l2_subdev *sd, struct v4l2_subdev_state *sd_state,
-> +				 struct v4l2_subdev_mbus_code_enum *code)
-> +{
-> +	if (code->index > 0)
-> +		return -EINVAL;
-> +	code->code = MEDIA_BUS_FMT_SGRBG10_1X10;
-> +	return 0;
-> +}
-> +
-> +static int s5k5e8_enum_frame_size(struct v4l2_subdev *sd, struct v4l2_subdev_state *sd_state,
-> +				  struct v4l2_subdev_frame_size_enum *fse)
-> +{
-> +	if (fse->index > 0 ||
-> +	    fse->code != MEDIA_BUS_FMT_SGRBG10_1X10)
-> +		return -EINVAL;
-> +	fse->min_width = default_mode.width;
-> +	fse->max_width = default_mode.width;
-> +	fse->min_height = default_mode.height;
-> +	fse->max_height = default_mode.height;
-> +	return 0;
-> +}
-> +
-> +static int s5k5e8_set_stream(struct v4l2_subdev *sd, int enable)
-> +{
-> +	struct s5k5e8 *s5k5e8 = to_s5k5e8(sd);
-> +	int ret = 0;
-> +
-
-Instead, implement enable_streams and disable_streams pad ops.
-
-> +	mutex_lock(&s5k5e8->mutex);
-> +	if (s5k5e8->streaming == enable) {
-> +		mutex_unlock(&s5k5e8->mutex);
-> +		return 0;
-> +	}
-> +	if (enable) {
-> +		ret = pm_runtime_resume_and_get(s5k5e8->dev);
-> +		if (ret < 0)
-> +			goto out;
-> +		ret = s5k5e8_write_regs(s5k5e8, s5k5e8_common_regs,
-> +					ARRAY_SIZE(s5k5e8_common_regs));
-> +		if (!ret)
-> +			ret = s5k5e8_write_regs(s5k5e8, s5k5e8->cur_mode->regs,
-> +						s5k5e8->cur_mode->num_regs);
-> +		if (!ret)
-> +			ret = __v4l2_ctrl_handler_setup(s5k5e8->sd.ctrl_handler);
-> +		if (!ret) {
-> +			static const struct s5k5e8_reg stream_on_regs[] = {
-> +				{ 0x3c16, 0x00 },
-> +				{ 0x3c0d, 0x04 },
-> +				{ 0x0100, 0x01 },
-> +				{ 0x3c22, 0x00 },
-> +				{ 0x3c22, 0x00 },
-> +				{ 0x3c0d, 0x00 },
-> +			};
-> +			msleep(80);
-> +			ret = s5k5e8_write_regs(s5k5e8, stream_on_regs,
-> +						ARRAY_SIZE(stream_on_regs));
-> +		}
-> +		if (ret) {
-> +			pm_runtime_put(s5k5e8->dev);
-> +			goto out;
-> +		}
-> +	} else {
-> +		s5k5e8_write_reg(s5k5e8, S5K5E8_REG_MODE_SELECT, 1, S5K5E8_MODE_STANDBY);
-> +		pm_runtime_put(s5k5e8->dev);
-> +	}
-> +	s5k5e8->streaming = enable;
-> +out:
-> +	mutex_unlock(&s5k5e8->mutex);
-> +	return ret;
-> +}
-> +
-> +static int s5k5e8_init_state(struct v4l2_subdev *sd,
-> +			     struct v4l2_subdev_state *sd_state)
-> +{
-> +	s5k5e8_update_pad_format(&default_mode,
-> +				 v4l2_subdev_state_get_format(sd_state, 0));
-> +	return 0;
-> +}
-> +
-> +static const struct v4l2_subdev_video_ops s5k5e8_video_ops = { .s_stream = s5k5e8_set_stream };
-> +
-> +static int s5k5e8_get_selection(struct v4l2_subdev *sd, const struct v4l2_subdev_client_info *ci,
-> +				struct v4l2_subdev_state *sd_state,
-> +				struct v4l2_subdev_selection *sel)
-> +{
-> +	switch (sel->target) {
-> +	case V4L2_SEL_TGT_CROP:
-> +	case V4L2_SEL_TGT_CROP_DEFAULT:
-> +	case V4L2_SEL_TGT_CROP_BOUNDS:
-> +	case V4L2_SEL_TGT_NATIVE_SIZE:
-> +		sel->r.left = 0;
-> +		sel->r.top = 0;
-> +		sel->r.width = 2592;
-> +		sel->r.height = 1944;
-
-Are you sure? It is uncommon the entire pixel array is readable.
-
-> +		return 0;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static const struct v4l2_subdev_pad_ops s5k5e8_pad_ops = {
-> +	.get_selection = s5k5e8_get_selection,
-> +	.set_fmt = s5k5e8_set_format, .get_fmt = v4l2_subdev_get_fmt,
-> +	.enum_mbus_code = s5k5e8_enum_mbus_code, .enum_frame_size = s5k5e8_enum_frame_size,
-
-It seems a bit crowded here.
-
-> +};
-> +
-> +static const struct v4l2_subdev_ops s5k5e8_subdev_ops = {
-> +	.video = &s5k5e8_video_ops,
-> +	.pad = &s5k5e8_pad_ops,
-> +};
-> +
-> +static const struct media_entity_operations s5k5e8_entity_ops = {
-> +	.link_validate = v4l2_subdev_link_validate,
-
-Please do drop this one.
-
-> +};
-> +
-> +static const struct v4l2_subdev_internal_ops s5k5e8_internal_ops = {
-> +	.init_state = s5k5e8_init_state,
-> +};
-> +
-> +static int s5k5e8_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct fwnode_handle *endpoint;
-> +	struct v4l2_fwnode_endpoint ep_cfg = {
-> +		.bus_type = V4L2_MBUS_CSI2_DPHY,
-> +	};
-> +	struct s5k5e8 *s5k5e8;
-> +	u32 val = 0;
-> +	unsigned int i;
-> +	int ret;
-> +
-> +	endpoint = fwnode_graph_get_next_endpoint(dev_fwnode(dev), NULL);
-> +	if (!endpoint)
-> +		return dev_err_probe(dev, -EINVAL, "endpoint node not found\n");
-
-Please remove this redundant check.
-
-> +
-> +	ret = v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg);
-> +	fwnode_handle_put(endpoint);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to parse endpoint\n");
-> +
-> +	if (ep_cfg.bus.mipi_csi2.num_data_lanes != 2 ||
-> +	    ep_cfg.nr_of_link_frequencies != 1 ||
-> +	    ep_cfg.link_frequencies[0] != S5K5E8_LINK_FREQ_418MHZ) {
-
-Instead of the latter two, can you use v4l2_link_freq_to_bitmap()?
-
-> +		v4l2_fwnode_endpoint_free(&ep_cfg);
-> +		return dev_err_probe(dev, -EINVAL, "unsupported CSI-2 configuration\n");
-> +	}
-> +	v4l2_fwnode_endpoint_free(&ep_cfg);
-> +
-> +	s5k5e8 = devm_kzalloc(dev, sizeof(*s5k5e8), GFP_KERNEL);
-> +	if (!s5k5e8)
-> +		return -ENOMEM;
-> +
-> +	s5k5e8->dev = dev;
-> +	v4l2_i2c_subdev_init(&s5k5e8->sd, client, &s5k5e8_subdev_ops);
-> +
-> +	s5k5e8->xvclk = devm_v4l2_sensor_clk_get(dev, NULL);
-> +	if (IS_ERR(s5k5e8->xvclk))
-> +		return dev_err_probe(dev, PTR_ERR(s5k5e8->xvclk), "failed to get xvclk\n");
-> +
-> +	if (clk_get_rate(s5k5e8->xvclk) != S5K5E8_XVCLK_FREQ)
-> +		return dev_err_probe(dev, -EINVAL, "unexpected xvclk rate\n");
-> +
-> +	s5k5e8->reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
-
-There are quite a few lines over 80 here, please wrap.
-
-> +	if (IS_ERR(s5k5e8->reset_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(s5k5e8->reset_gpio),
-> +				     "failed to get reset gpio\n");
-> +
-> +	for (i = 0; i < S5K5E8_NUM_SUPPLIES; i++)
-> +		s5k5e8->supplies[i].supply = s5k5e8_supply_names[i];
-> +
-> +	ret = devm_regulator_bulk_get(dev, S5K5E8_NUM_SUPPLIES, s5k5e8->supplies);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to get regulators\n");
-> +
-> +	ret = s5k5e8_power_on(dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = s5k5e8_read_reg(s5k5e8, S5K5E8_CHIP_ID_REG, 2, &val);
-> +	if (ret || val != S5K5E8_CHIP_ID) {
-> +		ret = dev_err_probe(dev, ret ? ret : -ENODEV,
-> +				    "failed to identify s5k5e8 (id=0x%x)\n", val);
-> +		goto err_power;
-> +	}
-> +
-> +	s5k5e8->cur_mode = &default_mode;
-> +	mutex_init(&s5k5e8->mutex);
-> +
-> +	ret = s5k5e8_init_controls(s5k5e8);
-> +	if (ret)
-> +		goto err_mutex;
-> +
-> +	s5k5e8->sd.internal_ops = &s5k5e8_internal_ops;
-> +	s5k5e8->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-> +	s5k5e8->sd.entity.ops = &s5k5e8_entity_ops;
-> +	s5k5e8->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
-> +	s5k5e8->pad.flags = MEDIA_PAD_FL_SOURCE;
-> +
-> +	ret = media_entity_pads_init(&s5k5e8->sd.entity, 1, &s5k5e8->pad);
-> +	if (ret)
-> +		goto err_ctrl;
-> +
-> +	s5k5e8->sd.state_lock = &s5k5e8->mutex;
-> +	ret = v4l2_subdev_init_finalize(&s5k5e8->sd);
-> +	if (ret)
-> +		goto err_media;
-> +
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_enable(dev);
-> +
-> +	ret = v4l2_async_register_subdev_sensor(&s5k5e8->sd);
-> +	if (ret)
-> +		goto err_subdev;
-> +
-> +	pm_runtime_idle(dev);
-> +	return 0;
-> +
-> +err_subdev:
-> +	pm_runtime_disable(dev);
-> +	pm_runtime_set_suspended(dev);
-> +	v4l2_subdev_cleanup(&s5k5e8->sd);
-> +err_media:
-> +	media_entity_cleanup(&s5k5e8->sd.entity);
-> +err_ctrl:
-> +	v4l2_ctrl_handler_free(s5k5e8->sd.ctrl_handler);
-> +err_mutex:
-> +	mutex_destroy(&s5k5e8->mutex);
-
-An extra newline before a label, please.
-
-> +err_power:
-> +	s5k5e8_power_off(dev);
-> +	return ret;
-> +}
-> +
-> +static void s5k5e8_remove(struct i2c_client *client)
-> +{
-> +	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-> +	struct s5k5e8 *s5k5e8 = to_s5k5e8(sd);
-> +
-> +	v4l2_async_unregister_subdev(sd);
-> +	v4l2_subdev_cleanup(sd);
-> +	media_entity_cleanup(&sd->entity);
-> +	v4l2_ctrl_handler_free(sd->ctrl_handler);
-> +	mutex_destroy(&s5k5e8->mutex);
-> +	pm_runtime_disable(&client->dev);
-> +	if (!pm_runtime_status_suspended(&client->dev))
-> +		s5k5e8_power_off(&client->dev);
-> +	pm_runtime_set_suspended(&client->dev);
-
-Set the state to suspended conditionally, too.
-
-> +}
-> +
-> +static DEFINE_RUNTIME_DEV_PM_OPS(s5k5e8_pm_ops, s5k5e8_power_off, s5k5e8_power_on, NULL);
-> +
-> +static const struct of_device_id s5k5e8_of_match[] = {
-> +	{ .compatible = "samsung,s5k5e8" },
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(of, s5k5e8_of_match);
-> +
-> +static struct i2c_driver s5k5e8_i2c_driver = {
-> +	.driver = {
-> +		.name = "s5k5e8",
-> +		.pm = pm_ptr(&s5k5e8_pm_ops),
-> +		.of_match_table = s5k5e8_of_match,
-> +	},
-> +	.probe = s5k5e8_probe,
-> +	.remove = s5k5e8_remove,
-> +};
-> +
-> +module_i2c_driver(s5k5e8_i2c_driver);
-> +
-> +MODULE_DESCRIPTION("Samsung S5K5E8 5MP sensor driver");
-> +MODULE_LICENSE("GPL");
-
--- 
-Regards,
-
-Sakari Ailus
+Enzo
