@@ -1,45 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795792961;
-	b=mEroOgrwEdIKhLlIc8V3H38w6aGzErIdmb/jyH7lk1DmPI/ntzWQP2kriHWQf7Pb4FNZ
-	 MqDnf5YS/Eph42sYZ1xpTyeArlW8hb685daYqT6QaSzPOGaG2vYm4SHKRnLONFUT+1CeG
-	 8tqsWCHN/xowqJsf/IYMq8jVQ/JLtX96jV+e7LMIOZ8qa8iZfXH1mPBtIv96qFLaYrcAr
-	 jX7Jy+3ButwOUK6W21unaUtunAsByxwyfD16i0FCTViLTCEG1HOoOVCouUpHfbjeJ/arH
-	 tzgFfT+f/uPRs8Mu/vurlxubvBJw0/KscWywfcoOZW11EaEyLQ5Zvh7izN9aQ64Ei8w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795792961;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Q4dVyA5jVsFxpaf/m2uJ94bDxkS8jUdcj0Roq+GgR9s=;
-	b=4/DOHvzXpV7/jPrz46acdL+7aN1s6oZtCh2eXa9uoB8Yn8BRVBCkvUYYM5MEVVTLYcJs
-	 Qo0//RG5ANPlNsMRwi3ZkyaGwIu2dgLuOHuHKwbACxV9gdNULz3k5Bq7hVmX1z218BP+d
-	 qO4o9/CFSNsk1FqzJgKUpiffkENNKrXnGGktDUf4WPphSbUmUij3nUoOjYvIS405Kn58y
-	 PtEjMuUcE2XkblnjeyoIAlrI9R2cd+F4IoI4+DrFSirs9IM4eVljQz0zpLDOMceWSuYqK
-	 Vn/zxr96VowddU76UpfivwGPXfCb3cxYeWjIeB1y3XPobtS0SzhH5ksBq7d6JIeot0Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LsyK15+z;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.32
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795792991;
+	b=B/Ogu9/Bx3ECwxF4/ommt3hl79YYkFOgAWgjBKiX6pJa4S72pOKGcoxlPXcFeiS4NwGV
+	 ssDtaI/dJEMNa/Iv1vAtnMFKgmPb45YC925FtMK6PfmTGUHSVmeZq4eDal69alITTGvaA
+	 BH8Gl21A5dSluE30l0ShFbStzt0mZBc58PVQ35zEskEKglUIa0OUh2R/FQaUB3Xut4b4k
+	 YqLj/3yAqbvwFdIQmtf0F+OLmCjp3t8Ukvy4wD7uhdXuCHSnxO4msF4eWCy3MBBa/9J6f
+	 tgsZxeKW1iTYubs5NOUmStu90b6AFdxIKXT/cmzqsQJxh98hT+u9odfB0Rt850yV0XA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795792991;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=TR8WuSpJ49a6bUwxYj7koKPKhjs/tl7qJzMILnCRYCI=;
+	b=4Hu3WOlke5Af80lNiaORkyJqlZHgcD5UJmXcjic1WgAFOBfFHzDHrVJspnNoUFTxen0M
+	 QEKwsC8pp9dWVMSg9Dt/N58yRZzm7cZDP+IjLsUvCJ9TTOZqieEsyUb15c2sZLpnqA3/v
+	 VfEdSwVArJTZKi6K4Y4zS2mFEn9bM4mbH+n4Cb3dnXKjyYLbBpX3tbs4I7XWBgPgfMneL
+	 cZ+AHsL3NcCNGmV7ijFCRKBmMooItkDvHJUdAsSYpsBQt4xJFYLiszX+rT7OkBDdL6TwZ
+	 MapDkRQ9s7XITJs/C1oH7H4Mcl3PUZIydH1pxsBGPPUm4vWdWH6hUlyaaruEBGAsVEA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Tg7rVAXB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.32
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012032.outbound.protection.outlook.com [52.101.66.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1A4606A31F;
-	Fri, 27 Nov 2026 15:22:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5227F606A31E;
+	Fri, 27 Nov 2026 15:23:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5227F606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LsyK15+z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B95F31F00893;
-	Fri, 27 Nov 2026 15:22:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795792960;
-	bh=Q4dVyA5jVsFxpaf/m2uJ94bDxkS8jUdcj0Roq+GgR9s=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=LsyK15+zonOeS9qdTFwuZpB9ZJtIK5b9c3ff4/Ch+R45ndu3MfNPIfXDdPpedY+0p
-	 ieIp9Bm47gt7hhTZBKBxkPxfl7WMEFU0cFgG79tbuZOQweLaJ85cnRXgOVuC54QJx2
-	 r/27TGEAZJaRysOSGGRpX0+XsptrLeNAL8ZKolZkGwL7th4uR8w/scoszvXKaolTJo
-	 D0BK/2Tke2jHHHb8P5jxbwduWmbjtIFQS4jl1tqLMZMux3uPf/2e7L0cMM7MKD2hkh
-	 5VUPV1qeee3bebY/s4qU7H2gIsjpTVBbo/+EdM1gIwYmv8bc+vT3PWDkJWC48DRAuh
-	 BTHywwVjy4lJg==
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Tg7rVAXB
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FTSRnfQYwx+8VjrO7G8swAU0pbpRpz+87oL5eeTFRgU3for9gbGyC70GsmuH63kdqK3+AEqVdGlYCI8Kuj6tl2ixccJDlsV4GllMve84qY6ZRNhWmoG4MpB9/ZbaFsiRuUb7bIh5Hx220oUusfBBAEKGErNf4GY+Lwh+FlNyNZqxbghK6KXlmSNri9aEVxUwSH2xv8MrJYnmM03mYkFo9+sNKY5WXN5/srKVsurF5gvpTpRUyHV6hzO8alhIzKdG/ZX7mSRzg4v+zpo1Xrqt2YTaGvQzty5ZztxE4HjZMuuye+JhEbXzC1uiDz+HH6Ss3oCw427SP8BdcMJnf4FNDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TR8WuSpJ49a6bUwxYj7koKPKhjs/tl7qJzMILnCRYCI=;
+ b=DivuabKsY40UH/akiK2ApWc2psX53oKtV5zUjRrzosiWeK99zEuvBrKw6crckx7IMyijMdyRXoqMDRFNDBkNY+mfyyiNknK5epetPTTLWij8xFltHTeWqJH31NQmugfzOpQPL5No6qdfYaAR2hCmC7lnj9pjCr5gET4WfGtgbxJJpqQ17UcUY9/KNASQ88GnIp75A4br9e1X81CKtihwDm9qN44x6VigMtM8skjYc2KMzrdTgCUq7XHY1W2qqbtTD+O+nk7OuJHZ3HBseoLge8Nw9Yd0K/rA7LBfRcZtLD8HnSFleTm4/xdM5ia+38Qm3hldmw/T+kTfILJHI5iksw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TR8WuSpJ49a6bUwxYj7koKPKhjs/tl7qJzMILnCRYCI=;
+ b=Tg7rVAXBfq0RUCJ8SCZ72arRIjNa9jRhopgRX7pPripMoCoxAn+Osi6zCUMEq5bi8zdP0nOVS1BP+9AG4BMhxCyoZQic2WNtaNohGl8SZwJZYWzFKIY9+E4O41yIM43SJRIVdb7EAwY+I5N/5MPPvpWyrRZQ7i7zT/aFNforBqepIGEDTLUSn5wU3qQl3l855SzlJ/O1b+GxIZQe5mA8A5hbzircPwY+71ZgF1bJh4Oxr+UHDGwiutvuh2TaZ2hvMcnXGCGkxTOZqewoEwurkrzOmwDwglBxX1Cz2nwFfsUef5a2JssNBbuF1/xtFGzgxcGhh4+N2XWHbyklMJpO8w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by DBAPR04MB7303.eurprd04.prod.outlook.com (2603:10a6:10:1af::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.7; Fri, 27 Nov
+ 2026 15:23:08 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0662.004; Fri, 27 Nov 2026
+ 15:23:08 +0000
+Date: Fri, 27 Nov 2026 09:22:56 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Tian Xuechen <202300460064@mail.sdu.edu.cn>
+Cc: vkoul@kernel.org, Frank.Li@kernel.org, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org, vz@mleia.com,
+	piotr.wojtaszczyk@timesys.com, manabian@gmail.com, robh@kernel.org,
+	saravanak@kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 3/3] dmaengine: lpc32xx-dmamux: Use managed DMA router
+ registration
+Message-ID: <awmgUCQ27j85pwhI@SMW015318>
+References: <20261127110400.379397-1-202300460064@mail.sdu.edu.cn>
+ <20261127110400.379397-4-202300460064@mail.sdu.edu.cn>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261127110400.379397-4-202300460064@mail.sdu.edu.cn>
+X-ClientProxiedBy: PH8PR21CA0012.namprd21.prod.outlook.com
+ (2603:10b6:510:2ce::6) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -49,388 +100,97 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v8 2/2] phy: cix: Add CIX Sky1 USB3 PHY driver
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Hongliang Yang <hongliang.yang@cixtech.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Gary Yang <Gary.Yang@cixtech.com>, Fugang Duan <fugang.duan@cixtech.com>, 
- linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- cix-kernel-upstream@cixtech.com
-In-Reply-To: <20261117022858.2210212-3-hongliang.yang@cixtech.com>
-References: <20261117022858.2210212-1-hongliang.yang@cixtech.com>
- <20261117022858.2210212-3-hongliang.yang@cixtech.com>
-Date: Fri, 27 Nov 2026 20:52:30 +0530
-Message-Id: <179579295051.13164.2928946553647011501.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13651; i=mani@kernel.org;
- h=from:subject:message-id; bh=ztc1BZKiqbmnzHYCZIt02Sue+56DcZbYNwDm2xpMGpU=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBrCaA6uLEiqwmKmkkbfPcOqfLhgrCNqG2DLt0Q+
- CUorNx2D8KJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCawmgOgAKCRBVnxHm/pHO
- 9SfRB/4yH6adoeQdH2db6iqUG2mMx2+zB2D2BirRUaF9JJ/s6z76SkxarS81qiayGoza6LnUIsC
- 8fKbcRQX4MzJl/iChrBhZWmnmWORT81BQC+sFDD4pybO/YTeSRhhZ5OXEIKnJMlCtGpThXp9CQi
- 40jZoM3s19Uw+G9j1cjajBANLYHL4dNNWYT1+6xUIbYm1T7GUpr1zk3DWLjUsf4aCTNoo+/yaFc
- STYcwIKkcTworMQ8cp64hwX/I1KytsrPo5UCbqZq2E8aoV5aaLEVYAEW9MQMKcLsI76eEGeBwRF
- ka3VGDFJyWQjDlKWlxcqtsqu5uOJ3E5NCcHGZo31KGs9Pe0O
-X-Developer-Key: i=mani@kernel.org; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DBAPR04MB7303:EE_
+X-MS-Office365-Filtering-Correlation-Id: ef02c493-07da-410c-0d36-08df4c9a5749
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|376014|7416014|1800799024|23010399003|4143699003|18002099003|22082099003|11063799006|10067099003|56012099006|261026140227099003|261028144727099003|261102123227099003|261022075727099003|261022105027099003|261021121427099003|261021123027099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	pAL3lZgWbACYaqMWp6WxToUpdYK9wl2Woog9qAbagvlSI5pjyIIM6Q6cPqo5DIpH/JNf9qL4C1clA0wepBLUYoBe8+g2ixRVHGQxZTIfmeyQRprV4Q68IXRdIctphzfojm5/XK5KFK91DJzgtHrf6A0ubuaIIZ+A2JqCoCA3j8VFYc/VUIfJuKg+3qn9BywuusHDv8x8W3OROl04YeJuHrf7rgECXmP1drxKwp8FOhmJeOpBT56d4FCGMPuWADMa9kfH85BVLIHLP1QYV6hR2KpyLRORGI5BQaGFSGVIFqp5Z7PGInfMh+M08IPL0mN3rsXP4cEYX7bviG9o4vm1v6K+TZTfKiprv4p5cZi/PIe9VC4W84PQNqi2paBLrVSA+fgTslyPdLi5zLiDMIWakboFR14mmTx0XlY273l5kUO7cu/B1NWsYzcF2SQIthPJjkkrrbCN0Aj2vtE/VQ3n8NslGSQYjr/PpTX2fOkUAQDqehcfPWfGZsuhtzvMXRkItRc+57l+wlk4L7cI9xyXz4ZlQSwNYsyjRqSucKYgceWaiLLo5TfDU/Q0muvyS5gyDYZgYPJ+7+M7WKI1frpnDyzXCExvEm0yTeElZQff7MBinqkaUtFxXKpCd6y16Wv4PlOaQIu4SoL1bn+6nAIEigQC56UXkGnwNIVHyehH+Qo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(376014)(7416014)(1800799024)(23010399003)(4143699003)(18002099003)(22082099003)(11063799006)(10067099003)(56012099006)(261026140227099003)(261028144727099003)(261102123227099003)(261022075727099003)(261022105027099003)(261021121427099003)(261021123027099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?RMZF/ZYno6a9CSigJpG2T4AGnv84oUgkdfYruu5W+J44o5hAyYeRSGmjpvj1?=
+ =?us-ascii?Q?viKagDBgRd0WkeSEzivsdAUJgJ9ZAaFBIbJ2XxPh4TI0uU11VbqXOPKlKPX6?=
+ =?us-ascii?Q?bivG19jKuQ5pjBDr8qBt5Dw8f8mxj/Ze9g6y/zhjzUBvMocsJWdSy4U9wVfc?=
+ =?us-ascii?Q?+G/5vNBnzG8jOdGMQNZt7p5k9zcTHC9iK6Ms3mfkbxzbPqjS6ylcJwDt0QTC?=
+ =?us-ascii?Q?UGpDyc7G5eFw+KIOb0t/9v+xOfNzkU/BnxWaaUKfzZTmFvkf0aJ8wKk2j9Cz?=
+ =?us-ascii?Q?QX0nUYDwBFzVtPb22T8Lidf6KLYhQPLonv5SfANJOeaYijauMuh0MM0M0/4w?=
+ =?us-ascii?Q?yyVH4o1ebiqFAN68O+VuVDrbqLOuzRRVJCHj0oA9VKfoIrPK7w58CS/gSaFk?=
+ =?us-ascii?Q?GJ34LxO3TWno4JB9IsCn+d8w/r5JeFKJxQHHz4llImA02bjkRH/21aFmgYle?=
+ =?us-ascii?Q?VQYVhn8HJL1yl8D+4mrdd9M4DAANAhocg03jtLS8dnqnRdmQ9pgIyQ4wsmpv?=
+ =?us-ascii?Q?l63K+fvnr15WZKDf/Gffav6Aa+fE9/aExavA3Q6aEzrD/qZwGvMidGsJ6Mxv?=
+ =?us-ascii?Q?MonyORQNn7zQEpOLF2ySb+4X2gBsKsVATj5VZMut0PQz9nqgxlQqsn3GSq63?=
+ =?us-ascii?Q?WPsZx326FZnaO74H/yu1dK8zzRpo4LkGKFpVAK5aiyf4m+/747m1iMj5Uuu7?=
+ =?us-ascii?Q?CYga3qlndwJ3QlPstBENq/vYGPDTCG17xrL/A0a8Mxkcd7Jt35KTT3yWELYa?=
+ =?us-ascii?Q?kpNggj5eTbPqVrErV9WsHFCSFY6N2oxGyxXIEBKgGz0m06Vz34Q2Tc8dpd+5?=
+ =?us-ascii?Q?vXuviyM2+XS0fy8pqY3KOCCh2hqiZjLPCHaQL3jlLpeoCsYN1yPw4S3QXutW?=
+ =?us-ascii?Q?JDX0ERXQ1oeaIAiYZQoJ99wW6OYuGmeNFyAfUpqgUzOF+j+5ev1RPi376vfz?=
+ =?us-ascii?Q?UOOO88IzfoUvWtMBBnJQAmAkgMh0SJ4NnkYBP2fTIeOBZMKTqyyplBUmEl27?=
+ =?us-ascii?Q?DvihNNArYmJX0GGKosnbHTDKZd7ltI29rWaNQNzbC5ugdkT1GK8uEbf8DVY6?=
+ =?us-ascii?Q?tHaLTycezVc84yLRv+DcdFR/WzTFDeMF8SC7bFi50kVEk46BZdPgD6zMm2qM?=
+ =?us-ascii?Q?J6qhgbpIvpfXH+K4KV3tT2EXXj2hsW4xdhWhlbbkqA768EvQSvGT7zmK1BwA?=
+ =?us-ascii?Q?92WZzKfIe2zfxFCg8f2Tgp561tZfAZn6zzrztzN2xt1mC5kNxFJGk2VluQ8U?=
+ =?us-ascii?Q?YrLXsSYb3H52kIrwHl75HBTv+buIkIJ/gwc88QNQKyPWb5p1G9p9vKS6yWlP?=
+ =?us-ascii?Q?CPgbWxcyoxJCCg+pb5EaSejB0IbuiOrcF8gf4GzUk1I3RXYXddbJJVdo3Z1q?=
+ =?us-ascii?Q?TwSdRav9eWYYaUckgL7nUY50Kqgff17t4rRk92LgdKlz9FIQ/66+8neRHsSz?=
+ =?us-ascii?Q?Vp9R0NCOjHyl2DyQo5nluzUWMbSQoIVJqti22UO2Q3yr7at1QT/i2RVbTLAL?=
+ =?us-ascii?Q?QH8wMUEEF7LvSS2/ReiDm7DD4wr1Ka6oIN2sk7J0/knIULXNnj8Jq6AECkul?=
+ =?us-ascii?Q?wqfZwMwQugZIZfjYv3VhEn1srrzxKptNtDR8qbfdb7E2SmuNrXsqvMW/6Ihh?=
+ =?us-ascii?Q?IKzENBKO7MsoXS2LDYy22ix/ywX7Nkk0TlCXWfk1voYUFW9p3RerJxVDMtRw?=
+ =?us-ascii?Q?iVvAw0PeMO9jrA54oNIaEL9kXbV7Odcj9CXISyfBaORAAgZQ/xZGzp+Y2Nag?=
+ =?us-ascii?Q?TgxfBmG7i1rLQqr0o46wRLVG6T/y+c6Wm1PXJ8N1BO/CWkuzj06f?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef02c493-07da-410c-0d36-08df4c9a5749
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 15:23:08.4973
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: N9yTt3XUfLpPl4+8fmnDKZ85OVoR5QqcSy5avDFFu73wVVc29fxsnbdFpq0ScXG/kcxcbcXdek7kLzh4xG1GUuKIfbM8WDuZtEG7hu/+s6A8g6TJZpDFLQut6vr6QGdh
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR04MB7303
 
-On 2026-11-17 10:28 +0800, Hongliang Yang wrote:
-> Add a driver for the Cadence SD0803 USB3 PHY integrated in the CIX
-> Sky1 SoC. The driver enables the APB and reference clocks, releases the
-> resets, programs the register sequence of the PHY, and exports a single
-> PHY instance for the two lanes of the block. The PHY core reference
-> counts phy_init() and phy_exit(), so the sequence is programmed once and
-> the block stays powered while any of its consumers is active.
-> 
-> Signed-off-by: Hongliang Yang <hongliang.yang@cixtech.com>
+On Fri, Nov 27, 2026 at 07:04:00PM +0800, Tian Xuechen wrote:
+> The DMA router remains in the OF registry after its device-managed
+> data is released. Use managed registration to remove the routing
+> entry before the router data is freed.
+>
+> This issue was found by our static analysis tool under development.
+>
+> Fixes: 5d318b595982 ("dmaengine: Add dma router for pl08x in LPC32XX SoC")
+>
+> Signed-off-by: Tian Xuechen <202300460064@mail.sdu.edu.cn>
 > ---
-> Changes in v8:
-> - Rely on the PHY core for serialization and reference counting instead
->   of a driver-local mutex and counter, and call the Sky1 init and exit
->   functions directly from the PHY operations: the per-SoC callback
->   structure and its duplicate error messages are gone.
-> - Drop the register macros that the initialization sequence does not use
->   from the private header.
-> 
-> Changes in v7:
-> - Rename the register header to phy-cix-usb3.h: it is the register map
->   of the USB3 PHY, and the old usbdp name suggested a USB/DP combo PHY.
-> - Fix the module description and the Kconfig help text.
-> 
-> Changes in v6:
-> - Select REGMAP in the Kconfig.
-> - Use dev_err_probe() for the reset, clock and regmap acquisition
->   failures in the probe path.
-> - Assert the resets before registering the PHY provider, disable the
->   clocks in LIFO order, and fix the error unroll path so that clocks
->   which were never enabled are not disabled.
-> ---
->  MAINTAINERS                    |   1 +
->  drivers/phy/Kconfig            |   1 +
->  drivers/phy/Makefile           |   1 +
->  drivers/phy/cix/Kconfig        |  21 +++
->  drivers/phy/cix/Makefile       |   6 +
->  drivers/phy/cix/phy-cix-usb3.c | 313 +++++++++++++++++++++++++++++++++
->  drivers/phy/cix/phy-cix-usb3.h | 180 +++++++++++++++++++
->  7 files changed, 523 insertions(+)
->  create mode 100644 drivers/phy/cix/Kconfig
->  create mode 100644 drivers/phy/cix/Makefile
->  create mode 100644 drivers/phy/cix/phy-cix-usb3.c
->  create mode 100644 drivers/phy/cix/phy-cix-usb3.h
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 73783abe027e..b857e529e5e2 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -2906,6 +2906,7 @@ F:	Documentation/devicetree/bindings/mailbox/cix,sky1-mbox.yaml
->  F:	Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
->  F:	arch/arm64/boot/dts/cix/
->  F:	drivers/mailbox/cix-mailbox.c
-> +F:	drivers/phy/cix/
->  K:	\bcix\b
->  
->  ARM/CLKDEV SUPPORT
-> diff --git a/drivers/phy/Kconfig b/drivers/phy/Kconfig
-> index 105fbe408aa2..876e5857634c 100644
-> --- a/drivers/phy/Kconfig
-> +++ b/drivers/phy/Kconfig
-> @@ -176,6 +176,7 @@ source "drivers/phy/axiado/Kconfig"
->  source "drivers/phy/broadcom/Kconfig"
->  source "drivers/phy/cadence/Kconfig"
->  source "drivers/phy/canaan/Kconfig"
-> +source "drivers/phy/cix/Kconfig"
->  source "drivers/phy/eswin/Kconfig"
->  source "drivers/phy/freescale/Kconfig"
->  source "drivers/phy/hisilicon/Kconfig"
-> diff --git a/drivers/phy/Makefile b/drivers/phy/Makefile
-> index c6dd02003bbe..5a31c5df1746 100644
-> --- a/drivers/phy/Makefile
-> +++ b/drivers/phy/Makefile
-> @@ -28,6 +28,7 @@ obj-$(CONFIG_GENERIC_PHY)		+= allwinner/	\
->  					   broadcom/	\
->  					   cadence/	\
->  					   canaan/	\
-> +					   cix/		\
->  					   eswin/	\
->  					   freescale/	\
->  					   hisilicon/	\
-> diff --git a/drivers/phy/cix/Kconfig b/drivers/phy/cix/Kconfig
-> new file mode 100644
-> index 000000000000..24452144ff78
-> --- /dev/null
-> +++ b/drivers/phy/cix/Kconfig
-> @@ -0,0 +1,21 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +#
-> +# PHY drivers for CIX PHYs
-> +#
-> +
-> +if ARCH_CIX || COMPILE_TEST
-> +
-> +config PHY_CIX_USB3
-> +	tristate "CIX Sky1 USB3 Type-A PHY support"
-> +	depends on OF && HAS_IOMEM
-> +	select GENERIC_PHY
-> +	select REGMAP
-> +	help
-> +	  Enable this to support the USB3 SuperSpeed PHY of the Type-A
-> +	  ports on CIX Sky1 SoCs. The PHY provides the SuperSpeed lanes
-> +	  used by the two Cadence USBSSP controllers (USB4 and USB5) of
-> +	  the SoC, and is shared between them.
-> +
-> +	  If unsure, say N.
-> +
-> +endif # ARCH_CIX || COMPILE_TEST
-> diff --git a/drivers/phy/cix/Makefile b/drivers/phy/cix/Makefile
-> new file mode 100644
-> index 000000000000..58ec925a4425
-> --- /dev/null
-> +++ b/drivers/phy/cix/Makefile
-> @@ -0,0 +1,6 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +#
-> +# Makefile for the CIX PHY drivers.
-> +#
-> +
-> +obj-$(CONFIG_PHY_CIX_USB3)	+= phy-cix-usb3.o
-> diff --git a/drivers/phy/cix/phy-cix-usb3.c b/drivers/phy/cix/phy-cix-usb3.c
-> new file mode 100644
-> index 000000000000..ca6a0e764e90
-> --- /dev/null
-> +++ b/drivers/phy/cix/phy-cix-usb3.c
-> @@ -0,0 +1,313 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * phy driver for cdn_sd0803_t7g_typea
 
-What is cdn_sd0803_t7g_typea?
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-> + *
-> + * Author: Hongliang Yang <hongliang.yang@cixtech.com>
-> + */
-> +
-> +#include <linux/array_size.h>
-> +#include <linux/clk.h>
-> +#include <linux/io.h>
-> +#include <linux/module.h>
-> +#include <linux/phy/phy.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +#include <linux/reset.h>
-> +#include "phy-cix-usb3.h"
-> +
-> +/*
-> + * Cadence SD0803 Type-A USB3 PHY initialization sequence for the CIX
-> + * Sky1 SoC, taken from the vendor-provided PHY register programming
-> + * sequence for this SoC.
-> + */
-> +static const struct reg_sequence sky1_u3phy_conf[] = {
-> +	{CMN_SSM_BIAS_TMR,                  0x0018},
-> +	{CMN_PLLSM0_PLLPRE_TMR,             0x0030},
-> +	{CMN_PLLSM0_PLLLOCK_TMR,            0x00f0},
-> +	{CMN_PLLSM1_PLLPRE_TMR,             0x0030},
-> +	{CMN_PLLSM1_PLLLOCK_TMR,            0x00f0},
-> +	{CMN_BGCAL_INIT_TMR,                0x0078},
-> +	{CMN_BGCAL_ITER_TMR,                0x0078},
-> +	{CMN_IBCAL_INIT_TMR,                0x0018},
-> +	{CMN_TXPUCAL_INIT_TMR,              0x001d},
-> +	{CMN_TXPDCAL_INIT_TMR,              0x001d},
-> +	{CMN_RXCAL_INIT_TMR,                0x02d0},
-> +	{CMN_SD_CAL_PLLCNT_START,           0x0137},
-> +	{RX_SDCAL0_INIT_TMR_LANE0,          0x0018},
-> +	{RX_SDCAL0_INIT_TMR_LANE1,          0x0018},
-> +	{RX_SDCAL0_ITER_TMR_LANE0,          0x0078},
-> +	{RX_SDCAL0_ITER_TMR_LANE1,          0x0078},
-> +	{RX_SDCAL1_INIT_TMR_LANE0,          0x0018},
-> +	{RX_SDCAL1_INIT_TMR_LANE1,          0x0018},
-> +	{RX_SDCAL1_ITER_TMR_LANE0,          0x0078},
-> +	{RX_SDCAL1_ITER_TMR_LANE1,          0x0078},
-> +	{TX_RCVDET_ST_TMR_LANE0,            0x0960},
-> +	{TX_RCVDET_ST_TMR_LANE1,            0x0960},
-> +
-> +	{PHY_PLL_CFG_0803,                  0x0000},
-> +	{CMN_PDIAG_PLL0_CLK_SEL_M0,         0x8600},
-> +	{XCVR_DIAG_HSCLK_SEL_LANE0,         0x0000},
-> +	{XCVR_DIAG_HSCLK_SEL_LANE1,         0x0000},
-> +	{XCVR_DIAG_HSCLK_DIV_LANE0,         0x0001},
-> +	{XCVR_DIAG_HSCLK_DIV_LANE1,         0x0001},
-> +	{XCVR_DIAG_PLLDRC_CTRL_LANE0,       0x0041},
-> +	{XCVR_DIAG_PLLDRC_CTRL_LANE1,       0x0041},
-> +	{CMN_PLL0_DSM_DIAG_M0,              0x0004},
-> +	{CMN_PLL1_DSM_DIAG_M0,              0x0004},
-> +	{CMN_PDIAG_PLL1_ITRIM_M0,           0x003f},
-> +	{CMN_PDIAG_PLL0_CP_PADJ_M0,         0x0b17},
-> +	{CMN_PDIAG_PLL1_CP_PADJ_M0,         0x0b17},
-> +	{CMN_PDIAG_PLL0_CP_IADJ_M0,         0x0e01},
-> +	{CMN_PDIAG_PLL1_CP_IADJ_M0,         0x0e01},
-> +	{CMN_PDIAG_PLL0_FILT_PADJ_M0,       0x0d05},
-> +	{CMN_PDIAG_PLL1_FILT_PADJ_M0,       0x0d05},
-> +	{CMN_PLL0_INTDIV_M0,                0x01a0},
-> +	{CMN_PLL1_INTDIV_M0,                0x01a0},
-> +	{CMN_PLL0_FRACDIVL_M0,              0xaaab},
-> +	{CMN_PLL1_FRACDIVL_M0,              0xaaab},
-> +	{CMN_PLL0_FRACDIVH_M0,              0x0002},
-> +	{CMN_PLL1_FRACDIVH_M0,              0x0002},
-> +	{CMN_PLL0_HIGH_THR_M0,              0x0116},
-> +	{CMN_PLL1_HIGH_THR_M0,              0x0116},
-> +	{CMN_PDIAG_PLL0_CTRL_M0,            0x1002},
-> +	{CMN_PDIAG_PLL1_CTRL_M0,            0x1002},
-> +	{CMN_PLL0_SS_CTRL1_M0,		    0x0001}, /* SSC enabled */
-> +	{CMN_PLL0_VCOCAL_INIT_TMR,          0x00f0},
-> +	{CMN_PLL1_VCOCAL_INIT_TMR,          0x00f0},
-> +	{CMN_PLL0_VCOCAL_ITER_TMR,          0x0004},
-> +	{CMN_PLL1_VCOCAL_ITER_TMR,          0x0004},
-> +	{CMN_PLL0_VCOCAL_REFTIM_START,      0x02f8},
-> +	{CMN_PLL1_VCOCAL_REFTIM_START,      0x02f8},
-> +	{CMN_PLL0_VCOCAL_PLLCNT_START,      0x02f8},
-> +	{CMN_PLL1_VCOCAL_PLLCNT_START,      0x02f8},
-> +	{CMN_PLL0_VCOCAL_TCTRL,             0x0003},
-> +	{CMN_PLL1_VCOCAL_TCTRL,             0x0003},
-> +	{CMN_PLL0_LOCK_REFCNT_START,        0x00bf},
-> +	{CMN_PLL1_LOCK_REFCNT_START,        0x00bf},
-> +	{CMN_PLL0_LOCK_PLLCNT_START,        0x00bf},
-> +	{CMN_PLL1_LOCK_PLLCNT_START,        0x00bf},
-> +	{CMN_PLL0_LOCK_PLLCNT_THR,          0x0003},
-> +	{CMN_PLL1_LOCK_PLLCNT_THR,          0x0003},
-> +	{PHY_PIPE_USB3_GEN2_PRE_CFG0_0803,  0x0a0a},
-> +	{PHY_PIPE_USB3_GEN2_POST_CFG0_0803, 0x1000},
-> +	{PHY_PIPE_USB3_GEN2_POST_CFG1_0803, 0x0010},
-> +	{CMN_CDIAG_CDB_PWRI_OVRD,           0x8200},
-> +	{CMN_CDIAG_XCVRC_PWRI_OVRD,         0x8200},
-> +	{TX_PSC_A0_LANE0,                   0x02ff},
-> +	{TX_PSC_A0_LANE1,                   0x02ff},
-> +	{TX_PSC_A1_LANE0,                   0x06af},
-> +	{TX_PSC_A1_LANE1,                   0x06af},
-> +	{TX_PSC_A2_LANE0,                   0x06ae},
-> +	{TX_PSC_A2_LANE1,                   0x06ae},
-> +	{TX_PSC_A3_LANE0,                   0x06ae},
-> +	{TX_PSC_A3_LANE1,                   0x06ae},
-> +	{RX_PSC_A0_LANE0,                   0x0d1d},
-> +	{RX_PSC_A0_LANE1,                   0x0d1d},
-> +	{RX_PSC_A1_LANE0,                   0x0d1d},
-> +	{RX_PSC_A1_LANE1,                   0x0d1d},
-> +	{RX_PSC_A2_LANE0,                   0x0d00},
-> +	{RX_PSC_A2_LANE1,                   0x0d00},
-> +	{RX_PSC_A3_LANE0,                   0x0500},
-> +	{RX_PSC_A3_LANE1,                   0x0500},
-> +	{TX_TXCC_CTRL_LANE0,                0x2a82},
-> +	{TX_TXCC_CTRL_LANE1,                0x2a82},
-> +	{TX_TXCC_CPOST_MULT_01_LANE0,       0x0014},
-> +	{TX_TXCC_CPOST_MULT_01_LANE1,       0x0014},
-> +	{TX_TXCC_MGNFS_MULT_000_LANE0,      0x0002},
-> +	{TX_TXCC_MGNFS_MULT_000_LANE1,      0x0002},
-> +	{RX_SIGDET_HL_FILT_TMR_LANE0,       0x0013},
-> +	{RX_SIGDET_HL_FILT_TMR_LANE1,       0x0013},
-> +	{RX_REE_GCSM1_CTRL_LANE0,           0x0000},
-> +	{RX_REE_GCSM1_CTRL_LANE1,           0x0000},
-> +	{RX_REE_ATTEN_THR_LANE0,            0x0c02},
-> +	{RX_REE_ATTEN_THR_LANE1,            0x0c02},
-> +	{RX_REE_SMGM_CTRL1_LANE0,           0x0330},
-> +	{RX_REE_SMGM_CTRL1_LANE1,           0x0330},
-> +	{RX_REE_SMGM_CTRL2_LANE0,           0x0300},
-> +	{RX_REE_SMGM_CTRL2_LANE1,           0x0300},
-> +	{XCVR_DIAG_PSC_OVRD_LANE0,          0x0003},
-> +	{XCVR_DIAG_PSC_OVRD_LANE1,          0x0003},
-> +	{RX_DIAG_SIGDET_TUNE_LANE0,         0x1004},
-> +	{RX_DIAG_SIGDET_TUNE_LANE1,         0x1004},
-> +	{RX_DIAG_NQST_CTRL_LANE0,           0x00f9},
-> +	{RX_DIAG_NQST_CTRL_LANE1,           0x00f9},
-> +	{RX_DIAG_DFE_AMP_TUNE_2_LANE0,      0x0c01},
-> +	{RX_DIAG_DFE_AMP_TUNE_2_LANE1,      0x0c01},
-> +	{RX_DIAG_DFE_AMP_TUNE_3_LANE0,      0x0002},
-> +	{RX_DIAG_DFE_AMP_TUNE_3_LANE1,      0x0002},
-> +	{RX_DIAG_PI_CAP_LANE0,              0x0000},
-> +	{RX_DIAG_PI_CAP_LANE1,              0x0000},
-> +	{RX_DIAG_PI_RATE_LANE0,             0x0031},
-> +	{RX_DIAG_PI_RATE_LANE1,             0x0031},
-> +	{RX_CDRLF_CNFG_LANE0,               0x018c},
-> +	{RX_CDRLF_CNFG_LANE1,               0x018c},
-> +	{RX_CDRLF_CNFG3_LANE0,              0x0003},
-> +	{RX_CDRLF_CNFG3_LANE1,              0x0003}
-> +};
-> +
-> +struct cix_u3phy {
-> +	struct device *dev;
-> +	void __iomem *base;
-> +	struct regmap *phy_regmap;
-> +	struct reset_control *preset;
-> +	struct reset_control *reset;
-> +	struct clk *apb_clk;
-> +	struct clk *ref_clk;
-
-The driver always handles these clocks at the same time. So switch to bulk APIs
-for simplicity.
-
-Nit: Use devm_clk_bulk_get_all().
-
-> +};
-> +
-> +static int cix_u3phy_exit(struct phy *phy)
-> +{
-> +	struct cix_u3phy *u3phy = phy_get_drvdata(phy);
-> +
-> +	reset_control_assert(u3phy->reset);
-> +	reset_control_assert(u3phy->preset);
-> +	clk_disable_unprepare(u3phy->ref_clk);
-> +	clk_disable_unprepare(u3phy->apb_clk);
-> +	return 0;
-> +}
-> +
-> +static int cix_u3phy_init(struct phy *phy)
-> +{
-> +	struct cix_u3phy *u3phy = phy_get_drvdata(phy);
-> +	int ret;
-> +
-> +	/* usb rcsu reset is default deassert */
-> +	reset_control_assert(u3phy->reset);
-> +	reset_control_assert(u3phy->preset);
-> +
-> +	ret = clk_prepare_enable(u3phy->apb_clk);
-> +	if (ret) {
-> +		dev_err(u3phy->dev, "failed to enable the APB clock\n");
-> +		return ret;
-> +	}
-> +	ret = clk_prepare_enable(u3phy->ref_clk);
-> +	if (ret) {
-> +		dev_err(u3phy->dev, "failed to enable the reference clock\n");
-> +		goto disable_apb_clk;
-> +	}
-> +	reset_control_deassert(u3phy->preset);
-> +	ret = regmap_multi_reg_write(u3phy->phy_regmap, sky1_u3phy_conf,
-> +				     ARRAY_SIZE(sky1_u3phy_conf));
-> +	if (ret) {
-> +		dev_err(u3phy->dev, "failed to write the PHY register sequence\n");
-> +		goto assert_reset_preset;
-> +	}
-> +	reset_control_deassert(u3phy->reset);
-
-Newline before 'return' statement here and everywhere.
-
-> +	return 0;
-> +
-> +assert_reset_preset:
-> +	reset_control_assert(u3phy->preset);
-> +	reset_control_assert(u3phy->reset);
-> +	clk_disable_unprepare(u3phy->ref_clk);
-> +disable_apb_clk:
-> +	clk_disable_unprepare(u3phy->apb_clk);
-> +	return ret;
-> +}
-> +
-
-[...]
-
-> +#define PHY_PLL_CFG_0803              0xC00E
-
-Use lower case for hex please.
-
-- Mani
-
-
+> Changes in v2:
+>   - Use devm_of_dma_router_register() instead of a remove callback.
+>
+>  drivers/dma/lpc32xx-dmamux.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/dma/lpc32xx-dmamux.c b/drivers/dma/lpc32xx-dmamux.c
+> index 33be714740dd..3218be8e8eae 100644
+> --- a/drivers/dma/lpc32xx-dmamux.c
+> +++ b/drivers/dma/lpc32xx-dmamux.c
+> @@ -180,8 +180,9 @@ static int lpc32xx_dmamux_probe(struct platform_device *pdev)
+>  	dmamux->dmarouter.dev = &pdev->dev;
+>  	dmamux->dmarouter.route_free = lpc32xx_dmamux_release;
+>
+> -	return of_dma_router_register(np, lpc32xx_dmamux_reserve,
+> -				      &dmamux->dmarouter);
+> +	return devm_of_dma_router_register(&pdev->dev, np,
+> +					   lpc32xx_dmamux_reserve,
+> +					   &dmamux->dmarouter);
+>  }
+>
+>  static const struct of_device_id lpc32xx_dmamux_match[] = {
+> --
+> 2.43.0
+>
