@@ -1,73 +1,76 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795761865;
-	b=MEGAkYUzQsS1wTiew+Zldm+Hy8pAh8vC3y+Z07/bENcAYDYi3PIF6u4xqqg59IFN/DSq
-	 BYHe2epKHTY6Gxj9fSY68olcLnGVbs6wx8FelWswTT1ub09JpEsYadPZ8KqOWN8Wgd1P9
-	 01oo/Mws97pX0TkP/w4PQgNXLc73pmYVDIfWsMst/3o/jLx5qur3r3dTYFITEtn6JK8EE
-	 uRCM6lBT0twqolOYzKUS9YyPebQyrUraHty7jz09rBQ4Z1pNB99XNdYsbgl8P4xYFzXCp
-	 E0yMCbfdNR2k8PDaRN4RGRodyIsjiz41bpqHbM3Kw0vZ0AOy3O4owxk1oHViTWEyD8Q==
+	t=1795762434;
+	b=dFHm56/ugqIpLnAzfD8X12Ox+IMJdVgK03dU+mQbpMksA1kv9zGfBT0OmnwD7ICsOycM
+	 clVCmJxHddvHwk0JQbmySQce/OfMtAEbqeLBATzIRnuqbTl2ldPjwiOWWrNnHtI0n24cz
+	 5+rEdRCcC7AJ2kFQ9XjfDEv7931d442U3aIetU5G/eOO7enicEYdu8VLFip8GuzWHw1Np
+	 JpSW2auxWD8zEgFkDFycKy2mrTWpl/OnjKaXQUr2JMMmXcor2E5uAiQG6Zeo92PwICVzO
+	 l5PFL98156IpcFSCfsK5Aap6MImmzSRXyvHzvsmkS2XwyoYp6srUPXKWVm81eTsxD+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795761865;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795762434;
 	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=59ZldlQIgO+B2OmxbNWYDSyp3HqONBFUXP5EH5kGRBA=;
-	b=R8lZzejm0Y49BXSw1Ce6b/8gnMN4Da1GwI2wbkygxT2P7ZUPWWW5prHNTNLjlcYQKsOn
-	 UENvZPLcukxtQXVWMgiP8PEDx2ppLvF8fQj7k3fIVTYlAAXku4IcB6a9ZtjCxNG4j99PB
-	 zconVNwlOu4S6e4YBiNwcWq83zPzYvGgE7SdTkCjHmxBgmFmAlUKKEz1jWFwyQwelRURl
-	 253EBoapcifOf7EGlzZwARYVhzcQwEHrlRm+Lh3rQsOnrQhlB1rmNn+sWJKyxn2EAOpj4
-	 /ge1w3aSQqu3HGfVG8bzBOL+S/TpZVmQonzWHKwPXpD5vYWkASaUbiXSHSATWlLNgVQ==
+	bh=CeHxjipdZ2d0rn+6lilOW4bTUv1soutBDy7ycEHy7Oc=;
+	b=f/7geAjPDILSiLFefP/Z9Dzp/6x+SM3d0tp7229nBY1P9lOE+hciQlBLQKPQ1Dy/sZGi
+	 Ld3dn5gkuYnVkXS6rV7YMHjRgOIDx9VD6LTcyzKO7IfshbXbxgKqAYmL6y9CxQ/jMj0vC
+	 ZcCqSp9lkd0FAOkFJumSAd45nTWBaMIoaffoZRWUGfG0VpNfIYaLvDRCEvVJxe0bl6gha
+	 26mTGVczeOJ+AESpZGR73WVuZ4CIXxonfLmUOsf5d9mSAz2W3Wcwc4wDOwZpl26a7PLWx
+	 peW9vbOVGwjgYF51SdpSxF/lJrR48ZEnNS6QUDY648WEDiL4NgZMf+jvjqH/KkrX0JQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=d-silva.org;
 	spf=pass smtp.mailfrom=d-silva.org;
-	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=ZdW3FHGo;
+	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=lpflKu7Y;
 	arc=none smtp.remote-ip=119.15.109.137
 Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D05606A31C;
-	Fri, 27 Nov 2026 06:44:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2D05606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 406CF606A327;
+	Fri, 27 Nov 2026 06:53:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 406CF606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=ZdW3FHGo
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=lpflKu7Y
 Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id 46F0340227;
-	Fri, 27 Nov 2026 17:44:08 +1100 (AEDT)
+	by www.nmnhosting.com (Postfix) with ESMTP id 831EB4C952;
+	Fri, 27 Nov 2026 17:53:43 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1795761848;
+	t=1795762423;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding;
-	bh=59ZldlQIgO+B2OmxbNWYDSyp3HqONBFUXP5EH5kGRBA=;
-	b=ZdW3FHGoeYY6Qsvb2Odxs+TBuv5pHURLubNh5AHvx8x/Z5POO1NDDMOR3jOGFtmZ52l/wD
-	/xT/Qyqz3pf+qlSMMJvUUbHNJ+pTbLRkzgRSYyYWtvDbgyZxWV0wDD6dGH8z+KEuXpX9+2
-	ieN2Gk2Hh0Av+KzOyaBwBjIadtrnZnhfRE5RiBLWM0DoGur9uSYnENyF+k5YljtnHk0jvi
-	xX3Lkx3okZ9p9fcOcTA+RsOL0uXkDHas4SSrGnLLWilqMAHCkp0HMBxGvFNrbhvFl12h+e
-	gqdDOHYKaY8lB+oVQae51UiQ+tRLMV5lEs63t/+kgO3/DXhkywokEG1LJZNqEw==
-X-GPT-Reason: legitimate; This is a technical software patch submission
-	for the Linux kernel, which perfectly matches the personal/business
-	context of the recipient (alastair@d-silva.org); the sender domain
-	(d-silva.org) matches the recipient, indicating a trusted source;
-	the content consists of specific technical changes (Device Tree
-	Source for Allwinner A733) and includes a legitimate lore.kernel.org
-	link; there are no signs of phishing, urgency, or unsolicited marketing.
+	bh=CeHxjipdZ2d0rn+6lilOW4bTUv1soutBDy7ycEHy7Oc=;
+	b=lpflKu7YWOcwgnwRTA4NJuOzQEK07a1daCx/LmjMlulNVlVBJ0nzdAWOk+GbA8JZaRNwkm
+	jwrZjBUROl+2mP/RWHTXiNzjEocg8dALM88b0eIMW5zsKWRGlaLwsOh/IESU0aqPgpX0c8
+	aljPWW5m0gu22blGkcxUz+VcKYjMNITJf7X6zrxY7wmNkVvjpi5Mn4S9fHywImOskYOKRU
+	9fsHzUf6UeFzHZW9G3dfxvGnR16kXCFOnSzUBV3hHDXTf7OG8WLpmoUQuqxKtweNbvZNyh
+	gAtjFsYqZgakHWtEwPitFs4IH/3XqjtXof+QPonx2TsrB31ii74m891WBr4Lxg==
+X-GPT-Reason: legitimate; the email is a technical software patch
+	for the Linux kernel as evidenced by the subject line, the use
+	of the kernel.org URL domain, and the highly specific technical
+	content regarding "arm64: dts: allwinner" support; the sender "alastair@d-silva.org" matches
+	the "alastair@d-silva.org" personal mailbox listed in the environment
+	context; there are no phishing indicators, urgency, or marketing
+	elements, and the content perfectly aligns with a technical contribution
+	workflow.
 From: Alastair D'Silva <alastair@d-silva.org>
-To: Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Rob Herring <robh@kernel.org>,
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-sunxi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>
+Cc: Maxime Ripard <mripard@kernel.org>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>,
 	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Alastair D'Silva <alastair@d-silva.org>
-Subject: [PATCH v2 0/2] arm64: dts: allwinner: Enable A733 SPI0 on Orange Pi 4 Pro
-Date: Fri, 27 Nov 2026 17:44:06 +1100
-Message-ID: <20261127064408.1344250-1-alastair@d-silva.org>
+Subject: [PATCH v2 0/2] arm64: dts: allwinner: Add Xunlong OrangePi 4 Pro support
+Date: Fri, 27 Nov 2026 17:53:41 +1100
+Message-ID: <20261127065343.1449675-1-alastair@d-silva.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -80,53 +83,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Enable the SPI0 controller on Allwinner A733 and the onboard 16 MiB SPI
-NOR flash (XMC XM25QU128C) on the Orange Pi 4 Pro.
+Add initial devicetree support for the Xunlong OrangePi 4 Pro board
+(Allwinner A733 / sun60i-a733).
 
-Dependencies:
-This series depends on:
-- "[PATCH 0/3] arm64: dts: allwinner: Add Xunlong OrangePi 4 Pro support"
-  by Alastair D'Silva <alastair@d-silva.org>
-  https://lore.kernel.org/r/20261125124407.4098345-1-alastair@d-silva.org
+This series enables the UART0 serial console, SD card (MMC0), and the
+AXP318W PMIC on R-I2C0. Audio, WiFi, USB, and Ethernet are omitted for
+follow-on series.
+
+This series is rebased on linux-next (next-20261125) and builds on the
+following unmerged prerequisite series:
+- [PATCH v2] clk: sunxi-ng: a733: Keep SCP firmware bus clocks enabled
+  https://lore.kernel.org/r/20261112-a733-fwclk-v2@gmail.com
+- [PATCH RESEND v3 0/3] pinctrl: sunxi: number the IRQ banks from the first one that has IRQs
+  https://lore.kernel.org/r/20261124215048.42074-1-pmazzini@gmail.com
+- [PATCH v4] pinctrl: sunxi: use automatic voltage detection on A733
+  https://lore.kernel.org/r/20261125-a733-pinctrl-v4@gmail.com
+- [PATCH v8 0/5] regulator: Add X-Powers AXP318W PMIC support
+  https://lore.kernel.org/r/20260910-axp318-regulator-v8-0-e906a61a7f3d@baylibre.com
+- [PATCH v2 0/4] serial: 8250_dw: Allwinner A733 UART support
+  https://lore.kernel.org/r/cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com
+- [PATCH v6 0/5] arm64: dts: allwinner: add A733 and Radxa Cubie A7 support
+  https://lore.kernel.org/r/20261126-a733-cubie-a7s-dt-v6-0@gmail.com
+
+Tested on OrangePi 4 Pro:
+- make dt_binding_check and make CHECK_DTBS=y pass with zero warnings.
+- Boots cleanly to /bin/sh over UART0 (ttyS0 base_baud = 1500000) with
+  RTC, pinctrl, AXP318W PMIC, MMC0, and PMUs initialized.
 
 Changes in v2:
-- Add base-commit and prerequisite-patch-id trailers for the unmerged
-  prerequisite patches.
-- Reference the prerequisite series with a lore.kernel.org/r/ link.
-- Drop deprecated Assisted-by tags.
-
-Tested on Orange Pi 4 Pro:
-- SPI0 probes at 50 MHz max and registers /dev/mtd0 (16 MiB, SFDP).
-- Verified non-destructive read of the eGON.BT0 header at offset 0x0.
+- Rebase onto linux-next (next-20261125); drop the allwinner,sun60i-a733-i2c
+  binding patch now already merged in linux-next, and drop merged CCU v7
+  and pinctrl v1 dependencies.
+- Update prerequisite dependencies to pinctrl voltage-mode v4 and A733
+  SoC DTSI v6.
+- Fix &hosc clock-frequency from 24 MHz to 26 MHz to match hardware.
+- Add base-commit and prerequisite-patch-id metadata footer for b4 and
+  patchwork CI tracking, plus full prerequisite series titles.
+- Link to v1: https://lore.kernel.org/r/20261125124407.4098345-1-alastair@d-silva.org
 
 Alastair D'Silva (2):
-  arm64: dts: allwinner: sun60i-a733: Add SPI0 node
-  arm64: dts: allwinner: sun60i-a733-orangepi-4-pro: Enable SPI0 NOR
-    flash
+  dt-bindings: arm: sunxi: Add Xunlong OrangePi 4 Pro
+  arm64: dts: allwinner: Add Xunlong OrangePi 4 Pro board
 
- .../allwinner/sun60i-a733-orangepi-4-pro.dts  | 24 +++++++++++++++++
- .../arm64/boot/dts/allwinner/sun60i-a733.dtsi | 27 +++++++++++++++++++
- 2 files changed, 51 insertions(+)
+ .../devicetree/bindings/arm/sunxi.yaml        |  5 ++
+ arch/arm64/boot/dts/allwinner/Makefile        |  1 +
+ .../allwinner/sun60i-a733-orangepi-4-pro.dts  | 75 +++++++++++++++++++
+ 3 files changed, 81 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-4-pro.dts
 
 
-base-commit: 988117cc1bb17338c586a4e21ade88b5397eac33
-prerequisite-patch-id: 3b8415bb791a17bf30ae253b952ff1acf291fc96
-prerequisite-patch-id: 75fc07dc2648e6610e80b21b910d9ae00d31c304
-prerequisite-patch-id: 35c6c0bef613fb26f3f5bff6ff45dbadd8a51749
-prerequisite-patch-id: 27ed3814dbd0c7ad830532ff125625917c873b4b
-prerequisite-patch-id: 0df2ae41836b86fd868dfa01ddfde57f888f761a
-prerequisite-patch-id: ed31fcb9809a267b49ee44a5cde678c3d77085cb
-prerequisite-patch-id: 39a1e36d272d92139716356a50854eb8b01abc2b
-prerequisite-patch-id: 89f5eb4b7c391953fc7ce6a96eb6ce22cbc9eba8
-prerequisite-patch-id: 3bdae486f52d8983d80cf272c8c64465bf1d3231
-prerequisite-patch-id: 2650d65df328931ab3b40c132c8a862e982ac73b
-prerequisite-patch-id: 5d657469bcf35ca76bbe291203363403e00fab54
-prerequisite-patch-id: 57131df5b3b6f1d1f12ef26a65e1b161c27e0838
-prerequisite-patch-id: 309a5a3ca5b216915907263dea7024263abf1d1c
+base-commit: 9437046953b2fb3bf55b36582450ea0267df82a7
+prerequisite-patch-id: 19691099774bd3dc41f56585c03ddefb7bdc6f9c
+prerequisite-patch-id: 85db03df3394cdcb2780a0da122a74b2c1fe220d
+prerequisite-patch-id: a3e883da50bf03e8f522444def66fec7f996ffbe
+prerequisite-patch-id: c6889699a6dc13c336ce4cf4659e21b551e9a9fc
+prerequisite-patch-id: ef2f0344452092edb2221b93c44a3e82cb896a2d
+prerequisite-patch-id: c598480f753e36b7f6230129b864c559b9f185d5
+prerequisite-patch-id: f86b468a896a40f132adfcba885700327dff1bc5
+prerequisite-patch-id: a733e6bbf6de77dd9f260e65912894fd4d97aa78
+prerequisite-patch-id: 090c5ff78d4e2150804aa8d294581cd338b1e971
+prerequisite-patch-id: af0aebcae7c38d58354925119c412178b5821b5e
+prerequisite-patch-id: beb8a098ba14724e316ff243bdf8e00e729243c1
 prerequisite-patch-id: 63342c5ec38e8eb9e55c8c74d3c5a81a630d5f69
-prerequisite-patch-id: bf4ddc911cf8a6e246adf5f568e55a01abba4433
-prerequisite-patch-id: 2ef0d68c7b24d98a3e9cdb55d71e68d84a0c51f3
-prerequisite-patch-id: 4f4406ad18138f9dfce895e3ecece445f6134ac4
+prerequisite-patch-id: 1dc8d70f80674c98b2b15d09556dd27f643b20da
+prerequisite-patch-id: 4555860586ef50f27bf787a23f6ba693e9c3b0d6
+prerequisite-patch-id: 0279f281cd59cf54bceee39b0fa4d0b6a7b87c48
+prerequisite-patch-id: 14424bd8324b6cae2b8c4d6840df0db626d1385f
+prerequisite-patch-id: 7b42728bc8271e5dfd57fffec47a7f5745eff357
+prerequisite-patch-id: 74f5c7d066477024a374a789b3180e841398fb07
 -- 
 2.53.0
 
