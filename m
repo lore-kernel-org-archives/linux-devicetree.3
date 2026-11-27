@@ -1,13 +1,13 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.110
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795749148;
-	b=U71uB7cjWenk9HmVlFMo4LB+pHBNyYp4wEE5b+koB+cxnqRDzjyDBvI3mp6b9s3QVlXp
-	 d9/PcmNuQW7neJwDtvcZal2h2tCFX9BqqDNipeSK8HHAbPESoq3ajJXXLm7rILfKuuBmF
-	 3QIC3RXgIP0bRNFwRbnF3dj3beGbCkQDuye76SHLhxHSKfUimTX+7dSkRXfairZn6LyrY
-	 6xXUokcL1wxeCRCuUGLCb3ctKju50x/xm8z5Mvb2XC7pXpa961O3yQbcPAksaoINdIy6V
-	 xVBA0FqBUvWpOt3aKTDa49m/Zw5XINRfhTLTnYf3sQKDATEVD4dzQIXAMvHBRwPrVoA==
+	t=1795749143;
+	b=0ggyXL0y61++2vEhfFzwzf+BgRC/3GIS8YYJmzzXpvJntV13le+zP65QdNcuB2ZFhycu
+	 7lQdXb4/xw2bBT7Ww6ByabcHGLvHcIEN4xBqxRzNaOYMf58jmM8UpqhPrSrakpX/jqJFe
+	 CyAnegSokPmS7KhAXuTKEoizF5rNCC8QPNY7FBgShyB//CvEs+pURtGteMcbbMCg3hiiH
+	 Cun8k4xxzPYnz4nSh4JafqJXqwbX+Rjr44fiFhI+8KwCnYzZI/IORAW95YT2tY1oD2GUe
+	 rap8aiE1G90d3uh7nA/RBZPDQacw4H75oh1SN3LKNABKSVVBkpcx2OhgXlv0yvzwoAA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795749148;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795749143;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
@@ -24,54 +24,54 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=EiwLirU7SFbB9M+232oshIpCqts/tFuZULmWDH2e0lA=;
-	b=bRimcsJyUFBbOCpbfYNavVdn0UdPaHhgCubzlVxff+t6+B/lWBnlt5BCIorQopkZSTbH
-	 kE517WYtI0JeG0JnZQn22rlhqX+Uwi7VVWZlK7icfd3gUsZ2CwvT4Cl5G+WExHDfNASoT
-	 D9224muA5GnJSXF7xwrcAKeuZcpscImNficvnZb9434gzPW3FeKCFeCI12CkdUK3n5zc6
-	 NlxggNsVCFDJr+nvJnTcMfw++LGtooyz2amy50sD+sepC/n6h2DwKsvZp1Nw4v/+CbqZs
-	 yVXgixnqQIBhwgGmZBZ19xRCfvwsoPcrRk1irYvwPHA4TnFIuC7TQmYf11F3H/tltBg==
+	bh=IkpLRDsHYtvvpvdlAThZN8CNvYlXQtjIX7k+Dt3hY44=;
+	b=c4HGx8kK6xlgJLRAi5HZDSXF7hKo30ldZcSQ9WWflpht7/LuCJM8YW8fRiGR1WCnHL//
+	 mI9pm+1Hi5IuYtkaWNX6BbNI5pcKl4hmYI1tl/sdJvoHBxWyRB7tBSNGjilKkLfkJnon+
+	 CYmc7HiB9coWV/gl158o6Hp87AfOTbC4c38x3UyR02Yoa7elzc34Hsz5MHlt/FYuBwKOJ
+	 ExiOIAy4QmKavc70+l9gHwL1o/sLUODdXApafXfFKnUxwDdoKme33XMUWZ/EIxqDmjqHf
+	 TZn8yp6NsATYJ7fs0YOHnXI3dW4JgPlPqEqJOAZkwtjHLV5HqGo1IC24IKW081Fe5Tg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=valinux.co.jp;
 	spf=pass smtp.mailfrom=valinux.co.jp;
-	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=PerVAi0Q;
+	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=cSbulRpG;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.110
 Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11021110.outbound.protection.outlook.com [52.101.125.110])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BCA960A381D;
-	Fri, 27 Nov 2026 03:12:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BCA960A381D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D46E60A2604;
+	Fri, 27 Nov 2026 03:12:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D46E60A2604
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=PerVAi0Q
+	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=cSbulRpG
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=o7c2m+Up7MoxeYIyMR+X2jLLmJqzX2jyaiV06nN+U4Q6fJbGE4A/gfHvs6MOBW2Dk10QgFyVtYoK1STmLA5jPoTjKOZdauf0GaiqV0odyauMcAbkb9IjNWg9IeFDNGcxQjbrPYtQ6/ueCB7ILAvhKq16I86Zrqbj8nwKCftsWUWyQ+UQhSg+KNrt/s71PuUZq9lw8SigN1xqn+LL2j1su7JhsAUSlei2xuCs2fUfN78wHM++RKuQoz+++wq3tui24aEvqxXMIC73iP8/l2olb2D+b7QoAhbYA5hmCcD8xkvHhHLrvsal1kcG/Coedmr0+/YxNucZvlteZ4YdHHxPpg==
+ b=nFas6CWrBJv+j4X60qlWQ1zUdiQwp1C+ywlpDNJPe6pBMR+zqUS6p268u5DVDQwE05RWfuk7DlGWlN9TBAHIME3C2NZPqtAV/LYBcQXmqZb+XSCYSAEaS2TjR+ZGct00jSLTbcDgy4SPdHj/5Uk1vCKyPAeb4U4U2xtMubCM0mNnuK56zK66GWIznWC/ClDQkT0pKqUwsDCcEgSQXsQkiXLVyHbfEf8TnmvTaNnc9FhzXJR1uVZsQRTHezlDC4Er8JfH/Vt4deL+DC2gfZEcv3oDgY3+IiR0zQDDu4EeoCksBps16YdSAtVAgeq1O0ImdiLPGTM5UqNAQoL8ZovzCg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EiwLirU7SFbB9M+232oshIpCqts/tFuZULmWDH2e0lA=;
- b=PwYgUVj+RuNThrvrhvbHwDiUIRgklKW99DjHu9mgR304BQxpjDVWNcstf7CRFa1wJ03M0xwNtI6uZ3A7JcVMMB7YENXQCKoIWQY57PD5zZbGcSUAwY4t9Dtv3Y+haoJp6U9/Q2YziXvfoni7QyHh9lsMnBO2TMJUbN/LebXwUvPzBDznqWbohERX0i3YXLeGTVS+nQaTYBYz3MMmmkgY32VbLWb1HAlpcfcSkhGBAWm2o+KidSLbLoO2kBwds8zWMKVXq8QA2FtmtJyLkg6PfumeRpZd6LTPeKiEGWmIEUi3dQK/D+ECgKbbKN3+BPiikopMFxbJmDyplVuHDGSOMA==
+ bh=IkpLRDsHYtvvpvdlAThZN8CNvYlXQtjIX7k+Dt3hY44=;
+ b=PCcdx8N9ayFOmikOeRVgk3EvHCxN8pqzFfe0qdr/6h0s0/6Br/zJPpFjYdeI/c3YIlOQGTvQWhDDUZGmYeFeHlHBzMHj8tnh76TrtoClKn+1Dqj+SFnlHYciLgGGEWtN4DS8zL9R0C64E7dAw99HrwZefMDp7lFQ41HfHWU41jqkRsMNoxg5Fs9JCZOjy+0zMTy6wR5mW+8tC0hoMP5ddvtUoqK8yr1R5yW0GzMVIglYK3JWOWWClG7CiKxuFdYk1f9RoJoP1KPExmJ9HRbegaO23QIV0pAT294oEByiOOOweF3Vtw4J/y6FZQ8NQgTgAsnTdoSbmYmr7mEu7VCKFg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
  header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EiwLirU7SFbB9M+232oshIpCqts/tFuZULmWDH2e0lA=;
- b=PerVAi0QsITU1VEnWeVXPgBe+nykYYP3XJkExMgFHjckZzEpLNF1Mz2pkHagiq7lKU+x6XrxNi72+UXlum+V4szsm3iLfasmjb+IC4uD93hl/XazVQSbPltcNItV7+62aLlinkfdRH+JmAsGsOjLRoh1kUtgXda+gZt7OfwfdzQ=
+ bh=IkpLRDsHYtvvpvdlAThZN8CNvYlXQtjIX7k+Dt3hY44=;
+ b=cSbulRpGgVO8b6SxBDwnxu7kUM+cy0tJcd0ckRpninKQvA5kdeDpuu4Q2GgizhSz1mW4VXAG7o6xz5khxWseGeTL7XBXmkDZ85Yanu4dZcJ1XXagcw4crMLMDew1ZDqPUGJ8nzuOU2Fm3ky/Ja3FfnE8yvNKHNkpyUUsFYhZmds=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=valinux.co.jp;
 Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
  by TYYP286MB4873.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:143::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.9; Fri, 27 Nov
- 2026 03:12:24 +0000
+ 2026 03:12:15 +0000
 Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
  ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
  ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0662.007; Fri, 27 Nov 2026
- 03:12:24 +0000
+ 03:12:15 +0000
 From: Koichiro Den <den@valinux.co.jp>
 To: Manivannan Sadhasivam <mani@kernel.org>,
 	Marek Vasut <marek.vasut+renesas@mailbox.org>,
@@ -97,16 +97,16 @@ Cc: Qiang Yu <qiang.yu@oss.qualcomm.com>,
 	linux-renesas-soc@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v6 14/17] PCI: rcar-gen4: Route Root Port PME and bandwidth notifications
-Date: Fri, 27 Nov 2026 12:11:42 +0900
-Message-ID: <20261127031145.2521228-15-den@valinux.co.jp>
+Subject: [PATCH v6 08/17] PCI: rcar-gen4: Separate hardware setup from resource acquisition
+Date: Fri, 27 Nov 2026 12:11:36 +0900
+Message-ID: <20261127031145.2521228-9-den@valinux.co.jp>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261127031145.2521228-1-den@valinux.co.jp>
 References: <20261127031145.2521228-1-den@valinux.co.jp>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: TYCP286CA0349.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:7c::18) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-ClientProxiedBy: TY4P301CA0068.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:36a::7) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
  (2603:1096:405:325::11)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -119,72 +119,76 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|TYYP286MB4873:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6800b192-831a-4b76-9ca7-08df4c3440eb
+X-MS-Office365-Filtering-Correlation-Id: 5aa7f6f5-fa72-487e-2115-08df4c343bfb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|23010399003|1800799024|366016|376014|7416014|261009223027099003|18002099003|22082099003|921020|10067099003|56012099006|261102123227099003|261028144727099003|261026140227099003|261026121527099003|261021121427099003|261021123027099003|261022105027099003;
+	BCL:0;ARA:13230040|10070799003|23010399003|1800799024|366016|376014|7416014|6133799003|261009223027099003|18002099003|22082099003|921020|10067099003|56012099006|261102123227099003|261028144727099003|261026140227099003|261021121427099003|261021123027099003|261022105027099003|261022075727099003;
 X-Microsoft-Antispam-Message-Info:
-	w5iEX6jMfNSOG5ScIyPsrYQNcadOzB0Wkoyouz16Vacd+MyOxsbTVRQmXFek2aZKrGfdTf8Yp28nrwgzexqrtJf+RO9i30rLK/G0+gbgJrU6q0S/UD39HuVK6nzEQs9JBzD/IeUxFKQZdgeB+UainUwwKGlbKdHgHncItKxMYvqogLFBCus67Ye/jrHznLeDqoq3d/wtm/+gyrIOFCMHrKPopnVwZvAv1852pL4O/ovnZOhXeiQKi5QmsSO/sNXk8QdxICcgYnUsTDZS/VCW85UeA91C8mJA0/FRg+g3384QyXkYxUfXcReg82DfERJgmZP267FzaVKav3y3bqXeyHW9uMDZKba4wjQ/u0l+3DcGVh9z+GqO/BP0YDhAUCrud9J/gqh49UJMJ3Umrr7YDx0uYjRyiC0HVCfEyRTkhdxuX+toVbX1wYoFXVlfPKQ0A4oRm8Vguq0IqHqn0rEJ+GvPXfJlTXT/t/jVe0uFDfifaL7RRaTpxxlX3M6svpNSFYzg0DMgZCjkXXvBJI0v+RLRnM6njf0yXY8s0Nhk6r+ckgfiNS6iFZxdqDihV+jV8QbV/MOHsJWWE30jzSaAjk46eiPH7g0Lp6QdIEHNHSgL/zCNBUQAXZ38cOyTt+OmEORVH0O/x258N/nirBU4udihy5SW8e1d6Nmgax1POjF5iaLOav7gofDlfMUObROxBkIqz1N8WceDpkzEkiZWNA==
+	0AFj2gYCDpe082LUmVA3LK5/PP+paRus86pJXpThrF8GrEOhMaXsVE3h37yTt2+/+IOyPmM5GJd7+rJSpZke/g46mwMWlcYYsmiR7XexC3lo3dAm+jgD877DNuKkCm0CjXJeP8f3CMGplzmoeThYlmfnGBIZcRe+WROpw+vHp+t6+zVaF2RIMx3+uiuyz3u4B+DkNycU5RrgAhRNtCysXFm62XinhylaE4yIq3v8aQlYMci9WjXdoW7UVFumDfTFM8Ilp9K2PEqCFTpA1PeHJV+KxJXcwbJfj6XxBYFTJ00mm42qkg2t+Hr9nUCJ4IksNUcObaV0O2I3gVZfc6S4OXuQQELBj8ZVk6MgMGhZf9oIk/notIBJdn5sn+HXYTVJR6GtzrC/mlEiPCLZZrJJMtV/5Y0//1X/9IkyyVefmGUNNdRMXraN9WIqCQK4xqzxgJnXHIHzBYw1c4LLPcgep/PBzlaGaUX+TYL1DNSlsakkUiLze1Tb+lAMXmAj1xGG9J19nw2Qxs9n8mD/dErMap50BDxa5Dnj2RWmV9prvbGaGYJ3nsGDmA9WQ2tYuybrbruR7zCKwnR/I72rUXxKtzVzFMHSpvftgDl1C1E2EEiTIP+rRVDFTsewk4EdD2qdigE5QRaSbmrx49dbkgF6D6B95FS5+Af/9uD6TZBe/FUct/5WW1IZvMe0itggON4wARn75mI1Wrr0LrxLmazC7w==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(1800799024)(366016)(376014)(7416014)(261009223027099003)(18002099003)(22082099003)(921020)(10067099003)(56012099006)(261102123227099003)(261028144727099003)(261026140227099003)(261026121527099003)(261021121427099003)(261021123027099003)(261022105027099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(1800799024)(366016)(376014)(7416014)(6133799003)(261009223027099003)(18002099003)(22082099003)(921020)(10067099003)(56012099006)(261102123227099003)(261028144727099003)(261026140227099003)(261021121427099003)(261021123027099003)(261022105027099003)(261022075727099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?kVaqhF+gtAnhj3JL7kU7ePtqcSxWbP1d+cmddcTE6w02XB3m44rVj0qFMs9w?=
- =?us-ascii?Q?UbRtRRfK2TxXpX8RDfJu+2NFaKryyjvtz5rbxbUNplV81uf165E0AHTLQ/KZ?=
- =?us-ascii?Q?Vjosac3q+4yckPvct0UNztDSbx0SEuOy7j713mPTVEaDF0h6MJbMW4MjfFOq?=
- =?us-ascii?Q?Feq1Hl0wB3S1OZCqOnHBMr0IEdfE7whp9ft5zI4xOJp9SPSUjR1Rs2FoLyGy?=
- =?us-ascii?Q?Q/dknFm3MFuB+oDFQbHLO2/jbgaXP9qoJDI4sZUzgiTQOUGetxw3IB7sQ7Oq?=
- =?us-ascii?Q?NZfZHe3jGgebMW88eKrWMZ9IrCtIrZg+Jt04hFi6rUtga5nzI51lk8r8jbBb?=
- =?us-ascii?Q?aTf4uW8OUuRhqRqfZFDHsjyVg/Ac5M/bEglf2ykwlcsFs4510BrHKFPVxaLB?=
- =?us-ascii?Q?62s1GKd+gAfmiyRQTfm+PPlnvgpvJKLfyiIOlwX1px3nnQPK5trx2ILsWR4r?=
- =?us-ascii?Q?zFVLm3x1lN9CaXcgtY+bbOianm008SPv8bwQzgC9u7SIm8r9UKKPXP9kWhqe?=
- =?us-ascii?Q?FGE6r4/I8/iy5S9rvQVtEm07YDYbIhf5fS1F7ERCqozT2L4bQdjW5HOyN1dm?=
- =?us-ascii?Q?Ip8Bb1hSKCIKAGk0mJpK3oly/cnAkvN30kSHQP+dSFBOY07sST3kRvO2rxHE?=
- =?us-ascii?Q?TcIzQVsTD7fzSNaloxYtGgJBM44P2sn/Jux04vIOv2ZMmdido671DN+JVN5h?=
- =?us-ascii?Q?0+2X07Yh/ka+oljDcvsJtVaj/3j+rt3NwJdxzz3cuUQ1OVnTYFbzLZy35DAt?=
- =?us-ascii?Q?eA4syB3sgCcYRjD2eewWR5k7pbDkYpuUGGFsFbQ7xmqgsAGWtkHue8eRt6/k?=
- =?us-ascii?Q?iqtsg4VQD9W7jKKgdBGt0+2sDdVBLXDJGltr3WhzbaEQy+43vD3g0vHh8XlX?=
- =?us-ascii?Q?teZpotDUnc9UW3pcBJn+CbM40SKn4DQS+GNw9/mOGU851FFYrnb55pw8KbXv?=
- =?us-ascii?Q?ho4EqtejxAIKR+Rmv/rOD5O+WW+mxSrhgaR9hy+5NiWf/xpwTcTUhe0rrPtZ?=
- =?us-ascii?Q?X0r6TpgLT2bKbzoS1QnJiDCx3p1U9TgIzWpKALK9ynrcsDt2h/Qzsnp97Ua0?=
- =?us-ascii?Q?WAxx4zdt1NA90UcXrf02RHD9S8OESk802nA8pvH09itHEY6NBReNWa2e3LLk?=
- =?us-ascii?Q?WaM95gyWGoM18WAGNKFyG/0VjcAzh3W8BtbXVP4ulYFcXj8c80TV6m1WmAaw?=
- =?us-ascii?Q?zCh8jPbVpdiWlKe8wNB0Ls83w6GlSXR26OW+LXN+7WKwgGLQ+O/PGW7ewNb7?=
- =?us-ascii?Q?oGdV0/n2qAghEgg6RbiMqfmqMlWKDFIx/mrxRvLCqA69LGqRqymmYlQavft4?=
- =?us-ascii?Q?VOlTbKazVL/6ip/BZfQuxpSlF3kFe0ndd9oPjZotd/JlL3a1WgsCIHN+TW8E?=
- =?us-ascii?Q?zdHs/AzHWJRvJnX1eOvdRYoDSiQ8OHwzBsMMjhoq7TF4MFPK8UhhzJOAGcAe?=
- =?us-ascii?Q?HkvJD2yIvE0gzjcs1AL828hCb/XFIaYGm4NpSEEkOleRPoedckaRo+F0LN42?=
- =?us-ascii?Q?+O6UXM1l/xqyI1laQEWe9+RzPTjNrgu7zoutvpFVltBrbmC7FxrIlJmwOKGY?=
- =?us-ascii?Q?zKhbs/gltB0y7kiehrIuySLvNmyEtKVZLElLqTKZD1W9xu06gclVcRPmgmCT?=
- =?us-ascii?Q?BELEg+l1ZR2iyFfU5ZcSrNVOVlM+xEeqf6C8XkidOy6Z+FJdhonpx59d6IX2?=
- =?us-ascii?Q?73ui04p8cmynX1O5rIRoQpptAvgWJbvyDwnr/Zuwq6Qtm7Gn7OKtyIxi+cvN?=
- =?us-ascii?Q?xLlHVJKMwRiGvbxThHe7fgp6OOslvGkG+psqh/G0iL0/UjZ7mBE1?=
+	=?us-ascii?Q?KPy0aWIRpR6uKYk1FhkIza/cnpoeiFOLQxDik3YwioTHK++nP2GVVIEVGQ/S?=
+ =?us-ascii?Q?mpP7yvbHBeRmr5AggkmOG59Jx0mdQ8z/1JDsDBUpw5EhYCbGvFkAiVe/oC6D?=
+ =?us-ascii?Q?LJM0LKsuV2RgBcfe8XIhamq3GJewVT+PfeyJ/0UQfTb/FUE+CNRqc113hBLt?=
+ =?us-ascii?Q?glP1RiYus2aLWf/Zxvfarbae34AzoTNy1nLU8SwoNPuxqQg95FbLLSHkh0ec?=
+ =?us-ascii?Q?/GEaNtzo+N4DasWYHBbtefj+OxN4mA1oPEMsUPsfczOvCd+rRfXwlyJJGw9y?=
+ =?us-ascii?Q?j2N/9pehih4CA7q0JKt6gS/VPbW3fnIAEcQ2AHJQRfqSwFtWtbmC6JlsUJoG?=
+ =?us-ascii?Q?c82uZy13174W8QxQ/Gla2Cu31IS2Ak+ZZmK3agKyMpNXda5U26qmHJj0yumv?=
+ =?us-ascii?Q?DNFt8DSLCek1ME1e8QwsPP5Ard8gPfx1l3fdyT/Y1Y4sqLUVljmUbcSR7f8B?=
+ =?us-ascii?Q?eCqd2ac87Yir9pgCnDCuB9eqkl24UOxTjsi/992Sb3HOsWmLrDHYvVMKcNdZ?=
+ =?us-ascii?Q?Fy188dqUEZSMcZwJBNPOcjJOsgjdOE5euW9H4Q+laMlTb1RUR66uWx5ODGFk?=
+ =?us-ascii?Q?nmAle3RPlwk6WvVRbmc0jEKuMZrv/UnfcTx4AMpkMcVo/RlXugJBT5Hockp3?=
+ =?us-ascii?Q?f4UFSC1h7mpmHh/gD8GM31b+zyOiXIjAJUrm+hOE9Gpuy7FyvAXJimBqTCVr?=
+ =?us-ascii?Q?sUxE+7l0W95mKFICtCYbkvX160eQ2lE5WBPUQDmW9JOpFE+jGrP526go2ocp?=
+ =?us-ascii?Q?yyaaNYmxftNfGtlBZ90Bntr4DOBiAxz/KP71QsHsqylCm9ukGp0OSz+/6EmT?=
+ =?us-ascii?Q?+2L3vWkBRIdgWnZAqyRI+3C3EOIfqVavk1usKP5HFxotQ171iPYGFJocXHpm?=
+ =?us-ascii?Q?lYF5Esla6rKsSz/FVoMa7qe+B5R332S14TIQhJNTh4XCfBpoim48Kem71dzY?=
+ =?us-ascii?Q?FC0f0GqjWIgu1OuOXwvdwbNQmTzYhvQEEIRxThHyxrFKveD0VHlY7hKzZpGc?=
+ =?us-ascii?Q?E+DX5xMXP7IDR8+mwuUO8dj/kgL93pwW8TWHQwG6VtGwXUXjDXQTi1fYsvm8?=
+ =?us-ascii?Q?3tDmD5AR81FlkOtfnwG3/nkbGAcCDqjXwyLMtt/KxihSwmVLKAHC46rYDhjK?=
+ =?us-ascii?Q?fz6a47TUr+aRiT4MwNVnd49bV5a0avRs8nij20iit1u1ggotrBP6ogEu7wQC?=
+ =?us-ascii?Q?Z641Zz5L3hqrP2OgED35qVeonviF8LNhkxEzmlySIfnsnCrv3lTeZ9D+pIAc?=
+ =?us-ascii?Q?SME8y4Q2Lui7DJO/homSCG2vFFjf2CvzNrfvrtN3MOYNWoqFPd5RiGh12/3m?=
+ =?us-ascii?Q?AWEQSe2V3NZSzOIZBT6fraBc6P2/DaqwNq/P/3/gmslQE+qyHeVUesPFDW7K?=
+ =?us-ascii?Q?m/2G9wC1w1E1ehC4ICDlEr5xyIrZh0PNsqan2PsOPJ1L/BKr3Icsaw3aXNzc?=
+ =?us-ascii?Q?8pAPSgdkpmp3Xej6Tya4ZHxorjWt2Ff0VF7DlzdLngFZHjbx1hBeyiokCkzA?=
+ =?us-ascii?Q?9jNHfTi/olwOrFKDkIUHUgMxhLaRBvzQLmaJ1KeRlvGT0RYVzTo3+6L5omxh?=
+ =?us-ascii?Q?AGBGqc6co+QoZAWJquUdrJ6LVLTZP5Rg9vqatWZCXH4DsVDzVllOFKUj9gyY?=
+ =?us-ascii?Q?ccUhGWoRWgz3v8Ps7/TRMyzHgDRjKL3yCvYw28DKBgJzOoAX5BTnOfY4yEI1?=
+ =?us-ascii?Q?src0otga2eK8NOavbl/Z7TA0ATEnGD/Ej6DIyKYVvEyrCki5c5+nVcxKLvl4?=
+ =?us-ascii?Q?F/v50VTpq++D+wpcZ57nPMz9ZuvwWsovggJhmDKFUhZemZz8fjXL?=
 X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6800b192-831a-4b76-9ca7-08df4c3440eb
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5aa7f6f5-fa72-487e-2115-08df4c343bfb
 X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 03:12:22.3368
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 03:12:14.2142
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KhnF4bSTEKgplRnn+bYXNZCnTtTikoSfHqS7ugpc2N65ZcGVTgRSNSfxwz8ZTmZ0l8YsSO+tipQocyj+edAGMw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: ff+Bi/v7J+WvAW7hijZgdCM5aKUt9g1jptWeqWdtcXdZHvAA9kohsMxkaeoNJDgr3/opNNODm5BP6ruSLx+uwQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYP286MB4873
 
-The Root Port's PME and link bandwidth notifications are reported in
-PCIEINTSTS0 and routed to intreq_pcim_sub, the interrupt shared with the
-integrated MSI receiver and the reset requests. Dispatch these
-notifications to the virtual Root Port IRQ from the "msi" IRQ handler
-after handling any pending iMSI-RX interrupts. This keeps Root Port
-service handling out of the path between the reset-request check and
-the iMSI-RX status reads. The existing dispatcher rechecks reset requests
-before invoking the port services.
+Factor out the hardware setup needed by Root Port recovery into helpers.
+Recovery needs to reset and restore the controller while keeping its
+clocks enabled and the R-Car Gen5 SoC PHY initialized.
 
-Enable the sources only while the Root Port IRQ is unmasked, and clear
-the MSI-form latches in irq_ack together with the AER one. On an R-Car
-S4 with the GIC ITS as MSI parent, a notification from a link retrain
-now reaches the bandwidth controller service, which clears LnkSta.LBMS.
+- From rcar_gen4_pcie_common_init(), extract the power reset and mode
+  setup. Leave clock enabling and Application/Local reset control in
+  common_init(), so recovery can keep the APP registers accessible.
+
+- From rcar_gen4_v4h_v4m_pcie_init() and rcar_gen5_pcie_init(), extract
+  the SoC-specific register setup. This allows recovery to restore those
+  settings without taking another clock or PHY initialization reference.
+
+- From rcar_gen4_pcie_host_init(), extract the Root Port register setup
+  and PERST# release. Both paths need this host-specific sequence after
+  the per-SoC initialization or reset.
+
+No functional changes.
 
 Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 Signed-off-by: Koichiro Den <den@valinux.co.jp>
@@ -192,87 +196,232 @@ Signed-off-by: Koichiro Den <den@valinux.co.jp>
 Changes since v3:
   - None.
 
- drivers/pci/controller/dwc/pcie-rcar-gen4.c | 30 ++++++++++++++++-----
- 1 file changed, 23 insertions(+), 7 deletions(-)
+ drivers/pci/controller/dwc/pcie-rcar-gen4.c | 125 ++++++++++++--------
+ 1 file changed, 77 insertions(+), 48 deletions(-)
 
 diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-index 51702e604793..548e7033d401 100644
+index 051186ac2d71..c513294df5a0 100644
 --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
 +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-@@ -66,6 +66,16 @@
- #define AER_RC_ERR_INT		BIT(27)
- #define RP_AER_MASK		(AER_RC_ERR_MSI | AER_RC_ERR_INT)
- 
-+/* Root Port notifications routed to intreq_pcim_sub ("msi") */
-+#define BW_MGT_MSI		BIT(23)
-+#define BW_MGT_INT		BIT(22)
-+#define LINK_AUTO_BW_MSI	BIT(21)
-+#define LINK_AUTO_BW_INT	BIT(20)
-+#define PME_MSI			BIT(12)
-+#define PME_INT			BIT(10)
-+#define RP_SUB_MASK		(BW_MGT_MSI | BW_MGT_INT | LINK_AUTO_BW_MSI | \
-+				 LINK_AUTO_BW_INT | PME_MSI | PME_INT)
-+
- /* PCIe DMA Interrupt Status Enable */
- #define PCIEDMAINTSTSEN		0x0314
- #define PCIEDMAINTSTSEN_INIT	GENMASK(15, 0)
-@@ -75,7 +85,8 @@
- 
- /* PCIe Interrupt Status 0 Clear */
- #define PCIEINTSTS0CLR		0x0340
--#define RP_LATCHED_MASK		AER_RC_ERR_MSI
-+#define RP_LATCHED_MASK		(AER_RC_ERR_MSI | BW_MGT_MSI | LINK_AUTO_BW_MSI | \
-+				 PME_MSI)
- 
- /* Port Logic Registers 89 */
- #define PRTLGC89		0x0b70
-@@ -136,7 +147,7 @@ struct rcar_gen4_pcie {
- 	struct platform_device *pdev;
- 	struct reset_control *perst;
- 	const struct rcar_gen4_pcie_drvdata *drvdata;
--	/* intreq_pcim_sub ("msi"): iMSI-RX and other controller notifications */
-+	/* intreq_pcim_sub ("msi"): iMSI-RX, reset requests, Root Port PME/bandwidth */
- 	int msi_irq;
- 	struct work_struct link_down_work;
- 	/* Allow Root Port event handling after enumeration and until teardown. */
-@@ -579,7 +590,7 @@ static void rcar_gen4_pcie_app_irq_sync_locked(struct rcar_gen4_pcie *rcar)
- 	lockdep_assert_held(&rcar->app_lock);
- 
- 	val = readl(rcar->base + PCIEINTSTS0EN);
--	val &= ~(MSI_CTRL_INT | RP_AER_MASK);
-+	val &= ~(MSI_CTRL_INT | RP_AER_MASK | RP_SUB_MASK);
- 	/*
- 	 * Note that rcar->rp_events_armed is not checked here because device
- 	 * removal may still need iMSI-RX interrupts after Root Port events have
-@@ -589,6 +600,8 @@ static void rcar_gen4_pcie_app_irq_sync_locked(struct rcar_gen4_pcie *rcar)
- 		val |= MSI_CTRL_INT;
- 	if (rp_events && rcar->rp_irq_enabled && rcar->aer_irq > 0)
- 		val |= RP_AER_MASK;
-+	if (rp_events && rcar->rp_irq_enabled)
-+		val |= RP_SUB_MASK;
- 	writel(val, rcar->base + PCIEINTSTS0EN);
- 
- 	val = readl(rcar->base + PCIERSTSTSEN);
-@@ -736,12 +749,15 @@ static irqreturn_t rcar_gen4_pcie_msi_irq_handler(int irq, void *data)
- 
- 	status = readl(rcar->base + PCIEINTSTS0) &
- 		 readl(rcar->base + PCIEINTSTS0EN);
--	if (!(status & MSI_CTRL_INT))
--		return IRQ_NONE;
-+	if (status & MSI_CTRL_INT)
-+		dw_handle_msi_irq(&rcar->dw.pp);
-+	if (status & RP_SUB_MASK)
-+		rcar_gen4_pcie_rp_irq_dispatch(rcar);
- 
--	dw_handle_msi_irq(&rcar->dw.pp);
-+	if (status & (MSI_CTRL_INT | RP_SUB_MASK))
-+		return IRQ_HANDLED;
- 
--	return IRQ_HANDLED;
-+	return IRQ_NONE;
+@@ -234,20 +234,13 @@ static void rcar_gen4_pcie_stop_link(struct dw_pcie *dw)
+ 		rcar->drvdata->ltssm_control(rcar, false);
  }
  
- static int rcar_gen4_pcie_msi_irq_init(struct rcar_gen4_pcie *rcar)
+-static int rcar_gen4_pcie_common_init(struct rcar_gen4_pcie *rcar)
++/* Clocks must be enabled and the Application/Local reset deasserted. */
++static int rcar_gen4_pcie_reset(struct rcar_gen4_pcie *rcar)
+ {
+ 	struct dw_pcie *dw = &rcar->dw;
+ 	u32 val;
+ 	int ret;
+ 
+-	ret = clk_bulk_prepare_enable(DW_PCIE_NUM_CORE_CLKS, dw->core_clks);
+-	if (ret) {
+-		dev_err(dw->dev, "Enabling core clocks failed\n");
+-		return ret;
+-	}
+-
+-	reset_control_deassert(dw->core_rsts[DW_PCIE_CORE_RST].rstc);
+-
+ 	if (!reset_control_status(dw->core_rsts[DW_PCIE_PWR_RST].rstc)) {
+ 		reset_control_assert(dw->core_rsts[DW_PCIE_PWR_RST].rstc);
+ 		/*
+@@ -266,8 +259,7 @@ static int rcar_gen4_pcie_common_init(struct rcar_gen4_pcie *rcar)
+ 	} else if (rcar->drvdata->mode == DW_PCIE_EP_TYPE) {
+ 		val |= DEVICE_TYPE_EP;
+ 	} else {
+-		ret = -EINVAL;
+-		goto err_unprepare;
++		return -EINVAL;
+ 	}
+ 
+ 	if (dw->num_lanes < 4)
+@@ -277,7 +269,7 @@ static int rcar_gen4_pcie_common_init(struct rcar_gen4_pcie *rcar)
+ 
+ 	ret = reset_control_deassert(dw->core_rsts[DW_PCIE_PWR_RST].rstc);
+ 	if (ret)
+-		goto err_unprepare;
++		return ret;
+ 
+ 	/*
+ 	 * Assure the reset is latched and the core is ready for DBI access.
+@@ -293,6 +285,26 @@ static int rcar_gen4_pcie_common_init(struct rcar_gen4_pcie *rcar)
+ 	fsleep(1000);
+ 
+ 	return 0;
++}
++
++static int rcar_gen4_pcie_common_init(struct rcar_gen4_pcie *rcar)
++{
++	struct dw_pcie *dw = &rcar->dw;
++	int ret;
++
++	ret = clk_bulk_prepare_enable(DW_PCIE_NUM_CORE_CLKS, dw->core_clks);
++	if (ret) {
++		dev_err(dw->dev, "Enabling core clocks failed\n");
++		return ret;
++	}
++
++	reset_control_deassert(dw->core_rsts[DW_PCIE_CORE_RST].rstc);
++
++	ret = rcar_gen4_pcie_reset(rcar);
++	if (ret)
++		goto err_unprepare;
++
++	return 0;
+ 
+ err_unprepare:
+ 	reset_control_assert(dw->core_rsts[DW_PCIE_CORE_RST].rstc);
+@@ -310,16 +322,10 @@ static void rcar_gen4_pcie_common_deinit(struct rcar_gen4_pcie *rcar)
+ 	clk_bulk_disable_unprepare(DW_PCIE_NUM_CORE_CLKS, dw->core_clks);
+ }
+ 
+-static int rcar_gen4_v4h_v4m_pcie_init(struct rcar_gen4_pcie *rcar)
++static void rcar_gen4_v4h_v4m_pcie_configure(struct rcar_gen4_pcie *rcar)
+ {
+ 	struct dw_pcie *dw = &rcar->dw;
+ 	u32 val;
+-	int ret;
+-
+-	/* R-Car Gen4 common initialization. */
+-	ret = rcar_gen4_pcie_common_init(rcar);
+-	if (ret)
+-		return ret;
+ 
+ 	/* R-Car V4H and V4M specific additional initialization. */
+ 	val = dw_pcie_readl_dbi(dw, PORT_LANE_SKEW);
+@@ -331,6 +337,17 @@ static int rcar_gen4_v4h_v4m_pcie_init(struct rcar_gen4_pcie *rcar)
+ 	val = readl(rcar->base + PCIEPWRMNGCTRL);
+ 	val |= APP_CLK_REQ_N | APP_CLK_PM_EN;
+ 	writel(val, rcar->base + PCIEPWRMNGCTRL);
++}
++
++static int rcar_gen4_v4h_v4m_pcie_init(struct rcar_gen4_pcie *rcar)
++{
++	int ret;
++
++	ret = rcar_gen4_pcie_common_init(rcar);
++	if (ret)
++		return ret;
++
++	rcar_gen4_v4h_v4m_pcie_configure(rcar);
+ 
+ 	return 0;
+ }
+@@ -341,22 +358,11 @@ static void rcar_gen5_pcie_deinit(struct rcar_gen4_pcie *rcar)
+ 	rcar_gen4_pcie_common_deinit(rcar);
+ }
+ 
+-static int rcar_gen5_pcie_init(struct rcar_gen4_pcie *rcar)
++static void rcar_gen5_pcie_configure(struct rcar_gen4_pcie *rcar)
+ {
+ 	struct dw_pcie *dw = &rcar->dw;
+-	int ret;
+ 	u32 val;
+ 
+-	/* R-Car Gen4 and Gen5 common initialization. */
+-	ret = rcar_gen4_pcie_common_init(rcar);
+-	if (ret)
+-		return ret;
+-
+-	/* R-Car Gen5 specific additional initialization. */
+-	ret = phy_init(rcar->phy);
+-	if (ret)
+-		goto err_unprepare;
+-
+ 	dw_pcie_dbi_ro_wr_en(dw);
+ 
+ 	val = dw_pcie_readl_dbi(dw, PORT_LANE_SKEW);
+@@ -375,13 +381,25 @@ static int rcar_gen5_pcie_init(struct rcar_gen4_pcie *rcar)
+ 	val |= APP_CLK_REQ_N | APP_CLK_PM_EN |
+ 	       APP_READY_ENTR_L23 | APP_REQ_ENTR_L1;
+ 	writel(val, rcar->base + PCIEPWRMNGCTRL);
++}
+ 
+-	return 0;
++static int rcar_gen5_pcie_init(struct rcar_gen4_pcie *rcar)
++{
++	int ret;
+ 
+-err_unprepare:
+-	rcar_gen4_pcie_common_deinit(rcar);
++	ret = rcar_gen4_pcie_common_init(rcar);
++	if (ret)
++		return ret;
+ 
+-	return ret;
++	ret = phy_init(rcar->phy);
++	if (ret) {
++		rcar_gen4_pcie_common_deinit(rcar);
++		return ret;
++	}
++
++	rcar_gen5_pcie_configure(rcar);
++
++	return 0;
+ }
+ 
+ static int rcar_gen4_pcie_prepare(struct rcar_gen4_pcie *rcar)
+@@ -619,21 +637,11 @@ static void rcar_gen4_pcie_host_perst_assert(struct dw_pcie_rp *pp, bool assert)
+ }
+ 
+ /* Host mode */
+-static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
++static int rcar_gen4_pcie_host_setup(struct dw_pcie_rp *pp)
+ {
+ 	struct dw_pcie *dw = to_dw_pcie_from_pp(pp);
+-	struct rcar_gen4_pcie *rcar = to_rcar_gen4_pcie(dw);
+ 	int ret;
+ 
+-	if (pp->bridge)
+-		pp->bridge->enable_device = rcar_gen4_pcie_enable_device;
+-
+-	rcar_gen4_pcie_host_perst_assert(pp, true);
+-
+-	ret = rcar->drvdata->init(rcar);
+-	if (ret)
+-		return ret;
+-
+ 	/*
+ 	 * According to the section 3.5.7.2 "RC Mode" in DWC PCIe Dual Mode
+ 	 * Rev.5.20a and 3.5.6.1 "RC mode" in DWC PCIe RC databook v5.20a, we
+@@ -645,13 +653,34 @@ static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
+ 
+ 	ret = rcar_gen4_pcie_host_msi_init(pp);
+ 	if (ret)
+-		goto err;
++		return ret;
+ 
+ 	msleep(PCIE_T_PVPERL_MS);	/* pe_rst requires 100msec delay */
+-
+ 	rcar_gen4_pcie_host_perst_assert(pp, false);
+ 
+ 	return 0;
++}
++
++static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
++{
++	struct dw_pcie *dw = to_dw_pcie_from_pp(pp);
++	struct rcar_gen4_pcie *rcar = to_rcar_gen4_pcie(dw);
++	int ret;
++
++	if (pp->bridge)
++		pp->bridge->enable_device = rcar_gen4_pcie_enable_device;
++
++	rcar_gen4_pcie_host_perst_assert(pp, true);
++
++	ret = rcar->drvdata->init(rcar);
++	if (ret)
++		return ret;
++
++	ret = rcar_gen4_pcie_host_setup(pp);
++	if (ret)
++		goto err;
++
++	return 0;
+ 
+ err:
+ 	rcar->drvdata->deinit(rcar);
 -- 
 2.54.0
 
