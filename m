@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.138
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795770552;
-	b=A1qu702/5Ch0eCJQvKIKevr9OllGxw9WMEjAZNhhmn2nEviZFmi3YnFy8UidNF6urcPS
-	 12ETeP00mJv5rOx2P4pZsH1LunegnFLUrGrfYG2ksl9IyEwTetZauvIfhnlRpMemGTFCW
-	 eKyxEfKO6FpljayU1D6AvGJLH+76Ya/q9gfHqBRt8bGHS5zHiSXqcKYCw3SHhS6vejmUn
-	 q8uKy6ZvSFzs6673uUnM+e97iloqqM4XOENGIUdKG0ZkErW/o88tB7P/Ho4Kzh7YfgPbQ
-	 P/at+JXFfBOheLGl8uMu3TFNXaac1CdjpgycegHVH0Y61pgxHS4xGTeYasDoQV4X5ag==
+	t=1795770566;
+	b=yeE0O1zfPPnKd9lJtm3lIxEvM+Df0d2bQIKZjjFXoW2WuYnMq/Ta2mGt/wfZiL7e63J0
+	 YCmlf2BM1/CxV1Lm9K10cVLrlZrjlS6LVSYV4ohKH1aq4LuVyKUCQCNKXsM0xSymaV4iD
+	 X15F5HaFVZMKzT0lKpNW9VqwQfPGsskB9RG8xUSbCF6LlU96vLOWz0HKG1lMZZo8Vwl0W
+	 sb09FI2My2abR79jr4hWQ1nqanalhCg/eBvncHu5v/DbXHF21hqG9McD5gJU6hM8tI7GQ
+	 bVGdx2Ev30dXLCwfKpG2E30cjpPqaLfNqM9QXwFzDquL62f7/iqhs/vtFDFPnmVGLwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795770552;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795770566;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=vXO/Y/CYrpQIxWyPESy68yxl237JHlY56bkJQSv87LI=;
-	b=32sJkk5RDHJ/jUyigD6+nx6r/ggpEgPhRzLxtxANILHF4t+gqqohohS0wl0QU7PFEKNd
-	 ihQdIpXxG8wHkuc8r95okPxuLIgN21EWk2N7nbCVItock3ykl5Cqm8tKvQqrQqNpnozh1
-	 cXXMGcrroo1BJfnUfSb9IpDsVnxin49+VwvtN2IZB0kcP0Yb1+/jRCQFX1uGQrxrtEitc
-	 D4hu0mk9Ty6YNM4MAEr2XMANftyDzIWyV8iv/waVaiYc54tMur8hHKUw+FdKbRASBZHUC
-	 Scb9PxNPyRwtZn6vj3G6NSeaa6CeLAi9vdiH7fGtKpTliCgy084jdFYifoWrS/g2syA==
+	bh=oKmXp2d3TpfvxuGqVqHnwKm3WEcWPeyk8O3QNAPgerw=;
+	b=yN1HyMhA1oQ4Idhft9c9dFIDo36gXo29ErsTkcPnxqVoRsZO0ul2I2bT9GP37XivCKdU
+	 pQNN8SYl4D7jSBaCE9jdlQXCxXr9gJGkCpD87XpGoCXdlpGUe9Cuw1GZj2ql0kpLaxI4O
+	 n9nlbHnfEArM2yDlQ5GALtDWhin8TLAR+YCBIyYpwTawZp1PGw73uYxVBii2K0vP4QSgd
+	 pQK69qR4nqAEhiMnrxv1c0gwVfAYQxMZp6Q7tN+z02SzR/VIQt5o9qxGKFH3bLou0CpkJ
+	 BHc7QRevt/QkpY0fa7dIcjwuScWtx/zaZ2VQYGweNtF/kFaLmDFkrQrhenWSKZXz7WA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SkuZz+mJ;
-	arc=none smtp.remote-ip=74.125.227.131
-Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wgsE6b10;
+	arc=none smtp.remote-ip=74.125.227.138
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B119606A324
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 09:09:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B119606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2EDA606A323
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 09:09:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2EDA606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SkuZz+mJ
-Received: by mail-pj2-f3.google.com with SMTP id 98e67ed59e1d1-3b509dc9d79so363115a91.1
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 01:09:12 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wgsE6b10
+Received: by mail-pj2-f10.google.com with SMTP id d9443c01a7336-2effa00323fso31000765ad.1
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 01:09:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795770551; x=1796375351; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795770565; x=1796375365; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vXO/Y/CYrpQIxWyPESy68yxl237JHlY56bkJQSv87LI=;
-        b=SkuZz+mJDHOk9OFN2WwbkiZTq9QdyGqBwYx2wB0aGL9C0ZOF4UE75bp4ZvBUKlKlgi
-         yYlNhjvqV3wZJ0BQt8bcQcIK2f6FLuVTgsVAy0w9OHAz6FbBCtZ/T9Iu6qoFG1GGqZLz
-         qtm1VLW+e+ZneQW6+R8aBU/HD4P9SwDsANs81TPYD/3dVMZJll5dZdKvPM/TUjVDUAD5
-         uPrKsouF7XojyWAayGkKGRLeGRymQgGQJrLsP89fKldRuDHFqWd9bThBZjvbi/mq9y6z
-         ipzbPqymnl+/yUvmud7LTPm/sho60kmnH5tdMmzP04Fch3YRBZGOTIfrXX42d5/34uEZ
-         MLgg==
+        bh=oKmXp2d3TpfvxuGqVqHnwKm3WEcWPeyk8O3QNAPgerw=;
+        b=wgsE6b10W/5lEmbl3ug+kzBc6JE3d4Lt9SVY1osWfzLDys/F6aq2sEE0Ei1zsbm2uC
+         o1pqOyBuaYIvcYu7aZETSAaXGm1X6XNUIkzCwzC2WGshp181qMG4RqTxv65eq2pBcL+P
+         SRBUDtCYhXAyEiPB4dhZC6aJ5Qr0XeoKXGqUd8vIB00h/6AtSZgtWRl7g4+cB+Jccuqt
+         +woEjmqw2gEk/fhYmKtqTdEQKXK92n+gSAd6SNILiTHSnl2q1E53ZT6knU8aBcpScFSr
+         MWLlQ7giIGUBHkRs6iySHAGGqvcqgzvbj8LsoWWhpPZss7Dh+mJD9tiQJpLqX1TPMHWO
+         vCkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795770551; x=1796375351;
+        d=1e100.net; s=20260707; t=1795770565; x=1796375365;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vXO/Y/CYrpQIxWyPESy68yxl237JHlY56bkJQSv87LI=;
-        b=zzCO2+oK67Whre8nJ0Jx38/JIH9txQMHOL4KHl1oNYUWTqfGmP2tWFbQGcARyGVrgx
-         4GqAt8gRz1HDAtC6bWJQBcY8ALLhEdY5PVoXbavJOY9knUOLH2mzGXznMBbZfnbEugHk
-         JrzP1mCuWG8tWQq5v6HVoG3NBfZU+8d68GLSIttWZcbAAjcrDBTqWUJM7lP6MupjCZSm
-         uQiGfujvBTP+/QDWQsLGwz/cyel3U34cLyIRjsO/q5MJRCAEevzrJj5G7SG96FY2vCz1
-         eFIqz1d32Sq/GBhj3TMGlM0tBOa1xb20+UvnA3Pp+oRJjmWFv3EQ4ZWdCGDg3uhJTqUr
-         UUrw==
-X-Forwarded-Encrypted: i=1; AL+hErEN618oO9Li//PpZLBxMhYvzF+Ebq7hy3vCuEw2wU7UXVDQZ6XJUaKsrCEepwEfZX1nl21W3XXIZIiT@vger.kernel.org
-X-Gm-Message-State: APuU4Z8CBevNuQwXnZbbRNPoL0bzq/7fSo8FiLwaSFCi0TRyKau9fgq4
-	CJQZbJjQH7NkgUO2GfONvRhXw+b1fJ09AUdUk6bl5xn63BYYlKp6clJi
-X-Gm-Gg: AZFdTZdhAf4qcu/rHL/Ep0c0D/2S5ThUPYS5b1Kih83ckZdBeWT20XDOYrCwNDKKttF
-	s84nQSk8JwkEnq2eFJ66SLPiD+yg9epGhqB/pTsjrFvmSQDInV4/vNcLaFJnd5NTa7jda1JqbPn
-	VPPjCBqNB9YCOxiCpuIgtBFTs/rm0/DkZSyHkXRQ3wBwrDE/oyGwB9viTRFT9CKfFGhB8OQhG6n
-	Q1iGDrLNHFT0udJlTTGs5SHgR7qVQPTUaZ4X9xBRqTNkRLnd6gA27L00xRZ3qJumkMD7ktssAWE
-	GXT/mRCHlLvAQ3HGN8B0W3W8kT4YRHM7wK2/DfqOOHKX9NbAJ2fkTb0UwfivYGG4MudwUFADuUT
-	JbqxaeA9XEkQWe3AtoVTAY6lqsJzTE26HxsNzv4HCTiYCjx/pSPgWP1J/ZcR/UvIW1ObbcOCitE
-	HbDspl5YYOdbUO+qFYuov0+s7rIhno2ainUaZDdSMnT6hWiEbzuyr9J0UyfM0qdxgIzLrex/p/D
-	n0LnnRk4ffblYi3qGqcTdu75Q9G427VyU2C3mcbNd1FC0K+RtMj2Fdd9+13QLMzmqPT1W8svjwp
-	bNkYn0lSyA4coiZ5Dg77yid1oVeBjpR2eRaHgBqnaCI=
-X-Received: by 2002:a17:90b:5907:b0:3b5:29e:11b4 with SMTP id 98e67ed59e1d1-3b5029e1464mr6516552a91.44.1795770551516;
-        Fri, 27 Nov 2026 01:09:11 -0800 (PST)
+        bh=oKmXp2d3TpfvxuGqVqHnwKm3WEcWPeyk8O3QNAPgerw=;
+        b=IJBv6XykoZNa/m4aH6AK5IUS0QN+3sYoHZCA4LXgKmGtt0j30UnXQ5xHiEiJWUAN6a
+         W+9i1fNiCoQaj10WJBwwhsD5m8yUTn967M4UkutAE9qi/CEs0RXefRnGA7yxpVGfOTI2
+         gH3O5XFBYYbD3lE28I2oxn1eJ5Cyf9aVJAIYWH3xga3jWUFLSu+gCQCEIrkIijetHkrs
+         dFcJmHuwjP2B1N0EThbEBcml1M0ypTmFiq2jgbeyBA+14saEeLHjeu8+5xPIJ5wqYy6y
+         MvYcRzkcThRq4V9ApSeTni+MT7HbT7nf2m+04WsBqc033wuJt7+evcLEgrrNaioAv51a
+         GWvg==
+X-Forwarded-Encrypted: i=1; AL+hErGcwyAr+j1tnlzMQ1M3evhsoja/bPVDsqb4Npxa4Oke4jJqnurX30fw7A49IscgJ23Fw7E8+O0PcixI@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Oi+LzbntYjq6sVwA9f5XXD81qD3lW5iXavacKgmif+7m9EVnY
+	ZVSQJusDwWVPq+CgxLfC0oORwCLVxv8DhcP7JS8L+xKQb1+QpUMSkHic
+X-Gm-Gg: AZFdTZc7rb2n5T9IBzvsBg7gcBz+DZkdehh/89FGRZSLg4G/NB7NOUKxWXYN3nLZWOw
+	yM09JuycGC9dvYrxRaC2QgHE3I4I0d9j8QgT1cf5DWkMuuQ3s1xiuMCPLlzVcgaY+1mOKJi6k9V
+	fBpBVExbv823YDrMUi77GAYcz8GbpalWOhbiUgDpl7pjlDvr/iEQv5stUlB0jcaKw7uPbdOmkQ6
+	Mtlq00gVF64MewTX0mxGHAyac0RRqmEiG2VrKvOLyMXCBaVu8pElKf8wqzglbYLQUqQK6THVg1v
+	o/zwLt1ezdOUiQGmj2wls2Weq9UgVDqHf/nDC0bgeKPr543ubQ1zDuD0XV6xpv3oNffVfo6dQwM
+	4eH7qdqdskwqsEoDBB6dT5REmcZXauaQefqbMuvJ/zNkQmLbS8w+PXS+sWwvh97JOlWo9NjxKyY
+	WTMdk7NQa+HcJtsVYfaPb7qcLOw0OIHj4WH+jFZyF6/1MMOtsjKx0RW3bOAJ/R+uTpIy7dWUKh9
+	xk/fviMtg3/yNVI6+36EARJVsiNg9wfFp613QMOnR+P3EYdpYOXNe+tcyUjOakWTbxWpd8+0/Z1
+	dO+AumXpWHoWFZyc5HBAD/fjWaFLm9ZGVZtrefn15A==
+X-Received: by 2002:a05:6a21:3a41:b0:3e2:30c1:fdf6 with SMTP id adf61e73a8af0-4014e5562aamr21306213637.89.1795770564971;
+        Fri, 27 Nov 2026 01:09:24 -0800 (PST)
 Received: from intel.company.local ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6d06ee37sm11718725a12.28.2026.11.27.01.08.58
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6d06ee37sm11718725a12.28.2026.11.27.01.09.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 01:09:10 -0800 (PST)
+        Fri, 27 Nov 2026 01:09:24 -0800 (PST)
 From: Wandun Chen <chenwandun1@gmail.com>
 To: pjw@kernel.org,
 	palmer@dabbelt.com,
@@ -113,9 +113,9 @@ Cc: catalin.marinas@arm.com,
 	kexec@lists.infradead.org,
 	linux-mm@kvack.org,
 	iommu@lists.linux.dev
-Subject: [PATCH v10 7/8] of: reserved_mem: mark /reserved-memory entries with MEMBLOCK_NODUMP
-Date: Fri, 27 Nov 2026 17:07:22 +0800
-Message-ID: <20261127090723.741253-8-chenwandun1@gmail.com>
+Subject: [PATCH v10 8/8] crash_core: skip MEMBLOCK_NODUMP regions when building vmcore ELF header
+Date: Fri, 27 Nov 2026 17:07:23 +0800
+Message-ID: <20261127090723.741253-9-chenwandun1@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261127090723.741253-1-chenwandun1@gmail.com>
 References: <20261127090723.741253-1-chenwandun1@gmail.com>
@@ -132,95 +132,35 @@ Content-Transfer-Encoding: 8bit
 
 From: Wandun Chen <chenwandun@lixiang.com>
 
-Mark non-dumpable reserved-memory regions with MEMBLOCK_NODUMP so
-kdump can omit them from the vmcore.
+Reserve regions (for GPU, DSP, ...) carry no data useful for crash
+analysis. Exclude MEMBLOCK_NODUMP regions from the vmcore ELF header to
+reduce vmcore size and capture time. crash_should_skip_region() now also
+returns true for MEMBLOCK_NODUMP.
 
-The marking is guarded by CONFIG_CRASH_DUMP and either CONFIG_KEXEC_FILE
-or CONFIG_CRASH_HOTPLUG, so kernels that do not build or update crash
-ELF headers do not pay the cost of splitting memblock.memory entries
-at NODUMP boundaries.
-
-Clamp the marked range to page boundaries, since a sub-page split
-would leave fragments that cannot be represented as valid System
-RAM resources [1].
-
-Link: https://sashiko.dev/#/message/sashiko-outbox-181183@kernel.org [1]
 Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
 Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
-Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Acked-by: Baoquan He <baoquan.he@linux.dev>
 ---
- drivers/of/fdt.c             |  2 ++
- drivers/of/of_private.h      |  1 +
- drivers/of/of_reserved_mem.c | 30 ++++++++++++++++++++++++++++++
- 3 files changed, 33 insertions(+)
+ kernel/crash_core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-index a58efdcbac7f..f3a766310d11 100644
---- a/drivers/of/fdt.c
-+++ b/drivers/of/fdt.c
-@@ -1283,6 +1283,8 @@ void __init unflatten_device_tree(void)
- {
- 	void *fdt = initial_boot_params;
- 
-+	fdt_mark_reserve_mem_nodump();
-+
- 	/* Populate an empty root node when bootloader doesn't provide one */
- 	if (!fdt) {
- 		fdt = (void *) __dtb_empty_root_begin;
-diff --git a/drivers/of/of_private.h b/drivers/of/of_private.h
-index 895f868b4cfa..00f776819dab 100644
---- a/drivers/of/of_private.h
-+++ b/drivers/of/of_private.h
-@@ -185,6 +185,7 @@ static inline struct device_node *__of_get_dma_parent(const struct device_node *
- #endif
- 
- int fdt_scan_reserved_mem(void);
-+void __init fdt_mark_reserve_mem_nodump(void);
- 
- bool of_fdt_device_is_available(const void *blob, unsigned long node);
- 
-diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-index a5cd8c2fffc3..cef444d4c1a3 100644
---- a/drivers/of/of_reserved_mem.c
-+++ b/drivers/of/of_reserved_mem.c
-@@ -610,6 +610,36 @@ static void __init fdt_init_reserved_mem_node(unsigned long node, const char *un
- 	reserved_mem_count++;
+diff --git a/kernel/crash_core.c b/kernel/crash_core.c
+index e161c8b65e00..0e2ddc933b22 100644
+--- a/kernel/crash_core.c
++++ b/kernel/crash_core.c
+@@ -283,10 +283,10 @@ static struct crash_mem *alloc_cmem(unsigned int nr_ranges)
  }
  
-+void __init fdt_mark_reserve_mem_nodump(void)
-+{
-+	struct reserved_mem *rmem;
-+	int i;
-+
-+	if (!IS_ENABLED(CONFIG_CRASH_DUMP))
-+		return;
-+
-+	if (!IS_ENABLED(CONFIG_KEXEC_FILE) && !IS_ENABLED(CONFIG_CRASH_HOTPLUG))
-+		return;
-+
-+	if (reserved_mem_reserve_failed)
-+		return;
-+
-+	for (i = 0; i < reserved_mem_count; i++) {
-+		phys_addr_t base, end;
-+
-+		rmem = &reserved_mem[i];
-+		if (!rmem->size || rmem->dumpable)
-+			continue;
-+
-+		base = round_up(rmem->base, PAGE_SIZE);
-+		end = round_down(rmem->base + rmem->size, PAGE_SIZE);
-+		if (base >= end)
-+			continue;
-+
-+		memblock_mark_nodump(base, end - base);
-+	}
-+}
-+
- struct rmem_assigned_device {
- 	struct device *dev;
- 	struct reserved_mem *rmem;
+ #ifdef CONFIG_ARCH_KEEP_MEMBLOCK
+-/* Exclude NOMAP regions from the vmcore. */
++/* Exclude NOMAP and NODUMP regions from the vmcore. */
+ static bool crash_should_skip_region(struct memblock_region *reg)
+ {
+-	return memblock_is_nomap(reg);
++	return memblock_is_nomap(reg) || memblock_is_nodump(reg);
+ }
+ 
+ unsigned int __weak arch_get_system_nr_ranges(void)
 -- 
 2.43.0
 
