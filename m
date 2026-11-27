@@ -1,113 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.110
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795749149;
-	b=KgFeMhJ4xY5vfifFby5wbHh39mrE+/j8baBHnznm6u0XGqQV6ak3WHiGGuDLd9nPlKFS
-	 k5EXKc/MqqTflIxX3p+gQFeWPhwHFyJaNVorw28NPhNiKughKIVOBhkoZY7TBJXz/D+HR
-	 g4TbXt612mLwr6Th1rC+qoHD3nLszcHgBzXxJgXQpqbtFhZ7P57oySMItJoNecJDUGhEL
-	 Uwuu9lsYTtHNU8OdvRJcc35z0fdPuk8cv5zJ1TzQZ63HGqeI3Jr+ax/WQcu68smh0H6ai
-	 PIooF7flMG5OnixkJ9WF4daXrML/Wk3cqtUjhS675rPjNq7VWWm7KNzS6s8BDT1t/Tg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795749149;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=x0VtTxDDUozFud8mF45CeAKEGsbVeE5i3Q5KIU1Lnr4=;
-	b=n4LlcoquhQJGF8FLpYTjrZgBEP3FSL25BVr5bwY8TN4G5INs1Zt0vfkH+8u+kQ5PQ8mk
-	 U6fcFxaDSM/fLbv3n9UEraRQDcsG/J8O2rDDP4FDkTde2CO1PRJXDidseAQrkSo//Jvxo
-	 aeTLoHFnFRCW+ezdOqXqvFzJYkslfCc49G8vZGDmxVGeb4rf55NLectlGIbZ2qmzLEEX3
-	 PwFL1dW5gYwM6uLvvNks3n8P6GYdx83pCerlBoyal6QHK03o9Dzw4n+y1AhQk8ZNCDYqI
-	 11OpK7ZcsaP6mMJue/Hq/23/mldiMrw9DMOY927EIT3LbDGVflqBfVU4HqMpKcU3MVg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=valinux.co.jp;
-	spf=pass smtp.mailfrom=valinux.co.jp;
-	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=SM0dJOh6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.110
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11021110.outbound.protection.outlook.com [52.101.125.110])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.169
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795749254;
+	b=ctxYd/n8h3U0tYbTQxm3840/rYA1YknbLlstZlsoRO2dMhoN/uH9+F9KMHqKN8WN6i9b
+	 16vCAF8aSWpZNwShZo4BTTaNCy1yYB4YWUc43DCmLnf2TBYmVHqnt+Avt3xOIOSsLvhSr
+	 WE3T2GsAit+pp64vPLK8Y8mwCOLoiK77OjGI0QetUKw6s8x563j7sok2uEtytFHyZ/3bT
+	 OWRJkYZ8sgGU/iiTVuZQo60CZ81B36ABLBgRCjTIkpnEgdgRuhxGzuUxKi72SO2sUUraB
+	 oqbBZPBojswhJHcwXwh7NvYZTjFUR5QPKb8alN9pWre0uFzH0UL9Veh5SRfOa2XroYg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795749254;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:User-Agent:MIME-Version;
+	bh=5ugJPjuyaKFJxRku2cqxFQd5DwZah1E7qey/0WnvGBI=;
+	b=kWHJZi2K8hAEmsIUi+ejWR5vWbd6ri4/gcWjvMDkLFFj7dVCvPVAbKv5Og9LcSduQXFj
+	 pMq5YYODRvEREdK3Gd2kihf5EBNgsXdQmvp96URFRQWsi5qSzoBGnzNjKDTCmVZidxLFi
+	 HYmahIc8GxofjTg9/2zTGy6qegbIW2FFQ34yPw7KvzyAApm0g4n6BqYtbgGxjqrZ6asm8
+	 iwtGqdWmpj4NMHk1q7cI/CKxulQHpLcCBxpnKImOl3+vWTpe6ptPJlSnfX2yMis0jsXC9
+	 QVMS9ABbZYyZ6Tcga6lxBPSTgbWLfbg9LRsY/1cwMXPfKZgb4ZmDM0ggdE69g6tK3Ng==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ndufresne.ca;
+	spf=pass smtp.mailfrom=ndufresne.ca;
+	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=kzn4P6HI;
+	arc=none smtp.remote-ip=209.85.222.169
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CEBA60A2625;
-	Fri, 27 Nov 2026 03:12:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CEBA60A2625
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE207606A321
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 03:14:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE207606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=SM0dJOh6
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XGQuwhMKeWC6VQmn1foMuAKiYbKQKnF1L8NMIoiJUTCIRvwx9e8uCpkc9+MBoHDnRL+R30mC0kcEdoGmbEx1r2uzsbTtvaKyxUi2YVTg4s9o1y/fbdI76tirQ99yoN+TiF515GSeR45ABaXQA8FuF7T7MaQHfiJTdvXpKC1rzJ5ef6jpOIrP72MEQvcsfJ/qpQy3suF01lwKMw/mTbWaio2VgUzc++K3SPct7AZY55j/YCKJH5tZsiZER6TvRTY6nW+BF8Cv4wfSWLQsVJD4MmfrtRbeia/lIoMhP/6LujVXQKqkUkq/NYWGOc6co2d0B6yMmXSAWba/3aIZO5DsNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x0VtTxDDUozFud8mF45CeAKEGsbVeE5i3Q5KIU1Lnr4=;
- b=XY6IpaKhFtSuayWKy1yQiQMea/CFAWDfIU4ADIEc5enqGqgC3FR1x3FiCBMz7OvqXhaeHxmsa9J4d5Spt/YH9c9cRcm66KfwI9fOt02e1zx+THhhVahUJnj9wU7Um9IFRiljajGY0Pb5pS7hc89TQj5VMEZGhnXaFpkk543Ubzt2ByhDM0CzZWvYORThAl+fV7Cuk5TtlqEYXXT5pXrhllV+EQz9kDZBuVyJgBv1zg4LbV0kxQzIw1tCfcbkPHjXarW2YUYBSyrDjQIjSKocU26ft8y1rKdfJoJWVZfE9bkQZpA9tkDIKBLNQY9wVh6bygiHslEdx3r/LI8LIJwS/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x0VtTxDDUozFud8mF45CeAKEGsbVeE5i3Q5KIU1Lnr4=;
- b=SM0dJOh6DSspocvqQiPHbxuHAE/J/kBQvGhsBXk1k6iKJu8N1wjjm05ipaxWPa9VvZysrrCqHOP0t2UKd07RKpi0qZDbZlaPAO5RUhJU7gUnxbl14i2VsDiwIgx1yaEyLpvUIYMqkBkSC6RB0Ln5rgMjSVdi5K8S3xofXZVopeM=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
- by TYYP286MB4873.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:143::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.9; Fri, 27 Nov
- 2026 03:12:25 +0000
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0662.007; Fri, 27 Nov 2026
- 03:12:25 +0000
-From: Koichiro Den <den@valinux.co.jp>
-To: Manivannan Sadhasivam <mani@kernel.org>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
-	Shawn Lin <Shawn.lin@rock-chips.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Jingoo Han <jingoohan1@gmail.com>
-Cc: Qiang Yu <qiang.yu@oss.qualcomm.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Frank Li <Frank.Li@nxp.com>,
-	Niklas Cassel <cassel@kernel.org>,
-	Wilfred Mallawa <wilfred.mallawa@wdc.com>,
-	Serge Semin <fancer.lancer@gmail.com>,
-	linux-pci@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v6 16/17] arm64: dts: renesas: r8a779g0: Describe the PCIe AER interrupts
-Date: Fri, 27 Nov 2026 12:11:44 +0900
-Message-ID: <20261127031145.2521228-17-den@valinux.co.jp>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261127031145.2521228-1-den@valinux.co.jp>
-References: <20261127031145.2521228-1-den@valinux.co.jp>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TYCPR01CA0193.jpnprd01.prod.outlook.com
- (2603:1096:400:2b0::12) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:325::11)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=kzn4P6HI
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-9495d543b91so456842185a.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 19:14:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795749253; x=1796354053; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5ugJPjuyaKFJxRku2cqxFQd5DwZah1E7qey/0WnvGBI=;
+        b=kzn4P6HIOv/zbYwhqG11ovEs8UbbLBUqqnN/DzSK4havfCIROjjWcg0BrcBmJo85MQ
+         NPbAlUHSbbB5M41z/0WQSyM5fe2XNDZr0OBZgvZ8zx8+CcyQmSe207HGqcy8I8oiIPbp
+         I4B7PoCSW+l2RpUL7Hv1TUKMkLsYLMlzfhaYbVudYzujMd0rb5RM2nfwTqZH5TlKxW0P
+         HpEX8trpfurG4Z1t2A+O7R3SZdJQvK3StKsjR1Ec8GCNLG0AjS9r34Wer23E1KoihaPz
+         YHVtcYnVFuWk8BVoztC3faEVBHll3EzRi+fgo4KU9nDu5amo6isvkNrJ4MRldH1yN919
+         /wEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795749253; x=1796354053;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5ugJPjuyaKFJxRku2cqxFQd5DwZah1E7qey/0WnvGBI=;
+        b=zakwnwb8Z8FAsU2VSVzTxVCvRjb+uh46ubpJ9O/s3D9Adis/cnIaCUgsnRrAPBI5no
+         5OVtAulodoEOwumjrJlL70TxuCdWL5iM4hPTS7rQVI4Z+yqK0ay8zKIM2YTUYmJyMk7e
+         T6CHbMe6NveQq7U3/keNIbuPVi5pxCFdPVByXIUF0vr3FrjC4AqVdmMaA/M52Nbn4oAk
+         +TJLHF+GrkmdxePT1jrZoXjK3nD07u2g6723C60T3yIs2XWBHPnD6tUPGzv4KjlQu4cO
+         4f6agP/IyZCoJuuSVEBFaKK5wvbXpDIPymdpYs+mzu0QrulE5hc09vc9bOLTckCMa59n
+         MRRQ==
+X-Forwarded-Encrypted: i=1; AL+hErE2KjmSHU0Y1FkYhCwdHwbwdqnemOwYY46HVV4YEdBh937qYoxYbytvzgrWfuR3to6OPmWhO96SLXD4@vger.kernel.org
+X-Gm-Message-State: APuU4Z+p0Hpvl+eIoQpeBaKMOczb1sxXw4+Tb4JDF2CyvWpXlADInTXh
+	b9GGomow4C66iPQhXWxikX+rj0OcUDZMVX1MT8gdGTpcD7+yDYfVih6I0vm1KOPlvHk=
+X-Gm-Gg: AZFdTZcsvLlaBqbLif2xd6hqkkO6PFFSGxNr7B/b0vHjLXCoQGLpgjaMBf5UizQZV0A
+	yUZz110FadkXMgrYOVYt6NYCanbeKLJBusWrWJcwfLPx7PDIKfo0d9tyNgE6eYKbObJm7WskC4q
+	1mPBZ/yMrtVMV0hJIbCOwQ9JCE3tQCU9tiaiW1KjSv/mnK8kACd80o5EN3dBNKWLArKU6o3CCea
+	MpLC3quYcwUp0DAYUxIt70OsT8agm/If7BtAuccP7tT/w915QL5LXEzu7a4pie4Yme/vYn0JEFc
+	BsSQax/3bdShBt1Wyhq3T28kQ5ll3KwdE8m8CLYoeCz064U62LL3ASWuNZCdkWXoqkXQ0OaWeMw
+	AOb7IqEjlX4Ed8WgZ8oTCRx3TfXB2GEO4H4q/3+NjNeXaADqzTmXTw9VsIS4es85YK5fJXi30FD
+	wMqTZvJRPnSdlU2H+gOUDJITDm982Rl+wPWCSJoFM5h4KLm89RjnPjrLJrZDLWsIfIpU+3Nqwso
+	QmWIxka9ozDVVUmfjxXNC9odOqVR/36sKAJ1W0eOGbr6UMwBdZrSw2tVupUSg3q5tFP/CvWdME1
+	NgLFOxZmos1Zkt4R3L5TaG6YrZ1ah6ErWUc208M8tpp4WBUOAlmzCTI=
+X-Received: by 2002:a05:620a:4446:b0:949:70f1:de2f with SMTP id af79cd13be357-949ba8260f2mr3894266285a.8.1795749252644;
+        Thu, 26 Nov 2026 19:14:12 -0800 (PST)
+Received: from ?IPv6:2606:6d00:11:8ec9::5ac? ([2606:6d00:11:8ec9::5ac])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb0354a9sm1733363985a.5.2026.11.26.19.14.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 19:14:11 -0800 (PST)
+Message-ID: <1f649c8c2c08c31f1f6ff7d7a17ea02301d89579.camel@ndufresne.ca>
+Subject: Re: [PATCH v3 05/17] media: v4l2-ctrls: validate vp9 tile_rows_log2
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Sofus Forstreuter <sofus.c@icloud.com>
+Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, Neal Gompa	
+ <neal@gompa.dev>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring	
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Heiko
+ Stuebner	 <heiko@sntech.de>, asahi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, 	linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org
+Date: Thu, 26 Nov 2026 22:14:10 -0500
+In-Reply-To: <awanusdfmrjYpdHT@m3>
+References: <20261020-avd-v3-0-85cbaa2125d8@icloud.com>
+	 <20261020-avd-v3-5-85cbaa2125d8@icloud.com>
+	 <4c54e652e8fb714600852a3028b892c6a292c6cd.camel@ndufresne.ca>
+	 <awanusdfmrjYpdHT@m3>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-KBWr4qryrDMK+mhbuy3u"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,107 +122,65 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|TYYP286MB4873:EE_
-X-MS-Office365-Filtering-Correlation-Id: 33d593c2-031a-4e83-b3dc-08df4c344278
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|23010399003|1800799024|366016|376014|7416014|261009223027099003|18002099003|22082099003|921020|10067099003|56012099006|261102123227099003|261028144727099003|261026140227099003|261026121527099003|261021121427099003|261021123027099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info:
-	lb9+04ZmbL1NyKq4TUSOdLsCfOJUOniZRIu36jyGlVyNYfThYV7nN1yEwWECDDPYc9uge4BUmhvUcIA3uXk+lq10rU5ecUCgapPqcUvWIrrve/UyQad9DkwnXJtHddww3j3qvUmKpjJhwzauwCeUg++lmXgEpHX7qxuRdETX0T5aeyG2uH7XoPwHlLFiY+OkVZMd+7TyLJ6/4SnADbnFx95LM6azpp5X5l6VzGYX6g1t3GSZX7CvPsJyvVpj3J6Ir+U1DVgBldiAbCSmFKVRRRY56uXzBqEIiYu3sWbkrf4mAd2XE1RFL2rTaHbJ004n1lanucI0sxqwKgv0TDfy53F2d5yxNvlPjDCKNFSBP+cNocxDiTJGWIppaG17x/40UdbC9N1ivfmyrG6IbZb2+v1YtaBMjDTu+hHbzpv9cSTTRbSdXIyWZ9xZgEk5It0il1iUZY92uGOiYK8rXAH+AuPqZSYEcxc72+ffrLON3SSXcmqLFvvLLKEyd4ARQUEb0dq8l+vL7N/oe5/tlc/j7torOR5oNBggiO71M1AkIOsRZVIGlWoTl4Dwwp6BT0JspmCjMnqtTwf2KBxSPTiPlCfRnYm/jAUxDSvM31X73nw1kmi4WGHArrivRpbDpyfGg3/uG8Pti6c0YorkZ3XODoAPdp6/65W9+Fy3axynJ7Hf9AjYIyg8b3OUcSNIrgYBWClmwwfltnsQSQ+idDWhGw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(1800799024)(366016)(376014)(7416014)(261009223027099003)(18002099003)(22082099003)(921020)(10067099003)(56012099006)(261102123227099003)(261028144727099003)(261026140227099003)(261026121527099003)(261021121427099003)(261021123027099003)(261022105027099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?VnF9Uzj8+4K7L9OpqCivOzanNOjbLxhU0tRH/9GR3rq+bCG5j4ip65T5yzAA?=
- =?us-ascii?Q?Kkk6dsVcEtsrfIpxRt9zfTYHwyCoTu9dp9u9MQsADYjBLT/yt6wUyPAqTows?=
- =?us-ascii?Q?GJKFSbYCAFDdTkXVSuKfm4HbtB1p3lhSb1Tqx3qn6lG9QbJQya79dRuUgUbX?=
- =?us-ascii?Q?cDT49/zYoEj4VZjkGrOonQE5voUu8XrP8d02P7rr8pKhTvn1ddVALrXBcHJa?=
- =?us-ascii?Q?sntQGEMYOjubRNE5PemH8ug1ZvEVxYGlFU1n3fZjobo6CttVNz0eZGERH83I?=
- =?us-ascii?Q?3QF79zwkO+f1BDoL4N/toeqG+cYt6DVekAra0vi6udOvwjOEbfqFwg3G0urO?=
- =?us-ascii?Q?luYNrNzC17H+Krt2xxaVsSTJ/gowVvvXqqNjNvoSEJjfebV6KGMdqFX+jAJx?=
- =?us-ascii?Q?VC9/fdSGaVxEcquz9596orWQcfDOusnFKixRfdLf6LMr5IgT58A+XMcu/gHP?=
- =?us-ascii?Q?RBkSQsP2P8/8Nd0k0nPkSHM8R0QTUlFt2IFBFQ3abaxOG+7z0kivzo2n76hZ?=
- =?us-ascii?Q?J5WG3aT2bd0Dh/z30/XMtCyO2f+Edc5JwNNYBN4bQPBQFslxZd45bCJmZgBE?=
- =?us-ascii?Q?wrxtNQiHffc3b0dEc09BpRnZIzeP5F3OOwiXoOm8djiEyiPpI4J1pbmugNAf?=
- =?us-ascii?Q?CzTGnQSnbK5DE0U6XfDkWufxEBJt8pD/qVmXEa/j1aTFZPhBl5rALvkARvxm?=
- =?us-ascii?Q?1ad3XlFS4o01xWT9uG+7ZZCASd0E6v9rOS2/P/5Gk66YOPjcOMB12q6Pbbac?=
- =?us-ascii?Q?7oy9W5hy1RRwkOwwSS0P2N/NHn393oaSjpfWdfTMSTIipll2uiTc7ABzHyon?=
- =?us-ascii?Q?plCI3hZiqq4cOxrZSoIPDc055iRd4du7A6aKynOiCSYsuS2PQ1LnUCqKl7fb?=
- =?us-ascii?Q?E8IizP25+rNwpvrxWP8lXAJQay+uZ/7hfpiR73ZfTdDi5ejOPlkVNcRATX9F?=
- =?us-ascii?Q?hF3ZAWhAkqTMRSLJLTmHV698/+tv2fIUy+zaTiZFreEmc8ARWfpL9XKiyTMY?=
- =?us-ascii?Q?IczUeXrsPBZejeTPQ7d7oz4HKyVYaxMwNfGJkrOISOCFdesQtM6TLTRSfq0L?=
- =?us-ascii?Q?OvPEH03Hr5S7QGdDVCuyM15F/WrOFvcEFkbazDmo/AWV6EZbacfe+F+HiT8a?=
- =?us-ascii?Q?8R1WCgRez4AtWqJrCnzs+4IOvO8t+rDX4gD4VS4hfT2XU8ezj3czExxDMxG2?=
- =?us-ascii?Q?HnLPUkaGVTaOBWUXZgqZun7JdhJwAMJkLGyPPLnKsV83jflKb/SXOS2WuOo7?=
- =?us-ascii?Q?OzMifSvHIBWg8SWH9zagCaJ8NiC7rzn+g+X6mFFb6RTgK4CLH2jGfkKpIqsT?=
- =?us-ascii?Q?zUhJ0V+31C8CKHu+S8ahPodqMyHacqs4M9VzWHJMtaaLJyal0VAz9jGZ6YdI?=
- =?us-ascii?Q?/j3EFqdJfxqa5HiokIt7PFjaFa58hvcSR5m3QbTmYcYAL4A8nPKTTQowk/Ej?=
- =?us-ascii?Q?0YkyITa09KqpWWWsBeNo5ZP+x10mPs9STwMFWYTP5MG6wGenOdCR5CSvw7KN?=
- =?us-ascii?Q?gpFjpuIUl17Acb1RpvSucboI9kJ1ajPoR3EPQSXgU5Wh4wOpvjF3jwT/nd1D?=
- =?us-ascii?Q?9SAclNNgNRqy3zRN7C7vUhYr0hdOQA3OoyyWbJl5QJtb/1CaTMZr32/TFQWi?=
- =?us-ascii?Q?Z/btdoGmlF5HJYbzZWwOU3tsF8ydaF/ZVPJ8mX834bh3dlNUaOggUT0Mp5B2?=
- =?us-ascii?Q?eL0CZQzA2iklLNx98MN5ezDT8ShQcPqMEvPjpLzGW+kgKPa6t95W0fh/mrjr?=
- =?us-ascii?Q?Cei68jojTaGj3d+kIGiaN6XvZGBCS5FIvUYN644ZkAZWbjx/trzU?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33d593c2-031a-4e83-b3dc-08df4c344278
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 03:12:24.8167
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eRIllJiaKSokSynBuirpGteS/6U0lapKxhBfTGtxvE7Zw4LcgTgN4i249Xe/XopyqkSlSc6fMsYyYDszmx0JWg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYP286MB4873
 
-The PCIe controllers report Root Port AER notifications through SPI 454
-and SPI 461, respectively, separately from the integrated MSI receiver
-interrupts. Describe these interrupts with the "aer" name so the
-controller driver can use them for Root Port error reporting.
+--=-KBWr4qryrDMK+mhbuy3u
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Append the new interrupts to preserve the existing interrupt indices.
+Le mercredi 25 novembre 2026 =C3=A0 10:17 +0100, Sofus Forstreuter a =C3=A9=
+crit=C2=A0:
+> On Tue, Nov 24, 2026 at 05:16:47PM -0500, Nicolas Dufresne wrote:
+> > Le mardi 20 octobre 2026 =C3=A0 11:37 +0200, Sofus Forstreuter a =C3=A9=
+crit=C2=A0:
+> > > Reviewed-by: Neal Gompa <neal@gompa.dev>
+> > > Signed-off-by: Sofus Forstreuter <sofus.c@icloud.com>
+> > > ---
+> > >  drivers/media/v4l2-core/v4l2-ctrls-core.c | 2 +-
+> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > >=20
+> > > diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/medi=
+a/v4l2-core/v4l2-ctrls-core.c
+> > > index 922cf74c4eb8..384ff77771ea 100644
+> > > --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> > > +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> > > @@ -638,7 +638,7 @@ validate_vp9_frame(struct v4l2_ctrl_vp9_frame *fr=
+ame)
+> > >  =09 * According to the spec, tile_cols_log2 shall be less than or eq=
+ual
+> > >  =09 * to 6.
+> > >  =09 */
+> > > -=09if (frame->tile_cols_log2 > 6)
+> > > +=09if (frame->tile_cols_log2 > 6 || frame->tile_rows_log2 > 2)
+> >=20
+> > Shouldn't this be 6 too? (log2(64)).
+> >=20
+>=20
+> The max for tile_rows_log2 is derived from the spec (6.2.13 Tile info syn=
+tax):
+>=20
+> tile_rows_log2 =3D f(1)
+> if (tile_rows_log2 =3D=3D 1)
+>   tile_rows_log2 +=3D f(1)
+>=20
+> This is also what eg. gstreamer does. I will add that to the commit messa=
+ge.
 
-Suggested-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Signed-off-by: Koichiro Den <den@valinux.co.jp>
----
-Changes since v5:
-  - Add Geert's Reviewed-by tag. No code changes.
+Thanks, note that I was also confusing AV1, my fault for hopping codecs tha=
+t are
+similar but different.
 
- arch/arm64/boot/dts/renesas/r8a779g0.dtsi | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+Nicolas
 
-diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-index 5284923b6cef..8342d3c6f988 100644
---- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-@@ -801,8 +801,9 @@ pciec0: pcie@e65d0000 {
- 			interrupts = <GIC_SPI 449 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 450 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 451 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 455 IRQ_TYPE_LEVEL_HIGH>;
--			interrupt-names = "msi", "dma", "sft_ce", "app";
-+				     <GIC_SPI 455 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 454 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "msi", "dma", "sft_ce", "app", "aer";
- 			clocks = <&cpg CPG_MOD 624>, <&pcie0_clkref>;
- 			clock-names = "core", "ref";
- 			power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
-@@ -850,8 +851,9 @@ pciec1: pcie@e65d8000 {
- 			interrupts = <GIC_SPI 456 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 457 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 458 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 462 IRQ_TYPE_LEVEL_HIGH>;
--			interrupt-names = "msi", "dma", "sft_ce", "app";
-+				     <GIC_SPI 462 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 461 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "msi", "dma", "sft_ce", "app", "aer";
- 			clocks = <&cpg CPG_MOD 625>, <&pcie1_clkref>;
- 			clock-names = "core", "ref";
- 			power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
--- 
-2.54.0
+--=-KBWr4qryrDMK+mhbuy3u
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawj1ggAKCRDZQZRRKWBy
+9DsUAP9PRVkjRHpiRiSLgzM8l9UhjnS0sDzgmwo4BJV1vzvvAgD9FAmOhu7fqhJ0
+E9UOn92W7ZLiKmduKFmpzDXkPI9rEQE=
+=QqIL
+-----END PGP SIGNATURE-----
+
+--=-KBWr4qryrDMK+mhbuy3u--
