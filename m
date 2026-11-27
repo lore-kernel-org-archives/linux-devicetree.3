@@ -1,81 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795801562;
-	b=pk57GCkcHUAqxB8UrhJfL4aNLusJzV0IO+8i4n9StGenLEZHrjIM3Y5lYykl/adVz9rj
-	 Qne294DQzCjNRvsNJWEpEzaXJGlhYUz+Na9qgu3SMTy7vrx8YGou/heQCx2x+HjV3c7vB
-	 YiBi2ULzdHewX2KFmM289TRPVUlCpw5NN/JWHb3V+Vjne/CfaFzF7m/EVtSuuKjILV3bz
-	 UfIiltHRb3pwm3iebUAppmNqxg+T8FKn5S87q1GY81e/ezFRamXo4B9vV/ZXGp7BRRiCk
-	 GYIKPnm57owkwEee9GO4w2qVZXCSS1HghTEU/nYsEkS0LOyU3cpbZKC1CpBl+W7sRRw==
+	t=1795802089;
+	b=tdLZKaQlt8ZKEac7Jpwe9qhnoAxKR7hYuRgEvWHeIiRZezk8sNIlCcaXa7lxKhhdIU0E
+	 hpOvGnp0tp9nxlDhaOliYkVu+AviUbOOC6h91in75fNosVlOGPqq8W+jrGqgvd1zsE+at
+	 r+wuDJYU2xAZ8E1EwBKHAhQgRLKBbRkJWxRd/h1lmoibrIXBjGiw2Tqthy7830KIAlyG0
+	 o5Fo71dE2F9PaHecHEqtM4MyNC74Z44Pj0VuyebgGhTLwvH3Az0pvLS2nXFsJRMvagua3
+	 /o0p7ss/vyK29hbiC3PqlupiT35JWvb9yZjTtln4bgq0tC/02ORQwOKY4MpFKnHQdAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795801562;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=d/GgeOdCbcrNVlzorAk5pxyI7Ij7/TVcaBTiw8cnyKM=;
-	b=OVGBH8Mt8z46cmvLpZ4s/wJWAPlht7q5KFpCRD5Trs3g4P/1CkNJ7VG6PLdOIjzw/oqi
-	 nJk6E8lCVbYi0bjTQoCnqvL86+V4VY3KeQdm0fMGxjli1d2M2JIGbyu4edHvy69g3eQEy
-	 zqXO9y8rn7M8pOQtgGFgRhjsZWyQhJMKwBZMulxDxmf900xcVQdtvSzAB6rRI+/x0+Szb
-	 3I1BP3XilSnlkVhGa8NHVuopwwm/QbKJeEWgioNKws/2CSp62ycITerV3lZ5v9QfTAKW9
-	 rvThPZXYL4yBo1jOZUE3pjVxgWGZsJp3xqnjDpu7qNcNvjTb6pbElTBweF1ynHV9iMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795802089;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=MBpzvZy2ZJyn1GNW1kPyufscZwT3WxGJxcs/46l1sms=;
+	b=Y+PZZcwMAcvhefDRG6rkfdGvmAKjzC/LHUmpWWGK1JFIiiJMRYGMSCoC384JUdxYkXyM
+	 BN4jxLc/gMwFk5y7xhxhFis33wCl5MHcTCK9Uim1HT49CQd1eyrc1gUTWJi03j+US9Nef
+	 cQgG4h+neimHVYkyLiUj+r2x7fAH1K1/OvMVxzRGVkBE3fqBHb8Z9B9gN0LJOHZGmw5fC
+	 prDya3XX/i5wFvVJls/+CbEZtHNb+ksKuWV7/z/8B4jti4cTtVs+8zFqnb/jzLCHdkgRQ
+	 4nOE50w1nI0yP5FE0U2SmHD8kt0qnDZ5sYYPu5KthFIP5i5dj9oZQEQCgwMSOECVe7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="mGvT1tj/";
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=WV9URbfw;
+	arc=none smtp.remote-ip=79.135.106.118
+Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5745606A31C;
-	Fri, 27 Nov 2026 17:46:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5745606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91277606A323
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 17:54:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91277606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mGvT1tj/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795801562; x=1827337562;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=jUEhHrxBMdLiKaJMKA34DLvan8tVLz2P6jEs36FCaFQ=;
-  b=mGvT1tj/Mb3s5WQxtYw6lRPc08irK1tFiwojCWDwZApN/VkhSdmqjTGm
-   eaBiusCBlYkHEgwvp6t7YYkfr0kohxIgjv6SMVWk921k+kM6SSOUJgg5M
-   VPXuutBr1J75fC59pZRnwspJ0KvZc66sJbpCA9EAxRqTvzqqbrCbZqMPK
-   wmX0JzKNTakCl2npJNJX3zUpu3o4/IZuqU2g1ovtdNLPb0vkfyD4QMAg+
-   vsc+JnG0HqTxiYDJunuQLZVR4WV1y5kG0Cd2ZE+Sle2eKaJKuL7mCn7Th
-   WPJjjvuYDtAxnhQ16CYX0IgBiEK8Pcq7+8kVbQxN9jkrvj1tlIRsNWw/h
-   Q==;
-X-CSE-ConnectionGUID: cty7vD93Tv2VMtu+wE8FNw==
-X-CSE-MsgGUID: vNsyj7c7ToyAWn+d+0brOQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11979"; a="4683241"
-X-IronPort-AV: E=Sophos;i="6.27,237,1787036400"; 
-   d="scan'208";a="4683241"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Nov 2026 09:46:01 -0800
-X-CSE-ConnectionGUID: d7PIIf74SC6nfbHXoWmgcA==
-X-CSE-MsgGUID: TQShYT8qQEaUewshswitkg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,237,1787036400"; 
-   d="scan'208";a="12354314"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.115])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Nov 2026 09:45:58 -0800
-Date: Fri, 27 Nov 2026 19:45:56 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: robertijtsma@gmail.com
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] iio: light: add ams OSRAM TCS3430 XYZ and ambient
- light sensor driver
-Message-ID: <awnB1KT-oJQoPjOM@ashevche-desk.local>
-References: <20261127-iio-tcs3430-v3-0-e191a40a4ae9@gmail.com>
- <20261127-iio-tcs3430-v3-2-e191a40a4ae9@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=WV9URbfw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1795802084; x=1796061284;
+	bh=MBpzvZy2ZJyn1GNW1kPyufscZwT3WxGJxcs/46l1sms=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=WV9URbfwJWMvgppCmeG6dN9HfAo+Ub5JejJNz1mG5l2s1pHBb6LLnUTPg91VaoXxa
+	 AeqhPesz+uhW3OQr16xDEpUWGBK7xxCLx7jRe+KJuwQ4jkMoZAU9Z0j4hkxew5lZ4G
+	 XcOgLet77UWkXaBlgg0YplyjpEky6wY0jTt/a2Lr4k16Q3Gd1MO12yrxi+zbeEaOPP
+	 I53M8ClJVixa4hSKKagtCloAK/kauHedhsO2bgbaY/uh8LmQmSFB++1oWti6PEQpue
+	 oARtboOlsJFB8JGPu6koj8BbMtoSQenWlVSOTTeXy86qzXKXmSdA/Y+AYkQFx9TZDY
+	 4bNHSFUGl40WQ==
+Date: Fri, 27 Nov 2026 17:54:35 +0000
+To: Andre Przywara <andre.przywara@arm.com>
+From: Norman Herms <dockseed@proton.me>
+Cc: Jerome Brunet <jbrunet@baylibre.com>, =?utf-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org, samuel@sholland.org, Enzo Adriano <enzo.adriano.code@gmail.com>, Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, Junhui Liu <junhui.liu@pigmoral.tech>, Pablo Mazzini <pmazzini@gmail.com>, Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>, Alexander Sverdlin <alex@sverdlin.org>, Jun Yan <jerrysteve1101@gmail.com>, Lukas Schmid <lukas.schmid@netcube.li>, Cristian Filipescu <filipescu.cristian@gmail.com>
+Subject: Re: [PATCH v6 2/5] arm64: dts: allwinner: add A733 SoC description
+Message-ID: <0ZiLi25XUh_mAaMCw_YhXS3YA3FIj89dJfHVYgxGcBS3a5biGYvczbtTd9O3zus2A5Q1HQMkCaU7I9UU6Y50VGIZ_ltPsKx-7lHvtFtYcVQ=@proton.me>
+In-Reply-To: <682cee16-d56c-436a-8661-0cf511fa2e78@arm.com>
+References: <20261126-a733-cubie-a7s-dt-v6-0@gmail.com> <20261126-a733-cubie-a7s-dt-v6-2@gmail.com> <p3YaXlLJTguQBGnWyMpb1w@gmail.com> <1jld6eldic.fsf@starbuckisacylon.baylibre.com> <wzwsbUKM-fEhYpTIhswvHly5oyuMCPDOExJEWjbSf-OS3Lrwx2H_l9CUfuMITJUK5CyEz4pNojUFRzjDDczUQmX_LmSWwF7DVSceD34XeHY=@proton.me> <682cee16-d56c-436a-8661-0cf511fa2e78@arm.com>
+Feedback-ID: 144388465:user:proton
+X-Pm-Message-ID: e8432731c81dec984c084befc90a1a96ab850531
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,145 +64,78 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261127-iio-tcs3430-v3-2-e191a40a4ae9@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 27, 2026 at 09:12:50AM +0100, Robert Ijtsma via B4 Relay wrote:
-> 
-> Add an IIO driver for the ams OSRAM TCS3430 ambient light and CIE 1931
-> XYZ tristimulus color sensor (found at I2C address 0x39 on devices such
-> as the Microsoft Surface Pro X).
-> 
-> Unlike the older TAOS RGBC drivers (tcs3414, tcs3472) that use the 0x80
-> COMMAND-bit SMBus protocol and RGBC channels, and unlike the banked
-> MAZeT/JENCOLOR as73211 driver, the TCS3430 uses ams's direct-addressed
-> 0x80..0xdd register map and exposes Z, Y, IR1, and X tristimulus channels.
-> 
-> The driver exposes:
-> - Illuminance (photopic Y channel) with raw counts and lux scale
-> - Modified intensity channels for X, Y, Z, and IR1
-> - Selectable scale and integration time via the IIO GTS helper across
->   1x/4x/16x/64x/128x gain and 50.04/100.08/200.16/400.32 ms integration
->   time settings
-> - Regulator management and system sleep suspend/resume support
-> 
-> Tested on Microsoft Surface Pro X SQ2 (SC8180X).
+Hi Andre,
 
+> What do you mean by that? The proper solution is to *create* a new
+> regulator driver, either embedded in the pinctrl driver (make the
+> pinctrl export a regulator device), or as a separate driver, using some
+> pinctrl provided regmap.
+[...]
+> Are you using a different approach?
 
-There are a couple of nit-picks below, but overall LGTM, after addressing them
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Yes, a different one: I only meant that there is no PMIC regulator
+whose voltage could be changed, the switch is inside the pin
+controller. We went with pinctrl states, and sunxi-mmc selects them in
+its voltage switch when there is no vqmmc. It works, but a regulator
+mux exported by the pin controller, with vqmmc pointing at it, looks
+cleaner to me and needs no change in sunxi-mmc. We are happy to test
+that.
 
-...
+> Do you mean you use vmmc-supply to point to some 1.8V regulator?
 
-> +config TCS3430
-> +	tristate "ams OSRAM TCS3430 ambient light and CIE 1931 XYZ sensor"
+No, vmmc is SWOUT2 at 3.3 V. Without vqmmc, sunxi_mmc_volt_switch()
+returns -EINVAL for 1.8 V, so the card stays at 3.3 V without UHS.
 
-This doesn't scale, but okay, I don't expect this kind of compatible devices
-appear in a volume, we may rephrase this later on.
+> Is that a timing issue, maybe? Maybe the sampling happens only so often,
+> and you just happen to miss the change, occasionally?
 
-> +	depends on I2C
-> +	select IIO_GTS_HELPER
-> +	select REGMAP_I2C
-> +	help
-> +	  If you say yes here you get support for the ams OSRAM TCS3430
-> +	  ambient light and CIE 1931 XYZ tristimulus color sensor.
+We cannot rule that out. We read the detector at every SD interrupt
+while PF ran at 1.8 V: in the adaptive mode it said "not 1.8 V" at 2
+of 90 and 6 of 83 reads, and with the mode set by hand at 1 of 99 and
+3 of 103, where the card stayed clean. Right after a switch it already
+reported 1.8 V on the first read in our trace, so it does not look
+like a slow detector. The USB3 combo PHY points the same way, as it
+shares CLDO5 on this board: with the PHY running the failures go
+away, and in older traces the detector said 3.3 V in the first 25 ms
+at 1.8 V at 2 of 76 reads with the PHY off, but at 0 of 1137 with it
+running. Those two traces also differ in kernel and DT, though, and a
+run comparing both in the same boot never happened.
 
-Usually when it starts with more that a single vendor line of the devices
-the list of them is better as it's easier to tweak later on:
+> Just to clarify: "0 of 40" means *0 fails* here, so it works?
 
-	  If you say yes here you get support for the following sensors:
-	  - ams OSRAM TCS3430 ambient light
-	  - CIE 1931 XYZ tristimulus color
+Yes, 0 failures in 40 rebinds.
 
-(feel free to amend this example). But if you go to do that, change the
-above text to something like
+> Do you mean your patch just badly hacks those two bits to do what you
+> want, by treating PortF separately, but it's not something that looks
+> nice and upstreamable?
 
-	tristate "ams OSRAM TCS3430 ambient light and compatible sensors"
+Yes, it is a special case for bank PF in the pinctrl driver. With a
+regulator mux, its set_voltage would be the natural place for the
+same order.
 
-(and sync with other places),
+> So according to the A7A schematics VCC18-PF is a separate power supply
+> pin on the SoC, and it's supplied by CLDO5.
 
-TL;DR: Change if you wish, but I'm okay with the proposed texts for now.
+Same on the A7S. There CLDO5 also feeds VCC-PC (the eMMC VCCQ) and the
+combo PHY's analog supply, and v6 already references it as
+vcc-pc-supply.
 
-> +	  This driver can also be built as a module.  If so, the module
-> +	  will be called tcs3430.
+> But this is a firmware problem, then? As 0b10 is documented as 3.3V,
+> which is wrong if you use a 1.8V eMMC. So doesn't the new pinctrl fix
+> patch overwrite this with "auto" (0b01)?
 
-...
+Yes, it is a firmware problem, and yes: with the pinctrl patch the
+register reads 0x05555555 under v6, so PC is in auto. Our boot chain
+writes auto too; we set PC to 10 by hand at runtime to see what
+happens. My point was only that 10 on PC does not behave as the
+adaptive mode that the manual text gives for C/E/K. Whether U-Boot
+fails with it too, we have not tested.
 
-> +static int tcs3430_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct tcs3430_data *data;
-> +	struct iio_dev *indio_dev;
-> +	unsigned int dev_id;
-> +	int ret;
+Built and measured by AI agents (Claude) on my boards.
 
-> +	ret = devm_regulator_get_enable(dev, "vdd");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to enable vdd supply\n");
-
-Why so early? It's better to avoid touching HW as long as we can, then all
-other possible errors will not provoke any glitches and unneeded power
-consumption and delays.
-
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-
-So, somewhere here (to be robust against the cases when regmap wants to fill
-the cache from HW or somebody reads debugfs at the time of initialisation.
-
-> +	data = iio_priv(indio_dev);
-> +	data->regmap = devm_regmap_init_i2c(client, &tcs3430_regmap_config);
-> +	if (IS_ERR(data->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(data->regmap),
-> +				     "failed to initialize regmap\n");
-> +
-> +	ret = devm_iio_init_iio_gts(dev, TCS3430_MAX_SCALE_INT,
-> +				    TCS3430_MAX_SCALE_NANO,
-> +				    tcs3430_gain_sel,
-> +				    ARRAY_SIZE(tcs3430_gain_sel),
-> +				    tcs3430_itime_sel,
-> +				    ARRAY_SIZE(tcs3430_itime_sel),
-> +				    &data->gts);
-> +	if (ret)
-> +		return ret;
-> +
-> +	data->gain_sel = TCS3430_DEFAULT_GAIN_SEL;
-> +	data->atime = TCS3430_DEFAULT_ATIME_SEL;
-> +	dev_set_drvdata(dev, data);
-
-> +	ret = devm_mutex_init(dev, &data->lock);
-> +	if (ret)
-> +		return ret;
-
-> +	ret = regmap_read(data->regmap, TCS3430_REG_ID, &dev_id);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to read device ID\n");
-> +	if ((dev_id & TCS3430_ID_MASK) != TCS3430_ID_VAL)
-> +		dev_info(dev, "unexpected part ID 0x%02x\n", dev_id);
-> +
-> +	ret = tcs3430_init_hw(data);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to initialize device\n");
-> +
-> +	ret = devm_add_action_or_reset(dev, tcs3430_power_off, data);
-> +	if (ret)
-> +		return ret;
-> +
-> +	indio_dev->name = "tcs3430";
-> +	indio_dev->info = &tcs3430_info;
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +	indio_dev->channels = tcs3430_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(tcs3430_channels);
-> +
-> +	return devm_iio_device_register(dev, indio_dev);
-> +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Thanks,
+Norman
 
