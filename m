@@ -1,49 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795777044;
-	b=V7Yt9yqT5utDvPp9l2fBZaNyDS5XwmBUJ++D+VVIsI9jNMDZ68Guya/5eb4B+JtqV95U
-	 CKEzkdeHV2P+r1wHHNJYytZXWwgsBHpSvsZf0cq5cLtAOaVo5yFRh+y0AF2jiA6uQ6+7l
-	 ruegfWg5EFofy+Ud97LGfI8Unf9Aqqkz2f+3oiuk7O0VPmyd7+QuPp87QBMKrKg+RnMy0
-	 eqTDu0+Ag5wsXAF3nTTKVnfKuQjKocVEjKsY3qzpuQC6aQGwkC1gYCTeRDze1p/s3KKKr
-	 GQyv3bMmBDT7HbUBSZOyhloSZx24emPS9e2BfoXb1No4WGHRs8T1tGx2P0SKMXRb5Ow==
+	t=1795777255;
+	b=amOGifBPs4OVmqK9ST67e2pO+fNNsV8Rtz8GpVYzv+EDx/yPDGZuHa4TNzSiv6mXsAPR
+	 bwtkiibKhhs4hOD1ev2jTYcvOfTDudJqGgAYgDWT5ZMW3QvpGgqOhujoFuy6JaCNjinv9
+	 fe/efMLy8jH5Ob8Z8ky7xdIE7OUaZCXA3swo/frTa0XCeHHHrNI0OsNU7xl9RXrIHOyaF
+	 77TwEAfSRq0TKJQQYmhgpyj0HkdU9Id3YoMWM+vrRzLz73Aet8kWo6hmOltpfNyp2EFPq
+	 FM+htrj9kG9sh9tlmf1ym+NbBDDTasGTE/5YZjXhRdLNM5abPLEJNDgojj3pRqnscAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795777044;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Xx1Jv0J1bDZQpWVoeU6QkZxWXumP+4homny7f0vYJN8=;
-	b=VlKMGf+7QdY1Ow9Za8NpEtyHXoEYh3rp6x8+9j4xH0TBgB2c4MwKN+27bL5EraYnBq/9
-	 /KEiQFJcGm2tlPuAW+EbSxG370MsMgw/v6IqXctLgqmwXUKhQAReKli4R+gfbnB74XIAx
-	 CGoG/wlQ5iIxdrMko3WAIiRq3SWhvMlN/hsUD+q2XguprHjrSb4HZqePK4f2Sbqv1MmCH
-	 YJYAev0spWID9DgTbqQFjmV9noTHSKIY1sZXVqDXmTPcf/TDEkFMg5C5bnxtqIaGGxVR7
-	 zcqrnOF5BT96WlHv0Shq0N3S1ORYUeUco5uXiKR9xtCT13WZnJbMIZ4CS5ORrUuHWOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795777255;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=wtJ8wkaFJEqMN3q6L65KvGff9H31neyWT8xo9GKbAI8=;
+	b=YHPvZS9jc29odZTHTX6VtEhtWWjqqlPhg3YTuiDPzEdN+z5ZQKthbbEK/x5q8P/BhKM0
+	 Ofo79TP3sH6EDKaf5N6Od9JN9V1kIovGwiBH7uUNOuCp+nZLekaigvpWVWGTeAarMhv/2
+	 fI3U6vvKUiDP36gPh2/M5hekSSnShmFJ2QUgMZJYNIB87OSVmgQRbXLP4t1+nzAUX3DHS
+	 +UF42BwojV2wLTPOecTePOD98QBU/kdJijcKyEVa7o/Ye1XR3ZtqjXqbYaDz71FC0VkOu
+	 tzfhgS54eMy5FKEQrY9g+KNhrSPMj3Q60yuGiBv1rxN9Ig9cit0LM66msXpD0T+CzLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=B25sau8T;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F0985606A31E;
-	Fri, 27 Nov 2026 10:57:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0985606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aQEvLbP2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C30606A31C;
+	Fri, 27 Nov 2026 11:00:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=B25sau8T
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 113372F;
-	Fri, 27 Nov 2026 02:57:20 -0800 (PST)
-Received: from [10.33.50.35] (e142021.arm.com [10.33.50.35])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BD2AC3F86C;
-	Fri, 27 Nov 2026 02:57:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795777042; bh=tI/WuxzQHxbeBxg0ET/wSwRkMo9dWBTAelQ6L/tkO0w=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=B25sau8T3KTWvItqVLYxp2RC03ZVEdbWyH2MkDzRUOwL8iEOzA/2/szKI8T2Qprfd
-	 h3ydqMKrxtJOWqAT2aGr0TfpGKtfA+aov42u1vZKGbr9qedYIqIEJGcOHMe4lweHCQ
-	 92rX7V3jq+WkTaWtSYyrHCAP3UW8GslYwmn/6M4w=
-Message-ID: <9ab5f851-1b56-49ed-bfdd-46abdbdda1c0@arm.com>
-Date: Fri, 27 Nov 2026 10:57:16 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aQEvLbP2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C9791F00893;
+	Fri, 27 Nov 2026 11:00:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795777254;
+	bh=wtJ8wkaFJEqMN3q6L65KvGff9H31neyWT8xo9GKbAI8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=aQEvLbP2sggNuM6nrPB+lTfJ/lES0Yip/tKiObjeKZO+MUt7M5NXQ11F2f/1HAp97
+	 08OpkawC9JhssJGvZ3lkg5k81egp3x26VZ4qqtL7ZIeEOLRdGTdT/zhacYqzPcop1/
+	 P4ZrCSdZEHa8R+1dzeKE7BwpUuf2n4/s1QKdkb6pVQc3G3bZM1or9BWD8GiDuCr95F
+	 qWQpO6E2UpaYepmaTVDs/PV8N4AnvJ+goryFjKAJO0wS49yhLoWcvLWHgCp0fLWAC4
+	 WbdeT+hUpe73Ap63R/f1/OQ1X2jbagCrmV0TCXuYis9yQtDbdsI4Gc6w9xwNpuEo4Z
+	 Dm6yHGppTwHoA==
+Message-ID: <a2997c83-4822-4e90-ac18-429893ffe931@kernel.org>
+Date: Fri, 27 Nov 2026 11:00:49 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -54,125 +52,92 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/5] arm64: dts: allwinner: add A733 SoC description
-To: =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org,
- samuel@sholland.org, Enzo Adriano <enzo.adriano.code@gmail.com>
-Cc: Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, Junhui Liu <junhui.liu@pigmoral.tech>,
- Jerome Brunet <jbrunet@baylibre.com>, Pablo Mazzini <pmazzini@gmail.com>,
- Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
- Alexander Sverdlin <alex@sverdlin.org>, Jun Yan <jerrysteve1101@gmail.com>,
- Lukas Schmid <lukas.schmid@netcube.li>,
- Cristian Filipescu <filipescu.cristian@gmail.com>,
- Norman Herms <dockseed@proton.me>
-References: <20261126-a733-cubie-a7s-dt-v6-0@gmail.com>
- <20261126-a733-cubie-a7s-dt-v6-2@gmail.com>
- <p3YaXlLJTguQBGnWyMpb1w@gmail.com>
+Subject: Re: [PATCH v2 1/3] dt-bindings: media: qcom,mahua-iris: Add Mahua
+ video codec
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261123-mahua_iris_enable-v2-0-b1a16b16afca@oss.qualcomm.com>
+ <20261123-mahua_iris_enable-v2-1-b1a16b16afca@oss.qualcomm.com>
+ <eMkEl-YvDuxVV7ozd-e4DQDjG7uZrPAKt7OHCdBkf5tSOrFSJ5t6-BF2gu5lcRakGfoZkXVjcxVbEohuei348A==@protonmail.internalid>
+ <8e9b2e56-2b63-4ece-92ed-968d41209790@kernel.org>
+From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <p3YaXlLJTguQBGnWyMpb1w@gmail.com>
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <8e9b2e56-2b63-4ece-92ed-968d41209790@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi Jernej,
-
-On 11/27/26 05:29, Jernej Škrabec wrote:
-> Dne četrtek, 26. november 2026 ob 21:35:40 Srednjeevropski standardni čas je Enzo Adriano napisal(a):
->> The Allwinner A733 combines six Cortex-A55 and two Cortex-A76 cores.
->> Add the common device tree for the first Cubie A7A, A7S and A7Z board
->> DTS files. Describe the CPUs, PSCI, architectural timers, GIC, RTC,
->> main and always-on clock/reset and pin controllers, UART, I2C and
->> MMC. The preceding revision booted on the A7S and A7Z.
+On 24/11/2026 10:04, Krzysztof Kozlowski wrote:
+> On 24/11/2026 07:44, Deepa Guthyappa Madivalara wrote:
+>> Add a devicetree binding for the Iris3.9 video encoder and decoder block
+>> found on the Qualcomm Mahua SoC. This is a single core derivative,
+>> leveraging most of Glymur data with the clks, resets present only
+>> for vcodec0 core.
 >>
->> The A7S schematic, sheets 7 and 16, shows the EEPROM wired to I2C0
->> on PG8/PG9. Use mux 6 as documented in the A733 Datasheet v1.00,
->> section 4.2.6, table 4-36. The A7A schematic shows the external RTC
->> on S_TWI1. Add its R-I2C1 pin group on PL12/PL13, mux 3.
->>
->> The GIC maintenance PPI 9 and ARMv8.2 EL2 virtual-timer PPI 12 follow
->> the A733 User Manual v1.00, section 12.2.3. The GICD/GICR/ITS windows
->> and noncoherent attributes follow Andre Przywara's A733 reference
->> and the A523 precedent. The CPUX interconnect diagram in section
->> 5.1.2 supports the noncoherency inference. Leave the ITS disabled
->> pending clock/reset and MSI integration.
->>
->> Describe the single DynamIQ unit and shared L3 shown in section
->> 5.1.2, figure 5-1. Partition PPI 7 (section 12.2.3, table 12-1)
->> between the Cortex-A55 and Cortex-A76 PMUs so each probes its own
->> core type. Defer capacity-dmips-mhz until it is measured on A733.
->>
->> Link: https://gist.githubusercontent.com/apritzel/60fd7379b9560a15b8b352986b69d39f/raw/efd9cdf8f26ba5b0c7e138f093af44a1cf322469/sun60i-a733.dts
->> Link: https://lore.kernel.org/r/20261126172253.1097838-2-andre.przywara@arm.com
->> Reviewed-by: Andre Przywara <andre.przywara@arm.com>
->> Tested-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com> # Radxa Cubie A7Z V1.11
->> Tested-by: Norman Herms <dockseed@proton.me> # Radxa Cubie A7S (A733)
->> Co-developed-by: Andre Przywara <andre.przywara@arm.com>
->> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
->> Signed-off-by: Enzo Adriano <enzo.adriano.code@gmail.com>
+>> Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
 >> ---
->> Changes since v5:
->> - Mark the I2C0 PG8/PG9 group /omit-if-no-ref/, as requested. This
->>    satisfies Andre's review condition.
->> - Move the RTC clock include after the A733 clock headers and cite
->>    the A733 datasheet and A7S schematic for the I2C0 pins.
->> - Fold in Andre's R-I2C1 pin group for A7A. A7S and A7Z leave
->>    it unused. A7S still references the I2C0 group.
->> - Vinicius tested the v5 DTSI with his A7Z v1.11 board DT. Norman
->>    tested the v5 series on A7S. Their tags here cover the SoC DTSI.
->>
->>   .../arm64/boot/dts/allwinner/sun60i-a733.dtsi | 671 ++++++++++++++++++
->>   1 file changed, 671 insertions(+)
->>   create mode 100644 arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
->>
->> diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi b/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
->> new file mode 100644
->> index 000000000000..e062b08006da
->> --- /dev/null
->> +++ b/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
->> @@ -0,0 +1,671 @@
-
-[ ... ]
-
->> +
->> +		mmc0: mmc@4020000 {
->> +			compatible = "allwinner,sun60i-a733-mmc",
->> +				     "allwinner,sun20i-d1-mmc";
+>>   .../devicetree/bindings/media/qcom,mahua-iris.yaml | 200 +++++++++++++++++++++
+>>   1 file changed, 200 insertions(+)
 > 
-> That's not really the case, is it? A733 emmc has support for voltage switching,
-> so regulator should be added here for voltage switching.
-
-But it's still compatible to the D1 MMC controller, isn't it? As in: a 
-driver capable of supporting the D1 MMC IP can also drive the A733 MMC. 
-I think the voltage regulator is a separate problem: it's external to 
-the MMC IP. The vqmmc supply property is documented and usable, and the 
-availability of the regulator it points to is a separate issue.
-The same as the H616 and A523 have the voltage switch already, but are 
-still compatible to the A100 and D1, respectively.
-
-> I suggest that you drop this node until proper adjustment is made.
-
-Do you have any code for the voltage switch already? Your comment in the 
-UHS-1 prep series suggests so? Any chance you can post that separately, 
-to get any DT compatibility problems out of the way early?
-
-Cheers,
-Andre
-
+> I have impression that there are like 5 different patchsets around
+> Venus/Iris depending on each other or depending on something. Kind of
+> same comment last time.
+> 
 > Best regards,
-> Jernej
-> 
->> +			reg = <0x04020000 0x1000>;
->> +			interrupts = <GIC_SPI 161 IRQ_TYPE_LEVEL_HIGH 0>;
->> +			clocks = <&ccu CLK_BUS_MMC0>, <&ccu CLK_MMC0>;
->> +			clock-names = "ahb", "mmc";
->> +			resets = <&ccu RST_BUS_MMC0>;
->> +			reset-names = "ahb";
->> +			pinctrl-names = "default";
->> +			pinctrl-0 = <&mmc0_pins>;
->> +			#address-cells = <1>;
->> +			#size-cells = <0>;
->> +			status = "disabled";
->> +		};
->> +
+> Krzysztof
+
+Everything is blocked until this iommu stuff gets resolved either way.
+
+---
+bod
