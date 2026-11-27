@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795749613;
-	b=zsCnC9eKRt3kNgl6eSevgoGUy/Z3rdLJBz/AZgeTlnnPwWK8bPtg6aSlorMoY2vKx/Iz
-	 spb2Xvdw4UUwhOxiG0/ZRZv5CQ1YGU0vnIOnx0yfprtcag53INw/8nXSFjNwrRcwRyEmy
-	 QV1Ot3yCbAHIJKgZo+176pjmwPZ/xLvRmkP/prqpNqs5IyIQtJ1Q5Z8SB4De9LUMYAEfr
-	 nyyl+h8W/PiEN+JL2uq6FDzjx1K4UeicfpEQXwLlapeA2V0AcOUEnceZvhRmQChSOsBHc
-	 l7UD3AGwMRUSTNjeX7atU5Ub2rQvDr/+o0iem0DeTYE0q9A5JIDf9e87Fq8RFWPSHYg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795749613;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Zq7XDH+AKk/ykks+gFpUbPjX4AguhtOl0Vtdwbv/zKk=;
-	b=YSX1NyLxZTtGLNE0yNsFjD4Qgn/wlDtF+xGhiMVhYUPN2U/CWwpCungrdoAXHZ0TEvwl
-	 HVCphSm94w/TysHY6QzwL2a6Vp6hS34uv7t/ktHLdmUy3mcZvrnDMFTT9pnpfMqNM/oZx
-	 IBbWWmY2nZ2RnH8GtBO8j5sybdWKpHeJ2nhw/zw40F1DIIxQ5zlgqSF9jWqDS058GZ6ge
-	 SGP8875XHNmEQgYM6vGFa19FjH7BktrFr9hTWP1NfqnozUVSfOZg+sAjyXgcIQAfqXWk8
-	 wSEGdQOmGUykodGKyGLP1iGAIL2ZG16zUA+yxSzyM5s/qiiSowr7X9jVCqS9pmQdd4A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Wk/n97Zi";
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795749807;
+	b=yzcU87sEDRDfpneD1tRWDP9Av9UpbtjhrIQ7X3QOcCVGYGtQvX2p9xIR9E9LRUWORFRy
+	 OSooYdLUrpJAZXv8FJALtsKZiFy+yDVKhJ8Mur6DHywi6IKuEy7zlvElldFouYhtu55IR
+	 z6TFmqxdPOwhaCnTdESzi323vl9NOmdiFffkjia9J/RYqAhANsKNnZE33F5yg9c7ImrB0
+	 iebX4YjIdLbSbdekSzIpDITDKKUrbVdEBHiH32fe5F5S36iTPIy5jsvZPqm8KVsPPTvIw
+	 ABptOvjozo+2MWh56ITz24p0iyX9UPB3hyd47bKjJMCjhKXvmMmV30f6I9xPeGKYirg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795749807;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=3HQkdF+6GVHVhXGkW8uSp7nZNiL2SLB4UuniruSxMKw=;
+	b=Gl6LXmb+y9YWFaUu737oQJJtP9Q0dpQRY6AGPnkM5TrwxJ+cywiFHNIyqqhU95BX0obR
+	 KP8R4MvWqFSuPE+wu/U89zNplMEUHTaNr8NiSx4tWT/dqqwKJwDRzk99J8xpjY8mVzYRZ
+	 Fq7SCAzY4gRITyUHlioLWRClijqtkJ1xaBEUt2NTjBIEs7v+p7RL9f+SUY46Q7Z+qFzTB
+	 KU8KtmDCmz0Z5ds1orSkmJNIfT//XQCJxLZOu7Qb1ufBEumZRWAWFCizkQXM3LWpkLEuB
+	 uCrMQ4NBOzjZ8JmNTQib+foiNKYG4xM8Khyb/ZCZhBj7VvZUrKzZJS08ZKvHWq2PyoA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ChdjrnbS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6ACD606A31C
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 03:20:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B1D5606A32F;
+	Fri, 27 Nov 2026 03:23:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wk/n97Zi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8B361F00893;
-	Fri, 27 Nov 2026 03:20:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ChdjrnbS
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795749806;
+	b=rsyO1rz8EXdok1QXs1bSnkRo4bGIWsCD+7BQRt5XnIWBWipuPAG6WsNmb389gbdVdJax
+	 Ytp05j6en562zc5yy0TUOAlakvwcHEZy6s4kCYf8dEqxn6ZhfQVx9vIa/tjZkpjMRuCvs
+	 xXMpcg69NoaiEZPooiI7iZoo9X5+zBo1rreBEVJZZ/UVCLeojGv6W31e4NrE/t6wQ+bY4
+	 GKGpmNtImdDAOxn3uIU3jaZJYoMrcX9KEpiYaueZYver19SxtuFEUg4IprH6pqvtTpclY
+	 7gyVKhdAHjvxwB+++tIGntkhuRvmDDLnmqWWwy0xmg5fIcpzzOIFYTYy/lJ4X/xsp7A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795749806;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=3HQkdF+6GVHVhXGkW8uSp7nZNiL2SLB4UuniruSxMKw=;
+	b=HyJn2l2jM02VX+GFXFhSqZAkdLifFsUgBWN7RD14iRAz60jhe9RMB3qBmi/Q1xh2Lkp8
+	 Te7LruFHqjKrrfqshAPwvYEiTnogd+9AhfaN6NnxFSYW3mMqARK6GpdH0XT6IgTjv2m+T
+	 aN8IgeoD7Pz5s1scSeal1JY5rFrtLymppXfdEXXkmy4+gihZEGlnp+OdfbNmJb1sm3Nlg
+	 hmKQK4Scap2j6pC/u4jQfte7crcUzLzQVuPjJFpzJt1uh6nK2OKpptW+K4GmYlNzSa4pJ
+	 Jg/aGJLZDgBHjTxNbujJFSn8GXbSHk5PkZo+NO+1QfTr+2V36VTgmA4+BeADgiyPspw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id A07BB1F00893;
+	Fri, 27 Nov 2026 03:23:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795749612;
-	bh=Zq7XDH+AKk/ykks+gFpUbPjX4AguhtOl0Vtdwbv/zKk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Wk/n97Zi2D3j/61+ttkthNG0VDm2GVDkTMOzBIiIO9djs0Cap/sgPVS5h92OlFFeD
-	 9cRhhzrl7acC1Dlvva6PUqxN8AAnH3kqH56q8iZOVxuumBvuCyGxOY+M5EnzZXZ75W
-	 4F0H9qiQsyqvIT2o2I6oFead99Z8wFCnT+i8HlLSLgKq2N3BbXYJRXhkaXEpsN5KP8
-	 /V1FRDzL4fVhyPxwauaDEGPStEibDQGfRHYWIQqfvVkfyhTXITxbpatNpBFdbtnkUt
-	 Vw4/xnVQZLUrOkzkvs8vmxOkuAbtQLQHtOvRDLfmJFupA7MJ821oBCHBAtqBbuHhRE
-	 MJK1CcyzL4mpA==
-Message-ID: <sashiko-outbox-236510@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: glymur: Add CoreSight nodes
- for APSS debug block
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jie Gan" <jie.gan@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261127-add-etm-devices-for-multiple-qcom-platforms-v2-4-42d47474a67a@qti.qualcomm.com>
-References: <20261127-add-etm-devices-for-multiple-qcom-platforms-v2-0-42d47474a67a@qti.qualcomm.com>
- <20261127-add-etm-devices-for-multiple-qcom-platforms-v2-4-42d47474a67a@qti.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 03:20:12 +0000
+	s=k20260515; t=1795749806;
+	bh=3HQkdF+6GVHVhXGkW8uSp7nZNiL2SLB4UuniruSxMKw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=ChdjrnbSWlNi8OC/H/Twx8osfNgVL4fbbbO2I9LXMtIP7Gv8MrV/OJb7N3pmJ1ler
+	 y63v3fcfkOS2wSrPnK+gkeXrk8eAWGkqikux6hKISV4MdEWIv8zkZXEpButjaMpene
+	 KWDiVKTHHW3HFjlgH7tfVK8htA1EPikW8w+Xsv/W+4G2FSOCAoVR2ogIzf3QNhvh2e
+	 MWej3W05w+umZ8mouX+gOcIcc1sI9N1b1ChJ9JAr3N//QJTtGbNYucp2bVnBb7nyvz
+	 zA14QdBGy83/fUpNWYLZdZjRR6ZXNx7E3IHIkW90iH08WTXPj/+f4S/bq3uwZ8O12C
+	 PbM+93YCXTOmg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2B5CE4B536;
+	Fri, 27 Nov 2026 03:23:22 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Date: Fri, 27 Nov 2026 03:21:54 +0000
+Subject: [PATCH v4 1/2] dt-bindings: media: meson6-ir: Add Amlogic A9 IR
+ compatible
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,89 +82,66 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261127-a9-ir-v4-1-820209515755@amlogic.com>
+References: <20261127-a9-ir-v4-0-820209515755@amlogic.com>
+In-Reply-To: <20261127-a9-ir-v4-0-820209515755@amlogic.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795749801; l=1145;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=rmPAoSNSZx5LMEoeF/b4E+Q1f6fRs3+ubaclp6Z1pc8=;
+ b=SDByBrBZZqFxlr6BWJd3MQAjvYPpGxvnC2xMExDusEjm2PDIELuH80jfKJiOQZapHxLDbN/JM
+ +24LbZZtl4+BrMWg6//YnTn1ecghq52cSV5HYa1KUpOd/m6BQ2uEW9D
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] arm64: dts: qcom: glymur: funnel@12080000 placed out of
-  unit-address order
---
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-commit 4ff62bb07263d728dee6b06444732059ef9a16de
-Author: Jie Gan <jie.gan@oss.qualcomm.com>
+Document the Amlogic A9 IR controller compatible string. The A9 IR
+controller shares the same implementation as the Meson S4 IR block,
+so add "amlogic,a9-ir" with "amlogic,meson-s4-ir" as the fallback
+compatible.
 
-arm64: dts: qcom: glymur: Add CoreSight nodes for APSS debug block
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+---
+ Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-This commit adds CoreSight ETM, replicator, funnel, and TMC ETF nodes for
-the APSS debug block on Glymur, and removes the non-existent cluster nodes
-on the derived Mahua and Kalambo platforms.
+diff --git a/Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml b/Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml
+index 0f95fe8dd9ac..db9387e43eff 100644
+--- a/Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml
++++ b/Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml
+@@ -23,6 +23,10 @@ properties:
+       - items:
+           - const: amlogic,meson-gx-ir
+           - const: amlogic,meson-gxbb-ir
++      - items:
++          - enum:
++              - amlogic,a9-ir
++          - const: amlogic,meson-s4-ir
+ 
+   reg:
+     maxItems: 1
 
-> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/q=
-com/glymur.dtsi
-> index 165dfa11f17f5..9dd23a52fb2bf 100644
-> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
+-- 
+2.52.0
 
-[ ... ]
 
-> @@ -7837,6 +8151,51 @@ pcie_rscc_tpda_out: endpoint {
->  			};
->  		};
-> =20
-> +		funnel@12080000 {
-> +			compatible =3D "arm,coresight-dynamic-funnel", "arm,primecell";
-> +			reg =3D <0x0 0x12080000 0x0 0x1000>;
-> +
-> +			clocks =3D <&aoss_qmp>;
-> +			clock-names =3D "apb_pclk";
-> +
-> +			in-ports {
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +
-> +				apss_funnel_port0: port@0 {
-> +					reg =3D <0>;
-> +
-> +					apss_funnel_in0: endpoint {
-> +						remote-endpoint =3D <&ncc0_etf_out>;
-> +					};
-> +				};
-> +
-> +				port@1 {
-> +					reg =3D <1>;
-> +
-> +					apss_funnel_in1: endpoint {
-> +						remote-endpoint =3D <&ncc1_etf_out>;
-> +					};
-> +				};
-> +
-> +				apss_funnel_port2: port@2 {
-> +					reg =3D <2>;
-> +
-> +					apss_funnel_in2: endpoint {
-> +						remote-endpoint =3D <&ncc2_etf_out>;
-> +					};
-> +				};
-> +			};
-> +
-> +			out-ports {
-> +				port {
-> +					apss_funnel_out: endpoint {
-> +						remote-endpoint =3D <&tn_ag_in54>;
-> +					};
-> +				};
-> +			};
-> +		};
-> +
->  		tpdm@11c03000 {
->  			compatible =3D "qcom,coresight-tpdm", "arm,primecell";
->  			reg =3D <0x0 0x11c03000 0x0 0x1000>;
-
-[Severity: Low]
-This isn't a bug, but funnel@12080000 is placed before tpdm@11c03000
-through tpdm@11c0d000 instead of in ascending unit-address order after
-tpdm@11c0d000.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127-add-etm-de=
-vices-for-multiple-qcom-platforms-v2-0-42d47474a67a@qti.qualcomm.com?part=
-=3D4
