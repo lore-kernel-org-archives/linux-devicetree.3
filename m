@@ -1,161 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.5
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795760802;
-	b=RWTCnYYNa0ltqTMkniA4vPR6eV6+JRQRC+xz9wLQXqR3WvlKJ5m0WIFlRxd76w9mW6V6
-	 SdJB+0IUGgoMzeDnTKbaNjrnFIO5ZJndfPWyeoY7Q0kN4J4hsDXMmggcoGkzgym2qkdGS
-	 q8/mxZWG29QIQ/0z1NmJdetsFpbGFPUhoPYN6qUNzX/lqMfD+T0XbdncZf7HM+38fq8r1
-	 X9NjvTYEhVxFXqeXYk/TYDTMsf5wh/Fy0sy8+/Q7jj6MBbdEiD2YloVptBF46+eSdYos/
-	 7NMajMy1Cq3OtmhYXOPvmY2JuF9vwCooicR6VwBfj3+E1nIDQTAt37jmN1vjtq6QhQg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795760802;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=BoYcgk0YYUJ5YHlRo5+tqxCota3V2g+Scwg7NgZqE98=;
-	b=manjh7D6SopquM6Ito+HFjs4UjT9IIWG1hWYitYWV6OkpCbvPA1sXW2FRkongSdAqSx+
-	 3YbUTo56YSthv2ugbnjmU+gcphIPbOXU3uozVesVa41G81JMHZ308ared6hGCCjOXQUt0
-	 NA9FVuwnibn4zXdOKEIrOkoNKG+gcgLKS0WtpLxcjp1uuwLUYWloKBayuKgIP7e7C+vM8
-	 P9OrHxwrZkGpuJ6BCSGP/WWaE2QgCbPiFgPXdwW1VRRsp9zA6bypxKovv6bJ2gafa65lp
-	 hjrB+L72XtHAJhvO780tReGXtxdw3P9lP4O10zgEFvHLDLUHefdMvflY1ELoD7kua5Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=nhjEjMNj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.5
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011005.outbound.protection.outlook.com [40.93.194.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795761433;
+	b=YvKGl/hB6hIGMAMPyhvahF0itVuS3bTYcYPBt0KwrrhbUZZaRZE1CX6M0u4ppt1obuC+
+	 v0kUlq1rqWR/D5ronwmYiX6Fwc91gY/xxUAky0ihi/CHWvdC4Fm4WN6VPkN9spGDgyYWZ
+	 E77/iySaO2/BVUyFttg2uzq5XrcO9w1MobRsaXGnE1wjDeha/Vv8uIjyX7RfsPNgqH28Q
+	 IobUNbv/dCHEcXF4pJDH+undf2lBG9W7Uzre408UkqO8sH4upUyzSHKAgXioB2uJns1H6
+	 ckh4xF87G7snAhJvXOahhEwtsv3DQYSjcTf5mXhpREc6ICQG+Du49aPAHs1Sj93Wtow==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795761433;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1SnlirmZdWpy8m97rVq8q4D7ao2YFooYL/YRCVvC1OE=;
+	b=5eeIARN75popEyECtXL4sPXuwd553oLmtFo9wt2iKx2YDozkZHl+LH44BeSr7HCUkovm
+	 tP927iy9a0cWmV1uldYqTk6fQG7DU0JXVFtlpWJ7qP5GvexMsJ5U/9z2rAHnBQooyuQKd
+	 iOIBjTKfwvhoP+bATIgPGO31Np70NC7KMTa1h7P4zzJn9scOkuSWrsO/CMLRMsi+bgtcu
+	 u4DDUrCLejyVvD18WjfWQmhjwPRWBRmFJsJn2hGCj8S68Qdre2Y4kWmEsDfLpnUaZdXWu
+	 ys7qPBSHq+oXHN8WCJ5Jl3a2Ptdii/za3e1mmBj4uqnbkowqTmvJpgaWQCWoWzfc+Fg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xoaSDGvG;
+	arc=none smtp.remote-ip=209.85.167.48
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B7BE606A321;
-	Fri, 27 Nov 2026 06:26:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B7BE606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EBF5606A31E
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 06:37:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EBF5606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=nhjEjMNj
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qNuq+qepyHTOQ75WcO1p0bIKSO//XlYTGkCqgHtyKpYwM5j0q9xTThm2fNikneDs0R8aNDVTERuCjfTBuStRi8divVw5+M2MMWvIjF/hCFwdM03H/YGE66hXx8LCjDzcFgF8k2aiBGSKYWzQ52mKmP6iBE3qy7NeE9fbvFIg4y3xP71sr/stjgrSqgnixcj4awTNzRwSk5KLnjMntaTARnPPygbHN7lb9vwHSwcaLwefK6Hk5B7ZfqA8+alpWy/L59FQDP4BCSVHQD3emT+gH8N1GUT2Erkp9KCiieenpVOmX2/K0o0v1iTAZ0OZ4B0BO3RIchlsZaA/qiGmTdQsng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BoYcgk0YYUJ5YHlRo5+tqxCota3V2g+Scwg7NgZqE98=;
- b=J+v28MEMVALiQiqFvXyMvys2sMkbYNMVcTXE4Q0TIHiI6YXyN2BdbKlDO0xvpGH/s0IS3vUOzBo94KxMlALFQ3Mv9eElvlsZz6CQ87FBdRViNoy881XmaFO36cfp629OIkK0H0kgAN/2r0swG8mEf+BR29nDYL45JS0fCkF28oCJbpWpA7u5HMd1/b02g8gOcfCrlbr86UpmHmTZNJxlvdjUFtaHFx4HS7evyXuFJhA0uN7i4iaj+Ar+9ojbw0n2kO7AMl1hOoSWhFpvEy73eddfLymdveUJ16saCYx7nrz3daOaw3rMrjHRJF+8TMKf79bJBkOlk6eIllAb6j40TA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BoYcgk0YYUJ5YHlRo5+tqxCota3V2g+Scwg7NgZqE98=;
- b=nhjEjMNj701bxuhGvd097U2g8e6ycTx6ALQski/qaG+9W9Qq9+IT9L3yWIL+y1WB8sus+g+B5chdyZHKMM+f4YgAqBmI0dB4RSZ+Rho4XCuK9huSjnN3Hxat4QHxN6wfP4rLSDKclzxAwpg7wJ1eN9MzoRAYM6A4uOjc5+rzYGU=
-Received: from LV0PR12MB999067.namprd12.prod.outlook.com
- (2603:10b6:408:32d::16) by PH8PR12MB999320.namprd12.prod.outlook.com
- (2603:10b6:510:42f::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.7; Fri, 27 Nov
- 2026 06:26:37 +0000
-Received: from LV0PR12MB999067.namprd12.prod.outlook.com
- ([fe80::890c:eb6c:aca0:c0cc]) by LV0PR12MB999067.namprd12.prod.outlook.com
- ([fe80::890c:eb6c:aca0:c0cc%5]) with mapi id 15.21.0662.007; Fri, 27 Nov 2026
- 06:26:36 +0000
-From: "Dhanunjanrao, Katta" <katta.dhanunjanrao@amd.com>
-To: Mark Brown <broonie@kernel.org>
-CC: Liam Girdwood <lgirdwood@gmail.com>, Vincenzo Frascino
-	<vincenzo.frascino@arm.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jaroslav
- Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, "Simek, Michal"
-	<michal.simek@amd.com>, "linux-sound@vger.kernel.org"
-	<linux-sound@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "Gaddipati, Naveen"
-	<naveen.gaddipati@amd.com>
-Subject: RE: [PATCH 3/4] ASoC: xlnx: formatter: set a 64-bit DMA mask
-Thread-Topic: [PATCH 3/4] ASoC: xlnx: formatter: set a 64-bit DMA mask
-Thread-Index: AQHdfNMa5ZaHug3hY0KQ/e7HRUWIELdApBOAgADHWbA=
-Date: Fri, 27 Nov 2026 06:26:36 +0000
-Message-ID:
- <LV0PR12MB99906706ABE35C8AEAE31ECEDE99412@LV0PR12MB999067.namprd12.prod.outlook.com>
-References: <20261125114839.3642735-1-katta.dhanunjanrao@amd.com>
- <20261125114839.3642735-4-katta.dhanunjanrao@amd.com>
- <179571553180.142532.15022384187541501041.b4-review@b4>
-In-Reply-To: <179571553180.142532.15022384187541501041.b4-review@b4>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-27T05:45:41.0000000Z;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General
- v26;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: LV0PR12MB999067:EE_|PH8PR12MB999320:EE_
-x-ms-office365-filtering-correlation-id: 7629dc2c-c5bb-41b4-b4b7-08df4c4f6389
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|38070700021|56012099006|10067099003|11063799006|261022113327099003|261022075727099003|261028144727099003|261022105027099003|261026121527099003|261102123227099003|261021121427099003|261026140227099003|261009223027099003|22082099003|18002099003|4143699003;
-x-microsoft-antispam-message-info:
- SAT5YXBO4jn1G2D0tl3arLSZKEsG8Tk4inU1N+9HeHqkByiLrxIPLNxzE69kXu+Do0JpzUJsvqGXDHoe2XmIGPmJdsnKjhjOolby261fnrh0ukFaczGoLCLuyYme5BcZay05pX3UUeZXEUWIiyfd4fvLfnYQ0G/pK3Gr0mN6xJqr8S0LX7pN9dmmT1c3AUjOBnCW2aTuFrXxAhNE8a/M59IdXcIiDOzFjem7AaaJTLqmPxz6OyzrvW5KumxkSdyDaxHC9ay2yTRYETZ6wjr+1cz5dSFkE1o8Ocrr42HLCPCji3K0wVEFs0XXfp/qM85saE6Uk/cRKi0OoSSKnAAeWX7FUDKP3m5SuORJi2nD2QJZrMtFJApHae2dXhCp3Yw8nPQV7cUwdwkjYg9yBJ20Ig089xZFmI+hX820I9LQuFlh7TGyubOgINNgXKXcXfKiZnXdKQEl/GufJ+M6PPgB5PHgHA5IPPqN62tpQ3lpZDpRWQYclr1rZENnnryvmZH4kPH3DjCk7IOehOLket4CspEOR5ognPMXzjVbclNWdcHYZ8fxBgq6DULjUFVllqxDzC+HCC03o5XLnuztJBD9v6opF0YEfgm1q0i2lbfFrhuOQ+H20lq9UH8uudQtWjPT0/lafrqfVICXj9KbS7HM7EydRPkwMfIKIkHyHOHd1tVAsh/wWuoR+DYLrMxpg6YjDU1CWnWRrf2n0a4a3meMKv3w8XNM0vIIqZBvt5FLkLY=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV0PR12MB999067.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(38070700021)(56012099006)(10067099003)(11063799006)(261022113327099003)(261022075727099003)(261028144727099003)(261022105027099003)(261026121527099003)(261102123227099003)(261021121427099003)(261026140227099003)(261009223027099003)(22082099003)(18002099003)(4143699003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?a095Q3kvRWJnM0Y3S0dGRlJwdmJCRkFHYXVGN2Q1cHVpTjZhUVZ4SHhSR08r?=
- =?utf-8?B?RG13akVPMlNQQ0NvK2JrRWk2L0w2VUc4WThuK2dQbThQYTYxMTVDUmp2Z1RC?=
- =?utf-8?B?R0c1UnM3YWZpSDFrOGgvcXNuaWlyKzNRMUdGVTd2M0lOcWp5NkZzNlBlZDlC?=
- =?utf-8?B?SzZGRm4wMFZZbTVKekNUVWM4S1l2SktKSDlLUDc5WWIyK1RkaTBScG5CSjVX?=
- =?utf-8?B?VkxveERqcENsZTFiWTRuOXVDbXNSZXcwZ0V4b2tNSm5zaEtTd29zdXNnc0pq?=
- =?utf-8?B?N2MwK0JNTWNnMWUzYzJnUWZCZlFabFdvaEpHUlNnNmlWNmM0QkpOanlsUExP?=
- =?utf-8?B?TnVzeWhqcVRBUmlWM3hkcEt6ZDRUQkhQQ09VUVpoMEhlcFFGRG5ka1MzTzVQ?=
- =?utf-8?B?WVlFZnRkbXZiVlppNjNIT2lXRktFMmVrTEI2aDhHb1Z2K1ZaR1ZCa2haMHg4?=
- =?utf-8?B?VDM5SFE4ZlRSc09NR1RjQ0FWZDlhVmxZNkVBWWVNY0lzVHZaS3dPa0xIMWR3?=
- =?utf-8?B?a2FWSHY3Tk5PdUw1MlEyaWVGNzcveVpJNHVvYkJCbDVNNlhxejdnaFhRS3Qv?=
- =?utf-8?B?MkQxYXdCcm10R3FYZXAvb0VyN21qRy92K3BKNzJkdGFiSU5LdFloN1RYaTJO?=
- =?utf-8?B?QzBGQTZVZ2J0OGpMaU1Eb0Y0UU8xWFA5bkxGcU92T1VtckJNWmVyOUdMWk5H?=
- =?utf-8?B?RGhiUTEvVU1pYTdQUnhoOWhDUVBjK0M2Q1hBV1Nsd21aR3ROUWhJRCtLWm1r?=
- =?utf-8?B?SjI1SHBxUWlVUDl0L1lpWnY4cG5iR3lxQnZQRTBudW90cXdvQlBsRGs3WUdk?=
- =?utf-8?B?bGJRRFdvS0lxeHZGMExjdlBZMGNjVGNxaVRScEdmM0tRaGlNVlQxVzZTVGRY?=
- =?utf-8?B?ZEtQZThvdXpYcld5YzNDK0xHZDhOeUxUMkxvRWNVQ1ZEcURNaE9CVFgva1JS?=
- =?utf-8?B?cFlycjBhK2dScVltRXN2a1YxN2Q3YnVzQXJ0L0lTVkU5KzQ0QTdrZWtnWVNO?=
- =?utf-8?B?OUJNalNwTGFHa1RwZVNOYklDVDdJTmNyRFhMblpwclk4VmdyaERHTC9QKy9l?=
- =?utf-8?B?d2dpUWlaUXRYdjY5QktEcmlMRUtvVENHTTZtUFVQcWVqS2dnbm5aZS9MUmJK?=
- =?utf-8?B?cFhrVXRUdDNpMVFiT1VXb0VqeUZ3cTdVb3pDNi8rbkZtR1RYQlJtVzNsdlhD?=
- =?utf-8?B?WVdBbHd0a29aQlhBY3Jqd3Q1TFo4Z2JzVS9kRTlySWxib243b3grVDFRclJE?=
- =?utf-8?B?WGNLY2VqUzhYOEVNajhvb1FGVWpHaUtvTmF6QTFVVFI3b1BTOGhDV0lDUU5p?=
- =?utf-8?B?R0ZlZ3hmS1NJQ2cxODlIUWJKeXl0TkhvZ2RBMm02MTRzcWJCcjJlWFY2WlFB?=
- =?utf-8?B?OHN1R1U5dUppL3NPV2p4aTdCRFZZNjNjYU0yalF2Q1lWa0FJc2JjVWMxY1NZ?=
- =?utf-8?B?NFVGK0lzTXBWYS9ZendUYTNYNFFZOEFlRkxLbWluVFJzR3JCd1pxUkxIV04v?=
- =?utf-8?B?WHpZaHg0dGd5emRqVWIwMDlmTDNQM1lzN2RnRDVxbEpFQ3FHcXB1dDhVMWtI?=
- =?utf-8?B?YTJXNkoveHlJVjFlOVkvbHZDMXlJdDV3SWZveU90UUJ0eHZyUHhoL1JRdkcw?=
- =?utf-8?B?MVprUmoxT2NzQm9EeGQ5MFNBUXEyUXUxQXBTUjZ0aEFRTS9RUHFIZnExQmhp?=
- =?utf-8?B?UzdqdVdibnBOcFZzSzZkZW1mRlZwU3FuSWpCcWRRMFJCMzEzcGRZYWtjdm1H?=
- =?utf-8?B?VUJFbWRZZjFMeWp5VURJV3VoUmlUN2ozYmJoczRrdERIRmNuYUhHMlR2bUlS?=
- =?utf-8?B?WDNFMFU5Z1orSnZLNllpM1dhQ1hLY2VFdnBMLzgyaXk0SlhPa1Ryb3p2YkpS?=
- =?utf-8?B?VXcrQ2gxUlE0L3Q2Z2w4NlBTYUdOVWRsVTN5UXFrZm5OL2l0Z1R6TTc2SzRa?=
- =?utf-8?B?cHpkekxjSVh3OVpTbit3S3NoeG5Lb0h4THFIcFNZazd5cHA0Zk9kZWJEQklT?=
- =?utf-8?B?TU9QMUlmOUdLQnlkM3R6dDRVYWw1SkRNT3B3dGh0WGNIemdNR0djeTRkd3d4?=
- =?utf-8?B?STJmNDNVbkhGVkhKdlpVUHVQMy9DU1FGZ2FqZUtLNW0zaWJrdnUySkowcmhZ?=
- =?utf-8?B?UVQ1T3RoeWd3U1dOSS9ZSUFyWjRvalhSQkptQmJDNFloUERoNnprcmFIcDRZ?=
- =?utf-8?B?TnZmTEl3RHhWOURkcGFhTSswVzNsUTV1a0JPb0ZwWWpEYkFRTzVoc20vbG14?=
- =?utf-8?B?VUFYSnFvK25DUkJxakdRbWZEeTBsaU54a3l2bGZrSy9sYStSOS92Q2I2YWZX?=
- =?utf-8?Q?qIskzxsfke7B/4wgkK?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xoaSDGvG
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5bcdae234ecso2603266e87.3
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 22:37:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795761431; x=1796366231; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1SnlirmZdWpy8m97rVq8q4D7ao2YFooYL/YRCVvC1OE=;
+        b=xoaSDGvGqXCDqg5ZBljB93k5S98112kC/0LcjC6NxoD4BK12F2WWjDmWHNjLyTbDmz
+         DS+au+RiTIeiCrtE43m35ZEWD5gKDwss/1IiA1OhITOIAU4WbfrSSx7kfFFq5hwe5634
+         w0neZwy4RC8jUAio8z4QoOjNrTdFXaSbm/VEX65skcJtyU8uyJGLwub4srPDuTS0fxYE
+         JtWUPZnitwgRDMG3YXxbKT2G9F1y6lNRi+98Zee+KClbdgCGChdS3/yhGA+iSPtnjMwF
+         B/HhblIKwfF7dq1m0gpyUSaLRSa6hVaUvEcbkn4KsmBsmYXzUW6ECKtCssAI7AaMsMaf
+         fZVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795761431; x=1796366231;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1SnlirmZdWpy8m97rVq8q4D7ao2YFooYL/YRCVvC1OE=;
+        b=zlbzj9BUlFrWb774MVGz+GHztT0/9DTkwLONSjW0q/yUx2Ljw9v11l112m+l54F9O5
+         IWOl6WJbxymgW4A7AuGZR6nFtJ4hUD3t2e6xEHn5UTPHFcHSDiU9DjH5OI+jmUSU0SA+
+         JJTu7fli4dNyOQdEsYDLmMBMrYwjY1Qq9CV0wJFSqJnbGETcC/Z4eT2ES5jHp7POIoqy
+         S7cB+XMdw8UP3wf6BQsDTtX8K2L24Kj9Z0i6ZRwf93SR91cbNNflkH+469NeFSZGejhL
+         7+HB+8vgEp9nq3xLOAuH3t3wzuUA3ndtyHnwwImTT+WfzR1W09jPwOONqBreua/uSs1+
+         eoyQ==
+X-Forwarded-Encrypted: i=1; AL+hErEj5HChySK+JMcVV06IfeLZefHymWZ/20qDWLs78GS+P9WF9W85kwvHmtw7pxIznd7Aoh59n8plomwv@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Z2IznrZIbhfPICczIHbGfThadh9AymT1Jj0M+xN7LVjhyCGbv
+	veha51k6+UsYEWpO0PNR5NN3tplDJs2Yxe9O8xzajazw/fm2qXGvpe7/
+X-Gm-Gg: AZFdTZe16dgJ0cZo77P/Fz2Td142F53VB3Bjj5V6okjrzv3bxaGYsC454peYH25/bqd
+	MWOBVJ7hSRKjnkxnufavkbh0H6QAfEqyjDi72Scq8PdFwldfV6/HVwNsF0XZa+doJamXHrrAmkS
+	YEODM8YKdSCsxR7zBMq0tCEPuS7oFl20HZ/nkoqcFvgmB+Z56vX4NVfUGyj2KvKRmphYOGnP32l
+	PVuRfFmJaC0yFpYOKgQe82dHuBAFNmNfv5bVfgO0xBU5cK7G4juzqLAIanI+wYIkl00m0t7CYH/
+	h6soDmH6hfQUUSNCqHK2b0gMGZpbCOw13OHb12XlwwNPQWu++yRgx9H7/DrTM8ln9wyYfW83JTC
+	ElpNdSnrY8D0QUnTSWycmkkNvVhTVYYpq2vy2+DuS7HAX61y1NQPkfj3NqeVU4RS/QaIfrveXrQ
+	BoeDShGlMST5Sw8+91PZnnUmobsSmFdfswXVQqNisHbhdjeShZv4ckslwULEEWNwzaj/FU+5PAT
+	3A+xUgbE2fSPrJx9TGqJc+fqf1ppz6PjfZjTadBGuwXohs6ololtFNYJkglZP1U1j8onr9Cl4q+
+	Mj2fb2TKBF25yCVD1lrtzwWPW+fBQA==
+X-Received: by 2002:a05:6512:1081:b0:5c1:44ea:cfa6 with SMTP id 2adb3069b0e04-5c1bc7bcc56mr7286636e87.18.1795761430529;
+        Thu, 26 Nov 2026 22:37:10 -0800 (PST)
+Received: from NB-6746.. ([188.243.183.76])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bd01772esm5618994e87.39.2026.11.26.22.37.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 22:37:10 -0800 (PST)
+From: Artem Shimko <a.shimko.dev@gmail.com>
+To: andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	maxime.chevallier@bootlin.com,
+	pavel@ucw.cz
+Cc: Artem Shimko <a.shimko.dev@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-leds@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: [PATCH net-next v7 0/3] net: phy: dap8211r: add LED control support
+Date: Fri, 27 Nov 2026 09:37:02 +0300
+Message-ID: <20261127063708.3074433-1-a.shimko.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -165,57 +108,131 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: LV0PR12MB999067.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7629dc2c-c5bb-41b4-b4b7-08df4c4f6389
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Nov 2026 06:26:36.5738
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: poEQodocNE1LN1hnq74eE4C8nOAeg82ypDDthsfnGS2uOabyqytHgvtXhOW1BFHu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB999320
+Content-Transfer-Encoding: 8bit
 
-QU1EIEdlbmVyYWwNCg0KSGkgTWFyaywNCg0KVGhhbmsgeW91IGZvciB0aGUgcmV2aWV3Lg0KSSB3
-aWxsIGFkZHJlc3MgdGhlIHJldmlldyBjb21tZW50cyBhbmQgc2VuZCBhbiB1cGRhdGVkIHZlcnNp
-b24uDQoNClRoYW5rcywNCkRoYW51bmpheQ0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0K
-RnJvbTogTWFyayBCcm93biA8YnJvb25pZUBrZXJuZWwub3JnPg0KU2VudDogVGh1cnNkYXksIE5v
-dmVtYmVyIDI2LCAyMDI2IDExOjIyIFBNDQpUbzogRGhhbnVuamFucmFvLCBLYXR0YSA8a2F0dGEu
-ZGhhbnVuamFucmFvQGFtZC5jb20+DQpDYzogTWFyayBCcm93biA8YnJvb25pZUBrZXJuZWwub3Jn
-PjsgTGlhbSBHaXJkd29vZCA8bGdpcmR3b29kQGdtYWlsLmNvbT47IFZpbmNlbnpvIEZyYXNjaW5v
-IDx2aW5jZW56by5mcmFzY2lub0Bhcm0uY29tPjsgUm9iIEhlcnJpbmcgPHJvYmhAa2VybmVsLm9y
-Zz47IEtyenlzenRvZiBLb3psb3dza2kgPGtyemsrZHRAa2VybmVsLm9yZz47IENvbm9yIERvb2xl
-eSA8Y29ub3IrZHRAa2VybmVsLm9yZz47IEphcm9zbGF2IEt5c2VsYSA8cGVyZXhAcGVyZXguY3o+
-OyBUYWthc2hpIEl3YWkgPHRpd2FpQHN1c2UuY29tPjsgU2ltZWssIE1pY2hhbCA8bWljaGFsLnNp
-bWVrQGFtZC5jb20+OyBsaW51eC1zb3VuZEB2Z2VyLmtlcm5lbC5vcmc7IGRldmljZXRyZWVAdmdl
-ci5rZXJuZWwub3JnOyBsaW51eC1hcm0ta2VybmVsQGxpc3RzLmluZnJhZGVhZC5vcmc7IGxpbnV4
-LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc7IEdhZGRpcGF0aSwgTmF2ZWVuIDxuYXZlZW4uZ2FkZGlw
-YXRpQGFtZC5jb20+DQpTdWJqZWN0OiBSZTogW1BBVENIIDMvNF0gQVNvQzogeGxueDogZm9ybWF0
-dGVyOiBzZXQgYSA2NC1iaXQgRE1BIG1hc2sNCg0KPiBod19wYXJhbXMgc3BsaXRzIHRoZSByaW5n
-IGJ1ZmZlciBhZGRyZXNzIG92ZXIgdGhlIExTQiBhbmQgTVNCIGJ1ZmZlcg0KPiBhZGRyZXNzIHJl
-Z2lzdGVycywgYnV0IHRoZSBkZXZpY2UgaXMgbGVmdCBvbiB0aGUgZGVmYXVsdCAzMi1iaXQgbWFz
-ay4NCj4gVGhlIGNvaGVyZW50IGJ1ZmZlciB0aGVyZWZvcmUgYWx3YXlzIGNvbWVzIGZyb20gYmVs
-b3cgNEcgYW5kIHRoZSBNU0INCj4gcmVnaXN0ZXIgaXMgb25seSBldmVyIHdyaXR0ZW4gYXMgemVy
-by4NCj4NCj4gU2V0IGEgNjQtYml0IG1hc2sgc28gdGhlIGJ1ZmZlciBjYW4gc2l0IGluIGhpZ2gg
-bWVtb3J5IGFzIHdlbGwuDQo+DQo+IFNpZ25lZC1vZmYtYnk6IERoYW51bmphbnJhbyBLYXR0YSA8
-a2F0dGEuZGhhbnVuamFucmFvQGFtZC5jb20+DQo+IC0tLQ0KPiAgc291bmQvc29jL3hpbGlueC94
-bG54X2Zvcm1hdHRlcl9wY20uYyB8IDYgKysrKysrDQo+ICAxIGZpbGUgY2hhbmdlZCwgNiBpbnNl
-cnRpb25zKCspDQo+DQo+IGRpZmYgLS1naXQgYS9zb3VuZC9zb2MveGlsaW54L3hsbnhfZm9ybWF0
-dGVyX3BjbS5jDQo+IGIvc291bmQvc29jL3hpbGlueC94bG54X2Zvcm1hdHRlcl9wY20uYw0KPiBp
-bmRleCBmYTc0MTk0MzllYzcuLjU3OTAxYzk0NjZhMCAxMDA2NDQNCj4gLS0tIGEvc291bmQvc29j
-L3hpbGlueC94bG54X2Zvcm1hdHRlcl9wY20uYw0KPiArKysgYi9zb3VuZC9zb2MveGlsaW54L3hs
-bnhfZm9ybWF0dGVyX3BjbS5jDQo+IEBAIC04LDYgKzgsNyBAQA0KPg0KPiAgI2luY2x1ZGUgPGxp
-bnV4L2JpdGZpZWxkLmg+DQo+ICAjaW5jbHVkZSA8bGludXgvY2xrLmg+DQo+ICsjaW5jbHVkZSA8
-bGludXgvZG1hLW1hcHBpbmcuaD4NCj4gICNpbmNsdWRlIDxsaW51eC9pby5oPg0KPiAgI2luY2x1
-ZGUgPGxpbnV4L21vZHVsZS5oPg0KPiAgI2luY2x1ZGUgPGxpbnV4L3NpemVzLmg+DQo+IEBAIC01
-OTgsNiArNTk5LDExIEBAIHN0YXRpYyBpbnQgeGxueF9mb3JtYXR0ZXJfcGNtX3Byb2JlKHN0cnVj
-dCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpDQo+ICAgICAgIHN0cnVjdCBkZXZpY2UgKmRldiA9ICZw
-ZGV2LT5kZXY7DQo+ICAgICAgIHN0cnVjdCBjbGsgKmF4aV9jbGssICphdWRfbWNsaywgKmF4aXNf
-Y2xrOw0KPg0KPiArICAgICByZXQgPSBkbWFfc2V0X21hc2tfYW5kX2NvaGVyZW50KGRldiwgRE1B
-X0JJVF9NQVNLKDY0KSk7DQoNCklzIHRoaXMgYWx3YXlzIHNhZmUsIGNhbiB3ZSBoYXZlIGluc3Rh
-bmNlcyByZXN0cmljdGVkIHRvIDMyIGJpdHM/DQpZZXMsIHNvbWUgaW5zdGFuY2VzL3BsYXRmb3Jt
-cyBjYW4gYmUgbGltaXRlZCB0byAzMi1iaXQgRE1BIGFkZHJlc3NpbmcuIEnigJlsbCBjaGVjayB0
-aGUgYWRkcmVzc2luZyBjYXBhYmlsaXR5IG9mIHRoZSBBdWRpbyBGb3JtYXR0ZXIgYW5kIG1ha2Ug
-c3VyZSB3ZSBkb27igJl0IHVuY29uZGl0aW9uYWxseSBhc3N1bWUgNjQtYml0IERNQSBzdXBwb3J0
-Lg0KDQotLQ0KTWFyayBCcm93biA8YnJvb25pZUBrZXJuZWwub3JnPg0K
+Hello,
+
+This series adds support for LEDs on the DAP8211R
+Gigabit Ethernet PHY.
+
+The first patch fixes mistakes in function comments about locking mdio.
+The second patch documents the optional "leds" node in the Device Tree
+binding. 
+The third patch introduces a small helper to write extended
+registers, since the LED registers are accessed indirectly via
+EXT_ADD/EXT_DATA and implements the three LED callbacks
+required by the PHY library.
+
+$ make dt_binding_check DT_SCHEMA_FILES=Documentation/devicetree/bindings/net/dptel,dap8211r.yaml 
+  SCHEMA  Documentation/devicetree/bindings/processed-schema.json
+  CHKDT   ./Documentation/devicetree/bindings
+  LINT    ./Documentation/devicetree/bindings
+  STYLE   ./Documentation/devicetree/bindings
+  DTEX    Documentation/devicetree/bindings/net/dptel,dap8211r.example.dts
+  DTC [C] Documentation/devicetree/bindings/net/dptel,dap8211r.example.dtb
+$ yamllint Documentation/devicetree/bindings/net/dptel,dap8211r.yaml
+$ grep -i "dap8211r" Documentation/devicetree/bindings/processed-schema.json
+    "http://devicetree.org/schemas/net/dptel,dap8211r.yaml": {
+        "$filename": "/home/a-shimko/patchwork/linux/Documentation/devicetree/bindings/net/dptel,dap8211r.yaml",
+        "$id": "http://devicetree.org/schemas/net/dptel,dap8211r.yaml#",
+        "title": "DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY",
+
+Required:
+CONFIG_NEW_LEDS=y
+    CONFIG_LEDS_CLASS=y
+    CONFIG_LEDS_TRIGGERS=y
+        CONFIG_LEDS_TRIGGER_NETDEV=y
+
+Testing:
+$ ip link set eth1 up
+$ ls /sys/class/leds/
+stmmac-1:01:amber:lan  stmmac-1:01:green:lan
+$ echo netdev > /sys/class/leds/stmmac-1:01:green:lan/trigger
+$ echo eth1 > /sys/class/leds/stmmac-1:01:green:lan/device_name
+$ echo 1 > /sys/class/leds/stmmac-1:01:green:lan/link_1000
+$ cat /sys/class/leds/stmmac-1:01:green:lan/offloaded
+$ ip addr add 192.168.5.100/24 dev eth1
+$ ping -I eth1 192.168.5.1
+
+$ echo netdev > /sys/class/leds/stmmac-1:01:amber:lan/trigger
+$ echo eth1 > /sys/class/leds/stmmac-1:01:amber:lan/device_name
+$ echo 1 > /sys/class/leds/stmmac-1:01:amber:lan/tx
+$ echo 1 > /sys/class/leds/stmmac-1:01:amber:lan/rx
+$ cat /sys/class/leds/stmmac-1:01:amber:lan/offloaded
+
+$ echo none > /sys/class/leds/stmmac-1:01:amber:lan/trigger
+$ echo 1 > /sys/class/leds/stmmac-1:01:amber:lan/brightness
+
+$ echo netdev > /sys/class/leds/stmmac-1:01:amber:lan/trigger
+$ echo 1 > /sys/class/leds/stmmac-1:01:amber:lan/tx
+$ echo 1 > /sys/class/leds/stmmac-1:01:amber:lan/rx
+$ ip addr add 192.168.5.100/24 dev eth1
+$ ping -I eth1 192.168.5.1
+
+--
+Best regards,
+artem
+
+ChangeLog:
+  v7:
+    - Add clear LED_x_CON in the dap8211r_led_brightness_set() function so
+    that stale settings do not interfere with clearing the FORCE_EN bit in
+    hw_control_set() when switching back to the netdev trigger.
+  v6:
+    - Return -EOPNOTSUPP in dap8211r_led_hw_control_get() if DAP8211R_LED_ACT_BLINK
+    does not match the presence of DAP8211R_LED_RX or DAP8211R_LED_TX,
+    preventing incomplete rule reporting and register clobbering.
+    - Link: https://lore.kernel.org/all/CAOPX747OUSNbg2vqba3LL8r0chrTdpz6hOg1yf-n_wMX+fpQag@mail.gmail.com/T/#u
+  v5:
+    - Drop redundant $ref to common.yaml and inner unevaluatedProperties: false
+    from the led@[0-2] subnode, as they are already inherited from
+    ethernet-phy.yaml.
+    - Move write of LED_x_CON first and clear FORCE_EN afterwards in
+    dap8211r_led_hw_control_set().
+    - Report TRIGGER_NETDEV_LINK instead of individual speed flags in
+    dap8211r_led_hw_control_get() when all three link speed bits are set, as
+    netdev trigger rejects reporting them together. Based on [1].
+    - Add checking of DAP8211R_LED_ACT_BLINK alongside TX/RX bits in
+    dap8211r_led_hw_control_get().
+    - Add -EOPNOTSUPP in dap8211r_led_hw_control_get() if unsupported
+    hardware bits are set in LED_x_CON.
+    - Link: [1] https://lists.infradead.org/pipermail/linux-arm-kernel/2026-September/1172246.html
+    - Link: https://lore.kernel.org/all/179560033613.3135.13122318439070700886@kernel.org/T/#u
+  v4:
+    - squash extended register write helper into the LED control patch to
+    fix netdev/build_32bit, netdev/build_allmodconfig_warn, netdev/build_clang
+    fails (patchwork.kernel.org)
+    - add andrew+netdev@lunn.ch to Cc of dt-bindings patch to fix
+    netdev/cc_maintainers warning (patchwork.kernel.org)
+  v3:
+    - fix kernel-doc comment for DAP8211R_LED_FORCE_MODE_ON and
+    DAP8211R_LED_FORCE_MODE_MASK
+    - use FIELD_PREP() for DAP8211R_LED_FORCE_MODE_ON 
+    - Link: https://lore.kernel.org/all/20261120081106.2919010-1-a.shimko.dev@gmail.com/T/#t
+  v2:
+    - add a commit fixing kernel-doc comments for dap8211r_read_ext() and dap8211r_modify_ext()
+    - move LED child node down below tx-internal-delay-ps in dptel,dap8211r.yaml
+    - add blank lines in dptel,dap8211r.yaml
+    - restrict LED reg index to 0..2 and fix schema properties in dptel,dap8211r.yaml
+    - fix kernel-doc comment for dap8211r_write_ext()
+    - add LED brightness (force mode) support to driver
+    - remove rules == 0 statement
+    - add TRIGGER_NETDEV_LINK to DAP8211R_LED_SUPPORTED_TRG for dap8211r_led_hw_is_supported()
+    - clean up switch (index) statements
+    - Link: https://lore.kernel.org/all/CAOPX74709XiLXLoioDJStTSzzhstC2sHpM4GieAO=3-37E18pw@mail.gmail.com/T/#u
+  v1:
+    - Link: https://lore.kernel.org/all/20261113110546.173624-1-a.shimko.dev@gmail.com/T/#t
+
+Artem Shimko (3):
+  net: phy: dap8211r: fix kernel-doc comments for extended register
+    helpers
+  dt-bindings: net: dptel,dap8211r: add LED nodes
+  net: phy: dap8211r: add PHY LED control support
+
+ .../bindings/net/dptel,dap8211r.yaml          |  41 +++
+ drivers/net/phy/dap8211r.c                    | 272 +++++++++++++++++-
+ 2 files changed, 311 insertions(+), 2 deletions(-)
+
+-- 
+2.43.0
+
