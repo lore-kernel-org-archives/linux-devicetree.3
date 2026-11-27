@@ -1,56 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795791768;
-	b=O7Dbxm1WsbGZ4e0uSCeHJ+5dmvM14/LLZcopx5AggvmJe0GxmJmu/vzkKkY6MFyaZknI
-	 6+gl3tinzGZsT4c2ZcJNqT9e8YshemKhXfhEhmfRGtQ/SkW3laPNge+uS2aRHTvfArm3Q
-	 J80NRsTF/KVY+bjC5IEPhOOcRVveQTsir0WYSs1sCTyOOrTkTifxtlc9qXtiS66ay29Eg
-	 +JpJTN6b9m4F+M0ydA9Q9dmihqAdPqxYkx/H1ggieDAJnCrFgh6Bv74j449qxpxFZcjuB
-	 6UqnKFs/Nzn1WYBNjNQcg6WDm/rn9D2ZQggJSxqF3bVW3F9kcB1L8qipFF3ce6Ln3yg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795791768;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=onDhl6RsecVlyNP/9RWRWVuN3lsmBMqoUnPI1wwAWi0=;
-	b=YVhByqc3JrH+qziiKm5c/banhnl3upe2OlTTqQBb5K+HCKsUIrK1aZHXlDvi2TiM+ppB
-	 0VH2LGiWcZy/cpus0w0lNQl8AEf/x6gqPL7z/CuIBcYv2E5qdzT0Gr15ykdFPqxjqsplO
-	 VGUvp5q68buZLlObB08Pht8EYoEamlZuWHbOiglImciAWDyNK4cEq6W2jAu4eFCAUDB+B
-	 pmU3EcmwXukiUgrAD8PNNGiLflCS13hCtQzQhovjqHoMH04n3NR3ppZnWK7NDyqckTDvu
-	 AI8R8Or7fQcq+jbSOBv/zrKLdgnIJZOPNrlyOGCKxZflvWSXzvCXi6dQv2GUncoKP3g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ixit.cz;
-	spf=pass smtp.mailfrom=ixit.cz;
-	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=EptLPe2q;
-	arc=none smtp.remote-ip=84.42.129.46
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795792366;
+	b=zdVXYiGx1+8V8UZ7/8yCO/r8Z2feDqjQh8eqn3W0RPeCHsfyqzIe2jHyoHQRMXflv9SR
+	 chzxWegkFXQxJZTQnWtxlpmkeKCEZwxC+wV74gg16CKDJXOo/JXgO3WRgXc5Is1QGIry9
+	 3jaz2X+8BgqtRsbkAo5KQA/v5KyFn8OMShIh5syn3M5gHsmYt6qSUFMZVyCoIQ2L6lyJ5
+	 6KzjUwi1WfZPuNcqgIaqrCPPunV6n7U8u5qhiaYByjxb26Km+rotvFjj3K3GCE63jJwcQ
+	 kdPO5pNj73SyzJCvBJdKmX3f/BV/+NaWx4y/3X9RCe3EJHOHgVI7r4lZMoAdHaPKNqw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795792366;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=tOAwPJSfuflnBO57oFzChLi0EMQJ6Yf8/ZXjl9fF2d4=;
+	b=4C4F09GBALn8tfCqOR7e2RcURCzCRzqP+lapcSjkQOHP1WAowGk/dbc6bOjcIHgr6UAG
+	 UkkuwPNlLiX1QnEVCxJ2TFADb4RoTg0aU/IEUEUUCCpjVi+2E3qR9HUYvJ+cvxKShGj2D
+	 F69ZuqqtA3aPoss8dn/MR3cUlVnZzx6QgjXgOu5wpb+Y0ysJRqc68VLbwfbfGGByD9Sdx
+	 LCTwIyHr/S7PdoHbGYNkW6LH7FM7XzxRRatxw6iKHYP8+oPd8q6fGZQIl5LNDyiNXsE2t
+	 pW2xUciXouk9V0voqwqinpK+2zqoF61N74vCK71KoNbwHwneTHfYYJy/GSNBrs4MBzw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=UcU4PxSN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.47
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011047.outbound.protection.outlook.com [52.101.65.47])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45AE7606A31C;
-	Fri, 27 Nov 2026 15:02:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45AE7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F754606A31F
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 15:12:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F754606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=EptLPe2q
-Received: from [IPV6:2a02:8308:209:d600::5a9a] (unknown [IPv6:2a02:8308:209:d600::5a9a])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 88E6A5340322;
-	Fri, 27 Nov 2026 16:02:44 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1795791765;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=onDhl6RsecVlyNP/9RWRWVuN3lsmBMqoUnPI1wwAWi0=;
-	b=EptLPe2qMPqoF2UrRSGGAZNr2zSiLCF562MYqzzn6mKWA0mO+ibU81ZDXNJOMbHwuRG95Z
-	kRuc/hR4uM744fctF+kHyg7C/+f7KHlUTsJt4DVBJvCE5bZB93MOBIenfBUX5Oki8d2sEW
-	qrURMKgjHLT+PcCGi0DrL5z9a/rPViM=
-Message-ID: <b8a6d6da-da6b-4788-b6fa-dca9d4eb9d1b@ixit.cz>
-Date: Fri, 27 Nov 2026 16:02:44 +0100
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=UcU4PxSN
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=l9GB5anrPjUIAb6dJCMpXnHwc/Tc+Y2J5glld35rvfzzF5kD5Cj8cDPtyiyJf4/JGqfBtR/Ccp4TnOGxspQ8k47YJ/jtKhxJhGye5LoErIq2FhHn4dg6oEpO+cg2F/NjMhzcZ/VGtB6f4oNsXTLY9+lxZCP4CUUAh/TE5lcOgSqzuKua/pVV1PA+UlC+SwoXgcsBhRvXgnvrNl8vvRXhAMSqhAUDwF0SCEIUe1Y2luAD6id4boJ0XpGDMa0NdII1HMe3BBtl8t5LPguqnvNH0q1viwSUWPj+rJZx8ADWM6rVhKajDcIur0QwaVuT1xR6AO1avCUuEFDmzqlJI3iGQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tOAwPJSfuflnBO57oFzChLi0EMQJ6Yf8/ZXjl9fF2d4=;
+ b=Sh763aKC0uNJ4vmU+IOlA3VZxabbnM7HxBU8unVS/Mb7Digtc4btaUGsP/D/x4fmbjNlGp/KNwTKLL24YrUmTzRC6qIHfmVnMOPSERjlWmbmVc0aWhpAvwcAkOEa5zvZBMgZMo2AHVu50jEndYO2tGeDamwl7d1tgzIsip0g0IKC9scbskxEbDJazikaiCHbfvGHndI2XrlB8x6Ke1tlRqzN0sajF3kR+1R4pvQQP7Ty1FUldOWhRKOL05SN8G/1x/PvQi6FeWBV1GMX/CbLVxq73J4uhjoMBKStJTUpXcqLO8Ejr9j0sqBA86Dl9olkCe1QupPMEE13vkN6kpZHSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tOAwPJSfuflnBO57oFzChLi0EMQJ6Yf8/ZXjl9fF2d4=;
+ b=UcU4PxSNlKGgrlvF9XanMg/tfMnqh3yNgfOh3lg+OghrFtkz27YlxI+gAvdv+PmTi6LDouw1Xs8WY8di6xEboZez8N9ymH7oPYiVREj7EnQz3CHiWIXyYzuyi8gUtKzZ0oYOtzRhVMnBUCvuIjg8xovzOKmhanJfduDcFpqUTxTTfPridpTOtwttHIgCW5mpyVqsbZbUiC+CaxKLKHkx9G/QEhN3j31SKOJS+YbS+3poSmEXQhM34kbyDi4vvLYB0/dTQyhHoBE1uihD+OkQTjNc28hZY4nTeOib0ase9z3QcMb7BIEZdKt3q2CmpTTDgLFV+5PmsuNea4uqHpbKww==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by VI1PR04MB9737.eurprd04.prod.outlook.com (2603:10a6:800:1dc::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.6; Fri, 27 Nov
+ 2026 15:12:41 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0662.004; Fri, 27 Nov 2026
+ 15:12:40 +0000
+Date: Fri, 27 Nov 2026 09:12:28 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Daniel Baluta <daniel.baluta@oss.nxp.com>
+Cc: sashiko-reviews@lists.linux.dev, Daniel Baluta <daniel.baluta@nxp.com>,
+	devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org,
+	conor+dt@kernel.org, Frank.Li@kernel.org
+Subject: Re: [PATCH] arm64: dts: imx8qm-mek: configure ENET0 pad compensation
+ for fec1
+Message-ID: <awmd3BRC6KZIV-E6@SMW015318>
+References: <20261127135237.2153934-1-daniel.baluta@nxp.com>
+ <sashiko-outbox-237525@kernel.org>
+ <d693bd71-f83d-4b6c-9257-3c4033ade261@oss.nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d693bd71-f83d-4b6c-9257-3c4033ade261@oss.nxp.com>
+X-ClientProxiedBy: PH8PR02CA0006.namprd02.prod.outlook.com
+ (2603:10b6:510:2d0::23) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,115 +99,105 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/2] arm64: dts: qcom: sdm845-google: Add basic audio
- support
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Srinivas Kandagatla <srini@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- David Rhodes <drhodes@opensource.cirrus.com>,
- Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
- linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
- devicetree@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20261111-pixel3-audio-v7-0-ecf28efc5c33@ixit.cz>
- <20261111-pixel3-audio-v7-1-ecf28efc5c33@ixit.cz>
- <765f3451-0f2e-4783-9a7e-893c06b2a735@oss.qualcomm.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <765f3451-0f2e-4783-9a7e-893c06b2a735@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|VI1PR04MB9737:EE_
+X-MS-Office365-Filtering-Correlation-Id: a3666a8e-668b-4615-8757-08df4c98e0db
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|1800799024|376014|366016|6133799003|18002099003|261009223027099003|22082099003|3023799007|261102123227099003|10067099003|4143699003|56012099006|261022105027099003|261022075727099003|261026140227099003|261021121427099003|261028144727099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	r2N1/FaZBXlDejhXzjfNQL6lu0KSi1tKTdI6uHBHlsc0tyAGfplzhmS68bHidLZ0O0vq/fJFAl4GVon2Hwaj8pwzf/dfQ99ots+2ULmIKNZouaCkReW1f6u1Xqe5/1aQVfyAXl8YiOUhpBs72JSeW7XiLwwtVoo3s/DToeQW95Oln2GDvFUYAv87DwVYTJRjbn0eTmByO/F+duklWCJ5btNj4RJCmNVTRBYh6RfYXcztnd8rnv6aqcoLcdaXK9T0UUV4Uw6GC9pIeJb2XahcM8IymZUy5ZShmikNhMVPnYSKb6s6vbvLGt2BV2Eyk9Ybn/3+qozoegs8OmTVd7l+zpaJ+UEU5DyCdwHmRS0eogkLI0Wq2RAB1ZztssS4qv3qLX0b64a8bmei3fjK6mRdtdmYxPvbXnrS1tdgT1zCiaIMO7NyTxIjKKS5c876+0IyqJ0JJJmX2U9tTE7bM0/bXc03aB6uCEAOIrPSiOXAsTiQ497aEhv99fZDKkJQsJEG4iGukxV1q9F6qfYPVf44gJpehgs85EWfg/5cKYmcEdo9Do3+NpKeQBjWGmQDMOWCHSo86U6yT5kSTxQn8x8XaM9He2N2LBuzPOH8wlvx5owH+te47OV9OeLS8KHv0qmhoOe2BNnVfAEkikqFG550Cb5JSmZ70wkpbzN9dekd8Xc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(1800799024)(376014)(366016)(6133799003)(18002099003)(261009223027099003)(22082099003)(3023799007)(261102123227099003)(10067099003)(4143699003)(56012099006)(261022105027099003)(261022075727099003)(261026140227099003)(261021121427099003)(261028144727099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?egndA9/BMUOLpFEuxyrdZE9tR3Er1RzaSjjelKye5pA6ox3j+288lBlZYL+/?=
+ =?us-ascii?Q?2FhQNM6qbol+mhXC2ZibdX/ZnDF6+PEFMovk0p1q0cbWNutxl3369I4mZKqh?=
+ =?us-ascii?Q?iujHCJDexdVK4aIgYerb0WaL4OS1wqJHWT8YexXbXcTXHsp/f4xVssVHjRDJ?=
+ =?us-ascii?Q?U4EItmdgj3ObA4FY9hGUIuxh4gQfy9xtASR4eM76KWsY8g6XUWJhowvSh3nr?=
+ =?us-ascii?Q?7jVU4dkwFAnqYYB6xaEs/IbMA1STTRqGyPuEBvQv1DUEA/KFFD6bKbLdU5rh?=
+ =?us-ascii?Q?w8Wxp6RooUqbzfBmrStydPCsxNN814XCnpdr3Amps00rgNjRTgLkcikGRbxq?=
+ =?us-ascii?Q?9gS7qEsJC0SVFd22V1tQdfWZYm/Gg0o8dwEMEL9S1O/AE2gYhA5lQfuclX/p?=
+ =?us-ascii?Q?rcMtVQndw+WuOfAu/L8hizgLoSiluWeYvjIh29YDkjsTsluJiswROelgFN+y?=
+ =?us-ascii?Q?b18t4b9bTw+ET6Snfxcjm8jnooB8PeiuZjpbLjFuzu3of7zefvV8P05iKhpG?=
+ =?us-ascii?Q?FUfb2lZGUI588Cg6yg1tvKE6fsBzLeiwlHGJGrqMF9zUfHmyvZOvJ1ftV91L?=
+ =?us-ascii?Q?B3af5lnjngC4JMtnRCZJgXc3d2IsQ165+tg54U+wGXTQ7tVaZEb7Zq5GxoFl?=
+ =?us-ascii?Q?BWr5M9lDeoIXVyXpEEPZAwwLlMfUUQZbQCTvOTBz09Jl1XooZSTzShvG+vO6?=
+ =?us-ascii?Q?vLcVf90ZAFSYuZX3q4q5QlhGUzLUPI2X8v7c8wOAom+HtLO8SnbtFMbMCTJp?=
+ =?us-ascii?Q?fQH4N93aKQ8ODLYCYIdSI4Nu7TsEpZWzF6kc9tJHFa8x3kLADy24SzLPRWjM?=
+ =?us-ascii?Q?Cd4pePCDnDvMFmq5Kz5LyPvZ6NpWIi/CmMQHeCmGi46yrVwSyDx9I9psgNjY?=
+ =?us-ascii?Q?VqKVqAWEsmQnGE4l77VHsX5bh0BNTzBksqimhRvHOtqmj3ImXHWUbPCGB8HH?=
+ =?us-ascii?Q?crHCoGPqw790Et+t0hXUcPUMtY+qaNK9Iii992FVcyf6fypqoaxlhpOQyziE?=
+ =?us-ascii?Q?C1xowDyiVwroWGZnGvup0d3OKvA3x/9ToX6IIe/W/1em3QtpQBEVXGYs0LyP?=
+ =?us-ascii?Q?FQ+08QmbELYd7GRDpvOeGnvidBmDAHyuBeTeodLFelTCMWFlljeGgFotDn/Z?=
+ =?us-ascii?Q?po+9D5mHgVojwgKZGpn5xD7g/eoFyv8o+Va6wz+b8AzPMq+I/0pOoTtBtX2M?=
+ =?us-ascii?Q?lz89PFSmKJL8Se6dBl1UAFai2pBPgX3InQ2aqfoOexfAhD0e8vY+29zvPQG4?=
+ =?us-ascii?Q?U9KJhy7duWozGzEWcx87fmPYoislj7eBNN7ORDHAbhmLYokDai54AGEHyW7T?=
+ =?us-ascii?Q?hiXU7l3HQX1WTwPaC/GH2Bwb80GF3mDR1kr9NFxjSSH2YwqwIJUE39Sc71AH?=
+ =?us-ascii?Q?3KaMU3fv4LCrYZOQ3gp4v6wzlNG1WEEtbUDzJRUvZ99cjGeiaVDzwah/+jjz?=
+ =?us-ascii?Q?ir85mT2q1R2cyaYC8FZ21NAY7KLbdyUcbdRrUWnwhZ4BwOxvU7wk0g296hFf?=
+ =?us-ascii?Q?NOlsUwzz/p/TgP35U+ZeqadQUjLJZQfydFaTBEnAuXNyb21jBHCTWW+05kAa?=
+ =?us-ascii?Q?jN8Q/hRic3MSVjX9WT2cRPYxSLKJ3kIqhqkoycOfw4wpfELOymBznMvKwUhm?=
+ =?us-ascii?Q?RrFETznkVIYK8L86FZ3ONDUGK2wTV7ny8Fa3sOalgF/jK3zGdJqUeID06mnE?=
+ =?us-ascii?Q?gZDiuv3YNTl2GjIbELL6Ty6Bnf46SrWaBWN/MPdX9l/KOXBVjJEXon2khMn6?=
+ =?us-ascii?Q?3TYcpVqgfnxRtfQ5C01kiuL8T1ju7XHLbBfZEjTpi7r0en97Nmdz?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3666a8e-668b-4615-8757-08df4c98e0db
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 15:12:40.3324
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0C913sxgklyD3fXpUNJpGlfgvpr0ZWEf3Jv4arl8+Ybg/EWBylfwqmCK3CQHYLgA4vn3eraT5qioaYQ6yr1GSagMmOV3gbT+Ap9CUps5qcJmxjA7mxp5V7kv7x8bLeA7
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB9737
 
-On 27/11/2026 13:27, Konrad Dybcio wrote:
-> On 11/11/26 6:41 PM, David Heidelberg via B4 Relay wrote:
->> From: David Heidelberg <david@ixit.cz>
->>
->> Introduce support for sound card and wire two CS35L36 audio codecs for
->> top and bottom speakers.
-> 
-> [...]
-> 
->> +&sound {
->> +	compatible = "qcom,sdm845-sndcard";
->> +	model = "Pixel 3";
->> +	pinctrl-0 = <&quat_mi2s_active>, <&quat_mi2s_sd0_active>,
->> +		    <&quat_mi2s_sd1_active>;
->> +	pinctrl-names = "default";
->> +
->> +	/* mm[0-9]-dai-link nodes must be positioned first regardless of sorting */
-> 
-> Could you try the patch in
-> 
-> https://lore.kernel.org/linux-arm-msm/655212ed-4812-4747-ba5a-f0093bf05411@oss.qualcomm.com/
-> 
-> ?
+On Fri, Nov 27, 2026 at 05:05:55PM +0200, Daniel Baluta wrote:
+> On 11/27/26 15:56, sashiko-bot@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 1 potential
+> > issue to consider:
+> > - [Low] arm64: dts: imx8qm-mek: missing Fixes trailer for fec1 pad
+> >   compensation fix
+> > --
+>
+> Frank should we really add a fixes tag to this? fec1 works today because
+> we get a working pad configuration from uboot and it was never a problem.
+>
+> This patch only makes the configuration explicit and aligns it with fec2.
 
-Sure, I'll test today.
+Needn't fix tag for this case.
 
-Thou, changing this patch without precursor being merged would mean +- delaying 
-patch inclusion at least by one merging window*.
+Frank
 
-I'm very much fine thou bind to this patch and when included send sorting for 
-all sdm845-* devices.
-
-*still having patches for Pixel 3 camera in my fork ~ 4 month from these patches 
-has been reviewed and ready for merge, due to recommendation to use header which 
-didn't got in Linux in time.
-
-David
-
-> 
-> Konrad
-
+>
+> >
+> > commit 16a1be06255fa85636ee660e513ea61881c625f2
+> > Author: Fugang Duan <fugang.duan@nxp.com>
+> >
+> >> arm64: dts: imx8qm-mek: configure ENET0 pad compensation for fec1
+> >>
+> >> The i.MX8QM ENET0 pads used by fec1 support 1.8V or 3.3V operation,
+> >> and their compensation control pad (COMP_CTL_GPIO_1V8_3V3_ENET_ENETB)
+> >> must match the I/O supply. For 1.8V or 3.3V the datasheet requires
+> >> PSW_OVR = 0 and COMP = 0b000.
+> >>
+> >> The fec1 pinctrl group never configures this pad, so its state depends
+> >> on the boot firmware. fec2 already sets the equivalent ENETA pad to
+> >> 0x000014a0, which programs COMP = 0b000 with no override bits set.
+> >>
+> >> On the MEK, the ENET0 pads are supplied from VCC_ENET0_1V8, so use the
+> >> same value for fec1 to configure the pad group explicitly.
+> >>
+> >> Signed-off-by: Fugang Duan <fugang.duan@nxp.com>
+> >> Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+> >
+> > [Severity: Low]
+> > This fixes a missing pad configuration in pinctrl_fec1.  Should this
+> > include:
+> >
+> >   Fixes: 307fd14d4b14 ("arm64: dts: imx: add imx8qm mek support")
+> >
+>
+>
