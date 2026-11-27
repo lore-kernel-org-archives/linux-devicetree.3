@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795799222;
-	b=09KVjNkVCAPd65QJXAj9qiqCoOYHEUIctpyNT5FVBk2PrRSahjtNpy0mGD8KNRZSUuh2
-	 nsoCbrk3iyqzRBe582kvJ6/8kYhXHoO8jWDZnvohbJKwEBvZH/8x1KILBtXIQ9Uf1J8Cm
-	 86+KpxaO0UBJJ287sEJQXceu/eRDHtKNsc2Y81UD4/Q2a5Kbd4NJRDjweTxrXvYpyyoha
-	 QZn8ZMi3g7ymRwAT3xpfIJ+fDOxn+myABi4qKOe1ta3d4EsohkI4fqt8FpH29BdC30oBu
-	 Ktm1lhR3hoZEMmDXqxMglnT5hN1q5oNUNJb4iiu2gvdMDbN4mFebc+8zCyMn/zc0q9g==
+	t=1795799468;
+	b=iYnIZ9OTjNdoNmH3/8gcksSCDtD7CAFcKZjTAIlLGO9E4sv3XFRbkdR2MBRbOH6BTvVW
+	 GSdZfn3p0ZrP0pGm/gsqu72iV14CjKrfxhnKoceJ+BbBYrZY9ArZ8APDVGiSq3/VcO89v
+	 Q6jJAiWgpV05FYy+WfT6HFLL+e9P2MLdlg4lcsNYpS9ndgEQDpynTyj2mPTW4E4wVgszq
+	 6H6a9qAn3y1PjDXk87zFy2UpPjbSOYtzaCknc7A9TgXrcZwiujtk4oAgVJrK4O6qSpjAe
+	 EwTv2Nvz3kzvs42ZAVBm/LRQGqC+fJlxwrPJV+xnPyZtnvKOyIliCTcRa3TsBSeXPmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795799222;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795799468;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
 	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
 	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=9gzHBqo1ZS1N9lhELOvmEI3+H79vKOr9CzjE/QFqZ20=;
-	b=wKp8FMLS/A5EAYHEW8x23sHUjCnkncL3mm28vyb4iHNtqlvUW+VOEBLQEOFIi3A/rWiI
-	 XUT0I8uFI4Uf1xlU6tpz1KmCp5MezkuS3p/tDivuL/RzaePQm+85w0+L+gymK8DZT+nKr
-	 klno2m2aEdyU53pGLmZ2XVFI24NwXGfAIS7CGEspO42P6J0WkAXHvvxTTDxGuRazVR15G
-	 ZUCEONVm2YCTi+kff1qZ+xmAkRs08plLcFsr13CIA8Z425cPMf6h+dRpds8DjbbZvKVwt
-	 N9t/xh0OTP0jhnnCyv4hDiFPi0YBCg3KRX4Mt+V+/eRKi1YTirlepqggePtw+tWHIPA==
+	bh=istvK8Vo0dRH+5Ab3OL0OyFKa13o+bNLAyZJ8VHCKOU=;
+	b=m8IpOH2mDmZl5eCXKUqvk/WK+W7p/8LaOujRIuWYpgFIrktMsVOye9y54KgAjeGfVyhj
+	 t4y7sIVvq6oo8IBBqxSXs9PPkxdflm96EPLDpkhmLVjJFolhP/1VhEtZfjdIQRh7c2WCX
+	 k7rJlZ/Vx+MEwer9C5ayJ0zrtO5xuZGLXWfNeIddvLwMK5m0PWl2qUMO40PA0GgqBqmSq
+	 lcNhD6huG/R7BN9mIEfiNfqstuTFfYvycIe6Ha2Hhwd+T6yfEi8wsc/HXGJX4h5BlyP+S
+	 56qDISH9sIRDfZyoPgsfsEhteYhVZOBNWlUc9dIzC4HAtsMuxEzLjJKOKUSYCl7hXEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=V1Rkddvt;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=larR9y8f;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1427E606A31F;
-	Fri, 27 Nov 2026 17:07:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1427E606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5B20C606A31E;
+	Fri, 27 Nov 2026 17:11:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B20C606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=V1Rkddvt
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=larR9y8f
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 181621575;
-	Fri, 27 Nov 2026 09:06:58 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BAFB81575;
+	Fri, 27 Nov 2026 09:11:04 -0800 (PST)
 Received: from [10.33.50.35] (e142021.arm.com [10.33.50.35])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DCBED3F632;
-	Fri, 27 Nov 2026 09:06:56 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 420CB3F632;
+	Fri, 27 Nov 2026 09:11:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795799220; bh=qFa6sy83V0It3krE5paW+O7B9Fqh10IXDVByOoZlZCg=;
+	t=1795799467; bh=FCVTxmg2sdNe51AfMa4AF6QW/CSqjRWXIVeiCqPpDFA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=V1RkddvtAdtrHpMFzFpDiZ4C/UaR5WYNc0ztJ5+Z463L6+Nv4oHyzmK4HiDTvzwPm
-	 6AN/jKSaaEq5km6iu5X7tdN3q7y61sqjxji932nkfydkvILEPaCr/n+5gNJQa4j/1l
-	 RxbqgiXm9QE3eTgf9w3rbLIjjLNBO5C4uWWNZwhg=
-Message-ID: <682cee16-d56c-436a-8661-0cf511fa2e78@arm.com>
-Date: Fri, 27 Nov 2026 17:06:54 +0000
+	b=larR9y8fPCMYOCR0QN4mHid/9x1bOSkf3g8gr9pqbONVSj3e673DCXSSg/l2cnTvN
+	 JaxYZpMAYZrMUW/1vbOiD2LDb/qn+eJDY2NNo3KV4x5DjPuj/bs1vq1gNUQLsJRjpi
+	 Fc574CcHhAAl0stGrYBgNePEgsCr94bmezg9WkeY=
+Message-ID: <1eb33e7a-38ba-43c1-bf8d-477d75071e7a@arm.com>
+Date: Fri, 27 Nov 2026 17:11:03 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -54,123 +54,67 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/5] arm64: dts: allwinner: add A733 SoC description
-To: Norman Herms <dockseed@proton.me>, Jerome Brunet <jbrunet@baylibre.com>
-Cc: =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org,
- samuel@sholland.org, Enzo Adriano <enzo.adriano.code@gmail.com>,
- Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, Junhui Liu <junhui.liu@pigmoral.tech>,
- Pablo Mazzini <pmazzini@gmail.com>,
- Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
- Alexander Sverdlin <alex@sverdlin.org>, Jun Yan <jerrysteve1101@gmail.com>,
- Lukas Schmid <lukas.schmid@netcube.li>,
- Cristian Filipescu <filipescu.cristian@gmail.com>
-References: <20261126-a733-cubie-a7s-dt-v6-0@gmail.com>
- <20261126-a733-cubie-a7s-dt-v6-2@gmail.com>
- <p3YaXlLJTguQBGnWyMpb1w@gmail.com>
- <1jld6eldic.fsf@starbuckisacylon.baylibre.com>
- <wzwsbUKM-fEhYpTIhswvHly5oyuMCPDOExJEWjbSf-OS3Lrwx2H_l9CUfuMITJUK5CyEz4pNojUFRzjDDczUQmX_LmSWwF7DVSceD34XeHY=@proton.me>
+Subject: Re: [PATCH RESEND v3 3/3] arm64: dts: allwinner: a523: drop the PA
+ GPIO interrupt
+To: Pablo Mazzini <pmazzini@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev
+References: <20261124215048.42074-1-pmazzini@gmail.com>
+ <20261124215048.42074-4-pmazzini@gmail.com>
 Content-Language: en-GB
 From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <wzwsbUKM-fEhYpTIhswvHly5oyuMCPDOExJEWjbSf-OS3Lrwx2H_l9CUfuMITJUK5CyEz4pNojUFRzjDDczUQmX_LmSWwF7DVSceD34XeHY=@proton.me>
+In-Reply-To: <20261124215048.42074-4-pmazzini@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Hi,
 
-On 11/27/26 17:37, Norman Herms wrote:
-> Hi Jerome,
-> 
-> On the PF voltage selector: we have been running UHS-I on the Cubie
-> A7S for a while in our own trees (6.18 and mainline based). Here is
-> what we ran into, in case it helps whoever models it.
-> 
-> - The switch: on this board bank PF takes its supply from VCC-IO
->    (3.3 V) or from CLDO5 (1.8 V), selected by GPIO_POW_VAL_SET_CTL
->    bit 0 (1 = 3.3 V). There is no external regulator to switch, so
+On 11/24/26 22:50, Pablo Mazzini wrote:
+> The PA IRQ bank is not implemented, and the driver now numbers the IRQ
+> banks from PB. Drop its interrupt.
 
-What do you mean by that? The proper solution is to *create* a new 
-regulator driver, either embedded in the pinctrl driver (make the 
-pinctrl export a regulator device), or as a separate driver, using some 
-pinctrl provided regmap. To be precise, it should be some kind of 
-regulator mux, selecting between VCC-IO and VCC18-PF.
-And then it should indeed just be a matter of pointing vqmmc-supply to 
-that regulator to make it work.
-Are you using a different approach? I have seen various downstream 
-patches implementing something similar, and they seem to be happy.
-And I have seen pinctrl states as well, but think we need a proper vqmmc 
-regulator, regardless?
+"the driver" probably refers to the Linux driver, but DTs live in a 
+different world, and are independent from any driver implementations, so 
+this is not a good argument.
+The real reason is that the binding changed, to only count implemented 
+banks, even though this is not explicitly stated there.
 
->    vqmmc does not fit, and sunxi-mmc without vqmmc returns -EINVAL for
->    1.8 V.
+> This reverts commit 6b81aa0c8a4f ("arm64: dts: allwinner: a523: Add
+> missing GPIO interrupt").
 
-Do you mean you use vmmc-supply to point to some 1.8V regulator? This is 
-indeed bound to fail, as the SD spec requires 3.3V always for the supply 
-voltage. And the binding/SD card Linux subsystem allows not providing 
-vqmmc, at which point it will assume it's the same as vmmc - but not the 
-other way around.
+I think that deserves a fixes tag. Backports are somewhat questionable 
+for DT patches, but it helps for U-Boot, which would import tagged DT 
+changes only.
 
- >    We use two pinctrl states, "sdmmc-3v3" and "sdmmc-1v8" as on> 
-Tegra, whose pin groups carry power-source.
-> 
-> - The withstand mode: with PF in the adaptive mode of
->    GPIO_POW_MOD_SEL (01, which is what the pinctrl automatic voltage
->    detection patch sets), the pads follow the SoC's own supply
->    detector, and on our board that detector now and then reports
->    3.3 V while PF runs at 1.8 V.
+> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
 
-Is that a timing issue, maybe? Maybe the sampling happens only so often, 
-and you just happen to miss the change, occasionally?
+The change itself is fine:
 
-> With one card, 14 of 40 SD rebinds at
->    SDR104 failed: the CMD6 status read gets a data CRC error and the
->    card falls back to high speed; once the card was lost ("error -5
->    whilst initialising SD card"). Setting the PF mode by hand together
->    with the switch gave 0 of 40: 10 (3.3 V) before switching to 3.3 V,
-
-Just to clarify: "0 of 40" means *0 fails* here, so it works?
-
->    and 11 (1.8 V) after switching to 1.8 V, once GPIO_POW_VAL reports
->    PF at 1.8 V. Our final patch does that and also gave 0 of 40.
-
-Do you mean your patch just badly hacks those two bits to do what you 
-want, by treating PortF separately, but it's not something that looks 
-nice and upstreamable?
-
->    Oddly, the fault also goes away while the USB3 combo PHY runs; on
->    this board CLDO5 supplies its analog part too. Another card passed
-
-So according to the A7A schematics VCC18-PF is a separate power supply 
-pin on the SoC, and it's supplied by CLDO5. On the A7A CLDO5 is not 
-always-on, so you would need to reference it somewhere to be enabled, by 
-the SD card node.
-
->    40 of 40 even in the adaptive mode.
-> 
-> - The eMMC on bank PC needs no switching, CLDO5 is fixed at 1.8 V.
->    But if the boot chain leaves the PC field at its reset value 10 (the
->    register resets to 0x022aaaa0), HS400 enhanced strobe fails with
->    "mmc_select_hs400es failed, error -110". So on PC, 10 behaves as the
->    3.3 V mode, as in the register table, not as the adaptive mode the
-
-But this is a firmware problem, then? As 0b10 is documented as 3.3V, 
-which is wrong if you use a 1.8V eMMC. So doesn't the new pinctrl fix 
-patch overwrite this with "auto" (0b01)?
-Even if not, firmware should not program the wrong values. I guess 
-U-Boot would similarly fail to access the eMMC with that wrong value?
+Reviewed-by: Andre Przywara <andre.przywara@arm.com>
 
 Cheers,
 Andre
 
->    text of 18.14.4.6 gives for C/E/K. 01 and the fixed 1.8 V mode (11)
->    both work.
+> ---
+>   arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
 > 
-> We can test patches for this on the A7S, SD and eMMC.
-> 
-> Built and measured by AI agents (Claude) on my boards.
-> 
-> Thanks,
-> Norman
+> diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+> index 85ef492ffeae..fc4d714a96ea 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+> +++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+> @@ -129,8 +129,7 @@ gpu: gpu@1800000 {
+>   		pio: pinctrl@2000000 {
+>   			compatible = "allwinner,sun55i-a523-pinctrl";
+>   			reg = <0x2000000 0x800>;
+> -			interrupts = <GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>,
+> -				     <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>,
+> +			interrupts = <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>,
+>   				     <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>,
+>   				     <GIC_SPI 73 IRQ_TYPE_LEVEL_HIGH>,
+>   				     <GIC_SPI 75 IRQ_TYPE_LEVEL_HIGH>,
 
