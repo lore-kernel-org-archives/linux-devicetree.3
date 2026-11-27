@@ -1,57 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795762440;
-	b=1C8mH0iiklK/fH2IQTvArYjmjFwn+4sMRb4khgiKwRi3lu1f3HWSlvSjvCPv2dNGjamW
-	 wo5kJIH43Ca3gw8vOmUVDZVVhy0SQn6/TTczgP4Wb2RXwBIXXFJcW5MxqpLSAT2AtFJcA
-	 QnNJr6mw7STjWESP/n/D3xFlyRfEcDUXfLot8DM/8yj6eMUKYE7eZowAXwWdxK+p0A4DS
-	 CvQwo2c0bNSNpBgsiTXkE16IQ/olm9uMvnUf9EVdg+ySQzNmrAGLpglcuGJb5CZhX+CFE
-	 b4QCAJJZs5WTY7lTNqcIOD08QLE1V5FstRkWxUetPRfjAXn6lreK4TYP80H0ZOOMObA==
+	b=z73b+ytd9rwYq2rl9YenwHcisRAhTXA4hHK2cdd/MtYTtmHTZ6u4mB/oihlVWGvBGtrh
+	 8f97xUIV/zVWt3sY4SI+52SPiMJMMSnyoXNSQkLFoGr+0aROxfIoy0OlHDPD5pfT1QKVM
+	 Y5YBH5lNJ2TjmhDTdaD8cfMWd8gC4xRkw1QUmMVKrdgjR65uZzO/5xIc5XIWDyV6/ULQP
+	 bb6YxkLyMvh+A3hCY1JSOSREHVAChrgwQ+dl71RRLJOG4OQoDQ2DIk8j16VI49EaBkXfB
+	 9tCC7YqCAutn4grReKeaG/5ElQOXjLOxaSomSWUIYq3U1JI+llQF+7+FhST6rqVVtPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795762440;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=KzxaOAOiMseK9Mjtyg984kDTY9wzMOkYH0cliFv1Y5M=;
-	b=W/AyK+/Myxs5afOpqCmtiP8RzlO3Wm1EJN/i1MucWou5C0AwP7fRrIu+Ir3jWFstT4QW
-	 3DH3Fz2S8oUwqGBTySNSC0YUCcTnfpBBc1ExJJu5oexcS6w8VPd6e3Ohq3fvdDbcGzhzc
-	 E13Mm+7YHktBxQLKN3cSqHbdtCk+rDlzlsueuqW9vkmxNMzlVHdNZbw72mk90tAXUUOlL
-	 GGttYWf93ShWrUaNg1lEkqNt64pfN8VVO8GDUcvRWNGteOEKsQjIbbPJSA3bM6ARJah+S
-	 yWtlypqFG8XLPBfdarkm58fh+WdYL5AUzQCcw9/c+ru1dd8Yq7ivhSN2SezJRPgpNPA==
+	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ncDzTHpCPV4lwKcdX/E+CqJ1ByUzIH55tg22LmuRbMI=;
+	b=5b1e2wYvFSfHFtpR3cC2K8g2+Fu+w95TXeGq4+qjxRiqi57Ed7kSyR9tDkOr/dyhEnxY
+	 IFTG0WabDf+oOVucS41VjSMsw5l4vBX/Met73FrCvnmdvCmqVtUGYFVXuCI2ta+j2L7pS
+	 /KPT/rA9gXHKdToJcw8/x4hktd4EyFU/y6PKqDI9NnMS0AIfqN9QJrDxmh5A5erGy1CF9
+	 NBd0+TGZnLgZfMnfTSzuB+bxLA3sStsTIGNvrkbhQj3m3v71tuikySttMNzIiRrnAYwX8
+	 HScFutCW+IDbmEtOKPMOFA6WvBvQ2kv/jptDYdzrkBu8JZJzI3ZOXuetUpcTletER0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 35A62606A31C;
-	Fri, 27 Nov 2026 06:53:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35A62606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [223.64.69.66])
-	by gateway (Coremail) with SMTP id _____8DxjdIDKQlrn3ojAA--.34857S3;
-	Fri, 27 Nov 2026 14:53:55 +0800 (CST)
-Received: from kernelserver (unknown [223.64.69.66])
-	by front1 (Coremail) with SMTP id qMiowJAxFs3_KAlrXbc3AA--.52846S2;
-	Fri, 27 Nov 2026 14:53:52 +0800 (CST)
-From: Binbin Zhou <zhoubinbin@loongson.cn>
-To: Binbin Zhou <zhoubb.aaron@gmail.com>,
-	Huacai Chen <chenhuacai@loongson.cn>,
-	Rob Herring <robh@kernel.org>,
+	dmarc=pass header.from=d-silva.org;
+	spf=pass smtp.mailfrom=d-silva.org;
+	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=P0q1BjKX;
+	arc=none smtp.remote-ip=119.15.109.137
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBEE3606A326;
+	Fri, 27 Nov 2026 06:53:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBEE3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=P0q1BjKX
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id 17CE74C953;
+	Fri, 27 Nov 2026 17:53:52 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1795762432;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ncDzTHpCPV4lwKcdX/E+CqJ1ByUzIH55tg22LmuRbMI=;
+	b=P0q1BjKXojKbvNl8JdxL3Hi5fPTS0hjWeXi1UtIBm0xTdWw5trRZIVh3c2doFDoiLbZEj8
+	PYmTbVNkmw8uh8Qw/HHYWXiL4RvE1JJCR+EFKYyz3JNyp0bNv2+X6ZSVxPKPWy8pyJ77tj
+	MFUG65jrMPvpH1/tikQZ8ETwGS/Al3Qjy2JG+5Nftdq0aT4xZ+AEjhetIvoijNYUAZ+5CR
+	ITFKVUVxn10SkzFW7hewbeEJ3X6qFhfohxtV6LgMlCP/wNz3VEDPSgjHq/RaR15rqBS+HW
+	6jiN5orSED5xebufw5IqvdywWN0NRmJCymCqTBCalPMRdDyog+FRPiYMSPbX1A==
+X-GPT-Reason: legitimate personal/professional correspondence.
+	The email is a standard Linux kernel patch submission ([PATCH
+	v2 1/2]) regarding hardware bindings for the OrangePi 4 Pro. The
+	sender's identity (alastair@d-silva.org) perfectly matches the
+	intended recipient's domain (alastair@d-silva.org), indicating
+	a personal or trusted communication. There are no links, urgency
+	tactics, or marketing elements present in the body.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Haowei Zheng <zhenghaowei@loongson.cn>
-Cc: Huacai Chen <chenhuacai@kernel.org>,
-	Xuerui Wang <kernel@xen0n.name>,
-	loongarch@lists.linux.dev,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>
+Cc: Maxime Ripard <mripard@kernel.org>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>,
 	devicetree@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	Binbin Zhou <zhoubinbin@loongson.cn>
-Subject: [PATCH v2 0/2] serial: 8250: Add Loongson-2K3000 UART support
-Date: Fri, 27 Nov 2026 14:53:41 +0800
-Message-ID: <cover.1795761142.git.zhoubinbin@loongson.cn>
-X-Mailer: git-send-email 2.52.0
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Alastair D'Silva <alastair@d-silva.org>
+Subject: [PATCH v2 1/2] dt-bindings: arm: sunxi: Add Xunlong OrangePi 4 Pro
+Date: Fri, 27 Nov 2026 17:53:42 +1100
+Message-ID: <20261127065343.1449675-2-alastair@d-silva.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261127065343.1449675-1-alastair@d-silva.org>
+References: <20261127065343.1449675-1-alastair@d-silva.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,53 +85,30 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAxFs3_KAlrXbc3AA--.52846S2
-X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAQEECGsI5P0GEQAAsh
-X-Coremail-Antispam: 1Uk129KBj9xXoW7Wr18tw4DKr1UZr4fZry3ZFc_yoW3GFXE93
-	ySv3WkX34DZF1Iy3y2yr98GryrWr4jyF1UCa4UtwnI934qkFyDJFyqk3s8J3WxX3yDuFn8
-	ZFykGry0vr1fGosvyTuYvTs0mTUanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUj1kv1TuYvT
-	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
-	cSsGvfJTRUUUbI8YFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
-	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
-	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
-	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc
-	02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAF
-	wI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14
-	v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
-	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8Zw
-	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
-	67AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr
-	0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxU2BT5
-	DUUUU
 
-Hi all:
+Document the Xunlong OrangePi 4 Pro board compatible.
 
-This series add UART support for Loongson-2K3000.
+Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
+---
+ Documentation/devicetree/bindings/arm/sunxi.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Thanks.
-Binbin
-
-========
-V2:
-- Add Reviewed-by tag;
-- Remove the original patch for the Loongson-2K0300 UART;
-- Add ls2k3000-uart to the existing enum instead of adding a separate
-  two-item block.
-
-Link to V1:
-https://lore.kernel.org/all/cover.1793776192.git.zhoubinbin@loongson.cn/
-
-Binbin Zhou (2):
-  dt-bindings: serial: 8250: Document Loongson-2K3000 UART compatible
-  serial: 8250_loongson: Add Loongson-2K3000 UART support
-
- Documentation/devicetree/bindings/serial/8250.yaml | 1 +
- drivers/tty/serial/8250/8250_loongson.c            | 7 +++++++
- 2 files changed, 8 insertions(+)
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+diff --git a/Documentation/devicetree/bindings/arm/sunxi.yaml b/Documentation/devicetree/bindings/arm/sunxi.yaml
+index 7a7f96f21f57..2fdf614e639a 100644
+--- a/Documentation/devicetree/bindings/arm/sunxi.yaml
++++ b/Documentation/devicetree/bindings/arm/sunxi.yaml
+@@ -1043,6 +1043,11 @@ properties:
+           - const: xunlong,orangepi-4a
+           - const: allwinner,sun55i-t527
+ 
++      - description: Xunlong OrangePi 4 Pro
++        items:
++          - const: xunlong,orangepi-4-pro
++          - const: allwinner,sun60i-a733
++
+       - description: Xunlong OrangePi Lite
+         items:
+           - const: xunlong,orangepi-lite
 -- 
-2.52.0
+2.53.0
 
