@@ -1,87 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795818786;
-	b=YK9bkHKe8aPwrkFckH8h1Qj0w/rLz6HlT50tJGS4qtFfnufKMc938w04F3ae+U1+KY5u
-	 mSDGLUKX+1S+hgplW1MCNrmBgnwj2MUivTFk01UJ3BUTCEkFmoUvI3N2nqMsZObuFF0NG
-	 t0pyuyBIu9prcy+vgoENViuTyiWTgtfWI56ILu+cLQo/QPlcoLE0OWiMizB6yWEtbd3hi
-	 EAcrVaBecffnbnTj5Qyl+p4SJ0pwf2EE5uvXaoSTmkyy9olFTp5VcgYrhQVHlXPMrCQrT
-	 NTsABuSUuYm4dpm7GYYzOQejVod8DjK8vcN5t2L+dEWzHSa7309dKMeuoLcpU+6OpkQ==
+	t=1795819629;
+	b=tinW/sq830bci9oXIeuD9DxfKKN36uao0i0td4BdiUxFIF1qaDx/cl3RGWvbLWCbX+bm
+	 6mBKrzmIzVc3SlkK0VwV3Tj3WxT3eIZfgsggCtMN4gV9B+Zyr42A12DXMdL3gV1qoT74p
+	 zVeFBBWmy8yNSgXEg7rHeoYndYBkx3tfTXqWJ0pduWvfj/4SyyM5124jbEiND+Cwbgqqr
+	 Qakli6ugyQPSnhN8U0EuMTBYZpw7Ymisv1jaR0xAN0lfNboNZIKP51yyAiksuzyBlB+4A
+	 lBnNbwewOUZ6x3d66NQ75FaqNY6s0rQSp00Zv7cH8rpMSi3d+ZMqOsVE+FQnUtWSU5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795818786;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=CrQD3lwMnz0z6petJkG+bLaq3UykExl4nKzRKQ7m+nQ=;
-	b=NQHZnO3F2SHnVJ5gubYGwZDDCQxigA022p62eiSQ8T4RBAh48F83b6cNJt5/i93glVGm
-	 hXk93iSewQu6E/G25nmX8/StNCTsD2LAJqTWTX/nKBrukxgGxNh0tIT1F2QXKinSvBYUi
-	 NhVWpts9QMVp/y8vKY5ceDLRmQMwKHQmhCAo9lOTa42RrZx24bJ79aVKXkuECAakKRAfV
-	 RVRGEy+eXCmHNrJvY7fazaX8L8PlNf8/TnNfiluMIV16PJ4HD1MzfiOOhijsVmo1MzUbB
-	 3onvFJpqbfw5l8vW8/VWaIdsSj7BN+O3GdAUuxYe9WFQXhGQQZftU1Z/AZ4m2rmIHug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795819629;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=hAYM/ukIYEilqCr1ED8CZ1ZOiSgPcwgoFFAIEI1WBTE=;
+	b=SqjwEatX6+RNetLm0rTb2rL5p7T7gcZelNaonpQdMwe/x331MTWBbJ/9SCzEhP2pf1gh
+	 LOA318kpIiy5jqqMCtQ0ybhq3M3Uf1H1ETcvQ0aM70rDRw8KPKOjfS0OytMtJn+znVXlx
+	 IMl2rsiADlLj587yuBSmaz+5UripCR9XF0XaxCIxGvpp+fZYYOSZTq47Kkv8xKVBPst/n
+	 YJ9mNdC3U0jlXh6nhUeY9VJ2jVYNf6pwuGrzmOJT+bWz4fxTQccdBk0FZHuFvKZJwNq4/
+	 Ca35692cpmmpqTxISVh5vrf9NouAA3LgZtp06N/J0SvYqO5Lfe+pTwk+hU3KT96swxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U0fb5O4q;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nc9YfRyE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0EA9606A32F
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 22:33:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0EA9606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B39606A31C;
+	Fri, 27 Nov 2026 22:47:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U0fb5O4q
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-497614c95f0so4872976f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 14:33:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795818784; x=1796423584; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CrQD3lwMnz0z6petJkG+bLaq3UykExl4nKzRKQ7m+nQ=;
-        b=U0fb5O4qfhP5SKYTzf5w5qGHB3hYCAD52OjrDQL6AnWRhWfdPFC8RGiWWi61e9sToq
-         OnU3km4yk54UTQ7i5Rlb+Wz6V1U4o+BJW7uIFEUMNvd3RNIm1nz5TZL5HmMM88IceXjA
-         zsvs+ruwKAXsDA6HrHpEKcuZvoBaKP9oKde6hRTGfndf+XEF5j7nIw9QJfHHktW6Y4yj
-         V1kEE/XPUIQtfKp37qRlBGrVk8eWrS9Oh73W/0ly3ur/KHuebuKj0rovP8+09wIdV2Xd
-         SCw6MjdRpc074SRXu6K1pBH9IBxHCe7eIcAjbcgxn44zWAJsxA2fI3Ztn02erjR41uST
-         ZJpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795818784; x=1796423584;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CrQD3lwMnz0z6petJkG+bLaq3UykExl4nKzRKQ7m+nQ=;
-        b=CNQ8gKI0lJ63Jt+892pdC6go6BRfzPB7i/8D2MYvoyYZR5UfQkxJBVWYvPvbSbylrO
-         6OCUDw+RrvwxDQGF8ddHh+au5ExXU/en1ShkBzo+rMaTY1yqXHMgbgZejKQHLebG8n2Y
-         ulpbcaaak+JeS7BjZ7fkYeWdXwtOA/WTU0pWBj6ru14418hX7AtlLojXitqPUmldQViR
-         OEXlXN97VALn6MvOcWvDyQueNhCke1R978vUt4dvrkuB2Hks3RK3AUuOll9xRScMql89
-         TKyA7oMmpMqzioAipOqX4bhB7IhkT8u3UuO/Uq5TJ5IhT8Gw4mN7u5Ju3gTp9mtNclL8
-         Unxg==
-X-Forwarded-Encrypted: i=1; AL+hErEY+TKS+ZWSQBPe2iiUF1J9UFjy/Qbw1lR7dryjypn52u1WkQlo/SHiruwUOus52C7YXsLwYNB4pdW0@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ouGdml4EqYOivGkUCti1RJ7tMpM3y0v3h571sOSa5ngk10slr
-	1Fou+yuZ2zDKw4fOjle4Wcsex1ozOb90ORHUrAiY4MW5y/o2FaR6uaICnHnlq+0zfaNUTQ==
-X-Gm-Gg: AZFdTZfM8H5bd8m5AxG6IZ1Mg+Z5pSGM/D8VSwlpJxB1UbgENB2r5KB3X+sz1A0lLHY
-	rRnf+8LXXNcuYyU4TEB+2L/J5G5PxQ/i8uFkTif7QjREGfDecS0o1q1tRFEDkrGXc1bE96ol9XS
-	YACK66isrv3hXSNgodF/feB/nSU21vbv6fyGKWAifG1vNbAcElYF2J27xqIYYIB2rBseq4Xx9OL
-	Kj1uOziVwC3a7UIuJE9ZV0Mhn9uQfs61HW7oHCs7EdP4vrV21ImDGt+UjK8o3eRsGRgl0xVtD37
-	H8Oyee1sB0V7vbgx2tqUUQxIC+INCxiWDYWjYYRSj3F/GtmKC1uIZUtCwsd+qRatLpVycMo09i9
-	3xwSrIhWfqJqUhlIFjcXY/mg1vL+spYkjMW2pZb0AfkrySXjaoeIxWJVWvXWZUcuzHiR4cQnNoK
-	LEI58/S/DTe00X5OEcbs9fEGRNTY/Rykag6UMAVCF7tCv5gC2LtXfc+JM+xRe405/yKDoAFJkKT
-	9iANFecxXYJy1JGdzdxvkhiLvMzX0xztSHKsNi16ea94sFM5Hd+EVf2BRveDxK2wKvGcWS8Wroy
-	C2Bu8PEqDhKETpX24BS+DxwWZZxHT1Ah
-X-Received: by 2002:a05:6000:3107:b0:4aa:1ae2:ff2a with SMTP id ffacd0b85a97d-4abaa977260mr61370948f8f.2.1795818784066;
-        Fri, 27 Nov 2026 14:33:04 -0800 (PST)
-Received: from [127.0.1.1] ([130.61.107.245])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab69bf685asm50430285f8f.20.2026.11.27.14.33.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 14:33:03 -0800 (PST)
-From: =?utf-8?q?Adil_H=C3=BCsrev_Tepe?= <tadilhusrev@gmail.com>
-Date: Sat, 28 Nov 2026 01:32:55 +0300
-Subject: [PATCH v2 3/3] power: supply: s2mu005-battery: add S2MU106 support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nc9YfRyE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79BF61F00897;
+	Fri, 27 Nov 2026 22:47:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795819629;
+	bh=hAYM/ukIYEilqCr1ED8CZ1ZOiSgPcwgoFFAIEI1WBTE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nc9YfRyEt5GitvZaoiC7yWVgTXDuGJC8+pNx5+3krPQzWnRp/cOqfRxdijYEBH0w2
+	 cEKT+stGrgtqinu50yXXTkthsdd74sUpnu2ezW749zOnAi2YAySoJGg8UTzFvANJFZ
+	 gr/PwbdNa/5zjijR8Z/Te0yCvZb6jm4eTkOpJwGSlCMJ/1rPfjz7DKGVK/QDAXOm05
+	 xgGfTqMmruabft/lqn60QC5eHqVx51o4s8ENIzXvmk1Mu3JjtbsnA/BQ8ZYjG2/Ive
+	 D8Si0vv7VLaucKcxTG7dw0oSiJVpDa1ZO2sLUeyE988Sw44Mj+6RwTm7Q1c2MWvt1s
+	 /dJ4D3ERi16rw==
+Date: Fri, 27 Nov 2026 22:47:06 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>
+Cc: sashiko-reviews@lists.linux.dev, linux-scsi@vger.kernel.org,
+	devicetree@vger.kernel.org, spacemit@lists.linux.dev,
+	robh@kernel.org, conor+dt@kernel.org,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>
+Subject: Re: [PATCH v8 2/2] scsi: ufs: spacemit: k3: Add UFS Host Controller
+ driver
+Message-ID: <20261127224706-GKA27669@kernel.org>
+References: <20261116-08-k3-ufs-support-v8-0-e3b256972dd4@kernel.org>
+ <20261116-08-k3-ufs-support-v8-2-e3b256972dd4@kernel.org>
+ <sashiko-outbox-216168@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,155 +64,315 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261128-s2mu106-fg-v2-3-2c3142e05aaf@gmail.com>
-References: <20261128-s2mu106-fg-v2-0-2c3142e05aaf@gmail.com>
-In-Reply-To: <20261128-s2mu106-fg-v2-0-2c3142e05aaf@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Kaustabh Chakraborty <kauschluss@disroot.org>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
- Yassine Oudjana <y.oudjana@protonmail.com>, 
- =?utf-8?q?Adil_H=C3=BCsrev_Tepe?= <tadilhusrev@gmail.com>
-X-Mailer: b4 0.16.0
+In-Reply-To: <sashiko-outbox-216168@kernel.org>
 
-The S2MU106 fuel gauge uses the same STATUS/RVBAT/RCURCC/RSOC registers
-and scaling as the S2MU005, but has no MONOUT averaging path; reading the
-averaged voltage and current through it returns bogus values. Add a
-per-variant descriptor so the S2MU106 exposes only the instantaneous
-voltage, current, capacity and status, and derive the status from the
-instantaneous current when no average is available.
+Hi James, Martin,
 
-Signed-off-by: Adil Hüsrev Tepe <tadilhusrev@gmail.com>
----
- drivers/power/supply/s2mu005-battery.c | 61 +++++++++++++++++++++++++++++-----
- 1 file changed, 52 insertions(+), 9 deletions(-)
+See my commets below for sashiko's reports..
 
-diff --git a/drivers/power/supply/s2mu005-battery.c b/drivers/power/supply/s2mu005-battery.c
-index 9798a62ffec..a1bd9ffdd61 100644
---- a/drivers/power/supply/s2mu005-battery.c
-+++ b/drivers/power/supply/s2mu005-battery.c
-@@ -38,6 +38,7 @@ struct s2mu005_fg {
- 	struct regmap *regmap;
- 	struct power_supply *psy;
- 	struct mutex monout_mutex;
-+	bool has_monout;
- };
- 
- static const struct regmap_config s2mu005_fg_regmap_config = {
-@@ -168,16 +169,18 @@ static int s2mu005_fg_get_capacity(struct s2mu005_fg *priv, int *value)
- 
- static int s2mu005_fg_get_status(struct s2mu005_fg *priv, int *value)
- {
--	int current_now, current_avg, capacity;
-+	int current_now, current_avg = -1, capacity;
- 	int ret;
- 
- 	ret = s2mu005_fg_get_current_now(priv, &current_now);
- 	if (ret < 0)
- 		return ret;
- 
--	ret = s2mu005_fg_get_current_avg(priv, &current_avg);
--	if (ret < 0)
--		return ret;
-+	if (priv->has_monout) {
-+		ret = s2mu005_fg_get_current_avg(priv, &current_avg);
-+		if (ret < 0)
-+			return ret;
-+	}
- 
- 	/*
- 	 * Verify both current values reported to reduce inaccuracies due to
-@@ -240,12 +243,47 @@ static const struct power_supply_desc s2mu005_fg_desc = {
- 	.get_property = s2mu005_fg_get_property,
- };
- 
-+/*
-+ * The S2MU106 fuel gauge shares the direct STATUS/RVBAT/RCURCC/RSOC
-+ * registers and their scaling, but not the MONOUT average-monitoring path,
-+ * so the averaged voltage and current are not exposed on it.
-+ */
-+static const enum power_supply_property s2mu106_fg_properties[] = {
-+	POWER_SUPPLY_PROP_VOLTAGE_NOW,
-+	POWER_SUPPLY_PROP_CURRENT_NOW,
-+	POWER_SUPPLY_PROP_CAPACITY,
-+	POWER_SUPPLY_PROP_STATUS,
-+};
-+
-+static const struct power_supply_desc s2mu106_fg_desc = {
-+	.name = "s2mu106-fuel-gauge",
-+	.type = POWER_SUPPLY_TYPE_BATTERY,
-+	.properties = s2mu106_fg_properties,
-+	.num_properties = ARRAY_SIZE(s2mu106_fg_properties),
-+	.get_property = s2mu005_fg_get_property,
-+};
-+
-+struct s2mu005_fg_variant {
-+	const struct power_supply_desc *desc;
-+	bool has_monout;
-+};
-+
-+static const struct s2mu005_fg_variant s2mu005_fg_variant = {
-+	.desc = &s2mu005_fg_desc,
-+	.has_monout = true,
-+};
-+
-+static const struct s2mu005_fg_variant s2mu106_fg_variant = {
-+	.desc = &s2mu106_fg_desc,
-+	.has_monout = false,
-+};
-+
- static int s2mu005_fg_i2c_probe(struct i2c_client *client)
- {
- 	struct device *dev = &client->dev;
- 	struct s2mu005_fg *priv;
- 	struct power_supply_config psy_cfg = {};
--	const struct power_supply_desc *psy_desc;
-+	const struct s2mu005_fg_variant *variant;
- 	int ret;
- 
- 	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-@@ -264,11 +302,12 @@ static int s2mu005_fg_i2c_probe(struct i2c_client *client)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "failed to initialize MONOUT mutex\n");
- 
--	psy_desc = device_get_match_data(dev);
-+	variant = device_get_match_data(dev);
-+	priv->has_monout = variant->has_monout;
- 
- 	psy_cfg.drv_data = priv;
- 	psy_cfg.fwnode = dev_fwnode(dev);
--	priv->psy = devm_power_supply_register(priv->dev, psy_desc, &psy_cfg);
-+	priv->psy = devm_power_supply_register(priv->dev, variant->desc, &psy_cfg);
- 	if (IS_ERR(priv->psy))
- 		return dev_err_probe(dev, PTR_ERR(priv->psy),
- 				     "failed to register power supply subsystem\n");
-@@ -276,7 +315,7 @@ static int s2mu005_fg_i2c_probe(struct i2c_client *client)
- 	if (client->irq > 0) {
- 		ret = devm_request_threaded_irq(priv->dev, client->irq, NULL,
- 						s2mu005_handle_irq, IRQF_ONESHOT,
--						psy_desc->name, priv);
-+						variant->desc->name, priv);
- 		if (ret)
- 			return dev_err_probe(dev, ret, "failed to request IRQ\n");
- 	}
-@@ -287,7 +326,11 @@ static int s2mu005_fg_i2c_probe(struct i2c_client *client)
- static const struct of_device_id s2mu005_fg_of_match_table[] = {
- 	{
- 		.compatible = "samsung,s2mu005-fuel-gauge",
--		.data = &s2mu005_fg_desc,
-+		.data = &s2mu005_fg_variant,
-+	},
-+	{
-+		.compatible = "samsung,s2mu106-fuel-gauge",
-+		.data = &s2mu106_fg_variant,
- 	},
- 	{ }
- };
+On 04:16 Mon 16 Nov     , sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 5 potential
+> issues to consider:
+> - [High] scsi: ufs: spacemit: clocks not enabled and sys1clk rate always
+>   0 without OPP/freq-table
+> - [Medium] scsi: ufs: spacemit: zero ref_clk gating delay in
+>   ufs_spacemit_post_hibern8() on UFS 2.x
+> - [Low] scsi: ufs: spacemit: ufs_spacemit_event_notify() logs cleared
+>   hba->errors on UFS_EVT_ABORT
+> - [Low] scsi: ufs: spacemit: duplicated ufshcd_init_host_params() and
+>   unused definitions
+> - [Low] scsi: ufs: spacemit: positive UIC error codes ignored in DME
+>   error checks
+> --
+> 
+> commit 893661ab0d45a5f00a091213a0890aea0386b457
+> Author: Yixun Lan <dlan@kernel.org>
+> 
+> scsi: ufs: spacemit: k3: Add UFS Host Controller driver
+> 
+> This commit adds a UFS host controller platform driver for the SpacemiT K3
+> SoC, supporting JEDEC UFS 2.2, MIPI UniPro v1.61, and M-PHY v3.0.
+> 
+> > diff --git a/drivers/ufs/host/ufs-spacemit.c b/drivers/ufs/host/ufs-spacemit.c
+> > new file mode 100644
+> > index 0000000000000..eb2ad50826997
+> > --- /dev/null
+> > +++ b/drivers/ufs/host/ufs-spacemit.c
+> [ ... ]
+> > +static u32 ufs_spacemit_get_sys1clk_1us(struct ufs_hba *hba)
+> > +{
+> > +	struct ufs_clk_info *clki, *clka = NULL;
+> > +	struct list_head *head = &hba->clk_list_head;
+> > +	unsigned long rate_hz = 0;
+> > +
+> > +	if (!list_empty(head)) {
+> > +		list_for_each_entry(clki, head, list) {
+> > +			if (clki->name && !strcmp(clki->name, "axi") && clki->clk) {
+> > +				clka = clki;
+> > +				break;
+> > +			}
+> > +		}
+> > +	}
+> > +
+> > +	if (clka && clka->clk)
+> > +		rate_hz = clk_get_rate(clka->clk);
+> > +
+> > +	if (!rate_hz)
+> > +		return 0;
+> > +
+> > +	return DIV_ROUND_CLOSEST(rate_hz, 1000000);
+> > +}
+> 
+> [Severity: High]
+> Does hba->clk_list_head remain empty when the Device Tree node has neither
+> freq-table-hz nor operating-points-v2?
+> 
+the board dts file will guarantee having operating-points-v2 provided, so
+this should not be a problem, and hba->clk_list_head will be populated at
+function ufshcd_parse_operating_points()
+
+> ufshcd_parse_clock_info() returns early without parsing clock-names when
+> freq-table-hz is absent, and ufshcd_parse_operating_points() does the same
+> when operating-points-v2 is absent:
+> 
+I think this situation could be improved in ufs core side, e.g, abort early
+if neither freq-table-hz nor operating-points-v2 found, but does not need
+to be handled at platform driver side
+
+> drivers/ufs/host/ufshcd-pltfrm.c:ufshcd_parse_clock_info() {
+>     ...
+> 	sz = of_property_count_u32_elems(np, "freq-table-hz");
+> 	if (sz <= 0) {
+> 		dev_info(dev, "freq-table-hz property not specified\n");
+> 		goto out;
+> 	}
+>     ...
+> }
+> 
+> Since the spacemit,k3-ufshc binding omits both properties and
+> ufs_spacemit_init() does not populate hba->clk_list_head or acquire the
+> clocks itself, ufshcd_init_clocks() and ufshcd_setup_clocks() never enable
+> the axi or ref_clk clocks (leaving them subject to clk_disable_unused or
+> unclocked MMIO access if not enabled by firmware), hba->dev_ref_clk_freq is
+> never parsed from ref_clk, and ufs_spacemit_get_sys1clk_1us() always returns
+> 0 so ufs_spacemit_link_startup_pre_change() always falls back to
+> UFS_AXI_CLK_LOW_FREQ_HZ (409.6 MHz).
+> 
+> [ ... ]
+> 
+> > +static void ufs_spacemit_set_dev_cap(struct ufs_host_params *host_params, u32 pwr_hs)
+> > +{
+> > +	if (!host_params)
+> > +		return;
+> > +
+> > +	memset(host_params, 0, sizeof(struct ufs_host_params));
+> > +	host_params->tx_lanes = UFS_SPACEMIT_K3_LIMIT_NUM_LANES_TX;
+> > +	host_params->rx_lanes = UFS_SPACEMIT_K3_LIMIT_NUM_LANES_RX;
+> > +	host_params->hs_rx_gear = UFS_SPACEMIT_K3_LIMIT_HSGEAR_RX;
+> > +	host_params->hs_tx_gear = UFS_SPACEMIT_K3_LIMIT_HSGEAR_TX;
+> > +	host_params->pwm_rx_gear = UFS_SPACEMIT_K3_LIMIT_PWMGEAR_RX;
+> > +	host_params->pwm_tx_gear = UFS_SPACEMIT_K3_LIMIT_PWMGEAR_TX;
+> > +	host_params->rx_pwr_pwm = UFS_SPACEMIT_K3_LIMIT_RX_PWR_PWM;
+> > +	host_params->tx_pwr_pwm = UFS_SPACEMIT_K3_LIMIT_TX_PWR_PWM;
+> > +	host_params->rx_pwr_hs = pwr_hs;
+> > +	host_params->tx_pwr_hs = pwr_hs;
+> > +	host_params->hs_rate = UFS_SPACEMIT_K3_LIMIT_HS_RATE;
+> > +	host_params->desired_working_mode = UFS_HS_MODE;
+> > +}
+> 
+> [Severity: Low]
+> This isn't a bug, but ufs_spacemit_set_dev_cap() and the
+> UFS_SPACEMIT_K3_LIMIT_* macros set the exact same defaults as the exported
+> ufshcd_init_host_params() helper in drivers/ufs/host/ufshcd-pltfrm.c.
+> 
+Yes, will drop ufs_spacemit_set_dev_cap()
+
+> In addition, ufs_spacemit_init() allocates struct ufs_spacemit_host and
+> stores it with ufshcd_set_variant(), but the variant pointer is never
+> retrieved anywhere in the driver. 
+I'd leave it as is, as for adding platform specific feature later
+(let me know if ok with this)
+
+> MPHY_TX_FSM_STATE is also defined in both
+> ufs-spacemit.h and ufs-spacemit.c, ANA_EQ_CTRL_REG_ATTR and
+> MPHY_PU_WITH_HB8_RESET are defined in ufs-spacemit.c while raw literals
+> 0x00CD and 0xb7f are still used in ufs_spacemit_uniprov1p6_init() and
+> ufs_spacemit_mphy_init(), and MPHY_RX_FSM_STATE along with several headers
+> and macros in ufs-spacemit.h are unused.
+> 
+Ok, I will fix above
+
+> > +
+> > +static int ufs_spacemit_link_startup_pre_change(struct ufs_hba *hba)
+> > +{
+> > +	u32 value, sys1clk_1us;
+> > +	int err;
+> > +
+> > +	err = ufs_spacemit_mphy_init(hba);
+> > +	if (err < 0)
+> > +		return err;
+> > +
+> > +	err = ufs_spacemit_uniprov1p6_init(hba);
+> > +	if (err < 0)
+> > +		return err;
+> [ ... ]
+> > +static int ufs_spacemit_apply_dev_quirks(struct ufs_hba *hba)
+> > +{
+> > +	static const struct ufshcd_dme_attr_val setup_attrs[] = {
+> > +		/* LCC_DISABLE */
+> > +		{ UIC_ARG_MIB_SEL(TX_LCC_ENABLE, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0 },
+> > +		{ UIC_ARG_MIB_SEL(TX_LCC_ENABLE, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(1)), 0 },
+> > +		/* TX_Min_ActivateTime */
+> > +		{ UIC_ARG_MIB_SEL(TX_MIN_ACTIVATETIME, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0x0 },
+> > +		{ UIC_ARG_MIB_SEL(TX_MIN_ACTIVATETIME, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(1)), 0x0 },
+> > +		{ UIC_ARG_MIB(ANA_HSGEAR_CTRL_ATTR), 0x25 },
+> > +	};
+> > +	int err;
+> > +
+> > +	if (hba->dev_quirks & UFS_DEVICE_QUIRK_HOST_PA_SAVECONFIGTIME) {
+> > +		err = ufs_spacemit_quirk_host_pa_saveconfigtime(hba);
+> > +		if (err < 0)
+> > +			return err;
+> > +	}
+> > +
+> > +	if (hba->dev_info.wmanufacturerid == UFS_VENDOR_WDC)
+> > +		hba->dev_quirks |= UFS_DEVICE_QUIRK_HOST_PA_TACTIVATE;
+> > +
+> > +	err = ufs_spacemit_dme_set(hba, setup_attrs, ARRAY_SIZE(setup_attrs));
+> > +	if (err < 0)
+> > +		return err;
+> > +
+> > +	return ufs_spacemit_wait_mphy_pll_lock(hba);
+> > +}
+> 
+> [Severity: Low]
+> As reported by Troy Mitchell on v6 [1], can positive UIC error codes bypass
+> the "if (err < 0)" checks in ufs_spacemit_link_startup_pre_change() and
+> ufs_spacemit_apply_dev_quirks()?
+> 
+> ufshcd_dme_get() and ufshcd_dme_set() return positive 8-bit UIC command
+> result codes (0x01..0xFF) when a DME command fails at the UniPro layer.
+> Checking "if (err < 0)" misses those positive error codes and allows both
+> functions to continue past failed DME operations instead of aborting early.
+
+Ok, I've checked again, there is actually one place return cmd
+
+ufshcd_wait_for_uic_cmd(struct ufs_hba *hba, struct uic_command *uic_cmd)
+{
+...
+        if (wait_for_completion_timeout(&uic_cmd->done,
+                                        msecs_to_jiffies(uic_cmd_timeout))) {
+                ret = uic_cmd->argument2 & MASK_UIC_COMMAND_RESULT;
+        } else {
+                ret = -ETIMEDOUT;
+
+                if (!uic_cmd->cmd_active) {
+                        dev_err(hba->dev, "%s: UIC cmd has been completed, return the result\n",
+                                __func__);
+                        ret = uic_cmd->argument2 & MASK_UIC_COMMAND_RESULT; 
+                    ~~~~~~~~ here, return cmd, and override "ret = -ETIMEDOUT"
+                }
+        }
+}
+
+I think it would be better to return an error code here instead of "cmd & mask".
+
+> 
+> [ ... ]
+> 
+> > +static void ufs_spacemit_event_notify(struct ufs_hba *hba, enum ufs_event_type evt, void *data)
+> > +{
+> > +	switch (evt) {
+> > +	case UFS_EVT_PA_ERR:
+> > +		if (data)
+> > +			dev_warn(hba->dev, "PA error event, INT errors:0x%x, PA_ERR_CODE:0x%x\n",
+> > +				 hba->errors, *(u32 *)data);
+> > +
+> > +		break;
+> > +	case UFS_EVT_DL_ERR:
+> > +		if (data)
+> > +			dev_warn(hba->dev, "DL error event, INT errors:0x%x, DL_ERR:0x%x\n",
+> > +				 hba->errors, *(u32 *)data);
+> > +
+> > +		break;
+> > +	case UFS_EVT_ABORT:
+> > +		dev_warn(hba->dev, "Abort event, INT errors:0x%x\n", hba->errors);
+> > +		break;
+> > +	default:
+> > +		break;
+> > +	}
+> > +}
+> 
+> [Severity: Low]
+> Does the UFS_EVT_ABORT case in ufs_spacemit_event_notify() always log
+> hba->errors as 0x0?
+> 
+> ufshcd_check_errors() clears hba->errors back to 0 before the interrupt
+> handler returns (saving sticky bits in hba->saved_err), while UFS_EVT_ABORT
+> is only emitted later from ufshcd_abort() in SCSI error-handler context with
+> the aborted tag or LUN passed via data.
+> 
+Indeed, hba->errors will be cleared, I could think of logging out with "saved_errors"
+
+
+> [ ... ]
+> 
+> > +static void ufs_spacemit_post_hibern8(struct ufs_hba *hba, enum uic_cmd_dme cmd)
+> > +{
+> > +	static const struct ufshcd_dme_attr_val setup_attrs[] = {
+> > +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x84 },
+> > +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x84 },
+> > +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x80 },
+> > +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x80 },
+> > +		{ UIC_ARG_MIB(0xdd), 0x57 },
+> > +		{ UIC_ARG_MIB(0xdd), 0xd7 },
+> > +		{ UIC_ARG_MIB(0xe8), 0x57 },
+> > +		{ UIC_ARG_MIB(0xe8), 0xd7 },
+> > +	};
+> > +	int err;
+> > +
+> > +	if (cmd == UIC_CMD_DME_HIBER_ENTER) {
+> > +		err = ufs_spacemit_check_hibern8(hba);
+> > +		if (err)
+> > +			dev_err(hba->dev, "ufs_spacemit_check_hibern8 error\n");
+> > +
+> > +		ufs_spacemit_dme_set(hba, setup_attrs, ARRAY_SIZE(setup_attrs));
+> > +
+> > +		/* Power down M-PHY */
+> > +		ufshcd_writel(hba, 0x0, UFS_PHY_MNG_BASE + UFS_MPHY_PU_CTRL);
+> > +
+> > +		fsleep(hba->dev_info.clk_gating_wait_us);
+> > +
+> > +		/* Disable reference clock, keep device reset deasserted */
+> > +		ufshcd_writel(hba, MPHY_DEVICE_HW_RESET,
+> > +			      UFS_PHY_MNG_BASE + UFS_DEVICE_IO_CTRL);
+> > +	}
+> > +}
+> 
+> [Severity: Medium]
+> Does fsleep(hba->dev_info.clk_gating_wait_us) gate the device reference
+> clock with zero delay on UFS 2.x devices?
+> 
+> ufshcd_get_ref_clk_gating_wait() only reads bRefClkGatingWaitTime and sets
+> hba->dev_info.clk_gating_wait_us when hba->dev_info.wspecversion >= 0x300.
+> On UFS 2.x devices (or if Hibern8 is entered before
+> ufshcd_device_params_init() runs), clk_gating_wait_us remains 0, so
+> ufs_spacemit_post_hibern8() calls fsleep(0) and disables
+> MPHY_DEVICE_REFCLK_OE immediately after powering down the M-PHY without
+> satisfying the reference clock hold time.
+> 
+Hi, I think bRefClkGatingWaitTime feature isn't mandatory for UFS 2.x? 
+and from my testing, the UFS is just working fine without the delay..
+
+I need some advice from UFS maintainer on this, otherwise I'd leave it as is
+
+> [1] https://lore.kernel.org/r/DLLQJDEA91FU.18Q1TSX09AUR3@linux.spacemit.com
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20261116-08-k3-ufs-support-v8-0-e3b256972dd4@kernel.org?part=2
 
 -- 
-2.53.0
-
+Yixun Lan (dlan)
