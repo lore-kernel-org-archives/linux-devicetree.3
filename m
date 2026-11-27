@@ -1,85 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795794935;
-	b=ooceV6LTH1evLAOZWzHf7wuEoS/hNJR29dZW4ZwMLvRwu89bHIihi0erdfhKgL8lti38
-	 EgXBYXY1W+AaYfe/lETTMkYnHgDUeOJm9YbhsYg7Zo2++S3K0VolozZnJB3TuSnc9d2qd
-	 pxkUEN8COV7ZDDlJ327ldPZj09nVzioI18Tu+uxFIy2aOXYa/YOXBcwrOdynXQw/IbNcv
-	 Vkjdx5NS0cXTKTtc7QDrGkNo2XSi52qgm8Y53IdXH1kLIbh4WmRIPdOo1DhT5Mm8qjfxM
-	 0UjnAU4MSeVaWjFkLDNPCCFwfR1BTKMoFtY0Sij5fYTuauQR/OlKn3KRWD5RCh37mYA==
+	t=1795794936;
+	b=GKkVPrXjWbzTVFA3iXxPpF9n3pv6yf3DXw37xvq/H4pI//U+fKBnJAu6Z1oikxwHTtbs
+	 jGKayxrKKXuSLgV90+PNwXwQLmIqQ/Oag3cQnhoYjPG8IRkgKpxnIePqGwsZhFeOXkRuS
+	 8A3FgO26QR30bIU26MGzVLwTF3hbd56qCjaaUhvPzqpTc5PYpOLBwbmdFcRV957Pp8A71
+	 MAXQHtMXPDl8xT4S26HeuryQQGd/rkDg/riwzTLGvqeAzigzMTqZeRrmSN3AsXPCrSVNk
+	 zYJeFc3SDFXYtebPAwWLuRA9CRPfS3uWXKof9LxlLZ6wXz+CLfA3UZOPnLjJmIrm2oA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795794935;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=aamHFFzwS0CuBXIurBQ2i5axgQPtqXRYIqnraY6fuvo=;
-	b=Cea8crd/IuIfhkaT/qtvTTFvhHfx+rn1hGGNR8JLaub/SiexQjbUekcpl5jsiQX6gbXk
-	 3qyvV3aj+NWuTM4wWa+75YLE92/wggfinIexR9XZTYHkNDUB1Mt2eWefzpZ3aNnVYuQQW
-	 M0TAbLz5Yas5B6PPHWCcBPQ/n8C/4K2Ze+pRNrct3XyItnQ+5yhX32a4jlaTGP5+Hu5b1
-	 lud71RXlpdm8DgAkMbks1mjkFqR7A13e4jdsoV4DO4qbydU4A+HtvP77Pu9DXI/PuOKGK
-	 qw4bDQYULjeP85T6Dk5jm61UOMI31JzqUizg3tePjkC5uoea+7qgOuM+pypU/Gi+9+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795794936;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=xVU1rANS7TfJLD8ub6n90SmfGXHzQKgbOewXRdZKvjs=;
+	b=S/bT//L+J9/+7Pd1woRihBhDrQCHmkm7oRJARUt3JVbcuD9bHPkW/rbn/dyDiyf24hQ0
+	 tee7V2bNLM8ziz9O2Yqiuq5Cb85cSu+fZfATzRGZwLJ1emKCy0Xr/Xtw0r+aAr/BbL/M8
+	 UoYdXKfVQK9AstownRvg2iSk+spdgQYoDiNxOt6YLSCjQzwqJO+Ah2YbuZP5JEKd+EuIU
+	 SrfoTkr6Th5hnQigzECZrbzPEkx3+JEagPMEdsQYfc4VT2bd3M0PDi2aJyB7Nw3TteFwZ
+	 uL+zGTIqD5blpCjYSsKlbJK1gi+tikdmqgBsjUysOY91oCFYbPeZrGFU17AXq0CvXYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=STCmbWQ4;
-	arc=none smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jZawSbKF;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ADjgAKvC;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF65B606A33E
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 15:55:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF65B606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 475DD606A334
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 15:55:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 475DD606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=STCmbWQ4
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so12862146a12.2
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 07:55:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jZawSbKF;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ADjgAKvC
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ARFpKEW706882
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 15:55:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=xVU1rANS7TfJLD8ub6n90SmfGXHzQKgbOew
+	XRdZKvjs=; b=jZawSbKFspy/b3PpUj82sjpe6+p0rjAnP0sALoMHJ65gMgRvJ2r
+	D/IOwEfootPLOLpQHvfDKXhn8ARyo4Rk2NNARrVaCsV9hlkLhEPC+Oc2fUvB6vQ6
+	o+/AMdUvvi7d+SwsOnVyEqANg52EEB1BvHyza1ppkTG/3LTpS2WRfxlVxh+aSrAe
+	lPKUV+oVc5zxAH1Z1Z1CqLkN4CIBlGrDh2MJZI5gBba2t7wba+8uzELT19+3G1IS
+	PjcwcsKx3wjW7T2J/RR8XE/KveVeFYWGfjmzvanRKHIPDnxJGmvULLAgMMwdomv6
+	1O0npLzgOrud/j2DipDQUSsFMD3NRzV9jDg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j74g6t4uc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 15:55:35 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-94960bd17b5so1277963385a.0
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 07:55:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1795794932; x=1796399732; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=aamHFFzwS0CuBXIurBQ2i5axgQPtqXRYIqnraY6fuvo=;
-        b=STCmbWQ4UewMFNdT1uhAQMvGxDQ+Czwg0A/LpYUQwYPo4acKkvPsx8o7EYjxc3JOXj
-         0fqsMScXdhYDWKFXgtqS1udFUxPMdZ88Ga+isgQekxQZYQaxKf65iVCeKDoZF2w/JO/t
-         AzETHsvchFXd20ugammQpkBx7ZeiY+QnSGU4VJ0HWFgHzLJsMj7IBRzjhJH1MA+8zE49
-         Vi0hb1MAeWBYT9Pfq6AQnJJuu02YlG9k0W+ipeVG9dF6f21mePSC9HNc2hukTN2POCa7
-         UNa81yms15zWe/TBVSIe75pi3TYN9NTp9baFvLSGi8iNL8GiPwrQ/CI/UawvYTxTogCB
-         eL4w==
+        d=oss.qualcomm.com; s=google; t=1795794934; x=1796399734; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xVU1rANS7TfJLD8ub6n90SmfGXHzQKgbOewXRdZKvjs=;
+        b=ADjgAKvCKK9pvqA7f2MTn3lBqDqlcfoDU95fkhrqQU3vy7GNnr1Gc4QjtTDYV0R/vP
+         mWLyRiwaC3JJp1jFpC3Cm3AdN8NoLwU4VGrvj9nxDHQvsxuOFBo81h+T6dNNkDTNW0cp
+         qLXNrcQ/88t7YKURzPkhV+yaf/RDpZP5cOio80SOkeVCnWl8Bo2oNadwgbuaPREk0GI9
+         yatF6hzEp5z+4JOqcFh+OMyCy3QQ3cYYxIRJ1hd2mmKYqfGeOcKgRjFgfxFtn8NLJc5J
+         gWbkAbAE0FXKpfgPv++I9dX+1CCSbdBL4U0kGeiaVouWEKpN9PXT7U9wUq+BOa9lEW3v
+         f1aQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795794932; x=1796399732;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aamHFFzwS0CuBXIurBQ2i5axgQPtqXRYIqnraY6fuvo=;
-        b=Bd+ZDeUpe+SqoxEl7XdfQT6ZhIIOoXuUyssIrf/v9vDgBhjfWLhqv388AFEnXdo89C
-         owTxdvvqkY3NXZ1lbT/nbz3hUDQJHQAKQidwSDWd3psRp+VmhBtMoOOJ2cgWDNk7BeKS
-         p8Bvvx2WUZMbIKxMqVQ966X3NGNpmtJoipKJmDZNmo6QRCNpW+GPjXJsgm4gaD/t23eb
-         qMkDbGMoxYNDMU31aPO5CPXDW+Wsx+jYB8lRgt0KvrUf+rKLDSAxKHA2k7gDFqao8xaO
-         jb1nfcDZwZfpYSLIDh+a/GEk5ycglwiseO7FCjjJHN9MH1VL79Tl2bHN5W0AusKHlXi4
-         ERvg==
-X-Forwarded-Encrypted: i=1; AL+hErFZRwnlvGFFuxvkNh5KRPoN0DnjvLzvx9TrqmWFa4S5hQ3gPm+MvmVEuZicBmiFOyTH4hh5vUPtoQmJ@vger.kernel.org
-X-Gm-Message-State: APuU4Z9e2CfyRWR66ruiuhz4nULU6oba8szRlslnvrHYVlsRLOgS3fqZ
-	kraRUvZEbqFado+ZvTEMo0MFV2gZvyCTredCXz9Fzyr/mVZmbi6vB1iiZfkWXIHtbM4=
-X-Gm-Gg: AZFdTZdnD9TYx+Cew9i4cpAF4iIIrV/BE0hLP0xPJX47ntON5mnQMw2HU/8dfdPg+WF
-	Wr1bBP5fpSAQY+2sPmI7xjb+eC1ulq8vfQVyFl4LyZi9jIrj2m905j4fz+VigLFfsk37CseduXr
-	hWR/b9LLZZA899qXBHkJ5EeZX68rchbjT6jn2f4PS7OFBnPvcotOIaoteFB1XNNEF49vXwBFWbw
-	+ciJNiWcl5HfAVy+g0WKwB8DGc/OXhJ6lK+pHjA3xkGymWI/L5hIBNRnaKjiTTYmL3gip62gCkE
-	ObMcWT0AMRrIXzs4SNh3kquJHI6bftWvSryEHJvXbXeCodhgYUYWj3DVzVe7QZWe51snaTyeUhw
-	aJfSRYX++Oosua61Qt/EwsZWGI8f7zjB5uLOyCeBZl/H+BgwzghqmbseLAvlioL9DFuiqdK0Z9i
-	e7xRmgB9pcQUfEYNtTfIpzbfOmIP7gr6ywUu+BuAZqhmqtXRIFP2umEQLCFZ2InMaK63FRs1x7u
-	f6wbPZQUPCprTVojmGN14VhZB4WHZIvKciWERyspLEDK93GmrTwMVFum8JoAZJwWIg4wbXtAEKv
-	JdY/IGiKW1QuWmKNZbqlMmXuXs3rzJ8jXP0XIwr2JvNe6eYr
-X-Received: by 2002:a05:6402:42d5:b0:6ba:b20f:60ef with SMTP id 4fb4d7f45d1cf-6bab20f6810mr13142715a12.14.1795794931858;
-        Fri, 27 Nov 2026 07:55:31 -0800 (PST)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba370fbf0esm11127032a12.23.2026.11.27.07.55.31
+        d=1e100.net; s=20260707; t=1795794934; x=1796399734;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xVU1rANS7TfJLD8ub6n90SmfGXHzQKgbOewXRdZKvjs=;
+        b=lEaq0XRRo9RCMksv4ap84xY9o1mPPJ8s4bbpKpSvrJw0GTczQZDAdjBbkyqDnlO3ed
+         h0Yf6bwMiCLcT0kocsi+FnDXVefP74KFRn5fNZqXptQW/VaMIp8/PBnZc8R02Ov1yKxU
+         CtNllp42/bK7tPi0tkssJXMjJld6pmpaF1hVH2RYI5wU4llyCQQXu7jQC4PXXDqXeIf2
+         SCexy8ROMKgVc5kJTVfOXGTo5O/+FfXTj9P3gITEOjdbKkpmL8sCk8us99FxwwJr2VyN
+         KGKSGGGAzdHFq2egXKOUmn0GWTmwlFb+CC2j6Ugf+pYdMWz2or9P2lVfICAElwnpYhVc
+         3ieg==
+X-Forwarded-Encrypted: i=1; AL+hErGDBsrFUuRikXqdJZJoa6eZ3xRirOs9mDFHHEgvcf3CWjB5NqeMuTu1ZU6l5k+Mxgp1+72bupFNDYC0@vger.kernel.org
+X-Gm-Message-State: APuU4Z+nipuUH6FuNMEYJ1Vg2QF4pX/gonNxruH4f3QmQs1JtKZpU+S0
+	EKOo2SjGHPT085PG8nKyrGRZ+I8cFCCbwOo+ssfbm2LKwSZLNPMAgfSaxOXa2fYakvDEkrasAy+
+	8vQtK6m1UBJIyrOJPNVSNaHTCVGPkMWdcWd2zbaC8i+PDpvZ7+Z5ocEBY5aS/WH2u
+X-Gm-Gg: AZFdTZd9bTDvrQaQ49OYimiC5zQmqSdUrXtXBhUkk5wbDDP2j3ZBGJ67RK2FsVlPqMO
+	XIP2Pt8RnnTZnNSFmgcJ556eIu91aZhYEBhej/c2PsaIAD8wO4cofdZadnIiEDBy8n7UyXmeE6G
+	6S+OJ6rUYjP5v4KXv4fj6YBh1vHve8ffwj4sSOGR6K0FT3ml1VDWkq3ZRVcp2KBcAisOHuvmD/F
+	gvkYoe7HuknU4XVNm0w+TSyixPH0pd6v5I7zyZl3PbKS4WehvryVAVuJsQiIjAwSVVzQafTKL6V
+	9R9xaY7JckuH6pcjQXcMlBm4ypF38HKL32T8ElMugxrcPHrrhaf6ALur3p70d+5UQwugcjItQ9H
+	/P/iEspvFEpPPTl/ug/k8gzebr7lEze8kxtKNU1CS0XjH41X1uW+UM/ysCu8hiD2F
+X-Received: by 2002:a05:620a:404b:b0:949:7c8e:1824 with SMTP id af79cd13be357-949ba95e5c3mr4741550485a.14.1795794934343;
+        Fri, 27 Nov 2026 07:55:34 -0800 (PST)
+X-Received: by 2002:a05:620a:404b:b0:949:7c8e:1824 with SMTP id af79cd13be357-949ba95e5c3mr4741544885a.14.1795794933890;
+        Fri, 27 Nov 2026 07:55:33 -0800 (PST)
+Received: from debian ([5.133.47.210])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab69bf6804sm47272636f8f.10.2026.11.27.07.55.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 07:55:31 -0800 (PST)
+        Fri, 27 Nov 2026 07:55:33 -0800 (PST)
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+To: andersson@kernel.org, konrad.dybcio@oss.qualcomm.com, abel.vesa@linaro.org,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Subject: [PATCH v2 0/7] arm64: qcom: enable WCD9378 headset and DisplayPort audio on Glymur boards
+Date: Fri, 27 Nov 2026 15:55:13 +0000
+Message-ID: <20261127155520.358909-1-srinivas.kandagatla@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,99 +119,94 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v11 1/2] dt-bindings: clock: Add gpio-enabled-clock
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Jyri Sarha <jsarha@ti.com>, 
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, Vyacheslav Yurkov <uvv.mail@gmail.com>, 
- Jerome Brunet <jbrunet@baylibre.com>
-In-Reply-To: <20261121-feature-clock-guard-v11-1-00c633a667a2@bruker.com>
-References: <20261121-feature-clock-guard-v11-0-00c633a667a2@bruker.com>
- <20261121-feature-clock-guard-v11-1-00c633a667a2@bruker.com>
-Date: Fri, 27 Nov 2026 16:55:28 +0100
-Message-Id: <179579492872.2809466.854994706444744625.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2274; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=EINX0tsXJyuIqPfhhtODzW0RYgk1o8pIb3kiWYxd32o=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDNmcyz9NeeSvuvxluoj/fc+eDxPTeFoyO7wUhVVepi4+E
- iT7z2V1RykLgxgXg6yYIksNd7X4O0mtL7Om69yGmcPKBDKEgYtTACZiWMTIcEhN6OOtXNeedfw7
- qyo8PxZ6pGjGTGJI0/pyNvvtxZeNrxgZ+u94BJycfCmGgS3E4NYx+V4240lqPgrX/p6K6+0tiE9
- iAAA=
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: BZG4GFJl-EMJu-up3H5T9oOD5ljYHKu7
+X-Authority-Analysis: v=2.4 cv=U5kHnuru c=1 sm=1 tr=0 ts=6b09a7f7 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=H8Vl9kw8bzbrLTmWWJQA:9 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDA2MyBTYWx0ZWRfX6OW6RKhpmnJq
+ VWF1C68if/lEBTQUA5LoQgDPcScTtiyxGEI2p6uqIZtAK7kdZIzgmYqnQEPK06GKl6V0EcpQiez
+ LfoqKmhN7deaLI8AYbzXR90KaORgenM=
+X-Proofpoint-GUID: BZG4GFJl-EMJu-up3H5T9oOD5ljYHKu7
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDA2MyBTYWx0ZWRfX4ceRy7sD1Jyg
+ Aq2zpXtVnZoyAXM8tGZReieqUEycMzvxQEVCFEIfcQbY0oetqyncVzwlXZGOPwi3l/b2KM9fQL/
+ O0gU+i1CpfKYoZlmPogISLfv7aPF+JY5eZ4D8M0i4QaTlXD3Y89eIqmu4kLxqas7WwyBkBq6gQT
+ mlOygs08NQhLV1Tsmd1/mbMmC9qAznWrPW97nb+SVVxgZbKoAd4OCeRCxoZ6Qn3GTCCbk+70ED7
+ 2XTpJf836Bk64FMcqLis1bR7p1uYS6zfwEjcJyp2oQmcKffuvAz37S3hyC4MBZ4Jm6tHe8lvsyx
+ b4nhpF5NNdssZSrGlbjZcDL4MzlJQiLxvExiQwodicsddYPyzMK6jB5vx4cfe+5LnhrmNrNs3sm
+ LGwooGWA5C9dbil/+0Z1STl4k4gsJATfIfYUAb/JeyTMOSh7Ag7lXMkgUiX0CmVANebAXwqOHdN
+ lsEygDFjOmpwMoMV6BQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-27_03,2026-11-27_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0 impostorscore=0
+ adultscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611270063
 
-> Some clocks are switched on and off by hardware outside software
-> control, which reports through a GPIO whether the clock is currently
-> running. Software cannot enable such a clock, but its consumers must
-> not use it before the GPIO indicates that it is running.
-> 
-> Add a binding for a clock that passes its parent clock through
-> unchanged and is considered enabled only while a GPIO signal is
-> asserted. The parent clock determines the rate. The status GPIO is
-> given by enabled-gpios, and poll-timeout-us bounds how long a consumer
-> waits for the clock to become available.
-> 
-> Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-> ---
-> Our use case: peripheral clocks generated by FPGA PLLs, with the
-> PLL-lock signals routed to GPIOs of the SoC.
-> ---
->  .../bindings/clock/gpio-enabled-clock.yaml         | 55 ++++++++++++++++++++++
->  1 file changed, 55 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/clock/gpio-enabled-clock.yaml b/Documentation/devicetree/bindings/clock/gpio-enabled-clock.yaml
-> new file mode 100644
-> index 000000000000..4861c87ae5e0
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/gpio-enabled-clock.yaml
-> @@ -0,0 +1,55 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/clock/gpio-enabled-clock.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: GPIO Enabled Clock
-> +
-> +maintainers:
-> +  - Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-> +
-> +properties:
-> +  compatible:
-> +    const: gpio-enabled-clock
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  "#clock-cells":
-> +    const: 0
-> +
-> +  clock-output-names:
-> +    maxItems: 1
-> +
-> +  enabled-gpios:
-> +    description: GPIO that indicates whether the clock is enabled or disabled.
-> +    maxItems: 1
-> +
-> +  poll-timeout-us:
-> +    description: Timeout in microseconds for waiting for a GPIO signal.
-> +    default: 10
-> +    minimum: 10
-> +    maximum: 1000
+Wire up the WCD9378 (Tambora) SDCA headset codec and the DisplayPort
+audio DAI links on three Glymur boards: the reference CRD, the
+Lenovo ThinkPad T14s Gen 7 (Mahua) and the ASUS Zenbook A16.
 
-Those limits are made up. I'm not sure they make sense for a generic device.
-It surely need a value, i'd prefer if it was required then.
+On all three boards swr2 is the SDCA primary and swr1 is a DATA-only
+multi-master dependent (lanes 2/3); playback and capture run through
+the LPASS RX/TX macros.  The WCD9378 SoundWire port-shaping arrays
+live on the SoC swr2 node in glymur.dtsi since every Glymur-based
+laptop uses the same codec wiring.
 
-I'll wait for the DT folks view on this before applying it
+Dependencies:
+ - SoundWire multi-master support and the WCD9378 SDCA codec are
+   already in linux-next.
+ - Glymur LPASS clock controllers (lpass_audiocc, lpasscc) and the
+   LPASSCC reset-controller DT binding are posted separately and
+   must be applied first:
+   https://lore.kernel.org/all/20261125131757.1163466-1-srinivas.kandagatla@oss.qualcomm.com/
+
+Changes in v2:
+ - Drop the dt-bindings/clock/qcom,glymur-lpasscc.h include and use
+   the raw reset indices (0) for swr1/swr2, so the series applies
+   cleanly without the LPASS clock header in hand.
+ - Rename wcd9378c unit-address codec@3,0 -> codec@0,3 on CRD, T14s
+   and Zenbook to match reg = <0 3> (link-id, instance-id).
+ - Reorder properties in the swr1/swr2 overrides and the wcd9378c
+   node: standard properties before qcom,* vendor properties,
+   pinctrl-0 before pinctrl-names.
+
+Layout:
+ 1/7 adds the Glymur SoC-level LPASS glue (RX/TX macros, LPASS
+     AUDIOCC and LPASSCC, swr1/swr2 controllers with the WCD9378
+     port-shaping arrays).
+ 2/7 enables WCD9378 headset on Glymur CRD.
+ 3/7 enables WCD9378 headset on Mahua T14s.
+ 4/7 adds DP0/DP1 audio DAI links on Glymur CRD.
+ 5/7 enables WCD9378 headset on ASUS Zenbook A16.
+ 6/7 adds DP0/DP1/DP2 audio DAI links on ASUS Zenbook A16.
+ 7/7 turns on the SDCA class driver and the WCD9378 codec in the
+     arm64 defconfig.
+
+Tested on CRD, T14s and A16.
+
+Srinivas Kandagatla (7):
+  arm64: dts: qcom: glymur: add LPASS macros and RX/TX SoundWire
+  arm64: dts: qcom: glymur-crd: enable WCD9378 headset codec
+  arm64: dts: qcom: mahua-t14s: enable WCD9378 headset codec
+  arm64: dts: qcom: glymur-crd: add DisplayPort audio DAI links
+  arm64: dts: qcom: glymur-asus-zenbook-a16: enable WCD9378 headset
+    codec
+  arm64: dts: qcom: glymur-asus-zenbook-a16: add DisplayPort audio DAI
+    links
+  arm64: defconfig: enable SDCA class driver and WCD9378 codec
+
+ .../qcom/glymur-asus-zenbook-a16-ux3607oa.dts | 139 +++++++++++++++++-
+ arch/arm64/boot/dts/qcom/glymur-crd.dtsi      | 116 ++++++++++++++-
+ arch/arm64/boot/dts/qcom/glymur.dtsi          |  98 ++++++++++++
+ .../mahua-lenovo-thinkpad-t14s-gen7-lcd.dts   |  84 ++++++++++-
+ arch/arm64/configs/defconfig                  |   3 +
+ 5 files changed, 437 insertions(+), 3 deletions(-)
 
 -- 
-Jerome
+2.53.0
 
