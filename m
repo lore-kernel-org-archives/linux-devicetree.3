@@ -1,55 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795792545;
-	b=R3i0x2IUBxbLQX2h+3RzWa456ZX1kNRiCioz412VyvLroqjmjJWFXhA2SmxR4Wmce94F
-	 kDJavOxXLcuNX0+ygDVKxGMW0woMdxl+pmAXsxNFQJHjtEfkki5VVU7cbW0MZQqf5oDn3
-	 0W6M/z6ZQIkxzx71y+KHPwBU1Fpd7SlEjojR0bWUr5xHQ2bOrpiISdT9XSybdrxpccoya
-	 RUczUtASbXI542Q/KCnahpydRuJqZCVUHGks2r347vV1baAOeRZpPXY5HTS8ItH4KPrYu
-	 1Tj2QILxSiq5y6G7/P297+xu2q7bTnfHQv6+n3W86FHorhRoJ7EQI/XLUpDUou1xlAQ==
+	t=1795792875;
+	b=zmhtjW86FXzId50Xk2e8DBTx+wrJRbx0/3dvqHr6M2JWKNnObtcGD0L3RAYe3Lto53xx
+	 9Oek53zXQjBwIHpEDmiQ0d1HP4ealIlcfbm3d4xqnLoNenzJUAAraBUycUAbzssF+LeGb
+	 x4M5RXaYov67xrDf4IvcHGdBdGXFk9MwLvU4sLpRz3rYYQiqHDdU116RF5uktMSPDeuGe
+	 jvPxHtdUKQSA10lKw+OoKrd2kRdqt3wCaPEEjvQC4ZS96x0WvOJDjXwFYoaIYjwF+u7Hb
+	 B5xhz0khGbnlhbIS64Ych1HD4PXDdsL+94CtggIoeuM9qsT55w62nZCBi+nhswpdXvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795792545;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:Cc:To:
-	 From:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=K/F58fTzeymXPtAhbnqmB/CVuNXYDU2P7HmmINGKBoo=;
-	b=Ct5ndEtR8ONA7DFC0joknpsrVAUo21/piKerpLVAR5RVMMF0tIfCQc4vIV6IaCtptu0r
-	 N7TDifMedMGYG74rznfVRrtK1riy3AEWZ+88FFQfNgec1xPO1TX1LOwWNXkIWVRwD5dsb
-	 hH624ymvpj45C8bp54OvmdMjTbR26GYouvWr23wi+we7ufNAQoURvFvaZwDPneah0G94l
-	 lkWzVxkYUryPTwV32DJQ7FMux7lZJd/ZzcqIbQ0lT8ZHDzVzOKOCQ0Xe16xhFlwekiKwa
-	 At5VcF4pnYe3C1Tc/LsfJtlMDpDDTlEBDszKeEQ/WREVSF1XSRIDSCyHjlqsQ7z1KIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795792875;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:Date:Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=i6mw9sdJNKc0bR6xeYzFhrtrP5H5/PZvSYQnf6nHX60=;
+	b=KPadZei+FDvlfx/FjAF6YQ4rtZ2BhzSy3/w6bE9nPMMzNL3MCF2cXsed19UK5UDJVnTG
+	 QxxnwjUSHZEO1luY0WZJ8p5zfP9IjB+n8WI8VfTgLDuTC4PGbrSVWq9A9C1tDo7U6jLg+
+	 iZqmV3gpkxdxAe21HuxDe0CdKoKmvSjdiCLU5X6ccDssQsJch5L4TxA6npfPOboTYJUuS
+	 kOtPvDGSLrh8SsF8oy8jhJkcwE4msVRevKWz3Xr+0b6gkzNQobsb2iayM6wY+wUq5GlVP
+	 c0DohsyiWAgP5OiYvtDK7YW8jZp9WhK1xL/TSW0Z6T31sHHo1MBDdHzHB0EjhXAKLbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=YITMaOzE;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=WgOMW7z6;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F527606A335;
-	Fri, 27 Nov 2026 15:15:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F527606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF0A606A31C;
+	Fri, 27 Nov 2026 15:21:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EF0A606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=YITMaOzE
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=WgOMW7z6
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 3183E4E417C5;
-	Fri, 27 Nov 2026 15:15:43 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 2F3D4C6223E;
+	Fri, 27 Nov 2026 15:21:21 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E81C86049C;
-	Fri, 27 Nov 2026 15:15:42 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 83EF011E90B55;
-	Fri, 27 Nov 2026 16:15:29 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 59A9B6049C;
+	Fri, 27 Nov 2026 15:21:12 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A220111E90BF7;
+	Fri, 27 Nov 2026 16:21:02 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795792537; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1795792870; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=K/F58fTzeymXPtAhbnqmB/CVuNXYDU2P7HmmINGKBoo=;
-	b=YITMaOzEHoFT8Vw3PeTkE4bw3pS1fynbk/EHTRHYCmd2eGK6trTuao71I+BwgclPKtBf2o
-	sXhYc+lTt7gkgm0WPbFiSBV3G0Yi0tjt3He5CnRIZzNZmZyaI81slENa8dMNr2AjL5nevD
-	C8NRIjLqsiFuBtaDTZxyYTIIu9YQObpVyxiT3YZKPkrVOI5YZDW5mB9CjxsCTITBcTKuz9
-	zj62EQanPs5MxrFTpq6InG1/a7X+xnrI936IdtvhfeYKAi6uyRM43waRUE/mI9BMw+KnMv
-	j9epb+hFf8w3sljp/duVbQHoFU6i/rULR5AuoYFV6VTl55jUK/wRkxaJBsgJ7Q==
+	bh=i6mw9sdJNKc0bR6xeYzFhrtrP5H5/PZvSYQnf6nHX60=;
+	b=WgOMW7z6/do/Zi5EXR/oDhIOSSEO+5LCxTfRQ3lwDO1YJaqa4aaS9ylzJVF42pURA4lJcC
+	WOKBUGefVLV/Dhnsaa6YT6koMcqYMlHLaJ/xNsO4SlDYbg8o15tfrnTa65pIn+dvmDpDy4
+	7wiM27MFSCZr3hrMTxGuaLZ7q0gOxCTt1Jb9TRHUnfIMjo5UobX6bm8uecdWps0W56Sv7Y
+	eeSxm6sFkOo1CmFfsiSvB0FDeoRa3Wf+L1fOcXEYu40SOgwhCclI98Usaz8djWUiz/Epj0
+	efiusozeU2fAGmI1E3F/9uShQJlVH9WlqnNwgMQbFd36HHOA6e6gPWtlpOgf2w==
+From: Gregory CLEMENT <gregory.clement@bootlin.com>
+To: Georgi Valkov <gvalkov@gmail.com>, briannorris@chromium.org,
+ johannes@sipsolutions.net, andrew@lunn.ch, krzk+dt@kernel.org
+Cc: francesco@dolcini.it, johannes.berg@intel.com, kees@kernel.org,
+ miriam.rachel.korenblit@intel.com, rongqianfeng@vivo.com,
+ wenst@chromium.org, rafael.beims@toradex.com, avraham.stern@intel.com,
+ error27@gmail.com, s.kerkmann@pengutronix.de,
+ sebastian.hesselbarth@gmail.com, robh@kernel.org, conor+dt@kernel.org,
+ Frank.Li@nxp.com, chunfan.chen@gmail.com, arend.vanspriel@broadcom.com,
+ peddolla.reddy@oss.qualcomm.com, linux-arm-kernel@lists.infradead.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, gvalkov@gmail.com
+Subject: Re: [PATCH v9 3/3] ARM: dts: armada: WRT3200ACM: add
+ marvell,invalid-reg-hint-in-rom
+In-Reply-To: <20260827175850.89395-3-gvalkov@gmail.com>
+References: <20260827175850.89395-1-gvalkov@gmail.com>
+ <20260827175850.89395-3-gvalkov@gmail.com>
+Date: Fri, 27 Nov 2026 16:21:01 +0100
+Message-ID: <87jyly1esi.fsf@BLaptop.bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,51 +77,83 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 27 Nov 2026 16:15:28 +0100
-Message-Id: <DN63BMGBI07A.1IC73REGZ7NXZ@bootlin.com>
-Subject: Re: [PATCH v13 0/5] Add support for i.MX94 DCIF
-Cc: <linux-clk@vger.kernel.org>, <imx@lists.linux.dev>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>
-To: "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>, "Abel Vesa"
- <abelvesa@kernel.org>, "Peng Fan" <peng.fan@nxp.com>, "Stephen Boyd"
- <sboyd@kernel.org>, "Brian Masney" <bmasney+clk@redhat.com>, "Jerome
- Brunet" <jbrunet+clk@baylibre.com>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer"
- <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
- <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Philipp
- Zabel" <p.zabel@pengutronix.de>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20261120-dcif-upstreaming-v13-0-966ac248773f@oss.nxp.com>
- <awmGCp4e2pgtxsqr@vm>
-In-Reply-To: <awmGCp4e2pgtxsqr@vm>
 X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri Nov 27, 2026 at 2:41 PM CET, Laurentiu Palcu wrote:
-> Hi Luca, Frank,
+Hello Georgi,
+
+> WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
+> from the mwifiex ROM, which conflicts with the platform regulatory
+> configuration on units sold outside the US market. For example:
+> - phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
+> - phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
+> - phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
 >
-> All patches in v13 now have review tags. Since we are approaching -rc6,
-> would it be possible to pick this up for 7.5?
+> When the system boots, it detects a conflict between the user selected
+> region and the radios, e.g. BG FR US, and applies extreme restrictions,
+> preventing phy0 from starting on any DFS channel. phy2 works.
 >
-> Luca: could you apply 1/5 and 2/5 to drm-misc-next?
+> Add node wifi@1 with a flag marvell,invalid-reg-hint-in-rom to the
+> WRT3200ACM device-tree, which signals mwifiex that its regulatory
+> hint from ROM conflicts with the platform and should be ignored, so the
+> platform regulatory domain can be used. This does not allow the user to
+> change the regulatory config of any radio. It only allows phy0 to start
+> and operate according to its certified configuration. All radios in
+> WRT3200ACM/WRT32x are locked to the hard-coded configuration for which
+> they are certified.
+>
+> On WRT3200ACM, the platform configuration is stored on the devinfo mtd3
+> partition, which is read-only: cert_region=3DEU modelNumber=3DWRT3200ACM-=
+EU
+>
+> The Linux kernel sources do not have support for WRT32x. An equivalent
+> patch for these routers has to be sent to OpenWrt.
+>
+> [1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
+> [2] https://github.com/openwrt/openwrt/issues/9956
 
-I plan to apply these next week. I ususally leave at least 1w after a patch
-is reviewed before applying it, in case someone has objections.
+the binding and the driver was merged, let's apply the dt now
 
-> Frank: could 3/5-5/5 go through i.MX tree?
+Applied on mvebu/dt
 
-Luca
+Thanks,
 
---
-Luca Ceresoli, Bootlin
+Gregory
+
+>
+> Signed-off-by: Georgi Valkov <gvalkov@gmail.com>
+> ---
+>  arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+>
+> diff --git a/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts b/arc=
+h/arm/boot/dts/marvell/armada-385-linksys-rango.dts
+> index 4ab45f294de2..2bf29981a031 100644
+> --- a/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts
+> +++ b/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts
+> @@ -165,6 +165,15 @@ &sdhci {
+>  	wp-inverted;
+>  	bus-width =3D <8>;
+>  	status =3D "okay";
+> +
+> +	#address-cells =3D <1>;
+> +	#size-cells =3D <0>;
+> +
+> +	wifi@1 {
+> +		compatible =3D "marvell,sd8897";
+> +		reg =3D <1>;
+> +		marvell,invalid-reg-hint-in-rom;
+> +	};
+>  };
+>=20=20
+>  &usb3_1_vbus {
+> --=20
+> 2.55.0
+>
+
+--=20
+Gr=C3=A9gory CLEMENT, Bootlin
 Embedded Linux and Kernel engineering
 https://bootlin.com
