@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795749804;
-	b=M9P10i8e4PbHL1lUAsOLnMbNSwI5fKSjEnbtFTY1c0qNnT0HC8/Hf5sjrMK37BocJDIO
-	 l0JCrkyQ5sri5PWuYsQsbakxIHEiXqVB3zsfArbDRwct6GXj6vwkcXNZZekueTlZrOW8I
-	 ENMf1JwWu9rf4NJedOd6rPZEeOlNgvM/1GsE6uVThCDKhaRyy2hbPqmy2OQOdCmQ+EHmg
-	 /8ALCvFa60/aA42yVHCr8Bxyyl3N4m4swKvfqd5Z9pkJRjOi0AkRFDmUOBOLfKOiAN2+F
-	 PLn67+KNKOAOrqVawosSKz282DdJ5jHGB5SkVGqFs4lq8YGVEbsOcfxzvBNNkN5gnlA==
+	t=1795749810;
+	b=gHCBbbSt59F7Ht+CyV7MU3dLr83duEWkByFBk1oJkVg1zB7esn9HHD7N+B1rnzYCD7a8
+	 GD7aqhbhIXw7Z411cnGzQLJ/stiwN5r+RU+s/GuS3aNkO+4grd1TFI9aw4OEHgTM2E5gM
+	 0nwTPbvbgd//0w+haLiO595eVf/ZAgSzKg4+lQhvRsDuSShuYTmbc8FUSDCV/XEEFbvpH
+	 +aLcX132fGFI3G9vGvh5qfRcakEDUIEwI9l+2k0220X4kytR3LGd1Pr9GMEdtR04i7IzG
+	 wVDMYCvy5jgQxdLrbhhTQ+GJa6CBtdv/ntls8yyaG+huEzB4ZBR7n9lDzQK0YX9TyZQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795749804;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=VUJ/fAr6VNMby11/vpzUa83loyeR1QjtR4arNWqG7FM=;
-	b=tBs75fNeUCr3S7t6Qc2t1ClORuSCH5Z9naLsY8x4RuoOKs0XvdXoc8xit0a/wy84vK9G
-	 F9LmPgEjTDfn9Xwd28k4Lum6DcoDNlxwidNvDPJAduVsbEZyX2N+bDmxaJWjGHflWhSUM
-	 rr5XiQXwhdh6cfNUTgbp8qUMSBjmsb0Iks6hQ8LjJUthk1e7viJJnIjX/z6dgurWQyuwj
-	 WdmSc8VWw8KyT4Ul2LWOEpj+yVeUbXnSAgWoGpv4XECR6MbHcaGxcDB+1Gkvskc5WpAeP
-	 KrDn5Pxn4lqvyHqWocmXjUd9p3pcfpyVREmsD5fWZJfVy7e+jxBnYxYd3Ttv+sJQJQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795749810;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=RLS/jgeLOKWzdwCj4pd6cH1OV040FEIUeXWjXTT8HNQ=;
+	b=vWr1u7YZt5ewV+sG37DIHqBsOQ3agAmFQ+n+Jhqw/rxqdNrM8LQniK96e8UWQYZQYjvd
+	 m2DovqBxY9NmbApqQ+JeYqgpEHQfHwx8juetJP5Ga3TXkm/TuYFSguUnsh514ezRcnIAF
+	 RvNx1UR8akgonpn3GT6YbbFcG2kXCBOhdoXxm/k6HBkQZuvjfwHVVfdu0+m3yQoLlkpmu
+	 Ot1XYusBuLDCeW4BCxYnzdVnmiT4VCuBQsoyskEXQIYhqGpcB5jrhITMSqt0+UXO3nx1z
+	 2ZtNuL+5fagMYJXM1U07xl+GMZWEklyTAgdsLFdEW/MGkUfDg3g0iyHefiU2M2drH0w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gLfM3rQ0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RaIZhvpo;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8340E606A31E;
-	Fri, 27 Nov 2026 03:23:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5FD606A326;
+	Fri, 27 Nov 2026 03:23:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gLfM3rQ0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RaIZhvpo
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795749804;
-	b=VIGBSejMOevpkGaFQpjjYNu9MYdLd0lZE07tsSDDywg3UseSkqK958AGXR9uxOB7slgt
-	 fjc3wuIY6nK9r6HZOgRWrkNMwSHf7xSAg0jeEmwzNn1U7ARMLqoBpH8EgSatEOEwiY1Nc
-	 Ze+HaTMO1mme9/GQigovYudC7Re7QzYWW3Xgm/JLcDVzaZkQusbL5uH7bjHLK8Q/o9Enh
-	 VWr/sJIMpJOwn6eSVGPKDmkwp8F1G/POfJiwOz7D+gNRglImTYq8XZwMy/NQtUU29U1RC
-	 r2ZHY6kNERCmEOMM4tq4eI2X4hLBMC9MnwfKp0I+xAv5R0vzUf2lTrnFinppEhDyJYQ==
+	t=1795749810;
+	b=PM4iAOxr3PBfe4Jff0F2/T8JEu8AUxAYQwBBwSppzCq75TCeQ90CRwDrAp/qLyX7gxRP
+	 Noi9lrX9+9WzmUk/7WV9NWsBIUgQldLnW2qi/SV7w7QwJ3X2HMCwVi3QgLHOj/k1cXHY/
+	 qTQmgWrtha3mqLtt0cVroTUGP8SwNX9nVveJ1y9N7TucaAPt98+IKFkSU7l4nV7IdPjNR
+	 wUIdK88ntxCXkGrFZdjtMYfnUQojRtPYpKBrOUkvAxi259yPZsmV8u3aJ83+5hdc82cxP
+	 SrRXJtR7RouyRifEJDEldenTZLv/vyu1HjKsgz0LsxdNkyswUSZEJkNeiLUaIyPEi+Q==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795749804;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=VUJ/fAr6VNMby11/vpzUa83loyeR1QjtR4arNWqG7FM=;
-	b=3S8bpreFaxUY/rRoEad0G5k8oh7923uVtQeqSsS0cUdvrGinrNwgq/HHlI4rXSrIvyM5
-	 W4AKmsvJK5eLfB/l26g77n03r4SbwXYHF4hTUaZODbAKM3BKomJRfAxgAmj5aodmJX59V
-	 3FS9zgnNes/hD8uqk1d905Gn4YxBZpQePbeInSajCZXATAZOSWPR5ZwpxjnvbES4MjdJp
-	 nXQWgAoGCENKJqTT4FfneUbXI2Xa0U7LL8b8uyPkxbJPS1ELG+gPwczeYgtVZC3iKG9LA
-	 Hl5oNSCe20Z+VPPfOK96heN6bzLTsjFLtWOKX8i7vWb+fHrox+lvF/hird8tyaJOv/A==
+	c=relaxed/relaxed; t=1795749810;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=RLS/jgeLOKWzdwCj4pd6cH1OV040FEIUeXWjXTT8HNQ=;
+	b=r2OzJwrIjHZuEgiJP4RmJ4vuv+07myvRSxHPZcIdkByVbmHAlW1ui3ifa9KDRMdlca9P
+	 /FH6Dj4lgHPwTRHvGe51ddeitqazYf5n650Hq/KvdC5u2xvrq02gvQxTadQf9hhAY1EVC
+	 hktoxlA4XQiiR8AYuTA1HxTMq+MilDZYGnTWX7aeXvIuFt2BfRxQutZuZFtThW6DMfp+V
+	 ibe23LwixD0OK4Pj8eIsWPPbrnrKc4GrkzlXKTtF4eQovw6bCXY9+Iq7U69KHLSyXYEKC
+	 AlR0+HITHGpKU+30l2cyKNMzWbFc8RJ7qtv+jDYaRGYbPlvh7ZeEi93UzyeKD3AqD2A==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 805171F000C1;
+	by smtp.kernel.org (Postfix) with ESMTPS id BFBA01F00897;
 	Fri, 27 Nov 2026 03:23:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795749804;
-	bh=VUJ/fAr6VNMby11/vpzUa83loyeR1QjtR4arNWqG7FM=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=gLfM3rQ0Gt2B+gCgKaBZifRjqJ6/IuRAAZKZVVN5JQuJYgAdcxy6wW56j8eHtiCsT
-	 hmzvrHcfGEb1UwJp0oHVp97FBoDeose7gXk/m7FThL2EAWziSCDeAuIMBvbehDkG6M
-	 ZPqzumIR5JkzoMDXwpRpHmPf2LHtsSFoGdyZycnODW+npGTjBV7pWN4HogKsUotKl9
-	 kBlV5UzJPpNOwHzq2P+axgwPmAdGKQU7ln6jY0EbVwzQiWeOtQxi6Mi/KsRRuHG8ah
-	 VTBw2MXGavPB/z6cvxfM+LYKdpFgjurqogK84tx/vsHk/yOfdxWiWsty4WYmIK+NCH
-	 dxpoS5BGhqgmg==
+	s=k20260515; t=1795749810;
+	bh=RLS/jgeLOKWzdwCj4pd6cH1OV040FEIUeXWjXTT8HNQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=RaIZhvpoTxdW8irFDXO3oJ1TfONAc4Rb1Q7oUOWiH+GxoI9AFzR/1uBoplThrH1H+
+	 77Ry1J0HClx+2uXqtDbqkMxRh641xH8KNtKp0jyobx9vtsuE9NY3NLDY9821NwabaQ
+	 MINZZhz+3dsemjfgZVeMjalGC9fArIhvZ8COjWj/JyW/Xy0WTnksiGc36/pcS6I7Zc
+	 teOmB3HBWluUwVnzBjqPhOk3QU6St9iw6G1YkQdSwnQg37Igs7fmrkjyNyqJo5635Z
+	 aJREe1KJJMyi+KZh9MOdOgjvJf5gpAc69f1qDhmdlswd3CKfBMEtd0jpoKrxtC18k5
+	 wGPNjBMwXAsVw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id F088D4B526;
-	Fri, 27 Nov 2026 03:23:21 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 496154B539;
+	Fri, 27 Nov 2026 03:23:22 +0000 (UTC)
 From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Subject: [PATCH v4 0/2] ir: support IR for Amlogic A9 SoC
-Date: Fri, 27 Nov 2026 03:21:53 +0000
-Message-Id: <20261127-a9-ir-v4-0-820209515755@amlogic.com>
+Date: Fri, 27 Nov 2026 03:21:55 +0000
+Subject: [PATCH v4 2/2] arm64: dts: amlogic: a9: Add IR controller support
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,12 +83,9 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAFH3CGsC/2XMSw7CIBSF4a00jMXwKhRH7sM4wFtoSWwxYIim6
- d6lTRpfw3Nzv39CyUZvEzpUE4o2++TDWIbYVQh6M3YW+7ZsxAiTRBGJjcY+Yl4Ld2FaWUUlKr+
- 3aJ1/rJ3Tuezep3uIzzWb6XL9LWSKCRaONAxMY4yjRzNcQ+dhD2FASyOzT6c3xxbHgNFWGekc/
- Dv+dprwzfHioBWKgpQKaP3t5nl+AV/U+8EMAQAA
-X-Change-ID: 20260706-a9-ir-354fb297e716
+Message-Id: <20261127-a9-ir-v4-2-820209515755@amlogic.com>
+References: <20261127-a9-ir-v4-0-820209515755@amlogic.com>
+In-Reply-To: <20261127-a9-ir-v4-0-820209515755@amlogic.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
@@ -98,53 +94,84 @@ To: Mauro Carvalho Chehab <mchehab@kernel.org>,
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>
 Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ linux-kernel@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795749801; l=1248;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795749801; l=2083;
  i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=lP8dWaYvlkNxblzfl6GBLSnU86I9FtR51w4nRbCwyHs=;
- b=7O/Thlf1yZqCmYAoCt8dVr+68VqOGpwmlPoslKIKPvqmHSD2PQ9Ks05h/iy7RTv+nLPhZ8fmm
- JrsbGrZIV5mDopbKbGX8jXDRwcuDuzfSeUlkq3hctZsuAD13vT9KfQa
+ bh=uVqKmngtre8D85X97L1agM7jjiKqs/7e0xWwzs/gfjw=;
+ b=+K2T/dxU12IDjRPhCyp4FqTfeEDcnFtAUxerdexWmDb4MIDSeHGdG2izoVSN4EDXDT5OIQRmP
+ vFABSKbAIfNCQvN6hqw7jZUo02idScACEfSeXklb/qrz4tZsbMBBEpj
 X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
  pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
 X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
  auth_id=578
 X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 Reply-To: xianwei.zhao@amlogic.com
+Content-Transfer-Encoding: 7bit
 
-Document the Amlogic A9 IR controller compatible string and
-add the IR controller node for the Amlogic A9 SoC.
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
+Add the IR controller node for the Amlogic A9 SoC and describe the
+corresponding remote input pin configuration.
+
+Enable the IR controller on the Amlogic A9 A311Y3 BY401 board with the
+proper pinctrl setting.
+
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
 ---
-Changes in v4:
-- Add Neil Armstrong's Reviewed-by tag.
-- Link to v3: https://lore.kernel.org/r/20260903-a9-ir-v3-0-cd471c667c15@amlogic.com
+ arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts |  6 ++++++
+ arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi             | 14 ++++++++++++++
+ 2 files changed, 20 insertions(+)
 
-Changes in v3:
-- Align the node of group-remote-input-ao-pins.
-- Link to v2: https://lore.kernel.org/r/20260709-a9-ir-v2-0-42c21d7a6ffc@amlogic.com
+diff --git a/arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts b/arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts
+index a6b380ca47a5..389c9de3dc3c 100644
+--- a/arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts
++++ b/arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts
+@@ -38,3 +38,9 @@ secmon_reserved: secmon@5000000 {
+ &uart_b {
+ 	status = "okay";
+ };
++
++&ir {
++	status = "okay";
++	pinctrl-0 = <&remote_input_ao_pins>;
++	pinctrl-names = "default";
++};
+diff --git a/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
+index 91f4cf319b0d..b1766ea57c2a 100644
+--- a/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
++++ b/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
+@@ -246,6 +246,13 @@ test_n: gpio@c0 {
+ 					#gpio-cells = <2>;
+ 					gpio-ranges = <&aobus_pinctrl 0 (AMLOGIC_GPIO_TEST_N<<8) 1>;
+ 				};
++
++				func-ir-in {
++					remote_input_ao_pins: group-remote-input-ao-pins {
++						pinmux = <AML_PINMUX(AMLOGIC_GPIO_D, 5, 1)>;
++						bias-disable;
++					};
++				};
+ 			};
+ 
+ 			gpio_ao_intc: interrupt-controller@4080 {
+@@ -259,6 +266,13 @@ gpio_ao_intc: interrupt-controller@4080 {
+ 					394 395 396 397 398 399 400 401 402 403>;
+ 			};
+ 
++			ir: ir@14080 {
++				compatible = "amlogic,a9-ir", "amlogic,meson-s4-ir";
++				reg = <0x0 0x14080 0x0 0x30>;
++				interrupts = <GIC_SPI 413 IRQ_TYPE_EDGE_RISING>;
++				status = "disabled";
++			};
++
+ 			uart_b: serial@1e000 {
+ 				compatible = "amlogic,a9-uart",
+ 					     "amlogic,meson-s4-uart";
 
-Changes in v2:
-- Rename the IR input pinctrl group and its phandle from remote_pins to remote_input_ao_pins.
-- Link to v1: https://lore.kernel.org/r/20260706-a9-ir-v1-0-4f082ca8aaf1@amlogic.com
-
----
-Xianwei Zhao (2):
-      dt-bindings: media: meson6-ir: Add Amlogic A9 IR compatible
-      arm64: dts: amlogic: a9: Add IR controller support
-
- .../devicetree/bindings/media/amlogic,meson6-ir.yaml       |  4 ++++
- arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts    |  6 ++++++
- arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi                | 14 ++++++++++++++
- 3 files changed, 24 insertions(+)
----
-base-commit: 807a34cf91c1d91f2beb3cacef9eaa98bd56d172
-change-id: 20260706-a9-ir-354fb297e716
-
-Best regards,
 -- 
-Xianwei Zhao <xianwei.zhao@amlogic.com>
+2.52.0
 
 
