@@ -1,79 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795784035;
-	b=ytSmH0RfdOu2ZtVQZttqrgeZkc7G/Qfhkv/jrNBj8rsX1TJ8l/1A+Nys3QHv3oApJSU4
-	 eY1zGc4h2k+ROh0XArB8B3lRR8TnSVUWbbQvUrXmNsnxqgMDLV1C5bXHlyTORW+s6GVhX
-	 41o2KRYZkX9GZZjX00o0AklAHLW6+X8LiZTdw7+7TXwW7JW9O4yDQIHnNDp5Ew4iy8yAt
-	 kFP9PJD9SPeYGSSCpggDkAOHLynt4KjXu59DTSevBGpJOMoh6AlDrTS0GkC/xKeH8+GyP
-	 FDnG9JxQFYgJXlSKs2F3eBI84Dg/wwT4M5iLv+3KhvpQMwKFSrRsXYFdoZuh12GoJrA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795784035;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=jNPW/Pg0JpLswGfcRTLclR+xYs8LeJ8SC8w+XDaMugA=;
-	b=Nzl4lysMZM6Zpz7R8lTj6nKBAg5UUXGn3TPhUXf6xx5V4ytbCw0g1u8S9JkZqC9esA9Y
-	 TIpg4HQS6s7/nBGhSDbWEk3i6R1CW/1ZO80zvPIeYZ3KGws3CDayUWVIYkXyd57ZdehE/
-	 UnPWvLQbpFjAEmUx3SoFEbHdKtHc4t7L3vNOQh4vEwN9G2DtBRWiLJgxiHkkO1gk331v2
-	 ISs0GC6Ms0QUNaN8Eg2McUaoemzZqsFeNQPofH9g8zRK+OT/KDbyApBCmhyrYy3gZf+HC
-	 erHVVXJ9b3bb+Pi95lz7Wz1IVtRcO1fyYBJajd0gHtMAYlKO0rsZJJQzqMrEDW9DXxQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SSVWwg7z;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D85DB606A698;
-	Fri, 27 Nov 2026 12:53:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SSVWwg7z
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795784035;
-	b=U3SbJhjHMlaPwjdfye9YLBKsC6lZ/JIj3H0KltIK7twEfxWR95AllUMkf+4EEGmjgmH2
-	 jws6fw8+b8oVR8YOitgHhiYHulR5fFCwZWnq5DoZ6hNXf1osz6fvG8JRnx0o4v99QNYnB
-	 B60fYWie7T6K3WMp5RnGiKtaDdACQoqOQM+63LUl0QESHrtNlGCCLE/fkBfpuzYG3rj5Y
-	 lKHpAq4KQyN7FwIlJS8qksYG6FhgNf+oZXtWk9GMo81IaKThel8oJ7zonMNUzhWXFB/94
-	 u82UgGTZcLPPdLBtg/09eOE2v6ctytBvnzyBJErD9o3LFPn/4SPDmFiRbWLOryGzyQw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795784035;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=jNPW/Pg0JpLswGfcRTLclR+xYs8LeJ8SC8w+XDaMugA=;
-	b=HvOFH5kiYiC9bCABfom2DMhEsaVhuZeOKEf/UF6rlN1OvJc/n54FcvzmsdTSucf9No3D
-	 aaUGyyBG/xWxrb/HEG2utxqUE+LlzT7/vQSaX7eqQn5/bglPvhQFuADHSDXaQYj7VQFis
-	 WT6RJKXz7rEJW7l+MnlnESlAkT2Yf3LnJgShzFBvH7tQhcUEWkGfQv8PXi7pYeqsUD9UO
-	 IxZlz71wjpoQOJs4BpiCnsk9DSDyw0ZVGvQ5q/0lI9cRakjgnHPHcpz5Bk5dO56JpzXM2
-	 spVtozYTEzepWRjUvluh/0UXQQNWOWEHwZmxOLQueLPfy14HmKAUkPeBqP8Y3ZqDSIQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795784083;
+	b=JHpQ4pMIwIzNbuhfYpDz7DZqYydFjRNZ/ramDErZx/wphsz2LGboAC6aJT7QLhtsItjl
+	 B5iNS7yyMMpmahGKfEyUtP5tyGoEng5NfCsy1ldosUEGXtrUS12Z7x83bSO2anBHUyCWz
+	 +YUq3NOC+kkr89gBIYjC37Tg/uWarBei7b2eU4ObEayhVuwdm8eplGOPf6nb+6PLRpBw9
+	 8Q1SeVwObisrPVMKVLdB+p6nL7mURVe0upBPEhVHdMqtpIq7Y7EC3bZ1RxvnXIupQsIKx
+	 7RGfIiJxo9511bmM4nSy4XcHJpxSQaE4nnZhao502kQQLPtZ9nWNvFf5B26wVBcUpeA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795784083;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=qyG7mz1+iqRSmDE+0/L6t1wuS6VVHsnCtrQ54KSfWOo=;
+	b=f2PqqalNDP70VzkjEnGGvLksXifEZXlkGDWh30k0hmXa3tCXAPbe708O2u3TvDhv2z55
+	 PqHriRq01yS3jLyDJjkJB03LWOBpNlPxEfYPWaycQ8l2A7md0Az0Vdd9Z4V9ewWsgwbJ2
+	 OdllFoHGeRHoTckXinHIEe5q/MH8MPB5QEaopFVZJKHhLICpbox3HqmcvyKV/9RNnpBzF
+	 rBgXg9+f1a8N2Mb0B0qNKS3RWxwAosNkWEpfee2sAeKvFcW1r1spUjqPGl+CELZYxb1TF
+	 wxlhsNAM/CweQCjvNNa4haCtGr1u+9mBhlQXsMEvmvFoP65expu35iY2DZ4vrJvNRNg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="PIz1R/Qh";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="X/RJQl35";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4702D1F00897;
-	Fri, 27 Nov 2026 12:53:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795784035;
-	bh=jNPW/Pg0JpLswGfcRTLclR+xYs8LeJ8SC8w+XDaMugA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=SSVWwg7zocvsz3XbGX9HmYewyBy5TBnwBR8I2wDNVAHoailOuWWlGj+YwMI/SuJe+
-	 QcapfLNGIbJxIIYgWTU46ulw5/s7TeTxFTstPLutJI4qyaBxLA/NlTKRIqnhOUSLbF
-	 jWxPGogVt0dqPRWI2L2mufs0kZO1skglYHg38az1LSsfYdNYNOVsXEX1pjX1rM0BpW
-	 fpzpSEZjIkTK55cKtas8NpN0BDCW7yV0wTI3jqGaUeofwmo0jbxkS8685NMraf0k++
-	 nGEFu7OrMhutzpaLgkWpOLCUiBBh0GEBLR0J6XwShH/2jIxvmvKtWdBRZk4oRDDCPJ
-	 sp//XZUjj5uTg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id CA98D4B7A9;
-	Fri, 27 Nov 2026 12:53:44 +0000 (UTC)
-From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Fri, 27 Nov 2026 15:53:44 +0300
-Subject: [PATCH net-next v4 1/3] dt-bindings: net: Add Cortina CS7542
- network engine
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC74606A336
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 12:54:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AC74606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PIz1R/Qh;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=X/RJQl35
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ARChFiq1803134
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 12:54:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	qyG7mz1+iqRSmDE+0/L6t1wuS6VVHsnCtrQ54KSfWOo=; b=PIz1R/QhdUpCx97W
+	tWM0/xr0ThcMO0YawZmNyMiHAyWJ/hBs5RDKuyLd8tkeQ7h4VbaqSsPs/sYmaSg3
+	o2IFqUo5zOfS6w93MD3YB10yItDy7rejlWYWPARD/2o13K5dGoT+WATdk4wTHCRE
+	SNeZfImpSbrUR2rg5UIZbyczLM8/N5Q26ZJTGY4s2VVaPE//3qaOSSFcD+xYnyht
+	r+aInWF4BQw3KbHtC7a9NQiWO8/t3MgYvSN3i9HrzmTix1iW4hIRiKdi4QgmvVS4
+	enCbsYffVPiHwa0tCDNXtigGVGMJnrgDr7iHVQlzmZVt+2yLXHd89FFHA+R+SmX2
+	/v5/Ew==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j6u55u11b-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 12:54:41 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5eae4d7ebd2so296799e0c.1
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 04:54:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795784081; x=1796388881; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qyG7mz1+iqRSmDE+0/L6t1wuS6VVHsnCtrQ54KSfWOo=;
+        b=X/RJQl35OwXkpBuFVpiHbXoujn4OxURb244259C3upSvs+Kyb6up2BIgvRdaWjv/vs
+         trrv6UHlc+xzYKBdRiCUwXDY2WfSasI66D0hVKLHMtgVe9MsNZtARLPpSEO3SSwl46VR
+         lngISoaEjIqT1wodpCXnbX+uLzc+SyMop42tZm+9dMlYXeeNI4RMPEyO0FG4aRdNwXU3
+         zxPLPvv8RlFeghWKTm7KoSS65Lsf1HYqN4jAItRYerIMgm6Xvlt3NtVxqrvTq4Cavuqj
+         S7AMiYUxH5pza1X4uRNNfrlefwq2bfM66X4roc3zlUeJuwIE56SnfNR+NEKHSfudBhH2
+         uDwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795784081; x=1796388881;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qyG7mz1+iqRSmDE+0/L6t1wuS6VVHsnCtrQ54KSfWOo=;
+        b=PkYU0OIdLZQ5OEWatLmTUq5pnmvQcJUgt7R1+fY68C/EY/O9gHVal0ilA7CF1oIVwf
+         tau7n1tntVtQGDdvTF63VFZoEck5mX3wat6R7EZL3zL3FpczHJWSqMXcy2SPopg4/PMJ
+         FrOjsQZYwMn20R2DeI5GTvuAR21xCAV8Vbb2WIC3Fphl+KtMZDYiDnlftdzHnEmCASN3
+         zWK+Ww5qYSMa4oB28Ag+f+TbabTXfO9iCrocuXhMDQBZqkM6pokMsP+VdjfYpkyrs32S
+         9rU+eyM/qAWUhAkCJ+t7wZ8sgxB8rrCNINs3iqlnNx02cL9i4rZJjKAfWL4sCcgjOVAk
+         9GNw==
+X-Forwarded-Encrypted: i=1; AL+hErFob9JdTrQ6WiOSgH03SgRBWG0FUjhKuQNsQRUBX+GicJ8VG2xriL0XbMEijafpdWHh5TH05ecSP1UB@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Q4FQT62n1gLlnoq8cj5nMDB3BGsTGh+pX6krija0lWtld6c8N
+	DQgva5ttcOGQgHcpgxUD/kfssM4UyF4NwVqu2VEQJGSOCJRZbo0mGYpU1J/Yew71ozxZH5oTJl4
+	3em1/GCmkj9Q+ebfzf3iLT+yYDFLeAisuihQXAdpYAESjG1MEIpU9+C4+9rJGyiP/
+X-Gm-Gg: AZFdTZf2Uy5+gSw3C1ArFWQq3MYGEVyvWSiSUaJrO+hd8qnqGGO4JLIMYIYWAsfJd1J
+	GFAKzEgvcNaPuabuM80VZxDqEf7ydQwT5o0rWv5jJwGtFlG6EH+4s+YX2l6diB9+BuUqhAwrFcQ
+	S3h/ucSkbCwQF7Pb31RwIfUwZxYcnrn8HM7/JDVoNAiIkFyKY1qpsKhj6wFNz863HTNtI+5zNCa
+	Sj9r2hwlLKGBJvefQa90pwfnH2G47MZA2GFaavngAQGsRj3BGwXwyGPLrvv51+5hHL1RWOamo3h
+	DoKdTxBfP5nIKxE0ZamFOCgWWaHsgT0Qp0J/WAAYm9d86KU1CjRfu7pJAlnpcJooI6INzKp1UjJ
+	J9JHItcw3srhbaG5v9VQaqjdRnQBLbR+H8ws0vW2BdBK70aGbcZKGBKl1KebmAFFoCN3pMr8=
+X-Received: by 2002:ac5:cd3b:0:b0:5ec:e2a2:b70e with SMTP id 71dfb90a1353d-5ee8af4a71fmr16430676e0c.4.1795784080745;
+        Fri, 27 Nov 2026 04:54:40 -0800 (PST)
+X-Received: by 2002:ac5:cd3b:0:b0:5ec:e2a2:b70e with SMTP id 71dfb90a1353d-5ee8af4a71fmr16430642e0c.4.1795784080301;
+        Fri, 27 Nov 2026 04:54:40 -0800 (PST)
+Received: from [192.168.226.72] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba371072f6sm11126122a12.28.2026.11.27.04.54.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 27 Nov 2026 04:54:39 -0800 (PST)
+Message-ID: <bebd75e6-3d67-4f1f-8909-f7a9786ce3d6@oss.qualcomm.com>
+Date: Fri, 27 Nov 2026 13:54:36 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,221 +115,72 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261127-b4-cs7542-ethernet-v4-1-ea4d8cd6ef18@gmail.com>
-References: <20261127-b4-cs7542-ethernet-v4-0-ea4d8cd6ef18@gmail.com>
-In-Reply-To: <20261127-b4-cs7542-ethernet-v4-0-ea4d8cd6ef18@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
- "David S. Miller" <davem@davemloft.net>, 
- Hans Ulli Kroll <ulli.kroll@googlemail.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Russell King <linux@armlinux.org.uk>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
- Hans Ulli Kroll <ulli.kroll@googlemail.com>, 
- Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795784023; l=5895;
- i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=gW8wVv5EV4Zs86pnqMUV410Pvkh5hZkkf0TYPGZzyKQ=;
- b=rydaq6M37exzwTMABHibeNXrQCRh+Ws4WtRNELtWTCKMia89Dt/dgQe8nYkGQdnqN/+Fz5nek
- ddpd3QcgfUaDVUL1a55HHYySFlgTeqkMkRICXw+fxbhR5nnJnxXlE5q
-X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
- pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
-X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
- auth_id=1085
-X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
-Reply-To: filipp.dunsky@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] arm64: dts: qcom: sm8750-mtp: Set sufficient voltage
+ for panel nt37801
+To: Arpit Saini <arpit.saini@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Linus Walleij <linusw@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        mahadevan.p@oss.qualcomm.com, rajeevny@qti.qualcomm.com,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Ayushi Makhija <ayushi.makhija@oss.qualcomm.com>
+References: <20261117-resend-upstream-attention-v4-1-3f11ab312d2f@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261117-resend-upstream-attention-v4-1-3f11ab312d2f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDA1MSBTYWx0ZWRfX7y6LH0CFc4K3
+ xMGkgQX7WKGDEzD2AzUPYSEt7LI75qzLTGxDhgbEJk0CyTYwFbwwbWf5BD0arzybJUBOpOr5BYA
+ U/yqzKc8vQteJCAMT59U9x6p5PzlrYQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDA1MSBTYWx0ZWRfX+tf/RDVjDqbX
+ jBK11shwOf+wpW+139v5IKtkz2REuwuCEFILdcHXOukL+5Wc0QmBiDKeAWiFMLe3NDUNUWUs2kG
+ u+5NodeBtXWvZZTeNJL7oWFZzQkRlEwoy3ihT9TVf/8jAFl8JFG08ePkZBD+3QfbMCQ+B45frSG
+ dRzGOcsRqHA0dugPKsIxHG+30/7icBCcP0nT01PrdDh81rakrB3mm/OWaSK5RZLWfVacNjHi8h2
+ qahjOtcNddPbxLkuEOJ+bQwnDL2B+altdueafXUREEILMsoSGzne+p8bC11N0tn5ckeRz98ZLtM
+ Vhb5EuRdKg8p2GXj1f2lAxQ0irEotHDUx1o4nYQ8Ic5mRgS0pMN/gfS/RoDJQ2Tal/W/Ou/D/Ye
+ YPkopdcyNpkHiJoBtjn4Dja7qf6JcEYDnyAvHoPgOqTHxUIlHAf55bPoXD77uIjS8y0rry1kUKv
+ ruW+qWrWSVRHY+Asu1Q==
+X-Proofpoint-ORIG-GUID: IRXoocgVkhwDNPwcX6FCY8pP2ZrWhXW_
+X-Authority-Analysis: v=2.4 cv=Z795j3RA c=1 sm=1 tr=0 ts=6b097d91 cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=MsdpSpnpVP8ozw9Nrd0A:9 a=QEXdDO2ut3YA:10
+ a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-GUID: IRXoocgVkhwDNPwcX6FCY8pP2ZrWhXW_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-27_02,2026-11-27_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 malwarescore=0 clxscore=1015 priorityscore=1501
+ adultscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611270051
 
-From: Fil Dunsky <filipp.dunsky@gmail.com>
+On 11/17/26 6:54 AM, Arpit Saini wrote:
+> From: Ayushi Makhija <ayushi.makhija@oss.qualcomm.com>
+> 
+> The NT37801 Spec V1.0 chapter "5.7.1 Power On Sequence" states
+> VDDI=1.65V~1.95V, so set sufficient voltage for panel nt37801.
+> 
+> While 1.65V is within the range accepted by the panel, the power grid
+> documentation specifies L12B as a 1.8V rail, so set the minimum to 1.8V
+> to match what the hardware is expected to use.
+> 
+> Fixes: 4fca6849864d ("drm/panel: Add Novatek NT37801 panel driver")
+> Signed-off-by: Ayushi Makhija <ayushi.makhija@oss.qualcomm.com>
+> Co-developed-by: Arpit Saini <arpit.saini@oss.qualcomm.com>
+> Signed-off-by: Arpit Saini <arpit.saini@oss.qualcomm.com>
+> ---
 
-Describe the CS7542 network engine register windows, interrupts, GMACs
-and reserved queue-manager memory. Require exclusive ownership of the
-seven NI/FE/TM/SCH/QM/DMA/NI-XRAM reset controls from the global provider.
-The shared DMA line includes both LSO and SSP. Use rgmii-id for the
-example switch peer which inserts RX and TX clock delays.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
----
- .../bindings/net/cortina,cs7542-ethernet.yaml      | 162 +++++++++++++++++++++
- 1 file changed, 162 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/net/cortina,cs7542-ethernet.yaml b/Documentation/devicetree/bindings/net/cortina,cs7542-ethernet.yaml
-new file mode 100644
-index 000000000..c5ba9b30e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/cortina,cs7542-ethernet.yaml
-@@ -0,0 +1,162 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/cortina,cs7542-ethernet.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Cortina Systems CS7542 network engine
-+
-+maintainers:
-+  - Fil Dunsky <filipp.dunsky@gmail.com>
-+
-+description: |
-+  The CS7542 network engine contains three GMACs, the network interface (NI),
-+  forwarding engine (FE), queue manager (QM), traffic manager (TM), scheduler,
-+  CPU XRAM interface and packet DMA. The CPU datapath uses the DMA-LSO TX
-+  queue and QM-managed RX buffers. The complete DMA-LSO/SSP register block
-+  and the combined reset domain must be exclusively owned by this device;
-+  a separate SSP DMA consumer cannot operate concurrently. A NAND controller
-+  using PIO does not consume that DMA block.
-+  The three GMAC station addresses share their first five bytes in NI
-+  registers; only the last byte is independent for each port.
-+
-+properties:
-+  compatible:
-+    const: cortina,cs7542-ethernet
-+
-+  reg:
-+    items:
-+      - description: NI registers
-+      - description: Complete DMA-LSO and DMA-SSP registers
-+      - description: FE registers and indirect table interfaces
-+      - description: QM registers
-+      - description: TM registers
-+      - description: Scheduler registers
-+      - description: CPU XRAM
-+
-+  reg-names:
-+    items:
-+      - const: ni
-+      - const: dma
-+      - const: fe
-+      - const: qm
-+      - const: tm
-+      - const: sch
-+      - const: xram
-+
-+  interrupts:
-+    items:
-+      - description: GMAC0 CPU receive queue interrupt
-+      - description: GMAC1 CPU receive queue interrupt
-+      - description: GMAC2 CPU receive queue interrupt
-+
-+  interrupt-names:
-+    items:
-+      - const: eth0
-+      - const: eth1
-+      - const: eth2
-+
-+  cortina,global-syscon:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: Global control syscon for network drive strength and status.
-+
-+  resets:
-+    items:
-+      - description: Network interface reset.
-+      - description: Forwarding engine reset.
-+      - description: Traffic manager reset.
-+      - description: Scheduler reset.
-+      - description: Queue manager reset.
-+      - description: Shared DMA-LSO/SSP reset, exclusively owned by this consumer.
-+      - description: Network interface XRAM reset.
-+
-+  reset-names:
-+    items:
-+      - const: ni
-+      - const: fe
-+      - const: tm
-+      - const: sch
-+      - const: qm
-+      - const: dma
-+      - const: xram
-+
-+  memory-region:
-+    maxItems: 1
-+    description: |
-+      Reserved no-map DDR region used by the packet queue manager. Initial
-+      support uses the upper 64 MiB of the 512 MiB DDR layout at 0x1c000000.
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 0
-+
-+patternProperties:
-+  "^ethernet-port@[0-2]$":
-+    type: object
-+    $ref: ethernet-controller.yaml#
-+    unevaluatedProperties: false
-+    properties:
-+      reg:
-+        maxItems: 1
-+      phy-mode:
-+        enum: [rgmii, rgmii-id, rgmii-rxid, rgmii-txid]
-+    required:
-+      - reg
-+      - phy-mode
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - interrupts
-+  - interrupt-names
-+  - cortina,global-syscon
-+  - resets
-+  - reset-names
-+  - memory-region
-+  - "#address-cells"
-+  - "#size-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/reset/cortina,cs7542-reset.h>
-+
-+    ethernet@f0010000 {
-+        compatible = "cortina,cs7542-ethernet";
-+        reg = <0xf0010000 0x500>, <0xf0090000 0x800>,
-+              <0xf0020000 0x4000>, <0xf0030000 0x400>,
-+              <0xf0040000 0x800>, <0xf0060000 0x100>,
-+              <0xf0400000 0x100000>;
-+        reg-names = "ni", "dma", "fe", "qm", "tm", "sch", "xram";
-+        interrupts = <GIC_SPI 37 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 38 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 39 IRQ_TYPE_LEVEL_HIGH>;
-+        interrupt-names = "eth0", "eth1", "eth2";
-+        cortina,global-syscon = <&global>;
-+        resets = <&global CS7542_RESET_NI>,
-+                 <&global CS7542_RESET_FE>,
-+                 <&global CS7542_RESET_TM>,
-+                 <&global CS7542_RESET_SCH>,
-+                 <&global CS7542_RESET_QM>,
-+                 <&global CS7542_RESET_DMA>,
-+                 <&global CS7542_RESET_NI_XRAM>;
-+        reset-names = "ni", "fe", "tm", "sch", "qm", "dma", "xram";
-+        memory-region = <&qm_reserved>;
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        ethernet-port@1 {
-+            reg = <1>;
-+            /* Fixed MAC-to-switch link; peer inserts RX/TX clock delays. */
-+            phy-mode = "rgmii-id";
-+            fixed-link {
-+                speed = <1000>;
-+                full-duplex;
-+            };
-+        };
-+    };
-
--- 
-2.53.0
-
-
+Konrad
