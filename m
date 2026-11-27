@@ -1,95 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795776734;
-	b=o2k5vecSVpHc0xDuePKpRlCuUil8Qc5HXDIVRf61HdcSISj+AkvkaXTByJ1hxnmOq1/4
-	 p3ivlxWqEFFROSkM/MosUVGbmSh0QNUspF1w2Gx55RqdEh9fu15LOVHUEozQUriuguoCF
-	 MIfpVTbxtp/bXPA/tlD/dZJLpTXKNfpKZ5IYGUaE9skSlwDciY3aS7oDnJe/hzch1U511
-	 miOXG8wozyJ4BWc/sgzOHHHdPOVqoONb/nQh2lDB3agduchmr8max/eaXSwKupJozzx0L
-	 UM6j/HS8yos1VXHdyFdyDJSeP+EG+arBbSXasmBLNUqL5hzzmtwaDRW6+N2r+3JSkUg==
+	t=1795776964;
+	b=uoC1lu/CPsELAVEafHe/nlhIp87PvsLDtxLYGGUaxelQpLee7QSBzDfOSplyIYn+rKIR
+	 wjF2d8k/NRpKEsC83petLRwgoWnZVHBE7R/1CZ1y+kzgQ2Uv6PCvrRXuXdsfPZdAMAgAS
+	 oB/VIvuQLbIvXC1ZOrk0N3ueOTVaRJiP3ANnxT5nRKtWY03WQGkNrgCObaOk81A2FZgdx
+	 /Pp0iOwyBPG+yW107oIv7GJStGnG4NV/M7pCe/qWQVFiytEAWRUXvUz39G/6tSypZDdEF
+	 3wcrCJZASX5g4gSeMu8hSXfTwQXGbsS7mg1rxUnwg/Q6O4Gq32IwXkd3tNR4AH8Xoaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795776734;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=U5UWhZwhfOwBecIRseR9hgdutFja5ObnqmEgqdaERIc=;
-	b=lvwuvGGmb+fytf7DC7cdBTc1YkSNYx4pd6+xfvyTRMbeQ5Wv+jonjEb2GvBneLcmn1KP
-	 Nv13c7nBqJQ6CPIq9MFAzKd0B89srUUpHya3+bWB657FZpT8DrudvkRxOkWPhT3zKyJj7
-	 lI0zwJvyfRxa8ojPrwKr8SbsrpK07Hlb5IqY/zAJyYw7f7pvuUtxufXiDpnHrEPqCsfRB
-	 d2EColcOs5c881RHSHz8iZE3uDa09nBzNbMR2FzWXylqvkfLWnvaqNVyPr/zn4832ynxF
-	 AJHs/S+yxyeQODYVLD/SiTp6dpmzFyT8y4x98YhzosELL7vXHYAwbgAhIPV/jHQ4CZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795776964;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=ZlegVpC4N6/+DVa9XykpigNYuit2LZU6A1aITfV+CFo=;
+	b=IFYX3RbxSUFTQ0LUXRH+L3E4DybKzHZVgaNOi5IselVZomtHyRednVxLH7j5YvEBjgPD
+	 w1KadTrWEnpNfUvH7uUPSbxx+ysMOK9p6/PP079OJIxI3KCSjnhvapvrcEkYGoWWCtLuI
+	 a2OC574/OVeb+9Vadi4a+c9364PnPNeYvYoeefJofqfUeSKTyytG31CDbpzoBXY8cxnUh
+	 pwaa0WjVEUemcURUIcoa9CAMPja/cFe3x421uHNgW05qO1NFXN5RSPfzCCsTOfEV5XN9J
+	 pYe0nckPesduXbiQ9E3woNaS8gF05DTbPyIo5F5Pt3FwH2WCD9K2zd/ZdapsWLxqlAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=d-silva.org;
-	spf=pass smtp.mailfrom=d-silva.org;
-	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=MqoaPRnM;
-	arc=none smtp.remote-ip=119.15.109.137
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SnoD6zoT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37926606A682;
-	Fri, 27 Nov 2026 10:52:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37926606A682
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC8F4606A31C;
+	Fri, 27 Nov 2026 10:56:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=MqoaPRnM
-Received: from hawking.lan (ntp.lan [10.0.1.1])
-	by www.nmnhosting.com (Postfix) with ESMTPSA id 7BF464C990;
-	Fri, 27 Nov 2026 21:52:09 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1795776729;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=U5UWhZwhfOwBecIRseR9hgdutFja5ObnqmEgqdaERIc=;
-	b=MqoaPRnM0yPfNaJQzZcIEVJ57++JGsBpflZQeYs69AEZ8X427aH6Vw99pK9B0Y7axwNhxr
-	rZDRbeRXw9Ue3Rsj4JwHC8nQ5njYKENG8LK4+Jik1KfutRKPKEgg0LoNDFmOEKvttuTGQj
-	NC4g7QRorkjUoAkOVwPw6fnvfnl33EwGJudSb+IpFH8nB5QzR66WswHQqGympHi/kGBa3f
-	Jx9HDq97s8kztWD6BSPlR8zkOTK9JMlSwMHcgee6yo0dQfqlRWA7vPhSDmMfTx2eVldyI1
-	tR0U9ElwLqvQz9j9SPthD4pTFNSTOvkTu3ICgNCwRcdLj3dX82qw7lP0xQ9edA==
-Message-ID: <de646ea81e92792caf6644716ac91399a8b6b677.camel@d-silva.org>
-Subject: Re: [PATCH 0/3] arm64: dts: allwinner: sun60i-a733: Add simplefb
- HDMI support
-From: Alastair D'Silva <alastair@d-silva.org>
-To: Andre Przywara <andre.przywara@arm.com>, Hans de Goede
- <hansg@kernel.org>,  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,  Chen-Yu Tsai
- <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel
- Holland	 <samuel@sholland.org>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev
-Date: Fri, 27 Nov 2026 21:52:09 +1100
-In-Reply-To: <d4a41c5cfb33d6d39f0ba927541beca1175ad001.camel@d-silva.org>
-References: <20261127080649.1982883-1-alastair@d-silva.org>
-		 <18637573-d20f-4a58-9e63-6bf71b015cef@arm.com>
-	 <d4a41c5cfb33d6d39f0ba927541beca1175ad001.camel@d-silva.org>
-Autocrypt: addr=alastair@d-silva.org; prefer-encrypt=mutual;
- keydata=mQINBGactvoBEADBFM2HqfQUUM4j40ZQPyYzmnM8S6zrycO0ipDDPMs7nZMzyzGzOdqfS
- VB/tuYvZOOKVWzJuWJ5aT/YyHx54r3L+D5hTkEG0sXPVJky3yTS9sbHEMSLBHb8TVVuhPVPuieV4g
- Nkqg5POMTidk8xAw50WpV++tUlewXVSciehnuCQPXhXMP7FcCh4uO8LdN7E8m7ir1LafKTFfoWPah
- KVT8NGG9r+ucrFcN5F+VnHxTDaI68yRPkNdtUWmp22wIX1KwDCtKFrndYO4p5Hv2hlDKomsuIIHHn
- muQGRwuh0xpf0nVJNF8ETZHMzxQLfo3e/HvxBFOTkwY9w7CuuQFZchbhS0I3PfmGT0+jiNcdfqjDC
- fPPB5uhy+DkR6wO72vuwFYUrpU2mdliDSdKEtWBHulnXMJjpBOXetfIwhI8G2dTVg59lN5i9DvJZc
- 7y1Sp+qfZQ4P9qpYZyQEKR4GNDOdnm6F2LW2cZkcyAU/Ii765zdDMTQMIzZNSxT/FcDd0K1voTNRl
- QHbQw+kmIMhzSv2JefcC9oNbE0XYzcBDNP5T3O/4itOQ90GCKQEPAbIPeBjlQif7kkyvo/H6yv4s9
- duuK7zbJD9AID/+KGLkpU3p68VDB/C2ZSb9rQz3p1CJNSfsX/CPk7sPqA7RKZ4a2B0hSJ2pJCncNZ
- KXtMlkkm/FmewARAQABtCdBbGFzdGFpciBEJ1NpbHZhIDxhbGFzdGFpckBkLXNpbHZhLm9yZz6JAl
- EEEwEKADsWIQTQGemDFwqYyU/dBWv75AdnjVo60gUCZpy2+gIbAwULCQgHAgIiAgYVCgkICwIEFgI
- DAQIeBwIXgAAKCRD75AdnjVo60qHZEACJnLfpS71Hk8bX0CLCNJ5wgqdZD3pBHEdbv9Ux9kRlZp4a
- ZFwlg9ltwBjl2dZP3PLtD9xQdsdYKVippKd5a7ZZC2y81oDaHjeC9LnPYn8+ce3mGE/+gRyoNfToY
- N06DeUNJKSlZ9t11UIqZCgfp12u16/Yrigy8C4ihEeHXlLhNX6JkeJR5gsHXJnC7vSuMZY+Qz2R72
- ZidWg+cd2WDMGop5sbTvc+55q94A7vTMlWzaix5HdbEUA3sd2U0dMBju5QodRGGhDQMcCu64TydRD
- MtMzzOk9ThJ036ze3HASWGOppyQmaw58k+XNzbHlr9Sc1LsFUNF7zpWXac2rzlywbyRAdFIT/TC76
- hy9zOkwIo2nwA/tdIwLx1j0UZPpAMQmcDUvJqZh6sE+fv6HN0yMPr+sSYJmriMt8Z6leCEHQXOHVI
- SI5z5FvV3coMmHYRq6aXpfs/8SLiYgkV3B0HE/E18Y3j1OkeLYoqIH1VfzQZeCSL/S77NYvk60/MV
- 1HFSyqLdUR3uWZI4uZzoEcMoB0GX33uCTp2Ntc00+wSntwekCUQLCMLUb7dZrbpVuobHoWWtkiD2I
- uE5kAiaVwwwzM0BUwiM6VzVoKbeECz93rdsNtwoDqM0NtzoISC46H/BKVQ9mRNXDO4ThEBpJ4H2Tn
- mPNRYYcR0u2mNy1EJII04w==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SnoD6zoT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 341621F0089A;
+	Fri, 27 Nov 2026 10:55:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795776963;
+	bh=ZlegVpC4N6/+DVa9XykpigNYuit2LZU6A1aITfV+CFo=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=SnoD6zoT5DtXHoebBCaOXk5dnNGkPNYHPT1HRJWuuFhbdR4XpY93ug/4Gq5M8FFrN
+	 RLYY42k7RBR8m3r+XFy2JpaJ+RZ+rwdHraquLB0kt/emxtwdYX+bbxVk95X912+pwq
+	 YNckXLfN6Ep6DIrJTVjZ7zch4E3C9C6REPgucdlDjskd9jxpgXGTxUoxVs9KYEVmEn
+	 RQO+s5CutE/ZRQ5MnHxn/IM5IP9OyIt74hi5OupI9t5hhYIFyQIn+7huJcNjkV/iLL
+	 /9I8a8cuOeHmEJ7sSOKa6uFNwOH4IHWRGg0+TZAX10nKk7ZvLfJX9/XNUTEU2+2Uwi
+	 dsSzx4j6rw4xQ==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -99,25 +49,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 0/2] phy: cix: add Sky1 USB/DP combo PHY support
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Gary Yang <gary.yang@cixtech.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Fugang Duan <fugang.duan@cixtech.com>, 
+ Luo Liu <Luo.Liu@cixtech.com>, 
+ CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>, 
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261117083434.3414417-1-gary.yang@cixtech.com>
+References: <20261102082112.2306326-1-gary.yang@cixtech.com>
+ <20261117083434.3414417-1-gary.yang@cixtech.com>
+Date: Fri, 27 Nov 2026 16:25:55 +0530
+Message-Id: <179577695532.3421.8058975724074009117.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1515; i=mani@kernel.org;
+ h=from:subject:message-id; bh=nQgG+FcHfk3RKk15uM6aPDgBtFBZFTK+R8FuOdfx2EU=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBrCWG+tZ0DzfyeE6LZq3Ollpps4poHntGS6zVri
+ 6cieyG3DoaJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCawlhvgAKCRBVnxHm/pHO
+ 9SCaB/0QJA8FHipnJ95yVOBHp69LW3UvgkIeZhg5eSq9UaD4QhZwPoXl9N3B88zeqm9YiQgq4ju
+ YdR9S3ADS5fa0M9iLKDDdHve6YPHPiXBVQjmY+1eqq614mCKHl6m1IfhWGmpCYjfP+lRTvDP5Ct
+ XuYEaR2ZPTI4bA7R5i0bjkSpwBv+46FrLFAyEBrDrqSu0r5GKquGUA+FNsMEKmbvIOApgSLLcGY
+ YvZnHL3VIfmviMb+6HREGJKBwFfK9GT1W7kZb2vZTEzpIlsRsjqQcwR0vKH88/E/hmYaYWA8Kqc
+ a1bhnXnj4wYnMYDugM9AwO0oHG4Y5+zt3TnW711HugfIkIHE
+X-Developer-Key: i=mani@kernel.org; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-On Fri, 2026-11-27 at 21:20 +1100, Alastair D'Silva wrote:
->=20
-> On Fri, 2026-11-27 at 10:03 +0000, Andre Przywara wrote:
-> > Hi,
-> >=20
-> > On 11/27/26 09:06, Alastair D'Silva wrote:
-> > > This series adds boot-time simplefb HDMI support for Allwinner A733
-> > > (sun60i-a733). U-Boot enables DE3.5, TCON_TV0, and DW-HDMI2.0 and
-> >=20
-> > Where does it do that and which U-Boot version does?
-> >=20
+On 2026-11-17 16:34 +0800, Gary Yang wrote:
+> This series adds support for the USB/DP combo PHY of the CIX Sky1 SoC.
+> Each PHY instance drives one SuperSpeedPlus USB lane and up to four
+> DisplayPort lanes of a USB Type-C port. The USB and the DP controller get
+> their own PHY through the PHY_TYPE_USB3 and PHY_TYPE_DP cells. Plug
+> orientation and the USB/DP mode decision are taken by the Type-C connector
+> driver; the PHY consumes them through the Type-C switch and mux API.
+> 
+> The USB and the DisplayPort controllers and the Type-C connector are not
+> yet described in the CIX device trees. The graph links and the consumers
+> will be added together with them.
+> 
+> Patch 1 adds the binding and patch 2 the driver. The SoC and board nodes
+> are sent separately as a follow-up, since they go through the SoC tree.
+> 
+> Patch 2 builds on Luo Liu's "Add Sky1 DisplayPort PHY support" series:
+> 
+> https://lore.kernel.org/linux-phy/20261102030425.1957585-1-Luo.Liu@cixtech.com
+> 
+> That series creates drivers/phy/cix/ together with the PHY_CIX_DP Kconfig
+> symbol and the CIX SKY1 DISPLAYPORT PHY DRIVER MAINTAINERS entry. This
+> series adds the PHY_CIX_USBDP symbol and the new binding, and renames the
+> entry to CIX SKY1 PHY DRIVERS. It should be applied on top of Luo's series
+> to avoid conflicts in drivers/phy/cix/{Kconfig,Makefile} and MAINTAINERS.
+> 
 
-Oh, I forgot to answer this, this was going to be a follow-up on the
-opi4pro series to U-Boot, once the base implementation was accepted.
+Please do not send new versions as a reply to the previous version. It makes it
+harder to spot new revisions.
 
-It's on my Github, but I haven't posted it to the list yet.
+- Mani
 
-Cheers,
 
---=20
-Alastair D'Silva
