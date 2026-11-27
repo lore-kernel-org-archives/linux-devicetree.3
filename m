@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795740720;
-	b=RMcRYWX1CGaJm7KAFCsZJQLzq8pn+jPoIITw4OwrsGW1DUtvrg3wbUG9GaBhpWfCm4A4
-	 kHVf789pCRi2VN3IClFB/4NN8Dv9aZid5tgnCnTZaDmc3TbIkusuCE4voxyKhWJjyBe8N
-	 N6ewbB7QGXYwnnVPb8VoapOLBYNpFCJh9uFX4P4ifwhJ85nocgP6wrGkFkL7ZTqH7q2do
-	 FIGSs9WwWETnvmep0TP0dEHyNRczJTHcMeObleoo1yiWk0EtgX2izZWnmR9ZOfinfnmC+
-	 hr/5aaJNuvJF1GBIoZtBlbekgmRBHNCn0iyNqB33PTZR3/wPullgUWIEOBsjNJrThKw==
+	t=1795740972;
+	b=B+oxItxfnuljQEvrwPLLgStoPpjfLSnr7zmIwSli/96odQrB2e6JmtRsvoF9SBNd9hac
+	 ZeHk5CNmg8swk/LS6kX7v6+EejPXGekyREiriJg05uXM0DRxKzPRiTsl0BDKrwg76oeI9
+	 Hz+a7ghvoqznNwJldhM0lBz2dI3nmnXvyY1q5BV4hjEdTfOu7zUIxCqSibUxD6yYNn5yg
+	 leG/7dm+EhEtKT4DR1H8tvuHk9+qh3/UAdpwU4VjFvZjpodj44zHj1+ICWD91qjFo+dkv
+	 wMfImNyuVRG+tikZ2VVWa4o6x0kC6vbj8iQFYIIdoh0Bc4GFNG8jJsZnxmCqwKG1nzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795740720;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2mXKxVp3q1BXtyC7GEBY2jXhHxkGBgswcQNGlms/6J8=;
-	b=tkiP22xZ1SUkyNXuCc+N7qTOiaf52hUZjn3KeD7pBvQvZ/Rfh65BEBCzQvzDx95nUbac
-	 G8O23MXG6iLjemifcHp+EmA+kKZfjVFlmn9dCWRMqL92/jMipfr4pIFVs0k/LTK73+5vv
-	 KqDfNi8I5puxf3IJZnGVhCOKsBPTh2gGtz+l8tkopc2EqgpAM7Q2hygCcwu3mTVS9hgv3
-	 Fasz5WVxv9KFiy+E+1Qw/G5HQkm364EgR7pzTBl4MNVX2jSowVZk+VPAwr3mfEj1LomLB
-	 dleK5fFOVqPrJPBAlJGhb5bWKKmmUzqDoppIPpGDMJ4Cy6jGGlQJGRH7IdzzrMTZMLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795740972;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=A/otKmlnjlopKzmwaRv1642yRf2Bph3BIO8QzAG+qA4=;
+	b=GYG9s44XCAtJ3l7MmYQc/DSuELqx/NI1ZZF1Oegj0OH5J1ODGfQlt0crdYBlyNFK2sUj
+	 kGTe9pp1nkvYlKBVX+kUHZ4ldxtJe/1367C3oQJpjXfua+JNNEPFpbcaAoB98pYDBhm3l
+	 ZwUi7Vg2EvAeljbbFI3Okse3Gf46TCiaUoE2r/RvvtmLZ8sTLj5+qBv0oL9C0iZaC0uzQ
+	 V2ZF3hUYiLNcgZHZY+GdcgurTD9S4FPL8gFeo0hI+ZjXVJWWwUimGVpNCMwZnVdx+wqT9
+	 SxRC22TXsd7lcij1cO0X7CN1zrTJ7vmzrOYFa4xm0+eB+SBPz2Wh18KwklQrM2uyvCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dPt3oJjw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EXgGi0zf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77931606A31C;
-	Fri, 27 Nov 2026 00:52:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C37606A324
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 00:56:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dPt3oJjw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8539A1F00893;
-	Fri, 27 Nov 2026 00:51:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EXgGi0zf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88DE71F00897;
+	Fri, 27 Nov 2026 00:56:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795740720;
-	bh=2mXKxVp3q1BXtyC7GEBY2jXhHxkGBgswcQNGlms/6J8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dPt3oJjw0A/ME05Dmt3Pm3WQghXy1GbsgMVVikokYqaNbSDLM2cduRiK17JLrVxQR
-	 k9oU1VjR5qLpn9eLpOu3kihE952FK8rEgd9M0UcFs7UXZvcZaagtOw3iU3iL9x0lFr
-	 1AIFgPAxeMYlSlubxOlV4VBMVc1FlyGfFgVqT1hrvk2CxpxmtxbJwfMkM15mXpQIHJ
-	 juENld81TGIUo6umFXou3prRpxSGlatICxMCQWPLmfTeNT55fvUdZGr9StjrBVeNPV
-	 9+r2jf6OJfujGxqy7m7nFA8KIHzdttqpyOeTNt5Dz7lHtKfOIMXF0g3bgers6B/Xpw
-	 SZPgX422lEHCA==
-Date: Fri, 27 Nov 2026 01:51:56 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Alejandro Colomar <alx@kernel.org>, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, 
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v8 2/4] string: Add strprefix()
-Message-ID: <awjTa1qL5c1L9pnj@devuan>
-References: <cover.1795695151.git.alx@kernel.org>
- <a688f0a1c20afadeed42ec4645b44de75874c223.1795695151.git.alx@kernel.org>
- <sashiko-outbox-235501@kernel.org>
- <awgmuC_BnyaEpTXD@devuan>
+	s=k20260515; t=1795740971;
+	bh=A/otKmlnjlopKzmwaRv1642yRf2Bph3BIO8QzAG+qA4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EXgGi0zfwjp/NpMzeUvPi92h+qECCTaoOr7VS1z+YCfWArSkUi+vGavA1NZQZlNLn
+	 TXBMJX42PHvIkAVDQ6op0FVoifTqqb6TQ/gyi1qvOy64ncFuYvLXHh0PYNFqfy7Et8
+	 65LoguPQf1roZy3uLzbjt+9+mi7cK1kMewvs9BtZRbIE6709MooAqAMYRTryBMskR0
+	 Dcvdxe3m5DIsu65UhcrSfOg6A/37qciqfo02soMgRni6GUmmVkzEl/106zQdK9ao0H
+	 KLraBM3iLlW+KJCatCMGoz4gpR4EDzwP9qs8hm5OGJw3nNjNS8p28c32m908EFOWff
+	 S+Nk89UoAN/rQ==
+Message-ID: <sashiko-outbox-236380@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v4 5/5] net: hix5hd2_gmac: Support fixed-link
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Yang" <mmyangfl@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261126005524.4156940-6-mmyangfl@gmail.com>
+References: <20261126005524.4156940-1-mmyangfl@gmail.com>
+ <20261126005524.4156940-6-mmyangfl@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 27 Nov 2026 00:56:11 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,123 +59,117 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ztitlnbzcvr2amzm"
-Content-Disposition: inline
-In-Reply-To: <awgmuC_BnyaEpTXD@devuan>
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] net: hix5hd2_gmac: NULL dereference in hix5hd2_dev_remove() on
+  fixed-link
+- [Medium] net: hix5hd2_gmac: broken phy-handle precedence in
+  hix5hd2_dev_probe()
+--
 
---ztitlnbzcvr2amzm
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Alejandro Colomar <alx@kernel.org>, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, 
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v8 2/4] string: Add strprefix()
-Message-ID: <awjTa1qL5c1L9pnj@devuan>
-References: <cover.1795695151.git.alx@kernel.org>
- <a688f0a1c20afadeed42ec4645b44de75874c223.1795695151.git.alx@kernel.org>
- <sashiko-outbox-235501@kernel.org>
- <awgmuC_BnyaEpTXD@devuan>
-MIME-Version: 1.0
-In-Reply-To: <awgmuC_BnyaEpTXD@devuan>
+commit 557f552e688f91f0f04fafd2daf29129d331e0f6
+Author: David Yang <mmyangfl@gmail.com>
 
-> Date: 2026-11-26 13:32:21+0100
-> From: Alejandro Colomar <alx+linux-hardening@kernel.org>
->
-> > Date: 2026-11-26 12:27:03+0000
-> > From: sashiko-bot@kernel.org
-> >
-> > Thank you for your contribution! Sashiko AI review found 1 potential
-> > issue to consider:
-> > - [Low] string: kernel-doc parse failure on strprefix() due to
-> >   __nonnull_args()
-> > --
-> >=20
-> > commit fa176bccb75ab1dcd9cc8e153bcc5112c790bc7c
-> > Author: Alejandro Colomar <alx@kernel.org>
-> >=20
-> > string: Add strprefix()
-> >=20
-> > This commit adds the strprefix() helper to return a pointer after a mat=
-ched
-> > prefix or NULL on mismatch, along with KUnit tests.
-> >=20
-> > > diff --git a/include/linux/string.h b/include/linux/string.h
-> > > index 9b3e578d9aca1..a6a1953c52e35 100644
-> > > --- a/include/linux/string.h
-> > > +++ b/include/linux/string.h
-> > > @@ -557,16 +557,34 @@ void memcpy_and_pad(void *dest, size_t dest_len=
-, const void *src, size_t count,
-> > >  	       sizeof(*(obj)) - offsetof(typeof(*(obj)), member));	\
-> > >  })
-> > > =20
-> > > +/**
-> > > + * strprefix - string prefix
-> > > + * @s: The string to be tested
-> > > + * @prefix: The string to see if @s starts with
-> > > + *
-> > > + * This function determines whether the string pointed to by @s
-> > > + * starts with the sequence of characters
-> > > + * (excluding the terminating null character)
-> > > + * in the string pointed to by @prefix.
-> > > + *
-> > > + * Returns:
-> > > + * *  @s + strlen(@prefix) if @s starts with @prefix
-> > > + * *  NULL if @s does not start with @prefix
-> > > + */
-> > > +__nonnull_args(1, 2)
-> > > +static inline char *strprefix(const char *s, const char *prefix)
-> > > +{
-> > > +	size_t len =3D strlen(prefix);
-> > > +	return strncmp(s, prefix, len) =3D=3D 0 ? (char *) s + len : NULL;
-> > > +}
-> >=20
-> > [Severity: Low]
-> > Does __nonnull_args(1, 2) break scripts/kernel-doc parsing for strprefi=
-x()?
-> >=20
-> > CTransforms.function_xforms in tools/lib/python/kdoc/xforms_lists.py do=
-es not
-> > strip __nonnull_args(), so kernel-doc mistakes __nonnull_args for the f=
-unction
-> > identifier when processing include/linux/string.h (included by
-> > Documentation/core-api/kernel-api.rst), emitting prototype mismatch war=
-nings
-> > and omitting strprefix() from the generated documentation.
->=20
-> As said in v7, I don't know what to do with this.  Any comments?
+net: hix5hd2_gmac: Support fixed-link
 
-Bartosz reported that this is solved in linux-next by the following
-patch:
-<https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit=
-/?id=3Db6b0adb6c845>
+This commit adds fixed-link support to hix5hd2_gmac by registering a fixed
+PHY when no phy-handle is present and skipping MDIO bus registration unless
+an mdio child node is defined.
+
+> diff --git a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c b/drivers/net/=
+ethernet/hisilicon/hix5hd2_gmac.c
+> index b3b2aa1b76988..eeb7221c0cde8 100644
+> --- a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
+> +++ b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
+> @@ -1176,37 +1176,55 @@ static int hix5hd2_dev_probe(struct platform_devi=
+ce *pdev)
+>  		hix5hd2_phy_reset(priv);
+>  	}
+> =20
+> -	bus =3D devm_mdiobus_alloc(dev);
+> -	if (bus =3D=3D NULL) {
+> -		ret =3D -ENOMEM;
+> +	priv->phy_node =3D of_parse_phandle(node, "phy-handle", 0);
+> +
+> +	/* In the case of a fixed PHY, the DT node associated
+> +	 * to the PHY is the Ethernet MAC DT node.
+> +	 */
+> +	if (!priv->phy_node && of_phy_is_fixed_link(node)) {
+> +		ret =3D of_phy_register_fixed_link(node);
+> +		if (ret < 0)
+> +			goto out_disable_clk;
+> +		priv->phy_node =3D of_node_get(node);
+> +	} else if (!priv->phy_node) {
+> +		netdev_err(ndev, "not find phy-handle\n");
+> +		ret =3D -EINVAL;
+>  		goto out_disable_clk;
+>  	}
+> =20
+> -	bus->priv =3D priv;
+> -	bus->name =3D "hix5hd2_mii_bus";
+> -	bus->read =3D hix5hd2_mdio_read;
+> -	bus->write =3D hix5hd2_mdio_write;
+> -	bus->parent =3D &pdev->dev;
+> -	snprintf(bus->id, MII_BUS_ID_SIZE, "%s-mii", dev_name(&pdev->dev));
+> -	priv->bus =3D bus;
+> -
+> +	bus =3D NULL;
+>  	mdio_np =3D of_get_available_child_by_name(node, "mdio");
+> -	ret =3D of_mdiobus_register(bus, mdio_np ?: node);
+> +	if (mdio_np || (priv->phy_node !=3D node &&
+> +			!of_phy_is_fixed_link(node))) {
+
+[Severity: Medium]
+Does checking !of_phy_is_fixed_link(node) here break phy-handle precedence
+when the MAC node has both phy-handle and managed =3D "in-band-status"
+without an mdio child node?
+
+In that configuration of_phy_is_fixed_link(node) is true even though
+priv->phy_node !=3D node, so hix5hd2_dev_probe() skips registering the MDIO
+bus and of_phy_connect() in hix5hd2_net_open() fails to find the PHY.
+Since priv->phy_node =3D=3D node already tracks whether a fixed link was
+registered, checking if (mdio_np || priv->phy_node !=3D node) would avoid
+this.
+
+[ ... ]
+
+> @@ -1271,9 +1289,11 @@ static int hix5hd2_dev_probe(struct platform_devic=
+e *pdev)
+>  	netif_napi_del(&priv->napi);
+>  	hix5hd2_destroy_hw_desc_queue(priv);
+>  out_phy_node:
+> +	if (priv->phy_node =3D=3D node)
+> +		of_phy_deregister_fixed_link(node);
+>  	of_node_put(priv->phy_node);
+> -err_mdiobus:
+> -	mdiobus_unregister(bus);
+> +	if (bus)
+> +		mdiobus_unregister(bus);
+>  out_disable_clk:
+>  	clk_disable_unprepare(priv->mac_ifc_clk);
+>  out_disable_mac_core_clk:
+> @@ -1294,6 +1314,8 @@ static void hix5hd2_dev_remove(struct platform_devi=
+ce *pdev)
+>  	if (HAS_CAP_TSO(priv->hw_cap))
+>  		hix5hd2_destroy_sg_desc_queue(priv);
+>  	hix5hd2_destroy_hw_desc_queue(priv);
+> +	if (priv->phy_node =3D=3D pdev->dev.of_node)
+> +		of_phy_deregister_fixed_link(pdev->dev.of_node);
+>  	of_node_put(priv->phy_node);
+>  }
+
+[Severity: High]
+Does hix5hd2_dev_remove() trigger a NULL pointer dereference in
+mdiobus_unregister(priv->bus) when a fixed-link device has no mdio child
+node?
+
+When MDIO bus registration is skipped in hix5hd2_dev_probe(), priv->bus
+remains NULL.  The probe error path guards mdiobus_unregister() with
+if (bus), but hix5hd2_dev_remove() still calls
+mdiobus_unregister(priv->bus) unconditionally, and mdiobus_unregister()
+immediately dereferences bus->state.
 
 --=20
-<https://www.alejandro-colomar.es>
-
---ztitlnbzcvr2amzm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmsI1CwACgkQ64mZXMKQ
-wqmf6A/+M9qVTeSuF7m1sBGEx8AURawJb9yFeTyLIGEhBslR1kxB6ek+Ov7xTc5b
-EeHQ4BoOnBtAytdwvAQ5cwcEmEoCfSJY7QXd51HSxx8TmReKqNUBRjzZykvEeD9g
-O5erP31Km6v3ovdP3TWHe8XZqYuOrIlt/RcpRYXn/X+N3TqHz/CMXKvsBih3Mz2M
-s3sWX97ZzplbBNrJlm5fW13bNrGY5eSLA3V7D65i7kQXqeIDbKpwD/RQDIyLlrUn
-TY0JXFPYHQPrVUCpRJZhFR5QI+xkGxNafKIaNcaT9RtebuIlnhtutHNSnZwELG4R
-qeA1bz6NhqWXERaEAYTR9VAk9BsiGOcgC50EoqV0JG9hGYVq9e5KapXbQgM93AYy
-QLWkPGJm2pcGPtqmQE2EbcdjQq1lAzzBE+3WlAN6K7vo61qwLr+gDBZIR2ikkPkN
-haoP4UnrygxptSWEkJjWuATBTSKHT8vUJnkeSwKmwnAKLISgz6a7pwdePbGOAziP
-9mpeLJNJOkqVtCi/hTbPa786SDD4zOG9cLk2+jZr5L6ns7OpsUzxx8UrL6ihVdg6
-qC8nmBIdcqioE89ipQzcEyKfgPskuPcHpCcbYuyDfsDSMONOvJ7HUX865QxmPiN9
-XqEFHt+ergxZbbmcAn1EXauNNu4/UQgl0iuczsP++sJP0uH1O78=
-=RbQI
------END PGP SIGNATURE-----
-
---ztitlnbzcvr2amzm--
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126005524.4156=
+940-1-mmyangfl@gmail.com?part=3D5
