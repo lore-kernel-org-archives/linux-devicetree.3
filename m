@@ -1,41 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795777452;
-	b=Ik6QrFb77C1unlcXK9QzRioEl3hGoIAkBaZmxnAt2BebVEWK/E0AXJXt6aMqVhl0/qBk
-	 gzovV5bjSojTWoWk4E4pqNTBONLmxAjQpmIMRS0SPrF31z7WTL0n999srjTsZC4Mi+2pk
-	 TZeD0VGNoFPjaUJzFEyGuMbc4121LTkM8RBifE24XRwg685aeyZt7TZUl4iQ/KsO9f+ki
-	 J/aGCBc48vGiLP8q5gaChOVBjAaTG1VQQJdP9qjuKM5h28azwv8da8p4wac8WNFBqbzHT
-	 FAC+3o53tgZPTjDvdKVuD/mmRYXN7C6D+09j3B8aQWkxhMklg4s6XoY3IW2i2vx1wAA==
+	t=1795777453;
+	b=g3kKMn6hZq8KNbKErhGX+ItvaX1kgEBoRXe0vsuZyHVksEKuU16sUEN+QNogNkbIqzhj
+	 91pK66092JJFS17AOZDKhAGf4J9DQJ956B90Q8Car2O/DE0h+Q9vGHhu7Q2nA8T7wuUNL
+	 RBe+uqtY6S5wqXFr54N/jPwCfxZi7e1+OZEYLa47eD4024jmtpg1nU/7ILM6z9WYhpjJt
+	 ZQubbO5x3hE/RMr8OxcpRrOK6dyGRbkmL+nhD+y8c1QNc0n61eeClvLDE90+4I902w2xk
+	 0XqlqJgOMK9WeYYfp8JL4HzJXGkWODbIIH8RUS1shWDX7KPLVgGwFlm94f1KCEyxlXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795777452;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795777453;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=efKueph88AfbTGTSMKcxt1afNDlf6kGQ5vNW/j37OHI=;
-	b=coyMBMTjKbqoK/UhwzupzJEekv+1cBuixuHrH7mK1BzvdMWcgdekpGXudMkDSFfLUprN
-	 RJCAx3V6oB7XLBKKUN7eoDeG3EcQsG9EGgvDKrzLNPkEZ/xR4gUfrDiWYrSORxKUBrS95
-	 7S08mXGRkWeuFD9vuePLPp48F8lQgLJdf88oDH6FIS14ytirPKayucYYrqHiCCtqxHURa
-	 XJKQHaVHRK35751zlMK0kyluJ6MS5IOtoJiH9WhsURfW8V4LyIHs+yYQ80riNUIy0q3Xr
-	 tBfJThhfyhfcFBQ2vp1T7qjrpfCJ2Nu+eTyfiC3FUawwFwdX93gUIlpWfp1pqVDRaSA==
+	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=IO9xwt4cKXKK8PZpu5RfFUHHrgFNwh2k+PlRrCKtaq0=;
+	b=QWQbrGul4DxSU5glJmAdbnz7n+nWOUaJR1QcaOiD0XdSr+k/RVtFa1kBGf+hI46t1zch
+	 bJm7+cnKV4c6oeo2THFw8picFGJGyvXtqtgmyJNaVc00UqteMNySYkqFMq/bnxN3Q7WV4
+	 Ajv1HRe/T4KqUxES0wTONK0DAyygKB4UUBIB0Ek8IVYLASROPpKiTJamkIVlp8SYeZFFT
+	 TzeeLItPrGnsv1HbiHUtgrPuFVpE/A6tiCIPD/+ETniSmxaN7jjFejfeSZGvpKcov5Smx
+	 UBj1jG80CtQJEgbWeSxXY5hKW3tZGy1celoBxPaUT0J2iVTwJ/Th+sThEEyzvo6OY5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.sdu.edu.cn;
 	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=fCJzQGYY;
-	arc=none smtp.remote-ip=45.254.49.197
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=B4mSTYpt;
+	arc=none smtp.remote-ip=101.71.155.101
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D3A606A31C;
-	Fri, 27 Nov 2026 11:04:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51D3A606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8491A606A33A;
+	Fri, 27 Nov 2026 11:04:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8491A606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=fCJzQGYY
+	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=B4mSTYpt
 Received: from user.localdomain (unknown [223.80.110.101])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5641a2c3f;
-	Fri, 27 Nov 2026 19:04:04 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5641a2c35;
+	Fri, 27 Nov 2026 19:04:01 +0800 (GMT+08:00)
 From: Tian Xuechen <202300460064@mail.sdu.edu.cn>
 To: vkoul@kernel.org
 Cc: Frank.Li@kernel.org,
@@ -49,12 +49,10 @@ Cc: Frank.Li@kernel.org,
 	saravanak@kernel.org,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v2 3/3] dmaengine: lpc32xx-dmamux: Use managed DMA router registration
-Date: Fri, 27 Nov 2026 19:04:00 +0800
-Message-Id: <20261127110400.379397-4-202300460064@mail.sdu.edu.cn>
+Subject: [PATCH v2 0/3] dmaengine: lpc: Manage DMA router registration
+Date: Fri, 27 Nov 2026 19:03:57 +0800
+Message-Id: <20261127110400.379397-1-202300460064@mail.sdu.edu.cn>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261127110400.379397-1-202300460064@mail.sdu.edu.cn>
-References: <20261127110400.379397-1-202300460064@mail.sdu.edu.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,49 +63,36 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa21cad3bff03a2kunm13da2c70394a8a
+X-HM-Tid: 0aa21cad2f1303a2kunm13da2c70394a7a
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQ0hMVksaGBgaSUhPHR4YTVYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSh8YVkIYQ0MdSx9NTEkaH1YeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVQ0tVSkpLVUpLSllXWRYaDxIVHRRZQVlPS0hVSktJQk
 	NDTFVKS0tVS1kG
 DKIM-Signature: a=rsa-sha256;
-	b=fCJzQGYYXaQk1w/z8aQvvBCDhIi9k5Nd1MWNWpDDa7AK7z3u9faCkOgClHqhDYDtnJUdUFcNkuGKiPhR9DHw7/REs9Bo7gKL0SiH4jZKKe5BSOsynJkXwoMlThhuFYVW6fERnQXvezFIzJ8IOevCeq2IuD3hQWG2VA5TvQdeNHI=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
-	bh=efKueph88AfbTGTSMKcxt1afNDlf6kGQ5vNW/j37OHI=;
+	b=B4mSTYpthwGrLD3af3rf/pB/JHs9Nh8ilk/dAtdYdGA7Ua74Fvs49Ier4Tad4VUjoyYir1UyY9/L3tzEbUn8IY0B+MIR+UTV4sNsd9+r1zqtg5rfWODqXNjgDr3WCWw64xvaJwxYlKus16hqtEtlqgdnQhuYp3ab2d9E81jJ5gQ=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
+	bh=IO9xwt4cKXKK8PZpu5RfFUHHrgFNwh2k+PlRrCKtaq0=;
 	h=date:mime-version:subject:message-id:from;
 
-The DMA router remains in the OF registry after its device-managed
-data is released. Use managed registration to remove the routing
-entry before the router data is freed.
+Add a managed OF DMA router registration helper and use it in the
+LPC18xx and LPC32xx DMA mux drivers.
 
-This issue was found by our static analysis tool under development.
-
-Fixes: 5d318b595982 ("dmaengine: Add dma router for pl08x in LPC32XX SoC")
-
-Signed-off-by: Tian Xuechen <202300460064@mail.sdu.edu.cn>
----
 Changes in v2:
-  - Use devm_of_dma_router_register() instead of a remove callback.
+  - Add devm_of_dma_router_register(), as requested by Frank Li.
+  - Use the helper in both drivers instead of adding remove callbacks.
 
- drivers/dma/lpc32xx-dmamux.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Tian Xuechen (3):
+  dmaengine: of: Add managed DMA router registration
+  dmaengine: lpc18xx-dmamux: Use managed DMA router registration
+  dmaengine: lpc32xx-dmamux: Use managed DMA router registration
 
-diff --git a/drivers/dma/lpc32xx-dmamux.c b/drivers/dma/lpc32xx-dmamux.c
-index 33be714740dd..3218be8e8eae 100644
---- a/drivers/dma/lpc32xx-dmamux.c
-+++ b/drivers/dma/lpc32xx-dmamux.c
-@@ -180,8 +180,9 @@ static int lpc32xx_dmamux_probe(struct platform_device *pdev)
- 	dmamux->dmarouter.dev = &pdev->dev;
- 	dmamux->dmarouter.route_free = lpc32xx_dmamux_release;
- 
--	return of_dma_router_register(np, lpc32xx_dmamux_reserve,
--				      &dmamux->dmarouter);
-+	return devm_of_dma_router_register(&pdev->dev, np,
-+					   lpc32xx_dmamux_reserve,
-+					   &dmamux->dmarouter);
- }
- 
- static const struct of_device_id lpc32xx_dmamux_match[] = {
+ drivers/dma/lpc18xx-dmamux.c |  5 +++--
+ drivers/dma/lpc32xx-dmamux.c |  5 +++--
+ include/linux/of_dma.h       | 24 ++++++++++++++++++++++++
+ 3 files changed, 30 insertions(+), 4 deletions(-)
+
+
+base-commit: 2e02fb103be058cf8b2fb24112a74a2715e090f0
 -- 
 2.43.0
 
