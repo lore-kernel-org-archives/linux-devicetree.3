@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.125
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.127
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795759096;
-	b=s3z+YiObRzD+lT8z3M56bWp9+ae5b5yDnAF6cFLbwBbgq+4ggjeoWrfr24bW2Wl/DQGE
-	 liwTMD7v0MWmFSIPVDD2zzqpEJrI54Z8LuadEiX6vYi6aPJHocrVlAhXayU/oF0aoAHhK
-	 0ibiAAD+edpFnwHlPFpSgBCn943FDrdI1i1VIhOgHnU42SItDUF4Sy8MqVI316mUacTAu
-	 yZUU8r+Jy4B2ZuCGBzcn2leP9uHsg/hjKLyS7eaE03NcD8a5+EOEAdJBH/dHkk6B9jkRj
-	 UIl0B43TNmNDbVYt0SbKC+YncPlJ4UKkkaMshCeecRZiBdqaNSxxSAs7UaVsPH8qUjQ==
+	t=1795759099;
+	b=rhIVcyAjx6CUPzR5Osdy3LDOiFPGG9kHU8eN6CuIN1xgMEEwjFk5RFdu7AiWDVKKzODt
+	 lBpgwJo4jvJUoiIa48z8cNZ4rUxsihUhGKiiFD6yGDAGmowBTPXCH0a43zMNDcYDz2SiF
+	 W/BpolWH3VaDEfPdSCQYi2UaZVTWZFSdS4y6wrlXqddrk6/l+k2zoYK5LCsiwZpZRkeA6
+	 md2a03M8bAte4+21s1n+DhZm2SVis36/MK/ViD1XPs3rzQYUIA8lvASEJMePgtrAeXNd9
+	 Kj5RN9lRM+Zk4YBDzADOBpctG0AD60ldvVS/N8OhoMzxP+x1Cm/+uG4uV1qEZVvS2lA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795759096;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795759099;
 	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
 	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
@@ -25,44 +25,44 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=XSgEpok1ldzPVMcLPA0/yVdSjA58s4XL+vYCAb8cyf0=;
-	b=3toBGBrVwxAIDO7sMXc5PP5FWuuojAjq1Zp09CoslQE8WMEKBBeUNQgsbhgkzlJgfcfH
-	 OypFJHvuCCYNHL6DMpHMLStDpt/T9IG8bBXs6u4vJcYFARhGLJNlFsXDXmJZvO2n/3pJ+
-	 f+bIU4aYzfSUBXFOMT7XVCXHUr4AHJlOCuEAWKL780IhW46SY5NWF1bovwedhicR2IsP2
-	 4Txxm75z2y5vMQFB9vDtgxoX0oA+kskMdZuq4znC4di0zhzM8TlCHUItpMmKPhu4fEozt
-	 KcY3omGiw4TTk7e3qZrw9GTzrO8H79FgYFy7JjQAYwx1cfTmhWyTdz5xHSyBGzxl1+A==
+	bh=XWB+fr0vI021UfC6/C69h4jQ9mMuNu0m4jVfi0aCvSE=;
+	b=r7DjcqbDsFP2/wUK/+yB+/cWybuDvHl8lS/HFlnhMsK2vr0QCkJB4LLPKlrUDLsuVkrw
+	 R3/6AGMW2Q3gpo7pXoJpl4vyHs0e6p2icbZfP8GxlBkvwLSvW24Mhk5t+9Z2U0dmiw9Fy
+	 w1uYqerOu7hUweBdnD/hs4J+HaIAMlYjgsn668WX+fQXhXtvbkefRiww2hj00ybleK9a3
+	 TNmvppw1Y6NDOWcQ+xhyIunyDk/sf46Lh1QkM09Ln30spkIiteD7X9Z4k5Cok6p2CSIg8
+	 F7xGjEJHVJIOyM1+o54VDTgcZqJ3vjWHQKfbjYSTl5mXWUQn+DUWJT2FijYiaEg9l3g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=cixtech.com;
 	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.125
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022125.outbound.protection.outlook.com [40.107.75.125])
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.127
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022127.outbound.protection.outlook.com [40.107.75.127])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C206606A31E
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 05:58:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C206606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55EB1606A31E
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 05:58:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55EB1606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZlRR+uXZ+154dugo9t3ztsb33T11QC473kthNDs5t5KO+loq+xzd+27SCNCgXW3KBjgKXwmLUXuTWGzKkI7TI2mgQOVmp4W/77nRXRjiDtmCUGrZc2LrdD5oZ2We1kGVfA4zGHVhL8wryIGJFSNyeizGDGBIovdA/n1CvNOnBupsHqZzMZS5ohRprUzffg04pw7sB0dMWWfeaFQKmwnoHVLGYq65TbgoIcJ014Y88hGg4aaeiIDAJurRDPNBlNUCWkmYp0rvDbSF7R5r7S9Lq2yNVoixdSRhY54J+20/VAwaU17bdK24OQUcx8a2f3PmpW0MLxFNLBq0yIutN3UCxg==
+ b=Xey+gyVoC0bIA67gHZUJgwB4msAiapq9wYVKQsBQKSZU62YE5VkiwcZPCFRa0KOYg+jAX360wA6sL3ccK3LFY1w59C+s7WC0SaGO+Kblz61K+9/X4LIb3mAKgPrf5LEx9SZC8OmdkhopoHu4IXdnnyMVYw/+s18+2D2GFCzU1WXhyig/6yd80t/px92cw9pFo6xFSv27eSAeEhmoSvUO++pKsG/uvpmMkA8+8toAvK6oLo6JNzJZ+GSO0KcvkeW1rj2hQGEvEyhbtdR/bD/pYV10xUEXVWeexagRfEogetFC4XGFZBN+RnipkJPksqW/L3REc58gJ1BHFFKYmRvDfw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XSgEpok1ldzPVMcLPA0/yVdSjA58s4XL+vYCAb8cyf0=;
- b=h3/+ENQjMm/Np+zCnuoD4M0HjZaiOXkmfeybL0ob3y99MOtexqMF6n5qBGusq+zHJvSIqS1FwNPxndi68BXvte9pJ4K3XuhyIsXMuiDcKYkCphx4aXwiWif0zrybNfh2Yj7mpy37M8GYW1GhglVdNuTgwPCfwXwwzQTMOnwnA+TeNmf90mbiXm5Az88roO65T5c3OBQisEePVN7pE7xByTPTTb9upLCzCyLVDpM0YD7rgSIWuBZzuhxVLX5XmfQNWlEMyyHAk1xk8sjae9Ea8e1IC15tdcK6+m1Qyrc27c3jSfzrJbwVIbsoJ4KfgClJN6FQH1QQ+1f9vS8slUqFqQ==
+ bh=XWB+fr0vI021UfC6/C69h4jQ9mMuNu0m4jVfi0aCvSE=;
+ b=EYR1HLIBpkgJjFp1Bwbs8OAamfudacplene0HDO3hiJLTXHuX76Zol9Rzsl65pcg7NqzyOO5ia89ZamlEiM1p+UOkt/02gQ84MhXpOY872C9TFlLHltCQmMVFio4e8LTWgXgeBogYdegX2c6VPbhEXmrY/bWr66Zq/rkPF52RyPixoQWSkzkqztbTNRCOA8InyK69mxYcmGqWosMF/zku+VAPtWodZtuhVCixLG4UPnbEr5qFOipIQ3gUFXobMTBDQgQsBa00+6erNbS2qbNmDlcZxrVUvReT9LkpwBono3wFVnlB3a/uVI7vb26JkQqXJOKb/Pkx0O/NduLem4SlA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  222.71.101.198) smtp.rcpttodomain=bootlin.com smtp.mailfrom=cixtech.com;
  dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
  not signed); arc=none (0)
-Received: from PUVP216CA0064.KORP216.PROD.OUTLOOK.COM (2603:1096:301:225::14)
- by OSNPR06MB8347.apcprd06.prod.outlook.com (2603:1096:604:487::13) with
+Received: from SI2PR04CA0014.apcprd04.prod.outlook.com (2603:1096:4:197::18)
+ by TYZPR06MB5322.apcprd06.prod.outlook.com (2603:1096:400:1f2::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.688.4; Fri, 27 Nov
- 2026 05:58:10 +0000
-Received: from TY2PEPF0000AB86.apcprd03.prod.outlook.com
- (2603:1096:301:225:cafe::59) by PUVP216CA0064.outlook.office365.com
- (2603:1096:301:225::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.3; Fri, 27 Nov
+ 2026 05:58:14 +0000
+Received: from SG2PEPF000B66CB.apcprd03.prod.outlook.com
+ (2603:1096:4:197:cafe::7b) by SI2PR04CA0014.outlook.office365.com
+ (2603:1096:4:197::18) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.9 via Frontend Transport; Fri, 27
  Nov 2026 05:58:10 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
@@ -72,11 +72,11 @@ Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
  222.71.101.198 as permitted sender) receiver=protection.outlook.com;
  client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
 Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- TY2PEPF0000AB86.mail.protection.outlook.com (10.167.253.10) with Microsoft
+ SG2PEPF000B66CB.mail.protection.outlook.com (10.167.240.24) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.688.5 via Frontend Transport; Fri, 27 Nov 2026 05:58:09 +0000
+ 15.21.688.5 via Frontend Transport; Fri, 27 Nov 2026 05:58:08 +0000
 Received: from localhost.localdomain (unknown [172.16.66.33])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 2E90040920E7;
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 298B840920E5;
 	Fri, 27 Nov 2026 13:58:08 +0800 (CST)
 From: Luo Liu <Luo.Liu@cixtech.com>
 To: maarten.lankhorst@linux.intel.com,
@@ -96,9 +96,9 @@ Cc: dri-devel@lists.freedesktop.org,
 	luca.ceresoli@bootlin.com,
 	wuyi.shen@cixtech.com,
 	cix-kernel-upstream@cixtech.com
-Subject: [PATCH v6 4/5] drm/bridge: trilinear: add the DPTX core and build glue
-Date: Fri, 27 Nov 2026 13:58:06 +0800
-Message-Id: <20261127055807.109667-5-Luo.Liu@cixtech.com>
+Subject: [PATCH v6 3/5] drm/bridge: trilinear: add the DPTX DRM bridge
+Date: Fri, 27 Nov 2026 13:58:05 +0800
+Message-Id: <20261127055807.109667-4-Luo.Liu@cixtech.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20261127055807.109667-1-Luo.Liu@cixtech.com>
 References: <20261127055807.109667-1-Luo.Liu@cixtech.com>
@@ -114,1162 +114,999 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB86:EE_|OSNPR06MB8347:EE_
+X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CB:EE_|TYZPR06MB5322:EE_
 Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: f969a8ae-d5d4-4f30-a3b1-08df4c4b6a6e
+X-MS-Office365-Filtering-Correlation-Id: 023fef98-9cef-4776-3509-08df4c4b69a7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|42112799006|82310400026|23010399003|36860700016|7416014|376014|1800799024|261009221727099003|261009220027099003|261009223327099003|261009223027099003|261009221227099003|18002099003|22082099003|261026140227099003|10067099003|56012099006|261102123227099003|261028144727099003|261026121527099003|261022105027099003|261022075727099003|261102130727099003|261021121427099003|261021123027099003;
+	BCL:0;ARA:13230040|23010399003|36860700016|7416014|376014|82310400026|42112799006|1800799024|261102123227099003|10067099003|5023799004|56012099006|261026121527099003|261021121427099003|261021123027099003|261026140227099003|261009221227099003|261009223027099003|261022075727099003|261028144727099003|261022105027099003|18002099003|22082099003|18092099006|6133799003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	7x1XXlhvvTY6s1cF7yXWXIFzOwEICzY2ocokzHAkjdme1+jEzDYy4ehEgV/tfaMqoZ+oAbbzFXHRBrU7brGjq0Tmk8JMPE1VsBKPBLgQMpbVMVzyAAM5nlCI2Rgc3yjQZwyv5yXI3irU7z83aaE7snbMNWUOlnPYxJQWU7dPd/FieUm1rPnWdTiGhtshyL7/Uhze2nKaZzRwtEfdu3MkHpBQEa4aqoIBHr2Q8CyGKyN02EaDWazqkWxkmXNmzKsJEZn/YJYyRTZKU9ZJPehL9Kx1giHw4esOHVvupzzOt7I2gvyOTQFBxwpMSsoHzfPA06SVi/CdkRZV5oH+4NJxtbTpaGxwIb9GdTLw4y9uLwPEhk25DCD0Pxp1FYjeZxyxfzuU2X5Y8fPVhJod9YtGScu40GRmbLbDsA38KxYY/ibbaHDEfxnR4B8S+M/80XIiKSGWnuA5eKaDhJHLpapJY9dxkx3EHwOP3pvDXSWip3qLMhwXxBk+F/oSNbFXudYR0g1wd62QLdkMVPAl15XI5TtosQCgYWuoLdV76ph2O7AL/rsXkystAUO6lJYTbGVyHEJ/TC4CbVYN15kmf8AwxMyOxOFIJsJHf4fzLSt0MKtz4awvJwyUMLyh1pPShd03v9I1CxV9+71qyV7XnyqCYu4i9UrcmvAeW7VUlZSm7ht+nM7fR5u/nd685Os0ERNHOuRrNpIpmZKI3pucPWDXdA==
+	YShmYLxRF73XERYdk4kyN54F3w9hsmhodjqb7i5iOjbEjHr5QsPfIQMrSvAOz3C5/7vaDTGjGDQmdAvT8fkWdBlJBf/WogASYmIgEeriNq4Dpy+HEQ3wL5RrVTLI7rm1sBrA1LrZeMan7MuFyirByiE+3Z4LcuFoy+wHvmx1qKD/eSX96eTij6MKWby2a6xXDNbGy81z9uw4JsvC1/RRKtGh2CAv2cprq5Cp6cmp6p0mp+rjf6gf+RZBPcF3X95Zpc4lHY/VIx3N+9vJH8bqUya58EuclpeUa3Mh8ktAYrxKz3S712ek/u7uDhbUDZYSQQVHzgOdbXNYL1ea5+cZ7JbrMuKfZQ2ZEOZFtDaaZuYRzMlVPIEmwXUdtFk8OJT+bhwCSz/FqA7AB6XO2jWMvg3kwHf0raqaE43x4lMyuQvlQMmYcoyi0RkRK/9RjqiC+7RQH8X/W/josSCxA5Pa9dfHcHQ9I6oum5JTUpUcj7ThBdd8W7Vs/UTE+x1ww6VJURzNH1bB5QyQzSwc9+kl8YextlHFrW3gZVXYzOlYSXbnfGVp2o5OwS6GPeWNm7MGsvYeZKqa4dr7oxwYsES/ImiJcmviV46ZgEqIG7zzlZe+0hD/2SUu5oD26L0mgfifcjzyULZiSPpdVEa21Th4q4pn17Nd1qc+GDXhEUMCkU6kAC6vjUb2NfwZjxNCKXUCWHLKzjVItuuc1lK04vXc1A==
 X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(42112799006)(82310400026)(23010399003)(36860700016)(7416014)(376014)(1800799024)(261009221727099003)(261009220027099003)(261009223327099003)(261009223027099003)(261009221227099003)(18002099003)(22082099003)(261026140227099003)(10067099003)(56012099006)(261102123227099003)(261028144727099003)(261026121527099003)(261022105027099003)(261022075727099003)(261102130727099003)(261021121427099003)(261021123027099003);DIR:OUT;SFP:1102;
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(7416014)(376014)(82310400026)(42112799006)(1800799024)(261102123227099003)(10067099003)(5023799004)(56012099006)(261026121527099003)(261021121427099003)(261021123027099003)(261026140227099003)(261009221227099003)(261009223027099003)(261022075727099003)(261028144727099003)(261022105027099003)(18002099003)(22082099003)(18092099006)(6133799003)(3023799007);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	EtU5DoFW8gT1adQo9/5IBChWSkOwn7WMptSrZ03G6INUgs1mh8SoikURUU4gRqxdqhM4WftZ87o3h2VyGIrE1dsyDe87ajej19zfSIJuQHiAns41iaDyzC6jSizFm8nqdi0IjsDjRd+Mfk479nIid6qujAfhqs/xuyMv8vFwaiiyghHn6Ejt+8uFOjoJeKgQYm64WE3MX+4G6GEUfVwwS+YUVntzu82OUYEwPxYlomNfkddfuuFJyL4F6l0Qc/l/Mh6UNW2LEe8CSc7mAenNZd9up/tibY+tZ4zx4WyL9oTDQkYBFr1reFJUJreWQD8fGnqJLv7Ex8kfxDiiIHjUyIusuJUM1np+5qmJztiD/fNQG5rFyoQtsGAaxwmTFex+tETMXXXqCPbaScfukPeiHBFvRus/BDtDsW7HwrAxMSH4yvdM45+AwZ+5Cw+otQCy
+	bOr0YoWSoW0mA9C9ByZRrwGhAz1wR1SgM2nrQQ4aZLoqhMSyy5OKeK7T/NDizNGqRXx3uVMuAkvdEK9ZcsThi4N61XhM0nRe03d6KlFQhkI54HyAXSBKcS+eQ+YlX6W6rL/ke/PGpXEWoAHgWAH/oRslFjiyLoH5i4sdyeN4RGs1WokCoHA+euEsP6gNxQZF6ND5K5RKtO0KceGTPYKnQ+AFWP+mkX/POTkkDixobXcQ4SPzM9xm5y4xVbCcvdZeC8tWgzPc9LkFn65dHxgKVtRJG+wERQfMSrbhv27b+ZWrbUtf7GMdVWTk4Xp1yLgJmll23hRnm9pIa/G+MgFjOHyQqOKHhAZPfNirTjK9Z+2mDSCn5U8Z3UGggfS85NdJWlCqpTlJJ8D3N0gS0ryHc05UCvq20Abdyy7GKB77YCbWRX4vlOPhMId1PbwZpMsD
 X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 05:58:09.4929
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 05:58:08.7023
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f969a8ae-d5d4-4f30-a3b1-08df4c4b6a6e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 023fef98-9cef-4776-3509-08df4c4b69a7
 X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	TY2PEPF0000AB86.apcprd03.prod.outlook.com
+	SG2PEPF000B66CB.apcprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSNPR06MB8347
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR06MB5322
 
-Add the probe path, system sleep handling, hotplug workers and the
-stream state machine that tie the hardware layer to the DRM bridge, and
-hook the driver into the DRM bridge Kconfig and Makefile.
+Add the DRM bridge that exposes the transmitter to KMS: connector
+detection, EDID mode enumeration with a downstream timing fallback,
+validation of a mode against the sink link capabilities, and the atomic
+enable and disable paths.
 
-Detection is driven by the controller's HPD interrupt. The USB-C
-transmitters do not route HPD to the controller, so a sink that was
-plugged in before the bridge was attached raises no event; replay that
-plug once the common PHY is in DP mode and the AUX channel answers. The
-native DP port wires HPD and is reported by the interrupt.
-
-An atomic enable that races the system sleep callbacks re-initializes the
-host on demand; the suspend path reinstates its suspended state afterwards
-so the host is never powered down with its interrupt armed.
+The bridge is meant to be attached with DRM_BRIDGE_ATTACH_NO_CONNECTOR;
+the connector is created by drm_bridge_connector_init() from the bridge
+operations, so the driver only implements the bridge side and never
+creates a connector of its own.
 
 Signed-off-by: Luo Liu <Luo.Liu@cixtech.com>
 ---
- drivers/gpu/drm/bridge/Kconfig               |    2 +
- drivers/gpu/drm/bridge/Makefile              |    1 +
- drivers/gpu/drm/bridge/trilinear/Kconfig     |    9 +
- drivers/gpu/drm/bridge/trilinear/Makefile    |    4 +
- drivers/gpu/drm/bridge/trilinear/dptx_core.c | 1053 ++++++++++++++++++
- 5 files changed, 1069 insertions(+)
- create mode 100644 drivers/gpu/drm/bridge/trilinear/Kconfig
- create mode 100644 drivers/gpu/drm/bridge/trilinear/Makefile
- create mode 100644 drivers/gpu/drm/bridge/trilinear/dptx_core.c
+ drivers/gpu/drm/bridge/trilinear/dptx.h     | 111 +++
+ drivers/gpu/drm/bridge/trilinear/dptx_drm.c | 719 ++++++++++++++++++++
+ drivers/gpu/drm/bridge/trilinear/dptx_drm.h |  17 +
+ include/drm/bridge/trilinear_dp.h           |  74 ++
+ 4 files changed, 921 insertions(+)
+ create mode 100644 drivers/gpu/drm/bridge/trilinear/dptx.h
+ create mode 100644 drivers/gpu/drm/bridge/trilinear/dptx_drm.c
+ create mode 100644 drivers/gpu/drm/bridge/trilinear/dptx_drm.h
+ create mode 100644 include/drm/bridge/trilinear_dp.h
 
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index c7da6b02d7b6..d328d5f84dc7 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -510,4 +510,6 @@ source "drivers/gpu/drm/bridge/imx/Kconfig"
- 
- source "drivers/gpu/drm/bridge/synopsys/Kconfig"
- 
-+source "drivers/gpu/drm/bridge/trilinear/Kconfig"
-+
- endmenu
-diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
-index 15cc821d85b7..9fe6bec55c51 100644
---- a/drivers/gpu/drm/bridge/Makefile
-+++ b/drivers/gpu/drm/bridge/Makefile
-@@ -53,3 +53,4 @@ obj-y += analogix/
- obj-y += cadence/
- obj-y += imx/
- obj-y += synopsys/
-+obj-y += trilinear/
-diff --git a/drivers/gpu/drm/bridge/trilinear/Kconfig b/drivers/gpu/drm/bridge/trilinear/Kconfig
+diff --git a/drivers/gpu/drm/bridge/trilinear/dptx.h b/drivers/gpu/drm/bridge/trilinear/dptx.h
 new file mode 100644
-index 000000000000..7e2bf1f27035
+index 000000000000..c04613810bd2
 --- /dev/null
-+++ b/drivers/gpu/drm/bridge/trilinear/Kconfig
-@@ -0,0 +1,9 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+
-+config DRM_TRILINEAR_DPTX
-+	tristate
-+	depends on COMMON_CLK && DRM && OF
-+	depends on GENERIC_PHY
-+	select DRM_KMS_HELPER
-+	select DRM_DISPLAY_HELPER
-+	select DRM_DISPLAY_DP_HELPER
-diff --git a/drivers/gpu/drm/bridge/trilinear/Makefile b/drivers/gpu/drm/bridge/trilinear/Makefile
-new file mode 100644
-index 000000000000..415842b8465d
---- /dev/null
-+++ b/drivers/gpu/drm/bridge/trilinear/Makefile
-@@ -0,0 +1,4 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+
-+trilinear-dptx-y := dptx_core.o dptx_drm.o dptx_hw.o
-+obj-$(CONFIG_DRM_TRILINEAR_DPTX) += trilinear-dptx.o
-diff --git a/drivers/gpu/drm/bridge/trilinear/dptx_core.c b/drivers/gpu/drm/bridge/trilinear/dptx_core.c
-new file mode 100644
-index 000000000000..bfe339afe587
---- /dev/null
-+++ b/drivers/gpu/drm/bridge/trilinear/dptx_core.c
-@@ -0,0 +1,1053 @@
-+// SPDX-License-Identifier: GPL-2.0-only
++++ b/drivers/gpu/drm/bridge/trilinear/dptx.h
+@@ -0,0 +1,111 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
++ * DisplayPort transmitter driver
++ *
 + * Copyright (C) 2026 Trilinear Technologies
 + * Copyright 2026 Cix Technology Group Co., Ltd.
 + */
 +
-+#include <linux/delay.h>
-+#include <linux/iopoll.h>
-+#include <linux/irq.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_irq.h>
-+#include <linux/phy/phy.h>
-+#include <linux/sched.h>
-+#include <linux/workqueue.h>
++#ifndef DPTX_H
++#define DPTX_H
 +
++#include <linux/bits.h>
++#include <linux/mutex.h>
++
++#include <drm/bridge/trilinear_dp.h>
++#include <drm/display/drm_dp_helper.h>
 +#include <drm/drm_bridge.h>
++#include <drm/drm_connector.h>
++
++#include "dptx_hw.h"
++
++#define DPTX_MAX_RATE(rate, lanes, bpp) ((rate) * (lanes) * 8 / (bpp))
++
++#define bridge_to_dp(_bridge) \
++	container_of(_bridge, struct dptx_dev, bridge)
++
++#define DPTX_MAX_FREQ 600000
++#define DP_MAX_TRAINING_LOOP 3
++
++enum dptx_state {
++	DPTX_STATE_DISCONNECTED = 0,
++	DPTX_STATE_CONFIGURED = BIT(0),
++	DPTX_STATE_INITIALIZED = BIT(1),
++	DPTX_STATE_READY = BIT(2),
++	DPTX_STATE_CONNECTED = BIT(3),
++	DPTX_STATE_ENABLED = BIT(6),
++	DPTX_STATE_SUSPENDED = BIT(7),
++	DPTX_STATE_SHUTDOWN = BIT(9),
++};
++
++struct dptx_mode {
++	u8 bw_code;
++	u8 lane_cnt;
++	int pclock;
++	int link_rate;
++};
++
++struct dptx_config {
++	int bpp;
++	int bpc;
++	enum dp_pixelformat format;
++	u32 colorspace;
++	u8 content_type;
++};
++
++struct dptx_dev;
++struct dp_hw;
++struct phy;
++struct task_struct;
++
++struct dptx_ops {
++	int (*detect)(struct dptx_dev *dp);
++	enum drm_connector_status (*detect_status)(struct dptx_dev *dp);
++	int (*prepare)(struct dptx_dev *dp);
++	int (*unprepare)(struct dptx_dev *dp);
++	int (*encoder_enable)(struct dptx_dev *dp, unsigned int stream_id,
++			      int enable);
++	int (*mode_configure)(struct dptx_dev *dp, int pclk, u8 bw, u8 bpp,
++			      bool downshift);
++	void (*replay_deferred_hotplug)(struct dptx_dev *dp);
++	void (*quiesce_hpd)(struct dptx_dev *dp);
++};
++
++struct dptx_dev {
++	struct drm_bridge bridge;
++	struct device *dev;
++	struct phy *phy;
++	int irq;
++	bool irq_suspended;
++	bool hpd_stopped;
++	bool attached;
++	/* Set when the platform device is gone; the bridge may still be in use. */
++	bool released;
++	/* Link limits of the current sink, clamped to the controller ones. */
++	int link_max_rate;
++	int link_max_lanes;
++
++	struct delayed_work hpd_event_work;
++	struct delayed_work hpd_irq_work;
++	enum drm_connector_status force_hpd;
++	/* Tasks whose detect or hpd_notify result is currently echoing back. */
++	struct task_struct *detect_task;
++	struct task_struct *notify_task;
++	struct dptx_mode mode;
++	/* Adjusted mode of the enabled stream, cached for the hotplug workers. */
++	struct drm_display_mode adjusted_mode;
++	enum dptx_state state;
++	u32 pixel_per_cycle;
++	u32 active_stream_cnt;
++	/* Serializes the DP state against the hotplug workers. */
++	struct mutex lock;
++	u32 active_streams;
++	struct dptx_config config;
++	const struct dptx_ops *ops;
++	struct dp_hw *hw;
++	const struct dptx_plat_data *soc_data;
++	bool oob_hpd;
++	void *soc_priv;
++};
++
++#endif /* DPTX_H */
+diff --git a/drivers/gpu/drm/bridge/trilinear/dptx_drm.c b/drivers/gpu/drm/bridge/trilinear/dptx_drm.c
+new file mode 100644
+index 000000000000..29662047a902
+--- /dev/null
++++ b/drivers/gpu/drm/bridge/trilinear/dptx_drm.c
+@@ -0,0 +1,719 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * DisplayPort DRM bridge helpers
++ *
++ * Copyright 2026 Cix Technology Group Co., Ltd.
++ */
++
++#include <linux/device.h>
++#include <linux/kernel.h>
++#include <linux/math64.h>
++#include <linux/sched.h>
++#include <linux/slab.h>
++
++#include <drm/drm_atomic.h>
++#include <drm/drm_atomic_state_helper.h>
++#include <drm/drm_bridge.h>
++#include <drm/drm_edid.h>
 +
 +#include "dptx.h"
 +#include "dptx_drm.h"
-+#include "dptx_hw.h"
 +
-+#define DEFAULT_DP_POWER_ON_DELAY_MS 4
-+#define DP_HPD_MAX_TRIES 100
++#define DPTX_MIN_H_BACKPORCH 12
++#define DPTX_MIN_BPP		(6 * 3)
 +
-+static unsigned int dptx_power_on_delay_ms = DEFAULT_DP_POWER_ON_DELAY_MS;
-+module_param_named(power_on_delay_ms, dptx_power_on_delay_ms, uint, 0444);
-+MODULE_PARM_DESC(power_on_delay_ms,
-+		 "Delay after powering the sink up, in msec (default: 4)");
++struct fmt_prio_entry {
++	int format;
++	int bpc;
++};
 +
-+static bool dptx_regs_accessible(struct dptx_dev *dp)
++/* SST: RGB -> YUV422 10 -> YUV422 8 -> RGB 6 -> YUV420 8 */
++static const struct fmt_prio_entry fmt_prio[] = {
++	{ DRM_OUTPUT_COLOR_FORMAT_RGB444, 0 },
++	{ DRM_OUTPUT_COLOR_FORMAT_YCBCR422, 10 },
++	{ DRM_OUTPUT_COLOR_FORMAT_YCBCR422, 8 },
++	{ DRM_OUTPUT_COLOR_FORMAT_RGB444, 6 },
++	{ DRM_OUTPUT_COLOR_FORMAT_YCBCR420, 8 },
++};
++
++static const u8 dp_common_link_bw[] = {
++	DP_LINK_BW_1_62,
++	DP_LINK_BW_2_7,
++	DP_LINK_BW_5_4,
++	DP_LINK_BW_8_1,
++};
++
++static enum drm_connector_status dptx_bridge_detect(struct drm_bridge *bridge,
++						    struct drm_connector *connector)
 +{
-+	return !(dp->state & DPTX_STATE_SUSPENDED) &&
-+	       (dp->state & DPTX_STATE_INITIALIZED);
-+}
-+
-+static bool dptx_get_hpd_state(struct dptx_dev *dp)
-+{
-+	return dp->hw->ops->hpd_state(dp->hw) ||
-+	       dp->force_hpd == connector_status_connected;
-+}
-+
-+static int dptx_get_lanes(struct dptx_dev *dp, int link_rate, int pclk, u8 bpp)
-+{
-+	int max_lanes = dp->link_max_lanes;
-+	int i;
-+
-+	for (i = 1; i <= max_lanes; i <<= 1) {
-+		if (pclk <= DPTX_MAX_RATE(link_rate, i, bpp ? bpp : 24))
-+			return i;
-+	}
-+
-+	return 0;
-+}
-+
-+static int dptx_mode_configure(struct dptx_dev *dp, int pclk, u8 bw, u8 bpp,
-+			       bool downshift)
-+{
-+	int lane_cnt;
-+	int bw_code;
-+	int link_rate;
-+
-+	if (!downshift) {
-+		bw_code = bw;
-+	} else {
-+		link_rate = drm_dp_bw_code_to_link_rate(bw);
-+		if (link_rate > 5400)
-+			bw_code = DP_LINK_BW_5_4;
-+		else if (link_rate > 2700)
-+			bw_code = DP_LINK_BW_2_7;
-+		else if (link_rate > 1620)
-+			bw_code = DP_LINK_BW_1_62;
-+		else
-+			return -EINVAL;
-+	}
-+
-+	link_rate = drm_dp_bw_code_to_link_rate(bw_code);
-+	lane_cnt = dptx_get_lanes(dp, link_rate, pclk, bpp);
-+	if (!lane_cnt)
-+		return -EINVAL;
-+
-+	dp->mode.bw_code = bw_code;
-+	dp->mode.link_rate = link_rate;
-+	dp->mode.lane_cnt = lane_cnt;
-+	dp->mode.pclock = pclk;
-+
-+	return 0;
-+}
-+
-+static struct drm_display_mode *dptx_get_mode(struct dptx_dev *dp,
-+					      unsigned int stream_id)
-+{
-+	if (stream_id >= DPTX_MST_SOURCE_NUMBER)
-+		return NULL;
-+
-+	if (!(dp->active_streams & BIT(stream_id)))
-+		return NULL;
-+
-+	return &dp->adjusted_mode;
-+}
-+
-+static void dptx_active_streams(struct dptx_dev *dp)
-+{
-+	struct drm_display_mode *mode;
-+	int i;
-+
-+	if (!dp->attached)
-+		return;
-+
-+	for (i = 0; i < DPTX_MST_SOURCE_NUMBER; i++) {
-+		if (!(dp->active_streams & BIT(i)))
-+			continue;
-+
-+		mode = dptx_get_mode(dp, i);
-+		if (!mode)
-+			continue;
-+
-+		dp->hw->ops->stream_timing(dp->hw, i, mode,
-+					   dp->config.bpp,
-+					   dp->mode.lane_cnt, dp->mode.link_rate,
-+					   dp->pixel_per_cycle);
-+	}
-+}
-+
-+static int dptx_stream_hw_cfg(struct dptx_dev *dp, unsigned int stream_id)
-+{
-+	const struct dptx_config *config = &dp->config;
-+	struct drm_display_mode *mode = dptx_get_mode(dp, stream_id);
-+	int ret;
-+
-+	if (!mode)
-+		return -EINVAL;
-+
-+	ret = dp->hw->ops->stream_format_set(dp->hw, stream_id, config->format,
-+					     config->colorspace, config->bpc,
-+					     config->content_type);
-+	if (ret)
-+		return ret;
-+
-+	dp->hw->ops->stream_timing(dp->hw, stream_id, mode,
-+				   dp->config.bpp, dp->mode.lane_cnt,
-+				   dp->mode.link_rate, dp->pixel_per_cycle);
-+
-+	dp->soc_data->adapter_config(dp->soc_priv, stream_id,
-+				     config->format, dp->pixel_per_cycle == 2);
-+
-+	return 0;
-+}
-+
-+static int dptx_ctrl_stream_on(struct dptx_dev *dp, unsigned int stream_id)
-+{
-+	struct drm_display_mode *mode;
-+	unsigned long pixel_clock;
-+	int ret;
-+
-+	if (stream_id >= DPTX_MST_SOURCE_NUMBER)
-+		return -EINVAL;
-+
-+	mode = dptx_get_mode(dp, stream_id);
-+	if (!mode)
-+		return -EINVAL;
-+
-+	pixel_clock = (unsigned long)mode->clock * 1000;
-+	ret = dp->hw->ops->stream_clock_rate_set(dp->hw, stream_id, pixel_clock);
-+	if (ret)
-+		return ret;
-+
-+	ret = dp->hw->ops->stream_clock_enable(dp->hw, stream_id, true);
-+	if (ret)
-+		return ret;
-+
-+	ret = dptx_stream_hw_cfg(dp, stream_id);
-+	if (ret) {
-+		dp->hw->ops->stream_clock_enable(dp->hw, stream_id, false);
-+		return ret;
-+	}
-+
-+	dp->hw->ops->stream_enable(dp->hw, stream_id, true);
-+
-+	dp->active_stream_cnt++;
-+	return 0;
-+}
-+
-+static void dptx_ctrl_stream_off(struct dptx_dev *dp, unsigned int stream_id)
-+{
-+	dp->hw->ops->stream_enable(dp->hw, stream_id, false);
-+	dp->hw->ops->stream_clock_enable(dp->hw, stream_id, false);
-+
-+	dp->active_stream_cnt--;
-+}
-+
-+static void dptx_stop_streams(struct dptx_dev *dp)
-+{
-+	int i;
-+
-+	if (!(dp->state & DPTX_STATE_INITIALIZED))
-+		return;
-+
-+	for (i = 0; i < DPTX_MST_SOURCE_NUMBER; i++) {
-+		if (!(dp->active_streams & BIT(i)))
-+			continue;
-+
-+		dptx_ctrl_stream_off(dp, i);
-+		dp->active_streams &= ~BIT(i);
-+	}
-+
-+	if (!dp->active_stream_cnt)
-+		dp->state &= ~DPTX_STATE_ENABLED;
-+}
-+
-+static int dptx_enable(struct dptx_dev *dp, unsigned int stream_id)
-+{
-+	int ret;
-+
-+	if (stream_id >= DPTX_MST_SOURCE_NUMBER)
-+		return -EINVAL;
-+
-+	if (dp->active_streams & BIT(stream_id))
-+		return 0;
-+
-+	if (!(dp->state & DPTX_STATE_INITIALIZED) ||
-+	    !(dp->state & DPTX_STATE_READY)) {
-+		dev_dbg(dp->dev, "enable skipped, state=0x%x\n", dp->state);
-+		return 0;
-+	}
-+
-+	dp->active_streams |= BIT(stream_id);
-+	ret = dptx_ctrl_stream_on(dp, stream_id);
-+	if (ret) {
-+		dp->active_streams &= ~BIT(stream_id);
-+		return ret;
-+	}
-+
-+	dp->state |= DPTX_STATE_ENABLED;
-+
-+	return 0;
-+}
-+
-+static int dptx_disable(struct dptx_dev *dp, unsigned int stream_id)
-+{
-+	if (stream_id >= DPTX_MST_SOURCE_NUMBER)
-+		return -EINVAL;
-+
-+	if (!(dp->state & DPTX_STATE_ENABLED) ||
-+	    !(dp->state & DPTX_STATE_INITIALIZED))
-+		return 0;
-+
-+	if (dp->active_stream_cnt && (dp->active_streams & BIT(stream_id))) {
-+		dptx_ctrl_stream_off(dp, stream_id);
-+		dp->active_streams &= ~BIT(stream_id);
-+	}
-+
-+	return 0;
-+}
-+
-+static int dptx_train_loop(struct dptx_dev *dp)
-+{
-+	struct dptx_mode *mode = &dp->mode;
-+	struct dptx_mode orig = dp->mode;
-+	u8 bpp = dp->config.bpp;
-+	u8 prev_bw = mode->bw_code;
-+	u8 prev_lanes = mode->lane_cnt;
-+	u8 bw_code = mode->bw_code;
-+	int i;
-+	int j;
-+	int ret;
-+
-+	for (i = 0; i < DP_MAX_TRAINING_LOOP; i++) {
-+		for (j = 0; j <= 3; j++) {
-+			if (!(dp->state & DPTX_STATE_READY)) {
-+				ret = -ENODEV;
-+				goto err_restore;
-+			}
-+
-+			ret = dp->hw->ops->link_train(dp->hw, dp->phy,
-+						      mode->bw_code,
-+						      mode->lane_cnt,
-+						      DPTX_MAX_LANES);
-+			if (!ret) {
-+				if (dp->active_stream_cnt &&
-+				    (mode->bw_code != prev_bw ||
-+				     mode->lane_cnt != prev_lanes))
-+					dptx_active_streams(dp);
-+				return 0;
-+			}
-+
-+			ret = dptx_mode_configure(dp, mode->pclock, bw_code,
-+						  bpp, true);
-+			if (ret < 0)
-+				break;
-+
-+			bw_code = dp->mode.bw_code;
-+		}
-+
-+		ret = dptx_mode_configure(dp, mode->pclock,
-+					  drm_dp_link_rate_to_bw_code(dp->link_max_rate),
-+					  bpp, false);
-+		if (ret < 0)
-+			goto err_restore;
-+
-+		bw_code = dp->mode.bw_code;
-+	}
-+
-+	ret = -EIO;
-+err_restore:
-+	dp->mode = orig;
-+
-+	return ret;
-+}
-+
-+static int dptx_read_sink_caps(struct dptx_dev *dp)
-+{
-+	int max_rate;
-+	int ret;
-+
-+	ret = dp->hw->ops->dpcd_sink_caps(dp->hw);
-+	if (ret)
-+		return ret;
-+
-+	if (!dp->hw->caps.max_lanes || !dp->hw->caps.max_rate)
-+		return -EINVAL;
-+
-+	max_rate = drm_dp_bw_code_to_link_rate(dp->soc_data->max_bw_code);
-+
-+	dp->link_max_lanes = min_t(u8, dp->hw->caps.max_lanes, DPTX_MAX_LANES);
-+	dp->link_max_rate = min_t(int, dp->hw->caps.max_rate, max_rate);
-+
-+	return 0;
-+}
-+
-+static int dptx_core_on(struct dptx_dev *dp)
-+{
-+	int i, ret;
-+
-+	if (dp->state & DPTX_STATE_READY)
-+		return 0;
-+
-+	dp->state |= DPTX_STATE_READY;
-+
-+	for (i = 0; i < DPTX_MST_SOURCE_NUMBER; i++)
-+		dp->hw->ops->stream_enable(dp->hw, i, false);
-+
-+	ret = phy_power_on(dp->phy);
-+	if (ret)
-+		goto err;
-+
-+	ret = dp->hw->ops->dpcd_power_up(dp->hw, dptx_power_on_delay_ms);
-+	if (ret)
-+		goto err_power;
-+
-+	ret = dptx_read_sink_caps(dp);
-+	if (ret)
-+		goto err_power;
-+
-+	ret = dptx_train_loop(dp);
-+	if (ret)
-+		goto err_power;
-+
-+	dp->hw->ops->core_enable(dp->hw, 0, true);
-+
-+	return 0;
-+
-+err_power:
-+	dp->hw->ops->dpcd_power_down(dp->hw, dptx_get_hpd_state(dp));
-+	phy_power_off(dp->phy);
-+err:
-+	dp->state &= ~DPTX_STATE_READY;
-+	return ret;
-+}
-+
-+static int dptx_core_off(struct dptx_dev *dp)
-+{
-+	if (!(dp->state & DPTX_STATE_READY))
-+		return 0;
-+
-+	dp->hw->ops->dpcd_power_down(dp->hw, dptx_get_hpd_state(dp));
-+
-+	phy_power_off(dp->phy);
-+	dp->hw->ops->core_enable(dp->hw, 0, false);
-+
-+	dp->state &= ~DPTX_STATE_READY;
-+
-+	return 0;
-+}
-+
-+static int dptx_host_reset(struct dptx_dev *dp)
-+{
-+	int ret;
-+
-+	dp->hw->ops->reset(dp->hw, true);
-+	usleep_range(10, 20);
-+	dp->hw->ops->reset(dp->hw, false);
-+
-+	ret = phy_reset(dp->phy);
-+	if (ret)
-+		return ret;
-+
-+	usleep_range(100, 200);
-+	dp->hw->ops->host_enable(dp->hw, true);
-+
-+	ret = phy_init(dp->phy);
-+	if (ret) {
-+		dp->hw->ops->host_enable(dp->hw, false);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int dptx_host_init(struct dptx_dev *dp)
-+{
-+	int ret;
-+
-+	if (dp->state & DPTX_STATE_INITIALIZED)
-+		return 0;
-+
-+	ret = dp->hw->ops->apb_clock(dp->hw, true);
-+	if (ret)
-+		return ret;
-+
-+	ret = dptx_host_reset(dp);
-+	if (ret) {
-+		dp->hw->ops->apb_clock(dp->hw, false);
-+		return ret;
-+	}
-+
-+	drm_dp_dpcd_set_powered(&dp->hw->aux, true);
-+	dp->state |= DPTX_STATE_INITIALIZED;
-+
-+	return 0;
-+}
-+
-+static void dptx_host_deinit(struct dptx_dev *dp)
-+{
-+	if (dp->state & DPTX_STATE_READY)
-+		dptx_core_off(dp);
-+
-+	dp->force_hpd = connector_status_unknown;
-+
-+	if (!(dp->state & DPTX_STATE_INITIALIZED))
-+		return;
-+
-+	drm_dp_dpcd_set_powered(&dp->hw->aux, false);
-+
-+	dp->hw->ops->host_enable(dp->hw, false);
-+	phy_exit(dp->phy);
-+	dp->hw->ops->apb_clock(dp->hw, false);
-+
-+	dp->state &= ~DPTX_STATE_INITIALIZED;
-+}
-+
-+static int dptx_host_resume(struct dptx_dev *dp)
-+{
-+	int ret;
-+
-+	if (!(dp->state & DPTX_STATE_SUSPENDED))
-+		return 0;
-+
-+	ret = dptx_host_init(dp);
-+	if (ret)
-+		return ret;
-+
-+	if (dp->irq_suspended) {
-+		enable_irq(dp->irq);
-+		dp->irq_suspended = false;
-+	}
-+
-+	dp->state &= ~DPTX_STATE_SUSPENDED;
-+	return 0;
-+}
-+
-+static int dptx_handle_connect(struct dptx_dev *dp)
-+{
-+	int ret;
-+
-+	if (dp->state & DPTX_STATE_SUSPENDED)
-+		return 0;
-+
-+	ret = dptx_read_sink_caps(dp);
-+	if (ret) {
-+		dp->state &= ~DPTX_STATE_CONNECTED;
-+		return ret;
-+	}
-+
-+	dp->state |= DPTX_STATE_CONNECTED;
-+
-+	return 0;
-+}
-+
-+static int dptx_handle_disconnect(struct dptx_dev *dp)
-+{
-+	dp->state &= ~DPTX_STATE_CONNECTED;
-+
-+	/*
-+	 * The typec state can lag behind the PHY. Keep the forced state
-+	 * unless the PHY is in DP mode, where an AUX probe can correct a
-+	 * stale report.
-+	 */
-+	if (!dp->oob_hpd ||
-+	    phy_get_mode(dp->phy) == PHY_MODE_DP)
-+		dp->force_hpd = connector_status_unknown;
-+
-+	return 0;
-+}
-+
-+static enum drm_connector_status dptx_ret_to_status(int ret)
-+{
-+	if (ret == -EBUSY)
-+		return connector_status_unknown;
-+	if (ret)
-+		return connector_status_disconnected;
-+
-+	return connector_status_connected;
-+}
-+
-+static int dptx_detect_locked(struct dptx_dev *dp)
-+{
-+	if (dp->released)
-+		return -ENODEV;
-+
-+	if (dp->state & DPTX_STATE_SUSPENDED)
-+		return -EBUSY;
-+
-+	if (!(dp->state & DPTX_STATE_INITIALIZED)) {
-+		dev_warn_once(dp->dev, "detect with uninitialized host\n");
-+		return -ENODEV;
-+	}
-+
-+	if (!dptx_get_hpd_state(dp)) {
-+		dptx_handle_disconnect(dp);
-+		return -ENODEV;
-+	}
-+
-+	return dptx_handle_connect(dp);
-+}
-+
-+static int dptx_detect(struct dptx_dev *dp)
-+{
-+	guard(mutex)(&dp->lock);
-+
-+	return dptx_detect_locked(dp);
-+}
-+
-+static enum drm_connector_status dptx_detect_status(struct dptx_dev *dp)
-+{
-+	return dptx_ret_to_status(dptx_detect(dp));
-+}
-+
-+static void dptx_notify_hpd(struct dptx_dev *dp,
-+			    enum drm_connector_status status)
-+{
-+	WRITE_ONCE(dp->notify_task, current);
-+	drm_bridge_hpd_notify(&dp->bridge, status);
-+	WRITE_ONCE(dp->notify_task, NULL);
-+}
-+
-+static bool dptx_hpd_work_aborted(struct dptx_dev *dp)
-+{
-+	return dp->hpd_stopped ||
-+	       !dp->attached ||
-+	       !dptx_regs_accessible(dp);
-+}
-+
-+static bool dptx_hpd_wait_aborted(struct dptx_dev *dp)
-+{
-+	guard(mutex)(&dp->lock);
-+
-+	return dptx_hpd_work_aborted(dp) || !dptx_get_hpd_state(dp);
-+}
-+
-+static bool dptx_wait_phy_dp_mode(struct dptx_dev *dp)
-+{
-+	enum phy_mode mode;
-+
-+	read_poll_timeout(phy_get_mode, mode,
-+			  mode == PHY_MODE_DP || dptx_hpd_wait_aborted(dp),
-+			  100 * USEC_PER_MSEC,
-+			  DP_HPD_MAX_TRIES * 100 * USEC_PER_MSEC, false,
-+			  dp->phy);
-+
-+	if (mode != PHY_MODE_DP || dptx_hpd_wait_aborted(dp)) {
-+		dev_dbg(dp->dev, "PHY did not enter DP mode\n");
-+		return false;
-+	}
-+
-+	return true;
-+}
-+
-+static void dptx_hpd_event_work_func(struct work_struct *work)
-+{
-+	struct dptx_dev *dp = container_of(work, struct dptx_dev,
-+					 hpd_event_work.work);
++	struct dptx_dev *dp = bridge_to_dp(bridge);
 +	enum drm_connector_status status;
-+	bool hpd;
 +
-+	scoped_guard(mutex, &dp->lock) {
-+		if (dptx_hpd_work_aborted(dp))
-+			return;
++	status = dp->ops->detect_status(dp);
++	WRITE_ONCE(dp->detect_task, current);
 +
-+		hpd = dptx_get_hpd_state(dp);
-+	}
-+
-+	if (hpd && dp->oob_hpd && !dptx_wait_phy_dp_mode(dp))
-+		return;
-+
-+	scoped_guard(mutex, &dp->lock) {
-+		if (dptx_hpd_work_aborted(dp))
-+			return;
-+
-+		status = dptx_ret_to_status(dptx_detect_locked(dp));
-+	}
-+
-+	if (dp->bridge.dev)
-+		dptx_notify_hpd(dp, status);
++	return status;
 +}
 +
-+static void dptx_hpd_irq_work_func(struct work_struct *work)
++static void dptx_hpd_notify(struct dptx_dev *dp,
++			    enum drm_connector_status hpd_state)
 +{
-+	struct dptx_dev *dp = container_of(work, struct dptx_dev,
-+					 hpd_irq_work.work);
++	if (READ_ONCE(dp->detect_task) == current) {
++		WRITE_ONCE(dp->detect_task, NULL);
++		return;
++	}
++
++	if (READ_ONCE(dp->notify_task) == current) {
++		WRITE_ONCE(dp->notify_task, NULL);
++		return;
++	}
++
++	if (!dp->oob_hpd)
++		return;
 +
 +	guard(mutex)(&dp->lock);
 +
 +	if (dp->hpd_stopped ||
-+	    !dptx_regs_accessible(dp) ||
-+	    !(dp->state & DPTX_STATE_ENABLED) ||
-+	    !dptx_get_hpd_state(dp))
++	    hpd_state == connector_status_unknown)
 +		return;
 +
-+	if (dp->hw->ops->link_status(dp->hw, dp->mode.lane_cnt) > 0)
-+		dptx_train_loop(dp);
++	dp->force_hpd = hpd_state;
++
++	if (!(dp->state & DPTX_STATE_SUSPENDED)) {
++		queue_delayed_work(system_freezable_wq, &dp->hpd_event_work, 0);
++		if (hpd_state == connector_status_connected)
++			queue_delayed_work(system_freezable_wq,
++					   &dp->hpd_irq_work,
++					   msecs_to_jiffies(20));
++	}
 +}
 +
-+static bool dptx_deferred_hotplug_pending(struct dptx_dev *dp)
++static void dptx_bridge_hpd_notify(struct drm_bridge *bridge,
++				   struct drm_connector *connector,
++				   enum drm_connector_status status)
 +{
-+	return !dptx_hpd_work_aborted(dp) &&
-+	       !dp->released &&
-+	       dp->force_hpd == connector_status_unknown;
++	dptx_hpd_notify(bridge_to_dp(bridge), status);
++}
++
++static int dptx_bridge_get_modes(struct drm_bridge *bridge,
++				 struct drm_connector *connector)
++{
++	struct dptx_dev *dp = bridge_to_dp(bridge);
++	const struct drm_edid *edid;
++	struct drm_display_mode *mode;
++	int ret;
++
++	scoped_guard(mutex, &dp->lock) {
++		if (dp->released ||
++		    (dp->state & DPTX_STATE_SUSPENDED) ||
++		    !(dp->state & DPTX_STATE_INITIALIZED) ||
++		    !(dp->state & DPTX_STATE_CONNECTED))
++			return 0;
++
++		edid = drm_edid_read(connector);
++	}
++
++	if (edid) {
++		drm_edid_connector_update(connector, edid);
++		ret = drm_edid_connector_add_modes(connector);
++		drm_edid_free(edid);
++
++		return ret;
++	}
++
++	drm_edid_connector_update(connector, NULL);
++
++	scoped_guard(mutex, &dp->lock) {
++		if (dp->released || !(dp->state & DPTX_STATE_CONNECTED))
++			return 0;
++
++		mode = drm_dp_downstream_mode(connector->dev, dp->hw->dpcd,
++					      dp->hw->downstream_ports);
++	}
++	if (!mode)
++		return 0;
++
++	drm_mode_probed_add(connector, mode);
++
++	return 1;
++}
++
++static u32 dptx_pick_ppc(const struct drm_display_mode *mode,
++			 enum dp_pixelformat format)
++{
++	if (mode->clock > DPTX_MAX_FREQ &&
++	    mode->clock < DPTX_MAX_FREQ * 2 &&
++	    format != DP_PIXELFORMAT_YUV420)
++		return 2;
++
++	return 1;
++}
++
++static void dptx_adjust_mode(const struct drm_display_mode *mode,
++			     struct drm_display_mode *adjusted_mode)
++{
++	int diff = mode->htotal - mode->hsync_end;
++
++	if (diff < DPTX_MIN_H_BACKPORCH) {
++		adjusted_mode->htotal = mode->htotal +
++					DPTX_MIN_H_BACKPORCH - diff;
++		adjusted_mode->clock =
++			div_u64(mul_u32_u32(mode->clock, adjusted_mode->htotal),
++				mode->htotal);
++	}
++
++	adjusted_mode->flags &= ~(DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_NVSYNC);
++	if (mode->flags & DRM_MODE_FLAG_PVSYNC)
++		adjusted_mode->flags |= DRM_MODE_FLAG_NVSYNC;
++	else
++		adjusted_mode->flags |= DRM_MODE_FLAG_PVSYNC;
++
++	adjusted_mode->flags &= ~(DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_NHSYNC);
++	if (mode->flags & DRM_MODE_FLAG_PHSYNC)
++		adjusted_mode->flags |= DRM_MODE_FLAG_NHSYNC;
++	else
++		adjusted_mode->flags |= DRM_MODE_FLAG_PHSYNC;
++}
++
++static enum drm_mode_status
++dptx_bridge_mode_valid(struct drm_bridge *bridge,
++		       const struct drm_display_info *info,
++		       const struct drm_display_mode *mode)
++{
++	struct dptx_dev *dp = bridge_to_dp(bridge);
++	struct drm_display_mode adjusted;
++	int max_lanes;
++	int max_rate;
++	u32 pixel_per_cycle;
++	int bpc = info->bpc ? info->bpc : 8;
++	int minbpp = DPTX_MIN_BPP;
++	bool vsc_supported;
++	bool can_420;
++
++	adjusted = *mode;
++	dptx_adjust_mode(mode, &adjusted);
++
++	scoped_guard(mutex, &dp->lock) {
++		max_lanes = dp->link_max_lanes;
++		max_rate = dp->link_max_rate;
++		vsc_supported = dp->hw->ops->vsc_supported(dp->hw);
++	}
++
++	pixel_per_cycle = dptx_pick_ppc(&adjusted, DP_PIXELFORMAT_RGB);
++
++	can_420 = drm_mode_is_420(info, mode) && bridge->ycbcr_420_allowed &&
++		  vsc_supported;
++
++	if (drm_mode_is_420_only(info, mode)) {
++		if (!can_420 || bpc < 8)
++			return MODE_NO_420;
++
++		minbpp = 8 * 3 / 2;
++		pixel_per_cycle = 1;
++	} else if (bpc >= 8 && can_420 && adjusted.clock <= DPTX_MAX_FREQ) {
++		minbpp = 8 * 3 / 2;
++	} else if (bpc >= 8 &&
++		   info->color_formats &
++		   BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422)) {
++		minbpp = 8 * 2;
++	}
++
++	if (pixel_per_cycle == 1 && adjusted.clock > DPTX_MAX_FREQ) {
++		drm_mode_debug_printmodeline(mode);
++		return MODE_CLOCK_HIGH;
++	}
++
++	if (adjusted.clock > DPTX_MAX_RATE(max_rate, max_lanes, minbpp)) {
++		drm_mode_debug_printmodeline(mode);
++		return MODE_CLOCK_HIGH;
++	}
++
++	return MODE_OK;
++}
++
++static bool dptx_bt2020_colorspace(const struct drm_connector_state *state)
++{
++	return state->colorspace >= DRM_MODE_COLORIMETRY_BT2020_CYCC &&
++	       state->colorspace <= DRM_MODE_COLORIMETRY_BT2020_YCC;
++}
++
++static int dptx_cal_bpc(struct drm_connector_state *connector_state,
++			int format, int bpc)
++{
++	struct drm_display_info *info =
++		&connector_state->connector->display_info;
++
++	if (dptx_bt2020_colorspace(connector_state))
++		bpc = min(bpc, 10);
++
++	if (info->bpc)
++		bpc = min_t(int, bpc, info->bpc);
++
++	if (connector_state->max_requested_bpc)
++		bpc = min(bpc, connector_state->max_requested_bpc);
++
++	if (bpc < 6)
++		return -EINVAL;
++
++	if (bpc < 8 && format != DRM_OUTPUT_COLOR_FORMAT_RGB444)
++		return -EINVAL;
++
++	return bpc;
++}
++
++static int dptx_cal_bpp(struct dptx_dev *dp, int bpc, int format)
++{
++	int bpp = bpc * 3;
++
++	switch (format) {
++	case DRM_OUTPUT_COLOR_FORMAT_RGB444:
++	case DRM_OUTPUT_COLOR_FORMAT_YCBCR444:
++		bpp = bpc * 3;
++		break;
++	case DRM_OUTPUT_COLOR_FORMAT_YCBCR422:
++		bpp = bpc * 2;
++		break;
++	case DRM_OUTPUT_COLOR_FORMAT_YCBCR420:
++		bpp = bpc * 3 / 2;
++		break;
++	default:
++		dev_warn(dp->dev, "invalid color format %d\n", format);
++	}
++	return bpp;
++}
++
++static int compute_available_clock_rate(struct dptx_dev *dp,
++					struct drm_connector_state *conn_state,
++					int suggest_bpc, int clock,
++					int color_format, int *rt_bpc,
++					int *rt_bpp)
++{
++	int max_lanes = dp->link_max_lanes;
++	int max_rate = dp->link_max_rate;
++	int rate;
++	int bpc;
++	int bpp;
++
++	bpc = dptx_cal_bpc(conn_state, color_format, suggest_bpc);
++	if (bpc < 0)
++		return bpc;
++	bpp = dptx_cal_bpp(dp, bpc, color_format);
++	rate = DPTX_MAX_RATE(max_rate, max_lanes, bpp);
++
++	if (clock <= rate) {
++		*rt_bpc = bpc;
++		*rt_bpp = bpp;
++
++		return 0;
++	}
++
++	return -EINVAL;
 +}
 +
 +/*
-+ * Replay a plug that happened before the connector existed. A USB-C combo
-+ * PHY does not wire HPD to this controller, so a sink plugged in early
-+ * never raises HPD_EVENT; replay it once the PHY is in DP mode and AUX
-+ * answers. A native DP port whose HPD pin is already asserted is caught by
-+ * the state check below and detected the same way; the rest of that port's
-+ * hotplugs come from the HPD interrupt.
++ * @mode still has the CEA timings and sync flags. adjusted_mode has had
++ * its polarities inverted, so it no longer matches a VIC.
 + */
-+static void dptx_replay_deferred_hotplug(struct dptx_dev *dp)
++static bool dptx_format_ok(struct dptx_dev *dp,
++			   const struct drm_display_info *info,
++			   const struct drm_display_mode *mode,
++			   const struct drm_display_mode *adjusted_mode,
++			   int info_formats, int format)
 +{
++	if (format == DRM_OUTPUT_COLOR_FORMAT_YCBCR420) {
++		if (!dp->hw->ops->vsc_supported(dp->hw))
++			return false;
++
++		/*
++		 * Y420VDB sets the sink-wide 420 bit for every mode. This
++		 * VIC has to be 420-only or 420-also. 420 is one pixel
++		 * per cycle.
++		 */
++		if (!drm_mode_is_420(info, mode))
++			return false;
++
++		return adjusted_mode->clock <= DPTX_MAX_FREQ;
++	}
++
++	if (drm_mode_is_420_only(info, mode))
++		return false;
++
++	if (adjusted_mode->clock >= DPTX_MAX_FREQ * 2)
++		return false;
++
++	return info_formats & BIT(format);
++}
++
++static int dptx_pick_format_bpc(struct dptx_dev *dp,
++				struct drm_connector_state *conn_state,
++				const struct drm_display_mode *mode,
++				struct drm_display_mode *adjusted_mode,
++				int info_formats, int suggest_bpc,
++				int *color_format, int *bpc, int *bpp)
++{
++	struct drm_display_info *info =
++		&conn_state->connector->display_info;
++	int curr_bpc;
++	int format;
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(fmt_prio); i++) {
++		format = fmt_prio[i].format;
++		curr_bpc = fmt_prio[i].bpc ? fmt_prio[i].bpc : suggest_bpc;
++
++		if (!dptx_format_ok(dp, info, mode, adjusted_mode,
++				    info_formats, format))
++			continue;
++
++		/*
++		 * First entry (RGB): prefer 10bit before falling back to
++		 * suggest_bpc, and step down to 8bit before giving up on RGB.
++		 * BT.2020 also tries 10 first when suggest_bpc is lower.
++		 * The DPU always outputs RGB, so a lower RGB depth is still
++		 * preferable to a converted YUV format.
++		 */
++		if (i == 0) {
++			if (dptx_bt2020_colorspace(conn_state) &&
++			    suggest_bpc < 10 &&
++			    !compute_available_clock_rate(dp, conn_state, 10,
++							  adjusted_mode->clock,
++							  format, bpc, bpp)) {
++				if (color_format)
++					*color_format = format;
++				return 0;
++			}
++
++			if (suggest_bpc > 10 &&
++			    !compute_available_clock_rate(dp, conn_state, 10,
++							  adjusted_mode->clock,
++							  format, bpc, bpp)) {
++				if (color_format)
++					*color_format = format;
++				return 0;
++			}
++
++			if (!compute_available_clock_rate(dp, conn_state,
++							  suggest_bpc,
++							  adjusted_mode->clock,
++							  format, bpc, bpp)) {
++				if (color_format)
++					*color_format = format;
++				return 0;
++			}
++
++			if (suggest_bpc > 8 &&
++			    !compute_available_clock_rate(dp, conn_state, 8,
++							  adjusted_mode->clock,
++							  format, bpc, bpp)) {
++				if (color_format)
++					*color_format = format;
++				return 0;
++			}
++
++			continue;
++		}
++
++		if (!compute_available_clock_rate(dp, conn_state, curr_bpc,
++						  adjusted_mode->clock,
++						  format, bpc, bpp)) {
++			if (color_format)
++				*color_format = format;
++			return 0;
++		}
++	}
++
++	return -EINVAL;
++}
++
++static enum dp_pixelformat dptx_drm_format_to_dp(int color_format)
++{
++	switch (color_format) {
++	case DRM_OUTPUT_COLOR_FORMAT_YCBCR444:
++		return DP_PIXELFORMAT_YUV444;
++	case DRM_OUTPUT_COLOR_FORMAT_YCBCR422:
++		return DP_PIXELFORMAT_YUV422;
++	case DRM_OUTPUT_COLOR_FORMAT_YCBCR420:
++		return DP_PIXELFORMAT_YUV420;
++	default:
++		return DP_PIXELFORMAT_RGB;
++	}
++}
++
++static int dptx_pick_link_rate(struct dptx_dev *dp,
++			       struct drm_display_mode *adjusted_mode,
++			       int bpp)
++{
++	int max_rate = dp->link_max_rate;
++	int max_lanes = dp->link_max_lanes;
++	int link_rate = max_rate;
++	int rate;
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(dp_common_link_bw); i++) {
++		rate = drm_dp_bw_code_to_link_rate(dp_common_link_bw[i]);
++		if (rate > max_rate)
++			break;
++		if (adjusted_mode->clock <= DPTX_MAX_RATE(rate, max_lanes, bpp)) {
++			link_rate = rate;
++			break;
++		}
++	}
++
++	return link_rate;
++}
++
++static int dptx_pick_config(struct dptx_dev *dp,
++			    struct drm_connector_state *conn_state,
++			    const struct drm_display_mode *mode,
++			    struct drm_display_mode *adjusted_mode,
++			    int *color_format, int *bpc, int *bpp)
++{
++	struct drm_display_info *info = &conn_state->connector->display_info;
++	u32 color_formats = info->color_formats;
++	int suggest_bpc;
++
++	color_formats |= BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444);
++
++	/* bpc 0 is unspecified. Start at 8, and never below 6. */
++	suggest_bpc = info->bpc ? info->bpc : 8;
++	if (suggest_bpc < 6)
++		suggest_bpc = 6;
++
++	return dptx_pick_format_bpc(dp, conn_state, mode, adjusted_mode,
++				      color_formats, suggest_bpc,
++				      color_format, bpc, bpp);
++}
++
++static int dptx_bridge_mode_set(struct dptx_dev *dp,
++				struct drm_crtc_state *crtc_state,
++				struct drm_connector_state *conn_state)
++{
++	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
++	int color_format;
++	int link_rate;
++	int bw_code;
++	int bpc;
++	int bpp;
++	int ret;
++
++	ret = dp->ops->detect(dp);
++	if (ret)
++		return ret;
++
 +	guard(mutex)(&dp->lock);
 +
-+	if (!dptx_deferred_hotplug_pending(dp))
++	ret = dptx_pick_config(dp, conn_state, &crtc_state->mode,
++			       adjusted_mode, &color_format, &bpc, &bpp);
++	if (ret)
++		return ret;
++
++	dp->config.format = dptx_drm_format_to_dp(color_format);
++	dp->config.colorspace = conn_state->colorspace;
++	dp->config.content_type = conn_state->content_type;
++	dp->config.bpc = bpc;
++	dp->config.bpp = bpp;
++	drm_mode_copy(&dp->adjusted_mode, adjusted_mode);
++	dp->pixel_per_cycle = dptx_pick_ppc(adjusted_mode, dp->config.format);
++
++	link_rate = dptx_pick_link_rate(dp, adjusted_mode, bpp);
++	bw_code = drm_dp_link_rate_to_bw_code(link_rate);
++
++	ret = dp->ops->mode_configure(dp, adjusted_mode->clock, bw_code,
++				      bpp, false);
++	if (ret)
++		return ret;
++
++	dev_dbg(dp->dev,
++		"%dx%d@%d fmt=%d bpc=%d bpp=%d link=%u lanes=%u ppc=%u\n",
++		adjusted_mode->hdisplay, adjusted_mode->vdisplay,
++		drm_mode_vrefresh(adjusted_mode), dp->config.format,
++		bpc, bpp, bw_code, dp->mode.lane_cnt,
++		dp->pixel_per_cycle);
++
++	return 0;
++}
++
++static int dptx_bridge_atomic_check(struct drm_bridge *bridge,
++				    struct drm_bridge_state *bridge_state,
++				    struct drm_crtc_state *crtc_state,
++				    struct drm_connector_state *conn_state)
++{
++	struct dptx_dev *dp = bridge_to_dp(bridge);
++	int bpc;
++	int bpp;
++	int ret;
++	bool vsc_supported;
++
++	if (!conn_state->crtc)
++		return 0;
++
++	dptx_adjust_mode(&crtc_state->mode, &crtc_state->adjusted_mode);
++
++	scoped_guard(mutex, &dp->lock) {
++		ret = dptx_pick_config(dp, conn_state, &crtc_state->mode,
++				       &crtc_state->adjusted_mode,
++				       NULL, &bpc, &bpp);
++		vsc_supported = dp->hw->ops->vsc_supported(dp->hw);
++	}
++	if (ret)
++		return ret;
++
++	if (vsc_supported) {
++		const struct drm_connector_state *old_conn_state;
++
++		old_conn_state =
++			drm_atomic_get_old_connector_state(bridge_state->base.state,
++							   conn_state->connector);
++		if (old_conn_state &&
++		    old_conn_state->colorspace != conn_state->colorspace) {
++			crtc_state->mode_changed = true;
++
++			ret = drm_atomic_add_affected_planes(bridge_state->base.state,
++							     crtc_state->crtc);
++			if (ret)
++				return ret;
++		}
++	}
++
++	return 0;
++}
++
++static void
++dptx_bridge_atomic_enable(struct drm_bridge *bridge,
++			  struct drm_atomic_commit *state)
++{
++	struct dptx_dev *dp = bridge_to_dp(bridge);
++	struct drm_connector_state *conn_state;
++	struct drm_crtc_state *crtc_state;
++	struct drm_connector *connector;
++	int ret;
++
++	connector = drm_atomic_get_new_connector_for_encoder(state,
++							     bridge->encoder);
++	if (!connector)
 +		return;
 +
-+	if (dptx_get_hpd_state(dp)) {
-+		queue_delayed_work(system_freezable_wq, &dp->hpd_event_work, 0);
++	conn_state = drm_atomic_get_new_connector_state(state, connector);
++	if (!conn_state || !conn_state->crtc)
++		return;
++
++	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
++	if (!crtc_state)
++		return;
++
++	ret = dp->ops->prepare(dp);
++	if (ret) {
++		if (ret != -ENODEV)
++			dev_err(dp->dev, "failed to prepare DP output: %d\n",
++				ret);
 +		return;
 +	}
 +
-+	if (!dp->oob_hpd || phy_get_mode(dp->phy) != PHY_MODE_DP)
-+		return;
++	ret = dptx_bridge_mode_set(dp, crtc_state, conn_state);
++	if (ret) {
++		dev_err(dp->dev, "failed to set DP mode: %d\n", ret);
++		goto err_unprepare;
++	}
 +
-+	if (!dp->hw->ops->sink_present(dp->hw))
-+		return;
++	ret = dp->ops->encoder_enable(dp, 0, true);
++	if (ret) {
++		dev_err(dp->dev, "failed to enable DP output: %d\n", ret);
++		goto err_unprepare;
++	}
 +
-+	dp->force_hpd = connector_status_connected;
++	return;
 +
-+	queue_delayed_work(system_freezable_wq, &dp->hpd_event_work, 0);
++err_unprepare:
++	mutex_lock(&dp->lock);
++	dp->ops->unprepare(dp);
++	mutex_unlock(&dp->lock);
 +}
 +
-+static irqreturn_t dptx_irq_handler(int irq, void *data)
++static void
++dptx_bridge_atomic_disable(struct drm_bridge *bridge,
++			   struct drm_atomic_commit *state)
 +{
-+	struct dptx_dev *dp = data;
++	struct dptx_dev *dp = bridge_to_dp(bridge);
 +
-+	return dp->hw->ops->irq(dp->hw);
++	dp->ops->encoder_enable(dp, 0, false);
 +}
 +
-+static void dptx_queue_hpd_event(void *data)
++static int dptx_bridge_attach(struct drm_bridge *bridge,
++			      struct drm_encoder *encoder,
++			      enum drm_bridge_attach_flags flags)
 +{
-+	struct dptx_dev *dp = data;
++	struct dptx_dev *dp = bridge_to_dp(bridge);
++	int ret;
 +
-+	if (!READ_ONCE(dp->hpd_stopped))
-+		queue_delayed_work(system_freezable_wq, &dp->hpd_event_work, 0);
-+}
++	if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR))
++		return -EINVAL;
 +
-+static void dptx_queue_hpd_irq(void *data)
-+{
-+	struct dptx_dev *dp = data;
-+
-+	if (!READ_ONCE(dp->hpd_stopped))
-+		queue_delayed_work(system_freezable_wq, &dp->hpd_irq_work, 0);
-+}
-+
-+static void dptx_irq_off(struct dptx_dev *dp)
-+{
-+	if (dp->irq_suspended)
-+		return;
-+
-+	disable_irq(dp->irq);
-+	dp->irq_suspended = true;
-+}
-+
-+static void dptx_cancel_hpd_works(struct dptx_dev *dp)
-+{
-+	cancel_delayed_work_sync(&dp->hpd_irq_work);
-+	cancel_delayed_work_sync(&dp->hpd_event_work);
-+}
-+
-+static void dptx_quiesce_hpd(struct dptx_dev *dp)
-+{
 +	scoped_guard(mutex, &dp->lock) {
-+		WRITE_ONCE(dp->hpd_stopped, true);
++		if (dp->released)
++			return -ENODEV;
++
++		ret = dp->hw->ops->aux_register(dp->hw, bridge->dev);
++		if (!ret) {
++			WRITE_ONCE(dp->hpd_stopped, false);
++			dp->attached = true;
++		}
++	}
++
++	if (ret)
++		return ret;
++
++	/* The bridge may have been attached long after the sink was plugged. */
++	dp->ops->replay_deferred_hotplug(dp);
++
++	return 0;
++}
++
++static void dptx_bridge_detach(struct drm_bridge *bridge)
++{
++	struct dptx_dev *dp = bridge_to_dp(bridge);
++
++	/* Stop workers before the connector goes away. */
++	dp->ops->quiesce_hpd(dp);
++
++	scoped_guard(mutex, &dp->lock) {
++		dp->attached = false;
 +
 +		if (!dp->released)
-+			synchronize_irq(dp->irq);
++			dp->hw->ops->aux_unregister(dp->hw);
 +	}
-+
-+	dptx_cancel_hpd_works(dp);
 +}
 +
-+static int dptx_pm_prepare(struct dptx_dev *dp, bool shutdown)
++static void dptx_bridge_destroy(struct drm_bridge *bridge)
 +{
-+	scoped_guard(mutex, &dp->lock) {
-+		dptx_irq_off(dp);
-+		dp->state |= DPTX_STATE_SUSPENDED;
-+		if (shutdown)
-+			dp->state |= DPTX_STATE_SHUTDOWN;
-+	}
++	struct dptx_dev *dp = bridge_to_dp(bridge);
 +
-+	dptx_cancel_hpd_works(dp);
++	mutex_destroy(&dp->lock);
 +
-+	scoped_guard(mutex, &dp->lock) {
-+		if (!(dp->state & DPTX_STATE_SUSPENDED)) {
-+			dptx_irq_off(dp);
-+			dp->state |= DPTX_STATE_SUSPENDED;
-+		}
-+
-+		if (shutdown)
-+			dptx_stop_streams(dp);
-+		if (!dp->active_stream_cnt)
-+			dptx_host_deinit(dp);
-+		dp->state &= ~DPTX_STATE_CONNECTED;
-+	}
-+
-+	return 0;
-+}
-+
-+static int dptx_pm_complete(struct dptx_dev *dp)
-+{
-+	bool replay = false;
-+	int ret;
-+
-+	scoped_guard(mutex, &dp->lock) {
-+		ret = dptx_host_resume(dp);
-+		if (!ret)
-+			replay = !dp->hpd_stopped && dp->attached;
-+	}
-+
-+	if (ret)
-+		return ret;
-+
-+	if (replay) {
-+		dp->ops->replay_deferred_hotplug(dp);
-+
-+		scoped_guard(mutex, &dp->lock) {
-+			if (!dptx_hpd_work_aborted(dp))
-+				queue_delayed_work(system_freezable_wq,
-+						   &dp->hpd_event_work, 0);
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static int dptx_prepare(struct dptx_dev *dp)
-+{
-+	int ret;
-+
-+	guard(mutex)(&dp->lock);
-+
-+	if (dp->released || (dp->state & DPTX_STATE_SHUTDOWN))
-+		return -ENODEV;
-+
-+	/* The controller's resume commit can precede dptx_pm_complete(). */
-+	ret = dptx_host_resume(dp);
-+	if (ret)
-+		return ret;
-+
-+	if (dp->state & DPTX_STATE_ENABLED)
-+		return 0;
-+
-+	if (!(dp->state & DPTX_STATE_INITIALIZED)) {
-+		ret = dptx_host_init(dp);
-+		if (ret)
-+			return ret;
-+	} else if (dp->state & DPTX_STATE_READY) {
-+		/* core_on() finished, but the stream never became ENABLED. */
-+		dptx_core_off(dp);
-+	}
-+
-+	if (!dptx_get_hpd_state(dp)) {
-+		if (!dp->oob_hpd ||
-+		    dp->force_hpd != connector_status_unknown ||
-+		    phy_get_mode(dp->phy) != PHY_MODE_DP ||
-+		    !dp->hw->ops->sink_present(dp->hw))
-+			return -ENODEV;
-+
-+		dp->force_hpd = connector_status_connected;
-+	}
-+
-+	return dptx_handle_connect(dp);
-+}
-+
-+static int dptx_unprepare(struct dptx_dev *dp)
-+{
-+	if (dp->active_stream_cnt)
-+		return 0;
-+
-+	if (!(dp->state & (DPTX_STATE_ENABLED | DPTX_STATE_READY)))
-+		return 0;
-+
-+	dptx_core_off(dp);
-+
-+	/* dptx_pm_prepare() may have run before this suspend-time commit. */
-+	if (dp->state & DPTX_STATE_SUSPENDED)
-+		dptx_host_deinit(dp);
-+
-+	dp->state &= ~DPTX_STATE_ENABLED;
-+
-+	return 0;
-+}
-+
-+static int dptx_encoder_enable(struct dptx_dev *dp, unsigned int stream_id,
-+			       int enable)
-+{
-+	int ret;
-+
-+	guard(mutex)(&dp->lock);
-+
-+	if (enable) {
-+		if (!dptx_regs_accessible(dp) ||
-+		    !(dp->state & DPTX_STATE_CONNECTED))
-+			return -ENODEV;
-+
-+		ret = dptx_core_on(dp);
-+		if (ret)
-+			return ret;
-+
-+		ret = dptx_enable(dp, stream_id);
-+		if (ret)
-+			dptx_unprepare(dp);
-+	} else {
-+		if (!(dp->state & DPTX_STATE_INITIALIZED))
-+			return 0;
-+
-+		ret = dptx_disable(dp, stream_id);
-+		if (ret)
-+			return ret;
-+
-+		ret = dptx_unprepare(dp);
-+	}
-+
-+	return ret;
-+}
-+
-+static int dptx_init(struct dptx_dev *dp)
-+{
-+	int ret;
-+
-+	INIT_DELAYED_WORK(&dp->hpd_event_work, dptx_hpd_event_work_func);
-+	INIT_DELAYED_WORK(&dp->hpd_irq_work, dptx_hpd_irq_work_func);
-+
-+	dp->state |= (DPTX_STATE_CONFIGURED);
-+
-+	ret = dptx_host_init(dp);
-+	if (ret)
-+		goto err_configured;
-+
-+	irq_set_status_flags(dp->irq, IRQ_DISABLE_UNLAZY);
-+	ret = devm_request_threaded_irq(dp->dev, dp->irq, NULL,
-+					dptx_irq_handler, IRQF_ONESHOT,
-+				       dev_name(dp->dev), dp);
-+	if (ret < 0)
-+		goto err_deinit;
-+
-+	return 0;
-+
-+err_deinit:
-+	dptx_host_deinit(dp);
-+err_configured:
-+	dp->state &= ~DPTX_STATE_CONFIGURED;
-+	return ret;
-+}
-+
-+static void dptx_deinit(struct dptx_dev *dp)
-+{
-+	if (!(dp->state & DPTX_STATE_CONFIGURED))
++	if (!dp->hw)
 +		return;
 +
-+	scoped_guard(mutex, &dp->lock) {
-+		WRITE_ONCE(dp->hpd_stopped, true);
-+		dp->released = true;
-+		dptx_irq_off(dp);
-+	}
-+
-+	dptx_cancel_hpd_works(dp);
-+
-+	scoped_guard(mutex, &dp->lock) {
-+		dptx_stop_streams(dp);
-+		dptx_host_deinit(dp);
-+		dp->hw->ops->aux_unregister(dp->hw);
-+		dp->state &= ~(DPTX_STATE_CONFIGURED);
-+	}
++	kfree(dp->hw->aux.name);
++	kfree(dp->hw);
 +}
 +
-+static void dptx_dev_release(void *res)
-+{
-+	struct dptx_dev *dp = res;
-+
-+	dptx_deinit(dp);
-+}
-+
-+static int dptx_get_irq(struct dptx_dev *dp)
-+{
-+	int ret;
-+
-+	ret = of_irq_get(dp->dev->of_node, 0);
-+	if (ret <= 0)
-+		return dev_err_probe(dp->dev, ret ?: -EINVAL,
-+				     "failed to get irq\n");
-+
-+	dp->irq = ret;
-+
-+	return 0;
-+}
-+
-+static const struct dptx_ops dptx_impl_ops = {
-+	.detect				= dptx_detect,
-+	.detect_status			= dptx_detect_status,
-+	.prepare			= dptx_prepare,
-+	.unprepare			= dptx_unprepare,
-+	.encoder_enable			= dptx_encoder_enable,
-+	.mode_configure			= dptx_mode_configure,
-+	.replay_deferred_hotplug	= dptx_replay_deferred_hotplug,
-+	.quiesce_hpd			= dptx_quiesce_hpd,
++static const struct drm_bridge_funcs dptx_bridge_funcs = {
++	.attach = dptx_bridge_attach,
++	.detach = dptx_bridge_detach,
++	.destroy = dptx_bridge_destroy,
++	.detect = dptx_bridge_detect,
++	.get_modes = dptx_bridge_get_modes,
++	.mode_valid = dptx_bridge_mode_valid,
++	.hpd_notify = dptx_bridge_hpd_notify,
++	.atomic_check = dptx_bridge_atomic_check,
++	.atomic_enable = dptx_bridge_atomic_enable,
++	.atomic_disable = dptx_bridge_atomic_disable,
++	.atomic_create_state = drm_atomic_helper_bridge_create_state,
++	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +};
 +
++struct dptx_dev *dptx_bridge_alloc(struct device *dev)
++{
++	return devm_drm_bridge_alloc(dev, struct dptx_dev, bridge,
++				     &dptx_bridge_funcs);
++}
+diff --git a/drivers/gpu/drm/bridge/trilinear/dptx_drm.h b/drivers/gpu/drm/bridge/trilinear/dptx_drm.h
+new file mode 100644
+index 000000000000..fc30a7ce6e99
+--- /dev/null
++++ b/drivers/gpu/drm/bridge/trilinear/dptx_drm.h
+@@ -0,0 +1,17 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * DisplayPort DRM helpers
++ *
++ * Copyright 2026 Cix Technology Group Co., Ltd.
++ */
++
++#ifndef DPTX_DRM_H
++#define DPTX_DRM_H
++
++#include <linux/device.h>
++
++#include "dptx.h"
++
++struct dptx_dev *dptx_bridge_alloc(struct device *dev);
++
++#endif /* DPTX_DRM_H */
+diff --git a/include/drm/bridge/trilinear_dp.h b/include/drm/bridge/trilinear_dp.h
+new file mode 100644
+index 000000000000..c65ebd103f47
+--- /dev/null
++++ b/include/drm/bridge/trilinear_dp.h
+@@ -0,0 +1,74 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * DisplayPort transmitter bridge driver
++ *
++ * Copyright (C) 2026 Trilinear Technologies
++ * Copyright 2026 Cix Technology Group Co., Ltd.
++ */
++
++#ifndef DRM_BRIDGE_TRILINEAR_DP_H
++#define DRM_BRIDGE_TRILINEAR_DP_H
++
++#include <linux/types.h>
++
++#include <drm/display/drm_dp.h>
++
++struct device;
++struct dptx_dev;
++
++/**
++ * struct dptx_plat_data - platform glue for the DPTX bridge
++ * @adapter_config: programs the SoC side pixel format and pixel-per-clock
++ *                  mode for a stream; @stream_id is the SST stream index,
++ *                  @format the pixel format carried on the link and @ppc2
++ *                  whether the stream runs at two pixels per clock
++ * @oob_hpd: HPD is reported out of band, for example through a USB-C port
++ *           controller, instead of being wired to the transmitter
++ * @max_bw_code: highest DP link bandwidth code (DP_LINK_BW_*) the platform's
++ *               DP output supports
++ *
++ * The bridge driver owns the DP protocol and the DRM bridge; the platform
++ * integration fills in the parts that are wired differently between SoCs.
++ */
++struct dptx_plat_data {
++	void (*adapter_config)(void *priv, unsigned int stream_id,
++			       enum dp_pixelformat format, bool ppc2);
++	bool oob_hpd;
++	u8 max_bw_code;
++};
++
++/**
++ * trilinear_dptx_probe - allocate and register a DPTX bridge
++ * @dev: device backing the transmitter
++ * @soc_data: platform glue for this transmitter
++ * @priv: opaque context passed back to &dptx_plat_data.adapter_config
++ *
++ * Return: the DPTX device on success, or an ERR_PTR() on failure.
++ */
 +struct dptx_dev *trilinear_dptx_probe(struct device *dev,
 +				      const struct dptx_plat_data *soc_data,
-+				      void *priv)
-+{
-+	struct dptx_dev *dp;
-+	struct dp_hw *hw;
-+	int ret;
++				      void *priv);
 +
-+	if (!soc_data || !soc_data->adapter_config || !soc_data->max_bw_code)
-+		return ERR_PTR(-EINVAL);
++/**
++ * trilinear_dptx_suspend - prepare a DPTX bridge for system sleep
++ * @dp: DPTX device returned by trilinear_dptx_probe()
++ *
++ * Return: 0 on success, or a negative error code.
++ */
++int trilinear_dptx_suspend(struct dptx_dev *dp);
 +
-+	dp = dptx_bridge_alloc(dev);
-+	if (IS_ERR(dp))
-+		return dp;
++/**
++ * trilinear_dptx_resume - restore a DPTX bridge after system sleep
++ * @dp: DPTX device returned by trilinear_dptx_probe()
++ *
++ * Return: 0 on success, or a negative error code.
++ */
++int trilinear_dptx_resume(struct dptx_dev *dp);
 +
-+	mutex_init(&dp->lock);
++/**
++ * trilinear_dptx_shutdown - stop a DPTX bridge on system shutdown
++ * @dp: DPTX device returned by trilinear_dptx_probe()
++ */
++void trilinear_dptx_shutdown(struct dptx_dev *dp);
 +
-+	dp->dev = dev;
-+
-+	dp->phy = devm_phy_get(dev, NULL);
-+	if (IS_ERR(dp->phy))
-+		return ERR_PTR(dev_err_probe(dev, PTR_ERR(dp->phy),
-+					     "failed to get dp phy\n"));
-+
-+	hw = dptx_hw_init(dev, dp, dptx_queue_hpd_event, dptx_queue_hpd_irq);
-+	if (IS_ERR(hw))
-+		return ERR_CAST(hw);
-+
-+	dp->hw = hw;
-+
-+	dp->soc_data = soc_data;
-+	dp->oob_hpd = soc_data->oob_hpd;
-+	dp->soc_priv = priv;
-+	dp->ops = &dptx_impl_ops;
-+	dp->force_hpd = connector_status_unknown;
-+	dp->state = DPTX_STATE_DISCONNECTED;
-+	dp->pixel_per_cycle = 1;
-+
-+	ret = dptx_get_irq(dp);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	dp->link_max_lanes = DPTX_MAX_LANES;
-+	dp->link_max_rate =
-+		drm_dp_bw_code_to_link_rate(soc_data->max_bw_code);
-+
-+	ret = dptx_init(dp);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	dev_set_drvdata(dev, dp);
-+
-+	dp->bridge.of_node = dev->of_node;
-+	dp->bridge.ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_MODES |
-+			 DRM_BRIDGE_OP_HPD;
-+	dp->bridge.type = DRM_MODE_CONNECTOR_DisplayPort;
-+	dp->bridge.ddc = &dp->hw->aux.ddc;
-+	dp->bridge.ycbcr_420_allowed = true;
-+
-+	ret = devm_drm_bridge_add(dev, &dp->bridge);
-+	if (ret) {
-+		dptx_deinit(dp);
-+		return ERR_PTR(ret);
-+	}
-+
-+	ret = devm_add_action_or_reset(dev, dptx_dev_release, dp);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	return dp;
-+}
-+EXPORT_SYMBOL_GPL(trilinear_dptx_probe);
-+
-+int trilinear_dptx_suspend(struct dptx_dev *dp)
-+{
-+	if (!dp)
-+		return 0;
-+
-+	return dptx_pm_prepare(dp, false);
-+}
-+EXPORT_SYMBOL_GPL(trilinear_dptx_suspend);
-+
-+int trilinear_dptx_resume(struct dptx_dev *dp)
-+{
-+	if (!dp)
-+		return 0;
-+
-+	return dptx_pm_complete(dp);
-+}
-+EXPORT_SYMBOL_GPL(trilinear_dptx_resume);
-+
-+void trilinear_dptx_shutdown(struct dptx_dev *dp)
-+{
-+	if (!dp)
-+		return;
-+
-+	dptx_pm_prepare(dp, true);
-+}
-+EXPORT_SYMBOL_GPL(trilinear_dptx_shutdown);
-+
-+MODULE_AUTHOR("Luo Liu <Luo.Liu@cixtech.com>");
-+MODULE_AUTHOR("Wuyi Shen <wuyi.shen@cixtech.com>");
-+MODULE_DESCRIPTION("DisplayPort transmitter bridge driver");
-+MODULE_LICENSE("GPL");
++#endif /* DRM_BRIDGE_TRILINEAR_DP_H */
 -- 
 2.25.1
 
