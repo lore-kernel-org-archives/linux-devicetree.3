@@ -1,50 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.207.19.206
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795768372;
-	b=gh6HYEHxMxb0eAvQ8Ct2wRH8EKX2cnY+cDO/JCi+gXdl11REyUpFkOD22Wrj6fbHWVGX
-	 QBCDPbUlfrlm7bZF35oxuTEUUKQWqvsIw9MHGspj2bbT5LdRcr/0LZr6TM1BasUjeqjJQ
-	 7K5/JopAT5PqQLxhsx8lLuXVWCPmVdHE0J46yD+JGihoT83/3M2tXjZqV1nRxs8Vbfz0p
-	 0tBEj/FwgnbLT1vAFUtc77WYpz6z2k01XcN3P8Rb42eYp5sWWAMVe9MGUPeuIcmgNCYWm
-	 9SG62GJgKuuaR+DWMsrlpaR3IiyK+8CBXhZgYtZZtHKlbnqz08qY57ENeYUr4x9W4Wg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795768372;
-	h=DMARC-Filter:X-QQ-mid:X-QQ-Originating-IP:Received:X-QQ-SSF:
-	 X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
-	 X-QQ-RECHKSPAM;
-	bh=HfHISjpzMYBVFK8WE1t9sONuYzF5gB/6tJYmJRiF+7I=;
-	b=s41EqVSYeWBvFsnRisN+abkGEGjmtCFMYQ+BEG+TKz/dhUgVts/kXyJqhgxVdhDIGl0i
-	 t66LqlQDjJhCPMYm/oZp3dUYPlvwSZRQqKMpn2o7fHoumCkpLZTgm82CQBff5G78D8oKM
-	 DO/QgxMvscT2IUU7nhMZhAMeks1PWzZZ2g1/3013V112scIZ26AVvtQ8E/MlPzsdbELwi
-	 4XoBJ6WUZHnDAN2OhVC4FzHn/Me3aoncFn1JZBELtVj1GaOm8fZSvz3hZ9H/X37QxcyMn
-	 eXiHJezI8dgINqGtfpZznKG+bq8lx4t9v1lb1NrYQ+X96AQAINIVPm9rpG1gqPptGHQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=radxa.com;
-	spf=pass smtp.mailfrom=radxa.com;
-	arc=none smtp.remote-ip=54.207.19.206
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795768565;
+	b=Bb53CfNpc0QPKhOkupzGaILL32k8AYhVG6xCjd+2VXoqrLWm2gdTbqT8DddnrLhqg4zl
+	 b9yxo6iShRhkvYx1v4Y+bNnV7NyW7Cr7sJ1xb/op5Zbsv/yP0jL+o67SK8fOYBR4A8LvV
+	 mlM6ztiBoigmkFPMCOBq0r/M70lSpyrf5izfxRtiFJuioY5UlMaPK9yDiTTn4lBlwRX8U
+	 Xv6JjW3bRggQ98yg27TZb73NkvXBadw6YypmUkdF9sCO0IdJwb10H/nTz+7pLcMj8apnW
+	 svFb9fCkXKvLNkougiLvcERj+NyM+HeB0taThlNez72xep0XIUOf3mH6HJTJRtIEhlw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795768565;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=ej0zu0sGtkHApVwWa1kXVFV7LIDw/KTsfibG0hxrVG4=;
+	b=kzPBTFVWtGJJiXBDCp0FEPt5bgfCx3+iSSWvuB/G9s7hLMTfcteVXxZWBjlIOL+NWhHz
+	 LCnC9X+BIRkQB9p7yfrGxuvtRKCMbAvgYfsYsFp6B7ypvTHNCNOUvTVSajMrxzzGH8QDw
+	 7Q8w5A3yuQfE1z4cM+9UWwHUJ5PGFoDXU5KQZrRcFKElqjNs5oBG/guPJz0RP5JNhs+ZP
+	 t7Mz2VKXFmgdJgC6sbPY/2guOczRAF7gfEVmYFHbOIG/7uGz1i4NMos8n0IyFhJ40+MHM
+	 6fVsN4J2uDXHMaTVysCNB4ewWUoyDyg3ifSSreBSvEr15DtmC+H0IvIsUOM90Kxk1lA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hSN4+2hn;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE32606A31C;
-	Fri, 27 Nov 2026 08:32:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDE32606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip4t1795768350t8040eae2
-X-QQ-Originating-IP: 75HLWjuk4Nno8aIqpZG0chT4xEadJNgSr6HyFlW0Z5g=
-Received: from [192.168.30.32] ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 27 Nov 2026 16:32:24 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 13343494202343594793
-EX-QQ-RecipientCnt: 11
-From: Xilin Wu <sophon@radxa.com>
-Date: Fri, 27 Nov 2026 16:32:21 +0800
-Subject: [PATCH v2] arm64: dts: qcom: sc8280xp: Add missing Iris pixel
- stream ID
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47085606A68B
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 08:36:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47085606A68B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hSN4+2hn
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6bae06f2b8aso663703a12.2
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 00:36:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795768563; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pdXJlMHloxfZjbzL9nAZVFE2hpCY+OHkaCJab5M5KzKRBgsPl0oJ5sIqlB1+ADvq/u
+         4mBuBEUeSN+MWf3kwsjJuF+KlPIohMQb+MkgwbQK2sMUTUZN9geOcP/TLI978LODuYlw
+         +RT+G/ig2HiPc3AYi1FB2dmDYkfWEVVvhJViTlhKjVslxT8PJlC4XbaqN2LyY/EsdXoP
+         Y2wrmTk0ndgChdhcR/NISdLuh+7sXLGU67ng6wBAnQo7hjH4Xw9xDPP/IxiMmnABUwO3
+         EcnL7tSImQwzB39WayElJpZFx0ksYLG3p0rbf1cVMKb/tBWKIbX32LZHlX+gMo9hpMPt
+         AB2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=ej0zu0sGtkHApVwWa1kXVFV7LIDw/KTsfibG0hxrVG4=;
+        fh=mGqMUn2Oe1WGqSks6uB2daACl9i8XFbXEM/CA9w3NTI=;
+        b=jI6qLCbE++tmeh6YthufrJjYXgAOvHzCrEqolrFLV13yU2H28ZwCYXw99Dm9TQRsfV
+         YcOQC/vOBIEJDTiLYkLErk3Sqf0VlISylsUxiV2w/MJ0vAQLaq21Co0U52PvCJ36YHxI
+         ZvAEZ2fvS5QXOlMgclBUQN9yCjXqTFhbYrgxOzSTkURq1+YPH6qdhavJBhcuMGUbQI6+
+         flHojdXU/+yo2shwVCBpfbMnjxmtQ+1ftur4ImYiu1iSDoLZbAIXuvHncMIBUy9Ft7SE
+         ZdPad/IF7qmu2OFk6MoFAQxCMi2KW7/BPodPnQ8+yn7YZoDTV/3fjkOGhDr7IRei25N4
+         c9RQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795768563; x=1796373363; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ej0zu0sGtkHApVwWa1kXVFV7LIDw/KTsfibG0hxrVG4=;
+        b=hSN4+2hn9jB3YLXoQUX/C8LlGmof/bGxhxK125dMbE/TOuNJqbAHSrgdfkDRYXeeaf
+         KAlSUFVhiKrr7o3bANxveqeVGUuP/NaQzOLk9R/IDyUBzc6hGUU8+8VewJ/HHwCPWX6r
+         IfM/pIoJegzD+hmFzB7ZlWL1vSvnsLvsHicv4kfc2dmUuYUg+VXTHex7UyiuZuBYJiTY
+         MZVrGeHnNHj/dDJQ19NUWbYftByUa01Bg/aXlIYAKOkMA/NBReZkqoiEvjJqgyvpxxAi
+         IldG4PFaNpZz5CoAyw2b5rwsv4iQM95fa8EVN+O7AhxCwDJxwK9BeLGfqtDjXOMhPwvS
+         nAYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795768563; x=1796373363;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ej0zu0sGtkHApVwWa1kXVFV7LIDw/KTsfibG0hxrVG4=;
+        b=u2FblKCdrB9KONiGdJyi9Jq2VhBj7vbDzkTreaskOH6gE0Af2tgkQKupRqgymXzfxT
+         v4fQjmrVUfUx7stgQeo8Q1tSn3A8XjXfAFzadhMXqBiyXokRECD2wmMmU7gsoT7BUPuy
+         WQsdHuB/Jj/wRHsKQ2T0zK7JHyK3wOflOazjQstGq9M+HzD+D7Y6EIll3akocucuLyTp
+         +zj/cS6OfrDDaOBBxRDHGdqEmS2R97uUD0RMLAriwF7tXQJzR2Hz6wnm6/jM8q8pk+x1
+         BeSuQVy7jM4dpllkIxSqAeg4RL5G9FykyC66+XIJBsWj7Om84paF6FF0Oovsv4qNDxIj
+         AkEA==
+X-Forwarded-Encrypted: i=1; AL+hErEVAYm9MeUAruKxKBmqbd3cg0dE/9ZaljBm3Et0uRcT+lrfVxEoAq9a9e2413t5WznLSkVrezP8IJ6d@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Al7ygVb/ziMuw6wMv9Mwwq98kZsRS5HHEAFmIgtSmi6LPHcc+
+	7o5IwmTvXc95eIrWlky1vtmf9bpkmD3Xcz3l1J3HgV8NpMZ0U03F9QdLFlxOBnopq2oqBVxubI/
+	kjofIAo9SNoz+PdlGLD9gqzHBe3pXb+gOYv7vjYI=
+X-Gm-Gg: AZFdTZfSaNKuH2lm3n4w6F0aKOVMdH9jyDUE7ybR0/9nJYMBrNyr+kaSgDVZrLHG57j
+	eT1QwQtP3kpTqH5DV7lg9Y7osBPjUNVZ6Sf8sgxXnOa4UsJ6cMDiqnR4rotrcx9NpUaHyAmkFR3
+	6um0rlfVTFP3cNMaMQajzF9sAw4ppoznN8xS9SiStHTW2wuEz/YLLAcl1HE6fj+Cm9WU5S2AOKh
+	cCPcoLs8iKx6hHHV/FAHE5e2dTzgw7JkT8z26uS51d7nbGIHbDzhf4SIEQhBAxjp7dRnYM9yBXp
+	tyuMLGOpLeD0heqHSToajYIWO/2fzsz6CLTL4lcUeTDXaUUiPn7WtZEZAAfK6SZO/TERBbQU36z
+	DKH6NGKHJyfHkOTne+4+9THfDNOCP+PYl71d6KRLTdeUS/Qbn/lVYaPI6K8TCLKsvW4IeOgU=
+X-Received: by 2002:aa7:d349:0:b0:6b4:602d:f1f2 with SMTP id
+ 4fb4d7f45d1cf-6ba37d52e9cmr15809735a12.3.1795768562917; Fri, 27 Nov 2026
+ 00:36:02 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -54,100 +103,35 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-sc8280xp-iris-iommu-v2-1-34692fff579f@radxa.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NwQqDMBBEf0X23JSYVA099T+Kh5isdQsayapYx
- H9vtPcypwcz8zZgjIQM92yDiAsxhSGBumTgOju8UJBPDEqqMpdaCnZGGbmOgiKxoND3s7C21W1
- TVNXNGUjLMWJL6/n6rH/Mc/NGNx1XR6MjnkL8nNolP3r/DUsuUjBZTFGqRvtHtH61Vxd6qPd9/
- wKBpJ3oyAAAAA==
-X-Change-ID: 20261030-sc8280xp-iris-iommu-aaf3fb5774c8
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dragon@radxa.com, Xilin Wu <sophon@radxa.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2020; i=sophon@radxa.com;
- h=from:subject:message-id; bh=y11Z0kgyIQp2jPwye+LZpBJTXg4J82IwwMcP+0ER91U=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDNmcDhL7N/xzbNvyYNojgVa7ThW+8xclrjZ0JS0Ir7HUt
- IrgfjCro5SFQYyLQVZMkUUhnmEue2XutadipXowc1iZQIYwcHEKwETuMDMyXFD3cyz0ZP7rNslp
- 3om+gM1skw9Vui8X4fqplH/sjc9cBUaGuXXNyZe2XlJJ/bHIL9zfLFhRY4HQqhiTf1uiAzc1sy1
- iAAA=
-X-Developer-Key: i=sophon@radxa.com; a=openpgp;
- fpr=205F009D07796DD6E516752E32C31567AD9E324E
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: N9XwYzVBzkV5GMPvHgQeyy74wEx47d9ECuwZZhhSj0PS8B5Wn5qAcD0W
-	V/3C//phonusEa+rYfYU956qf3981DJRGVkQ8ct8IYkr0hb15BjkC53GZaKCEWsCepk8Ydt
-	ddjPsEJ88wtMZVCVxiVdjoxq9TYP3fGE+pYiJlSDOvXjm21qyOCYhhxXTsI+InTWVGuGnIh
-	oUiUc2+VCqBOTs1vJnn0iaEnvfxueIL5xDztfjW+xKizSuPu88FXe9zGpnAxzVweZ9bCH7e
-	1Oe+9/B3JCC/XCnevKf+qCQXVYmjA13ObpxXQ5gw2RT8vOwySjj8QqYySnVP3GjdS9zU++J
-	BAhyVrzp+LV4e/SIah/tqMZoLvqLnsUIWwoABAfHqZWQcNsAoHzoPRBBLWrG6/powHkSMUV
-	fUbWiNPK7Ol4T+l8kwaQcal6PZNafFDEALJcg4mkq2mmMWHU7hLBNZgWXGnDHjogAxu2ZWu
-	XfPhc0sZzT7sejAKM7dZf+acr9k1P4hqJcDCarPv+xNBEHNS/ob7e1xCPjpV06O6PANIdkG
-	A+32kmAjq0A+uouMrCuDwsSNaK/XL6gMJ90ex3gmP7WWZAitZKcEL29pjb1CTMuKjN+H639
-	qF9uqm9kU5aVGeWFiUerM+M4W5spp+qSL8MKvuWBR/GYPvextaJ9jjedI7LPIhgkZ33d7xD
-	qBqvfQwuCf4hUei/bW2KQLlTnXDurR4Y69HECPdepHrhXZtgG7JEk2RPaqaIh4pFP7slZHU
-	Z1bCf4wWdYDybivenEAZhvklgAYduKuEfgN1tb9pjucBAE3wfNLq2NGYsEc0WXuBi8YiSuc
-	HX0yM9LTdRQbPoDfNBqaI64PEwf6gcOHdPCObCZjakVgyrQStS78Y8+tVQXyZKePhuwn9HC
-	z0OD5+ctrFmYcdgnEbxekcEmvzMYAZngtlb5zko5mo5DCphmOeNfNE0j+d53ZgYecbyIQbQ
-	3uZ+4p0q7RqYugTQ6IzOMGfjaiQYHU1L752sTS8BmJkOILg1aL9kgMdEomlqtKWrMDR8nX2
-	HgLt0aBlaHNEX0l82mmQtuHy248GUzXVMvcXVauDUqg4/otM+A
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+References: <20261127-dcphy-rx-v1-v8-0-9ddfef99221d@gmail.com>
+ <20261127-dcphy-rx-v1-v8-5-9ddfef99221d@gmail.com> <sashiko-outbox-236847@kernel.org>
+In-Reply-To: <sashiko-outbox-236847@kernel.org>
+From: =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>
+Date: Fri, 27 Nov 2026 16:35:50 +0800
+X-Gm-Features: Aa3M54ovM32g7V-SSPNRX95l4DBsAa-yp18pNqVZFJQDxNZ-uXS7aZWkl2Kvurk
+Message-ID: <CAPwA33J87MAF7hLvBE3_03_jQU=CrKB1ppc6QqLkksuQTB2Q7A@mail.gmail.com>
+Subject: Re: [PATCH v8 5/9] phy: rockchip-samsung-dcphy: Move block-level
+ setup to runtime resume
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, 
+	conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, 
+	olteanv@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-The Iris VPU on SC8280XP uses separate stream IDs for its non-secure
-non-pixel and pixel traffic, 0x2a00 and 0x2a07 respectively. This is
-the same split as 0x1940/0x1947 on SM8550 and later platforms. Only
-0x2a00 is described today.
+> Can removing the APB reset from samsung_mipi_dcphy_power_on() leave
+> spread-spectrum clocking (SSCG_EN in PLL_CON4) enabled when the D-PHY
+> transmitter is reconfigured from a rate above 2.5 Gbps down to 2.5 Gbps or
+> below while the device stays runtime-active?
 
-The Gen1 HFI firmware sends all non-secure traffic through 0x2a00, so
-this went unnoticed. The Gen2 HFI firmware puts pixel traffic, such as
-writes to decoded picture buffers, on 0x2a07. No SMR matches that
-stream, so the SMMU raises an unidentified stream fault, which TZ
-treats as fatal and resets the SoC:
+It stays enabled with or without the APB reset: pll_calc_rate() has
+never cleared pll.ssc_en, so pll_configure() sets SSCG_EN again after the
+reset.
 
-  SMMU:>> 0x15000000 NonSec Global Fault: NSGFSR=0x80000002, NSGFAR1=0x0, NSGFAR0=0xcfc03000, NSGFSYNR0=0x2, NSGFSYNR1=0x2a072a07, NSGFSYNR2=0x0, NSCR0=0x280406
-  Fatal Error type: TZBSP_ERR_FATAL_SMMU_FAULT
+Unlike 3/9 and 4/9, which fix problems that moving the reset would
+otherwise introduce, this one exists without this series, so I leave it
+out of this series. It can be fixed separately.
 
-Add the pixel stream ID so both streams are attached to the Iris
-device.
-
-Signed-off-by: Xilin Wu <sophon@radxa.com>
----
-Changes in v2:
-- Explain that 0x2a07 is the non-secure pixel stream and why only the
-  Gen2 firmware uses it
-- Quote the TZ log of the fault
-- Reword the subject
-- Rebase on next-20261126
-- Link to v1: https://patch.msgid.link/20261030-sc8280xp-iris-iommu-v1-1-1e3fb8562b3d@radxa.com
----
- arch/arm64/boot/dts/qcom/sc8280xp.dtsi | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-index 703b4f4e2059..328f64af863a 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-@@ -4266,7 +4266,8 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					     "video-mem";
- 
- 			operating-points-v2 = <&iris_opp_table>;
--			iommus = <&apps_smmu 0x2a00 0x400>;
-+			iommus = <&apps_smmu 0x2a00 0x400>,
-+				 <&apps_smmu 0x2a07 0x400>;
- 			memory-region = <&pil_video_mem>;
- 
- 			status = "disabled";
-
----
-base-commit: a9c48428cbd8d96b26f92631d0db6f8519c5fcc5
-change-id: 20261030-sc8280xp-iris-iommu-aaf3fb5774c8
+I also cannot test it here, as my panels stay below 2.5 Gbps per lane.
 
 Best regards,
---  
-Xilin Wu <sophon@radxa.com>
-
+Jason
