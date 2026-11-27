@@ -1,108 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795811634;
-	b=rc5qZH5k/qHl63C7eYd9Y2m6BdjJDP6ACo76/GKQWwBrQi6Ou3MqUk0h2XkVF1AkrL5J
-	 SZK8CaGC/Rrkb0fxdx39ItmcLk8GgIatsBHDll+jWBshzmaorekc88/lfyqxS3ifMLS16
-	 EKBgTPDKLmIux/2B455t1F1K4cEOgCZk1GXdwDulHFl6hsnjJrhNcUikE0dQ8GhEBVHda
-	 CMfawDXjbNbioCsjJakXVmhE4Oryh8GYkAeP1aYhl6isERlI0rTMLATl8styuo5bAQi3O
-	 dr/CPDImipr3lTgVAZ8DtLbJ9HIrH1SieHybIO27lJxa1HLaxUm5A/nM9d2ngSzrszQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795811634;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=M7NWEtOCA/msVj4P3QXkAvYOuQUhm34azwePsoxk0sU=;
-	b=GLIOxFu6/wD9XK7sIGlely9X1BL6iTGWL/SWCy3WXnTavHQaC8nw16yzoF2lCpS28nvC
-	 NBuBk+JNURMGkVGXUnscarqtMwjJCK2JnYhOXYTdbZSn2r4tkWweZNL6OpUHvkC2jaIfe
-	 cLSzANPwZLsoxbV6vw8GjDNe1y+juPXN+83s+WLra73eEM9G5BjAdaW2J6/XbJil8xg8x
-	 /neu4FLgNh1FbNYy/jmlqQd6BqBeH/AOcOsiQANgEUcKcLWERqBulQrLkYrHt1Efoug5m
-	 4IkVpeI0W0FBzMzUw08wlV149k4QR6twi6CRddzmJOQoOVH3iqnbBZQwOUxYCH6oO2g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fuuoNibx;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HkteGFQg;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795812630;
+	b=GD2aYgj7DSoYtpCtlP5BZ2Ae1SC2+LQDL6Yz+KcWlJyVOfA/D7U4Bo7te4+0Z51YzI/6
+	 vgZeCqawZ2PrLiZqGy1sQStfz/6M406qz5McQRjscm6Vk6FUd1zbOgCAo20vHIErf4rWo
+	 iIvVoPKHWF1xFgcdi+vMnXCXjg2LJDdlkn+hO5Jay8MnZl+82DL3dOlieirT4fcl1IKQI
+	 pIr0xpde4wYe8IoXnYaniqX35JAP9dmznB61wbUrd6vy9+kYEbPdvUqvM1PGs2jZzRGnw
+	 0VM7P+W/cwacOqQovvIOBRivYtwg3WUFYMq/ASs0F9cA5haHa89Dbm/hqu0eKJPGqCQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795812630;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=COOXH4offwY4vHwPd6x0ySf+s1NuOsnA2fHJwQt4QbY=;
+	b=jmAzls5bQvrhaIYXGesAVRqMkzGqEizq2cLNsaWxKjqC699z46knIB0Vjayxiba5JGSa
+	 Y1DOKCc6REtt8WHIYKLFrSDVpciYvkbbI0StaHehYvm9DRQ6xE+FfKE2zHQ/7bunsy0gx
+	 TZS11F6V+2DUjmCHqwhJcPoFXPcLxj5RqWx9HCsC0YvFTh7ZIoS6tzVOs1ar2/Ola7/qV
+	 wh43QgI0swqw9YiNzJna03DbYd6eZyNbajrvEQCQaX4/mnYpUhFsVg1HYjQPk6cASnyY9
+	 d70E6KylhotHfeCDvg9dB8x6YCUE55kP9ACJMGBsAzkK7NXMqreNF4bjSx6c3v07Ptw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PQX5gb5a;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84237606A31C;
+	Fri, 27 Nov 2026 20:50:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PQX5gb5a
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795812630;
+	b=3vEnHEEun8Q3yrCi5vO+3HdLURoUHNdghA6UiyxSc1UIpxrVoj7gD3IdGPaaHLM0JGPq
+	 /OQi/+1Gqa2LSM3rfPbzTluBPnEJb+MibhiSONOmJX9dpjR0bVMbdthVjKj9OfgUmA//F
+	 XpcFiYhyFrL6yPDnsMCFjtEK1aoqXSx78urngEAwl0tWlVVjsoXPPlbwV437cg6HLriSk
+	 jDIGl1P6RTpmF6GttXBbMqtYAHx6U1m5B/336F+vw4QI9KkkmYrI2xQwhCWMYdz2uBkkW
+	 7dTBdb0ON33upQqsU1oBPdgZNVtVIffbBjTF1MH8hjLndniRinlFKPHJYvQCu6uXW4A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795812630;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=COOXH4offwY4vHwPd6x0ySf+s1NuOsnA2fHJwQt4QbY=;
+	b=Id7aqnA/6XoOa/fHmb2vBZIMTQUTkW6+NB1zVzN3O2rcWUPr9P/+WaNtnX/VxrpOR7+5
+	 +zRXETf0+ZAgA/m6EkGfALW3YMzYvN8Gf1k6MyOy+ZrKpPA4xHOCwW9bUKtJLfnyd4wbM
+	 dXj3eQaxOwsgeCixkb6FkL9N7flLrCDr/ljp2S/gHxP+87zgkN+sCuObLhPVYNZFo1uVD
+	 j6cUBMUKgv8qUivQ3qwJMBjgXzFuJLD5pZWAr53kzc5gBIVSRpWgs3k87UmD34f+JfE/l
+	 xr3OElFmtH+f02iwpFUp84pNpIHy3MwYLgRSuhI+9WcLwM5aSU+s+vQ997OTh/T1/Tg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A3D606A31F
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 20:33:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8A3D606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fuuoNibx;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HkteGFQg
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ARJAtj83038719
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 20:33:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	M7NWEtOCA/msVj4P3QXkAvYOuQUhm34azwePsoxk0sU=; b=fuuoNibxWVUUBiwo
-	KKdAgXaDFx346+48fl6jf/yYRBSHxXzmSVdTRM77QYnK5yUtT6L5sZGhkVRnfaaU
-	MsTtprL/SAeJqZdZV+toq/Zr6TL3I/ksjY07p1bcSYp+nGUWP6iS9bhIlwtPUwv5
-	aCrVBoMVdpct8IYBopQLnsAKbFwKs7aaRWAzXEcYbngeeGZUxsVZKvVDWXcGDxCF
-	Z67c9tu+wNI1T/sWNpwhb5vpWfQlA9QgF7EVEf1o+vRt2a4iNA6opwIm537GmU8F
-	l1qbLoA0phvLd+n1WQZEdgfWzu3h1UDCTlBSj8SxvCngFC+vDrXDWBpsjLHzC077
-	u5SHoA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j7e4ngfa9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 20:33:53 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-94961511b61so1328676385a.3
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 12:33:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795811632; x=1796416432; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=M7NWEtOCA/msVj4P3QXkAvYOuQUhm34azwePsoxk0sU=;
-        b=HkteGFQg+XXIibWQKhGtlbgzrRb2tK3qhU0z2RENhEXYN0k216VIUOZPiR8COHPMJ2
-         SPdGfgBnQL86xou0JLmmstM5uHJbFIUkdGiJR+0erO6mZs3sdIj1xwP5AD01nZxlgrZX
-         G4M5ciCrsvJ4hKjHQdGvUzWa6+MXAILN2pQUqx6k069gNSs85jBCdot93nU6q1cDhEoI
-         TInHhRi09c6rerQAyNFcy0Te9RIcSYtMvx5hjmXyyTnfGw8NHyZd2Zx7U47g+aOUEYtZ
-         QqyL+LRaUJmIQm6Am6eXLzUtmQzJnzBGBAltFVIJWFJt2C+tpNcrEA/LhpREJrZUBffm
-         VFXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795811632; x=1796416432;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M7NWEtOCA/msVj4P3QXkAvYOuQUhm34azwePsoxk0sU=;
-        b=RPvAt4m+WUY6U+8qGVm9JXwLRN65e2RYX52Q5S5WqzRZPOwvX8j3olyBrsaiSm+a3j
-         b79TW3DYOH2GXBBk3+BxCgQsUFtIWv6oaRWUO9srtO5G008v9KrsY3N9eK2tB70dVWWJ
-         rPqxr7Hduj9cKwQdwZy5cNZCn7jb+o60CTXEJaMA483jpatyTpcReenVUy7I3jV7nFql
-         Jl30a9CxdVRObD1suAyiD0vEbZ3o5t02EH3eKc11C7WY0QYeKik4NElF/Xr5VqiQ9BkB
-         gCYAjQ7LNiV4YLftxCXZ35SeqNANw33/I5S7EOZUugNy5F7MDM6LprqHMMLfSgmy0OxO
-         sgDQ==
-X-Forwarded-Encrypted: i=1; AL+hErEujc4keM1fmXrzQD5bMYgaohI989SFQoLP4IoyZ4QcJu+Y8Kk6vKww4uWF0Kqml4H8JXkfOxgD8L6I@vger.kernel.org
-X-Gm-Message-State: APuU4Z/CvAM7o5LH30FJ7XzpW7yxTMsx8vYwmKfD2BRocNamy0u2S2yp
-	JSQONtrHQ5bpFIB8hmBdzZ/MltnYovMWGA+rW5gnsVplfTpNaae1i6PVPbLJxQzFdf+RYxTaMXY
-	iQu568V9H4KDBfU0G6GvhxQMrhIrpotffC7AvqCw18IgOxTXr+jIKoksw0hq7Q78F
-X-Gm-Gg: AZFdTZcN95Vo1kSUBvzeTnqhwzCVYmnFVReufaTZJv8ErZ/mYoc0p/BjBoSPJUjc74A
-	vqsILEcugG7F7WFT3+SqMvcbn/dF3gWsDP8RIXYRE3LbT4uwKmum8OP3cF9oxbdRnOfAYGa2N1S
-	1Sz0cT5WhR+7t+FZwiwAsJyEFP50CqFpj5LRmneCxva3bKkIivHI5rFPpZuxtonQHgnapqjz87R
-	8fNT9zx84X/Gj0ZNtmK2v//xRNEtHTjTc6j3XG195Ie7y+E0v0m945C0FO0ClnigA/ozjBkgsDK
-	DFoirTOThvhyDIAIwBm9NEZaZyMtK9Vy+NlH9Jv7VUEbzIukCaIZrwm4nwf587DRODIBMvIdbdj
-	5n84FZ4i0aoRjm03ph5YT4p1msTKTLxTrsdu+0mWNRwoNtOvW5tOVWLuWXjmVDQ==
-X-Received: by 2002:a05:620a:1a28:b0:93f:1936:b20a with SMTP id af79cd13be357-949bab284f6mr4399631485a.76.1795811632320;
-        Fri, 27 Nov 2026 12:33:52 -0800 (PST)
-X-Received: by 2002:a05:620a:1a28:b0:93f:1936:b20a with SMTP id af79cd13be357-949bab284f6mr4399625985a.76.1795811631855;
-        Fri, 27 Nov 2026 12:33:51 -0800 (PST)
-Received: from localhost ([2a00:23c4:e5c9:901:c496:8838:86d0:bc8c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6ae2dcf9sm48338546f8f.32.2026.11.27.12.33.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 12:33:50 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 5DA0B1F00897;
+	Fri, 27 Nov 2026 20:50:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795812630;
+	bh=COOXH4offwY4vHwPd6x0ySf+s1NuOsnA2fHJwQt4QbY=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=PQX5gb5aW9Uoh4yyCoSIRwLBrRVgITqsPTJJfDhXz0bN9dcjyMAj+N1N6ZwOjik9U
+	 eKbQ4bEWuFiJaw8oJkxt2qRCWHh1ZcvCxeYZtXHl9lWCxNfTRYQPTdDjQx0EfoZ/a9
+	 qMl/8bt9r+xsmrFBOqATd4qeESz4eNm791Ni2C/wATL4qvBLGUSkUs08XDsQrrpWO6
+	 PdA+/EcZ/e1ASQLV7+d0XGA55pY0UiSM+xzLPiOs/UWN0uM8hTAgVorqvdw6d3gDj1
+	 1VOApyzCYyeFJ96eIUqOAP5QszZKDI52+YkpCPT7aqtIKNIw/5oUZrM6BoiQhlbrBL
+	 IDhBn80rkItwA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id DE79F4DDD7;
+	Fri, 27 Nov 2026 20:50:26 +0000 (UTC)
+From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
+Subject: [PATCH v5 0/6] soc: cortina: Add CS7542 global clocks, reset
+ controller and pinctrl
+Date: Fri, 27 Nov 2026 23:50:25 +0300
+Message-Id: <20261127-cs7542-syscon-v5-0-d5a373c72b05@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,81 +86,110 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH RESEND 0/2] PCI: of: Skip config reads for disabled
- bridges
-From: Christopher Obbard <chris.obbard@oss.qualcomm.com>
-To: Xilin Wu <sophon@radxa.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>,
-        Daniele Briguglio <hello@superkali.me>, dragon@radxa.com,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-In-Reply-To: <20261127-pci-of-disabled-bridges-v1-0-3bedcbe51cda@radxa.com>
-References: <20261127-pci-of-disabled-bridges-v1-0-3bedcbe51cda@radxa.com>
-Date: Fri, 27 Nov 2026 20:33:47 +0000
-Message-Id: <179581162724.3905807.13798536034754126199.b4-review@b4>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQ6CMBCF4auYrq1pZ6YUXXkP44KWFmsUDEWiM
+ dzdghvF6PIl8/3zYNG1wUW2WTxY6/oQQ1OnoZYLZg9FXTkeyrQZCMikBOQ2akXA4z3apuagsVS
+ krC48sGQurfPhNvV2+9eOV3N0thsj48UhxK5p79PDXo53v9q95ILTOle5y1ASrbfVuQinlW3Ob
+ Gz38FdD0tKWmgwoAP+l8a/GpL20QhdSC/T5XNO7VnNNSSOiNkaUaOhDD8PwBCDD1Bp2AQAA
+X-Change-ID: 20261123-cs7542-syscon-273d545c7af2
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-gpio@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=423;
- i=chris.obbard@oss.qualcomm.com; h=from:subject:message-id;
- bh=TZkDGwJBtyA0TiNJhNB/OSVSV/aagdKBXEGWAdK0OLk=;
- b=owEBbQKS/ZANAwAKAWNNxPBocEb4AcsmYgBrCektwUucylrVH5BWh5c4Ud4McwsPdJqTGiBl9
- dnw2xSBuVWJAjMEAAEKAB0WIQTxi9yLbCX5CqI9UXRjTcTwaHBG+AUCawnpLQAKCRBjTcTwaHBG
- +DMWD/wNRZ+rlpDvMQQwnU9WtQcj8Q8Bg5b8dB2Yw8r2gPvmqD28DZeiYtjDTPWIdufB+iqgz5k
- 08Oy0/zegQmPIY4RI4Chc3nJVaJXm5+Q24F1IfX1gW/g92ofustFieS4e8CsLo8YKOZMPlUBI0I
- lfXJlQqibG/hp63ZeYoNtwEJSjJOwU01etsgdsOJUeZiqcw1Q942oaLpYAK14p+Tl2CGZ5n9sNf
- kx8pY0Gk9d9JorphQkOYSN7zU09LaCTXnb506TBnvr1WQd+KjFc8a0DbVeEn7AthfMNExY/E8su
- E4apPcjKnPDstI6cL4Qa3acHbxmGaXXR5phfOaWJRaHzZQIoj7SariTGgq1VS6MSa4EGII15tZT
- HmYyMS9Ias5gBk4D3ngSRwk+y/9CIksmiyB1KhHbCo4YVwkL82U2vPd6gdqi3dsA7dtx+8gQr3X
- l/IOARrDpbLzhjrWkZrcmxHTiUcKmrq4CjZNRlSS3IXk/NznBYaR4GnSpJHDqrEkJZZp3jte6O1
- AV6n2qC+eoaN1ODqBIDCLh9wSBS1FdU+4dC6rK7WLP5rXwl8rqNohrGtM/izCvEtXEeu2fiOQfa
- BZysQQPlK6osqHi8VKGKaPdL5qkD+go0wo44qHrINp3/xdPCnDc7uwzFMu2jpePgCZtKOSGiV73
- HIIHqY3tgukda8Q==
-X-Developer-Key: i=chris.obbard@oss.qualcomm.com; a=openpgp;
- fpr=F18BDC8B6C25F90AA23D5174634DC4F0687046F8
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDA4MSBTYWx0ZWRfX2otaaIYQcKMg
- WUq037g31T4aDmrtvK2viKdwEAkyG8cItSxYVC7Q++YnQLxpFMTTRy74KDioVWzus8YVGm69tri
- 2VUwj+AYif3/MijiQT61N02r3JIqgls=
-X-Proofpoint-GUID: DqDEMWVJHvtCvsDtRHLJW2O1RGasAYaP
-X-Authority-Analysis: v=2.4 cv=LPLz05W9 c=1 sm=1 tr=0 ts=6b09e931 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=ksxQWNrZAAAA:8
- a=EUspDBNiAAAA:8 a=Rh4h1jE-l6Tb1weBNBoA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
- a=PEH46H7Ffwr30OY-TuGO:22 a=l7WU34MJF0Z5EO9KEJC3:22
-X-Proofpoint-ORIG-GUID: DqDEMWVJHvtCvsDtRHLJW2O1RGasAYaP
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDA4MSBTYWx0ZWRfX98Il3dJDkZox
- oKVCskb4/HCU/wolczi/V6kc9QgmrzIKPvCW2ONLfHO//HSQ3A3n/KfInhRVkVZ6dDJFiN42P81
- b8SCgM1tOPcLWDLvTHVOiSr7D0DgKqcnu98L9hl25/rUCITCbLezTLMUsrVt5HO3rUFbgiLz4Hu
- 2+1Lf7ggnpXwk92+2JQ75pTf0wQL/fBiT9IZKvdlLnEQ+zj1unAFCR8tG5zpxezNGoD/KWD+bwP
- pylwpztRLE+xIQSJ4klaWz5/9DkTl34YtXtLnfXXVmnZFUh6PcEU/WQQomgzUoYw8K6b2vyD0SY
- UGJwP9Ol58EMS7p8eHjiy8cNx59yIBSrGNHT1QxqsWS3fRVZrltualrlUlyk9YxSzLrh218LVL+
- gLzaUq7Eay4EkZdM3ogUVHsKn9B9d8kLoX/EiNan7Nsppx4PPn1np9kovIRu2PgNPqdrbX5l7H6
- Zs5H31k2c228BvV7hsQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-27_04,2026-11-27_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 bulkscore=0 impostorscore=0 malwarescore=0
- suspectscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611270081
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795812625; l=4219;
+ i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
+ bh=LKT0ZdEPrI0e86I7NHg3yxfQRlaUYUC+x/f2lAMoCoI=;
+ b=BGh+iEkGCfRMeFsWmQsYxehsmgWZqwiDmArsRn+m4MwCj6IRt+538ZKbvZ6KDmedjW96Mt4Ja
+ +VfI2Ojy2tWCfUMv23okesLvP21eYmXKTKhfSac3ARy7bdrIZIVF+7e
+X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
+ pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
+X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
+ auth_id=1085
+X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
+Reply-To: filipp.dunsky@gmail.com
 
-On Fri, 27 Nov 2026 19:49:31 +0800, Xilin Wu <sophon@radxa.com> wrote:
-> PCI: of: Skip config reads for disabled bridges
-> 
-> Hi,
-> 
-> This series extracts the PCI change from the Radxa Dragon Q8B board
-> support series for review and application through the PCI tree, as
-> requested by Manivannan Sadhasivam.
-> 
-> [...]
+The CS7542 global register block selects the CPU and bus clocks, gates
+the three PCIe ports and provides the PCIe and network reset lines. Its
+pinctrl child selects GPIO or peripheral functions on the same pads.
+This series includes the clock changes previously posted in the global
+controls series together with the original clock and pinctrl patches.
 
-Tested-by: Christopher Obbard <chris.obbard@oss.qualcomm.com>
+The early clock provider supplies timer clocks before platform devices
+probe. A separate platform driver in drivers/reset/ uses the same
+syscon regmap. The PCIe and Ethernet consumers control the timing and
+ordering of their own resets.
 
--- 
-Christopher Obbard
+The global reset provider also exposes the separate flash reset at
+RESET bit 14, for NAND consumers to acquire without asserting a pulse.
+
+Validation: both binding commits pass dt_binding_check independently.
+The clock driver builds in, and the reset and pinctrl drivers build both
+built-in and as modules on ARM with W=1/-Werror, COMPILE_TEST disabled and
+without the platform series. The equivalent OpenWrt backport has been
+exercised on Almond+; these checks do not claim fault injection on hardware.
+
+Changes in v5:
+- Treat failed regmap reads as unprepared in the PCIe gate state callback.
+- Use devm_kzalloc_obj() for the native reset controller allocation.
+- Describe the separate flash reset and add its reset identifier.
+- Retain Linus Walleij's Reviewed-by on the unchanged pinctrl driver.
+- Link to v4: https://patch.msgid.link/20261125-cs7542-syscon-v4-0-3337bb0d3b48@gmail.com
+
+Changes in v4:
+- Combine the strap-selected clocks and PCIe gates in one clock driver.
+- Move reset registration to a separate driver in drivers/reset/.
+- Expose the seven network-engine reset lines individually. Leave the
+  PCIe reset pulse timing to the PCIe driver.
+- Fold in the global-controls binding and its clock and reset IDs.
+- Global-controls v1: https://lore.kernel.org/all/20261124-b4-cs7542-global-controls-v1-0-12548785df2c@gmail.com/
+- Link to v3: https://lore.kernel.org/all/20261123-cs7542-syscon-v3-0-f1c07a1703f8@gmail.com/
+
+Changes in v3:
+- Introduce the parent pinctrl property and schema reference together with
+  the pinctrl binding in patch 2, so patch 1 validates independently.
+- Re-run dt_binding_check and examples at both binding commits. The final
+  source tree and driver code are unchanged from v2.
+- Link to v2: https://patch.msgid.link/20261123-cs7542-syscon-v2-0-1cd74b2522f9@gmail.com
+
+Changes in v2:
+- Identify GPIO mux functions with function_is_gpio so strict ownership
+  allows a GPIO consumer after the default GPIO state; UART stays exclusive.
+- Link to v1: https://patch.msgid.link/20261123-cs7542-syscon-v1-0-49858e631449@gmail.com
+
+---
+Fil Dunsky (6):
+      dt-bindings: soc: Add Cortina Systems CS7542 global controls
+      dt-bindings: pinctrl: Add Cortina Systems CS7542 pin mux
+      clk: Add Cortina Systems CS7542 clocks
+      reset: Add Cortina Systems CS7542 global reset controller
+      pinctrl: Add Cortina Systems CS7542 pin multiplexer
+      MAINTAINERS: Add CS7542 global control support
+
+ .../bindings/pinctrl/cortina,cs7542-pinctrl.yaml   |  84 +++++++++
+ .../soc/cortina/cortina,cs7542-syscon.yaml         |  60 +++++++
+ MAINTAINERS                                        |  12 ++
+ drivers/clk/Kconfig                                |   9 +
+ drivers/clk/Makefile                               |   1 +
+ drivers/clk/clk-cs7542.c                           | 161 +++++++++++++++++
+ drivers/pinctrl/Kconfig                            |  13 ++
+ drivers/pinctrl/Makefile                           |   1 +
+ drivers/pinctrl/pinctrl-cs7542.c                   | 195 +++++++++++++++++++++
+ drivers/reset/Kconfig                              |  10 ++
+ drivers/reset/Makefile                             |   1 +
+ drivers/reset/reset-cs7542.c                       | 135 ++++++++++++++
+ include/dt-bindings/clock/cortina,cs7542-clock.h   |  13 ++
+ include/dt-bindings/reset/cortina,cs7542-reset.h   |  20 +++
+ 14 files changed, 715 insertions(+)
+---
+base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
+change-id: 20261123-cs7542-syscon-273d545c7af2
+
+Best regards,
+--  
+Fil Dunsky <filipp.dunsky@gmail.com>
+
 
