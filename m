@@ -1,60 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795797482;
-	b=JpkI3HzGoQfLeizq3LfnT+D/8sTssmvwhDdqiEX4xfbZn37RnIqT9vjoMyVy8tshST3s
-	 hp4KKdR4Hw5+Ym0ednai1nBCchPZdClOIAgThh0i9OA6OLXB1ote0R/0KYRevLplIVnoL
-	 UiCKiKFHtHAEyB5s2KEh4HzzGV000oCGv/P7LM/Y8En2niuuxKSbN/fjDqZAMRs+lY/wO
-	 Qzs4VP1Vxvqv6klxxwEAQaGFFQIrA4IimvjlZwHvpFyNvOMMpBFPviyNwwMZEgqpkt9cv
-	 aXYwyHGVuObmFpF26WX6N1y28x2PSz8E3oDll9hIHlmOtUFJuxBcih/fGePe5arFLjw==
+	t=1795797608;
+	b=PQ7jobZdWdN34VZbdS28y2YwEoG85USHSj+1Ids1xjW8+l8Z5UUWuQWlmRhqEwZ+JsuH
+	 UpNUB3ay2lSGoBcsTwBQT7Cp0++DHfLIKJ2iF2Cl0tdFZDNuf/WyXvL8ubYjVbTIHHpQ3
+	 pyQbcihxKQIrJfgC5x08nF2tT1u8N1PqRabI9rQ1Sd84QrI+aE/emOhDhFf2QtpL9sV1f
+	 Y7CrZHAa1y5soIf44J8PBy4+kd3CwAGkpkC6lZRRqOlu7qSmRcY7KlZO/4lplZDcZ5E1+
+	 eqCA2sYq99C5qdF0qa3ARs4ANsoaEHvcZkNBYnjOORQvuz+/aB3E3RDRGQzuZUgo2og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795797482;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=gqmpaC4EUz+q95HvmLKRF+xoM4Pr8ZBA71cC5oMY0vk=;
-	b=IIgA3S+OSMstS6VsNaxEA6Fn3EihbkibGvrmMe/IlT7Zkg9bYWxqQ0uYC2a0A2KhuLkC
-	 s1suKTOZmsOj3plUdZV1WQS8WARuPp3OdsPhHUIKe4Nm+6osfbeerPgkohtY7crzNSI9F
-	 GFlcBERZ/aaUiEAr93fR7lNIgCdSfRchlakSDydffR/9IqVqiEsohaXi4bGAnehwWtFHv
-	 1CmQZtxdb/M7WJmGTVUwnAHSRjpRjnJ9QDnLqDeLSoWt4jxKjII8YTrCRH+/UO7PEthaj
-	 Vha6Sc/XOgRAoCUIBnEm3fxIGlp2uc+utw53EwAHh8YTkRsEFuW5HXufLTy0HqV1+yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795797608;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=ACOt+QaxpLA5NERudLEOoYNMpeiiu7/ocr887Em0ZUw=;
+	b=ctGLpc3gPyIb0WPJB+UG5i4A8EyVmDOxh0CIGXi22yVPaK5GNUrEFPTNkuuDL64yq6KG
+	 utnVfJTq5mgO1UtOcW6GFs0Gj1xDcBSBD5TIL0aoOLKez0dCQMYW3N44psbERhDJbCpEh
+	 CKC7X5IqafTvynXKw6BI9Mj9Jvtq9ckeSRdpsYrjHlYRnJf+PplrKUA4nzS9CNxa1Tf99
+	 c7L6M/cLN9P8Lk1zUlTkb+4FcaH+7XSf1NkOEbYnaPOdNWGfCdviNnoDyQ3j/jDwxtM5D
+	 V3H24sl+FivPKxHA1U5lXs9tlF/IM6kpB7yfiMiyinai+pPAn4SRgG2h3IDp3Sk7kWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=7zhuwiohx5cyjemmgpyv5v53uu.protonmail2 header.b=eDSlzccN;
-	arc=none smtp.remote-ip=109.224.244.123
-Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NErW5z9j;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E35606A31C;
-	Fri, 27 Nov 2026 16:37:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17E35606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0DB8606A69B;
+	Fri, 27 Nov 2026 16:40:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=7zhuwiohx5cyjemmgpyv5v53uu.protonmail2 header.b=eDSlzccN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=7zhuwiohx5cyjemmgpyv5v53uu.protonmail2; t=1795797468;
-	x=1796056668; bh=gqmpaC4EUz+q95HvmLKRF+xoM4Pr8ZBA71cC5oMY0vk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=eDSlzccNYIAYp+647rmUKFukjdnvnWZ9/IT8hNCeyVhANm1/5RXCdZqGAefPxsHtr
-	 lrOov7pMR3NAa/prrPcqbXlEsQCwBwD1PTHtCIDEtVvqPZEr0uZtxd4kYckNj7ikmG
-	 3MzaHeQ8Rq07oQvVmnxvhMmvAAAGlNGS8h8F17TQVk/pfiQhSGqrMSfOW4P6IFa9TJ
-	 2DbpglbqTdazDQB9yR2SLv9CY5GiJkkbbakKPgpPgUrxU8UJgQ6VDIZNqQRF+Uimok
-	 0G43uZ26I06hf4jbjIFfAEYjr93j1efER4K65c5WbdAQKk+YIhn8re1KoWxQ0MUcZr
-	 uxdXXMPECgj6w==
-Date: Fri, 27 Nov 2026 16:37:44 +0000
-To: Jerome Brunet <jbrunet@baylibre.com>
-From: Norman Herms <dockseed@proton.me>
-Cc: =?utf-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>, andre.przywara@arm.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org, samuel@sholland.org, Enzo Adriano <enzo.adriano.code@gmail.com>, Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, Junhui Liu <junhui.liu@pigmoral.tech>, Pablo Mazzini <pmazzini@gmail.com>, Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>, Alexander Sverdlin <alex@sverdlin.org>, Jun Yan <jerrysteve1101@gmail.com>, Lukas Schmid <lukas.schmid@netcube.li>, Cristian Filipescu <filipescu.cristian@gmail.com>
-Subject: Re: [PATCH v6 2/5] arm64: dts: allwinner: add A733 SoC description
-Message-ID: <wzwsbUKM-fEhYpTIhswvHly5oyuMCPDOExJEWjbSf-OS3Lrwx2H_l9CUfuMITJUK5CyEz4pNojUFRzjDDczUQmX_LmSWwF7DVSceD34XeHY=@proton.me>
-In-Reply-To: <1jld6eldic.fsf@starbuckisacylon.baylibre.com>
-References: <20261126-a733-cubie-a7s-dt-v6-0@gmail.com> <20261126-a733-cubie-a7s-dt-v6-2@gmail.com> <p3YaXlLJTguQBGnWyMpb1w@gmail.com> <1jld6eldic.fsf@starbuckisacylon.baylibre.com>
-Feedback-ID: 144388465:user:proton
-X-Pm-Message-ID: 87fbfe36e01c8768225a4b0044555248b653f3dd
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NErW5z9j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9643A1F00898;
+	Fri, 27 Nov 2026 16:40:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795797607;
+	bh=ACOt+QaxpLA5NERudLEOoYNMpeiiu7/ocr887Em0ZUw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=NErW5z9jy7bNksEsEfDyFWFmMBfo+nueO0QU3k0dXsJtDQe9gQUaRrYRGGpeEQC/2
+	 HzGoP03ggGE8elQe5GtxLPYOif1AhOa9ga8uXn4vpsLLBYY7mg9A+minfaSPGiX8ON
+	 CIzmGpwuJ+4yws8JClqG4YUI7LVgvMlVDI7sVgvWCccvAtQVtrYKv71N6j63sbGJsp
+	 xFLGayYtoM6k19TjYTjwj39sPqi8GFt0Coyt0fHHECxCbUrk351vaBZjS2Z/gvhFQa
+	 rgLOjVIYTmQxWI6IDezQlYV0omKzFRHUyjSVduIP/8WSm9DQWBv+v0FhIrcA6wuep0
+	 ydbGoyljN+hhg==
+Message-ID: <sashiko-outbox-237909@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 13/14] pmdomain: renesas: r8a78000: Add SCMI
+ remapping support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Geert Uytterhoeven" <geert@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <21bac4cbc704669700d62351ec8aefe1165b90ce.1795796064.git.geert+renesas@glider.be>
+References: <cover.1795796064.git.geert+renesas@glider.be>
+ <21bac4cbc704669700d62351ec8aefe1165b90ce.1795796064.git.geert+renesas@glider.be>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 27 Nov 2026 16:40:07 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,49 +60,170 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-Hi Jerome,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] pmdomain: renesas: NULL deref in r8a78000_mdlc_put_rstcs() on
+  error
+- [Medium] pmdomain: renesas: device_node leak of scmi_clk_np in
+  r8a78000_mdlc_probe()
+--
 
-On the PF voltage selector: we have been running UHS-I on the Cubie
-A7S for a while in our own trees (6.18 and mainline based). Here is
-what we ran into, in case it helps whoever models it.
+commit 8f10b43c90068feddde62d11d56b7f918de1b8e1
+Author: Geert Uytterhoeven <geert+renesas@glider.be>
 
-- The switch: on this board bank PF takes its supply from VCC-IO
-  (3.3 V) or from CLDO5 (1.8 V), selected by GPIO_POW_VAL_SET_CTL
-  bit 0 (1 =3D 3.3 V). There is no external regulator to switch, so
-  vqmmc does not fit, and sunxi-mmc without vqmmc returns -EINVAL for
-  1.8 V. We use two pinctrl states, "sdmmc-3v3" and "sdmmc-1v8" as on
-  Tegra, whose pin groups carry power-source.
+pmdomain: renesas: r8a78000: Add SCMI remapping support
 
-- The withstand mode: with PF in the adaptive mode of
-  GPIO_POW_MOD_SEL (01, which is what the pinctrl automatic voltage
-  detection patch sets), the pads follow the SoC's own supply
-  detector, and on our board that detector now and then reports
-  3.3 V while PF runs at 1.8 V. With one card, 14 of 40 SD rebinds at
-  SDR104 failed: the CMD6 status read gets a data CRC error and the
-  card falls back to high speed; once the card was lost ("error -5
-  whilst initialising SD card"). Setting the PF mode by hand together
-  with the switch gave 0 of 40: 10 (3.3 V) before switching to 3.3 V,
-  and 11 (1.8 V) after switching to 1.8 V, once GPIO_POW_VAL reports
-  PF at 1.8 V. Our final patch does that and also gave 0 of 40.
-  Oddly, the fault also goes away while the USB3 combo PHY runs; on
-  this board CLDO5 supplies its analog part too. Another card passed
-  40 of 40 even in the adaptive mode.
+This commit extends the R-Car X5H Module Controller driver to remap
+hardware power domain, module clock, and reset IDs to SCMI firmware
+abstractions when SCMI is available.
 
-- The eMMC on bank PC needs no switching, CLDO5 is fixed at 1.8 V.
-  But if the boot chain leaves the PC field at its reset value 10 (the
-  register resets to 0x022aaaa0), HS400 enhanced strobe fails with
-  "mmc_select_hs400es failed, error -110". So on PC, 10 behaves as the
-  3.3 V mode, as in the register table, not as the adaptive mode the
-  text of 18.14.4.6 gives for C/E/K. 01 and the fixed 1.8 V mode (11)
-  both work.
+> diff --git a/drivers/pmdomain/renesas/r8a78000-mdlc.c b/drivers/pmdomain/=
+renesas/r8a78000-mdlc.c
+> index 733bf68dab2ce..654c46f581478 100644
+> --- a/drivers/pmdomain/renesas/r8a78000-mdlc.c
+> +++ b/drivers/pmdomain/renesas/r8a78000-mdlc.c
+[ ... ]
+> @@ -178,8 +280,165 @@ static int r8a78000_mdlc_attach_dev(struct generic_=
+pm_domain *domain,
+[ ... ]
+> +static void r8a78000_mdlc_put_rstcs(void *data)
+> +{
+> +	struct r8a78000_mdlc_priv *priv =3D data;
+> +
+> +	for (unsigned int i =3D priv->mod_map->size; i--; )
+> +		reset_control_put(priv->rstcs[i]);
+> +}
+> +
+> +static struct reset_control **r8a78000_mdlc_get_rstcs(
+> +					struct r8a78000_mdlc_priv *priv,
+> +					struct fwnode_handle *scmi_reset_fwnode)
+> +{
+> +	const struct mod_id_map *map =3D priv->mod_map;
+> +	struct device *dev =3D priv->dev;
+> +	struct reset_control **rstcs;
+> +	int ret;
+> +
+> +	if (!map)
+> +		return NULL;
+> +
+> +	rstcs =3D devm_kzalloc_objs(dev, *rstcs, map->size);
+> +	if (!rstcs)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	for (unsigned int i =3D 0; i < map->size; i++) {
+> +		struct fwnode_reference_args scmi_spec;
+> +		s16 fw_id =3D map->entries[i].fw_id;
+> +		struct reset_control *rstc;
+> +
+> +		if (!scmi_reset_fwnode || fw_id < 0)
+> +			continue;
+> +
+> +		scmi_spec.fwnode =3D scmi_reset_fwnode;
+> +		scmi_spec.nargs =3D 1;
+> +		scmi_spec.args[0] =3D fw_id;
+> +
+> +		rstc =3D reset_control_get_from_provider_exclusive(&scmi_spec);
+> +		if (IS_ERR(rstc)) {
+> +			while (i--)
+> +				reset_control_put(rstcs[i]);
+> +
+> +			return dev_err_cast_probe(dev, rstc,
+> +					"Failed to get SCMI reset %u\n", fw_id);
+> +		}
+> +
+> +		rstcs[i] =3D rstc;
+> +	}
+> +
+> +	ret =3D devm_add_action_or_reset(dev, r8a78000_mdlc_put_rstcs, priv);
+> +	if (ret)
+> +		return dev_err_ptr_probe(dev, ret,
+> +					 "Failed to add reset put action\n");
+> +
+> +	return rstcs;
+>  }
 
-We can test patches for this on the A7S, SD and eMMC.
+[Severity: Medium]
+Can r8a78000_mdlc_put_rstcs() dereference a NULL priv->rstcs pointer if
+devm_add_action_or_reset() fails?
 
-Built and measured by AI agents (Claude) on my boards.
+r8a78000_mdlc_probe() only assigns priv->rstcs after
+r8a78000_mdlc_get_rstcs() returns, so calling devm_add_action_or_reset()
+before priv->rstcs is set causes the failure path to index priv->rstcs[i]
+while priv->rstcs is still NULL and leak the reset controls in rstcs.
 
-Thanks,
-Norman
+[ ... ]
+
+> @@ -249,6 +517,47 @@ static int r8a78000_mdlc_probe(struct platform_devic=
+e *pdev)
+>  	priv->dev =3D dev;
+>  	priv->np =3D np;
+> =20
+> +	if (!IS_ENABLED(CONFIG_ARM_SCMI_POWER_DOMAIN) ||
+> +	    !IS_ENABLED(CONFIG_COMMON_CLK_SCMI) ||
+> +	    !IS_ENABLED(CONFIG_RESET_SCMI)) {
+> +		dev_dbg(dev, "SCMI pmdomain/clock/reset support is disabled\n");
+> +		goto fallback;
+> +	}
+> +
+> +	scmi =3D of_find_compatible_node(NULL, NULL, "arm,scmi");
+> +	if (!scmi) {
+> +		dev_dbg(dev, "Cannot find SCMI firmware node\n");
+> +		goto fallback;
+> +	}
+> +
+> +	if (!of_device_is_available(scmi)) {
+> +		dev_dbg(dev, "SCMI firmware node is not available\n");
+> +		goto fallback;
+> +	}
+> +
+> +	scmi_power_np =3D scmi_find_proto(scmi, SCMI_PROTOCOL_POWER);
+> +	if (!scmi_power_np) {
+> +		dev_dbg(dev,
+> +			"Cannot find SCMI power domain management protocol\n");
+> +		goto fallback;
+> +	}
+> +
+> +	scmi_clk_np =3D scmi_find_proto(scmi, SCMI_PROTOCOL_CLOCK);
+> +	if (!scmi_clk_np) {
+> +		dev_dbg(dev, "Cannot find SCMI clock management protocol\n");
+> +		goto fallback;
+> +	}
+> +
+> +	scmi_reset_np =3D scmi_find_proto(scmi, SCMI_PROTOCOL_RESET);
+> +	if (!scmi_reset_np) {
+> +		dev_dbg(dev, "Cannot find SCMI reset management protocol\n");
+> +		goto fallback;
+> +	}
+> +
+> +	priv->scmi_clk_np =3D scmi_clk_np;
+> +	info =3D mdlc_data->fw_info;
+> +
+> +fallback:
+[ ... ]
+> @@ -295,11 +622,14 @@ static int r8a78000_mdlc_probe(struct platform_devi=
+ce *pdev)
+>  		return dev_err_probe(dev, ret,
+>  				     "Failed to register reset controller\n");
+> =20
+> +	/* Retained in priv->scmi_clk_np */
+> +	retain_and_null_ptr(scmi_clk_np);
+> +
+>  	return 0;
+>  }
+
+[Severity: Medium]
+Does this leak the scmi_clk_np device_node reference when SCMI_PROTOCOL_RES=
+ET
+is missing?
+
+If scmi_find_proto(scmi, SCMI_PROTOCOL_CLOCK) succeeds but
+scmi_find_proto(scmi, SCMI_PROTOCOL_RESET) returns NULL, probe jumps to
+fallback without setting priv->scmi_clk_np, and the unconditional
+retain_and_null_ptr(scmi_clk_np) at the end of probe prevents the __free()
+cleanup from releasing scmi_clk_np. Using no_free_ptr(scmi_clk_np) when
+assigning priv->scmi_clk_np would avoid retaining it on the fallback path.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795796064.gi=
+t.geert+renesas@glider.be?part=3D13
