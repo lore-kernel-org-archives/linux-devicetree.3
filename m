@@ -1,92 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795774138;
-	b=TGhrZocNYRYiMJtuV+9reNB5WBysIDxOAhsSbV/F4lkhpF8WyTqzl43Db2mn1E6OHb1X
-	 fixdoBovbUoI0W5/wIO+dk5RLyzc4ozwydxC2W4T3VRb1Jir2I63i/3QZ4RU+VuBQgl+x
-	 uC9UHeb/zR4NcQsMOSz6LHqljGTLrBUAYwf7JTOKRWpGlM84gWL6zvHHtcgVjzGmayQuW
-	 TqpEOgplD5VI667qZNqcam2nsvsc9dOJENmJSwZCzN6w5XIr5NhBlLGb4txnCbQsmI81G
-	 NVwyUmTB+YKx/jTHz6SBEwEAP2SZYZuNUp5loePfbcVVOlFFlL5VfZ7XludyNi9vf7w==
+	t=1795774189;
+	b=i4VjhPiEKzpHQdxvB25PXlsKmLkDNW9PpatkvKIJ4Ew2ByOrLUZrsPWm53Wp3SG5ECoR
+	 qs8WYku9CzdHMdOwMqI5jBK4Q6pX3cHz9mpHaz7zOwmV0N4gmbR0EejnbPKne809B8lrH
+	 qDAJqfVtJ/LjvLj97oVHa2fwwfCpmYyYjzhJbmSxCBzevREo+f6iBR++VThtBUdBQl8Hn
+	 MgWZtZylv3zTyMr+0+8S430FGZXRso64EgmZNe1UMomiGxjGR9JS1pNoKOcADBUzJDQ9Y
+	 cDKqWG0H8i1symHfzdvp3ClhRJgaJxt07oAAokhRhuIw/l90uBdLy2pdRPM2wMbYqbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795774138;
-	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=gF3Bsu5rs/jn9aSqs3fra0yM0c4EjWfoKhWHUIYkMjg=;
-	b=CdR8mG5BdBOjzPXSCzwtcUPjbPoI79LeHR0UfCtwkGs82QdbnO0puWyT55ja4P+0FY9f
-	 g/CqtI6pPgZpgcYHGbV3XUJXRcgQpp4tMZp93aMzY5Yr5Q7OIOBVNjGyZWN8gCQ1toD97
-	 uFpW/vpWDmysim3UeqzjJbvkPvSoyF/94X+BMS2ym+uCsMgx49Wyel7JmFnDq9Tr4aJG/
-	 ngN+vfTgrCY5ImrTYG1YxlbJbzdQMUVGx6LhSmsEB2tBgNcIdpnosvzci4gpxmYmDlVYY
-	 NMXYyi/36kNjNe3EOAJvWT2B/tTYG3RdXFhRqUIv0yQObQSInRUbh38shtyMRgsD3og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795774189;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=dGnoFEBgCVm56MkoBT8MKD0HmrV4G14vPBlnVkSOEyM=;
+	b=K+e3D1R/6kv+NNDa3d+1i0+RZ8OaWPPSqT+1AeqJSHa4NmK/NkmkewyWYI3EACOKr6/J
+	 wifJ13Axb3b6yChI5+aXjadiYRj5/4aMhcIvnhkzXgPbWBaaZP6b6VgkVOo0+edFdgPxL
+	 h9aaaY3FmBjeA0+2IPcBpjJHpu6oMM/uwiyBenExAIXd8qlasZHB4oW5X3CIv/voc6DUz
+	 XWhSVShbM33Ou2V/0Knylg1UDHKFfAkQfFWSEa3KnR8pUa8LdAo3VpQsrcfMHMjD7dII7
+	 KRmqSZ5MeOJl7499t29Fc1uuTGja6c/V5jbPqnp7sO9FC/WQfuOnlWd2YwMK1KB29yA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=d-silva.org;
-	spf=pass smtp.mailfrom=d-silva.org;
-	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b="EOz/mUod";
-	arc=none smtp.remote-ip=119.15.109.137
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=PKZpW3Tl;
+	arc=none smtp.remote-ip=113.46.200.221
+Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E9A7606A32E;
-	Fri, 27 Nov 2026 10:08:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E9A7606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27630606A329;
+	Fri, 27 Nov 2026 10:09:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27630606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=EOz/mUod
-Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id A1F614C987;
-	Fri, 27 Nov 2026 21:08:49 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1795774129;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gF3Bsu5rs/jn9aSqs3fra0yM0c4EjWfoKhWHUIYkMjg=;
-	b=EOz/mUodfEY7o5dFFJYYi5p8ug8dn2IdhwIKmhpxtkGSTseTYKrpUL7N+geZ/vwv1MFw6r
-	bCRpUG2txoYUzBS0B7OCdzIgCydddEYhsxS1ARjeFOfye30e48PG8q+fLmHWsSjN747o/X
-	9IZymWkexF3JlOGPfGf5MLqiwpLScRMOdnrQ0bUF84KV/Bb04Quqwm/7uptRkiKpQAPKeO
-	cD2R2/IObc0Kg4XNRzeE5aI2n/YVrSCDBBQeMQu88tbqJCvcLsBufo53qgyiVzwVafYJTz
-	iLHKK+RcUZj9tyAGzgm2S7qyfTKd1j7ysZepI3AdQ8luW5PPS5H4ZPVDpPCtcA==
-X-GPT-Reason: This is a legitimate technical communication. The
-	email is classified as personal/technical as the sender
-	(alastair@d-silva.org) perfectly matches the intended recipient's
-	mailbox (alastair@d-silva.org). The content is a specific, non-promotional
-	Linux kernel patch description regarding hardware configuration
-	(Allwinner sun60i-a733) which aligns with the technical nature
-	of the domain. There are no phishing indicators, no external URLs,
-	and no urgency or marketing tactics present.
-From: Alastair D'Silva <alastair@d-silva.org>
-To: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>
-Cc: Maxime Ripard <mripard@kernel.org>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Junhui Liu <junhui.liu@pigmoral.tech>,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-usb@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Alastair D'Silva <alastair@d-silva.org>
-Subject: [PATCH 6/6] arm64: dts: allwinner: sun60i-a733-orangepi-4-pro: Enable USB 2.0 host
-Date: Fri, 27 Nov 2026 21:08:08 +1100
-Message-ID: <20261127100808.2292229-7-alastair@d-silva.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261127100808.2292229-1-alastair@d-silva.org>
-References: <20261127100808.2292229-1-alastair@d-silva.org>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=PKZpW3Tl
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=dGnoFEBgCVm56MkoBT8MKD0HmrV4G14vPBlnVkSOEyM=;
+	b=PKZpW3TldN2X5Hq8Lw59PXngxZ/NF6q9MFZDm3TaZW6v5+5DT22UwdkiYGLo5bWBHxPFYrjdq
+	Q+PnV4FHo7Z9HbXym1/UlUpNmCZt9cybGLXIH1Q0kQDGgGwQ41IbQ9TOdXpNAazLI02PVGG0vNQ
+	akCDvdjencVBLgFg0m2/ftk=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jbTfV0xm1zRhSW;
+	Fri, 27 Nov 2026 18:09:22 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id F20F140538;
+	Fri, 27 Nov 2026 18:09:41 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 27 Nov
+ 2026 18:09:39 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
+	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
+	<ritesh.list@gmail.com>, <sshegde@linux.ibm.com>, <pjw@kernel.org>,
+	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <robh@kernel.org>,
+	<saravanak@kernel.org>, <akpm@linux-foundation.org>, <baoquan.he@linux.dev>,
+	<rppt@kernel.org>, <pasha.tatashin@soleen.com>, <pratyush@kernel.org>,
+	<ben@cressey.dev>, <leitao@debian.org>, <mpilaniy@redhat.com>,
+	<yeoreum.yun@arm.com>, <coiby.xu@gmail.com>, <Yeking@Red54.com>,
+	<prudo@redhat.com>, <bradley.morgan@linux.dev>, <sourabhjain@linux.ibm.com>,
+	<blum@kernel.org>, <hbathini@linux.ibm.com>, <qirui.001@bytedance.com>,
+	<hui.wang@canonical.com>, <sohammetha01@gmail.com>, <guoren@kernel.org>,
+	<gaohan@iscas.ac.cn>, <ionut.nechita@windriver.com>,
+	<vishal.l.verma@intel.com>, <seanjc@google.com>, <ardb@kernel.org>,
+	<arnd@arndb.de>, <tzimmermann@suse.de>, <kas@kernel.org>,
+	<rick.p.edgecombe@intel.com>, <mhklinux@outlook.com>, <piliu@redhat.com>,
+	<shradhagupta@linux.microsoft.com>, <thuth@redhat.com>,
+	<ebiggers@kernel.org>, <me@linux.beauty>, <mclapinski@google.com>,
+	<graf@amazon.com>, <tangyouling@kylinos.cn>, <x86@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <loongarch@lists.linux.dev>,
+	<linuxppc-dev@lists.ozlabs.org>, <linux-riscv@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<kexec@lists.infradead.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH v9 00/11] kexec: Rework segment loading and fix CMA retries
+Date: Fri, 27 Nov 2026 18:09:14 +0800
+Message-ID: <20261127100925.3019877-1-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -97,68 +92,104 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-Add the 5V system supply and USB1 VBUS regulator (PB8), and enable usbphy,
-ehci1, and ohci1 on the Xunlong OrangePi 4 Pro.
+ARM64, LoongArch, RISC-V, x86 and Powerpc build the elf core header
+and place it together with the initrd and the DTB with almost identical
+code.
 
-Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
----
- .../allwinner/sun60i-a733-orangepi-4-pro.dts  | 31 +++++++++++++++++++
- 1 file changed, 31 insertions(+)
+This series reworks that path into common helpers that the architectures
+reuse, and fixes the CMA page and elf core header leaks in the arm64
+and LoongArch placement retry loops.
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-4-pro.dts b/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-4-pro.dts
-index 374287d962a8..327c996c7e7b 100644
---- a/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-4-pro.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-4-pro.dts
-@@ -21,6 +21,28 @@ aliases {
- 	chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
-+
-+	reg_usb1_vbus: regulator-usb1-vbus {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb1-vbus";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		vin-supply = <&reg_vcc5v>;
-+		gpios = <&pio 1 8 GPIO_ACTIVE_HIGH>; /* PB8 */
-+		enable-active-high;
-+	};
-+
-+	reg_vcc5v: regulator-vcc5v {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc-5v";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-always-on;
-+	};
-+};
-+
-+&ehci1 {
-+	status = "okay";
- };
- 
- &hosc {
-@@ -36,6 +58,10 @@ &mmc0 {
- 	status = "okay";
- };
- 
-+&ohci1 {
-+	status = "okay";
-+};
-+
- &r_i2c0 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&r_i2c0_pl_pins>;
-@@ -73,3 +99,8 @@ &uart0 {
- 	pinctrl-0 = <&uart0_pb_pins>;
- 	status = "okay";
- };
-+
-+&usbphy {
-+	usb1_vbus-supply = <&reg_usb1_vbus>;
-+	status = "okay";
-+};
+The patch organization is as follows:
+
+- Patch 1 moves the release of the elf core header into the generic
+  post-load cleanup, so that the architectures no longer free it
+  themselves.
+
+- Patch 2 adds the common helpers for reuse.
+
+- Patches 3-7 convert arm64, LoongArch, RISC-V, X86 and Powerpc to
+  reuse the common helpers
+
+- Patches 8-11 fix the CMA pages leaked by the retry loops and
+  the loop that makes no progress
+
+Tested with kexec_file_load() on arm64, LoongArch, RISC-V, X86 and
+Powerpc under QEMU, including the CMA retry paths, loading a crash
+kernel and booting the second kernel, with the agent help.
+
+This series is also available at:
+        https://github.com/ruanjinjie-eng/linux/tree/kexec_rework_cma_bugfx_v9
+
+Changes in v9:
+- Put kexec_add_fdt() in drivers/of/kexec.c. (Mike)
+- Keep the elf core header reservation of crash hotplug in x86. (Mike)
+- Rename kexec_add_fdt() to of_kexec_add_fdt().
+- Drop the memsz comparison in kexec_add_elf_core_header so the
+  architectures that reserve room for crash hotplug now record the size
+  themselves, which fix the Sashiko issue related to crash hotplug [1].
+- Update the commit message.
+- https://lore.kernel.org/all/20261112133418.4044428-1-ruanjinjie@huawei.com/
+
+[1]: https://sashiko.dev/#/patchset/20261112133418.4044428-1-ruanjinjie%40huawei.com
+
+Changes in v8:
+- Rework the common code as Mike suggested: the core provides building
+  blocks and the architectures uses them (Mike)
+- Build the elf core header once and only place it on the retries (Mike)
+- Keep the segment order and the arch placement policy unchanged (Mike)
+- Convert x86 and powerpc as well
+- Move the CMA fixes to the end of the series (Mike)
+- Link to v7: https://lore.kernel.org/all/20261026075201.699550-1-ruanjinjie@huawei.com/
+
+Previous Versions are as below:
+- v6: https://lore.kernel.org/all/20260921090450.807575-1-ruanjinjie@huawei.com/
+- v5: https://lore.kernel.org/all/20260918100442.3841135-1-ruanjinjie@huawei.com/
+- v4: https://lore.kernel.org/all/20260907125404.922123-1-ruanjinjie@huawei.com/
+- v3: https://lore.kernel.org/all/20260826092541.3905933-1-ruanjinjie@huawei.com/
+- v2: https://lore.kernel.org/all/20260729031235.2840255-1-ruanjinjie@huawei.com/
+- v1: https://lore.kernel.org/all/20260723131242.1537633-1-ruanjinjie@huawei.com/#t
+
+Jinjie Ruan (11):
+  kexec: Free the elf core header in kimage_file_post_load_cleanup()
+  kexec: Add helpers to load the elf core header, initrd and FDT
+  arm64: kexec_file: Load the other segments with common helpers
+  LoongArch: kexec_file: Load the other segments with common helpers
+  riscv: kexec_file: Load the extra segments with common helpers
+  x86: kexec_file: Use the common segment helpers
+  powerpc: kexec_file: Use the common segment helpers
+  kexec: Extract kexec_free_segment_cma() from kimage_free_cma()
+  kexec: Add kexec_rollback_segments() helper
+  arm64: kexec_file: Fix CMA segment placement retries
+  LoongArch: kexec_file: Fix CMA segment placement retries
+
+ arch/arm64/include/asm/kexec.h             |  4 +-
+ arch/arm64/kernel/kexec_image.c            | 15 ++--
+ arch/arm64/kernel/machine_kexec_file.c     | 87 +++++-----------------
+ arch/loongarch/include/asm/kexec.h         |  3 +-
+ arch/loongarch/kernel/kexec_efi.c          | 15 ++--
+ arch/loongarch/kernel/kexec_elf.c          |  3 +-
+ arch/loongarch/kernel/machine_kexec_file.c | 77 ++++++-------------
+ arch/powerpc/kexec/elf_64.c                |  9 +--
+ arch/powerpc/kexec/file_load_64.c          | 18 +----
+ arch/riscv/include/asm/kexec.h             |  4 +-
+ arch/riscv/kernel/kexec_elf.c              |  3 +-
+ arch/riscv/kernel/kexec_image.c            |  3 +-
+ arch/riscv/kernel/machine_kexec_file.c     | 83 ++++++---------------
+ arch/x86/kernel/crash.c                    | 34 ++++-----
+ arch/x86/kernel/kexec-bzimage64.c          |  8 +-
+ arch/x86/kernel/machine_kexec_64.c         |  4 -
+ drivers/of/kexec.c                         | 35 +++++++++
+ include/linux/kexec.h                      |  9 +++
+ include/linux/of.h                         |  4 +
+ kernel/kexec_core.c                        | 25 ++++---
+ kernel/kexec_file.c                        | 81 ++++++++++++++++++++
+ 21 files changed, 251 insertions(+), 273 deletions(-)
+
 -- 
-2.53.0
+2.34.1
 
