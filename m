@@ -1,60 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795819629;
-	b=tinW/sq830bci9oXIeuD9DxfKKN36uao0i0td4BdiUxFIF1qaDx/cl3RGWvbLWCbX+bm
-	 6mBKrzmIzVc3SlkK0VwV3Tj3WxT3eIZfgsggCtMN4gV9B+Zyr42A12DXMdL3gV1qoT74p
-	 zVeFBBWmy8yNSgXEg7rHeoYndYBkx3tfTXqWJ0pduWvfj/4SyyM5124jbEiND+Cwbgqqr
-	 Qakli6ugyQPSnhN8U0EuMTBYZpw7Ymisv1jaR0xAN0lfNboNZIKP51yyAiksuzyBlB+4A
-	 lBnNbwewOUZ6x3d66NQ75FaqNY6s0rQSp00Zv7cH8rpMSi3d+ZMqOsVE+FQnUtWSU5w==
+	t=1795821031;
+	b=jpSOVTNF8G7TGQ5vzC/vB3id1rt9GdfHvExzzeLgC3k7Ndn6UbOenacQGsXkRWAFcY1p
+	 Tj74L1LVaYFQsygmqFHk2xkuaFIHSlkI7x7jxHKw1nygUDh51yAiVCE8Sq+WBpneFAVaM
+	 lbK8u0NpmK1UGaPAhQgcFHmPLOBvxtDTnz62UZzDYVzb8lH0AVjbmb1VCSNZ4L0AsYVym
+	 +BGQ8apjTzddQeq7Iwa+72U18n0IrEJLxS0ucBn6iOd0/Oda3Dm77i7murLnmzPq4V1Pb
+	 CuB31JidEPxtvEweKmuQHV6cCe4GZOxIrEgCZ6LAAij0avFOytbqBDSv2MCew67jlgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795819629;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=hAYM/ukIYEilqCr1ED8CZ1ZOiSgPcwgoFFAIEI1WBTE=;
-	b=SqjwEatX6+RNetLm0rTb2rL5p7T7gcZelNaonpQdMwe/x331MTWBbJ/9SCzEhP2pf1gh
-	 LOA318kpIiy5jqqMCtQ0ybhq3M3Uf1H1ETcvQ0aM70rDRw8KPKOjfS0OytMtJn+znVXlx
-	 IMl2rsiADlLj587yuBSmaz+5UripCR9XF0XaxCIxGvpp+fZYYOSZTq47Kkv8xKVBPst/n
-	 YJ9mNdC3U0jlXh6nhUeY9VJ2jVYNf6pwuGrzmOJT+bWz4fxTQccdBk0FZHuFvKZJwNq4/
-	 Ca35692cpmmpqTxISVh5vrf9NouAA3LgZtp06N/J0SvYqO5Lfe+pTwk+hU3KT96swxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795821031;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Reply-To:Subject:
+	 Content-Language:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Npnml9QjZCRfW4O0nCOfULU4UHnXEPFvx98UTggm7eY=;
+	b=B7W1f1CVlrLVO1E4z8fytJgMk1tNdXMsnA5p9SG+Wx1MvBDkhLQvm4LRxPFg8KKkP1WK
+	 5OrCAy36xlZbpEiiZiFHN4SPETYt5kjfuWymwqAOSphVASzK/yx5iJPLHRfZn5VQDo2N8
+	 EDbDdg7TmtbnpUgORwbbRB1i1MEvjH+J+yns7IGqzsevAlzfKCsZAz079sE/rDw8px69H
+	 o1v6bPbI26DCuhG2bwMzgC/MjCC0kUFKIyQfUxjjXGk638zoGrXrWgI5I+v80bQTEZGgd
+	 ZuoAmEsk0fVUYmHfxHGhqIDicbc7GgMGu8lSDryqLQUiETI1bIqQAF0d1kOh3Hb/R7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nc9YfRyE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wdMLsdtM;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B39606A31C;
-	Fri, 27 Nov 2026 22:47:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A47E606A333
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 23:10:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A47E606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nc9YfRyE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79BF61F00897;
-	Fri, 27 Nov 2026 22:47:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795819629;
-	bh=hAYM/ukIYEilqCr1ED8CZ1ZOiSgPcwgoFFAIEI1WBTE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nc9YfRyEt5GitvZaoiC7yWVgTXDuGJC8+pNx5+3krPQzWnRp/cOqfRxdijYEBH0w2
-	 cEKT+stGrgtqinu50yXXTkthsdd74sUpnu2ezW749zOnAi2YAySoJGg8UTzFvANJFZ
-	 gr/PwbdNa/5zjijR8Z/Te0yCvZb6jm4eTkOpJwGSlCMJ/1rPfjz7DKGVK/QDAXOm05
-	 xgGfTqMmruabft/lqn60QC5eHqVx51o4s8ENIzXvmk1Mu3JjtbsnA/BQ8ZYjG2/Ive
-	 D8Si0vv7VLaucKcxTG7dw0oSiJVpDa1ZO2sLUeyE988Sw44Mj+6RwTm7Q1c2MWvt1s
-	 /dJ4D3ERi16rw==
-Date: Fri, 27 Nov 2026 22:47:06 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>
-Cc: sashiko-reviews@lists.linux.dev, linux-scsi@vger.kernel.org,
-	devicetree@vger.kernel.org, spacemit@lists.linux.dev,
-	robh@kernel.org, conor+dt@kernel.org,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Avri Altman <avri.altman@sandisk.com>
-Subject: Re: [PATCH v8 2/2] scsi: ufs: spacemit: k3: Add UFS Host Controller
- driver
-Message-ID: <20261127224706-GKA27669@kernel.org>
-References: <20261116-08-k3-ufs-support-v8-0-e3b256972dd4@kernel.org>
- <20261116-08-k3-ufs-support-v8-2-e3b256972dd4@kernel.org>
- <sashiko-outbox-216168@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wdMLsdtM
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1a3c08d6928so12770658c88.0
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 15:10:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795821029; x=1796425829; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:reply-to:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Npnml9QjZCRfW4O0nCOfULU4UHnXEPFvx98UTggm7eY=;
+        b=wdMLsdtM1kKvSZ9N4l5HDWzkx7bv475oyue/HJqsujz43yapjHIUMIumdvYiATnMky
+         BtrorKgqQ1x7X6kvBD1sTASXyZOG71lKktkNgv1MB8ZUaJQ/iUBS+ZREqV7fUm5u8PmK
+         AUB8d8gjamUQyCoWjvcCkwefsymE4g+SLMa7xR5XK2JxXmDrdyVkqtqC4278gDCaM2dy
+         xIe2Ltmzr/loh5OHUUJPsIBJQwQG0MqNY46rDtO/dYbh+xrmJRks8O/AGH21/3yKBVlJ
+         S29Or3EbyBpXHk+jw0H8umDQl8JG/e73In7Dp4qdvj4jXYAxJNm5+JUJaYnCdKQFy6pk
+         A4TA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795821029; x=1796425829;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:reply-to:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Npnml9QjZCRfW4O0nCOfULU4UHnXEPFvx98UTggm7eY=;
+        b=FaAV/X54AhUOnscmAKfREs8SHwYZLAgMhA/J3IoULYIU1uS5s+FJiDq3/JBvqEvFgG
+         hvVf/I5ze6sNH+kch4VwGS4UPSO+6zawtqd0b5ECJlIHW74qfwplbI/r3S4dipWl1UL/
+         oOLcMSW+MJVjrS5zy7LboyFQsArAU4GZ2N1GCf6uwjwVVd/fXhTOJach97hWd4nx46rb
+         WTqfE1fgXwF/pYb+X5yDkd1KfOqTXcN7pb6PH6HCCyHiSI8OtTal0IJgVgn8RAQODrK3
+         HZ5evEnW9o6YgBKn0SrmkvPKx1aAVgVSk/1oPLH92dIRalRWV9NzAnCyvhBPz+rINM18
+         rKRQ==
+X-Forwarded-Encrypted: i=1; AL+hErG9uWVWhS/3BpXoEDt6TXrtRTYa6HpDh7wLO+orZrLGwmBA6l7YZcGK/iXtlbemsWysZzyb411xLkrf@vger.kernel.org
+X-Gm-Message-State: APuU4Z+2JHWctTGKN5IOceG0BKPFq/XgZsg0HnFcucBJ1/a1ZGhjUgeL
+	QORnOvlT96KdMnl/Alg8qMo4rVI1p/WEkPjSMYTzGp6l7Eb0+YyMCt4R
+X-Gm-Gg: AZFdTZcWZr1h5jcnMb3JfM84aBJ9KcZ4K3c4F3vpMQ1xoOmoBFYlo8kEfuODZr7D3KU
+	fGIkgfN2NdNs15GcNeTvRdSSCKKnD+TayfgPx5GruPfcdVCAe+ll2uKy9nvXCUYA2129nrycJRg
+	Y6W6McaGgNzZlZ+CXB3l5xmf1G6d3jzthkaj9PG4QNyaQVTcMTRjYFP31dO0dADIQ6oyLD6Ixj+
+	5uWHU8vtb44/plxpzVI0OmM7z2ihJ/nXG/UA91q8FsnblXJtizrfB0Lju39WY7XJuY4OU18eHb4
+	POvmSLdSZFFRGSsJQaY40KuPbgroWbNG9SDZMTlsuzE85dl6hk8kx+wC7w1cfKxVs5mAX+E2afn
+	JIyElSQiG4HkbabQetnLRmtWqb50iE0ifXaCFEiED+eiAGztIDx5VKHwVhHM+WkKl4QNbqI6to5
+	dBXeSSwrsT+xxPPU0+63WbrQ/ifCNDZJdAjzuCQf+dfuYRtCfr5OdlgD9bAEiqhG93Mt/64jolK
+	VkomVjpbSrh8aDsM/GTJ6KdZBYZLTJCZJREKduxcIXQgZ1IOlHji96gn0MGx2FWKVhIi5WLQ2kR
+	UzVwt7kQ7gjl5yn80rwaTLzkJ3pBrRAXnQkqy2by5L2KCL+6H3WQJoyOdWZ8WvC+lPI8SPtZ5Pm
+	ghfSMgaT7dPdM
+X-Received: by 2002:a05:701a:cccb:20b0:1b2:3448:840f with SMTP id a92af1059eb24-1b55686ffd7mr22573107c88.7.1795821029109;
+        Fri, 27 Nov 2026 15:10:29 -0800 (PST)
+Received: from [192.168.35.60] ([218.50.238.131])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5566c1142sm58344032c88.2.2026.11.27.15.10.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 27 Nov 2026 15:10:28 -0800 (PST)
+Message-ID: <4ec06942-ad13-4f5b-aade-d6ad3314ec98@gmail.com>
+Date: Sat, 28 Nov 2026 08:10:23 +0900
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,315 +93,59 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <sashiko-outbox-216168@kernel.org>
+User-Agent: Mozilla Thunderbird
+Reply-To: chanwoo@kernel.org
+Subject: Re: [PATCH] dt-bindings: extcon: tusb320: add SGM7220 fallback
+ compatible
+Content-Language: ko
+To: Jun Yan <jerrysteve1101@gmail.com>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>, Chanwoo Choi
+ <cw00.choi@samsung.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Michael Auchter <michael.auchter@ni.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20261010081907.479226-1-jerrysteve1101@gmail.com>
+From: Chanwoo Choi <cwchoi00@gmail.com>
+In-Reply-To: <20261010081907.479226-1-jerrysteve1101@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi James, Martin,
+On 10/10/2026 5:19 PM, Jun Yan wrote:
+> The SGM7220 is register-compatible with the TI TUSB320, even reporting
+> the same device ID, so it can be described in a device tree using
+> ti,tusb320 as the fallback compatible string.
+> 
+> Link: https://www.sg-micro.com/rect/assets/bec47c84-84b4-4015-8d61-9433e0d76583/SGM7220.pdf
+> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+> ---
+>  .../bindings/extcon/extcon-usbc-tusb320.yaml           | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/extcon/extcon-usbc-tusb320.yaml b/Documentation/devicetree/bindings/extcon/extcon-usbc-tusb320.yaml
+> index 126107dd57b1..f88486c2fb09 100644
+> --- a/Documentation/devicetree/bindings/extcon/extcon-usbc-tusb320.yaml
+> +++ b/Documentation/devicetree/bindings/extcon/extcon-usbc-tusb320.yaml
+> @@ -11,9 +11,13 @@ maintainers:
+>  
+>  properties:
+>    compatible:
+> -    enum:
+> -      - ti,tusb320
+> -      - ti,tusb320l
+> +    oneOf:
+> +      - enum:
+> +          - ti,tusb320
+> +          - ti,tusb320l
+> +      - items:
+> +          - const: sgmicro,sgm7220
+> +          - const: ti,tusb320
+>  
+>    reg:
+>      maxItems: 1
 
-See my commets below for sashiko's reports..
-
-On 04:16 Mon 16 Nov     , sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 5 potential
-> issues to consider:
-> - [High] scsi: ufs: spacemit: clocks not enabled and sys1clk rate always
->   0 without OPP/freq-table
-> - [Medium] scsi: ufs: spacemit: zero ref_clk gating delay in
->   ufs_spacemit_post_hibern8() on UFS 2.x
-> - [Low] scsi: ufs: spacemit: ufs_spacemit_event_notify() logs cleared
->   hba->errors on UFS_EVT_ABORT
-> - [Low] scsi: ufs: spacemit: duplicated ufshcd_init_host_params() and
->   unused definitions
-> - [Low] scsi: ufs: spacemit: positive UIC error codes ignored in DME
->   error checks
-> --
-> 
-> commit 893661ab0d45a5f00a091213a0890aea0386b457
-> Author: Yixun Lan <dlan@kernel.org>
-> 
-> scsi: ufs: spacemit: k3: Add UFS Host Controller driver
-> 
-> This commit adds a UFS host controller platform driver for the SpacemiT K3
-> SoC, supporting JEDEC UFS 2.2, MIPI UniPro v1.61, and M-PHY v3.0.
-> 
-> > diff --git a/drivers/ufs/host/ufs-spacemit.c b/drivers/ufs/host/ufs-spacemit.c
-> > new file mode 100644
-> > index 0000000000000..eb2ad50826997
-> > --- /dev/null
-> > +++ b/drivers/ufs/host/ufs-spacemit.c
-> [ ... ]
-> > +static u32 ufs_spacemit_get_sys1clk_1us(struct ufs_hba *hba)
-> > +{
-> > +	struct ufs_clk_info *clki, *clka = NULL;
-> > +	struct list_head *head = &hba->clk_list_head;
-> > +	unsigned long rate_hz = 0;
-> > +
-> > +	if (!list_empty(head)) {
-> > +		list_for_each_entry(clki, head, list) {
-> > +			if (clki->name && !strcmp(clki->name, "axi") && clki->clk) {
-> > +				clka = clki;
-> > +				break;
-> > +			}
-> > +		}
-> > +	}
-> > +
-> > +	if (clka && clka->clk)
-> > +		rate_hz = clk_get_rate(clka->clk);
-> > +
-> > +	if (!rate_hz)
-> > +		return 0;
-> > +
-> > +	return DIV_ROUND_CLOSEST(rate_hz, 1000000);
-> > +}
-> 
-> [Severity: High]
-> Does hba->clk_list_head remain empty when the Device Tree node has neither
-> freq-table-hz nor operating-points-v2?
-> 
-the board dts file will guarantee having operating-points-v2 provided, so
-this should not be a problem, and hba->clk_list_head will be populated at
-function ufshcd_parse_operating_points()
-
-> ufshcd_parse_clock_info() returns early without parsing clock-names when
-> freq-table-hz is absent, and ufshcd_parse_operating_points() does the same
-> when operating-points-v2 is absent:
-> 
-I think this situation could be improved in ufs core side, e.g, abort early
-if neither freq-table-hz nor operating-points-v2 found, but does not need
-to be handled at platform driver side
-
-> drivers/ufs/host/ufshcd-pltfrm.c:ufshcd_parse_clock_info() {
->     ...
-> 	sz = of_property_count_u32_elems(np, "freq-table-hz");
-> 	if (sz <= 0) {
-> 		dev_info(dev, "freq-table-hz property not specified\n");
-> 		goto out;
-> 	}
->     ...
-> }
-> 
-> Since the spacemit,k3-ufshc binding omits both properties and
-> ufs_spacemit_init() does not populate hba->clk_list_head or acquire the
-> clocks itself, ufshcd_init_clocks() and ufshcd_setup_clocks() never enable
-> the axi or ref_clk clocks (leaving them subject to clk_disable_unused or
-> unclocked MMIO access if not enabled by firmware), hba->dev_ref_clk_freq is
-> never parsed from ref_clk, and ufs_spacemit_get_sys1clk_1us() always returns
-> 0 so ufs_spacemit_link_startup_pre_change() always falls back to
-> UFS_AXI_CLK_LOW_FREQ_HZ (409.6 MHz).
-> 
-> [ ... ]
-> 
-> > +static void ufs_spacemit_set_dev_cap(struct ufs_host_params *host_params, u32 pwr_hs)
-> > +{
-> > +	if (!host_params)
-> > +		return;
-> > +
-> > +	memset(host_params, 0, sizeof(struct ufs_host_params));
-> > +	host_params->tx_lanes = UFS_SPACEMIT_K3_LIMIT_NUM_LANES_TX;
-> > +	host_params->rx_lanes = UFS_SPACEMIT_K3_LIMIT_NUM_LANES_RX;
-> > +	host_params->hs_rx_gear = UFS_SPACEMIT_K3_LIMIT_HSGEAR_RX;
-> > +	host_params->hs_tx_gear = UFS_SPACEMIT_K3_LIMIT_HSGEAR_TX;
-> > +	host_params->pwm_rx_gear = UFS_SPACEMIT_K3_LIMIT_PWMGEAR_RX;
-> > +	host_params->pwm_tx_gear = UFS_SPACEMIT_K3_LIMIT_PWMGEAR_TX;
-> > +	host_params->rx_pwr_pwm = UFS_SPACEMIT_K3_LIMIT_RX_PWR_PWM;
-> > +	host_params->tx_pwr_pwm = UFS_SPACEMIT_K3_LIMIT_TX_PWR_PWM;
-> > +	host_params->rx_pwr_hs = pwr_hs;
-> > +	host_params->tx_pwr_hs = pwr_hs;
-> > +	host_params->hs_rate = UFS_SPACEMIT_K3_LIMIT_HS_RATE;
-> > +	host_params->desired_working_mode = UFS_HS_MODE;
-> > +}
-> 
-> [Severity: Low]
-> This isn't a bug, but ufs_spacemit_set_dev_cap() and the
-> UFS_SPACEMIT_K3_LIMIT_* macros set the exact same defaults as the exported
-> ufshcd_init_host_params() helper in drivers/ufs/host/ufshcd-pltfrm.c.
-> 
-Yes, will drop ufs_spacemit_set_dev_cap()
-
-> In addition, ufs_spacemit_init() allocates struct ufs_spacemit_host and
-> stores it with ufshcd_set_variant(), but the variant pointer is never
-> retrieved anywhere in the driver. 
-I'd leave it as is, as for adding platform specific feature later
-(let me know if ok with this)
-
-> MPHY_TX_FSM_STATE is also defined in both
-> ufs-spacemit.h and ufs-spacemit.c, ANA_EQ_CTRL_REG_ATTR and
-> MPHY_PU_WITH_HB8_RESET are defined in ufs-spacemit.c while raw literals
-> 0x00CD and 0xb7f are still used in ufs_spacemit_uniprov1p6_init() and
-> ufs_spacemit_mphy_init(), and MPHY_RX_FSM_STATE along with several headers
-> and macros in ufs-spacemit.h are unused.
-> 
-Ok, I will fix above
-
-> > +
-> > +static int ufs_spacemit_link_startup_pre_change(struct ufs_hba *hba)
-> > +{
-> > +	u32 value, sys1clk_1us;
-> > +	int err;
-> > +
-> > +	err = ufs_spacemit_mphy_init(hba);
-> > +	if (err < 0)
-> > +		return err;
-> > +
-> > +	err = ufs_spacemit_uniprov1p6_init(hba);
-> > +	if (err < 0)
-> > +		return err;
-> [ ... ]
-> > +static int ufs_spacemit_apply_dev_quirks(struct ufs_hba *hba)
-> > +{
-> > +	static const struct ufshcd_dme_attr_val setup_attrs[] = {
-> > +		/* LCC_DISABLE */
-> > +		{ UIC_ARG_MIB_SEL(TX_LCC_ENABLE, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0 },
-> > +		{ UIC_ARG_MIB_SEL(TX_LCC_ENABLE, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(1)), 0 },
-> > +		/* TX_Min_ActivateTime */
-> > +		{ UIC_ARG_MIB_SEL(TX_MIN_ACTIVATETIME, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0x0 },
-> > +		{ UIC_ARG_MIB_SEL(TX_MIN_ACTIVATETIME, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(1)), 0x0 },
-> > +		{ UIC_ARG_MIB(ANA_HSGEAR_CTRL_ATTR), 0x25 },
-> > +	};
-> > +	int err;
-> > +
-> > +	if (hba->dev_quirks & UFS_DEVICE_QUIRK_HOST_PA_SAVECONFIGTIME) {
-> > +		err = ufs_spacemit_quirk_host_pa_saveconfigtime(hba);
-> > +		if (err < 0)
-> > +			return err;
-> > +	}
-> > +
-> > +	if (hba->dev_info.wmanufacturerid == UFS_VENDOR_WDC)
-> > +		hba->dev_quirks |= UFS_DEVICE_QUIRK_HOST_PA_TACTIVATE;
-> > +
-> > +	err = ufs_spacemit_dme_set(hba, setup_attrs, ARRAY_SIZE(setup_attrs));
-> > +	if (err < 0)
-> > +		return err;
-> > +
-> > +	return ufs_spacemit_wait_mphy_pll_lock(hba);
-> > +}
-> 
-> [Severity: Low]
-> As reported by Troy Mitchell on v6 [1], can positive UIC error codes bypass
-> the "if (err < 0)" checks in ufs_spacemit_link_startup_pre_change() and
-> ufs_spacemit_apply_dev_quirks()?
-> 
-> ufshcd_dme_get() and ufshcd_dme_set() return positive 8-bit UIC command
-> result codes (0x01..0xFF) when a DME command fails at the UniPro layer.
-> Checking "if (err < 0)" misses those positive error codes and allows both
-> functions to continue past failed DME operations instead of aborting early.
-
-Ok, I've checked again, there is actually one place return cmd
-
-ufshcd_wait_for_uic_cmd(struct ufs_hba *hba, struct uic_command *uic_cmd)
-{
-...
-        if (wait_for_completion_timeout(&uic_cmd->done,
-                                        msecs_to_jiffies(uic_cmd_timeout))) {
-                ret = uic_cmd->argument2 & MASK_UIC_COMMAND_RESULT;
-        } else {
-                ret = -ETIMEDOUT;
-
-                if (!uic_cmd->cmd_active) {
-                        dev_err(hba->dev, "%s: UIC cmd has been completed, return the result\n",
-                                __func__);
-                        ret = uic_cmd->argument2 & MASK_UIC_COMMAND_RESULT; 
-                    ~~~~~~~~ here, return cmd, and override "ret = -ETIMEDOUT"
-                }
-        }
-}
-
-I think it would be better to return an error code here instead of "cmd & mask".
-
-> 
-> [ ... ]
-> 
-> > +static void ufs_spacemit_event_notify(struct ufs_hba *hba, enum ufs_event_type evt, void *data)
-> > +{
-> > +	switch (evt) {
-> > +	case UFS_EVT_PA_ERR:
-> > +		if (data)
-> > +			dev_warn(hba->dev, "PA error event, INT errors:0x%x, PA_ERR_CODE:0x%x\n",
-> > +				 hba->errors, *(u32 *)data);
-> > +
-> > +		break;
-> > +	case UFS_EVT_DL_ERR:
-> > +		if (data)
-> > +			dev_warn(hba->dev, "DL error event, INT errors:0x%x, DL_ERR:0x%x\n",
-> > +				 hba->errors, *(u32 *)data);
-> > +
-> > +		break;
-> > +	case UFS_EVT_ABORT:
-> > +		dev_warn(hba->dev, "Abort event, INT errors:0x%x\n", hba->errors);
-> > +		break;
-> > +	default:
-> > +		break;
-> > +	}
-> > +}
-> 
-> [Severity: Low]
-> Does the UFS_EVT_ABORT case in ufs_spacemit_event_notify() always log
-> hba->errors as 0x0?
-> 
-> ufshcd_check_errors() clears hba->errors back to 0 before the interrupt
-> handler returns (saving sticky bits in hba->saved_err), while UFS_EVT_ABORT
-> is only emitted later from ufshcd_abort() in SCSI error-handler context with
-> the aborted tag or LUN passed via data.
-> 
-Indeed, hba->errors will be cleared, I could think of logging out with "saved_errors"
-
-
-> [ ... ]
-> 
-> > +static void ufs_spacemit_post_hibern8(struct ufs_hba *hba, enum uic_cmd_dme cmd)
-> > +{
-> > +	static const struct ufshcd_dme_attr_val setup_attrs[] = {
-> > +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x84 },
-> > +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x84 },
-> > +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x80 },
-> > +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x80 },
-> > +		{ UIC_ARG_MIB(0xdd), 0x57 },
-> > +		{ UIC_ARG_MIB(0xdd), 0xd7 },
-> > +		{ UIC_ARG_MIB(0xe8), 0x57 },
-> > +		{ UIC_ARG_MIB(0xe8), 0xd7 },
-> > +	};
-> > +	int err;
-> > +
-> > +	if (cmd == UIC_CMD_DME_HIBER_ENTER) {
-> > +		err = ufs_spacemit_check_hibern8(hba);
-> > +		if (err)
-> > +			dev_err(hba->dev, "ufs_spacemit_check_hibern8 error\n");
-> > +
-> > +		ufs_spacemit_dme_set(hba, setup_attrs, ARRAY_SIZE(setup_attrs));
-> > +
-> > +		/* Power down M-PHY */
-> > +		ufshcd_writel(hba, 0x0, UFS_PHY_MNG_BASE + UFS_MPHY_PU_CTRL);
-> > +
-> > +		fsleep(hba->dev_info.clk_gating_wait_us);
-> > +
-> > +		/* Disable reference clock, keep device reset deasserted */
-> > +		ufshcd_writel(hba, MPHY_DEVICE_HW_RESET,
-> > +			      UFS_PHY_MNG_BASE + UFS_DEVICE_IO_CTRL);
-> > +	}
-> > +}
-> 
-> [Severity: Medium]
-> Does fsleep(hba->dev_info.clk_gating_wait_us) gate the device reference
-> clock with zero delay on UFS 2.x devices?
-> 
-> ufshcd_get_ref_clk_gating_wait() only reads bRefClkGatingWaitTime and sets
-> hba->dev_info.clk_gating_wait_us when hba->dev_info.wspecversion >= 0x300.
-> On UFS 2.x devices (or if Hibern8 is entered before
-> ufshcd_device_params_init() runs), clk_gating_wait_us remains 0, so
-> ufs_spacemit_post_hibern8() calls fsleep(0) and disables
-> MPHY_DEVICE_REFCLK_OE immediately after powering down the M-PHY without
-> satisfying the reference clock hold time.
-> 
-Hi, I think bRefClkGatingWaitTime feature isn't mandatory for UFS 2.x? 
-and from my testing, the UFS is just working fine without the delay..
-
-I need some advice from UFS maintainer on this, otherwise I'd leave it as is
-
-> [1] https://lore.kernel.org/r/DLLQJDEA91FU.18Q1TSX09AUR3@linux.spacemit.com
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20261116-08-k3-ufs-support-v8-0-e3b256972dd4@kernel.org?part=2
+Applied it. Thanks.
 
 -- 
-Yixun Lan (dlan)
+Best Regards,
+Chanwoo Choi
+Principal Engineer, Samsung Electronics
