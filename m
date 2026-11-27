@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795794458;
-	b=OSUcj5FPCia8z1GvN3u9D/cL1942d97mGreYaCd2nGi3X6/Vw6d3lOrL1eJuQpUjvs5u
-	 Sx8Pmv77ksYzmyG6PEcIE4yvwRZ9vu1rpFMx3hvTfgEKSBrJeHProd6AL89YKVAq66jGa
-	 ErjkH22C4xs/12827lLtoyECuVpXc+1ilMzyRqmYxzRLuu3YlGfLBw6KR9kTY3AwPAtuw
-	 HCXjedTTkuaosaBUnd6kCky0PhAbIqBLKxJUmv3LKaVPEfBaoQIImod/x3rikBorJ0MGK
-	 axEa/smXm5/6ZhGcqt3jqkfq+VdyLSiMyY35DL15uT9eri7ndccCa6dNHGq7fYvmAng==
+	t=1795794555;
+	b=C3eqLgaIwZ97mzyqZ+btaly6jDwzMm+VwC3SCvnkgm1eopxibW5qpp1NFQgLVeoZ6thL
+	 ecRObSjC8D3olhbBqudcmolXzN60IBPI4zUTAeRKr33ncXwKankqeSeVfa5eBPc2ECnsp
+	 19AMacAPRBiRZx5aukn8hv2tvTHJta/U9kx9ykG/I/c3iVL8N7cEBeg98jeUa/komXSLO
+	 y2Ggp41vNuUjA/gtNS3gPSNgtvwMN+5WPVSOXE+2QCVqfEfRxq6Pxe6TSsBuVZU8Ze2EI
+	 AZQkJ7MtINmQPN+sqRTT1HGcsNe7smQt25ggG85LjPwu67hW8eonBtLOzI4h2kv2Ofg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795794458;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795794555;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 Subject:In-Reply-To:References:Date:Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=xewmcd1sRaXw7lWObsFUBw4FbcUqkt5Mw98oDGjzbD8=;
-	b=b3yqfsHoaK9ZAyBMa2aOfxb5TlH1pGc3EkEVRaIzGgDvX/RJ2Se8ErRrL32vSqPbdTth
-	 CamiZ7jP1xjK+D6WzZW3yDYJ3i9f/th5DfMdPY2Wt0wzeB73pYjGcqv7N+lpBYJrR7GLy
-	 /axK0RTnaAKNGjh1DlAhzTndYoJTr9xO/EyDIkVwncs+agPHWoOrU49XLxtqpy7YINQ3b
-	 Fdp8HFZWv89D8oWhuxIdj3Kgnf7umFXnQp02bnn3eYu10uMOrr3D2AzQhZZLYVHBxFn5G
-	 UxUSmoD33AQ4ZzMl4/HyiMs/yDYP50Vlh0qh/UX3RTSjoRgEi13oGjbD3YRv1f+up8w==
+	bh=hTQ12c5Ppjf+2QWFB73ZGvBVoo29MYEDLXFSwz+VyGc=;
+	b=OWNtjQQu+98ILA3VZ/MEy+uUG4iJnTpmVV5lCyd6eCdc8sWqXmsHjAvc8BSe2IWbpzoO
+	 7QhblJD9lmrChc2+u5kIkjXqFA86YwHD9vACGcA55NduBiQlMfC1H9u19ofFGHbZwA0Rn
+	 oKRgPJbsWxfm3bapMiknl8kDAMfuin81gP+BK6CA1ajK+cREo+ta66IBnfZqOPn4cLQfK
+	 uMKtXQzb9lXZExKGkINHEa7fNsE9AM5+uVkkJnLHDvBi3yM1E7vES7Acn0f/Worjj0LNx
+	 SMj50aOkuAGt9YQ48SpYP+9txDH3PFmcsrAzPcb/qnsveOftUQiqKzRFSxq7LeKOzOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=nKVEVYog;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=T7CaaTj0;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE0F606A31C
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 15:47:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADE0F606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE212606A31C
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 15:49:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE212606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=nKVEVYog
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=T7CaaTj0
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id C696D4E417C6;
-	Fri, 27 Nov 2026 15:47:35 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id BB629C2AC4C;
+	Fri, 27 Nov 2026 15:49:21 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 895D76049C;
-	Fri, 27 Nov 2026 15:47:35 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2D13811E90C56;
-	Fri, 27 Nov 2026 16:47:33 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E9C7E6049C;
+	Fri, 27 Nov 2026 15:49:12 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E5C1A11E90CAB;
+	Fri, 27 Nov 2026 16:49:06 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795794454; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1795794548; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=xewmcd1sRaXw7lWObsFUBw4FbcUqkt5Mw98oDGjzbD8=;
-	b=nKVEVYogTIBJEQhHWS+ofSAhtVNrPnLTARl8t82BupdvGrZQstmssMeCDNtNJPwOCjbIyY
-	EHxHi6e3uOo1n7SBwr+BKQo6ujFormYFzQR3hszdMjHixUdzjy0BrsMhNI+SPTyAsoEewJ
-	j5kbKtjTYHjIC3fUj/NUHaSL6Wupk79Va5/y5KHOnYVzMdcLoz98A0SJfgjqvskONqvZCT
-	PaK1+00YrrpJnnAfLSeiyViKMjSHy8QvV8jde5RtFkIbjJhyTi4r8FyurtQDgEvZeg/4ok
-	Nc9AvAxeNazIqJGZqw4Dj+wXrnsye7acmEesMAmLXdeqvLzN7DVTZ2SVpvNgUw==
+	bh=hTQ12c5Ppjf+2QWFB73ZGvBVoo29MYEDLXFSwz+VyGc=;
+	b=T7CaaTj0PC3ISk6zRNcygBGtdxfZTwziV3QgflktUZantBBr1A3j6dRTzSg9fQ2Gx1fPLj
+	xm6l0IC6HCsiz+lDhf2vO7qE4IXkd6MVTM5LpGiSvI3lRit9Ko74JkKd2xVy2IhA31x9Sk
+	MDiZn3Ft5ZiXWfkgUV/H+ajY91yiojfmuoBE1sZLrBKDWGfgEdneWam/Zg3TVRbhXR2Xwt
+	Qg6R1NOfQFJ0Z1vceVpASK28RuzqrR/wEG3GCt0ka2WmM4YS1R8hHIQzb5cFyfh1CD+6Hv
+	DleubNQHeBL71alQzvZV1Vo9rQ+SzCeJ5WUJgi+kV+APZpozB9fexU7UvAMynw==
 From: Gregory CLEMENT <gregory.clement@bootlin.com>
 To: Rosen Penev <rosenp@gmail.com>, devicetree@vger.kernel.org
 Cc: Andrew Lunn <andrew@lunn.ch>, Sebastian Hesselbarth
@@ -58,13 +58,11 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Sebastian Hesselbarth
  <conor+dt@kernel.org>, Dennis Gilmore <dennis@ausil.us>, "moderated
  list:ARM/Marvell Kirkwood and Armada 370, 375, 38x,..."
  <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH 6/7] ARM: dts: helios4: use hyphens in fan pinctrl node
- names
-In-Reply-To: <20261126023856.767961-7-rosenp@gmail.com>
+Subject: Re: [PATCH 0/7] ARM: dts: helios4: fixes and cleanups
+In-Reply-To: <20261126023856.767961-1-rosenp@gmail.com>
 References: <20261126023856.767961-1-rosenp@gmail.com>
- <20261126023856.767961-7-rosenp@gmail.com>
-Date: Fri, 27 Nov 2026 16:47:32 +0100
-Message-ID: <877bhy1dkb.fsf@BLaptop.bootlin.com>
+Date: Fri, 27 Nov 2026 16:49:06 +0100
+Message-ID: <874id21dhp.fsf@BLaptop.bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -78,45 +76,44 @@ Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 X-Last-TLS-Session-Version: TLSv1.3
 
-Hello Rosen Penev,
+Rosen Penev <rosenp@gmail.com> writes:
 
-> dtc W=3D1 warns about the underscores in the fan pinctrl group node
-> names:
+> Fixes and cleanups for the Helios4 (Armada 388) device tree, checked
+> against the board schematics.
 >
->   Warning (node_name_chars_strict): .../helios_fan1_pins: Character '_' n=
-ot recommended in node name
+> Patches 1-3 fix bugs from the original DTS: the board revision hogs
+> have the wrong polarity, the PCA9655 expander uses an edge trigger that
+> can lose interrupts, and the EHCI controller that gets enabled has no
+> port on the carrier board.
 >
-> Use hyphens like every other pin group in this file. The labels are
-> unchanged, so no references need updating.
+> Patches 4-7 describe hardware more accurately: the fan tachometer
+> inputs, the microSD slot's missing write-protect line, and LED color
+> and function. Patch 6 fixes a dtc W=3D1 node name warning.
 >
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  arch/arm/boot/dts/marvell/armada-388-helios4.dts | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+> An AI coding assistant (Claude Code, Claude Opus 5.5) was used to write
+> these patches and draft the commit messages and this cover letter.
 >
-> diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/=
-boot/dts/marvell/armada-388-helios4.dts
-> index d4ed47ae73c5..b62730b949a4 100644
-> --- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-> +++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-> @@ -300,11 +300,11 @@ helios_io_led_pins: helios-io-led-pins {
->  						       "mpp54";
->  					marvell,function =3D "gpio";
->  				};
+> Rosen Penev (7):
+>   ARM: dts: helios4: fix board revision GPIO polarity
+>   ARM: dts: helios4: use a level interrupt for the GPIO expander
+>   ARM: dts: helios4: drop the unconnected EHCI controller
+>   ARM: dts: helios4: describe the fan tachometer inputs
+>   ARM: dts: helios4: use disable-wp for the microSD slot
+>   ARM: dts: helios4: use hyphens in fan pinctrl node names
+>   ARM: dts: helios4: describe LED color and function
 
-A small nit with this change: please move the nodes to keep the
-alphabetic order. They should be placed before helios-io-led-pins`.
 
-> -				helios_fan1_pins: helios_fan1_pins {
-> +				helios_fan1_pins: helios-fan1-pins {
->  					marvell,pins =3D "mpp41", "mpp43";
->  					marvell,function =3D "gpio";
->  				};
-> -				helios_fan2_pins: helios_fan2_pins {
-> +				helios_fan2_pins: helios-fan2-pins {
->  					marvell,pins =3D "mpp48", "mpp55";
->  					marvell,function =3D "gpio";
->  				};
+Exepting patch 6 (ARM: dts: helios4: use hyphens in fan pinctrl node
+names) all applied on mvebu/dt
+
+Thanks,
+
+Gregory
+
+>
+>  .../boot/dts/marvell/armada-388-helios4.dts   | 53 ++++++++++---------
+>  1 file changed, 29 insertions(+), 24 deletions(-)
+>
 > --=20
 > 2.56.1
 >
