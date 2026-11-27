@@ -1,56 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795740972;
-	b=B+oxItxfnuljQEvrwPLLgStoPpjfLSnr7zmIwSli/96odQrB2e6JmtRsvoF9SBNd9hac
-	 ZeHk5CNmg8swk/LS6kX7v6+EejPXGekyREiriJg05uXM0DRxKzPRiTsl0BDKrwg76oeI9
-	 Hz+a7ghvoqznNwJldhM0lBz2dI3nmnXvyY1q5BV4hjEdTfOu7zUIxCqSibUxD6yYNn5yg
-	 leG/7dm+EhEtKT4DR1H8tvuHk9+qh3/UAdpwU4VjFvZjpodj44zHj1+ICWD91qjFo+dkv
-	 wMfImNyuVRG+tikZ2VVWa4o6x0kC6vbj8iQFYIIdoh0Bc4GFNG8jJsZnxmCqwKG1nzA==
+	t=1795742786;
+	b=tPpBPC+bSLaT9sHlIOcJIssWXdreb5FyeFCq+BYQ1OXYkFEQOKKFbfQM+uURals72na2
+	 ubmgvhCd1hXArLPRkmkbXc66M8pA40U80/15yWqMBGA7HckoxeRu/DHuuGVYWdZ+ZBFBf
+	 gHV0YnJybduNWn+zpwoHQjNOZp2OsYRMmpI6JGZS5s1da4eXub9weN5lwGPth6MpNwiu0
+	 b616tB6uOX8AmCMm2+AZYjUvmLh7XIoBfSSoqx7G2/z51S1p7R2nKr8X0zJQZjqODzeuF
+	 LhsRUgHHl7GZ6SzEi5olxkDNKfaHFDx6WbB8UQTxSFkL8+XHk2aXS8ukgKNFTsGwUMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795740972;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=A/otKmlnjlopKzmwaRv1642yRf2Bph3BIO8QzAG+qA4=;
-	b=GYG9s44XCAtJ3l7MmYQc/DSuELqx/NI1ZZF1Oegj0OH5J1ODGfQlt0crdYBlyNFK2sUj
-	 kGTe9pp1nkvYlKBVX+kUHZ4ldxtJe/1367C3oQJpjXfua+JNNEPFpbcaAoB98pYDBhm3l
-	 ZwUi7Vg2EvAeljbbFI3Okse3Gf46TCiaUoE2r/RvvtmLZ8sTLj5+qBv0oL9C0iZaC0uzQ
-	 V2ZF3hUYiLNcgZHZY+GdcgurTD9S4FPL8gFeo0hI+ZjXVJWWwUimGVpNCMwZnVdx+wqT9
-	 SxRC22TXsd7lcij1cO0X7CN1zrTJ7vmzrOYFa4xm0+eB+SBPz2Wh18KwklQrM2uyvCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795742786;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ZT5vY911PY+oPZWxUSYR9KkzLhjAtMnoOlULn7xIyWk=;
+	b=c2WCO8NNwVsxptNmL8XYQt3YRZj6zFpKXUhRO1MwpCmvuZ6wdQndgQ0cUvPOIboq9hw4
+	 miDp/bjcgWEkH6uD663BfgAjACEX+lc+V3tk4zNBzvmC2KzP2ontml0s7MCvMTc/YUTou
+	 YDe4vD2WSZOzn69twqLmaQco6pQgVujdNUyTJrp1FeI3hdgKq7qhU1cB+4jZmycp0LM/1
+	 qJqr3QWmRzEWjZ6e4/pVeqNnGi4LmH8kQLWR0zVmyQoj1t9hF6u6Vv2NYJQHX2nu/9vNQ
+	 tYuTlBYBoT+ZqVDtuTjBw3PtkgTOoRFr1dvOd0nfS6JshMTzeJIpJBbqb1rtp/IkE5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EXgGi0zf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b5nhRQgO;
+	arc=none smtp.remote-ip=209.85.210.174
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C37606A324
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 00:56:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4D2B606A323
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 01:26:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4D2B606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EXgGi0zf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88DE71F00897;
-	Fri, 27 Nov 2026 00:56:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795740971;
-	bh=A/otKmlnjlopKzmwaRv1642yRf2Bph3BIO8QzAG+qA4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EXgGi0zfwjp/NpMzeUvPi92h+qECCTaoOr7VS1z+YCfWArSkUi+vGavA1NZQZlNLn
-	 TXBMJX42PHvIkAVDQ6op0FVoifTqqb6TQ/gyi1qvOy64ncFuYvLXHh0PYNFqfy7Et8
-	 65LoguPQf1roZy3uLzbjt+9+mi7cK1kMewvs9BtZRbIE6709MooAqAMYRTryBMskR0
-	 Dcvdxe3m5DIsu65UhcrSfOg6A/37qciqfo02soMgRni6GUmmVkzEl/106zQdK9ao0H
-	 KLraBM3iLlW+KJCatCMGoz4gpR4EDzwP9qs8hm5OGJw3nNjNS8p28c32m908EFOWff
-	 S+Nk89UoAN/rQ==
-Message-ID: <sashiko-outbox-236380@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v4 5/5] net: hix5hd2_gmac: Support fixed-link
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Yang" <mmyangfl@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261126005524.4156940-6-mmyangfl@gmail.com>
-References: <20261126005524.4156940-1-mmyangfl@gmail.com>
- <20261126005524.4156940-6-mmyangfl@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 00:56:11 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b5nhRQgO
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8b904d10882so3152756b3a.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 17:26:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795742785; x=1796347585; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZT5vY911PY+oPZWxUSYR9KkzLhjAtMnoOlULn7xIyWk=;
+        b=b5nhRQgOvmU8zK254e7mxA0oUMCGzC+TNauGOd43QL/xLLkKG7nIylaXX9O9i1tsv/
+         96gUbLIZ7bhY0W8vUpULQ2AiGgunxlQpfRMJhBcy1XLnFiGC+btnC32SzzqCNOBERWjX
+         U+Ra9kZyRHKAJ6xECJlLcC1pBRwDMUrRMaV2YZ+qtYYBzfpa5RW4PljuRbNUm5jOVMis
+         yTtYeN5OieTLksWFMQe73+NyCS88Wvg7IFgTcrw5OpPzNW3fZihiWCgAeXWvIDwUjaTm
+         xdr+0cuqZTY+sdC3TogGdjDpEo+1PxTwG8bF91pDZjCZ+OxFuOa7Sj3yR0ry1bpY6J5H
+         Dxbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795742785; x=1796347585;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZT5vY911PY+oPZWxUSYR9KkzLhjAtMnoOlULn7xIyWk=;
+        b=CMGYviHql3cgO10L4voGY/kZTqjEGTiOMjwzqrrsa/387pAKTR1wHA7zLIuoMJvtcY
+         rQdQP7H+YA1pkkqrsVxT5f7qjfsK2NpZZM3KXSbsbUTlwiLrP4T1pne63X9d6eWL7YJT
+         mJ7qBXqHX0Co8k/ISIH0Z8K4igUEYMO4Zx5H26qwuC2QBa/zNUJvHWLpmf0f/9SH2Q1i
+         0nSnPlDsyAhgVYpQNQFJdhaHySbDV+JlV7S9J430hsZGF8E+wTHmS/plEWWefDrlhRzR
+         QSR11/cQGupc4K01fXBSGcFDpfV6ylG/qKFY2l+cctXJN+G59v3uSoqYq0hN73zX6SBB
+         KrsQ==
+X-Forwarded-Encrypted: i=1; AL+hErHjRr01KZ0WPyzfrMVj2Gb29UMZrFJKX0gcEPn/YfGWhhT7MMQfexcgglhSZTwggL4FY607UraCybp0@vger.kernel.org
+X-Gm-Message-State: APuU4Z/RQppF6DjtDT3ETpHEXyWTwShVR43XfzjN8NiMEDNgmBTDxoRI
+	WT9iyfvLcABOj4lbsubHfj3Rp8pMiUUQo3B5R66nB7IAlOuf+FDS3HMi
+X-Gm-Gg: AZFdTZc8XKXXBSHUQyZSEkAGm0ZQ2dWjQhKxz7lzl8aAfJ4Tfj8Hpv+++7aYrODw+OU
+	dkoEdlXA+EtfH7Mei9T+NLVcE5ohMwy3OerfWJvVa090vm4ERxCUZ/BQ4FW6bmzJZaKA9MBkssa
+	6amcAxNX69gnkjuEr/mazQOlRgg1Vh0qLIVvnwXFptMfWvkJeUi50RmhM4OOQedWjVNty7yTRFT
+	hjUJrRFhMy2dclMq0OK0c2Lr6cj0d9bKmmjambKLDCx4GdwEOgGsMxBPLNxAJSrJSpbUbIuw3rA
+	1SLoOekyiDGKQMibBydkshb3qr9FsljF1qMPaaBm23d8H3U12GNKUA/ftNKEIxHBlSnEdhChF25
+	AuFlwdeCID89KKR/Puv3DDalrMahQ+ApoZjyyqT8HM7R1311oGonmdBk5Erwer2hTrPbJoIGDWo
+	yLNnarcZtWqflCOgRsK3UhNbZh+E1OpA/VFpe8gPwznEtbgHd/M+oxWv5yTPAAKzHoHHHUn9ioM
+	G4puVV0yiAxzC5EV4gqrmr8UaM2+X+9GjMZAAcaK1rUQMMgq+Oq4VWcSqOOu2kl2/Jg8pifrW+Z
+	3t/ykFIuST/mbNJc8dkg6zNmvCB8WqCelyVVa0/A2lCmcq8d0iBx9VSPwD4EC5ghSu0Zkegjd6k
+	C5h8lOyp33NAyIyRMTEOhqNW8wbtw/wh6orcZLuT0pPZ8lQ==
+X-Received: by 2002:a17:90b:4a47:b0:3b3:fc1f:a5c4 with SMTP id 98e67ed59e1d1-3b41c8dc821mr22091582a91.20.1795742785083;
+        Thu, 26 Nov 2026 17:26:25 -0800 (PST)
+Received: from romain-ThinkPad-P14s-Gen-5-AMD.tail433d9c.ts.net ([2001:861:39c2:e340:1432:1241:93b7:7b4b])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41ad0b2c4sm35042866a91.4.2026.11.26.17.26.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 17:26:24 -0800 (PST)
+From: Romain TISSERAND <romain.tisserand@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	sashiko-reviews@lists.linux.dev
+Subject: [PATCH 0/4] iio: adc: Add the Miyoo A30 and PocketGo S30 analog stick MCUs
+Date: Fri, 27 Nov 2026 02:26:08 +0100
+Message-ID: <20261127012612.1589039-1-romain.tisserand@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,117 +103,84 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] net: hix5hd2_gmac: NULL dereference in hix5hd2_dev_remove() on
-  fixed-link
-- [Medium] net: hix5hd2_gmac: broken phy-handle precedence in
-  hix5hd2_dev_probe()
---
+The Miyoo A30 and the PocketGo S30 are two Allwinner A33 handhelds
+whose analog stick is read by a small microcontroller: the MCU samples
+the stick potentiometers and hands the raw 8-bit readings to the SoC,
+on a UART (A30, a stream of frames at 9600 baud) or over I2C (S30, a
+four-byte read with complements). Neither MCU takes commands.
 
-commit 557f552e688f91f0f04fafd2daf29129d331e0f6
-Author: David Yang <mmyangfl@gmail.com>
+Both drivers expose the readings as raw IIO channels for the existing
+adc-joystick driver. The A30 MCU pushes its frames on its own, so its
+driver also feeds a software IIO buffer and adc-joystick takes the stick
+from it without polling. The S30 MCU only answers when read and has no
+data-ready line, so adc-joystick polls it, as on the Anbernic RGxx3
+boards where the stick is behind a SARADC. There is no scale: the
+readings are raw ADC codes of the MCU.
 
-net: hix5hd2_gmac: Support fixed-link
+Patches 1 and 2 add the A30 binding and driver, patches 3 and 4 the S30
+ones. Both use the existing "miyoo" vendor prefix (the PocketGo S30 is
+a Miyoo/Bittboy product). The board devicetrees will be sent to the
+sunxi tree.
 
-This commit adds fixed-link support to hix5hd2_gmac by registering a fixed
-PHY when no phy-handle is present and skipping MDIO bus registration unless
-an mdio child node is defined.
+Testing: each patch built with W=1 for arm (multi_v7_defconfig, both
+drivers =y and =m) and arm64 (defconfig, =m), no warnings;
+dt_binding_check clean for both bindings; the board devicetrees pass
+dtbs_check with these bindings.
 
-> diff --git a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c b/drivers/net/=
-ethernet/hisilicon/hix5hd2_gmac.c
-> index b3b2aa1b76988..eeb7221c0cde8 100644
-> --- a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
-> +++ b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
-> @@ -1176,37 +1176,55 @@ static int hix5hd2_dev_probe(struct platform_devi=
-ce *pdev)
->  		hix5hd2_phy_reset(priv);
->  	}
-> =20
-> -	bus =3D devm_mdiobus_alloc(dev);
-> -	if (bus =3D=3D NULL) {
-> -		ret =3D -ENOMEM;
-> +	priv->phy_node =3D of_parse_phandle(node, "phy-handle", 0);
-> +
-> +	/* In the case of a fixed PHY, the DT node associated
-> +	 * to the PHY is the Ethernet MAC DT node.
-> +	 */
-> +	if (!priv->phy_node && of_phy_is_fixed_link(node)) {
-> +		ret =3D of_phy_register_fixed_link(node);
-> +		if (ret < 0)
-> +			goto out_disable_clk;
-> +		priv->phy_node =3D of_node_get(node);
-> +	} else if (!priv->phy_node) {
-> +		netdev_err(ndev, "not find phy-handle\n");
-> +		ret =3D -EINVAL;
->  		goto out_disable_clk;
->  	}
-> =20
-> -	bus->priv =3D priv;
-> -	bus->name =3D "hix5hd2_mii_bus";
-> -	bus->read =3D hix5hd2_mdio_read;
-> -	bus->write =3D hix5hd2_mdio_write;
-> -	bus->parent =3D &pdev->dev;
-> -	snprintf(bus->id, MII_BUS_ID_SIZE, "%s-mii", dev_name(&pdev->dev));
-> -	priv->bus =3D bus;
-> -
-> +	bus =3D NULL;
->  	mdio_np =3D of_get_available_child_by_name(node, "mdio");
-> -	ret =3D of_mdiobus_register(bus, mdio_np ?: node);
-> +	if (mdio_np || (priv->phy_node !=3D node &&
-> +			!of_phy_is_fixed_link(node))) {
+On a PocketGo S30 on 7.3.1: about one single read in four fails an exact
+complement check (the value and its complement differ by a count or two
+at rest, up to about thirty while the stick moves fast); with the +-2
+tolerance and up to three tries, polling as adc-joystick does (two reads
+every 10 ms), no read failed over 2 x 6000 reads at rest and moving, and
+under 2% needed a second try (exact check: about 4% failed). The in-tree
+adc-joystick driver on the S30 channels reported 365 and 374 events over
+15 s of full circles, 42..231 and 24..246.
 
-[Severity: Medium]
-Does checking !of_phy_is_fixed_link(node) here break phy-handle precedence
-when the MAC node has both phy-handle and managed =3D "in-band-status"
-without an mdio child node?
+On a Miyoo A30 on 7.3.1: rest 136/123; reading the channels from sysfs,
+full circles 22..248 (X) and 11..221 (Y). The in-tree adc-joystick
+driver, without poll-interval, takes the stick from the IIO buffer: 826
+and 852 events over 15 s of full circles (the MCU sends about 67 frames
+a second), 37..246 and 11..220.
 
-In that configuration of_phy_is_fixed_link(node) is true even though
-priv->phy_node !=3D node, so hix5hd2_dev_probe() skips registering the MDIO
-bus and of_phy_connect() in hix5hd2_net_open() fails to find the PHY.
-Since priv->phy_node =3D=3D node already tracks whether a fixed link was
-registered, checking if (mdio_np || priv->phy_node !=3D node) would avoid
-this.
+Retested with this version on the A30 (7.3.1): with only one channel
+enabled in the buffer, each channel gives its own axis (stick held
+right: ch0 alone 141..242, ch1 alone 116..119); three unbind/bind rounds
+with adc-joystick bound: no warning, the readings and the adc-joystick
+device come back; at rest 139/118, +-1 over 50 sysfs reads.
+On the S30 (7.3.1): at rest 152/126, no failed read; adc-joystick 1213
+events over 15 s of full circles; three unbind/bind rounds: no warning,
+readings and adc-joystick back.
 
-[ ... ]
+Tool disclosure: this series was prepared with Claude Opus 5.5
+(Anthropic) as a coding assistant, in an interactive session: it
+captured the MCU protocols on the devices, wrote the drivers, the
+bindings and the messages. I reviewed and understand it, and tested it
+as described.
 
-> @@ -1271,9 +1289,11 @@ static int hix5hd2_dev_probe(struct platform_devic=
-e *pdev)
->  	netif_napi_del(&priv->napi);
->  	hix5hd2_destroy_hw_desc_queue(priv);
->  out_phy_node:
-> +	if (priv->phy_node =3D=3D node)
-> +		of_phy_deregister_fixed_link(node);
->  	of_node_put(priv->phy_node);
-> -err_mdiobus:
-> -	mdiobus_unregister(bus);
-> +	if (bus)
-> +		mdiobus_unregister(bus);
->  out_disable_clk:
->  	clk_disable_unprepare(priv->mac_ifc_clk);
->  out_disable_mac_core_clk:
-> @@ -1294,6 +1314,8 @@ static void hix5hd2_dev_remove(struct platform_devi=
-ce *pdev)
->  	if (HAS_CAP_TSO(priv->hw_cap))
->  		hix5hd2_destroy_sg_desc_queue(priv);
->  	hix5hd2_destroy_hw_desc_queue(priv);
-> +	if (priv->phy_node =3D=3D pdev->dev.of_node)
-> +		of_phy_deregister_fixed_link(pdev->dev.of_node);
->  	of_node_put(priv->phy_node);
->  }
+Romain TISSERAND (4):
+  dt-bindings: iio: adc: Add the Miyoo A30 analog stick MCU
+  iio: adc: Add the Miyoo A30 analog stick MCU
+  dt-bindings: iio: adc: Add the PocketGo S30 analog stick MCU
+  iio: adc: Add the PocketGo S30 analog stick MCU
 
-[Severity: High]
-Does hix5hd2_dev_remove() trigger a NULL pointer dereference in
-mdiobus_unregister(priv->bus) when a fixed-link device has no mdio child
-node?
+ .../bindings/iio/adc/miyoo,a30-stick.yaml     |  42 ++++
+ .../iio/adc/miyoo,pocketgo-s30-stick.yaml     |  48 +++++
+ MAINTAINERS                                   |  14 ++
+ drivers/iio/adc/Kconfig                       |  24 +++
+ drivers/iio/adc/Makefile                      |   2 +
+ drivers/iio/adc/miyoo-a30-stick.c             | 204 ++++++++++++++++++
+ drivers/iio/adc/pocketgo-s30-stick.c          | 149 +++++++++++++
+ 7 files changed, 483 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/miyoo,a30-stick.yaml
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/miyoo,pocketgo-s30-stick.yaml
+ create mode 100644 drivers/iio/adc/miyoo-a30-stick.c
+ create mode 100644 drivers/iio/adc/pocketgo-s30-stick.c
 
-When MDIO bus registration is skipped in hix5hd2_dev_probe(), priv->bus
-remains NULL.  The probe error path guards mdiobus_unregister() with
-if (bus), but hix5hd2_dev_remove() still calls
-mdiobus_unregister(priv->bus) unconditionally, and mdiobus_unregister()
-immediately dereferences bus->state.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126005524.4156=
-940-1-mmyangfl@gmail.com?part=3D5
+base-commit: 92c9d64c0cf749c8369403a32630562f0e855a6c
+-- 
+2.43.0
+
