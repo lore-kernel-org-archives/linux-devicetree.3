@@ -1,73 +1,39 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.47.186.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795783798;
-	b=iA7/cGeiuhN8PdNG/ZFf3ewkgHnWcieOYo8+Cb6WNTjMxwj5WGAxY/b/jFyafLT/GsNm
-	 GrXK1W84n4+Qr8aSrOYgW+KAgiOVtiGRFCR6GiHa6Y6QlK5myWD2GmvrwKIH6qwA45rUR
-	 SwCYwd4MNyfq4T9wcHeHIHhnlVVKvTddaxmYUUU2bw8VpQ5XNo72Uq/Ty6M8aCfZp7pZC
-	 r1xTJXs/7YqitY5gpAOdqOK/1227Dkqy2TVgfnZR3Sle3LGt84qsp8UQPDFRi+IgBH5gj
-	 CwciSg3euxXqxmDkG4PHkFs89rDB1ZU+eGQnHCFvSQV/m5ssYK4BBKQhmviysnNmgSw==
+	t=1795783955;
+	b=G0SuQVOXYU4DlEf4efiCdzYKaP7Phzc8Aln47A4s3kXwP3h9VT7tASizb6VVCUd8IXqV
+	 0ODvE4xRXVJWfniS9fZjMkKBn/DjsDhz7+8LbwxMyrE+GebGYOOtu6TMgy+qkOr6H+nFa
+	 eZmQ/He+cH3z7n5vXkBnjy5S7+EANLpWkLYlzr2GtFG10UDliXXWLgZosgNVBWz6hpvqn
+	 35QJznBHnmiYrkjB6S7/5QjRHxRKUoDLstjEjFxl6hlFXDzIUtCJE0RV66Rw0dNOCXq3o
+	 t3T+/7PHeSkDuHWNRnldacBOnfpSO1qfxQcddczu51dr2LYfjorV18XsCqnfd04f/sQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795783798;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=MkH4cutE4IChIOyYA5AS0pM5uFXn9KIjzHwhJQeQB1g=;
-	b=w6A95dY9qeyxIY31k1PQhCU3JYd/f8y5mRfaa+H93fOOGAKcr1EwzX2hYccd5H67p7YO
-	 uOhxiyLJZkKhmaVb1Iu8gREJ5l9VWQIUC6WiFwp8VYv7pRGgDZKStAXOVsyfOoOa95CKp
-	 yJf50US4GruhSX34LKsiUd46787ckdrDuaEjq6s5N5898ezu1zD8x22rbgwD52S8x0CtM
-	 mpMoTkaHnSKO5YXlrdd5HiYHNhTZ5kAx8xsMGMh5twXbrPROLkMGUoiMgcJfx2meoG4pg
-	 81BNlrmKX8R9BC1NGtjuhkffe1C+e2txaOwYt2JtLQIZ9+qMkUx26JnA48PRvHln5PQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795783955;
+	h=DMARC-Filter:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=PG18Lu/jBLcAhzP7RES/rcnEfIki8FVwtayDLRvjJPg=;
+	b=Ht5tqKCmUeaR2tEYZxfuZ55QUy/hLHEl50//PgocpYw8qKHUDTNSdmGXOMUcWUe1XfYd
+	 vR6j72MkzViVUw4+jmIbPrVCz1bbb8vsqTggwxjDrPpOFDURAI6f1UkN0lj0UwMk5lBFw
+	 IV3ixvTjFDg7EbS70vGho7rGnot8Dda8Hc9mVv8EEl/TCevErYT68yo9U4LhGFBR+FFl7
+	 KyUfroSw/By7JOPqiYeB0KBb/7lgPjSQQK97Pl0gwvyDXLsJu8KdbjC3KLlatFFgSnGMO
+	 9kzESs1nTloMvxCFU5nEUluHVK9pcTBBwWWzE06krwX67Z2JYRpXa3ptNOC7AyrqnPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=PZi2c991;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219F3606A326;
-	Fri, 27 Nov 2026 12:49:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 219F3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=PZi2c991
-Received: from killaraus.ideasonboard.com (KD106184139166.ec-userreverse.dion.ne.jp [106.184.139.166])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D6728C51;
-	Fri, 27 Nov 2026 13:47:19 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1795783640;
-	bh=TayXOaD0uXmQU39zGKKH5UkKxy9hM8l1AXof85x25nM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=PZi2c991ZtpqtpdUjVLrnQvyGk9BFNjRzjBD3W/1qXZyZ6uh5T5RP1qM/CnGlRmsI
-	 bSYkuh0wWv2k4vnAOCvVRtiCRcfcUdzNjZ+boxKfRDVsJF1aMino/Z/lZj7MJ8SUVh
-	 sY6rzpwzvLWrFQMHXscrw7T+lWqvBdHGpzuxTJ30=
-Date: Fri, 27 Nov 2026 21:49:51 +0900
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Anthony McGivern <anthony.mcgivern@arm.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>,
-	Nayden Kanchev <nayden.kanchev@arm.com>,
-	Konstantin Babin <konstantin.babin@arm.com>,
-	Linus Walleij <linusw@kernel.org>, jacopo.mondi@ideasonboard.com,
-	kieran.bingham@ideasonboard.com, dan.scally@ideasonboard.com,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH 02/24] dt-bindings: media: Add bindings for Arm Mali-C720
-Message-ID: <20261127124951.GC85756@killaraus.ideasonboard.com>
-References: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
- <20261124-b4-initial-upstream-candidate-v1-2-0cb9bde1bd30@arm.com>
- <179559671799.14607.10622707622371448283.b4-reply@b4>
- <0543d134-04d3-4e51-acd1-4fc39a0e522b@arm.com>
- <4e8ecbe0-35bd-41d0-8546-4d99832e662b@kernel.org>
- <9bb113e7-f88f-4616-b20a-74065cd755cf@arm.com>
+	dmarc=pass header.from=krgm.moe;
+	spf=pass smtp.mailfrom=krgm.moe;
+	arc=none smtp.remote-ip=103.47.186.116
+Received: from krgm.moe (krgm.moe [103.47.186.116])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7BCDE606A335;
+	Fri, 27 Nov 2026 12:52:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BCDE606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=krgm.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=krgm.moe
+Received: from yuno-laptop.local (unknown [103.47.186.116])
+	by krgm.moe (Postfix) with ESMTPSA id 53D6782D;
+	Fri, 27 Nov 2026 18:22:24 +0530 (IST)
+From: SignKirigami <prcups@krgm.moe>
+Subject: [PATCH v5 0/2] Add Qualcomm Netrani TLMM support
+Date: Fri, 27 Nov 2026 20:51:55 +0800
+Message-Id: <20261127-netrani-tlmm-v5-v5-0-f60f7b45c3dd@krgm.moe>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -77,63 +43,68 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <9bb113e7-f88f-4616-b20a-74065cd755cf@arm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6DIBBA0auYWTtJxSjoVYwLwWk7RtEAJU0Md
+ xfb5Vv8f4Inx+ShL05wFNnzbjOasgDznuyLkOdsEA/RVpWQaCm4yTKGddswNqhlp2bVmlrVEnJ
+ 1OHry93ccxr/9Ry9kwr2BlC6U1XVzcwAAAA==
+X-Change-ID: 20261127-netrani-tlmm-v5-b798d86c3837
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ SignKirigami <prcups@krgm.moe>
+X-Mailer: b4 0.15.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1447; i=prcups@krgm.moe;
+ h=from:subject:message-id; bh=HwAU4KaMS3rzF+SX8da1ceH2N/P1sKtIDxDSbDmixpw=;
+ b=owEBCQL2/ZANAwAIAUNLJdlxtMKiAcsmYgBrCX0ADiEcRxGwjAlEFjDSgZRGw9hX99AlznUr+
+ SmJtHiDO5SJAc8EAAEIADkWIQQKI/ZJLAWGn9r1JLZDSyXZcbTCogUCawl9ABsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQQ0sl2XG0wqIS+QwA3WNOrpWuuucAbP8eDesuu2LMZqA+JIM
+ XV4bhGANwomQJL27+9qRW8P5GyVVsBUqgCaz3XyHt8oWgJsqV3qQpqNBnV9uFsbv/JYflCDv0UZ
+ Yx43yVcmHk/NvRHHxSt3PfW1BDZmN8HYypKtxlKs2kR7BWaCTeDB4L/i1zICY0yH1zn0vzVnG4f
+ KrZzPEnqqyXnTQ+4BKInTjCyK8yW7ShqG9J8wzbw9LI5NGTArlcI/Gt88AoFvih0OLjvXCW5oCV
+ b4kJknLuh38ZWqFoh1RkMyfIsr4t24U9AYpTH0gN6MGJ6QiIFbWrUxwnZAMczWWhUIRsrmLc7fy
+ 8a9KoNRVvAQ3iAnX7fQ2r6el3P69Im7Q5A+QpOPZ4KjRWShReDF97lbu6SVJVWqbadzki+7bxQi
+ hy6isg2cipgjVPUaklx3BqfxrQHmaqGoKZl28lSymgK4s4PmaStaY0eBB5VA9wl24Bw90MI1HA6
+ 0qWn1klZIpV3w/5WAUFozy+vqWKT+oq
+X-Developer-Key: i=prcups@krgm.moe; a=openpgp;
+ fpr=0A23F6492C05869FDAF524B6434B25D971B4C2A2
 
-On Fri, Nov 27, 2026 at 12:32:32PM +0000, Anthony McGivern wrote:
-> On 26/11/2026 15:12, Krzysztof Kozlowski wrote:
-> > On 26/11/2026 15:55, Anthony McGivern wrote:
-> >>>> +
-> >>>> +  interrupts:
-> >>>> +    minItems: 1
-> >>>
-> >>> Why is this flexible?
-> >>
-> >> The ISP has two interrupts - Main and fault. Currently the driver only
-> > 
-> > If only writing bindings covered exactly such example. :/
-> > 
-> > Hardware has two, so you need here to.
-> 
-> Ok, understood on the part about driver support being independent here,
-> I should clarify what I meant to say. This fault interrupt is only
-> required for safety applications, and as such some integrations can
-> leave this interrupt physically unconnected.
-> 
-> That being said, it looks like in such case the device tree entry can
-> use 'interrupts-extended' and set the phandle to <0> for those cases.
-> So I will remove minItems here and for 'interrupt-names'.
-> Apologies for the confusion on my side.
+Add the devicetree binding and pinctrl driver for the Qualcomm Netrani
+(SM7435) TLMM controller. The controller provides 142 GPIOs, pin
+configuration, eGPIO, dedicated SDC/UFS pins and a PDC wakeup mapping.
 
-If SoC can integrate the ISP without the fault interrupt being wired to
-the interrupt controller, then "minItems: 1" is correct.
+Changes in v5:
+- Move GP_MN on GPIO18 from selector 2 to selector 4.
+- Add GP_PDM_MIRA on GPIO14 (selector 4) and GPIO15/17 (selector 3).
+- Add GP_PDM_MIRB on GPIO59/60 (selector 2) and GPIO61 (selector 1).
+- Add RFFE0_CLK/DATA through RFFE4_CLK/DATA on GPIO76-85 at selector 1.
+- Add GRFC0-GRFC9 on GPIO76-85 at selector 2, plus GRFC12 on GPIO86,
+  GRFC0_MIRA on GPIO87 and GRFC10/11 on GPIO90/91 at selector 1.
+- Rebase onto the latest brgl/pinctrl-qcom/for-next branch.
 
-> As a side note, there are some extra signals for a system timer clock
-> and video output ports that should be added to these bindings also.
-> I will address these in V2.
-> 
-> >> uses the main interrupt, though we may wish to enable the fault
-> >> interrupt in the future to detect errors on HW side. I will update
-> >> this in V2 to use descriptions for each interrupt.
-> >>
-> >>>> +    items:
-> >>>> +      - description: ISP main interrupt
-> >>>> +      - description: ISP fault interrupt
-> >>>> +
-> >>>> +  interrupt-names:
-> >>>> +    minItems: 1
-> > 
-> > And please drop minItems here as well
-> 
-> Agreed
-> 
-> >>>> +    items:
-> >>>> +      - const: isp
-> >>>> +      - const: fault
-> >>>> +
+Link to v4:
+https://lore.kernel.org/all/20261127-netrani-tlmm-v4-20261127-v4-0-a77415255784@krgm.moe/
 
--- 
-Regards,
+Signed-off-by: SignKirigami <prcups@krgm.moe>
+---
+SignKirigami (2):
+      dt-bindings: pinctrl: Add Qualcomm Netrani TLMM
+      pinctrl: qcom: Add Netrani TLMM support
 
-Laurent Pinchart
+ .../bindings/pinctrl/qcom,netrani-tlmm.yaml        |  144 ++
+ drivers/pinctrl/qcom/Kconfig.msm                   |   10 +
+ drivers/pinctrl/qcom/Makefile                      |    1 +
+ drivers/pinctrl/qcom/pinctrl-netrani.c             | 1489 ++++++++++++++++++++
+ 4 files changed, 1644 insertions(+)
+---
+base-commit: 55d571be69fa9b1ecf8b417fdf768c4eb8b28d23
+change-id: 20261127-netrani-tlmm-v5-b798d86c3837
+
+Best regards,
+--  
+SignKirigami <prcups@krgm.moe>
+
