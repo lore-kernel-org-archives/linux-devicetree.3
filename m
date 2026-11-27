@@ -1,80 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795804724;
-	b=t94awrpIa374Pn6f7hwWOMJf/hy2hGSCWY8c7DzwsbzV29T/2BevlsicjtRY6Ky9Xot6
-	 48J6pPN0E9+afFsqFANFCm1nU8eQ6jXX90suKfzx1z2col/VoNx+mIr/7rkKFNC76lWia
-	 vejm/KIGe2h0/UlqMZsKC+NH2zrhHnyspkg7f988TjrDUtbyWul7DodbJ5wlKh/YUKlN/
-	 tkKSo5mpWaR7Tt30/zCq3CE7koBA91iGwFvrePmkStQe1XdbMr511mDzbjWxfgDr4otfv
-	 J16GHNPn+oZM3qFvoHJZjZi6Walw/JATRUwKZ3BHNkDW1vzABm7KLC7F29LIzbE3yJA==
+	t=1795804770;
+	b=rOkZ+YffChIIMTE53pa+RUgQxvAL0q6KDBk8ngmVSaGvqMOyBO73xQ/jEwGMK05Acz+b
+	 G2+ArMJYNf/hhfJ7IB83+hdO7INanEETpRIOc3/B6F9GlA3MZCQxhav2X7WL6Ns9hno4C
+	 rvW+R1K0A2p927Ae1jmSGdkACe7MC+7iLxXQyopwwpRG0UAPzJSkuQxvDyLEXrp5iv2bJ
+	 RbtEtow5jGTwmPH5AEO1BhxBc4UuVbKT5RcrAqMfNabGAtffzetcoVV9bgE67eBx4E2G0
+	 lzwi4gH+9FR5mSc1LNnKFugZ7Jm6lMeW8ZE/n6VfPUpv8SEyeeOjZSTfgvxTDiTZNtQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795804724;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=+MBUz4AYi6RkpX6F26f2XwoBsJ4+PFRX1WOKsakLQxI=;
-	b=VIS0hN2KUZX9Ng/y64+Iepe6tBN4xRfy35qFnD+diT+duvbP7kO3KZTTyZ8/20WLIKNY
-	 w8mTwisF4Rn+nThJuVzPAsYo8G1xzP5Cfok3sdPpOuUcGv+NyF2repbgvje/Q7OtVwej6
-	 y+AAJkAoaMO9lT8mHbki2xx6zqdBdWFN3c7RxI47JcR/1tmXXhYMOMNzQZRfV3cTsHKbn
-	 Eni6SxpGLtv6OkRM806bDyPmtKLenrZ8lFa0ooRmI+ZIkxCCgy3dIy9I+v0gf7xeKfMtM
-	 XuLBxH3dSwcIiJUoJ59jlWSz3NGgjjI9sExdd1snQbfUqaWuQsRSbbSkAEDN91+arIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795804770;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=meT3QAiTSr3qSxGWIp+z3THNZElxOl7c3Peai+6jn9U=;
+	b=vnCS2tc4S3Z1JA/7UaeuCnx5/3LF8e9egL2JnO+fecRtkg65CuobDZXxafwU/5J9QmCN
+	 UKvpJZbWMRfhLeiyP/lFmgf7r1oL1gceoTHJg8bqvl2zrNZKqIQjQrwWHYgtmn9m9S5EU
+	 E2X4wxLYkUnWjKQU64U9O2wXaB6EepeS1v/cFQKlfP52dIeKZE8mDLvpeM1wIcbSSDhDH
+	 7/wHgfpFXpO4Rq3se3T09FPggWhL/72N1Aq7Mae06IvdmsRGuHQVneMf9MgmUT7V/br4o
+	 punkVw++bTBJ7bJOSfRFUSCLE+/Yigk7E15VAMDaIWa7heS4lmo7PEvhuhfVxebIj/A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ILXEfJvY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PL7UDRpE;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 872A3606A32F;
-	Fri, 27 Nov 2026 18:38:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48959606A329;
+	Fri, 27 Nov 2026 18:39:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ILXEfJvY
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PL7UDRpE
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795804724;
-	b=SF50dMZFBxj9OyL+RHVaZ3ZqLwI7ektpWjH60ov4kTOYlmBeqv2D+CbQlXtAmVo8D3nZ
-	 ZWeFMuu5I3dh4tgYomYIZn4+Fu5h0Q+27//ozycHVoMReguBrghOJBGVPhgN1gNO/i5g9
-	 Bzqf/W9wcZ3rdQbwB+PTfK6P+wVDRGhCy6QCppORvO/g9HkhZMeb+AzEH9tjl4hLdQMca
-	 if/MS+/0kY7U6SJKQ0OvMu3/56vHAdtD3vZ0JIwVr9stI7cIDLvdpXjEepxBD111J/bwx
-	 70Z53D8y2lj5/Z+rgBAKtHa0vqPVmNaSvqgBUQc+Q01X8B3LyO8ZzADGiamnjtYPe2g==
+	t=1795804769;
+	b=zCi+Ma5N8hp3bLuk2liPusYdjzTYlHRa/7rVS2tKzJT6kSUI/C3lBO1zdUIRyqOn5jQg
+	 /BaLMj2AhDOiG0Q9e16I44p9opEwZFOWWa4YvqJ/fhX6fvoj2Tom6Z5xUVpZsDmCIZ4lM
+	 eKMeoL9ZIp6EZzI7oJ3aOmlkpt9beOb6s8B67F1rWrSBfRtG/XBF0GnbkPlcB+vwCHUO1
+	 4kkF7AGXi3qbHVBLgYqY6r82me8U7ianUaAm6wR6J7U4o6/WI+jYznINPo8xU+DA5alCg
+	 m3zKjEOzvNX3V4X0vYTIlqgfqqd/eoSNEAxyNix7w3n9FrCu0ILc/AXiE56tlBARlPQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795804724;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=+MBUz4AYi6RkpX6F26f2XwoBsJ4+PFRX1WOKsakLQxI=;
-	b=K6lX5Cn/nU1njL1HqfpKKs3qJNEXCNRqYaxcrw9Jews80kzRVTXMAtxu/+fzFzeMbroE
-	 LgVsfmsRlWsE0AgEDfDKJAgak2nz0EHrtGE0TsY8nzujJ/ACFjpvFwIcYaRy3/uE4tv9S
-	 R7eapukzsMDI46MhAXYIl+ISeUGWFAouYBXWwrVEwe1TItdlC6komRm/Q859fAuI+2h8E
-	 doS4+jsYtgRIlBeb7dG4DGCuU0QNSGESycOBPX/F58SvH132L+A7s+2xVXawTMX7vhza6
-	 9jrFSY4yAT8XFlKca2/HCWbviuxOERf3Sp0uBYcpGDlFgeZBbyyEpwiygE4SUOF01xw==
+	c=relaxed/relaxed; t=1795804769;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=meT3QAiTSr3qSxGWIp+z3THNZElxOl7c3Peai+6jn9U=;
+	b=1HqZPgbMjbHmC5NN3vCQCc+NovlwL1KSUiVnUJSv8dBufq7uFzseDpbtENDPUhHf0q0Z
+	 dU5YKuvZ5vHfpWz+VOtP8MfXodjAKEbj716HP6ocU4ti2pf/VwcmeIeUZWKshRi0rdvks
+	 s7iL0IxTjY2Iao4dVgJz/p/zYQgRIyaAI14T9qTsKAZoBBwWnPoxGEtQn/fc6f+A2Li8r
+	 3TuSIGzAfAQbUijRJcxw5DDg0r3ui3k4iRdbniSgWT1/BwNt/EfrYCfFkZBJWyQ4RUNa+
+	 vcngZawfi0+09Prgp+s4LleWGzHHEyEoNNHEgT5pTH0sgpLY3BcbB5dQFX/LkvF9SQA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 7AF341F00897;
-	Fri, 27 Nov 2026 18:38:32 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 613121F008A0;
+	Fri, 27 Nov 2026 18:39:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795804724;
-	bh=+MBUz4AYi6RkpX6F26f2XwoBsJ4+PFRX1WOKsakLQxI=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=ILXEfJvYZfhGFXpf6wGXqFe8ImPRi38NCZUAchoA+IxPl3JhK33JJuhZdgH39y5XH
-	 DH/ZskiUDtIVDgSm8p2Z3c9inUfkczjLmeJbaRf6o4cJOP6hUqpb7BQqkh5kE7c0UL
-	 oRVN8mlZys6LcueLL5EDgGC9hRxhMQ4MB1cpX9iBecbUaIG5Z5R3Xpf33v7Jd0aKCz
-	 Qm3Y/YEoxHACKD3HS1a71dlOBI/DDlb5PZ7SNXwecLBiRF0O+r4iw/U5z7pJNoZyJH
-	 FZr8kzToZwGfdMnPwJVzYZHhvDHtH4wiFbEYK9uSb8w3RtFkYdHMbekUYA1DPMK0D+
-	 H9Atgu+hRXhcA==
+	s=k20260515; t=1795804769;
+	bh=meT3QAiTSr3qSxGWIp+z3THNZElxOl7c3Peai+6jn9U=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=PL7UDRpE8ZziXwWu031+8npUM/nkz2UjOOznfwDVmzFn83In/TdMQ2zvAB2fht2AT
+	 l+AzingKWnzXPFJVotwj2+a7e0OCGTw3fcuhDeVqIPuns+29mM4Uafw2mGbifzNfXh
+	 is+U9307BIoi7pb+mmP/WZvi/xJrCr6DVE3Nn1ndm+Neh3nG+OHxaHmIV8ruPuHUQJ
+	 SWNWmIX1+mP/ETW0zggkAeKntvQdDSUogdcMpteGASXALKRshKO+CeLYk98I8Z13bg
+	 NfZwuXtkfEXKJzrra9W5oF8lS6VgtrXVZSkAiYGVW0YAciFaWIOmKd+BIdr77M6U8C
+	 ryceNaKo8Hp7Q==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0B6544DD22;
-	Fri, 27 Nov 2026 18:38:32 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id E25794DD37;
+	Fri, 27 Nov 2026 18:39:24 +0000 (UTC)
 From: Venkat Yadlapati via B4 Relay <devnull+venkat.yadlapati.yahoo.com@kernel.org>
-Subject: [PATCH 0/2] interconnect: qcom: Add the Molokai interconnect
- providers
-Date: Sat, 28 Nov 2026 00:08:30 +0530
-Message-Id: <20261128-molokai-icc-v1-0-a5e1754f086d@yahoo.com>
+Date: Sat, 28 Nov 2026 00:09:24 +0530
+Subject: [PATCH v5 04/11] soc: qcom: ubwc: Add config for Molokai
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,89 +83,58 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQyNz3dz8nPzsxEzdzORkXUNjQ5PE5BQDS0tTCyWgjoKi1LTMCrBp0bE
- QfnFpUlZqcgnICKXaWgAmE64XbwAAAA==
-X-Change-ID: 20261127-molokai-icc-1314acd09958
-To: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Abel Vesa <abel.vesa@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+Message-Id: <20261128-molokai-soc-v5-4-144801dfad7f@yahoo.com>
+References: <20261128-molokai-soc-v5-0-144801dfad7f@yahoo.com>
+In-Reply-To: <20261128-molokai-soc-v5-0-144801dfad7f@yahoo.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Radu Rendec <radu@rendec.net>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
  Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795804710; l=2800;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795804762; l=1024;
  i=venkat.yadlapati@yahoo.com; s=20261023; h=from:subject:message-id;
- bh=fXLAvIdNliK1/1iNFd6S6NyUNtEDWrD2V5vNaSxzJIA=;
- b=RiGyHBLQmu7AciZHBkLTJyVb1L9oSmimVnmNhaM6eAfQHOyhRrfShhkB4UzWHnmwOOF6FkA5N
- p9dbean0PKMD3iUDLbvrDT1tDZGUoAoyhhvi6d4GDMc5zri5ku5/Rnl
+ bh=9lI0GDLg+ArIvmjuhBkr6Hwen5svXhSHz+Z0e79/fbg=;
+ b=HuXGpO0yvmljdccPWVpVOHSYakGBcOzJVXOoJXQz0KEk8cLuqIQ6yvOZ9z4f4sG+MaOG42AMY
+ 20xJdjeEVODAUtifAkd898uH+9vushgwSXkwKXBpzpflTOdhArVj7w+
 X-Developer-Key: i=venkat.yadlapati@yahoo.com; a=ed25519;
  pk=e8KStCtEMvUP1Se/riB/KVnDAQFEVR2Dw2PcuA8/eME=
 X-Endpoint-Received: by B4 Relay for venkat.yadlapati@yahoo.com/20261023
  with auth_id=1303
 X-Original-From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 Reply-To: venkat.yadlapati@yahoo.com
+Content-Transfer-Encoding: 7bit
 
-Molokai (SM8845) is derived from Kaanapali, but its NoCs are not the
-same: the aggregate NoC is split into aggre1 and aggre2, the MMSS NoC
-config and service ports are split into HF and SF halves, many QoS
-ports moved, and QUP4, SDCC4, SP, QPACE and a few config slaves are
-gone. This series adds the binding and a Molokai driver.
+From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 
-It replaces "interconnect: qcom: Don't read back BCMs without an RPMh
-address" [1], where Konrad asked to fix the driver instead. Molokai used
-the Kaanapali driver, which votes on the QPC0 BCM that the Molokai
-command DB does not have; the read back of that BCM hung RPMh. The
-Molokai driver has no QPC0, and it programs the Molokai QoS offsets
-instead of the Kaanapali ones.
-
-The topology and QoS settings come from the Molokai driver in
-Motorola's downstream kernel. The upstream Kaanapali driver matches the
-downstream Kaanapali one node for node, so the driver is the Kaanapali
-one with the downstream Kaanapali to Molokai differences applied.
-
-The binding header includes the Kaanapali one and only adds the new
-MMSS nodes: molokai.dtsi builds on kaanapali.dtsi and inherits its
-interconnect paths, and a header with its own numbering would redefine
-the same macros with other values. If a standalone header is preferred,
-molokai.dtsi would have to override every inherited interconnect path,
-or stop building on kaanapali.dtsi; I can rework it that way.
-
-Tested on the Motorola Signature with molokai.dtsi switched to these
-providers (next version of the Molokai SoC series [2]) and the generic
-read back fix reverted: all 14 providers probe, there are no RPMh
-timeouts, and the display, GPU, touchscreen and audio work with QoS
-programming enabled.
-
-[1] https://lore.kernel.org/all/20261123-icc-bcm-readback-v2-1-bacee81398e5@yahoo.com/
-[2] https://lore.kernel.org/all/20261123-molokai-soc-v4-0-851e5a9f4878@yahoo.com/
-
-I used an LLM (Claude) to help write these patches and their commit
-messages. I reviewed all of them and tested the result on the device.
+Molokai (SM8845) uses UBWC 6.0 with a highest bank bit of 16, like
+Kaanapali. Without an entry, the display subsystem fails to probe on
+Molokai based devices.
 
 Signed-off-by: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 ---
-Venkat Yadlapati (2):
-      dt-bindings: interconnect: qcom: Add Molokai RPMh NoC
-      interconnect: qcom: Add Molokai interconnect provider driver
+ drivers/soc/qcom/ubwc_config.c | 1 +
+ 1 file changed, 1 insertion(+)
 
- .../bindings/interconnect/qcom,molokai-rpmh.yaml   |  144 ++
- drivers/interconnect/qcom/Kconfig                  |   11 +
- drivers/interconnect/qcom/Makefile                 |    2 +
- drivers/interconnect/qcom/molokai.c                | 1753 ++++++++++++++++++++
- .../dt-bindings/interconnect/qcom,molokai-rpmh.h   |   26 +
- 5 files changed, 1936 insertions(+)
----
-base-commit: e5aad2bdbbee783611d32599f89cea3f12f9593d
-change-id: 20261127-molokai-icc-1314acd09958
+diff --git a/drivers/soc/qcom/ubwc_config.c b/drivers/soc/qcom/ubwc_config.c
+index 456995699fdb..7c1166c68551 100644
+--- a/drivers/soc/qcom/ubwc_config.c
++++ b/drivers/soc/qcom/ubwc_config.c
+@@ -130,6 +130,7 @@ static const struct of_device_id qcom_ubwc_configs[] __maybe_unused = {
+ 	{ .compatible = "qcom,mahua", .data = &glymur_data },
+ 	{ .compatible = "qcom,maili", .data = &ubwc_7_0_hbb16, },
+ 	{ .compatible = "qcom,milos", .data = &milos_data },
++	{ .compatible = "qcom,molokai", .data = &ubwc_6_0_hbb16 },
+ 	{ .compatible = "qcom,msm8226", .data = &no_ubwc_data },
+ 	{ .compatible = "qcom,msm8916", .data = &no_ubwc_data },
+ 	{ .compatible = "qcom,msm8917", .data = &no_ubwc_data },
 
-Best regards,
---  
-Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+-- 
+2.56.1
 
 
