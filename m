@@ -1,113 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795749045;
-	b=wwpgyj6dNeN7h/g83EJVd7AQqFpKQodpm2Dxi0XMGDvk5Kv0BirId0HaemPzuoWQjvma
-	 yjgpExAkYa8IM8yZBZ9zQYamYiaLTk2TrBaP9pmeKLhck3GEeoJVSVxGnGGukIXLs/dxa
-	 +epOBuyWtTnVzYv/2QI7uZE5CvcWoahYwxBXDihjK3KnFiOiFr1RJFg4qjalSnWTjikLT
-	 oz6c/J3aZ0ol9nW2ZdQqruFORTaWzG7B4RiaoJMZbFlZmTRNB0t1QMuPEYxiDOxuzOHAx
-	 IRu+VRs+LQNvP6luqK+8ZqpAJAV/U6VP9GnWN/1DgKHquvSCUa+5+pj1HGKz6NoWnFA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795749045;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=jkMs10a5uIaQEsSdOGti1QyQ00q7aHDT7FVYlNLBevk=;
-	b=xqSyHe0PrFJfE4W6UaYJmbtQ+1S/H5O9zwTvroacWOVaknmRk5zpsXY2MU/5XmeI2vrS
-	 V2rWc6rJpJb5NENxBzYyt28lpDR8eGfyyqUz48spV4fpouBMQ9nAMwmGufi3MZF9NGhFS
-	 7M0wLkP+N4FrZYkErKEFgio6qCCt2UcAkrK0vzRVG9kWwfiqViySlg4NRkVP+iuHGOY5H
-	 x+vmQs/zEFZkU4UGBTbAd5SDLbXlthFUyPr8PRhldWOi/BmcL9vw4SII4oFq/U5y8rVG6
-	 a/EZWQCNsHUdAqrYwjrszJSs/wXz111NOFopb8PldCdQT/SfqpYc/nBShy++f3iiWew==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pxJQYZSk;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FuXWY3KP;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.92
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795749130;
+	b=CHtGHVMSEQpEGiioPqnGuCKdZyRis35/38xuKLIueU3iN2TUCRNe1a/qS6USxCuzl02e
+	 BDwEcHB62Ecxp8JjRl74G5KY03PNB9KYgtniMUs/uoh3GQ/FWkJ7Q+z+87Ow7TvUAqLnf
+	 X0+hFXP4+vz6KLWpamfkK7jlUr6oRlxkIx1ZqTG1qaP4xn+KM01prnuVJbprsQvAhxsuv
+	 QEzOvqSQixD0iLiHbjuigYpHcOf4TT4GIHACrcLTAIBA7vLUd0ZQumloQjg1M0SZ4Z61T
+	 KDdfm1PsNmuiPmwF1s4B0y344VwQFwuYlEtJluCbWwZCrJBf18ZJojNWkIlyxNejPBA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795749130;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=EMLe8LWkgSUXyMsfd0GxqI5vD0B/G3cO6YJiSIbBonM=;
+	b=My7zwP4A8vIWyKCPGwqGxkUi3Px2Cuh7PHaleYFWEUfWm1L+wwVRH0ncpnhXggHldV5Y
+	 /AibyP1l4dKx7aqXDQHtDVKawo1x2PZBnNJz8CvsngF0r0WH2GJaujtjm3PtgMyHOjvNB
+	 sII0r9SgkD/kwmL6CfGf6WH1Gt8NexH7EiQYYaOPm6g9HC86kxnXZ46FJem6vP7aStGei
+	 D+f1Sg1kPi17LmD1bu3a+dKjfzerCWgiMxkD4VWbv5jNYajCHq7V8Eufxs5NpnnIosb65
+	 YJOM5LJLZj92j/Fw3+XjyyRuLaPdEQcvSznnkoV9JHbHfIulnN48r0ivHfwn9yqjQCw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=valinux.co.jp;
+	spf=pass smtp.mailfrom=valinux.co.jp;
+	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=kJbcAVHm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.92
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11021092.outbound.protection.outlook.com [52.101.125.92])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50FC4606A321
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 03:10:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50FC4606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7809B606A31E;
+	Fri, 27 Nov 2026 03:12:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7809B606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pxJQYZSk;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FuXWY3KP
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQJwmqB3865524
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 03:10:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	jkMs10a5uIaQEsSdOGti1QyQ00q7aHDT7FVYlNLBevk=; b=pxJQYZSkNhePlB76
-	C8QjOwB6Blo80uW2z0HYVSOfaP8VIFZmS0bOqGLi6XxswnJODWqS++Ko8z8UdE6b
-	6RD7pp8jD+Gsz71yDw23xT4ypX9sM47VhNcRy3ztxdvCFcJ1NTN0CVyr7hO/vjaY
-	oBolnqAP2CgocBxXmlTSBYwUrXiNO3HMGClttBMYDRqC2AhylAnOAT6jX4s8/p19
-	n3qcBeahuDIYEojD8fTfkcpk6agfXuXerPfZMaE/gmSuiyKpTEMPGrhDLCkfNuUn
-	Ajii/PvVWG4zmOYV5g8gxA2bqj3l/EZOmJluu1vvptdvcuZF/o5r6fXgPLCQy+TG
-	y0o8hA==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j6u55rxfh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 03:10:43 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc7361c62b9so4732434a12.3
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 19:10:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795749042; x=1796353842; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jkMs10a5uIaQEsSdOGti1QyQ00q7aHDT7FVYlNLBevk=;
-        b=FuXWY3KPo04JHN5P3IcBw/zO7VMVdpCS6yjfTkjQi+wDRldzDGhMYB8oZsAHTnXobf
-         bEZRpKJQI8++NmMZpuNi5HiXeYVT4a86Xd4a3aBGQEYuPX2v+/+hSaN/ajChr/Ey41Zy
-         A563EAj2tnj34ygzqeAn8p6iB5xElTU91pYHF3GKe7D3xmgyU0fEe2Qptkd55qT/g/Ry
-         x8nPsPhpMJcQ2cDpms1lpkr09qvycdHDe0dKtgJRuabHr8qj7cRcmcm7sPRvOMAOIQwZ
-         dX4W9mGM4FSDhfF/vMDM1z39Y/DzBkOZb+Bi4I8AqkGT4NoxaEDWt59At95sqCPF+ZP9
-         omyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795749042; x=1796353842;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jkMs10a5uIaQEsSdOGti1QyQ00q7aHDT7FVYlNLBevk=;
-        b=RUws2GbCyGJVOt4ddesu67vNGMJa90xuNl/d6oQzNLlZzPii3Ehf0EE3SpbIz6LyGF
-         xsv8jvN87RtZwgek+5cr7Ar1W3dZUpRmklS6tuGyK2xpqJmb1nReD4aK2A1VSpYoTOIL
-         1bhHwm3iWTtlRtzECgYqCukoj8HKGcnYXQPBTA6qNTm0VZZx2arpIbbIr4zekT+0eMSm
-         zUtB/1tUyP2hmXoFGGvBA6oZgjIV+xLIfIpgovzmLA8BAl/lDHOSxqc5jgLqqKV5iXYp
-         qx1DkWknrw3L/JKDIK3rXL68zg8sj2qwdNpUSsvkVtP+S9b4+1kQrDC18n/KZZa2sGFd
-         d+Ig==
-X-Forwarded-Encrypted: i=1; AL+hErEatEChQemOMiTHFGOhJtKbwVzRKQCgZChzT4pCVBR+tj/RfD6+RlA2+E1Ky2LvnnJXMpO4sX14H22y@vger.kernel.org
-X-Gm-Message-State: APuU4Z/1lFBMvnK6DtGxC16GrQX3zxtF75NjITiSk40hAlw49HjU57o2
-	TT7HqhpS9l8doFcaeC4XTQX2IdmVAwMHS1vh8zfIqS53y3X3AxNYD/S9ZNW8HkQrDIvejOApy+o
-	lWnXvMKfJDVuB5nBr4wnMob3UuNGgLxR9ekdkIS7V7jwj+/ZOixWravHcwug8UIpL
-X-Gm-Gg: AZFdTZf3nxDxE8O69Ddb5zR49fHSwgN5P8j/oC0X+zLOOwiX7w+JXV4BJyb1eqQwnF3
-	2aNuMhvRPqBldwujQYEChOUks75gSjrbDBjaIYaWAswEIq4a/suGdWnxXNgBBCmO++FuWruXQIg
-	s+ikO7m+Pu3L15UX1mPkVnbX6a66RsxvuJ9SOZ8IIQDSLPov6K8IzRMw5qCQE788jNgKgq8XUkG
-	0Oh0DI+zEyRPkUKInV7/9WqOdISAO0gLghpHolB1qoeU+lR7wJUIZuI/Bz82MR6YJrWtgIQyGu+
-	orj5A7rdnnMNcF14S2BqsmU73imd+H/9YA+NzauNjnMhmSWxfdpbkKq8Fl0IOGi6dL/Tx/zMcCt
-	6tebsaOocjGpOklV5pe4C75mbyutOdUApxnVjBipaWneo88hjGyHzZ8xqUyK8Eqrix75YVH/ixj
-	mYiggtLL5eXm0pXjHZRJU5qXIF3bGylfHZJaA=
-X-Received: by 2002:a05:6a20:7f8e:b0:3eb:818f:619a with SMTP id adf61e73a8af0-4014bc4a0d8mr24485614637.33.1795749041766;
-        Thu, 26 Nov 2026 19:10:41 -0800 (PST)
-X-Received: by 2002:a05:6a20:7f8e:b0:3eb:818f:619a with SMTP id adf61e73a8af0-4014bc4a0d8mr24485592637.33.1795749041239;
-        Thu, 26 Nov 2026 19:10:41 -0800 (PST)
-Received: from jiegan-gv.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c87343f726sm12157354b3a.36.2026.11.26.19.10.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 19:10:40 -0800 (PST)
-From: Jie Gan <jie.gan@oss.qualcomm.com>
-Date: Fri, 27 Nov 2026 11:10:11 +0800
-Subject: [PATCH v2 4/4] arm64: dts: qcom: glymur: Add CoreSight nodes for
- APSS debug block
+	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=kJbcAVHm
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bMfUJ7VAPW0LllNY6+WSX4H4/bFbYm0+wWimE24K2PFIVIvlTr8AWuEHgwEaE4gROnZCytkcuD1mVaNCBHwU/E8/Si5Byov0ZvweYQwhC57Yxu/+OMpMGOmhPKNomw+wS/JFSfW2eaicdBao0JDEKrgSNCDIDV8ryZJFKRIV+ViV46SusrYBbit1I6vPgQqW2ukia4iwhvTVKlF/PecUBThuzy16IwVu6BBnbJlgS0pJT55BYkn5lzPHik8LKp/wjIHXiIz3uhl72yTXmYj12se0U9YMzWUVNeGscXKtYNPZVSb+nbuKb7TzytFTskm2CtlOdjzKfP0STdhvrB4Tmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EMLe8LWkgSUXyMsfd0GxqI5vD0B/G3cO6YJiSIbBonM=;
+ b=Hie2sBjnkFsAejskGCkLjpnUIQlthDqIn7xVYX1g85SonZCE658NlzuLW50wTSCu6OJO19lxRdfZg8olDlL2alxmYQQUerieRHrC9658dbi9VBJLHZs5xiND9/b+uOQuU1sxZ3M/NtHlxzuxrfnSTrUGD3b5fqwXCm8+cSF7UsUYe1e9zGeUF/ypa4NpVjnMjlYwjlAOu8bnxVjyURIGP/XU7jEBGRbB3XnnwiQlmBejNfkgfQxd8HZu0KqXBUXt6xIItcFZm3t/hGsm+A1YTKmrWDpQat9S8WVLEOtLAhA6HhQZkMfwA5gCsqx7o5k1dTsdazNe+Yvi2Yoowu/ucw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EMLe8LWkgSUXyMsfd0GxqI5vD0B/G3cO6YJiSIbBonM=;
+ b=kJbcAVHmkvxvKyAV9w6ph6deJxWujh+6ynNj5av6+LEI3KdEOIGnNJQHjsB551kcQ1tQtOhbhdz+twGAS/kdKFJmQvmzHcvWz8+PpgeXqhew5TwKRnIZMQTk7idI52L8dJGes0dRWblAeXJ3qgmIje7gPul11wYP+eQxraLY6dU=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by OS9P286MB4718.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:2fb::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.9; Fri, 27 Nov
+ 2026 03:12:03 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0662.007; Fri, 27 Nov 2026
+ 03:12:03 +0000
+From: Koichiro Den <den@valinux.co.jp>
+To: Manivannan Sadhasivam <mani@kernel.org>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	Shawn Lin <Shawn.lin@rock-chips.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Jingoo Han <jingoohan1@gmail.com>
+Cc: Qiang Yu <qiang.yu@oss.qualcomm.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Frank Li <Frank.Li@nxp.com>,
+	Niklas Cassel <cassel@kernel.org>,
+	Wilfred Mallawa <wilfred.mallawa@wdc.com>,
+	Serge Semin <fancer.lancer@gmail.com>,
+	linux-pci@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6 00/17] PCI: rcar-gen4: Recover from link down and route Root Port interrupts
+Date: Fri, 27 Nov 2026 12:11:28 +0900
+Message-ID: <20261127031145.2521228-1-den@valinux.co.jp>
+X-Mailer: git-send-email 2.54.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TYCP286CA0057.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b5::20) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,1369 +115,348 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-add-etm-devices-for-multiple-qcom-platforms-v2-4-42d47474a67a@qti.qualcomm.com>
-References: <20261127-add-etm-devices-for-multiple-qcom-platforms-v2-0-42d47474a67a@qti.qualcomm.com>
-In-Reply-To: <20261127-add-etm-devices-for-multiple-qcom-platforms-v2-0-42d47474a67a@qti.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Jie Gan <jie.gan@oss.qualcomm.com>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795749022; l=27406;
- i=jiegan@qti.qualcomm.com; s=20250909; h=from:subject:message-id;
- bh=hD15XZA8Hewnjy6anGtFD4FUKHu7t2/mWYKuWjmt2r0=;
- b=nXfSVAqBeyxhbm/Nlm4AFUT+NtvH1S+VQkqYi2nGftEHitA7XUfs2VTzaQB6Q+TZrAf2beR91
- c2RAE+KqxruD0smrQNnNCSwFHq/+hl5gZ+X72aCYw3KGAWmR1gK/Qd/
-X-Developer-Key: i=jiegan@qti.qualcomm.com; a=ed25519;
- pk=3LxxUZRPCNkvPDlWOvXfJNqNO4SfGdy3eghMb8puHuk=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDAxMiBTYWx0ZWRfXzanMlETGV5Dd
- 6r0QLd4X2AgZRzMde99NM+9BdPKwf9h7IPdCZA6PoYcuTRDOdqxomOeCsgqonlMOe2WXZJYsnOL
- CB21HGKA3dtdczn3MYprC4jSRWloZ+A=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDAxMiBTYWx0ZWRfX7ulgmuy4ltAo
- nXLNV27ulnAdv05P30skGafxBQvyofDm4hgANr89ZNny+biu3J2gSO0aUTnTkjsIhGV+XNLJWq2
- Iv+jRLoUL+0IWj/TRIcf0UHfxDxltdeN2T1WP3fk+47C5Izk1kQjw1iZ3yw33NW/RjRsj4Z7PeJ
- c01YSTUvgCUEXcS+XLUa6prs7I2KZ5pQ6+XVDMod0iczjbZ9kbZftYOpRq06ccF27DBs0jbq80n
- cJ8ZIX50WeH2ZcKRRFaKTEuhRQL7zeowcSIsQvb3YhJYXpQIvG3ChQjSzxBWeHEblH460Sw6z5l
- 1/OpqUce6rp3xnHIg9+i0jSwNmHzNfFg6ghbUlN9DGJ33jIxO+Ds+V63Q96yl6l5uNnjHJXV++y
- 19L3kzgVc4iejiEtkpuoGoLyePitZ+QBuS91JxaM2t1CYm3biWthIVlSer2pmAxcRj4UWhR7Xcj
- zucIeFpy8RMV4gvgSvQ==
-X-Proofpoint-ORIG-GUID: oTUr3iq-tnxJ17LyHo6ndhKLP6LGTPSy
-X-Authority-Analysis: v=2.4 cv=Z795j3RA c=1 sm=1 tr=0 ts=6b08f4b3 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=ce15j2tNVsKkWIhotFcA:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-GUID: oTUr3iq-tnxJ17LyHo6ndhKLP6LGTPSy
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-26_05,2026-11-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 malwarescore=0 clxscore=1015 priorityscore=1501
- adultscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611270012
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OS9P286MB4718:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2902c4b3-7538-47c2-5ddb-08df4c343519
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|10070799003|366016|6133799003|261009223027099003|5023799004|18002099003|921020|261102123227099003|10067099003|56012099006|261102130727099003|261026135527099003|261026121527099003|261026140227099003|261021121427099003|261028144727099003|261021123027099003|261022075727099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info:
+	j2TKV2qO6qVhL3gqNnWHljyqIAkKFrBUHy8zWFZARlm6I2fDxtFZYT/xVLP0jz5o77kc1hgLEbTycXRi9pxL92eRjrUVkPjUsNMeefr++M/XLydaSwOFzLlXjCcep3Fuz9nwKkpzX9L89B9TNzCkFlYbD8ELtYzsBXSQbNOQ7NUNMo5DKGvAudgIkocftrfJT4Pl6DIj++8IhdAhSXBPITB1e3JgnYjiUe7EyLIDTNxrZH5zZbvtceFhlXUcTk/JeE9DCE7oqqQJiHL7alC7Tf8pTkTfwGUOlAVD/C4CtBvsxm+sWVjLpl82b0d0HEqCFFRuSmQKIXssMcxDjOUcMZrAFMKcFCn/Gu39Is1znP+u/24zhKUfFaYX/TH28Ec7gZh92klB65ZNUozMiO+801LH9igwsLP+xuFqF0cyO8hyz+7/Oa9U0wsQQXc2p3uG/nagPxkiLdQciKKKjaWmVReoFfNKPhV6x+9ohhQgnAqnuemrS1GAJ8N9Tyq9i505CsZtrBbN/nND6H7cwm1Pvn/aOEh9n/dbztTUrdEhifVPLgm3uy1mJVBz62UCWW619z5PLZFYsDgSDwmV0GSbG2Tv0ReaJUp3NLktUk7WT3+onLCJjCMqXf/X66RGw334aVYdZQUG7oaoOM85B/WMswk6XNbWmOZvUK5mP1cx7ws=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(10070799003)(366016)(6133799003)(261009223027099003)(5023799004)(18002099003)(921020)(261102123227099003)(10067099003)(56012099006)(261102130727099003)(261026135527099003)(261026121527099003)(261026140227099003)(261021121427099003)(261028144727099003)(261021123027099003)(261022075727099003)(261022105027099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?GpzUDQUyIe9EHDLGjEQxh1RZ5ZDZc3GThNNjJQlMGIfcU2T51vg4N9ezNayO?=
+ =?us-ascii?Q?tvzemvcJZlC+aQz9q2qJy+lOypZSUfLM1RHFIPlCfPBgk6Xi3pdjiTKSoEl0?=
+ =?us-ascii?Q?qz9ppFZ52LewttXl1QRTlSR2sxXUHYaZsmX9B+OP+z0OcDgkBuWcMJjRfG58?=
+ =?us-ascii?Q?H/YGxA3zTGuZ3Z4c41ceTa9wOGtrRK6/JEfbXErkbrTXwtKiEFydLIt7B6lB?=
+ =?us-ascii?Q?oJim4lnBXHNW0sOtuFvftmPy9FobKkhO5xiA2jm4YSdVJLX4AoitmNswK3yH?=
+ =?us-ascii?Q?EUk96bSHqIx/bKgUU3ApGqNkE2VVDXCsEzbyhHr8unzr3cv0LAITNvQUsH1l?=
+ =?us-ascii?Q?WaZ7KEJ3Wri4rq7ckJUbKMVt7lGxTlxpP26w4pU1kTX4lKfuAVgamaR5RR3m?=
+ =?us-ascii?Q?ICcNvOgsNEi1+Jp6MgpQ83lnvZY5na9amI2xa8J7DHpTWGa2+0Bkl+q39Qpb?=
+ =?us-ascii?Q?3mSSVtlc6iYS6KCkYW+P4H++dxt7tEL0p2ZhHkZiSKiBIGyyCZX9BKZUBPLK?=
+ =?us-ascii?Q?URnTSiUljOTpPyboIrt9/BFaMhwMRWgeEmtg7b44MynseycY89EOJu+8qmQe?=
+ =?us-ascii?Q?uaCObdsu60s8FdIws6Xjpx4E1J+XfQ8MUDldnCvmpNALuy3I+olC8fKkx+kK?=
+ =?us-ascii?Q?8rUEaXPSV9SrSx4QA3yON95eP3uXHUe0jz2gMa1gH7xoooYr0kKDS0fApwD/?=
+ =?us-ascii?Q?Fo0DdfbVpRs01N4VZ+Qu9FJoH4d8RiNLJCeZqslIFmrZZ8drlOp51dO2HT4X?=
+ =?us-ascii?Q?BDziRfD8RxXMqHtz+skhtpn1w5k0IAS2lMeGMnoXivctlVCt8PbUu2q9RoKL?=
+ =?us-ascii?Q?zPxAnSeok1EwU1LVlBzcjjaLKDzwMO7+isKlJInJeGE8vaJupfAbMvJ8gS5B?=
+ =?us-ascii?Q?ugTp/TDqYksgBdnXBbSFi7IgXkDDr7b33Rg/5dnM8MMTVcAfLDGeT9FUSAzi?=
+ =?us-ascii?Q?Sli+HMP58lmudLZSX8AmkwdfiWtDF3Z9GP69R8wdGTf22sUAPhdnuKSa7rbS?=
+ =?us-ascii?Q?WG+/9Jy1fuNByIR1xalzxuFigrd5X/xpoIiTRYLX2Znla0tF3lTbbNnVVy7x?=
+ =?us-ascii?Q?Akgg9hCfpZ6qAhacAJ9GOcKgu61xTTRP7f/bKLBPzSj5FGP6aeIGRKwOYPHZ?=
+ =?us-ascii?Q?EAuUpGy5b1fZjgXCUKPk8ZJlQbqydHZK7Mm5oj2gqJnf5jFS8UzHb2Fn2WpL?=
+ =?us-ascii?Q?EcpfO07Pz1ntbakaWMfoc5H1hLKF1REXLiIcJMfZY+5gFiXOuDCPLhfHID8z?=
+ =?us-ascii?Q?mMXn879bqPe+jOpail88ZdWunXUo9QoRTqkYFrvNAT6JTEEoWPYvUAAZpEP2?=
+ =?us-ascii?Q?5rSyxsBP/l4EPme1zvInsaQK+qnctUnymOmJ7Wft1cHsv3uX9o8UK7soBUnA?=
+ =?us-ascii?Q?ikWoD41AET382HlGrTfqmnsYbw1v5s10hupWsl6habz1vWXIDWWP5dCm8KAa?=
+ =?us-ascii?Q?S+Z+/1VFYvVsB/RsItSBCd6Kw7gB0TTbxXpH/8ZYXa/KuEGlBQ+MWANAEfHu?=
+ =?us-ascii?Q?Zrj6qRxLNCvXbJ/TE26o+zsBgKtuzrqxHRSgV47Q9sHGrggSeEhgyS/CF2NV?=
+ =?us-ascii?Q?O0bpht3Xqtc+1Yp+Ll0RpAuAT8zBTBvTE+Cigd+m8GekgDVI3zxM6ez7GMTy?=
+ =?us-ascii?Q?18DFYuo5BUQirKE8nS9+dRaGjxVAofPjboyzoSVMmNqE/Pmi5Z9s7ZrfGGIf?=
+ =?us-ascii?Q?Z4WCG8F8Mo1nxA43x4vqtdpPLnaom4dt7b3Cyeuk7qzA/nOyM6R3D8QS8+4a?=
+ =?us-ascii?Q?IkLa4su6PxqNcqzoPpYoa8eLmO4Rj5DowBVr2CRIqeUTfr38OEBM?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2902c4b3-7538-47c2-5ddb-08df4c343519
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 03:12:02.9084
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PP1kXyNnRgJ1sbB2x8337MK5ijTKZEGs8EikmtzhLZzzVscGZ0yRCiZrrIbagSvOu7OEcheDGgwQhg5s+eq4yg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9P286MB4718
 
-The APSS debug block is built with CoreSight devices like ETM,
-replicator, funnel and TMC ETF. Add dt nodes for these devices to
-enable ETM trace.
+Hi,
 
-The replicator, funnel and TMC ETF nodes in this block are physically
-powered by the CPU cluster power rail rather than by a dedicated
-always-on rail. Add a power-domains property referencing the
-corresponding cluster_pdN domain to each of these nodes, so their
-power state is tied to the CPU cluster domain and the runtime PM core
-can power the domain on before the devices are accessed and let it be
-powered off otherwise.
+This series improves error handling in the pcie-rcar-gen4 driver, which
+supports PCIe controllers in R-Car Gen4 SoCs and the PCIe4 controller
+in R-Car Gen5 SoCs. It fixes unexpected link-down handling so the host
+doesn't hang, and wires up missing Root Port interrupts (AER, PME,
+bandwidth notifications) so port services actually work. I retested on
+an R-Car S4 Spider (r8a779f0). With v2, Marek tested the link state
+fix on R-Car V4H and ran the bandwidth notification and Root Port AER
+tests on a Retronix Sparrow Hawk.
 
-Mahua is based on glymur but only has 12 CPUs across two clusters
-instead of 18 across three, so delete the ETM and cluster2 CoreSight
-nodes that have no corresponding CPUs on that platform.
+A few hardware quirks made this tricky:
 
-Kalambo is based on Mahua with the first CPU cluster removed, so also
-delete the ETM and cluster0 CoreSight nodes there.
+1. PCIEINTSTS0 link-up bits don't track the actual link state. The
+   driver never noticed when the link dropped and kept trying config
+   accesses on the dead link. Patch 3 combines the APP link-up event
+   check from Figure 104.5 with the PORT_LINK_DEBUG1 live link check,
+   which patch 2 factors out of the DWC core. Startup clears the APP
+   latches before enabling LTSSM, and the DWC core polls the combined
+   condition on the RC side.
 
-Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
+2. On S4, a DBI access immediately after an unexpected link down can
+   hang the host. Commit 0056d29f8c1b ("PCI: rcar-gen4: Assure reset
+   occurs before DBI access") describes an SError on V4H after reset
+   deassertion, but whether the S4 hang shares the same underlying cause
+   has not been verified.
+
+   Adding a delay before the DBI access avoided the hang in my tests,
+   but that alone would not provide link-down recovery. Also, the reset
+   request shares intreq_pcim_sub with iMSI-RX, while AER arrives on
+   another IRQ. Delaying AER dispatch alone would therefore leave the
+   MSI handler exposed, and both paths would still need coordination
+   with the controller reset.
+
+   The driver handles the reset request itself and schedules
+   pci_host_handle_link_down(), as the rockchip and qcom drivers do.
+   This also provides recovery with older DTs that have no "aer"
+   interrupt, without relying on AER to initiate it. The reset callback
+   shares the reset sequence used at probe, including the reset-status
+   readback and delay added by 0056d29f8c1b.
+
+   This covers the interrupt paths that fire on link down. Port service
+   threads or work already queued or running at that point are not
+   stopped.
+
+3. Root Port interrupts only trigger APP status bits on platform IRQs.
+   The controller appears to lack SII2MSI, so Root Port MSIs never reach
+   the GIC ITS. The Root Port's INTx is routed to intreq_pcim_sub as
+   well, which the driver holds, so port services can't request it
+   either. This series works around it by hiding Root Port MSI caps
+   across the board and emulating INTx using a virtual IRQ domain, fed
+   by the "aer" IRQ and intreq_pcim_sub.
+
+Patch 1 is only loosely related: it adds Renesas to the RAS DES VSEC
+list so the DWC debugfs error injection works on R-Car. I used it to
+test the Root Port AER path (see below) and included it here for that
+reason. Happy to send it separately if preferred.
+
+Note: backward compatibility with older DTs is kept. Without the "aer"
+      interrupt, only Root Port AER remains unavailable. See the testing
+      section below.
+
+(Re)based on pci controller/dwc-rcar-gen4 at:
+2fcb7513361b ("dt-bindings: PCI: rcar-gen4-pci-host: Replace sft_ce IRQ with AER IRQ on R-Car Gen5")
+
+
+Proposed merge plan
+-------------------
+
+Here's what I have in mind (thanks for the correction, Geert!):
+
+To Mani:
+
+  I'd expect patches 1-14 to go through the PCI tree.
+
+To Geert:
+
+  Once patch 4 is accepted in pci/next, I'd like to ask you to
+  take patches 15-17 together.
+
+
+v6 re-tested on R-Car S4
+------------------------
+
+Setup: R-Car S4 Spider (RC) linked to another S4 Spider running the
+       pci-epf-test endpoint. pci_endpoint_test is bound on the RC side.
+
+  1. Link down / recovery. On the EP side, toggle the endpoint controller
+     off and on. The short pause keeps the endpoint away long enough for
+     the RC to notice, but brings it back within the reset window so
+     recovery can succeed. Adopted the test approach from [1]. Make sure
+     that the unused function 0000:01:00.1 was removed on the RC before
+     testing.
+
+     # cd /sys/kernel/config/pci_ep
+     # echo 0 > controllers/e65d0000.pcie-ep/start
+     # sleep 0.1
+     # echo 1 > controllers/e65d0000.pcie-ep/start
+
+     Expected on the RC dmesg:
+       pcieport 0000:00:00.0: Recovering Root Port due to Link Down
+       pcieport 0000:00:00.0: Root Port has been reset
+       pcieport 0000:00:00.0: AER: device recovery successful
+
+     and the "msi" (intreq_pcim_sub) interrupt count going up in
+     /proc/interrupts. Without this series nothing shows up here: the
+     link comes back on its own once the endpoint returns, but the RC
+     never notices the outage and the endpoint is left unconfigured
+     (see 4). Config accesses issued while the link is down hang the
+     host.
+
+     [1] https://lore.kernel.org/r/abFMa6DCGGLUHddA@fedora/
+
+  2. Bandwidth notification. On the RC, retrain the link:
+
+     # setpci -s 00:00.0 CAP_EXP+0x10.w=0x0c23
+
+     Expected:
+     - the virtual Root Port IRQ (rcar-gen4-rp in /proc/interrupts,
+       shared by PCIe PME, aerdrv and PCIe bwctrl) fires once
+     - bwctrl clears LnkSta.LBMS
+       (setpci -s 00:00.0 CAP_EXP+0x12.w reads 0x2024 again).
+
+     Before the series LnkSta read 0xe024 afterwards, LBMS and LABS
+     stuck.
+
+     This test does not generate a PME. The PME service shares the
+     virtual IRQ, but its path was not exercised separately.
+
+  3. Root Port AER. On the RC, inject an LCRC error with the DWC debugfs
+     (patch 1) and issue one config read so a TLP actually goes out:
+
+     # cd /sys/kernel/debug/dwc_pcie_e65d0000.pcie/rasdes_err_inj
+     # echo 1 > rx_lcrc            # error detected by the Root Port
+     # setpci -s 01:00.0 VENDOR_ID.w
+     # echo 1 > tx_lcrc            # error detected by the endpoint,
+     # setpci -s 01:00.0 VENDOR_ID.w    # reported back with ERR_COR
+
+     Expected on the RC dmesg, respectively:
+      pcieport 0000:00:00.0: PCIe Bus Error: severity=Correctable
+      pcieport 0000:00:00.0:   [ 6] BadTLP | Receiver | Data Link Layer
+
+      pcieport 0000:00:00.0: AER: Correctable Error message received from 0000:01:00.0
+      pci-endpoint-test 0000:01:00.0: PCIe Bus Error: severity=Correctable
+      pci-endpoint-test 0000:01:00.0:   [ 6] BadTLP | Receiver | Data Link Layer
+
+     plus the virtual Root Port IRQ count and aer_rootport_total_err_cor
+     going up by one each time. The link stays up throughout, the DLL
+     retry recovers the TLP. Before the series nothing is reported.
+
+  4. Regression check. Run pci_endpoint_test after step 1. PASS/FAIL/SKIP
+     counts match a run without step 1.
+
+Configurations:
+
+  a. Without this series**
+  b. GIC ITS, DT with the new "aer" interrupt (this series)
+  c. GIC ITS, DT without "aer" (b43aa6a6ebe8 ("arm64: dts: renesas:
+     r8a779f0: Add GICv3 ITS and update PCIe nodes") or later)
+  d. iMSI-RX, DT without msi-parent, msi-map or "aer"
+
+Result:
+             recovery   bwctrl       RP AER    pcitest
+  ---------------------------------------------------------
+  a.           none         no         no      all FAIL
+  b.            ok          ok         ok      no change
+  c.            ok          ok         n/a*    no change
+  d.            ok          ok         n/a*    no change
+
+  *  Root Port AER needs the "aer" interrupt; without it the behaviour is
+     unchanged from before the series.
+  ** I retested b-d for v6. Row a is from an earlier run with only
+     patch 1 applied for debugfs error injection. Nothing restored the
+     endpoint after the toggle, so all pci_endpoint_test cases failed.
+
+Best regards,
+Koichiro
 ---
- arch/arm64/boot/dts/qcom/glymur.dtsi  | 1184 +++++++++++++++++++++++++++++++++
- arch/arm64/boot/dts/qcom/kalambo.dtsi |   16 +
- arch/arm64/boot/dts/qcom/mahua.dtsi   |   16 +
- 3 files changed, 1216 insertions(+)
+Changes in v6:
+  - Rebase onto controller/dwc-rcar-gen4 and adapt patch 10 to the
+    DWC MSI renames. (Shawn, Geert)
+  - Adjust patch 4 for the final shape of Marek's patch:
+    https://lore.kernel.org/r/20261026224447.606715-1-marek.vasut+renesas@mailbox.org/
+  - Correct the DTS merge dependency in this cover letter. (Geert)
+  - Add Reviewed-by tags from Marek (patch 4) and Geert (patches 15-17).
 
-diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-index 165dfa11f17f..9dd23a52fb2b 100644
---- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-+++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-@@ -397,6 +397,312 @@ eud_in: endpoint {
- 		};
- 	};
- 
-+	etm0: etm-0 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu0>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm0_out: endpoint {
-+					remote-endpoint = <&ncc0_0_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm1: etm-1 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu1>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm1_out: endpoint {
-+					remote-endpoint = <&ncc0_1_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm2: etm-2 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu2>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm2_out: endpoint {
-+					remote-endpoint = <&ncc0_2_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm3: etm-3 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu3>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm3_out: endpoint {
-+					remote-endpoint = <&ncc0_3_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm4: etm-4 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu4>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm4_out: endpoint {
-+					remote-endpoint = <&ncc0_4_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm5: etm-5 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu5>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm5_out: endpoint {
-+					remote-endpoint = <&ncc0_5_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm-6 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu6>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm6_out: endpoint {
-+					remote-endpoint = <&ncc1_0_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm-7 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu7>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm7_out: endpoint {
-+					remote-endpoint = <&ncc1_1_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm-8 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu8>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm8_out: endpoint {
-+					remote-endpoint = <&ncc1_2_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm-9 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu9>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm9_out: endpoint {
-+					remote-endpoint = <&ncc1_3_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm-10 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu10>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm10_out: endpoint {
-+					remote-endpoint = <&ncc1_4_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm-11 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu11>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm11_out: endpoint {
-+					remote-endpoint = <&ncc1_5_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm12: etm-12 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu12>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm12_out: endpoint {
-+					remote-endpoint = <&ncc2_0_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm13: etm-13 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu13>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm13_out: endpoint {
-+					remote-endpoint = <&ncc2_1_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm14: etm-14 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu14>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm14_out: endpoint {
-+					remote-endpoint = <&ncc2_2_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm15: etm-15 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu15>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm15_out: endpoint {
-+					remote-endpoint = <&ncc2_3_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm16: etm-16 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu16>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm16_out: endpoint {
-+					remote-endpoint = <&ncc2_4_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm17: etm-17 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu17>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm17_out: endpoint {
-+					remote-endpoint = <&ncc2_5_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
- 	firmware {
- 		scm: scm {
- 			compatible = "qcom,scm-glymur", "qcom,scm";
-@@ -7456,6 +7762,14 @@ tn_ag_in53: endpoint {
- 					};
- 				};
- 
-+				port@36 {
-+					reg = <0x36>;
-+
-+					tn_ag_in54: endpoint {
-+						remote-endpoint = <&apss_funnel_out>;
-+					};
-+				};
-+
- 				port@3f {
- 					reg = <0x3f>;
- 
-@@ -7837,6 +8151,51 @@ pcie_rscc_tpda_out: endpoint {
- 			};
- 		};
- 
-+		funnel@12080000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x12080000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				apss_funnel_port0: port@0 {
-+					reg = <0>;
-+
-+					apss_funnel_in0: endpoint {
-+						remote-endpoint = <&ncc0_etf_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					apss_funnel_in1: endpoint {
-+						remote-endpoint = <&ncc1_etf_out>;
-+					};
-+				};
-+
-+				apss_funnel_port2: port@2 {
-+					reg = <2>;
-+
-+					apss_funnel_in2: endpoint {
-+						remote-endpoint = <&ncc2_etf_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					apss_funnel_out: endpoint {
-+						remote-endpoint = <&tn_ag_in54>;
-+					};
-+				};
-+			};
-+		};
-+
- 		tpdm@11c03000 {
- 			compatible = "qcom,coresight-tpdm", "arm,primecell";
- 			reg = <0x0 0x11c03000 0x0 0x1000>;
-@@ -8514,6 +8873,831 @@ rpmhpd_opp_turbo_l1: opp-416 {
- 			};
- 		};
- 
-+		cluster0_funnel_l2: funnel@1d021000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x1d021000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster0_pd>;
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					ncc0_2_funnel_in2: endpoint {
-+						remote-endpoint = <&ncc0_1_funnel_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc0_2_funnel_out: endpoint {
-+						remote-endpoint = <&ncc0_etf_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster0_etf: tmc@1d029000 {
-+			compatible = "arm,coresight-tmc", "arm,primecell";
-+			reg = <0x0 0x1d029000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster0_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc0_etf_in: endpoint {
-+						remote-endpoint = <&ncc0_2_funnel_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc0_etf_out: endpoint {
-+						remote-endpoint = <&apss_funnel_in0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster0_funnel_l1: funnel@1d081000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x1d081000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster0_pd>;
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					ncc0_1_funnel_in0: endpoint {
-+						remote-endpoint = <&ncc0_0_rep_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					ncc0_1_funnel_in1: endpoint {
-+						remote-endpoint = <&ncc0_1_rep_out>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					ncc0_1_funnel_in2: endpoint {
-+						remote-endpoint = <&ncc0_2_rep_out>;
-+					};
-+				};
-+
-+				port@3 {
-+					reg = <3>;
-+
-+					ncc0_1_funnel_in3: endpoint {
-+						remote-endpoint = <&ncc0_3_rep_out>;
-+					};
-+				};
-+
-+				port@4 {
-+					reg = <4>;
-+
-+					ncc0_1_funnel_in4: endpoint {
-+						remote-endpoint = <&ncc0_4_rep_out>;
-+					};
-+				};
-+
-+				port@5 {
-+					reg = <5>;
-+
-+					ncc0_1_funnel_in5: endpoint {
-+						remote-endpoint = <&ncc0_5_rep_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc0_1_funnel_out: endpoint {
-+						remote-endpoint = <&ncc0_2_funnel_in2>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster0_rep_0_0: replicator@1d090000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d090000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster0_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc0_0_rep_in: endpoint {
-+						remote-endpoint = <&etm0_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc0_0_rep_out: endpoint {
-+						remote-endpoint = <&ncc0_1_funnel_in0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster0_rep_0_1: replicator@1d0a0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d0a0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster0_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc0_1_rep_in: endpoint {
-+						remote-endpoint = <&etm1_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc0_1_rep_out: endpoint {
-+						remote-endpoint = <&ncc0_1_funnel_in1>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster0_rep_0_2: replicator@1d0b0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d0b0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster0_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc0_2_rep_in: endpoint {
-+						remote-endpoint = <&etm2_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc0_2_rep_out: endpoint {
-+						remote-endpoint = <&ncc0_1_funnel_in2>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster0_rep_0_3: replicator@1d0c0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d0c0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster0_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc0_3_rep_in: endpoint {
-+						remote-endpoint = <&etm3_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc0_3_rep_out: endpoint {
-+						remote-endpoint = <&ncc0_1_funnel_in3>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster0_rep_0_4: replicator@1d0d0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d0d0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster0_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc0_4_rep_in: endpoint {
-+						remote-endpoint = <&etm4_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc0_4_rep_out: endpoint {
-+						remote-endpoint = <&ncc0_1_funnel_in4>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster0_rep_0_5: replicator@1d0e0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d0e0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster0_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc0_5_rep_in: endpoint {
-+						remote-endpoint = <&etm5_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc0_5_rep_out: endpoint {
-+						remote-endpoint = <&ncc0_1_funnel_in5>;
-+					};
-+				};
-+			};
-+		};
-+
-+		funnel@1d121000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x1d121000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster1_pd>;
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					ncc1_2_funnel_in2: endpoint {
-+						remote-endpoint = <&ncc1_1_funnel_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc1_2_funnel_out: endpoint {
-+						remote-endpoint = <&ncc1_etf_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tmc@1d129000 {
-+			compatible = "arm,coresight-tmc", "arm,primecell";
-+			reg = <0x0 0x1d129000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster1_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc1_etf_in: endpoint {
-+						remote-endpoint = <&ncc1_2_funnel_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc1_etf_out: endpoint {
-+						remote-endpoint = <&apss_funnel_in1>;
-+					};
-+				};
-+			};
-+		};
-+
-+		funnel@1d181000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x1d181000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster1_pd>;
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					ncc1_1_funnel_in0: endpoint {
-+						remote-endpoint = <&ncc1_0_rep_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					ncc1_1_funnel_in1: endpoint {
-+						remote-endpoint = <&ncc1_1_rep_out>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					ncc1_1_funnel_in2: endpoint {
-+						remote-endpoint = <&ncc1_2_rep_out>;
-+					};
-+				};
-+
-+				port@3 {
-+					reg = <3>;
-+
-+					ncc1_1_funnel_in3: endpoint {
-+						remote-endpoint = <&ncc1_3_rep_out>;
-+					};
-+				};
-+
-+				port@4 {
-+					reg = <4>;
-+
-+					ncc1_1_funnel_in4: endpoint {
-+						remote-endpoint = <&ncc1_4_rep_out>;
-+					};
-+				};
-+
-+				port@5 {
-+					reg = <5>;
-+
-+					ncc1_1_funnel_in5: endpoint {
-+						remote-endpoint = <&ncc1_5_rep_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc1_1_funnel_out: endpoint {
-+						remote-endpoint = <&ncc1_2_funnel_in2>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@1d190000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d190000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster1_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc1_0_rep_in: endpoint {
-+						remote-endpoint = <&etm6_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc1_0_rep_out: endpoint {
-+						remote-endpoint = <&ncc1_1_funnel_in0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@1d1a0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d1a0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster1_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc1_1_rep_in: endpoint {
-+						remote-endpoint = <&etm7_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc1_1_rep_out: endpoint {
-+						remote-endpoint = <&ncc1_1_funnel_in1>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@1d1b0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d1b0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster1_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc1_2_rep_in: endpoint {
-+						remote-endpoint = <&etm8_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc1_2_rep_out: endpoint {
-+						remote-endpoint = <&ncc1_1_funnel_in2>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@1d1c0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d1c0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster1_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc1_3_rep_in: endpoint {
-+						remote-endpoint = <&etm9_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc1_3_rep_out: endpoint {
-+						remote-endpoint = <&ncc1_1_funnel_in3>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@1d1d0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d1d0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster1_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc1_4_rep_in: endpoint {
-+						remote-endpoint = <&etm10_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc1_4_rep_out: endpoint {
-+						remote-endpoint = <&ncc1_1_funnel_in4>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@1d1e0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d1e0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster1_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc1_5_rep_in: endpoint {
-+						remote-endpoint = <&etm11_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc1_5_rep_out: endpoint {
-+						remote-endpoint = <&ncc1_1_funnel_in5>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_funnel_l2: funnel@1d221000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x1d221000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster2_pd>;
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					ncc2_2_funnel_in2: endpoint {
-+						remote-endpoint = <&ncc2_1_funnel_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_2_funnel_out: endpoint {
-+						remote-endpoint = <&ncc2_etf_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_etf: tmc@1d229000 {
-+			compatible = "arm,coresight-tmc", "arm,primecell";
-+			reg = <0x0 0x1d229000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster2_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc2_etf_in: endpoint {
-+						remote-endpoint = <&ncc2_2_funnel_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_etf_out: endpoint {
-+						remote-endpoint = <&apss_funnel_in2>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_funnel_l1: funnel@1d281000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x1d281000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster2_pd>;
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					ncc2_1_funnel_in0: endpoint {
-+						remote-endpoint = <&ncc2_0_rep_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					ncc2_1_funnel_in1: endpoint {
-+						remote-endpoint = <&ncc2_1_rep_out>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					ncc2_1_funnel_in2: endpoint {
-+						remote-endpoint = <&ncc2_2_rep_out>;
-+					};
-+				};
-+
-+				port@3 {
-+					reg = <3>;
-+
-+					ncc2_1_funnel_in3: endpoint {
-+						remote-endpoint = <&ncc2_3_rep_out>;
-+					};
-+				};
-+
-+				port@4 {
-+					reg = <4>;
-+
-+					ncc2_1_funnel_in4: endpoint {
-+						remote-endpoint = <&ncc2_4_rep_out>;
-+					};
-+				};
-+
-+				port@5 {
-+					reg = <5>;
-+
-+					ncc2_1_funnel_in5: endpoint {
-+						remote-endpoint = <&ncc2_5_rep_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_1_funnel_out: endpoint {
-+						remote-endpoint = <&ncc2_2_funnel_in2>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_rep_2_0: replicator@1d290000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d290000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster2_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc2_0_rep_in: endpoint {
-+						remote-endpoint = <&etm12_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_0_rep_out: endpoint {
-+						remote-endpoint = <&ncc2_1_funnel_in0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_rep_2_1: replicator@1d2a0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d2a0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster2_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc2_1_rep_in: endpoint {
-+						remote-endpoint = <&etm13_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_1_rep_out: endpoint {
-+						remote-endpoint = <&ncc2_1_funnel_in1>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_rep_2_2: replicator@1d2b0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d2b0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster2_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc2_2_rep_in: endpoint {
-+						remote-endpoint = <&etm14_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_2_rep_out: endpoint {
-+						remote-endpoint = <&ncc2_1_funnel_in2>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_rep_2_3: replicator@1d2c0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d2c0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster2_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc2_3_rep_in: endpoint {
-+						remote-endpoint = <&etm15_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_3_rep_out: endpoint {
-+						remote-endpoint = <&ncc2_1_funnel_in3>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_rep_2_4: replicator@1d2d0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d2d0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster2_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc2_4_rep_in: endpoint {
-+						remote-endpoint = <&etm16_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_4_rep_out: endpoint {
-+						remote-endpoint = <&ncc2_1_funnel_in4>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_rep_2_5: replicator@1d2e0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d2e0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster2_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc2_5_rep_in: endpoint {
-+						remote-endpoint = <&etm17_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_5_rep_out: endpoint {
-+						remote-endpoint = <&ncc2_1_funnel_in5>;
-+					};
-+				};
-+			};
-+		};
-+
- 		nsi_noc: interconnect@1d600000 {
- 			compatible = "qcom,glymur-nsinoc";
- 			reg = <0x0 0x1d600000 0x0 0x14080>;
-diff --git a/arch/arm64/boot/dts/qcom/kalambo.dtsi b/arch/arm64/boot/dts/qcom/kalambo.dtsi
-index 868b924c4734..41218577777b 100644
---- a/arch/arm64/boot/dts/qcom/kalambo.dtsi
-+++ b/arch/arm64/boot/dts/qcom/kalambo.dtsi
-@@ -5,7 +5,17 @@
- 
- #include "mahua.dtsi"
- 
-+/delete-node/ &apss_funnel_port0;
-+/delete-node/ &cluster0_etf;
-+/delete-node/ &cluster0_funnel_l1;
-+/delete-node/ &cluster0_funnel_l2;
- /delete-node/ &cluster0_pd;
-+/delete-node/ &cluster0_rep_0_0;
-+/delete-node/ &cluster0_rep_0_1;
-+/delete-node/ &cluster0_rep_0_2;
-+/delete-node/ &cluster0_rep_0_3;
-+/delete-node/ &cluster0_rep_0_4;
-+/delete-node/ &cluster0_rep_0_5;
- /delete-node/ &cpu_map;
- /delete-node/ &cpu0;
- /delete-node/ &cpu1;
-@@ -20,6 +30,12 @@
- /delete-node/ &cpu_pd4;
- /delete-node/ &cpu_pd5;
- /delete-node/ &cpu_scp_lpri1;
-+/delete-node/ &etm0;
-+/delete-node/ &etm1;
-+/delete-node/ &etm2;
-+/delete-node/ &etm3;
-+/delete-node/ &etm4;
-+/delete-node/ &etm5;
- 
- &bwmon_cluster0 {
- 	status = "disabled";
-diff --git a/arch/arm64/boot/dts/qcom/mahua.dtsi b/arch/arm64/boot/dts/qcom/mahua.dtsi
-index e7141f8c9e0d..d2ac3e632ec0 100644
---- a/arch/arm64/boot/dts/qcom/mahua.dtsi
-+++ b/arch/arm64/boot/dts/qcom/mahua.dtsi
-@@ -9,8 +9,18 @@
-  */
- #include "glymur-cob.dtsi"
- 
-+/delete-node/ &apss_funnel_port2;
- /delete-node/ &bwmon_cluster2;
-+/delete-node/ &cluster2_etf;
-+/delete-node/ &cluster2_funnel_l1;
-+/delete-node/ &cluster2_funnel_l2;
- /delete-node/ &cluster2_pd;
-+/delete-node/ &cluster2_rep_2_0;
-+/delete-node/ &cluster2_rep_2_1;
-+/delete-node/ &cluster2_rep_2_2;
-+/delete-node/ &cluster2_rep_2_3;
-+/delete-node/ &cluster2_rep_2_4;
-+/delete-node/ &cluster2_rep_2_5;
- /delete-node/ &cpu_map_cluster2;
- /delete-node/ &cpu12;
- /delete-node/ &cpu13;
-@@ -25,6 +35,12 @@
- /delete-node/ &cpu_pd16;
- /delete-node/ &cpu_pd17;
- /delete-node/ &cti_wpss;
-+/delete-node/ &etm12;
-+/delete-node/ &etm13;
-+/delete-node/ &etm14;
-+/delete-node/ &etm15;
-+/delete-node/ &etm16;
-+/delete-node/ &etm17;
- /delete-node/ &pcie3_phy;
- /delete-node/ &pcie3a;
- /delete-node/ &thermal_aoss_6;
+Changes in v5:
+  - Drop no_rp_msi patch; handle it in R-Car host setup instead. (Shawn)
+  - Use scoped_guard() in the MSI setup error path. (Marek)
+  - Collect R-b tags from Marek, Shawn and Rob.
 
+Changes in v4:
+  - Rebase onto next-20261014 with Marek's Gen5 AER binding fix.
+    Only patch 4 needed changes.
+
+Changes in v3:
+  - Rebase onto next-20261002 with Marek's PM ops v5 applied first.
+  - Keep parent IRQs registered across suspend/resume to fix the
+    unbalanced enable Geert reported. Request them in probe with
+    IRQF_NO_AUTOEN and enable/disable them in .init()/.deinit().
+  - Use a freezable workqueue for recovery and reject suspend while
+    reinitialization is pending. Re-arm Root Port events only after
+    resume has set up the link.
+  - Factor out the PORT_LINK_DEBUG1 check (patch 2) and reuse it in
+    patch 3. (Marek)
+  - Replace .reinit() with .configure, folding v2 patch 8 into patch 9.
+    Drop the reset mutex and rely on PCI core serialization. (Marek)
+  - Free the MSI domain after host .deinit(), so the driver can stop
+    its parent IRQ first (patch 10). This closes the known gap in v2.
+  - Reset the controller if recovery finds no Root Port, so a successful
+    reset can restore interrupt delivery.
+  - Drop the raw lock around virtual IRQ dispatch. Preserve MSI-form
+    latches in irq_ack() while the IRQ is in progress or disabled,
+    avoiding lost notifications without nesting port service locks.
+  - Add patch 7's Fixes tag, clarify SoC generations, separate guard()
+    from goto-based cleanup, and simplify IRQ return statements.
+    (Marek, Sashiko)
+  - Add the V4H and V4M DTS patches 17 and 18. (Marek)
+  - Collect Reviewed-by (Marek, Krzysztof) and Tested-by (Marek) tags.
+    Drop Marek's Reviewed-by from the reworked patches 12 and 14.
+
+Changes in v2:
+  - Rebased onto next-20260925, including Marek's R-Car X5H support.
+  - Keep .link_up() and require both the APP link-up events and the
+    PORT_DEBUG1 live link check. Clear the APP latches before enabling
+    LTSSM and reuse the DWC core's polling on the RC side. (Marek)
+  - Let the R-Car driver own intreq_pcim_sub in all configurations (new
+    patch 10) and check the reset request from its own handler instead
+    of hooking into the DWC chained handler. Replace the pre_msi_irq host
+    op from v1 with an export of dw_handle_msi_irq() (patch 4). (Marek)
+  - Keep the reset_control_status() check before asserting the power
+    reset. (Marek)
+  - Separate controller reinitialization from .init()/.deinit() and split
+    out preparatory changes.
+  - Use bool flags instead of a state bitmask. (Marek)
+  - Keep Root Port AER notifications masked until .post_init, after
+    enumeration. In v1, they could be enabled during port-service probing.
+  - Keep APP interrupt sources masked if the Root Port reset callback
+    fails, regardless of the reset trigger.
+  - Hold a reference on the Root Port in the link-down recovery work.
+  - Clear only the MSI-form Root Port latches through PCIEINTSTS0CLR;
+    the INTx bits are reserved there.
+  - Serialize dispatches to the virtual Root Port IRQ from its two
+    parent interrupts.
+  - Collected Marek's Reviewed-by on patches 1, 3 and 15.
+
+v5: https://lore.kernel.org/r/20261020031049.969895-1-den@valinux.co.jp/
+v4: https://lore.kernel.org/r/20261015033103.3076869-1-den@valinux.co.jp/
+v3: https://lore.kernel.org/r/20261006084638.3821710-1-den@valinux.co.jp/
+v2: https://lore.kernel.org/r/20260928165230.3397664-1-den@valinux.co.jp/
+v1: https://lore.kernel.org/r/20260918032038.2216471-1-den@valinux.co.jp/
+
+
+Koichiro Den (17):
+  PCI: dwc: Add Renesas to the RAS DES VSEC list
+  PCI: dwc: Factor out the PORT_LINK_DEBUG1 link-up check
+  PCI: rcar-gen4: Check live link status in link_up()
+  dt-bindings: PCI: rcar-gen4: Add optional "aer" interrupt for R-Car
+    Gen4 SoCs
+  PCI: dwc: Export dw_handle_msi_irq()
+  PCI: rcar-gen4: Move deinitialization helpers before SoC
+    initialization
+  PCI: rcar-gen4: Assert resets when Gen5 SoC PHY initialization fails
+  PCI: rcar-gen4: Separate hardware setup from resource acquisition
+  PCI: rcar-gen4: Add Root Port reset support
+  PCI: dwc: Free the MSI domain after the host .deinit() callback
+  PCI: rcar-gen4: Take over the iMSI-RX interrupt
+  PCI: rcar-gen4: Recover the Root Port on link down
+  PCI: rcar-gen4: Route Root Port AER to a virtual Root Port IRQ
+  PCI: rcar-gen4: Route Root Port PME and bandwidth notifications
+  arm64: dts: renesas: r8a779f0: Describe the PCIe AER interrupts
+  arm64: dts: renesas: r8a779g0: Describe the PCIe AER interrupts
+  arm64: dts: renesas: r8a779h0: Describe the PCIe AER interrupt
+
+ .../bindings/pci/rcar-gen4-pci-host.yaml      |  16 +-
+ arch/arm64/boot/dts/renesas/r8a779f0.dtsi     |  10 +-
+ arch/arm64/boot/dts/renesas/r8a779g0.dtsi     |  10 +-
+ arch/arm64/boot/dts/renesas/r8a779h0.dtsi     |   5 +-
+ .../pci/controller/dwc/pcie-designware-host.c |  32 +-
+ drivers/pci/controller/dwc/pcie-designware.c  |  15 +-
+ drivers/pci/controller/dwc/pcie-designware.h  |   1 +
+ drivers/pci/controller/dwc/pcie-rcar-gen4.c   | 725 ++++++++++++++++--
+ include/linux/pcie-dwc.h                      |   2 +
+ 9 files changed, 723 insertions(+), 93 deletions(-)
+
+
+base-commit: 2fcb7513361b449384ef87200f9e1a20fc9053d4
 -- 
-2.34.1
+2.54.0
 
