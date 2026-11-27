@@ -1,56 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795817251;
-	b=EyBf+7Z+YGoP24LbsIr1Mq32zqQSccgi442gPD9811chI9itHzAmlL4pUkQBeuIlb1tz
-	 p7+vfTUGv+lHFdyDKy3MTzt1MbeQZY9pzA7qRvdmnOYuKcBEteXoqJ4Q0TtRll2Bzp0Of
-	 2T/D01JN9gMusubAHO+Ib1HGOqM/TIheOTT7c+r3uzoX3FYHAEZCnwTflu+uB9iPJYTWa
-	 ty3faC17GnWafTkElbQNTxiBPRXanyIL/U0Eeq8UojS+yjpsxB4GtkFrQSZZj8PyUBdis
-	 bpOJEwJK91UZafKn3TJkOHRSBdACfgn/HGNRe+7DxHQH1MoBTblobOoF/6NJsu3YwTw==
+	t=1795818740;
+	b=3ihWjOU2vVQG4H3rHdnqimiNyJu0qhJPFQzRAh3ADVKTfcJ0qlybPhZGJMbzrHKZIvLV
+	 sL5GjCFRNuJJNcGfc/d5RHvBl6ZCN0rnUYP0xtKN3Zy07Y6mIZnurJy83bJ9GInJUIYoU
+	 EKSyh4UckRMx7c09MjAUIIwhbCwh5sIgFpY3dydn75zPOgRs/yMb/syjevfE+UCZvwvS+
+	 jlsH6oh90X48P0+/zIQBCPUFsx85mLAu9xJ773CQsQkLuQaqLNAQhvdPPGCYv+hRLskyn
+	 /T451CtlxOLNklJVB69tl32NYKOymOKiEtsqi7Llbqjw7I9vx1tzAwxxvm/vA6w3Nvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795817251;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=b+TEcgQcMJk+dw72zXulogEackjisSyttnHoLvscCVU=;
-	b=ikNJYp4yrIgljHDjpq9Hn1V0FqOTXYyFClVR7Dw0VmWKwALu31B96vrZ/fTUPHT06BJe
-	 5yLBnl9aenGamJzyL2SmnLEyoRJIG/0Ebe6njZGy99JM8DzyL7vrPC4xYbbm5OwsD6nZ5
-	 9Ax175gxTMvol4o0qycN93eINBZ8vujVNTeLtb7D0aHozzBgA7oJLxJpcIIuJ/9yIJdT3
-	 AxDSFvyKDsgcicpu39HYXTwJcySssDD3OTEIvB3mDStARG19wEV78fTND/3LeOl3TVymu
-	 /jSALDClvf/thTr2vlm3TWNi2u/Q6vCDsRPCx2SJjA2kjtxEEShCveQTRc3kFPkzY9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795818740;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=0i1G/+YpV4sZoXtvA5HG/1gUD16tCeL0tcOTZF5OSg4=;
+	b=1/e96Jjzjy8oY08BYnXnmDKNDGC4PdOtcfWiiwv3zKWFgWJX9G+HuptNH924e+QtBtIR
+	 26ZaRciY2teG1NJ4BtFuz9xCI+FG/AupP13L8rX4eJ5YVWIF1BadHEF8+VGdtSJFYh/r9
+	 I/UgnHmCLYgoH+JSI/QnajyS4ysz8jwgYsj1mwphCMKwLA+dW0iywYaq8+ykk+UGRIJSE
+	 /USqaSplcTMJQlJvsTAnMWdZPoHmlb+f+GdmvVhfycTLZdMlJSqemj+CpwGrHkw+8Kuxi
+	 5lMyQzkvnD3Vx/oVit9N7EDonsqxgrX00PmEQEB3TF13gnmWMcvpCqFirV8ViXdIOkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WoM0rNHq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AH0UC1Ja;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8821606A31C
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 22:07:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD50D606A331
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 22:32:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD50D606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WoM0rNHq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 513EE1F00897;
-	Fri, 27 Nov 2026 22:07:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795817250;
-	bh=b+TEcgQcMJk+dw72zXulogEackjisSyttnHoLvscCVU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WoM0rNHq5hvKp6QxopGbVzPQ4WSBF/jIoSRxpl02QiM6nsevzC1CNgO0y4kQd+WIt
-	 MimWKphcG6AUzhSB+y+SS+RasHGMutXRi2tFtlzZdtjUZOkTawnIIfnzlIyh8WOrE9
-	 Fdoqm1/vV2zxWLiqgwOCPfUKvSfSDeUl6ZTo6u+/v4CcCa/RsrCSomn/EePKzwKiot
-	 3hVb1E9SoBHHKgkIRkdeA0X1ZW9Cpcos7WUT2TCgSC0Rkm0wnIl72DjepHWSJMYg04
-	 L/tqOO+Dnm9DtXQrgnqpIMbtA7+le9rPCTdBayzo4Ia/uX/yYDWpc6sxPSnlRsIiN0
-	 bUq+xBjk9+h9g==
-Message-ID: <sashiko-outbox-238319@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/5] dt-bindings: iio: adc: Add ADA4355
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <8813d3f0e71d8917d13db74e4432002bb57548af.1795816065.git.marcelo.schmitt@analog.com>
-References: <cover.1795816065.git.marcelo.schmitt@analog.com>
- <8813d3f0e71d8917d13db74e4432002bb57548af.1795816065.git.marcelo.schmitt@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 22:07:29 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AH0UC1Ja
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso7570477f8f.2
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 14:32:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795818738; x=1796423538; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0i1G/+YpV4sZoXtvA5HG/1gUD16tCeL0tcOTZF5OSg4=;
+        b=AH0UC1JaXTdM1K4oaYPHTi9yx537Mf0QnZ6//35H1UjhlmcoPR+ROTsEPP7PYipi5f
+         aEiLTiSntKha77pfMTEnwB5lu8RM5pW56Qg8SmxAluxiW3RVNLBCW1ltI4GYMY/MT+fQ
+         vHhOfr26GTL7STS3wJ7FmAKeMelcRh9JWSAZXg3vfBM+shGpPwxxCFGYOvsBQDGF9A5b
+         5iOC/RQ3Axju/x4Uh95KF3FIsPX0qwgq6r4Mc8oEWvL0gSDiuvvRzzE20/uzR253uSI/
+         SEbSgfNAhmNZPfHEtIjd3Fpd4pxCtGz293JYyVbHhbzcIO03neFYkZCQUm7v6iGUMGdL
+         5wXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795818738; x=1796423538;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0i1G/+YpV4sZoXtvA5HG/1gUD16tCeL0tcOTZF5OSg4=;
+        b=iVsnIezkv5tHb2DHA8/NheIaQe+X1/MruOTLnusjzHzJTke2DlSd6pUhNRv6zY7byI
+         WExSusLY4/mbva+ssGOW20VzIUEKNatW4Tohidnx4TtmOREgf5WSmVauoreCEWtSrVs0
+         BhzjGwnFYOtjlvEgVQpTPbyclw0YSA1hc9tei6kRzo/D/zEESMuMbWBKCj+r5aDtdYDj
+         c1P6kLIrulnd2GmhtxZC5Uphvl48/h/RS6p9UGUwLLqZdVFnd/qSJWHtKEeTfODnYeJS
+         FHpxed004kXzvw4MFrnNQxhu5H0bUsdYuf7o3510I2ldCiHyzbv5DuWmYmeXCPt2FRjv
+         UpOw==
+X-Forwarded-Encrypted: i=1; AL+hErGAYKrN1m1DyCOc8sWDFxEky36aXUzcRZoG+eSr6YTvZH/+fLorfGZv07l6s+JOYSrKzQ1q3y/5182n@vger.kernel.org
+X-Gm-Message-State: APuU4Z9EneDP5O46UqPt6vSCeFSANbMW0kHPkC5FjZl87mJRIWKXmIYQ
+	9m0/txamLf0rhYzqVqkR8IYrzEyFk2vdZnHzN6vbuRuurkVVL1JBh7IC
+X-Gm-Gg: AZFdTZet2eaxovsD+JK6DrdQytL6kZemxYB6n7JhKC9UqTfHmMVET11RbfYgE6GgV08
+	yCAEbUQDM3xncQR33puvXiwpYI5LPSXQJcpT3NZJls19AaclbkmRR03cXlJemf7NNQrYp1yvf+C
+	r/aoJFUyqb2XFvJbPJFFhkPYJ6n14g0dsyIiPb8b+cu+gOOxtUDfOO3/f4wRAkzvl4RaOZSC/K9
+	ZPTIEqTYJL8B8Yiaz19TuTVNMtoyzmEAnPSAxoQatSFCdH6mECNbU05UIRVc9Y3R68MVHJJXmbl
+	PxSzNnciI8rOFIE32InPkGUUc9jSO4g7J8wlVteoqWIFkU74SCoe+yygTbMbeCkvc/0XB4TXKBd
+	vbX5SqarM241UkuWAMqeFdg/S8y6bNrC1KLPQDUF4yQUs8Liq5w5mknkqUaW+ycgd4xerTZYUgA
+	zoYA4+zQ0TP3E/5k+5sZpzb3BK6Pm16fXUCh45IJQBjffq6Bvf0tI2TkPIlVRVXqhLxhFAMm0fj
+	6YtJ+QVdsXfDE9ragYzBG5iJ/gIu33f1yV2gXQOzymlCQfn0yHQ3+TofEuJTESYhVwCc7H9pcPB
+	2aEFfIMQmMNaCb2c+HFihMbaqwlLgaHBwvv55WACwhXAKng=
+X-Received: by 2002:a05:6000:288d:b0:490:a3e7:8af3 with SMTP id ffacd0b85a97d-4abb73b516amr57641981f8f.35.1795818737759;
+        Fri, 27 Nov 2026 14:32:17 -0800 (PST)
+Received: from localhost.localdomain ([130.61.107.245])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6bb989b3sm49465507f8f.51.2026.11.27.14.32.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Nov 2026 14:32:17 -0800 (PST)
+From: =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
+To: Alexey Klimov <alexey.klimov@linaro.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Sam Protsenko <joe.skb7@gmail.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org
+Subject: Re: [PATCH v2 0/5] Exynos850 ADC support and soc thermistor
+Date: Sat, 28 Nov 2026 01:32:14 +0300
+Message-ID: <20261127223213.2481987-2-tadilhusrev@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <DN5A4ZMSEDUO.FUSGQTLBRYFN@linaro.org>
+References: <20261125-exynos850_adc-v2-0-26de1c6f1717@linaro.org> <DN5A4ZMSEDUO.FUSGQTLBRYFN@linaro.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,132 +110,22 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issues to consider:
-- [Low] dt-bindings: iio: adc: missing maxItems on single-pin GPIO
-  properties
-- [Low] dt-bindings: iio: adc: typo in adi,lfp-gpios property name for
-  low-pass filter
-- [Low] dt-bindings: iio: adc: adi,gsel-gpios uses minItems/maxItems
-  instead of items
-- [Low] dt-bindings: iio: adc: copy-pasted pulsar_lvds URL in
-  io-backends description
-- [Low] dt-bindings: iio: adc: non-canonical property ordering in
-  adi,ada4355.yaml
---
+On Thu, Nov 26, 2026 at 04:23:15PM +0000, Alexey Klimov wrote:
+> Regarding number of channels. The Exynos850 spec says that ADC has 10
+> channels and, looking at the registers, the ADC_CON2 register (offset 0x4)
+> lists 10 channels as acceptable ones.
+> ACH_SEL bits [3:0] field in this register wants to see numbers from 0b0000
+> to 0b1001 (from 0 to 9) and lists numbers 1010 to 1111 as "Reserved".
+>
+> So, I tend to say it is fine to have it set to 10 if it doesn't trigger
+> any hw issues.
 
-commit d52bd9771b5186971c4b9ce320e630e432350d61
-Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Thanks for checking the spec. Then 10 is right, and channels 8 and 9 are
+probably just not connected on the XCover5. Reading them caused no
+problems here, so no objection from me.
 
-dt-bindings: iio: adc: Add ADA4355
-
-This commit adds the Device Tree binding schema for the Analog Devices
-ADA4355 and ADA4356 transimpedance current-to-bits receivers and adds a
-corresponding entry in MAINTAINERS.
-
-> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ada4355.yaml b=
-/Documentation/devicetree/bindings/iio/adc/adi,ada4355.yaml
-> new file mode 100644
-> index 0000000000000..d169619fef25a
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ada4355.yaml
-> @@ -0,0 +1,104 @@
-
-[ ... ]
-
-> +  adi,vld-en-gpios:
-> +    description: GPIO connected to the VLDEN pin for VLD output enable.
-
-[Severity: Low]
-Does adi,vld-en-gpios need maxItems: 1 (and similarly adi,lfp-gpios
-below)?  In dtschema, *-gpios properties must specify their length via
-maxItems or items, otherwise make dt_binding_check fails meta-schema
-validation.
-
-> +
-> +  adi,gsel-gpios:
-> +    description:
-> +      GPIOs connected to the GSEL0 and GSEL1 pins, in that order, for
-> +      transimpedance gain selection.
-> +    minItems: 2
-> +    maxItems: 2
-
-[Severity: Low]
-Since adi,gsel-gpios has a fixed two-entry list for GSEL0 and GSEL1,
-should it use an items list with per-entry descriptions instead of
-enumerating the pins in a free-form description with minItems and
-maxItems?
-
-> +
-> +  adi,lfp-gpios:
-> +    description:
-> +      GPIO connected to FSEL for internal low pass filter bandwidth sele=
-ction.
-
-[Severity: Low]
-Is adi,lfp-gpios a typo for adi,lpf-gpios (low-pass filter) or
-adi,fsel-gpios (matching the FSEL pin name)?
-
-> +
-> +  io-backends:
-> +    description:
-> +      The AXI ADC IP block connected to the D+/- and DCO+/- lines of the
-> +      ADC. An example backend can be found at
-> +      http://analogdevicesinc.github.io/hdl/projects/pulsar_lvds/index.h=
-tml.
-> +    maxItems: 1
-
-[Severity: Low]
-Should this URL point to
-https://analogdevicesinc.github.io/hdl/library/axi_ada4355/index.html
-(from commit "dt-bindings: iio: adc: Add AXI ADA4355 IP CORE") instead
-of the PulSAR LVDS project?
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vcc-supply
-> +  - spi-3wire
-> +  - spi-cpha
-> +  - clocks
-> +  - adi,vld-en-gpios
-> +  - adi,gsel-gpios
-> +  - adi,lfp-gpios
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    spi {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        adc@0 {
-> +            compatible =3D "adi,ada4355";
-> +            reg =3D <0>;
-> +            spi-max-frequency =3D <100000>;
-> +            spi-3wire;
-> +            spi-cpha;
-> +            vcc-supply =3D <&supply_3_3V>;
-> +            clocks =3D <&ref_clk>;
-> +            adi,vld-en-gpios =3D <&gpio0 89 GPIO_ACTIVE_HIGH>;
-> +            adi,gsel-gpios =3D <&gpio0 86 GPIO_ACTIVE_HIGH>,
-> +                             <&gpio0 87 GPIO_ACTIVE_HIGH>;
-> +            adi,lfp-gpios =3D <&gpio0 88 GPIO_ACTIVE_HIGH>;
-> +            io-backends =3D <&axi_adc>;
-> +        };
-> +    };
-
-[Severity: Low]
-This isn't a bug, but the property order across properties, required and
-examples does not follow the canonical DT binding sequence: clocks
-belongs right after reg, standard properties such as io-backends go
-before vendor-specific adi,* properties, and required lists vcc-supply
-before spi-3wire and spi-cpha unlike properties and examples.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795816065.gi=
-t.marcelo.schmitt@analog.com?part=3D4
+Adil
