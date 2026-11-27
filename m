@@ -1,92 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795802814;
-	b=kpbWB5M1muakkcZvQGj2K6ByDLVCMdWNTkuakE603iMvLZ+YNi2BGnU7Xhfg4zGq/r9E
-	 a/qLO7flM/m+1G1CQaxAQO3hA/pG20oyo3TOgUPLaD1WePp32EdkYwkTxDRAlzu+xvHZI
-	 3MXm3trfzTIdQ8gFeEBc9+HS84jOek1EkcoP1ee4AYgvT0eyftH6LlHI+dZnhFIzz0Tgk
-	 QiQlmoaVOY/syIzF3XERpBUnFC69+iPcx9Zg7QUT9mFGU9Ho3EacqvpHUaZ0PTOJTE/me
-	 GJTz73R1bM2JDT4q9MaWl9jhtKNntxH4wzqswu+kTSacosneHHt45hespoatxyriP4w==
+	t=1795802835;
+	b=eFMu0nw+pAJzIps1/5Nv2v7DBkzJY7F0pso41bD7E1xUCQl/IEDgNkZJLUZ2jw5nvcu6
+	 8QigkEROqKXyAT9LGGaJFd1+CARkabr8W1y49g7+oXdS6IYvJZxD5ZbcUYluBHvhEGpoA
+	 F5SY0mVE8weTPSCSDL8xsXCyODsjcS4Re8rKPsvYPEhWPqg/I6hqnveBggELpWWzwA9pF
+	 WwlLDvqdjDTYWG/BpQtY2uK74JjaHpo5X4S5DXrX/TW2mgYQArCPCinzxLchq/oUqDIsI
+	 SyfqW1QggPKicYsLXiEsyjNlytZrTDoFcwwsjlNnZNzr6DuGnZy5vVcdkwrVhvvwv1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795802814;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795802835;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 Content-Type:MIME-Version:Content-Transfer-Encoding;
-	bh=JMhmizF9rm/NvUf9wXz1bzC79f1tk9PLdnrYZqqxQsQ=;
-	b=Au/An3ZFP1j7ZNmJYRvYfH1Fx+/wUfmteRkrf6FMoQY3GsjXWGjD9hxVe/SOSar+gWtl
-	 FJ3xYsxI1Vsx4u3vFy5wDRbGnHi2aiAMIrrcdVZsf10ET00CpP+7pCWGPyohyWlSopS4f
-	 tpewoNx7jfRmcwV90wycCvlGXxTTmIvakTk6uforA5l7cM+wdsEMXOrovndCZOEhpPAiK
-	 fXygqBH1ZmUuAu7FnX1iYw2GVvyhBSYK5/A9mou7qoBdqFjfAN3xTijIftNHoAeofVeNO
-	 AkuFHfc46t4y0/yJrA9wpU2Nc/KFiJbJD7hKyBRfCb4JtB0z8cuS8M6SN7ZI6inJ9LQ==
+	bh=N4IXqSRG1pwptTB8gRp0YajkwGXGGA4iFphY2Hyaf8U=;
+	b=1aHQNTfhPD3Y1VT592kUUZbn3YnJz6n2FdCXl43s256bEscekqo4kI+0SbtIHhzRAuVx
+	 pYOlznzFXo+X3BreTETSLU2+oLC6xgm3R4gBdXbqXjS2aeIjBeplTb947qBxp5yIm8SSs
+	 FSi+trc69L9oE7UtyFJaf4i8CDqPWJVUeOU2rKCVI9E8+GhHrY3V1vdZBOaPYfNtHOYiI
+	 jw4mjvh+IfkqOjkPhVk9nx1vor1cQ+kOK9SnB7nFGHmYlbeRmUnLlY6JlJSKZLyjXDJYx
+	 3GVlglbz68xSQ9TaQhNohq66tZJQym6gt7dnrACxVNgcQIQ0pky0fKJRPcWgKntvKPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y9TTNwVj;
-	arc=none smtp.remote-ip=209.85.161.48
-Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vV7J3gzr;
+	arc=none smtp.remote-ip=209.85.160.49
+Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76537606A31E
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 18:06:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76537606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5ED8606A31C
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 18:07:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5ED8606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y9TTNwVj
-Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-71ad099391dso4011808eaf.3
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 10:06:54 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vV7J3gzr
+Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-483d290f398so4359421fac.2
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 10:07:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795802813; x=1796407613; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795802834; x=1796407634; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:content-type:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=JMhmizF9rm/NvUf9wXz1bzC79f1tk9PLdnrYZqqxQsQ=;
-        b=y9TTNwVjP6UCmujUMGevJiEol0AFP2ky/lNt5rQkZNqfDtyPQhhWpcRFKHicGdhgtg
-         USPGFmEp6lLjnKVzq0KAJ7E7zLCCHNdQ+lFzNMNu4JP9vgPbAeOs7iOGBuXKAEEK4ZJT
-         emmzmgphfL9jW8KmUU3sHoVnpNfJrK9OCye+FQMb36vnUnB+OIE2OugGUIwieK+Idtub
-         HVegVKuQBjrv/w/ZGFuogmr4POtDyN8FXdgqkG3QVpwpoQ+9iuVcxfts5p+Vk3yrV4Cg
-         LAvV4R3Dc5ZmAmOvQAJJQzVH8EsK6rZpOXsI2g9D+fa1fTYvaEK8YbLmGLHGHdf2ejm/
-         ahhw==
+        bh=N4IXqSRG1pwptTB8gRp0YajkwGXGGA4iFphY2Hyaf8U=;
+        b=vV7J3gzrc2Ynuj6Kl8R/Gqecn+9qYz5vEkrgs4TQJH5XR/fxcZXk6gC6a213kF/wJX
+         3KosVliZRBSjj4KdOS8ljP3kxqc01HhnlnZlc6/PfyfzWu1fTt8+bT8S2T0HtIolyM1f
+         fEwQRigkIaGkbUyKzBqbeU9X8ZMYZ9WFf7hmBptyYpVyoEvjAdy7ntVqETkF4F95mDBZ
+         FLNoJ5HrsVU2gSi/GM31yCkXka5qL0FSKhhHIZvM6ibu/76PpICq7VO/2eT0dO9cGrPX
+         /cuI+G45+Ah+BUlLJrwvbQR/lYgbMpZCgE6uOTgUEwCSuDfE8nF0cePmsg51fiqBEvw1
+         YodQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795802813; x=1796407613;
+        d=1e100.net; s=20260707; t=1795802834; x=1796407634;
         h=content-transfer-encoding:mime-version:content-type:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JMhmizF9rm/NvUf9wXz1bzC79f1tk9PLdnrYZqqxQsQ=;
-        b=QfPetli4t5VTTdN1nrR0RMQy6Lj23saL6vV9W5ImZwEKDsHr6Tbftaw2jbqGZy6vil
-         BMVLUTP9AaFiwxZrtW+sdHCLXq9crx2E+dP/igexqpWI8O54zF1UxSAQFRNKJ9fybCEb
-         Yo/TWd4tW3xamd+AyuPsWDGFhwZX6/2J68LRtkcHHB6fiMBnH0Qx6LlGgF5P7PBoQHUR
-         zckdcYrgaRe/U+493SUUeSoVxmMtdsCz00C4GPIHnJpSQXwL0jbRvGJBVTfsG0XvvWY1
-         Krzs95xLpts+s7na8fcFi9vwZByyt0am35ldiB9mUEcyZuXzYT+nPcTWu3fstT24/yll
-         zStw==
-X-Forwarded-Encrypted: i=1; AL+hErFMSdohaIGrv0bBfSkk/kEkkBWuemgRXoo1K+HuOklhVoZLUpwfjPNvCx9zou34So1ZEAIoSdCpoqJK@vger.kernel.org
-X-Gm-Message-State: APuU4Z/4HXY0/t8WTiK2eqpvOur9awdITGxcUdwjrVbI432S9llcP3z8
-	iTItcRfs02KkOWBWL+BNTw35p2JmjcQGTNtMs/DIkfNB+GB3Vt5JBgoL
-X-Gm-Gg: AZFdTZdpTZk9khewLyc4qVrsfHqnKlwHOi+vEvyVyvz3rJQVwHrEx4y+8kSMGKjrnFq
-	iUixc+Kk61ndx1PRwuJs5MmIzqquSdYKYUpokulCMgyev8i7aXALLKOPkmD0eXMWdzLUXwRpGsW
-	BDWyXc1VuT3z84NgRPj52/NY2q47u4T2/JtL4c4cXo75qirsagwbl49ibVE+JOsxkddvcXQ/9/w
-	C5O1J0060ga9DaRe9XbuPEyM0RzUIt3pbeTjfJi3x5YyLUJI+oFsuBfKzdIcoKpw8oayShPGCjY
-	WK0/ird4OrSu0THaOuhmg0Zs8QMrdSChldKbCR3h+1RnDhfs0lt6AjO5osxDmFNXD/qugqab1L7
-	wx+HAtY9ziMvsACrWYcCyjv2jATKyT8tTY9s/YQSY35Q+d3vOLWZJMkjD9RcmVZikxyW1Sd7qR6
-	n6GumPQ7bmfHUw27SggF01liXpDncFpV37LrhXyEwleTIIWpHNqBvz9bI2JjjGFsssB6FwJJ60t
-	y+EuXHU2NjOR799pXtmlgMOy9f3TeeoMAmqGDqRqDgsbcFbwOUTwCpBXocDA39QrpzflfUXB6Wd
-	8Dk8pWEVxdjJnAyx2Y10sBZE0bb15C39bI/WtQVDg/2J8PJjo1ZIdjT/TfhvFmAO8JPbtszn7I2
-	/72s49g==
-X-Received: by 2002:a05:6820:a74d:10b0:708:c97f:5541 with SMTP id 006d021491bc7-71b394868bbmr14209997eaf.37.1795802813364;
-        Fri, 27 Nov 2026 10:06:53 -0800 (PST)
+        bh=N4IXqSRG1pwptTB8gRp0YajkwGXGGA4iFphY2Hyaf8U=;
+        b=xjMDA3pCYra0r/3ibdZWraD7cgJzMoXIPBJdBb/z6cwxmCN2muyx5YWLjSdi/Q5q83
+         Bl0ouQqPh3Y7jW7BEFXT5m9nARK5p3wgf6O5j8ZkdvhWLO+y/NMQvnu8us8egI9KiuFU
+         G556cf7wO6LLkJf+AduJAX5N60lNkt7NAjUKixRVs2lB0hVngr7tf3GXxB7Cvb2fluIi
+         3dgZ7pqem1mgN5vm9vcEOROU8cZ2cS6GlHwAGI9F0H8M9GouG1SPMgKeONAChC5QxKD4
+         RtWeRuqT2UUbsiDB+sENh2OkaY/+yfD5YBiVsh8dUO8QD+e0p0s6sFgaZrq3eRIOVtWH
+         uVbg==
+X-Forwarded-Encrypted: i=1; AL+hErHx7feT0slCxPSSu4068UKInwY3e8P7/Zo74lez9VEyWSWD2OMnkZmwc5gcRX3A53IWRblINmQmqWwD@vger.kernel.org
+X-Gm-Message-State: APuU4Z8HiQunVi7p+YYP21tznZgok6Ry4penYwF5gTOClFIjCrOkVfoz
+	y9p9npsYm6XKKdl1yoQpnSKxZPfo0rOS+GioHYTVwMZPPgHOOR8VfSnr
+X-Gm-Gg: AZFdTZfyqT6xGyaKP3+qPjP8pHA0jj1MX5myPaHWV/Xb3u2fFTbhMVrAI5Ag9+zt/dI
+	ZZtwzKYcK7aVSha51MNGBNxrING3UDiDRJ/sG9xvhKXUbHXQFXbMrOVrJG1D4MT2vm+HAALVeOo
+	NKP6aZU62YdG2Wyd0zMEESeK+u2CpbipTYkwWi+iK/81CCQAg4NfAOcz2jo8VHh3Cah6z5Z4I/B
+	UH5Cb+U6VvWw2DTFHI/eTKwQlg8qK5NO/cYur+0oV6bdWBzqBgUIhhB75LgV2Y9j57CpvULy0AK
+	pQCC7Tnjfo5D1T3Eq4RkjfZp4y73raAlITNl9eVLr0agHZ9XOapoKl6XePxDzzvTREvk71mFrmP
+	AMCXQEjgv0HaFxrMJv9zJ9UzQGpdVvwNJjESnTIGrQyl+0Bemx+TlTSmhSfTluIYwqyW45wICZM
+	eMAXoKHF8yTWfgU4phNuCuQmrkmqmmbxckr1War6KRU6I59UDKAhcd71g72FZHCDayw4eX+BZBs
+	NUkczj6+bzU4VlXOUWn2buNqEZiH3CHeGaL5H4qX3rCTdXWQxMGYdgcTOqCc02giyY4Y4SqyzZ8
+	+JVYIBFeRWWqZ6hJ4ybLfGR9ZKUwd815TIBX+gRxFQS+JBMA8B3MTlT1XBRlcz0GRbVdKp+G012
+	tKAdoNSg6ceW3CYdAfDfOYUyoSQrC
+X-Received: by 2002:a05:6870:440c:b0:4a7:6dc:af5f with SMTP id 586e51a60fabf-4bc858f9583mr23176950fac.53.1795802833555;
+        Fri, 27 Nov 2026 10:07:13 -0800 (PST)
 Received: from AMD.home.internal (dhcp-9-244-8-156.gobrightspeed.net. [9.244.8.156])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-863168f6d33sm17220715a34.18.2026.11.27.10.06.51
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4bd3008160dsm23406139fac.16.2026.11.27.10.07.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 10:06:52 -0800 (PST)
+        Fri, 27 Nov 2026 10:07:13 -0800 (PST)
 From: Enzo Adriano <enzo.adriano.code@gmail.com>
 To: andre.przywara@arm.com
-Cc: jernej.skrabec@gmail.com,
-	robh@kernel.org,
+Cc: robh@kernel.org,
 	krzk+dt@kernel.org,
 	conor+dt@kernel.org,
 	wens@kernel.org,
+	jernej.skrabec@gmail.com,
 	samuel@sholland.org,
 	Maxime Ripard <mripard@kernel.org>,
 	devicetree@vger.kernel.org,
@@ -102,12 +102,12 @@ Cc: jernej.skrabec@gmail.com,
 	Lukas Schmid <lukas.schmid@netcube.li>,
 	Cristian Filipescu <filipescu.cristian@gmail.com>,
 	Norman Herms <dockseed@proton.me>
-Subject: Re: [PATCH v6 2/5] arm64: dts: allwinner: add A733 SoC description
-Date: Fri, 27 Nov 2026 13:06:50 -0500
-Message-ID: <20261127-a733-dt-v6-01-reply@gmail.com>
+Subject: Re: [PATCH v6 3/5] arm64: dts: allwinner: add Radxa Cubie A7S board
+Date: Fri, 27 Nov 2026 13:07:11 -0500
+Message-ID: <20261127-a733-dt-v6-02-reply@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <9ab5f851-1b56-49ed-bfdd-46abdbdda1c0@arm.com>
-References: <20261126-a733-cubie-a7s-dt-v6-0@gmail.com> <20261126-a733-cubie-a7s-dt-v6-2@gmail.com> <p3YaXlLJTguQBGnWyMpb1w@gmail.com> <9ab5f851-1b56-49ed-bfdd-46abdbdda1c0@arm.com>
+In-Reply-To: <0a7f4a31-81ac-44ee-8cd2-7b5526af7442@arm.com>
+References: <20261126-a733-cubie-a7s-dt-v6-0@gmail.com> <20261126-a733-cubie-a7s-dt-v6-3@gmail.com> <0a7f4a31-81ac-44ee-8cd2-7b5526af7442@arm.com>
 Content-Type: text/plain; charset="us-ascii"
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -120,30 +120,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> But it's still compatible to the D1 MMC controller, isn't it? As in: a
-> driver capable of supporting the D1 MMC IP can also drive the A733 MMC.
-> I think the voltage regulator is a separate problem: it's external to
-> the MMC IP. The vqmmc supply property is documented and usable, and the
-> availability of the regulator it points to is a separate issue.
-> The same as the H616 and A523 have the voltage switch already, but are
-> still compatible to the A100 and D1, respectively.
+> > +			linux,default-trigger = "heartbeat";
+>
+> I don't think we should have an LED wasted on a heartbeat when there is
+> already a controllable power LED. I think a second LED should be left up
+> to the user to configure. If they want, they can always set the
+> heartbeat trigger via sysfs, although I'd probably do this on the power
+> LED instead.
+> So I believe there should be no default-trigger line.
 
-Agreed, and the manual backs it. The A733 User Manual v1.00, section
-11.3.1, lists SDR 200 MHz at 1.8 V IO for SMHC0, but the SMHC register
-list has no voltage control. The Port F pad voltage is chosen in the
-GPIO block: GPIO_POW_VAL_SET_CTL at 0x0200_0070, bit 0
-VCC_PF_PWR_VOL_SEL (0 = 1.8 V, 1 = 3.3 V, reset 1), section 18.14.6.3.
-So vqmmc for mmc0 would be a regulator provided from the pinctrl side.
+Agreed, v7 drops it.
 
-On the A7S (schematic v1.10, sheets 4 and 7) both Port F supplies are
-fixed rails: VCC-IO, 3.3 V from SWOUT2, and VCC18-PF, 1.8 V from CLDO5.
-There is nothing to point vqmmc at today.
+> > +	cd-gpios = <&pio 5 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+>
+> Since the Allwinner GPIO notation with bank and pin number is hard to
+> read, we always add the pin name (PF6) as a comment, see other .dts files.
 
-Unless Jernej still prefers dropping the node, v7 keeps mmc0 with the D1
-fallback and no-1-8-v on all three boards. The Port F switch can follow
-when it exists.
+v7 adds /* PF6 */.
 
-Jernej, if your "emmc" meant SMHC2, I can also drop the unused mmc2
-node; no board enables it.
+> > +			reg_eldo1: eldo1 {
+> > +				regulator-name = "vdd2l-lpddr";
+>
+> So I saw the same issue on the A7A, also with LPDDR5: the schematic says
+> 0.9V, but at boot time it was 1.075V. The kernel corrected it to 0.9V,
+> without apparent problems, but I didn't stress it at all, so can't say
+> whether this is stable. Various LPDDR5 datasheets suggests VDD2L should
+> be 0.9V, or at least in the range between 0.87V and 0.97V, though in
+> some configurations it can also be tied to VDD2H at 1.05V.
+> So we are none the wiser, I guess, it would be good to figure out what
+> the PMIC reset value is for ELDO1, so to know whether it's the
+> vendors(?) DRAM init that deliberately programs EDLO1 to 1.075V, or if
+> it's just left untouched.
+
+The reset value is not in anything I have; I have no AXP318W
+datasheet. Reading ELDO1's control register before the boot firmware's
+DRAM init would settle it.
+
+> > +			reg_swout2: swout2 {
+> > +				/* VCC-IO to the console and microSD. */
+>
+> I guess you mean "GPIO headers" instead of console?
+
+Yes. VCC-IO supplies Port B, which goes to the GPIO headers (including
+UART0 on PB9/PB10), and the 3.3 V Port F path for the microSD. v7 will
+say "GPIO headers".
 
 Enzo
