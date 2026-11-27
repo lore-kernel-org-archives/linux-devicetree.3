@@ -1,88 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795771054;
-	b=Ci2uh10ilxsRdaFzoKway0ZpCZLk/6yhCAQ8Kx0n90iXAggzHZBbp78f/7oSF/LoDOVc
-	 7e+2/qBStRLlnLGBSoLyoX9tOMBsRG7iZDDTCrKQmu1GzOWLfoiU7kiAMpgoX7AOdPt01
-	 4XAH+e9Yq2HfvL7JhkjXWBHCv0Uyz2RhxwaoKFQSpCpZ2G6uq3PABnTiS1/yHNN+dnUvT
-	 +Wvo5CS6nZJfzYYWaAK6LDHMBaOaw1tgmfngQ9seEypPYeCX3z99V6Y5j+6v2IVRgdPpa
-	 iYNQkBAlDDi4PfelMVu+BcnRN95YtEfLtlcCxRz+8lK9QMcmMV4C3vJcP+d5mA6ZgVg==
+	t=1795771217;
+	b=sNmwiE3LDg8/I0W3bRSU9jtitgjoJuYjzQi6gC/LrC8FXRJ1CEeDpKoC1miERd2oX+y3
+	 pJyF0kxrOHlctpHDw3CwtMrIlWiB9xtYL944hnSM9QUdFMFmxMRUq3SnVVrFGvrlk6Amb
+	 KZTwLo0px345HBsdk/GnI0I+NMUf2DVqfKn7kMEFgBSReWAF6DHfdGFumPaxoshcmTBOo
+	 1rU8rudBRJF9xgc87DJ6GqRzNVJGTKxNnqzeL/ywZV5LK3VIWXAXfQ0B9ztr0hdy84gaz
+	 rBMk3TFgcaglQ1bxCcOn0jcYCutaZWYvwxtQzTOyYnYPiNTSUnKo+VyuJ3p2fI5rESA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795771054;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=iJDwnblXoPc0E7sZTKvXtcZa2lLf2LQdU3Jx0B40YZ8=;
-	b=fVeFpQLftalfn4oOZSCY/tzp3rTuXmjSvbPWX3FlhTJQHjKKmgWMBMC7ExATKUcPGZFo
-	 91KFLbnn/XeCNr3UHhnWpdDhWaPnFXSEs8qPYDXG/gOCfUz1AOHQPK4pOmwZnx55KHYsx
-	 gyja1SxgTiQpzDMIbYsSYaUf5ZCQ2YRnSxKm9pYDSf0X+3WlcsyegOL/M0RPDOEml6/Q9
-	 6/6Lg3BGEIFbl1btcXpwS62JG4++ppUuZ7inJtOg2NczhnfO8YmpEDcFVZdonybPgK4HW
-	 b8+byEA+dP+z3g2iNyhvsxeuy/g95/9vUvH8gPPfaR8klmaO5rjGgz7cd3VPxwNfOEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795771217;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=y/NG1FSwHBbc0nUUF5aO57OLyJ1BvD+9ME8Dae08+30=;
+	b=inan0RURoKYB7mHZm6YB9D9eh+Mvm7Md33frDUEvWBJxXkvr2I0lJKU0Otve7OwEryZX
+	 oxgdZAQ/Kirbq3xxDrBUEma34a6SrgtlnQRqSXrvvP/n4Ldujy/XuI+qpOWYtUezIB9+u
+	 TyYYGQxFORCijge7o8UUJl/Kwe4ZEz3tdU3PLGQmj8PCxXkzKZbrZ130ALMT4zWMwb0zS
+	 gB/BaJViyAO9gTtASCTspu9PCHKIJ06tK076IjabbqT7gL7eHTJVG2CSVpMN7tBnx4NEo
+	 RkL5AOgJ6/Rxc7FSahk95X4BPgLGOxBYBVfUjylU7rRfYJ8/XJEEUUAK6GokDJ+l6bA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tuxon.dev;
-	spf=pass smtp.mailfrom=tuxon.dev;
-	dkim=pass header.d=tuxon.dev header.i=@tuxon.dev header.a=rsa-sha256 header.s=google header.b=aI0lqB3a;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H7XR97pU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CFA5606A323
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 09:17:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CFA5606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B64606A31C;
+	Fri, 27 Nov 2026 09:20:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.a=rsa-sha256 header.s=google header.b=aI0lqB3a
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4bb64ef5a00so63899835e9.3
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 01:17:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tuxon.dev; s=google; t=1795771051; x=1796375851; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iJDwnblXoPc0E7sZTKvXtcZa2lLf2LQdU3Jx0B40YZ8=;
-        b=aI0lqB3aCQ/4qBvwVRrDv3T2pKd7GIXvwQaW/Zh+LDPEWa17gOnnrr1BRlBIiBDLGi
-         3xPfRxJaZjTyG/xvFc3dneK3xD/vNNrfe7lzCHKDtGApXlb18j3sVqNfkNpyZlK6n953
-         YXQWqBLq6DgnAMebNL03Z+0dRUS7k1lzTKtoLXWxp18A2ag/Vuu/j9v/pXqDglpge3+U
-         0aSVeDRd0euIBB0pClkJqh+3k8ujN4D7hiwgn+JHi6wQmvh/EL4Kk4CFcoCmmj/IueNy
-         dsgWcm41bUvXD8zNf1yL+83BWKY+VC6T4IQuzt9lZYBAlNR/nIKXUaaUworjOtwk/D1z
-         Ktag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795771051; x=1796375851;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iJDwnblXoPc0E7sZTKvXtcZa2lLf2LQdU3Jx0B40YZ8=;
-        b=IKeTEDsjj6OPGndCUE/tqwrwpZPnUD+uJwVtRa4YOLDrJ4mbGEixXcZCllqy5/0WzW
-         TUGwki/MAlYzBsX/xJ3yq2YZHaapjPL9VXxP8V0HdLaExfcfvrOlim8Yq9fj8A5KA9a5
-         QFXwUfwfSHTc2YPBZ2tKGzkp63JcrFl+TICUpA8iWq73QufCxKtv0l3cpqmd3e/cGseS
-         Mh57uOSFzScVQj9FDVoXtAHHD3VDviHoq6ZZ9gxTogXm6aSTXFmGIsmCv7aM29XWGVUk
-         0WqXzCvTcQfICS+vkJoTtECxAqq9fJQU7Ewp7UNPuyZ0EdUlD2i8u0l4i1USKWZPvlqY
-         oZOQ==
-X-Forwarded-Encrypted: i=1; AL+hErF2zeGl6y0YR5PCNau9UJRC75Ei0sfE2E3Wzj5/ixUF/GTB0czbcoSnZJYin+KV8hVUElkqUiRX1nWp@vger.kernel.org
-X-Gm-Message-State: APuU4Z8tYyZMFKPXPkrgSTnV8ympk4A/9uHFcD1qDDm55APyr5p0q1rZ
-	p/+SwKS03INtI1iaovqAoSw1ZGJPbognm/r03IwhS8WL5Wd1TMu3y4ZNayOuRiobT5s=
-X-Gm-Gg: AZFdTZeSzIIegwsoGQ+synF7AU/6gF8fZLDetHEHaYqKE7P9tFCGAGZKOy+FK4t/ZrE
-	z+ja7sQlJ1s1xCvV/GjIibOSbgyWR52nUB/rJWF+IfJN1cD+1CAcKj6QTo9lfs3DlK+f058rtnf
-	wwX4p8wv2WEQSsHQvmk9Nppt9Xaw2ie5hJbIT1hxJ0xv9qFA6NGqhjpgimNheBOXl2Xz8+S/P+W
-	6xmG/7nCf6UMDWFxmkGrAVXkXVyUSpdKw47F7qA4OKE2CcukvEhj9UF+ddM/pES3YaV2RAQTz/y
-	PIp6NPJPPNXDINdVdczknbxIBRCPqzZBwvXv4Z02aaUf3MHcuyxajUwcMKyc+Idt5eyNro32TOl
-	GuB6UGkmyBuLBaz2RK1HnWSOp66SCtupMR7hZPon/32Bh1I9kwVAjv//N95FZllg8UK83yxlfdo
-	LTCEyapmK2ZzxLcWif8aUEgXP+heTTYIJ+YOPTnS0G4Ayv9TNpxcpI1v4nW/1gX5PEFYCoIQb4K
-	UWxQea9d9/1DQzsjaIPBmCVLWh9IjJAbnvRBiV3G5g2m3hENAZ8qZPSg2dW+9JMmwZnE3mS2q9E
-	/Slmz/w8Pk2AgaFRnjUwVRwrtBxIpwwJ9/Nc
-X-Received: by 2002:a05:600c:1389:b0:4bb:7347:d5c0 with SMTP id 5b1f17b1804b1-4bb88826937mr438432725e9.9.1795771051464;
-        Fri, 27 Nov 2026 01:17:31 -0800 (PST)
-Received: from [192.168.50.4] ([82.78.167.114])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8526cbd0sm896151645e9.0.2026.11.27.01.17.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 27 Nov 2026 01:17:30 -0800 (PST)
-Message-ID: <5c05644b-fcf2-41e7-a012-338ce7eec8d2@tuxon.dev>
-Date: Fri, 27 Nov 2026 11:17:29 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H7XR97pU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8C871F00893;
+	Fri, 27 Nov 2026 09:20:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795771217;
+	bh=y/NG1FSwHBbc0nUUF5aO57OLyJ1BvD+9ME8Dae08+30=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=H7XR97pUple7qnioazrI/KqFukqaqENgbTLazJ4JihS+pbhzBiogSQ/u0D8pklUcU
+	 jE+1l0h1GfFtpjB9aLyaqoadZuw9aIRkPDCZgg2p4nARQMoeuCZ7GCLyktxlUe/iqx
+	 hnHtSvXat9NDrhOjUIpdOcvw9XK2AXqJCFfsXFk6WDl57km7WloXHoTG6yI1V0akHU
+	 n/iPrwcCuWwFPhRJzJVmFOOenxVO/xcDxCcFyG1QMn+Sox1ECV9D4mxNpd2qKufN1B
+	 psIZk+Cz9vjzg54+Nl0Ii0n2PZyfR6xj6vwpfSqU6x7wBFvFiexlfF/r0klfmgjW8Z
+	 BMMX/6q+/H3hQ==
+Message-ID: <sashiko-outbox-236963@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] ASoC:dt-bindings:clock: Add audio power domain for
+ S4 soc
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jiebing Chen" <jiebing.chen@amlogic.com>
+Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20261127-clock_audio-v1-2-cf3ccf6b2bf0@amlogic.com>
+References: <20261127-clock_audio-v1-0-cf3ccf6b2bf0@amlogic.com>
+ <20261127-clock_audio-v1-2-cf3ccf6b2bf0@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 27 Nov 2026 09:20:16 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,38 +60,55 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/7] i3c: renesas: Drop comma after OF match table
- sentinel
-To: Diogo Ivo <diogo.ivo.sx@renesas.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Linus Walleij <linusw@kernel.org>
-Cc: linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org
-References: <20261026-divo-ssgrlpcsrc-2966-i3c-v2-0-2e76b87209bb@renesas.com>
- <20261026-divo-ssgrlpcsrc-2966-i3c-v2-2-2e76b87209bb@renesas.com>
-Content-Language: en-US
-From: claudiu beznea <claudiu.beznea@tuxon.dev>
-In-Reply-To: <20261026-divo-ssgrlpcsrc-2966-i3c-v2-2-2e76b87209bb@renesas.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: clock: axg-audio-clkc: commit message omits new S4
+  compatible
+--
 
+commit 62315ecd63c9b45b3693effbf5ae0227a2b31af3
+Author: Jiebing Chen <jiebing.chen@amlogic.com>
 
-On 10/26/26 13:35, Diogo Ivo wrote:
-> Drop the unnecessary terminator comma on the compatible table.
-> No functional changes intended.
-> 
-> Reviewed-by: Wolfram Sang<wsa+renesas@sang-engineering.com>
-> Reviewed-by: Frank Li<Frank.Li@nxp.com>
-> Signed-off-by: Diogo Ivo<diogo.ivo.sx@renesas.com>
-Reviewed-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+> ASoC:dt-bindings:clock: Add audio power domain for S4 soc
+>
+> The audio power domain has been found on S4 device.
+> It must be enabled prior to audio operations.
+>
+> Signed-off-by: Jiebing Chen <jiebing.chen@amlogic.com>
+
+> diff --git a/Documentation/devicetree/bindings/clock/amlogic,axg-audio-cl=
+kc.yaml b/Documentation/devicetree/bindings/clock/amlogic,axg-audio-clkc.ya=
+ml
+> index fd7982dd4ceab..75ddaf8d80917 100644
+> --- a/Documentation/devicetree/bindings/clock/amlogic,axg-audio-clkc.yaml
+> +++ b/Documentation/devicetree/bindings/clock/amlogic,axg-audio-clkc.yaml
+> @@ -20,6 +20,7 @@ properties:
+>      enum:
+>        - amlogic,axg-audio-clkc
+>        - amlogic,g12a-audio-clkc
+> +      - amlogic,s4-audio-clkc
+>        - amlogic,sm1-audio-clkc
+
+[ ... ]
+
+> @@ -115,6 +119,7 @@ allOf:
+>            contains:
+>              enum:
+>                - amlogic,g12a-audio-clkc
+> +              - amlogic,s4-audio-clkc
+>                - amlogic,sm1-audio-clkc
+>      then:
+>        required:
+
+[Severity: Low]
+In addition to adding power-domains, this patch introduces the
+amlogic,s4-audio-clkc compatible string and adds it to the #reset-cells
+requirement, which the commit title and message do not mention.  Also,
+the subject prefix "ASoC:dt-bindings:clock:" prepends "ASoC:" to a clock
+binding and omits spaces after the colons instead of using
+"dt-bindings: clock:".
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127-clock_audi=
+o-v1-0-cf3ccf6b2bf0@amlogic.com?part=3D2
