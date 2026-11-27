@@ -1,123 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795790652;
-	b=drgD2SZ9+dQ34d3l001Q2U9b1CDU2Em6TdfsZGB04h5Bw2wDvygg5nUDnx1YD7j8w2KR
-	 PFcn7WE/pruhZRMTZraegv+mXRHjEoeaTi2pt7WyiOlgcP4tvnviO40Hr8/dpzhHGjDw8
-	 ixktEhni286LHbWmwoVhIVqfoj4Qt3ac8vm5n9PUH/5W3WKk9AzO13pymoFPa/47FHlTp
-	 DdnwMnfEIMqk6IaRClFo0VbfPAJ7uytrEoCan+zz+iEcZHXzqS1NkDbEXC7/5NY+WqJAE
-	 5dITz+XIulyXCRXDjzAUy4GA34xCDOLic268/ghwZXMBFXZtbSppQTQwSHk2P36+GJg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795790652;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=pmXq4cx53aUwMhwc/UEGREZga34tC+gW3KcyCWNtHZQ=;
-	b=0VRU8pzL+71wXZnFiHyEYySCXqoI/Xe2eyCi3t8k2SEGL7oX8Ox14GZ0JgHEswieXDTP
-	 SL+JRafV8FitBOFM9SF/CZXzmRfrfFgPD1ymxwjvh3bX9gckdZD73Y0qw7vCM0mKRdEGW
-	 e6V0P8Gra9qS7WwC11uoj10/xUP7zux4WR9jR3DuvAzE8UhPqOKeGwnkgZf8MWH1oqjoE
-	 OBjf3cFj+g1LocnubIfPrX6PBsSz67zsVgl1aFK36YSFDW+TKWFm4LdEB+w+XjJxcl+v8
-	 VDX3184vd6FxM4GWEWsbOp2YUusi9kUIMFfk2W6izjan9ym/XNQkX6fNFMM1kEBegwA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=o1LybMnF;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LYzJqxaz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795790869;
+	b=iqcM5awJp+3XRbChwQy7v9H2MiDsIg5Qr3bEPlvcAbxHWw5Q1aLCA2kZWHDxlyTg1Mbz
+	 kkIEER8fwftcvdY51xVxXPBgSdT+A/+6ZaRN5tmOIE9VMiuQ6Ib91Y1+teGwTe2dUltAx
+	 yg5scB9ZJcTjtPNPowP+ps/bDZ4WGkFHPeJCfQWXEYleLokJnIMjysuoufIgbYP12pff4
+	 VBCmPtbwjaxJwKOYed9Rq4gXpb1mkLX23oM0zll/Hy+s84RBVaa5u7rIEt+ubGfhTJiYI
+	 QdyCxw8mb8Bt4MZracOVfmP/YEsuGPGfByQwT7cCZgM84M4m/gP8dhCI7ghzNNHD6Hg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795790869;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=kVWN6DLIdyA2zWR6C0Ag5ad0S/pVTSuKICW0i+BhA1E=;
+	b=oLh4NpHYHnQnCCxlLTdBB8PO2cfRJuwgiYYxCHo4lsN7o+jR76v3yJg0UL9BZt94kpho
+	 YwSeJUf7kwXMG9k9dNEOseuEk5k+U7NJBsRrGJZAXHYO1vhLoFFFn6nBi2MYm72bnXgBR
+	 DNVmHI5aoI1nvFLHTGXkC47mBoBlZ2UIXM6XKeM3t2OqASDpPHYBD+mocUM6ZKxqu5AzZ
+	 fKlv9bhlozAhiPmc+9VEXj9izEanzqoiZjD8B+N5fqh82u78NJKeqj6hILo8Y4TUg53pb
+	 8FRKGPsB+6daKvMIiOgdaBHctg/lBk6OT5tffQZEiqTNT3+PJ+bdp7gEFGewGC6q/YA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tg2AGJ+3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E010606A31E
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 14:44:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E010606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74BEF606A31C
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 14:47:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=o1LybMnF;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LYzJqxaz
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ARE1cBd1971428
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 14:44:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	pmXq4cx53aUwMhwc/UEGREZga34tC+gW3KcyCWNtHZQ=; b=o1LybMnFRa+q79+V
-	ekVA4miAUH6PmcFrPXvFjVQ8gPcGrgdAdQgVYMMohiAs5KTTGLs9wRmBzmFIyGAR
-	j7eoITOl0kE42BTLSS9ytyByV8FZv8UAaUCTabK8cAoAHpJMnXsxDtIcZP9SPlI7
-	ukRBmMXS6h/cJihq8GfSh3KtNSSGD+IHIBXyjJ0GV2rx7klf6IgWEdQHGRgw1/5v
-	Zuc4IzPCS05eQrAflhuVMJ8USxnRc8GvxHS+28zCoooFPIA4RrIZ+q+XfU4dLYNi
-	kKnF8cCLHm58FFz3MYF4OIt8LHZl/9Bxcl2oIpx3t78rngF5XPwEaxD5nFplt3Ur
-	q/SYDA==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j6u55udye-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 14:44:10 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc4ac5feaa4so4732802a12.1
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 06:44:10 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795790650; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mZ83F84oUMpTLXwdo6SXmwRLprfn2TemNdPKaIN7Qu0mL+SNmq7chW8jEF7yDzKBIS
-         l++X7gze8v7wZLs5Zqfh7+llaP5r9w3zvjrrYB5HLnVVUm4hfOv1mwPkNBPqFeWIrY8i
-         ZLvi2/pMPqWVMtBb9+VY/+iodJvJXIBaGo4ZVzgqsQ3TN1tkm/pPfK2Kn8qiSsiMrUnC
-         waHHaGFgcjZsIFY30mvmR4J4cuiwdFh45pD36wsJIBS8UZNv6n8sHP1TGpdtiJDfYJW2
-         AH4fKRw9HOVEZEPMz3p0jYvhxRVdER2+75865FbdzMjM1379gGjwp4D7XU4ofvYgb+OF
-         szcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=pmXq4cx53aUwMhwc/UEGREZga34tC+gW3KcyCWNtHZQ=;
-        fh=ADBpGI2L7Trns89QkL21AhDjUu7fHcDabyBmPmOZrMU=;
-        b=VhB0rYBpGn/aMKVoblstlW++vFt4oq8FciIWeDT8ZuKa9OrOBicTlqi/v8U6Jf97Bw
-         qrNwztquplvR74IZb1nzgseyFmCkoR3EABZNjQE3Eqm64csC+OubgVez/aMwqV5nhnFS
-         JUDWrh6h0hlSNzWxFTyFtCd4Ln6fVsu9aEVKmwW4ZrE4P0XSP2LEmnBqFPpA/gfEd1kZ
-         Af8HIS24HXfzCxBRrxXpwSRX3bfGLZYMDTBrTFvjbEjeSjI92OMDMj3/5KO2V1yPD78w
-         5hZ+EZzG78MPrAB05SYw3xGa6IkR2S32Opm9U267VF3Xey+jaz1nptSSYdOSOai6JHxW
-         5cPw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795790650; x=1796395450; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pmXq4cx53aUwMhwc/UEGREZga34tC+gW3KcyCWNtHZQ=;
-        b=LYzJqxazovw/e3wTvv0whYtn4VBANGtVVN0VCGLsv1PFK8e6jCrz6Ce4p+4JAwC6Kn
-         MJJHLjN18V4Tj6PFBfO1KXqQAO0+ojMUVoVQFML1urZR0KD34YFlBNoXdxy/K43drMJu
-         ZMENt3vp9gng3L0azPcEwlNR4trfewe7d5LmdZ/Vp0Se2YZBn9mkCgqxRmaqxIidJB9/
-         ebhdrEyE7n0GGZ5tFotuuE/sav++QNgp0AYVZlxJbTXMgImswYvJiu8gEcArXC7sd11B
-         UcQXc0DIa+LTKRpwvaKSal0J+vU898SMcgVx+5p4L50TXxsvXHSFuzYhu8CZbhncfbbW
-         RQdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795790650; x=1796395450;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pmXq4cx53aUwMhwc/UEGREZga34tC+gW3KcyCWNtHZQ=;
-        b=NIHbcWD+yYreM2496Ufh8+C/PIZJpV/dO7GpbfP9RPV+63DdxzvYEbTB+8K/fnwOIs
-         mjfm94lsWYJQARFLnHRIPq/oZWb+aWi1B8W3+bxcIPJkn9HjhCP9p51bL6x6kdvZyvJl
-         o+HG71bpg/xBHh613+AzO5qGRGfxqeEwxkCuF3uMPuuD18Ng39q8yglXxKqi0Gp/jBAV
-         1Gi2Vip3XcPGOav21Ft+a3IaV0RYFbn54dXyRgfl/5LyF8sjXqQQt1DiWL+6QsQEYZDE
-         uXXI8TMb3OUVnPWLZInJunP75POKn7qJxLU/nzT49mfMjmaAPugRYMTGoyYljZ2/S/h3
-         6q0A==
-X-Forwarded-Encrypted: i=1; AL+hErGgNPt3CGa+Y7ZQUmex0sq+lkQQkTEElf/9+5mOWbtkzENNdWGGdBtLU5HNpmwVdAS7JzDRrRc5SxU5@vger.kernel.org
-X-Gm-Message-State: APuU4Z++H7CLmiJG+Sb2flThMmZR2thvJN8bnqbJyxUGXQPFIkMxZdWq
-	5UKd2xVPEp9de5c+aIfpAb0g+NBdXYTtVi4k1OB7C3dQPYy5M3Lk72rRGCIHI+dFRNznlLHyyH+
-	CpbXMRIyKw2wg6L8K6pIQRyS4tUpAVhs3TUBkmc78M7LhfofUeUUN8wDbBet/vy3WDrGhW6iwp2
-	CEsR23Mlb18F5+cmX6a6DVRSOUn3hYPFU9rxaORCk=
-X-Gm-Gg: AZFdTZf1fq9lWuZORRigm1kZK2ljBiyvVCP63xwXQFBKGmaMWANR9YMOa4JJ5WJWLPx
-	+jZLsdyh8uHxGrUnPHYs4gadr840kDc4UfRpYgpmqpsFWdVbH/F+BlCCweTU/FojbNh3pd6P9mx
-	L/5mERIawS7+tFMkwFcOjRPLULH68YLdLmo7/rK5AolPygpYwKGtNG+bFIKA==
-X-Received: by 2002:a05:6a20:af1f:b0:3fb:3d85:ef56 with SMTP id adf61e73a8af0-40295495278mr14267548637.66.1795790649567;
-        Fri, 27 Nov 2026 06:44:09 -0800 (PST)
-X-Received: by 2002:a05:6a20:af1f:b0:3fb:3d85:ef56 with SMTP id
- adf61e73a8af0-40295495278mr14267522637.66.1795790649103; Fri, 27 Nov 2026
- 06:44:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tg2AGJ+3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A61E1F000C1;
+	Fri, 27 Nov 2026 14:47:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795790868;
+	bh=kVWN6DLIdyA2zWR6C0Ag5ad0S/pVTSuKICW0i+BhA1E=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Tg2AGJ+3Cc6e6zZ2VwbgSsWvliRx4kiESCPsXWIEt3TcCE9ohEevA9Ik1jI2BTpID
+	 I8csRc8av4hFdDhejWU/Rk7dYY5KllIUhWlTwe9zScS4ALCEeuj1tlxJecMJtFyjwj
+	 nFK2GwHuWm7U4vZxttWsZpOr9A/SbEQwlf8fQRzX8CSJ693LRi9c+b9qyLM4O9Gh50
+	 zJGf1z1zFFE90lm87QFH74u1q/3BSLq7Fh2VqOgPdHdtCCvCsPzM3BySAyGBGp+aKj
+	 K2fHkKUK30SfSnTA491a2CMqwknmqtSDdSnwtYdNZkQj/dwSMz3cO+QHEQDbV9ki+C
+	 UYX+1B5hZtYDQ==
+Message-ID: <sashiko-outbox-237603@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 02/10] arm64: dts: qcom: x1e80100: Add CAMSS block
+ definition
+Reply-To: sashiko-reviews@lists.linux.dev
+To: bod@kernel.org
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261127-x1e-camss-csi2-phy-dtsi-v8-2-2793b8e5138c@kernel.org>
+References: <20261127-x1e-camss-csi2-phy-dtsi-v8-0-2793b8e5138c@kernel.org>
+ <20261127-x1e-camss-csi2-phy-dtsi-v8-2-2793b8e5138c@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 27 Nov 2026 14:47:47 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -126,145 +60,82 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261125182053.3915833-1-kamal.dasu@broadcom.com>
-In-Reply-To: <20261125182053.3915833-1-kamal.dasu@broadcom.com>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Fri, 27 Nov 2026 15:43:57 +0100
-X-Gm-Features: Aa3M54qM6x7CvrBi3F_w95jH3rk5p3lMNpHZ4R4dB4h4-G4B4KSdfHnhwL7kMsY
-Message-ID: <CAPx+jO-iz4bWj32mAQy548YA+RpKN5jVNzAg4y7m1-1PTFwwig@mail.gmail.com>
-Subject: Re: [PATCH v14 0/6] mmc: core: Keep the card powered across suspend
- when firmware needs it live
-To: Kamal Dasu <kamal.dasu@broadcom.com>
-Cc: linux-mmc@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>,
-        Adrian Hunter <adrian.hunter@intel.com>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Wolfram Sang <wsa+renesas@sang-engineering.com>,
-        Oleksij Rempel <o.rempel@pengutronix.de>, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Shawn Lin <shawn.lin@linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDA1OCBTYWx0ZWRfX6ONMQJqIE2c8
- gUG6NbYAQpKHeIgZAZgPY7QoG3m+h5DYX5KAjFuUfH8WVZGi4D1NEdSVfOD6qHwLpGmSVq0LjcX
- 6Vf6VM2ABKk6smvESjdinWZDSMtKF/g=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDA1OCBTYWx0ZWRfX0zE3EqYpIxsw
- YCjCppTRGz0pFJijfN+pdqCKMx4NrzhrtyXEGKnLEVOGjVsEknjFQvrmZ44gJQojvm457eGsmFV
- ho5t+3rSb62s2ymITsab+iCOrDHqNgQowt0JebT+PBpyZgLoLa7Mi1SXnYz9j4RRUve4AId65jq
- z+JwqX10IlhLSG0TDPnERdE42v/ICk89E62Xi/UA0V8W8+dqcs4ZD96hj7ywt76VZRRwvL9AHMA
- qM1TP4Y6pnbMpuZVICG+8jyAVICdkiW+KXf8CdrVIHPHWyvZTy9e38G2iNoXR3kpSmqan16XcIR
- sFRWaiDhyRsgdH5HY1MY8Npa7uz3VUFiDDJtD+EhR8KeaxB2j8Bq69JvubDlCAOlPkr50ZxcCli
- h52VQ2tX59p9Ndxb49KHj/2xakF7/f2aYmJ5jWQQA36B28UvUO4Y6AR0LW3mtvQe2FwmkW3U6og
- FtuHl57maRFX7Ia9aXQ==
-X-Proofpoint-ORIG-GUID: JXaKZ9YYVZkpUkcZPrDmkgBIDafA7oP5
-X-Authority-Analysis: v=2.4 cv=Z795j3RA c=1 sm=1 tr=0 ts=6b09973a cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8 a=Q-fNiiVtAAAA:8
- a=14t6xIGfFiX4SUP_uEsA:9 a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-GUID: JXaKZ9YYVZkpUkcZPrDmkgBIDafA7oP5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-27_02,2026-11-27_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 malwarescore=0 clxscore=1015 priorityscore=1501
- adultscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611270058
 
-On Wed, Nov 25, 2026 at 7:21=E2=80=AFPM Kamal Dasu <kamal.dasu@broadcom.com=
-> wrote:
->
-> Background: on brcmstb boards with a Kioxia 016G01 eMMC, firmware accesse=
-s the
-> card directly during resume from Suspend-to-DRAM, before the kernel's own
-> resume path runs, in order to load boot code using hard wired logic that =
-is not
-> field updatable. The card needs to stay powered and responsive for that a=
-ccess
-> to succeed, and since it is never power-cycled, it also needs to be reset
-> before the kernel reuses it after resume.
->
-> v13: https://lore.kernel.org/linux-mmc/20261113211143.3759154-1-kamal.das=
-u@broadcom.com/
->
-> Changes in v14:
->         - Patch 6: Clear MMC_PM_KEEP_POWER in mmc_host_class_complete() w=
-hen
->         MMC_CAP2_RESET_AT_RESUME is set. The flag is set in
->         mmc_host_class_prepare() but was only cleared in mmc_resume(), so=
- it
->         stayed set if system suspend was aborted after prepare (reported =
-by
->         Sashiko).
->         - Patches 1-5: No changes.
->         - Tested with CQE enabled.
->
-> Review feedback addressed so far, including Sashiko's AI review comments:
->         - v14, patch 6: MMC_PM_KEEP_POWER is set in mmc_host_class_prepar=
-e()
->         and was only cleared in mmc_resume(). It is now also cleared in
->         mmc_host_class_complete(), so it doesn't stay set after an aborte=
-d
->         system suspend.
->         - v13, patch 3: CQE is turned off explicitly when the card is kep=
-t
->         powered, as the cache flush may not send any command that does so=
-.
->         - v12, patch 6: An error from _mmc_hw_reset() in mmc_resume() is
->         propagated instead of being dropped.
->         - v12, patch 6: reset-card-at-resume without keep-power-in-suspen=
-d
->         makes the host probe fail in mmc_validate_host_caps(), instead of=
- only
->         warning, as the card would otherwise be powered off and system su=
-spend
->         refused (Ulf).
->         - v11, patch 6: The host is claimed around the card reset in
->         mmc_resume(), as it sends commands to the card.
->         - Earlier series, before Ulf's rework: Sashiko noted that the DT =
-schema
->         allowed reset-card-at-resume without keep-power-in-suspend. Patch=
- 2
->         keeps the "dependencies" entry that enforces the pairing.
->
-> Tested on a brcmstb board with a Kioxia 016G01 eMMC, running S3 suspend/r=
-esume
-> (pml -d) with the DT properties set as below:
->
->   keep-power-in-suspend  reset-card-at-resume  Result
->   no                     no                    board resets on resume
->   yes                    no                    board resets on resume
->   no                     yes                   host probe fails with -EIN=
-VAL
->   yes                    yes                   resumes, card re-enumerate=
-d
->
-> Kamal Dasu (2):
->   dt-bindings: mmc: Extend keep-power-in-suspend beyond SDIO
->   dt-bindings: mmc: Add reset-card-at-resume property
->
-> Ulf Hansson (4):
->   mmc: core: Add option to keep an eMMC powered on at system suspend
->   mmc: core: Split sdio_set_host_pm_flags()
->   mmc: core: Move and split reset functions for eMMC
->   mmc: core: Add support for resetting an eMMC at system resume
->
->  .../bindings/mmc/mmc-controller-common.yaml   |  10 +-
->  drivers/mmc/core/core.c                       |  10 ++
->  drivers/mmc/core/core.h                       |   1 +
->  drivers/mmc/core/host.c                       |  26 ++++
->  drivers/mmc/core/mmc.c                        | 111 ++++++++++++------
->  drivers/mmc/core/sdio_io.c                    |   7 +-
->  include/linux/mmc/host.h                      |   1 +
->  7 files changed, 123 insertions(+), 43 deletions(-)
->
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] arm64: dts: qcom: hamoa: csiphy4 uses RPMHPD_MXC instead of
+  RPMHPD_MX
+- [Low] arm64: dts: qcom: hamoa: inaccurate CSID count and omitted PHYs
+  in changelog
+--
 
-The v14 series applied for next, thanks!
+commit 0488d17a00da346f23c2629cba6cdfe682bc1eba
+Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-Kind regards
-Uffe
+> arm64: dts: qcom: x1e80100: Add CAMSS block definition
+>
+> Add dtsi to describe the x1e80100 CAMSS block
+>
+> 4 x CSIPHY
+> 3 x TPG
+> 2 x CSID
+> 2 x CSID Lite
+> 2 x IFE
+> 2 x IFE Lite
+>
+> Tested-by: Lloyd Hazlett <lloyd.hazlett@gmail.com>
+> Tested-by: Liviu Nicoara <lnicoara@thinkoid.org> # Dell XPS 13 9345
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+
+[Severity: Low]
+The commit message lists 2 x CSID, whereas the camss node defines 3 full
+CSID blocks (csid0, csid1, csid2) alongside the 2 CSID Lite blocks.  It
+also omits the four standalone qcom,x1e80100-csi2-phy nodes and their OPP
+tables added by this patch.
+
+> diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qc=
+om/hamoa.dtsi
+> index 08ec53d01b802..32a273320cf58 100644
+> --- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+
+[ ... ]
+
+> @@ -5626,6 +5670,332 @@ cci1_i2c1: i2c-bus@1 {
+
+[ ... ]
+
+> +		csiphy4: phy@acec000 {
+> +			compatible =3D "qcom,x1e80100-csi2-phy";
+> +			reg =3D <0 0x0acec000 0 0x2000>;
+> +
+> +			clocks =3D <&camcc CAM_CC_CSIPHY4_CLK>,
+> +				 <&camcc CAM_CC_CSI4PHYTIMER_CLK>,
+> +				 <&camcc CAM_CC_CORE_AHB_CLK>;
+> +			clock-names =3D "core",
+> +				      "timer",
+> +				      "ahb";
+> +
+> +			operating-points-v2 =3D <&csiphy_mxa_opp_table>;
+> +
+> +			interrupts =3D <GIC_SPI 122 IRQ_TYPE_EDGE_RISING>;
+> +
+> +			power-domains =3D <&camcc CAM_CC_TITAN_TOP_GDSC>,
+> +					<&rpmhpd RPMHPD_MMCX>,
+> +					<&rpmhpd RPMHPD_MXC>;
+> +			power-domain-names =3D "top",
+> +					     "mmcx",
+> +					     "mx";
+
+[Severity: Medium]
+Should the third power-domains entry on csiphy4 be <&rpmhpd RPMHPD_MX>
+instead of <&rpmhpd RPMHPD_MXC>?
+
+csiphy4 uses csiphy_mxa_opp_table for the MXA domain, so with RPMHPD_MXC
+here phy_qcom_mipi_csi2_set_clock_rates() applies the MXA performance state
+votes to RPMHPD_MXC while leaving the MXA rail (RPMHPD_MX) unattached and
+unvoted.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127-x1e-camss-=
+csi2-phy-dtsi-v8-0-2793b8e5138c@kernel.org?part=3D2
