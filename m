@@ -1,60 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.28
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795803166;
-	b=mHctbFavJAwXslwtNDgX/KgGKThjNSIoHlsaUwMae4+rS8G7in1zGME5vK9zVB3Vm0BM
-	 LFAGAshFxPdWzrm0XXXK/GOjGg5xXRQ8hfXAQ+WjyO/Jkagk0Jrfi844y5qZhjAhMGEYz
-	 /1cD9REgeJ10gCW2uUby0xl8YYhXAbrNa3+XpZn0GMJcETZ8heoO7YJ/uJHl8y7W2tg/e
-	 9ZItfRee8mRme12m8eqn+DdhfokjHavMe6AZTrFunU4lMv5KF8S/otKBIAgYyqQ1nz60e
-	 YUHvt5WSM2bn0QWna0stLUxXOKUqbc7KsDiPgTB6DzdSeXEphysDsmoa23i+cpJXFOg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795803166;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=g4XjkTeEPorowL6TGZItvt/dW091Sbnkdr9qWSWKFsw=;
-	b=0a9EK7y4SAfY0TKwDqUV0IuvS/jeHrT5RAGMFB1PIfrcJopj9hBtv1+wYV9198/M9I9X
-	 XC5IcpXxwUtcK1qd5CJMborZfDC0m/pdMCckQKriDOKvzcnYJJ0To88W4kA2euGM/DuJY
-	 j9YuZ1Qj7EyCPGW/IYSZJJIU7KuVr5TE3eoh7sqq4WJfEXY0bMFX0bY3/B8QSiuglOa2t
-	 dnTESqHh/JMAHfM8t9Bj0+SR4frwWqlCzfWgiSlHzAM9Se6t/MJfYGRHsFHt9rZwq+Qzb
-	 /YLr7nFx9+BUBPfdGPUjbLuVlAaNVpIWBeWWuwfO6Jc2A7xB26qOTUMqdIaAQwe8J9w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=VXmBLnO5;
-	arc=none smtp.remote-ip=79.135.106.28
-Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch [79.135.106.28])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795803318;
+	b=yU9HNxyFYuZAVdT84xViO/ATfoP84k79IXIX7XRP2CQcNzC8hXPvBDQgQ++KyuLEeQ2x
+	 vmbG/+3pYAslOmc1xMK3qHpcm2IP6YDGGm3gh2EsnaLvTjowsVHT8hYtmPEZSf+l/9ChP
+	 HxEzmcHKYQMg7nX8pIH4P+MQZyZer8Q4xSog+zHmHAHeLfVcsaFrpjHIe5C0NIx+taoi9
+	 /UkpTmUBM3p8VRLNmFpEhC6SgiVaPh3Zz0+Topxez6XoLDlDnvW1t1u9Fe9bi5xs3sQAH
+	 q+3QqhOcBqDD3vpdKrbc6N5MKxSzxx6y3V/swc5vUbeso6zWVcz6bN3mB5WJJrfCEvA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795803318;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=aOKDtIHYzpK8XOPw/UrOOGqNOS4Y9xScGsDn/f4z0/M=;
+	b=QBcsHJ9FXjV0tuK8JN4IqkAqxzBCzZBdUnzeT3r0/0OXEQ16Mp4hmvHrvMHC1Wlu+GOZ
+	 1NOr5dLJgmU27eI3HktRcdctaafDCP7SOz/bJCKQqbJx0ei2ApjeBlyHXJk/JYxPXNGAA
+	 lh5es9ifzVWHeqJRw2wopBplt4Nq2L9mm2/bQ9PMFxRUM+v5WLu9yjrqJ7t3PYfr9Zp9m
+	 w39h9eEc0x6XfdZ+W/8d3J6EkxsXtXEqyz+Iu7KzWa9OsVZ2oSFjxk6ETM+FC7VyxUyX1
+	 EKdKBB50rYbYsSTC7ptu2Ga/gyCHirPnGHZl4QA7T42yKFy2BqQrlcM3rnLO6PxlBYw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hyZJl2tA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D914A606A32E;
+	Fri, 27 Nov 2026 18:15:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hyZJl2tA
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795803318;
+	b=y0PaTxTHMdwLMRPPKaYmfp5i4vuh8+SC3vXVSswdm2KSOZG10479sYgG8gNzkQ7mTxS0
+	 C0Y5D93SSm/fh3VXsY7tTkTdw4AT7YLJEOBZMVOf66ffOCJtSGxDE6wOrg61Ft+NrCK/c
+	 /V9/DrhFBYzfcvQl83fV0H/vbpXTMM2rWTLn6JNcOA6Wkqffme/EIErYo6U8VSCBXDTrA
+	 uInbATH1e14JDA0vS7knW3uhzGjf1D0cVInNtJIw32WWclEe/k7Nnk8B26CIJYsUBhUvo
+	 GdB2COjA8782rKwDPkoxextsOgBLiPP074KXbwkWbMuxMRxb0HurMg72o6I9CXXUV4w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795803318;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=aOKDtIHYzpK8XOPw/UrOOGqNOS4Y9xScGsDn/f4z0/M=;
+	b=ItcuYF80uG2B6WHmjoPS+v1PF5InOTBFylWKsWWAyzz2opNNHhF16VFuwCfQxAUFHWj9
+	 oSwKxTeH7m3Rr+EQze9ptOj0n/CsiH1wkVvsRunWVaD38GFNeIBjq6MhcfnGzvPw4c7wu
+	 PEucFaXrFNZ1SU8mmEaBgirJUJ59gOHSzk+49btSsqSxqrA7A3gMmNoqSfaWtUvF7XXYY
+	 DBtUrAIYbrDipGSjsvqpxtR/xf0aTGHKAb0XdwMIVmbBG0ny9Hn6aB4EqMk1oirZjB/dU
+	 83zXuSEQEm9mVc6xocReer5R9GA6V/99B7jokR6fMbd7t4aP9y55i5mI0y+HGC0Msww==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE50606A31C
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 18:12:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FE50606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=VXmBLnO5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1795803158; x=1796062358;
-	bh=g4XjkTeEPorowL6TGZItvt/dW091Sbnkdr9qWSWKFsw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=VXmBLnO5/cti5FpDWa6tnZ0X0x1Uo6/ihGFibv4xMx/41pfr1ie0ISxHu+0gP94o8
-	 LiDJfqNHSmIpgRB97B1Fzar0fBtj/yHtfvvBKzGlzLQjaDdreYaNJVgj5gtbp8+LUm
-	 BK1CaB3s16sypcJxjB9e6SgMB9EFiPXsK+zz/Ni5S5DMvHHbQHSb8G0DBQ8honoKvf
-	 5Gw+GBswRwU5Nkh/lgsTNVOusr2i6oGQ8f21tH3PqgSElJSlgUHK2B9ezzsxMe7Wt3
-	 WYaboM+HqUTnszU/8wVad7bggWCEgsljt1jNNXiUWy+MHw71jdAn0jTeLraem1BzOs
-	 fGnj1iaeRA+rA==
-Date: Fri, 27 Nov 2026 18:12:33 +0000
-To: iasnezhkov@gmail.com
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, amergnat@baylibre.com, me@adomerle.pw, devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 3/3] soc: mediatek: mtk-pmic-pwrap: Add MT6789 support
-Message-ID: <czEp-CqZIp301roqRSqIALy9ubTnOg7uHv75zRifEAuhIS0f1zSU45eKzIC3fZfiUnaahQK6yVuQvthvHZOt267Mpt13X55ERh2A6HJRTic=@protonmail.com>
-In-Reply-To: <20261127030009.10572-4-iasnezhkov@gmail.com>
-References: <20261127030009.10572-1-iasnezhkov@gmail.com> <20261127030009.10572-4-iasnezhkov@gmail.com>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: a252025cd58c9cc04ec8fb1af0e63707bf4d7bfb
+	by smtp.kernel.org (Postfix) with ESMTPS id 92AE21F0089A;
+	Fri, 27 Nov 2026 18:15:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795803318;
+	bh=aOKDtIHYzpK8XOPw/UrOOGqNOS4Y9xScGsDn/f4z0/M=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=hyZJl2tAwfd+i8cxuJcYjg3wymWRbISudOeXEHBPLjrM1qwKjy6J0ZLgOXtHoHMv3
+	 ZatTtP+xYoJwQsHRlU9KjVJ+8Mm8tmpcQ16anQ8xEsRoYyHfM4k67IfVdxIlKeRaZY
+	 uh65LKQt/lobodoDRtr5cPWEbPBbdFOFeMKDbdtkI6FZ6yiI8GezDkFHp5R2L5Jicq
+	 KBu2akuz1SM6+tbFpjrwDXMZTH10SRbEJe/PuVCtcog4GcFPGE3INahh/++tCXD99k
+	 olOEpH9V9nZsEFJDAndAPDe08E/zSn7rNs9WMa9GU1ZOgHei5hLj6EsKAZ/f+0i/RQ
+	 C0RY6d3y7r5/w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 1F5234DD0F;
+	Fri, 27 Nov 2026 18:15:13 +0000 (UTC)
+From: Kyle Hendry via B4 Relay <devnull+khendry.reliablecontrols.com@kernel.org>
+Date: Fri, 27 Nov 2026 10:14:26 -0800
+Subject: [PATCH net-next 2/3] net: pcs: rzn1-miic: Add resets to rzn1 info
+ structure
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,37 +83,74 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261127-miic-reset-consumer-v1-2-3cab78b94e23@reliablecontrols.com>
+References: <20261127-miic-reset-consumer-v1-0-3cab78b94e23@reliablecontrols.com>
+In-Reply-To: <20261127-miic-reset-consumer-v1-0-3cab78b94e23@reliablecontrols.com>
+To: =?utf-8?q?Cl=C3=A9ment_L=C3=A9ger?= <clement.leger@linux.dev>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>
+Cc: linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, Kyle Hendry <khendry@reliablecontrols.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795803312; l=1138;
+ i=khendry@reliablecontrols.com; s=20260813; h=from:subject:message-id;
+ bh=uXvzq8K1GwLVz4Zm+S7fkSbqGDz/YK8RnVr/EC7Kg6U=;
+ b=kNKbvDURtTq1KRp0oPvz4GzQEeASaROscy29X1xlqRhEdZ+WVYus7OUUY3RN56EdHdrg9vo38
+ vpgOMdue0ZNBPQt2hR6G3bylzCrRrqGX5Bd+a/DzRsMDf8ZQzDDSkcm
+X-Developer-Key: i=khendry@reliablecontrols.com; a=ed25519;
+ pk=gbK6oghz3qBlBiaGCsEzALLOtj5VklmsuolHQNhDV5M=
+X-Endpoint-Received: by B4 Relay for khendry@reliablecontrols.com/20260813
+ with auth_id=946
+X-Original-From: Kyle Hendry <khendry@reliablecontrols.com>
+Reply-To: khendry@reliablecontrols.com
+Content-Transfer-Encoding: 7bit
 
-On Friday, November 27th, 2026 at 5:00 AM, Ilia Snezhkov via B4 Relay <devn=
-ull+iasnezhkov.gmail.com@kernel.org> wrote:
+From: Kyle Hendry <khendry@reliablecontrols.com>
 
-> From: Arseniy Velikanov <me@adomerle.pw>
->=20
-> Add PMIC-Wrapper support for the MediaTek MT6789 (Helio G99) SoC.
->=20
-> MT6789 uses the PMIF-SPI arbiter interface with bank 3 interrupt
-> registers (INT_EN at 0x450, INT_FLG at 0x458, INT_CLR at 0x45C, mask
-> 0x180000) and WACS2 software interface at 0x880..0x8A8. Register offsets
-> and wrapper parameters are verified on live MT6789 hardware (iKKO
-> MindOne, MT6366 PMIC).
->=20
-> Signed-off-by: Arseniy Velikanov <me@adomerle.pw>
-> Signed-off-by: Ilia Snezhkov <iasnezhkov@gmail.com>
-> ---
-> Changes since v2:
-> - Added PWRAP_INT_FLG (0x458) and PWRAP_INT_CLR (0x45C) matching bank 3
->   PWRAP_INT_EN (0x450).
+Update the rzn1 info structure to include the resets that the driver needs
+to deassert
 
-I don't see INT_FLG and INT_CLR in the 5.10 kernel [1]. Where did you
-find them?
+Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
+---
+ drivers/net/pcs/pcs-rzn1-miic.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Also, the series doesn't apply on next-20261125. It might be due to
-recent mt6572 changes. Please rebase.
+diff --git a/drivers/net/pcs/pcs-rzn1-miic.c b/drivers/net/pcs/pcs-rzn1-miic.c
+index 682a73cf5a87..3c4eca8960bd 100644
+--- a/drivers/net/pcs/pcs-rzn1-miic.c
++++ b/drivers/net/pcs/pcs-rzn1-miic.c
+@@ -128,6 +128,11 @@ static const char * const index_to_string[] = {
+ 	"CONV5",
+ };
+ 
++static const char * const rzn1_reset_ids[] = {
++	"rst_ts",
++	"rst_miic",
++};
++
+ static struct modctrl_match rzt2h_modctrl_match_table[] = {
+ 	{0x0, {ETHSS_GMAC0_PORT, ETHSS_ETHSW_PORT0, ETHSS_ETHSW_PORT1,
+ 	       ETHSS_ETHSW_PORT2, ETHSS_GMAC1_PORT}},
+@@ -855,6 +860,8 @@ static struct miic_of_data rzn1_miic_of_data = {
+ 	.miic_port_start = 1,
+ 	.miic_port_last = 5,
+ 	.sw_mode_mask = GENMASK(4, 0),
++	.reset_ids = rzn1_reset_ids,
++	.reset_count = ARRAY_SIZE(rzn1_reset_ids),
+ 	.init_unlock_lock_regs = true,
+ 	.miic_write = miic_reg_writel_unlocked,
+ 	.type = MIIC_TYPE_RZN1,
 
-[1] https://github.com/xiaomi-mt6789-devs/kernel_xiaomi-yunluo/blob/d92da04=
-1e3ad824c273877abeeeb07c145c37d02/drivers/soc/mediatek/mtk-pmic-wrap.c#L667
+-- 
+2.53.0
 
-Best regards,
-Roman
+
