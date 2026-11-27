@@ -1,71 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795777027;
-	b=0XIrORohJpYekItqlNeCQoN2KrIqvBs0XmvMjYtXmzSm+UREp7ZkFnp8l2EAbXs0vwLV
-	 7cIBpVYw6cQNGpG4BecS6Zjb2+5bHMgq+k8+T8P/lYkR94QlDbGsimCxITfeWJHnWcuHw
-	 ugrafKW/0x2/lSde+wup2W+gAx+56b8zR4TpYjewVJrVm5evI/xyKprzytmvUVLBEoxEw
-	 8XIMw6n6nSegHdGdDx4LlOQypdfcoLlNqS4cG3zotbfYG+7xZLqYs3K/TS/YXm5catIKg
-	 sxuYpEYvqtAoCro0ERJmrYerZ852ngQgdFWJZXFSph+ToBZlM5T5TICnpA8tJSHm3Jg==
+	t=1795777044;
+	b=V7Yt9yqT5utDvPp9l2fBZaNyDS5XwmBUJ++D+VVIsI9jNMDZ68Guya/5eb4B+JtqV95U
+	 CKEzkdeHV2P+r1wHHNJYytZXWwgsBHpSvsZf0cq5cLtAOaVo5yFRh+y0AF2jiA6uQ6+7l
+	 ruegfWg5EFofy+Ud97LGfI8Unf9Aqqkz2f+3oiuk7O0VPmyd7+QuPp87QBMKrKg+RnMy0
+	 eqTDu0+Ag5wsXAF3nTTKVnfKuQjKocVEjKsY3qzpuQC6aQGwkC1gYCTeRDze1p/s3KKKr
+	 GQyv3bMmBDT7HbUBSZOyhloSZx24emPS9e2BfoXb1No4WGHRs8T1tGx2P0SKMXRb5Ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795777027;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
-	 User-Agent:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=0LtKJAAbs8SQGbCbVA/vX0ALvQNPiqa/AqqyugfllD4=;
-	b=L51KLVxwie3P6k/BnAhwuYgS7UDopJ6gmXygSHoej4BzQ/NtZ58TKlRC5eB/jHfU3GjJ
-	 yAc3lN8Ew6PJkrpgZV8pZuaneyi4u1wuo9d0vuAYtLuCg3FlGJQtCCGIUl5L/or3usQTM
-	 tJThs6gorLO4Ho7Ei8jgjfOyjn9d2k9ZS+o3O6IcmOrKsPB449cXvc+Vf6XjxMdZsDJ5O
-	 Zf993J5rTPbrPLYGETdnxNiYnWS58mzR70ofzF7MHYJ2dZ1JLgizI3e9zVzJDbfjpnRAI
-	 jXPDVehAA9N3JOoQp3NQisQJgzkT6Y976yMUfLieY5ZiecRuTg2kPFSK54KpSgyveNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795777044;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Xx1Jv0J1bDZQpWVoeU6QkZxWXumP+4homny7f0vYJN8=;
+	b=VlKMGf+7QdY1Ow9Za8NpEtyHXoEYh3rp6x8+9j4xH0TBgB2c4MwKN+27bL5EraYnBq/9
+	 /KEiQFJcGm2tlPuAW+EbSxG370MsMgw/v6IqXctLgqmwXUKhQAReKli4R+gfbnB74XIAx
+	 CGoG/wlQ5iIxdrMko3WAIiRq3SWhvMlN/hsUD+q2XguprHjrSb4HZqePK4f2Sbqv1MmCH
+	 YJYAev0spWID9DgTbqQFjmV9noTHSKIY1sZXVqDXmTPcf/TDEkFMg5C5bnxtqIaGGxVR7
+	 zcqrnOF5BT96WlHv0Shq0N3S1ORYUeUco5uXiKR9xtCT13WZnJbMIZ4CS5ORrUuHWOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=tAWCSys8;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 877FB606A31F;
-	Fri, 27 Nov 2026 10:57:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 877FB606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=B25sau8T;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F0985606A31E;
+	Fri, 27 Nov 2026 10:57:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0985606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=tAWCSys8
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 4B4DDC2B9D2;
-	Fri, 27 Nov 2026 10:57:07 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 85D4F6049C;
-	Fri, 27 Nov 2026 10:56:58 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AF2EF11E69316;
-	Fri, 27 Nov 2026 11:56:53 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795777016; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=0LtKJAAbs8SQGbCbVA/vX0ALvQNPiqa/AqqyugfllD4=;
-	b=tAWCSys8QPStN19HQGpZEq+DzIxAdvxTowWa5pHoobsgI91u4P/LXzgqjJB8H8CrdqKgkZ
-	6gFo/sdqXdSrXJzLJnV26CAPdqKz1BHbDtv/LkeHc2c+JhokuGXldhGnZqkunHLKgxLRtV
-	uOTtd2rifMKmppkaYA0Fuf2inf3HiGlj1EQy3we0+4T9IgoTu+KI/h6ZUHl3VVJX5qRVVK
-	uUK0elrmtNyY2XV5ysWd2WSjN6k0gPHloHQgLRfyTBzn5VF8O05TrLZaVnoT0qnZOK3WR3
-	VZNkeE55ezdSrE9yAnRyM5Scbb02fnYFT1PfNCkN8d9eMRb83a8BJyjvWgSw1g==
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: Ajit Singh <blfizzyy@gmail.com>
-Cc: romain.gantois@bootlin.com,
-	gregkh@linuxfoundation.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	heikki.krogerus@linux.intel.com,
-	linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: usb: ti,tusb1046: Document no-hpd
-Date: Fri, 27 Nov 2026 11:56:41 +0100
-Message-ID: <20261127105641.16941-1-romain.gantois@bootlin.com>
-In-Reply-To: <20261126093819.76480-2-blfizzyy@gmail.com>
-References: <20261126093819.76480-1-blfizzyy@gmail.com> <20261126093819.76480-2-blfizzyy@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=B25sau8T
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 113372F;
+	Fri, 27 Nov 2026 02:57:20 -0800 (PST)
+Received: from [10.33.50.35] (e142021.arm.com [10.33.50.35])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BD2AC3F86C;
+	Fri, 27 Nov 2026 02:57:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795777042; bh=tI/WuxzQHxbeBxg0ET/wSwRkMo9dWBTAelQ6L/tkO0w=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=B25sau8T3KTWvItqVLYxp2RC03ZVEdbWyH2MkDzRUOwL8iEOzA/2/szKI8T2Qprfd
+	 h3ydqMKrxtJOWqAT2aGr0TfpGKtfA+aov42u1vZKGbr9qedYIqIEJGcOHMe4lweHCQ
+	 92rX7V3jq+WkTaWtSYyrHCAP3UW8GslYwmn/6M4w=
+Message-ID: <9ab5f851-1b56-49ed-bfdd-46abdbdda1c0@arm.com>
+Date: Fri, 27 Nov 2026 10:57:16 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,31 +53,126 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: koshi/0.3.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/5] arm64: dts: allwinner: add A733 SoC description
+To: =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org,
+ samuel@sholland.org, Enzo Adriano <enzo.adriano.code@gmail.com>
+Cc: Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Junhui Liu <junhui.liu@pigmoral.tech>,
+ Jerome Brunet <jbrunet@baylibre.com>, Pablo Mazzini <pmazzini@gmail.com>,
+ Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
+ Alexander Sverdlin <alex@sverdlin.org>, Jun Yan <jerrysteve1101@gmail.com>,
+ Lukas Schmid <lukas.schmid@netcube.li>,
+ Cristian Filipescu <filipescu.cristian@gmail.com>,
+ Norman Herms <dockseed@proton.me>
+References: <20261126-a733-cubie-a7s-dt-v6-0@gmail.com>
+ <20261126-a733-cubie-a7s-dt-v6-2@gmail.com>
+ <p3YaXlLJTguQBGnWyMpb1w@gmail.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <p3YaXlLJTguQBGnWyMpb1w@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hello Ajit,
+Hi Jernej,
 
-On Thu, 26 Nov 2026 15:08:18 +0530, Ajit Singh <blfizzyy@gmail.com> wrote:
->    reg:
->      maxItems: 1
->  
-> +  no-hpd:
-> +    type: boolean
-> +    description:
-> +      The HPD_IN pin is not connected to a usable HPD signal. When DisplayPort
-> +      Alt Mode is active, the device is configured over I2C to treat HPD_IN as
-> +      asserted.
+On 11/27/26 05:29, Jernej Škrabec wrote:
+> Dne četrtek, 26. november 2026 ob 21:35:40 Srednjeevropski standardni čas je Enzo Adriano napisal(a):
+>> The Allwinner A733 combines six Cortex-A55 and two Cortex-A76 cores.
+>> Add the common device tree for the first Cubie A7A, A7S and A7Z board
+>> DTS files. Describe the CPUs, PSCI, architectural timers, GIC, RTC,
+>> main and always-on clock/reset and pin controllers, UART, I2C and
+>> MMC. The preceding revision booted on the A7S and A7Z.
+>>
+>> The A7S schematic, sheets 7 and 16, shows the EEPROM wired to I2C0
+>> on PG8/PG9. Use mux 6 as documented in the A733 Datasheet v1.00,
+>> section 4.2.6, table 4-36. The A7A schematic shows the external RTC
+>> on S_TWI1. Add its R-I2C1 pin group on PL12/PL13, mux 3.
+>>
+>> The GIC maintenance PPI 9 and ARMv8.2 EL2 virtual-timer PPI 12 follow
+>> the A733 User Manual v1.00, section 12.2.3. The GICD/GICR/ITS windows
+>> and noncoherent attributes follow Andre Przywara's A733 reference
+>> and the A523 precedent. The CPUX interconnect diagram in section
+>> 5.1.2 supports the noncoherency inference. Leave the ITS disabled
+>> pending clock/reset and MSI integration.
+>>
+>> Describe the single DynamIQ unit and shared L3 shown in section
+>> 5.1.2, figure 5-1. Partition PPI 7 (section 12.2.3, table 12-1)
+>> between the Cortex-A55 and Cortex-A76 PMUs so each probes its own
+>> core type. Defer capacity-dmips-mhz until it is measured on A733.
+>>
+>> Link: https://gist.githubusercontent.com/apritzel/60fd7379b9560a15b8b352986b69d39f/raw/efd9cdf8f26ba5b0c7e138f093af44a1cf322469/sun60i-a733.dts
+>> Link: https://lore.kernel.org/r/20261126172253.1097838-2-andre.przywara@arm.com
+>> Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+>> Tested-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com> # Radxa Cubie A7Z V1.11
+>> Tested-by: Norman Herms <dockseed@proton.me> # Radxa Cubie A7S (A733)
+>> Co-developed-by: Andre Przywara <andre.przywara@arm.com>
+>> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+>> Signed-off-by: Enzo Adriano <enzo.adriano.code@gmail.com>
+>> ---
+>> Changes since v5:
+>> - Mark the I2C0 PG8/PG9 group /omit-if-no-ref/, as requested. This
+>>    satisfies Andre's review condition.
+>> - Move the RTC clock include after the A733 clock headers and cite
+>>    the A733 datasheet and A7S schematic for the I2C0 pins.
+>> - Fold in Andre's R-I2C1 pin group for A7A. A7S and A7Z leave
+>>    it unused. A7S still references the I2C0 group.
+>> - Vinicius tested the v5 DTSI with his A7Z v1.11 board DT. Norman
+>>    tested the v5 series on A7S. Their tags here cover the SoC DTSI.
+>>
+>>   .../arm64/boot/dts/allwinner/sun60i-a733.dtsi | 671 ++++++++++++++++++
+>>   1 file changed, 671 insertions(+)
+>>   create mode 100644 arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
+>>
+>> diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi b/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
+>> new file mode 100644
+>> index 000000000000..e062b08006da
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
+>> @@ -0,0 +1,671 @@
 
-IMO device tree bindings should not describe configuration procedures,
-only hardware. So I would just limit this description to "The HPD pin is
-not connected to a usable HPD signal" and let the OS figure out what to
-do with this information (in this case, treat it as asserted).
+[ ... ]
 
-Thanks,
+>> +
+>> +		mmc0: mmc@4020000 {
+>> +			compatible = "allwinner,sun60i-a733-mmc",
+>> +				     "allwinner,sun20i-d1-mmc";
+> 
+> That's not really the case, is it? A733 emmc has support for voltage switching,
+> so regulator should be added here for voltage switching.
 
--- 
-Romain Gantois, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+But it's still compatible to the D1 MMC controller, isn't it? As in: a 
+driver capable of supporting the D1 MMC IP can also drive the A733 MMC. 
+I think the voltage regulator is a separate problem: it's external to 
+the MMC IP. The vqmmc supply property is documented and usable, and the 
+availability of the regulator it points to is a separate issue.
+The same as the H616 and A523 have the voltage switch already, but are 
+still compatible to the A100 and D1, respectively.
+
+> I suggest that you drop this node until proper adjustment is made.
+
+Do you have any code for the voltage switch already? Your comment in the 
+UHS-1 prep series suggests so? Any chance you can post that separately, 
+to get any DT compatibility problems out of the way early?
+
+Cheers,
+Andre
+
+> Best regards,
+> Jernej
+> 
+>> +			reg = <0x04020000 0x1000>;
+>> +			interrupts = <GIC_SPI 161 IRQ_TYPE_LEVEL_HIGH 0>;
+>> +			clocks = <&ccu CLK_BUS_MMC0>, <&ccu CLK_MMC0>;
+>> +			clock-names = "ahb", "mmc";
+>> +			resets = <&ccu RST_BUS_MMC0>;
+>> +			reset-names = "ahb";
+>> +			pinctrl-names = "default";
+>> +			pinctrl-0 = <&mmc0_pins>;
+>> +			#address-cells = <1>;
+>> +			#size-cells = <0>;
+>> +			status = "disabled";
+>> +		};
+>> +
