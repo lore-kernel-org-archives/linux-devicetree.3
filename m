@@ -1,49 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795803415;
-	b=A3fYj2DqPov1i+5eB4WGUiJXOnh8bc8JWqpZ0r+DgsCtbZ0mLQFDt74RPdofXGmtr0QC
-	 QMgGMTLwur5YG721P9+sp520TZlLuHOO5/xigf3+N4ItMg5esyQS3qkwo4X9kNIK/8V0a
-	 jlDKfopEZaIl5bm3NyI+eyOQ7EQDRbeE1w0MNJ6frsYbfAimIbZ9kxXrTSp/Q5C5X9xHq
-	 lLX1Vi6ZgUNPWPnJWk2sW02IidllxmJMrQwEHQaWWFg9FsUXlFnT253nU4xnz0pNzc1zp
-	 csu7TBS0tnomg1eihKpTxH0kj3oWEOWbi5TnBrSir3Qjo/9YQW6xEhFkzVxtZ5d3neQ==
+	t=1795803516;
+	b=GcyKfNcAfwWyGCMQbLAJOqx4uklHEYbX9PSK30P6l9ro37k8eQ4qDHlQEuUnPjJcbK7a
+	 hcf3djMQTAx6YEUEnBQxgS4sCAeEOPpgO6XllO8K24st8feWjz3m0uT5NHspJngmFmokp
+	 c95Btp3iuLxJcs4Hjuh5VaeTc3HJHePpJxYhJGHq3/X/C4e3B+Z9N4/Gv9uFEWEHM4hUt
+	 vZxuN+Wsapa+agh4ZAlzaBAIwyOBRVxL7MhMyh7B+XBc/baPsQ0oES2rTOKdjgEwwakoI
+	 lruJMvwo65qqQNMD/j3GL30iyG7HHSH5h+XYwU6rDNNl/MlR3Fowy1ICuhQbyC9iUoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795803415;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=IRquHP6+JpDcME/70XQJzwgPUGu0D6NcBC9+C049/lA=;
-	b=VeT3rgIbo5gZMtI+onSUDrUwXrhQJdqM8N0dEkSPJPUOJUuuDQduyGcDCkx9IVAy2DFw
-	 fp2+3n047rZjgYxJxotmTwpMxHeVdQGHujpx30NUHWNaji8cKM/xT1EZA+5YJSdUywLeC
-	 Ej/he5XjlptvpaWRACnzYlsalMCFaaOAlSuHpqFdMXSJRqI7UStpbfM+kB+m6QnUaPFTj
-	 LbDOhGlHPu4fOCCWO7jCgKM/u0zTB1+kl4Ep0Mnq9BkYIDD7aXnyRV/YFpGCcQAGd3H0U
-	 ocVmKkPRpMdcpglhXu4dUFMtHK2mIjrxhHCVfKOJRSNU4efZGHNkaw9cmPxyVSDKq8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795803516;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BCJg5KdEXOKerir7HvXSyinpM8/rio61Rq/LE65yPLM=;
+	b=YdwhZGf7Xi72EpTDwLS3BxSrYPZ42KXy3mdXBJ0gEcUtgSH3MJNp8pIPCi0oa3dBT0WG
+	 CHwAjlosnFfEvEB82Ww2W89fxd+2ze33nm8ByYS7FS62+acJRMJVXJVXOXuJS9FOOgaKz
+	 dsa0mfDNgFUQo/vvDaHiZ9c/bPcuYt3Rq1Sb2EoSjGBgjDogsWpGAma3zs+4zRD087aVm
+	 rhyb/sy/pZnTbI/4j/KZThWFunjOI1REYsIfGUnzOqzaeQVeIZGbpx/54uOMM3BCECozG
+	 pgCx0Qs0fiLfutGuOU4aPPLHOk3XIIaT27AcFWxeXivlNElFbo6c456s9jafOoOTyag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Cyrj0nr+;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D3DF6606A324;
-	Fri, 27 Nov 2026 18:16:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3DF6606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EytNRt3G;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C15D606A31C;
+	Fri, 27 Nov 2026 18:18:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Cyrj0nr+
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 699331575;
-	Fri, 27 Nov 2026 10:16:51 -0800 (PST)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4CC783F86C;
-	Fri, 27 Nov 2026 10:16:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795803414; bh=6imln1W2Yy1aPN/smnTpJTPts3LNPdp2Py2G8tyPdSw=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
-	b=Cyrj0nr+Aawpo4a9zscl6bwOk0Ckq97a90PJDU6Zc5xrVZ/I3+WGA1BXAgrX+o+iB
-	 9D8+slEkc9p2uO0X7wiZF90OZfeY5xl+tPiJX6++jX9vm1PUww2Ws4dWeR+33FPyfQ
-	 RC1U0HfsJvGpo10Uyw8MvP8t+ubp08BZ5OSdJgEA=
-Message-ID: <03b2548c-e451-408e-b5df-a5dec8c290f8@arm.com>
-Date: Fri, 27 Nov 2026 18:16:48 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EytNRt3G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 246CB1F000C1;
+	Fri, 27 Nov 2026 18:18:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795803516;
+	bh=BCJg5KdEXOKerir7HvXSyinpM8/rio61Rq/LE65yPLM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EytNRt3GLG1J4r9JmqWz3/UC047RRfvPn8JBxshF6cPJyM6l1xlItsB7ZaQonsPra
+	 ZQxqYnqPKFTVeUH8m7UPYWiNilvJJVX8JtWkG+EQoCPNKFWTc6l5C6ITsmxEXLlD1C
+	 /RkDfJWqScN01jgK292syU+NVOeAVmXMhFSO9YuddVzCZ5662N0QLZhbswNiZqZttT
+	 rM8OJ2IBN+IH8p2LV1Rt8Ew48cT6YASosd0+heGbyh8PSMFIJGznr+nsqV0SlEtFIF
+	 n/pEDUyT/zjNyBOsORemwXoE6rGV4wcPu1x8iyu+yiiKVw+UFW6CMbfe+J+VbDgzE/
+	 UI/dbv2wkwktg==
+Date: Fri, 27 Nov 2026 18:18:31 +0000
+From: Conor Dooley <conor@kernel.org>
+To: marouene.boubakri@oss.nxp.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Anup Patel <anup@brainfault.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Radu Rendec <radu@rendec.net>, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 5/8] dt-bindings: riscv: add OpenHW Group CVA6 APU
+ boards
+Message-ID: <20261127-matriarch-phonics-1e87aaec99e4@spud>
+References: <20261126164632.978624-1-marouene.boubakri@oss.nxp.com>
+ <20261126164632.978624-6-marouene.boubakri@oss.nxp.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,123 +65,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Robin Murphy <robin.murphy@arm.com>
-Subject: Re: [PATCH 4/9] soc: rockchip: grf: Assign the StreamIDs of the
- RK3588 PHP SMMU masters
-To: aiyengar1990@gmail.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- David Wu <david.wu@rock-chips.com>, Damien Le Moal <dlemoal@kernel.org>,
- Niklas Cassel <cassel@kernel.org>, Serge Semin <fancer.lancer@gmail.com>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-ide@vger.kernel.org,
- Pranjal Shrivastava <praan@google.com>, Will Deacon <will@kernel.org>,
- iommu@lists.linux.dev, Shawn Lin <shawn.lin@rock-chips.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>
-References: <20261113-mmu600-php-v1-0-231196049a3b@gmail.com>
- <20261113-mmu600-php-v1-4-231196049a3b@gmail.com>
-Content-Language: en-GB
-In-Reply-To: <20261113-mmu600-php-v1-4-231196049a3b@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="udVk4Ha3Io07rmnV"
+Content-Disposition: inline
+In-Reply-To: <20261126164632.978624-6-marouene.boubakri@oss.nxp.com>
 
-On 13/11/2026 4:38 pm, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
-> 
-> The StreamIDs of the six masters behind the RK3588 PHP SMMU come from
-> PHP GRF registers that reset to 0 and are never programmed, so the SMMU
-> can not tell the masters apart.
-> 
-> Assign StreamIDs 1-6 on both AXI channels. 0 stays unused, so a master
-> that loses its ID is aborted instead of using another device's tables.
+--udVk4Ha3Io07rmnV
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Urgh... could you at least hide this in U-Boot and have that inject the 
-corresponding "iommus" entries into the DTB it's passing, similar to 
-what the NXP Layerscape platforms do for their "iommu-map" generation?
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-StreamIDs are really not meant to be programmable, and even if they are 
-then that is not supposed to be exposed to OSes. The Arm Base System 
-Architecture[1] explicitly calls this out:
+--udVk4Ha3Io07rmnV
+Content-Type: application/pgp-signature; name=signature.asc
 
-   R_ITS_DEV_9: The relationships between a device, its StreamID and
-   its DeviceID are considered static by OS or hypervisor software. If
-   the mapping is not fixed by hardware, the relationship between a
-   StreamID and a DeviceID must not change after system initialization,
-   and OS drivers must not be required to set it up.
+-----BEGIN PGP SIGNATURE-----
 
-Even just in practical terms, how is this going to work if someone boots 
-a new kernel with an older DT or vice-versa, and one set of hard-coded 
-values then fails to correspond to the other?
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCawnJdwAKCRB4tDGHoIJi
+0k1oAP9/1/ilB4QcXZSXlaI5y8jSA/cUMi1Sc4LNhWV6uVzcegD/YMas2mYSVM2y
+FXkenTlmKxUNzYatb53FiJer/ZIePAw=
+=chay
+-----END PGP SIGNATURE-----
 
-Thanks,
-Robin.
-
-[1] https://support.arm.com/documentation/den0094/latest/
-
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
->   drivers/soc/rockchip/grf.c | 37 +++++++++++++++++++++++++++++++++++++
->   1 file changed, 37 insertions(+)
-> 
-> diff --git a/drivers/soc/rockchip/grf.c b/drivers/soc/rockchip/grf.c
-> index b459607c118a..3f0f82a2119f 100644
-> --- a/drivers/soc/rockchip/grf.c
-> +++ b/drivers/soc/rockchip/grf.c
-> @@ -168,6 +168,40 @@ static const struct rockchip_grf_info rk3588_sysgrf __initconst = {
->   	.num_values = ARRAY_SIZE(rk3588_defaults),
->   };
->   
-> +/* PHP SMMU StreamIDs: bits 15:0, no write-enable mask */
-> +#define RK3588_PHP_GRF_GMAC0_SID_AW	0x0074
-> +#define RK3588_PHP_GRF_GMAC1_SID_AW	0x007c
-> +#define RK3588_PHP_GRF_SATA0_SID_AW	0x0084
-> +#define RK3588_PHP_GRF_SATA1_SID_AW	0x008c
-> +#define RK3588_PHP_GRF_SATA2_SID_AW	0x0094
-> +#define RK3588_PHP_GRF_GMAC0_SID_AR	0x009c
-> +#define RK3588_PHP_GRF_GMAC1_SID_AR	0x00a4
-> +#define RK3588_PHP_GRF_SATA0_SID_AR	0x00ac
-> +#define RK3588_PHP_GRF_SATA1_SID_AR	0x00b4
-> +#define RK3588_PHP_GRF_SATA2_SID_AR	0x00bc
-> +#define RK3588_PHP_GRF_USB3OTG2_SID_AR	0x00c4
-> +#define RK3588_PHP_GRF_USB3OTG2_SID_AW	0x00cc
-> +
-> +static const struct rockchip_grf_value rk3588_defaults_php_grf[] __initconst = {
-> +	{ "gmac0 write streamid", RK3588_PHP_GRF_GMAC0_SID_AW, 1 },
-> +	{ "gmac0 read streamid", RK3588_PHP_GRF_GMAC0_SID_AR, 1 },
-> +	{ "gmac1 write streamid", RK3588_PHP_GRF_GMAC1_SID_AW, 2 },
-> +	{ "gmac1 read streamid", RK3588_PHP_GRF_GMAC1_SID_AR, 2 },
-> +	{ "sata0 write streamid", RK3588_PHP_GRF_SATA0_SID_AW, 3 },
-> +	{ "sata0 read streamid", RK3588_PHP_GRF_SATA0_SID_AR, 3 },
-> +	{ "sata1 write streamid", RK3588_PHP_GRF_SATA1_SID_AW, 4 },
-> +	{ "sata1 read streamid", RK3588_PHP_GRF_SATA1_SID_AR, 4 },
-> +	{ "sata2 write streamid", RK3588_PHP_GRF_SATA2_SID_AW, 5 },
-> +	{ "sata2 read streamid", RK3588_PHP_GRF_SATA2_SID_AR, 5 },
-> +	{ "usb3otg2 write streamid", RK3588_PHP_GRF_USB3OTG2_SID_AW, 6 },
-> +	{ "usb3otg2 read streamid", RK3588_PHP_GRF_USB3OTG2_SID_AR, 6 },
-> +};
-> +
-> +static const struct rockchip_grf_info rk3588_phpgrf __initconst = {
-> +	.values = rk3588_defaults_php_grf,
-> +	.num_values = ARRAY_SIZE(rk3588_defaults_php_grf),
-> +};
-> +
->   static const struct of_device_id rockchip_grf_dt_match[] __initconst = {
->   	{
->   		.compatible = "rockchip,rk3036-grf",
-> @@ -202,6 +236,9 @@ static const struct of_device_id rockchip_grf_dt_match[] __initconst = {
->   	}, {
->   		.compatible = "rockchip,rk3576-ioc-grf",
->   		.data = (void *)&rk3576_iocgrf,
-> +	}, {
-> +		.compatible = "rockchip,rk3588-php-grf",
-> +		.data = (void *)&rk3588_phpgrf,
->   	}, {
->   		.compatible = "rockchip,rk3588-sys-grf",
->   		.data = (void *)&rk3588_sysgrf,
-> 
-
+--udVk4Ha3Io07rmnV--
