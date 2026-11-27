@@ -1,79 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795774426;
-	b=3DNf1RnZbJYXAXCuxLVxNcproY+/UAAQCiy6ux8gK8syXFgvVDPhxYpmvAvzVwVLiJZy
-	 sVMYc+JFtmGjswX0C7Vq2fCCghBmeIeG+RPoVQv3PqNtTu9U62kP7G3aDf/89P7tY5lwP
-	 TGhFNAKC0SmuVY4mblNYwyqc72sIEY06aVpY+ye15WENcE1oYpABRYJWejAnked9YJznj
-	 ThSTuVC4EVDimXpag5uVWiRqIW7r93xnXIgdyAaaS2cJfHco4qSrssgFt22Q5M5+Y6vY/
-	 3g1WErRMEY5sSUqrLVnWGpnypNK29u2XdxcYCenDoY8Er4jj2P61wQ56aH6nvTZGPFA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795774426;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=L3uorpJsDuQi8hiKfbI2IIOCDoZSKWRJ97N9hJn2fYU=;
-	b=mijiOsjfvcf201vgW02QSDYYLx8BMXXEdUXzmPZGZIXR7oYNERLI8dcnzBAg1afRsDv2
-	 nI3NB7URWBzAf0RvQdeNsVmdwiKuggv10LWnyM9GHPRMz2m+N0eGyN0wSdD6317Odwv5S
-	 g8fT7PLPkaBG4SYoNw/Yj8v6VjZ0uRQ4QsMzzPRTeDy1hoxDvaCefByzN60gbvoSF1/9p
-	 kiikHknkBQIlqI/XQA6SQQlcX59FvB3p0SqIKwe/OzqPRvgFHUHgg+ZSM/mkmlIyQKfTS
-	 VIGAfNsmZb1eO+gig5HUwSBydiD2LOejyXFnJ4gMHBCtrIkwSqtAOHVW5MKOUks3eOw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bLpmXzck;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5254960A383C;
-	Fri, 27 Nov 2026 10:13:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bLpmXzck
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795774425;
-	b=H4dG7uF0jCrmuxY2elm3DTsFvHOo37hi2XfBPyCxMFdxT7e9XtrSJI0xTHUE84J5lX1U
-	 7NYaxPb9I8+jpAOL2XWhQF9qEI5O9P/6/Z9bbBGanQDgjiXcqvPRqvNjoffoC2BvYlQO9
-	 9NfrNXbnoLfn8berXPElC6Af2BwOxd/7Iw+iSWCQ69InrigxEo3tOT9HlR0sG6EZ7nE8T
-	 iUNnf+JQfbrx2ixaTqDlTSlw5I9CZGA+isuNj3iZ9bTLBMwiGEiNEqZg1I+cHSDzoJmaV
-	 p5evMIgeVWCDhwj2VEyCZVb1klfiM30jCFCD5e6LFfE+Pgi75HRbAONRQYk8wAhycEA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795774425;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=L3uorpJsDuQi8hiKfbI2IIOCDoZSKWRJ97N9hJn2fYU=;
-	b=zItJXyhjaRfIBs9ejqrv2co3vh/SQMHMa1zg/9/xyXlaZb6QA86uaRdGQoWDCgLZtkbA
-	 /67oqr5Chy5WNThokKoKymAZm/+vsdVj4SvVoZ0+e/6m+ezkpFaFeQ+BGQ7CSNbbhvmPf
-	 ePcN9lJI/lsCHuYtanOJ6Ia1PApnFUbwHqq7A22qSlDL3jObAK7NsaEYajwNKyVpMIGlZ
-	 DH678LAVAfPMDUzHLD0GTzvr7sXmm/DaZ5Uy+xLMhPUrrhsgxqgNRpWyxqKKSbAkH9OAM
-	 dBjoVilYIkv1tNpFkILNcpI4g1GYZzbcUoH3KikizmZe/ObdQgWW/traQFw5AdjB4Vg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795774793;
+	b=fpiYtxonmf7h5hLCsWCIpfhaNFBiZHI1ZuN1XirjYEWd4xEkmkRwpt4XkaruSWmJbEva
+	 jqq8r+k6HNFDBEphzIa8G/VPpt9pGrkzNx1vI8g+uguFcg8Kdo+MXJRmhNc4QZD6mxzjz
+	 N112VYz0HVBtYQCP1VyeBErAv5J3nbFkYOlSwtSty/DGfGe3nIJ2aQ9UPt5UT3W5NtuxU
+	 t3QO5pleaeSo5aH1XDyZRzMmz4gCDfIZ9+uUQwqgGqEsDtZS66vaDdaE1pjxZk5jUfpsR
+	 qX+RCvtV0+EQNqA85fPAal9M2PRAhZRqi4cVx4EUSk/v4otE38ALrcPbg9nw4g7XibA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795774793;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=aVH5cP7pmE7+Gc1YBIanhzWnvzfL946zjGCFobUuzSA=;
+	b=gs7n7Os+I3D9JUxnsusSdO8MXwkURQjLTG5TQEp6ZwatNDfjarm71vom0xwfJlslJTrT
+	 pL57QDPdxrCmMxAlN6VhDNMc8JejkEMSyggY9woGj9loG4FKyaBB8QwmjT05U36mfX5kW
+	 QkRUD4jNAigLnP0NZs6fntx8IElNaAccIuPmiVfV65n7Kzk0cU3y3wFKxBfIDQ8NnYh+/
+	 2pr8RX2yF6eAqnSbVamD2bZpDZwZE84xScQbEycJdx1PFNA8TGqIaYSq/DymGKR6TPWlh
+	 SFhbQt1ZE3AwZgQPsX1oNuioJaBpeZAzl9FmR9TIZMIwqchB26yfE2vSRodR7DHR3Yg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s530ybTG;
+	arc=none smtp.remote-ip=209.85.215.175
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 816361F00919;
-	Fri, 27 Nov 2026 10:13:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795774425;
-	bh=L3uorpJsDuQi8hiKfbI2IIOCDoZSKWRJ97N9hJn2fYU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=bLpmXzck+8l9P8LUK+2aIeR9vwlqmJ073m5oaNcMe2Rg85sG3hoWR2yh2zDQZi+nJ
-	 0rVnB8Z0YIejiP4j22fvWSq3VfiJ9W+V/lCIR1jFkqA4u1uKu9p/YO4mkXQwJXnbge
-	 NRnbjpjMOz++RfPhwTJgjCn7fxtxr38fIfX2Fqk5mGq0uc2eGQyCmeCMiCGkI+dBiU
-	 +z0Wz2HCA58pTiXmfrHJUr9Wc3kCceHqiN+K4cIrrAjMEaW0/kj8CGd9JI6X3oTLlX
-	 jLLec0S7EOxzBRZo6qd+o27Wi35Gyn9zAvxDK4iwri4Bb+LGI8RSxpMxXX5PgyV81n
-	 jXyycQ1naHoMQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1035D4B6F7;
-	Fri, 27 Nov 2026 10:13:22 +0000 (UTC)
-From: Yuugo Yoneda via B4 Relay <devnull+yogo.0917.sabu.gmail.com@kernel.org>
-Date: Fri, 27 Nov 2026 19:13:04 +0900
-Subject: [PATCH RFC v3 03/13] dt-bindings: interrupt-controller: add SiRF
- AT550 interrupt controller
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E259606A31E
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 10:19:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E259606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s530ybTG
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cdec1c95fa2so194104a12.3
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 02:19:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795774793; x=1796379593; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aVH5cP7pmE7+Gc1YBIanhzWnvzfL946zjGCFobUuzSA=;
+        b=s530ybTGbIbc1xJHfvMbaFIkyd84eLYU6b/KLKlJtqxWaR7rpjLmoZICIA8x8/hCjV
+         5gPjiA0nkI1rqyqYNJB2S3Ue8re0Ihkp6LA9LvA6EFEnfpG3U6xBFZbHvS8DCeDW++nZ
+         ccFfCu7dTQbpHBPZ+5JfFhcIRwV+e2Pr61+CuHwDm4hS37zSBXFzTZZX0yt6mijvGhXJ
+         FRacnXdWfk7hDdC12vHFnqzQDhFd3USXFvFQCWGSDkTyPrCUVNsvTrrmU4+wMVyU0v2U
+         /JR4o7y7vHwWoIIkn0sUL8rGwVSKbFOjwFps3cEuhBTkrKIJ215TuybiKTCsx2F7KAlX
+         2oxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795774793; x=1796379593;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aVH5cP7pmE7+Gc1YBIanhzWnvzfL946zjGCFobUuzSA=;
+        b=gYeu+VAYMtetSuQTEw69X7SVM2nFoleJ8bTeeZZHRCTkJ8hUmgvnc9H46DsmrhAD9N
+         IZymtqAtIrrD6bT6QEPofJKlIUCiEUwYgVxLg9bLMAamk+xsqcV+suKsriSg8kShR+dr
+         aiiwJCLCsIqmXuhPHsdgP1ansN6H9/uI5RbUY7OR6UjU+UHm52kJEWhfY4LX4Cb3+YdV
+         SnsmisTvE5xp75+944aVHwywfEZJMQLObp8cdbGkxlMpKnFCBzGfuBPq0yhcNImcM5Tf
+         MjnobTZHS0GhQ0AWiw/4CQjmlhWfZuqRPkg0KGUk8/BwKvucupMW3UTPuR8Q4ySKNBDi
+         aQeQ==
+X-Gm-Message-State: APuU4Z9nDJoTNpst7xnQXEKeIDS9b6Vh0PsCg/nxB6lm22LXjiHJ8UR7
+	/BGKBudYLeYCGkZI5Ko2z5mDkgp7EkoooVt7MzUcrwZfIEo7CmUjn5MUMnY1C2Io
+X-Gm-Gg: AZFdTZdd3j8WT+bpCXBmTUU8qMVjJNo60hrYwpOLXLCul3DMiZ83ZyvFvztmwctoixh
+	UyaqRakP7H6aonPM7QMXRL52y4Rw8N/k6ICa7YDeEzXIHkjjV4bvfKFck0VWuxIgkqPXrsR9EGK
+	C+eD5W6seTSU8X4m82+PBvz41E6A8Rp9RPrArw2s1uS0XyHId7cJztpHUvMmY+ocuZlBlHqwT9S
+	ndIns0gjr5/Qo1CNqaKOb5fJpMqD8QHyRUxX19UdZaoJsvoNEsTV9xuLQo+82o9BDfKRRrOMZ7h
+	GpIXOXTsB0ZhnEcbTmoJKkWks7791Us/ILiHITtlXGbAOoeHDE9zXJcJjZb43h1k3ak/rV5uQ9V
+	ge5Td6WaEO/C3Abb7f1dwlo9mSzFtStYkRBbGuWP54/WglHOQ4qzSv+luTHd5SwFnJcBuHqeFjd
+	AEvP4wPgcK0rUshfJue4bt7z78oEtzr8GOS1ROE3px3z3yAYUuHcd7YX7Pb9vigw3aCaBT1Be8B
+	Nqk3d0l0qHJH0O420mggR/zSW7KlZxFlZExEIATZeixr/1bB4mdo6PMwL+Obj+zSZXnV2qreYOD
+	KGxXvGB/Z54A812iBWmEsNPjLsSfaE3OfH/nVUadinWP2lme1krDgg==
+X-Received: by 2002:a17:903:4688:b0:2f0:7d6d:4a09 with SMTP id d9443c01a7336-2f07d6d4bc1mr273030015ad.1.1795774792626;
+        Fri, 27 Nov 2026 02:19:52 -0800 (PST)
+Received: from localhost.localdomain ([240e:36d:b08:5b40::a60])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f0457fd68dsm107807105ad.39.2026.11.27.02.19.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Nov 2026 02:19:52 -0800 (PST)
+From: Jianfeng Liu <liujianfeng1994@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Jianhua Lu <lujianhua000@gmail.com>,
+	Jianfeng Liu <liujianfeng1994@gmail.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	linux-arm-msm@vger.kernel.org
+Subject: [PATCH v2 0/2] arm64: dts: qcom: Distinguish Xiaomi elish display panel variants
+Date: Fri, 27 Nov 2026 18:19:18 +0800
+Message-ID: <20261127101942.3215633-1-liujianfeng1994@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,116 +99,54 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261127-at550-rfc-v1-v3-3-f2221008912b@gmail.com>
-References: <20261127-at550-rfc-v1-v3-0-f2221008912b@gmail.com>
-In-Reply-To: <20261127-at550-rfc-v1-v3-0-f2221008912b@gmail.com>
-To: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Radu Rendec <radu@rendec.net>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
- Adrian Hunter <adrian.hunter@intel.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Russell King <linux@armlinux.org.uk>, 
- Arnd Bergmann <arnd@arndb.de>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
- linux-kernel@vger.kernel.org, linux-input@vger.kernel.org, 
- linux-mmc@vger.kernel.org, linux-doc@vger.kernel.org, soc@lists.linux.dev, 
- Yuugo Yoneda <yogo.0917.sabu@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795774399; l=2262;
- i=yogo.0917.sabu@gmail.com; s=ypl514-20261117; h=from:subject:message-id;
- bh=F60mi4ewot5gPQAYKYIRAeZ4rErv6ktzSFwpDWHu6xY=;
- b=TyCXSzk5Q2h/ZYk3LbPQWnuhQdFVxFL6RWlbhpnvJAc2Qrj+IAKUj744D0gvSW28eOsu2ccZL
- xNsjoxpdA13BiV6tNin18IELHG/RL245E0NaStgGdI20VD0jXpZV1Pk
-X-Developer-Key: i=yogo.0917.sabu@gmail.com; a=ed25519;
- pk=TIQ8Tk4xQrxyn8rmk3GI2f5qg/kO6g2KZm7YOOyBHeg=
-X-Endpoint-Received: by B4 Relay for
- yogo.0917.sabu@gmail.com/ypl514-20261117 with auth_id=1550
-X-Original-From: Yuugo Yoneda <yogo.0917.sabu@gmail.com>
-Reply-To: yogo.0917.sabu@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Yuugo Yoneda <yogo.0917.sabu@gmail.com>
+The Xiaomi Mi Pad 5 Pro (elish) ships with either a BOE or a CSOT display
+panel. The two variants already have separate device trees, but their
+root compatible lists are identical. Loaders such as Stubble cannot use
+those lists to select the device tree for the detected panel.
 
-Document the Devicetree binding for the 64-source level-sensitive
-interrupt controller in the SiRF AT550 SoC.
+Document a board compatible for each panel variant, then prepend it to
+the corresponding device tree's root compatible list. Keep xiaomi,elish
+and qcom,sm8250 as fallbacks. The binding now describes the panel-specific
+compatible lists in place of the generic-only entry.
 
-Signed-off-by: Yuugo Yoneda <yogo.0917.sabu@gmail.com>
+This series is based on next-20261125. The binding update precedes the
+DTS changes.
+
+Validation:
+- Strict checkpatch: no errors or warnings.
+- dt_binding_check with DT_SCHEMA_FILES=arm/qcom.yaml.
+- Both Elish DTBs built and validated against arm/qcom.yaml.
+
+On-device Stubble boot has been tested using U-Boot firmware.
+
+AI assistance: OpenAI Codex helped adapt the existing downstream patch,
+prepare the binding, commit messages and cover letter, and run the local
+checks described above.
+
+Changes in v2:
+- Remove xiaomi,elish from the generic SM8250 enum, as suggested by
+  Jianhua Lu.
+- Add a Xiaomi Mi Pad 5 Pro description to the Elish entry, as suggested
+  by Jianhua Lu.
+- Use sm8250-xiaomi-elish in the commit subject, as requested by
+  Jianhua Lu.
+
+Jianfeng Liu (2):
+  dt-bindings: arm: qcom: Document Xiaomi elish panel variants
+  arm64: dts: qcom: sm8250-xiaomi-elish: Distinguish display panel
+    variants
+
+ Documentation/devicetree/bindings/arm/qcom.yaml       | 9 ++++++++-
+ arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-boe.dts  | 2 +-
+ arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-csot.dts | 2 +-
+ 3 files changed, 10 insertions(+), 3 deletions(-)
+
 ---
- .../interrupt-controller/sirf,at550-intc.yaml      | 46 ++++++++++++++++++++++
- MAINTAINERS                                        |  1 +
- 2 files changed, 47 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/sirf,at550-intc.yaml b/Documentation/devicetree/bindings/interrupt-controller/sirf,at550-intc.yaml
-new file mode 100644
-index 000000000..7effe6c9b
---- /dev/null
-+++ b/Documentation/devicetree/bindings/interrupt-controller/sirf,at550-intc.yaml
-@@ -0,0 +1,46 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/interrupt-controller/sirf,at550-intc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: SiRF AT550 interrupt controller
-+
-+maintainers:
-+  - Yuugo Yoneda <yogo.0917.sabu@gmail.com>
-+
-+description:
-+  The AT550 interrupt controller routes 64 level-sensitive interrupt sources to
-+  the ARM1136 IRQ and FIQ inputs. Each source has a fixed active level; the
-+  single interrupt cell is the source number.
-+
-+properties:
-+  compatible:
-+    const: sirf,at550-intc
-+  reg:
-+    maxItems: 1
-+  interrupt-controller: true
-+  '#interrupt-cells':
-+    const: 1
-+  '#address-cells':
-+    const: 0
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupt-controller
-+  - '#interrupt-cells'
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    interrupt-controller@90020000 {
-+        compatible = "sirf,at550-intc";
-+        reg = <0x90020000 0x1000>;
-+        interrupt-controller;
-+        #interrupt-cells = <1>;
-+        #address-cells = <0>;
-+    };
-+
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index a825b3bae..e052d9dde 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -25851,6 +25851,7 @@ SIRF AT550 PLATFORM
- M:	Yuugo Yoneda <yogo.0917.sabu@gmail.com>
- S:	Odd Fixes
- F:	Documentation/devicetree/bindings/arm/sirf,at550.yaml
-+F:	Documentation/devicetree/bindings/interrupt-controller/sirf,at550-intc.yaml
- 
- SIS 190 ETHERNET DRIVER
- M:	Francois Romieu <romieu@fr.zoreil.com>
+base-commit: 9437046953b2fb3bf55b36582450ea0267df82a7
+branch: xiaomi-elish-panel-upstream
 
 -- 
-2.56.1
-
+2.47.3
 
