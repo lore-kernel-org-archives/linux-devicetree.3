@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795778750;
-	b=AOn//R8JKTSLsAdmrme7RHFVh/1mMbJQz0kzds/YSjPw1mKJJF6JpjBmisNOdgKQoQ+W
-	 5/r/ooKUU7B6lDRVZvrw1Y3sXuB0IhOBvQZhOL8moix95x9uB+akAK6BK8Zc6p4DtuxHt
-	 tizxD/n6+tJX1C5MKeOhVhxM0q9Rf9QPz57AAW9EGPiBx5R8eZ1ggfazVOfj6LNOfSSqq
-	 JmGjx8s1Ckr0kTif9FuCgpiGoWnqEp5Cx0XbVNY7Xl+SY7ljphyum90/wv4hvPfRR3qmz
-	 BtFNfN8uvY/xykHIzWEKEPtEW/PowvIJ/8oZbycnebdAYLOUWoO9INTSWKLhUxvYq9w==
+	t=1795778754;
+	b=JG5HwSCpyyIVveEeDrcj8lmIDJfrowRFhUkKgqCkPcT/JrwrFrrnO9J2ZeS6gy9WJJLi
+	 EN/QteEBPU391ZsQPkMvKMNN5AGpncVPFAveJ6sRMuCXzGWMOffWDKaVtW+Z4zeaxqCrw
+	 icjPQcbf2RfWwXuLB3dbJBuhatWRgL/QtHSeMc+lWyfxK8vnlf3rZKpZYZ66h9ZGFNSwk
+	 PX7IHQBn9Tvu2E7Cma2BJQ2uE5HAxICYWLYHyFgXWYiti+gWPs19817jYn/W/JMChX616
+	 ygH+pejDH8MdTrrkOz8KykKL2oDHDU7xTF+/CxIwDjb+E31ghFe3KugLd1TM8uxmeWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795778750;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795778754;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Spam;
-	bh=7pO5JbwHDSPKvg0uHKowrZmDSkanYpZpNWtrBN/cyzY=;
-	b=Ttk8h+/L153cmIkEKru0236PL3oerUw8XdyMQ+xRPsIl3oOjfd4zE8DX3HJkdVAAk/fc
-	 TKd/6/zCW3EUpSdqs8AYFR5vzvwaMW3lQA24/+Yv4xt4rD50TdNbUO0uEfT2trVBJeD9I
-	 tsPHuT+W7BT51sOY0JcCMs3/4WDFmYMwa9yvdbvE0oHjPJ92qKfJtVg4Ez7Rmh62FvN18
-	 qi5Jh26Tm1RF1E/Z6KYsgWLTI3COH1HSCazT0JJ8XIafFSliX+F8iC4VjWtAslkvsmIae
-	 83FodVSuAS/xKcxCQtrt2aLG2/YF9HWf7glPChch4sViKVBXK1xqZqwdUeXFPPPqvPw==
+	bh=Tq0ifLki8+R9Z04IQ4T3mpI+vFaFEsTYZ5lfIwIDl9U=;
+	b=2CD0xJu5/4ismdDKHpdn8S30D+Yh1Wx38uT2++iYUzpPAaIWNq/x5ZRPswmiOaT3DdZd
+	 BVXKKGjqpa9csVnlFGB9kNcAANkcYAlgAHKwbVC4B9H9AkEuSPeBWBYJFoVryMBZUYSKL
+	 fEizXDy6Yr0jsKpxTu3Uzs6qDOc1a7pCKg5nmCMGutVtWPfc2nDAl2sJ2Kh/t1rnKOOhv
+	 FTSrHfOklwZPhBE/pus6MgoiRSUnpkU5Gchhc84dm9Yj2B8JCGX8YSF7Y3V38fFayuZEH
+	 6X7+hltwxhih7SJXsaqAza7+1ktxfk7uUMgDjjD7JpInIv5P/6vOSJsg1BnBrqFy5YA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=d-silva.org;
 	spf=pass smtp.mailfrom=d-silva.org;
-	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=cAj0ii6n;
+	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=TszemNo5;
 	arc=none smtp.remote-ip=119.15.109.137
 Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 167C9606A692;
-	Fri, 27 Nov 2026 11:25:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 167C9606A692
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EFB760A2621;
+	Fri, 27 Nov 2026 11:25:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EFB760A2621
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=cAj0ii6n
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=TszemNo5
 Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id 592A64C98D;
-	Fri, 27 Nov 2026 22:25:45 +1100 (AEDT)
+	by www.nmnhosting.com (Postfix) with ESMTP id 8ED284C98E;
+	Fri, 27 Nov 2026 22:25:48 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1795778745;
+	t=1795778748;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7pO5JbwHDSPKvg0uHKowrZmDSkanYpZpNWtrBN/cyzY=;
-	b=cAj0ii6nHEBU9SYpE4YrrcRDdw7CUbah0N6sbLMd/3Z0iLupU5UmicpNGgrnJdSBgDxr6O
-	Hhoo5xAte0KXuQQqgvQ3MKqtYzO1LI+hXszKjZTBTV0jBfB7ir995LFso1YocGCUEkqVNd
-	vhsn1MDdLv6iq48eY6UjHOfzacp2T3dFrTx+WOEwCN1+vQS2bH6gLgzajZmGf+ERBnYP2y
-	VKJAP1buQi1Y+rdcIh6pQmEE5SZuiYgdSZvuXc/YjjIFFSBYTGfOQt/sUWKVHKPNcCtrmu
-	/d57PIJTCud6/BPkzH/moKBbGc/eS0jvV7Om3vJc6FLG8q0ODYQYqRFe3f6Sqg==
+	bh=Tq0ifLki8+R9Z04IQ4T3mpI+vFaFEsTYZ5lfIwIDl9U=;
+	b=TszemNo5XRM/GENxcM2oStN3IQMo3fkK4X7MEOuK8S/96WQbTf63x6MDAHsEEGU3YFQjEI
+	vEtvWmzcE96yh1AMhoQZlSxpNcg2DoEltjgwROEBS3SrB09naNS5hauF7ZUX6PS/MQ528k
+	vik839UckYv2qKm2zp7OMuuOyjAuPdNhnSi9oaxIX2jiPHL8rjgpLF9dtVYudOOUcmbb+c
+	qZ0kSGyLDeHg0TJKAnRvf0Vy0Bxf92GUHrxoog8l8oIx3AQB2d+C1ilWOy5z1nVL99+/qL
+	1sH3fIU2tXZoZpupmaI6X7Vfhl/Tb3KtM9ANEYlgCqbrTPJtRUUGQuJDl/4sOA==
 From: Alastair D'Silva <alastair@d-silva.org>
 To: Pablo Mazzini <pmazzini@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+Cc: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Chen-Yu Tsai <wens@kernel.org>,
@@ -60,16 +59,15 @@ Cc: Linus Walleij <linusw@kernel.org>,
 	Andre Przywara <andre.przywara@arm.com>,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-sunxi@lists.linux.dev,
 	Alastair D'Silva <alastair@d-silva.org>
-Subject: Re: [PATCH RESEND v3 2/3] dt-bindings: pinctrl: sun55i-a523: one interrupt per implemented bank
-Date: Fri, 27 Nov 2026 22:25:45 +1100
-Message-ID: <20261127112545.2584201-1-alastair@d-silva.org>
+Subject: Re: [PATCH RESEND v3 3/3] arm64: dts: allwinner: a523: drop the PA GPIO interrupt
+Date: Fri, 27 Nov 2026 22:25:48 +1100
+Message-ID: <20261127112548.2584246-1-alastair@d-silva.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261124215048.42074-3-pmazzini@gmail.com>
-References: <20261124215048.42074-1-pmazzini@gmail.com> <20261124215048.42074-3-pmazzini@gmail.com>
+In-Reply-To: <20261124215048.42074-4-pmazzini@gmail.com>
+References: <20261124215048.42074-1-pmazzini@gmail.com> <20261124215048.42074-4-pmazzini@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,53 +80,32 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Spam: Yes
 
-On Tue, 24 Nov 2026 21:50:47 +0000, Pablo Mazzini <pmazzini@gmail.com> wrote:
-> The A523 and A733 have no PA pins, the A523's PA IRQ bank is not
-> implemented, and the driver no longer counts it. Go back to one
-> interrupt, and one debounce period, per implemented bank: 10 for both.
+On Tue, 24 Nov 2026 21:50:48 +0000, Pablo Mazzini <pmazzini@gmail.com> wrote:
+> The PA IRQ bank is not implemented, and the driver now numbers the IRQ
+> banks from PB. Drop its interrupt.
 >
-> This reverts commit 11f25ac56372 ("dt-bindings: pinctrl: sun55i-a523:
-> increase IRQ banks number").
+> This reverts commit 6b81aa0c8a4f ("arm64: dts: allwinner: a523: Add
+> missing GPIO interrupt").
 >
 > Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
 > ---
->  .../bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml   | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+>  arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 >
-> diff --git a/Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml
-> index d7d0ba32ced4..c04b04acf6e4 100644
-> --- a/Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml
-> +++ b/Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml
-> @@ -36,7 +36,7 @@ properties:
->  
->    interrupts:
->      minItems: 2
-> -    maxItems: 11
-> +    maxItems: 10
->      description:
->        One interrupt per external interrupt bank supported on the
->        controller, sorted by bank number ascending order.
-> @@ -63,7 +63,7 @@ properties:
->        bank found in the controller
->      $ref: /schemas/types.yaml#/definitions/uint32-array
->      minItems: 2
-> -    maxItems: 11
-> +    maxItems: 10
->  
->  patternProperties:
->    # It's pretty scary, but the basic idea is that:
-> @@ -133,8 +133,8 @@ allOf:
->      then:
->        properties:
->          interrupts:
-> -          minItems: 11
-> -          maxItems: 11
-> +          minItems: 10
-> +          maxItems: 10
->  
->    - if:
->        properties:
+> diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+> index 85ef492ffeae..fc4d714a96ea 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+> +++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+> @@ -129,8 +129,7 @@ gpu: gpu@1800000 {
+>  		pio: pinctrl@2000000 {
+>  			compatible = "allwinner,sun55i-a523-pinctrl";
+>  			reg = <0x2000000 0x800>;
+> -			interrupts = <GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>,
+> -				     <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>,
+> +			interrupts = <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>,
+>  				     <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>,
+>  				     <GIC_SPI 73 IRQ_TYPE_LEVEL_HIGH>,
+>  				     <GIC_SPI 75 IRQ_TYPE_LEVEL_HIGH>,
 > -- 
 > 2.52.1
 >
