@@ -1,101 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795774052;
-	b=mcd+jWuTF0GnswIrm8hRtjrmh/UvKcKDtk0Etax0wJ6wl4BTvgasJ7DANijUiIQGZcud
-	 a6eocLOHjyR4k+7kw5OH/vldR3gVlxAwuiFoSIuuK3yPEpflSHLJ5c3pa2ov5bftc9Vwp
-	 fvdaCjIcn+9zagF886UvB6fa1lbras806+23q7DXS161WRuUPQelss40pHWzk/Dklek5L
-	 NaGHbnIjad413dkLtFR78XVDs9tlj06ptvoNWe8PBg6uawztOlm8RJAMR+lcU5O/fZ+4P
-	 SJ3UFyOkE+a/krhQYFteGSGUkXWq2Tom2WKQfSQHLWtx02XBXd78dbh+/5rcJ8YEhfw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795774052;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=S/PXjXpl1KxRCCiW3qKqRyfY2HAeEsAmwu7iETB2+Lk=;
-	b=F0dwErmPnvBrlAHDCVt/C/x0olsuM1FrcKgP1gRZYaQXpIcBBEGj7s1Tu1/jhAeKfqma
-	 kJDHaDi17CklggThpa45684C839tzDS+7MiDThwCQ5/IKLTc0kwQdcPv8NcDP0m0xEDHn
-	 VcdWaz4cOn5sfa9bqCnRAmA8BJcUX+lRGYYSoXKITKYeqFwgPSwf9DNKnxQA7qysxd2ZQ
-	 2y7WscMUZXCzmrqRsRB5gVH9MLOCpe581Jok0kuBrJFD/KaJIzh5yNplAtfH72W+j1/vr
-	 WP3TF6tCjE9Jt+QKa2g35rD6N10NJjD2DoRTuMKk/Ns+NqSBMxfSUIay7Ca58RtBCrA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T8ZERY7z;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.52
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795774099;
+	b=GAeWlqIWZCWwaWHuvl3BZu0RMLaC1/x2mz1SppA4V8mBt3zoZIGsFWAXlJxZ25peA4qw
+	 6alQmQthcHP8gItb5o/4bjm12TZ+G01qb502I8rt1Wk5iUYUv7IGgyZiq3UwvRjS5yRze
+	 N+K2Kya5YKJgxnVnqXvYP/exXWvlvJp6raFyW9GW041vhGHTsAnVPeWUlkbngN5UI/UXv
+	 YmKADYMq6td4b++Qfi96vNIr9200knVOlmZ6OYkZl54+DbwpRoO6l9Hw8JgU+Fv/SOXus
+	 1IUrm5fm1ZvkKf3CsIobEhOaGZaL9VK/hszD6hi3+3MSPXOPRFAbKtkikv8ufp2/4wQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795774099;
+	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=HRyaekjRkhNgArIFD/le5my/BFv/PKpDbGvsEYtTGa8=;
+	b=Ooa5Dlq9IxpR1Tyn6RPVndA9D4uMUbBLkhRdnjYwqHXdkVs8GTCoCHLzzx7TLQ7DGbNq
+	 MBO47EJ/gistZRuX27ZYq7GHgjN0O/sth82Mei4z4r7IeyCPU6a+T+ciYOHJa/s6849wM
+	 MHkS4SqKZ1vDAK7r9w6dEBmuTtFJ85Kix+jGFLsm0SmiYz+L/1UL87cMGI+2QJgsHoQA+
+	 bbgqdZRrw8oVTer+6cBjyK93HJrH2zQMoaS9r/EsCjS/adolojPIqJRtw3vlALZro56aw
+	 HShLmx4B+blcz9Pk96/OMikI+IWnNQBSCUcqsSUWNvRjGJJrWspdvaj/LPCK10GIokg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=d-silva.org;
+	spf=pass smtp.mailfrom=d-silva.org;
+	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=Q6mJxVPH;
+	arc=none smtp.remote-ip=119.15.109.137
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64445606A335
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 10:07:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64445606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F709606A31C;
+	Fri, 27 Nov 2026 10:08:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F709606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T8ZERY7z
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5c08539c827so6168440e87.2
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 02:07:32 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795774050; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NFd/BvbuqZtISAV3WAblZgDkZQwAIoj16kv8sZbfVjbzFw2zqnujPkYsWCwLRCXOrG
-         lS2XqnTwA/mzge0oV+32caG+tu5EBxCC2qN86+AJxPdIbC1SUMJQjNeutT9b9+BvI39Z
-         ZVd46Ej1OwGdJL/C+qU2srCP3rm4INsSL8MHJ3XkPTbBV35rFl1h+z9XLU5nHOfRb6mS
-         mpeEbH1c3sdk0l7FqkBh/WibD/vcyJQ/lJRn5wtA85VPt8wjZplbEO6Cr56t6Hg0QzMK
-         kVGngZK2kKzq9lPKnZhDeHyWcDc8YSqvn6hqb39uVEjA2fDLeyHKpOWNcRW4yoShQ65S
-         SlPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=S/PXjXpl1KxRCCiW3qKqRyfY2HAeEsAmwu7iETB2+Lk=;
-        fh=xB4ddDsoYFjQ9LExdVE4oXn5+p7Gdh/ZalqUJ24gIp0=;
-        b=JHntIhzS2fvmbZgMr7W3yH+tAmrYfB4H7yRPdJjxLbNLMzxcIO24vPKGzAKoRjensp
-         5lLsvfZ0bIu/tlh1+ircFrLZ2yOfWR3yY0K88vRiVaGeCa7r9bJCZz+ApZAOyd0VfF/z
-         +b4UMoOHVxK4rY1/gAtHJ1e04UidI+XD+V4MItTKLTGP6TDks8PqE6UiiqDBpFn8WOeK
-         j5/e3LTnEjkR6iHPtnZ+P3r7jWHqr9ezP49V2EKiPZGGeK7PmoO+jyncgxg2PiIAnr1/
-         Sh6ODdoHG/783ZW8aLogIX6GrRXwJ7JS5hjlxvTA9wFmAkfoXYMSgluVWTQdYDPqCdgQ
-         5dIg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795774050; x=1796378850; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=S/PXjXpl1KxRCCiW3qKqRyfY2HAeEsAmwu7iETB2+Lk=;
-        b=T8ZERY7zD/vy0H1Rb2du90/b67CWcF96NyZsqFxOi/RYxzLhB+qwyRH8qcWPBraa8v
-         mW2zbzSP49Foraqc+NQDAmXZ1wubTXXFWND6ZtkJhZsKeALOmqaWo2ukNLoEvE2+62ZK
-         6cLWHCumugFsUXIOtnP1I6tOsdCFTb7E+KqpznZQ9CJe95VPa1CX5Q3G6qZlNTsxFj7I
-         +oKRx6WVXOXR0C9HVFtpTdRHu+eXoKolZFYEVFXpOd1/gQmHnPvjxoxPAEZfwuB0CqQj
-         ZwCKClrm4FF4FjWeUhiqnMc9RPcBVLJs6R10KN7KtdHAmOMrEx1LzrMDpPSd3zjZIM7o
-         EtSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795774050; x=1796378850;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S/PXjXpl1KxRCCiW3qKqRyfY2HAeEsAmwu7iETB2+Lk=;
-        b=X6Cabyx7lMloGC4adUCxwh8728fWJAhQN737XyX8fag1mvyn0WHd0C/dZHbHvPwKay
-         xx5xoR7jQ6scErXcD2/oaLhO6bJVboFE9TM65GNUlNqDmLqcT/k2tK7EySqhstpdAwYA
-         YFh1+G2PS0c561uUEf2tHt/JSbPwdMPEd4TB9Efs08rUG7cs0+KaSzJ8TTrqZr2R+Qf1
-         IKBkI9UCAJuCllDrTUqyGpaw6/3J95yU4Ba0v4fEkg4G93zLi1Eg2Dn0Ym0fpK+fhlFl
-         IJfq/oHXLAcdE9TehXpW9Z/4g47+9AKUqnb/fH2p0HDq9J99iQiHyq97P20xi29vDQJp
-         nSIA==
-X-Forwarded-Encrypted: i=1; AL+hErE2wAb1hXQnAv6hTwNmRIOgt0r9aHMKY1D2BbrPwzgIBJYob8qExn11THo0FxL7VEE6GjgLJUa7IE/3@vger.kernel.org
-X-Gm-Message-State: APuU4Z+jAWJhMp98hriEQmvgTNF+3tvaxEqAG8oX4M7o0NwUy3zPpfcz
-	V+q4KPfJRoMNDKpHDsZ6nJylaZYzqkDa+TjhdurjG2AGcjz1VXVlXtjz3Dsw6MC3CpRiP2nqymG
-	pXHi4YoHEnNUzgm1erGrdkEtAeOw7/f4=
-X-Gm-Gg: AZFdTZeAiQfiJ9EHgVEYxbmrTjFbjRuoQhMVBKsYp5Rg79eWO1kZDQg+l4VpNG965ke
-	4+tfNuiHPhMSq3FsewYyIG6+dEtQ3jbgs6QhGF3eeYIVP/8oTTKaWjSUH9IyAfi2fpNrckBQlxZ
-	dHNfVXu49DmHgB77IpmVXVUp9m6cR1kJWnC0vXssQ3fyPbVu7dAN2c45XqgWLpl3rRNpZnZg81y
-	Uhd0TahFCIBUgTKpLN4cBIrgT+5tNc8uE3HeCEXKof4JjK1esw+dh74E5SuwEEzdbmKR3L1KY/0
-	mz4aueeKt5gPIJWN34AFtuMjbolsNdmO8I8FoAi/Aoke0bUROthQNWE64sG5cq34QCYhQmwOMUq
-	gq8Xcbw0Afaa3RVyXphF4eadMScJ4hvpugNk2duXn9bTwYEzipwH6cbo5Z/ImLUKgbzWppvQKlL
-	qVd+xIYkbnsXAa+rfqigmdiC6O1mLGsYE=
-X-Received: by 2002:a05:6512:10cd:b0:5bf:f8fc:7b5e with SMTP id
- 2adb3069b0e04-5c1bc89c61fmr6700305e87.55.1795774050347; Fri, 27 Nov 2026
- 02:07:30 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=Q6mJxVPH
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id 3EDE24C963;
+	Fri, 27 Nov 2026 21:08:08 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1795774088;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=HRyaekjRkhNgArIFD/le5my/BFv/PKpDbGvsEYtTGa8=;
+	b=Q6mJxVPHh2FEeguOcRqFUb6Ccq295M2PG6f727IicOeWjkvIgCTJp+gPUBNyltccfgzPm/
+	Ko2p6mz7dWIVgYt0fD6FfqTlyfsKCR4541MnO2vNeLnztFR0tB+dR5xZJwcyUq7HnbTNT9
+	qbLxE4LqY2OpnmITno9syPKkVEl3b5A3WwjtBJxV10EksrK9+FqYwC2haNN4SO0vD+u3JM
+	DeTVKFJZ3Xvs4huXk3IpheQ2YTvQOKK8gQQV8+bI9yx2cEE6TETUT7yABH9ttAGmdBpSWd
+	d6682GcQkWg21LpTejeh9rMWSpgDermBmsvPHnO5HzE8GUeBcDk5tFndIK0WRw==
+X-GPT-Reason: legitimate. This is a technical software patch notification
+	(Linux kernel development) which perfectly matches the recipient's
+	personal/business profile (alastair@d-silva.org). The message
+	contains specific technical details (Allwinner A733 USB support),
+	links to a reputable domain (lore.kernel.org), and follows a standard
+	development workflow with no signs of marketing, urgency, or phishing.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>
+Cc: Maxime Ripard <mripard@kernel.org>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Junhui Liu <junhui.liu@pigmoral.tech>,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-usb@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Alastair D'Silva <alastair@d-silva.org>
+Subject: [PATCH 0/6] Add Allwinner A733 USB 2.0 host support
+Date: Fri, 27 Nov 2026 21:08:02 +1100
+Message-ID: <20261127100808.2292229-1-alastair@d-silva.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,61 +90,46 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261121-at550-rfc-v1-v2-0-b0309d0789b2@gmail.com>
- <20261121-at550-rfc-v1-v2-8-b0309d0789b2@gmail.com> <awQEP9bHA0RPfRUA@monoceros>
-In-Reply-To: <awQEP9bHA0RPfRUA@monoceros>
-From: =?UTF-8?B?57Gz55Sw5oKg56KB?= <yogo.0917.sabu@gmail.com>
-Date: Fri, 27 Nov 2026 19:07:18 +0900
-X-Gm-Features: Aa3M54o3XA2vGbw-lT3h-QsKcDE27T0mWx-80FMotXTw-keuMBkBtHCZ9WsWU5c
-Message-ID: <CAJGK9zaVJ-42c-AnZuXBW1uskvmRQv1ePHQsx=BMz55RfznomA@mail.gmail.com>
-Subject: Re: [PATCH RFC v2 08/13] Input: add polled SiRF AT550 resistive
- touchscreen driver
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Ulf Hansson <ulfh@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Russell King <linux@armlinux.org.uk>, 
-	Arnd Bergmann <arnd@arndb.de>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>, linux-kernel@vger.kernel.org, 
-	linux-input@vger.kernel.org, linux-mmc@vger.kernel.org, 
-	linux-doc@vger.kernel.org, soc@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 23, 2026 at 10:16:56AM +0100, Uwe Kleine-K=C3=B6nig wrote:
-> Hello,
->
-> On Sat, Nov 21, 2026 at 09:43:18PM +0900, Yuugo Yoneda via B4 Relay wrote=
-:
-> > diff --git a/drivers/input/touchscreen/at550-ts.c b/drivers/input/touch=
-screen/at550-ts.c
-> > new file mode 100644
-> > index 000000000..89c2d2701
-> > --- /dev/null
-> > +++ b/drivers/input/touchscreen/at550-ts.c
-> > @@ -0,0 +1,124 @@
-> > +// SPDX-License-Identifier: GPL-2.0-only
-> > +/* SiRF AT550 coordinate acquisition. Layout cross-checked with AT551 =
-draft. */
-> > +#include <linux/bits.h>
-> > +#include <linux/input.h>
-> > +#include <linux/input/touchscreen.h>
-> > +#include <linux/io.h>
-> > +#include <linux/mod_devicetable.h>
-> > +#include <linux/module.h>
-> > +#include <linux/platform_device.h>
->
-> <linux/platform_device.h> already provides of_device_id without the
-> implied dependencies you get by including <linux/mod_devicetable.h>. So
-> please drop the latter.
+This series adds USB 2.0 host support (USB PHY, EHCI, and OHCI) for the
+Allwinner A733 (sun60i-a733) SoC and enables USB1 on the Xunlong OrangePi
+4 Pro. USB 3.0 (DWC3, u2phy, ComboPHY) is left for a separate series.
 
-Hi Uwe,
+Expected result: the A733 USB 2.0 PHY, EHCI, and OHCI host controllers
+probe without clk_ignore_unused, enable the USB1 VBUS regulator, and
+enumerate USB 2.0 devices with full DMA transfers.
 
-Thanks for pointing this out. I verified both built-in and modular
-builds without <linux/mod_devicetable.h>, and I'll drop it in v3.
+Tested on the Xunlong OrangePi 4 Pro with a USB 2.0 hub and a SanDisk
+Ultra Fit flash drive (up to 32.0 MiB/s sequential reads via dd).
 
-Best regards,
-Yuugo
+Prerequisites (on top of linux-next next-20261125):
+- arm64: dts: allwinner: add A733 SoC description
+  https://lore.kernel.org/r/20261126172253.1097838-2-andre.przywara@arm.com
+- arm64: dts: allwinner: Add Xunlong OrangePi 4 Pro support
+  https://lore.kernel.org/r/20261127065343.1449675-1-alastair@d-silva.org
+
+Alastair D'Silva (6):
+  dt-bindings: phy: allwinner,sun50i-a64-usb-phy: Add Allwinner A733
+  dt-bindings: usb: generic-{ehci,ohci}: Add Allwinner A733
+  clk: sunxi-ng: a733: Mark mbus-msi-lite2 clock as critical
+  phy: allwinner: sun4i-usb: Add Allwinner A733 support
+  arm64: dts: allwinner: sun60i-a733: Add USB 2.0 host nodes
+  arm64: dts: allwinner: sun60i-a733-orangepi-4-pro: Enable USB 2.0 host
+
+ .../phy/allwinner,sun50i-a64-usb-phy.yaml     |  24 ++++
+ .../devicetree/bindings/usb/generic-ehci.yaml |   1 +
+ .../devicetree/bindings/usb/generic-ohci.yaml |   1 +
+ .../allwinner/sun60i-a733-orangepi-4-pro.dts  |  31 +++++
+ .../arm64/boot/dts/allwinner/sun60i-a733.dtsi |  82 ++++++++++++
+ drivers/clk/sunxi-ng/ccu-sun60i-a733.c        |   3 +-
+ drivers/phy/allwinner/phy-sun4i-usb.c         | 119 +++++++++++++-----
+ 7 files changed, 229 insertions(+), 32 deletions(-)
+
+base-commit: 9437046953b2fb3bf55b36582450ea0267df82a7
+prerequisite-patch-id: 0279f281cd59cf54bceee39b0fa4d0b6a7b87c48
+prerequisite-patch-id: 309a5a3ca5b216915907263dea7024263abf1d1c
+prerequisite-patch-id: 55e543b9854c7ae2fa86969233d05ccadd3792e9
+-- 
+2.53.0
+
