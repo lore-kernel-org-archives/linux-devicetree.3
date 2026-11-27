@@ -1,106 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.20
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.43
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795753402;
-	b=tFPACzOlipMKAE/TPBTuxK4/b82cLLwDd+Uzh7Pi2U6EeeWuvG5SHd9BEfbknYBVDjRi
-	 x3ItCyGIB45GQ+t+VrM+jc+UN1vlLFUBGLUgIOx9gU8Jfqry4ouXnZivzTDUBy+4S2PDn
-	 Nool84eTfldCx3QwvctgfnLZpfuiXUnXFgJs1+1zFsKQm1N05CayMvgN859Sjtahz24CH
-	 xDCEjqeXwoz0pD5GhHQsyDyxmz67yGx5N922Y28AG2Nj3Aika8VZkpu0SbUgiqWfRikgy
-	 eVujWXueLoqTV3JX0q7mTyRZE0ogQHq4Y2nA+WFyQp552ZejIXLQ/qIFvZX3dVHh+Mg==
+	t=1795753622;
+	b=q7EZ9ZlMcVyBPL5wkPjTz/rZKnos30MnqFdqX9tCnwdtEy1hxP6u/2n8191XPwwUunRw
+	 K6CWROfPEDvsLEMcBZd/EwycW4oYG0PqnjNk/HUZDhCiguQwlS4cf4cxGGLMODz+zxROI
+	 gXirhZEzRd+fTap1Fb3z6ZqjLB/L0ICKX4LwxCfMp/Dz0ECrwbyzyBbhcogB6F1yMXGEM
+	 MG7eF8VReDtYoPhKC6wPVfFRi60mrPTOGTrlnK84dO25cX2mV7Uttq0Pq4nwPgHy0Wx1T
+	 tmLY6Gk2BU4HRRRB7Qm+A8WmnVC4EUeqGwT12vKoM+8kh4513h+i00RJCs+/4ejR+rA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795753402;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:Content-Transfer-Encoding:
-	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795753622;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=wv3hLfr27B6NzlcW8dssAXAsKC/NEE7uUw5Wd4Z27cA=;
-	b=jYys6M6mP7ONnHmAbQQRjKBWN0tpOR3JrKBU+dyadc4j/vPnZcNRbzKYsCK5FnHHKFOI
-	 6RHK9S2nkE/RvdQElpKp8jRJR20GbOdbeI4wC+ZMdERToVbwrjql1p4phHkedcRqCobGQ
-	 C58MiKk3dr4G2Z+K1sQQtkawyyDIx4+6u13iVT/M35iMR9vmmJCUpnpImu+eVFCLQhCeu
-	 N4kt25AYo0v6irttHBYlG4zHiMcBwPKfSEgqnbSK8J6lrl/c38v40pCoFcjDGxmd1nOJ3
-	 qTGlgikAn/+0NSEIj+0bOfBTBVCSJX1vtYmoWykrUEGZu7+XlcGI/RVrgLFk+aCNPSg==
+	bh=4WV2mTap6piHsQN9M+ehZ4GrK7s7qKSenHHUsHABJdg=;
+	b=zrFiv4Q9aEvIAxj/upnj/KAU+p2u3mZNOGTl/6Hhmb1rpU1G+geNquQ+Y5KwUOG6+dKq
+	 2300Xt3NpifdePQAJ6FXhV3Wy+et+RTNzM0MOihWld3BqIwdnU7GjbCtKAYZy+RJxsWnU
+	 3mFeY4VCc6VrBzaJ1B3Z8Qf06sGwCjM1t+8L6PLeXalxO3byNlhnKdwfs+c0FY4sTsJ2c
+	 hkBxP2xhxjyfHEoP5mLNurfIZ+1VZBvUyY9SxvGy1QDvilEYSYXCp614ZF02WI3hcWDJl
+	 +tPiN3KFLIq5TubswdSxDdyfdueGSbYi5OWb+VsZmczSrTD+wOEIIDUmJegyBkW3Eyw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=j1F0r1Ie;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.20
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013020.outbound.protection.outlook.com [40.93.201.20])
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=LNq6mEf4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.43
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010043.outbound.protection.outlook.com [40.93.198.43])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3946C606A321;
-	Fri, 27 Nov 2026 04:23:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3946C606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26429606A329;
+	Fri, 27 Nov 2026 04:27:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26429606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=j1F0r1Ie
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=LNq6mEf4
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IL++x6tYHf4N8A53zzlCwdV6S4nAlMtHJ5aa5uGcYjEwqb28shZ4KE4ZajTAGOYeR+W5JX2Ry8203Zu8ZR4Ugmn3DYNrXYpG9P0yN5ZgTmtWF6Phm3trKTC+sN5gCDK0vcNkyefJJaI+VL9j7I64+0hUwbIEVACC+EaUkyOcbWIJWDU8VC1dK16M3xwYe0LIgtBCUd1lSuMbmBm1+7udOFq51BQxw6E7aHEBF2TEh1+FrCOUti7r8psNwwECv+wF5qVAgqJRT54kkjVqwS2ywgfioCDHbx9HG0VHXnjz9tycGzlUck2tizQ1C0Iup4JGe5OG7hyh20V4tm+Bq20gJQ==
+ b=j9xtYsWVtEOP3aY1ChvZ2I5N7fa+DR6RT7hnNMXY0eCIkkm1prdwci/hXKoQCUhiY89XtRIi7JZ0JhpRd0QTkOC6m9tti9LfjfxIQ9aGrvqspQz0XGnzx8ueBe9eO1/WQUXzY/FMpKED14OSdoJHyH/PX8C+ABT/p6FJuWgHpayELrpkkt2StRDKYS+mcgasJC1c2YH8lHVG+i8D5j7IEZlCpuYv+A9bHijYpn7iPbw2Fjvu+7Ni55jGYYY1dJ3CXYVcb+C+zZ4xUNm9rMDJJSuQTZSaZoRhbUcxquHZZ8NCgvoZBx1l30nM3fneQ5X1dwT0qeCHig8E8mWyK+/rwQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wv3hLfr27B6NzlcW8dssAXAsKC/NEE7uUw5Wd4Z27cA=;
- b=K85FI6mvp+au5AVBsrI25ITA62QJRwKPGBfTHT95dNowr83ovVXfTsZbZHOb88YY+Zszh8PJcJqPNMFoPakuH84TXPYi1LOgKRlmz4m0QHItzR8lA5qgPFG0G/6VAce+xXP9gOhdzAsU1vzirAPMURnyaC/DWgzHB+umkEL0BctTytMjM9i8LNuOB5x74yZkJ9UZRNgTHFTxsMaeIWrpiAeDFxpdIFV6fIN7b0PHCQzAATqKdo/4bZsvDJEKBJkuwjfN6nifD9exWHmjw/l3Dfbiw5dBMWohGNOuYC/XpljkGzjEScHAww9AiWuSv4gadyP8KUS95XWhRpJsRiTD5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=4WV2mTap6piHsQN9M+ehZ4GrK7s7qKSenHHUsHABJdg=;
+ b=Cxd1AD2NVZa11WvCnDuza6c3OuQufdoztbOgHN1hLEqd0xcTenbEa2ayASTfrLMhVXj0ksr9l9PWZO09KEXvirN6rTA/Ix41fI1c7VX5n4iGTe6QwkM1lzu05Oza8LNZJcmDceAaZUtR7C36Bo8rPBeSWcLEdmGiH2A/kWOYhoy88Wkht6OY6W2nqLvgkyHLMsy+awevMpTaX3Zg/0IuE8jmXbbC1e8bEzc4EntmzMuiZZo9ePK4H8VB9RRE7j+WuiPkCrLjKg5WC0V35B0YRYaDbAS9PrMJxmQ8+GHwteyeoZcutP5Yvz4g4k8s3cHycgx5tJ+oauBHGtZGGG5AxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wv3hLfr27B6NzlcW8dssAXAsKC/NEE7uUw5Wd4Z27cA=;
- b=j1F0r1Ie/bOVwnJxJhGaogYbZwhY+DsA5sSSqk2oxri0kzUlbFTNUcJAgVHmUYZbBnqp3u6p8wMN4fw2OTRxPMAW9RVzaVI00YoUGZ/raJYwYmgtRGzmzCiPkeHOmjCE348lCE5K57HF+o+YDPsBTOoWL9mLs4mSOhjwes431ATFvsKBww7jl6yZOh3+8LBVgQjNvTxj14q5oxtHjKt8Eb/vEWdwVQ4sI0Iifm+1pXgkDgf/zepuluqorrTIRvvSJKiABNr7O1sB7dpwa1F0DRqWsY2vtWkbGHqrtcH7Qa+slWTplVkLHaHIqbz9OYH9Oycd1lUxNxgv7s+qdHr91w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by CH3PR12MB8584.namprd12.prod.outlook.com (2603:10b6:610:164::14) with
+ bh=4WV2mTap6piHsQN9M+ehZ4GrK7s7qKSenHHUsHABJdg=;
+ b=LNq6mEf4ox0kiQON0gZ2ojkyMixDaOAv2nc2shza+4aU3rcRVh56JEi+9FTwxHeqZL7Fmi9i+PhXJPilyH9gfoEGTvYNAAF+bxmMRbsM85Qmm9aLnVTDTPfw3+XJ+qIHhLt91ghE2Uqg/34A4xYi/WpFAgASuAiY5MnocnwmyaM=
+Received: from MW4PR04CA0034.namprd04.prod.outlook.com (2603:10b6:303:6a::9)
+ by PH7PR12MB8594.namprd12.prod.outlook.com (2603:10b6:510:1b3::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.4; Fri, 27 Nov
- 2026 04:23:15 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0662.004; Fri, 27 Nov 2026
- 04:23:15 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Svyatoslav Ryhel <clamor95@gmail.com>, devicetree@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
- Svyatoslav Ryhel <clamor95@gmail.com>
-Subject:
- Re: [PATCH v8 02/12] drm/panel: panel-hitachi-tx10d07vm0baa: Convert to use
- MIPI DBI bus
-Date: Fri, 27 Nov 2026 13:23:11 +0900
-Message-ID: <hlO8KiQKSi62yShZAIyhpw@nvidia.com>
-In-Reply-To: <20261122081820.53199-3-clamor95@gmail.com>
-References:
- <20261122081820.53199-1-clamor95@gmail.com>
- <20261122081820.53199-3-clamor95@gmail.com>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: TYCP286CA0246.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:456::12) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.10; Fri, 27 Nov
+ 2026 04:26:58 +0000
+Received: from CO1PEPF0001885D.namprd02.prod.outlook.com
+ (2603:10b6:303:6a:cafe::a9) by MW4PR04CA0034.outlook.office365.com
+ (2603:10b6:303:6a::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.9 via Frontend Transport; Fri, 27
+ Nov 2026 04:26:58 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CO1PEPF0001885D.mail.protection.outlook.com (10.167.249.246) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.688.5 via Frontend Transport; Fri, 27 Nov 2026 04:26:57 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Thu, 26 Nov
+ 2026 22:26:56 -0600
+Received: from xhdsivadur40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
+ Transport; Thu, 26 Nov 2026 22:26:51 -0600
+From: Ajay Neeli <ajay.neeli@amd.com>
+To: <mkp@kernel.org>, <James.Bottomley@HansenPartnership.com>,
+	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>
+CC: <alim.akhtar@samsung.com>, <bvanassche@acm.org>, <beanhuo@micron.com>,
+	<stanleyjhu@google.com>, <peter.wang@mediatek.com>,
+	<can.guo@oss.qualcomm.com>, <sai.krishna.potthuri@amd.com>,
+	<linux-scsi@vger.kernel.org>, <devicetree@vger.kernel.org>, <git@amd.com>,
+	<michal.simek@amd.com>, <srinivas.goud@amd.com>,
+	<radhey.shyam.pandey@amd.com>, Ajay Neeli <ajay.neeli@amd.com>
+Subject: [PATCH v3 0/2] UFS: Add reference clock support for AMD Versal2
+Date: Fri, 27 Nov 2026 09:56:47 +0530
+Message-ID: <20261127042649.1449496-1-ajay.neeli@amd.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,201 +111,70 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|CH3PR12MB8584:EE_
-X-MS-Office365-Filtering-Correlation-Id: 34e5bd54-1201-4aba-e8b5-08df4c3e27e2
+X-MS-TrafficTypeDiagnostic: CO1PEPF0001885D:EE_|PH7PR12MB8594:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8058bd8b-a29c-4b9c-8723-08df4c3eaccc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|10070799003|23010399003|7416014|376014|18002099003|22082099003|921020|56012099006|261022075727099003|4143699003|11063799006|261022113327099003|261026121527099003|261028144727099003|261021123027099003|261102123227099003|261026140227099003|261009223027099003|261021121427099003|261022105027099003|10067099003;
+	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|1800799024|376014|7416014|18002099003|13003099007|10067099003|11063799006|56012099006|261026140227099003|261028144727099003|261021123027099003|261022075727099003|261022105027099003|261021121427099003|261009223027099003|261102123227099003;
 X-Microsoft-Antispam-Message-Info:
-	s1aIfb4U5ziA1fvfRUC/dKPWOQpUhKV5eD4KDAb73EpFj+RXZASfUfh4HFwmWdnWSclh8a19t8mIlNSpdYdL/9AEh5ioby1YoOIwVSoE5eAxoz6fzGhpLk073Tz3sUmi/8PFydQIJQUbdPbDxz3WHVS6IBSQdAg4IyRdN9XUjk46IdRSbXi2TVGXCkvFkcxV+bUAGnCv3G4mlpEgVx5vq6mgAD6DcUx1DxhNr+/2eIi6ePmaxTsz+jeEpHPqO5XLgMqIUGj8cMaPw+nEGKepswlQaMoWTlLNa9ZDzcL00u558+6i1e7eu5liDggVJP1aNlRE6wjlKeYzxcd5IrXVNhM5EKnAf+Irk9jwVW3zt0El5hFe8+woT0G3lwmsOXq9Byz+IS6Dl7gqukcQy6oZakBm2miRv2DBBdU5bhR7vCsmdn9WEKDFdLklZxclrYnESHhFmT4HC3fMhIV6kqfB6U3pzIkP9uWS+0S7YCl/8xPoKM72xClhzk/KGI8vZvegh4qPuN73NU4V1cgcUw4eRUj5QiYUPqdVTV3e/5iRkntq+ji4ei+cg1sSSM9hTM+/ezjJmOnMF9glMOpb4owQ7UNTlLJ55Jn/zXN4EMCNu/wzLpmS6jO3TJGyxBkLea+8tErEdKyFMXGgUobiKZeLwHcGFRudI+283NH3rqzM1301qqMpWtTyq9EPl41jQyEsYwATbIJdroR98Klsyy5eTw==
+	103graP+W2lq+GVVD0bIzmt61+R2TGNp4uQHsxtHcJu89yH3VkjxLgme6YqDFtIft+wGBQQ+LlfnOPrNVo/qeb32q0mTCAC3dbp2FvpoK6yNQrTItWdT8DLKvZTaVVQsRJmVnK5JQ4tGAk4//d9rwDDw7fI6FGo3zUI1KYb5gra6XDzM4JQK8UB4zQh/iBfqKlwhzazoGddBaicxieYEX850kB/essJd8XkeZXwbbP1JzAv5Kix7k8mGr8fHnRiRgsehBOzaeEJ3mIYFE56NAI8SthzHIXHu/vjTLBs/8mbI9rViHR2ZhHwNZngzsTDjHkf1OJthAyKRSVTOtakHmAzyhfOZrZwbs4ha/WlfBOyDEGPKzekfA4gOekYUqGODdb40gWN98u6yWEYOyW84tX2iLLqsjbvi6QYF2bOhQxnjcR2uQtm13QGRTmqc6S+n8KR0s2oGS4VqvLZElJIb0emJE6WbSMVzcVSMgvA2zTWVIhkXuT6IaHAi0XjaY/cWwYNsw4jLVbBz0c5ja+1PPW9BA3TyLEOim2jIONtBDe3Va2NzA55P8o2onyCHzl4NaaQkCu4zFnbL7AgR9/ZsuZtNCi63oyJ1ulnuRjMaQnRsQzsLDCwlUQ4o50vUlr91G21aPENpp8bCURtheUKGzw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(10070799003)(23010399003)(7416014)(376014)(18002099003)(22082099003)(921020)(56012099006)(261022075727099003)(4143699003)(11063799006)(261022113327099003)(261026121527099003)(261028144727099003)(261021123027099003)(261102123227099003)(261026140227099003)(261009223027099003)(261021121427099003)(261022105027099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(376014)(7416014)(18002099003)(13003099007)(10067099003)(11063799006)(56012099006)(261026140227099003)(261028144727099003)(261021123027099003)(261022075727099003)(261022105027099003)(261021121427099003)(261009223027099003)(261102123227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UE1Kd2FsWVFmMXErQzRuV21nM0xxU21wdEpESGpISEo1M090eTF5L3BGQ3JD?=
- =?utf-8?B?Rzh0My9uVUZObVk2SnJZYTNHK3FkY0NLUVluQU9xQUFpRG1lM0QydFQzdTVJ?=
- =?utf-8?B?Q3FxUTBvcEpvN2JaT2twSlYyZ3hJRERrYUJmWEZMSS9sUklRMGhRblNBejBP?=
- =?utf-8?B?dzdXbHdWcVhObDVPcWUzN3NYM0s1RFIzQmdOU0tNTVdsL1NVTUhFZ214RTJ6?=
- =?utf-8?B?VVlhSGFYSWhvYUQxdVlHUnpiVmg5L1BGbU01eDVhVXl1MFdGVEk0aUZmYkxm?=
- =?utf-8?B?QkJrOEVmN29uN2p5TmJqS0Y3RjR6eUVHcld5MldiekNTQmdpSEx2dHk2UHpP?=
- =?utf-8?B?d2V3VUN3VE16YTY2OVgraHBqWUVza3ZjUGhOTERvQ2pIbVFsMTlKNE9Eb1FW?=
- =?utf-8?B?bUNJZGZCT1ErcVdCOSsvRExGMWs5R0t1cm9TUDYxQ0ppbVg5N2dsRW0rSlhi?=
- =?utf-8?B?VE1rVHdwNkpTcEhsTklZMlB1M0pwbkxJUFVYN1VxakczSFJzbW55blFIazk4?=
- =?utf-8?B?NU1wR2E3aGZ2T0VpU2ZsVUJGYmlJaitoQUVEbFZjZEZ5MFhpYnJaUTJsL284?=
- =?utf-8?B?eWJ1a3JtWnZxdWtFcVVrK3VVK2hZUEJYbTd5Q214dEw2TXBjdHEyOTI1cGgy?=
- =?utf-8?B?QUhOODFNOVdxWmtDSHlIY2FVTmtTTnNOajZCdVJPMW9FUk42YWVwZVQ2cCtU?=
- =?utf-8?B?NHExWFdrOXQydGZaYTBSZm5JQk8zMVZKeW41cTA2WmZiYzhha3ZsNkFYTlVH?=
- =?utf-8?B?MWNKR0ZHYi9xcGVBVGdqSlRCNVIrYXp5UGhnU2puakVmcW9ZTnI3R1VHd0dN?=
- =?utf-8?B?UlltcHUvSFJ6aENwUTBEVDBwWUdoRU43clUwdjVFNUFrRTJOUEU5UFJPazhN?=
- =?utf-8?B?bStHS3NmdzJaMTNwTGJkUmx4U3FwSUhTZ2NjUVcyVFdHeHJoRExldk1WalBG?=
- =?utf-8?B?czB4UFVTd0VyZXczVWpGMFBxdUY2QU1NNzhVZmw1aTV6OU5JOU9ZMnRWZWVJ?=
- =?utf-8?B?S1hiWFluOHBTN05KZVNyMUtPRlk3MERqZ2NMOUxsd2FmbEQ5TWdUVzl6dXl0?=
- =?utf-8?B?OVY5a3RwMlREZWZJNHdQb0R0UVNQYUpuaEVNYlp3L0xrZmlSeG9EbGZjS0xL?=
- =?utf-8?B?UkFSTzdzeWRsNHdYalZuWnVnZU1QZGtWNnI2VDNESW5NaDR3THc5YXNIa2lx?=
- =?utf-8?B?M3p4SUluRnhmY0tIUWp1N1RSRWxnWTk1WXZKWEs0MGNDVVBnRXRrOGkzb2Rr?=
- =?utf-8?B?UTBldzVhcGZacHVQOS9Xb3creUxjRDk4a2R1dmtXY1h2WjVKbnpRZ01NSVFH?=
- =?utf-8?B?Z0FidTYwR05pMEZxV1VaVTk2SVViN253a0d1SEM1L2d1aE5ZRHVqUCsybmY0?=
- =?utf-8?B?anpEeVFvbEF1dm5obkUxZHZkOHJaaUMvN2hhanNaekkwbVkwTm9wSG0zZVBV?=
- =?utf-8?B?NnZpR1lzbVdibm94VUcwY1dqMEQ2SFBxMm9NcjRZWGdWOW41OVNaakpnSUVT?=
- =?utf-8?B?aWlvYzFVMEUwYU93bFZ0TGErUEhCK0hwYjk3Yk9CSkczdS9QbURreUI4WlJP?=
- =?utf-8?B?SmtTT3lQUjB1RDhmcWNBcmVwcndYd1dyWGt2RWJ2VmJCLzhocVdpNjlvZUs3?=
- =?utf-8?B?d21GOVI2YnVjYnRpajMxSHYwVHJsK0dXZzlqRldab0RSZmFwdTB1aE1jQXRu?=
- =?utf-8?B?dUpvR2lKRERKVXdqM2VHVHpmLzI4M0NsWlQyYU5lWldjZnE5VXRDbzhwU0l5?=
- =?utf-8?B?L3U2ckFQSEtDdTNBcDFlYThNaWZLN3hLbUw2T3BPNWMzcFNtTFp0eXpRMWt6?=
- =?utf-8?B?d3JSZ1NpbEJpbzlFMktJRzNwNGtyb3Q4RGNLRkVOTS9KVzIwdWNoQ3ljQzJI?=
- =?utf-8?B?UGtsVUhYTmQ5UVVJNVExOC8vYXZId3FFcmZKMFdYbFkzYU9pTmNJVms2N2Ju?=
- =?utf-8?B?K3JJR3JjOWVjUGIvR1dXczl4M2RGYUgwajhWN0U2ZFNITDJseGg1a2x0QmFj?=
- =?utf-8?B?ek1ITFNWM2xPRUJQUmdWVkRTRTJLOHdBcVJTRG85dEJ5WFBQSHRFaWZNMUFS?=
- =?utf-8?B?TElhTUp4MUx4OFF5Y0h4V0kvU2MvRkwyV0FZYU1NZ21kNzRKdlBvbGt4M3JP?=
- =?utf-8?B?Ri9qM3VhNStJWUlKelA2Wk1jc1Z5blNtU1RudXMvbnRRRWI2TU95N0tqMHA3?=
- =?utf-8?B?Q2J1UXF4MHMzdStnTkVPdFpnUVJ5eWZ3SE56TE51b0lVelU3d0dRaXRIZEJ6?=
- =?utf-8?B?L3FIVk9xaEZvMWJES01idFZIMDFScWlOellJdVlKaHBUOHpiWHRiOW5NbmUz?=
- =?utf-8?B?WE5JWGFOQVQxeEI4TVdNMHo0bVhYYnY2U2JJNjI3Tm1XWWJURDBlYjAxbWlD?=
- =?utf-8?Q?TBquAHVGm+neneT3cqKvNKrY/QYCZgiv5ZDdYbAb1kKfn?=
-X-MS-Exchange-AntiSpam-MessageData-1: 2WP9WCQ1R2WvxQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34e5bd54-1201-4aba-e8b5-08df4c3e27e2
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 04:23:15.2776
+	M7ouK0/8+Y/SuOzuBKr6ygwBfvw0owhXogJs3zG7sp5OejbLGriiDJjmyS9zVXj1IWE4aV2AjRq1QTd09DbUZQdoJVfPb6o0H3mhkK96e1Ht2wVwoyyf7h78xKL75E8zttsIBhewFel/mIU1Zec0uvC4fAxsJUlDpDpeHN/8QkrqImdiwfCK5GvzrqZ1FeZiZbcC9YcBj0m69Ja5bhy4Um35uBX4qe3KwNmrW1RCA5h7sZ0fABUQuD5TSZmZz6kGtVZj3lfszb2+rSuQ2EkmxP5tVpGN5VxEeEkwQ6ptfvj0VBdVS/LUpAHK85FzOyXFQFT9Q97rsTbXSziwjStPfYqCFEu6ldsDMOVp71jqX5FBjzN2nsQX7CrilIVZ60DDrYX1CTPIQ0vTsehrJc9UytpizFtMWpaQgd19gv7zI0L2IQUeZ4YutyCeZ3XhjfH6
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 04:26:57.9294
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JrTrNI1KygeMlHwKohIyEqwzwOhAos0yjYBWVJAqHaJpJ6YmLK1+sBV8eyiKt380szD+FG0TtgP73GD/Ssr2dg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8584
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8058bd8b-a29c-4b9c-8723-08df4c3eaccc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF0001885D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8594
 
-On Sunday, November 22, 2026 5:18=E2=80=AFPM Svyatoslav Ryhel wrote:
-> Switch from a generic platform driver to a dedicated MIPI DBI Type B
-> driver.
->=20
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  .../drm/panel/panel-hitachi-tx10d07vm0baa.c   | 25 +++++++++----------
->  1 file changed, 12 insertions(+), 13 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c b/driver=
-s/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
-> index 83c2af1be9755..318ece68b7806 100644
-> --- a/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
-> +++ b/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
-> @@ -14,6 +14,7 @@
->  #include <video/mipi_display.h>
-> =20
->  #include <drm/drm_mipi_dbi.h>
-> +#include <drm/drm_mipi_dbi_bus.h>
->  #include <drm/drm_modes.h>
->  #include <drm/drm_of.h>
->  #include <drm/drm_panel.h>
+This series adds reference clock support for AMD Versal2 UFS.
 
-You should now be able to get rid of includes of of_platform.h=20
-(replacing with of.h) and platform_device.h. Agent says drm_of.h and=20
-property.h are also unused.
+The first patch updates the common UFS code to recognize "ref" as the
+reference clock name while retaining support for "ref_clk" for existing
+devicetree users.
 
-> @@ -25,7 +26,7 @@ static const struct regulator_bulk_data hitachi_tx10d07=
-vm0baa_supplies[] =3D {
-> =20
->  struct hitachi_tx10d07vm0baa {
->  	struct drm_panel panel;
-> -	struct mipi_dbi *dbi;
-> +	struct mipi_dbi_device *dbidev;
-> =20
->  	struct regulator_bulk_data *supplies;
->  	struct gpio_desc *reset_gpio;
-> @@ -40,9 +41,10 @@ static inline struct hitachi_tx10d07vm0baa *to_hitachi=
-_tx10d07vm0baa(struct drm_
->  ({ \
->  	const u8 d[] =3D { seq }; \
->  	struct drm_panel *panel =3D &(priv)->panel; \
-> +	struct mipi_dbi_device *dbidev =3D (priv)->dbidev; \
->  	struct device *dev =3D panel->dev; \
->  	int ret; \
-> -	ret =3D mipi_dbi_command_stackbuf((priv)->dbi, cmd, d, ARRAY_SIZE(d)); =
-\
-> +	ret =3D mipi_dbi_command_stackbuf((dbidev)->dbi, cmd, d, ARRAY_SIZE(d))=
-; \
->  	if (ret) \
->  		dev_err_ratelimited(dev, "error %d when sending command %#02x\n", ret,=
- cmd); \
->  	ret; \
-> @@ -54,10 +56,6 @@ static int hitachi_tx10d07vm0baa_prepare(struct drm_pa=
-nel *panel)
->  	struct device *dev =3D panel->dev;
->  	int ret;
-> =20
-> -	priv->dbi =3D dev_get_drvdata(dev->parent);
-> -	if (!priv->dbi)
-> -		return -ENODEV;
-> -
->  	gpiod_set_value_cansleep(priv->reset_gpio, 1);
-> =20
->  	ret =3D regulator_bulk_enable(ARRAY_SIZE(hitachi_tx10d07vm0baa_supplies=
-), priv->supplies);
-> @@ -243,9 +241,9 @@ static const struct drm_panel_funcs hitachi_tx10d07vm=
-0baa_panel_funcs =3D {
->  	.get_modes =3D hitachi_tx10d07vm0baa_get_modes,
->  };
+The second patch adds the optional reference clock to the AMD Versal2
+UFS devicetree binding.
 
-Unnecessary semicolon here.
+---
+Changes in v3:
+- Add a helper for the "ref"/"ref_clk" name check and use it in all
+  places that handle the reference clock.
+- Keep the reference clock optional (minItems: 1) so that existing
+  single-clock devicetrees continue to validate.
+- Link to v2: https://lore.kernel.org/all/20261125092351.2807658-1-ajay.neeli@amd.com
 
-> =20
-> -static int hitachi_tx10d07vm0baa_probe(struct platform_device *pdev)
-> +static int hitachi_tx10d07vm0baa_probe(struct mipi_dbi_device *dbidev)
->  {
-> -	struct device *dev =3D &pdev->dev;
-> +	struct device *dev =3D &dbidev->dev;
->  	struct hitachi_tx10d07vm0baa *priv;
->  	int ret;
-> =20
-> @@ -264,6 +262,9 @@ static int hitachi_tx10d07vm0baa_probe(struct platfor=
-m_device *pdev)
->  		return dev_err_probe(dev, PTR_ERR(priv->reset_gpio),
->  				     "Failed to get reset gpio\n");
-> =20
-> +	priv->dbidev =3D dbidev;
-> +	mipi_dbi_set_drvdata(dbidev, priv);
-> +
->  	ret =3D drm_panel_of_backlight(&priv->panel);
->  	if (ret)
->  		return dev_err_probe(dev, ret, "Failed to get backlight\n");
-> @@ -272,9 +273,7 @@ static int hitachi_tx10d07vm0baa_probe(struct platfor=
-m_device *pdev)
->  	if (ret)
->  		return dev_err_probe(dev, ret, "Failed to add panel\n");
-> =20
-> -	platform_set_drvdata(pdev, priv);
-> -
-> -	return 0;
-> +	return devm_mipi_dbi_attach(dev, dbidev);
->  }
-> =20
->  static const struct of_device_id hitachi_tx10d07vm0baa_of_match[] =3D {
-> @@ -283,14 +282,14 @@ static const struct of_device_id hitachi_tx10d07vm0=
-baa_of_match[] =3D {
->  };
->  MODULE_DEVICE_TABLE(of, hitachi_tx10d07vm0baa_of_match);
-> =20
-> -static struct platform_driver hitachi_tx10d07vm0baa_driver =3D {
-> +static struct mipi_dbi_driver hitachi_tx10d07vm0baa_driver =3D {
->  	.driver =3D {
->  		.name =3D "panel-hitachi-tx10d07vm0baa",
->  		.of_match_table =3D hitachi_tx10d07vm0baa_of_match,
->  	},
->  	.probe =3D hitachi_tx10d07vm0baa_probe,
->  };
-> -module_platform_driver(hitachi_tx10d07vm0baa_driver);
-> +module_mipi_dbi_driver(hitachi_tx10d07vm0baa_driver);
-> =20
->  MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
->  MODULE_DESCRIPTION("HITACHI TX10D07VM0BAA MIPI DBI Type B panel driver")=
-;
-> --=20
-> 2.53.0
->=20
->=20
+Changes in v2:
+- Add descriptions for individual clocks.
+- Use "ref" instead of "ref_clk" for the AMD binding.
+- Update the common UFS platform code to support "ref" while retaining
+  compatibility with existing "ref_clk" users.
+- Link to v1: https://lore.kernel.org/all/20261111043840.906301-1-ajay.neeli@amd.com/
+---
 
+Ajay Neeli (2):
+  scsi: ufs: core: Support "ref" clock name
+  dt-bindings: ufs: amd,versal2-ufs: Add reference clock
 
+ .../devicetree/bindings/ufs/amd,versal2-ufs.yaml    | 13 +++++++++----
+ drivers/ufs/core/ufshcd.c                           |  4 ++--
+ drivers/ufs/host/ufshcd-pltfrm.c                    |  4 ++--
+ include/ufs/ufshcd.h                                | 12 ++++++++++++
+ 4 files changed, 25 insertions(+), 8 deletions(-)
 
+-- 
+2.43.7
 
