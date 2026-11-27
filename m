@@ -1,90 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795776623;
-	b=mteSr+napDnHJGGu+fC2xG+qhypz6uX3vGrdQl60eVA4pzEPB98RUqxHUcXGTuSfiqVc
-	 ZRKTVQe3W1kz0Iqu8gaSjzwxBPlD/LeXzhD+fE+Pl0/1wmQqfszuLNwF/hfEbyB8q7Fwp
-	 24BPBq468lILDx5JWdXoSJ350wDn6oC7mDLYRnBI0YVE84XuYDGDhzdz9ilyAZc3KouOF
-	 jekfYVXA2F+fQirJEfV/PldWQ+s5cV4ZU56AAVob5c1BeHY09Ui6+iarQqzm5TnsYJQQt
-	 vFqD2mryCRB3AmL9kzM9xP5Hk6c4ZClsmlrvURpTyS9qFU7/yRIeUZbCVdUD+ScHqmw==
+	t=1795776710;
+	b=JpaHh8CP4R+2qr1S2/xWtCvjQM4QLHHoyW0VYSaOuRDrfPIoYpJiYDQQI3tUU++iz49C
+	 Ysw6I28pTP9SY9YB2hYdZ9430LdlrwCEWenXfVk5mVnbJK0SeUiQUSHjeIJk/DoF/hRpe
+	 GtK/0m5XHupQXUYPDupFIHvCQb5RMO4ZwN08PLb+lPhzjpT9P7VyQpZ34m97hgG7bBUFj
+	 /FaZ3i3Zz6WvN4yrt0XIFE6bOYteIxXKo1US6Jqi1213QpcOd+Atlc3lYswvygDhwg0yM
+	 BF9zfRkzsNTa+Yvzh7rqUK7bt+C2HjpWybLC44BPADT7iv/eosKVInjJreDss9wgQkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795776623;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=g2Ork4q/Fz0rgLCbWsmRNw5g1k58/a2ERyPtpHF+EsU=;
-	b=2N1MtOcJ+Xi7eLmgaBcXbbBYncdV973T5hp4PGgeGXZ6qXnpXnFeVa2uikQheMyM1dAg
-	 EBxZqN4PQvydXr9HnRhk/dYPX76SIG6IGGgOLLZtwF+IlzwkhO7Y9h44Og+RaN4Lyoeu6
-	 tLZ0agKasa1l/diO0/KiMHcmNeW4xwZvTRInnY4BjnUa+HgECSes1iwMG9uwWEALjhhJP
-	 fxdimBxBNbVtDxUSoyzEM/8M1MpXC4NkbCpxtIta/mdu56Ny4XpUMrUDhb2/1Fi+TARBz
-	 Sen6Z/qD2QVVvdeOL4qwjojG4yJN+jRT9/sRFX82c4Xf9Jx8ijGP+NDczorqLszInGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795776710;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=l7FztdzFHxqU1nbusRsPYGsX/uBT6CT4nw2wRBYgCtw=;
+	b=5DvN0EIDFGrMZH7o/mUibneGCysRuXgoQvCo8qftVfYIw2ZkoCmdRp1N+U/Z+vqCcqkt
+	 lXwu27MkFl1N4TJp6TJzkjXM72YqfB74vFWISMDwBnvLlwd6bHl7VLZGyrP68X5sme9Ke
+	 SYQ0Hpmj5f0uPQ/7uXcpGSqNw6Xaa2bISHww1ESdb5+jHAdoWcuA/OnKVRMZu/fpaRwWm
+	 M9zY0T6xUNaeMczX7HzzVWuFPx+BF9GdvfIu117qRjwloRWPWGu+I6jYFjbvtpjq2OWNf
+	 aKe0tUw1F84sgUX3WDOAZxUWAxtme3dW7jrMVzquX0OQuotY5SjUaj8fTcPj/7sEuUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=D045+Osx;
-	arc=none smtp.remote-ip=209.85.215.170
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=J8xHpXZ0;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3668606A31E
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 10:50:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3668606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F465606A323;
+	Fri, 27 Nov 2026 10:51:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F465606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=D045+Osx
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cdac6d19ddaso3255845a12.2
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 02:50:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1795776622; x=1796381422; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=g2Ork4q/Fz0rgLCbWsmRNw5g1k58/a2ERyPtpHF+EsU=;
-        b=D045+OsxbZxZvabIvRm0TJaIFwolOL991tedU265BD8JLNDzAzbXS3HvslGTQZgUiV
-         CcZkwAQlz42QJ3zc0mXABa/eCuj3D+HgaVcYaOeyejBK9qdidrphTYpSC+0uUj8WiNIJ
-         KS/ZUSWz9U+JR1E+BFlvAgLa5Dfk+2QU8GJZs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795776622; x=1796381422;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g2Ork4q/Fz0rgLCbWsmRNw5g1k58/a2ERyPtpHF+EsU=;
-        b=ax04l27BMVdjExGfvS9uWLizFLg6qlqHCfV24hRL3a1bmxShW0zq52Wy3hU1DMvrDl
-         IIrKmI1TE4I3nwJE/BATGBQ/boWlLsNz/NxwnqmkX5DAE8FAEZ9Uw7WT8iQ6BCQgrZl2
-         3P5+VTlF7PN74pF1yKhEEX97nP94DSA2+KGcvNDf3Edyqr3QQ63NH+k7PxWyP2G19JSc
-         ZHV5Ta4JmxiNkijGvhgPp+I6YUCbLSSKC4zaneVA69HkQyQytekQAOGRXkJ/PFWIR/Ij
-         rE8ktgog7HC9jYHWksVVaeR0nNQOF7zN3+ka82SsXMVebhpxFA91ccEHv7AeXQosj/hr
-         aHzg==
-X-Forwarded-Encrypted: i=1; AL+hErE7mbUcifKSjVuBNMg9U5K+cusgZgk51Gv3pX02HVb1K0cUR8F/vZ2f/lsGPLscXjIPzcArHt/YtIsX@vger.kernel.org
-X-Gm-Message-State: APuU4Z9284lGKr13Oe357w9TrlERwY3d/m7iEAvt4QwV8USJ2c4OtAHG
-	peIRa28ocYiQIZ2AEQJVawOT6+GLnnY6lEQFCofX7c0YyV5t+bT8alCRrPzZH/xkDORaQWY7Inp
-	DoDpsog==
-X-Gm-Gg: AZFdTZcsZOfJLqqQqwvWhJurFpwH+eQChNjMATn6pJ3rbosSg6ohPe6FD4xOij7r6gf
-	wWDoryyr7LC767GMDy/jT2nWwx8YFmVz/3YWRP64QXuDp2m7Jo/IkIZIaaiP7Kux1JEsdRYA6Lv
-	PaGGz684KvX6xvit6/P5ych3K86g62jZqwtP3bCBYHpZ3fyaLp4zsaFcUzZ5OccMDNy+CS1xCQc
-	bd5nsYFoWhM/IqnIumsD4+m+pPX5+DhhETgKmN7hX9PDOdJdmNLUr0uyqGqCe5QAEdrKheqOMWl
-	2shrdg8vn8vDhYTu83/fX3dBPPWevIR2mQM9BJWx0iSw5bjwAUAY+0RnNthE2I1TwuUjIvBD+IO
-	ykma1VZwu8vTckNvvxvysYtL6ynOS9y6vaPfhspg5v2xu61az6HShbN2I4t/SzoNbusaE/p62tI
-	jIN9MwdGtO3ga740G2u8FKR1HErHsKGR/YyGWBExj0LAIi7lae+IOfBEHz6USdk2B7GK+WOUyfJ
-	Kuy0TcISXOj/OA64t5M5Vqc2T/sqsWoXEf6N4b9N3r9vp7GxmHxo+yXLDnmP64gc6hhH9TF3JYH
-	qxkUwpyImXeEJWHBC3EAAftikqZN7b+M545nu5/hk9W9UMHArWAk6o1u5f5e9uCBOvo=
-X-Received: by 2002:a17:90b:4ad0:b0:3ae:9944:3bf0 with SMTP id 98e67ed59e1d1-3b41c938c77mr22995849a91.34.1795776621975;
-        Fri, 27 Nov 2026 02:50:21 -0800 (PST)
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com. [74.125.82.172])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b48b41928esm27807363a91.9.2026.11.27.02.50.21
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 27 Nov 2026 02:50:21 -0800 (PST)
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso16916928eec.0
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 02:50:21 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEDvndOGO+NJzFa1TbYITJmrW2tcmqZdRofGBlzMVtS0yJWLbp/MTwylTYUhusfm3KFYe1Mch3Rhf/k@vger.kernel.org
-X-Received: by 2002:a05:7300:824b:b0:386:9c6a:3e87 with SMTP id
- 5a478bee46e88-3869c6a3f0fmr19991102eec.15.1795776620365; Fri, 27 Nov 2026
- 02:50:20 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=J8xHpXZ0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795776708;
+	bh=9E2x1LUH3yCRqvxf0O4/U2wLcXTXtQpAgPUIDrh2sUg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=J8xHpXZ07C0EH81jSHkxTEOWU39MvqudlKMRNzJtw5RQX7ZfNbuS/5JFLTAQAG3Is
+	 WWyJN7h9iSN1ZrfXbHenJS9HQhYpGCA9hPn5f40UfIQnGO4KnaOw9eHWgIi2aMyzmF
+	 eEMQoOfQN4forrrm/r0xdboFG/fwCDogeFSRhPl7DW7XKfhktCaupZEMKMHflsq2Mz
+	 lYUepct5erRZva2q5+yXTzNgpDFfR+fbTc7SMuHXmYcviLfjuPjmddk0UDM6V04cGq
+	 0Cn7B70YOYzmM3ll55vAr4wVA3TYBC8PVM7orj+jV0InvWmIsXZFA0N68Z7CnRI2ID
+	 0BptI52wUVgog==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 48AB817E07B5;
+	Fri, 27 Nov 2026 11:51:48 +0100 (CET)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 0A284480031; Fri, 27 Nov 2026 11:51:48 +0100 (CET)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Fri, 27 Nov 2026 11:51:40 +0100
+Subject: [PATCH v2 03/11] arm64: dts: rockchip: Fix USBDP ports for
+ Indiedroid Nova
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,120 +66,110 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com> <20260714114414.184512-39-angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20260714114414.184512-39-angelogioacchino.delregno@collabora.com>
-From: Fei Shao <fshao@chromium.org>
-Date: Fri, 27 Nov 2026 18:49:41 +0800
-X-Gmail-Original-Message-ID: <CAC=S1njuORK1R2QCwjh1Lk1yw15Povito9qr1ZV6QP-Dw=oY9Q@mail.gmail.com>
-X-Gm-Features: Aa3M54rQkdVsbW33JjuQjGjC9MCiVwfA-JMszG-a0o7TcRXKKUJN-zbdfm4qHSM
-Message-ID: <CAC=S1njuORK1R2QCwjh1Lk1yw15Povito9qr1ZV6QP-Dw=oY9Q@mail.gmail.com>
-Subject: Re: [PATCH v2 38/46] drm/mediatek: Enable bring-up of
- multi-controller CRTC paths
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com, 
-	simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
-	tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	matthias.bgg@gmail.com, dri-devel@lists.freedesktop.org, 
-	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	justin.yeh@mediatek.com, jason-jh.lin@mediatek.com, kernel@collabora.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261127-rockchip-usb-c-dp-altmode-v2-3-77ee78869307@collabora.com>
+References: <20261127-rockchip-usb-c-dp-altmode-v2-0-77ee78869307@collabora.com>
+In-Reply-To: <20261127-rockchip-usb-c-dp-altmode-v2-0-77ee78869307@collabora.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Cunhao Lu <1579567540@qq.com>, Chris Morgan <macromorgan@hotmail.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2088;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=9E2x1LUH3yCRqvxf0O4/U2wLcXTXtQpAgPUIDrh2sUg=;
+ b=kA0DAAoB2O7X88g7+poByyZiAGsJYMOhJfaTz3Pp47KI4dijSWdtJ8llGgPXsoX2I3sZeK/xJ
+ 4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJrCWDDAAoJENju1/PIO/qa5bQQAJ5f
+ 5H5HK9xA7sR3Q0u3ZLebGMxNQ8d9gMVBsCX+UyHg3cluJpLFJs0GJ3Cqr57lwAXl9mfzq+WGSh3
+ ke5MzfAIwl3lTFHVOqZPss5QURm2zCnFtoOzftaqv8tCfCHdxL92tW9GsODFegDpjOL8pTS5YwJ
+ IJoA8+jwGAkXftJfVc2qDcKBoweV9AUEExkQGGLlcwIUfwp9O5is1Iw057iPFrv4Fa0qmV9D7QF
+ 1NRyRZ6l7t1JzWJR0ryLzGsGE3CswFAyqakgPC4bsIsiak/Wm/L4KnDzsRVCzVm0E/EPrwp2nJl
+ HF8qkcOUT8wy7fjzY3+nJ2y53Wa249/EU+yBhZ/UlOoImDmGub0RjH9eWQ/nlp0QiNU77HD2Z20
+ ZoAuv/h8L7B8bNFuZfKOgaSqt/ysGqttaRbKRDBgmtHCN5JdtzFh9edZcGv1gb2Wl7OnFaDssDp
+ IdxlDq6gGC9sPVSODlZ+xn571sz1kJ6rpi12JeiCkQ3ykNJmdHM+6tzjBPNIbS4Qv7GdIX15ls3
+ V6ge8lNCxwRx1ZpGBrxQgEEQoWU7NeeE6cnD7a0MldDsSMxVPlKAlcL+4n22BbJYuiE7sTcm+K9
+ jEV32ciSjpbXJL2MKdRZyHvc9oY/dpjm0bgoJ/Xsq/SK47cBciN3IIAJfKU9oIbMwAojxYd9XOs
+ BaoOA
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-On Tue, Jul 14, 2026 at 7:47=E2=80=AFPM AngeloGioacchino Del Regno
-<angelogioacchino.delregno@collabora.com> wrote:
->
-> Introduce support for actaully bringing up a full crtc path that
-> features multiple display controllers: this enables acquisition
-> and writing to multiple MMSYS and MuteX instances to connect the
-> multiple display controllers and enable trigger signals from the
-> various hardware sub-components at the same time.
->
-> This currently only works for rather rare display pipelines that
-> can make use of multi-controller without DirectLink architecture.
->
-> This change is also the final preparation to introduce support
-> for handling DirectLink Display Controller paths, found in the
-> MediaTek Kompanio Ultra MT8196, Genio Pro 5100 MT8894 and also
-> in the Dimensity 9400 MT6991, Dimensity 9500 MT6993 SoCs.
->
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
-abora.com>
-> ---
->  drivers/gpu/drm/mediatek/mtk_crtc.c     | 513 ++++++++++++++++++------
->  drivers/gpu/drm/mediatek/mtk_ddp_comp.c |   6 +-
->  drivers/gpu/drm/mediatek/mtk_ddp_comp.h |   4 +
->  3 files changed, 398 insertions(+), 125 deletions(-)
->
-[snip]
-> +static int mtk_crtc_init_multi_controller_properties(struct device *dev,
-> +                                                    struct mtk_crtc *mtk=
-_crtc)
-> +{
-> +       struct drm_crtc *crtc =3D &mtk_crtc->base;
-> +       unsigned long controllers_mask =3D 0;
-> +       struct mtk_drm_private *priv;
-> +       unsigned int i, j, k, z;
-[snip]
-> +                       mtk_crtc->controller_idmap[z] =3D mtk_crtc->ddp_c=
-omp[j]->controller_id;
-> +                       z++;
+Fix the USBDP PHY ports description for the Indiedroid Nova, so that it
+follows the documented ABI. The current binding confuses endpoints with
+ports and makes no sense at all.
 
-`z` is uninitialized.
+While at it drop the rockchip,dp-lane-mux property, which makes no sense
+for USB-C as the DP lanes are routed dynamically based on negotiation
+via the USB-PD protocol.
 
-> +       for (i =3D 0; i < mtk_crtc->num_controllers; i++) {
-> +               u8 controller_num =3D mtk_crtc->controller_idmap[i];
-> +               struct mtk_drm_private *priv =3D mtk_crtc_get_controller_=
-priv(mtk_crtc, controller_num);
-> +
-> +               if (!priv)
-> +                       return -ENODEV;
-> +
-> +               mtk_crtc->mutex[i] =3D mtk_mutex_get(priv->mutex_dev);
-> +               if (IS_ERR(mtk_crtc->mutex[i])) {
-> +                       ret =3D PTR_ERR(mtk_crtc->mutex[i]);
-> +                       dev_err(dev, "Failed to get Controller %u MuteX: =
-%d\n", i, ret);
-> +                       return ret;
+Cc: stable@vger.kernel.org
+Fixes: 7230cdc1fc3c ("arm64: dts: rockchip: Enable USB-C DP Alt for Indiedroid Nova")
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ .../boot/dts/rockchip/rk3588s-indiedroid-nova.dts  | 31 +++++++++++++++-------
+ 1 file changed, 21 insertions(+), 10 deletions(-)
 
-If a later iteration fails, the mutexes claimed in earlier iterations
-are leaked. Unwind them with mtk_mutex_put() on error.
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-indiedroid-nova.dts b/arch/arm64/boot/dts/rockchip/rk3588s-indiedroid-nova.dts
+index c775f82c0624..59b95461df57 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588s-indiedroid-nova.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588s-indiedroid-nova.dts
+@@ -1059,31 +1059,42 @@ &usbdp_phy0 {
+ 	mode-switch;
+ 	sbu1-dc-gpios = <&gpio4 RK_PA0 GPIO_ACTIVE_HIGH>;
+ 	sbu2-dc-gpios = <&gpio4 RK_PA1 GPIO_ACTIVE_HIGH>;
+-	rockchip,dp-lane-mux = <2 3>;
+ 	status = "okay";
+ 
+-	port {
++	ports {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+ 
+-		usbdp_phy0_ss_out: endpoint@0 {
++		port@0 {
+ 			reg = <0>;
+-			remote-endpoint = <&usbc0_ss>;
++
++			usbdp_phy0_ss_out: endpoint {
++				remote-endpoint = <&usbc0_ss>;
++			};
+ 		};
+ 
+-		usbdp_phy0_ss_in: endpoint@1 {
++		port@1 {
+ 			reg = <1>;
+-			remote-endpoint = <&usb_host0_xhci_ss>;
++
++			usbdp_phy0_ss_in: endpoint {
++				remote-endpoint = <&usb_host0_xhci_ss>;
++			};
+ 		};
+ 
+-		usbdp_phy0_dp_in: endpoint@2 {
++		port@2 {
+ 			reg = <2>;
+-			remote-endpoint = <&dp0_out_con>;
++
++			usbdp_phy0_dp_in: endpoint {
++				remote-endpoint = <&dp0_out_con>;
++			};
+ 		};
+ 
+-		usbdp_phy0_dp_out: endpoint@3 {
++		port@3 {
+ 			reg = <3>;
+-			remote-endpoint = <&usbc0_sbu>;
++
++			usbdp_phy0_dp_out: endpoint {
++				remote-endpoint = <&usbc0_sbu>;
++			};
+ 		};
+ 	};
+ };
 
-> -       ret =3D mtk_crtc_find_suitable_dma_dev(priv, mtk_crtc, output_pat=
-h);
-> +       ret =3D mtk_crtc_find_suitable_dma_dev(mtk_crtc);
->         if (ret) {
->                 dev_err(dev, "Could not find appropriate DMA device!\n");
->                 return -EINVAL;
+-- 
+2.53.0
 
-This is a legacy direct return. It needs to jump to a cleanup path below.
-
-> @@ -1446,4 +1700,19 @@ int mtk_crtc_create(struct drm_device *drm_dev,
->         }
->
->         return 0;
-> +
-> +err_free_idmap:
-> +       devm_kfree(dev, mtk_crtc->controller_idmap);
-> +err_free_layer_stages:
-> +       for (i =3D 0; i < num_comp_planes; i++) {
-> +               struct mtk_crtc_hw_layer *comp_plane =3D &mtk_crtc->hwlay=
-ers[i];
-> +
-> +               if (comp_plane->layer_stages)
-> +                       devm_kfree(dev, comp_plane->layer_stages);
-> +       }
-> +       devm_kfree(dev, mtk_crtc->hwlayers);
-> +err_free_crtc:
-> +       devm_kfree(dev, mtk_crtc);
-
-Before these error jumps, mtk_crtc_init_comp_planes() and
-mtk_crtc_init_drm_crtc() have already linked `drm_plane` / `drm_crtc`
-structs into `.plane_list` / `.crtc_list` under `drm_dev->mode_config`
-(via drm_universal_plane_init() / drm_crtc_init_with_planes()), so
-freeing `mtk_crtc->hwlayers` and `mtk_crtc` without calling
-drm_plane_cleanup() and drm_crtc_cleanup() can cause UAF. Please clean
-up the registered planes and CRTC before freeing them.
-
-Regards,
-Fei
