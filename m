@@ -1,57 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795795870;
-	b=jOV7IxCodNH8S9OWUl8Yp7+U8dVwqngSJr8c1Q5SrjsHtR8low2Id0Xp5WuhuqHXZ3Ta
-	 7WN6NLBQX2ORKeFzWAiAEtTQH3A87F2oOIV1D5TD13I36Fs5RHNc43fUk4yspTeYHiqHC
-	 ClO+Zv//+5h7ocTL+NiM4z6b3gpSvYFcySb0YjZU0RVH/CifmrgtBahRb3J8shVehk1+Y
-	 s+BnDokyOBJgViMhMLp3XGsR8v1kbrwqLI6By5S6jBND+WImZVn3w3lO/7u2AHqK+h1uQ
-	 exAca6xUUDogQ4Wy3It49JNKgGHX6AGuJL4U38GhrpKOX6mM6tzu946700BkYNMhc9g==
+	t=1795795904;
+	b=ll5WT+fXw4ed6A6j3ZaJ2QlPNxgzBIfDNLEWVAIpW9IJylbrYXxrjyZ4IR9Z0sOzQRvU
+	 nUTG7nutzaAeIUVcSnj9cWKqsqPGTzlbQtYRW3V0vpl4PKypZ32aT8qyT1/l8bssovMMP
+	 y20Df/EE4u+P1tAZuBYU6WCtgH1KpLmPsw09MagF4TLvHotfUrNOONyuWHzTfsoOCxdyP
+	 R0dyZ8akrfdMIn3yvlPCV8XpBKxngcJpPb/8cdumaj+ty1EhvgHaD2M7UxLkbinP5gDZU
+	 L8dsM6Ls3jGcp4VVPak5cBYd4UHZ/KcX7TFLfwV5Sq1Nk5R3GKaBARhS+Bn+37ym4NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795795870;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=xMo6OFbZiERAuy+5msGQEpNEdcyP65mRm2aq/lFG9/A=;
-	b=qcgUL/zv4Mtbk/7JEOzr8N5OjLRijTzHV5CrM1DCd9IHEpaKa9nYE7f7MmcGaQmNICPY
-	 S56pcFmuPdpaHXEC7SE4kGQOQ2P5I2ehjNN3nyNjhl0pF0O78RvvLYDGEeAnIUdWLPqnI
-	 cuD/vQKROc1CIKUqacoIuFV57PJk78KnTBhlaBtC5qUhIS3bpQP0n/rqpWFYnAlyHkxu7
-	 i6VPbXY3GwdH9s4u4fE1TEsppklDHxjHlZpM5WHOPTgl9Vpn+Zax3mERuZR/Vb1hsFxnL
-	 RUhyuRhj7OImu6WzCNzkH3qGN1WWIX0FyrIS5pO/+fM3xUthOE+nI3rzht1nApVTBvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795795904;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=/jSStMEANCnMO4ZzPmB5Im+yepvb5/yuDaHPbOparnI=;
+	b=dGpXqA81c9v/C3ycYR5VgI/GRdHo65d3VVvxhfG6QEdrrXVe9gckaDT8STz4MwpBpBxv
+	 w2zpwFN1mI7BfnHN3aZodyb8a2lb4FbZFchGdQAbopxvAEKQtugEgMMIgFSBqAyEFaQ/h
+	 hMiTxdOifNluw1C8Z876HydgPj83uSphLjvVEDUbRmisapcZTPffLclXZyfO2k9sftlYk
+	 n5rRIs0TJkpRzL16rEY1saQqccnehqeVmFvnns3vKgM9MJnYvpZur0rKolCE4ESBUgDXD
+	 VfUVplhGZzVIghFkyLHEGyHcCGb6DRkdPbxlySvciVm1Ezg4uwuNgZ3SJStaY+XUiZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cVF6Iy1A;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aYyX3maC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75BDA606A31C;
-	Fri, 27 Nov 2026 16:11:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB697606A31E;
+	Fri, 27 Nov 2026 16:11:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cVF6Iy1A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5C501F000C1;
-	Fri, 27 Nov 2026 16:11:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aYyX3maC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60E591F000C1;
+	Fri, 27 Nov 2026 16:11:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795795870;
-	bh=xMo6OFbZiERAuy+5msGQEpNEdcyP65mRm2aq/lFG9/A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cVF6Iy1A2nfHMRpv9AVyXTtVbcJlU3i+qd7sXChBgrXsof4lMiBXigfXU7REWe8ep
-	 a4DZjCqyH6p7ffZ8v0DvaJ6zeGOT3B42IszBmtb3m8H7SEh0SN8sXO+blswRL7vECw
-	 xKZWu84XpOAosBxDQiCFWSLxzyNctsaoczS11+fK5TBoj9zsQub7UkphWBJhNy5k5+
-	 Sbmd0DR5Q7FG7bBvi4+YrfGSW16k4bac/UqA4TuQ/9ijrrhAo6whlfkXY6vs94t7Au
-	 g7xBzgarTxzhqTvyYAyqUSx4+E8yYgn2S5sfshygQxhuTiTpNKKShENbQjQGnxz532
-	 /5D9ZRQtxNONA==
-Message-ID: <sashiko-outbox-237846@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v16 13/23] scsi: ufs: mediatek: Remove vendor kernel
- quirks cruft
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-scsi@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261127-mt8196-ufs-v16-13-6f2568f7c119@collabora.com>
-References: <20261127-mt8196-ufs-v16-0-6f2568f7c119@collabora.com>
- <20261127-mt8196-ufs-v16-13-6f2568f7c119@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 16:11:09 +0000
+	s=k20260515; t=1795795903;
+	bh=/jSStMEANCnMO4ZzPmB5Im+yepvb5/yuDaHPbOparnI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=aYyX3maCFB3FY/uEeH7D0KLT8rWWrsjQkll/47CQiowoRih1gVKWLX1i9z8rvyycm
+	 t4lQCkaNrR/rzJFpiUX530ZLhUFYWzRztQWXZvzT9apWyUzCJxmVO1ElU9nAVINgi2
+	 ZYO9bFx1N26PjOEZlJU37gmcjbVzDxPxrz3ZQfa9xeJOK6+g+W1/IbIiz1UL282hU8
+	 VmP+EfSG6QHIj7xEzm7GCwHWYKWQUGHk7MRF9XfwHLkHhaX+aPrsLD2qksKcDcGYm/
+	 U+FkSwKcnvm70t07dUUtl17gNCH8kfKUx2mqlcOfQYCbW+muaZbkY2pJp+NvggOP9f
+	 GDp7iGgSimLWg==
+Message-ID: <a8ee91a3-fc4c-4268-97c1-b4ddeff2558f@kernel.org>
+Date: Fri, 27 Nov 2026 16:11:38 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,57 +50,118 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/7] clk: qcom: gcc-msm8953: fix csi_phytimer_clk_src
+ 100MHz parent
+To: Hikmah Gumelar <hikmahgumelar@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, Abel Vesa <abelvesa@kernel.org>
+References: <20261127134507.125513-1-hikmahgumelar@gmail.com>
+ <LKFsWplUk1yOr4M1dEHqZ20-Oo7ya-QA5qkF8u2lcfPUsbJYq0AoJhyjIEBwg6PPzlPSMYfqn6CB-sQBOuQDKQ==@protonmail.internalid>
+ <20261127134507.125513-2-hikmahgumelar@gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261127134507.125513-2-hikmahgumelar@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] scsi: ufs: mediatek: dead VCC definitions left in
-  ufs-mediatek-sip.h
---
+On 27/11/2026 13:45, Hikmah Gumelar wrote:
+> The 100 MHz entry in ftbl_csi_phytimer_clk_src selects P_GPLL0_DIV2
+> 
+> with a divider of 4, leaving gcc_camss_csi0phytimer_clk stuck off on
 
-commit 9b4c30d640a0f622db3905feadca5442c2f1cc01
-Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+"stuck at on" or "stuck at off"
 
-scsi: ufs: mediatek: Remove vendor kernel quirks cruft
+> MSM8953 platforms such as Xiaomi Mi A1 (tissot).
 
-This commit removes the ufs_mtk_vreg_fix_vcc() and
-ufs_mtk_vreg_fix_vccqx() regulator fixup helpers and their calls from
-ufs_mtk_fixup_dev_quirks().
+ah I see.
 
-> diff --git a/drivers/ufs/host/ufs-mediatek.c b/drivers/ufs/host/ufs-media=
-tek.c
-> index e768afdbc3bef..33ed5e6dabfeb 100644
-> --- a/drivers/ufs/host/ufs-mediatek.c
-> +++ b/drivers/ufs/host/ufs-mediatek.c
-> @@ -1074,73 +1074,6 @@ static void ufs_mtk_init_clocks(struct ufs_hba *hb=
-a)
->  	}
->  }
-> =20
-> -#define MAX_VCC_NAME 30
-> -static int ufs_mtk_vreg_fix_vcc(struct ufs_hba *hba)
-> -{
-> -	struct ufs_vreg_info *info =3D &hba->vreg_info;
-> -	struct device_node *np =3D hba->dev->of_node;
-> -	struct device *dev =3D hba->dev;
-> -	char vcc_name[MAX_VCC_NAME];
-> -	struct arm_smccc_res res;
-> -	int err, ver;
-> -
-> -	if (info->vcc)
-> -		return 0;
-> -
-> -	if (of_property_read_bool(np, "mediatek,ufs-vcc-by-num")) {
-> -		ufs_mtk_get_vcc_num(res);
-> -		if (res.a1 > UFS_VCC_NONE && res.a1 < UFS_VCC_MAX)
-> -			snprintf(vcc_name, MAX_VCC_NAME, "vcc-opt%lu", res.a1);
-> -		else
-> -			return -ENODEV;
+"leaving gcc_camss_csi0phytimer_clk stuck off" you can drop the fragment
 
-[Severity: Low]
-Should UFS_MTK_SIP_GET_VCC_NUM, enum ufs_mtk_vcc_num, and
-ufs_mtk_get_vcc_num() in drivers/ufs/host/ufs-mediatek-sip.h also be
-removed now that their only caller ufs_mtk_vreg_fix_vcc() is gone?
+"MSM8953 platforms such as Xiaomi Mi A1 (tissot)."
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127-mt8196-ufs=
--v16-0-6f2568f7c119@collabora.com?part=3D13
+> Switch the 100 MHz parent to P_GPLL0 with a divider of 8.
+
+What is the data-source you used for this change ? You should describe 
+how you know this to be a correct change - the code is simple and 
+describes its own change.
+
+For example citing drivers/clk/qcom/gcc-msm8953.c and 
+drivers/clk/qcom/gcc-msm8939.c since they are very similar controllers 
+and the 8939 does it the way you describe below. Also "it works" is 
+another good reason. Inferred from your patch but not stated.
+
+More accuracy is required here.
+
+> 
+> Fixes: 9bb6cfc3c77e ("clk: qcom: Add Global Clock Controller driver for MSM8953")
+> Signed-off-by: Hikmah Gumelar<hikmahgumelar@gmail.com>
+> ---
+>   drivers/clk/qcom/gcc-msm8953.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/clk/qcom/gcc-msm8953.c b/drivers/clk/qcom/gcc-msm8953.c
+> index 8fe1d3e42144..8aec5600e837 100644
+> --- a/drivers/clk/qcom/gcc-msm8953.c
+> +++ b/drivers/clk/qcom/gcc-msm8953.c
+> @@ -964,7 +964,7 @@ static struct clk_rcg2 csi2p_clk_src = {
+>   };
+> 
+>   static const struct freq_tbl ftbl_csi_phytimer_clk_src[] = {
+> -	F(100000000, P_GPLL0_DIV2, 4, 0, 0),
+> +	F(100000000, P_GPLL0, 8, 0, 0),
+>   	F(200000000, P_GPLL0, 4, 0, 0),
+
+
