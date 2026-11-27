@@ -1,101 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.178
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795770621;
-	b=GNDfYplIQ0WjKCQeARGj4YQpXj3UwiIcZmvaTt7XKy38PSjgiPIo3YEdnbHW3ev1Xam3
-	 WtrgndVTTTBOxFy+lfrgbCr5yR9sFvaKXD/zbd3K9PQTfYtFUNxPGK7CKdggEH0iHempV
-	 FiJ92kMnqleuvweuEjqAOO0w9V8+ByAZ4zzy49XyzDfEaiTP6VlcCbEHoZX7smDflV7Hz
-	 HhaD3rXxbuN4eLhabeHpHZe1wT/KoTYyErAsOs0xSrkYfFpd3q34Mt/n1Sk6Xp+7izfUb
-	 nq8p4vx2CLSK8urWlxblnbH4jDRYYUT09fYMkanTAehznE8MeYAyWQ2CbjCLv+sTPWA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795770621;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=DJZqyiXYJp/ORTQv62jnN7SBWTU5iRS+KZCY7pRd8ZI=;
-	b=tGHSWMcTjyaXbNmPJX3d78Jr5FvGs2BOgBsDL7EkindNRC2HEotgIDsWYxJ1CMEoidG/
-	 T4sGtlrnTmTJxOiegr/aQExgdLeD7nTXHFFx/YRGiDlJuqz1RfCY7mXtesKYBACj86Uxq
-	 AE1Rt3H2yZgTDzMdhCXBRXdCuUv7ptGc/NmMxCq08FI7gSC0iCFvKOl/S0wwksgIgi42F
-	 0UXsIEQMlm/M3PDrNQT0drPRfiu6g4pe8wQ24DGW7owpuyxfF85y7eXhKnRXaJ6JVO0WY
-	 K+RKUzbiZzcYgYIN29EpfP1S65vSEj/UlMpVwrbHTVKZx+sCRzpBzZgQNpIRPtKeYjg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=C+ASaesM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795770672;
+	b=1Uef1xQj8FLb0kuc0xlJstOfH1GV1ttwRZwKKgwLrhzBCbU+gxRnQSlumMAaEaKOMcwn
+	 ayeLS9EkvFeCFVZrke9P4XrgrdBmt0h7B5bofnVW0XbxHoveYzIsq5xEhUVafUOHEaiG+
+	 TPFIB4STYnwFy9fL3bifLIX8wrvRSixKTQ2bxP3GpFAb3Dl9Ky/yOnJTUj2UXqJcDGnMR
+	 +6FK9ekyyh/dqSzddh0ug47OaA5OFUH7NR+D3pQHIlhJKUzalc39DB8sLQTroMCwig6M6
+	 c3MH0tN0zFkC0xHVpFcSYGBHgpI9TNY20rWxNnZ8g/5vFbBmG7nDlzfCGhdXVtdEFjw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795770672;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=IgUsGcjyfX3pn/47na2rOFgHRHCfaEjUCpn+6VJ9aDM=;
+	b=FsQuGbvqF7jCOxni6ipg0YJcfpR7XadU9emFW3QuwtUNYL5Y95XHA/2tb6OOoXLSTX3n
+	 kxj6FRqV8Fq6JNnejohYMv11rtIEq6fEsyvKwhAFV/e0JuReU0KFgzIGwcW/GbiCdVO9c
+	 au8mHb+bIGYBth1ba1AKD/Nz2WNaBGpyf2GfGfuat0O3l3cCfXGbfVlK//cIlV5ukTtiu
+	 G5zjgF7ZCwdBvk+sGVlnKGLVgtcgiiS7HMUIJMkQFhtKpu/Br8hvtWm9VgH1Xqr8aF/p9
+	 ARoiAU4n7mpjRkPFXjezWgYhmU5ZrkUPhV5DLoM2V+UZAtb/jQDtR/H/8RNhoTeyBDg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Xj3Z3Cob;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="U9hc3B/j";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C413606A31C
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 09:10:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C413606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACDD7606A327
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 09:11:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACDD7606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=C+ASaesM
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-386c336eab8so4292976eec.0
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 01:10:21 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795770620; cv=none;
-        d=google.com; s=arc-20260327;
-        b=I8iOvb/1DovJWVtnvxWRBe/YpI4fuKaDRFkba0WdkcqcYgLcKPuySySyt9dgIfMASr
-         BmlB97LZOBQRweLhlA0uO8ozwQEQjQ9pCJlci29d+ZO4hsIEnwTDmkwJhmJTmQRptbo8
-         3e/39DmoM0HHtCqxkzP+BtTAbT80UjJ+q9I6yoqg9e2Nu6RPriIvpwWdUfuAGeay3wrg
-         jcsrzEtVQdzj7cUMSE4hX0i1ZjZ5A+9Fa8JaQqO1eeu1dWVJr9t3lm7yuq9Z6Z3jPWvr
-         0D9FqGShLo8Zv3pW1/vfB26HW0KimCRVJsHRJbW5l0piAtSmBCe545XT4pPRQ+TuHilm
-         pclg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DJZqyiXYJp/ORTQv62jnN7SBWTU5iRS+KZCY7pRd8ZI=;
-        fh=W8NvV934U/LXs2PqZeH00RXxJo6WOjB0fU3bhR7KxGg=;
-        b=LZ7L6qARpJa56EKunOfwX5V92nyV83ZN3Syt48oE9gHrP17Yg1fuw+B64BrmxgmtyZ
-         A5FY7JcOFuAxjWfG/+/pENLMofJ3WaVSVik6vM5AJ6p+3FK+vh4f+1/6MYmMhtZAexxD
-         VWSDzBGIrXdVZGLEB9rcO4R1Dr5jG+ETiU+lyYW15HtAuuemWjOq7eU0cye2uuPjMSVS
-         qG5wj9hdvfeukykfFOEF1c5TjPXn0UDaOg106nqu68/DM+oEQ4oPR9cBkim4jdcOLRE1
-         V7wX6qeL8cumN7pfMt7o10dQqEivARNHD8r0eLfR3G3+xoeZvRN7mTlmDl/zV0cQmmP7
-         4dvg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Xj3Z3Cob;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=U9hc3B/j
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AR7GfEt905299
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 09:11:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	IgUsGcjyfX3pn/47na2rOFgHRHCfaEjUCpn+6VJ9aDM=; b=Xj3Z3CobRIVJY8WD
+	UnqJ/SMwLSCDazOFshwsUrN0xRwkHhr/r4mDo3e7WQJJDpap8dala8XgfPLQcu4l
+	7JveU0dyBEKXzdu20o/kTIBkkMTpVKEVif1pQOP6EimGKAd+9HhXbAsKKw+reOm9
+	QYzVXhA+WGtmpv4M+pZnkfyFMJHKUaix8RktRRjjk3YsdINu7rF1/yeI21Xa2GGe
+	isBrxxB51PZ3014BEUdRdaGRn/SpLuim55rihyMQUZFATtQQtsJFmXWr/Rqu/EH2
+	7aw1jPQn2yxIl4pA6sZFmEfIvfjMv1OlVf997L7NZZrCRvgAS6b58ls4fu3t4tzP
+	lkgx7g==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j6ru39t7r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 09:11:09 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5ecba171914so361705e0c.3
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 01:11:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795770620; x=1796375420; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DJZqyiXYJp/ORTQv62jnN7SBWTU5iRS+KZCY7pRd8ZI=;
-        b=C+ASaesMaG8sC0jROZY8oTB1Syewggehc0t3fKW5tvM8R64+d6YV47sO3dHY5oW1kl
-         XmeOUkTGBKZui/vWZV3pw6PbSImO2oWhBZEoua95m+Uj6bEQwzQPfK8mAr+yJIc0nxIA
-         3t+mqwlePrggszdszBfVx6kYjFYqhPHMvqp3WrF7mipWdQOKToVl38/P/eC5SB0a2H+s
-         qHpTRinrzmxMuGEdNCM+EtuZEEezMPkKtWeDskKvbztNbro71czf1RFFs966BWSl+9aK
-         bWoOCrQnR8zNwclhqV/m47MmEvmqBb5OpUgnZ+giN8gHGvcflJzmTip8+H+Dcrf2S+KS
-         ZZtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795770620; x=1796375420;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1795770668; x=1796375468; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DJZqyiXYJp/ORTQv62jnN7SBWTU5iRS+KZCY7pRd8ZI=;
-        b=kzonh9eoND8tAWsmkRjA3qj4XQ14rzle/A0b74/PCyc13EVRrF8GyWtT+PRzgRP8Kz
-         szkxsQSuL5f6oY9Bzr2iIdF0dK85kAexxXRuftzXSI9z7kyxWiiWwcSv+AGMfdmYeVcG
-         gKWU3FHC+Ix0ji5TKfUZ3k9kLlgsW0dyV4cShT5RP2ljW8UX/IKNcJNNfIvwHdTYoL2S
-         XSl1a1JwiZ+eNmzCE8MRw/OPhIg2yEdCGJwCLXDGQGQ6NANgKPHxw4D6qTwJaA16si8L
-         FkLS1Lyjmo/MbnIU8mpqWpWxtOPIw66UPUpl+/UeXmJGTPQjUJYmpQZ97KhjJFslLexB
-         +LyQ==
-X-Forwarded-Encrypted: i=1; AL+hErGePOA2LNkKahN4vjHtF8yN2sJ1ymwlpPe3Wn7TZxD4o7suLshKthlZpTWCIJ6xSyih9hwXVfin9Mth@vger.kernel.org
-X-Gm-Message-State: APuU4Z/YcQ+StupImbjUV7cH3trGBTVPhE4Fd34mWtaxx4swP5eN9BoO
-	Teok3aXPzhjYY8+KhgvkxaRzyYTyKkayVaH7SKe031o1nP6WLTw+moswB7XwFhWiLFQFxTORnep
-	Ng78JJ6oWQrAR7SwOA0nKNXzzUgoTme0=
-X-Gm-Gg: AZFdTZf2V1LO9urryCtvoE9Jx1OLMstUyF0jIIFUgJeIg9Oa2lC3+9XNnoixpxmPc+l
-	ACQhvuosQq0sPl84H9pPpKS362kvJkRFpALLT0A+4rfVkwBSFtjbAAzfjCBqyvZ2rlmbDFISuJc
-	+ncU7kslLJjYkbAUPGdgIRtc1b2BbHQ/Az8I1RNJYII1pItf3pXNseDLwBgOp/5+iGAtIiuBV0j
-	5bawfVCvb0yC/hVk9feJm6E6yd7052suyo4B17y3/brVv8NoxeuhIVfhxm9KAs3yhQ/r3RyqzHv
-	tcxTkY/UoLbMYJLdyqoQj9kc+k/ZYCZBmxKNebrWdKmazC4g4hJr82BwJX3KkV5P46ZdIFh4L3E
-	6fz6+4SR9QioyiKT0WY42ZjKJ6jWJIdQ2GpVXFqS2pS6/26+o8o+KwGgbgxEf2xLWtxysVGSVIw
-	ngZK/QnymHnSk1MeWwIwCPVkULr+pvJD521skvllKY4Fn7hVoD9PU=
-X-Received: by 2002:a05:7300:a228:b0:386:6685:1492 with SMTP id
- 5a478bee46e88-386668523cfmr22742277eec.12.1795770620255; Fri, 27 Nov 2026
- 01:10:20 -0800 (PST)
+        bh=IgUsGcjyfX3pn/47na2rOFgHRHCfaEjUCpn+6VJ9aDM=;
+        b=U9hc3B/jq6cSUfq2g6GMrZjaQF8x99qU7tOwkAT2xSbr72byJ/w0GR3fsviDbQ3qKm
+         wP96mRwfmYdM0RDJHPHxkCvwLwCD+zJ+p6FgTTY54YCCw3AaKBbvZ8iyOB/Y+pJp4ar2
+         /EsimNX4DZMPBpGwmE49BjGpUdB6u/sE0mXHFfx5RcP0PXycLeL9gYbwwsuRUo2MOzFk
+         xMZCFQHBsOYik26OTevns1hbwKuiwkjAZoVZRCfLCZAzWP+rWxuG5x9s8xGAgouBB/2x
+         /H/vBFa4fsarVUC1bXAxgqx5caLvVEepu6uRHC6icMTTD6gEyrr6FX3sA2NNPCLUhO5Z
+         h9Ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795770668; x=1796375468;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IgUsGcjyfX3pn/47na2rOFgHRHCfaEjUCpn+6VJ9aDM=;
+        b=OYkxj+r0RnRbbNjylp1qyirXHRjP8RORD6tmdEJCD6Nbpdetp/ZAiY7ReqUvi0wDgA
+         GjPb03bwR6wl27s4kB4B5E+cGTL4YnE7UWTObXqpU06DcqJAbp6jwjuE/PjRWDADM0xN
+         FQPzJYZdX/Fyw6iAAA7p9lHbnbmvfJYEWwC2nj3norVTLx9PpLJppGCoM7uT/uKRi3D8
+         uSPWXY8I7iGUCT6MtM+dXcTz97pUW8M/HLJYghMvc05/MDi5tvlTVWen+tyBt7h3/FJg
+         j1m3eydl19aKqYFkO4ZAHflG9BvvCzTDG8rUyL2g+BwyxpMPadxIIDCZjp7R39iXsbCb
+         9OzQ==
+X-Forwarded-Encrypted: i=1; AL+hErES0Xg+ZzmVp7yj+PWSVhNNTAg5yxmbtKL0mPFc0aKTi7Kg/iMb+HJr10yphLa6RV7tBfzPV4+CZAeF@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Xr0nxY/DxqLQdJCdp6PT5EGK/LB4LrNaav/wDtlpc6raJhGo8
+	Ds4Y1IodR6p1jMNzz02V929FWI6gZ/LVD/9C64b2BhEF80ecnrJaelH4regMUqn2KA/nTXDxxIw
+	8WqFDzKoOznRsK8duEu67vhMhYejxkfVc3FpUbAgLW8AClryRl1VWf724jmIBW/OB
+X-Gm-Gg: AZFdTZckeRn7S1sTfDQvl3zKKWBd/5IeI0gJiaF13jTc48knfU2FZoGYLS19CthcYvl
+	kdhD71OPkMsEV58bjswJKZaaWfsVOA3XmtpJ2WKapra6is3bCLeHMla1I2m2cwlfJyE8JdOsVo2
+	97gJZSgilwdboz06qHwkxCflRFkJ2+f9gWfw1cFHcqnpB9x/HEe6um2s4MX5KG+o4wUzUY7Pm49
+	6HwkLMqak8Xekvdx5pD8YaXCI/PsbV1mNA/81PS4/qwGYopAXB7vYmDrYWgoBmmvQZxj4LNy6Gi
+	7wIKxMZY0Re+DkIyI+cexN0WU/ZvXsEWp7g2jYbKZYpUXgqefI7kfl+iM0d14wnwgA5Bzu3lMLr
+	XP1QKpTWUVqltxIY07sQ+BhiRVNRY5VKHeO9M9pecG6i0RJ0KkdEZBCAa2ATTHE57VkJLKoQ=
+X-Received: by 2002:a05:6122:4a01:10b0:5ef:d97b:2867 with SMTP id 71dfb90a1353d-5efd97b3b39mr322615e0c.0.1795770668664;
+        Fri, 27 Nov 2026 01:11:08 -0800 (PST)
+X-Received: by 2002:a05:6122:4a01:10b0:5ef:d97b:2867 with SMTP id 71dfb90a1353d-5efd97b3b39mr322603e0c.0.1795770668162;
+        Fri, 27 Nov 2026 01:11:08 -0800 (PST)
+Received: from [192.168.226.72] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513b03723bsm840417766b.87.2026.11.27.01.11.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 27 Nov 2026 01:11:07 -0800 (PST)
+Message-ID: <4aa25716-37ab-43ba-b3d1-b0b48671dfc5@oss.qualcomm.com>
+Date: Fri, 27 Nov 2026 10:11:04 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,160 +115,66 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261122081820.53199-1-clamor95@gmail.com> <20261122081820.53199-3-clamor95@gmail.com>
- <hlO8KiQKSi62yShZAIyhpw@nvidia.com>
-In-Reply-To: <hlO8KiQKSi62yShZAIyhpw@nvidia.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Fri, 27 Nov 2026 11:10:08 +0200
-X-Gm-Features: Aa3M54rkyrHWlpK4-CIwvCUcDLkbHyRjNHzHood9SyBQos7xlCctA1vsn6y0klI
-Message-ID: <CAPVz0n0Qyekm7qUyCVFMTDSuVSw=1my4x-rgiafp3+mQ_sgk3Q@mail.gmail.com>
-Subject: Re: [PATCH v8 02/12] drm/panel: panel-hitachi-tx10d07vm0baa: Convert
- to use MIPI DBI bus
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/2] pinctrl: qcom: Add Molokai TLMM driver
+To: venkat.yadlapati@yahoo.com, Bartosz Golaszewski <brgl@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        phone-devel@vger.kernel.org
+References: <20261126-molokai-tlmm-v5-0-ada44435bdd3@yahoo.com>
+ <20261126-molokai-tlmm-v5-2-ada44435bdd3@yahoo.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261126-molokai-tlmm-v5-2-ada44435bdd3@yahoo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=cOF1IVeN c=1 sm=1 tr=0 ts=6b09492d cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=CjxXgO3LAAAA:8 a=EUspDBNiAAAA:8 a=tfEBk67aE7w0iaTIDxoA:9 a=QEXdDO2ut3YA:10
+ a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-GUID: zWdlboi-LXNdnMVEv17FAmaFMm2sEin3
+X-Proofpoint-ORIG-GUID: zWdlboi-LXNdnMVEv17FAmaFMm2sEin3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDAzNiBTYWx0ZWRfX/4JKHmzCL1QM
+ g+QRt2DD/gWVgZN/pvFB6F9hEZAc+As2gjHSHaKaCTebXfZ645d3uTFHFl9bYezQA6rF8Fbx+i2
+ YVzMo8wDTGMtrNm75ToVUKTIRjWTs2sriDKhOEVFmlXn8SUYBqb/Qun9BDTucg5vR25uHuub3ZQ
+ 771g4/JcU+PTlgzf/uCuR1tQSlHlTC9vdJC1C/rmlkWgMytdgkkqijZ8JiHQn8GZAc5CfJZ448h
+ RGJe9KF75/gfkjdZknyh5bdro3ipItJKbzqN0edlL9/kicuxcFGuebZMoguUvt1kLbglPPBTolf
+ Yiexq0dFDGfIh+Cia2lpVaGjnkoj0swZ13t0vPbNiTIL6E8TPI7t3244w0e8Lku+YJnm/AFTi1o
+ JftCiW+pc4gnRHOuokDDmC+7R2SbUnOBwOTEMZvtIhjAyayOIxHb9CuehBdlQDdSkv/XpOX93t7
+ u7OFgV+rdz1olHeCeFg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDAzNiBTYWx0ZWRfX+hKwcfpfoKTN
+ DPdV2jdnTHYBvgwJKCoCxbUrFtAMlYswHDGj7ZZOCBonsp83awVSnqoxuMovZmeb0bBuxODGM1f
+ 5YSdyBxNjp6uDBgArInlt74Ugd4n1HM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-27_01,2026-11-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0 bulkscore=0
+ adultscore=0 spamscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611270036
 
-=D0=BF=D1=82, 27 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 06:2=
-3 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Sunday, November 22, 2026 5:18=E2=80=AFPM Svyatoslav Ryhel wrote:
-> > Switch from a generic platform driver to a dedicated MIPI DBI Type B
-> > driver.
-> >
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > ---
-> >  .../drm/panel/panel-hitachi-tx10d07vm0baa.c   | 25 +++++++++----------
-> >  1 file changed, 12 insertions(+), 13 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c b/driv=
-ers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
-> > index 83c2af1be9755..318ece68b7806 100644
-> > --- a/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
-> > +++ b/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
-> > @@ -14,6 +14,7 @@
-> >  #include <video/mipi_display.h>
-> >
-> >  #include <drm/drm_mipi_dbi.h>
-> > +#include <drm/drm_mipi_dbi_bus.h>
-> >  #include <drm/drm_modes.h>
-> >  #include <drm/drm_of.h>
-> >  #include <drm/drm_panel.h>
->
-> You should now be able to get rid of includes of of_platform.h
-> (replacing with of.h) and platform_device.h. Agent says drm_of.h and
-> property.h are also unused.
->
-> > @@ -25,7 +26,7 @@ static const struct regulator_bulk_data hitachi_tx10d=
-07vm0baa_supplies[] =3D {
-> >
-> >  struct hitachi_tx10d07vm0baa {
-> >       struct drm_panel panel;
-> > -     struct mipi_dbi *dbi;
-> > +     struct mipi_dbi_device *dbidev;
-> >
-> >       struct regulator_bulk_data *supplies;
-> >       struct gpio_desc *reset_gpio;
-> > @@ -40,9 +41,10 @@ static inline struct hitachi_tx10d07vm0baa *to_hitac=
-hi_tx10d07vm0baa(struct drm_
-> >  ({ \
-> >       const u8 d[] =3D { seq }; \
-> >       struct drm_panel *panel =3D &(priv)->panel; \
-> > +     struct mipi_dbi_device *dbidev =3D (priv)->dbidev; \
-> >       struct device *dev =3D panel->dev; \
-> >       int ret; \
-> > -     ret =3D mipi_dbi_command_stackbuf((priv)->dbi, cmd, d, ARRAY_SIZE=
-(d)); \
-> > +     ret =3D mipi_dbi_command_stackbuf((dbidev)->dbi, cmd, d, ARRAY_SI=
-ZE(d)); \
-> >       if (ret) \
-> >               dev_err_ratelimited(dev, "error %d when sending command %=
-#02x\n", ret, cmd); \
-> >       ret; \
-> > @@ -54,10 +56,6 @@ static int hitachi_tx10d07vm0baa_prepare(struct drm_=
-panel *panel)
-> >       struct device *dev =3D panel->dev;
-> >       int ret;
-> >
-> > -     priv->dbi =3D dev_get_drvdata(dev->parent);
-> > -     if (!priv->dbi)
-> > -             return -ENODEV;
-> > -
-> >       gpiod_set_value_cansleep(priv->reset_gpio, 1);
-> >
-> >       ret =3D regulator_bulk_enable(ARRAY_SIZE(hitachi_tx10d07vm0baa_su=
-pplies), priv->supplies);
-> > @@ -243,9 +241,9 @@ static const struct drm_panel_funcs hitachi_tx10d07=
-vm0baa_panel_funcs =3D {
-> >       .get_modes =3D hitachi_tx10d07vm0baa_get_modes,
-> >  };
->
-> Unnecessary semicolon here.
->
-> >
-> > -static int hitachi_tx10d07vm0baa_probe(struct platform_device *pdev)
-> > +static int hitachi_tx10d07vm0baa_probe(struct mipi_dbi_device *dbidev)
-> >  {
-> > -     struct device *dev =3D &pdev->dev;
-> > +     struct device *dev =3D &dbidev->dev;
-> >       struct hitachi_tx10d07vm0baa *priv;
-> >       int ret;
-> >
-> > @@ -264,6 +262,9 @@ static int hitachi_tx10d07vm0baa_probe(struct platf=
-orm_device *pdev)
-> >               return dev_err_probe(dev, PTR_ERR(priv->reset_gpio),
-> >                                    "Failed to get reset gpio\n");
-> >
-> > +     priv->dbidev =3D dbidev;
-> > +     mipi_dbi_set_drvdata(dbidev, priv);
-> > +
-> >       ret =3D drm_panel_of_backlight(&priv->panel);
-> >       if (ret)
-> >               return dev_err_probe(dev, ret, "Failed to get backlight\n=
-");
-> > @@ -272,9 +273,7 @@ static int hitachi_tx10d07vm0baa_probe(struct platf=
-orm_device *pdev)
-> >       if (ret)
-> >               return dev_err_probe(dev, ret, "Failed to add panel\n");
-> >
-> > -     platform_set_drvdata(pdev, priv);
-> > -
-> > -     return 0;
-> > +     return devm_mipi_dbi_attach(dev, dbidev);
-> >  }
-> >
-> >  static const struct of_device_id hitachi_tx10d07vm0baa_of_match[] =3D =
-{
-> > @@ -283,14 +282,14 @@ static const struct of_device_id hitachi_tx10d07v=
-m0baa_of_match[] =3D {
-> >  };
-> >  MODULE_DEVICE_TABLE(of, hitachi_tx10d07vm0baa_of_match);
-> >
-> > -static struct platform_driver hitachi_tx10d07vm0baa_driver =3D {
-> > +static struct mipi_dbi_driver hitachi_tx10d07vm0baa_driver =3D {
-> >       .driver =3D {
-> >               .name =3D "panel-hitachi-tx10d07vm0baa",
-> >               .of_match_table =3D hitachi_tx10d07vm0baa_of_match,
-> >       },
-> >       .probe =3D hitachi_tx10d07vm0baa_probe,
-> >  };
-> > -module_platform_driver(hitachi_tx10d07vm0baa_driver);
-> > +module_mipi_dbi_driver(hitachi_tx10d07vm0baa_driver);
-> >
-> >  MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
-> >  MODULE_DESCRIPTION("HITACHI TX10D07VM0BAA MIPI DBI Type B panel driver=
-");
-> > --
-> > 2.53.0
-> >
-> >
+On 11/26/26 5:51 PM, Venkat Yadlapati via B4 Relay wrote:
+> From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+> 
+> Add the pin controller driver for the TLMM block of the Qualcomm Molokai
+> (SM8845) SoC.
+> 
+> The register layout is the one of Kaanapali, but only 29 of the 205 pins
+> have the Kaanapali pin functions and the GPIO to PDC wakeup interrupt map
+> has no entry in common with Kaanapali, so the Kaanapali driver cannot be
+> reused: with its tables, a wake-capable GPIO interrupt on Molokai is
+> routed to the wrong PDC input and never fires.
+> 
+> Signed-off-by: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+> ---
 
-I agree that your suggestions are ok, but they are out of scope of
-this patch. They would require either dedicated commits or can be sent
-as followups later on since they do not cause bugs.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+Konrad
