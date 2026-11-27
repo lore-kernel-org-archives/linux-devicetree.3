@@ -1,94 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.11
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795792908;
-	b=fphE6IIxwr+tQmUOwBCX01P5UlDA8YyzQ/PagEyvRsQOViF3pQF0KdrLt2/zq0YT2IP+
-	 CfQxCHQAwsAtV9K6W77YLjFDARXYT/JrMLZ/G012jsNKM7T/+RZJuzoQ/2r/G73B2qHgN
-	 MkeQ/cRzu52LmbP1+RzoFByeD8kYVxxB+wC5YcwPSnTQy7UUYG231scARzr6FwQjy/bH9
-	 csrSc3q7TzG5K7YItp3RC156T08IiQMN4nM6XQwFxM9zE43VGvSVKiCKIg2M97Hlj6eaZ
-	 hEy1qRxsw5EN8kbCqIKqamGKPRYVtbFx0SpQ3+4EWo0XGVT7UNBr6eYwW36HKbJV5jw==
+	t=1795792934;
+	b=zEyEjizbczMZD5r95tl9ACl3zCWcv/KOKXdGiFSkjFyji4TSKi1PJzzNFqW/UydCsM6z
+	 SxBxWkDweRFpNuK8jV+PEgMZupPxfUHisjOsaK3EJTkQ67s8K0t8I/V+m0Wcmgs28lXXK
+	 bPCcTFRTDtQ8BJSS35SUorb+IcCYhXIQkeMHZfE+T4qP2xY7+EJGbjU9zfvmtFtx8uMeV
+	 RwxGp7srtPGiBEYzn5mUEpnElivXeqXTTPeYkJG78srpXMB3tzgxhV1r98l2SFZWEra6u
+	 55odAiVpmlaPBPePavd5zP+kuknVeZI6L5BVCfnrB6mBoIQSAzHTR7QMc65FRSoE02Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795792908;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=1DBTB8Ci/n3Y6k0vm9aXcB7uNV+yLwIidGst8DrwTb8=;
-	b=qegcUtLGcYXZoMSqTngTusQ4rvOc1vvg5RSKFfWEu2pz0SDbANPs3t2AwJiYWqw+ZaNQ
-	 cBrjE02ffb490jl/cvIOW0CQMT5OGEKX3O2GxgEsDNmAK7cN7KkxbIugQ5inlry8ttvt2
-	 /xhF8OH5+CxA/cQOIK8IX7MIzX4HMmAIYefAUZCi0Xx1eqcGrK2UE+DfJYuLSglgGWru2
-	 M9fLopO10bYqs/+T62bgtwCNbxTUXgdvfo05pnk6/egYGGlDWZ6SREnv+eYwYJEcWHOKM
-	 LSVpVcxlBWgSuKcFImpGffJYaPncnlX0wCVSxFr5bjVky+swg+vz2eA8wyZZQO/9IMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795792934;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=CRSjpxH4TNIa5AzUVjH2D42lzo+c5Yov82Bh6OCdY64=;
+	b=uupLgss/xPGaKvLXWtsK/OfsOduJrxPYuIxXfxydMSwsskkvqXrvl5+AuaFRd+unH5KL
+	 JhhymMsLiofhthe+ksM2i9xVl2/EJzhl5Mc7jTsHQZlbjeN2xJhzTdpFrMUpbeITrp7lP
+	 n4i3mS8SQ+lrzPiIeNXPYrn0ntf8yHv7PihbSevw6LnVPBvnnTBOjfsWBXkYNO/jkWfWQ
+	 k/9boGJjYAntd7TyEeUU5Fz5SPPTC4C24+zi4PgAXG5WCAVAuz0MNtNKy5qtATJVmTa1T
+	 xqXeBOB6tUl3zUGCggoCDST3wVsKJULj8vaA9KyMH2K9MlnVPvkdzb6BLHY6pzuTokg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=lp13waer;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.11
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013011.outbound.protection.outlook.com [52.101.72.11])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AMla+Kwn;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FEDC606A31C;
-	Fri, 27 Nov 2026 15:21:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FEDC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE6B606A338;
+	Fri, 27 Nov 2026 15:22:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=lp13waer
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VfW2AE4nnrfwUXpVemLiZzHdwlYBhIxPXn/zwUe6+CojW28vjmAn8MppJCZwu6HyFakIDuaIqbFTOL+/zbSHddTR2voo+eOm+zMcAQwnl2p1nqDHzhBUbpczRSTPtuTy+QtPcj/xPYJWMBYUPACAnH+FdVuSzZDbe+a9m9bsz35sSlNYLbFzaBqsx3gN4FZh4qvUFj1hRZ7L1VI81597BSOhArx+9VeSO/6Rzqb/RSZRod7d0L7xhLC0U6t+kQ0RMwnaq4gE4Vg94Dt8mz+e5k4UniV6tAUbKsub1trdAp9AVUDlzkp2Kt1ReElogj/RcZuB/FYavVRYbUSARhjDiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1DBTB8Ci/n3Y6k0vm9aXcB7uNV+yLwIidGst8DrwTb8=;
- b=ATe8/1X2xsyQS15FvlwdOIsH3n8vDYZIVmqu47m2Em/vtbYu9A7d9yndypATyFAF+BDleefTng3e6khnQKYWG7Bb5VUsc3ySFVFOxtEdhjY5KOs7hJklLwBssNhGU/ULVft4p/3EbPa4XHl25uQaXhoGmKDQnTkwMHZTeQN3zwyqk4ZzuWrIJWat1b/MLLMIZjCoR8WxQr8K1zpjBcIhUpsiaKARl5Ln+rrzFDZwmE19jaji/Lk67eTLFikpfEmEM5saEKRcDyNPfkqmv+8yTH9nu1Mcv2xbQt7PE6hxyjExBaGDB384Soepdwha4Rj2v68JMOdv+CNTpkxyV5HQgw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1DBTB8Ci/n3Y6k0vm9aXcB7uNV+yLwIidGst8DrwTb8=;
- b=lp13waerdcsIKVOgPKHWOfcWxqi/imn20+S8pkkZzY7Mg+5G72ikKoGPZCH7vWe50hjndgAU7oFJneNvrtla7S23TrKWNgg2pSnxhFEVi54dpRjJp6uoR4V0BjIs55UrPunDX0kYSa4Hn9MsReOe/uzWgBkvIYYRJa6rqR2UtiGTs6h3qi1qAdJfSBr8L1QaYPCxNbrZn84uZkVG9zLqf8dhZ9IwJ1ZzofVSjry//EKftRndgkKlSFADlQX5V9uxuqlEtQrF/jv93ikvSc3+JJyOlYO/L2mtq4dDvI1XfwWLLdQ3Q6iOqKXFi7sryGJTjBwQ0Q7pB5Ctu/hP5LOEPg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AM8PR04MB7730.eurprd04.prod.outlook.com (2603:10a6:20b:242::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.9; Fri, 27 Nov
- 2026 15:21:44 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0662.004; Fri, 27 Nov 2026
- 15:21:44 +0000
-Date: Fri, 27 Nov 2026 09:21:35 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Tian Xuechen <202300460064@mail.sdu.edu.cn>
-Cc: vkoul@kernel.org, Frank.Li@kernel.org, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org, vz@mleia.com,
-	piotr.wojtaszczyk@timesys.com, manabian@gmail.com, robh@kernel.org,
-	saravanak@kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 1/3] dmaengine: of: Add managed DMA router registration
-Message-ID: <awmf_2AvjLr8WH8S@SMW015318>
-References: <20261127110400.379397-1-202300460064@mail.sdu.edu.cn>
- <20261127110400.379397-2-202300460064@mail.sdu.edu.cn>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261127110400.379397-2-202300460064@mail.sdu.edu.cn>
-X-ClientProxiedBy: CPCP307CA0005.DNKP307.PROD.OUTLOOK.COM (2603:10a6:380::14)
- To MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AMla+Kwn
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795792933;
+	b=Wf2upP5rkCuGJ4ImXieZt4dsoKV0CLcI68pNQCoXPJAbFo6CpbHJhtu7Kvh2g0QAd85+
+	 jVQeX6qluVC+x4zWVugN+cFU9KYp8DON2PkgpA/QJ7xJIhC3gCoDAE2hXg+npD/gZdthf
+	 CUhFKAzD5R+n6ao32kqPtitijge7skjcoo8hR89qXyISUOV3zb3qGi5dt9q+l29fdI/9X
+	 SMM/2Ju/jw2OZYAvmfV0qm4nvo05wA6Qx+ArLGxWlSnUVb0LzuXR9ls3SQjxhRnhMhAk5
+	 HISakIpUZL1wUOqKlveUcVjQepB4ySs7c03RqLOAIhEkY3idDGdDNl//0tidJj3GwwA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795792933;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=CRSjpxH4TNIa5AzUVjH2D42lzo+c5Yov82Bh6OCdY64=;
+	b=Z3GPZOv7Xgq/rR+IG8lKS5TrnBcILh49r4H6XUNXvRG7lVX4BKOKEzjsFM/uCnMXOyXg
+	 g+j16quOk4Z1apWtp5WrNsU/bq1D1c6Qcr/2/lP+/XIbGBZc4NZutnK407vzMroqWFSHM
+	 yMlAo9Y3fuIZzR8NLOWCfhNjRHYxo5u8f1uN9uH00qqCnignNNI0XJJXy0G6Y2Sb+5W84
+	 RlKThZEN8cHwOBX92NnY6EC4qUmRKV3RoMTvV0uks/Z+rW+LjqqkokQeY1fIeiNkVodcv
+	 duutTdP4DCkgdlCRthiv0bhmUfv+ltWBuaO8NRQQcLPBqyIXnWh1pCEzy6FGh3lkiQA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 726A41F0089A;
+	Fri, 27 Nov 2026 15:22:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795792933;
+	bh=CRSjpxH4TNIa5AzUVjH2D42lzo+c5Yov82Bh6OCdY64=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=AMla+Kwn0sTqr9TuRDdjh2/3xazvTVUbJh4/AEJ+aB+GgUXnT5phWy+T7/YSrwFZ/
+	 +1aIeQIevdwM2BhcCDWFs8P5IMKeH3m0JigHeRfPVakv6Rrupk0EeN77qxyvMoXVO5
+	 yshjxLp9W+Yx5jo1fudPjvxzZkLCLLQO7slJQNIhmw37IgCyqcTmJYdsfbfMFk0eMO
+	 NAKVvi0eTd3mpW30V/3r7MSuMRo5gOsH75XXea8Jmtu2CNP0FanZ1gdgW4OxFiOb45
+	 BBVnjXa/NA/hA+9BHO7jkoumfBrntHtyK/c+UXI8nNMToMTuunR0SnzeC9nQxbrCVR
+	 o9NNrCw3RIxGA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 014774BA74;
+	Fri, 27 Nov 2026 15:22:09 +0000 (UTC)
+From: =?utf-8?q?Kry=C5=A1tof_=C4=8Cern=C3=BD_via_B4_Relay?= <devnull+cleverline1mc.gmail.com@kernel.org>
+Subject: [PATCH 0/4] spi: dt-bindings: bcm2835-spi, ARM: dts: bcm2711: Add
+ DMA to spi0, i2s and sdhost
+Date: Fri, 27 Nov 2026 16:21:05 +0100
+Message-Id: <20261127-bcm2835-spi-dma-v1-0-8b134991ba2e@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -98,120 +84,86 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM8PR04MB7730:EE_
-X-MS-Office365-Filtering-Correlation-Id: d0c0d7b6-67bf-4579-c789-08df4c9a2555
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|19092799006|10067099003|56012099006|11063799006|261021121427099003|261022075727099003|261022105027099003|261026140227099003|261102123227099003|261028144727099003|261009223027099003|22082099003|18002099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	VgeutxBEg72lwm8F6bvRP/fXoEtDPCnp3aacFZTSRxhOtuLDUzN+NXEuQENEdrn9e9qQuiBTgcEoz0Ib/frUVKbyKO1VAI1NyRGcOwIGD20up6RgHwS6qEjeJsAnnO7IVMhhPpCnrvo3bEpWx5CGLJ2oj7TVz4MqW+Ovg9ygGQH9SCna/L0R7KQ5DfkDB/eld99CalNXllSiJSnnd0BJiNzguosASFXYu5igVfX/Flk/6OegCbIp60jnpuLD3MtTvtlwCzU1ebvUyi/yiQykkexmNp8VWfNwoeJVXK4KvcPBYkYsjpsTyS8f2Kl/7kjKWa9DI/xfEzLy0hUxJb81PgBlAHRthITd0IDm1PJTL2Vv4YNSxfmc0Ra91Rc9DexcKRdaW28od52hnWjVLKVi/rzQ4EpP+IhAyOI0IxF/Y/+5bAbgCMQRCFFbKam8ZJy28VdLtWFWhu5eXziP2pUPNx/o+rUhQg1DU79ZVABpTiegoUQXylyfkJkCKHPf3pG/fTM6p/gOKD72Jq1RbB3fcWTdyJj1M406hgKGLCawxS8iXu6pgxRDuP5EV0EnKFXl1b0yb461KOcFYobYnN6E6bS2aAs69MzXjC5A/+oer7VGrK9QBVU+0Cj7AAuMDmsnaZYJniz/PtHz3yBTW9F3Nbpudu7M+7eV7Jh8SflcsaE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(19092799006)(10067099003)(56012099006)(11063799006)(261021121427099003)(261022075727099003)(261022105027099003)(261026140227099003)(261102123227099003)(261028144727099003)(261009223027099003)(22082099003)(18002099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?URhg8j0gGJhphJkcE9Eear+/J9xK8ODBmEmVZFBmnFerZdjK++8F7xa7yCXN?=
- =?us-ascii?Q?Tgb3JNHrllR68fAndOROwiIBJcfiD7qSdv58EGuCw9iQyZVbmCdxQES489YG?=
- =?us-ascii?Q?lLWpsKEFzZFRdyw0PF0tIoJiiOcBc+p4Y/pyQ4opjLkxNxGa99HWh1wO9fZ9?=
- =?us-ascii?Q?ByvH6g4kmBsKQnpnI9+WQM8TNnvFv57T1HaDEo3Z5j1r5JF3gWzNHKXd5czJ?=
- =?us-ascii?Q?FKu2c9OREqx5KwP0c70k8AaSIMRJdzyRoiJ/kZD+9fBHJRESnhvO29AgTUr5?=
- =?us-ascii?Q?r57Q8IGus3elDzwYY9dc/PCoHljjHJ1HHeJESAMfL0zfwabdSXyoanNpQKgV?=
- =?us-ascii?Q?fOP1Ft5gXeYbeg+GU7A6rHCWVZi4DSHsbz26p3ogGZDUhHfszC88ynSbLNpG?=
- =?us-ascii?Q?0J8JjPJnm1dqaGo8Z53FnIhMMOsLiyEAAgZK1L8LTj8sFtep57wOYrVK39SR?=
- =?us-ascii?Q?0oIWNB6BF6H3AuR7VwODTsU0TrLn9NRsmnUeYG9ZwOcHpkciA3EBo12+ycS1?=
- =?us-ascii?Q?0FECC8KGE+E6ie6FgFREemRkd6gYNYaVJnlQ3w59sY93JwUk30GpbfNctYj8?=
- =?us-ascii?Q?Sv7Ku9iYSiq5fdo11d00sO1RDxt7SqPVhNAr8kxoqJeB15Mt1tvE4r3+ND0A?=
- =?us-ascii?Q?sem8Axz9iyxcdd11nqVZq5zYnzoeRj7SnxwEgKP+4oX3jPCFpJeCuycH8++j?=
- =?us-ascii?Q?X8NZstieZ9nS5m9CWTaYZRY/0GZarkSMxpGFKYuIyeQ/2QW+uwUCbVXVta/Z?=
- =?us-ascii?Q?9lTZGWB7p4OnTi3tGTw3Bk350NlngLDrFnm9GFUkDRPEwJZhpgQD2me5nIRk?=
- =?us-ascii?Q?/NcLHE6xzviGuvM0i9bbmL4sYwOcPwyvukmXUte1980fu+vwDElWHFAkJTsQ?=
- =?us-ascii?Q?bmysWIo5Rjuyv1tt9uGo/VpIH2QsYKrZolRKRGJ3WkAsqdQPuWnb7PTmK+rQ?=
- =?us-ascii?Q?qNKuw9PVCtlc4YY57o6ZUN/fQZBg/76KrSzkHIdvCtHW0ZPlHW3Ou3vEAY43?=
- =?us-ascii?Q?U8+/Y1VWCtQzX8J0+EEyB9tXHY4fwU6AQW2fbz3TQZFEgFxRXnZk1sGZx+Nd?=
- =?us-ascii?Q?+clGmuFGe5Q5zSLl1D8ypDtBxLO9vUTpWLbA6XeSH6xNHe9BNjIIPn/46BzQ?=
- =?us-ascii?Q?e+FxFWhdwAXiStB4iBHyioFyojS5Tjwbx6SjvRiEnk9gT2p2tmQw50liCvCD?=
- =?us-ascii?Q?fvuUuKm7xFt/gvHmvyVbn9gX+FRe2INXlXiE1/2pPYSafQjoKsCx/8JW6iAx?=
- =?us-ascii?Q?1PeunwxXH6NLRqM3qI+lXzLLl9rkigGE0HOQAJWRAuoXdQfqXsozbL2s0EC2?=
- =?us-ascii?Q?Wm4XLeBzQa1PzzThKe69tJc9aaiDXycmSetUwlsPszeKoWgMIrrWeY05cy5R?=
- =?us-ascii?Q?A1XKszO0PChpW8DTE3vgJXSl+NPcPhlrGngubpjlY0YwRAytuojxuL+M8wtB?=
- =?us-ascii?Q?7rj5qgVEVnE9UVDW3w1bPbh10wGYf5QihDTlU/IdGYTP3iBe5Cz2iiMfGZzU?=
- =?us-ascii?Q?18rYWGafp2YKwq6rdhzPVELtCgoQ4gsvFdkvYyEyb0Z7O+SSemqMvN9h7S/v?=
- =?us-ascii?Q?ATDFBRfoCIAVhpwmm9G+oQDJ4OLNkPFv5xZetxTpNB5jzRO9uCPb69YujIOS?=
- =?us-ascii?Q?VeMfqoln872Ptn3ozhR4H9U1cg+4fnB2WK5RejMdcs9vTW6TyyuJNMVbUT0K?=
- =?us-ascii?Q?o1KmeJ98gbA9he7oa9B8UDmivk6FDH+rgWvVYYETGYADY1w4Sxgi10Ajfg88?=
- =?us-ascii?Q?h/yG1vxT/A5Ht6P5X8/dp1c2NF8dp28rTgAJ93rWRX9pac3yhOd6?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d0c0d7b6-67bf-4579-c789-08df4c9a2555
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 15:21:44.7411
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mSgL0Sg/5QBdns311bHLOf2+kD5EuK6RTZ0jw/aOtoW0bJToAICrHfhfB3URZGstseN0S10SQ8pyF21ENBkWxcn5gHSM///CRRl0aU59Qk/LLxPgajcBD8nIpt5NE7fb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7730
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAOGfCWsC/yXMywqDQAxA0V+RrBuYTOuD/kpxMY+oKWhlokUQ/
+ 91pXZ7FvTsoJ2GFZ7FD4q+ofKYMuhUQBjf1jBKzwRpbEVlCH0bb3EvUWTCODr03DcfKUP1wkKs
+ 5cSfb//hqL+vq3xyW3waO4wTZQaGdcwAAAA==
+X-Change-ID: 20261121-bcm2835-spi-dma-bb08ed60174a
+To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Ray Jui <ray.jui@broadcom.com>, Scott Branden <scott.branden@broadcom.com>, 
+ Kanak Shilledar <kanakshilledar111@protonmail.com>, 
+ Stefan Wahren <wahrenst@gmx.net>, Florian Fanelli <f.fainelli@gmail.com>, 
+ Eric Anholt <eric@anholt.net>
+Cc: Conor Dooley <conor.dooley@microchip.com>, linux-spi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, Miroslav Ondra <ondra@faster.cz>, 
+ =?utf-8?q?Matou=C5=A1_H=C3=BDbl?= <hyblmatous@gmail.com>, 
+ =?utf-8?q?Kry=C5=A1tof_=C4=8Cern=C3=BD?= <cleverline1mc@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795792928; l=2083;
+ i=cleverline1mc@gmail.com; s=20261121; h=from:subject:message-id;
+ bh=GPAK2NN455l9SD+f8GSczRZqWij+l+kvBXDhsd9fwxQ=;
+ b=vvKn9I4Hb52gOfCftXc+IgXPHf5l8Ol8880tjxh574m4hCmWVSNxE/N128JXpFPkR51lsl46i
+ Ed3jpXibhG9AvJZYKcBQiX0J5oo2iiWk6ToQs2s3uqTswf36tBR6bMm
+X-Developer-Key: i=cleverline1mc@gmail.com; a=ed25519;
+ pk=2UEUVmQyfsiFZkNS7dkgFg0rUmhbcMIytM6NYhxFt/Y=
+X-Endpoint-Received: by B4 Relay for cleverline1mc@gmail.com/20261121 with
+ auth_id=1594
+X-Original-From: =?utf-8?q?Kry=C5=A1tof_=C4=8Cern=C3=BD?= <cleverline1mc@gmail.com>
+Reply-To: cleverline1mc@gmail.com
 
-On Fri, Nov 27, 2026 at 07:03:58PM +0800, Tian Xuechen wrote:
-> Add devm_of_dma_router_register() to unregister a router when its
-> device is detached. Reuse the controller cleanup action, since routers
-> share the same OF registry. If registering the cleanup action fails,
-> remove the newly registered router immediately.
->
-> Signed-off-by: Tian Xuechen <202300460064@mail.sdu.edu.cn>
-> ---
+I'm moving Unipi devices from the Raspberry Pi downstream kernel
+to the CIP kernel and plan to upstream the gaps I find along the way.
+This is the first of them.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+On BCM2711 (Raspberry Pi 4, CM4), spi0, i2s and sdhost have no DMA
+channels in the device tree, although the same controllers get them on
+BCM2835/6/7 from bcm2835-common.dtsi. spi0 then runs in PIO mode, and
+i2s, which has no PIO fallback, doesn't work.
 
-> Changes in v2:
->   - Add the reusable managed router helper.
->
->  include/linux/of_dma.h | 24 ++++++++++++++++++++++++
->  1 file changed, 24 insertions(+)
->
-> diff --git a/include/linux/of_dma.h b/include/linux/of_dma.h
-> index 16b08234d03b..7f9198ea9627 100644
-> --- a/include/linux/of_dma.h
-> +++ b/include/linux/of_dma.h
-> @@ -64,6 +64,21 @@ extern int of_dma_router_register(struct device_node *np,
->  		struct dma_router *dma_router);
->  #define of_dma_router_free of_dma_controller_free
->
-> +static inline int
-> +devm_of_dma_router_register(struct device *dev, struct device_node *np,
-> +			    void *(*of_dma_route_allocate)
-> +			    (struct of_phandle_args *, struct of_dma *),
-> +			    struct dma_router *dma_router)
-> +{
-> +	int ret;
-> +
-> +	ret = of_dma_router_register(np, of_dma_route_allocate, dma_router);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return devm_add_action_or_reset(dev, __of_dma_controller_free, np);
-> +}
-> +
->  extern struct dma_chan *of_dma_request_slave_channel(struct device_node *np,
->  						     const char *name);
->  extern struct dma_chan *of_dma_simple_xlate(struct of_phandle_args *dma_spec,
-> @@ -103,6 +118,15 @@ static inline int of_dma_router_register(struct device_node *np,
->
->  #define of_dma_router_free of_dma_controller_free
->
-> +static inline int
-> +devm_of_dma_router_register(struct device *dev, struct device_node *np,
-> +			    void *(*of_dma_route_allocate)
-> +			    (struct of_phandle_args *, struct of_dma *),
-> +			    struct dma_router *dma_router)
-> +{
-> +	return -ENODEV;
-> +}
-> +
->  static inline struct dma_chan *of_dma_request_slave_channel(struct device_node *np,
->  						     const char *name)
->  {
-> --
-> 2.43.0
->
+Patch 1 documents dmas and dma-names in the bcm2835-spi binding. The
+driver already requests them and bcm2835-common.dtsi already sets them;
+dtbs_check doesn't flag that only because no in-tree board enables
+spi0. The i2s and sdhost bindings already describe their channels.
+
+Patches 2-4 add the dmas to bcm2711.dtsi, one controller per patch, so
+each can be applied or reverted on its own. spi0 and i2s were tested on
+a Raspberry Pi 4 B; sdhost only for probe and DMA binding, because
+nothing on that board is wired to its pins.
+
+Patch 1 is for the SPI tree, patches 2-4 for the Broadcom SoC tree.
+There is no build dependency: without patch 1, patch 2 only adds a
+dtbs_check warning for boards that enable spi0.
+
+Checked with dt_binding_check for brcm,bcm2835-spi.yaml and with
+dtbs_check on arm and arm64 (bcm2711-rpi-4-b, bcm2711-rpi-400,
+bcm2711-rpi-cm4-io, and on arm also bcm2837-rpi-3-b and bcm2835-rpi-b):
+no warnings.
+
+An AI assistant (Claude) helped write the commit messages and this
+cover letter.
+
+---
+Kryštof Černý (4):
+      spi: dt-bindings: brcm,bcm2835-spi: Add dmas and dma-names
+      ARM: dts: broadcom: bcm2711: Add DMA to spi0
+      ARM: dts: broadcom: bcm2711: Add DMA to i2s
+      ARM: dts: broadcom: bcm2711: Add DMA to sdhost
+
+ Documentation/devicetree/bindings/spi/brcm,bcm2835-spi.yaml | 12 ++++++++++++
+ arch/arm/boot/dts/broadcom/bcm2711.dtsi                     |  9 +++++++++
+ 2 files changed, 21 insertions(+)
+---
+base-commit: 909ef7a9a30fa139e69e555e3606680f5cca7726
+change-id: 20261121-bcm2835-spi-dma-bb08ed60174a
+
+Best regards,
+--  
+Kryštof Černý <cleverline1mc@gmail.com>
+
+
