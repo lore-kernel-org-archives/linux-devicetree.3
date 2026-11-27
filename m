@@ -1,56 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795766812;
-	b=jniS/X6qzbg6o2w+LK6x5rURJml8wSKoRdaHSI6P2yr1Uol16FtdZ2OJXzxhrIECz3CF
-	 FQgTY2d9i85zuzo66S2YPEV42T24SwJwTlliY0BMDV54pWDiAaZH+L/P+ynVmyPykhz9o
-	 MXGyleVLCn3Kq1O87FX6L3n51OLEjj5MPylsyo45N07y12XnoxqrUEmvp04GSh0qGj6XZ
-	 he3WBKyuEg0LUAARd0clKkcQR6cF9itd5nBWldxw6XTKMgSvdExYy6sMHtRjmwBZJyfvV
-	 LjJ6uvurgJiKMBC3U1AyUFS4aanvarQFySan5jGiL4sg4ylh9NltGLnVkwsPCxO1u3g==
+	t=1795766818;
+	b=qHr4mmaKxrJyjopd0UgczIeLdhxzcFwX8Mstw3O5lF/UkAaB5+fn+vLhM0YP4yAmIyC8
+	 +1cOTMF8k8EgNU5oXpxbVx+uWbocPqpJBfVpcHEg1yj+ZV+KvDfjVQtOPj3M9H0VuTp6e
+	 F8dCvSTy0Fydf1pt8k89r8aDPPbU/ah5zNaG6prTBy784BWWGU7sFgg1k/qGGYlWIHeyW
+	 Q0XdSMv2xq6vseEyaELMXJV+JuNfWTrekTxxV6MQOZP59aFo9WAplmkB5/rwXD9M1GOgs
+	 gS+LLcSCEpIEyNtgBCmD/scTfa0cQtHkhWn3KPLykLes1ZqLT4zPZ5Jvt3RpcUdG9kQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795766812;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=whGkBZSbMuSpd24uDcRJiN4J89s+PXioFAi8U4DruqM=;
-	b=Yveyx6OIxQs6JUhKlBsoamujdpo4jzWotLl1VPUBAe0TYv6N97nsKqHJNElUD1j659VJ
-	 TfNnndvv/KqZugBMqj2U1IZb4hsD/zOuC4cG/1SzIwhc8g8GOEfFGAwwvWo0zHo7RMLCh
-	 IPwEuaEXhJsty3L8cJTW+2EIoRAWRos3mQZrmY/ceftibbpzBQcHFuvWU3d26NMjfIDJU
-	 OGZL6llu7eFk1N3JV2bi9UpPEp52bwgjNAqZbtI9u84HH9WXf13v5jEeUvyfZk13irxJ5
-	 kmH77VghEyONYzGNz/hu2BToJvfhONQCuk+qh8OHkA3Pr6loqlwDX1TFjz6fXq+SVDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795766818;
+	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=gvWBA1mhx8ibYVBggwemKsSLz8VkwDf35wvv7VpFuF4=;
+	b=jQl3xjlm8v828Uxse8WmCkq+f6E6CXoKSFAEf6CrUBBNCeL7QZ8IrYyt50KPh1HZPqhQ
+	 yXotDgYeRBqzWe3PUOoWJzZmpmtrrjtBL3ff7HMXmrc1XfJQzmulM6n86IyHGTDje+tM3
+	 ZkPBwza7byJB2phLtRmkSbkXXhE26rtqYyUlWmnG9wHtzENqB2MCdHVFeh8F8tWVS59nK
+	 VlMBniVqNE9PAQgJ1rHOScH9I2jaz/fu0LBoAQndye9pViBbqrYWLd0CEAVSXdJuuV/2f
+	 DkFjrv0FyBP64apRnHf5OR41gcK/xNaLXaS0ssfhCbE/qjgakuWUrETq4+NYzxuYLFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YYC49GHz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=d-silva.org;
+	spf=pass smtp.mailfrom=d-silva.org;
+	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=NKiQWi6G;
+	arc=none smtp.remote-ip=119.15.109.137
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA6DC606A31E
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 08:06:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32606606A31C;
+	Fri, 27 Nov 2026 08:06:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32606606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YYC49GHz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D49C1F00893;
-	Fri, 27 Nov 2026 08:06:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795766812;
-	bh=whGkBZSbMuSpd24uDcRJiN4J89s+PXioFAi8U4DruqM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YYC49GHzWxH9rdXmrrDsHwc3Hy1NEN9vOcft+hS9RRUMCY8jaT8+se8AYH+FxKqUz
-	 Nn+nbyyutZTLNTcRjJt8w7Y87q1AbFKSs1uarsN/6P7Owgo6M3kLpi+T0+hCQwWO1d
-	 tEgPtme2RAOdIQh9i8v8c1modQe4fXbyFqGziQfWyUOFgA6mZyAaLoOzp0qZKQJMFS
-	 zVsN+SSYV0FVq7oi6Qn5qTYsv+7SG4F98zMXOKkZenyjHLKJVhh2HDBiG/kjuZONUb
-	 7rZ9T9uhAyAgx/b47E2GrWAHg3GuXI+7EMFNRh5kETRINdBmyqIxdOfyV/XlJVOI8D
-	 3bnhvMwhBLIrw==
-Message-ID: <sashiko-outbox-236860@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 3/5] drm/bridge: trilinear: add the DPTX DRM bridge
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luo Liu" <Luo.Liu@cixtech.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261127074639.277959-4-Luo.Liu@cixtech.com>
-References: <20261127074639.277959-1-Luo.Liu@cixtech.com>
- <20261127074639.277959-4-Luo.Liu@cixtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 08:06:51 +0000
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=NKiQWi6G
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id 2D6D74C972;
+	Fri, 27 Nov 2026 19:06:49 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1795766809;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=gvWBA1mhx8ibYVBggwemKsSLz8VkwDf35wvv7VpFuF4=;
+	b=NKiQWi6GIrzDGR2pthCqjgdeHpEK1h48kycZnGQ7Ij9HtRGZZYqaQzFhr33YzIhXsi1wtz
+	Hrb3hB6WyphdOfO4PgxapHCaxHo4CpfbhEYOPBZoKuJBa9aZNXnsV/ljO+tPh2cTY/z6px
+	ZdnS0wSCDQOPZihsbANHOh0Nyb40lS3tWMWiALnJrcQsB4VydiV4h3H1rV6EuJQ1hNtuUX
+	HcFoKpCA2XAkHSBIa34g6fCWIQFwDQxpX2+Jk7pqaneaEMiu9Dz6/7NlRykG5OtEE4/eN5
+	wB7z1OQGZNxmcuAsT/zGrX5JHiikTexn8pVu91UgyrPGXTvlUmbMzUvjI848ow==
+X-GPT-Reason: legitimate; the message is a technical software patch
+	for the Linux kernel, which is consistent with the personal mailbox
+	of a developer (alastair@d-silva.org); the sender domain matches
+	the recipient domain; the links provided point to the well-known
+	kernel.org mailing list platform; there are no markers of marketing,
+	phishing, or urgency.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: Hans de Goede <hansg@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>
+Cc: linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	Alastair D'Silva <alastair@d-silva.org>
+Subject: [PATCH 0/3] arm64: dts: allwinner: sun60i-a733: Add simplefb HDMI support
+Date: Fri, 27 Nov 2026 19:06:46 +1100
+Message-ID: <20261127080649.1982883-1-alastair@d-silva.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,67 +78,34 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] drm/bridge: trilinear: htotal and clock overflow in
-  dptx_adjust_mode()
---
+This series adds boot-time simplefb HDMI support for Allwinner A733
+(sun60i-a733). U-Boot enables DE3.5, TCON_TV0, and DW-HDMI2.0 and
+updates the disabled /chosen/framebuffer-hdmi node. Linux keeps the
+display clocks and PCK-600 power domains active across boot.
 
-commit 121beb945da3bca1311595f6221c3e03dd980739
-Author: Luo Liu <Luo.Liu@cixtech.com>
+Tested on Xunlong OrangePi 4 Pro, based on:
+  [PATCH 0/3] arm64: dts: allwinner: Add Xunlong OrangePi 4 Pro support
+  https://lore.kernel.org/r/20261125124407.4098345-1-alastair@d-silva.org
+  [PATCH] pmdomain: sunxi: pck600: Initialize pd->pck in probe
+  https://lore.kernel.org/r/20261127080625.1982574-1-alastair@d-silva.org
 
-drm/bridge: trilinear: add the DPTX DRM bridge
+Alastair D'Silva (3):
+  dt-bindings: display: simple-framebuffer: Add Allwinner DE3.5 HDMI
+    pipeline
+  arm64: dts: allwinner: sun60i-a733: Add PCK-600 power domain
+    controller
+  arm64: dts: allwinner: sun60i-a733: Add simplefb HDMI node
 
-This commit adds the DRM bridge implementation for the Trilinear DisplayPort
-transmitter, handling connector detection, EDID and downstream mode
-enumeration, mode validation, and atomic modesetting callbacks.
+ .../bindings/display/simple-framebuffer.yaml  |  1 +
+ .../arm64/boot/dts/allwinner/sun60i-a733.dtsi | 36 +++++++++++++++++++
+ 2 files changed, 37 insertions(+)
 
-> diff --git a/drivers/gpu/drm/bridge/trilinear/dptx_drm.c b/drivers/gpu/dr=
-m/bridge/trilinear/dptx_drm.c
-> new file mode 100644
-> index 0000000000000..7a081873560bf
-> --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/trilinear/dptx_drm.c
+prerequisite-patch-id: 309a5a3ca5b216915907263dea7024263abf1d1c
+prerequisite-patch-id: 55e543b9854c7ae2fa86969233d05ccadd3792e9
+prerequisite-patch-id: cfcad85224e288ec2168e7f245b4a1c63e9a34a7
+-- 
+2.53.0
 
-[ ... ]
-
-> +static void dptx_adjust_mode(const struct drm_display_mode *mode,
-> +			     struct drm_display_mode *adjusted_mode)
-> +{
-> +	int diff =3D mode->htotal - mode->hsync_end;
-> +
-> +	if (diff < DPTX_MIN_H_BACKPORCH) {
-> +		adjusted_mode->htotal =3D mode->htotal +
-> +					DPTX_MIN_H_BACKPORCH - diff;
-> +		adjusted_mode->clock =3D
-> +			div_u64(mul_u32_u32(mode->clock, adjusted_mode->htotal),
-> +				mode->htotal);
-> +	}
-
-[Severity: Medium]
-Can adjusted_mode->htotal and adjusted_mode->clock overflow here when a
-userspace mode has a horizontal backporch smaller than DPTX_MIN_H_BACKPORCH?
-
-Because adjusted_mode->htotal is a u16 and adjusted_mode->clock is a signed
-int, a custom mode with mode->hsync_end >=3D 65524 wraps adjusted_mode->hto=
-tal
-to 0..11 and truncates adjusted_mode->clock to 0 (or overflows
-adjusted_mode->clock past INT_MAX when mode->clock is near INT_MAX).
-
-dptx_bridge_mode_valid() and dptx_bridge_atomic_check() only check the upper
-bound of adjusted_mode->clock, so the wrapped value passes validation and
-reaches dptx_bridge_atomic_enable(), where dptx_hw_stream_timing_set()
-underflows mode->htotal - mode->hdisplay and divides by zero on mode->clock:
-
-drivers/gpu/drm/bridge/trilinear/dptx_hw.c:dptx_hw_stream_timing_set() {
-    ...
-	dptx_hw_write(hw, DPTX_SECONDARY_DATA_WINDOW(stream_id),
-		      (mode->htotal - mode->hdisplay) * (link_rate / 40) *
-		      9 / mode->clock);
-    ...
-}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127074639.2779=
-59-1-Luo.Liu@cixtech.com?part=3D3
