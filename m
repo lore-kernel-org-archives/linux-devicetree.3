@@ -1,57 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795780788;
-	b=tonXezBZW9YOcDfUqhBzERbJFINZ89UltfHVEN1WOAHSJNc7XJ0E16pDssUQmtE7O5mQ
-	 WK8NNs+XKFMN1HVBBnerSjLWfqOUOYVt6cnPLgF8ByKwN94w2K9i7/fGxceoj4rDFFxTw
-	 KRh70sWOiecsy46aCkXfHYIXx9DeQbAXqe62R2u7S8sjnR4+ib4qSHqS/nX0gTG0OnO7u
-	 agF84IWNkcTicw6j6rooFtNu7qm80Su7pPuRz22qTM2tLdc5pJYZHtreXXBM/axDlT0ck
-	 9KZxzGLs75qDZ3wv1CmsU635/lu9zybxr0PqVjgqOV41uZtJOCQYEGeZKGItBKH/6Ow==
+	t=1795780873;
+	b=oE/0H//Ym2FcLkkIk/JSW1Ksyjo88HmarUY9108DenEs0Uw0rRHen9S78DznN9AmvXUu
+	 D8+CwG6w5IpNuJ0iN3S3s/ajAFZaLiN20/1KepSSGCWhfm27zNhr0pPdw1MWnBK5I4m4g
+	 B7N7NtjVltg4o5EkawICXD4uVAV9+HL4d64TNBF5UNjQZgLc0AuRGXj7FhQAj+mmnOTeY
+	 pTsPdGG+OjHdhjmTg846cbyC56RTIoSkzv+S2kueiEP4YszRVFLsAikcdFJ9PoV4B92la
+	 AdatUwefbmRRE8O8jpG+tmQ2tgU8wJU9tJnjCyJSRkx2s/4VQGub9XRXm0i5IY6OgzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795780788;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=DWvdXdNhFnJ0O9DoJ8Tn8ak0LEXNXrkgh+s7K3f4xnI=;
-	b=Rm+1bEEY+Oz0G74ixHIC0QI4/zUwc1tdJpceHYsE/nxwC3yXT63eQ3iPwL2MJh7SLvw/
-	 9JPbGzFPREsL5JHP6D9cApNh+LqGYIS6ZAPRfpm7cxABmSpoFH0ewYH339Bn6ndjs41nH
-	 eKHPzGnCaiaoMZwdE65KcTGNFZNHS0d+CoNOnYNPhTXKkER0s/dfcFaOlxVOCzRS2TG86
-	 m69hIfR2pY0qHS0G+V1wLIgz85VkNhQRGFLENj/nllm/uF+uLR7Na0uagY1kpNzaDHVF0
-	 llOKUMCXYCzgAECeybX9tAj5G7WKGEND7StH2QFvJGb2hVndVEns+XuFfgBje5E6nWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795780873;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=qdrFFlZr1wr6XK2UP+CUx9GD+axY9UPnNDp3yG1ITws=;
+	b=Ve/RdIFpgdIqFvchme8aGoNd0OHSSL7TQCf59U2chlneucuLQWgLULVGE0MEtFLxt/ls
+	 bv/6BkBka/ereG8ZToNRlXqyT4h7vXrKQRAnx54uaBNWDSZyVrChVrkLZxo8PRgisE11B
+	 fq2RfiDoa+Xh68y/5luUmEtnYFSiEN4bkNVQBuaCZZK093yS1kR2JUJa9wK48c5nyqXJw
+	 U9VL3A3l1hYbkgELnPHDnVwpcaJhhcxJkoQC8ongROhBkcwXsmk95YZnRojsPiPo3wel3
+	 7RIxCA18icWlk3XInzn6SKR1XVcpkB4vub4tS9ZW8ytlv8SJMB6H7V1RDIpQEqJccKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l0I0ZftD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZrhBSsxA;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C26606A31C;
-	Fri, 27 Nov 2026 11:59:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22416606A31E
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 12:01:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22416606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l0I0ZftD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60B501F0089C;
-	Fri, 27 Nov 2026 11:59:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795780787;
-	bh=DWvdXdNhFnJ0O9DoJ8Tn8ak0LEXNXrkgh+s7K3f4xnI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=l0I0ZftDXD4AB2bf9n4f4oN32BKlNolMQUSDPy+tt3tMkzwytHKrNwF0S9fmmEN6K
-	 tRrPFEPgAjbOyYsuSsH2G3/EYYTZAjQM/veZpA55LKcue0PK+vtv4YnlLzPvsI6veT
-	 nn15pCa7Jqi48wJnkvtViYi85U5YzMRnx4H/ZT9UcR2XA5yKFSpsKjLNgmfi13U9ID
-	 ykrz/af1no7QhfHIYG+PUUlLLRzqt1v2KCdj1mjasH0a8Opavyd98pvjQNVu0hhxQ0
-	 S3hWFPGla9hXUdxg9C9U3ylYMpPJ61bi0kUSWUhrfJahBsOY9CmgxOXwZzdlZdGuss
-	 umTW/rLXaW3Aw==
-Message-ID: <sashiko-outbox-237308@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/6] dt-bindings: clock: qcom: document the Seca TCSR
- Clock Controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261127-seca-clocks-v1-3-1781298e658b@oss.qualcomm.com>
-References: <20261127-seca-clocks-v1-0-1781298e658b@oss.qualcomm.com>
- <20261127-seca-clocks-v1-3-1781298e658b@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 11:59:45 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZrhBSsxA
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4bb5b8ef642so69866095e9.1
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 04:01:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795780871; x=1796385671; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qdrFFlZr1wr6XK2UP+CUx9GD+axY9UPnNDp3yG1ITws=;
+        b=ZrhBSsxA9TmxODqx2oG3o8BLWXL0DUBgbiWp0ohzIyWE3mVyt8801pQNfp0epUwm82
+         wTJuYbitpgqsODU651dqu/97lnZ8c7zwCdp4XYm5IGprlzeeKhM90MIXeEpLAlp6VFUh
+         IiK6HcPstuAqz0hXgy6mzMOHsSGKyuHEmZiUqz7hFvlCRUXxGQb/xJVXfKU2Qb6nUtL0
+         CSCSR7ICkJQiFzJ8YMPWAlnLJLngsXDEEZGVKbiZG8ahIFPClPVIMXpao4fZ2dEul3gL
+         MfqrdSgzSQGfBAMkb+zhEZEHKudU9bT2qT8P3pb3zErEbvY1GShjn88saaP9qHVD2rM7
+         Rx4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795780871; x=1796385671;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qdrFFlZr1wr6XK2UP+CUx9GD+axY9UPnNDp3yG1ITws=;
+        b=zQYPs/21Mj5Ofl+9iRK+r/dJXzBDwmxckquQ77AOnAPq4kL7BWS2/IAWu6jt4DPVNJ
+         ixAFPTDXvrQxY9PSRZ6jzr0jTSTLvAa5xKewlGgP8Uvvih+9ilLeF61PoWe+c2Tbhmgv
+         NeH+Vg7YYNpyw6DDZKYFq51mrQuDyGx/qaapDvQBSrHUoZ4dtAErBa58dlRBEo04vR/T
+         hTHPNwnmoFzBi/5yM5LhxwgZrgpQq4mgGQ3tBE3kaX2LDEV0gS3nxfqx+tBHTS0eQzMd
+         38EtY0kpN0ZFbV5N4hMVhWztXYW3XxHn929u46WfcpuSNFGKDH5hAm14ufD5MXksFaAy
+         3LZA==
+X-Forwarded-Encrypted: i=1; AL+hErFTtJ8YBk6elYz8AvZx85JQglKP0JswVhOVx4RmomX0o797RlCwXY102UqwkGUXGEa5g/+kRKwb7Een@vger.kernel.org
+X-Gm-Message-State: APuU4Z+2C8byNs1vnzuiNTXkcXsPzbghQRR1o5tC2Gw4sYtPH3CoQqX8
+	SuJiyeZ8lz9IJvq1bRgLmrMzIolDB/Tr999/frDkDwzQBlJIHhoBdV7J
+X-Gm-Gg: AZFdTZfYPqiDC1LNEXgPy+4RRfuGPxzjMl6Ut5dAuMNxHqgFhLjWLI/krsIpwskQQSB
+	TVeFjADKOZyw5U67jWzGnZyCNALuQO5rulYYo4wCit5uDPMXKnLWM2AUmsAoYc1uZorXHTURZxB
+	Nm4LIQO3D0TydKos+PuwEgcgVRhy7/y60yG79Hyuyh53dTLqmt1FEwZr2lNM7SSwKf0u3wavzaK
+	u/4bciUkODEfS/4b14nfCEK9GkcQ3x6GgHh1J57ten9ZfZcbHXAsz/I2CGeVstGnMyDvolSJHhQ
+	XKbdhfN5e1KwQdrJxtKQe5QCS3ZvnH9g3KwrnGaJ5QdQx7HAkoEovPSZ8/iZu2zn+pnE5vobHQd
+	iZqGcVxxhawzvEmlm/ezeJcDD3KKo6aQGMFFyH65otdxQ8gSH3fVU7GJOcb4gmnc1AbdcCa+pj8
+	cNIKF8nCQtPU6zaJa67sx8d+yZNuCg9N6jvjiGvZfJMtqWZ2iBphzhdw9aEsKrrEa9NrLs1qASV
+	SOiQMqwt2bc4bDg49J6ZusggVoBMDb32jlH7EaR7Rq9ZmJjgJeNeWPaLICq2aamfHC4kcFi6/2m
+	rEu3gAt25xmv2ZQgG2l3puE7EZv4P+F9vzq2XIAPgcv/RDot
+X-Received: by 2002:a05:600c:3e1a:b0:4bb:6814:7391 with SMTP id 5b1f17b1804b1-4bb8881921cmr485415525e9.25.1795780871097;
+        Fri, 27 Nov 2026 04:01:11 -0800 (PST)
+Received: from localhost.localdomain ([79.117.198.103])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb906640a2sm393684565e9.0.2026.11.27.04.01.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Nov 2026 04:01:10 -0800 (PST)
+From: Jose Nieto <jnieto.alaber@gmail.com>
+To: Corentin Labbe <clabbe@baylibre.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>
+Cc: linux-crypto@vger.kernel.org,
+	linux-amlogic@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jose Nieto <jnieto.alaber@gmail.com>
+Subject: [PATCH v14 00/30] crypto: amlogic: add support for G12/AXG/A1/S4 and misc fixes
+Date: Fri, 27 Nov 2026 13:00:33 +0100
+Message-ID: <20261127120103.1532882-1-jnieto.alaber@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261126193241.1471372-1-jnieto.alaber@gmail.com>
+References: <20261126193241.1471372-1-jnieto.alaber@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,74 +105,90 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Low] dt-bindings: clock: qcom: clocks listed before reg in
-  qcom,seca-tcsr.yaml
-- [Low] dt-bindings: clock: qcom: inaccurate description in
-  qcom,seca-tcsr.yaml
---
+This is v14 of the Amlogic crypto driver series originally posted by
+Alexey Romanov.  It rebases the series onto linux-next (next-20261123) and
+adds, on top of the original patches, the fixes required for the current
+tree and a few corrections raised during review.
 
-commit 79f9dfc2c2abd664b75d0b9d8b416fefd80c9efe
-Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+The original 22 patches by Alexey Romanov are kept untouched (authorship
+and Signed-off-by preserved).  On top of them:
 
-dt-bindings: clock: qcom: document the Seca TCSR Clock Controller
+  - the fixes that landed in the driver since v12 are preserved (IRQ
+    handler return value and fallthrough, devm clock management, DMA SG
+    unmap on the cipher error path, probe cleanup, devm_kmalloc_obj
+    conversion);
+  - three patches add what is needed for the current code (drop
+    CRYPTO_ALG_ALLOCATES_MEMORY so dm-crypt can select the hardware engine,
+    the ahash ->digest one-shot path, and a small cleanup);
+  - five patches fix issues found in review: probe/registration error
+    paths, key/IV and SHA setup descriptor lengths (plus a duplicated CBC
+    IV copy), the redundant A1 platform data, the A1/S4 crypto clock, and
+    the binding property order.
 
-This commit adds the devicetree binding schema and clock ID header for the
-Top Control and Status Register Clock Controller on Qualcomm Seca SoCs.
+Testing on Khadas VIM3 (A311D / G12B), booted with a linux-next kernel
+built from this series:
+  - the crypto self-tests (known-answer tests) pass for ecb/cbc(aes) and
+    sha1/224/256;
+  - dm-crypt with aes-cbc-plain runs on top of cbc-aes-gxl and the
+    driver's request counter accounts for the I/O.
 
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,seca-tcsr.yaml =
-b/Documentation/devicetree/bindings/clock/qcom,seca-tcsr.yaml
-> new file mode 100644
-> index 0000000000000..1349f70b5672a
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/qcom,seca-tcsr.yaml
-> @@ -0,0 +1,65 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/clock/qcom,seca-tcsr.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Top Control and Status Register Clock Controller on Qualcomm Seca=
- SoC
-> +
-> +maintainers:
-> +  - Bartosz Golaszewski <brgl@kernel.org>
-> +
-> +description: |
-> +  Qualcomm TCSR clock control module provides the clocks, resets and pow=
-er
-> +  domains on the Seca SoC.
+Thanks,
+Jose
 
-[Severity: Low]
-Does the Seca TCSR clock controller provide resets or power domains?  The
-schema only defines #clock-cells, and include/dt-bindings/clock/qcom,seca-t=
-csrcc.h
-only defines TCSR_*_CLKREF_EN reference clocks, so mentioning resets and
-power domains here looks inaccurate (compare with qcom,x1e80100-tcsr.yaml).
+Alexey Romanov (22):
+  dt-bindings: crypto: amlogic,gxl-crypto: correct clk and interrupt
+    lines
+  dt-bindings: crypto: amlogic,gxl-crypto: support new SoC's
+  crypto: amlogic - Don't hardcode IRQ count
+  crypto: amlogic - Add platform data
+  crypto: amlogic - Remove clock input
+  crypto: amlogic - Add MMIO helpers
+  crypto: amlogic - Move get_engine_number()
+  crypto: amlogic - Drop status field from meson_flow
+  crypto: amlogic - Move algs definition and cipher API to cipher.c
+  crypto: amlogic - Cleanup defines
+  crypto: amlogic - Process more than MAXDESCS descriptors
+  crypto: amlogic - Avoid kzalloc in engine thread
+  crypto: amlogic - Introduce hasher
+  crypto: amlogic - Use fallback for 192-bit keys
+  crypto: amlogic - Add support for G12-series
+  crypto: amlogic - Add support for AXG-series
+  crypto: amlogic - Add support for A1-series
+  arm64: dts: amlogic: gxl: correct crypto node definition
+  arm64: dts: amlogic: a1: add crypto node
+  arm64: dts: amlogic: s4: add crypto node
+  arm64: dts: amlogic: g12: add crypto node
+  arm64: dts: amlogic: axg: add crypto node
 
-> +
-> +  See also:
-> +  - include/dt-bindings/clock/qcom,seca-tcsrcc.h
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,seca-tcsr
-> +
-> +  clocks:
-> +    items:
-> +      - description: TCXO pad clock
-> +
-> +  reg:
-> +    maxItems: 1
+Jose Nieto (8):
+  crypto: amlogic: g12: drop CRYPTO_ALG_ALLOCATES_MEMORY
+  crypto: amlogic: hasher: add one-shot digest path
+  crypto: amlogic: drop unused field and stale includes
+  dt-bindings: crypto: amlogic,gxl-crypto: keep standard property order
+  crypto: amlogic: fix probe and algorithm registration error paths
+  crypto: amlogic: fix setup descriptor lengths and CBC IV copy
+  crypto: amlogic: drop redundant A1 platform data
+  arm64: dts: amlogic: use the system clock for A1/S4 crypto
 
-[Severity: Low]
-Should reg be placed immediately after compatible and before clocks under
-properties, matching the canonical DT binding property order used in
-required and examples below?
+ .../bindings/crypto/amlogic,gxl-crypto.yaml   |  38 +-
+ arch/arm64/boot/dts/amlogic/meson-a1.dtsi     |   8 +
+ arch/arm64/boot/dts/amlogic/meson-axg.dtsi    |   7 +
+ .../boot/dts/amlogic/meson-g12-common.dtsi    |   7 +
+ arch/arm64/boot/dts/amlogic/meson-gxl.dtsi    |   6 +-
+ arch/arm64/boot/dts/amlogic/meson-s4.dtsi     |   7 +
+ drivers/crypto/amlogic/Makefile               |   2 +-
+ drivers/crypto/amlogic/amlogic-gxl-cipher.c   | 596 ++++++++++++------
+ drivers/crypto/amlogic/amlogic-gxl-core.c     | 279 ++++----
+ drivers/crypto/amlogic/amlogic-gxl-hasher.c   | 511 +++++++++++++++
+ drivers/crypto/amlogic/amlogic-gxl.h          | 120 +++-
+ 11 files changed, 1201 insertions(+), 380 deletions(-)
+ create mode 100644 drivers/crypto/amlogic/amlogic-gxl-hasher.c
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127-seca-clock=
-s-v1-0-1781298e658b@oss.qualcomm.com?part=3D3
+
+base-commit: 3191063649dbf7c0d0b768e1f3655e4c5fc6edb5
+-- 
+2.47.3
+
