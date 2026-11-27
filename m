@@ -1,88 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795757147;
-	b=KawdknoewoiqHdy9Famwee7mHcu2Tj2XrEqI7/LsS+bxQEL/pnp+mi7GrYje3BJx512J
-	 Kj6+GNn03mxLg1JayorsxLTKwGsZX3XizWEUpBeaIZKmhjq5TCKgl9xgk4gmNU7xwWiBt
-	 c4CAFamb8AoTia7OUV/T8/AA0xHEeP7FCrGqhUtDAXfeAMSDHz6PbnEUpQmEFcG5VsuZK
-	 ZYULLkLXKg9Z855kEZaV4ZBOgvPbUCNQzNxPpUYcYizx/yUIMI8LzmAx+LLhAJc/YgR6e
-	 Am18OkhJNSOeaEke4QIPhIQ1mSd1DNMqfW2ccS8tLnAOrPLKVUFa+xIBwKIfE3+maag==
+	t=1795757294;
+	b=yu41q183foWik9TCvQekKr+Ju4oohpGJMtG17vFiyPy13dJnL4+pmH2zqbzLdqvoghc3
+	 A9UzkR3YQ5TlzhMofQrW9NxhuvwiOOqKYL5i1Zg3X6sJO0X7/Yn8c6PHh8TSz9d37Bqp2
+	 pDDPWSgDVQdB0Z6zyaumnZ1ooTjg5LGbRR/P69nuEQOlYr4poCLSXSoP5U9wosS/CIKfT
+	 B5T05YcuKWDNQfSBxPAGXhDFaYPQoUT/Xkm5pdNq+EbMPV9mKt++3gzIzmKMk6BbYoZN8
+	 IScZUJV4vr3bYAXo+pKttQWm5BCNGEo542TYlvgph1F+wNUfgEsMYNw3WDgTx4WNjlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795757147;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795757294;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=mA6QiuILmzYuZAEVobBo2J+8o+30ookoao4wSAO7N8E=;
-	b=S/Qw3cPw24i6NSNKokFXOxe+mntuEE+8kwH4lxOrDRkLfYsts5Zop6mzq8cIIr3JPkwn
-	 O34LjIcrthSGSVA96TiLUBt5vuHuUguIM2WQuNFdWInMivnqcFbbqAyk0/eW63N3HMKQs
-	 GtmKSLzDdBiYVsR1FSn6GS9Bdii/vzz2wjosmAd18xGD3J7mrWtR0oqU6uYeSgyT0fNyP
-	 be5cPawNA4imcSuw5wMo3I049PQny+G93JEnyZm/YuK03/zE3gy2OaEC41cAcb3L8PicT
-	 Sar1MzGjQBMTCP09osubMTd4/cWF4PJ+gtxjX2G5wpA3rdxlvW1AMw/r/F5oCMH8dWA==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=9jH/OKgM1gQSDKQc5kAy7iczSgneLDrLRkuuGZg3T08=;
+	b=L8bdg7dYRyZHPnsZZO2WLpkwqpeOcT4mz0G6iwknfCechLOq7GXQbrOJUyNy1MpjLc54
+	 cug+JsW49n6C6FD6SZkebKK+Jjq9UhC67S9AmqPX89d1mHNNDisF5An0GQ4dSMKMzxlyu
+	 44F85SjW8+dAZeIr9chlh2BKGxh4U8651qM2JP+XXu5rfUAUHQRwANlpZ7VF6uR+SWsC+
+	 EwcTOYsWQWgt1D26qceQb+UKm980KuvKHGczG34KbOT/vyXD1mABmOp9JE4V1lscUdrNX
+	 w++GsjEaV1A7/ih1Dx7kSGx3yt09YHwThZKQ1MQa7n5b/Eu+PfCMT0ufetSnEhuIg8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JM8x5WjK;
-	arc=none smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	dmarc=pass header.from=oss.tenstorrent.com;
+	spf=pass smtp.mailfrom=tenstorrent.com;
+	dkim=pass header.d=tenstorrent.com header.i=@tenstorrent.com header.a=rsa-sha256 header.s=google header.b=Y8tUjz61;
+	arc=none smtp.remote-ip=74.125.224.43
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D14C606A31E
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 05:25:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D14C606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA04B606A31C
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 05:28:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA04B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JM8x5WjK
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2f04e3bf46dso56697455ad.2
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 21:25:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.a=rsa-sha256 header.s=google header.b=Y8tUjz61
+Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-677d35fd1d2so7762718d50.1
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 21:28:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795757146; x=1796361946; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mA6QiuILmzYuZAEVobBo2J+8o+30ookoao4wSAO7N8E=;
-        b=JM8x5WjKEBMgLMs4j3PbFIYKP6179Sx9QiLdLKSsBKIxCvRNNjtOj3w3d4hMKnkuGK
-         5z8fmxfq5hIVPDYhLB/kcMpZ6uo8QUo/CYsTVFLNwMlchR4qHXmpHJC4mYKiZJRi9wkA
-         prQDZs5ZWz8jf3FZ0HbzxoxDsfBcs3ijj/r60jzXf/ms1qNZyPuVbVwF/P74A3UGnUZw
-         mIUc8aTncPV0gAkVkx2lwHF62zpAht/1SKCV6fNqeyPj1Kyti5N0DRgAg00zV3nsy4lP
-         JMsBe6YLo0EPmMNxhRnRmftjAHFifWgWgFanXvoC2kOdp7TDyNRbxDF1Qr73k+FADjqz
-         JFMg==
+        d=tenstorrent.com; s=google; t=1795757293; x=1796362093; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9jH/OKgM1gQSDKQc5kAy7iczSgneLDrLRkuuGZg3T08=;
+        b=Y8tUjz61NtA4sx85w1w5WdFO9U3qKQ5pf7I44awrwEgGTG/yTpfKVWDCkwqW2ByJ29
+         YzfzBn3FXcJpxILij1V8VvLCfr2Ddml4kzdGHLaUdxZMN7bLfP6NPM89/SKl13C8Q6qM
+         HHuBDOyV4UOaEoyZmOmk/AZgdwaRSPjz4kZk8wyd1PoknCo73+Hckob+WL+jDKNPM0+t
+         GgCP8XVSbwvq+kZuj2hFcPfxdFXbVuH4UyVv2saTQTTcljkyGSOPzr/CzNL4hZJRn7IQ
+         f5wh9jSAt4kDN0kM7SojsykF3sb4lQgQlTz3wPOzBj4OJVMdPJi3QHKSOsnN01h9tQEQ
+         FrEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795757146; x=1796361946;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mA6QiuILmzYuZAEVobBo2J+8o+30ookoao4wSAO7N8E=;
-        b=gHeXNRhaZobj2JAkVl09PNkbtt2FfKI1EHouK84YxkrQ9naobes5i/iP5NIuUCxwKD
-         qLydFqTrog0F/gnvqa23/XA5wzs+Y79scy8P2rGrDQahL9aOljxkj42bEV49/j6V+gf9
-         v6f675KIroSnjrlmYivnDOcEEH0vaPash2MEU/cNiZ09+gp19kZbgEA4uLocsfkMlv4J
-         v5rJucTcWecYOQ9VZkaHaTesTJF93B1hKYwZCNyBxZRUHKaTGV5r3GhVhYAYwbUdU/w9
-         qUqW+M5V/nmfxRR5spaBwJhM9gdvfXiOMwoPVB0Q5gKE8y2eFyQffti6k9J2uMsey5mo
-         4mFQ==
-X-Forwarded-Encrypted: i=1; AL+hErFxT6o4mP/VN69/0CrQwzHO/GonRJ5XYGLUlTdUDAhvcKclwueC0YaeZuDiTKMS9wR0FfKuZ1iSixPK@vger.kernel.org
-X-Gm-Message-State: APuU4Z+mDzsw+snohQTgGfwQzCndOAtf8Z22npmSmfQ/yMp2RKAbK/RU
-	bhcyvYhGbC4PdUdsfeBk+9wOkQIoYj5uxRBvsDOHfIuBH6sw3NNWdC26
-X-Gm-Gg: AZFdTZflzJDiwQ3t+qoZg4GUv0xXzVnK2WV43VZ/I1XK4+opx87lNtXXdVGXX7wRi46
-	JSvbgOqvjI+TpoGUxnW0vFzjmYPoSgE4y8GrEzbg6HKTjFBGJtNaIR86XvnIEs1VlbYckes25J+
-	JmUtEf6/RtJ3hlUUVtYp0Wo1gu62iW2jfPH1jzCUfLTCovRtm3m+3poyKMUj+on8ZQoV4W2zot2
-	v+27KVJc/6/8DlxEyfddXouT7D6n/WGvcSy3s6twCyLICgNZI8CYNCBZKG672lflyKgGZAD4CL4
-	PdnMfkdEOs9WOC4yAOrqX0kMl8iFuNsYR5jlfpy/jzJ9OgLjmla6rG245bMIo/+QiWwsWPu38Rt
-	lbLaVKYKkMvQPKVFsMtH6ihg/0bFSrmze2mYTaHuEsoWi+f1f+8VkXd1n3OcgRf6SFecz2HKQQC
-	OIv/R+HJo497yD2pesw/VdNUnoiKx5iGZ8fQS8/L9z6ySST85mebOxgGoUkt8lcyUiQ3UJWcCmP
-	kcW4g+tckzhm0M0Q60C4fn338ygROaA9ZpZJcnCxlxPxZDQ8vmWddUsSBHx9n1kmFlnPAE4fcHo
-	xv7o4M2MOEmAMGPYImktsb7UgTYX3YhNA9YAVmgdXutt9kwjEULJUbCxEFDThywwbtOjAlo=
-X-Received: by 2002:a17:902:e88d:b0:2ed:916:2a98 with SMTP id d9443c01a7336-2f03f23e4bcmr265847965ad.45.1795757146399;
-        Thu, 26 Nov 2026 21:25:46 -0800 (PST)
-Received: from [172.20.10.2] (114-137-215-192.emome-ip.hinet.net. [114.137.215.192])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03ee84364sm115245545ad.5.2026.11.26.21.25.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Nov 2026 21:25:45 -0800 (PST)
-Message-ID: <9814e94e-539b-4729-9cbf-4642ea15e64d@gmail.com>
-Date: Fri, 27 Nov 2026 13:23:25 +0800
+        d=1e100.net; s=20260707; t=1795757293; x=1796362093;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9jH/OKgM1gQSDKQc5kAy7iczSgneLDrLRkuuGZg3T08=;
+        b=DP/hqFlJ8zW3kdJeNFsbXv94nRJdcT6ve47sCqwLd2jFfn3K+WSvTBEJtj4gEVzdRg
+         H9T+9kgQbVUXTAtrn5ZlOYHrqycuMhW7KYT9kiKP1LeQ54Z2WUFxsrI4hmDOmU2nT4L5
+         PQH1ldCMSvj9KBcbHAnU/ftHzOnGHEqBpDkfp5NzCQbee3g3Pa4ZPl/dJRGoA3tZ1hAT
+         8ptJy3PuDN1xQdoecVDluuolh2ZgVmo89o4pO3ZpO5eSljVRRpdOvWhxRwe3NRuCkDcy
+         JxgmIyXva7CJ3bQ84teThaCqAZ0u1aAz/xouXK6qQWWz6IRUn3QAxohCgfrxx/rDfr6i
+         BvSw==
+X-Forwarded-Encrypted: i=1; AL+hErG2hanNhMZQh2+YqN4tuCVL6H6eTgqScY4m6p9a1Tp0YlLSOvxQZzitEiHDYl/Qg8lgxFCT6Qtveno6@vger.kernel.org
+X-Gm-Message-State: APuU4Z/rHn9nCnLwgwKFH3OeZrsl3FSUd6jSSjpz+NIM0hzAA3XDd0on
+	uhMMhJahb7GBW3zvPnCp7jGXiMFkECSZSBMF0zoeOtsO9CqK6wATZxTxOMvDYeoYAPQ=
+X-Gm-Gg: AZFdTZebswSmpr7lYer/jptFi6sYVdX+GIudFhxViy79jGprnvVtPtnq89hJLWgudAi
+	ev3NYxg+oGic8wxUsvbLyIR5y3WTFBFeawav3awP/h3+X+uTDGNLuCbXpV608mevDcqXKoD1CU6
+	IUs3WhgN/JU2SEMGf9VIZPsSg0izmSS1L0nqvL6pYzEfFDtqnmQPve3lrg7aqocTmXM3OnaH7Pv
+	qbM9JBlvkJWbC/7/KNVhkFbsdAT3SMSViKiNss5wSkuDwkuQIKbhNO08AARTqFTmSIs2uBUkqQC
+	fpvlvQ8h+JpNyc8cIUfIpNtMTo5B8PBWvxUAzGnu8d09QhWzVHHSm5d/UxB4TWC6SWBztO22s1q
+	WU/V8qTcnbYO4jTEGcaRSyJ84ahZkF9VDDD3HX/VFC8mUkBc+PjHqoWvDgjntChRWYmyVOgJWa4
+	H6GEgO36E6akorzaKA6OJAO4aHOkv6Snwd0RLA6ymKsRXBnS4u6VSvAzidWpClXnCUBuwm6OijF
+	nf+nKhUjKc3fl2oupnsvmkDPKC3wEL57iDyxeBH2PidCw+wBgTBlGBE3mM0YMg/iWf1EJhhVTfx
+	mlMHygvUJhYalU7wybUUkUD0odh3ZpAZBAMb3dJER+pSgVVDUleDKoVzoEbGU7MRV7SS1IVKSOR
+	S6i/Lsaj90yc2g1ntvXqp
+X-Received: by 2002:a05:690e:4594:20b0:67c:6ce7:c513 with SMTP id 956f58d0204a3-67df44da548mr5273707d50.82.1795757292881;
+        Thu, 26 Nov 2026 21:28:12 -0800 (PST)
+Received: from toolbox ([2600:1700:220:59e0:e3a5:f585:4070:c566])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67df33d64a0sm11238363d50.22.2026.11.26.21.28.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 21:28:12 -0800 (PST)
+Date: Thu, 26 Nov 2026 23:27:47 -0600
+From: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+To: Junhui Liu <junhui.liu@pigmoral.tech>
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+	Inochi Amaoto <inochiama@outlook.com>, Radu Rendec <radu@rendec.net>, Paul Walmsley <pjw@kernel.org>, 
+	Samuel Holland <samuel.holland@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Anup Patel <anup@brainfault.org>, Guodong Xu <docular.xu@gmail.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+	Conor Dooley <conor.dooley@microchip.com>, Bo Gan <ganboing@gmail.com>
+Subject: Re: [PATCH v3 6/6] riscv: dts: spacemit: k3: Replace incorrect CLINT
+ node with ACLINT nodes
+Message-ID: <yf2dawzefycxhhs7zkua3v3hoirals3wtr6rheh4li33eq7r4i@yb7cem4r6x3z>
+References: <20260918-k3-aclint-v3-0-cf4fd4050e14@pigmoral.tech>
+ <20260918-k3-aclint-v3-6-cf4fd4050e14@pigmoral.tech>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,89 +106,91 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] ASoC: codecs: nau8310: Add support for NAU83G10
- amplifier
-To: Mark Brown <broonie@kernel.org>, Neo Chang <YLCHANG2@nuvoton.com>
-Cc: lgirdwood@gmail.com, perex@perex.cz, robh@kernel.org, krzk+dt@kernel.org,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, kchsu0@nuvoton.com, sjlin0@nuvoton.com
-References: <20261118084214.527804-1-YLCHANG2@nuvoton.com>
- <20261118084214.527804-3-YLCHANG2@nuvoton.com>
- <179518986191.6016.16828944387493140658.b4-review@b4>
-Content-Language: en-US
-From: YLCHANG2 <neo.chang70@gmail.com>
-In-Reply-To: <179518986191.6016.16828944387493140658.b4-review@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918-k3-aclint-v3-6-cf4fd4050e14@pigmoral.tech>
+
+Hi Junhui,
+
+On Fri, Sep 18, 2026 at 12:29:38AM +0800, Junhui Liu wrote:
+> The K3 implements separate ACLINT MSWI, MTIMER and SSWI devices. The
+> existing CLINT node at 0xe081c000 incorrectly describes the SSWI
+> register space in the non-secure window as a legacy CLINT.
+> 
+> The ACLINT register space is mapped at two base addresses: a secure
+> window at 0xf1810000 and a non-secure window at 0xe0810000. The
+> secure window exposes all three components, while the non-secure
+> window only exposes SSWI; the MSWI and MTIMER offsets are reserved
+> there. Moreover, depending on the eFuse configuration, the non-secure
+> window may be entirely inaccessible, whereas the secure window is
+> always available.
+> 
+> Replace the CLINT node with the three ACLINT devices, all using
+> secure-window addresses: MSWI and MTIMER for machine-level firmware
+> such as OpenSBI, and SSWI for supervisor software interrupts.
+> 
+> Fixes: 56f37e391a62 ("riscv: dts: spacemit: add initial support for K3 SoC")
+> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+> ---
+>  arch/riscv/boot/dts/spacemit/k3.dtsi | 43 +++++++++++++++++++++++++-----------
+>  1 file changed, 30 insertions(+), 13 deletions(-)
+> 
+> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+> index c3f2dce0969c..74831974435e 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
+> +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+> @@ -1261,19 +1261,6 @@ saplic: interrupt-controller@e0804000 {
+>  			riscv,num-sources = <512>;
+>  		};
+>  
+> -		clint: timer@e081c000 {
+> -			compatible = "spacemit,k3-clint", "sifive,clint0";
+> -			reg = <0x0 0xe081c000 0x0 0x4000>;
+> -			interrupts-extended = <&cpu0_intc 3>, <&cpu0_intc 7>,
+> -					      <&cpu1_intc 3>, <&cpu1_intc 7>,
+> -					      <&cpu2_intc 3>, <&cpu2_intc 7>,
+> -					      <&cpu3_intc 3>, <&cpu3_intc 7>,
+> -					      <&cpu4_intc 3>, <&cpu4_intc 7>,
+> -					      <&cpu5_intc 3>, <&cpu5_intc 7>,
+> -					      <&cpu6_intc 3>, <&cpu6_intc 7>,
+> -					      <&cpu7_intc 3>, <&cpu7_intc 7>;
+> -		};
+> -
+>  		/* sec_i2c3: 0xf0614000, not available from Linux */
+>  
+>  		mimsic: interrupt-controller@f1000000 {
+> @@ -1305,5 +1292,35 @@ maplic: interrupt-controller@f1800000 {
+>  			riscv,num-sources = <512>;
+>  			status = "reserved";
+>  		};
+> +
+> +		aclint_mswi: interrupt-controller@f1810000 {
+> +			compatible = "spacemit,k3-aclint-mswi";
+> +			reg = <0x0 0xf1810000 0x0 0x4000>;
+> +			interrupts-extended = <&cpu0_intc 3>, <&cpu1_intc 3>,
+> +					      <&cpu2_intc 3>, <&cpu3_intc 3>,
+> +					      <&cpu4_intc 3>, <&cpu5_intc 3>,
+> +					      <&cpu6_intc 3>, <&cpu7_intc 3>;
+> +		};
+> +
+> +		aclint_mtimer: timer@f1814000 {
+> +			compatible = "spacemit,k3-aclint-mtimer";
+
+I think you'll need to also include the "riscv,aclint-mtimer" compatible
+here so that this DT can be used with upstream OpenSBI. OpenSBI doesn't
+include the spacemit specific compatible. OpenSBI boot prints this
+currently.
+
+Platform Timer Device       : --- @ 0Hz
+
+> +			reg = <0x0 0xf1814000 0x0 0x8000>;
+> +			reg-names = "mtimecmp";
+> +			interrupts-extended = <&cpu0_intc 7>, <&cpu1_intc 7>,
+> +					      <&cpu2_intc 7>, <&cpu3_intc 7>,
+> +					      <&cpu4_intc 7>, <&cpu5_intc 7>,
+> +					      <&cpu6_intc 7>, <&cpu7_intc 7>;
+> +		};
 
 
-On 11/20/26 23:51, Mark Brown wrote:
->> Add support for the Nuvoton NAU83G10/20 audio amplifier.
->> The NAU83G10 is a mono boost Class-D audio amplifier with
->> integrated DSP and I/V-sense support.
->> +static int nau8310_hw_params(struct snd_pcm_substream *substream,
->> +	struct snd_pcm_hw_params *params, struct snd_soc_dai *dai)
->> +{
->> +	struct snd_soc_component *cp = dai->component;
->> +	struct nau8310 *nau8310 = snd_soc_component_get_drvdata(cp);
->> +	unsigned int val_len = 0;
->> +	int fs, ret;
->> +
->> +	fs = params_rate(params);
->> +	if (nau8310_dsp_active(cp) && fs != NAU8310_DEFAULT_FS) {
->> +		dev_err(nau8310->dev,
->> +			"For ROM Code revision 00, DSP only run at 48kHz.");
->> +		return -EINVAL;
->> +	}
->> +	ret = nau8310_clock_config(nau8310, fs, nau8310->mclk);
->> +	if (ret)
->> +		return -EINVAL;
-> As previously noted this hosld return ret, not overwrite the value.
-Got it, I will fix this in the next version.
->
->> +static int __maybe_unused nau8310_resume(struct snd_soc_component *cp)
->> +{
->> +	struct nau8310 *nau8310 = snd_soc_component_get_drvdata(cp);
->> +	struct regmap *regmap = nau8310->regmap;
->> +	int ret = 0;
->> +
->> +	regcache_cache_only(regmap, false);
->> +	ret = regcache_sync(regmap);
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret = nau8310_dsp_fw_load(nau8310);
-> This will set the clock back to the internal clock and if we had an
-> active stream nothing restores it so the audio will be broken.
-I will save fs in nau8310_hw_params() and restore the previous clock
-settings in nau8310_clock_event() (PRE_PMU) when a stream is active:
-
-     case SND_SOC_DAPM_PRE_PMU:
-         flush_work(&nau8310->load_fw_work);
-         mutex_lock(&nau8310->lock);
-         if (snd_soc_component_active(cp) && nau8310->fs && nau8310->mclk) {
-             ret = nau8310_clock_config(nau8310, nau8310->fs,
-                            nau8310->mclk);
-             if (ret) {
-                 mutex_unlock(&nau8310->lock);
-                 return ret;
-             }
-         }
-         /* Switch the clock source of DSP to MCLK. */
-         regmap_update_bits(nau8310->regmap, NAU8310_R04_ENA_CTRL,
-             NAU8310_DSP_SEL_OSC, 0);
-         mutex_unlock(&nau8310->lock);
-         break;
->
->> +static const struct regmap_config nau8310_regmap_config = {
->> +	.reg_bits = NAU8310_REG_ADDR_LEN,
->> +	.val_bits = NAU8310_REG_DATA_LEN,
->> +
->> +	.max_register = NAU8310_REG_MAX,
->> +	.readable_reg = nau8310_readable_reg,
->> +	.writeable_reg = nau8310_writeable_reg,
->> +	.volatile_reg = nau8310_volatile_reg,
-> Does NAU8310_RF000_DSP_COMM not need to be marked as previous?
-Do you mean marking it as precious using .precious_reg?
->
+Regards
+Anirudh Srinivasan
