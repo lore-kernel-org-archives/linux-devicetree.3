@@ -1,80 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795766837;
-	b=aqvduk7lBuiYNMYjiq27Jcmp8xcbMcfArN2w2WD8iSW1UUcBMV2Jb7a++YMGOFnPGmcy
-	 VbovC9ifz+7JEcEWGxsntgczX7SPE/rpAJK4jIwI4Zm0ktVtUsfHIxKKXZpk45n0tHYOp
-	 gVsK5GMbFHvdtcAXhi4o67tx9CmyVYRgqpXvBjikXTaRDJJJJs3vzQ86Z4mCAmmNnt7My
-	 FnKs4yiTAomunC+P7gMZA2B+BZj4mQzv/R5KM1E5bOt/aB8agZZaWljbLDAUbp8tesg18
-	 WdcEUf83sh17jCNwSLZfqF2aCat4YlHiEHLa9le4vYslU27TTpOEn28lEzJbmriyX6w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795766837;
-	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=uP2T9+mEzaneJvWG+hF9U3aolWC4k7dp9+khY3E2Xds=;
-	b=w+nPAMcVO0ffIQ2/98cpFEw2g4j6KTHbxyvjfvBYtdYaA5PKyq4XAILTl5D6Q4LyKXnX
-	 /zCvRM1lEaqSRRWugyzoMvcXK6hPOj29Ox8/lKyLeUGBCyFHbCwsTNx4RXo0/fKE/nkCi
-	 +Mq9lw1DmCvuwa+iyjubcUBRAPaUYKDf6phYreCE3u9HwG2yzSUUPTBZeqcO3gWmaEKjZ
-	 hTNU9+9yYIk58s05MJD9NPMu+kasDi3LYjrGQOVDspSoLUBUKhSTRRi2P8r6/Yopv+Ani
-	 6IRnRhSpF4tBye9GSrshKa26fs/sVO0bbSV8vRH03XY4tVs9uqFTlWFt78eIlcHnUpw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=d-silva.org;
-	spf=pass smtp.mailfrom=d-silva.org;
-	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=Rix4Na17;
-	arc=none smtp.remote-ip=119.15.109.137
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795767175;
+	b=XcICiOrosgORew8ui8oGKEZ4F4jqOh9y3z2i1w9w8BAtE2PhLAqlwOur1tve6O5DwtqJ
+	 5rZwaorcFx2abIsiY9uIxNvPUtw2IhZ9uEd8Mtaq0nkz01SsZ+wkK1VA53CXqntWjSWxw
+	 u02F4lV08Zk7ZzLPyTRmFZnDlNl3P3PfRBxlfFRbq5hZ5fljoWwYnecGmhfOBlC6KBAEA
+	 bpMeqAMPwL3lnxQrwda7s1PLWEYzjyVyOeM1luzLfZgbXQ6k5qBz/9v2GOpRXNHWCOJHP
+	 E25U+0nI0L1fG8ggZO7GxHK33MhzeuqgCyQIcYq/Wx/GyKcBXpSvVbzT/+ktzXMHV1Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795767175;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=/hVyNF3xLIIhkwlAx/u+gUeg5nNF10nSIgNUvJ0Z3oA=;
+	b=NhtMI/pbe83Qf/21UlP4VyBgfjABZGAjgCIu0yaKOhVn+25bMPk+5h/eXiHsRyh0bk12
+	 kjDHCCflCDnj3UJWyHs/s6yO/6DSj/prsmNs/nFFPI0qBf2lwXhPGjRUlVXy9L15SkjIn
+	 zyhWYZpoVkF+WpGYMqx5fQxnFZdFEmbq9oEWgTwVvFrVgStjZhaujbSNxUKSCAAZJyM2g
+	 waaLaNDlKsBRQRQVWBvSYsGtS0/ncOEzyNuSIJYCU0kBh4b/SREetC4Hp0oVpizT9zyyu
+	 pzXsxMxfVIWmhSoxmWsk21mctNNqYVOJZt/HgBmG7jCSXJh2UJBl8GVgTiOLEPjRvpA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IuC9uPTn;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC1FD606A31E;
-	Fri, 27 Nov 2026 08:07:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC1FD606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60340606A31C;
+	Fri, 27 Nov 2026 08:12:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=Rix4Na17
-Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id C68B94C97A;
-	Fri, 27 Nov 2026 19:07:08 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1795766828;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uP2T9+mEzaneJvWG+hF9U3aolWC4k7dp9+khY3E2Xds=;
-	b=Rix4Na17urkRnqUM/sP+h41j5Yjmqu/7rkE9IuJLrl0v6kQ1CKEGwb7ZUllKZZ3eR0IC41
-	GcoDm8bh4lWKB3Vy6nDn6olt36+0OTZMRTYXrXS2FUiW+RZhXeYJCNOujeIAOjSvXmNWlJ
-	csfrhv3+3XF9JyP8GWt5MI24oNoPxm0wh0/KSS1uqYF19jUmpNf0R/U2A9glIhZukFgBXf
-	ZQrM4D4FeOENAmWVlX6TNmucqYTa1IkDRYgC47MQiX2XTa86JhNTDa93GGSKjiXg8zueSp
-	dA0Q7FA4FSHQS5T/Sy2IzMdUejs85aLA8Gwt93HCxZmOc8ISqP+C4c9xAX1aiw==
-X-GPT-Reason: This is a legitimate personal/technical correspondence.
-	The email content is a technical patch description for a Linux
-	kernel (arm64: dts: allwinner), which aligns perfectly with the
-	sender's domain (alastair@d-silva.org) and the recipient's personal
-	mailbox (alastair@d-silva.org). There are no phishing indicators,
-	no marketing content, and the sender identity is consistent across
-	the From and Reply-To headers.
-From: Alastair D'Silva <alastair@d-silva.org>
-To: Hans de Goede <hansg@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>
-Cc: linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	Alastair D'Silva <alastair@d-silva.org>
-Subject: [PATCH 3/3] arm64: dts: allwinner: sun60i-a733: Add simplefb HDMI node
-Date: Fri, 27 Nov 2026 19:06:49 +1100
-Message-ID: <20261127080649.1982883-4-alastair@d-silva.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261127080649.1982883-1-alastair@d-silva.org>
-References: <20261127080649.1982883-1-alastair@d-silva.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IuC9uPTn
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795767174;
+	b=OaMNjBifdEECmDhO714F3Xk9ptX8hsdSNbVKcqikH/1mrszTpvSZtodpGbTQt6dlwGMK
+	 L1h+kM1r/lI9FP268+FBaKDIpt0VH/R1/qe+a8Lnx7Nn3JFTMyip/h2mnN9lbdA1UprJN
+	 0yus7jCOdfPLVbgRo5BLOj0D4OfY1P+O75ktPJ5Nz5xVxvBWz8LdKd3XiWe5LsiZywiMJ
+	 4r9zmCKdxLIlUMLV2HgBEvcvT777NnbUkEJ4/DJ98M139qZIhcjaJrA48B9GTDkmcLXii
+	 1L0PfzG1+S/h9pwAiVqVzs4LWLhkNJLN+3/iVWSeO8nPuY2K8Q3uIxr3hlYETEdulYA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795767174;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=/hVyNF3xLIIhkwlAx/u+gUeg5nNF10nSIgNUvJ0Z3oA=;
+	b=eq287kVqA/cyoU9OM1k6Cw7G6NHGtqsxNKY0IvqIFJ1aLPzXvHuL3wK6+GHYwQElwpvl
+	 UZxOML5ro9y9wKH8RhlP+nn8Ppqdw9xDXmJ9c5FeziS2G3nuowF5Jthg1wX4hQhQGmsz1
+	 Bfx06WDNTN6z5woLodRtCvOhhusujxluklAf3FoJJipjU2br5O1iLmGmO0pHD8kuEh50q
+	 5JxtEoN9Np2/vEbbSHu63S29T/0bhslZB+y5ANUaR+eb93UydAv/hbgR3UY13xV/vOV9D
+	 tFVfkvAK32IrOIJKlyP7b2vVw69j8743KzFw2IB687V/aMXN1u+SM62al/wq4D21ZYQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id DA8011F00923;
+	Fri, 27 Nov 2026 08:12:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795767174;
+	bh=/hVyNF3xLIIhkwlAx/u+gUeg5nNF10nSIgNUvJ0Z3oA=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=IuC9uPTng70jHGYDvFkT4ZKfbIrlPgKkD7IMSYhX4ohvPNEo0UTmcsPfpcM8VkZ/Y
+	 gEVFVkkNUT/49jM4ZDw7Zh4G7uCIJFsSpvqdxRHu/eDrRPnYYj7IL8VZbGGC/FhJUf
+	 tpT+9tW0KrCExHPDsbme0Zs7fPjxpQ+YYBgIxm+74rXBoDFa+XojNvVmAusH2TIswt
+	 1KidzJWCKNICUwyzvpQy0AQmKkpGq+g2pYQ4U8RUdRrx4gOHr5EYRtCxhPcbi7rDfy
+	 O+4TbweCnARJjt7nbFt8xJ7pxywfNQNVhK+ja5wp1yHHnsnwDZgLKc+Goi4oEsVcK5
+	 chxzkkiDiwneQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5EEB84B62D;
+	Fri, 27 Nov 2026 08:12:49 +0000 (UTC)
+From: Robert Ijtsma via B4 Relay <devnull+robertijtsma.gmail.com@kernel.org>
+Subject: [PATCH v3 0/2] iio: light: add support for ams OSRAM TCS3430
+Date: Fri, 27 Nov 2026 09:12:48 +0100
+Message-Id: <20261127-iio-tcs3430-v3-0-e191a40a4ae9@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,56 +83,90 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIA7CWsC/22NQQ7CIBQFr9KwFgOflhZX3sO4QErbb7QYqETT9
+ O5C3dTE5SRv5s0kWI82kEMxE28jBnRjArEriBn02FuKbWICDCTnUFJERycTRCkYha4STa0qqG1
+ LkvHwtsPXWjudvxyel6s1U07kxYBhcv693kWed//LkVNGWQdaNFrq0vBjf9d42xt3J7kcYevKX
+ xeSK00lQLXAFFdbd1mWD7qXnzL0AAAA
+X-Change-ID: 20261124-iio-tcs3430-2f53879527ed
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Robert Ijtsma <robertijtsma@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795767168; l=2793;
+ i=robertijtsma@gmail.com; s=20261122; h=from:subject:message-id;
+ bh=Et/l27YtcKEISI6lN7W3Gjj8ZZUwqHD71s8HMID2vHk=;
+ b=k0FMvHMwng07hSnPZ1075uN9j3w4uxD9DygJjEgMRacDTfnwx/k2DmD4AOV7oe8IeXAws6pSb
+ 1bCylw3FQRKCrDxB3JR+6Us0Q1qm1QFVd2AVC8R3kYTmHsvrCnE6Mao
+X-Developer-Key: i=robertijtsma@gmail.com; a=ed25519;
+ pk=qiDyKVqFicxFIR5sB5m+p9SWPKL2/+mMoiQnUx0C9P0=
+X-Endpoint-Received: by B4 Relay for robertijtsma@gmail.com/20261122 with
+ auth_id=1604
+X-Original-From: Robert Ijtsma <robertijtsma@gmail.com>
+Reply-To: robertijtsma@gmail.com
 
-Add a disabled simple-framebuffer HDMI node under /chosen.
-List the DE3.5, TCON, and HDMI clocks and power domains so Linux
-keeps them active.
+Add Devicetree binding documentation and an IIO driver for the ams OSRAM
+TCS3430 ambient light and CIE 1931 XYZ tristimulus color sensor.
 
-Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
+Tested on Microsoft Surface Pro X SQ2 (SC8180X), where the sensor is
+connected on I2C at 0x39 and used for ambient light sensing.
+
+Signed-off-by: Robert Ijtsma <robertijtsma@gmail.com>
 ---
- .../arm64/boot/dts/allwinner/sun60i-a733.dtsi | 28 +++++++++++++++++++
- 1 file changed, 28 insertions(+)
+Changes in v3:
+- Import the IIO_GTS_HELPER module namespace via MODULE_IMPORT_NS("IIO_GTS_HELPER")
+  so modular builds (CONFIG_TCS3430=m) pass modpost.
+- Enable REGCACHE_MAPLE with a volatile register table (0x92..0x9b) and
+  regcache_cache_only()/regcache_mark_dirty()/regcache_sync() across
+  suspend/resume (Andy Shevchenko).
+- Align Kconfig tristate prompt, top driver comment, and MODULE_DESCRIPTION(),
+  and keep driver-separation rationale in the commit message rather than
+  Kconfig help (Andy Shevchenko).
+- Simplify tcs3430_set_scale() to drop the keep_time boolean, rename
+  in_range to gain_in_range in tcs3430_set_itime(), use local regmap
+  variables for readability, add blank lines after guard(mutex)(), and
+  keep dev_dbg()/DEFINE_SIMPLE_DEV_PM_OPS() on single lines (Andy Shevchenko).
+- Link to v2: https://lore.kernel.org/r/20261126-iio-tcs3430-v2-0-6c5329d20919@gmail.com
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi b/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
-index 509d0cfea160..46418fc60529 100644
---- a/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
-@@ -13,6 +13,34 @@ / {
- 	#size-cells = <2>;
- 	interrupt-parent = <&gic>;
- 
-+	chosen {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		simplefb_hdmi: framebuffer-hdmi {
-+			compatible = "allwinner,simple-framebuffer",
-+				     "simple-framebuffer";
-+			allwinner,pipeline = "de0-tcon-tv0-hdmi";
-+			clocks = <&ccu CLK_PLL_DE>,
-+				 <&ccu CLK_AHB_DE>,
-+				 <&ccu CLK_AHB_VID_COUT0>,
-+				 <&ccu CLK_AHB_VID_COUT1>,
-+				 <&ccu CLK_MBUS_DESYS>,
-+				 <&ccu CLK_BUS_DE0>,
-+				 <&ccu CLK_DE0>,
-+				 <&ccu CLK_BUS_DPSS_TOP1>,
-+				 <&ccu CLK_BUS_TCON_TV0>,
-+				 <&ccu CLK_HDMI_TV>,
-+				 <&ccu CLK_BUS_HDMI_TV>,
-+				 <&ccu CLK_HDMI_SFR>;
-+			power-domains = <&pck600 PD_DE_SYS>,
-+					<&pck600 PD_VO>,
-+					<&pck600 PD_VO1>;
-+			status = "disabled";
-+		};
-+	};
-+
- 	cpus {
- 		#address-cells = <1>;
- 		#size-cells = <0>;
+Changes in v2:
+- Replace hardwaregain control with standard IIO _scale and configurable
+  integration time using the IIO GTS helper (Jonathan Cameron).
+- Hold data->lock across the entire IIO_CHAN_INFO_SCALE path in
+  tcs3430_read_raw() (Jonathan Cameron).
+- Convert register I/O to regmap_i2c (Joshua Crofts).
+- Wrap guard(mutex) declarations in tcs3430_read_raw() switch cases in
+  enclosing blocks to fix Clang -Wjump-misses-init / cleanup scoping
+  (kernel test robot, Joshua Crofts).
+- Use switch(mask) in tcs3430_read_avail() and tcs3430_write_raw(), and
+  drop unused linux/mod_devicetable.h include (Joshua Crofts).
+- Drop redundant L: mailing-list line from MAINTAINERS (Joshua Crofts).
+- Pick up Krzysztof Kozlowski's Reviewed-by on dt-bindings.
+- Link to v1: https://patch.msgid.link/20261124-iio-tcs3430-v1-0-0f2a38a6a4c1@gmail.com
+
+---
+Robert Ijtsma (2):
+      dt-bindings: iio: light: add ams OSRAM TCS3430
+      iio: light: add ams OSRAM TCS3430 XYZ and ambient light sensor driver
+
+ .../devicetree/bindings/iio/light/ams,tcs3430.yaml |  52 ++
+ MAINTAINERS                                        |   6 +
+ drivers/iio/light/Kconfig                          |  12 +
+ drivers/iio/light/Makefile                         |   1 +
+ drivers/iio/light/tcs3430.c                        | 521 +++++++++++++++++++++
+ 5 files changed, 592 insertions(+)
+---
+base-commit: 4843f6873f7c4835e62f2c73ba0fd538e57a2f22
+change-id: 20261124-iio-tcs3430-2f53879527ed
+
+Best regards,
 -- 
-2.53.0
+Robert Ijtsma <robertijtsma@gmail.com>
+
 
