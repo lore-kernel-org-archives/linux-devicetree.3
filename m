@@ -1,66 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795793124;
-	b=SoMJpaiXRVyg9SKYcvpHHdpnMEyYifq5pxowS8Nl0vasYdVDA+1mnLXMA5OOdSpkKSEx
-	 nlb60/tkJo/9xirj/Fonqm2cTQ75NKP0dbQzkpMvRJguMN09IwcItTfSXl4AkL7z6+f3z
-	 K2p1RW/dmuzRxgBTOewN4nWbPmXHOLHxK1I28PofALeUDn/yVtg8Xsk+zGj4EHzaEyMZg
-	 MnDUMEZAk+6CfdMEIz3OwfzXGEA9NsldRawCs90uErXG0SJ201ywoJemvJW/YVrEiTeVS
-	 PyFtPgJqokKNaZvwSIgTWpqMF5GRI2fYytvNkL3abGkUutfIE7/NGyvmuYLr8rEkL/A==
+	t=1795793245;
+	b=es73wdQRSKL+Gt/aiR4yPNWmr4522mRQLGhE1eCYGIBChhWGgfbTi+g0JSeBbNDeswK4
+	 nR5U5+fs4nzlRWZebBuhBi1Ja97qmdtqgfUVUYE3ImTc+bTK68kWiBan0RRTdfOFkh9yo
+	 rmG6eg3TODPL1FkdJ/jcfDzeKZcGQ3MnmnIvtwZ2Q74A//Ain/fF4m2hjhIT2ETWVNGep
+	 7epcPRr/nSt0v/YsnCpfkXtrqf86J7aiA6OBbpFUBhxSGl9LiICVtHX6r6eB1Zq/Gzb88
+	 VzzpLI880DyXBaAOqFx1JkW6t7Px9dBIFa41JSB4BWE9ClQL9ILIImgDyUKBkl0N8/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795793124;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:Date:Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=ESSDfIjILrrrOgKIHFr61CIF+AOlYCTGg3Q7YlxjKtE=;
-	b=riEtzvttA7FNohHmumpKWORa2dOnwy8IL2f8aWiQhItV9Dng0zmFbwjx0Id/zJ2mB6XF
-	 WbG5sjlzTJGwPU+jkTYrjDuL3a80BKZ7iQIh/OLw8QL9AdlOv0C32N0RnV9DinPTRGPIe
-	 1tJq7ZqiE/24vNLi+jfdg0LOue0+7YkqMsQAIxkZ4QqyaCRZjRiKGuizegtqV/wQbwnLC
-	 iGFLzredo8okToQJ+rriiQ45A6qO17YSv8ODsGPiHDPxB4o99mvautNM/ImEpXOUzvR75
-	 q4Uv7VF+gs8mhhUW+3L9pAF4MepZkePKgr2Db6I8u/6Z96SN0Xp18GyLE2/ocifXtuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795793245;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=k9f1LZ9c3/0MrBy7BXuv/sf6FmxnBB5G7dbRTVhGKyw=;
+	b=b/kOROV5WfawHBjjkJqLboFZ4w4WfwUh48kNzdLpGEOQNDuWonP/xGxDdegio2LNhN1M
+	 PIJEZR9UHZNUA8dzGmKuFiF54xuswxYpaNRRVbRM7lR24kUperyl0sb76FfVh6rUheXF6
+	 2Mr0sjPdDobgHNU3wAVRe32vsqFxQYUXAPxCZjjUC2IKcjyvCBqGZU+ezUZq3PjCIEXJ+
+	 YQMrpMRNR/jm36yH4poZ4sBjEtenX7NuHFc8Fcx59VliiuKgk5fENvzJd3K8E47bYRpHh
+	 qTitWgxpP9qaPBqfWUG1CHSCrBNfbIm50YW0P2JDvjze1o26R44M1z4oWsVXJ86AMwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=HgDoRzPi;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VS1Wt4cU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 477C5606A31C
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 15:25:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 477C5606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D2F606A31F
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 15:27:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=HgDoRzPi
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id B12461A1838;
-	Fri, 27 Nov 2026 15:25:22 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 864276049C;
-	Fri, 27 Nov 2026 15:25:22 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1738511E90BF8;
-	Fri, 27 Nov 2026 16:25:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795793121; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ESSDfIjILrrrOgKIHFr61CIF+AOlYCTGg3Q7YlxjKtE=;
-	b=HgDoRzPiVlpwHw7kzmcZNmRaaHAw1o4eLImi3oCCj1kEiCcandDP9AOHW1vUMo/x0Y9Gf+
-	kHKBQcRVy9N2dB/LE8k0TTorzt+2qTBfbvWd3Xu1aECCFn3/S7jm3ZwunEpF1M/SsPkY8H
-	kdCX0pbk/bhoL1uGlMcXWkHVT8W7jJkdM/0aQx1esn1/gYEXPVvefd7OHLeUDkKM4nfN86
-	0JDN1A4QqAgjCwpfzsSK+rl1jY2wW+xBkeAL19NWPd1bDlchbrazY7wq7LXtuJRrfQowhA
-	gpe1OqpMRHiKV00gJ80gqiqD8chfS5vc9QK9FO8Wf402rcjiJeZjR4gvPN34cA==
-From: Gregory CLEMENT <gregory.clement@bootlin.com>
-To: Artem Novak <artem122novak@gmail.com>, andrew@lunn.ch, robh@kernel.org
-Cc: sebastian.hesselbarth@gmail.com, krzk+dt@kernel.org,
- conor+dt@kernel.org, klightspeed@killerwolves.net, jason@lakedaemon.net,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, Artem
- Novak <artem122novak@gmail.com>
-Subject: Re: [PATCH v3 0/2] ARM: kirkwood: Remove duplicate DS212 compatible
-In-Reply-To: <20261110093120.179318-1-artem122novak@gmail.com>
-References: <20261110093120.179318-1-artem122novak@gmail.com>
-Date: Fri, 27 Nov 2026 16:25:18 +0100
-Message-ID: <87ecc61eld.fsf@BLaptop.bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VS1Wt4cU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA86C1F0089A;
+	Fri, 27 Nov 2026 15:27:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795793245;
+	bh=k9f1LZ9c3/0MrBy7BXuv/sf6FmxnBB5G7dbRTVhGKyw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VS1Wt4cU9lZ98qtL4iGw+1IERrE+b0oDiMOI2ACRznEomOiWCNhXdIb94Z4D4RXOP
+	 zcUpKCI5kyDZmTPCgdFXa/MgpXbY4FnRR0ejaRoVLO32xQEgTy8JG1+B8Vq8vmR/oe
+	 ZHXvnJeS7/4BzMLPkIpkTryYpCkaoxwD33kkYjBtBV3aDeeyMFLZgz5SSQoO5HHPxg
+	 Xx1vRe3eyBXEKmGoOuOUL+sOY07gBtsFdI95gDFXfLfXU2faofa1mSBrK3pbqDjDL5
+	 HWE9Mtkm12a0+tJeNrUeqnwwv1i17upZPAy6lX6jJYVO7KBW3Km7C60aRLrbGc876G
+	 Gc1P435bLhM5Q==
+Message-ID: <sashiko-outbox-237727@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 07/10] arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x:
+ Add pm8010 camera PMIC with voltage levels for IR and RGB camera
+Reply-To: sashiko-reviews@lists.linux.dev
+To: bod@kernel.org
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261127-x1e-camss-csi2-phy-dtsi-v8-7-2793b8e5138c@kernel.org>
+References: <20261127-x1e-camss-csi2-phy-dtsi-v8-0-2793b8e5138c@kernel.org>
+ <20261127-x1e-camss-csi2-phy-dtsi-v8-7-2793b8e5138c@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 27 Nov 2026 15:27:24 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,46 +60,83 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
 
-Artem Novak <artem122novak@gmail.com> writes:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] arm64: dts: qcom: missing vdd-l5-supply for ldo5 in slim7x
+  regulators-8
+--
 
-> This series removes the duplicate "synology,ds212pv10" compatible
-> entry from the Synology DS212 Device Tree and its corresponding
-> Kirkwood Device Tree binding.
->
-> The changes are split into separate patches for the DT binding
-> and the Device Tree.
->
-> Changes in v3:
-> Added the appropriate Fixes tags.
-> Split the DT binding and Device Tree changes into separate patches.
-> Addressed the checkpatch warnings reported during review.
->
-> Artem Novak (2):
->   dt-bindings: arm: marvell: Remove duplicate DS212 compatible
->   ARM: dts: kirkwood: Remove duplicate DS212 compatible
+commit 43497044580deaa94f2286bd0fc62dfadd7e9b82
+Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
+arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: Add pm8010 camera PMIC with =
+voltage levels for IR and RGB camera
 
-Both applied on mvebu/dt
+This commit adds the regulators-8 PM8010 RPMh regulator node with LDO1-LDO5
+and LDO7 supplies for the cameras on the Lenovo Yoga Slim 7x.
 
-Thanks,
+> diff --git a/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts b/a=
+rch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts
+> index a807744d1750b..5ce1a7755c97b 100644
+> --- a/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts
+> +++ b/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts
+> @@ -795,6 +795,57 @@ vreg_l3j_0p8: ldo3 {
+>  			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
+>  		};
+>  	};
+> +
+> +	regulators-8 {
+> +		compatible =3D "qcom,pm8010-rpmh-regulators";
+> +		qcom,pmic-id =3D "m";
+> +
+> +		vdd-l1-l2-supply =3D <&vreg_s5j_1p2>;
+> +		vdd-l3-l4-supply =3D <&vreg_s4c_1p8>;
+> +		vdd-l7-supply =3D <&vreg_bob1>;
+> +
+> +		vreg_l1m_1p2: ldo1 {
+> +			regulator-name =3D "vreg_l1m_1p2";
+> +			regulator-min-microvolt =3D <1200000>;
+> +			regulator-max-microvolt =3D <1260000>;
+> +			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l2m_1p2: ldo2 {
+> +			regulator-name =3D "vreg_l2m_1p2";
+> +			regulator-min-microvolt =3D <1200000>;
+> +			regulator-max-microvolt =3D <1260000>;
+> +			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l3m_1p8: ldo3 {
+> +			regulator-name =3D "vreg_l3m_1p8";
+> +			regulator-min-microvolt =3D <1800000>;
+> +			regulator-max-microvolt =3D <1900000>;
+> +			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l4m_1p8: ldo4 {
+> +			regulator-name =3D "vreg_l4m_1p8";
+> +			regulator-min-microvolt =3D <1800000>;
+> +			regulator-max-microvolt =3D <1900000>;
+> +			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l5m_2p8: ldo5 {
+> +			regulator-name =3D "vreg_l5m_2p8";
+> +			regulator-min-microvolt =3D <2800000>;
+> +			regulator-max-microvolt =3D <3072000>;
+> +			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
+> +		};
 
-Gregory
+[Severity: Medium]
+Should regulators-8 also specify vdd-l5-supply (e.g. <&vreg_bob1>) for ldo5?
 
->
->  .../devicetree/bindings/arm/marvell/marvell,kirkwood.yaml       | 1 -
->  arch/arm/boot/dts/marvell/kirkwood-ds212.dts                    | 2 +-
->  2 files changed, 1 insertion(+), 2 deletions(-)
->
-> --=20
-> 2.56.0
->
+In drivers/regulator/qcom-rpmh-regulator.c, pm8010_vreg_data[] defines ldo5
+with its supply_name set to "vdd-l5". Without vdd-l5-supply on regulators-8,
+regulator_resolve_supply() falls back to the dummy regulator, so enabling
+vreg_l5m_2p8 will not enable or vote on its parent supply.
 
 --=20
-Gr=C3=A9gory CLEMENT, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127-x1e-camss-=
+csi2-phy-dtsi-v8-0-2793b8e5138c@kernel.org?part=3D7
