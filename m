@@ -1,89 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795764839;
-	b=aYCGCnTqggXaaBu/1kzUmdML7ZDjXV42nFuuJLpuLBZ+1lpwDCc0x1q900gx6b+rioxr
-	 Gi49P2IGDK+G3/2lcDlXGWDwRcGBi9efgA6f5aexCWir2yMu3PFlrCQX4F1Pw7IiWBigM
-	 b+DfPL5SV41RF/skWfoZRBxwJ7fAxvs3pEil0GwUmZLpIT8JoGRP6pvX+KYg4VA7HFCeM
-	 D6+DrBKJ8A5LR0A++6AstBMlPtLA64Vssdn054PwbXKWLEWy1on55kTHNbiAA+d3RsqMn
-	 GFLF2YrwavrdGNEl9N7DzVlHXuK7EY7FmVaW8YarDPVOHF5deigWR7PrFxwIJtskQ9g==
+	t=1795765466;
+	b=tpYocY+8B7Av3GMWwFtePfknxnyWe+BywGPrV4vwJehilesiSXQiELRWF6CtRLvZchBf
+	 HO8r9CZ+UL1iLUpflhJd+66gN5lStPj0yEPjVa8UsL/Ak0FtzTMT/CCE6fI/9b9pFrwf8
+	 oCGOfkaSF2dDDU8f/rLgqEtdu6OyG8qvyc6tX62DZxoFCH8Ur6gkTWI/xF6Y7G0ZMoetX
+	 JaKTXf6n5CPI7EjYry659Lt21NDsdT0z10AP7nLHB9khK1ExS2aziPvC8596kmQoCITDt
+	 CP8/qtFykD6uWVIOI+uGJleY4hbwyDHQZF6RsABZsUXSzu9ougKnsqwl05kOtL2TX+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795764839;
-	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=uICpPy46156Qop/jp3ZmypF9lqZQuvSym7JHzzWuGSk=;
-	b=p2I6+o1Ih9X3UvyOWvZOubR04PA3bZszB2OGR7r+MD8LxJbwhOGSnxL4BgKGKqoSK9l5
-	 8MmZaHlG2zGldNxwGtQLTh+Yu4L2xinFGfzVvr8lM4EbODnk9381rpEmA8JJ5Et5OjcG5
-	 WH/S3zoQQdyy2YxocLOQMlb6XDO0IC/21UvF7dQmETLSqw4givGmFxWo49dA9XM5W5nIb
-	 YFWxKG6IJWOY2z1MlmKX60eX+mUu0uLhC8nrmoWPFbCu3aQ9SunpOKM0PWj1WUOibeUyU
-	 Ejh77sLzmKsUqHZzdUJWtZ7tvwQgWjzLhPkIzy964mxUxx92C35ANZez3rw1Dtf0ysg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795765466;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:From:User-Agent:MIME-Version:To:CC:Subject:References:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=exyqA4xjQHJ8t9SqDedkQRc8moWZMY9lB2uphlyg/ec=;
+	b=I5bb9qVT3z6bK1P7ic64CJHCRv8Q69fcjRPNCtQsGAAmfnpIz6kyJSiJUniyHObLkKLu
+	 nCwGe4LVBw08FAIw77/DtJABoKg5CYbMkYhgr+O2j9SxL5nBgkuCqm9yeBdOZCOGS3Vyn
+	 L8SvqlJfU5Q3ze21oThJHi0NWYOjW9CH5oLsDbbhb+XYySRsnyYB0DAese96Hci7VsiwX
+	 Yc/KiyD3sXLMakzi10Wn+5eDHrpsTxl6nMNrOc6tE+qwhlHcCNZWSxsi1Heqq5EPUfbyN
+	 +MeTfmQZsZqBVG1xS5egzBSsFez7JFgj8b+ygzcDTtDq6Wb8SMLlVC/eE+LN69RXGSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=d-silva.org;
-	spf=pass smtp.mailfrom=d-silva.org;
-	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=xFrXOg7X;
-	arc=none smtp.remote-ip=119.15.109.137
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+	dmarc=fail header.from=hisilicon.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=aQBJ8MHJ;
+	arc=none smtp.remote-ip=113.46.200.217
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0882606A32D;
-	Fri, 27 Nov 2026 07:33:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0882606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF2E6606A31C;
+	Fri, 27 Nov 2026 07:44:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF2E6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=hisilicon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=xFrXOg7X
-Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id A17C64C968;
-	Fri, 27 Nov 2026 18:33:50 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1795764830;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uICpPy46156Qop/jp3ZmypF9lqZQuvSym7JHzzWuGSk=;
-	b=xFrXOg7XFV5pfjadYpUmmqSCviTxRZjgootD8kxfuAITcYPsVDbcWTe3Z3ksj+YIh6Bzij
-	h4tUcN/L71K/BVlFhXl2FfCg/Vjmhdh7+Ke9J6igrFPJNm+gjLH6pQONwB9W2H4/uu/c8U
-	Caavbq4sNx8FXkbWntruQzYOlVUaQ861RwSGcXQsT7Or1ZSJUV75CFLX/G4ZYluG5ZA4Q1
-	jBPtY4wjZKHJrU/Y3TZzGbBP/32a9o0diGK1csNgGfxIt3o0lvf9X2IxYUT3RF2klGM6E7
-	1Estur7p+Nz8ru/2pZ9/o9A2B0VvTjJlUm5QpcpIFM91B0LYmLcvHlUSduD25Q==
-X-GPT-Reason: legitimate; this is a technical patch submission
-	(likely for a Linux kernel or firmware project) that perfectly
-	aligns with the personal/professional mailbox of the recipient
-	(alastair@d-silva.org) and the sender (alastair@d-silva.org); the
-	From domain matches the recipient domain, there are no external
-	links or phishing tactics, and the content is specific, technical,
-	and non-promotional.
-From: Alastair D'Silva <alastair@d-silva.org>
-To: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Mathias Nyman <mathias.nyman@intel.com>
-Cc: linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-usb@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Alastair D'Silva <alastair@d-silva.org>
-Subject: [PATCH 11/11] arm64: dts: allwinner: sun60i-a733-orangepi-4-pro: Enable USB 3.0
-Date: Fri, 27 Nov 2026 18:32:31 +1100
-Message-ID: <20261127073231.1776847-12-alastair@d-silva.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261127073231.1776847-1-alastair@d-silva.org>
-References: <20261127073231.1776847-1-alastair@d-silva.org>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=aQBJ8MHJ
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=exyqA4xjQHJ8t9SqDedkQRc8moWZMY9lB2uphlyg/ec=;
+	b=aQBJ8MHJprkEys9KsARq71TnWg1b+SkJLCo+KannvjVX0ckEamBuo0cnCDhf8rakTUP93K+x7
+	1M3LaVSMu4s4dLJiVq0OS1WwxiGa9N8mSv+EE5tXETySWF6ZB06WaiWjJ42vzaEje+p+N8VXOPk
+	dgz5qNat3d6MPTFfSSQ21c0=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jbQPq32HQzcb49;
+	Fri, 27 Nov 2026 15:43:11 +0800 (CST)
+Received: from kwepemk200006.china.huawei.com (unknown [7.202.194.72])
+	by mail.maildlp.com (Postfix) with ESMTPS id 6766740575;
+	Fri, 27 Nov 2026 15:44:20 +0800 (CST)
+Received: from [10.67.112.178] (10.67.112.178) by
+ kwepemk200006.china.huawei.com (7.202.194.72) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 27 Nov 2026 15:44:19 +0800
+Message-ID: <6B0934D3.3020302@hisilicon.com>
+Date: Fri, 27 Nov 2026 15:44:19 +0800
+From: Wei Xu <xuwei5@hisilicon.com>
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:24.0) Gecko/20100101 Thunderbird/24.2.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,64 +64,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+To: "Rob Herring (Arm)" <robh@kernel.org>, Lee Jones <lee@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Guodong Xu <guodong.xu@linux.dev>
+CC: <mfd@lists.linux.dev>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<xuwei5@hisilicon.com>
+Subject: Re: [PATCH 00/12] arm64: dts: hisilicon: DT warning fixes
+References: <20261111-dtbs-hisi-v1-0-6c9f5f80716c@kernel.org>
+In-Reply-To: <20261111-dtbs-hisi-v1-0-6c9f5f80716c@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk200006.china.huawei.com (7.202.194.72)
 
-Enable dwc3, u2phy, combophy0, and VBUS regulator on Orange Pi 4 Pro.
+Hi Rob,
 
-Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
----
- .../allwinner/sun60i-a733-orangepi-4-pro.dts  | 31 +++++++++++++++++++
- 1 file changed, 31 insertions(+)
+On 2026/11/12 3:40, Rob Herring (Arm) wrote:
+> Another batch of DT schema warning fixes for HiSilicon platforms. This 
+> fixes most of the remaining warnings on HiSilicon platforms.
+> 
+> It's best if the whole series is taken together.
+> 
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-4-pro.dts b/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-4-pro.dts
-index 374287d962a8..0e66e4761454 100644
---- a/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-4-pro.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun60i-a733-orangepi-4-pro.dts
-@@ -21,6 +21,33 @@ aliases {
- 	chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
-+
-+	reg_serdes1v8: regulator-serdes1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "serdes1v8";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-always-on;
-+	};
-+
-+	reg_usb1_vbus: regulator-usb1-vbus {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb1-vbus";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpios = <&pio 1 7 GPIO_ACTIVE_LOW>; /* PB7 */
-+	};
-+};
-+
-+&combophy0 {
-+	phy-supply = <&reg_serdes1v8>;
-+	status = "okay";
-+};
-+
-+&dwc3 {
-+	vbus-supply = <&reg_usb1_vbus>;
-+	dr_mode = "host";
-+	status = "okay";
- };
- 
- &hosc {
-@@ -68,6 +95,10 @@ reg_dldo1: dldo1 {
- 	};
- };
- 
-+&u2phy {
-+	status = "okay";
-+};
-+
- &uart0 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&uart0_pb_pins>;
--- 
-2.53.0
+Thanks!
+Series applied except the patch 02.
+Maybe I will send the PR in the next cycle since the patch 03 depends on patch 02.
 
+Best Regards,
+Wei
