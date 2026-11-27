@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795791029;
-	b=KAfLdHJG+Ue0FRCsPdtHCj9g+DJm1DZUZDohTiI3xJt24O2JUO7qB2pXh349h0nB21h3
-	 xJJqmklXlp6/ElGKchc8m+OX7AgAr7fWhGbvLsAN77L8XXyJFAUHGK4vnnA8o7pd+7Jvk
-	 DNZ3wHs/kIo+SQrGkcc+CCIbtHY0+apkhmIdSHw206LqpJCdzFkyBvQTXTRwycVfNfp23
-	 xQ6+M8Gm+8wEev7khkTsqT0zTclGeaVGyJ3Vfc01jOhFTL5ALJ8g74KgmlOASdUaNIyQ+
-	 zLEO/pNQc+NVS7qI4GgJbV1rtjmL6ASKJ4A5BSlsJt5Y7WMA0WJVcLU0YJVgZ16l2Fw==
+	t=1795791047;
+	b=Nc93sVxYmaUbZo34STZxQAqi7qfJ00tWco+3dcsazzFyIcwc1Q3cJK0U+cSn4bHD5wLV
+	 xBIqZ+OOzg94DwQ7N/mfffAetbc4MZ41U0XnO39aHNIl8/mJVhtQAaLB6YtjmwE1uhENQ
+	 ozvrFKmREgwmWsL1w0t34e2CC26QEqSqVcoPGiVsrznLEWNr9lcZLj31/Nkg42swAj4Cp
+	 iMyVyd478KFiTgJOrZvrflIX2OLM3ifKhmMjSft5cKoxqzwwFsOGbv+c0WT/aRMoti6Np
+	 yKjUuFcBinOW/fPYLFWyphSoVXZkXSiIbXLrteetuYAdCr9soH2TpUvPIv1hb5Sskjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795791029;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=3jNoWnulbrsDpVqqs904fRidVqIbZWsGQHKPgCx74o0=;
-	b=OdP0ja5Ngf5OIpuG8dviG+MWQ8c+RDbJsh4s1egW6Kjje3UncKCyDOjD/QXVPIUnbJl2
-	 xxd71Vz5wf6dNc0wBo24ISE5yn3mS82xwZlx1UmNN2VxmZCAWpX79D28UtHp13Ev30nvs
-	 od5098uEdlyYAL4IBcBvfUEubN2OGK9okSxE46pjUtxXanJc/JJIi1f1KjicEWgxA17nk
-	 tKQhrr4vhNCCFzg8x+45/xAKv0DYEZbI+aSBIUHcy/llOoLJgZat053zeSDtxcweMWwcI
-	 lp2l5cz+awqdUzYo/uewsoYw+I79zMfSBSqpshIxvkg6jraaKLaEtUYHB8FkNNX8Pxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795791047;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=QFuXpyUCsGlGNOuQRVqH+DYx7n5XHLMkTitnaSj5Z9E=;
+	b=DSHX8ft5W3IG82mUJC6OQjOyUdO2vOIGDx38udg7VOTVE5eoolo1UbTALawVQqtRXG+K
+	 mfCPWqDNBaQcYFj9n2T2hhzdt8UdliwegNi+xQKx0+EClk095pZtrcxZOiIw6sKsuR0oV
+	 7JpVpwnd/Pqs+x5EnW8a+NJfmr3ai5uipVOwcHOnB9g6Uqi0jCNMR3Qy71lkiIBhaxveK
+	 +aSsq23oDUzM8TPZ2v+lRhwacOaXeNsDUCo98AWIw4DqwLUZpCx+pwMX0G6+BOQ683ZV/
+	 O/1JI7nnpY7xXYu3FREy/fCr3vRHhAwybdVYinfMGqmkXuNxbJyApPtUCNi//J54wKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=asvmTp1e;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jWeod/zM";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F78606A31E
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 14:50:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA586606A321
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 14:50:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=asvmTp1e
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EB911F0089C
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 14:50:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jWeod/zM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30A9C1F0089B;
+	Fri, 27 Nov 2026 14:50:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795791029;
-	bh=3jNoWnulbrsDpVqqs904fRidVqIbZWsGQHKPgCx74o0=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=asvmTp1eHdvI/IZXhgvTmgWBGVGWINsxFfv71+oro5tsHYG9zv/HhjEIicEE+VfXz
-	 wWDsg9tMFeXqveIKChi3wbKSCL9rVkS5a39EVtZBJu9VHHItnWI9nS1Kp/fAIUDRFl
-	 sr2H4J+FeZKJNkfqnwwjRzgmyEUkPEFqwkS2AyozNYOD3Bb52EWAxnjQ9mH0q+H1lb
-	 5YFqJLdstQJvsMU+PE4CPe+sP/2cqiTGkMSLJjoQqi8788H/LPlMeLXZpJvFd/aRDb
-	 AvzT05/HWtdV6qQ6ZN0pvu90wxtShu3uUc0nri5ZkNZ/iRrbwi8w6QjSrWwYMuu+Xp
-	 yWndXD6iO/xaw==
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5c102ad8420so4371472e87.1
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 06:50:29 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGIwnt1wAaA27c8UwO+iWNZA0qjs+ByOjSIaSBfd7ti8kxlXK2fnO+KciXaU8ENI2wyskoEbsheK15+@vger.kernel.org
-X-Gm-Message-State: APuU4Z+RBHKoniT7JsCm65Nq+u9dMEBpDqLPflrYFPzbHJYERMlCgOn2
-	h+wii3HdlGO+IqohJwB2RAqMyywX37FkUmYqPnBjAD+LjfWnRzS3BYs3nNIf5iksEfNMlp3KlaX
-	atmxD8zwoWliUZz9CQjtNHyAjwv47oAY=
-X-Received: by 2002:a05:6512:2353:b0:5bf:c3e2:41c1 with SMTP id
- 2adb3069b0e04-5c1bc809895mr7113918e87.44.1795791027796; Fri, 27 Nov 2026
- 06:50:27 -0800 (PST)
+	s=k20260515; t=1795791047;
+	bh=QFuXpyUCsGlGNOuQRVqH+DYx7n5XHLMkTitnaSj5Z9E=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jWeod/zMqHnA7R3PsX1cIHQFrVfRUGeLnWjxrPp820tKQOo6yuix5pB5YtkhdmiuC
+	 QJl+Sfj2X0gtA2Fxtup1d6EQ3BOCGr+bMcTOv5I1QCoDWo1JWizk5AMrbqtgGxNQry
+	 PW4Oz/LHXhwFHljiSKGVRwabm54NOUhKjIE2Zhj9aX0JAowbUxD4svl3SCd71r2ryK
+	 6S18LGfqBX5xu8f1tOYht1dpJBL+QT2F6BnjZhT8pzDePWY2ke7eSzvPFoGzS8CQjC
+	 C30MZF/p3Jy9E9tm3ZOqOAMNjFMt6eUEv7uWbMNoOczIz5vDnYo6tNuOcFmCBzk2TW
+	 GFnXbrWg9LA0g==
+Message-ID: <sashiko-outbox-237611@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v28 02/10] power: reset: reboot-mode: Add support for
+ predefined reboot modes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shivendra Pratap" <shivendra.pratap@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261127-arm-psci-system_reset2-vendor-reboots-v28-2-da05a33b08d8@oss.qualcomm.com>
+References: <20261127-arm-psci-system_reset2-vendor-reboots-v28-0-da05a33b08d8@oss.qualcomm.com>
+ <20261127-arm-psci-system_reset2-vendor-reboots-v28-2-da05a33b08d8@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 27 Nov 2026 14:50:46 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,64 +60,80 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261127080649.1982883-1-alastair@d-silva.org>
- <18637573-d20f-4a58-9e63-6bf71b015cef@arm.com> <d4a41c5cfb33d6d39f0ba927541beca1175ad001.camel@d-silva.org>
-In-Reply-To: <d4a41c5cfb33d6d39f0ba927541beca1175ad001.camel@d-silva.org>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Fri, 27 Nov 2026 22:50:15 +0800
-X-Gmail-Original-Message-ID: <CAGb2v65KRdVqauuJ0F-fb3Fvtx5HJqv-fUTaFJS+xEsQ+Wb78w@mail.gmail.com>
-X-Gm-Features: Aa3M54oOaQujivp7_3Q1utEL14RKW5So41dM2VxpASzKJxC7DwsjG9miI_JHOKg
-Message-ID: <CAGb2v65KRdVqauuJ0F-fb3Fvtx5HJqv-fUTaFJS+xEsQ+Wb78w@mail.gmail.com>
-Subject: Re: [PATCH 0/3] arm64: dts: allwinner: sun60i-a733: Add simplefb HDMI support
-To: "Alastair D'Silva" <alastair@d-silva.org>
-Cc: Andre Przywara <andre.przywara@arm.com>, Hans de Goede <hansg@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 27, 2026 at 9:58=E2=80=AFPM Alastair D'Silva <alastair@d-silva.=
-org> wrote:
->
->
-> On Fri, 2026-11-27 at 10:03 +0000, Andre Przywara wrote:
-> > Hi,
-> >
-> > On 11/27/26 09:06, Alastair D'Silva wrote:
-> > > This series adds boot-time simplefb HDMI support for Allwinner A733
-> > > (sun60i-a733). U-Boot enables DE3.5, TCON_TV0, and DW-HDMI2.0 and
-> >
-> > Where does it do that and which U-Boot version does?
-> > I don't think we really want simplefb in the mainline DTs any more,
-> > unless there is a big blocker or delay for proper Linux DE support (lik=
-e
-> > there was back in the A64 days).
-> > In Jernej's HDMI series he hints about A733 support being pretty
-> > straight-forward with the reworked H616 DE code, so chances are we see
-> > proper DE3.5 support in DRM rather sooner than later.
-> >
-> > Cheers,
-> > Andre
-> >
->
-> I think the blocker was firmware for DE for this SoC - it can be ripped o=
-ut
-> of the Orange Pi OS blobs, but that won't be acceptable for linux-firmwar=
-e.
->
-> I'm currently reverse engineering the GPU firmware blob, it's not very la=
-rge,
-> and is a well understood instruction set (MIPs) so that may be a path for=
-ward
-> without the vendor contributing the blob to linux-firmware themselves.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] reboot-mode: duplicate mode entries in
+  reboot_mode_add_predefined_modes()
+--
 
-GPU and DE are completely separate blocks. You don't need the GPU to have
-display.
+commit 92584772bb5470229d1e0aa19cc27e08912a4e4d
+Author: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
 
-And slow down. You sent out dozens of patches at -rc5 (closing in on -rc6).
-Realistically none of them will make it.
+power: reset: reboot-mode: Add support for predefined reboot modes
+
+This commit adds support for driver-defined predefined reboot modes and
+introduces reboot_mode_driver_init() to initialize reboot-mode driver
+state.
+
+> diff --git a/drivers/power/reset/reboot-mode.c b/drivers/power/reset/rebo=
+ot-mode.c
+> index 328fa37598df3..2345ebd2c1ef7 100644
+> --- a/drivers/power/reset/reboot-mode.c
+> +++ b/drivers/power/reset/reboot-mode.c
+
+[ ... ]
+
+> @@ -160,11 +234,38 @@ static int reboot_mode_create_device(struct reboot_=
+mode_driver *reboot)
+>  	return 0;
+> =20
+>  error:
+> -	reboot_mode_release_list(priv);
+> +	reboot_mode_release_list(&priv->head);
+>  	kfree(priv);
+>  	return ret;
+>  }
+> =20
+> +static int reboot_mode_add_predefined_modes(struct reboot_mode_driver *r=
+eboot)
+> +{
+> +	const struct reboot_mode_entry *modes =3D reboot->predefined_modes;
+> +	struct mode_info *info;
+> +	size_t i;
+> +
+> +	if (!modes)
+> +		return 0;
+> +
+> +	for (i =3D 0; i < reboot->predefined_mode_count; i++) {
+> +		if (modes[i].name && strpbrk(modes[i].name, "\n ,/"))
+> +			return -EINVAL;
+> +
+> +		if (!modes[i].count || modes[i].count > ARRAY_SIZE(modes[i].magic))
+> +			return -EINVAL;
+> +
+> +		info =3D reboot_mode_create_info(reboot->dev, modes[i].name,
+> +					       modes[i].magic, modes[i].count);
+> +		if (IS_ERR(info))
+> +			return PTR_ERR(info);
+> +
+> +		list_add_tail(&info->list, &reboot->head);
+> +	}
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Should reboot_mode_add_predefined_modes() skip predefined entries whose
+name is already present in reboot->head?
+
+When a DT node overrides a predefined mode with the same name,
+reboot_mode_register() parses the DT modes first and then appends the
+predefined mode onto reboot->head without checking for duplicates.
+reboot_mode_create_device() copies every entry from reboot->head into
+priv->head, so reading /sys/class/reboot-mode/<driver>/reboot_modes emits
+the duplicate mode name twice.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127-arm-psci-s=
+ystem_reset2-vendor-reboots-v28-0-da05a33b08d8@oss.qualcomm.com?part=3D2
