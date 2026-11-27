@@ -1,65 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795779952;
-	b=fTtVHsvE1hr46i8N8yyzyU5+TO5S1CxsnaFnccuKI9L1JGHugtEVa8TLocFhMrS944Li
-	 oLNNfVmMiW+WKQW4Ch1i2FW+iskgLeAbEyInqulN9+ORiMd1CPLdXV7IrNyg6tWPDhdzw
-	 w62kJbSJkiqln5yxjS1E/205ORfvEd2iX78raHARFT68WWg57oJ1hLPwNq717S4NBPZje
-	 KSdTJb347+ilAeS22549VVsk1UCVa8f9lffrnXp78C3jZH4XQ2Z2R9kxTEE06wVMLGD9d
-	 qv8wwXwanNraGeAAJp5yiEhma8IJeGvXDSpKoLzeHC7zzYiCuSRLLN47l3gkdfZmDjg==
+	t=1795780149;
+	b=G+W/Kmhp3wDC1zF2Crlx3EArCebUvGR6GAexoErQB135Be92AIh7h/uRucCPD8e8u5LU
+	 GjqnXP7MPtlNTI1Z4r2YXT/lVjX017mrtSKZB4NCnwaURN3QMB28MVDqJEdUva10SqzYj
+	 Oa+0MClrZmW/RYXtWXF0gqJLBfWkzfoKruabyvCGZsbqE0SdMkvywDYdoFxCoglfTXsJz
+	 AEqjvFoNkF5pXv1Lr/OlliJng9R71+CMURZo43IVY+Ee/Rs16cgDXBSBNMukvCVph4liX
+	 E/kUUxUwxYpw66JiBZ09dkaqAyt45kE/I9htUB/yxFEP846XvBF61h30+uNUiAICC6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795779952;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=seLBTqo+TbPyZH6raQEMgMKdv+2iIg01h84sk7q1r0o=;
-	b=dds/56QxIotaeZpUuaqBX5Y1Mqsr/t787X+rhHpfAtDa6Fax1QYGrNPG+V6elGTftmRI
-	 kNBvnDFBoCQE3i+VMfNWHjXuUo1f+L6+bIVsO0gX5lQXvAiH59cFubE2JrD0JgEEBRQTV
-	 k2rPuZgZ4QavS/aYvxjJD1IpwpSTwGSy0Lz9bhjoBmQPyzs2edMsmWY/6n4eKxD6KVB+C
-	 jySZMCqpMIuRbgAph4X4klsStZ6W9LI7Ubm6lMOr7xjIHLEVkTsdGeR3Ezg74MzTcowre
-	 uYm0pa2XxPIE1NSjHCayThQkcvGpJFwZHXWHinO+rptCptLPWcZCsB/ZuowmJ3+Tl2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795780149;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=LHjds6ciTHOu6s5j7BpqtZ+KJ92VAdObR2G5YzE16cg=;
+	b=YczUd1esk2vi6oW1a6/bscC6yJT3DoNv9s7gP4O6v4gyi07goWHtCG68pxEbac0ZCt0H
+	 8q0/O0mDd+q2YHVFbhNr1esXygcxail7yWpfWY284DjyKy+54lhpeh6dvj+Tat/PKDeEV
+	 eOBfdkpIJsqpUJ5PFmGcvLLe07gQNNx9ZeFmgfYjKr4HE2dWN1IAp0Px0L5Kgo7Xtrspg
+	 0vG+hE82TLLoMBEfibuQje0tTJu4Nj6UpiuJQxMNRL4g7vNoXf0gFOT+QF4rVC/gG18ED
+	 nEvcNzE66L9c6TxwoV8Jktfw7tubcQORQDx2/+A54A6jJWs2OIyPJyBM7z71TE14DTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=Aaa4ARBi;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PvWbOBlM;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2985606A31E;
-	Fri, 27 Nov 2026 11:45:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2985606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F143606A32D;
+	Fri, 27 Nov 2026 11:49:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F143606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=Aaa4ARBi
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=seLBTqo+TbPyZH6raQEMgMKdv+2iIg01h84sk7q1r0o=; t=1795779951; x=1796989551; 
-	b=Aaa4ARBi59yFLhOPsTm8K45PwHt2A0viLSitkRZy4A2PLMiAqXbKgVYGiYPNX//2gh0jJqDrABP
-	BMsFvYhSuwEA5OJvi7KMgp2w5SMW/phQ4nzvzT9soaofUUuEgajfR2/9vmijeN5OG+K3VFCl66+Or
-	8+lW/BeUugKfNZGeSjEV4gviotjjy3gTffG2cKblR8m23fPwHr5zKZbnT5LDLeMlATufO9XjAfVN4
-	tZmRxubLsyTCvfXWDDMXACXDBb9j89SnCqNacJRSu3iE/7k+GGIIrdEQ+cr1rvjvCu+T8s8LYG5fC
-	b10QUBF0P7oPMLwlI67QRWCWR7vfnVFLVMIQ==;
-Date: Fri, 27 Nov 2026 12:43:18 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Russell King <linux@armlinux.org.uk>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team
- <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Daniel Lezcano
- <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
- imx@lists.linux.dev, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux@yoavmoshe.com
-Subject: Re: [PATCH v2 0/3] ARM: imx: Add a more agressive idle mode on
- i.MX6SLL
-Message-ID: <20261127124318.276552d2@kemnade.info>
-In-Reply-To: <awhl-wsYhZlC_VD4@SMW015318>
-References: <20261126-imx6-idlestop-v2-0-c6987e7a392f@kemnade.info>
-	<awhl-wsYhZlC_VD4@SMW015318>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PvWbOBlM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795780148; x=1827316148;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=XzHVhYO5Bak9DTZPT1IGDE74DbrcFKazihZbhV2Hdag=;
+  b=PvWbOBlMAtdbir9JQui5Ffqc3wg7js0d46d3JoU/FZzOqG/QRHXj+vTo
+   5b0u+cNoGnwxZeJrvw1WTgQnmStjniVBZG+17E1BmoNi3AsyQFuAMmchO
+   jzTeUEsjhwtAXO0U4348OEwYuhPFZcln8xyt9xqNZAdp4sE4mfY/WzzaA
+   QhvNzHdsZ+aP4XuiOYONkyMT+cQ61RGR10SGd/JiEFnbqVyM84MJvcY+l
+   C3vCSvLmqZyKJSTG/lgC41Ja2XpaXWNqY+2GIWFXptbsWbYFSZnZ5tCBN
+   dufo9cY8rMfgxHQhydX+WmKL9ToS9XjZNZUDpKC+TJsnD9UC5lkrgbUjA
+   A==;
+X-CSE-ConnectionGUID: CGeDpdKySC6zKh+ZUnEhyA==
+X-CSE-MsgGUID: i3CAUZzTStCReuita6VBGQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11979"; a="4689337"
+X-IronPort-AV: E=Sophos;i="6.27,236,1787036400"; 
+   d="scan'208";a="4689337"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Nov 2026 03:49:08 -0800
+X-CSE-ConnectionGUID: JYW6xWC5QziaeZB7uvjkeA==
+X-CSE-MsgGUID: XbTyXrfQSQWOGM+FJxjZKg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,236,1787036400"; 
+   d="scan'208";a="12292067"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.115])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Nov 2026 03:49:05 -0800
+Date: Fri, 27 Nov 2026 13:49:02 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Romain TISSERAND <romain.tisserand@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org, sashiko-reviews@lists.linux.dev
+Subject: Re: [PATCH 0/4] iio: adc: Add the Miyoo A30 and PocketGo S30 analog
+ stick MCUs
+Message-ID: <awluLgvMt9BN1Aj8@ashevche-desk.local>
+References: <20261127012612.1589039-1-romain.tisserand@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,97 +85,65 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261127012612.1589039-1-romain.tisserand@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, 26 Nov 2026 11:01:47 -0600
-Frank Li <Frank.li@oss.nxp.com> wrote:
+On Fri, Nov 27, 2026 at 02:26:08AM +0100, Romain TISSERAND wrote:
+> The Miyoo A30 and the PocketGo S30 are two Allwinner A33 handhelds
+> whose analog stick is read by a small microcontroller: the MCU samples
+> the stick potentiometers and hands the raw 8-bit readings to the SoC,
+> on a UART (A30, a stream of frames at 9600 baud) or over I2C (S30, a
+> four-byte read with complements). Neither MCU takes commands.
 
-> On Thu, Nov 26, 2026 at 12:00:53PM +0100, Andreas Kemnade wrote:
-> > On Ebook readers there are often situations in which the system waits
-> > only for some GPIO IRQs and no module is active, all the clock system
-> > is using most of the power, not every clock gets disabled via RPM,
-> > esp. those are marked as CLK_IS_CRITICAL.
-> > A usual he situation might be mainly wating for touchscreen input.
-> > Since nothing needs to be sent to the display continously, clocks
-> > are not in use. Maybe some frontlight is consuming power, but if it
-> > is not used in maximum brightness mode, the clock system is still
-> > using a significant portion of power.
-> >
-> > In contrast to suspend state, that is not forcefully turning things of
-> > and wake up only on selected important things when the device is not us=
-ed.
-> > E.g. you might still want to have frontlight enabled.
-> > Vendor kernel work around this by adding an extended suspend mode in
-> > which more things are disabled, e.g. the touchscreen.
-> >
-> > So rather add another idle state, which is only conditionally used
-> > depending on clock usage.
-> >
-> > System timekeeping is currently using a high speed clock, which is a
-> > major blocker for this idle state.
-> > Use 32K clock for the timer and the clock source to avoid that
-> > dependency and allow the timer to be used in stop mode if that low
-> > power clock source is used.
-> >
-> > Other things preventing entering that idle state:
-> > - imx-thermal driver: probaly needs some notifier block called by
-> >   cpu_cluster_pm_enter to avoid false alarms like ti-bandgap does
-> > - PXP and DCP drivers are missing RPM, so they keep clocks enabled.
-> > - serial console: needs to be unbound
-> >
-> > With these patches are applied (and the not-yet-upstreamed EPDC driver)
-> > I can run a loop displaying the current consumption in every 20 seconds
-> > for about one week. Power saving is around 70% in such
-> > situations. =20
->=20
-> Nice feature, but how to make sure don't cause regression?
->=20
-I think it is quite opt-in at the moment. At least gpt1_serial should block
-the idle state if not reconfigured accordingly for that board.
-CPUIDLE_FLAG_OFF might be used as well initially to not have surprise opt-in
-one day.
+Why a brand new driver for each of the cases?
 
-=46rom my testing / maintenance experience (I have used an OMAP3 device as my
-main mobile working horse, which has very deep cpuidle states):
-- Most problems show up with only one device active at a time
-- Sometimes waiting for something with clocks disabled my cause issues
-  -> explicitely enable clocks, pm_qos (I do not think this topic
-     is that present on i.MX6 (mechanisms similar to drivers/clk/ti/autoidl=
-e.c
-     seem not to exist)
-- context save/restore can be an issue
-- puts a spotlight on any pm omission anywhere, mostly by blocking
-  that deeper idle state, but that does only mean as high power
-  consumption as without it. e.g. DCP and PXP drivers just keep their
-  clocks unconditionally enabled.
+> Both drivers expose the readings as raw IIO channels for the existing
+> adc-joystick driver. The A30 MCU pushes its frames on its own, so its
+> driver also feeds a software IIO buffer and adc-joystick takes the stick
+> from it without polling. The S30 MCU only answers when read and has no
+> data-ready line, so adc-joystick polls it, as on the Anbernic RGxx3
+> boards where the stick is behind a SARADC. There is no scale: the
+> readings are raw ADC codes of the MCU.
 
-Looking around: there are quite some devices not having a driver on
-mainline (or at least no devicetree entry for it):
-- epit
-- csi (imx6ul has)
+> Patches 1 and 2 add the A30 binding and driver, patches 3 and 4 the S30
+> ones. Both use the existing "miyoo" vendor prefix (the PocketGo S30 is
+> a Miyoo/Bittboy product). The board devicetrees will be sent to the
+> sunxi tree.
+> 
+> Testing: each patch built with W=1 for arm (multi_v7_defconfig, both
+> drivers =y and =m) and arm64 (defconfig, =m), no warnings;
+> dt_binding_check clean for both bindings; the board devicetrees pass
+> dtbs_check with these bindings.
+> 
+> On a PocketGo S30 on 7.3.1: about one single read in four fails an exact
+> complement check (the value and its complement differ by a count or two
+> at rest, up to about thirty while the stick moves fast); with the +-2
+> tolerance and up to three tries, polling as adc-joystick does (two reads
+> every 10 ms), no read failed over 2 x 6000 reads at rest and moving, and
+> under 2% needed a second try (exact check: about 4% failed). The in-tree
+> adc-joystick driver on the S30 channels reported 365 and 374 events over
+> 15 s of full circles, 42..231 and 24..246.
+> 
+> On a Miyoo A30 on 7.3.1: rest 136/123; reading the channels from sysfs,
+> full circles 22..248 (X) and 11..221 (Y). The in-tree adc-joystick
+> driver, without poll-interval, takes the stick from the IIO buffer: 826
+> and 852 events over 15 s of full circles (the MCU sends about 67 frames
+> a second), 37..246 and 11..220.
+> 
+> Retested with this version on the A30 (7.3.1): with only one channel
+> enabled in the buffer, each channel gives its own axis (stick held
+> right: ch0 alone 141..242, ch1 alone 116..119); three unbind/bind rounds
+> with adc-joystick bound: no warning, the readings and the adc-joystick
+> device come back; at rest 139/118, +-1 over 50 sysfs reads.
+> On the S30 (7.3.1): at rest 152/126, no failed read; adc-joystick 1213
+> events over 15 s of full circles; three unbind/bind rounds: no warning,
+> readings and adc-joystick back.
 
-no driver... no breakage
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Looking around in drivers to see if anything happening at suspend/resume
-should also be done at runtime suspend/resume:
-Interesting commits targeting the sound stuff
-What I would also do is looking=20
-05cf237972fe6 ("ASoC: fsl_ssi: Add driver suspend and resume to support MEG=
-A Fast")
-8661ab5b23d6d ("ASoC: imx-audmux: Add driver suspend and resume to support =
-MEGA Fast")
 
-These commits add context save/restore handling on resume/suspend.
-But it depends on someone setting bit 0 of PGC/GPC offset 0x220.=20
-
-arch/arm/mach-imx/gpc.c does not touch that register at all, does not
-even have a define for that. i.MX6SX TRM lists modules belonging to that
-domain. The i.MX6SLL TRM contains almost nothing about MEGA besides the
-register define. So that all are indications that these things are
-a non-issue on i.IMX6SLL.
-Also I do not see widespread context save/restore in other drivers
-like I see on OMAP drivers.
-
-Regards,
-Andreas
