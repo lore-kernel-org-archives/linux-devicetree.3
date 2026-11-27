@@ -1,88 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795807259;
-	b=dLnoMGNHnPmyNR5WGmxXEX136ZxXRLWOnbIpUTuQ7VVhkCmreGL5+eN2nIkg2HYpNW94
-	 N9OR8hHWyaQl8U8Yyeg5D4YWRyBcqUJ2JUMkYwpHI0qbxcKG3R3agKhpakd6cQsgc/OFl
-	 I53B3az4biTs0TqhoAc6+N57ro7BNtSSTOH8vGzoz+VakeFJu/6nvKj1Et4t9RsmKUzEI
-	 6YgweN5ZGtE37pj4Vjji5gIFfhIjt3SNr6LpMHltXU9jRD70FIwKTdYkxzVDro0llbg4z
-	 MeLURpJsI+R/mphhpWR/jJeIok9+vGyM7XSFlj74mwDcoIn6l9E+rsGn0+22Gg/IQMw==
+	t=1795807415;
+	b=Plyf427cCJ/LUobmZmL/ieLFNtfP9eOJDpRxxAFac3KBx/W7mZUkgIKTLGALkpQehHsM
+	 n+0ON/3UypUSJMPj1prAt8RMva6WjG8neAGPafr2dvu6FWRgIGaX9IXSAMpYkAdacrIo1
+	 U4TjklZ2UI3btuktVNgKK8IOeNDBJCgqrBW08fU6dfWDaJ24NhHh5w28n7XNfsyuS29QE
+	 AObu1lxGM5jzojbKcQfEbwTT5vwvWCYNJg2hxq7L6DXMYBBgdYPJ11Xdgzk56QoER1Lfo
+	 Cit+SUpWE6ZFB42HDZFi6YOeErU4sFVk71wDLxaF+jVaZn5w13RiuIi/xFhaxUGH8Vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795807259;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795807415;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=spMqGTfvnGebTBmWprGkb0+x7mXa+78W7iVJ0EOMLGA=;
-	b=TUJdi6fCNeHDqA9UhGhll0zpDnMj7CIf1ixIyyJTGa4cqnOtMNbSj+ueXo1Ir8WQZuTm
-	 ZWpi1/56p7pV6i0PX67Dzdn4zJTk9AMYP9pLd9yXQ5cBnglBY+752A3nbJ3edrCugsulM
-	 6MsJO9rifqkAWaCI53yIiv9uXBfQRLzwGjS8GxNKXVp/n4+4M4P3udFrfY4xr5rhM3mME
-	 Iqw3Siq+9NsD0XyNojG+D5Z5Oi2udkJHDNT3ZAl4zY1o80XemCOq7KUM4DtDcYkYnNpB1
-	 cOWKbVJddp5ga9fE8PV8dXyEMnxRRBFn2WBMPWTBkwUcUEuuFBhaDoWc1ruBqCfQu0w==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=YdE4huuvwKUfz6uZKmm4M7NAmc0tPYzip99VdkJjyKo=;
+	b=Wf7SENx7yINyPPYL5Q/3ERZ20JP79o2Vo2jRbdBFlW9gJRsFofeMqxeImMkYCjfPrpax
+	 EMjojgb08ehcN/MW4HJYylfws0f5Yy9eeplYaWAT4csvpNUSnmVqlWuLggeSa00Xl3xrn
+	 RlEQW6WqsKm9yZPwFVcTB32RPWGN7gLg04XfMaus7fq0Iw5YM1y+9fAqPLjxkoHpMji+9
+	 GwGPLRyX5tgJS/TzfWThErcGbMvWMkBUMP+nI912xFLM3GHbFVgpzutn3mh7dvEDPpJAV
+	 ywyzinc9t+rdNtTRToy2q0+G1wa4wvZnpvN7ZHWTluZ9GzzJQGJsprBBYLqF8PVPG3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=riscstar.com;
-	spf=pass smtp.mailfrom=riscstar.com;
-	dkim=pass header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=zpxwhrjq;
-	arc=none smtp.remote-ip=209.85.160.52
-Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B7l61vSI;
+	arc=none smtp.remote-ip=209.85.161.50
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CEE9606A31F
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 19:20:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CEE9606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9432606A31E
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 19:23:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9432606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=zpxwhrjq
-Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-48ed188ee81so4506800fac.1
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 11:20:58 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B7l61vSI
+Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-70b875f6f1fso6627402eaf.2
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 11:23:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar.com; s=google; t=1795807258; x=1796412058; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=spMqGTfvnGebTBmWprGkb0+x7mXa+78W7iVJ0EOMLGA=;
-        b=zpxwhrjqox6YfuCTWrzRVOWk/4CVM967EA+Cngu4+HkdwOwzD5v5CkTuX26trlmyRz
-         cnUAca3Rt+Xic1vR7J4cW8ymBJKXorlJT2fB8tHIUHNIWykz+EvzjlLrta+B2wZjzxnd
-         n0MOnfiLYicEwWeVjayTpdmUd5EwFTV7INcfzr1aBCm6Fs7wCL5Ef12OC6ZuN0dQge06
-         XnYz1i0+1huzx96eJIdp6bsuYUReBtu323z/4W9JnVJ3PlZ1m35gXvqbbKIKs9P0emlJ
-         //KkKxeamwWNRf2xLYSJKMkJ8JZCpPCPz82sNL88rq64bISmxAbq234Hh38fVoTf7pW1
-         TsFQ==
+        d=gmail.com; s=20260707; t=1795807414; x=1796412214; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YdE4huuvwKUfz6uZKmm4M7NAmc0tPYzip99VdkJjyKo=;
+        b=B7l61vSIhdkOyAt3LUmrrzOhiZd1ahrzKQKN7sK4HQ9v4caE1EJkDi4v/eHzCS+4+1
+         BSq2wbPDO6qWQqxOxSoZ7ldKfGivXziy2aAdrj6VhTl1D4mjvZcQdRY+lxGIQ3AnuuDN
+         fbHIIadFA7GiMm5sBIENBAsC7EzAb9/zWXRtly9GomZKtMcntUuiP5TngKIXNShFmOFK
+         QloMb+EBKwOfCHjmtc/j8KtmrNTNJWMjUUgSORUp1SxtMW+zCl0LM39DeerkcX4AmEqa
+         N4JADi4m9QjXp94HkH8H33VhJmVD5HIZ6i0ZPFeGxkW5sWCqCVhBLUaBaJsauJ2XsLcd
+         LG+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795807258; x=1796412058;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1795807414; x=1796412214;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=spMqGTfvnGebTBmWprGkb0+x7mXa+78W7iVJ0EOMLGA=;
-        b=JcQPhf2qf96cNSG3t5gVRePA68wwl6u8JEdn8/3KfAy9yqerA+molznypxfCz5I1gk
-         J7EL0MT3sEAgwoGjk8a5EuN5q2Njxufx2WELN86Os1LIh6oxXY956kYKVtSyhrp/eLGl
-         /tyDBQF6hoRX5ZFBxyIT9cdOo47JC6kUDsgqJXat3svaA9SLrnu62cNbVBJVsWfCSQW5
-         MjzKDVJDXagLhuz8zeYQ5+hypWTqxe3LOfVD0aDjN27oTFk1R/YEFQE5slCBN5tICOwX
-         wAetMaSU5u0C2DRimxLaNEBZEFIam1itFCq0WU2Q/Ar3b1YUafcuwrBHei7ggdoV/ESi
-         S2SQ==
-X-Forwarded-Encrypted: i=1; AL+hErFFWkDI7Svm12D3iH/n9YO9Se0m58ZVPJwuymZ2/KwfgRizFuTzAceNSCAie8gnZ1SuaqYPBZyEF88n@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ku4X6jUqdHdgXuGhmWHm6LKZko+U5q5PSwIiW+GIlJDpP/2G7
-	0G2guwuSNTnJ2SpI8tIVzQUL1sEujNrfUBPpf+Nfhd7NXAB8rXGMNtXT5uyCRTI3Zg8=
-X-Gm-Gg: AZFdTZdSyaBXB96KMn2wAeflxisDWyZEMiMrqTFyCPDSeKmpTwpyzPye0cq0Fd2EzqE
-	NbG6C0BbbmN7dN6Nt8/ObClOBgwxY9WyTyatYbiapKTV/3BWi94Dg9o9Fw6uWqAMy3FwjM4jwGg
-	ga4NHk2TiW52vrUf1HYKu36l0ufjAaw+R11uUwwMsTC7E3kw1ywV8u8zSacWZ5q6QI3BVtrNBbM
-	A58lS/RXuT76JKu1ySksjRYjb+m5TJW6S8EHtYbvQmm46+hJZMwxrJJXSrEAy3srQzdgWcPrLWT
-	XzchJS/JyhZRYWr10ndtbo0TWfBsnXnDaQ4gln2ZVvJqbkcFOzI1Ae2F+rGAV9RKhs0SWiXyaC2
-	MKttgl8Ly5Q1hbujmH+98iUBE+BiEelV1w3PU7D26yZ7zdVzUEf9uZQ1frFC2IVqWlCArb2KUsN
-	1rUrLpivhz9KucrgUemquaDOLyqJmNsue7RRkWLdUXCGNhc9tIxlGLvYPp5mR3ax/ft84+ajQmN
-	z1XO1cUBHeGCqeDb6tM1NJU4iNsPLdGcolqCE+iyu4mNblMbaS7xgbe6uBQgFXyz42G1pHqsn/4
-	jS+GNOddn05rn8HivymUIrXDJVSNxm36
-X-Received: by 2002:a05:6870:6b8b:b0:4ba:35b1:7227 with SMTP id 586e51a60fabf-4bc7782a116mr20876208fac.0.1795807258018;
-        Fri, 27 Nov 2026 11:20:58 -0800 (PST)
-Received: from [172.22.22.28] ([76.156.233.211])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4bc5ebdc0acsm24208446fac.3.2026.11.27.11.20.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 27 Nov 2026 11:20:57 -0800 (PST)
-Message-ID: <5f389412-a036-4792-bdd9-e86377ee7e44@riscstar.com>
-Date: Fri, 27 Nov 2026 13:20:56 -0600
+        bh=YdE4huuvwKUfz6uZKmm4M7NAmc0tPYzip99VdkJjyKo=;
+        b=ogRfNaVQ3Jz88QBA8FR+mDpu5nAddcVxi6TfUlPgS2gBpUXQdvibkd8WBE2PJ3MLcW
+         jhP7SbhzKolmHYxKRHin3biC/d9JSWTrCkO7PbPUTWkLMNJueZ07Z5TQ9bngwd/LPA3C
+         sqbOrxkelT06mh4RO+a+EGwRSeSwrG2l4a3BNRg0Pi5VJ0qKZd8X9o9hwVPfWjm6F8X9
+         XVao4lw7bbcFOgYYX72P1HP3ciVv6GmrrUqhpl+U2AnQO6tgzIQyqivCKt+/YguGVs5T
+         PRH1MEpM8gcJTnS1kE9kH6hbrdwvaVHMI7LS9Qu6UZd19UEpwB8bKf4vZiexujK2fXh+
+         jQkA==
+X-Gm-Message-State: APuU4Z/9gmPvXHvfdTi9U8HIJYEIfPez4Z3ZlFYqFO19iYlwRy4jiwHC
+	k6OhGfW1z4T2ym5o7oDrBrfTRjesValTai4No98GHL79M7iqicDlUqOB
+X-Gm-Gg: AZFdTZcOu506MML0/yAqvFq1CnkG7lC7FURrknyyvr2I8agouO706NZ3ms2jbgdGnkc
+	rY3CsNzwkynujsUUhULoyajw1OBbAsrtRxMOjdZRSJNOAcawWYI1VceiQLZo+7LgMzAnnOJ+hZ7
+	c/oFG0QN0hkjv1yYLTurdudyJUIz0Hr7ndNegWfU1yr/pC+penjwDMb55VxQ2biIrspV9rJKvF5
+	Gljv7h3pgOGk2ZHiHY872k/9LBPkCByO7fkftW+k+2gIdV7qVNiCYP+RxnJSUVnUp/hj/RcptnR
+	gtdIeqGTXHnkPFdC79Qb6UX0i9W6VZjaWyd+BTg8GZD6zavz0c8mFaw/ebxQCyYGJVkzoVQbwU9
+	DVgcHb+IbLIfSJ3PQ+Ql/dxKy9lpUdUEbfPkDjCwV7ExODhmOSDvM3BzuQubb88ZNvi3XcNAKQ0
+	TDuso0mPf0ZfqdfyWD0U6An+WXohYWxh7rdJfsf4U9SKVbxmSkwGPyEiF0M/RZq11C83RtgqbM8
+	QVL3aHddYJJ1XV2Yh+RkNbl9qs+rH2xZ20djy0ANcNVY8KnAg2T9tdsJAIZ3pQy5XzRe2gmH3YW
+	lwg25c34awwWdMoIALU1mfRwIcul8Q==
+X-Received: by 2002:a05:6820:3510:20b0:71a:efbe:ef21 with SMTP id 006d021491bc7-71b3920c4e2mr14032041eaf.5.1795807413607;
+        Fri, 27 Nov 2026 11:23:33 -0800 (PST)
+Received: from neuromancer ([75.28.21.198])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4bc60891cf6sm24044850fac.13.2026.11.27.11.23.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Nov 2026 11:23:32 -0800 (PST)
+From: Chris Morgan <macroalpha82@gmail.com>
+To: linux-rockchip@lists.infradead.org
+Cc: devicetree@vger.kernel.org,
+	shawn.lin@rock-chips.com,
+	linux-pm@vger.kernel.org,
+	heiko@sntech.de,
+	conor+dt@kernel.org,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	sre@kernel.org,
+	t.schramm@manjaro.org,
+	xsf@rock-chips.com,
+	Chris Morgan <macromorgan@hotmail.com>
+Subject: [PATCH V5 0/3] Add Cellwise CW2217
+Date: Fri, 27 Nov 2026 13:23:27 -0600
+Message-ID: <20261127192330.610452-1-macroalpha82@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,149 +101,62 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] clk: toshiba: introduce a TC9564 clock/reset
- driver
-To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- p.zabel@pengutronix.de, andersson@kernel.org, konradybcio@kernel.org,
- abelvesa@kernel.org, daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
- fabrice.gasnier@foss.st.com, alexandre.torgue@foss.st.com,
- marex@nabladev.com, changhuang.liang@starfivetech.com,
- devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261125202141.1288493-1-elder@riscstar.com>
- <20261125202141.1288493-3-elder@riscstar.com> <awgCFMH6xerE510f@lore-desk>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <awgCFMH6xerE510f@lore-desk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/26/26 3:55 AM, Lorenzo Bianconi wrote:
-> On Nov 25, Alex Elder wrote:
->> Define a new platform driver that manages clocks and resets implemented
->> by the Toshiba TC9564 SoC.  There are 21 gate clocks that can be enabled
->> and disabled, but currently only the clocks that are (or will soon be)
->> used are defined to be controllable.  There are also 13 resets that can
->> be asserted or deasserted, but support for some of these is omitted as
->> well.
->>
->> Two registers manage the state of the clocks, and two others manage
->> the state of the resets.  All four registers are found in a region
->> mapped for MMIO.  The region is provided via a BAR on one of the PCI
->> functions embedded in the TC9564 SoC.
->>
->> The I2C and PCIE clocks and resets are treated as CRITICAL, meaning their
->> state should never be changed (and a warning is issued if changing their
->> state is attempted).
->>
->> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
->> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
->> Signed-off-by: Alex Elder <elder@riscstar.com>
->> ---
->> v3: - Fixed problems/garbage in the patch header
->>      - The Kconfig option now depends on RESET_CONTROLLER, and can now
->>        be enabled if COMPILE_TEST is enabled
->>      - The generic gate clock controller code is now used rather than
->>        implementing a custom one
->>      - The PLL and internal fixed clocks IDs are no longer available
->>        outside "clk-tc9564.c"
->>      - The PLL is initialialized, followed by all fixed rate clocks,
->>        followed by the gate clocks, to ensure each clock's parent is
->>        initialized before the clock is
->>      - Updating the reset registers (read/modify/write) is now protected
->>        by a spinlock
->>      - "Unnecessary newlines" have been removed
+From: Chris Morgan <macromorgan@hotmail.com>
 
-. . .
+Add the Cellwise CW2217 battery gauge driver. This driver is based on
+the sources used for Rockchip's Board Support package [1] but has
+been updated to use the regmap API and devm helpers.
 
->> +struct tc9564_clock {
->> +	void __iomem *ioaddr;	/* Mapped clock/reset registers */
->> +	spinlock_t lock;	/* Protects reset register updates */
->> +	struct clk_hw_onecell_data *clk_data;
-> 
-> I think it would be more readable to have 3 different pointers here:
-> - struct clk_hw_onecell_data *clk_pll_data;
-> - struct clk_hw_onecell_data *clk_fixed_rate_data;
-> - struct clk_hw_onecell_data *clk_gate_data;
-> 
-> (using the same logic you implemented for fixed_init, gate_init stucts).
-> 
-> Doing so, I guess the code that is allocating the clock data would be
-> easier to manage.
+[1] https://github.com/rockchip-linux/kernel/blob/develop-6.12/drivers/power/supply/cw221x_battery.c
 
-I don't know that it's easier but it would avoid keeping
-track of the difference between array indexes and identifiers.
-I think I was trying to avoid registering three different
-providers, but I think you're right, the result will be
-simpler and more readable.
+Changes Since V4:
+ - Updated bindings to set 64 as the minItems and 80 as the maxItems
+   for all battery profiles. 64 remains the min and max for the cw2015
+   series and 80 remains the min and max for the others.
+ - Renived the status okay line from the vita-pro device tree for the
+   battery monitor since it is implied.
 
-The PLL is a single clock, so it will be more like:
+Changes Since V3:
+ - Two more small fixes requested by Sashiko, one trivial fix for the
+   to not always write CW2217_CONFIG_RESTART for the cw2217_active
+   method and a small fix for the regmap writeable/volatile ranges.
 
-	struct clk_hw *pll_hw;
+Changes Since V2:
+ - Fixed more bugs pointed out by Sashiko.
+ - Corrected an integer overflow condition when measuring current.
+ - Corrected logic for when we don't have a user specified battery
+   profile.
+ - Added power supply changed logic in the worker.
+ - Updated the Kconfig text to note support for the cw2215 and cw2218.
+ - Added a check to ensure polling interval cannot be below 250ms.
 
-So I will implement your suggestion.
+Changes Since V1:
+ - Added a default value for the shunt resistor in the binding
+   documentation, and updated the commit description to note that the
+   min and max for the battery profile is now per-compatible string.
+ - Fixed bugs pointed out by Sashiko bot, and corrected units for
+   temp and shunt resistor values.
+ - Corrected include pointed out by kernel test robot.
+ - Noted in the commit message the patch is based on original work by
+   Xu Shengfei at Rockchip. I did not list him as co-developed or
+   signed-off since I did not have his permission (yet) to do so,
+   but I have his authorship included in the file itself.
 
-> 
->> +	struct reset_controller_dev rcdev;
->> +};
->> +
->> +/* Indexes into the fixed_init[] array */
->> +enum fixed_clock {
->> +	CLOCK_62_5M,
->> +	CLOCK_125M,
->> +	CLOCK_250M,
->> +	CLOCK_312_5M,
->> +};
+Chris Morgan (3):
+  dt-bindings: power: cw2015: add cw2215, cw2217, and cw2218
+  power: supply: cw2217: Add support for Cellwise cw2217
+  arm64: dts: rockchip: Add Battery Gauge to Anbernic Vita-Pro
 
-. . .
+ .../bindings/power/supply/cw2015_battery.yaml |  41 +-
+ .../rockchip/rk3576-anbernic-rg-vita-pro.dts  |  20 +-
+ drivers/power/supply/Kconfig                  |  11 +
+ drivers/power/supply/Makefile                 |   1 +
+ drivers/power/supply/cw2217_battery.c         | 878 ++++++++++++++++++
+ 5 files changed, 945 insertions(+), 6 deletions(-)
+ create mode 100644 drivers/power/supply/cw2217_battery.c
 
->> +/* Caller must free the returned pointer if non-null */
->> +static const char *clock_name(struct device *dev, const char *name)
->> +{
->> +	return kasprintf(GFP_KERNEL, "%s-%s", dev_name(dev), name);
->> +}
-> 
-> nit: clock_name() is running just during probe, I would prefer to use
-> dev_kasprintf() instead and get rid of the related kfree(). Moreover,
-> clock_name() is just a wrapper around kasprintf(), do we really need it?
+-- 
+2.53.0
 
-I think you mean devm_kasprintf(), but I still don't like keeping
-that allocated memory around for every clock for the entire life
-of the device.  It's just a waste.
-
-What I'll do, to get rid of what seems like a weird kfree() call,
-*and* avoid having the allocated memory hang on longer than needed
-is have all the callers do something like this:
-
-         const char *name __free(kfree) = clock_name(dev, "pll");
-
-I do agree it's a simple wrapper but it's used in three places to
-create a consistent name, so I prefer to keep it.
-
->> +/* Initialize the PLL (parent is the input oscillator); called from probe */
->> +static int pll_init(struct device *dev, struct tc9564_clock *clock)
->> +{
->> +	struct clk_hw *hw;
->> +	const char *name;
->> +
->> +	/* Initialize the PLL clock first (input oscillator is parent) */
->> +	name = clock_name(dev, "pll");
->> +	if (!name)
->> +		return -ENOMEM;
->> +
->> +	hw = devm_clk_hw_register_fixed_factor_index(dev, name, 0, 0, 50, 1);
->> +	kfree(name);
->> +	if (IS_ERR(hw))
->> +		return dev_err_probe(dev, PTR_ERR(hw),
->> +				     "failed to register pll\n");
->> +
->> +	clock->clk_data->hws[CLOCK_PLL] = hw;
->> +
->> +	return 0;
->> +}
-Thanks for the review.
-
-					-Alex
