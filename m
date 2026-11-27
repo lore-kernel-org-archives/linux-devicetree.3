@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795791277;
-	b=U+VTZgeiOiODQD7SpGBBV2DVtzXpkx2SrXUeUf/VLtPljycTs4V6Q0L8vMnHtW0XInt1
-	 h4o3o+ZukjIqrdcSncOLMrbIZToIzT9++HKDtlcIIJbp5BCxdvR5S4RX6wsvkxjAymwfS
-	 r3u+bnSR/dcxdxEFeVHL3yxa/UxfOESB4nY4y7RlSaH+aOIm3a4qU6P4adXS2K0pdL4qj
-	 jKb38Nl1kIi/EIXd5BUGd53mz0R2ARkctBg29NwJuM7Xm6JWWtjnF9i+4kKKq2x/3sAP0
-	 st7CiexKSIh1NhU1vyb8fKqIsQNz7Hx8HWZb1/DcuTnr7FioPK4pGLMb8NgSrdlnwxA==
+	t=1795791279;
+	b=b7VMusEOSO+A9hZzFBXKUhtZMjK3iU38BkvH5ZB0zhEQjzM4neAOXFAW2dUXmFY15V1T
+	 f9ZRSzXOZUFUhbVVVSJEI4jrB3zuj5xA3Y1xAIqQyIFOHahuVmow51BJsHmwDiKgZbsfX
+	 Il4qeHsExrg1QVPLOHniUFXVPv63mYOILSddDrfQWgzw5q+grSoGvjMKDdDqXxr0JZQlL
+	 /3UFSfMFORWGJpSNZo6SBbKt2kbuzijeslS/1V6Eml//g3qrilPFTAorzfW2d6K3ICTp1
+	 cA8ULe05CcXeKQlXrtiDA/DwseMtW8nXtY1U+NfQxx00d7PLXieKKuxXagzNKUxnzFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795791277;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795791279;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=B2E3iVg+Y53ku5x5pyq2TwGurqaRpRcncBnG/OPEoGE=;
-	b=k6fUcEZDNI/ZKZJIoQ6C/+FqmkoElbfVUpCSRpWcofzZCRd8ts126lI5OJEokLLY+y6o
-	 2MHYih0OXeL1vWdorC154VgmVAWy5XDb32ksw1QCX82w89jaqqlHmzZ5c31L3NY9hJgrg
-	 BxU/Ad9OVGBXoqlB4BOy75pjp1qKly24hVuvbI8hjizU/qwytYh65E5tT76x8cE8uuN6V
-	 J7x+rFRi6LTT/mdRaCCexjASauQ7hwLZ5shu+KzROsz+osSSCRrt49A2/doIXLshcpd5/
-	 A729HvLCEqKFJnWpflvA20uJlAbL4CIZgfDKavjSi9FIQflx8rPe0aM8mfmI/6rJPqw==
+	bh=S7ViY/cTDE6eZiSIsJOL9yqvd7LrFKnJqPqwHsnZ7M0=;
+	b=jy3QT4XuARUNoOt35GMHFKNh6pk8vPWCVODw9DiJgXDwCA0sI/X4WOAlfRn92tS9kAGZ
+	 MXcJe1HIHx5pmsBfxIVvEwe8xsNaMxP4Kygu2vyJKipexm+cs8tVVFygSrdCPCWpdubwS
+	 2GacEWe5qApw1M27K6sjOTu/psneWN4AyPWYsRj1cuiS+YuabrVblFOOyR3MeYd4JnEFa
+	 ELrXsoQdbugJbfQSGPyffqHopsb4clPn6plpeUsg0e6xKE4x+rfYKX+RBJ7O4GMnUpSzG
+	 i0N9aWA5wpS1lKKNw0XVClquXu8tqZaiMsXHobE2aoCH8sf97a45TA1M3RS6SK/fmAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iixHA0sv;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=esviXNbl;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B312606A329
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 14:54:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B312606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA12606A329
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 14:54:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BA12606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iixHA0sv
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4bb70074ab2so87148595e9.0
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 06:54:37 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=esviXNbl
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4a42b34e930so7174328f8f.2
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 06:54:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795791276; x=1796396076; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795791277; x=1796396077; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=B2E3iVg+Y53ku5x5pyq2TwGurqaRpRcncBnG/OPEoGE=;
-        b=iixHA0sv88U6GlWaq8WJ6u6F6OD+2Ul2IEc5X29nvNhQV0advhEpIETTKTjyWEOjsZ
-         f2rTwAZ70xSLu1rCUSuvra2ZMU1HigrRRj0ail5JxftmZ0v8V5gsNaOgMh7tAymaPg91
-         VUKwJPq4/7LeCQf2qcYIo5HtfHMp37YhEqVpRRQSVTQEmfOuaRBPZhagVH418I9AZ+UQ
-         2zOANZnGrnPBOpCHr+Rb+gaTtfyMYLAQhwwSzlfzoIQ6oxawUxpqaA3l5ai67yk7c27d
-         rR3pmEIriHL1iiy8iLokZ/z4Kn39q3lVDOOA+kYKrkKsVmt+zvm/yiycK3L36PG5dVG0
-         X8AQ==
+        bh=S7ViY/cTDE6eZiSIsJOL9yqvd7LrFKnJqPqwHsnZ7M0=;
+        b=esviXNblUsN/O6pLU1HCwyW244AehioypbWII7mHLB/cUm5fASw16qqWiuviQd62fj
+         hMnEfOoquDDjAPkKBDweEbkuO79znsgBfGTJcs4yX4bV2fSFtzXsZiga+3bkYkS0xXAj
+         /1wK2KwIAW4U4xTlOq8caWJ7xMpHKc7Xlzi0sLz20rDyxsp5fCMrd9s2CUewrhgLo+RZ
+         aCESnVo8+Rj3WuKLPUE1HsKRWqKmsnj8YLOQjmAcCD/x0MjLICUlUfHzUI4Lq6ss4ZYt
+         wGQ6DCDsTISp/V3hBqMvE64veS+UBal3MgVk/dj4DMUHd5kkMelvN1chjc42yUilw6lX
+         2P9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795791276; x=1796396076;
+        d=1e100.net; s=20260707; t=1795791277; x=1796396077;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B2E3iVg+Y53ku5x5pyq2TwGurqaRpRcncBnG/OPEoGE=;
-        b=OYDhxAptTpFcZft0SvnvmfTpg/WYWO4tTmYs8HqmUXt2pIn1s9if5xqJI6ANWCfARR
-         E6TY7lEHk/aArlAq/Th+77NCKbXrfwGDsYUIEqDbqzdXjnqt6wb6AqirZiThOkAjs5oR
-         O2gjsEBN5hgemgsSGXPi/KQcEnsSZzX/7OTgUZQyp9OuykiTvrSSVxr0uGfN8MhWmpEq
-         fGqjkeBzDWrCwXTzsvK6oHt9HCeGCI5KoCiX778wXZ2bcX/mf2AuHk+I+BXptLKsobwv
-         s0H4QvMgxsw5pdztCwkzTV7V80qNStKTGWPQgi00fMnzqyvnjYyBzphA1U163rqiPxDv
-         B3ZA==
-X-Forwarded-Encrypted: i=1; AL+hErHCVBOHR7ef7WDA/4Rl2/lmldoKHsgfiQrHTZvvJhDb6btwMbl7T9STLVVrCjtpqwKHlMsmy4Hegt1S@vger.kernel.org
-X-Gm-Message-State: APuU4Z/dZSCs/aY1hHKoLoI0ake1PdkZmBPtuL9OpFtvwUMow/2TlbKH
-	FnfvWZlV1aiHytuXizVBMtJWSJuVthj73+A7F+qcs6TjCCio5Sjzyd4U
-X-Gm-Gg: AZFdTZdmYeXT8kvhAONDlTaFuSIEABeqxRrbChi48X91rMHIjFsZSYeu6GXqDaCy412
-	W+uNEaKKYedb+lO1qbj8pDO3jpfuZL20hgNaQJAc0GluIsv+Zi9nSm6kuF7rjWqJL1cGwWzPhd1
-	OV1721ye5dAgZv/SYKk4PPxl+s8wBF7/7CI0Mtvp3WiYi7hCpfb+3zmapKDzH2n+AtYlZwNrH0u
-	A54HGSdwe4PTgcYlgHJUEuhLLEa6aNWBdt/K3OmTgE5ktMchef/2VTwKjDJIaC/iMrAzkNkLRkk
-	fsCTvz93RGze6e9vnxZJnutksWBCItNnKW13JRYm5aDUqyPu09lLXrQNhv4R5I00lisXxUgmXEs
-	jVhfrQoiNYb0wn3mnM6SdpjwkTl168vXqF4Gy4nJ/i1UXGoeUjoDipKWW9KPa7aFmiqI/8RvA/h
-	DhqBrj3mwWSsnuuxMO8a6zxWw8TqFNbdOZ4opXg4SzlYhmB8KkTRzRYvJxp4vJcq6YK8DCns+bk
-	B6DMZoCHYHpd8kLWDlQfUPAhpZL4uFu+VPMNAvXBhPvNY7J6wHoMLNSPi9YFY5ML5FXnoFmRjUT
-	xY+FkQNUrsCi2JVujLgNfZ4NKXd7imRhzw22aY0vfSiBhsiUOsuLyqfO6r18vI6G8p6MHZgNBIw
-	6TNk=
-X-Received: by 2002:a05:600c:4584:b0:4a7:c366:d791 with SMTP id 5b1f17b1804b1-4bb887e266amr485218485e9.1.1795791275934;
-        Fri, 27 Nov 2026 06:54:35 -0800 (PST)
+        bh=S7ViY/cTDE6eZiSIsJOL9yqvd7LrFKnJqPqwHsnZ7M0=;
+        b=BmxgKGMs8WorzyUmBnBBYpIiuo0bfEDH0L+N89+hUzRRrR8CjSNHHZqB9iUmbHSGOZ
+         W1U9HSqpSTbNZtB/ltyAAs9QbISuV2K8ZkURgTseKP4mBecsimWyKp3C5U7JLDLPGMwG
+         FzmeH7jYinkNerQ7PS38bDXmCSmENobj0/Ej476cVDrY+Mw+h9GCwfLeyGcMNehOzAst
+         oLbHjrc3IjLmcR7ciulCHPIg6A+RPt+lO8xGZy6E8YgL2edk0hloFb5UIfItKGDlj1Kh
+         lp0bHtjPTcCjQLPyQKrT/CXE3Iv3aPbCv9fjb1dunD+Oqzr2P25XikGL+jKxGpsajBGJ
+         5RnA==
+X-Forwarded-Encrypted: i=1; AL+hErEgYs/biVxGYfgT1YGSOnQG5iA5qJlIaLmxaWLMNehpHOLiWNOS1RVNvDyyUjeY1gXsrOR+WSz+t4dl@vger.kernel.org
+X-Gm-Message-State: APuU4Z+VxSq16xYaS3SxsuRegjNl3d4OMf9Gh9BM6TMGdR1pSAoziYBx
+	lqCPQmvYd+CExc6HDnrEHHWu73h2dJYC4lPjZ0dV4iVcUMkGMrKHniaf
+X-Gm-Gg: AZFdTZeqWuRMTiqvR5N0Krq96PYzHAXbRhGA4GdzNRfHGvkFLUh1UwA4Wt9wEzeOsTV
+	WlyE3zcBHYvUaWUPJ0OCuu00bDOcXAUhL0pI/eH67XLZd2asJLrVsAXP0u3Rd/RY9O6s9YAkpZ3
+	XOU48YGiIogg1nP8AFYQBPi/1GjQKQBjrMDW+QaZvOdikOXbCjaBfMYA8GUJn7vi8rgf5ZRJIpt
+	47W2oAPk0OI4qfeVMk3yLqWHUDhGXEtcV+Q8jWqmz+qlzc+Mecqv98Svf+Nkx579kV0Dr0pRQG0
+	DqGjkuBcB+MBoV5srz9lR8hn5Jf1aA92lzuH9L1/+wGwhAYBECqTa10IJJEKHBIbPXLbUmiC7D8
+	pGxH2/y16Onb+rNmvjYVWT2HTnZi3IDDE6aMREf2HSlTiGGUuFA5rboFbDBocflzm3Xvgt9zTxB
+	cYlAjXNMRcQh5v7Jm3aQl4wfYCLusW9jHb2GlWscHcfK2wkrsZE5omI7YqR+LlFAaqBSEwXtPMM
+	zo4OTGJSsBNV71lmkVay+GfB42muAwzAjigkRyVEXPxJHCBHtcveReIJVOadjF3S4Eu/7MoX4dk
+	Z+vK1dWtFfBSplWxFfiRXh6WwY0XwdX+5RuK0SQzowvU/0S/4r1CoXGGXzUC4TMtJLeEO0uZVp6
+	xfjc=
+X-Received: by 2002:a05:600c:820e:b0:4ac:da92:2bd4 with SMTP id 5b1f17b1804b1-4bb887c9936mr494120945e9.1.1795791276914;
+        Fri, 27 Nov 2026 06:54:36 -0800 (PST)
 Received: from emanueleg-nb (host-87-4-46-207.retail.telecomitalia.it. [87.4.46.207])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb88442693sm633589105e9.1.2026.11.27.06.54.35
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb88442693sm633589105e9.1.2026.11.27.06.54.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 06:54:35 -0800 (PST)
+        Fri, 27 Nov 2026 06:54:36 -0800 (PST)
 From: Emanuele Ghidoli <ghidoliemanuele@gmail.com>
 To: Sebastian Reichel <sre@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -90,9 +90,9 @@ To: Sebastian Reichel <sre@kernel.org>,
 Cc: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
 	linux-pm@vger.kernel.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH v1 1/2] dt-bindings: power: reset: Document the Toradex Aquila IQ8 EC
-Date: Fri, 27 Nov 2026 15:54:23 +0100
-Message-ID: <20261127145429.2060162-2-ghidoliemanuele@gmail.com>
+Subject: [PATCH v1 2/2] power: reset: tdx-ec-poweroff: Allow building on Qualcomm platforms
+Date: Fri, 27 Nov 2026 15:54:24 +0100
+Message-ID: <20261127145429.2060162-3-ghidoliemanuele@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261127145429.2060162-1-ghidoliemanuele@gmail.com>
 References: <20261127145429.2060162-1-ghidoliemanuele@gmail.com>
@@ -109,51 +109,51 @@ Content-Transfer-Encoding: 8bit
 
 From: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
 
-The Aquila IQ8 EC belongs to the same family as the SMARC ECs and
-implements the same I2C programming interface, with the same power-off
-and reset commands. The module signals it controls differ, since Aquila
-and SMARC define different connector interfaces, but this is not
-visible to software.
-
-Add a dedicated compatible with toradex,smarc-ec as fallback and make
-the description generic, so that it is not tied to a specific module
-family.
+The Aquila IQ8 EC exposes the same functionality as the SMARC EC.
+Allow the driver to be selected on Qualcomm platforms and update the
+Kconfig help and the module description to cover non-SMARC modules.
 
 Signed-off-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
 ---
- .../bindings/power/reset/toradex,smarc-ec.yaml        | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ drivers/power/reset/Kconfig           | 9 ++++-----
+ drivers/power/reset/tdx-ec-poweroff.c | 2 +-
+ 2 files changed, 5 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/power/reset/toradex,smarc-ec.yaml b/Documentation/devicetree/bindings/power/reset/toradex,smarc-ec.yaml
-index ffcd5f2c2bf6..d59d08c0250f 100644
---- a/Documentation/devicetree/bindings/power/reset/toradex,smarc-ec.yaml
-+++ b/Documentation/devicetree/bindings/power/reset/toradex,smarc-ec.yaml
-@@ -11,13 +11,11 @@ maintainers:
-   - Francesco Dolcini <francesco.dolcini@toradex.com>
+diff --git a/drivers/power/reset/Kconfig b/drivers/power/reset/Kconfig
+index bce996bbef28..ecb249cf5359 100644
+--- a/drivers/power/reset/Kconfig
++++ b/drivers/power/reset/Kconfig
+@@ -246,15 +246,14 @@ config POWER_RESET_TH1520_AON
  
- description: |
--  The Toradex Embedded Controller (EC) is used on Toradex SMARC modules,
--  primarily to manage power and reset functionalities.
-+  The Toradex Embedded Controller (EC) is used on Toradex modules to manage
-+  power sequencing and reset.
+ config POWER_RESET_TORADEX_EC
+ 	tristate "Toradex Embedded Controller power-off and reset driver"
+-	depends on ARCH_MXC || COMPILE_TEST
++	depends on ARCH_MXC || ARCH_QCOM || COMPILE_TEST
+ 	depends on I2C
+ 	select REGMAP_I2C
+ 	help
+-	  This driver supports power-off and reset for SMARC Toradex SoMs,
+-	  for example the SMARC iMX8MP and SMARC iMX95, using Toradex
+-	  Embedded Controller (EC).
++	  This driver supports power-off and reset for Toradex SoMs using
++	  the Toradex Embedded Controller (EC).
  
--  The EC provides the following functions:
--    - Reads the SMARC POWER_BTN# and RESET_IN# signals and controls the PMIC accordingly.
--    - Controls the SoC boot mode signals based on the SMARC BOOT_SEL# and FORCE_RECOV# inputs.
--    - Manages the CARRIER_STDBY# signal in response to relevant SoC signals.
-+  It handles the power, reset and boot mode signals of the module connector
-+  and controls the PMIC and the SoC accordingly.
+-	  Say Y here if you have a Toradex SMARC SoM.
++	  Say Y here if you have a Toradex SoM with an Embedded Controller.
  
-   The EC runs a small firmware, factory programmed into its internal flash, and communicates over I2C.
-   It allows software to control power-off and reset functionalities of the module.
-@@ -26,6 +24,7 @@ properties:
-   compatible:
-     items:
-       - enum:
-+          - toradex,aquila-iq8-ec
-           - toradex,smarc-imx95-ec
-           - toradex,smarc-imx8mp-ec
-       - const: toradex,smarc-ec
+ 	  If unsure, say N.
+ 
+diff --git a/drivers/power/reset/tdx-ec-poweroff.c b/drivers/power/reset/tdx-ec-poweroff.c
+index b4f1c87f5651..5629739fd74a 100644
+--- a/drivers/power/reset/tdx-ec-poweroff.c
++++ b/drivers/power/reset/tdx-ec-poweroff.c
+@@ -164,5 +164,5 @@ static struct i2c_driver tdx_ec_driver = {
+ module_i2c_driver(tdx_ec_driver);
+ 
+ MODULE_AUTHOR("Emanuele Ghidoli <emanuele.ghidoli@toradex.com>");
+-MODULE_DESCRIPTION("Toradex SMARC Embedded Controller driver");
++MODULE_DESCRIPTION("Toradex Embedded Controller power-off and reset driver");
+ MODULE_LICENSE("GPL");
 -- 
 2.53.0
 
