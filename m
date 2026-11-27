@@ -1,68 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795793032;
-	b=BWH02kxCPcK3RT9oBH9cpQulWm70UjRwrPVKo6HcY7fFUCWy7tkWBYxYahn8DLlZOjlc
-	 BqOIQgO0pLgS/MTBrOSLaaY3jLzDqTgguagGC4RgqCAcGQenIq7NhxueyaNEiyOsjB0JD
-	 6CXHgEyh3KzGh/adUHXvdbaigk6oZE2JrLi7g+Zlckf7mux1nHGQGh0+Ao36I08U1Gdmk
-	 k9GXjHIvJV1podE7ET0ieqmNpKT9yvukDSxfxoYYQjSkv+JadlEnAguMKx52Rs7BSpvqe
-	 HJQi2s2/ASM0nYUFsdQm6x9HTVmZHGZBC9wJ9Sz2cZ1iLeq4W1utWOT0suK2P36xaTQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795793032;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:Date:Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=9qm8gKQknLIHjCNA8iGQyl2nV5Vy3wPnee7iGG4J6pY=;
-	b=266c9CrckZxGZbl4qbMZNHtuGBgJTheHb1LBCHiiyVkwDHs9tjnzy3WpTF/Xqk8w6jJ+
-	 34uXoAMa/O44CkkjLt9SdrN5xlYKDqPz5Z8Zuxj0XzJC6ZryFQfXEI5pkK/kuBORXaL01
-	 sPV4zARQB+aoCc1XAKu9A13pti0H9CJ7lhrJFdfJte4likD1zzXB08P/8+PFwh9ZOXCSO
-	 PSq7I9gjcK4TQb00LJs9Vy4WkoFrXOimOzfT2ePLcPumCt0lCNYBM/svf/UznKZAOGBPf
-	 WK33SXeP+QVVuhrF9gzr5HYYHohFU2gmwMnj+QUUdvRRU7RnOSd2x7sX3bXT89HqAqA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=jhv4dGVE;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795793087;
+	b=3TO2m5BPGJQ97l6fcoBW6n84t0iVJkvVNzb2pUO3ZgHTtrBYg0oqnIQQS5zCnHWfltFc
+	 2g+2Q78kLAzP0nGGON0pdANKNKdwMKNjVC1NtLywuLfBQv/sLz9OebYfS703JuZsKQdp+
+	 zvSUKc8cSVvUoDXWywNqmQh+e9+fdmUfco7j45HFLThyB7vlHn4gxiNFq8WdLNt4HV8aW
+	 w5G+frVT1r8VmGrxVBuDwDItU++F6gSCbUZrVqM429BqtDeaOuKaIdMDM32LN65+hEbYv
+	 0dTuEtO+kh7zkm/PEZItceTSAIByxk+R/o9oHSKiYJGYmWncB53PE4s0olpqbAlfR2g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795793087;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=oyltaPshj86SQiBIh7ht6WCdgIXYX+7eF9ei2KjJcmc=;
+	b=sNMOdBzIFi+fJPGbNZcvrAqZkHYhF7FD/PMJ3Fg0KofzRwUWTAQmvtX7cjBc8h2PvT2d
+	 sizP9FOoTyJxB85dzucAveyW9ORxBF7K7QONX4cwiM0dlJT3r+/IpoariJN0JXXM7G7/b
+	 ACqHIsqVfKeT6OhaY09kF2XumvgqDcqARxq9N+LS8N07++ZNmBLRci3ggNr26pTVlRK+O
+	 Hlf7qiwgz6G19Atn/rpOTmmwF9Rrw94ZLFdubM7a4E25ujTexVTuTeXkxOQajyPdzAT34
+	 iGCpBhZV6nfa9EP/mD1M4PkRnu2xz33P9L92LE2FDUCZR59fBGbZxPtS/soNowFqoSA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dxjQss/i";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0797606A327;
+	Fri, 27 Nov 2026 15:24:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dxjQss/i
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795793087;
+	b=hxn7QJX4IJR6LHhskUeljcd/Bh1YgQi+0nb5+yErOKNRrPnrupYbaOLCjQzA2RMVUdtf
+	 iYUEP2eqj5x0Jh6JA7MypSGtyozdCRXi7T26KqqL66rchWhOWdDMYSsWAUiHCz3CvOUGy
+	 i789Bz59SDJixfe3t1LnQFXvULaorPnpwo9JGVKnMucVjlkdTtsJN6jnli5p8PyyREQxu
+	 kEvjoYWyRXkxvXWAS0eauM2nU+EqqYJGvqkJA1Dtb9ssH1cFC/6l0NDmlGVOKv5vQ8LrL
+	 I/jyX8n573ht0TVWNzYX1b8+yK1bJqPPrNOJfmB6jl/jnovF9qY23VZF3W59X7iSnTw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795793087;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=oyltaPshj86SQiBIh7ht6WCdgIXYX+7eF9ei2KjJcmc=;
+	b=p9YW03cnPhSp3gPZO/WFipor+rHXz8VG5IGqy/0Rwh85BnuUE+F9bHzgkucsKV91gv4B
+	 KUetfSzif9PGoCUXoDUrYWX0g2XUGDn9/AJmnoN7xTu/l06E/oFroXMhhYRIIuSI9kEYQ
+	 O6UzDKBh8IG4JST3n91nMFMAfiz/5+OuGU3UJzc2CcjYqw6n10yBsLzPp+QJihIDNMyQQ
+	 czjqkMJEUxXfd5LCfb0jwo6zFCjm+aiGKWK//JLi3IJvnsz6YYYYTImNT90fnLL/Inxkn
+	 EATp8w5JRHytOkqi1t0aCrM4Z9bAmTxJaIlfVkmcIy64Y5/SP9LLNstkWRhDAuFg/Mw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C8A606A324
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 15:23:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12C8A606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=jhv4dGVE
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id E8F8FC6223E;
-	Fri, 27 Nov 2026 15:23:58 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 20D9A6049C;
-	Fri, 27 Nov 2026 15:23:50 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DE47F11E90C4D;
-	Fri, 27 Nov 2026 16:23:42 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795793025; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=9qm8gKQknLIHjCNA8iGQyl2nV5Vy3wPnee7iGG4J6pY=;
-	b=jhv4dGVE5/LuAMjZj1KaTATnjN7/6Kdobu9r/1C/0OjeCcqpUXC4NsLkcy3zihWtvJ48NC
-	eoSmEL7+dXDO36TLUXr2FGk0kpRtLvZKXUug1pNoc3jtXUbvtvvyPebuB5uXBGRB22XiQL
-	ztYdDS0L/uXgqQ+EBF7QLggm5EENG2qNFpUP2RXPT8yBpVfubipI85ynMxh9gQ6N6qo3fR
-	NJVTJC9cPDQPH21QjQmQUAs9dcy2nHUWF8bJTlYEGaRuVdFakoCVqpm0aKyghhIX+53bLE
-	NxhSPPJ+fWAI9NtSgegIYB3DYfrT9ALsD7LKRVJeBz3fpXuWVxaeKNIjPW3tGA==
-From: Gregory CLEMENT <gregory.clement@bootlin.com>
-To: Quentin Schulz <foss+kernel@0leil.net>, Andrew Lunn <andrew@lunn.ch>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Quentin Schulz <quentin.schulz@cherry.de>
-Subject: Re: [PATCH] arm64: dts: turris-mox: replace denx.de links with
- official location
-In-Reply-To: <20261029-denx-de-links-migration-v1-1-4ffff7db7d98@cherry.de>
-References: <20261029-denx-de-links-migration-v1-1-4ffff7db7d98@cherry.de>
-Date: Fri, 27 Nov 2026 16:23:42 +0100
-Message-ID: <87h5h21eo1.fsf@BLaptop.bootlin.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 7DC141F0089A;
+	Fri, 27 Nov 2026 15:24:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795793087;
+	bh=oyltaPshj86SQiBIh7ht6WCdgIXYX+7eF9ei2KjJcmc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=dxjQss/iVDkEpaos4EAqNqUI/W5gjHRT7xZJABLMQL10/Jb+8GMixLo2Yjj5TLSyV
+	 ZjmM3nBoMxtzSrXnfl8a+uyNY329DaN0rIyo8+HAJ8apNQ8yaiWr/M5DUW4SLKPv7P
+	 oPUF+v1UJsrjmQV3QGDqoi4VjXFYjmAbLMo3j7+PsCNf0mVvLCI8yskl7IVeB6N4O8
+	 SC/03eylmBt6KHSR101f29Th80WXp8oea2g5T+y33HOOh7iTOpbnmY3KvtbVFJj7Zf
+	 spUYoJYIvx/JJ6ZJ7WSACXjuCaTW1B5+LO17Jmhe+KGxTjCz96lpUjmZ3dNTzKwWY4
+	 uAfQDzQGccDog==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 0AE834D853;
+	Fri, 27 Nov 2026 15:24:28 +0000 (UTC)
+From: Demeter Barna via B4 Relay <devnull+me.fromdisposition.org@kernel.org>
+Date: Fri, 27 Nov 2026 15:24:25 +0000
+Subject: [PATCH v3 1/2] dt-bindings: crypto: qcom,inline-crypto-engine: Add
+ SM8350
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,80 +83,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261127-b4-sm8350-ice-v3-1-39c5b4f562cd@fromdisposition.org>
+References: <20261127-b4-sm8350-ice-v3-0-39c5b4f562cd@fromdisposition.org>
+In-Reply-To: <20261127-b4-sm8350-ice-v3-0-39c5b4f562cd@fromdisposition.org>
+To: Abel Vesa <abelvesa@kernel.org>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
+ devicetree@vger.kernel.org, Demeter Barna <me@fromdisposition.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795793066; l=1295;
+ i=me@fromdisposition.org; s=20261012; h=from:subject:message-id;
+ bh=jT68xkxxz5/EVqIPjmJKY8VY49FYVLS9vEllgykpp6Y=;
+ b=oVptq1TzpVLZzr5nYHObZUa4FX2l/0VGIPaxRY2sW8pLRH7oKRQQ7VoG91ioQ0dQnMGmWtof1
+ R8Lz58ciB6KDjtq6vxUhK0Iqslap6MJkw4FOSkQjaL8DtTPwdQYF2Qh
+X-Developer-Key: i=me@fromdisposition.org; a=ed25519;
+ pk=S0QFlGq1BQEaAtPPdAH8YKEOXMeRuSkTgctXuvtU+1Y=
+X-Endpoint-Received: by B4 Relay for me@fromdisposition.org/20261012 with
+ auth_id=1163
+X-Original-From: Demeter Barna <me@fromdisposition.org>
+Reply-To: me@fromdisposition.org
+Content-Transfer-Encoding: 7bit
 
-Quentin Schulz <foss+kernel@0leil.net> writes:
+From: Demeter Barna <me@fromdisposition.org>
 
-> From: Quentin Schulz <quentin.schulz@cherry.de>
->
-> The U-Boot project doesn't own the denx.de domain and we don't know for
-> how long it'll redirect to the official location (it currently
-> redirects). Update the links to point at the official GitLab instance of
-> the project so we're future proof.
->
-> Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+SM8350's UFS host has an inline crypto engine, version 3.2.0, with a
+hardware key manager behind it, clocked by the UFS ICE core and AHB
+clocks and powered by the UFS PHY GDSC. Document the compatible. Being a
+new SoC, it stays off the legacy single-clock list, so both clocks and
+the power domain are required.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Demeter Barna <me@fromdisposition.org>
+---
+ Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
+index a45a4ac5d..e808af8dd 100644
+--- a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
++++ b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
+@@ -28,6 +28,7 @@ properties:
+           - qcom,sc7280-inline-crypto-engine
+           - qcom,shikra-inline-crypto-engine
+           - qcom,sm8150-inline-crypto-engine
++          - qcom,sm8350-inline-crypto-engine
+           - qcom,sm8450-inline-crypto-engine
+           - qcom,sm8550-inline-crypto-engine
+           - qcom,sm8650-inline-crypto-engine
+
+-- 
+2.53.0
 
 
-Applied on mvebu/dt64
-
-Thanks,
-
-Gregory
-
-> ---
-> Found when hunting denx.de leftover links in U-Boot where we import the
-> kernel device trees verbatim.
-> ---
->  arch/arm64/boot/dts/marvell/armada-3720-turris-mox.dts | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/arch/arm64/boot/dts/marvell/armada-3720-turris-mox.dts b/arc=
-h/arm64/boot/dts/marvell/armada-3720-turris-mox.dts
-> index bd00e7df87c67..159515f95ef33 100644
-> --- a/arch/arm64/boot/dts/marvell/armada-3720-turris-mox.dts
-> +++ b/arch/arm64/boot/dts/marvell/armada-3720-turris-mox.dts
-> @@ -151,12 +151,12 @@ &pcie0 {
->  	 * for IO and the rest 112 MB (64+32+16) for MEM, despite that maximal =
-IO size is just 64 kB.
->  	 * This bug is not present in U-Boot ports for other Armada 3700 device=
-s and is fixed in
->  	 * U-Boot version 2021.07. See relevant U-Boot commits (the last one co=
-ntains fix):
-> -	 * https://source.denx.de/u-boot/u-boot/-/commit/cb2ddb291ee6fcbddd6d8f=
-4ff49089dfe580f5d7
-> -	 * https://source.denx.de/u-boot/u-boot/-/commit/c64ac3b3185aeb3846297a=
-d7391fc6df8ecd73bf
-> -	 * https://source.denx.de/u-boot/u-boot/-/commit/4a82fca8e330157081fc13=
-2a591ebd99ba02ee33
-> +	 * https://git.u-boot-project.org/u-boot/u-boot/-/commit/cb2ddb291ee6fc=
-bddd6d8f4ff49089dfe580f5d7
-> +	 * https://git.u-boot-project.org/u-boot/u-boot/-/commit/c64ac3b3185aeb=
-3846297ad7391fc6df8ecd73bf
-> +	 * https://git.u-boot-project.org/u-boot/u-boot/-/commit/4a82fca8e33015=
-7081fc132a591ebd99ba02ee33
->  	 * Bug related to requirement of same child and parent addresses for fi=
-rst range is fixed
->  	 * in U-Boot version 2022.04 by following commit:
-> -	 * https://source.denx.de/u-boot/u-boot/-/commit/1fd54253bca7d43d046bba=
-4853fe5fafd034bc17
-> +	 * https://git.u-boot-project.org/u-boot/u-boot/-/commit/1fd54253bca7d4=
-3d046bba4853fe5fafd034bc17
->  	 */
->  	#address-cells =3D <3>;
->  	#size-cells =3D <2>;
->
-> ---
-> base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-> change-id: 20261029-denx-de-links-migration-f3880bb40e51
->
-> Best regards,
-> --=20=20
-> Quentin Schulz <quentin.schulz@cherry.de>
->
-
---=20
-Gr=C3=A9gory CLEMENT, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
