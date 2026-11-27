@@ -1,88 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795770731;
-	b=cJjFwgy7qze+aJwY9aeC5oWqBQfEASpzH7dntZxD2bSGJJwnyP/dpWPAlIJvDRfxchXh
-	 1eQJMgrn6iLUdQqlIO7usx0hUFjOiroJpTTsBEozGMJQSG1jg6hH771/4mSo2dCA0eWRZ
-	 oHVMEgCgeT+yUI78+sp3xrgSM0bmdkDlEIdj5sk/hpRE6j8YIjyeZdSEHGJzj4wmrTbVu
-	 2Q1gAo5SeCSw0xf93a1l0a97lOvRu6rTI0mULOhdvf9y9FLMTVLetmkK3LwlUjKGfjTCo
-	 GfIp1VcJxEcv3O2Jb2KyM/6utDGgfftfGs3iUDtOraP8NXTCzVmxiGZL9Oj6fVontLA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795770731;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=7BmBlqkLTRWPnM/PyPREkTVAoRCehz9jfOuEcWz3kOo=;
-	b=Klw9y0rmFudlwiRTisxEFft2mcPSXKHMTJ9gdKQ6zRxjBm0w2+u+I21KJmYIRAWwMYli
-	 zs0kPrnhF+r85ArI2HiPrF5m1jjzLZB/f0C224Elanl+bRAX38bmA7gu3M/G+RvS+aJOo
-	 8CFikEWQMvsZsHZK5/Ga4SiOzjUDIiMVv+CK1FL8diDypzJHaQjUnJKGZLXHKbxx8+V25
-	 HxOVz7zK2CiGo6SBVCDSnsaYCNRUP6sY/auQe7sfmn3SNT/zYH9OdX1bVAaVAR0Ayr/St
-	 zfZ2zrW3d2gMYs00xFwcb7j+rqjzSzdep9GKlNl3UBmr4u45qXiFeFUcDKhrOqfOmxw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tuxon.dev;
-	spf=pass smtp.mailfrom=tuxon.dev;
-	dkim=pass header.d=tuxon.dev header.i=@tuxon.dev header.a=rsa-sha256 header.s=google header.b=oUQtFPfH;
-	arc=none smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795770726;
+	b=4g1/w4qtocviC4qvTUrxpv6vWnQqbEYwRMp4O/9K0owqd4EyPiqGDnzq35ffJSIcqilO
+	 gwVeAmQj7OClvLhsIr+zLIphEr1MnCF0y5iTY9ati46R5bl7caxP0zo1JXppvRVDKRM2w
+	 5S6sKJyI2lHRyOrjUWTVy85lnAk0trbcfazGfIjKM3BzJ1ohFzytcGTyhKqULGvyLjwlw
+	 9ZNM2uP1XC/o66THqVyiqMypJP8T0aZwwMxtIJhrnbTlMFI3RovHvr0VVo9cOBf5Yx1Cy
+	 kI+P4AYCTMRbd9ttnqJ4N+z/c1+fQKazRaa/8ddW9rjZrHAKHT72Ao6ryfP8ya0Gi8Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795770726;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=vNbhO50GiNuaaW+LC5eoTkqY7OMQkS9uvXG8VYmr0iI=;
+	b=fCtRBWoIXZqRRuUqze5+yWCCj58kW2+Ah3Ogx4D0fWGg+dI/z3ZPA8nneVFOGJMgKE13
+	 C4HJb5DNnqGsYnunMAt3dG8awYQoNqhwvnGTeoHqb1xqwn8x0afQKmqyk1B1PF6N8vxaQ
+	 lp8LqhjikcJbZXPL14p7MxpZKLYjLAqYkJhmppml7WxNWzn7NiFPPZVgQRhkG8NCe0+je
+	 F+pjPr8r0Th3VOG2JMrsMhDB/5iHTYZqydJ0GXPyupB5WDWxucbro9MVT2tUhzgvTjzqB
+	 zz/sFAYrBA5EDZ9LH8oSsi5+kPE+qwk/S7iNJiXkqCcJ6tdwvuLXucCvfebGb9vSUCQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Q/tyNXfk";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C750606A321;
+	Fri, 27 Nov 2026 09:12:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q/tyNXfk
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795770726;
+	b=pBq5pRcLYlEoum4qApLWrSbVxXPAgM5120Kwfit0QaxKVhPxqzaZcUrdCRuByNv8KFP/
+	 4//rNjY/g9LNok2IaWWm+6VzDdPecOcZQ/Qmaw+nPseLD47ejP0Z2OpfD/xKZYGPqa6mM
+	 SnttyFZXcCS1GVyxhwBy/IJSYfFtemKE0U9BcYFAeXdCibgzFPGqmi6sJ78R/s3a+SZOW
+	 ccbLa2zxawt26zXUxq2nHw0yUBgR7yeHVae1mSaKugL2Z5LLL4UtQzyvh3FdgWc4vrCrK
+	 Ilqkk8ixkwQegh/03ZOJvksWUoLpx+UQSKq6G28akuZ33bHjfMt67pk7pq6n6aWCrvg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795770726;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=vNbhO50GiNuaaW+LC5eoTkqY7OMQkS9uvXG8VYmr0iI=;
+	b=Bn24BkeR4Ppx1phf0T2U9HdW5x4Oh3as6+8bppItjw11RUBapTLNgQnrhRZjnIlVwGEE
+	 XcXPSQddC6E6Ruf5jp9Y3RZYriY9PmEFEPuWYFWsO02cO1SGUIjZ6+hhtaf/lQljV/cvv
+	 sNq3+TldKvC+/65xUcjFWMHDWWXpnapQHzvu/+g896YVvanKPVlfeinzWGWBUGUyT0UbL
+	 +pBMugIr4ELKdTfUDp0SV6kQitiz07/Rfdew2IzS68mSEavzC27vS+WG3RxuiUE0WFeLU
+	 IaaMPn5/NN87+3sDUKRNlsf4zhPZ/fnDzaBGpXsWRTLUoDZNV9Zb0TE2rTCl5RWPxzA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE55D606A333
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 09:12:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE55D606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.a=rsa-sha256 header.s=google header.b=oUQtFPfH
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b596afb4c5so9179576a12.1
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 01:12:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tuxon.dev; s=google; t=1795770729; x=1796375529; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7BmBlqkLTRWPnM/PyPREkTVAoRCehz9jfOuEcWz3kOo=;
-        b=oUQtFPfHi1S6G+Lki3MzTQU86GQHUmr/a7X4kCX27BKxweK2JCwd1auoyJbq2h0HbQ
-         3X39h5pwxHW+tWps2o0RFgepURXxk1OguFJljOt010jDjXDrOO1KYqKijW6maJ4sEbev
-         tUnLjv2oaxOPj3/4XJIxCN0BsmJHLBj3y498UFTgEG+GUR1NLsWSZv1YE2jdesVVwF2X
-         tcMiitjnx+V+w25x/IEB2KldSyjntkjyw5NTnEXwkCcJzqLKfdDj+NAhE7Drx6lWOcw3
-         ySVBQGUMXO/Ai3k88g/5bXwZVH8M+9vRrj+4D6Ai4t+p1be1gvN2P7nhEJebNOBW/HX0
-         0cbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795770729; x=1796375529;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7BmBlqkLTRWPnM/PyPREkTVAoRCehz9jfOuEcWz3kOo=;
-        b=v+x0GGHJSx7ipDAmFXoq2Zv9iuR6d2AkenL5rz/qo9Z+n+Zx4/RSLHWNJlFL1Uzg2E
-         eXA6I3TGXyV8e/Nz2UzGpMMJyZMDdR4ZaB8zdxwhNhllUocCeOagzTbmW4fXtlSJVMaE
-         i3patHBba/FaZx8PpJbWONp36IwMBoTniuqUtO6YaQDZXdPG1D+OT2d8XdkXHYfUBYN6
-         XR5s6HU9QHnnXufTUxs51TYuf8steXgw+87D4M6fPrq5qNzfRolv3FbwJg7fSeyH+/o4
-         63POGLv8qD9i2tjph4Llko/pqQZJMzASB2MSYUvhEDSAbTYXbY5kk3mwxZlWRP4aHTQ/
-         o9aA==
-X-Forwarded-Encrypted: i=1; AL+hErE3awr/+ZCBosij3vk60KaejJcTaIcyfjoo2DsUlso0EivRz4DrWkmv+8HnwmI2ur4b/3G72Qj1G/Sf@vger.kernel.org
-X-Gm-Message-State: APuU4Z8qCiRLJNjLmiFYXH+5/rRuQBv6bFV3uigLeVOq+01lb1F5D1+m
-	V/kHvUSS4pE3kX+MQWpYTHVhM/Fit8J4JQTNkOgVvp5SvfSy0iB70WMdaga5n7I9z+I=
-X-Gm-Gg: AZFdTZfGKSgb9typ+1jFTwpDY7VoZQwJFo+3SaoKAQQ6M/kFfKqsaU0JRMK+0rO+cEx
-	elRJLgc9OsVBIGAYiG9P+3ThrviUZr2f8ojGEf0G6woTPopzGvYqjgSaiGhcMetLz0+MdEDTZh7
-	rUZkMHF809qMLiWU1k4wFAcCAHTeuVK59WvU8w9KkpMQEJK0JJBoUmCqRq90/yE+NN90ktdSShb
-	xTphoMKLATTQjjd2CIVBIgxYkc92EBS5w5Do9i+8lb3jjDRsdwGu/zyCdbk+MyJ24vN7smFAgJY
-	iyRtx3KwB5vMOsoRjJFhGRi/BzjdyoOm8dCa3OyLGSjyqkPXLL/NzvJgyHTedlpsLNgGmq6ImKV
-	EHle05blQXzNgToKuD+qbvLoBKsSseXMkjTv9CMzJHjyLAJak7UACy5A02SvJxzqP3C65IKbYiu
-	/IZJtcpgyOhn5WGlpNsHVcfIDnlsol3+iPHPDyIKhHig0x0ZhUuuqbdQWb/yFbkwwbCW2ve7Vvx
-	QYaumzKU2a2lg53s0BTxPMrSaxk3icqBx8m/QyElGYX1QnvnZvDx+kg+xkFGQzt2eFV6NUgdXVo
-	BLIydTG0KdmeeVfQqpWU86xEZ5NLlc0gqabf
-X-Received: by 2002:a05:6402:13cb:b0:6ba:4bf3:4a2 with SMTP id 4fb4d7f45d1cf-6ba4bf305c0mr15740801a12.17.1795770728948;
-        Fri, 27 Nov 2026 01:12:08 -0800 (PST)
-Received: from [192.168.50.4] ([82.78.167.114])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4abbd84e661sm43017556f8f.18.2026.11.27.01.12.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 27 Nov 2026 01:12:08 -0800 (PST)
-Message-ID: <bd8014fe-6a77-445d-b73d-e87404638593@tuxon.dev>
-Date: Fri, 27 Nov 2026 11:12:06 +0200
+	by smtp.kernel.org (Postfix) with ESMTPS id CB48C1F00919;
+	Fri, 27 Nov 2026 09:11:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795770726;
+	bh=vNbhO50GiNuaaW+LC5eoTkqY7OMQkS9uvXG8VYmr0iI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Q/tyNXfkQz9lk945sB+nYvQc2n90FZukj45nm21xwTuIK/8SMD2GL+uFDUXyVuA2k
+	 biRcr2KnQqN35XabaD2vVBLtGs1FyyLThJv4DRP52M4UqsQL6XfTy5nYJ1I0IP9mGn
+	 w8JAYMflsLMqwe2Catiy4AqS4ICj6wuFwyTw8dTuMw+cDgsOVJX2ZjwUKodzMrbj83
+	 c8UslySNhvf54R+w5W2JFr17FIgffIX+d5cCYFfg0FxwmRukzXNNdmrx8SnVHyzbO8
+	 L/lF30+gjXGF2zxqJTZxnKDF3JIQXq0leujP75D2IXnu+I0U12VUxncVVJE8I74BCj
+	 ALZsyZzjq7KlA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 58BAD4B690;
+	Fri, 27 Nov 2026 09:11:51 +0000 (UTC)
+From: Jiebing Chen via B4 Relay <devnull+jiebing.chen.amlogic.com@kernel.org>
+Date: Fri, 27 Nov 2026 17:11:26 +0800
+Subject: [PATCH 1/2] clk: meson: axg_audio: add S4 support
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,84 +82,238 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/7] i3c: renesas: Fix zero I2C SCL rate on pure I3C
- buses
-To: Diogo Ivo <diogo.ivo.sx@renesas.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Linus Walleij <linusw@kernel.org>
-Cc: linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, stable@vger.kernel.org
-References: <20261026-divo-ssgrlpcsrc-2966-i3c-v2-0-2e76b87209bb@renesas.com>
- <20261026-divo-ssgrlpcsrc-2966-i3c-v2-1-2e76b87209bb@renesas.com>
-Content-Language: en-US
-From: claudiu beznea <claudiu.beznea@tuxon.dev>
-In-Reply-To: <20261026-divo-ssgrlpcsrc-2966-i3c-v2-1-2e76b87209bb@renesas.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261127-clock_audio-v1-1-cf3ccf6b2bf0@amlogic.com>
+References: <20261127-clock_audio-v1-0-cf3ccf6b2bf0@amlogic.com>
+In-Reply-To: <20261127-clock_audio-v1-0-cf3ccf6b2bf0@amlogic.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jerome Brunet <jbrunet@baylibre.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Jiebing Chen <jiebing.chen@amlogic.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795770705; l=9384;
+ i=jiebing.chen@amlogic.com; s=20250110; h=from:subject:message-id;
+ bh=mSlr+PYl6Kv5xTlb1MKaLQhx8bgwIvHXfLMJnftHOWU=;
+ b=yJFWDQe4AoJ+cVnWcaS1RiTwY2nykrbPRkeIaE/ZR/SjMfwyzm/BB6EZO8HWFWKjEl7vP/NUz
+ 3//8lG6RuV5BmdmiYZGmo3OL32O0/BjH+fSLqUrjWsk406MoM3PPumz
+X-Developer-Key: i=jiebing.chen@amlogic.com; a=ed25519;
+ pk=6rFvvF45A84pLNRy03hfUHeROxHCnZ+1KAGw/DoqKic=
+X-Endpoint-Received: by B4 Relay for jiebing.chen@amlogic.com/20250110 with
+ auth_id=316
+X-Original-From: Jiebing Chen <jiebing.chen@amlogic.com>
+Reply-To: jiebing.chen@amlogic.com
 Content-Transfer-Encoding: 7bit
 
-Hi, Diogo,
+From: Jiebing Chen <jiebing.chen@amlogic.com>
 
-On 10/26/26 13:35, Diogo Ivo wrote:
-> On a pure I3C bus there are no I2C devices, so the I3C core leaves
-> bus->scl_rate.i2c at zero if i2c-scl-hz is not specified in DT.
-> Deriving i2c_total_ticks from that zero rate programs a zero-width
-> open-drain SCL into the STDBR open-drain fields, which are still used
-> in pure I3C mode for example in DAA.
-> 
-> Fall back to the 1 MHz FM+ limit instead, the fastest rate an I2C
-> device could have, so that a sane open-drain timing is programmed.
-> 
-> Fixes: d028219a9f14 ("i3c: master: Add basic driver for the Renesas I3C controller")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
-> ---
-> Changes in v2:
->   - Substituted if/else with ternary operator
->   - Picked up R-b from Wolfram Sang
-> ---
->   drivers/i3c/master/renesas-i3c.c | 10 +++++++++-
->   1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/i3c/master/renesas-i3c.c b/drivers/i3c/master/renesas-i3c.c
-> index 8b264f72e55c..78d0a2c4a19e 100644
-> --- a/drivers/i3c/master/renesas-i3c.c
-> +++ b/drivers/i3c/master/renesas-i3c.c
-> @@ -579,7 +579,15 @@ static int renesas_i3c_bus_init(struct i3c_master_controller *m)
->   	if (!i3c->rate)
->   		return -EINVAL;
->   
-> -	i2c_total_ticks = DIV_ROUND_UP(i3c->rate, bus->scl_rate.i2c);
-> +	/*
-> +	 * A pure I3C bus has no I2C devices, so the I3C core leaves
-> +	 * scl_rate.i2c at zero if not explicitly defined in DT. The
-> +	 * open-drain SCL fields of STDBR, which are used for the DAA
-> +	 * pending read, are derived from it though, so fall back to
-> +	 * the 1 MHz FM+ limit instead of programming a zero-width clock.
-> +	 */
-> +	i2c_total_ticks = DIV_ROUND_UP(i3c->rate,
-> +				       bus->scl_rate.i2c ?: I3C_BUS_I2C_FM_PLUS_SCL_MAX_RATE);
+Add S4 support the axg audio clock controllers, Compared with the
+previous version, the selection of the audio's clock and data pad
+will be designed in the form of pinmux control. The purpose of doing
+this is to distinguish between clock control and pin control selection.
 
-The manual (at lest the RZ/G3S, Rev.1.30) mentions on the documentation of 
-BFCTL.FMPE bit:
+Signed-off-by: Jiebing Chen <jiebing.chen@amlogic.com>
+---
+ drivers/clk/meson/axg-audio.c | 165 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 165 insertions(+)
 
-Set this bit to 1 when using the transmission rate within a range up to 1 Mbps 
-(Fast-mode Plus [Fm+]) of the I3C-bus specification. Set this bit to 0 when 
-using the transmission rate at other rates (up to 100 kbps [Sm], up to 400 kbps
-[Fm]).
+diff --git a/drivers/clk/meson/axg-audio.c b/drivers/clk/meson/axg-audio.c
+index fd7eca652261..ab8c05b0509e 100644
+--- a/drivers/clk/meson/axg-audio.c
++++ b/drivers/clk/meson/axg-audio.c
+@@ -1150,6 +1150,159 @@ static struct clk_hw *g12a_audio_hw_clks[] = {
+ 	[AUD_CLKID_TOP]			= &axg_aud_top,
+ };
+ 
++/*
++ * Array of all S4 clocks provided by this provider
++ * The input clocks of the controller will be populated at runtime
++ */
++static struct clk_hw *s4_audio_hw_clks[] = {
++	[AUD_CLKID_DDR_ARB]		= &ddr_arb.hw,
++	[AUD_CLKID_PDM]			= &pdm.hw,
++	[AUD_CLKID_TDMIN_A]		= &tdmin_a.hw,
++	[AUD_CLKID_TDMIN_B]		= &tdmin_b.hw,
++	[AUD_CLKID_TDMIN_C]		= &tdmin_c.hw,
++	[AUD_CLKID_TDMIN_LB]		= &tdmin_lb.hw,
++	[AUD_CLKID_TDMOUT_A]		= &tdmout_a.hw,
++	[AUD_CLKID_TDMOUT_B]		= &tdmout_b.hw,
++	[AUD_CLKID_TDMOUT_C]		= &tdmout_c.hw,
++	[AUD_CLKID_FRDDR_A]		= &frddr_a.hw,
++	[AUD_CLKID_FRDDR_B]		= &frddr_b.hw,
++	[AUD_CLKID_FRDDR_C]		= &frddr_c.hw,
++	[AUD_CLKID_TODDR_A]		= &toddr_a.hw,
++	[AUD_CLKID_TODDR_B]		= &toddr_b.hw,
++	[AUD_CLKID_TODDR_C]		= &toddr_c.hw,
++	[AUD_CLKID_LOOPBACK]		= &loopback.hw,
++	[AUD_CLKID_SPDIFIN]		= &spdifin.hw,
++	[AUD_CLKID_SPDIFOUT]		= &spdifout.hw,
++	[AUD_CLKID_RESAMPLE]		= &resample.hw,
++	[AUD_CLKID_SPDIFOUT_B]		= &spdifout_b.hw,
++	[AUD_CLKID_MST_A_MCLK_SEL]	= &sm1_mst_a_mclk_sel.hw,
++	[AUD_CLKID_MST_B_MCLK_SEL]	= &sm1_mst_b_mclk_sel.hw,
++	[AUD_CLKID_MST_C_MCLK_SEL]	= &sm1_mst_c_mclk_sel.hw,
++	[AUD_CLKID_MST_D_MCLK_SEL]	= &sm1_mst_d_mclk_sel.hw,
++	[AUD_CLKID_MST_E_MCLK_SEL]	= &sm1_mst_e_mclk_sel.hw,
++	[AUD_CLKID_MST_F_MCLK_SEL]	= &sm1_mst_f_mclk_sel.hw,
++	[AUD_CLKID_MST_A_MCLK_DIV]	= &sm1_mst_a_mclk_div.hw,
++	[AUD_CLKID_MST_B_MCLK_DIV]	= &sm1_mst_b_mclk_div.hw,
++	[AUD_CLKID_MST_C_MCLK_DIV]	= &sm1_mst_c_mclk_div.hw,
++	[AUD_CLKID_MST_D_MCLK_DIV]	= &sm1_mst_d_mclk_div.hw,
++	[AUD_CLKID_MST_E_MCLK_DIV]	= &sm1_mst_e_mclk_div.hw,
++	[AUD_CLKID_MST_F_MCLK_DIV]	= &sm1_mst_f_mclk_div.hw,
++	[AUD_CLKID_MST_A_MCLK]		= &sm1_mst_a_mclk.hw,
++	[AUD_CLKID_MST_B_MCLK]		= &sm1_mst_b_mclk.hw,
++	[AUD_CLKID_MST_C_MCLK]		= &sm1_mst_c_mclk.hw,
++	[AUD_CLKID_MST_D_MCLK]		= &sm1_mst_d_mclk.hw,
++	[AUD_CLKID_MST_E_MCLK]		= &sm1_mst_e_mclk.hw,
++	[AUD_CLKID_MST_F_MCLK]		= &sm1_mst_f_mclk.hw,
++	[AUD_CLKID_SPDIFOUT_CLK_SEL]	= &spdifout_clk_sel.hw,
++	[AUD_CLKID_SPDIFOUT_CLK_DIV]	= &spdifout_clk_div.hw,
++	[AUD_CLKID_SPDIFOUT_CLK]	= &spdifout_clk.hw,
++	[AUD_CLKID_SPDIFOUT_B_CLK_SEL]	= &spdifout_b_clk_sel.hw,
++	[AUD_CLKID_SPDIFOUT_B_CLK_DIV]	= &spdifout_b_clk_div.hw,
++	[AUD_CLKID_SPDIFOUT_B_CLK]	= &spdifout_b_clk.hw,
++	[AUD_CLKID_SPDIFIN_CLK_SEL]	= &spdifin_clk_sel.hw,
++	[AUD_CLKID_SPDIFIN_CLK_DIV]	= &spdifin_clk_div.hw,
++	[AUD_CLKID_SPDIFIN_CLK]		= &spdifin_clk.hw,
++	[AUD_CLKID_PDM_DCLK_SEL]	= &pdm_dclk_sel.hw,
++	[AUD_CLKID_PDM_DCLK_DIV]	= &pdm_dclk_div.hw,
++	[AUD_CLKID_PDM_DCLK]		= &pdm_dclk.hw,
++	[AUD_CLKID_PDM_SYSCLK_SEL]	= &pdm_sysclk_sel.hw,
++	[AUD_CLKID_PDM_SYSCLK_DIV]	= &pdm_sysclk_div.hw,
++	[AUD_CLKID_PDM_SYSCLK]		= &pdm_sysclk.hw,
++	[AUD_CLKID_MST_A_SCLK_PRE_EN]	= &mst_a_sclk_pre_en.hw,
++	[AUD_CLKID_MST_B_SCLK_PRE_EN]	= &mst_b_sclk_pre_en.hw,
++	[AUD_CLKID_MST_C_SCLK_PRE_EN]	= &mst_c_sclk_pre_en.hw,
++	[AUD_CLKID_MST_D_SCLK_PRE_EN]	= &mst_d_sclk_pre_en.hw,
++	[AUD_CLKID_MST_E_SCLK_PRE_EN]	= &mst_e_sclk_pre_en.hw,
++	[AUD_CLKID_MST_F_SCLK_PRE_EN]	= &mst_f_sclk_pre_en.hw,
++	[AUD_CLKID_MST_A_SCLK_DIV]	= &mst_a_sclk_div.hw,
++	[AUD_CLKID_MST_B_SCLK_DIV]	= &mst_b_sclk_div.hw,
++	[AUD_CLKID_MST_C_SCLK_DIV]	= &mst_c_sclk_div.hw,
++	[AUD_CLKID_MST_D_SCLK_DIV]	= &mst_d_sclk_div.hw,
++	[AUD_CLKID_MST_E_SCLK_DIV]	= &mst_e_sclk_div.hw,
++	[AUD_CLKID_MST_F_SCLK_DIV]	= &mst_f_sclk_div.hw,
++	[AUD_CLKID_MST_A_SCLK_POST_EN]	= &mst_a_sclk_post_en.hw,
++	[AUD_CLKID_MST_B_SCLK_POST_EN]	= &mst_b_sclk_post_en.hw,
++	[AUD_CLKID_MST_C_SCLK_POST_EN]	= &mst_c_sclk_post_en.hw,
++	[AUD_CLKID_MST_D_SCLK_POST_EN]	= &mst_d_sclk_post_en.hw,
++	[AUD_CLKID_MST_E_SCLK_POST_EN]	= &mst_e_sclk_post_en.hw,
++	[AUD_CLKID_MST_F_SCLK_POST_EN]	= &mst_f_sclk_post_en.hw,
++	[AUD_CLKID_MST_A_SCLK]		= &mst_a_sclk.hw,
++	[AUD_CLKID_MST_B_SCLK]		= &mst_b_sclk.hw,
++	[AUD_CLKID_MST_C_SCLK]		= &mst_c_sclk.hw,
++	[AUD_CLKID_MST_D_SCLK]		= &mst_d_sclk.hw,
++	[AUD_CLKID_MST_E_SCLK]		= &mst_e_sclk.hw,
++	[AUD_CLKID_MST_F_SCLK]		= &mst_f_sclk.hw,
++	[AUD_CLKID_MST_A_LRCLK_DIV]	= &mst_a_lrclk_div.hw,
++	[AUD_CLKID_MST_B_LRCLK_DIV]	= &mst_b_lrclk_div.hw,
++	[AUD_CLKID_MST_C_LRCLK_DIV]	= &mst_c_lrclk_div.hw,
++	[AUD_CLKID_MST_D_LRCLK_DIV]	= &mst_d_lrclk_div.hw,
++	[AUD_CLKID_MST_E_LRCLK_DIV]	= &mst_e_lrclk_div.hw,
++	[AUD_CLKID_MST_F_LRCLK_DIV]	= &mst_f_lrclk_div.hw,
++	[AUD_CLKID_MST_A_LRCLK]		= &mst_a_lrclk.hw,
++	[AUD_CLKID_MST_B_LRCLK]		= &mst_b_lrclk.hw,
++	[AUD_CLKID_MST_C_LRCLK]		= &mst_c_lrclk.hw,
++	[AUD_CLKID_MST_D_LRCLK]		= &mst_d_lrclk.hw,
++	[AUD_CLKID_MST_E_LRCLK]		= &mst_e_lrclk.hw,
++	[AUD_CLKID_MST_F_LRCLK]		= &mst_f_lrclk.hw,
++	[AUD_CLKID_TDMIN_A_SCLK_SEL]	= &tdmin_a_sclk_sel.hw,
++	[AUD_CLKID_TDMIN_B_SCLK_SEL]	= &tdmin_b_sclk_sel.hw,
++	[AUD_CLKID_TDMIN_C_SCLK_SEL]	= &tdmin_c_sclk_sel.hw,
++	[AUD_CLKID_TDMIN_LB_SCLK_SEL]	= &tdmin_lb_sclk_sel.hw,
++	[AUD_CLKID_TDMOUT_A_SCLK_SEL]	= &tdmout_a_sclk_sel.hw,
++	[AUD_CLKID_TDMOUT_B_SCLK_SEL]	= &tdmout_b_sclk_sel.hw,
++	[AUD_CLKID_TDMOUT_C_SCLK_SEL]	= &tdmout_c_sclk_sel.hw,
++	[AUD_CLKID_TDMIN_A_SCLK_PRE_EN]	= &tdmin_a_sclk_pre_en.hw,
++	[AUD_CLKID_TDMIN_B_SCLK_PRE_EN]	= &tdmin_b_sclk_pre_en.hw,
++	[AUD_CLKID_TDMIN_C_SCLK_PRE_EN]	= &tdmin_c_sclk_pre_en.hw,
++	[AUD_CLKID_TDMIN_LB_SCLK_PRE_EN] = &tdmin_lb_sclk_pre_en.hw,
++	[AUD_CLKID_TDMOUT_A_SCLK_PRE_EN] = &tdmout_a_sclk_pre_en.hw,
++	[AUD_CLKID_TDMOUT_B_SCLK_PRE_EN] = &tdmout_b_sclk_pre_en.hw,
++	[AUD_CLKID_TDMOUT_C_SCLK_PRE_EN] = &tdmout_c_sclk_pre_en.hw,
++	[AUD_CLKID_TDMIN_A_SCLK_POST_EN] = &tdmin_a_sclk_post_en.hw,
++	[AUD_CLKID_TDMIN_B_SCLK_POST_EN] = &tdmin_b_sclk_post_en.hw,
++	[AUD_CLKID_TDMIN_C_SCLK_POST_EN] = &tdmin_c_sclk_post_en.hw,
++	[AUD_CLKID_TDMIN_LB_SCLK_POST_EN] = &tdmin_lb_sclk_post_en.hw,
++	[AUD_CLKID_TDMOUT_A_SCLK_POST_EN] = &tdmout_a_sclk_post_en.hw,
++	[AUD_CLKID_TDMOUT_B_SCLK_POST_EN] = &tdmout_b_sclk_post_en.hw,
++	[AUD_CLKID_TDMOUT_C_SCLK_POST_EN] = &tdmout_c_sclk_post_en.hw,
++	[AUD_CLKID_TDMIN_A_SCLK]	= &tdmin_a_sclk.hw,
++	[AUD_CLKID_TDMIN_B_SCLK]	= &tdmin_b_sclk.hw,
++	[AUD_CLKID_TDMIN_C_SCLK]	= &tdmin_c_sclk.hw,
++	[AUD_CLKID_TDMIN_LB_SCLK]	= &tdmin_lb_sclk.hw,
++	[AUD_CLKID_TDMOUT_A_SCLK]	= &g12a_tdmout_a_sclk.hw,
++	[AUD_CLKID_TDMOUT_B_SCLK]	= &g12a_tdmout_b_sclk.hw,
++	[AUD_CLKID_TDMOUT_C_SCLK]	= &g12a_tdmout_c_sclk.hw,
++	[AUD_CLKID_TDMIN_A_LRCLK]	= &tdmin_a_lrclk.hw,
++	[AUD_CLKID_TDMIN_B_LRCLK]	= &tdmin_b_lrclk.hw,
++	[AUD_CLKID_TDMIN_C_LRCLK]	= &tdmin_c_lrclk.hw,
++	[AUD_CLKID_TDMIN_LB_LRCLK]	= &tdmin_lb_lrclk.hw,
++	[AUD_CLKID_TDMOUT_A_LRCLK]	= &tdmout_a_lrclk.hw,
++	[AUD_CLKID_TDMOUT_B_LRCLK]	= &tdmout_b_lrclk.hw,
++	[AUD_CLKID_TDMOUT_C_LRCLK]	= &tdmout_c_lrclk.hw,
++	[AUD_CLKID_TOP]			= &sm1_aud_top.hw,
++	[AUD_CLKID_TORAM]		= &toram.hw,
++	[AUD_CLKID_EQDRC]		= &eqdrc.hw,
++	[AUD_CLKID_RESAMPLE_B]		= &resample_b.hw,
++	[AUD_CLKID_TOVAD]		= &tovad.hw,
++	[AUD_CLKID_LOCKER]		= &locker.hw,
++	[AUD_CLKID_SPDIFIN_LB]		= &spdifin_lb.hw,
++	[AUD_CLKID_FRDDR_D]		= &frddr_d.hw,
++	[AUD_CLKID_TODDR_D]		= &toddr_d.hw,
++	[AUD_CLKID_LOOPBACK_B]		= &loopback_b.hw,
++	[AUD_CLKID_CLK81_EN]		= &sm1_clk81_en.hw,
++	[AUD_CLKID_SYSCLK_A_DIV]	= &sm1_sysclk_a_div.hw,
++	[AUD_CLKID_SYSCLK_A_EN]		= &sm1_sysclk_a_en.hw,
++	[AUD_CLKID_SYSCLK_B_DIV]	= &sm1_sysclk_b_div.hw,
++	[AUD_CLKID_SYSCLK_B_EN]		= &sm1_sysclk_b_en.hw,
++	[AUD_CLKID_EARCRX]		= &earcrx.hw,
++	[AUD_CLKID_EARCRX_CMDC_SEL]	= &sm1_earcrx_cmdc_clk_sel.hw,
++	[AUD_CLKID_EARCRX_CMDC_DIV]	= &sm1_earcrx_cmdc_clk_div.hw,
++	[AUD_CLKID_EARCRX_CMDC]		= &sm1_earcrx_cmdc_clk.hw,
++	[AUD_CLKID_EARCRX_DMAC_SEL]	= &sm1_earcrx_dmac_clk_sel.hw,
++	[AUD_CLKID_EARCRX_DMAC_DIV]	= &sm1_earcrx_dmac_clk_div.hw,
++	[AUD_CLKID_EARCRX_DMAC]		= &sm1_earcrx_dmac_clk.hw,
++};
++
+ /*
+  * Array of all SM1 clocks provided by this provider
+  * The input clocks of the controller will be populated at runtime
+@@ -1410,6 +1563,15 @@ static const struct audioclk_data g12a_audioclk_data = {
+ 	.max_register = AUDIO_CLK_SPDIFOUT_B_CTRL,
+ };
+ 
++static const struct audioclk_data s4_audioclk_data = {
++	.hw_clks = {
++		.hws = s4_audio_hw_clks,
++		.num = ARRAY_SIZE(s4_audio_hw_clks),
++	},
++	.rst_drvname = "rst-sm1",
++	.max_register = AUDIO_EARCRX_DMAC_CLK_CTRL,
++};
++
+ static const struct audioclk_data sm1_audioclk_data = {
+ 	.hw_clks = {
+ 		.hws = sm1_audio_hw_clks,
+@@ -1426,6 +1588,9 @@ static const struct of_device_id clkc_match_table[] = {
+ 	}, {
+ 		.compatible = "amlogic,g12a-audio-clkc",
+ 		.data = &g12a_audioclk_data
++	}, {
++		.compatible = "amlogic,s4-audio-clkc",
++		.data = &s4_audioclk_data
+ 	}, {
+ 		.compatible = "amlogic,sm1-audio-clkc",
+ 		.data = &sm1_audioclk_data
 
-In case the i2c_total_ticks = I3C_BUS_I2C_FM_PLUS_SCL_MAX_RATE should the 
-BFCTL.FMPE bit also be set for the operation you mentioned? If so, maybe set the 
-default to I3C_BUS_I2C_FM_SCL_MAX_RATE to avoid any further changes?
+-- 
+2.52.0
 
-Thank you,
-Claudiu
+
