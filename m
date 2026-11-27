@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795796224;
-	b=EeAOnhg1ibIYUxshBS151YRWsr+ODn1PfAvwEoPmgWGWfHnBPoLkvKILr58CIwu+35bP
-	 mC6yXGU9RfNRzokVgOPWfS/mhK6vWF7x7cxIXKEDsBAYn+Zao8Kr23jpfi+X13n7qpme9
-	 Mv5QLatTgSB08ojnNavwlL3uTUFJUQG4wrBjJUO2L4mLOsq2nifeFs2EMwVhE3Hs7o2AZ
-	 uuNO/Kc3CUROyzHaaX8mSqliXVASAy6xYdJ7P3pOZFOymGNos1x65QsxJgAzVLGjkCtoX
-	 +5GniJtwLXHpOTH6DrK+cZJcaUOxhgSJk7FRJM68JDH+eHwbS5eWzdx+6UknKx/Qdhw==
+	t=1795796243;
+	b=0Ukg+XoQqPfdKNpubYdZvX9yBvP56DD8n52SDYC20svv9upOzb1pvsKnEGhcKp1o8sjM
+	 O0m8OM/DhU0y6qTuuN41WFLaVK3+NICyNVnsLQAyVt9mIbHcOxoQxXYmY/OlSp79QxI9/
+	 qZ+WI28ewfaxLCXm4FltcQrZPxiFuSaS3nHUlC4i1NwzVpMZ72g6ZB9Uuq0qeTvirJnmC
+	 qUEn5k4j5JtIJ5GYoruRq+uhQ1RP/8XZx5htjO99F0BOXEb3JF/cWwB/KA5b4KW8T+tkH
+	 VHCwxl/4H7EQYljIvnTmEGhfqtvLFgbSY5sn8Snu/+nmz7KyP+C4PwhUz09v+UbrKOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795796224;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=h9E/Yw/XiRcNTmIHpnLOrEiseMqMVpa53c4l91nHw60=;
-	b=L7eYxw1tHiH+zOJGkV/addvVnPvOjdeFSrshXPMIswqbQ8S6yJc54kfByPzgVEmZPWMP
-	 05O6RAFqFryo4qR/WJ8jraY75D2e9eF87bt5vP7zbMSq0W6FoukauG+k6hlEfRqxg0fl2
-	 nbEZjlCQKBd33Q5okV0POhGTsf+0KEtrRgPIDItJuGVlTeaiGi5vYCJXXus4CNnNKojxC
-	 l6dvWzP1oLqatHsvNxMS+hn45Gen191WG4oLPck2XfAYEK4BWktoc4tNh5yvDRJxe5GXr
-	 7y8Lfk9kPnT882sfP5cWmlhRsMPm698KRpe3G64q+5fQqbj75C0i/iCc09aGzFiYi+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795796243;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=/dzVLSTzAtZpIlTRksLK3iB4FqDeUyOeTiMZVSsykQw=;
+	b=S/Qfe4/BvGMEEbiJao3Q7A3ZVYg9ld3CIlCGhVYDAzYkqKtwgVwIj++4717v/tMNwIVb
+	 7cHo8Y8Pj7AiSdIPKZMq75upuv6zJMhWRtmBLzVl48L7XmdUPGLG2pNZ0ARPYuzUMSsde
+	 FYcHthKQkU1i2nWyxd+TmqIB0rrqVj4JuO7Z/pyXbtCDi5ZRdotEIi9WIoMbRvWUwm3rZ
+	 9PI1+tzlKBMkx3lWSbra6IyO6is58tDEdbRsrmbUyuYOaYlCefndH3H5x4tp+qPlhPzNh
+	 e07BKu4ShNTc2auo9u601CGeoKt0OB5e0sEd//0sx3FSqOHAn0/JQdpucdH+uYNS/gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K+2VETt1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=bw3+HFFy;
+	arc=none smtp.remote-ip=185.70.43.22
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4FF606A31C;
-	Fri, 27 Nov 2026 16:17:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C8AA606A31E;
+	Fri, 27 Nov 2026 16:17:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C8AA606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K+2VETt1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF2EE1F000C1;
-	Fri, 27 Nov 2026 16:17:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795796223;
-	bh=h9E/Yw/XiRcNTmIHpnLOrEiseMqMVpa53c4l91nHw60=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=K+2VETt1gm8yx4ZCYHW1v5Rqz8yP+PAnq8Qq54b24Av0PRL4Cqt8F6sNJeEveVFOA
-	 6bjp04QE8cFSmxESOSoDMnwcGM1GjefBXdtkGsOAJNz2a/GtLv6zH5ArIELzX8/NS5
-	 N08YdAjNHWJbE2cPkEBwG99Nakm1TKgUnvYTL6i+PBAclZNXH5Thmi21Py+wDpJpCF
-	 RqSUl6uCZEvzW4D8TkMuqzIvMxZ7QcBppWPf7eCc0UMQDYw6wQq/HNPCJmMK5BqCag
-	 RpX28rHLVMBmMQACJvRrxFhG1suRMWtuBp5Huvkgisy/LVU/LVugaAzGYAI8mRiC2A
-	 kyvmYM6bOG+Lw==
-Message-ID: <sashiko-outbox-237859@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v16 02/23] dt-bindings: ufs: mediatek,ufs: Complete the
- binding
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-scsi@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261127-mt8196-ufs-v16-2-6f2568f7c119@collabora.com>
-References: <20261127-mt8196-ufs-v16-0-6f2568f7c119@collabora.com>
- <20261127-mt8196-ufs-v16-2-6f2568f7c119@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 16:17:02 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=bw3+HFFy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1795796236; x=1796055436;
+	bh=/dzVLSTzAtZpIlTRksLK3iB4FqDeUyOeTiMZVSsykQw=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=bw3+HFFyYQSibJAWqRVnLPlholNoMj9tEn3t2soACFMU2eyOHoBOwGWI/J9jRj7w/
+	 SuWRdVrnbfegHXOIj2NPi8YSpMwdGzNpvSfkqKCpTu7a9NHfXQG+c6TY3AaFA/PZek
+	 zO9FEn8O7MR1Gy82G3LDgzvtXoKO8YO5OnbSTWemOC1yC+WDCtpqRshHZtByTHn/dN
+	 i+s7V+6z3sxAYmkdsO1bTo2PiQH+Yyj+vCKggv0MudNRzvPLTj0w8VFy/SsaUspiqg
+	 WuV3tP6d4UFWNLjV586UWPJf2Itj4o//zCrPSfajSK9pARyKKJNU1FaU9Hejit0QfW
+	 FkJbT6dR+YT4w==
+Date: Fri, 27 Nov 2026 16:17:11 +0000
+To: Andre Przywara <andre.przywara@arm.com>
+From: Norman Herms <dockseed@proton.me>
+Cc: Enzo Adriano <enzo.adriano.code@gmail.com>, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org, Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, Junhui Liu <junhui.liu@pigmoral.tech>, Jerome Brunet <jbrunet@baylibre.com>, Pablo Mazzini <pmazzini@gmail.com>, Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>, Alexander Sverdlin <alex@sverdlin.org>, Jun Yan <jerrysteve1101@gmail.com>, Lukas Schmid <lukas.schmid@netcube.li>, Cristian Filipescu <filipescu.cristian@gmail.com>
+Subject: Re: [PATCH v6 3/5] arm64: dts: allwinner: add Radxa Cubie A7S board
+Message-ID: <IUp5Ow8SUNdgtour7we7BN_rry0fuoBNw-ucfXERukfbwTWvoWo5QjYLXAzxftTjGnsuhCCnwvxZ5fBpL6pFPL62oTr2hZddgE6XmrQ76o0=@proton.me>
+In-Reply-To: <0a7f4a31-81ac-44ee-8cd2-7b5526af7442@arm.com>
+References: <20261126-a733-cubie-a7s-dt-v6-0@gmail.com> <20261126-a733-cubie-a7s-dt-v6-3@gmail.com> <0a7f4a31-81ac-44ee-8cd2-7b5526af7442@arm.com>
+Feedback-ID: 144388465:user:proton
+X-Pm-Message-ID: 2bae6d665eabca9caaa9f917c67d0b69de98846a
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,151 +63,30 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [Medium] dt-bindings: ufs: mediatek: incompatible schema breaks
-  in-tree mt8195.dtsi
-- [Low] dt-bindings: ufs: mediatek: MT8195 example uses ungated topckgen
-  rx_symbol clocks
-- [Low] dt-bindings: ufs: mediatek: non-canonical property order in
-  example and schema
-- [Low] dt-bindings: ufs: mediatek: redundant word binding in commit
-  subject
---
+Hi Andre,
 
-commit e2ae6fefa9dc14389b243b607b0000f77a86ab97
-Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+On the ELDO1 question: the AXP318W datasheet (V1.0, Chinese, table
+6-3) gives ELDO1 a default of 0.9 V and leaves it off at power-up, as it
+does DCDC6 and DCDC7. So 1.075 V is not the PMIC default.
 
-dt-bindings: ufs: mediatek,ufs: Complete the binding
+On the A7S we boot our own chain (U-Boot SPL calling the vendor DRAM
+init, TF-A, U-Boot), and none of the open parts writes ELDO1. That
+leaves the vendor DRAM init, which switches it on. Its value follows
+VDD2H on the 25 mV grid: with DCDC7 at 1080 mV we read ELDO1 at
+1075 mV, and with Radxa's own boot0 at 1120 mV we read 1100 mV.
 
-This commit expands the MediaTek UFS binding with reset properties,
-additional clocks and power supplies, operating-points-v2 support, and an
-MT8195 example while disallowing freq-table-hz and renaming clock-names.
+We have also tried VDD2L at 0.9 V on the A7S. Lowering ELDO1 from
+Linux changes the voltage after the DRAM training ran at 1.075 V,
+which can lead to errors. So we keep the value the DRAM init leaves,
+even though it does not match the schematic, as the v6 node without
+voltage bounds does. The vendor DRAM init sets all the DRAM rails
+itself, so a clean 0.9 V would have to come from there.
 
-> dt-bindings: ufs: mediatek,ufs: Complete the binding
+Built and measured by AI agents (Claude) on my board.
 
-[Severity: Low]
-This isn't a bug, but the dt-bindings: prefix already states that the patch
-touches a binding, so repeating "binding" in the subject line is redundant.
-
-> diff --git a/Documentation/devicetree/bindings/ufs/mediatek,ufs.yaml b/Do=
-cumentation/devicetree/bindings/ufs/mediatek,ufs.yaml
-> index 15c347f5e6604..945cb986b06b7 100644
-> --- a/Documentation/devicetree/bindings/ufs/mediatek,ufs.yaml
-> +++ b/Documentation/devicetree/bindings/ufs/mediatek,ufs.yaml
-> @@ -19,11 +19,25 @@ properties:
-> =20
->    clocks:
->      minItems: 1
-> -    maxItems: 8
-> +    maxItems: 10
-> =20
->    clock-names:
->      minItems: 1
-> -    maxItems: 8
-> +    items:
-> +      - const: main
-> +      - const: aes
-> +      - const: tick
-> +      - const: unipro_sysclk
-> +      - const: unipro_tick
-> +      - const: unipro_mp_bclk
-> +      - const: tx_symbol
-> +      - const: mem_sub
-> +      - const: rx_symbol0
-> +      - const: rx_symbol1
-> +
-> +  operating-points-v2: true
-> +
-> +  freq-table-hz: false
-
-[Severity: Medium]
-Does renaming the existing clock-names, disallowing freq-table-hz, and
-raising clocks minItems to 10 for mediatek,mt8195-ufshci break DT ABI and
-dtbs_check for the in-tree MT8195 and MT8395 device trees?
-
-The commit message notes that the binding is unused in mainline outside of
-its example, but arch/arm64/boot/dts/mediatek/mt8195.dtsi already defines
-ufshci@11270000 (enabled by mt8395-genio-1200-evk-ufs.dts and
-mt8395-radxa-nio-12l.dts) with 8 clocks using the "ufs" and "ufs_*" names
-along with freq-table-hz:
-
-arch/arm64/boot/dts/mediatek/mt8195.dtsi:
-		ufshci: ufshci@11270000 {
-			compatible =3D "mediatek,mt8195-ufshci";
-			...
-			clock-names =3D "ufs", "ufs_aes", "ufs_tick",
-					"unipro_sysclk", "unipro_tick",
-					"unipro_mp_bclk", "ufs_tx_symbol",
-					"ufs_mem_sub";
-			freq-table-hz =3D <0 0>, <0 0>, <0 0>,
-					<0 0>, <0 0>, <0 0>,
-					<0 0>, <0 0>;
-
->    phys:
->      maxItems: 1
-> @@ -31,8 +45,36 @@ properties:
->    reg:
->      maxItems: 1
-
-[ ... ]
-
-> @@ -94,9 +148,32 @@ examples:
->              phys =3D <&ufsphy>;
-> =20
->              clocks =3D <&infracfg_ao CLK_INFRA_UFS>;
-> -            clock-names =3D "ufs";
-> -            freq-table-hz =3D <0 0>;
-> +            clock-names =3D "main";
-> =20
->              vcc-supply =3D <&mt_pmic_vemc_ldo_reg>;
->          };
->      };
-> +  - |
-> +    ufshci@11270000 {
-> +        compatible =3D "mediatek,mt8195-ufshci";
-> +        reg =3D <0x11270000 0x2300>;
-> +        interrupts =3D <GIC_SPI 137 IRQ_TYPE_LEVEL_HIGH>;
-> +        phys =3D <&ufsphy>;
-> +        clocks =3D <&infracfg_ao 63>, <&infracfg_ao 64>, <&infracfg_ao 6=
-5>,
-> +                 <&infracfg_ao 54>, <&infracfg_ao 55>, <&infracfg_ao 56>,
-> +                 <&infracfg_ao 90>, <&infracfg_ao 93>, <&topckgen 212>,
-> +                 <&topckgen 215>;
-> +        clock-names =3D "main", "aes", "tick", "unipro_sysclk", "unipro_=
-tick",
-> +                      "unipro_mp_bclk", "tx_symbol", "mem_sub", "rx_symb=
-ol0",
-> +                      "rx_symbol1";
-
-[Severity: Low]
-Should rx_symbol0 and rx_symbol1 in this example reference the infracfg_ao
-gate clocks <&infracfg_ao 91> (CLK_INFRA_AO_UFS_RX_SYMBOL) and
-<&infracfg_ao 92> (CLK_INFRA_AO_UFS_RX_SYMBOL1) rather than the ungated
-topckgen fixed-rate parent clocks <&topckgen 212> and <&topckgen 215>?
-
-In drivers/clk/mediatek/clk-mt8195-infra_ao.c, those topckgen clocks feed
-the INFRA_AO4 gates alongside tx_symbol (<&infracfg_ao 90>):
-
-drivers/clk/mediatek/clk-mt8195-infra_ao.c:
-	GATE_INFRA_AO4(CLK_INFRA_AO_UFS_TX_SYMBOL, "infra_ao_ufs_tx_symbol", "ufs_=
-tx_symbol", 22),
-	GATE_INFRA_AO4(CLK_INFRA_AO_UFS_RX_SYMBOL, "infra_ao_ufs_rx_symbol", "ufs_=
-rx_symbol", 23),
-	GATE_INFRA_AO4(CLK_INFRA_AO_UFS_RX_SYMBOL1, "infra_ao_ufs_rx_symbol1", "uf=
-s_rx_symbol1", 24),
-
-Using the topckgen parent clocks directly leaves the INFRA_AO4 clock gates
-for rx_symbol0 and rx_symbol1 unreferenced and disabled.
-
-[Severity: Low]
-This isn't a bug, but the property order here does not follow the canonical
-DT binding order (compatible, reg, clocks, clock-names, interrupts, ...):
-the example node lists interrupts and phys before clocks and clock-names,
-and the schema properties: and required: blocks list reg after clocks,
-clock-names, and phys rather than right after compatible.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127-mt8196-ufs=
--v16-0-6f2568f7c119@collabora.com?part=3D2
+Thanks,
+Norman
