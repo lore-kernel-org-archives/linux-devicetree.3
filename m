@@ -1,87 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795799601;
-	b=XsZB8etIJIc4zl5jkuJFyBPAE7ptjrweAmAvNRHCewGlJm9/E8GKrRexK14Z4HRH1zxO
-	 g1URawhw/hXIQgn87NY/RuyoPHzvxGxsDLoxWs0a9JDBnSbYm2jb2UpDHb7B/jDzwsvTP
-	 W7/umclzuezNN85ut6yZDebNCriqapwtVo0E+dCOhOYdoIy2FZyoggsd3hDH63I0dIkZy
-	 jcXELVl/1+cWUuxsCyp03aP6oqdvmSNzHhHciHRqfKZaftHU3XFpJVXqrYO+pQPtPBsHo
-	 9E+51QUh7rj1eylrFTp/GuOy0mjPbIqwKI2XWfMplPLIifhPysOsyztBYm/sn/Bypyw==
+	t=1795800264;
+	b=pW/3T2ar3kHFMbz8dOnaOHbP2/n/ygecncWeaLnzzD9gLj4RboZk8JkUt2wIC61Q91m8
+	 JzIlNpQlyJcLY1LPPnGCyk1USWyNDDGJshBNOfk0SkANoMl1Sob/OeQVsBIDNKQmBq7uf
+	 3czVDAaoyM1QgdPhCLscokaKkmodVhqAFFwiDtdK9KFSaNVOINsXJMSoz+ERTM11yLXBR
+	 n+FsS2FXv9XgSsp5S6JejNnxNYHmQ1Qyyre8JSzC0zYXJ9UurOl+6RRPaOe7ShffNCTqD
+	 HGB6vBoAPdsRrPp9wNMviWptnwCsif+dH0WJ+BI8LGIon5kVKmp/VZPijsdZT73Mzrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795799601;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=j+q9Pl+HbS/InTwJthHaenRguBaH+pMfXVenIDo/BDc=;
-	b=GGVWqAGjaok6LWHVUyozS0VoVt/fO91H2wReYEfepOOczApYNCFhEPMz7HR4ZoNbf4ZT
-	 wry9Qcml8TScrjfbFytm16Cz/tm4h21Xwras2lBUlYmD0hEaphlJRflO5xlK+QdZzcr0w
-	 g3kAt+Kcgbp2O107L08h9TtIKFlr1HzKRS9+rOynGIRpsiL4gwK1mN7bP11vRVddi4H4d
-	 9fB4a84AGF72HL1U+ZoSc45KNVi0ns38emejSWnNVFTmnC5PP9bWzS49E6ZvnTR1t+6MS
-	 vJfozKtM1/AfRl0Z83Y0v+/zbOPyzeA9KAXwN3uyba8rQ8Lt3HgEG3hBmUbgK2D8ZLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795800264;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
+	bh=RHZ/QH5LnoISU6GeZCjgA0RZWJvhgjCLYDlmnSC1S/U=;
+	b=3hUxKN/7oafLbnCarq3ZcNws4fI8Ti0q2gFhpla9Xb6MgKf7M10CwuzC8so2RuYAo+Md
+	 irK33c/FtZns6KB+yJHS4wZ9XgNkBr0zHT5qjUofiwbw0wD5sDaKPU+BHJaHzJ2SmWAjA
+	 zlIOYb4UJGUUkyXhJyy8J3oiuBq3q+3oj17fAh06aRUNRvT7t4t5SzszWCA8xprheweQ6
+	 LNCDhCkvfJK7lcw9jC1//ZXQgUzCB3Au+lU2XizGj/2yKHdQmGaaHAwQK6TxXEJpHYbq0
+	 o0BuaCqcELIpj0c7p9GeowI+3CDCzgeE3gDx5X47L77AFSl/8NhWRFKjR/fEBC/HAjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ATise0C2;
-	arc=none smtp.remote-ip=209.85.208.174
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=W870dAHW;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43589606A321
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 17:13:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43589606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2776F606A31C;
+	Fri, 27 Nov 2026 17:24:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2776F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ATise0C2
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3adf222704dso8914231fa.0
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 09:13:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795799598; x=1796404398; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=j+q9Pl+HbS/InTwJthHaenRguBaH+pMfXVenIDo/BDc=;
-        b=ATise0C2zygRkVnxpn+1Gi+wvzEDgRrpYlXsPMFVnxfwFb0qY49ChyMhFagedwTd7C
-         jjSKjOm248dCpVusUvOYfdFzbr78C0kpyq2Pp8/1bAM2zRTuxlneQ3ujKVqKpxBMQrvh
-         GkXqsFZbRJoIIshL3ynznuBArbx99GiXKbAG+y09VMweTymBKGAEPh+hf5kOtdh76tSQ
-         evsiB1kTOgSdcu8JdO4giOZDLdscI8A1y+vRaCfQk2i6k9sZXWdeEanPeJLpvickPIJx
-         gTmyNu+sLjEEgHosT7/77fiOtjFIYCItYX+0Q2lLzeKwS5iZMCJM1uYPoAfx+9cAnnoD
-         FidA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795799598; x=1796404398;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j+q9Pl+HbS/InTwJthHaenRguBaH+pMfXVenIDo/BDc=;
-        b=NPcWjDjo3FStG2FMxfuOOzHcGgJdpmMxNdadKdmn0w9H5NMeHTmafVDfb02n111yjD
-         A7FrdzloJ8/beIzdqZEXFouXPB1CGIygMV6bZPyUEbgCReFLB75+lp6RcSBwFpA6kJTK
-         EzBwKLGVZgGNs5kC8vtzPYm7BC7X+Gak7dcZoo/d2Dh9YnYZFKZty88Jt5sPNQHPIjPn
-         w83BAIF8pKY0DdJt205BBwzUD/HRd1xeA/x2K9jtBapRoPJ9ZKzqFkD+FobVrhoZ1dkc
-         bJiV+eShJjrumUf3b+BMdqRPRYRZxsPydpb0l6OuUemmUGKsv3AogPXje1O7Dhvj9jwU
-         96mA==
-X-Forwarded-Encrypted: i=1; AL+hErFyTqNLoKmFerGtOFx+ZmNdZS+8Z0cTekEyjQOflrcDusOVl/0ZbH4SoNwMEt6t8FBCrIA4DD2HDzmp@vger.kernel.org
-X-Gm-Message-State: APuU4Z/LWPp1YsRJmaLCdTjlHQGaxmM+mf8Rztk5y+7vMdbfpJSuciMI
-	hpIi0Jv7PZgcTUc+DWMPdVAKjlYL8s3IkQs+8WkHbie5fRrc4vFp1lbFDvLXwRr/k/A=
-X-Gm-Gg: AZFdTZf6neAr+sU3HW8qQNSHHe5TAW24IlH5hOs6rAOJd2bBYxkUcRU9xLOetZ+4JGO
-	W+xqdXOaqAceYYE75wn/a77jnfRJxWLNxB5iVKpNx/cGYSvRa+tmAoizI/DmtiLA9l71wCiI/XL
-	Kpsvcd6q1Xea58gar88lNZmB4tdry2j57r/6/I1SaPoGVOaFsRO4Cjn19dafiiPEK7yIX61Y+90
-	u29FztYmTZf5aU57dFfyU/GoLFkvIEGQRgGumudbuenRdWYFDLUteJRrj7gi3AYfm27BipLM4Ug
-	Td9pvs3hVDDb4W6EostwOE/gsn38JPFBPnJqxCerlIjY1hBCyJY6jlfXE+WohBlFM5C8s0W6yjX
-	LBP/YCeXemmOHQA9heFaheZg8O8l6CiijExd02xFsC7fqhSp9hE5yz7OcXtmkB2lT0vPid78Jtj
-	TosYpi/wbz/tUmbcdtLVfkeEDXxRL9uAGpAmpRUzKi0HnLQuXf95lKcQaSRgnbr68FahGp1LO9t
-	8AcvYIWDDfsBHUDimpNPWSWUpWayC5OqKCAipHSs3SgRdimcEMk7/ra4hC/qKzkfvYhjxtGwTYS
-	xo6AEWcHMAWqkMGV9Qc/7mcODkapI/jPHlabAH/+wKCbFuN+getNJEsGvrWYTy/1kiyS1m2NspT
-	o+ecmehs=
-X-Received: by 2002:a05:6512:1394:b0:5c0:da9:407b with SMTP id 2adb3069b0e04-5c1bc8722ffmr9342169e87.5.1795799598378;
-        Fri, 27 Nov 2026 09:13:18 -0800 (PST)
-Received: from [192.168.1.101] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bd0419c2sm5950133e87.52.2026.11.27.09.13.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 27 Nov 2026 09:13:18 -0800 (PST)
-Message-ID: <2ed19776-e8ed-438e-b946-7a83d9c318f0@linaro.org>
-Date: Fri, 27 Nov 2026 19:13:17 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=W870dAHW
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 631564E417C7;
+	Fri, 27 Nov 2026 17:24:22 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 29E426049C;
+	Fri, 27 Nov 2026 17:24:22 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3689511E90CD5;
+	Fri, 27 Nov 2026 18:24:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795800256; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=RHZ/QH5LnoISU6GeZCjgA0RZWJvhgjCLYDlmnSC1S/U=;
+	b=W870dAHWC1yqL23kPODML9ob6EDrRfjB9CimjwkTP5dHp4PtRekPhyK3ttr37+zDzNKg+M
+	vDDlszyZx0N0fcPAaMPMEV4Imq+XA/QDRN8TrjRErNoE/ED9NkIhqn2TmEbHCY5Gr+DBpL
+	gRHQUxHOAAylmTCifAgJETn819LYv2pu8e1X4JeKR2ExhNiM8H0RJiUSv4s3TJdEl0HkqU
+	uTciaRI8m9sNFZ/IRJ8ml/pDxq2d8e/Q6TSmZpvS6hjTyyc6kpgicB9VVS52apbDT2OT3+
+	StsObVSr+ANdF+V2zV+I0z1Tnfvj3zZKS5WuMiR32y+jTVFIq+M8sOU7Mf62+Q==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,230 +59,97 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/7] media: i2c: add s5k5e8 image sensor driver
-To: Hikmah Gumelar <hikmahgumelar@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org, Abel Vesa <abelvesa@kernel.org>
-References: <20261127134507.125513-1-hikmahgumelar@gmail.com>
- <20261127134507.125513-4-hikmahgumelar@gmail.com>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <20261127134507.125513-4-hikmahgumelar@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 1/2] drm/bridge: nwl-dsi: Move DSI host disablement to
+ ->atomic_post_disable()
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Stefan Ghetu <stefan.ghetu@nxp.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ devicetree@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, Conor Dooley <conor+dt@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Fabio Estevam <festevam@gmail.com>, 
+ =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Jonas Karlman <jonas@kwiboo.se>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Philippe Cornu <philippe.cornu@foss.st.com>, 
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
+ Robert Chiras <robert.chiras@nxp.com>, Robert Foss <rfoss@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Sam Ravnborg <sam@ravnborg.org>, 
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Yannick Fertre <yannick.fertre@foss.st.com>, Liu Ying <victor.liu@nxp.com>
+In-Reply-To: <20261125075455.772826-2-stefan.ghetu@nxp.com>
+References: <20261125075455.772826-1-stefan.ghetu@nxp.com>
+ <20261125075455.772826-2-stefan.ghetu@nxp.com>
+Date: Fri, 27 Nov 2026 18:23:58 +0100
+Message-Id: <179580023804.1981164.5694161848427155266.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 11/27/26 15:45, Hikmah Gumelar wrote:
-> Add V4L2 subdev driver for the Samsung S5K5E8 5-megapixel MIPI CSI-2
-> 
-> CMOS image sensor supporting 2592x1944 10-bit Bayer output.
-> 
-> Signed-off-by: Hikmah Gumelar <hikmahgumelar@gmail.com>
-> ---
->   MAINTAINERS                |   7 +
->   drivers/media/i2c/Kconfig  |  10 +
->   drivers/media/i2c/Makefile |   1 +
->   drivers/media/i2c/s5k5e8.c | 567 +++++++++++++++++++++++++++++++++++++
->   4 files changed, 585 insertions(+)
->   create mode 100644 drivers/media/i2c/s5k5e8.c
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index f72ce07a4e38..2ac245d4ad7c 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -25007,6 +25007,13 @@ T:	git git://linuxtv.org/media_tree.git
->   F:	Documentation/devicetree/bindings/media/i2c/samsung,s5k3m5.yaml
->   F:	drivers/media/i2c/s5k3m5.c
->   
-> +SAMSUNG S5K5E8 CAMERA SENSOR DRIVER
-> +M:	Hikmah Gumelar <hikmahgumelar@gmail.com>
-> +L:	linux-media@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8.yaml
-> +F:	drivers/media/i2c/s5k5e8.c
-> +
->   SAMSUNG S5K5BAF CAMERA DRIVER
->   M:	Sylwester Nawrocki <s.nawrocki@samsung.com>
->   M:	Andrzej Hajda <andrzej.hajda@intel.com>
-> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-> index 162b8ea02601..4c622e5eef73 100644
-> --- a/drivers/media/i2c/Kconfig
-> +++ b/drivers/media/i2c/Kconfig
-> @@ -879,6 +879,16 @@ config VIDEO_S5K3M5
->   	  To compile this driver as a module, choose M here: the
->   	  module will be called s5k3m5.
->   
-> +config VIDEO_S5K5E8
-> +	tristate "Samsung S5K5E8 sensor support"
-> +	select V4L2_CCI_I2C
-> +	help
-> +	  This is a Video4Linux2 sensor-level driver for the Samsung
-> +	  S5K5E8 5MP camera.
-> +
-> +	  To compile this driver as a module, choose M here: the
-> +	  module will be called s5k5e8.
-> +
->   config VIDEO_S5K5BAF
->   	tristate "Samsung S5K5BAF sensor support"
->   	help
-> diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-> index a750942e9c62..bdcb8f34aca3 100644
-> --- a/drivers/media/i2c/Makefile
-> +++ b/drivers/media/i2c/Makefile
-> @@ -136,6 +136,7 @@ obj-$(CONFIG_VIDEO_RDACM21) += rdacm21.o
->   obj-$(CONFIG_VIDEO_RJ54N1) += rj54n1cb0c.o
->   obj-$(CONFIG_VIDEO_S5C73M3) += s5c73m3/
->   obj-$(CONFIG_VIDEO_S5K3M5) += s5k3m5.o
-> +obj-$(CONFIG_VIDEO_S5K5E8) += s5k5e8.o
->   obj-$(CONFIG_VIDEO_S5K5BAF) += s5k5baf.o
->   obj-$(CONFIG_VIDEO_S5K6A3) += s5k6a3.o
->   obj-$(CONFIG_VIDEO_S5KJN1) += s5kjn1.o
-> diff --git a/drivers/media/i2c/s5k5e8.c b/drivers/media/i2c/s5k5e8.c
-> new file mode 100644
-> index 000000000000..d25b978d7eda
-> --- /dev/null
-> +++ b/drivers/media/i2c/s5k5e8.c
-> @@ -0,0 +1,567 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +#include <linux/clk.h>
-> +#include <linux/delay.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/i2c.h>
-> +#include <linux/module.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/unaligned.h>
-> +#include <media/v4l2-ctrls.h>
-> +#include <media/v4l2-device.h>
-> +#include <media/v4l2-fwnode.h>
-> +
-> +#define S5K5E8_CHIP_ID_REG		0x0000
-> +#define S5K5E8_CHIP_ID			0x5e80
-> +#define S5K5E8_REG_MODE_SELECT		0x0100
-> +#define S5K5E8_MODE_STANDBY		0x00
-> +#define S5K5E8_REG_VTS			0x0340
-> +#define S5K5E8_REG_EXPOSURE		0x0202
-> +#define S5K5E8_REG_ANALOG_GAIN		0x0204
-> +#define S5K5E8_REG_TEST_PATTERN		0x0600
-> +#define S5K5E8_XVCLK_FREQ		24000000
-> +#define S5K5E8_LINK_FREQ_418MHZ		418000000ULL
-> +#define S5K5E8_PIXEL_RATE		167200000ULL
-> +
-> +struct s5k5e8_reg {
-> +	u16 address;
-> +	u8 val;
-> +};
-> +
-> +struct s5k5e8_mode {
-> +	u32 width, height, hts_def, num_regs;
-> +	const struct s5k5e8_reg *regs;
-> +};
-> +
-> +static const char * const s5k5e8_supply_names[] = { "avdd", "dvdd", "dovdd" };
-> +#define S5K5E8_NUM_SUPPLIES ARRAY_SIZE(s5k5e8_supply_names)
-> +
-> +/* Register initialization tables derived from Xiaomi Mi A1 vendor configuration */
-> +static const struct s5k5e8_reg s5k5e8_common_regs[] = {
-> +	{ 0x0100, 0x00 }, { 0x3906, 0x7e }, { 0x3c01, 0x0f }, { 0x3c14, 0x00 },
+Hello Stefan,
 
-You should use CCI interfaces.
+> Some MIPI DSI panels, like the Raydium RM68200, send DCS commands such
+> as MIPI_DCS_SET_DISPLAY_OFF and MIPI_DCS_ENTER_SLEEP_MODE from their
+> drm_panel_funcs::unprepare() callback. For those commands to reach the
+> panel, the DSI host controller and its PHY must still be running.
+>
+> The panel bridge calls drm_panel_unprepare() from its post_disable
+> hook, while nwl-dsi currently shuts down the controller, the PHY and
+> the clocks from ->atomic_disable(). Since all ->atomic_disable() hooks
+> in a bridge chain run before any ->atomic_post_disable() hook, the DSI
+> link is already down by the time the panel tries to talk to it.
+>
+> Move the disablement to ->atomic_post_disable(), so that a downstream
+> panel bridge that sets pre_enable_prev_first gets a chance to send its
+> shutdown commands first. The enable side is unaffected: the controller
+> is brought out of reset in ->mode_set(), which runs before any
+> pre_enable hook.
+>
+> Fixes: 44cfc6233447 ("drm/bridge: Add NWL MIPI DSI host controller support")
+> Signed-off-by: Liu Ying <victor.liu@nxp.com>
+> Signed-off-by: Stefan Ghetu <stefan.ghetu@nxp.com>
+>
+> diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
+> index 1aab46e1a168..2b1af6d1d58b 100644
+> --- a/drivers/gpu/drm/bridge/nwl-dsi.c
+> +++ b/drivers/gpu/drm/bridge/nwl-dsi.c
+> @@ -738,8 +738,8 @@ static int nwl_dsi_disable(struct nwl_dsi *dsi)
+>  	return 0;
+>  }
+>
+> -static void nwl_dsi_bridge_atomic_disable(struct drm_bridge *bridge,
+> -					  struct drm_atomic_commit *state)
+> +static void nwl_dsi_bridge_atomic_post_disable(struct drm_bridge *bridge,
+> +					       struct drm_atomic_commit *state)
+>  {
+>  	struct nwl_dsi *dsi = bridge_to_dsi(bridge);
+>  	int ret;
+> @@ -968,7 +968,7 @@ static const struct drm_bridge_funcs nwl_dsi_bridge_funcs = {
+>  	.atomic_create_state		= drm_atomic_helper_bridge_create_state,
+>  	.atomic_check		= nwl_dsi_bridge_atomic_check,
+>  	.atomic_enable		= nwl_dsi_bridge_atomic_enable,
+> -	.atomic_disable		= nwl_dsi_bridge_atomic_disable,
+> +	.atomic_post_disable	= nwl_dsi_bridge_atomic_post_disable,
 
-Overall perphaps it might be a long and tedious review process for the changes,
-and I would recommend to send and get accepted two sensor drivers only, then
-do other work.
+Looks OK to me, and I don't think it's going to break.
 
-> +	{ 0x3235, 0x08 }, { 0x3063, 0x2e }, { 0x307a, 0x10 }, { 0x307b, 0x0e },
-> +	{ 0x3079, 0x20 }, { 0x3070, 0x05 }, { 0x3067, 0x06 }, { 0x3071, 0x62 },
-> +	{ 0x3072, 0x16 }, { 0x3203, 0x43 }, { 0x3205, 0x43 }, { 0x320b, 0x42 },
-> +	{ 0x3007, 0x00 }, { 0x3008, 0x14 }, { 0x3020, 0x58 }, { 0x300d, 0x34 },
-> +	{ 0x300e, 0x17 }, { 0x3021, 0x02 }, { 0x3010, 0x59 }, { 0x3002, 0x01 },
-> +	{ 0x3005, 0x01 }, { 0x3008, 0x04 }, { 0x300f, 0x70 }, { 0x3010, 0x69 },
-> +	{ 0x3017, 0x10 }, { 0x3019, 0x19 }, { 0x300c, 0x62 }, { 0x3064, 0x10 },
-> +	{ 0x3c08, 0x0e }, { 0x3c09, 0x10 }, { 0x3c31, 0x0d }, { 0x3c32, 0xac },
-> +};
-> +
-> +static const struct s5k5e8_reg s5k5e8_2592x1944_regs[] = {
-> +	{ 0x0100, 0x00 }, { 0x0136, 0x18 }, { 0x0137, 0x00 }, { 0x0305, 0x06 },
-> +	{ 0x0306, 0x18 }, { 0x0307, 0xa8 }, { 0x0308, 0x34 }, { 0x0309, 0x42 },
-> +	{ 0x3c1f, 0x00 }, { 0x3c17, 0x00 }, { 0x3c0b, 0x04 }, { 0x3c1c, 0x47 },
-> +	{ 0x3c1d, 0x15 }, { 0x3c14, 0x04 }, { 0x3c16, 0x00 }, { 0x0820, 0x03 },
-> +	{ 0x0821, 0x44 }, { 0x0114, 0x01 }, { 0x0344, 0x00 }, { 0x0345, 0x08 },
-> +	{ 0x0346, 0x00 }, { 0x0347, 0x08 }, { 0x0348, 0x0a }, { 0x0349, 0x27 },
-> +	{ 0x034a, 0x07 }, { 0x034b, 0x9f }, { 0x034c, 0x0a }, { 0x034d, 0x20 },
-> +	{ 0x034e, 0x07 }, { 0x034f, 0x98 }, { 0x0900, 0x00 }, { 0x0901, 0x00 },
-> +	{ 0x0381, 0x01 }, { 0x0383, 0x01 }, { 0x0385, 0x01 }, { 0x0387, 0x01 },
-> +	{ 0x0340, 0x07 }, { 0x0341, 0xb0 }, { 0x0342, 0x0b }, { 0x0343, 0x28 },
-> +	{ 0x0200, 0x00 }, { 0x0201, 0x00 }, { 0x0202, 0x03 }, { 0x0203, 0xde },
-> +	{ 0x3303, 0x02 }, { 0x3400, 0x00 }, { 0x323b, 0x02 }, { 0x3301, 0x00 },
-> +	{ 0x3321, 0x04 }, { 0x3306, 0x00 }, { 0x3307, 0x08 }, { 0x3308, 0x0a },
-> +	{ 0x3309, 0x27 }, { 0x330a, 0x01 }, { 0x330b, 0x01 }, { 0x330e, 0x00 },
-> +	{ 0x330f, 0x08 }, { 0x3310, 0x07 }, { 0x3311, 0x9f }, { 0x3312, 0x01 },
-> +	{ 0x3313, 0x01 },
-> +};
-> +
-> +static const struct s5k5e8_mode default_mode = {
-> +		.width = 2592, .height = 1944, .hts_def = 2856,
-> +			.num_regs = ARRAY_SIZE(s5k5e8_2592x1944_regs),
-> +		.regs = s5k5e8_2592x1944_regs,
+However it would be good to have testing on other platforms, so I'd wait a
+moment before applying, in case someone has a change to test.
 
-There should be an endline after comma.
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-> +	};
-> +
-> +static const s64 link_freq_menu_items[] = { S5K5E8_LINK_FREQ_418MHZ };
-> +
-> +struct s5k5e8 {
-> +	struct device *dev;
-> +	struct v4l2_subdev sd;
-> +	struct media_pad pad;
-> +	struct clk *xvclk;
-> +	struct gpio_desc *reset_gpio;
-> +	struct regulator_bulk_data supplies[S5K5E8_NUM_SUPPLIES];
-> +	struct v4l2_ctrl_handler ctrl_handler;
-> +	struct v4l2_ctrl *link_freq, *hblank, *exposure;
-> +	const struct s5k5e8_mode *cur_mode;
-> +	/* Serialize access to sensor registers and streaming state */
-> +	struct mutex mutex;
-> +	bool streaming;
-> +};
-> +
-> +static inline struct s5k5e8 *to_s5k5e8(struct v4l2_subdev *sd)
-> +{
-> +	return container_of(sd, struct s5k5e8, sd);
-> +}
-> +
-> +static int s5k5e8_read_reg(struct s5k5e8 *s5k5e8, u16 reg, u32 len, u32 *val)
-> +{
-> +	struct i2c_client *client = v4l2_get_subdevdata(&s5k5e8->sd);
-> +	struct i2c_msg msgs[2];
-> +	u8 addr_buf[2], data_buf[4] = { 0 };
-> +	int ret;
-> +
-> +	put_unaligned_be16(reg, addr_buf);
-> +	msgs[0].addr = client->addr;
-> +	msgs[0].flags = 0;
-> +	msgs[0].len = 2;
-> +	msgs[0].buf = addr_buf;
-> +	msgs[1].addr = client->addr;
-> +	msgs[1].flags = I2C_M_RD;
-> +	msgs[1].len = len;
-> +	msgs[1].buf = &data_buf[4 - len];
-> +	ret = i2c_transfer(client->adapter, msgs, 2);
-> +	if (ret != 2)
-> +		return ret < 0 ? ret : -EIO;
-> +	*val = get_unaligned_be32(data_buf);
-> +	return 0;
-> +}
-
-Remove it, and use CCI interfaces.
+Luca
 
 -- 
-Best wishes,
-Vladimir
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
