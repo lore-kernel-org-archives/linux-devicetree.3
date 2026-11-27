@@ -1,99 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795798662;
-	b=ugtdNWetIZybHwXQga94mA7gscS/mUdYX+tQgnWEANx49aDndprljf98V+ctVhQzj9Jv
-	 OuZIE7j4R/Ux0SfoT5f5+t6Mgx52oCw1pYVt+OvaBHiRMyXZQd1Yqhgql6j6YNcIesg3J
-	 CCQXgAT1yxqfABHZa+0lkPnh1sw71KUjmLll2jf/KWlYzspHD8TeEf0BRqXI8l86xkZA1
-	 MfDqTO1vhVClNHkaQHP/wwFvioM9LCb3yklnP1/GWdQE39i1PRMonSeuK1N17lxM4IsSm
-	 WGZClXiF4u2P31BtUVCe2lUkAtL6BCUgc9MbxcteCfUkkDVsXUp5ttEovrmHfQ15p5A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795798662;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=JoYlWYsc7qA+Bk9zv3r6KL/XVztnYAaVtmzSY0LmZ30=;
-	b=hFpUzspcWjz4r2rwLAXk+J6wN0Uwk6kQw46hPmW7C8QGIB1n4+65PZG7MCHh1jP7FI75
-	 6MvKALYbolP/8u5IudlPfDF4oDslqwvb6ds8UdWCenDxLViC6qTuO3BJSTlP7yUQehJKk
-	 lAzOHI7BvZLvjsdDr0rZRHyMk19EvflAO21iMHj4Cuwcvyye7BfpS8HWKlhTVUk4TlVHH
-	 4LKLpOA7vnLz6B9ot2x3PYJWQV9aW1RTY/jTk2L1Jh+3Sh55Cw/TE47FPyZ+7fUj442pB
-	 q1A3k2J8lAFE3vsDo4unocCMxvy7P7AoKDO84Gf1BrrF/08dNHnhDGusz4EMmqLtOFw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="f+CjY/BX";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.28
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795798846;
+	b=pku3V+K7sSuCOrdjBYe672bBuJb5RV3RnOVr8VVn5q/p9t7Tq9cPmyuzFTysc9jlEm/F
+	 WC16kubnVzJhilDtQ6EadDelUa+dYlSub5MTsTAOCtnZM4NapJ25SMFrejumDZmAvUz5z
+	 F7kftv1JcFHIB5etlOJ4/qgXBBw1gBlVTntb6PYZQ8MOzTYicpC6henQg6y4PCvefUFyR
+	 AUCErhBdfQvJuzbqp/GzLICF8FG80chq8aKWs/oXIHUboe/J3aR57H+hdWFRUSLU8MuqB
+	 p+R4pw/a4skql8XiLhIHHTccS/Y+6JHlUFoPfs5zZTkVuTxt25L1e26s9YOrXx6byTQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795798846;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=U1yLLCVNt57u5GF+uQ4RZt1RrCY+NCxvna0eB8L6VaY=;
+	b=mER9s6dsHQPBKvzObo2hF/XNrwPr6R8gh0jCwTxG3A4Exzu9cMPih3sb+u+rjsjJ0Dp7
+	 WG1GPQFaY/xF4GRzP39k7PzwaemNjt3dxUUQmTofoMpZa/PHgeHKqmiNQUrgCjX8VY5hK
+	 tEm2hjBZBHy0YQ97r68wjjGeGQpVjix3RswQqjbipQMh8/ELq009DZz9Zs+HN1SJOVWFP
+	 zs5mzTHj1+pUcW6+i3UsrYFSogctE3C+QSE30F4sTGdNLq2zR20CHsnAFP1YkRh1AaCL5
+	 wEqghUFHxcQOUTzaHBkmuHaCYe9O+XLFEDxhp+l9BxreW2bhLwbQJ4meJI5FuL/Z3ZQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	arc=none smtp.remote-ip=79.135.106.28
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch [79.135.106.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20BCD606A31C
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 16:57:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20BCD606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f+CjY/BX
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-5363316fa0cso85800991cf.3
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 08:57:42 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795798661; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kjwsiUwR3UxndaPqL1ZBsv71zgB+KaURECuIiJyZq6hDKFK9k3N4wz/XSmEaosQUjn
-         gS9KrG8qCpSQbvL+wJWtHbVVa/SF0Q1lVR2ngk4gDU9/gycLOvv/OJqXhavcBJ7peL84
-         xuSiEv64L1hgLQec1/h5VgBFFj3ekZGgJA0kiYSwxDKmIn6HlLrGpWIB/brLNCVa80uU
-         269S51OqmSVZbhdE5zUulaKDA2goh5kYziAzh27PISWejtJepuo1hr3cPVeui+ocFqDc
-         xGnkJJmHMBsU2hDugh3lCrttx3hOxRBLoFO1V9Iyb8Bcak1W8NcsRmwr8NweGQHhf8ha
-         m6vg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=JoYlWYsc7qA+Bk9zv3r6KL/XVztnYAaVtmzSY0LmZ30=;
-        fh=Lw1MAwN0HMkcDtkyyf91c1O1MXgqowL0/zwhHqFqgSE=;
-        b=Cy1Mg9nkBsjFdEFUhmsFRXfHH9THuaIE82rQVYXS1Z8dPdRNnpJuWTKNYsy1mu6hR3
-         Hzl4Tu059uJ8qGl8wOOlA+lF1Xk4oVEK2U6dnuGRNZ6t1CMEbGC31HuRq1fElbEdnCmv
-         CLI9/tgxyaQeTx2WkZHhUjFwtOHdu3+AXMFgyfAI4bKq1wK01DedywrHAKzQMW5Ic83M
-         BDmm7aeA1Pxc7P8htRTJmvWJhBDp0isFxtPWMxhalz6alS6+ztXvohVY9pRV32wb2uez
-         gFkrtKFYdutJ8vfCBs0Zd97Uzvc/3tObhBlcr2b922+ViX5sLN2bNs3ANWKWsKnnkwII
-         D5CQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795798661; x=1796403461; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JoYlWYsc7qA+Bk9zv3r6KL/XVztnYAaVtmzSY0LmZ30=;
-        b=f+CjY/BXcpKl6jzX9OALdg1mfYorM8PIZRIjW5rU5+YXEtkDEecpk4tbM35O+h2l+Y
-         3BySmVV+mW3zLErChy3JX8Fn4SNdfz8iDIA4tmhi5DY7Ki6vPLJIZlQNQrgRm+e7BiZd
-         Dr45nSTD78QTB0+Gfx0Yfaf4hrdQNxxnzTAPR2jV1bMjf5ntnpwz9kaD04KIpjR0LYoy
-         t5Ky+I4vi9mo4WJ8lucIof1Cx3aBixtmy2uew8gN82rbCeH7WFL4MYtu1i6S9NN1z6hf
-         dQrP6ZJu+O/wvnlHDys73uhLW4+ve2adu9/IiRkeEDmKKWgUl7/St2Op+kUmSiTtTpf9
-         B5xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795798661; x=1796403461;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=JoYlWYsc7qA+Bk9zv3r6KL/XVztnYAaVtmzSY0LmZ30=;
-        b=UtirbYuG6iPUs0ELrmUBYc3M/R3Vw1ExkImBTX/+uR5d6kOheniz/tZkRz/VY0+rJg
-         at3hJDh75bmg1r7dTj4m+R4cUG1kGiwAtCUwj+97IBoo+CeH7FsyuP27itEWdAuvuefk
-         5XocFVRMHnFK/Trw5IaL9iMXBNdYdfw+OpsCOrZrUMKxGBefMzL+y+Xbb6KNW+R5KSuo
-         iNkCU6KMrcLT11t7dlFEx4XfTgSbcwdnbtVW5MbWDnrGqaq8mttk5FMHKCXh4GVpCGTH
-         /VHr+m6ROTCieTaEb7FddS9fHubL2BUbyTuuknIU5svGzaK113nU+mJAAg/5AdQoFrvl
-         YvSQ==
-X-Forwarded-Encrypted: i=1; AL+hErGlK17cUZhAszfzn279r7N22LhDagy5QjHEotziqo6prEeipsBc3hccgBnWzu5eua9yaT7nez45DBIW@vger.kernel.org
-X-Gm-Message-State: APuU4Z8swWkB3avRR9A7trtqtvfjzEsTnVxSxSWZg52GawiFAsvwa5YY
-	we/IeA9875m02V6aUs4h/qo619B/kn3c8FQ2VteQpITF7i1qYW17sbOhesZrjY0OWqoBgZfcZ2y
-	nS2DrXPuQ+95r0UhcA1sgZOvhZI4B0l4=
-X-Gm-Gg: AZFdTZfYF3KRLPxx7sHjZqI2Izy/eXrMtohGDo3DQP3F6p3WdjWtama3RuuFMKiJlzV
-	ebNJTG7VMO/7mTArUlEjy8tg7qzgxPSJb5C3CML1VfvdGWXEHZIQu26I5ho4AU+K3UBnEJ5Ext0
-	RhuKHbqJnibaUA5ose3T8JXBTsGhZyNO7RgN+tRDxsALaLnyvtOal4UNNdwCxqV9kd3PppgOtkv
-	M2YdwZRhC5HwL89mkDKXxhsm1ivNno/9Q3DJTP61tIDJi8tD+BiPTf7aWvZJ9MIdA/e7UsE+L0y
-	0/glBhpAxue7mt3wdXi7KU1Jpogl4I2ywr14f43DDzRhDRHdWfLZowL3if7g/UdX+dhFvm3XtfU
-	yvTEDWcsCh+Ji21+V23j60u3M/wVMM/CIURYLhW4Ka2FAeh1avFc0mcIvLw8oWe6SUrc=
-X-Received: by 2002:a05:622a:5a1b:b0:535:384d:68ac with SMTP id
- d75a77b69052e-55d769e9f2bmr449322421cf.13.1795798661145; Fri, 27 Nov 2026
- 08:57:41 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 184E9606A31F
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 17:00:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 184E9606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1795798823; x=1796058023;
+	bh=U1yLLCVNt57u5GF+uQ4RZt1RrCY+NCxvna0eB8L6VaY=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=VYTx6d9ZdxGH5l81XvuuWIPnYHtdFZItIsvM6pQWRUqF3Iqn2pTfo7abM7gjUKzh2
+	 Irp6q3gykmkf+v6rBYbl25atF1ZxmiCHkOnTNvCbVu1QuG4F/a0+6QmtaKygRbK4wd
+	 N67LVxwJPkt64LR4XoRrjya++TNX+BjrCjftMEuy5qv0i9PX+nmuRY11sF4AAB0ZsU
+	 oXZITO8llruZdsdF2Rd522JCHjXLL77ne2Sg2VpJlyLwDdaEkbEYF0iY6JU5+8BzXo
+	 6W2/C8dzKBwVHW8bPud1NaAp2IyDyGzriunuLvzGOKZ5OOt/oweW4Eo8x5sXMnxPy5
+	 7m6Ll2rpGWWJQ==
+Date: Fri, 27 Nov 2026 17:00:13 +0000
+To: Andre Przywara <andre.przywara@arm.com>
+From: Norman Herms <dockseed@proton.me>
+Cc: Enzo Adriano <enzo.adriano.code@gmail.com>, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org, Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, Junhui Liu <junhui.liu@pigmoral.tech>, Jerome Brunet <jbrunet@baylibre.com>, Pablo Mazzini <pmazzini@gmail.com>, Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>, Alexander Sverdlin <alex@sverdlin.org>, Jun Yan <jerrysteve1101@gmail.com>, Lukas Schmid <lukas.schmid@netcube.li>, Cristian Filipescu <filipescu.cristian@gmail.com>
+Subject: Re: [PATCH v6 3/5] arm64: dts: allwinner: add Radxa Cubie A7S board
+Message-ID: <AzjLG4iAqXVYU5xs3jzLGCHNElMjyalfu_xCbgGLeyvgkAXIXMDFHCm4LUyEe1sq6C4gcLhjyje0myr_eNKHhYEmWpoAVHJF0YHgGW7cDVA=@proton.me>
+In-Reply-To: <fcdd57ea-8f03-45ce-886e-f0efb6f23d3a@arm.com>
+References: <20261126-a733-cubie-a7s-dt-v6-0@gmail.com> <20261126-a733-cubie-a7s-dt-v6-3@gmail.com> <0a7f4a31-81ac-44ee-8cd2-7b5526af7442@arm.com> <IUp5Ow8SUNdgtour7we7BN_rry0fuoBNw-ucfXERukfbwTWvoWo5QjYLXAzxftTjGnsuhCCnwvxZ5fBpL6pFPL62oTr2hZddgE6XmrQ76o0=@proton.me> <fcdd57ea-8f03-45ce-886e-f0efb6f23d3a@arm.com>
+Feedback-ID: 144388465:user:proton
+X-Pm-Message-ID: e1853d72c46332b596795337445d7c8e003b41de
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,93 +61,40 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261127134507.125513-1-hikmahgumelar@gmail.com>
- <LKFsWplUk1yOr4M1dEHqZ20-Oo7ya-QA5qkF8u2lcfPUsbJYq0AoJhyjIEBwg6PPzlPSMYfqn6CB-sQBOuQDKQ==@protonmail.internalid>
- <20261127134507.125513-2-hikmahgumelar@gmail.com> <a8ee91a3-fc4c-4268-97c1-b4ddeff2558f@kernel.org>
-In-Reply-To: <a8ee91a3-fc4c-4268-97c1-b4ddeff2558f@kernel.org>
-From: Hikmah Gumelar <hikmahgumelar@gmail.com>
-Date: Fri, 27 Nov 2026 23:57:29 +0700
-X-Gm-Features: Aa3M54oyapQeOF2CNR5heqj_kowOsQNp9ESIWcAwgObVTh4Yt2mT_qD_BbMY_SI
-Message-ID: <CADA=zOPBRrzdST4rwNwejXF9cY8XJUFMXc=+FR5AQMiFFdKPBA@mail.gmail.com>
-Subject: Re: [PATCH v5 1/7] clk: qcom: gcc-msm8953: fix csi_phytimer_clk_src
- 100MHz parent
-To: "Bryan O'Donoghue" <bod@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-clk@vger.kernel.org, Abel Vesa <abelvesa@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Bryan,
+Hi Andre,
 
-Thanks for the review and the clear feedback on the commit message.
+> Regardless I wouldn't want to leave it completely unbound, but instead
+> provide some limits. I guess for VDD2L, potentially the same as VDD2H,
+> it should be 0.87V - 1.12V, which seem to be limits Google turns up for
+> those LPDDR5 specified values.
 
-I will keep "leaving gcc_camss_csi0phytimer_clk stuck off" and drop the
-board-specific reference at the end. For the rationale, I will note that
-comparing drivers/clk/qcom/gcc-msm8953.c with similar Qualcomm GCC
-drivers such as drivers/clk/qcom/gcc-msm8939.c, along with testing on
-MSM8953 hardware (my Xiaomi Mi A1), shows that switching the 100 MHz
-parent to P_GPLL0 with a divider of 8 resolves the issue.
+That covers what we have read on the A7S: ELDO1 (VDD2L) at 1.075 V
+with our chain and at 1.1 V with Radxa's own boot0 (V0.6034, and the
+same on Radxa's Debian image).
 
-Best regards,
-Hikmah Gumelar
+In June we also stepped ELDO1 on an A7S in 25 mV steps, with memtester
+at each step: no errors from 575 mV up to 1.2 V, where we stopped on
+purpose, and a crash at 550 mV. That was after the training at
+1.075 V, so it says nothing about training at other voltages, but
+0.87 V - 1.12 V sits well inside it.
 
-Pada Jum, 27 Nov 2026 pukul 23.11 Bryan O'Donoghue <bod@kernel.org> menulis:
->
-> On 27/11/2026 13:45, Hikmah Gumelar wrote:
-> > The 100 MHz entry in ftbl_csi_phytimer_clk_src selects P_GPLL0_DIV2
-> >
-> > with a divider of 4, leaving gcc_camss_csi0phytimer_clk stuck off on
->
-> "stuck at on" or "stuck at off"
->
-> > MSM8953 platforms such as Xiaomi Mi A1 (tissot).
->
-> ah I see.
->
-> "leaving gcc_camss_csi0phytimer_clk stuck off" you can drop the fragment
->
-> "MSM8953 platforms such as Xiaomi Mi A1 (tissot)."
->
-> > Switch the 100 MHz parent to P_GPLL0 with a divider of 8.
->
-> What is the data-source you used for this change ? You should describe
-> how you know this to be a correct change - the code is simple and
-> describes its own change.
->
-> For example citing drivers/clk/qcom/gcc-msm8953.c and
-> drivers/clk/qcom/gcc-msm8939.c since they are very similar controllers
-> and the 8939 does it the way you describe below. Also "it works" is
-> another good reason. Inferred from your patch but not stated.
->
-> More accuracy is required here.
->
-> >
-> > Fixes: 9bb6cfc3c77e ("clk: qcom: Add Global Clock Controller driver for MSM8953")
-> > Signed-off-by: Hikmah Gumelar<hikmahgumelar@gmail.com>
-> > ---
-> >   drivers/clk/qcom/gcc-msm8953.c | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/clk/qcom/gcc-msm8953.c b/drivers/clk/qcom/gcc-msm8953.c
-> > index 8fe1d3e42144..8aec5600e837 100644
-> > --- a/drivers/clk/qcom/gcc-msm8953.c
-> > +++ b/drivers/clk/qcom/gcc-msm8953.c
-> > @@ -964,7 +964,7 @@ static struct clk_rcg2 csi2p_clk_src = {
-> >   };
-> >
-> >   static const struct freq_tbl ftbl_csi_phytimer_clk_src[] = {
-> > -     F(100000000, P_GPLL0_DIV2, 4, 0, 0),
-> > +     F(100000000, P_GPLL0, 8, 0, 0),
-> >       F(200000000, P_GPLL0, 4, 0, 0),
->
->
+Radxa's boot0 also sets DCDC7 (VDD2H) to 1.12 V, above the 1.1 V
+maximum that v6 gives vcc-dram. On a board booted with Radxa's loader,
+the regulator core would bring VDD2H down to 1.1 V at probe, i.e.
+after the training. We have seen exactly that on ELDO1 with an early
+test DT of ours that gave it a fixed 0.95 V, on a board with Radxa's
+boot0:
 
+  [    1.792706] vcc09-vdd2l: Bringing 1100000uV into 950000-950000uV
 
--- 
-Best regards,
-Hikmah Gumelar
+with the DRAM already trained and in use. With our chain DCDC7 is at
+1.08 V. So 1.12 V as the maximum for both rails would also cover the
+vendor chain.
+
+Built and measured by AI agents (Claude) on my boards.
+
+Thanks,
+Norman
