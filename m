@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795795233;
-	b=qVWgwnOdvMWEAjipi2wItXl+2tDAjopcfk/LZGZBcR6Cz6OUwDTSaF5/UGA1kmfy634Z
-	 tT7A7gR8N4v9Gr+xZxcF9nivySqwosq8ERvR6+HxVMj06G/7atqLCY9l6KdTeWfPW0Zcr
-	 vMf1356hFAya9LKg29mSxkYU5W1x3GT3X2ja5h76MxsSSL6/2H2gjLQk6GbJByga4ePfk
-	 srWGVPYIx5ZzzQOP37ZWRh7NpqQvqtJ+50uveyRQ8ESOm2IU/CZnLDY/zx4/UQTzi+fKM
-	 G6e6/ZYvjX1TI6uYTEtb+2BeFZYg08T7KZXv6EbIPIIZzpOPbbWU2+GLKP2DB7K9IJA==
+	t=1795795244;
+	b=s8AZsZF6gGWXYiklyH+NJW0Z/JNwQmM6FCLfctprvXU3whOwBzLvkEPhEIw9xyEZbm04
+	 YR70xbscz7D+T+ymiu65Fyml0RAr4VoIt7vW0TCK13o4Ivyb84SyZflWz1kHki0siRdya
+	 OvjRDqDxQj5ebxlZJ2HWkuuvsPDdtQAn+J3IvzYGaXq6J9LvWJ/02zh+DuOePXfYmXgrk
+	 +T4BAQ0qWmiLRj/sdpuzI2NVCE/sQ3WyNuV8jPL7T/OyUPOn11a8YRUwtvh7zK8k00yhi
+	 TrAUpN3oNfPq7PdFR6t/qyvyw+vfHblR6/DRQgbn1oKj94C6zBLtL6FzCFEFmkTJS9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795795233;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795795244;
 	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=jVYw5GXnzkoHJpE1vNo0IhVPDs+885f5CzoAC0EM+Wg=;
-	b=YrXrTQAhfGEm0+0Wc4oUNiESgVTFCN809LeBKw6aPX+zGYHPc5o9MBa+IQFa0z6piZp0
-	 42rU/oT4yEpkWQtQu4CaKSaV9K7jfMmyiMlRcmHhjNi2sgP5YPsj35hYg5iiW0cVdShPY
-	 VkbHkbEs0fsLoHCZ4qUBaP59EGKbCxUmQQ1GxWu8Dxbu7mqo/GsCF93pGDq+jsxhc6FHE
-	 rrZ1IbmmGEUzJ8VUyUtjYqNIwdKO99LzTevcUe6tjRIO7nso3KbDHcOkF3d5ma58pFQ5t
-	 y7qBPmpAHhIYnyVcM4nGHkNT29JsCrP9jEu+hgFNLc2FOur3FVLbeYPdDXTJ9dPJrqw==
+	bh=coLUNGKcs5QZu+CEy6r1bdnwCNGnhuOWAdgkv/APfOo=;
+	b=PfR/lNxcXp0NrDbQ8R6BVFpAfRL8q0UuDS8T1EU93AfPAnZyRfQOxeUaKCoImBqOyzsI
+	 PyIFl3s2OpstH9XLrvMTobLkSMbvMhZm1viT57f6UuReg5FD6+k5QljM0nlDtnIyy627S
+	 qH71oFqkPSkGVK0W+GM3oTFqQOABp2bf2vSPPsG6IuJVplFkfmm0UIy/SA28P5BRjtJ33
+	 z3dKx67LRkye6IUi5cWk1or6nzkwHrlrLV/y2rhCZ+8F2o0WuflHsZdxPYgRxZc866ivD
+	 P9OiVqGUPi+iIEK8Ki+zAwpSiN7IANCDtua0ajkdUmpS+8TkecqLM2CEsw8dY7Ks9iQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=WRHc7srE;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=VedXyzOn;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5159C606A335;
-	Fri, 27 Nov 2026 16:00:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5159C606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D3260A5BC8;
+	Fri, 27 Nov 2026 16:00:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50D3260A5BC8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=WRHc7srE
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=VedXyzOn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795795226;
-	bh=rxTIeJWIIgpkNlD+VNRicbxwCqJACMM2JO6mJIdEv0A=;
+	s=mail; t=1795795242;
+	bh=RXK2LxxN390Quj52vGREAFDzN8dihSsEQh6iBN4tr/4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=WRHc7srEF4bpalKybCLwA/xI2fVOAqVFXwVML4SyFOqTzic17MH4/ZpsY22vsGAt9
-	 lHQzaCxR6U29qCKEMEa0PN/rIVO7Vy7fAvBYjOJWogLRPV8HJGLJhuo9VNnpYjTIZC
-	 F0Psc7MdCGqD6BmHeo9+ksyz92JOH/jw5IEtwb5Z2ZvGL9yn86q0PFEg1zsutSEnB6
-	 3PlAWSkUsF3DvmxFv4pV4PV8X6fVCJjhk6K0ceJ0uVZOtlD5AGngShQRqkjipbZRGh
-	 p0wKIFfdjDelYq/KV8NEqdgb4QtNtVBw+5VA8MqK3fvQD/hsHn3afv9swaxH4DpEHk
-	 vkXiN/wKKk0NQ==
+	b=VedXyzOnUu+sc2PGt2ebUJ7Y+sQglpaO6g26deeuEN/VUctTlMBDAObR+ir+d/9/C
+	 6sXOGcy59OBhAEUN/69JEbwf7II6kYCiphCKRYguKWXMGWx0s0UWCSZ+IyjldE6dnX
+	 XlUSaf1BlLlKckXRypAG4l9JPwLPCCyKV3SqEdxEy0BPmJ4PUA5Ox4A6ZVsPQnqhce
+	 wiBO26VqRN72d1zeq1MbBgppQrgTIK4nXrUU5wJcKssTSjorGUChDwNRaq83Eg+sjj
+	 YxALgsX27IYMGElkigUzgiX7DRxnLaFznUOq72ksGUMOt5jRdx5GvuRWeNspLznhnJ
+	 P43EGfhI43lNQ==
 Received: from yukiji.home (unknown [100.64.0.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0EA3A17E0477;
-	Fri, 27 Nov 2026 17:00:25 +0100 (CET)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 75E5D17E0CF4;
+	Fri, 27 Nov 2026 17:00:41 +0100 (CET)
 From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Fri, 27 Nov 2026 17:00:05 +0100
-Subject: [PATCH v16 02/23] dt-bindings: ufs: mediatek,ufs: Complete the
- binding
+Date: Fri, 27 Nov 2026 17:00:17 +0100
+Subject: [PATCH v16 14/23] scsi: ufs: mediatek: Use the common PHY
+ framework
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,7 +65,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-mt8196-ufs-v16-2-6f2568f7c119@collabora.com>
+Message-Id: <20261127-mt8196-ufs-v16-14-6f2568f7c119@collabora.com>
 References: <20261127-mt8196-ufs-v16-0-6f2568f7c119@collabora.com>
 In-Reply-To: <20261127-mt8196-ufs-v16-0-6f2568f7c119@collabora.com>
 To: Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
@@ -91,232 +91,271 @@ Cc: kernel@collabora.com, linux-arm-kernel@lists.infradead.org,
  Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
  Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795795221; l=7040;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795795222; l=7120;
  i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=Y19xSHY0XZz9RQ5HoCuExKbvNLf1LV0haOSjyZQT3YA=;
- b=M8YFuOgpIkn3tbz571VdNgOrOksc+udUkOH/h4bbNSaldOvhUaE4m1nCK2YiTegXWFDCbraEA
- oBgh3pwir0NDff/pleZw4ht/o1MYLKjxbkCCYx5Kbf2QhHMu0ahD88k
+ bh=CV3CIBHtDEi7kAWo0AI8sSc9Ba1rqwMc3ZaCBO0bKq4=;
+ b=YZV7Gd1Bj65uZGoh5AY1Qvu6OUjcdQQTZbGGawfaSpcbt55TxX1AA8SfnxfI9Q4oHtH2on4MK
+ bVOqKzi2XhlAaAQk2AmOrhzjCs+t/30TaOO88zYcBKEgPZWlJHSPnTq
 X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
  pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-As it stands, the mediatek,ufs.yaml binding is startlingly incomplete.
-Its one example, which is the only real "user" of this binding in
-mainline, uses the deprecated freq-table-hz property.
+There is no need to reinvent the PHY framework, especially not its OF
+parsing.
 
-The resets, of which there are three optional ones, are completely
-absent.
+Change the code to simply use the PHY framework to acquire the device's
+PHY in the ufshcd init, so that it's device linked to the right device.
 
-The clock description for MT8195 is incomplete, as is the one for
-MT8192. It's not known if the one clock binding for MT8183 is even
-correct, but I do not have access to the necessary code and
-documentation to find this out myself.
-
-The power supply situation is not much better; the binding describes one
-required power supply, but it's the UFS card supply, not any of the
-supplies feeding the controller silicon.
-
-No second example is present in the binding, making verification
-difficult.
-
-Disallow freq-table-hz and move to operating-points-v2. It's fine to
-break compatibility here, as the binding is currently unused and would
-be impossible to correctly use in its current state.
-
-Add the three resets and the corresponding reset-names property. These
-resets appear to be optional, i.e. not required for the functioning of
-the device.
-
-Move the list of clock names out of the if condition, and expand it for
-the confirmed clocks I could find by cross-referencing several clock
-drivers. For MT8195, increase the minimum number of clocks to include
-the rx_symbol ones, as they're internal to the SoC and should always
-be present, and should therefore not be omitted.
-
-MT8192 gets to have at least 3 clocks, as these were the ones I could
-quickly confirm from a glance at various trees. I can't say this was an
-exhaustive search though, but it's better than the current situation.
-
-Properly document all supplies, with which pin name on the SoCs they
-supply. Complete the example with them.
-
-Also add a MT8195 example to the binding, using supply labels that I am
-pretty sure would be the right ones for e.g. the Radxa NIO 12L.
-
-Finally, remove the 'ufs_' prefix from all clock names containing it
-and rename 'ufs' clock to 'main'.
-
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 Reviewed-by: Chaotian Jing <chaotian.jing@mediatek.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 ---
- .../devicetree/bindings/ufs/mediatek,ufs.yaml      | 115 +++++++++++++++++----
- 1 file changed, 96 insertions(+), 19 deletions(-)
+ drivers/ufs/host/ufs-mediatek.c | 129 ++++++++++------------------------------
+ drivers/ufs/host/ufs-mediatek.h |   1 -
+ 2 files changed, 31 insertions(+), 99 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/ufs/mediatek,ufs.yaml b/Documentation/devicetree/bindings/ufs/mediatek,ufs.yaml
-index 15c347f5e660..945cb986b06b 100644
---- a/Documentation/devicetree/bindings/ufs/mediatek,ufs.yaml
-+++ b/Documentation/devicetree/bindings/ufs/mediatek,ufs.yaml
-@@ -19,11 +19,25 @@ properties:
+diff --git a/drivers/ufs/host/ufs-mediatek.c b/drivers/ufs/host/ufs-mediatek.c
+index 33ed5e6dabfe..9d7e4bc96203 100644
+--- a/drivers/ufs/host/ufs-mediatek.c
++++ b/drivers/ufs/host/ufs-mediatek.c
+@@ -296,44 +296,6 @@ static int ufs_mtk_hce_enable_notify(struct ufs_hba *hba,
+ 	return 0;
+ }
  
-   clocks:
-     minItems: 1
--    maxItems: 8
-+    maxItems: 10
+-static int ufs_mtk_bind_mphy(struct ufs_hba *hba)
+-{
+-	struct ufs_mtk_host *host = ufshcd_get_variant(hba);
+-	struct device *dev = hba->dev;
+-	struct device_node *np = dev->of_node;
+-	int err = 0;
+-
+-	host->mphy = devm_of_phy_get_by_index(dev, np, 0);
+-
+-	if (host->mphy == ERR_PTR(-EPROBE_DEFER)) {
+-		/*
+-		 * UFS driver might be probed before the phy driver does.
+-		 * In that case we would like to return EPROBE_DEFER code.
+-		 */
+-		err = -EPROBE_DEFER;
+-		dev_info(dev,
+-			 "%s: required phy hasn't probed yet. err = %d\n",
+-			__func__, err);
+-	} else if (IS_ERR(host->mphy)) {
+-		err = PTR_ERR(host->mphy);
+-		if (err != -ENODEV) {
+-			dev_info(dev, "%s: PHY get failed %d\n", __func__,
+-				 err);
+-		}
+-	}
+-
+-	if (err)
+-		host->mphy = NULL;
+-	/*
+-	 * Allow unbound mphy because not every platform needs specific
+-	 * mphy control.
+-	 */
+-	if (err == -ENODEV)
+-		err = 0;
+-
+-	return err;
+-}
+-
+ static int ufs_mtk_setup_ref_clk(struct ufs_hba *hba, bool on)
+ {
+ 	struct ufs_mtk_host *host = ufshcd_get_variant(hba);
+@@ -1255,13 +1217,21 @@ static int ufs_mtk_init(struct ufs_hba *hba)
  
-   clock-names:
-     minItems: 1
--    maxItems: 8
-+    items:
-+      - const: main
-+      - const: aes
-+      - const: tick
-+      - const: unipro_sysclk
-+      - const: unipro_tick
-+      - const: unipro_mp_bclk
-+      - const: tx_symbol
-+      - const: mem_sub
-+      - const: rx_symbol0
-+      - const: rx_symbol1
-+
-+  operating-points-v2: true
-+
-+  freq-table-hz: false
+ 	ufs_mtk_init_mcq_irq(hba);
  
-   phys:
-     maxItems: 1
-@@ -31,8 +45,36 @@ properties:
-   reg:
-     maxItems: 1
+-	err = ufs_mtk_bind_mphy(hba);
+-	if (err)
++	host->mphy = devm_phy_optional_get(dev, NULL);
++	if (IS_ERR(host->mphy)) {
++		err = dev_err_probe(dev, PTR_ERR(host->mphy), "Failed to get PHY\n");
++		goto out_variant_clear;
++	}
++
++	err = phy_init(host->mphy);
++	if (err) {
++		dev_err_probe(dev, err, "Failed to initialize PHY\n");
+ 		goto out_variant_clear;
++	}
  
-+  resets:
-+    items:
-+      - description: reset for the UniPro layer
-+      - description: reset for the cryptography engine
-+      - description: reset for the host controller
-+
-+  reset-names:
-+    items:
-+      - const: unipro
-+      - const: crypto
-+      - const: hci
-+
-+  avdd09-supply:
-+    description: Phandle to the 0.9V supply powering the AVDD09_UFS pin
-+
-+  avdd12-supply:
-+    description: Phandle to the 1.2V supply powering the AVDD12_UFS pin
-+
-+  avdd12-ckbuf-supply:
-+    description: Phandle to the 1.2V supply powering the AVDD12_CKBUF_UFS pin
-+
-+  avdd18-supply:
-+    description: Phandle to the 1.8V supply powering the AVDD18_UFS pin
-+
-   vcc-supply: true
+ 	err = ufs_mtk_init_reset(hba);
+ 	if (err)
+-		goto out_variant_clear;
++		goto out_phy_exit;
  
-+  vccq-supply: true
-+
-+  vccq2-supply: true
-+
-   mediatek,ufs-disable-mcq:
-     $ref: /schemas/types.yaml#/definitions/flag
-     description: The mask to disable MCQ (Multi-Circular Queue) for UFS host.
-@@ -54,29 +96,41 @@ allOf:
-       properties:
-         compatible:
-           contains:
--            enum:
--              - mediatek,mt8195-ufshci
-+            const: mediatek,mt8183-ufshci
-     then:
-       properties:
-         clocks:
--          minItems: 8
-+          maxItems: 1
-         clock-names:
-           items:
--            - const: ufs
--            - const: ufs_aes
--            - const: ufs_tick
--            - const: unipro_sysclk
--            - const: unipro_tick
--            - const: unipro_mp_bclk
--            - const: ufs_tx_symbol
--            - const: ufs_mem_sub
--    else:
-+            - const: main
-+        avdd12-ckbuf-supply: false
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: mediatek,mt8192-ufshci
-+    then:
-       properties:
-         clocks:
--          maxItems: 1
-+          minItems: 3
-+          maxItems: 3
-         clock-names:
--          items:
--            - const: ufs
-+          minItems: 3
-+          maxItems: 3
-+        avdd09-supply: false
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: mediatek,mt8195-ufshci
-+    then:
-+      properties:
-+        clocks:
-+          minItems: 10
-+        clock-names:
-+          minItems: 10
-+        avdd09-supply: false
+ 	/* Enable runtime autosuspend */
+ 	hba->caps |= UFSHCD_CAP_RPM_AUTOSUSPEND;
+@@ -1300,7 +1270,7 @@ static int ufs_mtk_init(struct ufs_hba *hba)
  
- examples:
-   - |
-@@ -94,9 +148,32 @@ examples:
-             phys = <&ufsphy>;
+ 	err = ufs_mtk_get_supplies(host);
+ 	if (err)
+-		goto out_variant_clear;
++		goto out_phy_exit;
  
-             clocks = <&infracfg_ao CLK_INFRA_UFS>;
--            clock-names = "ufs";
--            freq-table-hz = <0 0>;
-+            clock-names = "main";
+ 	/*
+ 	 * ufshcd_vops_init() is invoked after
+@@ -1311,7 +1281,7 @@ static int ufs_mtk_init(struct ufs_hba *hba)
+ 	 */
+ 	err = ufs_mtk_mphy_power_on(hba, true);
+ 	if (err)
+-		goto out_variant_clear;
++		goto out_phy_exit;
  
-             vcc-supply = <&mt_pmic_vemc_ldo_reg>;
-         };
-     };
-+  - |
-+    ufshci@11270000 {
-+        compatible = "mediatek,mt8195-ufshci";
-+        reg = <0x11270000 0x2300>;
-+        interrupts = <GIC_SPI 137 IRQ_TYPE_LEVEL_HIGH>;
-+        phys = <&ufsphy>;
-+        clocks = <&infracfg_ao 63>, <&infracfg_ao 64>, <&infracfg_ao 65>,
-+                 <&infracfg_ao 54>, <&infracfg_ao 55>, <&infracfg_ao 56>,
-+                 <&infracfg_ao 90>, <&infracfg_ao 93>, <&topckgen 212>,
-+                 <&topckgen 215>;
-+        clock-names = "main", "aes", "tick", "unipro_sysclk", "unipro_tick",
-+                      "unipro_mp_bclk", "tx_symbol", "mem_sub", "rx_symbol0",
-+                      "rx_symbol1";
+ 	if (ufs_mtk_is_rtff_mtcmos(hba)) {
+ 		/* First Restore here, to avoid backup unexpected value */
+@@ -1327,6 +1297,8 @@ static int ufs_mtk_init(struct ufs_hba *hba)
+ 
+ 	return 0;
+ 
++out_phy_exit:
++	phy_exit(host->mphy);
+ out_variant_clear:
+ 	ufshcd_set_variant(hba, NULL);
+ 	return err;
+@@ -1336,8 +1308,15 @@ static void ufs_mtk_exit(struct ufs_hba *hba)
+ {
+ 	struct ufs_mtk_host *host = ufshcd_get_variant(hba);
+ 
+-	if (host)
+-		ufs_mtk_mphy_power_on(hba, false);
++	if (!host)
++		return;
 +
-+        operating-points-v2 = <&ufs_opp_table>;
++	ufs_mtk_mphy_power_on(hba, false);
 +
-+        avdd12-supply = <&mt6359_vrf12_ldo_reg>;
-+        avdd12-ckbuf-supply = <&mt6359_vbbck_ldo_reg>;
-+        avdd18-supply = <&mt6359_vio18_ldo_reg>;
-+        vcc-supply = <&mt6359_vemc_1_ldo_reg>;
-+        vccq2-supply = <&mt6359_vufs_ldo_reg>;
++	phy_exit(host->mphy);
 +
-+        mediatek,ufs-disable-mcq;
-+    };
++	/* Set MPHY to null so it is not used anymore */
++	host->mphy = NULL;
+ }
+ 
+ static int ufs_mtk_negotiate_pwr_mode(struct ufs_hba *hba,
+@@ -2420,48 +2399,15 @@ MODULE_DEVICE_TABLE(of, ufs_mtk_of_match);
+  */
+ static int ufs_mtk_probe(struct platform_device *pdev)
+ {
+-	int err;
++	struct device *dev = &pdev->dev;
+ 	struct ufs_hba *hba;
+-	struct platform_device *phy_pdev = NULL;
+-	struct device *dev = &pdev->dev, *phy_dev = NULL;
+-	struct device_node *phy_node = NULL;
+-	struct ufs_mtk_host *host;
+-
+-	/* find phy node */
+-	phy_node = of_parse_phandle(dev->of_node, "phys", 0);
+-
+-	if (phy_node) {
+-		phy_pdev = of_find_device_by_node(phy_node);
+-		if (!phy_pdev)
+-			goto skip_phy;
+-		phy_dev = &phy_pdev->dev;
+-
+-		pm_runtime_set_active(phy_dev);
+-		pm_runtime_enable(phy_dev);
+-		pm_runtime_get_sync(phy_dev);
+-
+-		put_device(phy_dev);
+-		dev_info(dev, "phys node found\n");
+-	} else {
+-		dev_notice(dev, "phys node not found\n");
+-	}
++	int ret;
+ 
+-skip_phy:
+-	/* perform generic probe */
+-	err = ufshcd_pltfrm_init(pdev, &ufs_hba_mtk_vops);
+-	if (err) {
+-		dev_err(dev, "probe failed %d\n", err);
+-		goto out;
+-	}
++	ret = ufshcd_pltfrm_init(pdev, &ufs_hba_mtk_vops);
++	if (ret)
++		return dev_err_probe(dev, ret, "Generic platform probe failed\n");
+ 
+ 	hba = platform_get_drvdata(pdev);
+-	if (!hba)
+-		goto out;
+-
+-	if (phy_node && phy_dev) {
+-		host = ufshcd_get_variant(hba);
+-		host->phy_dev = phy_dev;
+-	}
+ 
+ 	/*
+ 	 * Because the default power setting of VSx (the upper layer of
+@@ -2470,16 +2416,12 @@ static int ufs_mtk_probe(struct platform_device *pdev)
+ 	 */
+ 	ufs_mtk_dev_vreg_set_lpm(hba, false);
+ 
+-out:
+-	of_node_put(phy_node);
+-	return err;
++	return 0;
+ }
+ 
+ /**
+  * ufs_mtk_remove - set driver_data of the device to NULL
+  * @pdev: pointer to platform device handle
+- *
+- * Always return 0
+  */
+ static void ufs_mtk_remove(struct platform_device *pdev)
+ {
+@@ -2536,9 +2478,8 @@ static int ufs_mtk_system_resume(struct device *dev)
+ static int ufs_mtk_runtime_suspend(struct device *dev)
+ {
+ 	struct ufs_hba *hba = dev_get_drvdata(dev);
+-	struct ufs_mtk_host *host = ufshcd_get_variant(hba);
+ 	struct arm_smccc_res res;
+-	int ret = 0;
++	int ret;
+ 
+ 	ret = ufshcd_runtime_suspend(dev);
+ 	if (ret)
+@@ -2548,25 +2489,17 @@ static int ufs_mtk_runtime_suspend(struct device *dev)
+ 
+ 	if (ufs_mtk_is_rtff_mtcmos(hba))
+ 		ufs_mtk_mtcmos_ctrl(false, res);
+-
+-	if (host->phy_dev)
+-		pm_runtime_put_sync(host->phy_dev);
+-
+ 	return 0;
+ }
+ 
+ static int ufs_mtk_runtime_resume(struct device *dev)
+ {
+ 	struct ufs_hba *hba = dev_get_drvdata(dev);
+-	struct ufs_mtk_host *host = ufshcd_get_variant(hba);
+ 	struct arm_smccc_res res;
+ 
+ 	if (ufs_mtk_is_rtff_mtcmos(hba))
+ 		ufs_mtk_mtcmos_ctrl(true, res);
+ 
+-	if (host->phy_dev)
+-		pm_runtime_get_sync(host->phy_dev);
+-
+ 	ufs_mtk_dev_vreg_set_lpm(hba, false);
+ 
+ 	return ufshcd_runtime_resume(dev);
+diff --git a/drivers/ufs/host/ufs-mediatek.h b/drivers/ufs/host/ufs-mediatek.h
+index 477fb9e36555..bde2b53f5798 100644
+--- a/drivers/ufs/host/ufs-mediatek.h
++++ b/drivers/ufs/host/ufs-mediatek.h
+@@ -196,7 +196,6 @@ struct ufs_mtk_host {
+ 	bool is_mcq_intr_enabled;
+ 	int mcq_nr_intr;
+ 	struct ufs_mtk_mcq_intr_info mcq_intr_info[UFSHCD_MAX_Q_NR];
+-	struct device *phy_dev;
+ };
+ 
+ /* MTK delay of autosuspend: 500 ms */
 
 -- 
 2.56.1
