@@ -1,99 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795775222;
-	b=kXU5Ki4Q/pwkBsdQlytdPnELC1z3PWRxamojAVWpwK8Mnt53nbUC9UcbT8N7ZEtvuzYk
-	 Sm8PIeVecShQDoNWFLDneimWGJz8FumQ+gNPSXZ2s5dI4+vAxMHCAKxK+y5De+B30EdFc
-	 R6R2/7UCZT3OyHRQXfhV2gOwF3qyv+ac5ZJw0r+Y+OT/LrAA7vXdUGscxxDCegvz9ssbs
-	 xLovd0C2jIjAP6Pp6tkKXY82vSw5UCCCKiwCE251+AzBEqH7gJHm39SOi26XbIgcaVMUx
-	 eCTjoiSI5ylcr76J5cqC4j2gBmQQyCnjMCO81693zehNw4kIhesKF4Dekq6geIqRz8w==
+	t=1795775407;
+	b=v4fY3w4rIVk/sA8PdceeSKxzSjcteq00RlADuKv8LOcleImPiwOrn3wOM4hD7EzmW7hQ
+	 C7JQlIEPkF2XsZcvynaDim0euxtFfziQMv3FfQTTmoCOwbq9gQDyTAjOuq9/Xq983qWLO
+	 nNVufV3nIGQRDzuviK6dGCBdw2UCd5IHwyO3/O/Z8FPSqu2kZYV14d21MLOrjj5IsgDtz
+	 OGn/6E9bVtmgtWsmAphmGiuLF34TGBknlFbv2wz72tpAHcrZRLgfESpc0biyQaG5gvsYy
+	 8xUmbIHUDzaecQDp9zUwMIZzcyH4Dy8JcqUcda/cOCb6ytef2I5FXBAqZ+IqZGn2bPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795775222;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=kUqYMnBcsEL1do1DUDscVdbJ5Tov4SvgkfladUfWF4w=;
-	b=fj/tNQvMvzAfdh7uuIkDnovygqFjFEZZeFbX12jN9kiQvNJQ/RK/AgmJPbB8xw4R0W32
-	 TKbd89G7mpxaxu4de8kirTCKUr6nH/86SRUyVv95cidCdQJS5N7FSBPLVftdmjFxpQy+j
-	 wASZN/f6Culux0028XJ9hAUH60tlu9vYwO3gjtu9Bd316Skgz+PH/sydS967vo/PaYW+w
-	 r6VdsnyxN7Z0iHSrbf0VHATpI86tyc0jckWTUS2T8dMG/J3lAt5V+vUn1XjvA5YCBr04C
-	 uOTZuQX0KJEbkW05zEfx576nsuinXOUiAI3MCKFRAHEGhb+lNknBLqFaBjTyLLUA0Xw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795775407;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=LHoWDmO83nUIJwGp2ijnmT3r8R9SA8Kocc8GMOeWdpY=;
+	b=0M8zKE0nqrEj9VMOavviIIgE7dJVha90nv3ASfb2j7zoPcK5HHQJRNNcfCGfjMmNEJr7
+	 NQc3Z+s7HnKTiVyYB9xmjArTQTwlyZaW86Ud2D4N06gwrkQ7tlantRG6VcnIRxsMOgESZ
+	 l7v0jjWbKF9MQxWXttVY4HBqkrfVnzMCpFxm+EDabvQE9bu2VyQVgy4F9RkGEqT7hiIhL
+	 rWvHGZEYsZkBPTNyrLhd8zMGCFnU+ORmbwplicq/8U0MUZRZ94WxMTA7bdqzR58XsbgcM
+	 cpa4UBuVgVrAUCPjEIonv3HhygYEBQ22WhwhUceMDY+T0Mt92ySxQG2TFKK3TJ4ASmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=d-silva.org;
-	spf=pass smtp.mailfrom=d-silva.org;
-	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=jrjLNw6e;
-	arc=none smtp.remote-ip=119.15.109.137
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=beGRJjhX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E373C606A31E;
-	Fri, 27 Nov 2026 10:27:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E373C606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2B8F606A326;
+	Fri, 27 Nov 2026 10:30:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=jrjLNw6e
-Received: from hawking.lan (ntp.lan [10.0.1.1])
-	by www.nmnhosting.com (Postfix) with ESMTPSA id E59604C984;
-	Fri, 27 Nov 2026 21:26:56 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1795775217;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=kUqYMnBcsEL1do1DUDscVdbJ5Tov4SvgkfladUfWF4w=;
-	b=jrjLNw6eKElCiN4pO9MuTqz/brZEVVk50lfZTJGsbjjhfzMNjajs+kMzEnEVr36UQaNPAd
-	nOEVLJ/M88JLlyCuIwSwXUu1ZA3PQ+EYdmUkNGwKDkwtr9ak9HF6T3Kglac/NWdbYjkZtH
-	q5DMdp555iyOcUuG7vBJ6xU3PLC0bmtxq34fLN1dHPnt/R6jRkYql8jlkMdu+APeIKs8PN
-	I48OvspZvXO66wJQsL5/HBg+29IGL72D/fKTKFvzxdmcFNlid+WwZbJ/xOjHAKeS5/WQh2
-	BKVKyuMuRMywRRF5oTv4sFzNg812/uwlOYeHNPeFwqAfcSt92seyXrCPt571jQ==
-Message-ID: <645158cb30c2335a6f3d301d7ecf0aaacc28df5b.camel@d-silva.org>
-Subject: Re: [PATCH 00/11] arm64: dts: allwinner: Add Allwinner A733 USB 3.0
- support
-From: Alastair D'Silva <alastair@d-silva.org>
-To: Andre Przywara <andre.przywara@arm.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chen-Yu Tsai	 <wens@kernel.org>, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Samuel Holland	 <samuel@sholland.org>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>,  Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet	
- <jbrunet+clk@baylibre.com>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
- Mathias Nyman <mathias.nyman@intel.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-usb@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Fri, 27 Nov 2026 21:26:56 +1100
-In-Reply-To: <114b03ba-914f-4494-be12-d967be62da00@arm.com>
-References: <20261127073231.1776847-1-alastair@d-silva.org>
-	 <114b03ba-914f-4494-be12-d967be62da00@arm.com>
-Autocrypt: addr=alastair@d-silva.org; prefer-encrypt=mutual;
- keydata=mQINBGactvoBEADBFM2HqfQUUM4j40ZQPyYzmnM8S6zrycO0ipDDPMs7nZMzyzGzOdqfS
- VB/tuYvZOOKVWzJuWJ5aT/YyHx54r3L+D5hTkEG0sXPVJky3yTS9sbHEMSLBHb8TVVuhPVPuieV4g
- Nkqg5POMTidk8xAw50WpV++tUlewXVSciehnuCQPXhXMP7FcCh4uO8LdN7E8m7ir1LafKTFfoWPah
- KVT8NGG9r+ucrFcN5F+VnHxTDaI68yRPkNdtUWmp22wIX1KwDCtKFrndYO4p5Hv2hlDKomsuIIHHn
- muQGRwuh0xpf0nVJNF8ETZHMzxQLfo3e/HvxBFOTkwY9w7CuuQFZchbhS0I3PfmGT0+jiNcdfqjDC
- fPPB5uhy+DkR6wO72vuwFYUrpU2mdliDSdKEtWBHulnXMJjpBOXetfIwhI8G2dTVg59lN5i9DvJZc
- 7y1Sp+qfZQ4P9qpYZyQEKR4GNDOdnm6F2LW2cZkcyAU/Ii765zdDMTQMIzZNSxT/FcDd0K1voTNRl
- QHbQw+kmIMhzSv2JefcC9oNbE0XYzcBDNP5T3O/4itOQ90GCKQEPAbIPeBjlQif7kkyvo/H6yv4s9
- duuK7zbJD9AID/+KGLkpU3p68VDB/C2ZSb9rQz3p1CJNSfsX/CPk7sPqA7RKZ4a2B0hSJ2pJCncNZ
- KXtMlkkm/FmewARAQABtCdBbGFzdGFpciBEJ1NpbHZhIDxhbGFzdGFpckBkLXNpbHZhLm9yZz6JAl
- EEEwEKADsWIQTQGemDFwqYyU/dBWv75AdnjVo60gUCZpy2+gIbAwULCQgHAgIiAgYVCgkICwIEFgI
- DAQIeBwIXgAAKCRD75AdnjVo60qHZEACJnLfpS71Hk8bX0CLCNJ5wgqdZD3pBHEdbv9Ux9kRlZp4a
- ZFwlg9ltwBjl2dZP3PLtD9xQdsdYKVippKd5a7ZZC2y81oDaHjeC9LnPYn8+ce3mGE/+gRyoNfToY
- N06DeUNJKSlZ9t11UIqZCgfp12u16/Yrigy8C4ihEeHXlLhNX6JkeJR5gsHXJnC7vSuMZY+Qz2R72
- ZidWg+cd2WDMGop5sbTvc+55q94A7vTMlWzaix5HdbEUA3sd2U0dMBju5QodRGGhDQMcCu64TydRD
- MtMzzOk9ThJ036ze3HASWGOppyQmaw58k+XNzbHlr9Sc1LsFUNF7zpWXac2rzlywbyRAdFIT/TC76
- hy9zOkwIo2nwA/tdIwLx1j0UZPpAMQmcDUvJqZh6sE+fv6HN0yMPr+sSYJmriMt8Z6leCEHQXOHVI
- SI5z5FvV3coMmHYRq6aXpfs/8SLiYgkV3B0HE/E18Y3j1OkeLYoqIH1VfzQZeCSL/S77NYvk60/MV
- 1HFSyqLdUR3uWZI4uZzoEcMoB0GX33uCTp2Ntc00+wSntwekCUQLCMLUb7dZrbpVuobHoWWtkiD2I
- uE5kAiaVwwwzM0BUwiM6VzVoKbeECz93rdsNtwoDqM0NtzoISC46H/BKVQ9mRNXDO4ThEBpJ4H2Tn
- mPNRYYcR0u2mNy1EJII04w==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=beGRJjhX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB7821F000C1;
+	Fri, 27 Nov 2026 10:30:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795775406;
+	bh=LHoWDmO83nUIJwGp2ijnmT3r8R9SA8Kocc8GMOeWdpY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=beGRJjhXZLxSuhuI8uCkyWxzjjU3YFgmKxBL6h/JwCB8I/e2wgYvba6l6MnBt7qA6
+	 3N8g0frPXK7A3bHU7JnUgrdqPx1FwgWDjIpR56AyjFr6ikq8y2BqSCap6zgcCjlaXG
+	 pJRMIL6Rxkec7bt3L9Ir//Nah/2Uw9Y6W+i/WWkz38enDzox/gvcq/JMhkv7YNXGYF
+	 IEYi99IziBO2g84dn9agCXiPMqGtW3yLI8cGCLT3KuHJPxVIRoFJ1aAIEY+hJHBr37
+	 Pu2Cw27Vyxj5uZllf1hB3c5uwIdnos6y526RtIsGjK376SP1zhPp11VRVrBIOf7WSG
+	 hc+M2ajKAeqKg==
+Date: Fri, 27 Nov 2026 11:30:02 +0100
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Fil Dunsky <filipp.dunsky@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-i2c@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v8 0/2] i2c: Add Cortina Systems CS75xx I2C controller
+ driver
+Message-ID: <awlbkHttSAYifRiR@zenone.zhora.eu>
+References: <20261124-cs75xx-i2c-v8-0-d0800b967886@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,57 +59,19 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261124-cs75xx-i2c-v8-0-d0800b967886@gmail.com>
 
+Hi Fil,
 
-On Fri, 2026-11-27 at 09:56 +0000, Andre Przywara wrote:
-> Hi Alastair,
->=20
-> On 11/27/26 08:32, Alastair D'Silva wrote:
-> > This series adds USB 3.0 host support for the Allwinner A733 SoC and
-> > enables it on the Xunlong OrangePi 4 Pro.
->=20
-> I think you should step on the brake for a bit, sending out (AI=20
-> generated?) patches like crazy is not going to make you friends with the=
-=20
-> maintainers and reviewers. At the moment we are trying to get the basic=
-=20
-> A733 DT merged (for v7.5), so anything non-essential has to wait. And=20
-> the list of out-of-tree dependencies below already shows that this is a=
-=20
-> bit early.
->=20
+...
 
-Ack. It is AI generated, but reviewed, restructured & tested by myself over
-the past few months.
+> Fil Dunsky (2):
+>       dt-bindings: i2c: Add Cortina Systems CS7542 I2C controller
+>       i2c: Add Cortina Systems CS75xx I2C controller driver
 
-It's been sitting around on my drive for a while (I was expecting to enable
-U-boot first, and that got tied up with reverse engineering the PMU,
-but it seems I got things backwards).
+pushed to i2c/i2c.
 
-> So I'd say wait for v7.5-rc1, which is probably going to happen in early=
-=20
-> January, then you have a much saner base, and we have more time for=20
-> reviewing more fancy features.
->=20
-> Oh, and also: please try to look beyond your particular board. It's not=
-=20
-> just the OrangePi 4A that is out there, we have other well documented=20
-> boards as well. Peeking at their schematics should make it easy to add=
-=20
-> the respective USB nodes to their DT.
-> The OPi 4A is benefiting from work of other people as well, so it would=
-=20
-> be nice to do the same for other boards. It's fine if you can't test it=
-=20
-> there, just mention that and others can test. That has also the=20
-> practical benefit of keeping the dependencies together.
-
-Sure, I was not comfortable with pushing out untested code, but if we can
-offload testing to others, I can do that.
-
-
-
-Cheers,
-
---=20
-Alastair D'Silva
+Thanks,
+Andi
