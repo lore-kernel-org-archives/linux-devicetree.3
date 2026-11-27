@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795804789;
-	b=aAIwT/py6KqMkvLWpf/XdOlgDz1zBOhlomdrAkZdvsaq/To8nJSXA3wIbed0OwaXGcof
-	 vgSDsC+r2q3EFurq58Vp5aq9tTOxfnRZRkx3ya9IrdWjqLkiCRJjlPcXVO4tT8TNzddig
-	 5GjCblTaoE4cxyhW7D+rbAftUf9bgvVOOTqgDH6XxRy8lkdRl0qLk0tcAfV2+HoOteN+G
-	 nfl3jQjnDlVBUWnhk/Lo97OAtPmKe9iYcESL/FecJzgSBnWGVYFHigEtLMkeUMbK6/N8l
-	 rTxUvbrWgQ9RenrvY6zABYqflaCJI7ACkm8H5NzuMnAZz6z5sz38sjMfeqJKBTrSdTQ==
+	t=1795804787;
+	b=U7SlsRs9ynIMbJCAkVVoN7oPFIpWNJqA7MFlcNHSB8cWn63J3D1SPmZikabNF7R7+n8O
+	 jDHztS95BI1RUNBnhcVpxjpDvYChvM7aMhI/be44pbrgHWvpvgXM+W98j0N3iex480qJs
+	 uSIWM8qNFMoN+l/Pu5DmPsjsQhDRoh2SelbhMiExmaDYjTn/IEfbgkDiqoAHzaJ8duMKd
+	 EoDPYvLb1YQ4vkDXpEaasyz6jqp+Jtc7SIIdUTWw7K3k4yY2Y1y8zfylKy152d9dxuAGL
+	 jMNariqaoGL6B3aVvcyDQyV1ayQeDqB1O1hzWUnDWA8tsNhjeR4ow3/eShM7meQXpmw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795804789;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795804787;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=qYxgl5Y9dDxShsCytNXwIG7m0pe7QBxnQBmZ31nnMb0=;
-	b=MYHmUWVK6GvK89XGW4DsLUgUIOBycjiaGtAbW18Fqa9HwCvM1+IHlzdnut6JGn0wa88F
-	 XClohinCPZtgmXsIXsyul6vK0S2rKe54pAs67fJ1Rgf2TT+5v0txLsAtZjfRDkRzPClMp
-	 Q6gpNU+kYIWiIBGxfxzbCaOAiijVdK1VC+iUYvDIToGU87e4Ga5Hm0T1t4kBJi4/Mg2G2
-	 BZ8APXRWdyxkoJ7UjTex2+cCNbyZGBA6r60tz2Y/hQXUm1s0t1Qz0mv79ZEYG36/Qr3iZ
-	 voVCtmy08wrPfKoQFHefqevBfayRAKNEUswMT3j6zB5ocjI67PjyRF7xbcAoF5ZdcFg==
+	bh=uS5UChngIHI03acdpVBWgg3b43agBP+PxV9C016TcGk=;
+	b=cS4dY8T4aNN/reiBCNu/aQWq0EjIYQQ4p6lCA+zTguJmEz0jGei5bZeipU6FugLe01ua
+	 NVAlYYYMVHU1GkVUgsr8TEhlWu2jJ1Phj1SnXy7vq1hOXSoRyNBt1R0Uw6OW3TqGBqcvi
+	 QOAMieHQEbsyOLPT/28bKSB9xRFARdL9Bf6fXsdbeI2aDWH8iNKv2mp5p3YONzRjtE915
+	 X9jI/dXteBm0jVTDKW3Tno12kPw9ow5SLsatoPg0yrlfoxiHXx7WJLQncTmOdnKI0H/yz
+	 iEhMRIzDvx57/v3T0vxeQ0i4oGT/KcHMrUAHWVVsklXtXiyQRrsaKmwvC1TVoYCKDJA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AxlBnA4O;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Dhv/P1BR";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B76560A5BDC;
-	Fri, 27 Nov 2026 18:39:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C176606A321;
+	Fri, 27 Nov 2026 18:39:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AxlBnA4O
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dhv/P1BR
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795804788;
-	b=Bp/07+r24bTAD84pQ01AzkkwcQUx4jGkl/1v7hJ5Wl1410T0MX7tbYdZtfZKJnXo3+II
-	 9OWbLosQH7VsTFZBIfZYU6Dl96+lbCivRWxdYl8Kt7s+RrMVtStbvAFXUUKWis4cvC5Pe
-	 s+FP/3/hpnKXEKP+5NRI0+KNvQgxyMIVDpOyE3aAhdT/bXkqcfTkSVQD80BFfryAUNP2U
-	 VUOALgSmcmZYMV2v3yLKXIkarQzaGo24cxONdG9pKqtBS0juBf7hFE5XdCZpciAAPuepK
-	 x7d9G2C9qEsGs/1PfHvXLhQz8JxEcTckcyEjRZDcJnbnaVDO7vRtg8TyMbu+YoVRH3g==
+	t=1795804786;
+	b=Av9Bbv6ujv9k6aog9ls8k75nHagtzo2iCCqe45p7++KBr72GYeWsrJHbDcjws8QmwlQk
+	 a4dFPTyCYVaGMFpjG5lyhIPG/AGuPsI9r9923ffVeicQU0F9rOm0CDZ3v2/t2OJtKPYkh
+	 EiEm2b+f0KGhULNtXndkpj7aRBfuxBj6GuNztEpuMQ8gJhgOv0a/2Pm/ynOk71aW6/55u
+	 Eq90hn8dQH/ry5/YjwFRQ7Q6g1obSweFa2546bT3+afYLPUV6KeXnW5gWeclKact710sy
+	 +QBE6fpO3Z9svmXq1X+kQSU/uSegTzmrmG1Dfvgf3IeOY8HJpUJvADXp9QCXV8glMRQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795804788;
+	c=relaxed/relaxed; t=1795804786;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=qYxgl5Y9dDxShsCytNXwIG7m0pe7QBxnQBmZ31nnMb0=;
-	b=WpQI7/Z6Mrb+AbZ6rNleWKr0F7YXa9ToSlU/wYuPVbyC7RTOVrcUI6VpcwRCifUwIy9U
-	 6+TPJ3fVUs9ApD0WMQj0VvafG2e0VHGLeXU5RNNmmLySf150NwzoJVkMbVKBFJqqaEmVi
-	 iXyOssMeJGlsimmfzcpnGWUIf/Le/DnDBzO1hdVfPskjTvq+jTzbq6DgBQrq1qiSyIhWy
-	 Y99N8ePN/kUUA3/3ChWmo71RydcBxIYh/2YrGWYG2tAX2fAVZnHXS4KzK4z5eo6oEk5lN
-	 xFXMXKK6mBVSlp0Nhs1OrR2BnPzXL+RKjpI7IRggJgw0pPzohGG+BibYKV/9nHvydfQ==
+	bh=uS5UChngIHI03acdpVBWgg3b43agBP+PxV9C016TcGk=;
+	b=PeqNZ4fudxZdtfv4eoqm47v88DAWf34W7g0KZjGk8PWqd9fcVzc6f+IlznK5mo36qPmw
+	 8TSV85yG0ufq5vIuinrf2beg2sqrrkoISHcV526/Z0lHQV+jlaEGw6iMAK1fnaInl7HUI
+	 qHChXPu8v+bwmikyMsuczkowUO5o70iaTQGKPIz0M6orLuWg4yNaoJhgPJ+4EimKqMSHF
+	 R28D5HK48L8nVWVSK8fZAHCCvgibHIljwW0lWCB4K038cKei/5KdT2ph4/cd4CryOXymv
+	 U3WA6cn6syzzKWp14weaOsVA79YhUnr0KKCAXEIYjncZx8efSh95BSdpfnMgTe8Ryrw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E45DE1F00897;
+	by smtp.kernel.org (Postfix) with ESMTPS id 2851A1F0092B;
 	Fri, 27 Nov 2026 18:39:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795804788;
-	bh=qYxgl5Y9dDxShsCytNXwIG7m0pe7QBxnQBmZ31nnMb0=;
+	s=k20260515; t=1795804786;
+	bh=uS5UChngIHI03acdpVBWgg3b43agBP+PxV9C016TcGk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=AxlBnA4O26BkdVshirzvov4hDHRc8hZWf6NoA0XIx/w2VZVfFxoG/7e8RV0NWE/9i
-	 4d1yZ9Za10vLgZFKQcPo9aDGP+oO6v9fzOzXEhzBC9v9NXpwBeDXNoAM8WvPLbzPw7
-	 T5SD6zX1PLSWp7qSigTyPBTVtHd6cdEI0r6MqpCBSW4t8lw5rC3yhoY+CDVKee3K/f
-	 PxIyAnHl6SPFh+4ybVS195fFKjHXvJAmaeY2hk5j3tzDndVdHe71Ay6OHau4QrbraT
-	 kI9bQFWZ6wsJOMUpN92Bur7Won7McEHayW9fGWEQOzryPlvH18l28MG8jGM5QEvDZz
-	 xJXd0W1QreiQw==
+	b=Dhv/P1BR85a7579iKBPm5RjWpLoENz1OfhmKFqrHi1yUBX5t5k1fzOndcujk3g14m
+	 7FzguQUWfIf3OIcadahevxqoNbfx1HaVm9k4jYLJO+iYbZpTep8KZI8mLeAxlQxPGm
+	 JPkX1vPelBjiyEIWhaGZef2T2th2iza4gp1NcrsCqL/tSu4ekW37kAIrLHwZ4rnRRO
+	 yZYYVmsbpEXE2w0w9ixPxA6MzzRbCQEv+Lesbp06f19j2ThAYMV9QROmWwDuHv4w+n
+	 o1kzfdDkEyTSteuznSZvtIK1OBrh/mfg//Yx8+XttH/Cn69kF2hIf5cVwKHPr3dyu7
+	 b39P7WXnhZYyw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D866A4DD53;
+	by lkml.kernel.org (Postfix) with ESMTP id 9662C4DD4B;
 	Fri, 27 Nov 2026 18:39:25 +0000 (UTC)
 From: Venkat Yadlapati via B4 Relay <devnull+venkat.yadlapati.yahoo.com@kernel.org>
-Date: Sat, 28 Nov 2026 00:09:31 +0530
-Subject: [PATCH v5 11/11] arm64: dts: qcom: Add Motorola Signature
- (vantage)
+Date: Sat, 28 Nov 2026 00:09:29 +0530
+Subject: [PATCH v5 09/11] arm64: dts: qcom: Add Molokai (SM8845) SoC dtsi
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +83,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261128-molokai-soc-v5-11-144801dfad7f@yahoo.com>
+Message-Id: <20261128-molokai-soc-v5-9-144801dfad7f@yahoo.com>
 References: <20261128-molokai-soc-v5-0-144801dfad7f@yahoo.com>
 In-Reply-To: <20261128-molokai-soc-v5-0-144801dfad7f@yahoo.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -98,11 +97,11 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
  Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795804762; l=19516;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795804762; l=10720;
  i=venkat.yadlapati@yahoo.com; s=20261023; h=from:subject:message-id;
- bh=WgoXFrFeGxl3YfwzfNXbW1r4c78Sql1/xP5sF5sJmOE=;
- b=aycAoxkQJMZq+n3+j0d0KqNLxVNT6ebt3JBlnGFNZ76zzROAEIpldX9+zvMi3NLBa3RhKmBiT
- NYmiwyAJNMWB44cN3pZEUfiaqhWF3l8GxoYY6YJ3YvgiyP04fCUy+Ya
+ bh=MF0NUq9Df3Ci0gvVslU/Grk5h+q15+CFuXNbs4eqWWE=;
+ b=pC1NAZB1BQXdHgwv8z9M9nec8UsJzGcB3e5xhVqpufk8VyEGUWerUMdHzDupPhHqkhGtAypQ7
+ 2lCin6vXeaLBJtfGp+RmBIp0bJuvOFWCh9PrWH0Rwvc6V13adFqojsq
 X-Developer-Key: i=venkat.yadlapati@yahoo.com; a=ed25519;
  pk=e8KStCtEMvUP1Se/riB/KVnDAQFEVR2Dw2PcuA8/eME=
 X-Endpoint-Received: by B4 Relay for venkat.yadlapati@yahoo.com/20261023
@@ -113,843 +112,408 @@ Content-Transfer-Encoding: 7bit
 
 From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 
-Add the devicetree for the Motorola Signature (vantage), a phone built
-on the Molokai (SM8845) SoC, with:
+Molokai is a Kaanapali derivative. Describe it on top of the Kaanapali
+dtsi: it has its own TLMM, with different pins for most serial engines
+and a different GPIO to PDC wakeup map, and a PDC with one more interrupt
+range. It has neither the I2C master hub nor the fourth QUP wrapper, and
+QUP3 SE5 does not exist. Its graphics clock controller is not compatible
+with the Kaanapali one.
 
-- UFS storage, the device reset is on GPIO 205
-- USB with role switching, and the Type-C connector handled by the
-  charger firmware on SoCCP through pmic-glink, which also provides the
-  battery and USB power supplies
-- the volume and AI keys: volume up is GPIO 6 of the PM8550, the AI key
-  TLMM GPIO 124 and volume down the RESIN input of the PMK8550
-- the bootloader's splash buffer as a simple-framebuffer
+Its NoCs differ from the Kaanapali ones as well (aggre-noc split into
+aggre1 and aggre2, other QoS ports, MMSS config split into HF and SF), so
+switch every interconnect provider to the Molokai compatibles, resize
+their register windows and add aggre2_noc. The crypto engine, SCM and the
+QUP2 and QUP3 serial engines use aggre2_noc.
 
-The PMICs on SPMI bus 0 are a PMK8550 (SID 0), a PM8550 (SID 1) and
-PM8550VE regulators, as reported in SMEM and described by the vendor
-devicetree. They are described here instead of including pmk8850.dtsi
-or pmk8550.dtsi: the PMK8550 has 6 GPIOs, not the 8 of the PMK8850, and
-pmk8550.dtsi is written for the single SPMI bus of the older SoCs.
-The LDOs are PMIC5 LDOs, which have no auto mode: like the vendor
-devicetree they start in high power mode and may drop to low power mode.
-
-The memory map follows the firmware the phone ships with. The CoreSight
-blocks are disabled: they are not accessible on production devices and
-reading their peripheral ID registers is a synchronous external abort.
+The SDC2 lines are muxed on regular GPIOs instead of dedicated pins, so
+the Kaanapali SDC2 pin states are dropped; boards using SDC2 describe
+their own.
 
 Signed-off-by: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 ---
- arch/arm64/boot/dts/qcom/Makefile                  |   1 +
- .../boot/dts/qcom/molokai-motorola-vantage.dts     | 791 +++++++++++++++++++++
- 2 files changed, 792 insertions(+)
+ arch/arm64/boot/dts/qcom/molokai.dtsi | 375 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 375 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 9553e3aaeccb..17d4374e2a5d 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -79,6 +79,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= mahua-lenovo-thinkpad-t14s-gen7-lcd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= mahua-qcb.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= milos-fairphone-fp6.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= milos-nothing-asteroids.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= molokai-motorola-vantage.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= monaco-arduino-monza.dtb
- 
- monaco-arduino-monza-el2-dtbs	:= monaco-arduino-monza.dtb monaco-el2.dtbo
-diff --git a/arch/arm64/boot/dts/qcom/molokai-motorola-vantage.dts b/arch/arm64/boot/dts/qcom/molokai-motorola-vantage.dts
+diff --git a/arch/arm64/boot/dts/qcom/molokai.dtsi b/arch/arm64/boot/dts/qcom/molokai.dtsi
 new file mode 100644
-index 000000000000..bafe28178ac0
+index 000000000000..42446354fffb
 --- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/molokai-motorola-vantage.dts
-@@ -0,0 +1,791 @@
++++ b/arch/arm64/boot/dts/qcom/molokai.dtsi
+@@ -0,0 +1,375 @@
 +// SPDX-License-Identifier: BSD-3-Clause
 +/*
 + * Copyright (c) 2026 Venkat Yadlapati <venkat.yadlapati@yahoo.com>
++ *
++ * Molokai (SM8845) is a Kaanapali derivative with its own TLMM: the pins of
++ * most serial engines and all the GPIO wakeup interrupts are different. It
++ * has no I2C master hub, no fourth QUP wrapper and no QUP3 SE5, and its PDC
++ * maps one more interrupt range. The SDC2 lines are muxed on regular GPIOs
++ * instead of dedicated pins, and the GPU is an Adreno 829 instead of the
++ * Adreno 840.
 + */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/linux-event-codes.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-+#include <dt-bindings/spmi/spmi.h>
-+#include "molokai.dtsi"
-+
-+/delete-node/ &adspslpi_mem;
-+/delete-node/ &camera_2_mem;
-+/delete-node/ &camera_mem;
-+/delete-node/ &cdsp_mem;
-+/delete-node/ &cvp_mem;
-+/delete-node/ &dsm_partition_1_mem;
-+/delete-node/ &dsm_partition_2_mem;
-+/delete-node/ &q6_adsp_dtb_mem;
-+/delete-node/ &q6_cdsp_dtb_mem;
-+/delete-node/ &soccp_dtb_mem;
-+/delete-node/ &soccp_mem;
-+/delete-node/ &video_mem;
-+
-+/ {
-+	model = "Motorola Signature";
-+	compatible = "motorola,vantage", "qcom,molokai";
-+	chassis-type = "handset";
-+
-+	chosen {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		framebuffer0: framebuffer@fc800000 {
-+			compatible = "simple-framebuffer";
-+			reg = <0x0 0xfc800000 0x0 0x2b00000>;
-+			width = <1264>;
-+			height = <2780>;
-+			stride = <(1264 * 4)>;
-+			format = "a8r8g8b8";
-+			clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
-+				 <&dispcc DISP_CC_MDSS_MDP_CLK>,
-+				 <&dispcc DISP_CC_MDSS_BYTE1_CLK>,
-+				 <&dispcc DISP_CC_MDSS_BYTE1_INTF_CLK>,
-+				 <&dispcc DISP_CC_MDSS_PCLK1_CLK>,
-+				 <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
-+			power-domains = <&dispcc DISP_CC_MDSS_CORE_GDSC>;
-+		};
-+	};
-+
-+	clocks {
-+		bi_tcxo_ao_div2: bi-tcxo-ao-div2-clk {
-+			compatible = "fixed-factor-clock";
-+			#clock-cells = <0>;
-+
-+			clocks = <&rpmhcc RPMH_CXO_CLK_A>;
-+			clock-mult = <1>;
-+			clock-div = <2>;
-+		};
-+
-+		bi_tcxo_div2: bi-tcxo-div2-clk {
-+			compatible = "fixed-factor-clock";
-+			#clock-cells = <0>;
-+
-+			clocks = <&rpmhcc RPMH_CXO_CLK>;
-+			clock-mult = <1>;
-+			clock-div = <2>;
-+		};
-+
-+		sleep_clk: sleep-clk {
-+			compatible = "fixed-clock";
-+			clock-frequency = <32764>;
-+			#clock-cells = <0>;
-+		};
-+
-+		xo_board: xo-board {
-+			compatible = "fixed-clock";
-+			clock-frequency = <76800000>;
-+			#clock-cells = <0>;
-+		};
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+
-+		pinctrl-0 = <&key_vol_up_default>, <&key_ai_default>;
-+		pinctrl-names = "default";
-+
-+		key-ai {
-+			label = "AI Key";
-+			linux,code = <KEY_ASSISTANT>;
-+			gpios = <&tlmm 124 GPIO_ACTIVE_LOW>;
-+			debounce-interval = <15>;
-+			linux,can-disable;
-+			wakeup-source;
-+		};
-+
-+		key-volume-up {
-+			label = "Volume Up";
-+			linux,code = <KEY_VOLUMEUP>;
-+			gpios = <&pm8550_gpios 6 GPIO_ACTIVE_LOW>;
-+			debounce-interval = <15>;
-+			linux,can-disable;
-+			wakeup-source;
-+		};
-+	};
-+
-+	pmic-glink {
-+		compatible = "qcom,kaanapali-pmic-glink",
-+			     "qcom,pmic-glink";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		connector@0 {
-+			compatible = "usb-c-connector";
-+			reg = <0>;
-+
-+			power-role = "dual";
-+			data-role = "dual";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					pmic_glink_hs_in: endpoint {
-+						remote-endpoint = <&usb_dwc3_hs>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					pmic_glink_ss_in: endpoint {
-+						remote-endpoint = <&usb_dp_qmpphy_out>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					pmic_glink_sbu: endpoint {
-+					};
-+				};
-+			};
-+		};
-+	};
-+
-+	/* Memory map of the SM8845 firmware shipped with A171WVH.21-16-16 */
-+	reserved-memory {
-+		gunyah_hyp_mem: gunyah-hyp@80000000 {
-+			reg = <0x0 0x80000000 0x0 0xe00000>;
-+			no-map;
-+		};
-+
-+		cpucp_mem: cpucp@81200000 {
-+			reg = <0x0 0x81200000 0x0 0x100000>;
-+			no-map;
-+		};
-+
-+		xbl_dtlog_mem: xbl-dtlog@81a00000 {
-+			reg = <0x0 0x81a00000 0x0 0x60000>;
-+			no-map;
-+		};
-+
-+		aop_image_mem: aop-image@81c00000 {
-+			reg = <0x0 0x81c00000 0x0 0x60000>;
-+			no-map;
-+		};
-+
-+		aop_config_mem: aop-config@81c80000 {
-+			reg = <0x0 0x81c80000 0x0 0x20000>;
-+			no-map;
-+		};
-+
-+		tme_crash_dump_mem: tme-crash-dump@81ca0000 {
-+			reg = <0x0 0x81ca0000 0x0 0x40000>;
-+			no-map;
-+		};
-+
-+		tme_log_mem: tme-log@81ce0000 {
-+			reg = <0x0 0x81ce0000 0x0 0x4000>;
-+			no-map;
-+		};
-+
-+		uefi_log_mem: uefi-log@81ce4000 {
-+			reg = <0x0 0x81ce4000 0x0 0x10000>;
-+			no-map;
-+		};
-+
-+		cpucp_scandump_mem: cpucp-scandump@82000000 {
-+			reg = <0x0 0x82000000 0x0 0x380000>;
-+			no-map;
-+		};
-+
-+		adsp_mhi_mem: adsp-mhi@82380000 {
-+			reg = <0x0 0x82380000 0x0 0x20000>;
-+			no-map;
-+		};
-+
-+		soccp_sdi_mem: soccp-sdi@823a0000 {
-+			reg = <0x0 0x823a0000 0x0 0x40000>;
-+			no-map;
-+		};
-+
-+		pmic_minidump_mem: pmic-minidump@823e0000 {
-+			reg = <0x0 0x823e0000 0x0 0x80000>;
-+			no-map;
-+		};
-+
-+		qup_fw_mem: qup-fw@82460000 {
-+			reg = <0x0 0x82460000 0x0 0x18000>;
-+			no-map;
-+		};
-+
-+		pvm_fw_mem: pvm-fw@824a0000 {
-+			reg = <0x0 0x824a0000 0x0 0x100000>;
-+			no-map;
-+		};
-+
-+		hyp_mem_database_mem: hyp-mem-database@825a0000 {
-+			reg = <0x0 0x825a0000 0x0 0x60000>;
-+			no-map;
-+		};
-+
-+		tz_stat_mem: tz-stat@82700000 {
-+			reg = <0x0 0x82700000 0x0 0x100000>;
-+			no-map;
-+		};
-+
-+		qdss_apps_mem: qdss-apps@82800000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0x0 0x82800000 0x0 0x2000000>;
-+			reusable;
-+		};
-+
-+		dsm_partition_1_mem: dsm-partition-1@84a00000 {
-+			reg = <0x0 0x84a00000 0x0 0x5100000>;
-+			no-map;
-+		};
-+
-+		camera_mem: camera@9b800000 {
-+			reg = <0x0 0x9b800000 0x0 0x800000>;
-+			no-map;
-+		};
-+
-+		camera_2_mem: camera-2@9c000000 {
-+			reg = <0x0 0x9c000000 0x0 0x800000>;
-+			no-map;
-+		};
-+
-+		video_mem: video@9c800000 {
-+			reg = <0x0 0x9c800000 0x0 0x800000>;
-+			no-map;
-+		};
-+
-+		cvp_mem: cvp@9d000000 {
-+			reg = <0x0 0x9d000000 0x0 0x700000>;
-+			no-map;
-+		};
-+
-+		cdsp_mem: cdsp@9d700000 {
-+			reg = <0x0 0x9d700000 0x0 0x1900000>;
-+			no-map;
-+		};
-+
-+		q6_cdsp_dtb_mem: q6-cdsp-dtb@9f000000 {
-+			reg = <0x0 0x9f000000 0x0 0x80000>;
-+			no-map;
-+		};
-+
-+		dcp_dtb_mem: dcp-dtb@a4080000 {
-+			reg = <0x0 0xa4080000 0x0 0x80000>;
-+			no-map;
-+		};
-+
-+		dcp_mem: dcp@a4100000 {
-+			reg = <0x0 0xa4100000 0x0 0x300000>;
-+			no-map;
-+		};
-+
-+		soccp_mem: soccp@a4400000 {
-+			reg = <0x0 0xa4400000 0x0 0x600000>;
-+			no-map;
-+		};
-+
-+		soccp_dtb_mem: soccp-dtb@a4a00000 {
-+			reg = <0x0 0xa4a00000 0x0 0x40000>;
-+			no-map;
-+		};
-+
-+		mmi_annotate_mem: mmi-annotate@adfff000 {
-+			reg = <0x0 0xadfff000 0x0 0x1000>;
-+			no-map;
-+		};
-+
-+		ramoops_mem: ramoops@ae000000 {
-+			compatible = "ramoops";
-+			reg = <0x0 0xae000000 0x0 0x60000>;
-+			console-size = <0x40000>;
-+			record-size = <0x20000>;
-+			no-map;
-+		};
-+
-+		q6_adsp_dtb_mem: q6-adsp-dtb@b8280000 {
-+			reg = <0x0 0xb8280000 0x0 0x80000>;
-+			no-map;
-+		};
-+
-+		adspslpi_mem: adspslpi@b8300000 {
-+			reg = <0x0 0xb8300000 0x0 0x5e00000>;
-+			no-map;
-+		};
-+
-+		xbl_ramdump_mem: xbl-ramdump@d5d00000 {
-+			reg = <0x0 0xd5d00000 0x0 0x1c0000>;
-+			no-map;
-+		};
-+
-+		hyp_ext_heap_mem: hyp-ext-heap@d63d0000 {
-+			reg = <0x0 0xd63d0000 0x0 0x800000>;
-+			no-map;
-+		};
-+
-+		global_sync_mem: global-sync@d7a00000 {
-+			reg = <0x0 0xd7a00000 0x0 0x200000>;
-+			no-map;
-+		};
-+
-+		tz_merged_mem: tz-merged@d8000000 {
-+			reg = <0x0 0xd8000000 0x0 0x3a00000>;
-+			no-map;
-+		};
-+
-+		oem_vm_mem: oem-vm@f7c00000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0x0 0xf7c00000 0x0 0x4c00000>;
-+			reusable;
-+		};
-+
-+		splash_mem: splash@fc800000 {
-+			reg = <0x0 0xfc800000 0x0 0x2b00000>;
-+			no-map;
-+		};
-+
-+		llcc_lpi_mem: llcc-lpi@ff800000 {
-+			reg = <0x0 0xff800000 0x0 0x600000>;
-+			no-map;
-+		};
-+
-+		lcp_dare_mem: lcp-dare@880000000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0x8 0x80000000 0x0 0x6000000>;
-+			reusable;
-+		};
++#include "kaanapali.dtsi"
++
++#include <dt-bindings/interconnect/qcom,molokai-rpmh.h>
++
++/delete-node/ &gpi_dma4;
++/delete-node/ &i2c_master_hub;
++/delete-node/ &qupv3_4;
++/delete-node/ &uart18;
++
++/delete-node/ &hub_i2c0_data_clk;
++/delete-node/ &hub_i2c1_data_clk;
++/delete-node/ &hub_i2c2_data_clk;
++/delete-node/ &hub_i2c3_data_clk;
++/delete-node/ &hub_i2c4_data_clk;
++/delete-node/ &qup_i2c19_data_clk;
++/delete-node/ &qup_i2c20_data_clk;
++/delete-node/ &qup_i2c21_data_clk;
++/delete-node/ &qup_i2c22_data_clk;
++/delete-node/ &qup_i2c23_data_clk;
++/delete-node/ &qup_spi19_cs;
++/delete-node/ &qup_spi19_data_clk;
++/delete-node/ &qup_spi20_cs;
++/delete-node/ &qup_spi20_data_clk;
++/delete-node/ &qup_spi21_cs;
++/delete-node/ &qup_spi21_data_clk;
++/delete-node/ &qup_uart18_cts_rts;
++/delete-node/ &qup_uart18_default;
++/delete-node/ &sdc2_default;
++/delete-node/ &sdc2_sleep;
++
++/* The Kaanapali aggre-noc is aggre1-noc on Molokai, see also aggre2_noc */
++&aggre_noc {
++	compatible = "qcom,molokai-aggre1-noc";
++	reg = <0x0 0x016e0000 0x0 0x16400>;
++	clocks = <&gcc GCC_AGGRE_UFS_PHY_AXI_CLK>,
++		 <&gcc GCC_AGGRE_USB3_PRIM_AXI_CLK>;
++};
++
++&clk_virt {
++	compatible = "qcom,molokai-clk-virt";
++};
++
++&cnoc_main {
++	compatible = "qcom,molokai-cnoc-main";
++};
++
++&config_noc {
++	compatible = "qcom,molokai-cnoc-cfg";
++	reg = <0x0 0x01600000 0x0 0x9200>;
++};
++
++&crypto {
++	interconnects = <&aggre2_noc MASTER_CRYPTO QCOM_ICC_TAG_ALWAYS
++			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
++};
++
++&gem_noc {
++	compatible = "qcom,molokai-gem-noc";
++};
++
++&gpucc {
++	compatible = "qcom,molokai-gpucc";
++};
++
++&i2c8 {
++	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
++			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
++			<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ACTIVE_ONLY>,
++			<&aggre2_noc MASTER_QUP_2 QCOM_ICC_TAG_ALWAYS
++			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
++};
++
++&i2c9 {
++	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
++			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
++			<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ACTIVE_ONLY>,
++			<&aggre2_noc MASTER_QUP_2 QCOM_ICC_TAG_ALWAYS
++			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
++};
++
++&i2c10 {
++	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
++			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
++			<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ACTIVE_ONLY>,
++			<&aggre2_noc MASTER_QUP_2 QCOM_ICC_TAG_ALWAYS
++			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
++};
++
++&i2c11 {
++	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
++			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
++			<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ACTIVE_ONLY>,
++			<&aggre2_noc MASTER_QUP_2 QCOM_ICC_TAG_ALWAYS
++			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
++};
++
++&i2c12 {
++	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
++			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
++			<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ACTIVE_ONLY>,
++			<&aggre2_noc MASTER_QUP_2 QCOM_ICC_TAG_ALWAYS
++			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
++};
++
++&i2c13 {
++	interconnects = <&clk_virt MASTER_QUP_CORE_3 QCOM_ICC_TAG_ALWAYS
++			 &clk_virt SLAVE_QUP_CORE_3 QCOM_ICC_TAG_ALWAYS>,
++			<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++			 &config_noc SLAVE_QUP_3 QCOM_ICC_TAG_ACTIVE_ONLY>,
++			<&aggre2_noc MASTER_QUP_3 QCOM_ICC_TAG_ALWAYS
++			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
++};
++
++&i2c14 {
++	interconnects = <&clk_virt MASTER_QUP_CORE_3 QCOM_ICC_TAG_ALWAYS
++			 &clk_virt SLAVE_QUP_CORE_3 QCOM_ICC_TAG_ALWAYS>,
++			<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++			 &config_noc SLAVE_QUP_3 QCOM_ICC_TAG_ACTIVE_ONLY>,
++			<&aggre2_noc MASTER_QUP_3 QCOM_ICC_TAG_ALWAYS
++			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
++};
++
++&i2c15 {
++	interconnects = <&clk_virt MASTER_QUP_CORE_3 QCOM_ICC_TAG_ALWAYS
++			 &clk_virt SLAVE_QUP_CORE_3 QCOM_ICC_TAG_ALWAYS>,
++			<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++			 &config_noc SLAVE_QUP_3 QCOM_ICC_TAG_ACTIVE_ONLY>,
++			<&aggre2_noc MASTER_QUP_3 QCOM_ICC_TAG_ALWAYS
++			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
++};
++
++&i2c16 {
++	interconnects = <&clk_virt MASTER_QUP_CORE_3 QCOM_ICC_TAG_ALWAYS
++			 &clk_virt SLAVE_QUP_CORE_3 QCOM_ICC_TAG_ALWAYS>,
++			<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++			 &config_noc SLAVE_QUP_3 QCOM_ICC_TAG_ACTIVE_ONLY>,
++			<&aggre2_noc MASTER_QUP_3 QCOM_ICC_TAG_ALWAYS
++			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
++};
++
++&i2c17 {
++	interconnects = <&clk_virt MASTER_QUP_CORE_3 QCOM_ICC_TAG_ALWAYS
++			 &clk_virt SLAVE_QUP_CORE_3 QCOM_ICC_TAG_ALWAYS>,
++			<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++			 &config_noc SLAVE_QUP_3 QCOM_ICC_TAG_ACTIVE_ONLY>,
++			<&aggre2_noc MASTER_QUP_3 QCOM_ICC_TAG_ALWAYS
++			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
++};
++
++&lpass_ag_noc {
++	compatible = "qcom,molokai-lpass-ag-noc";
++};
++
++&lpass_lpiaon_noc {
++	compatible = "qcom,molokai-lpass-lpiaon-noc";
++};
++
++&lpass_lpicx_noc {
++	compatible = "qcom,molokai-lpass-lpicx-noc";
++};
++
++&mc_virt {
++	compatible = "qcom,molokai-mc-virt";
++};
++
++&mmss_noc {
++	compatible = "qcom,molokai-mmss-noc";
++	reg = <0x0 0x01780000 0x0 0x7d400>;
++};
++
++&nsp_noc {
++	compatible = "qcom,molokai-nsp-noc";
++	reg = <0x0 0x260c0000 0x0 0x1c080>;
++};
++
++&pcie_noc {
++	compatible = "qcom,molokai-pcie-anoc";
++};
++
++&pdc {
++	compatible = "qcom,molokai-pdc", "qcom,pdc";
++	qcom,pdc-ranges = <0 745 38>,
++			  <40 785 11>,
++			  <51 527 4>,
++			  <58 534 2>,
++			  <61 537 20>,
++			  <84 559 14>,
++			  <98 609 32>,
++			  <130 717 12>,
++			  <142 251 5>,
++			  <147 796 16>,
++			  <163 783 2>,
++			  <165 531 2>,
++			  <167 536 1>,
++			  <168 557 2>,
++			  <170 415 1>,
++			  <171 438 1>,
++			  <172 579 1>,
++			  <173 703 1>,
++			  <174 708 1>,
++			  <175 714 1>,
++			  <176 68 1>,
++			  <177 86 1>,
++			  <178 96 1>,
++			  <179 249 1>,
++			  <180 504 9>;
++};
++
++&qup_i2c0_data_clk {
++	pins = "gpio32", "gpio33";
++};
++
++&qup_i2c1_data_clk {
++	pins = "gpio36", "gpio37";
++};
++
++&qup_i2c4_data_clk {
++	pins = "gpio48", "gpio49";
++};
++
++&qup_i2c5_data_clk {
++	pins = "gpio72", "gpio73";
++	function = "qup1_se5_mira";
++};
++
++&qup_i2c10_data_clk {
++	pins = "gpio8", "gpio9";
++};
++
++&qup_i2c11_data_clk {
++	pins = "gpio12", "gpio13";
++};
++
++&qup_i2c12_data_clk {
++	pins = "gpio117", "gpio118";
++	function = "qup2_se4_mirb";
++};
++
++&qup_i2c14_data_clk {
++	pins = "gpio68", "gpio69";
++};
++
++&qup_i2c15_data_clk {
++	pins = "gpio80", "gpio81";
++};
++
++&qup_i2c16_data_clk {
++	pins = "gpio76", "gpio77";
++};
++
++&qup_i2c17_data_clk {
++	pins = "gpio52", "gpio53";
++};
++
++&qup_spi0_cs {
++	pins = "gpio35";
++};
++
++&qup_spi0_data_clk {
++	pins = "gpio32", "gpio33", "gpio34";
++};
++
++&qup_spi1_cs {
++	pins = "gpio39";
++};
++
++&qup_spi1_data_clk {
++	pins = "gpio36", "gpio37", "gpio38";
++};
++
++&qup_spi4_cs {
++	pins = "gpio51";
++};
++
++&qup_spi4_data_clk {
++	pins = "gpio48", "gpio49", "gpio50";
++};
++
++&qup_spi5_cs {
++	pins = "gpio75";
++	function = "qup1_se5_mira";
++};
++
++&qup_spi5_data_clk {
++	pins = "gpio72", "gpio73", "gpio74";
++	function = "qup1_se5_mira";
++};
++
++&qup_spi10_cs {
++	pins = "gpio11";
++};
++
++&qup_spi10_data_clk {
++	pins = "gpio8", "gpio9", "gpio10";
++};
++
++&qup_spi11_cs {
++	pins = "gpio15";
++};
++
++&qup_spi11_data_clk {
++	pins = "gpio12", "gpio13", "gpio14";
++};
++
++&qup_spi14_cs {
++	pins = "gpio71";
++};
++
++&qup_spi14_data_clk {
++	pins = "gpio68", "gpio69", "gpio70";
++};
++
++&qup_spi15_cs {
++	pins = "gpio83";
++};
++
++&qup_spi15_data_clk {
++	pins = "gpio80", "gpio81", "gpio82";
++};
++
++&qup_spi16_cs {
++	pins = "gpio147";
++};
++
++&qup_spi16_data_clk {
++	pins = "gpio76", "gpio77", "gpio146";
++};
++
++&qup_spi17_cs {
++	pins = "gpio55";
++};
++
++&qup_spi17_data_clk {
++	pins = "gpio52", "gpio53", "gpio54";
++};
++
++&scm {
++	interconnects = <&aggre2_noc MASTER_CRYPTO QCOM_ICC_TAG_ALWAYS
++			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
++};
++
++&soc {
++	aggre2_noc: interconnect@1700000 {
++		compatible = "qcom,molokai-aggre2-noc";
++		reg = <0x0 0x01700000 0x0 0x22400>;
++		qcom,bcm-voters = <&apps_bcm_voter>;
++		#interconnect-cells = <2>;
++		clocks = <&rpmhcc RPMH_IPA_CLK>;
 +	};
 +};
 +
-+/*
-+ * The CoreSight/QDSS debug blocks are not accessible on these production-fused
-+ * phones; reading their peripheral ID registers is a synchronous external abort.
-+ */
-+&{/soc@0/stm@10002000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@10003000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpda@10004000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@1000f000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/funnel@10041000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@11000000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpda@11004000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/funnel@11005000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@1102c000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@11180000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@11183000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@11184000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@11185000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@11186000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpda@11188000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/funnel@11189000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@111a3000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@111a4000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@111a5000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@111a6000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@111a7000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@111a8000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@111a9000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@111aa000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@111ab000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@111ac000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@111ad000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@111ae000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@111af000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@111b3000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tn@111b8000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@111d0000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@11303000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/funnel@11304000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tmc@11305000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpda@11308000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@11309000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@1130a000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@1130b000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@1130c000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@1130d000} {
-+	status = "disabled";
-+};
-+
-+&{/soc@0/tpdm@11422000} {
-+	status = "disabled";
-+};
-+
-+&apps_rsc {
-+	regulators-0 {
-+		compatible = "qcom,pm8550-rpmh-regulators";
-+		qcom,pmic-id = "B_E0";
-+
-+		vreg_l5b_3p1: ldo5 {
-+			regulator-name = "vreg_l5b_3p1";
-+			regulator-min-microvolt = <3100000>;
-+			regulator-max-microvolt = <3148000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l15b_1p8: ldo15 {
-+			regulator-name = "vreg_l15b_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l17b_2p5: ldo17 {
-+			regulator-name = "vreg_l17b_2p5";
-+			regulator-min-microvolt = <2504000>;
-+			regulator-max-microvolt = <2504000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+
-+	regulators-2 {
-+		compatible = "qcom,pm8550ve-rpmh-regulators";
-+		qcom,pmic-id = "F_E0";
-+
-+		vreg_l2f_1p2: ldo2 {
-+			regulator-name = "vreg_l2f_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3f_1p2: ldo3 {
-+			regulator-name = "vreg_l3f_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+
-+	regulators-4 {
-+		compatible = "qcom,pm8550ve-rpmh-regulators";
-+		qcom,pmic-id = "I_E0";
-+
-+		vreg_l1i_0p9: ldo1 {
-+			regulator-name = "vreg_l1i_0p9";
-+			regulator-min-microvolt = <866000>;
-+			regulator-max-microvolt = <958000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2i_0p9: ldo2 {
-+			regulator-name = "vreg_l2i_0p9";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <920000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3i_0p8: ldo3 {
-+			regulator-name = "vreg_l3i_0p8";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <920000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+};
-+
-+&spmi_bus0 {
-+	pmic@0 {
-+		compatible = "qcom,pmk8550", "qcom,spmi-pmic";
-+		reg = <0x0 SPMI_USID>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		pmk8550_pon: pon@1300 {
-+			compatible = "qcom,pmk8350-pon";
-+			reg = <0x1300>,
-+			      <0x800>;
-+			reg-names = "hlos",
-+				    "pbs";
-+
-+			pon_pwrkey: pwrkey {
-+				compatible = "qcom,pmk8350-pwrkey";
-+				interrupts = <0x0 0x13 0x7 IRQ_TYPE_EDGE_BOTH>;
-+				linux,code = <KEY_POWER>;
-+			};
-+
-+			pon_resin: resin {
-+				compatible = "qcom,pmk8350-resin";
-+				interrupts = <0x0 0x13 0x6 IRQ_TYPE_EDGE_BOTH>;
-+				linux,code = <KEY_VOLUMEDOWN>;
-+			};
-+		};
-+
-+		pmk8550_rtc: rtc@6100 {
-+			compatible = "qcom,pmk8350-rtc";
-+			reg = <0x6100>,
-+			      <0x6200>;
-+			reg-names = "rtc",
-+				    "alarm";
-+			interrupts = <0x0 0x62 0x1 IRQ_TYPE_EDGE_RISING>;
-+		};
-+
-+		pmk8550_sdam_2: nvram@7100 {
-+			compatible = "qcom,spmi-sdam";
-+			reg = <0x7100>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			ranges = <0 0x7100 0x100>;
-+
-+			reboot_reason: reboot-reason@48 {
-+				reg = <0x48 0x1>;
-+				bits = <1 7>;
-+			};
-+		};
-+
-+		pmk8550_gpios: gpio@b800 {
-+			compatible = "qcom,pmk8550-gpio", "qcom,spmi-gpio";
-+			reg = <0xb800>;
-+			gpio-controller;
-+			gpio-ranges = <&pmk8550_gpios 0 0 6>;
-+			#gpio-cells = <2>;
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+		};
-+	};
-+
-+	pmic@1 {
-+		compatible = "qcom,pm8550", "qcom,spmi-pmic";
-+		reg = <0x1 SPMI_USID>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		pm8550_gpios: gpio@8800 {
-+			compatible = "qcom,pm8550-gpio", "qcom,spmi-gpio";
-+			reg = <0x8800>;
-+			gpio-controller;
-+			gpio-ranges = <&pm8550_gpios 0 0 12>;
-+			#gpio-cells = <2>;
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+
-+			key_vol_up_default: key-vol-up-default-state {
-+				pins = "gpio6";
-+				function = "normal";
-+				power-source = <1>;
-+				bias-pull-up;
-+				input-enable;
-+			};
-+		};
-+	};
-+
-+	pmic@7 {
-+		compatible = "qcom,pmih0108", "qcom,spmi-pmic";
-+		reg = <0x7 SPMI_USID>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		pmih0108_eusb2_repeater: phy@fd00 {
-+			compatible = "qcom,pm8550b-eusb2-repeater";
-+			reg = <0xfd00>;
-+			#phy-cells = <0>;
-+
-+			vdd18-supply = <&vreg_l15b_1p8>;
-+			vdd3-supply = <&vreg_l5b_3p1>;
-+		};
-+	};
++&system_noc {
++	compatible = "qcom,molokai-system-noc";
 +};
 +
 +&tlmm {
-+	gpio-reserved-ranges = <36 8>, <46 1>, <56 4>, <72 1>, <148 2>;
-+
-+	key_ai_default: key-ai-default-state {
-+		pins = "gpio124";
-+		function = "gpio";
-+		output-disable;
-+		bias-pull-up;
-+	};
-+};
-+
-+&ufs_mem_hc {
-+	reset-gpios = <&tlmm 205 GPIO_ACTIVE_LOW>;
-+
-+	vcc-supply = <&vreg_l17b_2p5>;
-+	vcc-max-microamp = <1200000>;
-+	vccq-supply = <&vreg_l3f_1p2>;
-+	vccq-max-microamp = <1200000>;
-+
-+	status = "okay";
-+};
-+
-+&ufs_mem_phy {
-+	vdda-phy-supply = <&vreg_l1i_0p9>;
-+	vdda-pll-supply = <&vreg_l2f_1p2>;
-+
-+	status = "okay";
-+};
-+
-+&usb {
-+	status = "okay";
-+};
-+
-+&usb_dp_qmpphy {
-+	vdda-phy-supply = <&vreg_l2i_0p9>;
-+	vdda-pll-supply = <&vreg_l2f_1p2>;
-+
-+	status = "okay";
-+};
-+
-+&usb_dp_qmpphy_out {
-+	remote-endpoint = <&pmic_glink_ss_in>;
-+};
-+
-+&usb_dwc3_hs {
-+	remote-endpoint = <&pmic_glink_hs_in>;
-+};
-+
-+&usb_hsphy {
-+	vdd-supply = <&vreg_l3i_0p8>;
-+	vdda12-supply = <&vreg_l2f_1p2>;
-+
-+	phys = <&pmih0108_eusb2_repeater>;
-+
-+	status = "okay";
++	compatible = "qcom,molokai-tlmm";
++	gpio-ranges = <&tlmm 0 0 206>;
 +};
 
 -- 
