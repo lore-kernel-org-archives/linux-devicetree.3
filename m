@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795765685;
-	b=rQDxAkYsx4h1KZ+QAUjbmhbsVT7NfqOvuKy4vY4TtTuF/oNLWaj9GH57gOM541Ct7W+w
-	 RTYclhMyu7Rvo5maa4Ax9H10RXq5HhBIStBP8flzLTm/Flff/CxxIHBdU94Saio5/5EdR
-	 FiDG808DQBm909T0cNaEvoxZviarOKTejh9Iv3m/LOAgJklWYioAHg93mgjjRItql+2Z2
-	 y9qx/kQ52vKgXRDGF0+RRrUuhmHs5UOPMdX8aK3hkhNRCPc6YMy4nd9mVEBqS0aPKYgCi
-	 dMHd1u5aFNIifv9EjeNUzOj5hzOyq8MrTV8Re8Kdy8tc3a3dOOEP9ycwBJ8kGRmrW/w==
+	t=1795765689;
+	b=w67H5xoc0MRfZJNOIVoTv6ac3NxfaEyfyHfVpplSEuNSHu/jcwxqwPfdCxiV/xSpI0rG
+	 jnxqDvc3bbd/H8AIT1evNb9PB0/b2GMtZPO8oVQCO7U3PJgjEainwDw5wzonMtnjpODLO
+	 503UBT5TH/FM7y8J86pApg3aDDZSyn9QXbKg6JIE4b8uTP9HBcAJQfnJDGrk23puPl6t4
+	 DItj4oH89k73UDEdxmxdSHlyA+y0vMBECbYvSKFn1f0VWZTWXrh5vSuCVsb0gjjFug78V
+	 j7iqvItO1rhIN5hRvmgMPl+mAGwsmCUkdKGcCZXtNoetoXCiRqo5CGJF6h2OF24xZbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795765685;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795765689;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=iHpEgxPbFinlelTShydiqMdXL6WmYaYuO85mjvtFPkY=;
-	b=CYS2jwSt2fIpFyuMTABP4ozXCB3V4BFBw4OhNZg8ACbZv+fO+eDG168nHEkAwfSPuLSx
-	 deRAYD6P3GMQdnE6zyCr6UZIIsWw6tkHui+uokH9EuBOSQd+rWjQ6tv68pjSRm9RYj+3a
-	 2WJdTcI1jLKNBYOeByi9gIf5waHSVt4C2W1ZpLBNaDhq20nduDqOozypCXogQl5+WdbFF
-	 AyuZ2j4YKkkBlr2dUgebpVD9OBH6gvcGS8Yq3votSmvH74MdzxNA2DBnyIL0PSIM9d4u4
-	 Cp2+1N4QBYG/UMWZEbgVquxlaglg9UjOMvSozTh1CpBYL4HW7UGY5EoOh9xBx8g1I1Q==
+	bh=Px927uPzL0G0bD9p/DBHwmNAaSmtnfAuqfR/vrK6L/E=;
+	b=FtrKxE1xjzBtjpAdLMlNpjH/7p+P3s+9yUkxlPsP5kLhuenK+KE71xuWhKqU6MSZ7sXl
+	 YjpX9QQqmA3doF88MKm1/D/BDRLC7KI1riEny1Aez/nkGjzpSjjuM7T5hIYVM9znrzSYT
+	 nXPUaLZ0i0/WsZxj3iozkHxPiI1eQ4Xh+XIEyx8nKs833KZyNLRcS0kibKoNr4bAhtRAU
+	 hetUq0nLQssYkw3vvSHAgk5whpZjC8T2f1rJtby6nhTVCnFD3iLRZt4sPkPtt9hLSQg0s
+	 Mx/QvrOig4S+U5lY13C/m0aXoQue2gVPVJIuHxXndRuIXCLymIJfYYApFtbD41AU4JA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OupVADoP;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kRJGpkw2;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D22606A31C
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 07:48:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66D22606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3572D606A321
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 07:48:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3572D606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OupVADoP
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-384d74c9dfdso1252945eec.1
-        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 23:48:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kRJGpkw2
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-386c34f07ecso525778eec.3
+        for <devicetree@vger.kernel.org>; Thu, 26 Nov 2026 23:48:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795765684; x=1796370484; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795765688; x=1796370488; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iHpEgxPbFinlelTShydiqMdXL6WmYaYuO85mjvtFPkY=;
-        b=OupVADoPKnIg4AXXB37j4VL8B8rv5yYKq/difhtktuffMV9G6qJ3kjxV5pq8h8uMB3
-         hY+qOJG5yWp6Jn9dOkuQoGLLfVx6FQ3uywqIXSeZy0NGT4o3gMMim4WXE0vc9rUpXKgf
-         btJzUf8dGl8kYoV9+pYMhXNSO0QdjHscr4s9QeDSyBuX2XqjXP5+kLs4glM81+v9eTKH
-         216+KvY0djEkKpmRdzFIKP2FncJqJlSlNLJB4d8vsBjeHmJMsOzNpEeQLw4ARloKoRP7
-         E5/OgilZytF0Xbj1d7DIobGx1P0tTu8BYBIuO/Srp80dHrlbhMj6QisJq84vVRjyi6LV
-         DRgg==
+        bh=Px927uPzL0G0bD9p/DBHwmNAaSmtnfAuqfR/vrK6L/E=;
+        b=kRJGpkw2/isn4Rto+ejdc+s1Ctqa+YRZcqilUBNRR9aMhGWTK6XV54BCE3ST8VQnrG
+         +F8yd/zE7BtnlzViBMkxmMxFcnPhPo0mhP8hQtP/W94FSPlkt1Jb/lbGfHIiNfPGnt2p
+         iHvf+gI9J+QBtmHQt3PU5tRy34gk0xPa6V0AxrlJ348mtGK6ArDAOhua00ODIamcdlYw
+         DQfGoqXKRqGxA95Db/+MiudKPmnryIB8bXrJC3MUPPTT0iUpaCOjw9u/EmB78k6JIFFD
+         isTxVZJRO5tdEDrAoJtDSeTih7cd2vStw5BIkwTyUx7IaDxUmRJu3rNuKG01SjiZJl8K
+         CCfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795765684; x=1796370484;
+        d=1e100.net; s=20260707; t=1795765688; x=1796370488;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=iHpEgxPbFinlelTShydiqMdXL6WmYaYuO85mjvtFPkY=;
-        b=KDxEvgGNqIP+sJoSLf8xxAGfHoQRi5uaY58oNEUUjjB20x61CHHHA/XoQ77Y1Q39AW
-         fCM1QfiqeMlIxy5LjTQQv3dKkgRpzWCln2YBsrA1ZgkFvfJqP8RZwueiDnPFd1EBsa4l
-         IAuiZp9hmSlf5SJG51VrwzQqeHAz1dAOXfiEF4xr2tx6/ldpFyVClqVvXKXyNwMDqHhs
-         qe82yck7UBfudlsRki5WItJR95Jj1ftUXXiFm21wXmITvEoURQPcq6nACYQh2OAwDbJ5
-         EnWIAISfk/dBzbNpYTrPOPVT+d9V/62VaoWfgoMs9LnA4KnYzcf85irPmt5r4InrfyUg
-         0GdQ==
-X-Forwarded-Encrypted: i=1; AL+hErETJzbkZafjTeCVjr6TOzKk/8ruh3SlTUzUTyMtw+IqVDovgVLodSiQdUAzSOBFypE6zEyIuYgJd4Tn@vger.kernel.org
-X-Gm-Message-State: APuU4Z+G3rPA6X0tMuyjk8N29e2xDRYQZg4ko6xHnoZ825eZJpm5+Cs6
-	h0uWmAbr+SjSUHBj0W3dUJmAtlOi2UPCixpyKcG8bGiZ5Id2B80AzHdm
-X-Gm-Gg: AZFdTZf12E283aXQPszh2sOonp99eRum9RkLQGLYSs9cazkqiBAWdwr71bQ6OVq+Isb
-	aOL9y2sZV1SBcKilkeAbLqg1emBHmSUCHt7jZuCzgfo2rFvG5G0XiZA0lJyDOp+MXzS61ih3lvr
-	ls6hxwkXCigoAvjpABDm5dhXVrajHvNEq3WzIelZqYHkZ78nYbckLNVzhyfId440hReOkDWkEjW
-	tCpMKoBswuXldqP9QUQXAfNUEjQRbkkeVb/WKo9fJpdTyZjKZtT6YODiED78vQWfQwOJflNifdc
-	F3YzXsEiY2/LdAp67hV2toIQp5XCJbaVwgHyY7uD8doTupTAu/Ncn9w1f28xKgFH0is1ZAXFFyi
-	v1iObTmE0Z0VQ6oiuXE+gU4tNzz6KrkfmhT8Wk56ndQ2Kt4kRoDkf2Y+CjGgo19FZwdLozctU4T
-	NaQNJeX6Y61rlyEBSJiH/OxzHw7UzAQmxw1vBVLkz+AjJloYopNETGRFhYeuZMj/376kV9xko0j
-	fBiR1czDppL5+hJHAq0esdwuelyHlLvad5dbcVmrtWk+Fi1NPYOTQYyqTsXbjWPmyJ4VldWCrBz
-	pJA0oKH554bGtcypn1Fd1n3jzNn/mT6C+v3pJol+myV9ZpYuIdOLwK9BnPajok73OliJ+DbASu5
-	uEfikHgkEtA2sR5Jt3v/UKg00hIckKKMEqCzZ7tynVg==
-X-Received: by 2002:a05:7300:16a3:b0:36d:5fbc:8c8d with SMTP id 5a478bee46e88-3856ef457b6mr33768253eec.2.1795765684101;
-        Thu, 26 Nov 2026 23:48:04 -0800 (PST)
+        bh=Px927uPzL0G0bD9p/DBHwmNAaSmtnfAuqfR/vrK6L/E=;
+        b=vLm3OaUCSomblU7PvJgUN6k6za15fURuhbM0KbGBAlH36fPZRQasYvPkrZ79PLQkYc
+         AKtnsaaPm5121KqyYNDR+dmItruXYComQ9jdHgrRYJTfHfgf0xEX7sLgrYbmsrbDOFKU
+         5GKhOtk3u8HvfBTVVSRn0XkWY44lPhVPid3j2k9Axw+Rxl6asJwcZcZ71SzlKYWs075l
+         z+iYnCYgYp/jQRi3gg/+bB1G6tMWJKL6l1lHAcOQ4H693g1ogJFs8Jj3D3V2o4FfHs/h
+         6vEoa/hdsDwBk9NST6qqgUn7pDo/kTvXxR7sxpxkACRB4M7QZzdjpnJRAZkY0EmLg2Rg
+         SRQg==
+X-Forwarded-Encrypted: i=1; AL+hErHXGXvpZgYZ0ZbGskxGc0m9vJSckpV3X9G//bwpe+KMf5JjgD3eblCaAG+zywFd0R4/+2ieVZNqszFZ@vger.kernel.org
+X-Gm-Message-State: APuU4Z/zo4cXex5NjjuI1ZwrP81+DejatIgWAR5qHNxYI47l4JrBf/48
+	5tT9QzNqd7nfuQYtaoUWHX6rhhF/R/ySHFvM+k8MkfV808UjmUz+qrGa
+X-Gm-Gg: AZFdTZeOJ3/Jh8psVGdZdZvpWjzuNRbi/QxW1k3Z8tI+tk20e6pqArrFo1GWi56WHqP
+	MxDqFV98lb1Zaad/XjBgDOuNr7w+OeAWjd+ttA7grRM5HSze21RF2acBBSKqjjPNPz5vSKaaWt5
+	Kgj7yOvfc04sjsnHrH30YsF06axgVSBEgfbnrLqIFIr8WLyJOJTF0YUN1+TNTujwmnjSR6Okd6A
+	/RNJMwpv3Cfy2BhH4sgUdO2AHPcb7m8Xas+X2fiyKvQHQG1N4BtlexFbuKdqG3vs7soWerXgGdK
+	FvYSbvwWNxhgyJ4KCg4eJUV+ei/4PyUvqnD/CWBqUou8fh2MtnoyCRqb7EJfSWzL7Gwj1kwlB9T
+	YtBskuPfZafE5MX/rDGlGdoWF8WGEGe+328BSnlDkGm1TNrhcChia0NjGHibYjIc+gRs30BH4/4
+	8y6wjy4rfm8C7lEiNn7ktxauFM6EE/ksahTDqskegZbYXr0jas75kvM/kAhLsK16qRtgTYec1qA
+	cLoZyadSc/1ALmeVQKGznagq4/W5U+EZ/7yElu4mDPwCylALRwfxehwVToymtVCKG5SR9mtaZFV
+	nUDh9m+tUW6vOgIBljQi3whf5lz2UCnjWksnU9UptzhLHpJBVPKC8qalFOfkpt1W9CBmuUxMBjl
+	60uY04zNLmVnw25lC9ayjjw==
+X-Received: by 2002:a05:7301:b8e:b0:377:d6e5:e642 with SMTP id 5a478bee46e88-3856e245b2fmr30879256eec.1.1795765687873;
+        Thu, 26 Nov 2026 23:48:07 -0800 (PST)
 Received: from [127.0.1.1] (211-23-39-77.hinet-ip.hinet.net. [211.23.39.77])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385672c6f31sm68098252eec.15.2026.11.26.23.48.00
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385672c6f31sm68098252eec.15.2026.11.26.23.48.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 23:48:03 -0800 (PST)
+        Thu, 26 Nov 2026 23:48:07 -0800 (PST)
 From: Jason Yang <jason98166@gmail.com>
-Date: Fri, 27 Nov 2026 15:47:40 +0800
-Subject: [PATCH v8 4/9] phy: rockchip-samsung-dcphy: Always write the
- rate-dependent registers
+Date: Fri, 27 Nov 2026 15:47:41 +0800
+Subject: [PATCH v8 5/9] phy: rockchip-samsung-dcphy: Move block-level setup
+ to runtime resume
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -96,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-dcphy-rx-v1-v8-4-9ddfef99221d@gmail.com>
+Message-Id: <20261127-dcphy-rx-v1-v8-5-9ddfef99221d@gmail.com>
 References: <20261127-dcphy-rx-v1-v8-0-9ddfef99221d@gmail.com>
 In-Reply-To: <20261127-dcphy-rx-v1-v8-0-9ddfef99221d@gmail.com>
 To: Vinod Koul <vkoul@kernel.org>, 
@@ -114,84 +114,77 @@ Cc: Michael Riesch <michael.riesch@collabora.com>,
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Jason Yang <jason98166@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795765664; l=2791;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795765664; l=2576;
  i=jason98166@gmail.com; s=20260721; h=from:subject:message-id;
- bh=jOoW884/QWxzl0iQgg361AUaX2tfS/RGrsDEUvgeOSs=;
- b=hPBLNjjuOTIc3cBAJzDu1xkrkYERbeogg9sjLO6cYL/B/adWhR2voAT0ohi5o9AAmx4T2DAYQ
- BnLtae7WCVIAWy0E6nd+AST0xO5XR/T4q9VdBMPusYv2+uqF2hwOj7t
+ bh=jtUxPRys/dBRdscqaMmdtwL+bhADXEXJWj8FzO882mw=;
+ b=jkc37NZ76qcvOYh5agQApQZtcQNReG1ovWyKUO8AV4O6rA0hn5+ykfSDc3v6dCTbakuw3whoa
+ RZekMTnabqABs36D1Fvx+n0lqo98RCypPDEV8yvtWa2Bk4UHKNDLy2M
 X-Developer-Key: i=jason98166@gmail.com; a=ed25519;
  pk=xQmD001Q/ooHl39PxyQtusbUQmgbOsSfpFryRVWZ/k4=
 
-The lane timing init functions write DPHY_MC_ANA_CON1, the four data
-lane ANA_CON1 registers and DPHY_MC_DESKEW_CON0 only above a data
-rate threshold, and the registers have to be zero below it [1].
+The APB reset and the BIAS references have to be treated as block-level
+[1]: both the transmitter and the receiver need them, and they only have
+to be programmed once. They are programmed from the transmitter's
+power-on path today.
 
-Today the APB reset at the start of every power_on provides the zero.
+A later change registers one struct phy for each of them, and a second
+consumer coming up would then reset the block underneath a PHY that is
+already running.
 
-A later change moves that reset to runtime resume, so a power_on at a
-lower rate after a higher one would keep the old values.
+Program them from runtime resume instead, where whichever of the two
+comes up first brings the block up and a second one no longer resets it.
 
-Write the registers on every power_on, with zero below the threshold.
+This puts the BIAS writes ahead of the per-PHY reset assert, where the
+TRM's worked example has them after [1]. That is safe: neither M_RESETN
+nor S_RESETN covers the BIAS registers, and the values written are those
+registers' reset defaults.
 
-[1] RK3588 TRM: sections 22.4.2 (reset values) and 22.4.3
-    (DPHY_MC_ANA_CON1, DPHY_MC_DESKEW_CON0)
+[1] RK3588 TRM: sections 22.4.1 (address map), 22.4.2 (reset values),
+    22.6.1.2 (reset) and 22.6.4.1 (D-PHY transmitter start-up)
 
 Signed-off-by: Jason Yang <jason98166@gmail.com>
 Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
 Tested-by: Quentin Schulz <quentin.schulz@cherry.de> # RK3588 Tiger CSI1 2-lane IMX219, CSI0 2-lane OV5675+DSI
 ---
- drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c | 24 +++++++++++++++--------
- 1 file changed, 16 insertions(+), 8 deletions(-)
+ drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-index ce1bc62497c5..7a009d87a665 100644
+index 7a009d87a665..d6acc3e2d448 100644
 --- a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
 +++ b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-@@ -1228,7 +1228,10 @@ samsung_mipi_dphy_clk_lane_timing_init(struct samsung_mipi_dcphy *samsung)
- 	regmap_write(samsung->regmap, DPHY_MC_ANA_CON0, val);
+@@ -1346,7 +1346,6 @@ static int samsung_mipi_dphy_power_on(struct samsung_mipi_dcphy *samsung)
  
- 	if (lane_hs_rate >= 4500)
--		regmap_write(samsung->regmap, DPHY_MC_ANA_CON1, 0x0001);
-+		val = 0x0001;
-+	else
-+		val = 0;
-+	regmap_write(samsung->regmap, DPHY_MC_ANA_CON1, val);
+ 	reset_control_assert(samsung->m_phy_rst);
  
- 	val = 0;
- 	/*
-@@ -1259,7 +1262,10 @@ samsung_mipi_dphy_clk_lane_timing_init(struct samsung_mipi_dcphy *samsung)
- 	 * under 1.5Gbps or equal to 1.5Gbps.
- 	 */
- 	if (lane_hs_rate > 1500)
--		regmap_write(samsung->regmap, DPHY_MC_DESKEW_CON0, 0x9cb1);
-+		val = 0x9cb1;
-+	else
-+		val = 0;
-+	regmap_write(samsung->regmap, DPHY_MC_DESKEW_CON0, val);
+-	samsung_mipi_dcphy_bias_block_enable(samsung);
+ 	samsung_mipi_dcphy_pll_configure(samsung);
+ 	samsung_mipi_dphy_clk_lane_timing_init(samsung);
+ 	samsung_mipi_dphy_data_lane_timing_init(samsung);
+@@ -1373,10 +1372,6 @@ static int samsung_mipi_dcphy_power_on(struct phy *phy)
+ {
+ 	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
+ 
+-	reset_control_assert(samsung->apb_rst);
+-	udelay(1);
+-	reset_control_deassert(samsung->apb_rst);
+-
+ 	switch (samsung->type) {
+ 	case PHY_TYPE_DPHY:
+ 		return samsung_mipi_dphy_power_on(samsung);
+@@ -1667,6 +1662,12 @@ static __maybe_unused int samsung_mipi_dcphy_runtime_resume(struct device *dev)
+ 		return ret;
+ 	}
+ 
++	reset_control_assert(samsung->apb_rst);
++	udelay(1);
++	reset_control_deassert(samsung->apb_rst);
++
++	samsung_mipi_dcphy_bias_block_enable(samsung);
++
+ 	return 0;
  }
  
- static void
-@@ -1284,12 +1290,14 @@ samsung_mipi_dphy_data_lane_timing_init(struct samsung_mipi_dcphy *samsung)
- 	regmap_write(samsung->regmap, COMBO_MD2_ANA_CON0, val);
- 	regmap_write(samsung->regmap, DPHY_MD3_ANA_CON0, val);
- 
--	if (lane_hs_rate >= 4500) {
--		regmap_write(samsung->regmap, COMBO_MD0_ANA_CON1, 0x0001);
--		regmap_write(samsung->regmap, COMBO_MD1_ANA_CON1, 0x0001);
--		regmap_write(samsung->regmap, COMBO_MD2_ANA_CON1, 0x0001);
--		regmap_write(samsung->regmap, DPHY_MD3_ANA_CON1, 0x0001);
--	}
-+	if (lane_hs_rate >= 4500)
-+		val = 0x0001;
-+	else
-+		val = 0;
-+	regmap_write(samsung->regmap, COMBO_MD0_ANA_CON1, val);
-+	regmap_write(samsung->regmap, COMBO_MD1_ANA_CON1, val);
-+	regmap_write(samsung->regmap, COMBO_MD2_ANA_CON1, val);
-+	regmap_write(samsung->regmap, DPHY_MD3_ANA_CON1, val);
- 
- 	val = 0;
- 	/*
 
 -- 
 2.43.0
