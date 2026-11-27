@@ -1,62 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795781898;
-	b=MgIuXoFYhIr5nugNPdbCJr2VhZmIbmba+gzi8nMqsj73C70GdI5OVkRYkmbrElWSfWLx
-	 sS33/QNDmDqOPPlxyZ6F1nYRd9dPN8K5WnntAoUN+ACwzyyw4+iJINSz/t+l47tm+PVg1
-	 b6itBHiB6RAq3NYGv/HTlMLX4DIJexVpRxcHEgkVDwubngtayImsIQCyGv8P3uS2QsZiQ
-	 s5L4wonxTJIVnzTkDOS+igkNH+b+BpB0oUprWXKHLhHX/872n+WOrpZk4WJDr9vxE4GP6
-	 JoYvGIha+GbIsyP/7zAUi6TnqDamCt0elQp6TM7IS+uX2E8zuAv1Nj9iUGh12s/Xzpw==
+	t=1795781922;
+	b=Cgqfw0bN0xBYvALgdmBfgwZEMsirI4GWhoGCWJReqCi/T3g1OYqIFCbUTuHSIrDDm4uF
+	 wMgFL4y+2uwNFVcVmnAZHQ+bLt8+6vYuuDWlovtZSCIudZ2aDgssWiQMxhHHU8bFJmGT9
+	 pInGue8+QvBkxOCShjE9OIE5jW9CVfHR9Fii5JJ2eMAwkl4zDzp9xylY/Do7XCpsRHCuh
+	 OwCos/TKgm9sebHLaZPcGey5jzAnWejIvIa+R2x4jQUFSRywNFVhm16cCE20bWnvdF7pJ
+	 7xmOq8iSrlCcNQOnBw3uEDCM7JGDN6pTVKDfs7ExrFYhBBBEvSGOGwC+JUNLO2JOARQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795781898;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=jynokmy2Zg40YxhFBolqCvaNpMNi5CarvM1aMB5c7VY=;
-	b=MaGpKQjuyG7vH5khd/Y+P9jftsol/cuGCHh2e6C7SF3powuhFGfsL3ERv81Z3EuPCGQt
-	 s1/xBuAEYCOyflbsLbkZZkqQtCo6hSZpoJFe9WEkaoPxRm+Ha7XuK4ifcPE669/klG72n
-	 XDG9X/vVhsq+ml2Orh1sPIl++LudFy2PGT5cRwf1IAIJ9EQAejLTb3fUreGWPRDoXD4zN
-	 rNMT7MdC7fF0jG0PsenUaxJP0tx77zbZd9s9b04uHsWhCHAbWxsjGA4/FH3xR/Jr93B7g
-	 YXZfo6HoZhkG/rOWzpbWb1j4RJdVIv+kByWQ6cGqbEA0Ctqzx9LOvEDULdDisVcSmKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795781922;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=M3+53CL9E7t0kgo4XELs9bJ+0tvf7YuCDNZDOGzql0s=;
+	b=e+h039BvlyhXUQ2rh9rjNGIoaGcypFGMOUMOGqYTIQIMph5shg75MLYa83GexgeobLbN
+	 giH0+osji0AnvLnblwTAynKEF1NqJzfuOwkHNFog7OlYNX1M1H0UBB6QNOaLyUOj/5Rh7
+	 2t2C8/+GtF+5KeKdw2ZAXQfZI137FfUlnHfS8pqF05mAxYN+BRD5uc/gkKpAIWnHj6B5N
+	 bSfjfemHs8i1HN9y6JHldrCExAdyERrsowqsRtYrRXGuHoATKc/sWDdmOu+UwoNlYMeA8
+	 OUKs3dTyD6DrMD3BxcgDla9UlXY+mMhwyTQ7SNaPVpi8sKEPUbbPj80Dmv2dPqjAl/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P8gS9Trq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=UornJokS;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2857606A33C;
-	Fri, 27 Nov 2026 12:18:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96ED606A321
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 12:18:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D96ED606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P8gS9Trq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 746951F00897;
-	Fri, 27 Nov 2026 12:18:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795781897;
-	bh=jynokmy2Zg40YxhFBolqCvaNpMNi5CarvM1aMB5c7VY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=P8gS9Trq+OPzXmXFEmFkOw/S/nxfMo4mpI1VcPQBMvVPX2JMS+I4d5XVPiVacHYb6
-	 oPHSUtHH4kL81i7SazVhAJn2VGDxsmsAhqwJNiRZ2K+g0Gpst3uGUV5H2EXkU0S2jH
-	 t7Wpec7F8Beaw1el0PPe60eH/4nsw8Rd0wTDkeMIJjSFsCZL5Vk+1/n59qgDlGPfzx
-	 vlZUGmnHDn4GLvvlvMOGAhmi7YBqVfNCNbP3ireFYpooeJV5EwT3rFVyOK3MXDBta0
-	 ihejJ53iS5K01qcoUZZ+3epPgc4JqtBuNW1YWV6AnoyFlVO9d5mXntacflimjRSf6e
-	 Ka1LkyHU6vgSw==
-Message-ID: <sashiko-outbox-237345@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 12/30] crypto: amlogic - Avoid kzalloc in engine
- thread
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jose Nieto" <jnieto.alaber@gmail.com>, "Corentin Labbe" <clabbe@baylibre.com>, "Herbert
- Xu" <herbert@gondor.apana.org.au>
-Cc: linux-crypto@vger.kernel.org, linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, "Neil
- Armstrong" <neil.armstrong@linaro.org>, "Martin Blumenstingl" <martin.blumenstingl@googlemail.com>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Alexey Romanov" <romanov.alexey2000@gmail.com>
-In-Reply-To: <20261127120103.1532882-13-jnieto.alaber@gmail.com>
-References: <20261126193241.1471372-1-jnieto.alaber@gmail.com>
- <20261127120103.1532882-1-jnieto.alaber@gmail.com>
- <20261127120103.1532882-13-jnieto.alaber@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 12:18:16 +0000
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=UornJokS
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4bb606491faso42453505e9.3
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 04:18:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1795781920; x=1796386720; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M3+53CL9E7t0kgo4XELs9bJ+0tvf7YuCDNZDOGzql0s=;
+        b=UornJokS8IYPV9d7V2a6CZ6XLo6DuCTtRj2CTDIAxkxk4kfr4Wk8FKmaTj2pvlCOGE
+         YZKKK5KjIhjJblAMPrbQZlpOjt6g+pMUaWZflLbabgSbzMcET+h/0jzTkOE0tnOGK6lb
+         +cVHzQEciVJryKz3zGWDQgjWVgujC7QUmsUiIu9mCqJk6S5kX+I78+JgwlAa6mh9b5cO
+         GER4FqMZqd7aTNGs+jkeiZr2Ngo0FYA1sG6Wfn/a1NcNw8UZDBTbM2T5h3OuMSTf4lVX
+         2hINVmQej1Ia7Lk6YJAvIIwMcvUfeGkKI/ekLPAU4xkvcPq86TIono1eluNqI93P8Et9
+         Za1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795781920; x=1796386720;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M3+53CL9E7t0kgo4XELs9bJ+0tvf7YuCDNZDOGzql0s=;
+        b=Y+kgyEPSykGVRLK/0PyREzt0NnBonDFlrLTEeDhXJN9s31bR8+scBi0fJAoXJ1YqhP
+         TcH+d7VjwBj5Y+EPl9oiwS1CF8m3R05i+MXJKTrLtx0OvXAWyFVD3CRxji0TCsLXucCh
+         wCtLqxOR6L7u6csoG710s2Al/2Tau0ENSxvvjMPO2+vYQH2bOLaJCqJGVt93G/dt3N+g
+         wIKjijNJgVpJ6PSK1XEPfsu7Lj+4EyInUuIRzMapOVXIODyAmATkoB0touTgN4jO+udv
+         yt7JIrNn9tpxbWJC3/8/6t0LjlWivd720m3E24Xjhy1ZPLRl4yCpojL/PbGT6Fy9CNY5
+         ljpg==
+X-Forwarded-Encrypted: i=1; AL+hErG+fNJwK3r5zTf8TVRen7yKlt0RF+h3rJLHRiQQlT2GBjacbG9KLhZS775MCwcKDLAnxftjLb/4V7im@vger.kernel.org
+X-Gm-Message-State: APuU4Z924htoOuC+MhLHJbrNzXehkOA69QbMu+I4qCjHw27GljKpNnWn
+	kHB0kf0awAtJE6EQPnzi/jS3++ewFBHRGh+fGpm63AitvzIvyn5xlRCX6X3DgjMHR6E=
+X-Gm-Gg: AZFdTZflJ8CTOOw3JcN72gBDVIiPDiHfFJbsloylCjlfqapgBJOv+B5C9R394ZQfrrY
+	1RrvLgkJxlZQ68dUrrjXzZsGuGyd8j/HcL+3IK4iKA5d6UspJCsnleULP9apd0JvM6wmo5/JDHt
+	klOum0mRmBZuVXYUZQuTjvI1Kh6W5wxvCoslzXBOIj39D8A+juyU+hwKBsa8uTpXC/ruJ8WUvrp
+	dAIrSVvdweqWE6aN3W206G7qNjFU593/Zq4fEabkh+Str1crZdhCoa0cYbDC9RA09dDLexeps5w
+	5zkVM2uVysjEVTPPv6BeoBXnBBMf74EvC3CqFraTGe/45XCh/yfAi7psMTfxbI5sgapFfCsBX0D
+	2AAV0ygNu7A719Ts0WQan+SC226QVUhI92XsRZZaJI7GT4KEppeVxsDdc6z/rUZCtLJ/W3Qr7Qd
+	rPf4/Q/4+7ah+WuA+/m/ynwiH8Cfcsz0nJIzRXKw2kd8RipJMelKq+98TktL1XmyZCV3W2TkrF5
+	LGp7hrQInnjLibbIgjOyzgdfqbRMSIJQmf+OgQfLZHHBOCbzvfLJY/ugDq1dr2rcbMKPqY3C3MP
+	xgQaJMZn1/fpPA0b4Mb0dzDyo/SjJkutdkrPn+x2y9jQ3R1R3Q==
+X-Received: by 2002:a05:600c:4584:b0:4a7:c366:d791 with SMTP id 5b1f17b1804b1-4bb887e266amr473913555e9.1.1795781919627;
+        Fri, 27 Nov 2026 04:18:39 -0800 (PST)
+Received: from localhost ([195.94.148.180])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884a15absm627117115e9.9.2026.11.27.04.18.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Nov 2026 04:18:39 -0800 (PST)
+From: Andrea della Porta <andrea.porta@suse.com>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Frank Li <Frank.Li@kernel.org>,
+	dmaengine@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Saenz Julienne <nsaenz@kernel.org>,
+	Stefan Wahren <wahrenst@gmx.net>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Phil Elwell <phil@raspberrypi.com>,
+	Dom Cobley <popcornmix@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	David Airlie <airlied@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	Jaroslav Kysela <perex@perex.cz>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	linux-mmc@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-spi@vger.kernel.org,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+	Mark Brown <broonie@kernel.org>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Takashi Iwai <tiwai@suse.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Ulf Hansson <ulfh@kernel.org>
+Subject: [PATCH v4 00/28] dmaengine: bcm2835: add BCM2711 and BCM2712 40-bit DMA support
+Date: Fri, 27 Nov 2026 13:21:50 +0100
+Message-ID: <20261127122236.4976-1-andrea.porta@suse.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,212 +126,244 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [High] crypto: amlogic: shared TFM keyiv buffer races across
-  concurrent requests
-- [Medium] crypto: amlogic: keyiv DMA length mismatch in meson_cipher()
-- [Low] crypto: amlogic: unused DMA reqsize padding in
-  meson_cipher_init()
-- [Low] crypto: amlogic: stale trailing key bytes on re-key in
-  meson_aes_setkey()
---
+The BCM2711 has 4 DMA channels with a 40-bit address range, allowing them
+to access the whole memory of a Pi 4, and the BCM2712 has 6 of them. This
+series adds support for them to the bcm2835-dma driver, on top of the
+platform abstraction from Stefan Wahren and some features from the
+downstream Raspberry Pi kernel.
 
-commit c0d41dfd052dda605b64b5392f2c86747ef3d026
-Author: Alexey Romanov <romanov.alexey2000@gmail.com>
+The main change since v2 is the handling of the slave (peripheral)
+addresses, as requested in the v1/v2 discussions [1][2][3]: instead of
+hardcoding the 0x4_0000_0000 offset of the 40-bit channels and relying on
+clients passing pre-translated VideoCore bus addresses, the clients now
+pass CPU physical addresses and the DMA driver translates them with
+dma_map_resource(). Since the conversion of dma_map_resource() to
+dma_map_phys() with DMA_ATTR_MMIO, the dma-direct implementation honours
+the dma-ranges of the device, which was the open question raised by
+Robin in [1].
 
-crypto: amlogic - Avoid kzalloc in engine thread
+To keep old device trees working (they only describe the RAM in
+dma-ranges), the driver detects at probe time whether the peripheral
+window is described in dma-ranges, by looking up its own registers, and
+otherwise falls back to reverting the translation given by the ranges of
+the parent bus, as suggested by Dave in [3]. Addresses outside of the
+ranges are passed through, so that out of tree clients still providing
+bus addresses keep working with old device trees. The same fallback
+works for the BCM2712 40-bit channels, whose bus maps the peripherals
+1:1, while the BCM2711 40-bit channels see the peripherals 16 GiB above
+their VideoCore bus address, which cannot be derived from the ranges:
+they require dma-ranges, which all the device trees describing them
+(the downstream ones and the one added here) provide.
 
-This commit replaces the per-request dynamically allocated key and IV
-buffer with a fixed keyiv buffer in struct meson_cipher_tfm_ctx and
-switches the transform context to DMA-aligned crypto helpers.
+Structure of the series:
 
-> diff --git a/drivers/crypto/amlogic/amlogic-gxl-cipher.c b/drivers/crypto=
-/amlogic/amlogic-gxl-cipher.c
-> index cb6b959bb1f96..df42940f1112a 100644
-> --- a/drivers/crypto/amlogic/amlogic-gxl-cipher.c
-> +++ b/drivers/crypto/amlogic/amlogic-gxl-cipher.c
-[ ... ]
-> @@ -147,17 +146,17 @@ static void meson_setup_keyiv_descs(struct cipher_c=
-tx *ctx)
->  	struct skcipher_alg *alg =3D crypto_skcipher_alg(tfm);
->  	struct meson_alg_template *algt =3D container_of(alg,
->  		struct meson_alg_template, alg.skcipher.base);
-> -	struct meson_cipher_tfm_ctx *op =3D crypto_skcipher_ctx(tfm);
-> +	struct meson_cipher_tfm_ctx *op =3D crypto_skcipher_ctx_dma(tfm);
->  	struct meson_dev *mc =3D op->mc;
->  	unsigned int ivsize =3D crypto_skcipher_ivsize(tfm);
->  	unsigned int blockmode =3D algt->blockmode;
->  	int i;
-> =20
->  	if (ctx->tloffset)
->  		return;
-> =20
->  	if (blockmode =3D=3D DESC_OPMODE_CBC) {
-> -		memcpy(ctx->bkeyiv + AES_MAX_KEY_SIZE, ctx->areq->iv, ivsize);
-> +		memcpy(op->keyiv + AES_MAX_KEY_SIZE, ctx->areq->iv, ivsize);
->  		dma_sync_single_for_device(mc->dev, ctx->keyiv.addr,
->  					   ctx->keyiv.len, DMA_TO_DEVICE);
->  	}
-[ ... ]
-> @@ -320,21 +320,21 @@ static int meson_cipher(struct skcipher_request *ar=
-eq)
->  	mc->chanlist[rctx->flow].stat_req++;
->  #endif
-> =20
-> -	ctx.bkeyiv =3D kzalloc(48, GFP_KERNEL | GFP_DMA);
-> -	if (!ctx.bkeyiv)
-> -		return -ENOMEM;
-> -
-> -	memcpy(ctx.bkeyiv, op->key, op->keylen);
->  	ctx.keyiv.len =3D op->keylen;
->  	if (ctx.keyiv.len =3D=3D AES_KEYSIZE_192)
->  		ctx.keyiv.len =3D AES_MAX_KEY_SIZE;
-> =20
-> -	ctx.keyiv.addr =3D dma_map_single(mc->dev, ctx.bkeyiv, ctx.keyiv.len,
-> +	if (algt->blockmode =3D=3D DESC_OPMODE_CBC) {
-> +		memcpy(op->keyiv + AES_MAX_KEY_SIZE, areq->iv, ivsize);
-> +		ctx.keyiv.len =3D AES_MAX_KEY_SIZE + ivsize;
-> +	}
-> +
-> +	ctx.keyiv.addr =3D dma_map_single(mc->dev, op->keyiv, ctx.keyiv.len,
->  					DMA_TO_DEVICE);
->  	err =3D dma_mapping_error(mc->dev, ctx.keyiv.addr);
->  	if (err) {
->  		dev_err(mc->dev, "Cannot DMA MAP KEY IV\n");
-> -		goto free_keyiv;
-> +		return err;
->  	}
+  1:     coding style
+  2-5:   flags of the DREQ cell (binding and header) and their support
+         from downstream (per-channel flags, wide accesses, bursts)
+  6-7:   generic dma-channel-mask property
+  8-13:  hardware abstraction (Stefan Wahren)
+  14-19: slave address translation with dma_map_resource(), conversion
+         of the clients (spi, mmc, ASoC, vc4 HDMI) and dma-ranges of
+         BCM283x
+  20-23: BCM2711 40-bit channels
+  24-26: BCM2712 40-bit channels
+  27:    DMA flags for the HDMI audio of BCM283x
+  28:    HDMI audio on BCM2712 through the 40-bit channels
 
-[Severity: High]
-Can two concurrent CBC requests sharing a crypto_skcipher transform race
-on op->keyiv?
+Changes in v4:
+- Drop "dmaengine: bcm2835: Fixes for dma_abort": it brought back the
+  NEXTCONBK/ABORT sequence that commit 9e528c799d17 ("dmaengine: bcm2835:
+  Fix abort of transactions") replaced, and it is not needed for the
+  40-bit channels, which have their own abort sequence (sashiko, Frank).
+- Do not add the peripheral window to the dma-ranges of the BCM2711 soc
+  bus: it would raise the limit computed by of_dma_get_max_cpu_address()
+  and thus the arm64 ZONE_DMA beyond the 1 GiB the legacy DMA masters
+  can reach. The BCM2711 legacy controller keeps using the ranges
+  fallback (sashiko).
+- Map the slave FIFOs with the direction of the accesses of the DMA
+  controller (DMA_TO_DEVICE for the source, DMA_FROM_DEVICE for the
+  destination), they were swapped (sashiko).
+- Keep the slave address translation across device_config() calls when
+  the address does not change, instead of remapping it at every MMC
+  request (sashiko).
+- Clear the dreq of a channel when it is released, so that a later
+  memcpy user does not inherit the DT flags of the previous client
+  (sashiko).
+- Pass the prep flags to bcm2835_dma_prepare_cb_extra() for cyclic
+  transfers in the patch introducing it, which disabled the period
+  interrupts until a later patch (sashiko).
+- Translate the S_IGNORE/D_IGNORE bits into the IGNORE bit of the
+  SRCI/DESTI registers of the 40-bit channels (sashiko).
+- Add include/dt-bindings/dma/brcm,bcm2835-dma.h defining the flags of
+  the DREQ cell and use it in the driver and in the device trees
+  (Frank).
+- Split the binding patch: the flags of the DREQ cell are now documented
+  before the driver patches using them, the generic dma-channel-mask in
+  a separate patch (Stefan).
+- Use FIELD_PREP()/FIELD_GET() for the register fields (Frank).
+- Make need_src_incr()/need_dst_incr() only consider the supported
+  directions (Frank).
+- Reword the deprecation warning of brcm,dma-channel-mask (Frank).
+- Describe all the CS flags in the commit message of the per-channel
+  flags patch, and explain that the specifier flags are never written to
+  the hardware as they are (Frank).
+- Fix the commit message of the first patch, the typo had already been
+  fixed (sashiko).
+- Document the cfg member of struct bcm2835_dmadev in the patch adding
+  it.
 
-meson_skencrypt() and meson_skdecrypt() dispatch requests round-robin
-across mc->flow_cnt independent crypto_engine worker threads via
-meson_get_engine_number().  Because op is per-transform, two requests on
-the same transform can run meson_cipher() in parallel on different engine
-threads:
+Changes in v3:
+- Drop the hardcoded addr_offset, translate slave addresses with
+  dma_map_resource() in device_config() and unmap them on
+  reconfiguration and when freeing the channel.
+- Convert spi-bcm2835, mmc/bcm2835, bcm2835-i2s and vc4_hdmi to provide
+  CPU physical addresses, and describe the peripheral window in the
+  dma-ranges of the BCM283x/BCM2711 soc bus.
+- Put the BCM2711 40-bit controller in its own bus, whose dma-ranges map
+  the peripherals at 0x4_7c000000, instead of the scb bus, to not change
+  the DMA configuration of PCIe and GENET and to avoid refactoring the
+  entire DTS to fit the cell size.
+- Fix the abort sequences, which were swapped between the legacy and the
+  40-bit channels, breaking terminate_all on all the Raspberry Pis.
+- Fix the interrupt acknowledge of the 40-bit channels, which used the
+  INTEN bit of the TI register instead of the INT bit of CS.
+- Make the abort sequence a platform callback, drop the CS/TI masks only
+  used by it.
+- Keep the period handling of bcm2835_dma_create_cb_set_length(), which
+  v2 changed to flag every control block of cyclic transfers.
+- Use the platform cb_append_extra() callback for every control block,
+  and convert every control block address with to_cb_addr().
+- Preserve the width and burst settings of SRCI/DESTI when setting the
+  addresses of slave_sg transfers.
+- Fix the argument order of cb_init() in the patch introducing it, to
+  keep the series bisectable.
+- Fix the free_irq() cookie, which did not match the request_irq() one.
+- Derive the first channel of an instance from the physical register
+  address instead of the ioremap()ed one, initialize all the IRQ array
+  entries, and split this into its own patch.
+- Refuse to probe the 40-bit channels if dma_addr_t is 32-bit wide, and
+  avoid shifting dma_addr_t by 32 bits.
+- Include linux/bitfield.h, fixing COMPILE_TEST builds.
+- Drop the unused bcm2835_dma_count_frames_for_sg(), resurrected by a
+  rebase, and the dead code and duplicated defines of the 40-bit patch.
+- Split out the style changes from the 40-bit patch (Stefan), reword the
+  subject of the first patch (Florian).
+- dt-bindings: sort the compatibles (Krzysztof), document the flags in
+  the DREQ cell (Stefan), allow the generic dma-channel-mask, constrain
+  the interrupts of the new compatibles. The Acked-by of v2 has been
+  dropped because of the additional changes.
+- Use the generic dma-channel-mask in the new nodes (Krzysztof).
+- Use the DMA specifier flags for the HDMI audio channels of BCM283x,
+  so that patches 2-4 have in-tree users (Stefan)
+- Describe in the platform data which channels of the DMA block use its
+  programming model and ignore the others, so that nodes describing
+  channels with another model under the same compatible (as the
+  downstream BCM2712 device tree does) are not driven with the wrong one.
+- Add BCM2712 support.
 
-flow 0 kworker                    flow 1 kworker
-meson_cipher(req0)
-  memcpy(op->keyiv + 32,
-         req0->iv, ivsize)
-  dma_map_single(..., op->keyiv, ...)
-                                  meson_cipher(req1)
-                                    memcpy(op->keyiv + 32,
-                                           req1->iv, ivsize)  <-- overwrite=
-s IV
-                                    dma_map_single(..., op->keyiv, ...)
-  meson_kick_hardware()
-  dma_unmap_single(...)
-                                    meson_kick_hardware()  <-- DMA on unmap=
-ped
-                                                               or corrupted=
- IV
+Backward compatibility with installed device trees:
+- Upstream device trees without the peripheral window in dma-ranges keep
+  working through the ranges fallback, which yields the same bus
+  addresses the clients used to provide. This includes the BCM2711
+  legacy controller with the new device trees, as its peripheral window
+  is not added to dma-ranges.
+- Downstream Raspberry Pi device trees already describe the peripheral
+  window in dma-ranges (for both the soc and scb buses), and their
+  40-bit controllers are handled through dma_map_resource().
+- The node of the downstream BCM2712 device tree describing channels 0-5
+  is rejected instead of being driven with the wrong programming model.
+- The current upstream device trees do not describe any 40-bit DMA
+  controller, so the new compatibles have no legacy to support. A
+  brcm,bcm2711-dma node without dma-ranges makes the probe fail instead
+  of programming wrong addresses.
+- Older kernels booted with the new device trees are not affected: the
+  extra dma-ranges entries do not change the DMA limits of the existing
+  devices and the new nodes use compatibles unknown to them.
 
-Moving the mutable per-request DMA buffer into struct meson_cipher_req_ctx
-(or per-channel storage) would avoid sharing it across concurrent requests.
+Not supported yet: No device tree consumer is converted to the 40-bit
+channels either.
 
-[Severity: Medium]
-Does ctx.keyiv.len match the descriptors programmed in
-meson_setup_keyiv_descs()?
+This patchset has been tested on Rpi3/4/5 with both downstream and
+upstream DTBs. The upstream DTBs have been customized to allow for several
+peripherals (SPI, I2S, HDMI audio, mem2mem) to be tested against dma40,
+an example of which can be found in patch 28.
+Future patches will convert said consumer nodes to use the new dma
+controller.
 
-In ECB mode, ctx.keyiv.len remains 16 (AES-128) or 32 (AES-192/256), and
-only ctx.keyiv.len bytes of op->keyiv are mapped with dma_map_single().
-meson_setup_keyiv_descs() then unconditionally emits
-mc->pdata->setup_desc_cnt (3 on GXL and AXG) descriptors at offsets 0, 16,
-and 32, each transferring ctx->keyiv.len bytes:
+This version has been prepared with the help of an AI coding assistant
+(Claude Opus 5.5).
 
-drivers/crypto/amlogic/amlogic-gxl-cipher.c:meson_setup_keyiv_descs() {
-    ...
-	for (i =3D 0; i < mc->pdata->setup_desc_cnt; i++) {
-		struct meson_desc *desc =3D
-			&mc->chanlist[rctx->flow].tl[ctx->tloffset];
-		int offset =3D i * 16;
+[1] https://lore.kernel.org/linux-arm-kernel/ee19a95d-fe1e-4f3f-bc81-bdef38475469@arm.com/
+[2] https://lore.kernel.org/all/CAPY8ntCcz7ysTq_78Rb8ohLLETTYZeoZ3DXdPFvDLAkPc9jPWw@mail.gmail.com/
+[3] https://lore.kernel.org/all/CAPY8ntByJYzSv0kTAc1kY0Dp=vwrzcA0oWiPpyg7x7_BQwGSnA@mail.gmail.com/
 
-		desc->t_src =3D cpu_to_le32(ctx->keyiv.addr + offset);
-		desc->t_dst =3D cpu_to_le32(offset);
-		desc->t_status =3D cpu_to_le32(DESC_OWN | DESC_MODE_KEY | ctx->keyiv.len);
+Previous versions:
+v3: https://lore.kernel.org/all/20261123145728.29082-1-andrea.porta@suse.com/
+v2: https://lore.kernel.org/all/cover.1710226514.git.andrea.porta@suse.com/
+v1: https://lore.kernel.org/linux-arm-kernel/cover.1706948717.git.andrea.porta@suse.com/
 
-		ctx->tloffset++;
-	}
-}
+Andrea della Porta (25):
+  dmaengine: bcm2835: Fix coding style issues
+  dt-bindings: dma: brcm,bcm2835-dma: Document the flags of the DREQ
+    cell
+  dt-bindings: dma: brcm,bcm2835-dma: Allow the generic dma-channel-mask
+  dmaengine: bcm2835: Support common dma-channel-mask
+  dmaengine: bcm2835: move CB info generation into separate function
+  dmaengine: bcm2835: move CB final extra info generation into function
+  dmaengine: bcm2835: make address increment platform independent
+  dmaengine: bcm2835: drop info parameters
+  dmaengine: bcm2835: pass dma_chan to generic functions
+  dmaengine: bcm2835: introduce multi platform support
+  dmaengine: bcm2835: Use dma_map_resource() to translate slave
+    addresses
+  spi: bcm2835: Pass the CPU physical address of the FIFO to the DMA
+    engine
+  mmc: bcm2835: Pass the CPU physical address of SDDATA to the DMA
+    engine
+  ASoC: bcm2835-i2s: Pass the CPU physical address of the FIFO to the
+    DMA engine
+  drm/vc4: hdmi: Pass the CPU physical address of MAI_DATA to the DMA
+    engine
+  ARM: dts: broadcom: Describe the peripheral window in dma-ranges
+  dmaengine: bcm2835: Support channel subsets in a controller instance
+  dt-bindings: dma: brcm,bcm2835-dma: Add BCM2711 40-bit DMA
+  dmaengine: bcm2835: Add BCM2711 40-bit DMA support
+  ARM: dts: bcm2711: Add the 40-bit DMA controller
+  dt-bindings: dma: brcm,bcm2835-dma: Add BCM2712 40-bit DMA
+  dmaengine: bcm2835: Add BCM2712 40-bit DMA support
+  arm64: dts: broadcom: bcm2712: Add the 40-bit DMA controller
+  ARM: dts: broadcom: Set the DMA flags of the HDMI audio channel on
+    BCM283x
+  arm64: dts: broadcom: bcm2712: Enable HDMI audio
 
-At this commit, descriptors at offsets 16 and 32 read past the DMA mapping
-and past the 48-byte op->keyiv buffer.  Even with the later commit
-"crypto: amlogic: fix setup descriptor lengths and CBC IV copy" in this
-series changing the descriptor length to
-ctx->keyiv.len / mc->pdata->setup_desc_cnt, ECB mode on GXL and AXG still
-divides 16 or 32 by 3 (truncating each descriptor length to 5 or 10 bytes)
-and accesses offsets up to 32 beyond a 16- or 32-byte DMA mapping.
+Dom Cobley (1):
+  dmaengine: bcm2835: Support dma flags for multi-beat burst
 
-[ ... ]
+Phil Elwell (2):
+  dmaengine: bcm2835: Add support for per-channel flags
+  dmaengine: bcm2835: Add NO_WAIT_RESP, DMA_WIDE_SOURCE and
+    DMA_WIDE_DEST flag
 
-> @@ -425,42 +422,39 @@ static int meson_skencrypt(struct skcipher_request =
-*areq)
-> =20
->  static int meson_cipher_init(struct crypto_tfm *tfm)
->  {
-> -	struct meson_cipher_tfm_ctx *op =3D crypto_tfm_ctx(tfm);
-> +	struct meson_cipher_tfm_ctx *op =3D crypto_tfm_ctx_dma(tfm);
->  	struct meson_alg_template *algt;
->  	const char *name =3D crypto_tfm_alg_name(tfm);
->  	struct crypto_skcipher *sktfm =3D __crypto_skcipher_cast(tfm);
-> @@ -443,7 +440,7 @@ static int meson_cipher_init(struct crypto_tfm *tfm)
->  		return PTR_ERR(op->fallback_tfm);
->  	}
-> =20
-> -	crypto_skcipher_set_reqsize(sktfm, sizeof(struct meson_cipher_req_ctx) +
-> +	crypto_skcipher_set_reqsize_dma(sktfm, sizeof(struct meson_cipher_req_c=
-tx) +
->  				    crypto_skcipher_reqsize(op->fallback_tfm));
-> =20
->  	return 0;
->  }
+ .../bindings/dma/brcm,bcm2835-dma.yaml        |   89 +-
+ arch/arm/boot/dts/broadcom/bcm2711.dtsi       |   32 +
+ .../arm/boot/dts/broadcom/bcm2835-common.dtsi |    5 +-
+ arch/arm/boot/dts/broadcom/bcm2835.dtsi       |    3 +-
+ arch/arm/boot/dts/broadcom/bcm2836.dtsi       |    3 +-
+ arch/arm/boot/dts/broadcom/bcm2837.dtsi       |    3 +-
+ .../boot/dts/broadcom/bcm2712-d-rpi-5-b.dts   |   15 +
+ arch/arm64/boot/dts/broadcom/bcm2712.dtsi     |   31 +
+ drivers/dma/bcm2835-dma.c                     | 1217 ++++++++++++++---
+ drivers/gpu/drm/vc4/vc4_hdmi.c                |   16 +-
+ drivers/mmc/host/bcm2835.c                    |   20 +-
+ drivers/spi/spi-bcm2835.c                     |   27 +-
+ include/dt-bindings/dma/brcm,bcm2835-dma.h    |   27 +
+ sound/soc/bcm/bcm2835-i2s.c                   |   19 +-
+ 14 files changed, 1259 insertions(+), 248 deletions(-)
+ create mode 100644 include/dt-bindings/dma/brcm,bcm2835-dma.h
 
-[Severity: Low]
-Why use crypto_skcipher_set_reqsize_dma() here when struct
-meson_cipher_req_ctx holds no DMA buffers and every caller still retrieves
-it via skcipher_request_ctx() rather than skcipher_request_ctx_dma()?
+-- 
+2.51.0
 
-[ ... ]
-
->  static int meson_aes_setkey(struct crypto_skcipher *tfm, const u8 *key,
->  			    unsigned int keylen)
->  {
-> -	struct meson_cipher_tfm_ctx *op =3D crypto_skcipher_ctx(tfm);
-> +	struct meson_cipher_tfm_ctx *op =3D crypto_skcipher_ctx_dma(tfm);
->  	struct meson_dev *mc =3D op->mc;
-> =20
->  	switch (keylen) {
-> @@ -477,11 +473,9 @@ static int meson_aes_setkey(struct crypto_skcipher *=
-tfm, const u8 *key,
->  		dev_dbg(mc->dev, "ERROR: Invalid keylen %u\n", keylen);
->  		return -EINVAL;
->  	}
-> -	kfree_sensitive(op->key);
-> +
-> +	memcpy(op->keyiv, key, keylen);
->  	op->keylen =3D keylen;
-> -	op->key =3D kmemdup(key, keylen, GFP_KERNEL | GFP_DMA);
-> -	if (!op->key)
-> -		return -ENOMEM;
-> =20
->  	return crypto_skcipher_setkey(op->fallback_tfm, key, keylen);
->  }
-
-[Severity: Low]
-If a transform is keyed with AES-256 and later re-keyed with AES-128 or
-AES-192, does op->keyiv retain stale key bytes in
-op->keyiv[keylen..AES_MAX_KEY_SIZE - 1]?
-
-Previously kzalloc() zeroed the 48-byte buffer on each request.  Now
-op->keyiv is only zeroed in meson_cipher_init(), so re-keying with a
-shorter key leaves the old trailing bytes in place when meson_cipher()
-maps AES_MAX_KEY_SIZE (for AES-192) or AES_MAX_KEY_SIZE + ivsize (for CBC).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127120103.1532=
-882-1-jnieto.alaber@gmail.com?part=3D12
