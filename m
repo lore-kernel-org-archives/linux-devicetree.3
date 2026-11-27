@@ -1,113 +1,113 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795779703;
-	b=iins7kIl1baRUbEQpa61ylIGJzitQNrCrrTCdgkVChRb0ExaPC/ZYn9FIwgaeUYDHQcs
-	 tUCwEkgP2Zkqjf+jOrgztfTMOPtgwP8Ysm0hjrgE/GIbGctW/dgo3tjZhdzvhnd6hGoPi
-	 7qSm1ARKIATdYOUmOK6cDMRdk/62V6Oikzft6nSoZ4KcYYA7Autm9WYT6q9BCsZic2n9H
-	 BswfQNEQ9UDMoujofzhxUUWuF/B4DRKrAnIeW1bSnV74iXF8W62T0OXESxbB/X5PCua2Z
-	 mICmv3q8Cc0i9ncUdAZK5B3+7TwRC2OUSt/Z9rgNPP15+kW5sgUEOBd7qeEAWj4X0Og==
+	t=1795779708;
+	b=NfzUT+PyauZz6+57HipoyT0plIlTS7PePOuOsTkKS4YYt32EMnWmuo2vOtCCJG4jSbn4
+	 QLWO0vetNpyDcjJhYk2r6MzzWabLTQVSNyvzbJFzsIuGTkxCe9jKPAKrOF4ZuHPWJdYmb
+	 gTS9V4MTGqX+3EsKxwkhbeb/6R0Mu3Uk+VoRUStBJ9uEBEJ8nmcFTHj2Pq7BD2QrI5kHE
+	 GJm8XGA3ynS3KSSFSRU/7k2Ukq5F43pcA6k5mFRrK1DVEuhtN7xv7dQ/XehFUqVs5IBHy
+	 mK9Us5hklwGuvX+8I8+IsAxA/QL3L9LKoJFOfSDZKCdl6aDo7tO+KGndnN9/L/MrUqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795779703;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795779708;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=t/0sAMHm5hzJzfzL3yAvXJE+pqL2ZqGQoviF0lQzY9A=;
-	b=nKH1dLRgXGgFja4hq4Q2qRFuTcgzs7JMUI7YImio7GuqKOSDwfwM4iuSSSGNDtWH2aTU
-	 mpYue5NJt7hZvElKs8x7+nwDWP2T10FNm8Nl4iiO6kcFviKSEtG15jToLuesIy+61hC1h
-	 ynfqTLjyRUoMW1q7nSMYByij1ChSLM5kl0++7QKID/ocqZkN93ZjY3JgFw1DuEcFaOx2s
-	 NJ94QqS7ibHJ2VCleizGB1P8ZMBev9zzMzUZf/CyD19c0BcJ8BY4IsT/B8AiZ1JYz8Wdo
-	 nb17/JIrm4pl6rxPGyFAM6UDtqO0Bf/JSE7TfK6dBTmuXxXpXusskJmsBLaFSWb0f1A==
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=VlvsZhKQ5bte9z2ki1x34C633JPVJM4x+mie8ldYyLk=;
+	b=eus022E5WZPGtarQEV+UztaU1pos5xNo76vilcAkxEZdx+uEe1wfR0xeORkC69hKrUKI
+	 t/svRjnw9rt69wuXt/MkdVQCVz2/Ib97y4Eteh77qj6xSDfiG7X/L/oXnT7+a356LbhOu
+	 LPcX7dAun82DTmDsLdl4KPIUmvbVt0y4RYQV8EgFJ4nOnHOqSykF2/IpqdKO3svZVRlxW
+	 SzKuszikwgnRSItu0vP0con7p7sMg8QNFaIgkSOk/seJzc6jYr0vpv6GxqVUWPRFnLGkX
+	 zo+VIcZnoNvSI+0djNs/Cp0DqbK2yGOE/8WB44xxydvIa0Kbs52ARUx2U03g4B4wdCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XrFfplsE;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fJVPToEz;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=emAeV3+B;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OgDP9Hv+;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28CBF606A691
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 11:41:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28CBF606A691
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 949C3606A6B7
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 11:41:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 949C3606A6B7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XrFfplsE;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fJVPToEz
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ARApJUe273463
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 11:41:42 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=emAeV3+B;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OgDP9Hv+
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ARApAeJ2268663
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 11:41:47 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	t/0sAMHm5hzJzfzL3yAvXJE+pqL2ZqGQoviF0lQzY9A=; b=XrFfplsELl76kbhV
-	nOsuA/C0IlIimpOrHnwLGH7TeW8lDHUm4utMVOlwensDIgPoAevqfU8OSMPQlXuJ
-	xwDGmQq9lvnX5ANUMmcqRimG0I/w3Spd1Ahg7n/Eo7xy2pwx7Pg7J9nNWRak66jn
-	b2pcYSTnic8/KwCXZHgqZLmVzWYzXRU9U6E36hvHO45bxFQIb+Xo/3fbCkhWqqp5
-	IvVOsmEzHGFlWHUhPvqfbFTtzkdUoCI9Od6QbH56BV0g480Tc5iM/tTVaxZ7JqR5
-	oa5ra9W/cWWssEUeNtguu+Tc7i80l1IAuWT5hP3pUZTfiFbjG4atGKRTQePin/nN
-	yOEsfQ==
+	VlvsZhKQ5bte9z2ki1x34C633JPVJM4x+mie8ldYyLk=; b=emAeV3+Bpc1PnQp6
+	VRf7r0qX7MoO5wXmTY/dQVSIXFKgAD1iYdydUzAbOYtlQ68YbOJUrLUK4TX6B4St
+	2NkSZF21iZdoWiBPuXPI6qkjm02zPD+ViUvxq56JuGqGcnm1qs/O9VDEuZJJFbCf
+	pXEaNe0zfBrgS/pSLZDGG/asw93JEKs2zjd5Gvbm+4qMKi7Zh3IHD8tYB23NB3s9
+	gfbEBegMAkocF+6ZNe2uko9p0sMeMw4PPzJlW0JcfXqf2WjLDUo7ZVvYAs0FK3rz
+	JR64o7NeK1noiXMLRoPEvH1RdjfDskb7XHdw7xRnBq4osXGwoSg/a1BANsimVOat
+	k19gpw==
 Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j6u49atj0-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j73uhhdwx-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 11:41:42 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f26dd2165so1918894685a.3
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 03:41:42 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 11:41:46 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-948d83322f6so673417685a.1
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 03:41:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795779701; x=1796384501; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1795779706; x=1796384506; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=t/0sAMHm5hzJzfzL3yAvXJE+pqL2ZqGQoviF0lQzY9A=;
-        b=fJVPToEzwMlnU+kPTsxdlBXG1exm0yJ07hV28gYUvoJcApqjJZ5FOHIHBRRW0PImiL
-         Fh30CeNS+iNqJv6o+Qs65m0BeUA+Ymjkd8saTK214HEANc+PcJ3KASBZzXlcgMfvZHsB
-         NyPcry0HfJx7VwFY2C2KQo8jjqdAJZScHbHRcdqMKrnkesw6m0Hl+TEOxKcXfiZ3LTAk
-         cB4p6z6xBEylM+MiVp3vnGK3JDT/Vd1xBp55pfTAgEzsAr9VrkunA3V+lUVR/976nQJ6
-         uqHlNshts06H2ZJVF3DerVuWa7GA3NECFgZHesiz6EJgHnIiqbd0OSXaenMwO5zY7HED
-         vAFQ==
+        bh=VlvsZhKQ5bte9z2ki1x34C633JPVJM4x+mie8ldYyLk=;
+        b=OgDP9Hv+7kjT+EJK4s9oKTgMxB4rPz5aT7EvmRwtKEAuVlr0l7kZttr/VIqgVAbOhB
+         JUpCveo3lES70ZvnQLj+3jVzLHrUd8+Kj+/r6G5UfOiFSIlsbR5muKBC1NEgA02aBaNT
+         KsaOxLdN1MCUzWc98HcdLBdGir0dbvXFiujPLVHi/j75I+NSyZzZWDG4mRI76n99Z9ud
+         JxQVenUOFWxguD9gqedRXFmNskwJ7CJB6rBtxP7NlVI4dBtiEf0l5WYDaUzskwbpK8+R
+         gEKcPIaf8j76e/QP0EJ9fzat+hy9s6WJ/Ul/n/BOqcq24K9zdbM4fd7LGKHv5bZfhPYQ
+         N9Cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795779701; x=1796384501;
+        d=1e100.net; s=20260707; t=1795779706; x=1796384506;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=t/0sAMHm5hzJzfzL3yAvXJE+pqL2ZqGQoviF0lQzY9A=;
-        b=f/qSC7j7hedSaz20OXiuefGoT3qvun6PnVMLX8ZprffM7uYPiQYpacibvBTVkrda2x
-         unYggiPle9kJBSEW6VYGYQL8kat4vrwbrK3YlZozM7hHRSPKFVyZjxxSI+SAc0L5HsjT
-         mTcm1Jm/hcOokvmMUXVaBFMIMCHPrhmM21UMBQiEH1eRHaUwC9+qxJ96I5wijyufykeO
-         NJNInK8UvZQThquqp1pCxwSYR88rzLin00H8fTvgKmmNF+xtLCfg7lcrFZ4bFQ+Akt8H
-         pfPUvcU8MhMA4Vx4Gf/UIyex0VflEZiVQWttMWDMEcHeKq22iY+e8DyzVSWxqBePDG1w
-         DSMQ==
-X-Forwarded-Encrypted: i=1; AL+hErHMbah/1L47hHN9Oe0Ly1ceqOGCCB2n5r4zIdLn5WF33TGDY2VcNx788ewS0aS5Rztja3hNx0Jgz6pv@vger.kernel.org
-X-Gm-Message-State: APuU4Z+0CzG8Zy1hMw2k1FVJ2bclcB0Q3fWAWWkSdxnoQxwHNzDCXy+q
-	twEaZcxNx6YIeRAKE4yF5OUUhswb5xPsyH/o5Sc1O2A4+rRSEEwuzOH1yAsnUAnqN8sNe5j8uNU
-	ckkW2oUfuKAxtDhE9thaXVLM1BwhHrjnuUByLvU6h6HOXzXMvy+6L3K8Fcd1uFGIf
-X-Gm-Gg: AZFdTZfvtzjy+SJSs4PIU3RNQ7zleEcice1UKAHzse+eqg5qHiEGqY526I9zTvQDgN3
-	dSsoZhMgiqogJoNBqH/ACCTV/9PvGWRH3At11RBw7+zOTkeevA2kyZDZnY08lnlPxG6tj8Faz/d
-	9IMUVGlCOgtNh4AZ9bci/Sg+r2EndG1u6KvNZFZn8OcV/7ED3VEhsu5XBMowWsMKNbDTbbfbSgT
-	jQSep4PLK08k73EozhAt1Zq6uy3LTus5oDdraZSxKwliPXd7BroN2wFEzPEdlHCYz1yQGGB5THJ
-	rd1yJQD/LuVcYYVv0maq0Jf6CvIo1Nb8KNjdSCLztTwBUytfy1DQf+wiVxehDbZic6zyenDnD4d
-	SBFxLPpEvyXbOiE+C54Ppo3QJVoXAyfmx4GrMXYRZXMuWK6X0sPbk5kE3huhdrSj2/VejXqYXeX
-	xbWd9yulbCkx/Y93oubyaVaH9QUDArRCxuKQrZdVkvtPRmpjx77faDgrLOiUQPl6c=
-X-Received: by 2002:a05:620a:4408:b0:949:9cf0:bae5 with SMTP id af79cd13be357-949bab3d2f2mr4353887685a.69.1795779701362;
-        Fri, 27 Nov 2026 03:41:41 -0800 (PST)
-X-Received: by 2002:a05:620a:4408:b0:949:9cf0:bae5 with SMTP id af79cd13be357-949bab3d2f2mr4353881785a.69.1795779700825;
-        Fri, 27 Nov 2026 03:41:40 -0800 (PST)
+        bh=VlvsZhKQ5bte9z2ki1x34C633JPVJM4x+mie8ldYyLk=;
+        b=ScRgG0ZaHTk3ZeEoHT7LzERA8OMsy20xiqNxG47Fuwlceqp/ZTJ7E0FrKt6Evkgy0V
+         QIWOXLH0XnJlOkTSjBoWdPFgSpJF9XfDXHfaycrgmXvY3mUJoJX11V28L68jK6jXkENG
+         L2UXhT83jPMfSt69dLjOU17RyCgsBUCg74sT0fAvCtu8oPlxeNiCe1h8yB/7EHsy3lwc
+         INlf7PAxqWj++SGDTjjmKvWNVRo3Xs3iIo6jO40hSvYrp8NQBUY5UsAjs3NCmFkweftD
+         Aon30XMRmJCWU3Po8uHw1ULfm9iLyROlMIQ5xHRcx4mM2YGH4ParlykmZ7qhc8NlcUlo
+         +RCQ==
+X-Forwarded-Encrypted: i=1; AL+hErEiP8cop9BxU4CDibY9pzPgKFJU35YkKZI7XAlHEM40zd6DynT/PBRY6Gv8X51Z9IKu+n6bkA3Y2JLK@vger.kernel.org
+X-Gm-Message-State: APuU4Z9i+M4SgFcLD378+TghUfOAHHegHq0Cb7lo3QJsrZmifObmGDAL
+	tIc15K89KBZ6fE24VNkmU+4bZx2r2IEmMFOb2JSJRTsQFNcrVKdk3iJBxTpXgUWrTQxeA2aovGE
+	dEXZelhaq5DPvoaTRqd3MQaZfJJa79au3UtswWQAhopHoW5sFMJi7Mq07kCnWdbI6
+X-Gm-Gg: AZFdTZd3U+8/DyjWL7DfJHgupSQLCfsmJgr6sWaVgAMhTyC1T6wjIE02lBl7izJ1rg+
+	2Ia7+4gO87khtWejZpjCnfj7UJUNKnwEQ7rny/Gv7C5+KqfAIyzMYhQ4fEhCPyqr/5RFWn+ArEK
+	n+y3kBfkT6sN89tHfczDrzGTNNRdybaXRHLKy/ifB7EnWonmd7BdeZ3iwf2/Tfc5SvhLHiZiOdW
+	19c2D+DEgcHHmT6fenIVwrjxpit3F4M8Z13b6ab36rFiBy6rxUJNTLMNPQcq4bjhjP2KX8Aw0vC
+	+b7XnLxrJVgtWvG0seIfEIZ09LgrtqTcchZE+xJnq3gGtXg93sQqFLCX5O22OMbFwCRaDUqwm02
+	AhgXuoQywDJqhGLOi2XJ65B8ROe0LoN8hkTmyQxvA+DfJO+MIpkLTzF3ypokjDKUV9BjpoH3kML
+	vsCihLV/Ri2pAz9ihlmUC9Js1R9s6x+a0ihS4SiLruu+KPl8VJlXJGz59j2U4R6oc=
+X-Received: by 2002:a05:620a:270d:b0:949:8109:8bcd with SMTP id af79cd13be357-949bab6d24dmr4114418385a.77.1795779705811;
+        Fri, 27 Nov 2026 03:41:45 -0800 (PST)
+X-Received: by 2002:a05:620a:270d:b0:949:8109:8bcd with SMTP id af79cd13be357-949bab6d24dmr4114412085a.77.1795779705324;
+        Fri, 27 Nov 2026 03:41:45 -0800 (PST)
 Received: from brgl-qcom.local (2a01cb1d00dc7e0089167b9b97a26c96.ipv6.abo.wanadoo.fr. [2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab65cb41f4sm45137049f8f.7.2026.11.27.03.41.38
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab65cb41f4sm45137049f8f.7.2026.11.27.03.41.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 03:41:39 -0800 (PST)
+        Fri, 27 Nov 2026 03:41:44 -0800 (PST)
 From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Fri, 27 Nov 2026 12:41:30 +0100
-Subject: [PATCH 1/6] dt-bindings: clock: qcom: document the Seca Global
- Clock Controller
+Date: Fri, 27 Nov 2026 12:41:32 +0100
+Subject: [PATCH 3/6] dt-bindings: clock: qcom: document the Seca TCSR Clock
+ Controller
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -119,7 +119,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-seca-clocks-v1-1-1781298e658b@oss.qualcomm.com>
+Message-Id: <20261127-seca-clocks-v1-3-1781298e658b@oss.qualcomm.com>
 References: <20261127-seca-clocks-v1-0-1781298e658b@oss.qualcomm.com>
 In-Reply-To: <20261127-seca-clocks-v1-0-1781298e658b@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
@@ -135,459 +135,162 @@ Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
         Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
         Tyler Baker <tyler.baker@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=15351;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3511;
  i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=p9pu2+cWFEBhVgNXgxC7s25ouqXGMaV1DiQUT8YT1/8=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBrCWxwwdWnMTOqZ0CSfhlnSUc/E6u5ELvoGfDD8
- c0NBWmambWJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCawlscAAKCRAFnS7L/zaE
- wxvUEACmZGM6eeraAgD/Ru6Uy1/2pGm/8FX1cnFne6fFL8MgKBAWDRTrONxlNn4TAu4M1T8yI24
- A89GBBZSXEWPpkXD4hMDrRiyg/X+UtO1e+d5dR5y21AZSPndp3hwZGjTQ/i/0WtFU+dzIw+QSGb
- /JMHgAwzFgwmNNI3OVr71SxOhfA08UDL6+S+yRWc6Jz9ZGwE0OjRj90H0lyE5cp+kkEDq7x/7v0
- woCR+AjoFN5njpmh3hy6ggEDKfcFEK/Ftkz0gwtN+IEdynrn87vd0wDA6I29AOmVcZaTnFoo76E
- Mm2xR0GRGOJ9F6QJxBuVJn+oyr75FMOEKheZebezh3lL6pAu7Xv7e+XKHhVA8jcQs59KW0sFSIz
- UYLp1i447zsyxobMItCuddDYMPLEcuGLD3KjtNqdLDnJtVLs4x/I57sDxus0f+rHMX52hsol/P4
- 4CRRpbTWpxC3td4aSz/iEWl90376UBkuTf0CsDYBYfLOKtkEH4VE96m4910DWycx1GeZ9pHsubt
- LKRDaPpScHxpB3BmBSgWMt3Uy55ekn4v24E9fZPO9+jNzVWodqctngHs7bWBmGkaCZ8h1gKevAx
- MVDywQ1QHoBeyuGmsQwFYJp4zKoIA9s+ut9Q1MnicJjLJFyhKIaQt4jeZv66V2NZkf2LZrZ2GPT
- Bgw5CXCVQF/TwmA==
+ bh=UU3EbnJaLdHT0l2zmjczzAnpGAGzw6I+1J+L+nykF9E=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBrCWxwfy590nfgqX7sjByb+r7MdExcTAoxugkiV
+ vuu2zCSCUyJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCawlscAAKCRAFnS7L/zaE
+ w8ObD/9F59keoAIFgmv3etoAvDTpaxgoVCTgyH0PIKzceesdu5c+4Aj5Sb4YbsplXdl0X5qTgXf
+ y7vOgRz0pVvnbolF9ccfDYRKwTiX6Af8CuKnDqxeiTxmVY1V36OJQZJq0lpSqBlTUsjgCxFPP2j
+ Vr8wrZaWtj9KqakvaffOLEEO1IikjyIrHBLfs0rtJlPWvy6lN6qXRIUInkr0nsVxwWvSb2odC/Q
+ esd+dNwGZSjnSmkpaVUU3FLFYv6GmS5vh5Z/11egKboXlwEt/Sl26snJ5TILxmD7K5ulX6YCzvt
+ dkCD13I77zdCm44W4bau2PPwHZhAhab1jz8W/dg4/PCTgUsSx/Zi6BSLUl6ujW7K7FV95JfThji
+ EEzZ055SW5esI+yiz5nlpNPevn2jmHdtrIM179uqW5k9xuTBZp+f5/6GAdQX4wQS+3aLG+PqpBl
+ Fy5uVF5U1E42zkhMYntwrUDTBfwSPGABZlR30eg1XEI4ZgRzQkDk9UUIDfi2UBiCR2kAcEuOYb7
+ r2w05BWxshS3kIIOv6Kqm3YhsTZx0nHRpJqYVSm9CvZJ7cNgZMjFReBdd86ewHKZJan4ps1HtAk
+ 8bWbLapSKKpAprBveAgRJjfq35rm3HB+ElHE6AZHEeH1nc6rUfn/pVghRO+IG+S0eVoVsdbIMO/
+ hxZGxvZSRtK5Grw==
 X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
  fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-GUID: 0CnCyOBSk4FmOOJRHlCNeNMZo--6FEXr
-X-Proofpoint-ORIG-GUID: 0CnCyOBSk4FmOOJRHlCNeNMZo--6FEXr
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDA0NiBTYWx0ZWRfX9tM/xLj7IJru
- Bh4oWBq0w4X12Jo8pX9jlB/GG+msnn5ugScXbwEBeTICMWT+THDnwUZH+Zs+bmZZKC9GTYj0udK
- 5VYXjJhwAGARfBZhclRlddqye/C4qmg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDA0NiBTYWx0ZWRfX4DD+FRf939rq
- smaBqFWN4aqD1Z3/lqP03t5gkwf2FMAnLJuQAVN2uNfdzdQ4KN78e3Sf1K8vHk1GgH0G1KYC8nc
- XaROkqmPk9wTQfK8851P/8Pu+tJCh9ITTNlyCmiT+tBx16CHLlytv6ZaDpvQVpqUdkqUXeb0usX
- N/v0KvBcfj0+NCNuTPnsEY8U2xYtzMgk3UVroZeEr4qZaQNOUAD3yYk+3CEnIgx/lAp5aVmznZH
- JHd/wvDjiYD7g6NTh3cTjoZ8YEa1TZnQhD/xwBFWgHx6V6v9/N4Lg0qe3WAtAgpnOOp80lIqtDy
- JMj95dc6Y6/Yu78d/tUDRgtAxHP8wK9jhh6UI+JEaGf4uZXGp+JNTLlGeK70+GtBSMxPn/irMcG
- GDNsIbAo2vNQEl8eIOWd4yMh4H+tmMi7qE9MM63MjAX4owhgJ2ASaEFXQ5kaf2kO1e2gw4V6u3P
- 1jFBY8JPDC374/j1y2w==
-X-Authority-Analysis: v=2.4 cv=A875rKWG c=1 sm=1 tr=0 ts=6b096c76 cx=c_pps
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDA0NiBTYWx0ZWRfX+QVlmAK0QDTa
+ bXtVUoBUtBQGwOzagx7jyPcGtzACVVrOZrIeRE7ek+8L5dhhZVW7mUF5wuTz7/W/SeBysvpsI+J
+ 2/6VqswL8nm3/x7lvj+Y9Cp3qsWsPe8=
+X-Proofpoint-ORIG-GUID: EROPKHYo01fVfGW1zcmoJfxIETc6fDNo
+X-Proofpoint-GUID: EROPKHYo01fVfGW1zcmoJfxIETc6fDNo
+X-Authority-Analysis: v=2.4 cv=BbBNQbt2 c=1 sm=1 tr=0 ts=6b096c7a cx=c_pps
  a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=gEfo2CItAAAA:8
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=c_Q_heGQvzKhConXP0sA:9 a=QEXdDO2ut3YA:10
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=gEfo2CItAAAA:8
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=Eo1YCTbVZX2S2jacn6oA:9 a=QEXdDO2ut3YA:10
  a=IoWCM6iH3mJn3m4BftBB:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDA0NiBTYWx0ZWRfX/aaZ8IEzEiHG
+ DzQ6EbUXwgdAtw2oNpWZWpv5DtCHZ/DkhOMWqWYM714u8tXl1aQcj1xaxbzB/5jT4tQrrSn7p8k
+ 0WkryQvm8875P2WPuqCb0bcuF3QOtSRaV12l6jlDgQT6SN8SMm+QXySr8VuDfyO/Tnf2XjIliiS
+ EhdnFRR2qPa9oVra7HPPaZ2HeaWwM6M0istnAxwqe5HWWnUGb0U3KuTwoeF4bQgxTFbwaYq09R3
+ rBJwb7/0t0sxXUT79HRhfkTltYZb2dY75YTVWIwAFlI/Xf5xxywxqplC5PkPPK5HmjyzNOQuWGo
+ mEeY8PSOBWkfEp1vIukFlLtbjhVNDAUIAYLOXypdXxOG78Mzhk4Vl+e1Q8Ltq5LHZThhRnFN9PQ
+ YB3JLvIuUbhxwGirOB+ezdGjIBpsuYQdVVmTf03gDdc8wEXY1sam4pVLofTqaA80McpL2IJUiqW
+ LIAPtpZJKMCYNdi9VkA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-27_02,2026-11-26_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- priorityscore=1501 adultscore=0 clxscore=1015 suspectscore=0 impostorscore=0
+ clxscore=1015 suspectscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0
+ priorityscore=1501 phishscore=0 spamscore=0 impostorscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611270046
 
-The Global Clock Controller (GCC) on Qualcomm Seca is split into the
-North-East and North-West modules. Add devicetree bindings describing
-the two.
+Add devicetree bindings for the Top Control and Status Register Clock
+Controller on Qualcomm Seca SoCs.
 
 Co-developed-by: Tyler Baker <tyler.baker@oss.qualcomm.com>
 Signed-off-by: Tyler Baker <tyler.baker@oss.qualcomm.com>
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
- .../devicetree/bindings/clock/qcom,seca-negcc.yaml |  61 +++++++++
- .../devicetree/bindings/clock/qcom,seca-nwgcc.yaml |  69 ++++++++++
- include/dt-bindings/clock/qcom,seca-negcc.h        |  98 ++++++++++++++
- include/dt-bindings/clock/qcom,seca-nwgcc.h        | 144 +++++++++++++++++++++
- 4 files changed, 372 insertions(+)
+ .../devicetree/bindings/clock/qcom,seca-tcsr.yaml  | 65 ++++++++++++++++++++++
+ include/dt-bindings/clock/qcom,seca-tcsrcc.h       | 25 +++++++++
+ 2 files changed, 90 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/clock/qcom,seca-negcc.yaml b/Documentation/devicetree/bindings/clock/qcom,seca-negcc.yaml
+diff --git a/Documentation/devicetree/bindings/clock/qcom,seca-tcsr.yaml b/Documentation/devicetree/bindings/clock/qcom,seca-tcsr.yaml
 new file mode 100644
-index 0000000000000000000000000000000000000000..b1595d7dda2b3db59a7fdfc9f6b30d56655d8836
+index 0000000000000000000000000000000000000000..1349f70b5672a2de4e9388056e4c560cd1eacde2
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/qcom,seca-negcc.yaml
-@@ -0,0 +1,61 @@
++++ b/Documentation/devicetree/bindings/clock/qcom,seca-tcsr.yaml
+@@ -0,0 +1,65 @@
 +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/clock/qcom,seca-negcc.yaml#
++$id: http://devicetree.org/schemas/clock/qcom,seca-tcsr.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: North East Global Clock & Reset Controller on Qualcomm Seca SoC
++title: Top Control and Status Register Clock Controller on Qualcomm Seca SoC
 +
 +maintainers:
 +  - Bartosz Golaszewski <brgl@kernel.org>
 +
 +description: |
-+  Qualcomm North East Global Clock Control (NE) module provides the clocks,
-+  resets and power domains on Seca SoC.
++  Qualcomm TCSR clock control module provides the clocks, resets and power
++  domains on the Seca SoC.
 +
-+  See also: include/dt-bindings/clock/qcom,seca-negcc.h
++  See also:
++  - include/dt-bindings/clock/qcom,seca-tcsrcc.h
 +
 +properties:
 +  compatible:
-+    const: qcom,seca-negcc
++    const: qcom,seca-tcsr
 +
 +  clocks:
 +    items:
-+      - description: Board XO source
-+      - description: Sleep clock source
-+      - description: USB3 Phy sec wrapper pipe clock source
-+      - description: USB3 Phy wrapper pipe clock source
++      - description: TCXO pad clock
 +
-+  power-domains:
-+    items:
-+      - description: CX power domain
++  reg:
++    maxItems: 1
++
++  '#clock-cells':
++    const: 1
++
++  vdda-qref-1p2-supply: true
++  vdda-qref0-0p9-supply: true
++  vdda-qref1-0p9-supply: true
++  vdda-qref2-0p9-supply: true
 +
 +required:
 +  - compatible
++  - reg
 +  - clocks
-+  - power-domains
-+  - '#power-domain-cells'
++  - '#clock-cells'
++  - vdda-qref-1p2-supply
++  - vdda-qref0-0p9-supply
++  - vdda-qref1-0p9-supply
++  - vdda-qref2-0p9-supply
 +
-+allOf:
-+  - $ref: qcom,gcc.yaml#
-+
-+unevaluatedProperties: false
++additionalProperties: false
 +
 +examples:
 +  - |
 +    #include <dt-bindings/clock/qcom,rpmh.h>
-+    #include <dt-bindings/power/qcom,rpmhpd.h>
-+    clock-controller@8900000 {
-+      compatible = "qcom,seca-negcc";
-+      reg = <0x08900000 0xf4200>;
-+      clocks = <&rpmhcc RPMH_CXO_CLK>,
-+               <&sleep_clk>,
-+               <&usb3_phy_sec_pipe_clk>,
-+               <&usb3_phy_pipe_clk>;
-+      power-domains = <&rpmhpd RPMHPD_CX>;
++
++    clock-controller@f1d7000 {
++      compatible = "qcom,seca-tcsr";
++      reg = <0xf1d7000 0xf00c>;
++      clocks = <&rpmhcc RPMH_CXO_CLK>;
 +      #clock-cells = <1>;
-+      #reset-cells = <1>;
-+      #power-domain-cells = <1>;
++      vdda-qref-1p2-supply = <&vreg_px11>;
++      vdda-qref0-0p9-supply = <&vreg_l1h>;
++      vdda-qref1-0p9-supply = <&vreg_l1h>;
++      vdda-qref2-0p9-supply = <&vreg_l1h>;
 +    };
 +
 +...
-diff --git a/Documentation/devicetree/bindings/clock/qcom,seca-nwgcc.yaml b/Documentation/devicetree/bindings/clock/qcom,seca-nwgcc.yaml
+diff --git a/include/dt-bindings/clock/qcom,seca-tcsrcc.h b/include/dt-bindings/clock/qcom,seca-tcsrcc.h
 new file mode 100644
-index 0000000000000000000000000000000000000000..d6f7096b9a4ac9071e65164daf3412b09dcf9f1a
+index 0000000000000000000000000000000000000000..ab77bb343a607813def35276fdbfda927accf346
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/qcom,seca-nwgcc.yaml
-@@ -0,0 +1,69 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/qcom,seca-nwgcc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: North West Global Clock & Reset Controller on Qualcomm Seca SoC
-+
-+maintainers:
-+  - Bartosz Golaszewski <brgl@kernel.org>
-+
-+description: |
-+  Qualcomm North West Global Clock Control (NW) module provides the clocks,
-+  resets and power domains on Seca SoC.
-+
-+  See also: include/dt-bindings/clock/qcom,seca-nwgcc.h
-+
-+properties:
-+  compatible:
-+    const: qcom,seca-nwgcc
-+
-+  clocks:
-+    items:
-+      - description: Board XO source
-+      - description: Sleep clock source
-+      - description: UFS 0 Phy Rx symbol 0 clock source
-+      - description: UFS 0 Phy Rx symbol 1 clock source
-+      - description: UFS 0 Phy Tx symbol 0 clock source
-+      - description: UFS 1 Phy Rx symbol 0 clock source
-+      - description: UFS 1 Phy Rx symbol 1 clock source
-+      - description: UFS 1 Phy Tx symbol 0 clock source
-+
-+  power-domains:
-+    items:
-+      - description: CX power domain
-+
-+required:
-+  - compatible
-+  - clocks
-+  - power-domains
-+  - '#power-domain-cells'
-+
-+allOf:
-+  - $ref: qcom,gcc.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/qcom,rpmh.h>
-+    #include <dt-bindings/power/qcom,rpmhpd.h>
-+    clock-controller@8b00000 {
-+      compatible = "qcom,seca-nwgcc";
-+      reg = <0x08b00000 0xf4200>;
-+      clocks = <&rpmhcc RPMH_CXO_CLK>,
-+               <&sleep_clk>,
-+               <&ufs_0_phy 0>,
-+               <&ufs_0_phy 1>,
-+               <&ufs_0_phy 2>,
-+               <&ufs_1_phy 0>,
-+               <&ufs_1_phy 1>,
-+               <&ufs_1_phy 2>;
-+      power-domains = <&rpmhpd RPMHPD_CX>;
-+      #clock-cells = <1>;
-+      #reset-cells = <1>;
-+      #power-domain-cells = <1>;
-+    };
-+
-+...
-diff --git a/include/dt-bindings/clock/qcom,seca-negcc.h b/include/dt-bindings/clock/qcom,seca-negcc.h
-new file mode 100644
-index 0000000000000000000000000000000000000000..33d942c073d693b86ea2ee79ecb206666ac93424
---- /dev/null
-+++ b/include/dt-bindings/clock/qcom,seca-negcc.h
-@@ -0,0 +1,98 @@
++++ b/include/dt-bindings/clock/qcom,seca-tcsrcc.h
+@@ -0,0 +1,25 @@
 +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
 +/*
 + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 + */
 +
-+#ifndef _DT_BINDINGS_CLK_QCOM_NE_GCC_SECA_H
-+#define _DT_BINDINGS_CLK_QCOM_NE_GCC_SECA_H
++#ifndef _DT_BINDINGS_CLK_QCOM_SECA_TCSRCC_H
++#define _DT_BINDINGS_CLK_QCOM_SECA_TCSRCC_H
 +
-+/* NE_GCC clocks */
-+#define NE_GCC_AGGRE_NOC_USB2_AXI_CLK				0
-+#define NE_GCC_AGGRE_NOC_USB3_PRIM_AXI_CLK			1
-+#define NE_GCC_AGGRE_NOC_USB3_SEC_AXI_CLK			2
-+#define NE_GCC_AHB2PHY_CLK					3
-+#define NE_GCC_CNOC_USB2_AXI_CLK				4
-+#define NE_GCC_CNOC_USB3_PRIM_AXI_CLK				5
-+#define NE_GCC_CNOC_USB3_SEC_AXI_CLK				6
-+#define NE_GCC_FRQ_MEASURE_REF_CLK				7
-+#define NE_GCC_GP1_CLK						8
-+#define NE_GCC_GP1_CLK_SRC					9
-+#define NE_GCC_GP2_CLK						10
-+#define NE_GCC_GP2_CLK_SRC					11
-+#define NE_GCC_GPLL0						12
-+#define NE_GCC_GPLL0_OUT_EVEN					13
-+#define NE_GCC_QUPV3_WRAP2_CORE_2X_CLK				14
-+#define NE_GCC_QUPV3_WRAP2_CORE_CLK				15
-+#define NE_GCC_QUPV3_WRAP2_M_AHB_CLK				16
-+#define NE_GCC_QUPV3_WRAP2_S0_CLK				17
-+#define NE_GCC_QUPV3_WRAP2_S0_CLK_SRC				18
-+#define NE_GCC_QUPV3_WRAP2_S1_CLK				19
-+#define NE_GCC_QUPV3_WRAP2_S1_CLK_SRC				20
-+#define NE_GCC_QUPV3_WRAP2_S2_CLK				21
-+#define NE_GCC_QUPV3_WRAP2_S2_CLK_SRC				22
-+#define NE_GCC_QUPV3_WRAP2_S3_CLK				23
-+#define NE_GCC_QUPV3_WRAP2_S3_CLK_SRC				24
-+#define NE_GCC_QUPV3_WRAP2_S4_CLK				25
-+#define NE_GCC_QUPV3_WRAP2_S4_CLK_SRC				26
-+#define NE_GCC_QUPV3_WRAP2_S5_CLK				27
-+#define NE_GCC_QUPV3_WRAP2_S5_CLK_SRC				28
-+#define NE_GCC_QUPV3_WRAP2_S6_CLK				29
-+#define NE_GCC_QUPV3_WRAP2_S6_CLK_SRC				30
-+#define NE_GCC_QUPV3_WRAP2_S_AHB_CLK				31
-+#define NE_GCC_SDCC4_APPS_CLK					32
-+#define NE_GCC_SDCC4_APPS_CLK_SRC				33
-+#define NE_GCC_SDCC4_AXI_CLK					34
-+#define NE_GCC_USB20_MASTER_CLK					35
-+#define NE_GCC_USB20_MASTER_CLK_SRC				36
-+#define NE_GCC_USB20_MOCK_UTMI_CLK				37
-+#define NE_GCC_USB20_MOCK_UTMI_CLK_SRC				38
-+#define NE_GCC_USB20_MOCK_UTMI_POSTDIV_CLK_SRC			39
-+#define NE_GCC_USB20_SLEEP_CLK					40
-+#define NE_GCC_USB31_PRIM_EUD_AHB_CLK				41
-+#define NE_GCC_USB31_PRIM_MASTER_CLK				42
-+#define NE_GCC_USB31_PRIM_MASTER_CLK_SRC			43
-+#define NE_GCC_USB31_PRIM_MOCK_UTMI_CLK				44
-+#define NE_GCC_USB31_PRIM_MOCK_UTMI_CLK_SRC			45
-+#define NE_GCC_USB31_PRIM_MOCK_UTMI_POSTDIV_CLK_SRC		46
-+#define NE_GCC_USB31_PRIM_SLEEP_CLK				47
-+#define NE_GCC_USB31_SEC_EUD_AHB_CLK				48
-+#define NE_GCC_USB31_SEC_MASTER_CLK				49
-+#define NE_GCC_USB31_SEC_MASTER_CLK_SRC				50
-+#define NE_GCC_USB31_SEC_MOCK_UTMI_CLK				51
-+#define NE_GCC_USB31_SEC_MOCK_UTMI_CLK_SRC			52
-+#define NE_GCC_USB31_SEC_MOCK_UTMI_POSTDIV_CLK_SRC		53
-+#define NE_GCC_USB31_SEC_SLEEP_CLK				54
-+#define NE_GCC_USB3_PRIM_PHY_AUX_CLK				55
-+#define NE_GCC_USB3_PRIM_PHY_AUX_CLK_SRC			56
-+#define NE_GCC_USB3_PRIM_PHY_COM_AUX_CLK			57
-+#define NE_GCC_USB3_PRIM_PHY_PIPE_CLK				58
-+#define NE_GCC_USB3_PRIM_PHY_PIPE_CLK_SRC			59
-+#define NE_GCC_USB3_SEC_PHY_AUX_CLK				60
-+#define NE_GCC_USB3_SEC_PHY_AUX_CLK_SRC				61
-+#define NE_GCC_USB3_SEC_PHY_COM_AUX_CLK				62
-+#define NE_GCC_USB3_SEC_PHY_PIPE_CLK				63
-+#define NE_GCC_USB3_SEC_PHY_PIPE_CLK_SRC			64
-+
-+/* NE_GCC power domains */
-+#define NE_GCC_USB20_PRIM_GDSC					0
-+#define NE_GCC_USB31_PRIM_GDSC					1
-+#define NE_GCC_USB31_SEC_GDSC					2
-+#define NE_GCC_USB3_PHY_GDSC					3
-+#define NE_GCC_USB3_SEC_PHY_GDSC				4
-+
-+/* NE_GCC resets */
-+#define NE_GCC_QUPV3_WRAPPER_2_BCR				0
-+#define NE_GCC_QUSB2PHY_PRIM_BCR				1
-+#define NE_GCC_QUSB2PHY_SEC_BCR					2
-+#define NE_GCC_SDCC4_BCR					3
-+#define NE_GCC_USB20_PRIM_BCR					4
-+#define NE_GCC_USB31_PRIM_BCR					5
-+#define NE_GCC_USB31_SEC_BCR					6
-+#define NE_GCC_USB3_DP_PHY_PRIM_BCR				7
-+#define NE_GCC_USB3_DP_PHY_SEC_BCR				8
-+#define NE_GCC_USB3_PHY_PRIM_BCR				9
-+#define NE_GCC_USB3_PHY_SEC_BCR					10
-+#define NE_GCC_USB3PHY_PHY_PRIM_BCR				11
-+#define NE_GCC_USB3PHY_PHY_SEC_BCR				12
-+
-+#endif
-diff --git a/include/dt-bindings/clock/qcom,seca-nwgcc.h b/include/dt-bindings/clock/qcom,seca-nwgcc.h
-new file mode 100644
-index 0000000000000000000000000000000000000000..887d76dbc5093acc62e42bb0bda260a7bfa835da
---- /dev/null
-+++ b/include/dt-bindings/clock/qcom,seca-nwgcc.h
-@@ -0,0 +1,144 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#ifndef _DT_BINDINGS_CLK_QCOM_NW_GCC_SECA_H
-+#define _DT_BINDINGS_CLK_QCOM_NW_GCC_SECA_H
-+
-+/* NW_GCC clocks */
-+#define NW_GCC_AGGRE_NOC_UFS_0_PHY_AXI_CLK			0
-+#define NW_GCC_AGGRE_NOC_UFS_1_PHY_AXI_CLK			1
-+#define NW_GCC_CAMERA_AHB_CLK					2
-+#define NW_GCC_CAMERA_HF_AXI_CLK				3
-+#define NW_GCC_CAMERA_SF_AXI_CLK				4
-+#define NW_GCC_CAMERA_TRIG_CLK					5
-+#define NW_GCC_CAMERA_XO_CLK					6
-+#define NW_GCC_DISP_0_AHB_CLK					7
-+#define NW_GCC_DISP_0_HF_AXI_CLK				8
-+#define NW_GCC_DISP_0_TRIG_CLK					9
-+#define NW_GCC_DISP_1_AHB_CLK					10
-+#define NW_GCC_DISP_1_HF_AXI_CLK				11
-+#define NW_GCC_DISP_1_TRIG_CLK					12
-+#define NW_GCC_DPRX0_AXI_HF_CLK					13
-+#define NW_GCC_DPRX0_CFG_AHB_CLK				14
-+#define NW_GCC_EVA_AHB_CLK					15
-+#define NW_GCC_EVA_AXI0_CLK					16
-+#define NW_GCC_EVA_AXI0C_CLK					17
-+#define NW_GCC_EVA_TRIG_CLK					18
-+#define NW_GCC_EVA_XO_CLK					19
-+#define NW_GCC_FRQ_MEASURE_REF_CLK				20
-+#define NW_GCC_GP1_CLK						21
-+#define NW_GCC_GP1_CLK_SRC					22
-+#define NW_GCC_GP2_CLK						23
-+#define NW_GCC_GP2_CLK_SRC					24
-+#define NW_GCC_GPLL0						25
-+#define NW_GCC_GPLL0_OUT_EVEN					26
-+#define NW_GCC_GPLL3						27
-+#define NW_GCC_GPU_CFG_AHB_CLK					28
-+#define NW_GCC_GPU_GPLL0_CLK_SRC				29
-+#define NW_GCC_GPU_GPLL0_DIV_CLK_SRC				30
-+#define NW_GCC_GPU_SMMU_VOTE_CLK				31
-+#define NW_GCC_MMU_1_TCU_VOTE_CLK				32
-+#define NW_GCC_QUPV3_WRAP0_CORE_2X_CLK				33
-+#define NW_GCC_QUPV3_WRAP0_CORE_CLK				34
-+#define NW_GCC_QUPV3_WRAP0_M_AHB_CLK				35
-+#define NW_GCC_QUPV3_WRAP0_S0_CLK				36
-+#define NW_GCC_QUPV3_WRAP0_S0_CLK_SRC				37
-+#define NW_GCC_QUPV3_WRAP0_S1_CLK				38
-+#define NW_GCC_QUPV3_WRAP0_S1_CLK_SRC				39
-+#define NW_GCC_QUPV3_WRAP0_S2_CLK				40
-+#define NW_GCC_QUPV3_WRAP0_S2_CLK_SRC				41
-+#define NW_GCC_QUPV3_WRAP0_S3_CLK				42
-+#define NW_GCC_QUPV3_WRAP0_S3_CLK_SRC				43
-+#define NW_GCC_QUPV3_WRAP0_S4_CLK				44
-+#define NW_GCC_QUPV3_WRAP0_S4_CLK_SRC				45
-+#define NW_GCC_QUPV3_WRAP0_S5_CLK				46
-+#define NW_GCC_QUPV3_WRAP0_S5_CLK_SRC				47
-+#define NW_GCC_QUPV3_WRAP0_S6_CLK				48
-+#define NW_GCC_QUPV3_WRAP0_S6_CLK_SRC				49
-+#define NW_GCC_QUPV3_WRAP0_S_AHB_CLK				50
-+#define NW_GCC_QUPV3_WRAP1_CORE_2X_CLK				51
-+#define NW_GCC_QUPV3_WRAP1_CORE_CLK				52
-+#define NW_GCC_QUPV3_WRAP1_M_AHB_CLK				53
-+#define NW_GCC_QUPV3_WRAP1_S0_CLK				54
-+#define NW_GCC_QUPV3_WRAP1_S0_CLK_SRC				55
-+#define NW_GCC_QUPV3_WRAP1_S1_CLK				56
-+#define NW_GCC_QUPV3_WRAP1_S1_CLK_SRC				57
-+#define NW_GCC_QUPV3_WRAP1_S2_CLK				58
-+#define NW_GCC_QUPV3_WRAP1_S2_CLK_SRC				59
-+#define NW_GCC_QUPV3_WRAP1_S3_CLK				60
-+#define NW_GCC_QUPV3_WRAP1_S3_CLK_SRC				61
-+#define NW_GCC_QUPV3_WRAP1_S4_CLK				62
-+#define NW_GCC_QUPV3_WRAP1_S4_CLK_SRC				63
-+#define NW_GCC_QUPV3_WRAP1_S5_CLK				64
-+#define NW_GCC_QUPV3_WRAP1_S5_CLK_SRC				65
-+#define NW_GCC_QUPV3_WRAP1_S6_CLK				66
-+#define NW_GCC_QUPV3_WRAP1_S6_CLK_SRC				67
-+#define NW_GCC_QUPV3_WRAP1_S_AHB_CLK				68
-+#define NW_GCC_QUPV3_WRAP3_CORE_2X_CLK				69
-+#define NW_GCC_QUPV3_WRAP3_CORE_CLK				70
-+#define NW_GCC_QUPV3_WRAP3_M_CLK				71
-+#define NW_GCC_QUPV3_WRAP3_QSPI_REF_CLK				72
-+#define NW_GCC_QUPV3_WRAP3_QSPI_REF_CLK_SRC			73
-+#define NW_GCC_QUPV3_WRAP3_S0_CLK				74
-+#define NW_GCC_QUPV3_WRAP3_S0_CLK_SRC				75
-+#define NW_GCC_QUPV3_WRAP3_S_AHB_CLK				76
-+#define NW_GCC_UFS_0_PHY_AHB_CLK				77
-+#define NW_GCC_UFS_0_PHY_AXI_CLK				78
-+#define NW_GCC_UFS_0_PHY_AXI_CLK_SRC				79
-+#define NW_GCC_UFS_0_PHY_ICE_CORE_CLK				80
-+#define NW_GCC_UFS_0_PHY_ICE_CORE_CLK_SRC			81
-+#define NW_GCC_UFS_0_PHY_PHY_AUX_CLK				82
-+#define NW_GCC_UFS_0_PHY_PHY_AUX_CLK_SRC			83
-+#define NW_GCC_UFS_0_PHY_RX_SYMBOL_0_CLK			84
-+#define NW_GCC_UFS_0_PHY_RX_SYMBOL_0_CLK_SRC			85
-+#define NW_GCC_UFS_0_PHY_RX_SYMBOL_1_CLK			86
-+#define NW_GCC_UFS_0_PHY_RX_SYMBOL_1_CLK_SRC			87
-+#define NW_GCC_UFS_0_PHY_TX_SYMBOL_0_CLK			88
-+#define NW_GCC_UFS_0_PHY_TX_SYMBOL_0_CLK_SRC			89
-+#define NW_GCC_UFS_0_PHY_UNIPRO_CORE_CLK			90
-+#define NW_GCC_UFS_0_PHY_UNIPRO_CORE_CLK_SRC			91
-+#define NW_GCC_UFS_1_PHY_AHB_CLK				92
-+#define NW_GCC_UFS_1_PHY_AXI_CLK				93
-+#define NW_GCC_UFS_1_PHY_AXI_CLK_SRC				94
-+#define NW_GCC_UFS_1_PHY_ICE_CORE_CLK				95
-+#define NW_GCC_UFS_1_PHY_ICE_CORE_CLK_SRC			96
-+#define NW_GCC_UFS_1_PHY_PHY_AUX_CLK				97
-+#define NW_GCC_UFS_1_PHY_PHY_AUX_CLK_SRC			98
-+#define NW_GCC_UFS_1_PHY_RX_SYMBOL_0_CLK			99
-+#define NW_GCC_UFS_1_PHY_RX_SYMBOL_0_CLK_SRC			100
-+#define NW_GCC_UFS_1_PHY_RX_SYMBOL_1_CLK			101
-+#define NW_GCC_UFS_1_PHY_RX_SYMBOL_1_CLK_SRC			102
-+#define NW_GCC_UFS_1_PHY_TX_SYMBOL_0_CLK			103
-+#define NW_GCC_UFS_1_PHY_TX_SYMBOL_0_CLK_SRC			104
-+#define NW_GCC_UFS_1_PHY_UNIPRO_CORE_CLK			105
-+#define NW_GCC_UFS_1_PHY_UNIPRO_CORE_CLK_SRC			106
-+#define NW_GCC_VIDEO_AHB_CLK					107
-+#define NW_GCC_VIDEO_AXI0_CLK					108
-+#define NW_GCC_VIDEO_AXI0C_CLK					109
-+#define NW_GCC_VIDEO_XO_CLK					110
-+
-+/* NW_GCC power domains */
-+#define NW_GCC_UFS_0_MEM_PHY_GDSC				0
-+#define NW_GCC_UFS_0_PHY_GDSC					1
-+#define NW_GCC_UFS_1_MEM_PHY_GDSC				2
-+#define NW_GCC_UFS_1_PHY_GDSC					3
-+
-+/* NW_GCC resets */
-+#define NW_GCC_CAMERA_BCR					0
-+#define NW_GCC_DISPLAY_0_BCR					1
-+#define NW_GCC_DISPLAY_1_BCR					2
-+#define NW_GCC_DPRX0_BCR					3
-+#define NW_GCC_EVA_BCR						4
-+#define NW_GCC_GPU_BCR						5
-+#define NW_GCC_QUPV3_WRAPPER_0_BCR				6
-+#define NW_GCC_QUPV3_WRAPPER_1_BCR				7
-+#define NW_GCC_QUPV3_WRAPPER_3_BCR				8
-+#define NW_GCC_UFS_0_PHY_BCR					9
-+#define NW_GCC_UFS_1_PHY_BCR					10
-+#define NW_GCC_VIDEO_BCR					11
-+#define NW_GCC_VIDEO_AXI0_CLK_ARES				12
-+#define NW_GCC_VIDEO_AXI0C_CLK_ARES				13
++/* TCSR_CC clocks */
++#define TCSR_DP_RX_0_CLKREF_EN					0
++#define TCSR_DP_TX_0_CLKREF_EN					1
++#define TCSR_DP_TX_1_CLKREF_EN					2
++#define TCSR_DP_TX_2_CLKREF_EN					3
++#define TCSR_PCIE_CLKREF_EN					4
++#define TCSR_UFS_0_CLKREF_EN					5
++#define TCSR_UFS_1_CLKREF_EN					6
++#define TCSR_USB2_0_CLKREF_EN					7
++#define TCSR_USB2_1_CLKREF_EN					8
++#define TCSR_USB2_2_CLKREF_EN					9
++#define TCSR_USB3_0_CLKREF_EN					10
++#define TCSR_USB3_1_CLKREF_EN					11
++#define TCSR_UX_SGMII_0_CLKREF_EN				12
++#define TCSR_UX_SGMII_1_CLKREF_EN				13
 +
 +#endif
 
