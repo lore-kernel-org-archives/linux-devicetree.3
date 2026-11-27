@@ -1,112 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795781964;
-	b=YY+mQ3Ig17haGyF5fFZUipT5fE6kG/uMm2THDJeMK81ZleKZJ1XlRU3mxJ1/PVSSjNSW
-	 ft+ARflWzoOZij1mYRwiT+Vex3QsXAuspvkcHFD1g8j6kuthNboZQlulmg4vTHZ7Uo5q6
-	 SiQO+QEBf3P1oAOTVai+7F0QI7+7i46hi+WT/EF+UpHlWjXga+tiumzVAJdcmg+FCGXsT
-	 I9zQB2llvUqQVs4lA0WK85yrQR7BWxZ/6ie2AMN8Pwv3OWSAVztdSiqpdBXC5vcrhW2h+
-	 6kQtDogHMlJn/Tp3rDTAfFVFrxe+proOIvV+zd8tHuAcoiEXCW2dgruXZdJfUbHQiAg==
+	t=1795782026;
+	b=g2pnxkb2sw2ieeab1+TbzWJvFy8diytPOUPaJ2XCp3uQpziQVJ7oUUP73APd+J63bqRZ
+	 hJVR4iKy4Ee8F3QFfeScgZNfH9Lw+cEsWep5TfHp2MLdgUdbo/sxWmM7f0q14Vbb+ZmfM
+	 mLST+sZ0lKJfl6QNgLOwHuUZYWojwHcKqt/5H6hyHe1X4EqkZUXpnQ4OwZp1Hvger2g0q
+	 NW3J3gP6gcVQDAnGYTk4aq6kg+m4b0+lgH67f8z+8ASVh52tlKDdBKOUoFLxN8Y+MMRmn
+	 NyYxqjvxnqtllXB8z2/SmPLHkJUNwO3g00ewAaPs0P07oE7ypdSOCaCzQXouRKrAjGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795781964;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=+IW/uZ0j05LJqVLsSY6Erg+izYe5hqVn60TIR3SgAB8=;
-	b=sV/VN+QZNHAsnmxdLvnQjfbij/LdzY66SWMOC78wnFATTyfU6MWNcnhxTNra8IeuQYGp
-	 0i+C+k1Ad6WtaMA+c5wUjrikRhv0aH8mvUY2GDZBQ1OARmxpl4+613cY10Nj83tWl+uY+
-	 4NI2mrBIgPMxT0mMHK2T4lC52ORI12exAOzMJeIBMoFVqpvYJx/M+h263V3yaDjVvkcLh
-	 BJHKTxFv63JCuKg9ZaCgm7NXDOEkNV7JFSNPvbyQ/GOA8OZCxuYkO21oC8VLFJj7ozmIy
-	 Om/BNgfd8XvDkQtXmBt0a4f7k9F7rasuRU4hWo66WrasiAv0P2e4lAAd78E6gNkdk2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795782026;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=oyRJw5VZuPqgkXCwGVIH59kgww0UgsaVA4mSOquF3cE=;
+	b=XJuA1e2qrc65tEdfIkoIJ3RZa2MsQtrFcB6QvvRhU1UqcIubpA3rO9JmQsqq2pLW1wlL
+	 5aaNlacxDP0aYfIcOeVOs9ydh8Ckv48r1CGOT+1LGN51HAUG0u1YnUNR3b0CmkppPMxR1
+	 GBZtv4Zj1K2cUURO39fjyap7Ey8qHgRES/0bl6MTU6Ua75Z33pSou+i/l/ihB+NMcFIcj
+	 skfZt62B8A/wJ99xMwsQjvXP2x/8hD/saKEKZpAh4FCnMUCK0rNd6Cz+gSkdU7018r1x2
+	 zIV06wf/Zds2I5LA9JgfZXq817tfBMJaIysqI7V+HBtEs6Lpzwa5Ml5GF2lCMGkYpPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=RWsFwaDj;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VSbtyVzj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C39606C6D6
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 12:19:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55C39606C6D6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C9F606A31E;
+	Fri, 27 Nov 2026 12:20:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=RWsFwaDj
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-49465892f7bso5886107f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 04:19:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1795781963; x=1796386763; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+IW/uZ0j05LJqVLsSY6Erg+izYe5hqVn60TIR3SgAB8=;
-        b=RWsFwaDj06AcQkXnUrqX7SDxFULhdAZXBD9zPLiKNyDdmryVwjctfsZP3uWZxFP724
-         LLBOw5EONTIxs+Gob63p3AElMXNVIT/hL8T9vgTn6A7NV8/j7bQk67aEGPUt+cWT0MSD
-         ve3lQZE7IKp/LNkjT+1w9ndILaGzmOwrpdYz0h85UAXF8eNnGFQgAOCpxNTF603Myr6z
-         n5V5QH623ZKLo/NeoFZQof7vWqZV+XhX3mzdwllT+gCk/s0cGvQlT0nF15dAR0wFiG7V
-         Bit3Pvegw8CYFTw1yhrcpb8cXZnV3686s0teEUYE2g97T5sNt9X3bog5TTxNVJCBd0ki
-         cv/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795781963; x=1796386763;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+IW/uZ0j05LJqVLsSY6Erg+izYe5hqVn60TIR3SgAB8=;
-        b=eAhfjzyTPj0XhUr9M/l97idRhO7VP5kJPr6wPrCP1spF+y6VhkAlo06TkfEMXWp2BO
-         TKlNZy2S6Ox+Er2F0Hc4jiANCVyOB5XPj4WC2T9ZfaBThatIM6BIHi9+9yFdO6jJWpn0
-         oj3l2uAC9Cp/xAtNisPfaZ/ivicMVRd9TimUIXZjZTlElNY+eu1y99PL+/17zSEEYlT0
-         u9Hut0ifsl41syLkW24K5NGpUpw0IXzZGYMmRji0fUQ6c9DFBGyWTB0SYer9rYBQ/QqX
-         TsIRKu5jNGPkQV/yJeh5uGwJo10cEgwCfLeMOjG8bSGwrU+N/5PLqXd9KN7OzCDf5Pzo
-         GaWg==
-X-Forwarded-Encrypted: i=1; AL+hErGn6ibqHed39j0NiTtItpxd23WREsgzDvtB3Ayw9AQNCmXSvlGsN0E4VpCgq93YJjEJygcsvkJIfads@vger.kernel.org
-X-Gm-Message-State: APuU4Z/X3LyNSXFa/sId2KLnT1Gj4YjS2eHiF7IW3pBma4vaABQGjPgX
-	guFNfq5feXTJqMmPz6UCnIup/AzmIUa4Kzh2gAgi0UFCKQgrBqhJRD+0MfofeodjFqM=
-X-Gm-Gg: AZFdTZcRflV2sC8bavZRTVZSKW/SBKzV76/Vwc1mEvsQ5La8GAoMYSH7BIbeW7HFUxE
-	cxOw5fDfRpNHvevD58wkW6GND8pZBtn4x90iP2sxPnD3YK1bq3OPKh7+PnqOiB/UGHE34bMTydk
-	/lP1KBMoh/JxSzTvj0JyP5rP6QBvhQELalqMYHA9JfENY+sVeZhuyXbL4TRRmGV7CpvOArOqFpj
-	QNSXiIhKt2p7GuBN2cZyacKrvskz7gN6OVamxteEiAxdfIiF+mO5YogsNGp8olrXJzKMAlIcQQU
-	4SffetdhUBbtUTrWHU4bkFt6wmVTdZJekO3yL/UOQs3WKb+6+rQfsA19GUg27xqhLQTL0sSbAds
-	SfXPlZkzDoLP4LXYNsPinLLBXrMPSWtbozDd5BmmLVHwfIe2jH0eFtUlmLtwDdz+D8wO5nwZaW5
-	wK9uWQ6NiXaB7xIEzfVuuyKzoXmfy5kIqiTHj8QWWPjxMUgfTUMtOZdqvbuhZdWQEexW6fKcYn7
-	YHwn46F9n74KWh9jbsZwSnIkFu5EuMknhQ1djxa+/TStQewNLj2xKbCajE50KvModluxr6eoVOL
-	CmbWqP/84ZPigrlGxbvooX6Vw9yy
-X-Received: by 2002:a05:6000:290b:b0:4b7:8363:682 with SMTP id ffacd0b85a97d-4b7836306d3mr23949156f8f.16.1795781962728;
-        Fri, 27 Nov 2026 04:19:22 -0800 (PST)
-Received: from localhost ([195.94.148.180])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b10b2c9sm48478454f8f.31.2026.11.27.04.19.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 04:19:22 -0800 (PST)
-From: Andrea della Porta <andrea.porta@suse.com>
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Frank Li <Frank.Li@kernel.org>,
-	dmaengine@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>,
-	Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Saenz Julienne <nsaenz@kernel.org>,
-	Stefan Wahren <wahrenst@gmx.net>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Phil Elwell <phil@raspberrypi.com>,
-	Dom Cobley <popcornmix@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Andrea della Porta <andrea.porta@suse.com>
-Subject: [PATCH v4 28/28] arm64: dts: broadcom: bcm2712: Enable HDMI audio
-Date: Fri, 27 Nov 2026 13:22:18 +0100
-Message-ID: <20261127122236.4976-29-andrea.porta@suse.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261127122236.4976-1-andrea.porta@suse.com>
-References: <20261127122236.4976-1-andrea.porta@suse.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VSbtyVzj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CF991F0093A;
+	Fri, 27 Nov 2026 12:20:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795782025;
+	bh=oyRJw5VZuPqgkXCwGVIH59kgww0UgsaVA4mSOquF3cE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VSbtyVzjY3CSZXP10UPMEXrfrFyc6VdjqN3j5T8us6bKgjjARoZLA74Z+WIk4HOPp
+	 jyRmt91bJI1wlqSFh3uCg1WrTLzyWLzmJaFOJUyOcP1oKuIOUA8wqSEfrENIztj9v9
+	 zoWJbJafMe86bzDd/lPOiuppfNVHs50PR9IDkYSr1yznFavZNl5FvQEP6czyPBewTO
+	 2JHdYDA/qM4NfAcBU7/Q8j0FOwP3Aa7XiMaMcVaslrM+063i2nBbBT6lOvjALMBmYm
+	 EDvFt6jiz2GL4qNsfyZ8GUIfn1p3uvashbyRIFz0q8SPNrjKPw7DBUV8XfET9oeC3N
+	 i647yEnXHHnPQ==
+Message-ID: <sashiko-outbox-237352@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v14 28/30] crypto: amlogic: fix setup descriptor lengths
+ and CBC IV copy
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jose Nieto" <jnieto.alaber@gmail.com>, "Corentin Labbe" <clabbe@baylibre.com>, "Herbert
+ Xu" <herbert@gondor.apana.org.au>
+Cc: linux-crypto@vger.kernel.org, linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, "Neil
+ Armstrong" <neil.armstrong@linaro.org>, "Martin Blumenstingl" <martin.blumenstingl@googlemail.com>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>
+In-Reply-To: <20261127120103.1532882-29-jnieto.alaber@gmail.com>
+References: <20261126193241.1471372-1-jnieto.alaber@gmail.com>
+ <20261127120103.1532882-1-jnieto.alaber@gmail.com>
+ <20261127120103.1532882-29-jnieto.alaber@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 27 Nov 2026 12:20:24 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,84 +65,127 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The HDMI controllers of BCM2712 feed their MAI FIFO through the 40-bit
-DMA channels. Describe them, so that vc4 registers the HDMI audio
-devices.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] crypto: amlogic: ECB key truncation and DMA OOB in
+  meson_setup_keyiv_descs()
+- [High] crypto: amlogic: broken multi-batch CBC IV update in
+  meson_setup_keyiv_descs()
+--
 
-The DREQ lines of the HDMI audio changed between the C1 and D0 steppings
-(10/17 and 12/13 respectively), while the flags request multi-beat
-bursts, wide source reads and the AXI priorities used by the downstream
-Raspberry Pi device trees, where these values come from.
+commit 9246a121ba55b6e8c714e81736c007cdd1b7ad72
+Author: Jose Nieto <jnieto.alaber@gmail.com>
 
-Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
----
- .../arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts | 15 +++++++++++++++
- arch/arm64/boot/dts/broadcom/bcm2712.dtsi         | 11 +++++++++++
- 2 files changed, 26 insertions(+)
+crypto: amlogic: fix setup descriptor lengths and CBC IV copy
 
-diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts b/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts
-index ae4b7c587dbc..80073bec01b2 100644
---- a/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts
-+++ b/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts
-@@ -8,6 +8,21 @@ / {
- 	model = "Raspberry Pi 5 d0 Stepping";
- };
- 
-+/* The HDMI audio DREQs changed on D0 */
-+&hdmi0 {
-+	dmas = <&dma40 (12 | BCM2835_DMA_FLAG_BURST |
-+			BCM2835_DMA_FLAG_WIDE_SOURCE |
-+			BCM2835_DMA_FLAG_PRIORITY(10) |
-+			BCM2835_DMA_FLAG_PANIC_PRIORITY(15))>;
-+};
-+
-+&hdmi1 {
-+	dmas = <&dma40 (13 | BCM2835_DMA_FLAG_BURST |
-+			BCM2835_DMA_FLAG_WIDE_SOURCE |
-+			BCM2835_DMA_FLAG_PRIORITY(10) |
-+			BCM2835_DMA_FLAG_PANIC_PRIORITY(15))>;
-+};
-+
- &gio_aon {
- 	brcm,gpio-bank-widths = <15 6>;
- 
-diff --git a/arch/arm64/boot/dts/broadcom/bcm2712.dtsi b/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
-index 7ba0fc540257..bedbd7a359f6 100644
---- a/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
-+++ b/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
-@@ -1,4 +1,5 @@
- // SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+#include <dt-bindings/dma/brcm,bcm2835-dma.h>
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/soc/bcm2835-pm.h>
- 
-@@ -483,6 +484,11 @@ hdmi0: hdmi@7c701400 {
- 			interrupt-names = "cec-tx", "cec-rx", "cec-low",
- 					  "hpd-connected", "hpd-removed";
- 			ddc = <&ddc0>;
-+			dmas = <&dma40 (10 | BCM2835_DMA_FLAG_BURST |
-+					BCM2835_DMA_FLAG_WIDE_SOURCE |
-+					BCM2835_DMA_FLAG_PRIORITY(10) |
-+					BCM2835_DMA_FLAG_PANIC_PRIORITY(15))>;
-+			dma-names = "audio-rx";
- 			status = "disabled";
- 		};
- 
-@@ -513,6 +519,11 @@ hdmi1: hdmi@7c706400 {
- 			interrupt-names = "cec-tx", "cec-rx", "cec-low",
- 					  "hpd-connected", "hpd-removed";
- 			ddc = <&ddc1>;
-+			dmas = <&dma40 (17 | BCM2835_DMA_FLAG_BURST |
-+					BCM2835_DMA_FLAG_WIDE_SOURCE |
-+					BCM2835_DMA_FLAG_PRIORITY(10) |
-+					BCM2835_DMA_FLAG_PANIC_PRIORITY(15))>;
-+			dma-names = "audio-rx";
- 			status = "disabled";
- 		};
- 
--- 
-2.51.0
+This commit divides the key/IV and SHA state setup descriptor lengths by
+setup_desc_cnt and drops the CBC IV copy and DMA sync from
+meson_setup_keyiv_descs().
 
+> diff --git a/drivers/crypto/amlogic/amlogic-gxl-cipher.c b/drivers/crypto=
+/amlogic/amlogic-gxl-cipher.c
+> index c11ccbaf920dd..10815ffe33135 100644
+> --- a/drivers/crypto/amlogic/amlogic-gxl-cipher.c
+> +++ b/drivers/crypto/amlogic/amlogic-gxl-cipher.c
+> @@ -147,24 +147,13 @@ static void meson_setup_keyiv_descs(struct cipher_c=
+tx *ctx)
+>  {
+>  	struct meson_cipher_req_ctx *rctx =3D skcipher_request_ctx(ctx->areq);
+>  	struct crypto_skcipher *tfm =3D crypto_skcipher_reqtfm(ctx->areq);
+> -	struct skcipher_alg *alg =3D crypto_skcipher_alg(tfm);
+> -	struct meson_alg_template *algt =3D container_of(alg,
+> -		struct meson_alg_template, alg.skcipher.base);
+>  	struct meson_cipher_tfm_ctx *op =3D crypto_skcipher_ctx_dma(tfm);
+>  	struct meson_dev *mc =3D op->mc;
+> -	unsigned int ivsize =3D crypto_skcipher_ivsize(tfm);
+> -	unsigned int blockmode =3D algt->blockmode;
+>  	int i;
+> =20
+>  	if (ctx->tloffset)
+>  		return;
+> =20
+> -	if (blockmode =3D=3D DESC_OPMODE_CBC) {
+> -		memcpy(op->keyiv + AES_MAX_KEY_SIZE, ctx->areq->iv, ivsize);
+> -		dma_sync_single_for_device(mc->dev, ctx->keyiv.addr,
+> -					   ctx->keyiv.len, DMA_TO_DEVICE);
+> -	}
+> -
+
+[Severity: High]
+Does removing this memcpy() and dma_sync_single_for_device() break CBC IV
+chaining when a request spans multiple descriptor batches?
+
+meson_cipher() copies the initial IV into op->keyiv before the
+while (ctx.cryptlen) loop, but when a batch fills MAXDESC descriptors,
+meson_kick_hardware() saves the chaining IV for the next batch into
+ctx->areq->iv and resets ctx->tloffset to 0:
+
+drivers/crypto/amlogic/amlogic-gxl-cipher.c:meson_kick_hardware() {
+	...
+	if (blockmode =3D=3D DESC_OPMODE_CBC &&
+	    rctx->op_dir =3D=3D MESON_ENCRYPT) {
+		dma_sync_sg_for_cpu(mc->dev, sg_head,
+				    sg_nents(sg_head), new_iv_dir);
+		memcpy(ctx->areq->iv, new_iv, ivsize);
+	}
+
+	ctx->tloffset =3D 0;
+	...
+}
+
+Without updating and syncing op->keyiv + AES_MAX_KEY_SIZE in
+meson_setup_keyiv_descs(), subsequent batches reload the initial IV instead
+of the updated ctx->areq->iv, corrupting multi-batch CBC encryption and
+decryption.
+
+>  	for (i =3D 0; i < mc->pdata->setup_desc_cnt; i++) {
+>  		struct meson_desc *desc =3D
+>  			&mc->chanlist[rctx->flow].tl[ctx->tloffset];
+> @@ -172,7 +161,9 @@ static void meson_setup_keyiv_descs(struct cipher_ctx=
+ *ctx)
+> =20
+>  		desc->t_src =3D cpu_to_le32(ctx->keyiv.addr + offset);
+>  		desc->t_dst =3D cpu_to_le32(offset);
+> -		desc->t_status =3D cpu_to_le32(DESC_OWN | DESC_MODE_KEY | ctx->keyiv.l=
+en);
+> +		desc->t_status =3D cpu_to_le32(DESC_OWN | DESC_MODE_KEY |
+> +					     ctx->keyiv.len /
+> +					     mc->pdata->setup_desc_cnt);
+> =20
+>  		ctx->tloffset++;
+>  	}
+
+[Severity: High]
+Does dividing ctx->keyiv.len by mc->pdata->setup_desc_cnt truncate the AES
+key and read out of bounds in ECB mode on GXL and AXG?
+
+In meson_cipher(), ctx.keyiv.len is only extended to 48 bytes
+(AES_MAX_KEY_SIZE + ivsize) for DESC_OPMODE_CBC, so for ecb(aes)
+ctx.keyiv.len and its DMA mapping are 16 or 32 bytes:
+
+drivers/crypto/amlogic/amlogic-gxl-cipher.c:meson_cipher() {
+	...
+	ctx.keyiv.len =3D op->keylen;
+	if (ctx.keyiv.len =3D=3D AES_KEYSIZE_192)
+		ctx.keyiv.len =3D AES_MAX_KEY_SIZE;
+
+	if (algt->blockmode =3D=3D DESC_OPMODE_CBC) {
+		memcpy(op->keyiv + AES_MAX_KEY_SIZE, areq->iv, ivsize);
+		ctx.keyiv.len =3D AES_MAX_KEY_SIZE + ivsize;
+	}
+
+	ctx.keyiv.addr =3D dma_map_single(mc->dev, op->keyiv, ctx.keyiv.len,
+					DMA_TO_DEVICE);
+	...
+}
+
+On GXL and AXG, setup_desc_cnt is 3.  In ECB mode, ctx->keyiv.len / 3
+evaluates to 5 bytes (AES-128) or 10 bytes (AES-192/256) per descriptor
+instead of 16, while the loop still emits 3 descriptors at offsets 0, 16
+and 32, loading a truncated key and performing DMA reads past the mapped
+ctx.keyiv.len bytes.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127120103.1532=
+882-1-jnieto.alaber@gmail.com?part=3D28
