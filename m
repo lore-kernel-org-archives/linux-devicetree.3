@@ -1,89 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.223
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795774210;
-	b=zO0AIzZ/M4CbQijwhcesyTb7y6htwXSjWpwMNAL5eWv/NnowdmVrNwoXwvuNUXOK5p4b
-	 mR6HN3TcDZedmOstAbOzZlWskMCIUZM1NTL+/KILLTWNtpwuUicc6lGcGIglWIXbJCQrm
-	 Q1dCBJJts4czcUsXFB6BCIlgaSrKoMuYXd6KjZAVeYx4Ac8qnGAtIMjYEKQUhsdW6/udH
-	 qa+/Gq3DE+GhvbwERsEsIptI6OIzHr4PSTE67u0/+dPel8n6+fSK5ZvCrlHdfVAbn2vCW
-	 dEUedrRTWn66H3zk+dKZmgDnBKX2qBiwKR5kbmOZwTzmgrYNw2paHThX7D9RKa25xHg==
+	t=1795774365;
+	b=zNz3pRTWzuKP6XXNHWFigUltg/dQEgajXIRZ0eNI5gc+DfcFWOEHE1G861S3FjCiMW+3
+	 3fUiKvEpeeGIKOo3tfHvrA3eX1v+Lcjkm1w6cn8k551gvvz00eev1u9Al0Bu8hYK9b9K4
+	 h/EpsutSIFqpJlwUOtFUTk/pgzTFH57ywWEBPJFVaAjQglcErOgVbuwpCNIpfQJtWLCI3
+	 0aXyOg6OaAH4UKpVTdK84nMm5hLqDdLeP2ggqFxRHgupm8zCylmCXZrwwVG2pCrj/7vGX
+	 QyPneWmie2G21zkGHLGJ9nF5RTXtiYxjJPWat4T/wNMSzfLtHqzhh9UyL6ebfy0orZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795774210;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=RD+RhKHkx2ypFB5sfZGqGwGbb8y1IoqlO39za0vFLv4=;
-	b=wOfS6IG0VXxsJrHpePO8ZW5KP2iCyJC8WSioV0SATB9GQPiJIH4WGQrInZ5eMaCzEdwf
-	 exrK/Dpk+Aq3OHJriHKgeXKwMkLmMlSA57G31SXlXeUvQKMNH2fS4ujeIMHCRAVJ1lTio
-	 zprGCsl66MA246KXZxvvMhdWWjHoAt+MPW4Wg2os1rFOVMFaUsvAFaIqCibqVVc5tefi8
-	 Nh2yvuz1wjgLk8SUv1m9zSx6ic3GAxVA2esz1XFOX6v6lXo5u6pJBuhUEu2QNkn6AjbRJ
-	 rBGOkwSUIYW+5y5lH3XdYxbbYojwl8vovy7EgsnIKDaSV/6yiwQ5sUcR8yT2Ni/VxbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795774365;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=v1/2YqpCnIwSCbwLLDUxkqgFBM6zZChxPmbs8wgtA+k=;
+	b=Dem3dZcv2HAzvCyfyLex3Um4RzMbFng4qChein6+uqG4PHiz+eXSePoaJJ3gfKmg++wN
+	 tHe3mlZh1z9TMvfONAIa5upVaqDeUTKx5RKFKLvsfU+7jQrB9LUtx3OoFknA2sQpEhmhv
+	 hc4aJ28kG/YRRFYMaHuF/GVX+ojfV44RmCe7yekONeEweh5b6eQ0mqpwVfIbUfOz9kwzb
+	 zV+/7Y2RvgnXA1/DsGJ6TWRqK37vLxO1MiJ68dtRkrvzFCuVKJg2IKc6rxpYgmi+/wWKL
+	 +RGWJ4IQ36umj2WJn+rqiVAQOrZcq7gG6d6GY9zomRUK5eUhS/bcXzkpLgpFflOQgmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=LHau4pfz;
-	arc=none smtp.remote-ip=113.46.200.223
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540C5606A693;
-	Fri, 27 Nov 2026 10:10:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 540C5606A693
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=fBSmtxPJ;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EB600606A31E;
+	Fri, 27 Nov 2026 10:12:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB600606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=LHau4pfz
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=RD+RhKHkx2ypFB5sfZGqGwGbb8y1IoqlO39za0vFLv4=;
-	b=LHau4pfz/sVP57FiK2UxBBLN/FUwWdlrRFdKQoAagxZjTMYkKP4CCFom+7r2gExa8cx+uTB6F
-	wM2IgZjUr4H3DMTa89BmZIZ1XA7SPR269+mshFrZgpWGX6xVa85isQLow5DdpnoG5chTDwApz6d
-	kC2XXILcZVAahBiMa/zjgkQ=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4jbTfn5JSWzmV6b;
-	Fri, 27 Nov 2026 18:09:37 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id B4DBB4058E;
-	Fri, 27 Nov 2026 18:10:02 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 27 Nov
- 2026 18:10:00 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
-	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
-	<ritesh.list@gmail.com>, <sshegde@linux.ibm.com>, <pjw@kernel.org>,
-	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
-	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <robh@kernel.org>,
-	<saravanak@kernel.org>, <akpm@linux-foundation.org>, <baoquan.he@linux.dev>,
-	<rppt@kernel.org>, <pasha.tatashin@soleen.com>, <pratyush@kernel.org>,
-	<ben@cressey.dev>, <leitao@debian.org>, <mpilaniy@redhat.com>,
-	<yeoreum.yun@arm.com>, <coiby.xu@gmail.com>, <Yeking@Red54.com>,
-	<prudo@redhat.com>, <bradley.morgan@linux.dev>, <sourabhjain@linux.ibm.com>,
-	<blum@kernel.org>, <hbathini@linux.ibm.com>, <qirui.001@bytedance.com>,
-	<hui.wang@canonical.com>, <sohammetha01@gmail.com>, <guoren@kernel.org>,
-	<gaohan@iscas.ac.cn>, <ionut.nechita@windriver.com>,
-	<vishal.l.verma@intel.com>, <seanjc@google.com>, <ardb@kernel.org>,
-	<arnd@arndb.de>, <tzimmermann@suse.de>, <kas@kernel.org>,
-	<rick.p.edgecombe@intel.com>, <mhklinux@outlook.com>, <piliu@redhat.com>,
-	<shradhagupta@linux.microsoft.com>, <thuth@redhat.com>,
-	<ebiggers@kernel.org>, <me@linux.beauty>, <mclapinski@google.com>,
-	<graf@amazon.com>, <tangyouling@kylinos.cn>, <x86@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <loongarch@lists.linux.dev>,
-	<linuxppc-dev@lists.ozlabs.org>, <linux-riscv@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<kexec@lists.infradead.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v9 11/11] LoongArch: kexec_file: Fix CMA segment placement retries
-Date: Fri, 27 Nov 2026 18:09:25 +0800
-Message-ID: <20261127100925.3019877-12-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261127100925.3019877-1-ruanjinjie@huawei.com>
-References: <20261127100925.3019877-1-ruanjinjie@huawei.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=fBSmtxPJ
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 383C81758;
+	Fri, 27 Nov 2026 02:12:35 -0800 (PST)
+Received: from [10.33.50.35] (e142021.arm.com [10.33.50.35])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0B6FB3F86C;
+	Fri, 27 Nov 2026 02:12:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795774358; bh=c0/6aFDfGtHa/8JQkzEFzcPkvj+Wr26/24s6cKwSZCQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=fBSmtxPJFJbeboQw9s+OXlHilp+OaovcEU5LIl1/Cw+DtoGBkQnd0nqKd7/SaZl1y
+	 j1hOmIWQGJa+hcR/AtcXt6RKNRg0+L+9h6G2E4MG2+42VOynwL/NvBRH8/hUCqDnrS
+	 a/yTDaH5tcedXgKOZyL4ilJHfyP8zJUH1/TpaZRc=
+Message-ID: <194329c7-45d0-4493-af07-f972694c075e@arm.com>
+Date: Fri, 27 Nov 2026 10:12:32 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,93 +53,68 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] hwrng: sun55i-ce: Add Allwinner A733 CE v5 TRNG
+ support
+To: Alastair D'Silva <alastair@d-silva.org>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S . Miller" <davem@davemloft.net>, Olivia Mackall
+ <olivia@selenic.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>
+Cc: linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261125210532.695823-1-alastair@d-silva.org>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20261125210532.695823-1-alastair@d-silva.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The file-based kexec system call places segments with kexec_add_buffer(),
-which takes them from CMA when kexec_alloc_contig() succeeds, to avoid
-copying the payload at kexec time.
+Hi,
 
-When load_other_segments() cannot place the initrd, the segments of the
-attempt are dropped but their CMA pages are leaked.  Release them with
-kexec_rollback_segments() in the retry loop and in the error path of
-load_other_segments().
+On 11/25/26 22:05, Alastair D'Silva wrote:
+> This series adds True Random Number Generator (TRNG) support for the
+> Allwinner Crypto Engine v5 on A523 and A733 SoCs, and enables it on the
 
-The loop makes progress by advancing buf_min past a segment placed by the
-walk.  kexec_alloc_contig() ignores buf_min, so once the pages of a CMA
-segment are released, the next attempt can get the same region again and
-the retry makes no progress.  Disable CMA for the retry.
+so while I agree that the TRNG part is probably the most practical 
+functionality of the crypto engine IP, the encryption/decryption parts 
+are still there, and we have a driver for the older IP. And because the 
+functionality shares all of the registers and probably most of the 
+descriptor generating code, and Linux is really after code sharing, I 
+think we want the driver to live in drivers/crypto, next to the existing 
+sun8i-ce code, if not becoming part of it.
 
-A CMA segment can be anywhere in RAM, so moving buf_min to its end can
-raise the walk's lower bound close to the top of memory and leave the
-retry with too little space for the initrd, failing with -EADDRNOTAVAIL.
-Only advance buf_min for segments found by the walk.
-
-Tested with a non-crash kexec_file_load() on QEMU virt, 2 GiB RAM and
-cma=64M@0xe8000000, which leaves only 64 MiB above the CMA area.
-
-Before the fix:
-	The retry leaks the CMA pages and kexec_file_load() returns
-	-EADDRNOTAVAIL even though RAM below CMA is free.
-
-After the fix:
-	The kernel and initrd are placed below CMA and the second
-	kernel boots.
-
-Fixes: 55d990f0084c ("LoongArch: Add EFI binary support for kexec_file")
-Cc: Huacai Chen <chenhuacai@kernel.org>
-Cc: WANG Xuerui <kernel@xen0n.name>
-Cc: Youling Tang <tangyouling@kylinos.cn>
-Cc: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
-Cc: Kees Cook <kees@kernel.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%40huawei.com
----
- arch/loongarch/kernel/kexec_efi.c          | 12 ++++++++----
- arch/loongarch/kernel/machine_kexec_file.c |  2 +-
- 2 files changed, 9 insertions(+), 5 deletions(-)
-
-diff --git a/arch/loongarch/kernel/kexec_efi.c b/arch/loongarch/kernel/kexec_efi.c
-index 4824c47907ac..1fbd0ee1deb6 100644
---- a/arch/loongarch/kernel/kexec_efi.c
-+++ b/arch/loongarch/kernel/kexec_efi.c
-@@ -82,11 +82,15 @@ static void *efi_kexec_load(struct kimage *image,
- 			break;
- 
- 		/*
--		 * We couldn't find space for the other segments; erase the
--		 * kernel segment and try the next available hole.
-+		 * kexec_alloc_contig() ignores buf_min and always returns
-+		 * CMA memory, so disable it and keep buf_min.
- 		 */
--		image->nr_segments -= 1;
--		kbuf.buf_min = kernel_segment->mem + kernel_segment->memsz;
-+		if (image->segment_cma[kernel_segment_number])
-+			image->no_cma = true;
-+		else
-+			kbuf.buf_min = kernel_segment->mem + kernel_segment->memsz;
-+
-+		kexec_rollback_segments(image, kernel_segment_number);
- 		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
- 	}
- 
-diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/kernel/machine_kexec_file.c
-index 00940f20b45e..adf7416ff49f 100644
---- a/arch/loongarch/kernel/machine_kexec_file.c
-+++ b/arch/loongarch/kernel/machine_kexec_file.c
-@@ -190,7 +190,7 @@ int load_other_segments(struct kimage *image,
- 	return 0;
- 
- out_err:
--	image->nr_segments = orig_segments;
-+	kexec_rollback_segments(image, orig_segments);
- 	kfree(modified_cmdline);
- 	return ret;
- }
--- 
-2.34.1
+Cheers,
+Andre
+> Xunlong OrangePi 4 Pro.
+> 
+> Dependencies:
+> Patches 3 and 4 depend on the OrangePi 4 Pro bringup series:
+>    [PATCH 0/3] arm64: dts: allwinner: Add Xunlong OrangePi 4 Pro support
+>    Message-ID: <20261125124407.4098345-1-alastair@d-silva.org>
+> 
+> Tested on Xunlong OrangePi 4 Pro (/dev/hwrng).
+> 
+> Alastair D'Silva (4):
+>    dt-bindings: crypto: Add Allwinner A523/A733 Crypto Engine
+>    hwrng: sun55i-ce - Add Allwinner CE v5 TRNG driver
+>    arm64: dts: allwinner: sun60i-a733: Add Crypto Engine node
+>    arm64: dts: allwinner: sun60i-a733-orangepi-4-pro: Enable Crypto
+>      Engine
+> 
+>   .../crypto/allwinner,sun55i-a523-crypto.yaml  |  68 ++++
+>   MAINTAINERS                                   |   7 +
+>   .../allwinner/sun60i-a733-orangepi-4-pro.dts  |   4 +
+>   .../arm64/boot/dts/allwinner/sun60i-a733.dtsi |  12 +
+>   drivers/char/hw_random/Kconfig                |  13 +
+>   drivers/char/hw_random/Makefile               |   1 +
+>   drivers/char/hw_random/sun55i-ce-trng.c       | 377 ++++++++++++++++++
+>   7 files changed, 482 insertions(+)
+>   create mode 100644 Documentation/devicetree/bindings/crypto/allwinner,sun55i-a523-crypto.yaml
+>   create mode 100644 drivers/char/hw_random/sun55i-ce-trng.c
+> 
 
