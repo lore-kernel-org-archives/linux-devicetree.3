@@ -1,49 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795773804;
-	b=cnTv4P0/Ygtb1C3NZ+XoMlVS0PLa1bSueOZNsas0X1o6duazj2+NvgbZ+tbvbQ/6KNRH
-	 sN7U6iOGoAlmie6uIDTEUhouiCFCLXv3L1h4IZ+TvYgGe/rxrrOHr5pzTm94Ns8276yEN
-	 FGY66bjGW4f6t3svQRD/9P1EngUMZrHQDU7ozqci6qvTpuvesLXGQ5db+CgdBs9wyz37E
-	 JeCbltijdr9z0IbXQpnGdXiwpEkUd8vSBWMp6q2R1clvmQEaoeCzMHNYTM77vQBcai6V+
-	 gvmrQxmTTOEd4c30dqLwgrpFv/CIkkYcLS2kRR/lOeIHoGLIv5CO2Yal+uNvRh2VndQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795773804;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=lVOW8l75+YA+TNFgiPtCP7q5WQJyikZOcST3pLWFG+M=;
-	b=R01BExZE7SjBNcQeH2aVPlnuX7TGnvJgx6HBosUgut4ugGNJxT4b5p2lD/SAHpc6d4XM
-	 LRXb9glQwiFDqwKTTtUWCnagGjLnaB0EokVTtzKyvz1oZhpTBAK40wVoUOV4PjnkRVRp6
-	 w/fth2atSbgwkii8nsQ7Fg47HeplUon/NWuh2wUOACrnI6sFwoyAQrXWG2iG/m7tQM22o
-	 64Owrb7BBjaqp5Vo9XLDqhdIar5k3tR0kGaYQ3u6IWEN6X1KbuqbBqCzL5b8dFKXjcw6/
-	 fi5Ai5KtD/thV3a/F56FUtS465PLDjzjqd7FtsR0HGbWnPFYyQhu2Sk8Wra6NwGWbCg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=cYH2v8JY;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5FB5F606A327;
-	Fri, 27 Nov 2026 10:03:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FB5F606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.182
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795774043;
+	b=Dixmw6OHp41WC/oiITsMJSM9RriEBSJVGxfWhoZfkhYQCYsrmOAHFPqu35sf2auTAT63
+	 adS5xPtqKM69prUrA+xzMQqymdw0vKqSJUE4k5cYvQlnEf0q7cCDqVaWd/Fu5AmtGtcvb
+	 ZkL7AXVZMab+7pOuD9cXdcJsEBxpaTTqWgMVci1hzv/2mQ0e1GNhZEw4bhZluoJNDljAg
+	 dK4WySSfZEHxVvDG5j4MuCQydrw3xJ2wiZfFOlZ9suhE0VECUpJCRZCxIG6Cp241brooJ
+	 3IrjKNEET6DEXDd97z0exmUw4SgwfMia+kchFX3IjsaCIw1RFXqGQTGnTuiU028/Vfw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795774043;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=M1iyI/0Mp18Cb7k2NsVPz111uBIRPwyZKwcAIivI8ro=;
+	b=aKYemfCnZtGPvVP2AFAZZTdQ6GxfSHOkO4lzpvfeDvwqu8Cxmcj4di76gBOOn2Lpytjk
+	 RkErRdRu1cf+KKG7MWZ+1FQkVMKa61jk9BN6LBLE1TidWA/LvDeyvuR+dq4eorSltB12c
+	 IANTtNHRldwoLYOIaArUBYP25JkNfaxQ+RvNP+GYSfrEFkvpi1omukCkv4ZrVKXjSOW8x
+	 faYX9Jo2mkyMj+K5zNrFGU8/6GyvD9LwnnDU8kHYrQwSVCYaRnuJeKwU1ZL01YRMgCit+
+	 my7npxVfPr5CIu0xywDEK62UykVgFxtzuqA9B2vPfSf7HVFw+HYvlDfodlZ7Db6FHpw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=viISSJNK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.182
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787B3606A326
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 10:07:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 787B3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=cYH2v8JY
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1A8C41758;
-	Fri, 27 Nov 2026 02:03:20 -0800 (PST)
-Received: from [10.33.50.35] (e142021.arm.com [10.33.50.35])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 671123F86C;
-	Fri, 27 Nov 2026 02:03:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795773802; bh=H8nZxnnDGCJuTHPvOjaWLW2hhq4iXdq3kr4GLdgMbYc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=cYH2v8JYfSlKSm6ZU73aDFvRc7WlCVMeF0g3+UbC9kRZKGdzHWwTu6gHISmDJwJ6K
-	 VPEmR19SFFV0mQu2hCiL1pVSZ0H8xZZUlW21OAwqeV/XieQ/XSym4yfn7scqXB527u
-	 nzRhpfMl8pWJ47e+AirLLdt5xtQdGK4IeMuewj1U=
-Message-ID: <18637573-d20f-4a58-9e63-6bf71b015cef@arm.com>
-Date: Fri, 27 Nov 2026 10:03:18 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=viISSJNK
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3ab4354db11so78634811fa.1
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 02:07:23 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795774042; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lzqs0wZERW6s8i7v/JhmNaIl7wk9ggxjFCA8tkpMfu1I80I1zRGBmxjOSmmev5ztT+
+         1zXaB7rRUtcf7VRPPImPVU1p7tFequ26D7W08ciKoLcElXHiYXPBlc/QQpxAWybDqICx
+         pnSawLVglVXO0mBOMO3l4S/OxcKz22X2iMpkKeGvQzlJ+3d6jWr95RYAflZfkN9xd/Bi
+         s9Vocc2oeFifdi4B6m+KMAHgqcx1zDzlLQeeI0pbgnylBKyDO1yQe91hrCzknFS0WV9l
+         usaPX8TyBU6KPR78zFjapNhEZDY8FYSM1L1/zxjVWvdXE2j3XafeOGT6qmDd3xYTFoIA
+         tg1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=M1iyI/0Mp18Cb7k2NsVPz111uBIRPwyZKwcAIivI8ro=;
+        fh=LJVhksXvY8MlQQ0JiYF1khY6Bf96kOFygDhitJpANCw=;
+        b=B2QlinokIRW5p7hrAMYb0oFvoK1A/eJVaEFLgCqlTTcHrgK6J9xDOlxKMoIXaw+DwM
+         4oUG2wt+JZUT/0Vkzxy+lShsU2Z9YwfmuduByY1W8A9hvlagbDUsqVDe0y2RlwQiIH5G
+         8V2vWq1atHqzbTnKBsUQdH/OGbbJdCRTaPzB8fNpzZKxc6/Fx637F+DXjqdXMCVLFeOw
+         h+m4pQ5qOQP7YnpyGxjJAWhu5NSG7YgzhLfzXgb9jnyaI9ADOCxaSIYnrmekcKKm3mQK
+         +DH17kB30Qn30rL+Mz4pxyRa2CGW17gGTUcmijuBMyPMLUjyzzAx9GEzKXAK/RS+vN38
+         Zykw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795774042; x=1796378842; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=M1iyI/0Mp18Cb7k2NsVPz111uBIRPwyZKwcAIivI8ro=;
+        b=viISSJNKKrCfVwgnqpcx21D5A8sjYsUe1xgoHbLgF/1WiqVhFBhinvCjHO3hb5SdGi
+         DDjy+sCxNpLd0qJPAvrpD9ieDpS+Zx+l+bbrKVtgq7b5uQR+8+qlgOW5rUzfc7VgHQAf
+         yLq5uRXkAQSsAlnVGHeJKNh709/p4DwEsY5RriTwk9+pp3Wi7aKM+kjKmllDH9Bi3++6
+         gvOMnjwO+ztJzqSX/DeIQYicCdCzEJkSamEPekUsvUnBKo4eis3Ft4hIi7kmnpAf4A75
+         TsKnET2Kw/eOBh2scDOAHP0Bxy5IE6g6sCGxzVXj7guCtWF4Zq3liE4xCqczhwqiR4bT
+         dJDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795774042; x=1796378842;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M1iyI/0Mp18Cb7k2NsVPz111uBIRPwyZKwcAIivI8ro=;
+        b=RXSU7ra7XK3AoP1ytm6+2kY910eqcRkERkBKHKp/BtigcG1S87BdIUX4XiO0OjxCTr
+         JKt/lcHbHkwLAbB1fHGzBob50ejVyWU3vfo1UlioXAhDWL5jD6ZfFiMyA1TW5krcdv50
+         qe2oDtmhfKE0/S40dzb9JU8YBHcryQgqPVHDOiK1MiW/P3QuY6ywfqpZCjlwV1g+5AP2
+         2QxEHIQbZV5xSAOfcTPtcumSeBuBomqjVWh0377PAfIM+rIjnidMVhwQ0swUGe+sa4zi
+         1yhUeglwzrI//IaIbkHNU7Ky3C4QJYSMHZvTzqPZgsqFhARl9H/0dzq+42W/8dPeOS18
+         hfOg==
+X-Forwarded-Encrypted: i=1; AL+hErHk5R3uSHDfQaA4owi2kjIaV2D+7QGLM27IlCQTIftHrY4PVtwQYGtTAdHN4hivCJs+UfPJj+Xv6Rnl@vger.kernel.org
+X-Gm-Message-State: APuU4Z/8cZAVcYyErcZ8LYVl61qwZ1ZA1VxDzp/r9zgRFXYgDSNJ8eqW
+	SO3O6d13iQZ1pJC7s+FydlJhfIcOEPqQv/qiAzNN3xc9Nse7YUvI7suvzy2vxfXrcywvvnq1yP2
+	aCOjbBwZkonIXoR+BOq1WiTcSKMXh6oM=
+X-Gm-Gg: AZFdTZe6adzHz0ZPQC7hAzyEkG72LjSyeSIxuRRH4fucQCv7otD1yUi+21/1YfH5Q1c
+	Uco/OjCxsbIGMjo12TyTWivMd2wdHxCwh35hPTDfI14WQ1e1SSmkGa/oczepVb9HWU8EuadhU9U
+	i7Yv0T1n2cweFTp7WCp6BqUYo9nbaj9v+5v2AH1PYGgwduaFLteXxrr2SsOoVVsU4plbHRXiDEg
+	0+k71hbgPIoqgVOxRC4epOfTnJzyXj5tx3w09ZcPiIDkCkPwf0iJxDYH6vGG/H87Dj1cdaNH2so
+	+E6oI/rIcPFCJWFPo8F8+qbeQ0RYSKQvDAjwozCf2EOU4u8U2Rxd77BkjfhS47sGZH0DBb1kkRc
+	cOSSA9o8Z2eYttaw2hEB4d1etDpXw9ovuzT/jh/ctE0gY05zdhQ6C95ZB/GnACpFGr+A7ypiE73
+	4UQUuYMfzijjKP/MINXpQlsyT0rG+7F5w=
+X-Received: by 2002:a05:651c:a344:b0:3ac:436e:4084 with SMTP id
+ 38308e7fff4ca-3ae7f9b2126mr75337521fa.4.1795774041405; Fri, 27 Nov 2026
+ 02:07:21 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,63 +105,57 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] arm64: dts: allwinner: sun60i-a733: Add simplefb HDMI
- support
-To: Alastair D'Silva <alastair@d-silva.org>, Hans de Goede
- <hansg@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev
-References: <20261127080649.1982883-1-alastair@d-silva.org>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20261127080649.1982883-1-alastair@d-silva.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261121-at550-rfc-v1-v2-0-b0309d0789b2@gmail.com>
+ <20261121-at550-rfc-v1-v2-10-b0309d0789b2@gmail.com> <awQEjpz2572Y9wsB@monoceros>
+In-Reply-To: <awQEjpz2572Y9wsB@monoceros>
+From: =?UTF-8?B?57Gz55Sw5oKg56KB?= <yogo.0917.sabu@gmail.com>
+Date: Fri, 27 Nov 2026 19:07:09 +0900
+X-Gm-Features: Aa3M54qQEDKdWrHJxIfU9kb7QVNH017aRUBBckb6jwRibhb7ERXk9zIWhsR6uho
+Message-ID: <CAJGK9zbBc94aMeXLuUZXrPOT+TbcD6HAejS1PgaCU-wO=ysY0Q@mail.gmail.com>
+Subject: Re: [PATCH RFC v2 10/13] mmc: sdhci-at550: add SiRF AT550
+ programmed-I/O host driver
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Ulf Hansson <ulfh@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Russell King <linux@armlinux.org.uk>, 
+	Arnd Bergmann <arnd@arndb.de>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-input@vger.kernel.org, linux-mmc@vger.kernel.org, 
+	linux-doc@vger.kernel.org, soc@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Mon, Nov 23, 2026 at 10:17:35AM +0100, Uwe Kleine-K=C3=B6nig wrote:
+> Hello,
+>
+> On Sat, Nov 21, 2026 at 09:43:20PM +0900, Yuugo Yoneda via B4 Relay wrote=
+:
+> > diff --git a/drivers/mmc/host/sdhci-at550.c b/drivers/mmc/host/sdhci-at=
+550.c
+> > new file mode 100644
+> > index 000000000..11c9de0c9
+> > --- /dev/null
+> > +++ b/drivers/mmc/host/sdhci-at550.c
+> > @@ -0,0 +1,51 @@
+> > +// SPDX-License-Identifier: GPL-2.0-only
+> > +/* Standard SDHCI PIO only: do not assume CPU/PCI DMA address equivale=
+nce. */
+> > +#include <linux/mmc/host.h>
+> > +#include <linux/mod_devicetable.h>
+> > +#include <linux/module.h>
+> > +#include <linux/platform_device.h>
+>
+> <linux/platform_device.h> already provides of_device_id without the
+> implied dependencies you get by including <linux/mod_devicetable.h>. So
+> please drop the latter.
 
-On 11/27/26 09:06, Alastair D'Silva wrote:
-> This series adds boot-time simplefb HDMI support for Allwinner A733
-> (sun60i-a733). U-Boot enables DE3.5, TCON_TV0, and DW-HDMI2.0 and
+Hi Uwe,
 
-Where does it do that and which U-Boot version does?
-I don't think we really want simplefb in the mainline DTs any more, 
-unless there is a big blocker or delay for proper Linux DE support (like 
-there was back in the A64 days).
-In Jernej's HDMI series he hints about A733 support being pretty 
-straight-forward with the reworked H616 DE code, so chances are we see 
-proper DE3.5 support in DRM rather sooner than later.
+Thanks, I'll drop <linux/mod_devicetable.h> here as well in v3.
 
-Cheers,
-Andre
-
-> updates the disabled /chosen/framebuffer-hdmi node. Linux keeps the
-> display clocks and PCK-600 power domains active across boot.
-> 
-> Tested on Xunlong OrangePi 4 Pro, based on:
->    [PATCH 0/3] arm64: dts: allwinner: Add Xunlong OrangePi 4 Pro support
->    https://lore.kernel.org/r/20261125124407.4098345-1-alastair@d-silva.org
->    [PATCH] pmdomain: sunxi: pck600: Initialize pd->pck in probe
->    https://lore.kernel.org/r/20261127080625.1982574-1-alastair@d-silva.org
-> 
-> Alastair D'Silva (3):
->    dt-bindings: display: simple-framebuffer: Add Allwinner DE3.5 HDMI
->      pipeline
->    arm64: dts: allwinner: sun60i-a733: Add PCK-600 power domain
->      controller
->    arm64: dts: allwinner: sun60i-a733: Add simplefb HDMI node
-> 
->   .../bindings/display/simple-framebuffer.yaml  |  1 +
->   .../arm64/boot/dts/allwinner/sun60i-a733.dtsi | 36 +++++++++++++++++++
->   2 files changed, 37 insertions(+)
-> 
-> prerequisite-patch-id: 309a5a3ca5b216915907263dea7024263abf1d1c
-> prerequisite-patch-id: 55e543b9854c7ae2fa86969233d05ccadd3792e9
-> prerequisite-patch-id: cfcad85224e288ec2168e7f245b4a1c63e9a34a7
-
+Best regards,
+Yuugo
