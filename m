@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795781943;
-	b=irDE7UItQZYN3q6eMFJnCOer5qjpxhajYskr/qXfqNhSKgQIItlVXcDktwce2v681o9D
-	 CD4Vg5vfoWl9VcqzihbKOXalTj1kCkT/KFmC28ulemFJeHfJp1sA146bXvGgNCeSq261g
-	 IqskxA3w0LEUAfPJf9X8RRLcg7AWPkbDzvdqk5Y9xR4X9WfmPvooF015VXf9oNUCKuL32
-	 +TD1yC+VFpYVCpEAk4WwpwtavZZfPZD1KseDgAYTDfLIlEuQeSyuZNuFXM8eLrJXgm+aB
-	 N2JZ5nkWar2mQLLNwRSIGPm1bh9ykEmLy3zPbXFCHkK86jVtk6mh5JO4YszFasz5Rgw==
+	t=1795781944;
+	b=UD4xyyKVNcd9t2U8RI5/o/vVra/vfPHL/CdHqirQ/KKt+Jv42NSUwqFnCiX2S+e+ow2S
+	 kiU0iOvN2ZLlhO241YjYYH4+Ge0334BHqgZhRgXUEdAX2O3+R3M6d0pov7pXpBlRe2JY2
+	 Z0acGnM+JLkqGZQzK6xY0yciRxqwpdVA+ArYH/mfevepg4f556+mN0nQnrRkJPNvDLW8N
+	 R572xJDu5GqYYxzGdFaqefI7LLr7KZCRHAS5Rce8VcvK5JLZjYv27IW3/Cd4yAv0pXkDa
+	 kJ+LsO2JowEpElCX9+J9bHLFvQh0CBeeyYmm4RxHOIbjZK2dlhWk/rrzAkR7tJr+iGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795781943;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795781944;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=RmpJbhwnEFWZjlqKNmyBtmxBFcAdHEPlgfv0okLJnJg=;
-	b=JyqxhPxbosN70+vx15xTG3+OJO27oEaF3WsotMpYqcbVN4b/L5PAm2gITbR+Ki0e3y85
-	 D9elEe5uHTiGwymgrnPC7RNETThwON8lRp3aFFS7sl2NNsy+5lM3YLcJdVb2INq6P/yAy
-	 M2Lw3t4pNO29Nrrm7LS9ttDQN5SpZB2hARnZu4ufH+ZL74pkSBCD2IqQW270hjUTo13eT
-	 lGc3UcN7vKfiYEdl2/GR93OEDW9w4OB0B4eYbJDIlIkiCquvPl1zAv++3GGEgHiehgRTu
-	 VD+WnAhDpDhVCaKpsM5Ju/k1ReF7Ec+6IuF5ZoRe2uY6rhsBU5NlM89/fMDDOTDbbgg==
+	bh=Ioy1KdcErYaMkTRDj2OIu5TCOK8ONgfVlgAZynRl4ik=;
+	b=1ouQ/1rpmWg3qmgtGvr1GGJ228Tbu1jp0RETLIfN5n4hKKLGTmtaAHeyfiw4zR3zrgwx
+	 mgrAE4BSPXnR/zKyoGYS3PWSrg68Usq4cvTV/dZZszjxoW2DKGqgz6DwizeDLeXqKRzqK
+	 KJuO9eXUMAivjbMFrnJU2SQ+4gk1uT5TxpRltbzHr1M39xMTKhj8FO5o7Bjw2YQk1ivAA
+	 SzDgVol0BgZ17gnyJCpyJV9cGHKWwslJydohC6wfI7Gy6xJv32oCzixbCuZckZtGyweQ1
+	 vbcEFfYM9QL5eGF0oYwCroAh2G2UN4DcsMWREKTBnPi3kbThnTTvuTd+ulCtByzxI1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=suse.com;
 	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=BIrEpNbs;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=gSqWaNQY;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6274560A5BC1
-	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 12:19:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6274560A5BC1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D48260A5BC4
+	for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 12:19:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D48260A5BC4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=BIrEpNbs
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so65190615e9.3
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 04:19:02 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=gSqWaNQY
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4a7b8abe209so6256947f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 04:19:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1795781941; x=1796386741; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1795781942; x=1796386742; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RmpJbhwnEFWZjlqKNmyBtmxBFcAdHEPlgfv0okLJnJg=;
-        b=BIrEpNbsOMBP7D7wKa8gDdYHmiGIVdtL8/nSbfnZujyvYsjFvVlJ+jm9fTvJYXlE7U
-         NO1x0UQb7szo9x1AXdJA90fzYYnvatg5K5DkthGUbkbuBR2AxTllLqf0N3rQh4Kuy8/n
-         WRlxLP22qFgnDTBVbM35klPQbGYSw+Vfhy4S63hOIQD5GYhEMUsQetXxHaUb3oNWbMl2
-         DnoVgxxtbKnxi1Bm9yQX3uEm6eVPv/yTdivE0/RPz0qXK6DLR8XtdOl0KdfpdwqOye+m
-         R0YH/L94Ucdhsmi1PZhHqF+cXXG2CSySMP5qLALCNJyKI1Avde6rROupowFQsF3jpjMU
-         F2qg==
+        bh=Ioy1KdcErYaMkTRDj2OIu5TCOK8ONgfVlgAZynRl4ik=;
+        b=gSqWaNQYAxNCeCuAON6Rjsn0JBd8Snp9gggxIGTl9OxJKFC39dN9QKB9X8dw2xVtcH
+         UYVjqIlMlx1a0ceek/5jeL5jHfzWGB3ydff9wmwBLuClUjIqOIajpxstwaS6q/yY+Ke/
+         oUG2D973cndHs0nIkjGsE/u+Ccp6SVhuiwU3+f9ndE524eWYNp2ilRQYlbtwPSStqoEk
+         rRRb6NlTRz7DWnVC4BYKbrL1sGbWE6ffeRMxWyScNmCIWpMUZCwLucO+B3/pPhJ4BciQ
+         qE24D5v2k/j88u4bWj9hjKb5AwrAjKXGmWz9Debv8SWTLpHG7SFfmwKFaBtDFkjAzuYv
+         fibw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795781941; x=1796386741;
+        d=1e100.net; s=20260707; t=1795781942; x=1796386742;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RmpJbhwnEFWZjlqKNmyBtmxBFcAdHEPlgfv0okLJnJg=;
-        b=BytfL1Jgnc3qGDWud40j+Hk9ldIm/sS8k6WNGSt9kiP8+wM9Ti5MtxC3SkDJabB7gL
-         T1n0kVogFmwHUee+AnsxGLwJXxEfOvzCe+s43INjvTPUK84mWRzJBNjKBlYls2sIOFnF
-         nRyYcU4azpwi/+Q63PWrCJf9CsSw4aUctfnLYjznVoxhoF0Mt1iOqk6595M8i+exYHxi
-         8YuWneOSy4K6BeY2tAHCozo1KisgB9SoYYItyg8RbDrVhNAaDYUqpF9SQk6siPpSGeQZ
-         xuJreskfKznyGSE9+mXjZGuTrLkqdSj930UlqpdS6XQssM+w2wkuPzIJiuY1EqlcNS2v
-         pyGw==
-X-Forwarded-Encrypted: i=1; AL+hErFBDhnhQufZiV5IrGHeCYuYjTPbCviAARctP8eQH1+MUpflgODV8ijp2o5lJeovc8sSVLe7P7b+4J9F@vger.kernel.org
-X-Gm-Message-State: APuU4Z8iBSZTig1FvLZhwBJZ4oiuadptorTZysx+tJDy4+7SfGNcNN3Y
-	SNlNPiKTSK2MA5CZOH3qW8S5j0C7fi9PEFANDymKGfY2v+INHf53KfC4ErUn9KxZTM8=
-X-Gm-Gg: AZFdTZdNYpt1lChmZ2P2oIF4g24+m1aXXdII9MBuazH9GWlNXB0gCUXWt6Xnyy0uAfT
-	qwPmk1u0BewR2RoBy8QUQCN1n7xpTmnplo2uAmD/AhdMs5XGpCXRwccg4U3TTb1pmPLkuUaq9cK
-	UA95IaPQ7ZRM2HpFPKwi7L47c+9rb7VPRrliKOc9Dm0cR/YV25LDNWQ5+yBuQ+bp714BUDKx+Cg
-	3gTjfEOq4/R9MKTW9NW87InP1BjZZvC1zFkkcxnNJE2MGA9UxGnOCySIrncU1IN3zXwyiz2p01f
-	DRnQUaD77d4G2NwqFkv2GwTQvLJCwSbuGzkXYavRYds5SL507/F7gAEPo/T21Ws6G41x6ellHD4
-	8pfMQ6eGWvTQSHzUP0AURu1U9dohJQNcb34HeP6dQ19X+4SnH5GzhC9aTRbElVKmWij8bXLyKsd
-	TiIt8FC71u1YZshh5LpfbGBn32OuM4zxUwh4hr+IDaeRvFKKasH848LbrJGgj4B1LPFnG9bhneb
-	5uDu5uVjXOa23OOkD+A9vpA+FVGYsjKP42/kP0rOpCxyvdwRSUPGk8tPYUw1dlqlfbqRMweUlwk
-	AiAqbKRAt4SAW0ro5QgtSminPY66
-X-Received: by 2002:a05:600c:a088:b0:4a2:1a:a120 with SMTP id 5b1f17b1804b1-4bb8880ac02mr461075055e9.6.1795781940635;
-        Fri, 27 Nov 2026 04:19:00 -0800 (PST)
+        bh=Ioy1KdcErYaMkTRDj2OIu5TCOK8ONgfVlgAZynRl4ik=;
+        b=DIRloVSfPxEucIkDrNE9WJRB2n855c+Fti5P9bpOzBhDplnXrKXBvvWzTJjul37m/P
+         6Ris9pXXI3ZV892uMYFqD+aE3HItoK9RMVLw4hEWN6F+ydHeuCtI9YVqXgI75WdUM4wd
+         5jImLHwNIpQyi+NrxhT8FrejW8sToim0dWsH1Lv87z9DKq8ZkcTpKFPJPK9leFtk6JTX
+         ld+E8j7FnMZp0B55Y+P/mtinEUNBY+6zbKNzrfhTxU6kmxQEivT1GKfPJFKi3xRqNSq6
+         L+rZ8FQQnF3y5Z6TZG+bzsO1Pv2yOmsXacP6JLMP8mEy7fxmDxZyzSMGMzig9Tj3aGuJ
+         W9DQ==
+X-Forwarded-Encrypted: i=1; AL+hErF+t2zC88EH4HjxLyS3yckwhUqEp60yVUGOVyTGCd+uqsTqHa4/5sgvng22H9dpbV7KOXa89UKQuhXx@vger.kernel.org
+X-Gm-Message-State: APuU4Z9k5djlxnsxS6rHjo/1Gzc3yfdMd1NOY4+11afpbQAmFDQ04S8y
+	ZSv7EDFfJoeGQP+lcyHIJPS1uwHk315OUk1uv6PZRThu3kUtRHtEH0NyF9Z8gK5UykG5s8GhlCa
+	esthIOwc=
+X-Gm-Gg: AZFdTZeZ1M1rSgaXd3cLQiOb1HXHx/xRqp1rOAvkt8mvah8Y+o4JmxBSREqAwc+iPO2
+	p3xXPhrsgdrwVyQP27M5IMbDcNHVBF7r1uRiYTl2z0rqgum/QDS0+iq4pGJ4O8tvaLJcYaFKff4
+	WvWZBGULENPwZz9Q7JEIeJqjdsYLl7mkYiWtuB+G6NxkELupyRCjSRtkDuMYk00q5EeGxptdX62
+	0fDF9AMu5jwHEHjkJTVUqy8T63NTS7b0wOfrM4mIp7P5aWsJvFXsi5Al4ACKL3s4hFw3Hmc/tIZ
+	YIIrkrrpvtmzg8K6GWHPOahZHa+HQk8USGNip/Uz2HQyszEnBBJnTWWDI1lBWFuKIKcQljSPrSV
+	uWce6AyUCN3vcyOB5oBNPK++Wa97ckZX2MW7cWhqdzjVkw6s0Ki6Zl2OIoIZRllQTlbkmkBC3rn
+	gHkJc7znosNnBaX3oLNbaJOR0u7+Sy5LR9Z+SQGCvcQelj+TmFbI6LlHLi4Mf+fRf2Rat82jOo/
+	FVutayXDgUMZ6JWruvOmW2y4Xu9KzLpW1G13dtujKgsU2930P5TZBsahrVdBF4YHhhAblxv0kPV
+	easLqmDggK61lJwbnbJ5tmfa/DYZ
+X-Received: by 2002:a05:600c:4ecd:b0:4a3:12fb:1ef1 with SMTP id 5b1f17b1804b1-4bb8881e81cmr508102915e9.29.1795781941754;
+        Fri, 27 Nov 2026 04:19:01 -0800 (PST)
 Received: from localhost ([195.94.148.180])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6a67f281sm43970612f8f.22.2026.11.27.04.19.00
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb88442693sm623834055e9.1.2026.11.27.04.19.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 04:19:00 -0800 (PST)
+        Fri, 27 Nov 2026 04:19:01 -0800 (PST)
 From: Andrea della Porta <andrea.porta@suse.com>
 To: Vinod Koul <vkoul@kernel.org>
 Cc: Frank Li <Frank.Li@kernel.org>,
@@ -100,10 +101,12 @@ Cc: Frank Li <Frank.Li@kernel.org>,
 	linux-rpi-kernel@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Andrea della Porta <andrea.porta@suse.com>
-Subject: [PATCH v4 14/28] dmaengine: bcm2835: Use dma_map_resource() to translate slave addresses
-Date: Fri, 27 Nov 2026 13:22:04 +0100
-Message-ID: <20261127122236.4976-15-andrea.porta@suse.com>
+	Andrea della Porta <andrea.porta@suse.com>,
+	Mark Brown <broonie@kernel.org>,
+	linux-spi@vger.kernel.org
+Subject: [PATCH v4 15/28] spi: bcm2835: Pass the CPU physical address of the FIFO to the DMA engine
+Date: Fri, 27 Nov 2026 13:22:05 +0100
+Message-ID: <20261127122236.4976-16-andrea.porta@suse.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261127122236.4976-1-andrea.porta@suse.com>
 References: <20261127122236.4976-1-andrea.porta@suse.com>
@@ -118,362 +121,111 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Slave addresses in struct dma_slave_config are CPU physical addresses
-and it is up to the DMA controller driver to translate them into the
-addresses it has to program into the hardware. The BCM2835 DMA driver
-instead uses them verbatim, which only works because its clients pass
-pre-translated bus addresses read straight from their DT node, bypassing
-the bus translations described there.
+The addresses in struct dma_slave_config are CPU physical addresses, and
+the DMA controller driver is responsible for translating them into its
+own view of the bus. The driver instead reads the untranslated address
+out of its reg property, which only happens to be what the BCM2835 DMA
+controller expects because the DMA engine driver used the address
+verbatim.
 
-Translate the addresses with dma_map_resource(), which applies the
-dma-ranges of the DMA controller since the conversion of
-dma_map_resource() to dma_map_phys() with DMA_ATTR_MMIO, and map them
-once in device_config() instead of at every prep call. Since the mapping
-is done on behalf of the DMA controller, the source FIFO, which the
-controller reads, is mapped DMA_TO_DEVICE and the destination FIFO,
-which it writes, DMA_FROM_DEVICE. Clients such as the MMC driver
-reconfigure the channel before every request, so the translation is kept
-as long as the address does not change, and released when it does or
-when the channel is freed.
+Now that the DMA engine driver translates slave addresses itself, use the
+CPU physical address of the register resource, which also gets rid of
+the open coded parsing of the DT node.
 
-Existing device trees only describe the RAM in dma-ranges, so
-dma_map_resource() would fail for any peripheral. Detect this case at
-probe time, by looking for the controller registers themselves in the
-dma-ranges of the closest ancestor bus, and fall back to reverting the
-translation given by the ranges property of the parent bus, which is
-how the VideoCore bus addresses of the peripherals have been derived so
-far. Addresses not covered by those ranges are passed through, so that
-clients still providing bus addresses keep working.
+Also zero-initialize the slave configuration: the TX channel only sets
+the destination address, while the DMA engine driver now maps every
+address that is provided.
 
-The fallback translation is a platform callback, as different kinds of
-channels see the peripherals at different addresses; implement the one
-of the legacy channels.
-
-Link: https://lore.kernel.org/linux-arm-kernel/ee19a95d-fe1e-4f3f-bc81-bdef38475469@arm.com/
-Link: https://lore.kernel.org/all/CAPY8ntByJYzSv0kTAc1kY0Dp=vwrzcA0oWiPpyg7x7_BQwGSnA@mail.gmail.com/
 Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
 ---
- drivers/dma/bcm2835-dma.c | 192 +++++++++++++++++++++++++++++++++++++-
- 1 file changed, 187 insertions(+), 5 deletions(-)
+ drivers/spi/spi-bcm2835.c | 27 ++++++++-------------------
+ 1 file changed, 8 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/dma/bcm2835-dma.c b/drivers/dma/bcm2835-dma.c
-index 44dab42d94c6..42ec9be7a8f7 100644
---- a/drivers/dma/bcm2835-dma.c
-+++ b/drivers/dma/bcm2835-dma.c
-@@ -31,6 +31,7 @@
- #include <linux/io.h>
- #include <linux/spinlock.h>
+diff --git a/drivers/spi/spi-bcm2835.c b/drivers/spi/spi-bcm2835.c
+index cc5748973281..c40157e4516a 100644
+--- a/drivers/spi/spi-bcm2835.c
++++ b/drivers/spi/spi-bcm2835.c
+@@ -24,7 +24,6 @@
+ #include <linux/kernel.h>
+ #include <linux/module.h>
  #include <linux/of.h>
-+#include <linux/of_address.h>
- #include <linux/of_dma.h>
- 
- #include <dt-bindings/dma/brcm,bcm2835-dma.h>
-@@ -47,12 +48,15 @@
-  * @zero_page: bus address of zero page (to detect transactions copying from
-  *	zero page and avoid accessing memory if so)
-  * @cfg: platform specific description of the DMA channels
-+ * @map_resource: the peripheral window is described by dma-ranges, so slave
-+ *	addresses can be translated with dma_map_resource()
-  */
- struct bcm2835_dmadev {
- 	struct dma_device ddev;
- 	void __iomem *base;
- 	dma_addr_t zero_page;
- 	const struct bcm2835_dma_cfg *cfg;
-+	bool map_resource;
- };
- 
- struct bcm_dma_cb {
-@@ -74,10 +78,26 @@ struct bcm2835_cb_entry {
- 	dma_addr_t paddr;
- };
- 
-+/**
-+ * struct bcm2835_slave_addr - bus address of a slave FIFO
-+ * @phys: CPU physical address provided by the client
-+ * @addr: address as seen by the DMA controller
-+ * @size: size of the mapping
-+ * @mapped: @addr has been obtained from dma_map_resource()
-+ */
-+struct bcm2835_slave_addr {
-+	phys_addr_t phys;
-+	dma_addr_t addr;
-+	size_t size;
-+	bool mapped;
-+};
-+
- struct bcm2835_chan {
- 	struct virt_dma_chan vc;
- 
- 	struct dma_slave_config	cfg;
-+	struct bcm2835_slave_addr slave_src;
-+	struct bcm2835_slave_addr slave_dst;
- 	unsigned int dreq;
- 
- 	int ch;
-@@ -110,6 +130,8 @@ struct bcm2835_chan {
-  * @read_addr: read the current memory side address of a channel
-  * @cs_flags: per-channel flags for the CS register
-  * @abort: stop and reset a channel
-+ * @legacy_bus_addr: translate a slave address for device trees which do not
-+ *	describe the peripheral window in dma-ranges
-  */
- struct bcm2835_dma_cfg {
- 	u32 cs_reg;
-@@ -142,6 +164,8 @@ struct bcm2835_dma_cfg {
- 				enum dma_transfer_direction direction);
- 	u32 (*cs_flags)(struct bcm2835_chan *c);
- 	void (*abort)(struct bcm2835_chan *c);
-+
-+	u64 (*legacy_bus_addr)(struct device *dev, phys_addr_t phys);
- };
- 
- struct bcm2835_desc {
-@@ -783,11 +807,35 @@ static int bcm2835_dma_alloc_chan_resources(struct dma_chan *chan)
- 			   c->irq_flags, "DMA IRQ", chan);
+-#include <linux/of_address.h>
+ #include <linux/platform_device.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/gpio/machine.h> /* FIXME: using GPIO lookup tables */
+@@ -888,23 +887,12 @@ static void bcm2835_dma_release(struct spi_controller *ctlr,
  }
  
-+static void bcm2835_dma_unmap_slave_addr(struct dma_chan *chan,
-+					 struct bcm2835_slave_addr *sa,
-+					 enum dma_data_direction dir)
-+{
-+	if (sa->mapped)
-+		dma_unmap_resource(chan->device->dev, sa->addr, sa->size, dir, 0);
-+
-+	memset(sa, 0, sizeof(*sa));
-+}
-+
-+/*
-+ * The slave FIFOs are mapped for the DMA controller, which reads from the
-+ * source FIFO (DMA_TO_DEVICE) and writes to the destination one
-+ * (DMA_FROM_DEVICE).
-+ */
-+static void bcm2835_dma_unmap_slave_addrs(struct dma_chan *chan)
-+{
-+	struct bcm2835_chan *c = to_bcm2835_dma_chan(chan);
-+
-+	bcm2835_dma_unmap_slave_addr(chan, &c->slave_src, DMA_TO_DEVICE);
-+	bcm2835_dma_unmap_slave_addr(chan, &c->slave_dst, DMA_FROM_DEVICE);
-+}
-+
- static void bcm2835_dma_free_chan_resources(struct dma_chan *chan)
+ static int bcm2835_dma_init(struct spi_controller *ctlr, struct device *dev,
+-			    struct bcm2835_spi *bs)
++			    struct bcm2835_spi *bs, phys_addr_t phys_base)
  {
- 	struct bcm2835_chan *c = to_bcm2835_dma_chan(chan);
+-	struct dma_slave_config slave_config;
++	struct dma_slave_config slave_config = {};
+ 	struct device *tx_dma_dev;
+-	const __be32 *addr;
+-	dma_addr_t dma_reg_base;
+ 	int ret;
  
- 	vchan_free_chan_resources(&c->vc);
-+	bcm2835_dma_unmap_slave_addrs(chan);
- 	free_irq(c->irq_number, chan);
- 	dma_pool_destroy(c->cb_pool);
+-	/* base address in dma-space */
+-	addr = of_get_address(ctlr->dev.of_node, 0, NULL, NULL);
+-	if (!addr) {
+-		dev_err(dev, "could not get DMA-register address - not using dma mode\n");
+-		/* Fall back to interrupt mode */
+-		return 0;
+-	}
+-	dma_reg_base = be32_to_cpup(addr);
+-
+ 	/* get tx/rx dma */
+ 	ctlr->dma_tx = dma_request_chan(dev, "tx");
+ 	if (IS_ERR(ctlr->dma_tx)) {
+@@ -926,7 +914,7 @@ static int bcm2835_dma_init(struct spi_controller *ctlr, struct device *dev,
+ 	 * or, in case of an RX-only transfer, cyclically copies from the zero
+ 	 * page to the FIFO using a preallocated, reusable descriptor.
+ 	 */
+-	slave_config.dst_addr = (u32)(dma_reg_base + BCM2835_SPI_FIFO);
++	slave_config.dst_addr = phys_base + BCM2835_SPI_FIFO;
+ 	slave_config.dst_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
  
-@@ -913,11 +961,11 @@ static struct dma_async_tx_descriptor *bcm2835_dma_prep_slave_sg(
- 	if (direction == DMA_DEV_TO_MEM) {
- 		if (c->cfg.src_addr_width != DMA_SLAVE_BUSWIDTH_4_BYTES)
- 			return NULL;
--		src = c->cfg.src_addr;
-+		src = c->slave_src.addr;
- 	} else {
- 		if (c->cfg.dst_addr_width != DMA_SLAVE_BUSWIDTH_4_BYTES)
- 			return NULL;
--		dst = c->cfg.dst_addr;
-+		dst = c->slave_dst.addr;
- 	}
+ 	ret = dmaengine_slave_config(ctlr->dma_tx, &slave_config);
+@@ -967,9 +955,9 @@ static int bcm2835_dma_init(struct spi_controller *ctlr, struct device *dev,
+ 	 * RX FIFO or, in case of a TX-only transfer, cyclically writes a
+ 	 * precalculated value to the CS register to clear the RX FIFO.
+ 	 */
+-	slave_config.src_addr = (u32)(dma_reg_base + BCM2835_SPI_FIFO);
++	slave_config.src_addr = phys_base + BCM2835_SPI_FIFO;
+ 	slave_config.src_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
+-	slave_config.dst_addr = (u32)(dma_reg_base + BCM2835_SPI_CS);
++	slave_config.dst_addr = phys_base + BCM2835_SPI_CS;
+ 	slave_config.dst_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
  
- 	/* count frames in sg list */
-@@ -975,12 +1023,12 @@ static struct dma_async_tx_descriptor *bcm2835_dma_prep_dma_cyclic(
- 	if (direction == DMA_DEV_TO_MEM) {
- 		if (c->cfg.src_addr_width != DMA_SLAVE_BUSWIDTH_4_BYTES)
- 			return NULL;
--		src = c->cfg.src_addr;
-+		src = c->slave_src.addr;
- 		dst = buf_addr;
- 	} else {
- 		if (c->cfg.dst_addr_width != DMA_SLAVE_BUSWIDTH_4_BYTES)
- 			return NULL;
--		dst = c->cfg.dst_addr;
-+		dst = c->slave_dst.addr;
- 		src = buf_addr;
- 	}
- 
-@@ -1007,10 +1055,93 @@ static struct dma_async_tx_descriptor *bcm2835_dma_prep_dma_cyclic(
- 	return vchan_tx_prep(&c->vc, &d->vd, flags);
- }
- 
-+/*
-+ * Device trees which do not describe the peripheral window in dma-ranges
-+ * are handled by assuming that the legacy DMA channels see the peripherals
-+ * at the same address as the bus they sit on, i.e. by reverting the
-+ * translation described by the ranges property of the parent bus. This is
-+ * how the VideoCore bus addresses have always been derived. Addresses which
-+ * are not CPU physical addresses of that bus are passed through unchanged,
-+ * as legacy clients used to provide bus addresses.
-+ */
-+static u64 bcm2835_dma_legacy_bus_addr(struct device *dev, phys_addr_t phys)
-+{
-+	struct device_node *bus = of_get_parent(dev->of_node);
-+	struct of_range_parser parser;
-+	struct of_range range;
-+	u64 addr = phys;
-+
-+	if (bus && !of_range_parser_init(&parser, bus)) {
-+		for_each_of_range(&parser, &range) {
-+			if (phys >= range.cpu_addr &&
-+			    phys - range.cpu_addr < range.size) {
-+				addr = range.bus_addr + (phys - range.cpu_addr);
-+				break;
-+			}
-+		}
-+	}
-+
-+	of_node_put(bus);
-+
-+	return addr;
-+}
-+
-+static int bcm2835_dma_map_slave_addr(struct dma_chan *chan,
-+				      struct bcm2835_slave_addr *sa,
-+				      phys_addr_t phys,
-+				      enum dma_slave_buswidth width,
-+				      enum dma_data_direction dir)
-+{
-+	struct bcm2835_dmadev *od = to_bcm2835_dma_dev(chan->device);
-+	struct device *dev = chan->device->dev;
-+	size_t size = width ? width : DMA_SLAVE_BUSWIDTH_4_BYTES;
-+
-+	/*
-+	 * Clients may reconfigure the channel before every transfer (e.g. the
-+	 * MMC driver, which alternates between the configurations of the two
-+	 * directions on a single channel, leaving the address of the unused
-+	 * direction at 0): keep the current translation if the address did
-+	 * not change, or if no address is given for this direction.
-+	 */
-+	if (!phys || (phys == sa->phys && size == sa->size))
-+		return 0;
-+
-+	bcm2835_dma_unmap_slave_addr(chan, sa, dir);
-+
-+	if (!od->map_resource) {
-+		sa->addr = od->cfg->legacy_bus_addr(dev, phys);
-+	} else {
-+		sa->addr = dma_map_resource(dev, phys, size, dir, 0);
-+		if (dma_mapping_error(dev, sa->addr)) {
-+			dev_err(dev, "failed to map slave address %pa\n", &phys);
-+			sa->addr = 0;
-+			return -EINVAL;
-+		}
-+
-+		sa->mapped = true;
-+	}
-+
-+	sa->phys = phys;
-+	sa->size = size;
-+
-+	return 0;
-+}
-+
- static int bcm2835_dma_slave_config(struct dma_chan *chan,
- 				    struct dma_slave_config *cfg)
+ 	ret = dmaengine_slave_config(ctlr->dma_rx, &slave_config);
+@@ -1355,6 +1343,7 @@ static int bcm2835_spi_probe(struct platform_device *pdev)
  {
- 	struct bcm2835_chan *c = to_bcm2835_dma_chan(chan);
-+	int ret;
-+
-+	ret = bcm2835_dma_map_slave_addr(chan, &c->slave_src, cfg->src_addr,
-+					 cfg->src_addr_width, DMA_TO_DEVICE);
-+	if (ret)
-+		return ret;
-+
-+	ret = bcm2835_dma_map_slave_addr(chan, &c->slave_dst, cfg->dst_addr,
-+					 cfg->dst_addr_width, DMA_FROM_DEVICE);
-+	if (ret)
-+		return ret;
- 
- 	c->cfg = *cfg;
- 
-@@ -1104,6 +1235,8 @@ static const struct bcm2835_dma_cfg bcm2835_data = {
- 	.read_addr = bcm2835_dma_read_addr,
- 	.cs_flags = bcm2835_dma_cs_flags,
- 	.abort = bcm2835_dma_abort_chan,
-+
-+	.legacy_bus_addr = bcm2835_dma_legacy_bus_addr,
- };
- 
- static const struct of_device_id bcm2835_dma_of_match[] = {
-@@ -1145,6 +1278,48 @@ static int bcm2835_dma_suspend_late(struct device *dev)
- 	return 0;
- }
- 
-+/*
-+ * The DMA controller registers sit in the same peripheral window as the
-+ * FIFOs of its clients, so the window is described by dma-ranges if and
-+ * only if the controller registers are.
-+ */
-+static bool bcm2835_dma_mmio_in_dma_ranges(struct device *dev,
-+					   phys_addr_t mmio)
-+{
-+	struct of_range_parser parser;
-+	struct of_range range;
-+	struct device_node *np;
-+	bool found = false;
-+
-+	for (np = of_get_parent(dev->of_node); np; np = of_get_next_parent(np))
-+		if (of_property_present(np, "dma-ranges"))
-+			break;
-+
-+	/*
-+	 * Without any dma-ranges the translation is unknown: the peripherals
-+	 * are not at their CPU physical address on any of these SoCs.
-+	 */
-+	if (!np)
-+		return false;
-+
-+	if (!of_pci_dma_range_parser_init(&parser, np)) {
-+		/* An empty dma-ranges describes a 1:1 translation too */
-+		found = !of_range_count(&parser);
-+
-+		for_each_of_range(&parser, &range) {
-+			if (mmio >= range.cpu_addr &&
-+			    mmio - range.cpu_addr < range.size) {
-+				found = true;
-+				break;
-+			}
-+		}
-+	}
-+
-+	of_node_put(np);
-+
-+	return found;
-+}
-+
- static const struct dev_pm_ops bcm2835_dma_pm_ops = {
- 	LATE_SYSTEM_SLEEP_PM_OPS(bcm2835_dma_suspend_late, NULL)
- };
-@@ -1152,6 +1327,7 @@ static const struct dev_pm_ops bcm2835_dma_pm_ops = {
- static int bcm2835_dma_probe(struct platform_device *pdev)
- {
- 	struct bcm2835_dmadev *od;
+ 	struct spi_controller *ctlr;
+ 	struct bcm2835_spi *bs;
 +	struct resource *res;
- 	void __iomem *base;
- 	int rc;
- 	int i, j;
-@@ -1180,12 +1356,18 @@ static int bcm2835_dma_probe(struct platform_device *pdev)
+ 	int err;
  
- 	dma_set_max_seg_size(&pdev->dev, 0x3FFFFFFF);
+ 	ctlr = devm_spi_alloc_host(&pdev->dev, sizeof(*bs));
+@@ -1377,7 +1366,7 @@ static int bcm2835_spi_probe(struct platform_device *pdev)
+ 	bs = spi_controller_get_devdata(ctlr);
+ 	bs->ctlr = ctlr;
  
--	base = devm_platform_ioremap_resource(pdev, 0);
-+	base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
- 	if (IS_ERR(base))
- 		return PTR_ERR(base);
+-	bs->regs = devm_platform_ioremap_resource(pdev, 0);
++	bs->regs = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+ 	if (IS_ERR(bs->regs))
+ 		return PTR_ERR(bs->regs);
  
- 	od->base = base;
+@@ -1394,7 +1383,7 @@ static int bcm2835_spi_probe(struct platform_device *pdev)
  
-+	od->map_resource = bcm2835_dma_mmio_in_dma_ranges(&pdev->dev,
-+							  res->start);
-+	if (!od->map_resource)
-+		dev_dbg(&pdev->dev,
-+			"peripheral window not in dma-ranges, using the bus ranges\n");
-+
- 	dma_cap_set(DMA_SLAVE, od->ddev.cap_mask);
- 	dma_cap_set(DMA_PRIVATE, od->ddev.cap_mask);
- 	dma_cap_set(DMA_CYCLIC, od->ddev.cap_mask);
+ 	bs->clk_hz = clk_get_rate(bs->clk);
+ 
+-	err = bcm2835_dma_init(ctlr, &pdev->dev, bs);
++	err = bcm2835_dma_init(ctlr, &pdev->dev, bs, res->start);
+ 	if (err)
+ 		return err;
+ 
 -- 
 2.51.0
 
