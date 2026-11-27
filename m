@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795813178;
-	b=AbB/ZONKY97WFRv8FtRVXVe62PDJ1rjoJ0H/UyjsfHp52tFHxtxHmfdmA2dZCClOzH6u
-	 1/UrpI5eIOpYGeYkaKJfeAIfEIoDJ+BtA46g6EW1wOsC4SYwP6nlxtIIlqA+Ln0Mt0K2x
-	 UCZ+uajKDMOVUHapv0ABTB6PM45mEPEVRsdRAirY+ocq6O+3gTFCE5moVROwL18YA9u0j
-	 J01cdnzRwTwl+g9lBONB/E5pTSH75wKcTiOcTnBE+bW3FK2KJmoTwa1YTUpqPbX1DROhb
-	 5dOzMIjnKugFvhKggCkyhKzJGOtyYO0OqQUR5RrqO65NwlPPOHbWAaDLBCp9MidSMKQ==
+	t=1795813184;
+	b=tT8B0oJFKSVN7bkVAKtACM9xydEqieBFUy3O3j6huapyG70dNVoWc3yA6T7/wzbx+npX
+	 jMz9Cz70oV8X07R5Z8AiXBY4m3DSnDjro3tmtz8Ej+rP2luDwTA1/t1Ztw5ZEnRJkodg+
+	 pIxgUryjgp6CyA508OSRKHVBb6RGR0/czpJ5rH3VCEVO1NOG9K686FHp4NGQ7QbXfkKAK
+	 uEmgxZJbxm2KDzxsiYdgeMUGKD+bcAO3AB+uYUmZqdRM5cDkunJv67jN6sZOLNttxmj+k
+	 T0Cc8ThreiTeAl/IhYBXn/GbzpCuNTS/PUlgUQuSEGedDPGI2n7kubf0KmiMasWe6pQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795813178;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795813184;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=VS9wHh8LfJ2pdPzO8IyV/zb3d0/T4jdL5/nJ05qJVDU=;
-	b=Z1V6ES0wypZq7ksXWoSN1AjsEjs3GKBLhV4gFGwPhpVCvDBm2EfV6wD8xVbeV6PiuBa+
-	 5tHiSjXB+oqITkDz0v+kjMFKly1zi05ISWu90rYBzqPBxE1meJI6EaF1DV51DT0YoOea0
-	 PMypJpKPmVDXrYhvgSERO5yjWQGyqL9jax3/Q36sH+mgwJ1Thgw1hz0Dy0k+7mXMVd9+g
-	 xR4t/lsYGd8dKibcqSO9wEXNINIisgBMgzxJpbyJRQ1IQtLbprCAY9VCxs3qRrOYSRf7T
-	 n+sngjlyaPg1IRlJp4na/zU5uJBTPlNxXXd+RawjLLidI+B0Hrirp3+mI3qiOvRBAlA==
+	bh=flPJC5TPyfcUaRSjCiXVflWIMov3erhkAc8yqSsIO/A=;
+	b=4nn1Gv8zfk/S8VrFYQyviCckPxZLa1hN0V0UiMBDncM3WcKuTVfV5PNSpE6kozLy+7vf
+	 JrRjtdjzstGQxycBgJqxsLYtL+KR3zhgV4PQTqcR3yKcfh9SImEnZar2R8WrF/U8NkIZv
+	 KD45KMcZWIyYFYkQrB3+4XcCWnT3wekZeoPBChmp4I5oGqlY3GKvN/ziWEVD0YmxtHfjK
+	 nnMqyFx2ahESQD3JBlcufEdxAJeYYUrbgbVZINVfT/1wPgxELoXVTXwXdfBx/x1Dbkuvm
+	 Ee0JJsstRD9mw1UBC+8TTDcOkFelNNHbxGTRjBPMEiNDrNMrDEFcDoqG+va1iODCC7w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jLvs2w2A;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l4AYB2rM;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB6B606A31E;
-	Fri, 27 Nov 2026 20:59:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53D7E606A31E;
+	Fri, 27 Nov 2026 20:59:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jLvs2w2A
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l4AYB2rM
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795813177;
-	b=CRTjiZE3BdH7fyRyJavmHL/fau/7+VOhNzenFH31AFYU7pvmRM9/wyjffmSJpNl1zp46
-	 iW7GAJHW2GBXw2DbpAVVMx+u0NpLtdXxjM8PJYfyk1GdtxPUjnDMzl1HTroAVs9SjC5HO
-	 cTP0QXKqeOe/5+0Bh67Vu3ZN8QsSPCT1qMlz/wnhtrrRnH/g1f4UDlbu026UjAHao4sfI
-	 qgqLNuV1DTObtakbpoN4QffFUm0cegm7C/52nGeoPuG56BPXJ1v69IUiUAm9Pvc4xCeO1
-	 W366IFDjsOvN6enhprGRCgKM3dyEr2wzOI5NlPKUlEdCA8llh9DCMJ32hRPdtsDAXsA==
+	t=1795813183;
+	b=c9jFN/SEX1xkdEJnmM3KF2xrbAttZ+soTh1MR6MaoIzbXcaQD47Z6/1Sbs0m3+COyaGO
+	 GhZU3YlrsikSEk0u/WCChTzVPe9G0nMMx8LiI8ZXRjT6mGWc/WlUCzL2rSwvcYX4UkAsI
+	 jV2hiVa+wCBaZn1pW8nVeK1Wmhu6iFgUAkTqP0l8MzuRd3HRHr5Cov3utUXraZEJisomY
+	 ejWMYWcHU1eFanOXGFn9tZ/5zETAB7anBjt957JSC0uXxYx0kO+KYcMPN/Q/MK0TjSXG/
+	 li7yMiiBDJWh3/m6R7+eCUI2bcnWISXTnJ6R0/WrbrOF14A8dr3+i0TLymL1EXl0XhA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795813177;
+	c=relaxed/relaxed; t=1795813183;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=VS9wHh8LfJ2pdPzO8IyV/zb3d0/T4jdL5/nJ05qJVDU=;
-	b=HVKO8TyBHyjORLArzgut6HqCkVIq1jSyvC7lMCntfVsTyeTX5X5fDvQVwXsM1B0gzjPs
-	 WFCp1Mo/XYw06ppbocPDV7nX7oJsw+aq7poqfzRpOtrHWbY/6WmYhph8hbA34NBNIOYYZ
-	 iLMN4tJciIjd8GpYeryEWoKu85V7/NoBXGiWYzqQcSuaHLqswaAx0V4XtizdlZ615Ns0B
-	 wYVs62sWECs8i/CV3Chd6WCxjO02OKY2qBaR7HUgb7yTCMF48C77tDzGVVx0PQPXvd4nq
-	 cL6R8c8J8LxLwxfdSrPpO7RpnrBYM1YcnChvX0etyZpSo5XcZ7s/417TeLoZsXrczgg==
+	bh=flPJC5TPyfcUaRSjCiXVflWIMov3erhkAc8yqSsIO/A=;
+	b=ktrxKLHAsvxjMR3BnkHNRklSfC8DJQbH8VJY7ECEreGRwlztgWomB2/QJEJl1KrVOg5F
+	 J9L9TlWja9VIz14zNLCgMC8JsG5C61FSOf4NagyBCw8dmrjLzy3CIT0fPCd0MW0hITL0V
+	 XXfjRKzPiW7UwqBg6z4N30MYLYL9HT8PsAVmjvwD7Wnttyg4RUUHri5LTykLIKIZk7b7+
+	 Ukmr9oxdkRy0LafL7yZSnBteETcwmjn3fEO2xucQ/M4jnk3IP+XowanRGapK27PHGAm5J
+	 VjVSX1TzH2NTwbuY7Yufew5xTzg2TcoQ+IM81c+yLfzUEYOxvZ/J12O7CbpLLBDkghA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 441EB1F00898;
+	by smtp.kernel.org (Postfix) with ESMTPS id 89E251F000C1;
 	Fri, 27 Nov 2026 20:59:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795813177;
-	bh=VS9wHh8LfJ2pdPzO8IyV/zb3d0/T4jdL5/nJ05qJVDU=;
+	s=k20260515; t=1795813183;
+	bh=flPJC5TPyfcUaRSjCiXVflWIMov3erhkAc8yqSsIO/A=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=jLvs2w2AqOcdjNqWFPxllNPXVPRZSjHXkroB5UvVpDoi45w2UEhnRSz1YUEJRV//l
-	 AV6vFOZcRFkJhQdDJcvQJHU5LzrBGZ5LStYybvIOE2Bkuvz4p9VpYNU/wOfLd/0/CM
-	 VEGS6gNzrewM1/oNJxFSYeQK6wK11lqVrAxxrDvXJ4z6fdgYeU5PIDvLLTyn//RLRc
-	 09/AMoze8kzu60+rvqi0/CXLGfkvDlmlgX8zigcjNK7QQx6h/0dM8YpuVTDrr+6Z7N
-	 tZF+oIjeUvrOSWoYEVAP34vO7gctu+GqKTqUC9MZO/iOm+WFH8C6L1KqFJS1ZSySD/
-	 c7IaBc5f2cjCg==
+	b=l4AYB2rMXR8w+qFBOPWTLBo8USWg7sxooeJhxsbBF3euQD998vzSzUAIl1UzEQ8of
+	 g7rciRetj75FX73qkxZbH3gRcce0K/q93iLrvot4TrelhPqmISX4dllAGkvLO0PT9Z
+	 7XXL//naGv5zBxfkfvrjb4fyFNIAjElRYT03qUGvBLJNyjzLwiwFX0Xw1oDXkPr+DG
+	 Smsg0VcvpBVRGD+vEdpy9+MsrNuF6WEEmgMW8SZilOdYu6CgAYOyjCPICZiKitw9AC
+	 b6LZon64Vt745OVvzXYRDxIjXhdcAi1n41Ur2cVhvBNuiwJ+K3TqKWK+OKzC+oFquC
+	 55HYU9E0kic2w==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C26BB4DDFC;
-	Fri, 27 Nov 2026 20:59:29 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 11B8F4DE03;
+	Fri, 27 Nov 2026 20:59:30 +0000 (UTC)
 From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Fri, 27 Nov 2026 23:59:29 +0300
-Subject: [PATCH 1/3] ARM: dts: cortina: Describe CS7542 peripheral
- controllers
+Date: Fri, 27 Nov 2026 23:59:31 +0300
+Subject: [PATCH 3/3] ARM: multi_v7_defconfig: Enable CS7542 board
+ peripherals
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261127-b4-cs7542-peripherals-dts-v1-1-7ce24b842b3a@gmail.com>
+Message-Id: <20261127-b4-cs7542-peripherals-dts-v1-3-7ce24b842b3a@gmail.com>
 References: <20261127-b4-cs7542-peripherals-dts-v1-0-7ce24b842b3a@gmail.com>
 In-Reply-To: <20261127-b4-cs7542-peripherals-dts-v1-0-7ce24b842b3a@gmail.com>
 To: Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>, 
@@ -95,11 +95,11 @@ To: Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
 Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795813168; l=12071;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795813168; l=3974;
  i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=e2mylpsi+UNf0UKQ0a9a9Z12LfwJLBgmUI633+jZlAM=;
- b=4J2bGBFJQlH+YLwi3IS5R0MXXhl6H0581tJzKlYuEwvsUEPJJjo6JzseDk0LNqAdoY4t1+UEl
- Ez4FLRWoS2lB9mSz2O/oiTUmrV+YUci6POuYbHDMLkWUItrXKXq7GQG
+ bh=vT4krSx42qoR3S8n7cGSEM30fEtc2yONk4X37rZ0GVY=;
+ b=JnNh2OsqjQB8T29kElxKlhthkalR+XyeKtbWKGwlRRQDveyITHgUctsYWVPZPKvJHx5ysYhU+
+ /UISyGB0bWCCKzsgqmP4NrKH/fXN3P1qFDVKK96dvzj+S+q3iKUnjRM
 X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
  pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
 X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
@@ -110,428 +110,142 @@ Content-Transfer-Encoding: 7bit
 
 From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-Describe the shared global clock and pin controllers, peripheral
-interrupt controller and GPIO banks, I2C, watchdog, RTC, TRNG, NAND PIO
-controller, MDIO, network engine and three PCIe root ports.
-
-Use the global syscon for clocks and resets, a separate PCIe PHY
-provider and the complete exclusive Ethernet DMA/reset domain. Keep the
-optional controllers disabled until the board supplies wiring, reserved
-memory and endpoint descriptions. Replace the fixed APB assumption with
-strap-selected clocks.
+Build the shared providers and boot-critical storage, watchdog and
+network support for Almond+. Enable the QCA8337 switch driver and U-Boot
+environment NVMEM layout needed for its factory MAC addresses. Existing
+generic ath9k/ath10k and xHCI support supplies the PCIe endpoint
+drivers.
 
 Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 ---
- arch/arm/boot/dts/cortina/cs7542.dtsi | 321 ++++++++++++++++++++++++++++++++--
- 1 file changed, 311 insertions(+), 10 deletions(-)
+ arch/arm/configs/multi_v7_defconfig | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/arch/arm/boot/dts/cortina/cs7542.dtsi b/arch/arm/boot/dts/cortina/cs7542.dtsi
-index 29b0b7da8..3d827502c 100644
---- a/arch/arm/boot/dts/cortina/cs7542.dtsi
-+++ b/arch/arm/boot/dts/cortina/cs7542.dtsi
-@@ -3,6 +3,8 @@
-  * Device Tree Source for the Cortina Systems CS7542 SoC
-  */
- 
-+#include <dt-bindings/clock/cortina,cs7542-clock.h>
-+#include <dt-bindings/reset/cortina,cs7542-reset.h>
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- 
- / {
-@@ -10,11 +12,10 @@
- 	#size-cells = <1>;
- 	interrupt-parent = <&gic>;
- 
--	/* Rate is selected by the boot strap pins, set by the board */
--	apb_clk: clock-apb {
-+	ref24: clock-24mhz {
- 		compatible = "fixed-clock";
- 		#clock-cells = <0>;
--		clock-output-names = "apb";
-+		clock-frequency = <24000000>;
- 	};
- 
- 	cpus {
-@@ -26,6 +27,7 @@
- 			compatible = "arm,cortex-a9";
- 			reg = <0>;
- 			next-level-cache = <&l2>;
-+			clocks = <&global CS7542_CLK_CPU>;
- 		};
- 
- 		cpu@1 {
-@@ -35,6 +37,7 @@
- 			enable-method = "cortina,cs7542-smp";
- 			cpu-release-addr = <0 0xf00000b8>;
- 			next-level-cache = <&l2>;
-+			clocks = <&global CS7542_CLK_CPU>;
- 		};
- 	};
- 
-@@ -44,11 +47,227 @@
- 		#address-cells = <1>;
- 		#size-cells = <1>;
- 
-+		pcie0: pcie@80000000 {
-+			compatible = "cortina,cs7542-pcie";
-+			reg = <0x80000000 0x1000>, <0x80001000 0x1000>, <0xf00a0000 0x100>;
-+			reg-names = "dbi", "config", "app";
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+			device_type = "pci";
-+			linux,pci-domain = <0>;
-+			bus-range = <0 0xff>;
-+			num-lanes = <1>;
-+			ranges = <0x82000000 0 0x80200000 0x80200000 0 0x1fe00000>;
-+			interrupts = <GIC_SPI 33 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "msi";
-+			clocks = <&global CS7542_CLK_PCIE0>;
-+			resets = <&global CS7542_RESET_PCIE0>;
-+			phys = <&serdes 0>;
-+			phy-names = "pcie";
-+			#interrupt-cells = <1>;
-+			interrupt-map-mask = <0 0 0 7>;
-+			interrupt-map = <0 0 0 1 &pcie0_intc 1>,
-+					<0 0 0 2 &pcie0_intc 2>,
-+					<0 0 0 3 &pcie0_intc 3>,
-+					<0 0 0 4 &pcie0_intc 4>;
-+			status = "disabled";
-+
-+			pcie0_port: pcie@0,0 {
-+				compatible = "pciclass,0604";
-+				reg = <0 0 0 0 0>;
-+				device_type = "pci";
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				ranges;
-+			};
-+
-+			pcie0_intc: interrupt-controller {
-+				#address-cells = <0>;
-+				#interrupt-cells = <1>;
-+				interrupt-controller;
-+			};
-+		};
-+
-+		pcie1: pcie@a0000000 {
-+			compatible = "cortina,cs7542-pcie";
-+			reg = <0xa0000000 0x1000>, <0xa0001000 0x1000>, <0xf00a0400 0x100>;
-+			reg-names = "dbi", "config", "app";
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+			device_type = "pci";
-+			linux,pci-domain = <1>;
-+			bus-range = <0 0xff>;
-+			num-lanes = <1>;
-+			ranges = <0x82000000 0 0xa0200000 0xa0200000 0 0x1fe00000>;
-+			interrupts = <GIC_SPI 34 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "msi";
-+			clocks = <&global CS7542_CLK_PCIE1>;
-+			resets = <&global CS7542_RESET_PCIE1>;
-+			phys = <&serdes 1>;
-+			phy-names = "pcie";
-+			#interrupt-cells = <1>;
-+			interrupt-map-mask = <0 0 0 7>;
-+			interrupt-map = <0 0 0 1 &pcie1_intc 1>,
-+					<0 0 0 2 &pcie1_intc 2>,
-+					<0 0 0 3 &pcie1_intc 3>,
-+					<0 0 0 4 &pcie1_intc 4>;
-+			status = "disabled";
-+
-+			pcie1_port: pcie@0,0 {
-+				compatible = "pciclass,0604";
-+				reg = <0 0 0 0 0>;
-+				device_type = "pci";
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				ranges;
-+			};
-+
-+			pcie1_intc: interrupt-controller {
-+				#address-cells = <0>;
-+				#interrupt-cells = <1>;
-+				interrupt-controller;
-+			};
-+		};
-+
-+		pcie2: pcie@c0000000 {
-+			compatible = "cortina,cs7542-pcie";
-+			reg = <0xc0000000 0x1000>, <0xc0001000 0x1000>, <0xf00a0800 0x100>;
-+			reg-names = "dbi", "config", "app";
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+			device_type = "pci";
-+			linux,pci-domain = <2>;
-+			bus-range = <0 0xff>;
-+			num-lanes = <1>;
-+			ranges = <0x82000000 0 0xc0200000 0xc0200000 0 0x1fe00000>;
-+			interrupts = <GIC_SPI 35 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "msi";
-+			clocks = <&global CS7542_CLK_PCIE2>;
-+			resets = <&global CS7542_RESET_PCIE2>;
-+			phys = <&serdes 2>;
-+			phy-names = "pcie";
-+			#interrupt-cells = <1>;
-+			interrupt-map-mask = <0 0 0 7>;
-+			interrupt-map = <0 0 0 1 &pcie2_intc 1>,
-+					<0 0 0 2 &pcie2_intc 2>,
-+					<0 0 0 3 &pcie2_intc 3>,
-+					<0 0 0 4 &pcie2_intc 4>;
-+			status = "disabled";
-+
-+			pcie2_port: pcie@0,0 {
-+				compatible = "pciclass,0604";
-+				reg = <0 0 0 0 0>;
-+				device_type = "pci";
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				ranges;
-+			};
-+
-+			pcie2_intc: interrupt-controller {
-+				#address-cells = <0>;
-+				#interrupt-cells = <1>;
-+				interrupt-controller;
-+			};
-+		};
-+
-+		global: syscon@f0000000 {
-+			compatible = "cortina,cs7542-syscon", "syscon", "simple-mfd";
-+			reg = <0xf0000000 0x100>;
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+
-+			pinctrl: pinctrl {
-+				compatible = "cortina,cs7542-pinctrl";
-+			};
-+		};
-+
-+		ethernet: ethernet@f0010000 {
-+			compatible = "cortina,cs7542-ethernet";
-+			reg = <0xf0010000 0x500>,
-+			      <0xf0090000 0x800>, <0xf0020000 0x4000>,
-+			      <0xf0030000 0x400>, <0xf0040000 0x800>,
-+			      <0xf0060000 0x100>, <0xf0400000 0x100000>;
-+			reg-names = "ni", "dma", "fe", "qm", "tm",
-+				    "sch", "xram";
-+			interrupts = <GIC_SPI 37 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 38 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 39 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "eth0", "eth1", "eth2";
-+			resets = <&global CS7542_RESET_NI>,
-+				 <&global CS7542_RESET_FE>,
-+				 <&global CS7542_RESET_TM>,
-+				 <&global CS7542_RESET_SCH>,
-+				 <&global CS7542_RESET_QM>,
-+				 <&global CS7542_RESET_DMA>,
-+				 <&global CS7542_RESET_NI_XRAM>;
-+			reset-names = "ni", "fe", "tm", "sch", "qm", "dma", "xram";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			cortina,global-syscon = <&global>;
-+			status = "disabled";
-+
-+			gmac0: ethernet-port@0 {
-+				reg = <0>;
-+				status = "disabled";
-+			};
-+
-+			gmac1: ethernet-port@1 {
-+				reg = <1>;
-+				status = "disabled";
-+			};
-+
-+			gmac2: ethernet-port@2 {
-+				reg = <2>;
-+				status = "disabled";
-+			};
-+		};
-+
-+		nandc: nand-controller@f0050000 {
-+			compatible = "cortina,cs7542-nand";
-+			reg = <0xf0050000 0x300>, <0xe0000000 0x08000000>;
-+			reg-names = "regs", "data";
-+			interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&global CS7542_CLK_AXI>;
-+			resets = <&global CS7542_RESET_FLASH>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			status = "disabled";
-+		};
-+
-+		intc: interrupt-controller@f0070004 {
-+			compatible = "cortina,cs7542-intc";
-+			reg = <0xf0070004 0x8>;
-+			interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-controller;
-+			#interrupt-cells = <1>;
-+		};
-+
-+		mdio0: mdio@f00700a0 {
-+			compatible = "cortina,cs7542-mdio";
-+			reg = <0xf00700a0 0x14>;
-+			clocks = <&global CS7542_CLK_APB>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			status = "disabled";
-+		};
-+
-+		i2c: i2c@f00700e8 {
-+			compatible = "cortina,cs7542-i2c";
-+			reg = <0xf00700e8 0x28>;
-+			interrupt-parent = <&intc>;
-+			interrupts = <11>;
-+			clocks = <&global CS7542_CLK_APB>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			status = "disabled";
-+		};
-+
- 		uart0: serial@f0070110 {
- 			compatible = "cortina,cs7542-uart";
- 			reg = <0xf0070110 0x30>;
- 			interrupts = <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&apb_clk>;
-+			clocks = <&global CS7542_CLK_APB>;
- 
- 			status = "disabled";
- 		};
-@@ -57,7 +276,7 @@
- 			compatible = "cortina,cs7542-uart";
- 			reg = <0xf0070140 0x30>;
- 			interrupts = <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&apb_clk>;
-+			clocks = <&global CS7542_CLK_APB>;
- 
- 			status = "disabled";
- 		};
-@@ -66,7 +285,7 @@
- 			compatible = "cortina,cs7542-uart";
- 			reg = <0xf0070170 0x30>;
- 			interrupts = <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&apb_clk>;
-+			clocks = <&global CS7542_CLK_APB>;
- 
- 			status = "disabled";
- 		};
-@@ -75,8 +294,90 @@
- 			compatible = "cortina,cs7542-uart";
- 			reg = <0xf00701a0 0x30>;
- 			interrupts = <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&apb_clk>;
-+			clocks = <&global CS7542_CLK_APB>;
-+
-+			status = "disabled";
-+		};
-+
-+		gpio0: gpio@f00701d0 {
-+			compatible = "cortina,cs7542-gpio";
-+			reg = <0xf00701d0 0x20>;
-+			interrupt-parent = <&intc>;
-+			interrupts = <6>;
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+		};
-+
-+		gpio1: gpio@f00701f0 {
-+			compatible = "cortina,cs7542-gpio";
-+			reg = <0xf00701f0 0x20>;
-+			interrupt-parent = <&intc>;
-+			interrupts = <7>;
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+		};
-+
-+		gpio2: gpio@f0070210 {
-+			compatible = "cortina,cs7542-gpio";
-+			reg = <0xf0070210 0x20>;
-+			interrupt-parent = <&intc>;
-+			interrupts = <8>;
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+		};
-+
-+		gpio3: gpio@f0070230 {
-+			compatible = "cortina,cs7542-gpio";
-+			reg = <0xf0070230 0x20>;
-+			interrupt-parent = <&intc>;
-+			interrupts = <9>;
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+		};
-+
-+		gpio4: gpio@f0070250 {
-+			compatible = "cortina,cs7542-gpio";
-+			reg = <0xf0070250 0x20>;
-+			interrupt-parent = <&intc>;
-+			interrupts = <10>;
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+		};
-+
-+		serdes: phy@f00a1000 {
-+			compatible = "cortina,cs7542-pcie-phy";
-+			reg = <0xf00a1000 0x400>, <0xf00a5000 0x400>,
-+			      <0xf00a9000 0x400>, <0xf00a0e00 0x180>;
-+			reg-names = "phy0", "phy1", "phy2", "status";
-+			clocks = <&ref24>;
-+			cortina,global-syscon = <&global>;
-+			#phy-cells = <1>;
-+		};
-+
-+		trng: rng@f0600000 {
-+			compatible = "cortina,cs7542-trng";
-+			reg = <0xf0600000 0x20>;
-+			cortina,syscon = <&global>;
-+			status = "disabled";
-+		};
- 
-+		rtc0: rtc@f4920000 {
-+			compatible = "cortina,cs7542-rtc";
-+			reg = <0xf4920000 0x50>;
-+			interrupt-names = "alarm", "periodic";
-+			interrupt-parent = <&gic>;
-+			interrupts = <GIC_SPI 10 IRQ_TYPE_LEVEL_HIGH>,
-+					<GIC_SPI 11 IRQ_TYPE_LEVEL_HIGH>;
- 			status = "disabled";
- 		};
- 
-@@ -99,21 +400,21 @@
- 			compatible = "arm,cortex-a9-global-timer";
- 			reg = <0xf8000200 0x20>;
- 			interrupts = <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_EDGE_RISING)>;
--			clocks = <&apb_clk>;
-+			clocks = <&global CS7542_CLK_APB>;
- 		};
- 
- 		timer@f8000600 {
- 			compatible = "arm,cortex-a9-twd-timer";
- 			reg = <0xf8000600 0x20>;
- 			interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_EDGE_RISING)>;
--			clocks = <&apb_clk>;
-+			clocks = <&global CS7542_CLK_APB>;
- 		};
- 
- 		watchdog@f8000620 {
- 			compatible = "arm,cortex-a9-twd-wdt";
- 			reg = <0xf8000620 0x20>;
- 			interrupts = <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_EDGE_RISING)>;
--			clocks = <&apb_clk>;
-+			clocks = <&global CS7542_CLK_APB>;
- 		};
- 
- 		gic: interrupt-controller@f8001000 {
+diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
+index 23f144359..dde9393ba 100644
+--- a/arch/arm/configs/multi_v7_defconfig
++++ b/arch/arm/configs/multi_v7_defconfig
+@@ -177,6 +177,7 @@ CONFIG_NFC_S3FWRN5_I2C=m
+ CONFIG_PCIEPORTBUS=y
+ CONFIG_PCI_MVEBU=y
+ CONFIG_PCI_TEGRA=y
++CONFIG_PCIE_CS7542=y
+ CONFIG_PCIE_RCAR_HOST=y
+ CONFIG_PCI_RCAR_GEN2=y
+ CONFIG_PCI_LAYERSCAPE=y
+@@ -203,6 +204,7 @@ CONFIG_MTD_CFI_INTELEXT=y
+ CONFIG_MTD_PHYSMAP=y
+ CONFIG_MTD_PHYSMAP_OF=y
+ CONFIG_MTD_RAW_NAND=y
++CONFIG_MTD_NAND_CS752X=y
+ CONFIG_MTD_NAND_DENALI_DT=y
+ CONFIG_MTD_NAND_OMAP2=y
+ CONFIG_MTD_NAND_OMAP_BCH=y
+@@ -252,12 +254,14 @@ CONFIG_B53_SPI_DRIVER=m
+ CONFIG_B53_MDIO_DRIVER=m
+ CONFIG_B53_MMAP_DRIVER=m
+ CONFIG_NET_DSA_BCM_SF2=m
++CONFIG_NET_DSA_QCA8K=m
+ CONFIG_NET_DSA_RZN1_A5PSW=m
+ CONFIG_SUN4I_EMAC=y
+ CONFIG_SPI_AX88796C=m
+ CONFIG_BCMGENET=m
+ CONFIG_BGMAC_BCMA=y
+ CONFIG_SYSTEMPORT=m
++CONFIG_CS7542_ETHERNET=y
+ CONFIG_MACB=y
+ CONFIG_NET_CALXEDA_XGMAC=y
+ CONFIG_FTGMAC100=m
+@@ -300,6 +304,7 @@ CONFIG_CAN_C_CAN=m
+ CONFIG_CAN_C_CAN_PLATFORM=m
+ CONFIG_CAN_RCAR=m
+ CONFIG_CAN_MCP251X=y
++CONFIG_MDIO_CS75XX=y
+ CONFIG_MDIO_MSCC_MIIM=m
+ CONFIG_USB_PEGASUS=y
+ CONFIG_USB_RTL8152=m
+@@ -409,6 +414,7 @@ CONFIG_VIRTIO_CONSOLE=y
+ CONFIG_ASPEED_KCS_IPMI_BMC=m
+ CONFIG_ASPEED_BT_IPMI_BMC=m
+ CONFIG_HW_RANDOM=y
++CONFIG_HW_RANDOM_CS75XX=y
+ CONFIG_HW_RANDOM_ST=y
+ CONFIG_HW_RANDOM_QCOM=m
+ CONFIG_TCG_TPM=m
+@@ -423,6 +429,7 @@ CONFIG_I2C_ASPEED=m
+ CONFIG_I2C_AT91=m
+ CONFIG_I2C_BCM2835=y
+ CONFIG_I2C_CADENCE=y
++CONFIG_I2C_CS75XX=y
+ CONFIG_I2C_DAVINCI=y
+ CONFIG_I2C_DESIGNWARE_CORE=y
+ CONFIG_I2C_DIGICOLOR=m
+@@ -480,6 +487,7 @@ CONFIG_SPI_XILINX=y
+ CONFIG_SPI_SPIDEV=y
+ CONFIG_SPMI=y
+ CONFIG_PINCTRL_AS3722=y
++CONFIG_PINCTRL_CS7542=y
+ CONFIG_PINCTRL_MCP23S08=m
+ CONFIG_PINCTRL_MICROCHIP_SGPIO=y
+ CONFIG_PINCTRL_OCELOT=y
+@@ -492,6 +500,7 @@ CONFIG_PINCTRL_QCOM_SSBI_PMIC=y
+ CONFIG_PINCTRL_RZA2=y
+ CONFIG_PINCTRL_RZN1=y
+ CONFIG_GPIO_ASPEED_SGPIO=y
++CONFIG_GPIO_CS75XX=y
+ CONFIG_GPIO_DAVINCI=y
+ CONFIG_GPIO_DWAPB=y
+ CONFIG_GPIO_EM=y
+@@ -568,6 +577,7 @@ CONFIG_UNIPHIER_THERMAL=y
+ CONFIG_DA9063_WATCHDOG=m
+ CONFIG_XILINX_WATCHDOG=y
+ CONFIG_ARM_SP805_WATCHDOG=y
++CONFIG_ARM_TWD_WATCHDOG=y
+ CONFIG_AT91SAM9X_WATCHDOG=y
+ CONFIG_SAMA5D4_WATCHDOG=y
+ CONFIG_S3C2410_WATCHDOG=m
+@@ -1018,6 +1028,7 @@ CONFIG_EDAC_HIGHBANK_L2=y
+ CONFIG_RTC_CLASS=y
+ CONFIG_RTC_DRV_AC100=y
+ CONFIG_RTC_DRV_AS3722=y
++CONFIG_RTC_DRV_CS75XX=y
+ CONFIG_RTC_DRV_DS1307=y
+ CONFIG_RTC_DRV_HYM8563=m
+ CONFIG_RTC_DRV_MAX8907=y
+@@ -1097,6 +1108,7 @@ CONFIG_CHROME_PLATFORMS=y
+ CONFIG_CROS_EC=m
+ CONFIG_CROS_EC_I2C=m
+ CONFIG_CROS_EC_SPI=m
++CONFIG_COMMON_CLK_CS7542=y
+ CONFIG_COMMON_CLK_MAX77686=y
+ CONFIG_COMMON_CLK_RK808=m
+ CONFIG_COMMON_CLK_SCMI=y
+@@ -1223,14 +1235,17 @@ CONFIG_PWM_TIECAP=m
+ CONFIG_PWM_TWL=m
+ CONFIG_PWM_TWL_LED=m
+ CONFIG_PWM_VT8500=y
++CONFIG_CS75XX_INTC=y
+ CONFIG_KEYSTONE_IRQ=y
+ CONFIG_RESET_MCHP_SPARX5=y
+ CONFIG_RESET_SCMI=y
++CONFIG_RESET_CS7542=y
+ CONFIG_RESET_TI_SCI=m
+ CONFIG_RESET_TI_SYSCON=m
+ CONFIG_PHY_SUN4I_USB=y
+ CONFIG_PHY_SUN9I_USB=y
+ CONFIG_PHY_BRCM_USB=m
++CONFIG_PHY_CS7542_PCIE=y
+ CONFIG_PHY_HIX5HD2_SATA=y
+ CONFIG_PHY_BERLIN_SATA=y
+ CONFIG_PHY_BERLIN_USB=y
+@@ -1264,6 +1279,7 @@ CONFIG_NVMEM_RMEM=m
+ CONFIG_NVMEM_ROCKCHIP_EFUSE=m
+ CONFIG_NVMEM_STM32_ROMEM=m
+ CONFIG_NVMEM_SUNXI_SID=y
++CONFIG_NVMEM_U_BOOT_ENV=y
+ CONFIG_NVMEM_VF610_OCOTP=y
+ CONFIG_FSI=m
+ CONFIG_FSI_MASTER_GPIO=m
 
 -- 
 2.53.0
