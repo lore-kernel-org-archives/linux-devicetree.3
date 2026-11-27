@@ -1,62 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795780584;
-	b=uJ9gqYLtwG8MBojhFPRlH7V29SpxTvQCv319OJalrSMKwWjj8acJISyyBIIPkh3Aq3Dq
-	 uIWwgmuHz3ctNkS+OzFueoYSTXuBvaFWwTn/NKSYQEV7zN37bE3OCTlxhFET8shsJqIO7
-	 EKUO0E+a2Vqc+ix9eqlNffhOhpSv/YaQtVOblBVkzin/kYwZ30Y0Mr0yfbGkeWh5j9f/5
-	 L61Kbpsy/ilxzGN/D64BKgfctJcLI5BqDQ79JaE59LDyR3vmYP+lToa/UY1uOOZNhIyi+
-	 K9R3z1Mf3b53CLBdAcvJVtYZ+6IxkKPlzOLbIHBODazvdAY5IbmImQpdP0KGFTbGImQ==
+	t=1795780589;
+	b=yGkUN6tOB1wMboMnidK34YYGlTE48giooPdokZPsUX9ndKi4F1Ibp8YHNrA6zsMUMXs3
+	 dTdxCDbiQTcCtwRtAwVnn2L0yFkXEmyk5L+gU3A9Vkm5Ff8yrfmXUKN9hAoYSRU4xzire
+	 hYcFeQMgYFAgpJy/9YxWil2LPwdup0rhsKgpd+p66eg6CULNSVlbiIRAsklb/QdBvLFo7
+	 dTtp8HkZEba6Gtdoez8Ki+EtnEurQx0G0nV8YL7vrDD42cJIoYYHX5qge24DJgUKMnoU/
+	 c3en7vhnN5Bby2AhNLNC0UI2kb/klKyWAy1MJMXRMqtBak3LAy/p4I5H7dKld36qGdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795780584;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=IkLuTMyUuvtAIOJvKS4W5OnPvsELCClQmcENJYo+ClY=;
-	b=390Hb3WMpdyGfGHi4ASZXYYJkS3A2JnVfuZUH6pMQkZ4Ld3OBtAiPl4PYW/wdo2kh/iu
-	 TQRmawtUElpaH8Vl3DiNfquHH1RsdLMICZdr6+CYVeV6qxoTtb4Q6/yJ122K2sP8ij1Zr
-	 uklXrycCOObY66kkjioNjs8h+Y5pF67zugdnFGgJzMUqGkSwFEnTuY4/2MapZoyb/mGl1
-	 L7AgKx4XtyLLmD6ThxgZG5WnpE3GHOxfaDTcuPLI44/Xzfg801DzDmagdLwGA6FHl2fyn
-	 mwJCNHzVvpx/w1a3TWO7obEbY0SatrrSJ/lZVrtJek2FxOlmhKCJzucHkvTnNlIuRfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795780589;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=A68Fc43o/OGN2y9oSPSSDZxzULRR2g11UStqF9f/CJs=;
+	b=a8B8WStw2RVHxcqHgq2TmI0p7QENOOjIkpAr+ZldhSV9jvw9Rtuy3Dm59BnOqr6zY9bu
+	 831Udh3XRqMQ7xSN8PdoZN41L2NeUsjuLTd+5WqTDEQDvTxktO0ZqNhWlrSh3ipbdRhBf
+	 8JGfuRRvLueAaMdsoocpZHG4ChlmR8Tsm0MYK8THvLdlpZxB6SnMSFcUmaWm188jizS2U
+	 EyHwfDEjaTzpbOw3fMYmsNwQ2Ijz55ZRndDfh9IczrDFa2w6swGo82QIbj10LMcuJGHgE
+	 SuNwyoJT5iOJKWPDSQl4/4YygeIy4dWozr0hq2f9HT1oWCyGXW3u/jKbQ4YkmMtdhUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AMDtk+JA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC219606A31C;
-	Fri, 27 Nov 2026 11:56:24 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=POp6Ljo8;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D71C8606A321;
+	Fri, 27 Nov 2026 11:56:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D71C8606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AMDtk+JA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D67F41F00893;
-	Fri, 27 Nov 2026 11:56:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795780584;
-	bh=IkLuTMyUuvtAIOJvKS4W5OnPvsELCClQmcENJYo+ClY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AMDtk+JAMxtOsgCYR7Tusz2QRsZZkiHpXp/v/sh6QrwjcI3WBGSXtxfnxKtudM1el
-	 k/fR9W90ToPqji3UmUEgWCcGVUt7Vxjy9ZvYn1qSYmpO+EAyboFVmiPYeeOXyxiQgE
-	 /Xgna69TWzSsbE7X4Gi997HAaFWidlZG67RwmcW0tqiHzqGeR5MkCXfNvfX6Htg6hG
-	 jq6ma+ygm98psveaQlvUD4oZpqRtgMS3QTxS6vlCIgUPHhe5ATRznlgnL7+qLqmjua
-	 gbR1CaX3PKh3vkBFRiNdYNxSJ3Lbhv0HS97EV6E2zlOpIaIvqCjuZjvAX94/L851oc
-	 Uc/w+4yjIbhgw==
-Date: Fri, 27 Nov 2026 11:56:19 +0000
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Wang Yang <yang.wang@deepcomputing.io>
-Cc: Yixun Lan <dlan@kernel.org>, Benson Leung <bleung@chromium.org>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Guenter Roeck <groeck@chromium.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Sandie Cao <sandie.cao@deepcomputing.io>,
-	devicetree@vger.kernel.org, chrome-platform@lists.linux.dev,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/9] platform/chrome: Add SpacemiT K3 eSPI EC transport
-Message-ID: <awlv4wDjNQ8nXYiH@google.com>
-References: <20261118085742.1817536-1-yang.wang@deepcomputing.io>
- <20261118085742.1817536-6-yang.wang@deepcomputing.io>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=POp6Ljo8
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CFFF11756;
+	Fri, 27 Nov 2026 03:56:24 -0800 (PST)
+Received: from [10.33.50.35] (e142021.arm.com [10.33.50.35])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E4B3E3F632;
+	Fri, 27 Nov 2026 03:56:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795780587; bh=Xs58qPOPag1jyxHKAgsrv/b8NJwtq1sPSFPfFX2lDeY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=POp6Ljo8RAhx+OMn/hFpNNbPk3PjT0+ggeTztYGji34/ryVbRZarbEUAynH4+1G5R
+	 a3rST72HMFa6ZQoEjqX3b3RSyAJ9sglyMEukcjkb0cPfanDrQ6r+OfC1DSNKcVuM1q
+	 LDh6iqHLnvTvqCha5r0wgUazDC8WjUxYsCCz3jrs=
+Message-ID: <4c9ea902-24fd-4065-82b7-41d6df43b082@arm.com>
+Date: Fri, 27 Nov 2026 11:56:22 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,39 +53,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261118085742.1817536-6-yang.wang@deepcomputing.io>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 5/5] arm64: dts: allwinner: add Radxa Cubie A7A board
+To: Jerome Brunet <jbrunet@baylibre.com>,
+ Enzo Adriano <enzo.adriano.code@gmail.com>, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org,
+ jernej.skrabec@gmail.com, samuel@sholland.org
+Cc: Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Junhui Liu <junhui.liu@pigmoral.tech>,
+ Pablo Mazzini <pmazzini@gmail.com>,
+ Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
+ Alexander Sverdlin <alex@sverdlin.org>, Jun Yan <jerrysteve1101@gmail.com>,
+ Lukas Schmid <lukas.schmid@netcube.li>,
+ Cristian Filipescu <filipescu.cristian@gmail.com>,
+ Norman Herms <dockseed@proton.me>
+References: <20261126-a733-cubie-a7s-dt-v6-0@gmail.com>
+ <20261126-a733-cubie-a7s-dt-v6-5@gmail.com>
+ <1jik1ild9n.fsf@starbuckisacylon.baylibre.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <1jik1ild9n.fsf@starbuckisacylon.baylibre.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 18, 2026 at 04:57:38PM +0800, Wang Yang wrote:
-> Add the K3-specific EC transport as a separate driver. Use a vendor-
-> scoped Kconfig symbol, module name and compatible. The register mapping
-> and recovery API are tied to the SpacemiT K3 controller, so this does
-> not claim to be a generic eSPI EC transport.
+Hi Jerome,
+
+On 11/27/26 12:33, Jerome Brunet wrote:
+> On jeu. 26 nov. 2026 at 15:36, Enzo Adriano <enzo.adriano.code@gmail.com> wrote:
 > 
-> Preserve the original independent eSPI command and event logic. Existing
-> EC core, LPC, protocol and keyboard implementations remain unchanged.
+>> +
+>> +&pio {
+>> +	vcc-pb-supply = <&reg_swout2>;	// via VCC-IO
+>> +	vcc-pc-supply = <&reg_cldo5>;
+>> +	vcc-pd-supply = <&reg_swout1>;
+>> +	vcc-pe-supply = <&reg_bldo1>;
+>> +	vcc-pf-supply = <&reg_swout2>;	// via VCC-IO
+>> +	vcc-pg-supply = <&reg_aldo1>;
+>> +	vcc-ph-supply = <&reg_swout2>;	// via VCC-IO
+>> +	vcc-pj-supply = <&reg_swout1>;
+>> +	vcc-pk-supply = <&reg_aldo1>;
+> 
+> K is bldo1 according to the schematics
 
-I haven't done a detailed review as some functions in this patch
-(ec_response_timed_out, pkt_xfer, cmd_xfer, readmem) are based on (and
-very similar to) cros_ec_lpc.c.  Is it possible to refactor
-cros_ec_lpc.c to extract the common logic first so that this driver can
-reuse it?
+Ah, indeed, good catch. The schematic is somewhat confusing in parts 
+(VCC-PG for instance), but indeed the VCC-PK label is actually VCC-PK.
 
-E.g.:
-- cros_ec_lpc_proto.c and cros_ec_lpc_proto.h for the common logic.
-- cros_ec_lpc uses the common logic.
-- This driver (consider renaming to cros_ec_espi_spacemit) reuses the
-  common logic.
+Thanks,
+Andre.
 
-Similarly, instead of handling ec->irq in the driver, refactor
-cros_ec_register() first and reuse the logic in the driver.
+> 
+>> +};
+>> +
+>> +&r_i2c0 {
+> 
 
-E.g., only set it to IRQF_TRIGGER_LOW if it was unset:
-    unsigned long irqflags = IRQF_ONESHOT;
-    if (irq_get_trigger_type(ec_dev->irq) == IRQ_TYPE_NONE)
-        irqflags |= IRQF_TRIGGER_LOW;
-
-Or introduce an ec_dev->irqflags field:
-    if (ec_dev->irqflags == 0)
-        ec_dev->irqflags = IRQF_TRIGGER_LOW | IRQF_ONESHOT;
