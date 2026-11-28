@@ -1,57 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795857333;
-	b=u7l+t6mcJlg7Gu3BLHl+pIK/XR7Kiq0Ucz6G09Xd8vAGrxoJqir5xePPLFbUqpYOFC57
-	 hYX6XEnB+TP5H/Xvgf8SEI2c9AurHLrrwDbhXm/NIBqvTw+i6jf7t+BMPtg5XJ1gWP//i
-	 50hu4iSGQZ71P3I8iosa2MjUZJbWOTPLPXBbr7oHhByAYfFhbe/avZQdTTuHrNQYgW89N
-	 YgGjNHs0slR9RbrlU5EZXa/mcrEwvywESn+HqDQ6HxbxhzHAlCzEWEsefSJkxUnVNku30
-	 gOYuqfIzEGRKV2AlDFwCTbX3i+BwCIaSFzmJRNe+qHjiHT6NQnhTRVpy7AuE06nWNug==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795857333;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=2LkjI5OfW/AcnfuRn8Nh+CH9bv/zi8GddO0OWp2WwlM=;
-	b=qqY6i9ExZj4/wTJYt2tOaYyRl+/AEqlb8CW1vRracV3k4GZQcJR+hzBVDC8gcanK9QrM
-	 gNpB28mI9uVU5SAYt88BYv52AGoPoJ1MF3qHXoiEP0yBNuIwfopM+kt/T8LkbHw1PgzyE
-	 bJOxRUiw2L3hScBe0dBvxrmkGSZ397HMFWKGV+7MCBJfNaJIcsQDx6D5JNgXn83ECcP/o
-	 Gz2F+TnJu7Wq5Ui1/idhNC2BT2sLvpG2lYKmQcFmff4tbOGIcm7JdaiqZhHiZ3R7pS+ES
-	 McMm6TbksY71kK1qks5sfwfLZRmup168hGj4lLBwfQvpEzkCli3+/vJfw+5qm9R16yQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bQaEGDjV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.12
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795859183;
+	b=SwzyBTS2vFMvlleyRBxJy3CmA/mgCn2D9IorLYuVle/BU+ihHOpa8Efufn4mjruj2FB/
+	 Ih+RTgSLVvZBxBExh3IGNA1If3+sFdLvzI8K1/gxg2dgmomwq9kcCn52mGXBscojm5FB2
+	 IW6sOGTyzoJWgKtT9JZfAFvPlYBCmbnOJ/PtAoZw9Xxi/7kzsDnBeEL/Gd2TRj7pR5ZT/
+	 gwuYP7bngOzGpACGpALcs6mVUEpMNq+rtUBPg2qipqoVI+wKG3B6Orxdn/fIKq11LMZsv
+	 z9QMMOzJ2hNk5nIk9LS3Q9knz8lv5bONnucEFPP9zhRf23nIA5UQtWcor6fSi/mRTWg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795859183;
+	h=DMARC-Filter:DKIM-Signature:Received:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To:X-ZohoMailClient;
+	bh=N1Pv9e90sqGPpxpDoeaBna5JxW1ylKtr6jEfKiV54yw=;
+	b=OC+WzHFnniKFulwbEHmnFRgFlI0rZ/jrORXtqOSRwGd4baO4JsrRIpQasC4CQVy4Dl8c
+	 HWOlW0x9gOhoj2CYojU/0OePBHMY4hqlKkwBu4q7V6GoGA67SC59SMaUgTXQRFFS0DR37
+	 E1wh10jSeomFfc3G9sKbB9G+56wY7ftE/pr8ciyHfOC4CJmcAmcasGImhP7qstxLOqbLc
+	 VTaIkuWI/wgM5Hyy/pkiMd/ieybfCqOe6TSYupl6N1Sqqbo55fFhdNX8E67l8ddiUYNzc
+	 lr4Lya3wq9CKvZF+vj1jhfdyHT81ZvnvR/Sybwa8Etd84GUWeLoxknvFrLBxnRccwzg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pigmoral.tech;
+	spf=pass smtp.mailfrom=pigmoral.tech;
+	dkim=pass header.d=pigmoral.tech header.i=@pigmoral.tech header.a=rsa-sha256 header.s=zmail header.b=mh3ywakH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.12
+Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C051606A31C
-	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 09:15:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ABBA606A31C;
+	Sat, 28 Nov 2026 09:46:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2ABBA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bQaEGDjV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B96751F000C1;
-	Sat, 28 Nov 2026 09:15:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795857333;
-	bh=2LkjI5OfW/AcnfuRn8Nh+CH9bv/zi8GddO0OWp2WwlM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bQaEGDjVXgLY77DJDFcKNY6FEKrR1bVERqqddKt7HtsuA4KC/iCBZvMyUWzVqlFPL
-	 vfnd/Et8FVdpHlL2oQO7cinUfOl5L9dQPaAjT7zP9bThjrYQO3FLRt1+LchiSZamNa
-	 FxK7GCV+JKe6gc2ZU7pmL6kr1TbX+mPiLcuYWH4ojcBqWej50iKuGTZe0bsdKpqRQN
-	 41cDsYuYo0hQOXc7hGcX3WP6lEpk+0zyclz6CQaAMH5keye+rK8ydGRo2VkbsG81Sp
-	 E9jF0eLCex2SJhAdYaoPBwzt88y/eUkIQBabnflUwnQLi+Xm52O1/kYd25ln8ImdMb
-	 vAuni7F5jYosg==
-Message-ID: <sashiko-outbox-238578@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 7/8] of: reserved_mem: mark /reserved-memory entries
- with MEMBLOCK_NODUMP
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wandun Chen" <chenwandun1@gmail.com>, pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, robh@kernel.org, baoquan.he@linux.dev, rppt@kernel.org, m.szyprowski@samsung.com
-Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, chenhuacai@kernel.org, kernel@xen0n.name, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, saravanak@kernel.org, akpm@linux-foundation.org, pasha.tatashin@soleen.com, pratyush@kernel.org, ruirui.yang@linux.dev, robin.murphy@arm.com, ruanjinjie@huawei.com, devicetree@vger.kernel.org, kexec@lists.infradead.org, linux-mm@kvack.org, conor+dt@kernel.org
-In-Reply-To: <20261127090723.741253-8-chenwandun1@gmail.com>
-References: <20261127090723.741253-1-chenwandun1@gmail.com>
- <20261127090723.741253-8-chenwandun1@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 28 Nov 2026 09:15:31 +0000
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=@pigmoral.tech header.a=rsa-sha256 header.s=zmail header.b=mh3ywakH
+ARC-Seal: i=1; a=rsa-sha256; t=1795859137; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=MXA6S8xwgPT1pT0HqddVqnOOSk5JyP0352e6/MSGVG+1MAtzOKD5KsuJ91Fx3oibidgBPFwEwz0Drfwe6Sgp4vZd+2hm+fVTUq18q3kBYVpdps5IKl0kF5LZQJp1EWbg7MxZMqAfbYi4NR4vykcYZG5URXylFqnuLS07QFCtBmM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1795859137; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=N1Pv9e90sqGPpxpDoeaBna5JxW1ylKtr6jEfKiV54yw=; 
+	b=f5CElqCZ9I0CwSQf4paMuvYkNnHqd2zCAych16WDHYz0zSVNlKNqqYUzJfJcNBjE4cObdNREN67ku2hTut7OBjgis5H7PGC5bhNdkVfeFNF+PIVMySEokbDJf7JdYQ+TDZZV4GfJXYj4MzR3xr0xJdMocd6dmC8bPi1ls/TzKDA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: a=rsa-sha256; b=mh3ywakHBA5q8LPU08XHX+FUnPhJIBuxeVEOVI/NtpJpkJBM4WxEo8MNK9GPm3FlLTb77B6QFnRSgoh3UWq3NhabU6cJyLz6BbnO/3ZlYtGTqMGJt7uzHNv86yUrMZopxw57Cismm6Y+oKa3uvQEqtR7Fl2RfeOtjYnCvhgrx4U=; c=relaxed/relaxed; s=zmail; d=pigmoral.tech; v=1; bh=N1Pv9e90sqGPpxpDoeaBna5JxW1ylKtr6jEfKiV54yw=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1795859134420900.6792305425204;
+	Sat, 28 Nov 2026 01:45:34 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,182 +55,142 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 28 Nov 2026 17:45:15 +0800
+Message-Id: <DN6QXCF5LYQM.1F5IA58ETMXVM@pigmoral.tech>
+Cc: "Daniel Lezcano" <daniel.lezcano@kernel.org>, "Thomas Gleixner"
+ <tglx@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Yixun Lan"
+ <dlan@kernel.org>, "Inochi Amaoto" <inochiama@outlook.com>, "Radu Rendec"
+ <radu@rendec.net>, "Paul Walmsley" <pjw@kernel.org>, "Samuel Holland"
+ <samuel.holland@sifive.com>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Anup
+ Patel" <anup@brainfault.org>, "Guodong Xu" <docular.xu@gmail.com>, "Albert
+ Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
+ <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, "Conor
+ Dooley" <conor.dooley@microchip.com>, "Bo Gan" <ganboing@gmail.com>
+Subject: Re: [PATCH v3 6/6] riscv: dts: spacemit: k3: Replace incorrect
+ CLINT node with ACLINT nodes
+From: "Junhui Liu" <junhui.liu@pigmoral.tech>
+To: "Anirudh Srinivasan" <asrinivasan@oss.tenstorrent.com>, "Junhui Liu"
+ <junhui.liu@pigmoral.tech>
+X-Mailer: aerc 0.22.0
+References: <20260918-k3-aclint-v3-0-cf4fd4050e14@pigmoral.tech>
+ <20260918-k3-aclint-v3-6-cf4fd4050e14@pigmoral.tech>
+ <yf2dawzefycxhhs7zkua3v3hoirals3wtr6rheh4li33eq7r4i@yb7cem4r6x3z>
+In-Reply-To: <yf2dawzefycxhhs7zkua3v3hoirals3wtr6rheh4li33eq7r4i@yb7cem4r6x3z>
+X-ZohoMailClient: External
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] of: reserved_mem: sub-page memblock split in
-  fdt_mark_reserve_mem_nodump()
-- [Medium] of: reserved_mem: early nodump split in
-  unflatten_device_tree() before kasan
---
+Hi Anirudh,
 
-commit 47a5a6000f1f57782ed8a71e5ff4a13ee231c6bd
-Author: Wandun Chen <chenwandun@lixiang.com>
+On Fri Nov 27, 2026 at 1:27 PM CST, Anirudh Srinivasan wrote:
+> Hi Junhui,
+>
+> On Fri, Sep 18, 2026 at 12:29:38AM +0800, Junhui Liu wrote:
+>> The K3 implements separate ACLINT MSWI, MTIMER and SSWI devices. The
+>> existing CLINT node at 0xe081c000 incorrectly describes the SSWI
+>> register space in the non-secure window as a legacy CLINT.
+>>=20
+>> The ACLINT register space is mapped at two base addresses: a secure
+>> window at 0xf1810000 and a non-secure window at 0xe0810000. The
+>> secure window exposes all three components, while the non-secure
+>> window only exposes SSWI; the MSWI and MTIMER offsets are reserved
+>> there. Moreover, depending on the eFuse configuration, the non-secure
+>> window may be entirely inaccessible, whereas the secure window is
+>> always available.
+>>=20
+>> Replace the CLINT node with the three ACLINT devices, all using
+>> secure-window addresses: MSWI and MTIMER for machine-level firmware
+>> such as OpenSBI, and SSWI for supervisor software interrupts.
+>>=20
+>> Fixes: 56f37e391a62 ("riscv: dts: spacemit: add initial support for K3 S=
+oC")
+>> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+>> ---
+>>  arch/riscv/boot/dts/spacemit/k3.dtsi | 43 +++++++++++++++++++++++++----=
+-------
+>>  1 file changed, 30 insertions(+), 13 deletions(-)
+>>=20
+>> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/=
+spacemit/k3.dtsi
+>> index c3f2dce0969c..74831974435e 100644
+>> --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
+>> +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+>> @@ -1261,19 +1261,6 @@ saplic: interrupt-controller@e0804000 {
+>>  			riscv,num-sources =3D <512>;
+>>  		};
+>> =20
+>> -		clint: timer@e081c000 {
+>> -			compatible =3D "spacemit,k3-clint", "sifive,clint0";
+>> -			reg =3D <0x0 0xe081c000 0x0 0x4000>;
+>> -			interrupts-extended =3D <&cpu0_intc 3>, <&cpu0_intc 7>,
+>> -					      <&cpu1_intc 3>, <&cpu1_intc 7>,
+>> -					      <&cpu2_intc 3>, <&cpu2_intc 7>,
+>> -					      <&cpu3_intc 3>, <&cpu3_intc 7>,
+>> -					      <&cpu4_intc 3>, <&cpu4_intc 7>,
+>> -					      <&cpu5_intc 3>, <&cpu5_intc 7>,
+>> -					      <&cpu6_intc 3>, <&cpu6_intc 7>,
+>> -					      <&cpu7_intc 3>, <&cpu7_intc 7>;
+>> -		};
+>> -
+>>  		/* sec_i2c3: 0xf0614000, not available from Linux */
+>> =20
+>>  		mimsic: interrupt-controller@f1000000 {
+>> @@ -1305,5 +1292,35 @@ maplic: interrupt-controller@f1800000 {
+>>  			riscv,num-sources =3D <512>;
+>>  			status =3D "reserved";
+>>  		};
+>> +
+>> +		aclint_mswi: interrupt-controller@f1810000 {
+>> +			compatible =3D "spacemit,k3-aclint-mswi";
+>> +			reg =3D <0x0 0xf1810000 0x0 0x4000>;
+>> +			interrupts-extended =3D <&cpu0_intc 3>, <&cpu1_intc 3>,
+>> +					      <&cpu2_intc 3>, <&cpu3_intc 3>,
+>> +					      <&cpu4_intc 3>, <&cpu5_intc 3>,
+>> +					      <&cpu6_intc 3>, <&cpu7_intc 3>;
+>> +		};
+>> +
+>> +		aclint_mtimer: timer@f1814000 {
+>> +			compatible =3D "spacemit,k3-aclint-mtimer";
+>
+> I think you'll need to also include the "riscv,aclint-mtimer" compatible
+> here so that this DT can be used with upstream OpenSBI. OpenSBI doesn't
+> include the spacemit specific compatible. OpenSBI boot prints this
+> currently.
+>
+> Platform Timer Device       : --- @ 0Hz
+>
 
-of: reserved_mem: mark /reserved-memory entries with MEMBLOCK_NODUMP
+Currently, "riscv,aclint-mtimer" is not part of an upstream Linux
+binding, so I don't think we should add it to the K3 DTS yet.
 
-This commit adds fdt_mark_reserve_mem_nodump() and calls it from
-unflatten_device_tree() to mark page-clamped non-dumpable
-/reserved-memory regions with MEMBLOCK_NODUMP.
+Your colleagues at Tenstorrent proposed adding this compatible in v3
+of the Atlantis series [1], but it was dropped from v4. The v4
+changelog says that the binding will be submitted separately [2].
 
-Link: https://sashiko.dev/#/message/sashiko-outbox-181183@kernel.org [1]
+If the binding is accepted, we can then add the generic compatible
+to the K3 DTS. Otherwise, OpenSBI will need to add support for the
+K3-specific compatible.
 
-> diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-> index a58efdcbac7f1..f3a766310d119 100644
-> --- a/drivers/of/fdt.c
-> +++ b/drivers/of/fdt.c
-> @@ -1283,6 +1283,8 @@ void __init unflatten_device_tree(void)
->  {
->  	void *fdt =3D initial_boot_params;
-> =20
-> +	fdt_mark_reserve_mem_nodump();
-> +
->  	/* Populate an empty root node when bootloader doesn't provide one */
->  	if (!fdt) {
->  		fdt =3D (void *) __dtb_empty_root_begin;
+[1] https://lore.kernel.org/linux-riscv/20261109051050.105623-5-joel@jms.id=
+.au/
+[2] https://lore.kernel.org/linux-riscv/20261127061432.17306-1-joel@jms.id.=
+au/
 
-[Severity: Medium]
-Does calling fdt_mark_reserve_mem_nodump() in unflatten_device_tree()
-split memblock.memory too early for kasan_init() and kvm_hyp_reserve()?
+Best regards,
+Junhui Liu
 
-Mapped (!no-map) reserved-memory regions were previously only recorded in
-memblock.reserved, keeping memblock.memory contiguous.  Splitting
-memblock.memory with MEMBLOCK_NODUMP at PAGE_SIZE boundaries before the
-rest of setup_arch() causes for_each_mem_range() and
-for_each_mem_region() to iterate over the split ranges separately.
+>> +			reg =3D <0x0 0xf1814000 0x0 0x8000>;
+>> +			reg-names =3D "mtimecmp";
+>> +			interrupts-extended =3D <&cpu0_intc 7>, <&cpu1_intc 7>,
+>> +					      <&cpu2_intc 7>, <&cpu3_intc 7>,
+>> +					      <&cpu4_intc 7>, <&cpu5_intc 7>,
+>> +					      <&cpu6_intc 7>, <&cpu7_intc 7>;
+>> +		};
+>
+>
+> Regards
+> Anirudh Srinivasan
 
-On arm64 and loongarch, when a mapped non-dumpable region boundary is
-PAGE_SIZE-aligned but not aligned to PAGE_SIZE << KASAN_SHADOW_SCALE_SHIFT
-(e.g. 32 KiB or 64 KiB on 4 KiB pages), the two adjacent regions share a
-KASAN shadow page.  Because kasan_pte_populate() checks pte_none() only in
-its do-while loop condition after the first iteration, the second region
-allocates a duplicate shadow page, overwrites the PTE, and leaks the first
-page:
-
-arch/arm64/mm/kasan_init.c:kasan_pte_populate() {
-    ...
-	do {
-		phys_addr_t page_phys =3D early ?
-				__pa_symbol(kasan_early_shadow_page)
-					: kasan_alloc_raw_page(node);
-		if (!early)
-			memset(__va(page_phys), KASAN_SHADOW_INIT, PAGE_SIZE);
-		next =3D addr + PAGE_SIZE;
-		__set_pte(ptep, pfn_pte(__phys_to_pfn(page_phys), PAGE_KERNEL));
-	} while (ptep++, addr =3D next, addr !=3D end && pte_none(__ptep_get(ptep)=
-));
-}
-
-On riscv, splitting 16 MiB physical ranges before kasan_init() prevents
-kasan_populate_pmd() from mapping a full 2 MiB shadow PMD, falling back to
-4 KiB PTEs.  On arm64 with pKVM, splitting memblock.memory before
-bootmem_init() -> kvm_hyp_reserve() consumes extra slots in the fixed
-128-entry hyp_memory[] array and increases per-region hypervisor
-page-table and vmemmap reservations.
-
-[ ... ]
-
-> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-> index a5cd8c2fffc35..cef444d4c1a38 100644
-> --- a/drivers/of/of_reserved_mem.c
-> +++ b/drivers/of/of_reserved_mem.c
-> @@ -610,6 +610,36 @@ static void __init fdt_init_reserved_mem_node(unsign=
-ed long node, const char *un
->  	reserved_mem_count++;
->  }
-> =20
-> +void __init fdt_mark_reserve_mem_nodump(void)
-> +{
-> +	struct reserved_mem *rmem;
-> +	int i;
-> +
-> +	if (!IS_ENABLED(CONFIG_CRASH_DUMP))
-> +		return;
-> +
-> +	if (!IS_ENABLED(CONFIG_KEXEC_FILE) && !IS_ENABLED(CONFIG_CRASH_HOTPLUG))
-> +		return;
-> +
-> +	if (reserved_mem_reserve_failed)
-> +		return;
-> +
-> +	for (i =3D 0; i < reserved_mem_count; i++) {
-> +		phys_addr_t base, end;
-> +
-> +		rmem =3D &reserved_mem[i];
-> +		if (!rmem->size || rmem->dumpable)
-> +			continue;
-> +
-> +		base =3D round_up(rmem->base, PAGE_SIZE);
-> +		end =3D round_down(rmem->base + rmem->size, PAGE_SIZE);
-> +		if (base >=3D end)
-> +			continue;
-> +
-> +		memblock_mark_nodump(base, end - base);
-> +	}
-> +}
-
-[Severity: High]
-Can clamping each region to PAGE_SIZE here leave sub-page fragments in
-memblock.memory when a no-map region or an adjacent region is not
-page-aligned?
-
-During fdt_scan_reserved_mem(), no-map regions are marked with
-MEMBLOCK_NOMAP in memblock.memory at byte granularity (for example,
-cont_splash_mem in arch/arm64/boot/dts/exynos/exynos2200-g0s.dts has size
-0x9a3f80, and 4 KiB-aligned no-map regions are unaligned under 16 KiB or
-64 KiB PAGE_SIZE).  Because fdt_mark_reserve_mem_nodump() does not skip
-MEMBLOCK_NOMAP regions, calling memblock_mark_nodump(base, end - base) on
-the page-clamped interior range gives [base, end) flags
-MEMBLOCK_NOMAP | MEMBLOCK_NODUMP while leaving the unaligned head
-[rmem->base, base) and tail [end, rmem->base + rmem->size) as sub-page
-regions with only MEMBLOCK_NOMAP.
-
-Similarly, if a mapped non-dumpable region abuts an unaligned no-map
-region, clamping inward to PAGE_SIZE leaves a sub-page MEMBLOCK_NONE
-fragment between the two regions; and if two adjacent non-dumpable regions
-meet at a sub-page boundary, clamping each entry before coalescing leaves
-their shared page unmarked.
-
-On riscv, init_resources() converts every memblock.memory region
-(including MEMBLOCK_NOMAP) using PFN_UP for start and PFN_DOWN - 1 for
-end:
-
-arch/riscv/kernel/setup.c:init_resources() {
-    ...
-	for_each_mem_region(region) {
-		res =3D &mem_res[res_idx--];
-		non_resv_res++;
-
-		if (unlikely(memblock_is_nomap(region))) {
-			res->name =3D "Reserved";
-			res->flags =3D IORESOURCE_MEM | IORESOURCE_EXCLUSIVE;
-		} else {
-			res->name =3D "System RAM";
-			res->flags =3D IORESOURCE_SYSTEM_RAM | IORESOURCE_BUSY;
-		}
-
-		res->start =3D __pfn_to_phys(memblock_region_memory_base_pfn(region));
-		res->end =3D __pfn_to_phys(memblock_region_memory_end_pfn(region)) - 1;
-
-		ret =3D add_resource(&iomem_resource, res);
-		if (ret < 0)
-			goto error;
-	}
-    ...
-}
-
-Any sub-page fragment produces res->start > res->end, which fails
-add_resource() and tears down iomem_resource.  On arm64 and loongarch, a
-sub-page MEMBLOCK_NONE fragment likewise produces res->start > res->end in
-request_standard_resources() / resource_init(), and an unaligned no-map
-region split by MEMBLOCK_NODUMP is broken into multiple reserved entries
-in /proc/iomem.
-
-Since crash_should_skip_region() already skips MEMBLOCK_NOMAP regions,
-skipping no-map entries and coalescing adjacent non-dumpable ranges before
-clamping to page boundaries would avoid creating sub-page MEMBLOCK_NOMAP
-splits and unmarked shared pages.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127090723.7412=
-53-1-chenwandun1@gmail.com?part=3D7
