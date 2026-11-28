@@ -1,60 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.118
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795891262;
-	b=sm/x5fyFFEh1yklzewJharT+MtKo9JmDyTSCRr7TG5jmH4bxASRCorr10cufzlhD0MMl
-	 NUX27Sn1ODcIgzp8ENI3QbIIszmaLJUe8ubnyVuc109hDTuLOPiBqBhsCQe1d1X0QNdJn
-	 JTF8cppjNUBPqbuqHRuIeyeagiCq0l7CegqVG/rZtaMnY2e/N6ONdTZCEqEI2Kokrs2xE
-	 C3VVrPFcUoxcTjsF3WufyQA2iFuPhBsaoyk9CklM6F0QiQntLynHMqPZ/LIzlAObl2ryf
-	 E3lXhhW8jnzcSOZCZ0c4+7IuWLTC9mLW97VV7fkJ1y+u6W+cIGRMxRAP3H5zyZL2dfQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795891262;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=bD+u1GSoGUo9De3k7P6T7dy69rP9VHGiIPN7UvmwbWA=;
-	b=f7II+OGa2ve7FtiSjMrGs+E8EZIyNoJ/MdKGL6Nm+1u5nAzA5f0EQQ+8xUpvdGL2sghB
-	 8Tg/h8DHX7OYy4BgXMHm8w+JrABwDq/UMkmu+ZXES8KjI5diT9JlitKoWOcNFQJ0rBsnJ
-	 jJWI4a2aed8icK87VT4z3yCr6BM6G2Jlbn1UKKR9y3lvwpyb7EsinvaewLpmWSNPCHyZO
-	 2lohl1JZ690AIqGIbnLmDk6nXGgeeMJqcK1T6QUO6id/xf9igZjwPZ0GLJtxhmW3tQNUR
-	 OfBLxXrcp4J0eSykklcOS1aUoM1Ygr1n0ei41BBHBXgQa1LFj9Gvu1hWt3nwVQ9wFbw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=RbwgLavl;
-	arc=none smtp.remote-ip=79.135.106.118
-Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795892444;
+	b=28nUYgfKfh3Rzr7lVQmHZ10AagHglkF1SblVuEms4X4xeBa4IURCym9MBumYR7+mBbd/
+	 XztK6sA3o8VDIUvUXx+Spt8WYmFOvTTgXrCJ0ujQbvJSM3QvtGaYB0K5RT61uyxSHFn6i
+	 HsUGPtGzNzLQtjYJ4IKC8CSwlrECmLV+k4mizY2OVyGWbGCNu8IrV97ftHjMkSl9zSCPo
+	 HS2xQwu29neR/J9kXjg3B3qZYvfkYuxHTuc327/9v1m0pVvpFLSUN3ApMrrnbIhqxKqPN
+	 pHZpPaD0oVUVdVdbx2Eh7CeNAvm4VM3mrBjB7TGEZGfUI8nsayJb6NY7BcHIa60OVLw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795892444;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=SLC5bsnISpXa2recJq5ppSFtP2i8GI7OvgAQeWZDbMo=;
+	b=Nh6rOQ9il6Q1RfVo1Ue61y/9TniHtenIpSUIO7aWHhJb+gUFt6jFtCRLH0e/Wlkvsfe2
+	 QpedlA3cplV4CYxxnHso+RwBLU71/JCm3oSh+f84cDCb2jM34FI2jEzxHh45nvTMt41rc
+	 7O4vSFOdZ3yrw06NwdL5abHLb/xwxXywGQtDVaNMvsTIhcnW8lnx2nP2ECI2sBKKbmhyF
+	 59jnh51bv5w40DFNLBKuZwMf/9gYeAT1rDg/HO/Vl7OZixGvGJkF1OPrPpPJKD2gbrIfk
+	 U0NPHTayw09MO8izT6lMHtnX3kTcudQvDBWaeLPcmaW1lrhM2xYScqSBpQeILJgsQjw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M0D8RZox;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 368B5606A31C;
+	Sat, 28 Nov 2026 19:00:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M0D8RZox
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795892443;
+	b=zSGZ0GcAF6MzCvhSUiP7KG+sn37yGffwQOBoofb6hkt6saATz/cnOrDWh+5p0MleVy7K
+	 Z/Bp+3vG1Z41lU+xPPB3AZQdgzSR12VsuY8ODhrDAm3mSjAS8XhMpDDqxsNBR/Xi7tHhJ
+	 15HMe1jMPNncuIbKy7eitWAdhA23QxzorTzOdBSNh/u1kmb/oG3Fvau1vFKS7bkjrS/mM
+	 FqfYDAbS7vATFTlmMg3e5dUYR9Uiie2Y8lMG4KbM0f1iSkY20stfg8zWwvLjSa9+RJXe8
+	 OeqPdM58JY1G4z/RGwKMqAsJwxcKOBM+HG3L6yAzBpjQRCIKF86+cM7EVFvjz+xEMww==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795892443;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=SLC5bsnISpXa2recJq5ppSFtP2i8GI7OvgAQeWZDbMo=;
+	b=wQkZdY7a5P3xxbCPsYJAEKLBrbU+90FlTQkkpnFRrgQhitzBeNaE0mVszXIPSqxIE7cZ
+	 9qh1uzqO7qeX40Iapm01nv9tK6EdhQXPXxnx0gP2mTruDTsTzm/9GhRkHWJBVZHiaFTFy
+	 JQ33VZcZwQ3rEzh72bORWDRhetm/4GA+kt4PKQLlWUkacC6SqAF+X7Xe2DmGQETev4GVt
+	 rs0or+X6ixzeDD55+rrBKil1E2TKEHPxV9i1s+vM3g2nlmsL9UiOWI9sUJxbvQjMl/4Kr
+	 W4UVxN7U/UFXQfanddkRZyTNn23cnfGrneekyJ5Fy7xGjROLlzSJJWybZVpvrTH7odA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6541606A321
-	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 18:41:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6541606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=RbwgLavl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1795891258; x=1796150458;
-	bh=bD+u1GSoGUo9De3k7P6T7dy69rP9VHGiIPN7UvmwbWA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=RbwgLavlkVS0/L0ruPFWmBOTig4e8iD1a5xVR9C5+s4rIkNpIoUglBuN4u/D4flSg
-	 xIkUh1gs6nxWjsyn7GhzR9m3P3zU7om0+Hv+qdRXbxzzb/js8wWntiKOHYP4dWuY9b
-	 vcD9YFFGIABWE6vO6EmbW/GfhfuwVCsvGdWrd7mV5alaXUNop5NJJOkzmSXnSZyyTn
-	 MmHToCCZ+7B7DcaT9SISvmysFETFUu9X8trbjBGGG0RkMIS4VtzFAIOHTEY/UsRuid
-	 FDz/7HX4LJhJOHM10x08PMCyzRuLeaIeJ5j+/J07PjT2kcjNjBbi1rqXVij6TpQew5
-	 pti8+/owz7BNA==
-Date: Sat, 28 Nov 2026 18:40:46 +0000
-To: Daniel Golle <daniel@makrotopia.org>, Alastair D'Silva <alastair@d-silva.org>
-From: Norman Herms <dockseed@proton.me>
-Cc: Junhui Liu <junhui.liu@pigmoral.tech>, Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org, linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Andre Przywara <andre.przywara@arm.com>, netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, Jerome Brunet <jbrunet@baylibre.com>, Enzo Adriano <enzo.adriano.code@gmail.com>, Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-Subject: Re: [PATCH v7 7/8] clk: sunxi-ng: a733: Add bus clock gates
-Message-ID: <3226b5c8-c10b-457f-85e4-a3dc43d31d1f@proton.me>
-In-Reply-To: <awroPiqKWB6Wl7yE@makrotopia.org>
-References: <20261112-a733-clk-v7-0-db7c5451ffa2@pigmoral.tech> <20261112-a733-clk-v7-7-db7c5451ffa2@pigmoral.tech> <20261125115320.3692954-1-alastair@d-silva.org> <awroPiqKWB6Wl7yE@makrotopia.org>
-Feedback-ID: 144388465:user:proton
-X-Pm-Message-ID: d272de9c8153ee5d3cbf5de6e19d8b3b21a01606
+	by smtp.kernel.org (Postfix) with ESMTPS id 538CC1F0089C;
+	Sat, 28 Nov 2026 19:00:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795892443;
+	bh=SLC5bsnISpXa2recJq5ppSFtP2i8GI7OvgAQeWZDbMo=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=M0D8RZoxjgtINBQsDrroN9Q8PiZQtQY24KjrG3sNG6Q5KtLbNzagrsFtbi5ozI333
+	 jvTBKsWzsha1UOpKoM5dxxd66UZDjT7coWQobc03kVVXoc754iWV5BtBrToCQBQhDB
+	 sf8HtqaTcOxBth6yxqJ3qAqke2JIzub7swKMX/8PIqVuH8mnqn67tr+6tLEEEMRsL9
+	 fbtEh+zLC0jz2gyW3MN6uANTfGdV1OfcKWS7WVBCYTeClFXC/IomqOeXjbEjPhRMIm
+	 fjrfzunqV5p0ET6aV91V7OAq5ywvLgc+oGqsUPkvcYSdxgyN6QBqVDLmGj7HDiUdZ2
+	 PDbVM0b24GCbw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D8FC34E1E1;
+	Sat, 28 Nov 2026 19:00:42 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Sat, 28 Nov 2026 19:00:43 +0000
+Subject: [PATCH net-next] dt-bindings: net: sun8i-emac: Require the
+ mdio-mux node on H3 and V3s
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,37 +83,74 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261128-sun8i-emac-mux-required-v1-1-187490b1aa45@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM2wrCMBAFf6XsswsmQlv8FfEhl1NdoVFzKYHSf
+ ze2j8Mws1JCFCS6ditFLJLkHRqoU0fuacIDLL4x6bPuldIjpxJGYczG8VwqR3yLRHi22g3mMvl
+ e24Fa/YmYpO7nGwVkDqiZ7odJxb7g8n9M2/YD/vOTQYUAAAA=
+X-Change-ID: 20261128-sun8i-emac-mux-required-b2c7a3fd62b7
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795892442; l=1385;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=9uE/k+HI8ZaqDnoeVabbl4K8WHCPMxQEnlQ4YkoyXj8=;
+ b=mXnMXngTFwXiwUUyox16paN3Z0wX47wsfhaLelZoR282raRhyipPe4LSU1AmEn+lJQdd6Uk78
+ EKzD4qrSZjEAqxEZolecOTPlV2eyoz/lqpQtIzT1/TJ9lxQTrmEMbl0
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Sat, Nov 28, 2026 at 02:42:06PM +0000, Daniel Golle wrote:
-> Which masters other than GMAC0 sit behind MSI-Lite0 is not documented.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-The A733 User Manual v1.00 groups them in its memory map (chapter 2):
-under MSI_LITE0_SYS it lists GMAC0, DMAC0 and the crypto engine
-(CE_NS, CE_S, CE_KEY_SRAM), together with the MSI_LITE0 registers and
-SECURE_DEBUG_CFG.
+Commit 0569929d9799 ("dt-bindings: net: sun8i-emac: Convert the binding
+to a schemas") dropped the mdio-mux requirement for H3 and V3s, but the
+driver fails the probe without the node. Restore it.
 
-I checked this on a Radxa Cubie A7S from userspace with devmem, clearing
-one gate at a time and restoring it right after:
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+Found by Sashiko [1]. dt_binding_check is clean, dtbs_check of the in-tree
+H3/H5/V3/V3s/S3 DTBs is unchanged, and an orangepi-pc DTB without the
+node now fails. Developed with Claude (Anthropic); I reviewed it.
 
-- ahb-msi-lite0 (0x5c0 bit 16) cleared: the GMAC0 MAC_Version register
-  (0x4500110) reads 0 instead of 0x2053, and a value written to
-  CE_TDA0_NS or to the descriptor address register of an idle DMAC0
-  channel reads back as 0. With the gate set again, all three read back
-  correctly.
-- mbus-msi-lite0 (0x5e0 bit 29) or bus-msi-lite0 (0x594 bit 0) cleared:
-  register access to all three is unchanged.
+[1] https://lore.kernel.org/r/179551897695.3135.144965187993855310@kernel.org
+---
+ Documentation/devicetree/bindings/net/allwinner,sun8i-a83t-emac.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-So DMAC0 and CE need ahb-msi-lite0 for register access as well. If the
-gates go into the consumer nodes, the DMAC0 and CE nodes would have to
-list ahb-msi-lite0 too, not only GMAC0. Whether they also need
-mbus-msi-lite0 for DMA is open; I did not test DMA with that gate
-cleared.
+diff --git a/Documentation/devicetree/bindings/net/allwinner,sun8i-a83t-emac.yaml b/Documentation/devicetree/bindings/net/allwinner,sun8i-a83t-emac.yaml
+index 2cae0133b3cd..661bb5a16013 100644
+--- a/Documentation/devicetree/bindings/net/allwinner,sun8i-a83t-emac.yaml
++++ b/Documentation/devicetree/bindings/net/allwinner,sun8i-a83t-emac.yaml
+@@ -228,6 +228,9 @@ allOf:
+             - mdio-parent-bus
+             - mdio@1
+ 
++      required:
++        - mdio-mux
++
+   - if:
+       properties:
+         compatible:
 
-The board ran a 6.18 kernel whose CCU driver does not touch these gates.
+---
+base-commit: f89726ffabef1b08c52e6163b7ab94b0d5f15503
+change-id: 20261128-sun8i-emac-mux-required-b2c7a3fd62b7
 
-Measured and written up by AI agents (Claude) on my board.
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
 
-Norman
 
