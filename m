@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795889735;
-	b=N7TO0XIQ34UOS6yB6mpU39clSJ4Mv9mydOT05FjUknTfLEAyj06jyOKro9TRJ1/qW31r
-	 j4vO1qQCfC1WNIVF78Af9t8PvPCgked2s4QCD5OgA+eMgRwVvgJ41V+bbZJdBwdcwW3/c
-	 cr/ftX3pTkduN/yTuBh1vrl82jJFOmA+SAE8OJRA1d6oHnk9Rwf9QBizGbEdGjBEQO1JE
-	 QdTjTaxPWTlLNWU8GARhsR8bYv5zr3GUZUSgWJ1/YXvdpSaE9QqrYbEkvkhDV1Z7M+D7E
-	 9p8nyWopqpj3BNsss4wZkNqaa4ScJfE59tyAzKAqp4O9e5bW2zWGzUAPFBjcLIE9O3g==
+	t=1795891262;
+	b=sm/x5fyFFEh1yklzewJharT+MtKo9JmDyTSCRr7TG5jmH4bxASRCorr10cufzlhD0MMl
+	 NUX27Sn1ODcIgzp8ENI3QbIIszmaLJUe8ubnyVuc109hDTuLOPiBqBhsCQe1d1X0QNdJn
+	 JTF8cppjNUBPqbuqHRuIeyeagiCq0l7CegqVG/rZtaMnY2e/N6ONdTZCEqEI2Kokrs2xE
+	 C3VVrPFcUoxcTjsF3WufyQA2iFuPhBsaoyk9CklM6F0QiQntLynHMqPZ/LIzlAObl2ryf
+	 E3lXhhW8jnzcSOZCZ0c4+7IuWLTC9mLW97VV7fkJ1y+u6W+cIGRMxRAP3H5zyZL2dfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795889735;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=pSM3aeiQw/8czZqtCvK3zD1x5Nq1+BOHjWBBp0/0ORw=;
-	b=Ivc2GpDFGfaplvgmudvjQInIVXzU4sddROxd7AJi1Y8i4WZHo9YKBXnAxz7q/szRySFQ
-	 OqzfGMlqbpUhPZKmfISOiQ4VwhwoljL2+NgjVIVvuY+GgAdyCorEHMw6LjfVKOZOGzszy
-	 SS4IYT/yrMF16/wOllr+L8nn2Jluw6Jw7UYuyTqDC01N/QeO8Yc/z4SEPAo9e0tckBP19
-	 7OiOKK1FNxriDzZ57lkILFE+GWos7LFad6cgYtErTju+027lgeG/9zP41NrAMIFNStmvk
-	 U81Bb7Oa2nAoMYcXtqJoZFEPVrMZCwdLMC4Q9FO075xEfZKMi2EK6CbZ08DveXYl5aA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795891262;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=bD+u1GSoGUo9De3k7P6T7dy69rP9VHGiIPN7UvmwbWA=;
+	b=f7II+OGa2ve7FtiSjMrGs+E8EZIyNoJ/MdKGL6Nm+1u5nAzA5f0EQQ+8xUpvdGL2sghB
+	 8Tg/h8DHX7OYy4BgXMHm8w+JrABwDq/UMkmu+ZXES8KjI5diT9JlitKoWOcNFQJ0rBsnJ
+	 jJWI4a2aed8icK87VT4z3yCr6BM6G2Jlbn1UKKR9y3lvwpyb7EsinvaewLpmWSNPCHyZO
+	 2lohl1JZ690AIqGIbnLmDk6nXGgeeMJqcK1T6QUO6id/xf9igZjwPZ0GLJtxhmW3tQNUR
+	 OfBLxXrcp4J0eSykklcOS1aUoM1Ygr1n0ei41BBHBXgQa1LFj9Gvu1hWt3nwVQ9wFbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hHpVHWKh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=RbwgLavl;
+	arc=none smtp.remote-ip=79.135.106.118
+Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E928606A321
-	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 18:15:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6541606A321
+	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 18:41:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6541606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hHpVHWKh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA3D51F00893;
-	Sat, 28 Nov 2026 18:15:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795889735;
-	bh=pSM3aeiQw/8czZqtCvK3zD1x5Nq1+BOHjWBBp0/0ORw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hHpVHWKhc9540g4G5OFsp4Df4RhK9rpVL/ZmHJ1HUL4kvYXb+UJL6re5wXo+02kYR
-	 ZqfGxrDjVTESUzpSLGzuRXY6qpk35WFuBK/YMc449xhT3Wgl473dVQ9YAKoEE96qyY
-	 6SfFHGx+RO0+6YLp41kNgyYlLxj1yMQ2VKPJPo8kWhFsslF6N+U2Qg9BB0XgU6sIVO
-	 owhmN+o6rfm63bfZNGMFgJKXfxK4Q1O9xVTMEO1uaVH+9iQkv/OuY71/QRxvc3UX3J
-	 1ZD55MXOPOloTzBTPlChPSUJSNY9gTaj+8/NeBlmw1mUz9cAZStJDUQIIZ8P0aOLq9
-	 g9CacL0raKGKA==
-Message-ID: <sashiko-outbox-238949@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next 2/3] net: pcs: rzn1-miic: Add resets to rzn1
- info structure
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kyle Hendry" <khendry@reliablecontrols.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20261127-miic-reset-consumer-v1-2-3cab78b94e23@reliablecontrols.com>
-References: <20261127-miic-reset-consumer-v1-0-3cab78b94e23@reliablecontrols.com>
- <20261127-miic-reset-consumer-v1-2-3cab78b94e23@reliablecontrols.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 28 Nov 2026 18:15:34 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=RbwgLavl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1795891258; x=1796150458;
+	bh=bD+u1GSoGUo9De3k7P6T7dy69rP9VHGiIPN7UvmwbWA=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=RbwgLavlkVS0/L0ruPFWmBOTig4e8iD1a5xVR9C5+s4rIkNpIoUglBuN4u/D4flSg
+	 xIkUh1gs6nxWjsyn7GhzR9m3P3zU7om0+Hv+qdRXbxzzb/js8wWntiKOHYP4dWuY9b
+	 vcD9YFFGIABWE6vO6EmbW/GfhfuwVCsvGdWrd7mV5alaXUNop5NJJOkzmSXnSZyyTn
+	 MmHToCCZ+7B7DcaT9SISvmysFETFUu9X8trbjBGGG0RkMIS4VtzFAIOHTEY/UsRuid
+	 FDz/7HX4LJhJOHM10x08PMCyzRuLeaIeJ5j+/J07PjT2kcjNjBbi1rqXVij6TpQew5
+	 pti8+/owz7BNA==
+Date: Sat, 28 Nov 2026 18:40:46 +0000
+To: Daniel Golle <daniel@makrotopia.org>, Alastair D'Silva <alastair@d-silva.org>
+From: Norman Herms <dockseed@proton.me>
+Cc: Junhui Liu <junhui.liu@pigmoral.tech>, Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org, linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Andre Przywara <andre.przywara@arm.com>, netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, Jerome Brunet <jbrunet@baylibre.com>, Enzo Adriano <enzo.adriano.code@gmail.com>, Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+Subject: Re: [PATCH v7 7/8] clk: sunxi-ng: a733: Add bus clock gates
+Message-ID: <3226b5c8-c10b-457f-85e4-a3dc43d31d1f@proton.me>
+In-Reply-To: <awroPiqKWB6Wl7yE@makrotopia.org>
+References: <20261112-a733-clk-v7-0-db7c5451ffa2@pigmoral.tech> <20261112-a733-clk-v7-7-db7c5451ffa2@pigmoral.tech> <20261125115320.3692954-1-alastair@d-silva.org> <awroPiqKWB6Wl7yE@makrotopia.org>
+Feedback-ID: 144388465:user:proton
+X-Pm-Message-ID: d272de9c8153ee5d3cbf5de6e19d8b3b21a01606
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,77 +63,38 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] net: pcs: rzn1-miic: miic_reset_control_init() fails on
-  existing RZ/N1 DTBs
---
+On Sat, Nov 28, 2026 at 02:42:06PM +0000, Daniel Golle wrote:
+> Which masters other than GMAC0 sit behind MSI-Lite0 is not documented.
 
-commit 3902b143c1e8eed13da6131cc0c93499f17b4052
-Author: Kyle Hendry <khendry@reliablecontrols.com>
+The A733 User Manual v1.00 groups them in its memory map (chapter 2):
+under MSI_LITE0_SYS it lists GMAC0, DMAC0 and the crypto engine
+(CE_NS, CE_S, CE_KEY_SRAM), together with the MSI_LITE0 registers and
+SECURE_DEBUG_CFG.
 
-net: pcs: rzn1-miic: Add resets to rzn1 info structure
+I checked this on a Radxa Cubie A7S from userspace with devmem, clearing
+one gate at a time and restoring it right after:
 
-This commit populates the rst_ts and rst_miic reset IDs in
-rzn1_miic_of_data so the driver acquires and deasserts the resets for
-RZ/N1 MIIC.
+- ahb-msi-lite0 (0x5c0 bit 16) cleared: the GMAC0 MAC_Version register
+  (0x4500110) reads 0 instead of 0x2053, and a value written to
+  CE_TDA0_NS or to the descriptor address register of an idle DMAC0
+  channel reads back as 0. With the gate set again, all three read back
+  correctly.
+- mbus-msi-lite0 (0x5e0 bit 29) or bus-msi-lite0 (0x594 bit 0) cleared:
+  register access to all three is unchanged.
 
-> diff --git a/drivers/net/pcs/pcs-rzn1-miic.c b/drivers/net/pcs/pcs-rzn1-m=
-iic.c
-> index 682a73cf5a87d..3c4eca8960bd9 100644
-> --- a/drivers/net/pcs/pcs-rzn1-miic.c
-> +++ b/drivers/net/pcs/pcs-rzn1-miic.c
-> @@ -128,6 +128,11 @@ static const char * const index_to_string[] =3D {
->  	"CONV5",
->  };
-> =20
-> +static const char * const rzn1_reset_ids[] =3D {
-> +	"rst_ts",
-> +	"rst_miic",
-> +};
-> +
->  static struct modctrl_match rzt2h_modctrl_match_table[] =3D {
->  	{0x0, {ETHSS_GMAC0_PORT, ETHSS_ETHSW_PORT0, ETHSS_ETHSW_PORT1,
->  	       ETHSS_ETHSW_PORT2, ETHSS_GMAC1_PORT}},
-> @@ -855,6 +860,8 @@ static struct miic_of_data rzn1_miic_of_data =3D {
->  	.miic_port_start =3D 1,
->  	.miic_port_last =3D 5,
->  	.sw_mode_mask =3D GENMASK(4, 0),
-> +	.reset_ids =3D rzn1_reset_ids,
-> +	.reset_count =3D ARRAY_SIZE(rzn1_reset_ids),
->  	.init_unlock_lock_regs =3D true,
->  	.miic_write =3D miic_reg_writel_unlocked,
->  	.type =3D MIIC_TYPE_RZN1,
+So DMAC0 and CE need ahb-msi-lite0 for register access as well. If the
+gates go into the consumer nodes, the DMAC0 and CE nodes would have to
+list ahb-msi-lite0 too, not only GMAC0. Whether they also need
+mbus-msi-lite0 for DMA is open; I did not test DMA with that gate
+cleared.
 
-[Severity: High]
-Does setting reset_count in rzn1_miic_of_data cause miic_probe() to fail
-with -ENOENT on existing RZ/N1 device trees that do not have resets and
-reset-names properties?
+The board ran a 6.18 kernel whose CCU driver does not touch these gates.
 
-miic_reset_control_init() uses non-optional
-devm_reset_control_bulk_get_exclusive():
+Measured and written up by AI agents (Claude) on my board.
 
-drivers/net/pcs/pcs-rzn1-miic.c:miic_reset_control_init() {
-	...
-	ret =3D devm_reset_control_bulk_get_exclusive(dev, of_data->reset_count,
-						    miic->rsts);
-	if (ret)
-		return dev_err_probe(dev, ret,
-				     "failed to get bulk reset lines\n");
-	...
-}
+Norman
 
-Existing RZ/N1 DTBs (and arch/arm/boot/dts/renesas/r9a06g032.dtsi prior to
-commit "ARM: dts: renesas: r9a06g032: Add resets to mii converter" later
-in this series) omit these properties on the eth-miic node, so
-miic_probe() fails before calling platform_set_drvdata() and leaves
-consumers such as dwmac-rzn1 and rzn1_a5psw stuck on -EPROBE_DEFER.
-
-Acquiring the resets as optional (e.g. via
-devm_reset_control_bulk_get_optional_exclusive()) would preserve backward
-compatibility with existing RZ/N1 device trees.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127-miic-reset=
--consumer-v1-0-3cab78b94e23@reliablecontrols.com?part=3D2
