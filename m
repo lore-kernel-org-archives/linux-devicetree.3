@@ -1,68 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795859432;
-	b=i9GTW/0Zi7429DKn+J+hn2Z1d/HQEZt5tGaCtrjzDPe/CZmnX3oPHxkMreFBifZekLed
-	 HNmqnrlz/uQ/nEY+T/z/ayUMRRkWse5UJ+d3xQbeTa0oqETeu4/jP42J3ceUU7l0RTQTx
-	 whnviHVEw0WieMC1Z3wuaIbm7sm24ZGCJEprdfaF65mI9L3FAu7TBfNwH/R3Bq/PPw8iG
-	 Ymp0kD2+rK7BGofLBD94GdL0ZTE77jcLlN4FosxbqmK62UQEUzQzjylUOXFPX8Qgi2iqR
-	 hxfkdFuSOhtlllaF0Zon5HdvporCrIPIAmETVKSF+BwEA+tOsDrk3d6Yy8cgy8lXybQ==
+	t=1795859434;
+	b=2OvqT2mwGXNZRMVmLdIUyZljPSY9n0f5QGkBOcctQ7m0XU0rsj/W0uCPHd5QXzCqTirZ
+	 pCx9TDY+Uf0/poWa3Fpk9IkBG6KbQ9RnY9EsudaOjgXmxcykfNXndpE+0hoMuVDT/DQEo
+	 51eiJ+qGfEEHGP/IlQHqOM8zaBs/py2qOfZCrmq0CeXC0dU6Rt/MgcDpsLAB/pAGnrbgw
+	 u7OBvEV8VHqtDXWt/Rx6MNoqDb095wGA6z3/Ar1wE+EbAiammsfFfbbuNzLiPCOI6DYdb
+	 ZOgyjFd2p6n9tBn9gAg13ZV2OdIaQzv7vCNSGXUwOFyamkSlqsb8qOv5GpSr8ddNRDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795859432;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795859434;
 	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
 	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
 	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
 	 Content-Type:X-MTK;
-	bh=baUYHR5wTu52eu3mVvRNk5AgjTdw7T9iomS5gMvEAog=;
-	b=4AHY0iMiQXOH75pHtJgjH5M/0a36jgWemoRAkwr7P8f0N88S+yD4lRTehEYGGsrXsRzB
-	 v0CwLUDcBd3YOL3YJZ+8WWAfhccOEkioXWyqc2MCjJP9wsTgGzpc39LU6+AcNtCSQPj5n
-	 H2E07wX7qbjkcuFAN2lpIvw5p1XPTN+R7NOKA4kY9Lkz3aDzI0zAYA3P9MH69eJzz4tSC
-	 EEzwiryxurk5AkEqPhnmhyYYw/brx9WRSywnMIkEmhOD/qG1+OjiPlpgnmYHKUXmujp81
-	 UWpD3jJNMTbUj5vtlc9fqKVgFA7WtabNejhEHLhnonM00VZzjlxzPfjg64R0d9k52kA==
+	bh=xq0pQEEgy5ghOEfn5TkppoZ1H8yF9gGw1x6rHra5UdM=;
+	b=iKy/W8aaI288tfibTvPq2u6zWL8zKQBXJHrLBQdAVm2T1tYS4ftpCSTHOdB9WnyMZ6aD
+	 hdRyDb70sR6qaqmvJPE3WpJu7UR2CV+Z4HmEQ5YWrcVw+m/uZxFHBcITR4212hGwSJDKT
+	 SB3kBATBzfcOC5bg3+CpHDfB7Z+djuT/0oU7H71lR3l9CU4GWXfnGxZsog5IkdKCpfdwO
+	 boaUq4T5uL8+XojZwvdKQbpjIVlOl6SItpOsGDSkn/kdXL9woDFgWliieYFHwql/AN4Zj
+	 9eM+cEe4QnMnvt7Jvw7ih3fSDtAXZmGhELlkBB/NkJA49KoCXmQe0Cwzgq0+dl+X+sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mediatek.com;
 	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=Xtikojin;
+	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=BIntIrqX;
 	arc=none smtp.remote-ip=210.61.82.184
 Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB58F606A688;
-	Sat, 28 Nov 2026 09:50:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB58F606A688
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A3E0606A6A7;
+	Sat, 28 Nov 2026 09:50:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A3E0606A6A7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=Xtikojin
-X-UUID: 23b4e6baeb1111f1a7aecdb2598be72c-20261128
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=BIntIrqX
+X-UUID: 260db428eb1111f1a7aecdb2598be72c-20261128
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=baUYHR5wTu52eu3mVvRNk5AgjTdw7T9iomS5gMvEAog=;
-	b=XtikojinhkSUPQPMXplvmEMVxnL9IYNYkq1miHXcdlgXwXHD08fcQ3way8P9NTl0tqBd3HR2Ll4m0O3mum45YxcZ+GTbJ16oHeccjeqI2yM+oikbQaGi/+Pac0q1ADMfyR8fXEx+G6y5s/a3NlPPRtRGZGElfK9aRlGj6Spbjt0=;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=xq0pQEEgy5ghOEfn5TkppoZ1H8yF9gGw1x6rHra5UdM=;
+	b=BIntIrqXEjBIgB3AcauwYuXcmFUdTtwb6psRVm9t22tmx7QA+Xw7yFcULh8XEa4pGDO9iR1gZfhnEVF/1Ojbuq1rek57DhHSBafXQ6b6SU2Me2vVp7ujx7vPG0P6lw6rcJRPxWmToT40kqZa/2Tvb87Iy3gxKiA6h/YSTfepQRw=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:2b1d88eb-e552-4b7f-9f1f-d5f7e1ad9f98,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:b0318ac,CLOUDID:3f912d1a-ae4c-4a2b-b1c4-72e411efd0c9,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|136|836|865|888|898,TC:-5,Content:0|
-	15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,CO
-	L:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-O-INFO: VERSION:1.3.21,REQID:18651599-9f42-4052-a624-5b4d2c9c603d,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:b0318ac,CLOUDID:69912d1a-ae4c-4a2b-b1c4-72e411efd0c9,B
+	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
+	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
+	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 23b4e6baeb1111f1a7aecdb2598be72c-20261128
-Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by mailgw02.mediatek.com
+X-UUID: 260db428eb1111f1a7aecdb2598be72c-20261128
+Received: from mtkmbs09n2.mediatek.inc [(172.21.101.94)] by mailgw02.mediatek.com
 	(envelope-from <kyrie.wu@mediatek.com>)
 	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1064624419; Sat, 28 Nov 2026 17:50:27 +0800
+	with ESMTP id 753564794; Sat, 28 Nov 2026 17:50:31 +0800
 Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Sat, 28 Nov 2026 17:50:25 +0800
+ 15.2.2562.56; Sat, 28 Nov 2026 17:50:29 +0800
 Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
  mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.56 via Frontend Transport; Sat, 28 Nov 2026 17:50:24 +0800
+ 15.2.2562.56 via Frontend Transport; Sat, 28 Nov 2026 17:50:28 +0800
 From: Kyrie Wu <kyrie.wu@mediatek.com>
 To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
 	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
@@ -78,9 +78,9 @@ To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
 	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
 CC: Neil Armstrong <neil.armstrong@linaro.org>, Andrzej Pietrasiewicz
 	<andrzejtp2010@gmail.com>, Yilong Zhou <yilong.zhou@mediatek.com>
-Subject: [PATCH v13 07/10] media: mediatek: vcodec: add decoder compatible to support MT8189
-Date: Sat, 28 Nov 2026 17:50:11 +0800
-Message-ID: <20261128095014.3128536-8-kyrie.wu@mediatek.com>
+Subject: [PATCH v13 10/10] media: mediatek: encoder: Add MT8189 encoder compatible data
+Date: Sat, 28 Nov 2026 17:50:14 +0800
+Message-ID: <20261128095014.3128536-11-kyrie.wu@mediatek.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261128095014.3128536-1-kyrie.wu@mediatek.com>
 References: <20261128095014.3128536-1-kyrie.wu@mediatek.com>
@@ -97,73 +97,49 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-MTK: N
 
-MT8189 is pure single core architecture. Add its compatible to
-initialize platform data.
+add MT8189 compatible data to initialize platform data for encoder.
 
 Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
 Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- .../mediatek/vcodec/decoder/mtk_vcodec_dec.h  |  1 +
- .../vcodec/decoder/mtk_vcodec_dec_drv.c       |  4 ++++
- .../vcodec/decoder/mtk_vcodec_dec_stateless.c | 21 +++++++++++++++++++
- 3 files changed, 26 insertions(+)
+ .../vcodec/encoder/mtk_vcodec_enc_drv.c         | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.h b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.h
-index 80cb46f1c..2bde871c0 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.h
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.h
-@@ -71,6 +71,7 @@ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8173_pdata;
- extern const struct mtk_vcodec_dec_pdata mtk_vdec_8183_pdata;
- extern const struct mtk_vcodec_dec_pdata mtk_vdec_8186_pdata;
- extern const struct mtk_vcodec_dec_pdata mtk_vdec_8188_pdata;
-+extern const struct mtk_vcodec_dec_pdata mtk_vdec_8189_pdata;
- extern const struct mtk_vcodec_dec_pdata mtk_vdec_8192_pdata;
- extern const struct mtk_vcodec_dec_pdata mtk_vdec_8195_pdata;
- extern const struct mtk_vcodec_dec_pdata mtk_vdec_8196_pdata;
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-index b8f19c481..a052f4d95 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-@@ -540,6 +540,10 @@ static const struct of_device_id mtk_vcodec_match[] = {
- 		.compatible = "mediatek,mt8196-vcodec-dec",
- 		.data = &mtk_vdec_8196_pdata,
- 	},
-+	{
-+		.compatible = "mediatek,mt8189-vcodec-dec",
-+		.data = &mtk_vdec_8189_pdata,
-+	},
- 	{},
+diff --git a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
+index 8106a63f8..05795e77d 100644
+--- a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
++++ b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
+@@ -483,6 +483,22 @@ static const struct mtk_vcodec_enc_pdata mt8196_pdata = {
+ 	.ipi_id = VCP_IPI_ENCODER,
  };
  
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateless.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateless.c
-index 7702c596d..10f9d5bfb 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateless.c
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateless.c
-@@ -1053,3 +1053,24 @@ const struct mtk_vcodec_dec_pdata mtk_vdec_8186_pdata = {
- 		.prob_size = VP9_PROB_BUF_SIZE,
- 	},
- };
-+
-+const struct mtk_vcodec_dec_pdata mtk_vdec_8189_pdata = {
-+	MTK_STATELESS_DEC_DATA,
-+	.hw_arch = MTK_VDEC_PURE_SINGLE_CORE,
++static const struct mtk_vcodec_enc_pdata mt8189_pdata = {
++	.venc_model_num = 8189,
++	.capture_formats = mtk_video_formats_capture_h264,
++	.num_capture_formats = ARRAY_SIZE(mtk_video_formats_capture_h264),
++	.output_formats = mtk_video_formats_output,
++	.num_output_formats = ARRAY_SIZE(mtk_video_formats_output),
++	.min_bitrate = 64,
++	.max_bitrate = 100000000,
++	.core_id = VENC_SYS,
++	.uses_common_fw_iface = true,
++	.set_dma_bit_mask = true,
 +	.fw_type = SCP,
 +	.fw_init = mtk_vcodec_fw_scp_init,
-+	.chip_model = 8189,
-+	.h264_params = {
-+		.level = V4L2_MPEG_VIDEO_H264_LEVEL_5_2,
-+		.profile = V4L2_MPEG_VIDEO_H264_PROFILE_HIGH_10,
-+	},
-+	.h265_params = {
-+		.level = V4L2_MPEG_VIDEO_HEVC_LEVEL_4,
-+		.profile = V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_STILL_PICTURE,
-+	},
-+	.vp9_params = {
-+		.level = V4L2_MPEG_VIDEO_VP9_LEVEL_5_2,
-+		.profile = V4L2_MPEG_VIDEO_VP9_PROFILE_2,
-+		.prob_size = VP9_4K_PROB_BUF_SIZE,
-+	},
++	.ipi_id = SCP_IPI_VENC_H264,
 +};
++
+ static const struct of_device_id mtk_vcodec_enc_match[] = {
+ 	{.compatible = "mediatek,mt8173-vcodec-enc",
+ 			.data = &mt8173_avc_pdata},
+@@ -493,6 +509,7 @@ static const struct of_device_id mtk_vcodec_enc_match[] = {
+ 	{.compatible = "mediatek,mt8192-vcodec-enc", .data = &mt8192_pdata},
+ 	{.compatible = "mediatek,mt8195-vcodec-enc", .data = &mt8195_pdata},
+ 	{.compatible = "mediatek,mt8196-vcodec-enc", .data = &mt8196_pdata},
++	{.compatible = "mediatek,mt8189-vcodec-enc", .data = &mt8189_pdata},
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(of, mtk_vcodec_enc_match);
 -- 
 2.51.0.windows.2
 
