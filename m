@@ -1,67 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795884847;
-	b=xA05BUu30/4NOd0HJCasYFj+FX4P2J9qsTnh9i5uJDvRYCR7UGTfruK3NIWqgE7r61XA
-	 fHRPnxHIUPaFsrkkO1WJgkep6g7HMvRRaAD2L30u1wDb9oQMNJlz17glsPD5bB/pZqT33
-	 jW2PMgrBbNfQXk2GOdYnY/n5TAbveoDyJwY/IHgvf/wOTgz+tnspZJdyYh7b0kmAKJUs8
-	 a6GdC6b54cLBBdlTa8Vkl84fyaq15lQV7FV8ihq2Ss6zz4k7dFSyVsCiHkjcuYA7jTf5K
-	 JrS2GN9apy42m2UyEzazB+vHlxQnJEzCBUWBYrPFiQ3xp+bYrr+VDyuRK+c6dFbcwUw==
+	t=1795885992;
+	b=SabydkX/RREio841fZPrCDL7iyiAnSOInjBaO0Am4niWPIz+TL5UzhAzWVr19Witj9bk
+	 0/VAMNHK/yDXCI9GY0VuIK4NkL97nq9Qi5AWg4Jyz92TF85TF7mY9D44Zs6XM38f9a/Re
+	 j2wUbvkgIw6XjDOKM3pCJT/SjDEIdZRsjcEF8lhLqi6fCbOf+kM+CHvVVhAsl5Dzj7b9W
+	 5k6mcarsCxUKS02y3yeVjrpRfHZCnkNbd1ghQpZL7WiMLugqsa23sbO7MxVHRhG4H+Ryx
+	 vw5CU60PuLmVSWsJpl7GOd430RlfwTtUDJBc6lEblM3Q/5nV3f+xVsSGm95EZ/Ijejw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795884847;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=8It8RVjGfp/NpAy2/y5u9GfJHtUMavZffPYM2+kcgLA=;
-	b=2Kw7zEFFJaP4xyr6b4XgaIKwmHIhRytapXNH/9IJC0PQGippudxdxK9hvsPiDdHO0Mnw
-	 i0WKBV9U7INW7beWS4rgcThja5S3XqKXj7aiORU5Ufm1kjhmoqWPJOJzzZCagvlioaDey
-	 CXffM8Tlp89ZAiEBzZe/eBVaVpzkM1Nqx/hFzWxSUpPhSwqr3GRByqoGawPDv0pVbO8Of
-	 1yjCyzcxeqRl6C/l7sOE/bZgS9yxeHHTDO7LlFqfjxjoQbTn1w0SomgcAKN+2x4I/SirN
-	 vBW8SaR/apvJ/fdjZwfl+h4LE+JBSl557SYe3qjZS3NFTzQ1rbxcBzG3YM1wm9PqlBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795885992;
+	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
+	 X-UI-Sender-Class:Received:Date:From:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:MIME-Version:Content-Type:X-Provags-ID:
+	 X-Spam-Flag:UI-OutboundReport:Content-Transfer-Encoding;
+	bh=nyqQ2Y/k18evWZARIY0Q+QkN2dTBXvw9o30YUZVkXbU=;
+	b=bRts9CIpxeLavr9D0VSe6EH3UCF1FbRPNZwlpWh9K1o+wl4gLw5Py0uYafTc81yKtbxu
+	 SkuQyQfzlO6DdyJX8Q6OwsJ+O3X5k/1+1bvZnHiLewXPTnr0OwC8uo55CCDN7N/yNunc3
+	 VTa4Z6okSr4EGYQZ1jylpAoCCZm3+OYL+4YRB2VFS8nt8PT0cNW/11U4JgZulZ1h0y3Ky
+	 nmRUdKil0oiX6ae3gykXIYWJsTzK9EnylmMfC00CFOmYG0NP5R50UDR/uKB/m3BNChnIk
+	 /qHXEZoXt2DJmFqePDUT6ZsLBKPN8MgoJKvwDEYYJX/ZeOTqE1S45+S/BF1PwX7aoxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=Saigpd4N;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dmarc=pass header.from=gmx.de;
+	spf=pass smtp.mailfrom=gmx.de;
+	dkim=pass header.d=gmx.de header.i=marvin24@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b="dG3s/0f2";
+	arc=none smtp.remote-ip=212.227.17.21
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90779606A321;
-	Sat, 28 Nov 2026 16:54:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90779606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B7A606A321
+	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 17:13:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6B7A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=Saigpd4N
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=8It8RVjGfp/NpAy2/y5u9GfJHtUMavZffPYM2+kcgLA=; b=Saigpd4NakftRHygrXo8G2CZJK
-	hyTr3J0QPjjQmiZInyiV3CSZdW5Ga7iZyuDIXsx9uxEnewNRj9G1aKDWUCm0ixFSlRYwMZNIsc8y+
-	+21u/60VmXDDPK1SAVzdCKJvdKMrjSx7Q9sH4weWc838R1pDRTLbQdcsiiYuzr2eOKvo=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xXLgV-0020eN-NH; Sat, 28 Nov 2026 17:53:59 +0100
-Date: Sat, 28 Nov 2026 17:53:59 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: filipp.dunsky@gmail.com
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Andrew Lunn <andrew+netdev@lunn.ch>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v4 2/3] net: mdio: Add Cortina CS7542 bus
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=marvin24@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=dG3s/0f2
+DKIM2-Signature:  i=1; m=1; t=1795885989;
+ mf=PG1hcnZpbjI0QGdteC5kZT4=;
+ rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+ d=gmx.de;
+ s=s31663417:rsa-sha256:FAo1zZQlbzRgsvBYDrd+wGLiOR1G
+   2Mbf+e/+NrIVOQwmbAsbUNIdccnxwUQnv3kIrI2zecqTftUwFzdy5HXUithhTQyZe6wxWxU7sFt
+   mv+BrmOP4f7rbn7WN3lQp66PjTfLj9N/RjHDOw+gfrGFKZfv1JU3HqSY9vVcQVLwdpAlw716BU+
+   3M1pByQRKJVR5KRt7gNXdpbkb+Mw7FdZfoi24hwlVcKH2nGsVT36e/prhDuoEiDU8/bZOTGJMiJ
+   Zg3FPei6aZzFDCQLF2LqHCzOLtL3m6OV4MwUgZi9W3mwzeanM5heMbsc0LLQl0T0wi9zQGgEwNl
+   JQhSDe9+5Kjbmw==;
+Message-Instance:  m=1;
+ h=sha256:
+   7n6LCFWlvWowSn31u/xAmmLza30YrGkPNBKQGJKmeRc=:
+   iGeAfQkMA4wKqAYmxQ100NyUILhLcVRGFK0jajLnPN8=,
+  sha512:
+   skfNWw3y31tSwD8NjBAjt5UxK6fS1HA1mqXaT1dfCbiIKCUcF/No4DGtmFym6PSroVCRdK7YYM0R0JfiW8KlHw==:
+   zi1KuIdaEc9d1KlEiSBbvhf4h9aYHINcA6NdjD/spJcJ1ipXgYUIMTE9+BYdtmXOHMC8+Sl/an1E9b41+AQgMw==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1795885989; x=1796490789; i=marvin24@gmx.de;
+	bh=nyqQ2Y/k18evWZARIY0Q+QkN2dTBXvw9o30YUZVkXbU=;
+	h=X-UI-Sender-Class:Date:From:To:cc:Subject:In-Reply-To:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=dG3s/0f21MRuhaLfqMrNIDbeIdi2ATEWS+dJXGscfoe3xFrrZk7alnT5pDh1yX1f
+	 Bi8QwU13Z/Wva7vsuwQGuHX0oZdErowsZFWGGa76A9HzXK01mcZWK0d8vMR/Tf6WW
+	 VDEqd2VBtgPAP48IBOTvT1jJTBTmqGAXH+JPsWk2xalnGlZ1Yz7zfWrZmQGYIQIyi
+	 s6KUYkGcn+wdcGK/AKerKfTiwbUuhFn6ptB+o9fdjwBkbB1KrIOnln0Uht/WvUBP2
+	 8UxVnUzmLpYAuHOw9TgC2nGnr9ofjd+yBR7PBjj01tyGu+JDp1PY8anBbX/41V2jv
+	 RvqUSPusF5QMea9B8w==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1N6KYb-1yZ7e82RJ3-010UuS; Sat, 28
+ Nov 2026 18:13:09 +0100
+Date: Sat, 28 Nov 2026 18:13:08 +0100 (CET)
+From: Marc Dietrich <marvin24@gmx.de>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+cc: linux-tegra@vger.kernel.org, devicetree@vger.kernel.org, 
+    linux-i2c@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+    Thierry Reding <thierry.reding@kernel.org>, 
+    Jonathan Hunter <jonathanh@nvidia.com>, 
+    =?ISO-8859-15?Q?Uwe_Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: i2c: Add Tegra20 I2C target
  controller
-Message-ID: <8b0db660-4dc5-4533-afa2-d708d22dfc44@lunn.ch>
-References: <20261127-b4-cs7542-mdio-v4-0-0e37fc0c47d5@gmail.com>
- <20261127-b4-cs7542-mdio-v4-2-0e37fc0c47d5@gmail.com>
+In-Reply-To: <20261123-normal-resourceful-cockatoo-acdd68@quoll>
+Message-ID: <3995cf20-63e1-969a-02fd-2a9d573012fc@gmx.de>
+References: <20261115204522.360063-1-marvin24@gmx.de> <20261115204522.360063-2-marvin24@gmx.de> <20261123-normal-resourceful-cockatoo-acdd68@quoll>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,29 +92,166 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261127-b4-cs7542-mdio-v4-2-0e37fc0c47d5@gmail.com>
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+X-Provags-ID: V03:K1:JqfVUC3G/j/kSA0s1gRF3NdF82QCXxVgR9eNPfx83StiWJngjPZ
+ GCM1Bgc2Kbj01tBiA72K01s84yVv2qoMxcYiUqjliWk/vwMDPRJuteOb9C8NVHbcSXhqy56
+ 6+eJuHhtVyVKhBiJT6iYXfvYMwjDUDyDjjnhxPxEpok+PGDfLJvdLsUoofbAOZJ7HSIo6/7
+ v1WG/ViPBrHQSPPVmB1pw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:NLfKRUtIebs=;rqoV38ErgR3HFzdW6iHOKJFna5X
+ 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
+ mf0QRvWhBDZwuU/aIHurjeMxv6k8d79Fbh
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 27, 2026 at 01:14:23PM +0300, Fil Dunsky via B4 Relay wrote:
-> From: Fil Dunsky <filipp.dunsky@gmail.com>
-> 
-> Support Clause 22 reads and writes through the CS7542 management
-> interface. Retain the firmware-configured prescaler and unrelated
-> configuration bits while enabling manual operation.
-> 
-> Use sleepable polling for the bounded wait in the MDIO bus callbacks.
-> Report timeout errors directly without tracking a pending transaction.
-> Use managed bus allocation and registration to cover probe failures
-> and removal.
-> 
-> Acquire and enable the required APB input before accessing registers,
-> and retain it for the lifetime of the registered bus. Managed bus teardown
-> runs before the managed clock is disabled. The firmware MDC prescaler is
-> preserved; no clock-rate or divisor programming is introduced.
-> 
-> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+Hello Krzysztof,
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+On Mon, 23 Nov 2026, Krzysztof Kozlowski wrote:
 
-    Andrew
+> On Sun, Nov 15, 2026 at 09:45:21PM +0100, Marc Dietrich wrote:
+>> +      - description: Tegra20 has 3 instances of a generic I2C controll=
+er.
+>> +          It supports controller and target mode of I2C communication.
+>> +          The i2c-tegra driver only supports master mode of I2C commun=
+ication.
+>> +          Driver of I2C controller is only compatible with "nvidia,teg=
+ra20-i2c".
+>>          const: nvidia,tegra20-i2c
+>> +      - description: The i2c-tegra-target driver supports the target m=
+ode of
+>> +          the generic Tegra20 I2C controller. Driver of the I2C target
+>> +          controller is only compatible with "nvidia,tegra20-i2c-targe=
+t".
+>> +        const: nvidia,tegra20-i2c-target
+>
+> This looks like the same device as nvidia,tegra20-i2c. Plaese document
+> hardware differences on the SoC. I see no DTS in the patchset, so not
+> sure if you are duplicating hardware or adding new instances.
+
+thanks for review. From the TRM it looks like the target controller=20
+is a separate hardware block inside the "I2C Controller". It shares the=20
+same ressources and also the bus lines with the I2C (master) controller,=
+=20
+but I'm usure if they can be operated at the same time. There are even con=
+troller
+instances which don't support target mode at all.
+
+I chose to use a separate compatible (and driver) because the I2C=20
+controller driver has already grown a lot in order to support the various=
+=20
+Tegra variants. By adding the target driver to it (possible also including=
+=20
+more SoC generations) would blow it up even more and possible make it=20
+unmaintainable which is not my intention.
+
+Hope this explains it a bit, but I could also try to integrate the target=
+=20
+driver into the controller driver if requested.
+
+Best wishes,
+Marc
