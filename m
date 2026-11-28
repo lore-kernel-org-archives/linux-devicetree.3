@@ -1,100 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795852541;
-	b=J3Qg6J18Z3AxFJ5JJo5H63uveeEbcDIYyMrqFKhJMXte/OG5kLnglrAP32Nl8igDpYIJ
-	 WGOT5MhfJPCIlNQA/y405mudVAFq0xqjdzx/xBKdYrWQohNJAqzdJfe9uzPt/DSssGBN0
-	 e/0iDqXb4O0R5UcSiAfvd2q/Zxy5TaOFEWIWKi50u08LYlQF2N+Zh6xATw++BDApo4/Lb
-	 7AKio3VpU+rrt24l0zGIUiBCHE0F5nrHrH4zB+Cb/8yLcII1ANgy2m0QvHhFp22+oRUsd
-	 Aaj+tlCU9UlF/Ghs2/eBS4dYqhuurPTSzSX7pyxkfd8JN5snnrr7DTM9iCuI+iLh5Dw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795852541;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795852799;
+	b=1uf/IA0aMyg3pnnDI5NKajzxxjXumNRLV16MS8R/X6L8MoCwS2TDvaxJ4ucFb+YfLlJR
+	 s7l8hJnUZ95oSqZ/7VJxx9C95r99L9Gybuvktnd/A3g1nc7bKfmtSsScXMGt3jzLFd+uN
+	 xq2m3+0v+WbI64V8hYaGpUEnbQWsRcE8ub2qalAhJv/oEuIQuNUN5H0KiQ4jNMDKKLdGz
+	 7+I3cD6xxXRW71Qo6SVwoO6GNW4Pa5EG26DSss33dnZtYyPRY+NAAkZJ0S0KKJmehzs2O
+	 xh24YBh3rAhLH7Uze8DDnQgB+L4uuM/ouWDqqjQfubK1xCTGTU7PRUr6WQBCahrfAdQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795852799;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=kdXJuxT11f4xHYQZt4NsB8ndiDlb6V/GAbpnGwwxv7A=;
-	b=EbQI9kFhI46IuihIlhV0oVZ5F/KfSzYIYBZwx3XlxPfzOYUn0ywlTpIAA3QUwih8Xcvp
-	 23wYyT2SMFSphEnwLLW9kFIwgn4IXsuNRTqekJRthBcKk/Sb4QFOgGyKFmtyQGkMt+D5d
-	 DGm1dsXK2gvKg4YQ+hjVgmvZlqTS6NtQlyonp97UQQofAY3HDMNNJIj+NsJJmp1lGyUyT
-	 V4roqRMLX/xXU1tFu8ceO6o/rDS92YiIyGt6HdBI2bikBu7dlL+qrw7npExfLIz2kFBo1
-	 eWtXYX0/HQR4oD3wngai3pZFH/GxlbVJdmA7ShHHHvP6NfGm2MkyJQyHVwF1WrKoAlg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k6yIzSZs;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=rECzFDCKo4XXlZnw/34prSvNBZQ0YYwmq2ei4FG0uow=;
+	b=KOtPerWSWPsRnZmdFIC4P1KWA4fyp6jdfQx9Kn6o4C0UJyUiLf8WgM6TbhXCqPP7ehNh
+	 pIiXaBH07V5jhet9Pn9UaTFQpIh2cKb5KduPdHrZ2jMyO3+WJOQrNdAY8QJ+gG52IOQIG
+	 0O2QBqBDj5fTnpUSuYgaT0QYLqGpN9NnRNmP4wr1XUfbnMwocM7xik2tCheyW6YCAGhFx
+	 u3VSyuFNmqjKcvcXWrNz/YFVPLvcpa4QM/rtEKYC5QZwwyaf26iyRoBD2R4zkyuzLTR80
+	 PWoOgFuAzd1zHQZxf0sVpSyi71JG+XrlbSBw1HFzhvmtc5mnW8DQ1dljs/fJsBseSbg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="i/U/to+v";
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4180F606A31F
-	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 07:55:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4180F606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB161606A31F
+	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 07:59:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB161606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k6yIzSZs
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-386bd881d39so10719297eec.1
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 23:55:41 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795852540; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Vnqaim36M4OrpvwzggZTfrZm0Fu8GMyIMq1gKUygCwbzf45K+J4p8VEab1o0d5phbH
-         0d7UMA5jpO/gximRRyUd/n87h0nNIIX9M5OdusoxIORTKr7nH+asPGFlD/7xV3ANHvev
-         M231tdhSFEWyk2WgPwKXmEfgEw6XPwZYNMnxxv97wr9igZ9lQNTSUDH1Puky2RdWCtsp
-         iEV+OhWLTf0FFoYa4/VEFa1NajZnL++SFyDadS+7JNokzC2oKM1vhKjqH80ErBJjKlvG
-         UQgzwNBT/cAI1rWzp1oPitWibxl7PVQDRZxj4CmP+ow22AupxwPz2YEIZySLDXmak6+Q
-         tdCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kdXJuxT11f4xHYQZt4NsB8ndiDlb6V/GAbpnGwwxv7A=;
-        fh=hYrUnh3yyo+PLPuNfeqp0mYvRTvtLT3kf8U/0+9jooc=;
-        b=arK0PaQFZpkW2XU1LEAN3TJ+O0y3UjqByk6lBPkLby6DqYVJwqxzQ3fEmg5IrvexZp
-         yooJQjeHQkLHr4zI1DoFKaUMEHDI4ybZnCqnpXFeje2XIWCJ4NQfAD0BtEPjOmO+jwiN
-         dUZVHneI3+paQBXXcMOsuTPh/7cAt8JW4TuE8pnia0kROmp0eLWQChtBMkcXa3wawjGJ
-         m7CnjojEna/nU+3EFqUhPA4eWW/zfoqXYNJknNbQ1BUkx+8GLdof5+KAYqGXIf1ubB7K
-         WTECHLnlOCwg4nPN7CkvNkc4P6wQM56OTWkfm382mOSdxLLiQcGYhb10y4Hk/RBliub0
-         Df0w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=i/U/to+v
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-49465892f7bso6444508f8f.1
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 23:59:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795852540; x=1796457340; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=baylibre.com; s=google; t=1795852797; x=1796457597; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=kdXJuxT11f4xHYQZt4NsB8ndiDlb6V/GAbpnGwwxv7A=;
-        b=k6yIzSZs5j871Tsu5ramhiBI44Cs9MQpJNNP/7T39kC7FHeV4ALzXTvmxPLe2094IS
-         gSqrGZ0StYjayUUhLEIdrbivQXsIXuZwwDpBpvAAZbyeCrhoy31Krv9sCFHQU1XFvrNP
-         YllgAeW9zRDGHhDUw8ZzH7690ziZrOT6m6z9lP7NlaNkqZJEZw8au3ItXPqF04A5TL93
-         TjZ2t9qA8+d++ma1/RMqzi1CZvqeHIKvMqmbmsKE9Gxu5oXan58VoDrgjZs8aznrjrMD
-         iT1m+65866llFivUiI7RuN+RVp/gaHIxt5ydA0QOmIQXPF0HJhmVpy9m13GYKUAGJEwl
-         x2Pw==
+        bh=rECzFDCKo4XXlZnw/34prSvNBZQ0YYwmq2ei4FG0uow=;
+        b=i/U/to+vCmL1lcMOCEc3owu39hWkCjDpqJ213buTkVu7MoriXmrx+7OGqlR5mKjN0K
+         HJznAwo3QdHX+mccxMSx8rXVqDLQlnkM3P4KKsZD+//BlVONCBDPn8pZ4yevOzRiXp/I
+         gJxK0s6juwE0bQ5bE/7yzG82cu1twxYL71VfcfhRCV7DMYxDCXh5JSCk5HmLwiBDbGcK
+         /3LWwAPMgikzdeET6ZLrmfguyXOEAu3q8eXawDWa1Mz3qgEI2CVV/tpVSCKAYuyGlmKD
+         c7Nrf1KPWTMmTIelV6zqs20Kg89Kf0hmSLldDN2UR8QXyMgoiMgC0Yrgxd++VBF30AKW
+         lUrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795852540; x=1796457340;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1795852797; x=1796457597;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kdXJuxT11f4xHYQZt4NsB8ndiDlb6V/GAbpnGwwxv7A=;
-        b=hAeAsHJw80Omcz4/78HaevPsCKyM6oOipoQqfV21ITV/TEJrkPMyfbRcn84xxWRVZj
-         H3RwGz6pLI9bxsJsbj2HIX3dGOrB5iQovP1imGuWFO6oj/22XCvN0vE9qxPx6Fv0mn5z
-         k2z6iJHdRIepyj5J8Y5OsE+EB93QFk7qZxFvgtZVU1IILcEEuyQn1jz8j4ZtFqO9XiOD
-         R2+qOQ67b2Eb5KwlVJo3FLN5VYzl7SbJKHvZXTTv7B+nC3MxeFBa5gaL3fFvOUzp/Mpv
-         5V1Le8V0pDkUrNmJllj1rnvuanwWoeSGObgfmE/oMQ4AROqx+W+fOwG4lOn1ofUARCa1
-         7GgQ==
-X-Gm-Message-State: APuU4Z8xZ+bnRXDfIUFclLIqNCH/eiJbSCwLTRUKGHSSc/ecTSUVzTix
-	4QFSynjVyGtxUrOnHNptSOtvEu34U0bjU6QvBbkYcnKKwtfikFZsMI7/YGoDEO7RlyEGH14Yd0Q
-	ynNCEXymY51+ZwErX48RjwpC5oUP9NVk=
-X-Gm-Gg: AZFdTZfJ97qgENpmmrdDETd7wA5gIiMZ2iUlY65bB2d4rUOgrDQRwU67et389hNJmlv
-	5XEvg8h5+PY7LRqbZNWWumLZ70sypCrUT88eNzjo2Y2hKS+0UVKrSOV6qZK0BAQ/OY1j7vodMn4
-	L+la1EgnEQt4rxbkb9JgaWUCK8DUstLLJu5CH1UyLMCw8M5inRmdYWO4m6laukKQYD4efVemJqQ
-	V3J5Dv/AaqwkugL1HuwnBA+dG7tjKrqNeUmxSh6r6MRMwv2BDOHmu1Ph4arXBsBsYxLszrtyySN
-	KV2xKLHcTN2q0XmERUPfMHtb0Hyqs+pRMQ2S/DSipoYP+MPcZk9YSB6mZXYelyx4lB/D85kvK8A
-	k6MmN+idxGApuzNa1vzt+T+1Ukh/6lACiAYkmKPYuXguewulY19D3apThfbcLCo4tDh4gXpEdqe
-	bCPsjLi7yEh/SpJapFhAbR36AapT+uGk1BWn2a1Vja+rf/v2v3naun
-X-Received: by 2002:a05:7301:c005:b0:386:a0c0:5e59 with SMTP id
- 5a478bee46e88-386a0c0757fmr23973057eec.20.1795852540349; Fri, 27 Nov 2026
- 23:55:40 -0800 (PST)
+        bh=rECzFDCKo4XXlZnw/34prSvNBZQ0YYwmq2ei4FG0uow=;
+        b=m2sholuRKo7FyL8Sl4VDJj1miK5LZnb0ZlUdKOzPjeFdboxWxyrQXtVmFqYP4D6Msp
+         9Wsj43SsffRbnAEY7ERx9ooDI1NKj1IFJdvA2zkL7lgt0GkElg0YyDn2SNN/wHI2HeLF
+         PDINsbx1pUKGyGzFfaswOOi/YezIbJitDuk4K5UrHT21VW1aBJHkxoS6Gd3JHAXyzRAu
+         hoNz3HwgICNoP9SosbCQPmBRKcvibGMpNhP85ySWxRrkp6VSXCahsQVQQEQqP5C5Df6M
+         tSCoRC99Mk2MMk5Daojpm166rAzCV6lugV8XtPawpDle0K6Yr+rDdenO9E6LYCYLGqN4
+         CH3w==
+X-Forwarded-Encrypted: i=1; AL+hErEhbsv+x0cR+oRR9o2Lk5OoJFGNgpKmQXn5aksQoeF8aBXmX96UWFgEG2r5G9BzVuSZP3hdnHM+EV0C@vger.kernel.org
+X-Gm-Message-State: APuU4Z+n9cSRE+qnQgXopf3CH8/bYE6/wKkLLfWh4GyNthA2nuLDwLMo
+	97rfXD1iA3RmC0gdN68fUOq6SjzX3tDNWPOZs0kywsm9ZtQYU2oc1KdnSTxvk92qD0s=
+X-Gm-Gg: AZFdTZdPQxhNMoT+sesRiLeuHuEKBS5DZFQ9phTLNLes/zxYE0ukgwXQgSaQYH2sIH4
+	y/QYbmCM8lw4GkyUFbBzU67wXuwSMs359lrafOECof8yueD8oE384mCLqvIpblCZdieWOt7jEls
+	0tO2iDkwx+RPIPPv+46aNBSpxLDf2m6JLzWyvgHNAQwlZCsAb2FS+HUh2r6nbl2RY4t7HhA9maB
+	VFEesAufEM/esafSeMy6agXha1FARcU6UVDZBK9Ue7+CrtWeoKC7FLpRUGaOLGypG+lap2zylr/
+	1PId1O/4zYKywCvn785P9+KdwooDmY9crgFJRTrZ+CpZ4EHNjs5e65l23vd/yw0ccXMjOKlMeKk
+	wZ8Mhv7APhkUb/hhNk3r1dOjRlx4NrGepEHzkFAcCTCO5w3jNtsca/xFEp6LYmhJ77XFKKpT93/
+	dbp2zMpaoestgcPBjMaB1EM66yZpzX1BOJy49HBesn0z0EcscBxNoVKXZZ0KCi80x/x5iQ0iZ3Y
+	D6ORaPd2wrBb01PkekPmYOP4/mCSijmA5BLY+MMBA2tcHsxrEJknngsWv19+5emuYIFztuczB/V
+	Du2yOayS238HB420WSZz/pdX8Jms9KApahp0tqwig1gravoutmLMCS7/KCf2Pzuc84pXHri5CjW
+	I
+X-Received: by 2002:a05:6000:2893:b0:493:f3f2:2241 with SMTP id ffacd0b85a97d-4abb272746fmr52992473f8f.23.1795852797142;
+        Fri, 27 Nov 2026 23:59:57 -0800 (PST)
+Received: from localhost (ip-005-146-085-079.um05.pools.vodafone-ip.de. [5.146.85.79])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4ab6b110ba3sm42679550f8f.35.2026.11.27.23.59.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Nov 2026 23:59:55 -0800 (PST)
+Date: Sat, 28 Nov 2026 08:59:53 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+Cc: linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org, 
+	linux-hwmon@vger.kernel.org, linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, 
+	alexandre.belloni@bootlin.com, krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, 
+	linux@roeck-us.net, wim@linux-watchdog.org, vikash.bansal@nxp.com, 
+	priyanka.jain@nxp.com, lakshay.piplani@nxp.com
+Subject: Re: [PATCH v6 2/4] rtc: pcf8525: Add NXP PCF8525 RTC driver
+Message-ID: <awqJkqQ_8tXGIqo9@monoceros>
+References: <20261127083807.2844507-1-shivprakash.gupta@nxp.com>
+ <20261127083807.2844507-3-shivprakash.gupta@nxp.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,108 +101,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261122081820.53199-1-clamor95@gmail.com> <CAPVz0n3YEoq5dg4+sHfd74rT8x_R9DEv1eTzW7UHVKEABGa-BQ@mail.gmail.com>
- <CAPVz0n1xeNP=rv3qDMG06aSWRLTVvCfuo5tFyt9fz7KDTySV0A@mail.gmail.com> <kaWzD58LSXePk8E_XcD28g@nvidia.com>
-In-Reply-To: <kaWzD58LSXePk8E_XcD28g@nvidia.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Sat, 28 Nov 2026 09:55:28 +0200
-X-Gm-Features: Aa3M54oteGux7ycBFDqaQLj_8yYFVhcMiRkeiuuEM4I0oXp7dJIyrqrkoXPQNzA
-Message-ID: <CAPVz0n2S=LVqgXdQsFX-A3q92YNpEu-S_NWm5Sf1uYJexEEkhQ@mail.gmail.com>
-Subject: Re: [PATCH v8 10/12] drm/tegra: rgb: Parameterize configuration based
- on bus flags
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: devicetree@vger.kernel.org, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5kez4omv4kntvob6"
+Content-Disposition: inline
+In-Reply-To: <20261127083807.2844507-3-shivprakash.gupta@nxp.com>
 
-=D0=BF=D1=82, 27 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 14:2=
-6 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Friday, November 27, 2026 6:41=E2=80=AFPM Svyatoslav Ryhel wrote:
-> > =D0=BF=D1=82, 27 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
-11:21 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > =D0=BF=D1=82, 27 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=
-=BE 08:22 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > > >
-> > > > On Sunday, November 22, 2026 5:18=E2=80=AFPM Svyatoslav Ryhel wrote=
-:
-> > > > > Parameterize configuration based on bus flags passed from the bri=
-dge or
-> > > > > panel. The list of supported flags includes now pixel clock polar=
-ity,
-> > > > > display enable (DE) polarity, and data alignment.
-> > > > >
-> > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > > ---
-> > ...
-> > > > > +     /* configure DATA order and alignment */
-> > > > > +     value =3D DISP_DATA_FORMAT_DF1P1C | DISP_ORDER_RED_BLUE;
-> > > > > +
-> > > > > +     if (bus_flags & DRM_BUS_FLAG_DATA_LSB_TO_MSB)
-> > > > > +             value |=3D DISP_ALIGNMENT_LSB;
-> > > > > +     else
-> > > > > +             value &=3D ~DISP_ALIGNMENT_LSB;
-> > > >
-> > > > DRM_BUS_FLAG_DATA_LSB_TO_MSB does not seem the correct thing to che=
-ck
-> > > > here. According to the TRM, DISP_ALIGNMENT doesn't swap between LSB=
-/MSB
-> > > > bit ordering in a classical way, instead:
-> > > >
-> > > >   // DISP_DATA_ALIGNMENT =3D 0 (MSB)
-> > > >   LD[23:0] =3D {R[1:0], G[1:0], B[1:0],
-> > > >               R[7:2], G[7:2], B[7:2]};
-> > > >
-> > > >   // DISP_DATA_ALIGNMENT =3D 1 (LSB)
-> > > >   LD[23:0] =3D {R[7:0], G[7:0], B[7:0]};
-> > > >
-> > > > I suppose MSB is more natural for 18-bit panels and LSB for 24-bit
-> > > > panels depending on the layout. So the correct value depends on how=
- the
-> > > > panel is wired to the SoC on the board. Hence, I think we should
-> > > > describe this with a new property in device tree under rgb/dbi or
-> > > > endpoint node. Something like 'nvidia,rgb888-wiring' for LSB? And
-> > > > document that this means the above kind of wiring - not all RGB888
-> > > > panels use it.
-> > > >
-> > >
-> > > Ugh, why is this so confusing...
-> > >
-> >
-> > Using 'nvidia,rgb888-wiring' may be confusing since as you mentioned
-> > not all RGB888 panels use it. I can add 'nvidia,data-alignment' to rgb
-> > properties and set 0 to msb (default) and 1 to lsb, or directly set
-> > boolean `nvidia,data-alignment-lsb`. Let me know which is preferred.
->
-> data-alignment is a very ambiguous name if one isn't deeply familiar
-> with the hardware, hence I was thinking something a bit clearer would be
-> better.
->
-> I agree nvidia,rgb888-wiring isn't the best either, but I'm not sure
-> what would be the best choice here, off-hand.
->
 
-'nvidia,disp-data-alignment' to match exact field name it refers to?
-'nvidia,rgb888-wiring' is too ambiguous as well.
+--5kez4omv4kntvob6
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v6 2/4] rtc: pcf8525: Add NXP PCF8525 RTC driver
+MIME-Version: 1.0
 
-> >
-> > > > > +
-> > > > >       tegra_dc_writel(rgb->dc, value, DC_DISP_DISP_INTERFACE_CONT=
-ROL);
-> > > > >
-> > > > >       tegra_dc_commit(rgb->dc);
-> > > > > --
-> > > > > 2.53.0
-> > > > >
->
->
->
->
+Hello,
+
+On Fri, Nov 27, 2026 at 02:08:05PM +0530, Shiv Prakash Gupta wrote:
+> +#include <linux/i2c.h>
+> [...]
+> +#include <linux/mod_devicetable.h>
+
+Both of_device_id and i2c_device_id are provided by <linux/i2c.h>
+without additional build dependencies as are introduced by
+<linux/mod_devicetable.h>. So please drop the latter.
+
+Best regards
+Uwe
+
+--5kez4omv4kntvob6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmsKifYACgkQj4D7WH0S
+/k7agQf/dUy7wCorcL/I4owilXhYjnsXPrSYVFuZTI3zBHYDbdxpHZa80WwZlBG7
+E4SFU0OwJbEJe6jfB4zfEAJno76UQtmfOsPNrRBjhVwTHfHa+eurWy0zb9D/2CE3
+T9IHil5xV6MLLjEsteKu/ubZ5uOQpl/GemFXCbkkgQnOoNk3fu9vTRW3m81xJ9bm
+uNWYCMXorvZ4Wx7PB2OLQd5RwRNUormhf1E7zoUUE4ilF3XfUbBOvueHDCr0dCy2
+b/wJgjIiQzRLVsEcMQ1QhPUbCxlrMuzkchAgFdHqygmuxVmNh8Sz3yBHvjK4aG4Y
+MLYKgxWCCTBVfnXialkv/zpFTTAkgg==
+=jkpr
+-----END PGP SIGNATURE-----
+
+--5kez4omv4kntvob6--
