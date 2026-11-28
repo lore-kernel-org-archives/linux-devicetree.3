@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795875297;
-	b=3Wsnl6wtEuVhZUO4+RDEs5Xe0newJAvBub1uLfY8OkZuvfk9jJIESLy6nCnSnsu4/0EJ
-	 hVcur3XhS02mnAWIiZDM6NrEbd+WvhKmbw/RnA81wUlJa7JX3fi+DOg/5NC5bRiSNyFn4
-	 4yrz9AdIm9w0c0uMZiL/YiX01N/htYcBm94AENS4YXfAdauXTRVIPA7YlzGNoNw8ZT24u
-	 xMKpyDrojxvEzlafNY63HMQ+ItDA83J2OEk/+camZkaEDA0z/a4D4AF2NN6CpkuLuNriO
-	 JNRui1uSeHM+RbWuA6wp+6VuZpy10c9y8aZyqzTKdhhNnTJnu+uxppAdzJdREhAAtLw==
+	t=1795875307;
+	b=RXJQZzpOfQnXv6MbZ+0HAIi6e58unPY2xigSmss5ZmfIm0L2G4FDxqgbMa/UU+qHzyMx
+	 UWMSiDyjS0DOxyOqWrTipG/ZLYpGMfMwJJ00l92C4zE/mgNEHpzgeejSsLIu127iWyxkj
+	 Q6LyQTrFMt7XTYY7KzsjW1mxnwPQcTs8Dn2dDhpch/tsjQq1pz6BME8dRg9D6HwcAc3YV
+	 czPj3G2JCtvkbNbY9y6rQKJpBg6+hXPAGIs/cZoU6vdneYl3Z++y/cOCrXXBxpnn8q9dN
+	 dmH2sOxuw/iMerSvFnDyVWVVVTFEyX4WC4vnAbJHZ72mlDq7Vl5hoBRbLLBvVixO0Rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795875297;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795875307;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ovt3whWqdaT1jywj9I1uBt0fMRtj7mzqaOeqp3btgZw=;
-	b=F+PT6X+PIhJJ/DXBryXArcgbpHNRdIAVWrZ00DCnI2TRcgTFt7LTp7eBYknX9qQ68cXZ
-	 /dHVEtz4hssYMP/Fmoksi0LNdo+dL5YdXDiTb5Inz/bb4DpzApf7hN2kZO0eVcOZNV5S7
-	 wsetP29P9xrBzQ7Eztk5eJVRVOY9DiY9fLps4v1toGIQp/HcCTwd5+9c2dJw6JvQQccZG
-	 VWVkX3DWNkczNTm/Ia+QL/iZOHEDctF45d8PFXewq2nAcY8Tzcr7PL3yoXVENtJDVr7gQ
-	 qSjtACqVSDHDNcj07jdBFeAIBdi5vnxSRcaJMTdBNeykhI/GzpNW0ZL02ELyRD9jn6A==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=HJn84ZfJNZIuHrzv0CHcIfvwZwaHinXtB9Ojn/nATMM=;
+	b=tBwqpT2Sw8WUaKHDWbY1Gm3ERQ60c9kku9uPzcjwBaWY2vnvAbPXVJGcpFy/o55Xm61w
+	 GBbpYYy+frg711wLL7zatOr/CV8MIXxM/VA941c65+MaxZjiUVrVHZflUDXN26CgQrciw
+	 yKeKEwH8R2rI0cOYa/zCMpB0gq0+PQbsvl74RGqvSTtVEcnWLLg6Bctd5hXgYIIM5LMLK
+	 4YFpFpfOuJ6+oZIfPHsBYYdda9617qfkDKsTxaCoPw2sQZK/thaPc3gBr76nA66stga4H
+	 78xdtypjYaHMiUQuMhj0Qt8NO60gBuXo6SGDTBzYqZ/y7Wy5Y449wYi7nzmYg7pP6Dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Au4OlAHX;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="v/wuzQHb";
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18380606A323
-	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 14:14:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18380606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE566606A325
+	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 14:15:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE566606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Au4OlAHX
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-386ab9ab619so12797758eec.1
-        for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 06:14:56 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v/wuzQHb
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso147936eec.0
+        for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 06:15:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795875296; x=1796480096; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ovt3whWqdaT1jywj9I1uBt0fMRtj7mzqaOeqp3btgZw=;
-        b=Au4OlAHXVW2FgPmm/PstlnjukmVJ+URrrz2s3dg4vqKaWMjWdwSBcpigNqEuHkIVpT
-         VEeGf8Rfe3DdIw+EpOsb3vpEmzUQMVNGwN2UsHrotFwHqV6kPHXuRZOzFNOzHdmrQoPv
-         tlOY6NgLsJFLCduku4kTERHOY4mPputPiCdbQ8Ot3zTQbunvBTqxllGFcCPzb1S8xGfK
-         iASsJC6i6bavpe0CN6KZ56xbgbGdhUH0lKJB6IHqgedlO+u//VIY06UbJ1GyYCb2IP/6
-         wyaIOK45vT57YhAJxt8I5q9RsfbsCE1nuIgR4x/L6w9o1gHML0ZC3VQv1OP+HT1Nw7OE
-         MRQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795875296; x=1796480096;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1795875306; x=1796480106; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ovt3whWqdaT1jywj9I1uBt0fMRtj7mzqaOeqp3btgZw=;
-        b=SI62iXiUKa/AYuHnhuJYwGiZJvPIA2uQP/F8UpdCqXvdKXxKGK9MHQaonxZnrp+t9B
-         +XFcN6CurIR0XNrz/AwJxT36wTHHkpNGFSiyk61P8F9CE3MaBa9ZR7NSLC4VlHreGjPI
-         QsDrycz28B5afRWLLOCYsRmOOXk4Ulnjr3nWZVEdykxAs4KULz0g1eUNfySkXnt2dUTY
-         t6hgBdqCOYR9hQsZObJew+h8h0vz4584hAVLHErhnkJP74hdmcPlDKaUgJDQPAdkdihQ
-         ZhlV/Y3HHRR7yJJcs8mJ7rtqTXr/KpO8IxRs6ERnajxlsUkTTMLrpPcFDJmbYapRyVG6
-         ftZg==
-X-Forwarded-Encrypted: i=1; AL+hErFdCyumjrYtcxaL5zYK6OmTtL/5FzVnmcOCziuCPU7rfuhp6w7qzs+0CT+bzBYQHFDEBQUtxzezQKTJ@vger.kernel.org
-X-Gm-Message-State: APuU4Z+2FUsYG6FviKKwZyjuIpS0hZRGPxRmGMhEsuSCBFjKCYiwhD8v
-	0lY//Z2LDd6KqP/l16qEoODEoVOZgyL1CtropmIsVxEn3i259Gs6y/nv
-X-Gm-Gg: AZFdTZes62b2HIv/9sT2m1y2NrRf7rQngrA80LOppg21zsZ95U2IMjbdHdl8SmgfLeU
-	BhRj49U90D82ywTvN+3Hc7RTo+FUExQ3+MZIuvAKP3/1UEOUsVT5v26B7+1RttnR5j+pkE/fTx4
-	unaIOEUANukDZgbrw/33p1gmC9aHGzsdeuTZ4BXZgwBa4sVPm8bAe/0cpTLF+8KTrxjy5PWGLl9
-	XiBU7Hd2BogM5mkctZz7HvsUdrn71IwjhZX1A/0781DdvU2Fpt/Xe7fwu1ZsK90mWDRnkVIwbAp
-	b6TiVg0Cg9eiH/NocYIb6JphNLD9NbPAicRsNt77LZj+Q58OlcNC3I44urXpTohsWnMRr985S+A
-	UToai0CSbwTRjNCUTacWO4RxQtgGO+A7aOrsAiD0t1wlbJfZ2VE63t+HHKSY/+reBzfJ9sSp6Yl
-	mujamC26e/7DPjQCP2Wm/C1T0P3k0me4GhsqxpUf7k1Kf9Vafz/DuPyi//eSx897fri4IYqgMR1
-	jsh7AWKyuk00LSoTSLsWYfiywQtyIBs+S1IhmLUiQJlNqA2zkD/2Rwh6uemkeNoI1NqAXq/u5yA
-	Ix7KwunA9g3j1wk1y2XrxgFfVsC+KzJcvsrnQm5gGRbc6qqrPCavADMEB53+wP7QVuii2QMgjjE
-	5CxMQgGfaHSWNfI6+nG8te6QuJzuW
-X-Received: by 2002:a05:693c:6010:b0:385:849b:7899 with SMTP id 5a478bee46e88-385849b7adamr31917186eec.4.1795875295880;
-        Sat, 28 Nov 2026 06:14:55 -0800 (PST)
+        bh=HJn84ZfJNZIuHrzv0CHcIfvwZwaHinXtB9Ojn/nATMM=;
+        b=v/wuzQHbD8nfeNbSx0XGxb9bZ6T647gP1hj6dG+zdKBlNrtDRuqcefzv6m4RhGTP79
+         mmGld9iGkATVHczfUZuNavM2051luVlacG1Ew1TnEjG8Y23c0xB+znir720ZIfWRwyAv
+         waF2b2dUoI5zJdxTsg7npmXZ/RjLRHsXqX6yYCratmiQqj2BBrxJGELtRjZU5brjQTHV
+         dyBlTVp0TRWcp3YI0AW/yuqcssP2oI4STazXV2aJN7hztjooODIvTL5R/gBsLfJQd6pW
+         kE8I6rtafmaTT4yP9suCEN6tub6t3Z1e//qc94sXf9sRYivkN7dA7NWfm1TFIkxfnGmr
+         6+fQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795875306; x=1796480106;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HJn84ZfJNZIuHrzv0CHcIfvwZwaHinXtB9Ojn/nATMM=;
+        b=Z4JrcFyA6JI6l68OafRilS/6UB3o7lL7hZMkGWoBjqaWGLqjoJ0zhlkq4benYiKJGg
+         9gaZBwfhSq7WKJyQFDCqVKHs42PrndjHTtghtAJ+UultWhCeOEV8p0rn5owlKnsRkSNr
+         we6LYkLZd0IZsmhgm9LvuhTIzLWIwZR66WwasWrtz9ReGqfxbc3TFiNLvIXxqMa9G8uE
+         P+nPHPvOb6wIP9WbnsUQCTQS0Jx4GTB4hU9IPgOQIrjFGA9+OGM5LEkLks0VeZ9HSK9S
+         3pP7ypIeEKC74wgYMAHCZ+bNO/TMRdCLAzE+hf/mnA+/OxBU/i5fF4ejCS3YPtHQbzer
+         nUGw==
+X-Forwarded-Encrypted: i=1; AL+hErELgMQtZyi7S1/jG8ITDwywxKVsgq2Yi329CjR0JbqI8Uo30aBRYTomT6U+S5HyajQl7jiirxVIE4fe@vger.kernel.org
+X-Gm-Message-State: APuU4Z+mLH0po7+ULzjcZpJxK3oAV5zOwkKktPYG64Z7yvdrkD9/bHW9
+	MND+VLHiMkL+CFSI6fAgDLCkKoeqLiIe1HNbPTtikTyaLIT+1/vP1oqp
+X-Gm-Gg: AZFdTZeKZ3VtNi50uF1QkM0c2Xb91KgLH/y7bGN63kkudYKnnbJNznpwc8dHj6sn4M5
+	Qm3pB9/+9e8v0KynSFXj7zpF0Pg+g9udEKXY7ZiB80URwWC9bOj0TUZcR74lRdazVAX4v3ZkuHu
+	/U2KxZMPwVNS6vWhnQos6C2lnKNiFWSvacNeifyfDwy6swooZutVpVPaIORQaq/UotVELN4xKyo
+	f5yGb4Z42IjH4R8cFxZ6oU/io6qD2VdJ0Y5tkDsTUgv7CxoCs0M0dR8OZ+IOCwZZddInAzXgHmX
+	hDyt0nrrJVtbqsHEbIgJ1NizFmMps/aauJSK1o+ARVGQFdaIECSFy35TVdGD/zb31OczHSvkQWO
+	RAztpOMXNswOjU6777cpCvdWDq5q/5ODaDlYfMNx8scF07YycWX2rI/CfdmallW8yvaHZ+LILkW
+	HeHTir5uq3CsoUOHNpblLP4xxhVGbV2glCpM09hqSDzXfTglnmiK9r/fQknoA1DdtgktcNMlhBo
+	cPh3MhzTqhowmh0Zs3rzVLxhRtTZC6yNf1edv6hXk2aHQL6Pat4ZQoMOGv6DYsEjD1gfcVg5jcg
+	TU4cQV7stN5yZ50NOPiwLobRfT9w3oqTNbM4zTyEHpZqMQHqz3nssbl7uUU/UHivnjZEA/tzJ8c
+	16Cugu6KXVeoQyO1LDE0xpyq7cM49
+X-Received: by 2002:a05:7300:f797:b0:386:95e7:848c with SMTP id 5a478bee46e88-38695e79009mr24469794eec.7.1795875305781;
+        Sat, 28 Nov 2026 06:15:05 -0800 (PST)
 Received: from localhost.localdomain ([2405:201:301c:f8cd:241f:982d:147f:bf76])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e7f59sm87185893eec.6.2026.11.28.06.14.49
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e7f59sm87185893eec.6.2026.11.28.06.14.59
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 28 Nov 2026 06:14:55 -0800 (PST)
+        Sat, 28 Nov 2026 06:15:05 -0800 (PST)
 From: Aryan Sinha <sinha.aryan03@gmail.com>
 To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
 	Matthias Brugger <matthias.bgg@gmail.com>,
@@ -98,10 +99,12 @@ Cc: Leilk Liu <leilk.liu@mediatek.com>,
 	chrome-platform@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Aryan Sinha <sinha.aryan03@gmail.com>
-Subject: [PATCH 0/6]  arm64: dts: mediatek: Add MT8189 Skywalker based Tarkin Chromebook
-Date: Sat, 28 Nov 2026 19:44:24 +0530
-Message-ID: <20261128141443.13065-1-sinha.aryan03@gmail.com>
+Subject: [PATCH 1/6] dt-bindings: spi: mediatek,spi-mt65xx: Add MT8189
+Date: Sat, 28 Nov 2026 19:44:25 +0530
+Message-ID: <20261128141443.13065-2-sinha.aryan03@gmail.com>
 X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20261128141443.13065-1-sinha.aryan03@gmail.com>
+References: <20261128141443.13065-1-sinha.aryan03@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -113,104 +116,31 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds initial support for Tarkin, an ASUS Chromebook (CM1405,
-CM1406) on Google's MT8189 (Kompanio 540) Skywalker platform.
+The SPI controllers on MT8189 use the same IPM design as MT6991, so add
+the MT8189 compatible with mediatek,mt6991-spi as the fallback, the same
+way MT8196 does.
 
-It builds on the MT8189 base support from the Genio 520/720-EVK series
-and adds:
+The vendor driver's MT8189 data differs from MT6991 only in not setting
+must_tx. That makes no difference here, the driver then just supplies a
+dummy TX buffer for RX-only transfers.
 
- - an MT8189 compatible to the MediaTek SPI binding (same IPM design as
-   MT6991) and the six SPI controllers in mt8189.dtsi, needed for the
-   EC on SPI0
- - a label for the MT8189 watchdog, so Chromebooks can disable its
-   external reset like Geralt and Cherry do
- - the Tarkin board compatible
- - the Skywalker platform dtsi and the Tarkin board dts
- - Tarkin in the ChromeOS hardware prober, for its second source
-   trackpad
+Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
+---
+ Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-- Tested on an ASUS Chromebook CM1405
-
-Not included yet, since the SoC side is not upstream: display, GPU,
-audio, USB, UFS and PCIe.
-
-The Skywalker and Tarkin device trees are based on the ChromeOS kernel's
-mt8189-skywalker.dtsi and mt8189-skywalker-tarkin.dts.
-
-This series depends on the Genio 520/720-EVK series [1], which adds
-mt8189.dtsi, and on what that series depends on:
-
- - MT8189 system and base clock controllers v6 [2], applied to
-   v7.4-next/clk
- - net/stmmac: Add Mediatek MT8189 support, v5 applied to net-next
- - the MT8189 pinmux header [3] and timer binding [4], still pending
-
-[1] https://lore.kernel.org/linux-mediatek/20260924-add-mediatek-genio-520-720-evk-v3-0-2ec5c80677d4@collabora.com/
-[2] https://lore.kernel.org/linux-mediatek/20260904-mt8189-clocks-system-base-v6-0-5df247f56938@collabora.com/
-[3] https://lore.kernel.org/linux-mediatek/20251205064357.13591-1-ot_cathy.xu@mediatek.com/
-[4] https://lore.kernel.org/linux-mediatek/20250825033136.7705-1-zhanzhan.ge@mediatek.com/
-
-Aryan Sinha (6):
-  dt-bindings: spi: mediatek,spi-mt65xx: Add MT8189
-  arm64: dts: mediatek: mt8189: Add SPI controllers
-  arm64: dts: mediatek: mt8189: Add watchdog label
-  dt-bindings: arm: mediatek: Add Google Tarkin
-  arm64: dts: mediatek: Add MT8189 Skywalker platform based Tarkin
-  platform/chrome: of_hw_prober: Support trackpad probing on Tarkin
-
- .../devicetree/bindings/arm/mediatek.yaml     |   4 +
- .../bindings/spi/mediatek,spi-mt65xx.yaml     |   1 +
- arch/arm64/boot/dts/mediatek/Makefile         |   1 +
- .../dts/mediatek/mt8189-skywalker-tarkin.dts  |  62 +++
- .../boot/dts/mediatek/mt8189-skywalker.dtsi   | 453 ++++++++++++++++++
- arch/arm64/boot/dts/mediatek/mt8189.dtsi      |  86 +++-
- .../platform/chrome/chromeos_of_hw_prober.c   |   4 +
- 7 files changed, 610 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm64/boot/dts/mediatek/mt8189-skywalker-tarkin.dts
- create mode 100644 arch/arm64/boot/dts/mediatek/mt8189-skywalker.dtsi
-
-
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-prerequisite-patch-id: 7aeee7d452186b3bc1c11722b7ddb7dfbae7d396
-prerequisite-patch-id: 7f2d960cde2f0e0a307721150e83b7b05b9a60d7
-prerequisite-patch-id: f383e7157010179243963badff8c663d0ca21592
-prerequisite-patch-id: 742dfe3c56d88bad5dbdae49b34ecf8639db1bdb
-prerequisite-patch-id: 9c9c64b8b3879f230ba18a0d11cbeb584ce2977c
-prerequisite-patch-id: 7b1af194800ee6075aeb7933e2b55ac57e1dc5e2
-prerequisite-patch-id: 8c8e59354c22f2fa141599efaddc1d28da97c910
-prerequisite-patch-id: 560ea66d94464ee05a72499d1bd8adb3830fe9d0
-prerequisite-patch-id: def65116008ad75bae741bacc67552227446449d
-prerequisite-patch-id: 226e61bec983c3cdd39a64d0b5aa64994c6873c4
-prerequisite-patch-id: 988df54e8bb41d0cc56104398da9c8f669eef878
-prerequisite-patch-id: 9a3f954e6efaed40f57a23e721505f5e2abf538e
-prerequisite-patch-id: ac2ae94b727d7e4f2576601e09ed481248e6c099
-prerequisite-patch-id: 5cf430a386ebd823b14ad79aa05e8b723510f2e8
-prerequisite-patch-id: 49a0b4ca405cfbc9854dea09df664f60c7467fb9
-prerequisite-patch-id: 998d0587e6bb0ee244afeb5344cd3e9438d933ca
-prerequisite-patch-id: c23a23ce86063191e84218c496151104c270bead
-prerequisite-patch-id: 9c596a2b6b48b1c646e2aa6fdb12c2fc853f44f2
-prerequisite-patch-id: f0978bcc3be8c1986a00e41aab540c911508ae07
-prerequisite-patch-id: 8ce69ea826d8ebdb9103dab20941b018a10ef230
-prerequisite-patch-id: 7f544c1d5400bb2f6e964f53eeaacb52878bfce9
-prerequisite-patch-id: e2027aa2ac9d98bc9bc577dc0ef5bcb664380c51
-prerequisite-patch-id: 29b5901b08e6c967da57d83d90fdcac50657e4ad
-prerequisite-patch-id: 4442d5bd4b04a393301f974a3aaeabef7a693aac
-prerequisite-patch-id: c6be163e56e8187c47e4ee6adbab4c7877b5b5e9
-prerequisite-patch-id: 12f43414850b4a72ba37967ff7f765e426abd9e5
-prerequisite-patch-id: 9b00d856ced9bea88911a5af4d5e5dd003e66b15
-prerequisite-patch-id: 967e506aa16b20c211cb74080f83e38a7dffecd1
-prerequisite-patch-id: 2943831ea7bc0c4075580adf69e033f9057f4b19
-prerequisite-patch-id: cedfd27a6d86ef771ea29570d7aeaa1de6700d76
-prerequisite-patch-id: d71281b728b70a0c3e6628fcf667df5fce81f2de
-prerequisite-patch-id: f08f0f9abf6ddb4856e6f83f09afbd9a6bd58c69
-prerequisite-patch-id: 547ff4e2a908f87e94fff37f8e0a5cd7b6a06deb
-prerequisite-patch-id: 3b288113483ca2c4181fcc1141f03c4dfc05c43e
-prerequisite-patch-id: a7497035d432d4454a9e9ddf09b4dbef89a060ed
-prerequisite-patch-id: 26b2574fc9d0ead6e8ab193fca387cf6e816dce4
-prerequisite-patch-id: 29c372cf76fc379b8fbc48a1418ab7be81fc9a72
-prerequisite-patch-id: cbb095d95655a5f03ec66e163313544cb6f684ef
-prerequisite-patch-id: 85b0f64a1f172ffb61a5c2f1f312c6e1b9413162
-prerequisite-patch-id: e72c5ab13c8fd89d6ccb022ce6c8d6ebc9400a3b
+diff --git a/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml b/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
+index 3bf3eb1f8..34e833745 100644
+--- a/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
++++ b/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
+@@ -41,6 +41,7 @@ properties:
+           - const: mediatek,spi-ipm
+       - items:
+           - enum:
++              - mediatek,mt8189-spi
+               - mediatek,mt8196-spi
+           - const: mediatek,mt6991-spi
+       - items:
 -- 
 2.46.0
 
