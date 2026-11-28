@@ -1,103 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795852940;
-	b=h4ovHdMya5AiwbRkWtNj0hDes/8e+/Bc5fs5FaMqOpiXKDUZTpwix4mhJ2ppZfXD8xCp
-	 /fw9FUSzCLz4SnazLIlr5UqZY1zv87uQ3YzCwpZDFN4xD6UFwuIrY7j8z7jHUu8PK7gEV
-	 zAmP2GfQop0QuboQnwzH4IaDxP0W3nQukgN/UU19mV0kOdk2P2jfVMRquR8nCeuDY5DKf
-	 MKkJOGwITFk7VQWDy9PGwphoUY0ardwjgaXtmEpRv3GEq7AVLk17UzBwFWJQict66OqV1
-	 hlPtRvkenYOSivOthUroH9znTwTdT3mKxtOZQ+SnVVl62+FWhOl8dnzwPmtK9vNna2w==
+	t=1795853904;
+	b=v5G0SP8gNRVedaFs0Ud3v15PjSTUByN+nia2NkFmgP5xFjykMNX+oDa8G/soU7QdVpN0
+	 FTgB8aIo4zPlemJ8MEVGgZe/WNeuscxl2QwG6S42O8tG7Rg3kBGxbnnw0Apgr6GScGe2e
+	 G2XOTCcQzoQ6ndh3+GAyw24GUmFrS3ri7oWBId4JaaN1UrdX5CJVBFEEOrSneYLjh2+81
+	 D2OACONGEYG8eFtVxFFks2ayIa2I6/d/TqXa0eetsz/LQW6T6eXpMD57II+Qujr2jQ2p4
+	 PLxh1xWqjQQFPNDnS6iXzRKPhTqPdL7JIzCB/TgyR2z5LdW+BQTTrBzZEapuaQQKQow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795852940;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795853904;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=uvYCv8hY4UfHhfetpozuse+xYZWS5m8FKY73N24xD70=;
-	b=XW3LMFnJOLVrbtYCCpOpoI1GowIcZGRnFawIxpeoqwK5btRNPbm65cdA9yZsfrGxD4AN
-	 rv04YsdeNfLIvmeE2CT/bZKLW/Vyk3hS68Al40tdqTo0dItla5B8Oj7ZDaMP3dxjufbet
-	 YLbWl3fe07VGFRzpU8pqdf9Bks8aV1cV2aGrgEOIs0x2A8IFQMihRbCBtM5l4jDM38H6k
-	 TaGT8r/CeCyi1ijvQDm4JL+IdS93l430uiP6c2sJzvQVOlyGAixLtkOPwc4BMqgSKepOZ
-	 sRcS5jxl/kF/pEdXJph2rJcUNwUdGVMSljYxeAlMWwOCNAo8lqr0LBjwB00cAx+1Z7Q==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=UQHX/qYS5c5kksZ77LXg1WqJxlfjKfapCZLkAYXEJAI=;
+	b=VyYABIrZSbdPZdUm8rAVeWlWJelIjraqAgXaPi+KkFrCKNrkfPseuPkBSd4yEefTq5Oy
+	 ocLpgzmWb6xDVLU+/GV8Hrk8hirAp1yn0ec/+862hIZZl3WV56W3s1lGve87QF3c+SwPI
+	 sHAwgn4++onnUn6CikGWA4etzp+02JnJxjGfuCOzU/2l6WZoeEmUK4ceXaMY34HM2Va66
+	 9T2Kg/RR/0tmEa1ualQPUE7Tr4LvZ0LDGc2f1CNmBuT8DDKlBGqDu82L1BmPV9GMF4i9i
+	 192jkkTZYbA7vXIPqh1dkeTiqqbXH2ApgFQPVGefqxuRcMFQIZb8VS199Xy9ljy5UbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=LdeAbaCm;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pL3F2Q9W;
+	arc=none smtp.remote-ip=209.85.214.174
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49748606A31C
-	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 08:02:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49748606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8905A606A324
+	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 08:18:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8905A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=LdeAbaCm
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4bb666304fdso85154975e9.0
-        for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 00:02:20 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pL3F2Q9W
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2f03920c477so74038475ad.2
+        for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 00:18:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1795852939; x=1796457739; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uvYCv8hY4UfHhfetpozuse+xYZWS5m8FKY73N24xD70=;
-        b=LdeAbaCmG6aGvR2nb8gxW5A8NUpC5be/ax/tgsLkZ3JfclnVHSCztMsXwwaOxtfCbs
-         Whn6R4Xgag5vvedOlLOOqZIFnO8p/ma9v3ewdMLMmUyJbXJcCYsbNL5BU8NrNcJm0+oO
-         eSwAcSAwqLPgE02R/6QTtbzMaR7x4ACNhuLU3ilAUFgQLJwW15oDv2Zj8CLXGoYhlgUI
-         KPtuMWxjbplrMNqe/O/GPbWscg6EDpj7foYgYY/edB2p0i/glCFuhZ0rShexO1TvOxJ0
-         V83OwMTYNND+twHG115GRwZtJlnojvLS57hCFDQamb/4om6vZZDhNJMq1HEeB6yzOL4r
-         qeEg==
+        d=gmail.com; s=20260707; t=1795853904; x=1796458704; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UQHX/qYS5c5kksZ77LXg1WqJxlfjKfapCZLkAYXEJAI=;
+        b=pL3F2Q9WB7jP7gHpTdJVbvyZvP8l/9x6jogovbeNWcW056qwrI1F+QfS8G3+Pwn38z
+         22yn8/JwUPDWE+c2us2ASxf5aaHue7JmHdRykR3EZU7CvZ03lDxRfwcP6nl0TFhuHu9g
+         RaqRDceuHb/UmAZKZ2XwUb2cTzeixcYDg9G0txTsoXlBPuKKp2JWacoKM7tv7QwtgeCP
+         x+C0RT8xRs9rDGJYr4ZxcOF9ETzO17nzZm5l8iNQzKlh8OykskKJaMJM2nUNKaNAzbDF
+         ZzDtGi8WiTDFFO2lW6c2wrGsauFyQSDfel/2yTwVS9fMFip6Wxef9XnA/KH6eNQtSAwD
+         QoXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795852939; x=1796457739;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uvYCv8hY4UfHhfetpozuse+xYZWS5m8FKY73N24xD70=;
-        b=qKUIoxTyREdCPI36dNzDjihjLsYnSDfNUxZw6NN1GziaIJUKjSscavTRfKFRdRgrs0
-         n1xij1mGWzzwc3zx09XveAAuiGmlT3a4llzVcgNnO+yuZwMoXLojI6RTs9MVTtiahm1q
-         Xu50W3if6JtufQiew/B+6yMQyinqDi1Av03Wwz5AC4CQK34KPpe79apri256htRxQ9f4
-         tyzCBS4FL/sOe2h+sFdxA29oxkEnEcekWHSmk7HXHXbFuqHqb05jfFY+obCXxea5XDYF
-         Phn1ys+wxup/Sg3pJQXvFWR/aK1Fzp0oqwiMlaq3l3XxBFptYzij4JfmoLV9/1+7sjEw
-         DrJQ==
-X-Forwarded-Encrypted: i=1; AL+hErHfOYE6LpV01brsj95kX/n4ucnYWGXXXUw5WFtrBY2J9yiz1ONaGDD/wXUlqqDxAimPtv90qqp0eZNE@vger.kernel.org
-X-Gm-Message-State: APuU4Z/SACip6j5yOgjC7KtSAfPq8hfF0Fq97j+y3nQrnOI/WxJM6DHB
-	w5895AZKmBSHXJQP1C8UU8W5S36V+VznObck6WvvpEqjAyNByLJ6eSw84TNGsspnHBs=
-X-Gm-Gg: AZFdTZed5CqGP9xgGXQFs+sRyOUX2lmY4tEQbo3za2kmBiUnmcdyLSxUdSn65Dkr8+q
-	i9Ks80P9gxWBMn+l2SHrpebueeHnfTIod3Gdim/G5iG5quIr3Gu4k1vY9xi2O/SyQxNL7BqqMDk
-	nfE2ficb7vAMdzqRCYwlFr7tJaU9gUOhxokf/t//u1SnW6oi12Ajt1PSBmGlXGAZ2CfB9T59zFb
-	Osl/HfFHraf/C2yd/Lbw/HIDdzE+vittPqklguABrtfTQPcKVCK3I8u+OMo3MQ5ZEgkbizVZy6Y
-	HCqT70gMGpOTdZuuHVi4loxk8unw6YPG6tq1UPi1O2BQIeWnZg6PJ34W2IVnhBL0813H1wHcjHv
-	r3WkRATeicoYsWqlo1oFYX9E7vmBmXXaGwvDdbWFluQL26iVz7+xmKqzyIC/Fz7T1puUB9lRVOx
-	wxzjcZ8DiF0gMETtFFSi6Ti/A5/ojaE9ygaj3IuX2bWSneweRT086QQ5NzmlT/NYReNnYymxLDV
-	x+tziHtj98rtMTiL/AaXhg+DaUckPjXIx7u/ybi4KRVTmDceno8FNrE94JjTmr2DPe8wWiMOYyb
-	x1xGs+sGJ9G45Xs2YO2SjoGKoP9p6CZV29BRYdU8vt+eDOkcE0Hkbo3bTrlD4oDpyXSMFL7ZK3I
-	=
-X-Received: by 2002:a05:600c:5303:b0:4ba:4928:8aec with SMTP id 5b1f17b1804b1-4bb88807d7cmr505581765e9.9.1795852938637;
-        Sat, 28 Nov 2026 00:02:18 -0800 (PST)
-Received: from localhost (ip-005-146-085-079.um05.pools.vodafone-ip.de. [5.146.85.79])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4ab69bf680fsm59330195f8f.14.2026.11.28.00.02.17
+        d=1e100.net; s=20260707; t=1795853904; x=1796458704;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UQHX/qYS5c5kksZ77LXg1WqJxlfjKfapCZLkAYXEJAI=;
+        b=aA/KFWIQYOXxeXlEEY+UVkyZup1dFvzQpw2Mr6NAPK5MmE7KKBo6PhjCpq/9aCsmk0
+         TfPiCHOw5Xlfa8cKY98Q7cKFNpfq+aoQHVunfCKACS+HYzDaWqQCCIEcCQXpXqMkIgpW
+         pCbtAWOgXgLmriwGmPqjVsJp5CdljzCbJEjrq8/dcnEOcatQ9aPQUZv6wgADHE0WF4Wh
+         kAcAqzKfA11VGQC6B666h1uc+CFwxnoeo3x8ju3+yLuh45pdLG2fxOv+emApHjgbzYwT
+         LOPp80e8SBUtsfqRmpLisk6jJc5IGOZ1NivZBv4E+flAWS8iC8bymi2pxLeEO6YAkZvo
+         zX7A==
+X-Forwarded-Encrypted: i=1; AL+hErE+47L2M7DiQ5jqjWa5drHk0HLy/MSGzKAA7HoOsxp+ODWDYrIGPt9VcTF55VG+pzxpW7BgG+QxLvnP@vger.kernel.org
+X-Gm-Message-State: APuU4Z8FVPLpy3pVRCw4aUSIwMbJKDymWPCLgjlTwZfK6iCSouwhgEUM
+	8C3JGWsaSX9dPgHoRfnj1KNCS7bnKKtTmCCBKLFzX6XqeGpEf8K1GIO7
+X-Gm-Gg: AZFdTZf17b7tAdBy9F3/pI3JOPoN72hqfcX3XKFNLiyY2Gx/YNZxLwlGHwzWneRpt0H
+	XStGqlUdrVkNowGG2CQWbhx/gmEEfhfUj8dO9KQKr6ledlGuiYy2S9GhxygspHq8uqpK5ZJP3Xj
+	5j5zcLzGUpKn9rxmM9QmvQAgiPzFINM5/w6xybfOIBQvfkTjOzRwC6rx/PHGlMVTKZzh2LmvnRQ
+	wE3BMO2iTSkuUT8jwwC3Xkm/A1Bjwf0vKfLVlnHzKbnHYtSvvOf21jFzw2KT2G+sxQkjfO5/05+
+	OPl54epB45KY2YKydWHJVsP047gfg6fXxko5csq1ZThAOvVo9FCAxMeFOAUdnGlKgc6yAaYsgpp
+	Kg4ZiUkWsddUT71b/Ao68x0uZ/cxPpCZmCr0BI5sKW4hbO23H8wc3+l2KfnC6xMYI9yy1NHz3Yc
+	rOtd9LFfSOgPh1O1W9URjwc2YvnSid9C6ua4kSq0OhWBDZCyNAIT7CefJrYX/j4o4+gtI4jgi3i
+	lZEj08NW4ZzvIBlg3BJcalEjiM35BKaM8xUvepN//U230Tl0TcfS0srsULFXEvRz3M0ebkGmomO
+	vFxLc6qd
+X-Received: by 2002:a17:903:b4b:b0:2df:991b:4368 with SMTP id d9443c01a7336-2f03f1817ddmr297156055ad.53.1795853903817;
+        Sat, 28 Nov 2026 00:18:23 -0800 (PST)
+Received: from wyb-ms7e59 ([2001:df1:7880:4::50a])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03f14a432sm133882845ad.75.2026.11.28.00.18.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 28 Nov 2026 00:02:17 -0800 (PST)
-Date: Sat, 28 Nov 2026 09:02:17 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Alastair D'Silva <alastair@d-silva.org>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
-	Mathias Nyman <mathias.nyman@intel.com>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-usb@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 06/11] phy: allwinner: Add Allwinner A733 USB 2.0 PHY
- driver
-Message-ID: <awqKD6EufgpjsjP8@monoceros>
-References: <20261127073231.1776847-1-alastair@d-silva.org>
- <20261127073231.1776847-7-alastair@d-silva.org>
+        Sat, 28 Nov 2026 00:18:23 -0800 (PST)
+From: wyibo6109@gmail.com
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Yibo Wang <wyibo6109@gmail.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-input@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 1/2] dt-bindings: input: add OnePlus pogo-pin keyboard
+Date: Sat, 28 Nov 2026 02:18:18 -0600
+Message-ID: <20261128081818.365987-1-wyibo6109@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261017-literate-prudent-walrus-dc6dad@quoll>
+References: 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,46 +102,28 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6xgu3d2pgo3fouvi"
-Content-Disposition: inline
-In-Reply-To: <20261127073231.1776847-7-alastair@d-silva.org>
+Content-Transfer-Encoding: 8bit
 
+From: Yibo Wang <wyibo6109@gmail.com>
 
---6xgu3d2pgo3fouvi
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 06/11] phy: allwinner: Add Allwinner A733 USB 2.0 PHY
- driver
-MIME-Version: 1.0
+Hi Krzysztof,
 
-On Fri, Nov 27, 2026 at 06:32:26PM +1100, Alastair D'Silva wrote:
-> +#include <linux/mod_devicetable.h>
-> [...]
-> +#include <linux/platform_device.h>
+On 17/10/2026 20:01, Krzysztof Kozlowski wrote:
+> LLM
 
-<linux/platform_device.h> provides of_device_id already without the
-unneeded build dependencies that <linux/mod_devicetable.h> comes with.
-So please drop <linux/mod_devicetable.h>.
+Done, the prose now says LLM.
 
-There is no need to Cc: me for the next revisions of your series.
+> We agreed to drop all these.
 
-Best regards
-Uwe
+Dropped, together with the touchscreen.yaml reference; the driver does
+not parse them from DT either, the geometry is pure per-project match
+data now.
 
---6xgu3d2pgo3fouvi
-Content-Type: application/pgp-signature; name="signature.asc"
+> P > N
 
------BEGIN PGP SIGNATURE-----
+Moved after ONENAND.
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmsKioUACgkQj4D7WH0S
-/k7jYAf/QI/UwQ7qh2BbAqLJFatOOEv5i4Gi+vBVMqy7v16wMvrk3u7U4/ECqS/O
-C2/R+NZfyAK6CTe/5t37K/v9LeyvsEN4IbMSK3b5rwXFErl5KgfUZIBdgbD/1BJJ
-UP2X0g6ABsQZ5fNkNJXk8nerljU4Pxf7OUuWsz42+HHHKiq9AcZwAZgrS/TttgCN
-xeKamMt2XFYPMdjOhAhO57r/l3qPChmlWbT2bDdzM4i9nTyLBXrDRghnJWItoaN4
-puwi4x03yymrmDrp7IH2TYfNTOy/Lcc0OcjvpqxxhIG18CeOOMBMdMXQofE0HdQ6
-Htyr2kbi6xiqECUEVFTnuPE7uy+hvw==
-=iKhd
------END PGP SIGNATURE-----
+v7 sent as a new thread.
 
---6xgu3d2pgo3fouvi--
+Best regards,
+Yibo
