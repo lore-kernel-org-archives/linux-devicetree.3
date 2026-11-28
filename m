@@ -1,63 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795846715;
-	b=kVYVJCBsJT0yDPJbXvuJuvXSJI84cmqwDgyN1XKkExrmZQJDSD7ai3I5Fn034L1AkAOX
-	 BFj3ZqdFv/4/4BtERSWLZhFsoxdWpTvkRiFdqQyNIMUkDTdO+SOr9iUOlmCWwKOuYlLaP
-	 aK+lXZekwZyOnsPDyez24h9gRqWtly/Z7WBdFhv03NjuAd/b7YbrZxasnz+nrjC9OgMJy
-	 fEezsXAQWB7N+s4TllNWXgBLIAV3Jk6q2Cgf6Ke6Si8Y4Imi+wPVGbRuDjhGdFRaCBQQt
-	 UaKSXQIiFJMB0JyRZiwzX8hleZoV7dkPR6vqbTosANlf9vciRzzK47RmOsoSvXAehsg==
+	t=1795848583;
+	b=0RNal0ucqIYl8KSdcdiKcPZyPIxkFAnzi7yDufYA0Nctz13JMwJOegvOentHhC1bHo+T
+	 K2EkWz/eEtAsnFDCgmxKETEjnUoP+rnP/NrUyP7ZpEkOhI5MN5V0gN7A0eUldS/c6QCHt
+	 nHcrN+bpHgBUoCuecDzKZy8hrU0crbn4D6ha3VleailsBpr8xLBvFIm2M30b7IFO9tgoO
+	 l+nW/czkb2oJuuyWOfCkY+/CoCk6rsMsimRX+Pn6Qc1r/vC3xObDcS/h1bPjhUwiV+hqV
+	 5RoH8iKdffH22WbbY9MIdRTVp8gyjeDPQkLlc7UbT2OUMfOwCidvz80Q69/AmrOwMVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795846715;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=k7J6TLLCIarsWD8/5ux9wv2wr1oM4S9+UrlbnYXYYKU=;
-	b=sT99l8qD453LIz/jidTjrI8LwkAjIRXzmoCNFHSesxGqa+1L+DavwJIM5E+gzxR/4oRU
-	 p7D0A7BvN1s/1Fd2ZsF9KwlHUXyWNHd0AulICRgIIdERdCfJyYCn9So5NMcMQubAwFOxT
-	 d5HhM0tfUw4f7GamtcW30GOJMbqwIzXb1ZvH3d7fu+PCudik3U1iMuGqO+1/ueLeasB6h
-	 JGuGZBtTs72P1Ez+1m7y4AUlHpv29W/wgadJcQ7keMbEQFH5ywTfttR4/Z9lGq5mbSgNF
-	 sQFusooOI69xxZEQ0nsGk8bstpZ/PD6tMj73fGBuPdfivKX7eVTMTTHHHKo405wSfeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795848583;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=YAlAXhBa+PmydqxcAx6HQ5xcH/PcqJHReLdO4gxPARw=;
+	b=08nHqPaiUxosiY0cI2PqLWZ2IT4omeHFI0ZDIjpXoZSd/qTLBfyF8dY8x0nSz5Lae1sS
+	 dPHrIxtwrUB7HeOeHjMTncoD8xe96sg6GJjr/si7BVhuupy/5cjmrUcyEPN/1TdQVFGi1
+	 VEABllSYAjtZ9MhoDutzu0kRj0Cg0aeCKFYpn+qpvhAm7QmZ9TFZ12lZRdGwFuzvI6cX2
+	 2c960LPUoDK7MF4absytIZX2fBj19frlYFOCm/7xXjeFjYoJ0fEGfLbNhUIti2VF5XBHz
+	 MADiYvxcVEd5kH4Ft/9sLuWSyR4FwBNH2pU/I85U9/eZq4oOw4PozkmAB5DEfrE7YKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=Rodce3Gt;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=8Cukuoul;
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xu+uF1EC;
+	arc=none smtp.remote-ip=209.85.216.48
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0980606A31C
-	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 06:18:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0980606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC7FA606A32A
+	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 06:49:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC7FA606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=Rodce3Gt;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=8Cukuoul
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1795846699; bh=k7J6TLLCIarsWD8/5ux9wv2
-	wr1oM4S9+UrlbnYXYYKU=; b=Rodce3Gta8SDLrjSPXWt6cEgDCtwC1bW2cG/8/B/EEXW3UYnjH
-	1FO/eUvRMQq+4pu5kS79Z6+XnZvV3MpGmsqrARQ1QzsWFYsQPY20KY5kaSOYe+WMIyQBccnFbj+
-	xyMsiMiXl/Z5vuA8prXQF2JP7catU2D73g5yqZ4HR/IXnOKrcmy8TaWoj+Wb1+vWgj7aDKUtyjl
-	mQOgfEiajFou4nJ0epnMdieVL+T5F9uMlMsx7gzHe9F+ZUKekW0dEiTeBYJg0KhU8hq+gYI8ZNV
-	xWo0sbUgGPCTan5vODNeMR5/LW8sLhg6ABpZsGlV0SlCysTr0MwbYdlv7mu5DJZ6OAA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1795846699; bh=k7J6TLLCIarsWD8/5ux9wv2
-	wr1oM4S9+UrlbnYXYYKU=; b=8CukuoulCXMMpGEKLE537432nLlqh8SMeUbgHIgTSdYagE9Fm6
-	oPHQ2G41QrpG/zUjxQoxFKI6hfBB7p10oXDg==;
-Date: Sat, 28 Nov 2026 13:18:14 +0700
-From: Dang Huynh <dang.huynh@mainlining.org>
-To: Quentin Schulz <quentin.schulz@cherry.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xu+uF1EC
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3b5489c6b26so300813a91.2
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 22:49:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795848581; x=1796453381; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YAlAXhBa+PmydqxcAx6HQ5xcH/PcqJHReLdO4gxPARw=;
+        b=Xu+uF1ECdJuqK5e/C8egmQMVAYFO620qOsYsutPo75vA+GGPK+Cgm/dMtjoCPiE7N4
+         eTqE7bKZj1r2FieWTLTwDawDXIftWymd+BIdihs9hZJruTAOxAK2L4Q2yQk7I2JjICs9
+         1DJravvHFzf51g7AwnZE6CkbHd16Kd9VcEyWDn47abcYeiksP3sryX3CIcGVyfW4PKcB
+         5AwXXJkPNPJ36019JlD5JOMvbpFGeHW1zP5fIfaKpBrFTJKaPVZq5YLPV4HvwtFQVeL8
+         80P12rIX3xcXXJYt0gDXfAKohJOIlCFeEg9dfqJcOChMagRX+k8gkPrCZQCYAqcweE3U
+         Vysw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795848581; x=1796453381;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YAlAXhBa+PmydqxcAx6HQ5xcH/PcqJHReLdO4gxPARw=;
+        b=cBaRV6WaHEysJMYWjE7/OVuKteArl2PwK9Eb0aggrxazfJwtvUjdkDoMn5xbX+itHY
+         JoVRsHtx+jy2Vwz0n8d7sJVy04sCsoRtXn0l2B66PuvbUoiKY4P9y7gRkof8RjrjAkYE
+         wK32Y7woLaKPYZIrgxf2sbkRHU7VRkkRBk4fMb/+QvuUhK+nd+vReNZGD8N2mcoE33VG
+         veF/U36LqPuvkWPKVqSNDkFoUizXVr1Nd/lVBHm8YhbN2YryBnyyIyQUsID7u72CEtHN
+         COg63TVF/3GA4kysrpNTvi5S+o5XjsPdhEpA3xN/M63U2/EJipPaL21NvuQUh2S/tyGY
+         REXQ==
+X-Forwarded-Encrypted: i=1; AL+hErHOI3pIPiOx+M9bRhnVBnK0qU3vK6i39eHe3MfZ9ZWIAdicfEsO3SgdS0IsiHccvbITe6Mv0jmDgu9A@vger.kernel.org
+X-Gm-Message-State: APuU4Z+usiFtELbuQJRxZ/SNd18jgyTVopBruo8AndRMWDxLepRJwk5R
+	b9YX0xWF4n/VDDND0D8PlDL/HiVez1L2djXmij89tLfBGDUzzum3sOXe
+X-Gm-Gg: AZFdTZfVnNQQZlvPQRYem/zpU/IJo5+bxiDyYMVqqSFXiBQjduNnxZVb+CKKa07pivB
+	4BsjR7XX06Q5qUan3r6Z71EToX8BSt0P8zMGH2cuHJy0s885uFf06/uIeMOZ4cVxtO6q6OCGGiT
+	TeXiauXuiC40QWSr0UTt+/xMUhIT/ZQxLEgJOJIA5NiDA27i9XUUEHl0Ao7BdSncs1a4/fYZOAQ
+	d7EMY8iUBf88esPaynUgEsJgFMCvNQDSDr+VIFiPDyC9+x6RNUuMLiksgkqjFwJuK1fe1+WXc7u
+	Y2pLVNgYMhmi+IJe8eyuc00VtwzV1B3m0/YejBztPZdpV0yTNwKQQngiqAYcz0IRFE9hsiO85cP
+	8GiDfeyM6eL7B8HjZzcRvwXD80gmSEy7dximSS3RtSPrQhhms2JAjiS1EJ3OVjgM9O7Rlf4hkaN
+	+29IN6RRiRG5DxCeCyXoBFSIOzFx1YAv3BZbyiyBEGBDTjkk4c8SqCNA+IxMjCX+Vfk0WKe2CoO
+	JDAjHhPsCl75d3IiNuebPa849dqsEL1lxdgfTKurNZbJ/fee+w787kMHaGXZK7QAPn3o92DegF8
+	0DUWQXorscMIHoaluZEaycCHk64XJfrZXMhmJWpLLmknq8Ho9vgzSJFpJfDJPgJUK6TR2akJRhN
+	t3kKxGlxDXobmt6tmlP3f3z8D0HcDJQu007Sv4XlQk9+xchT2MJtiYlgXZlbw8zSFZsUgQvc7/i
+	eFRw==
+X-Received: by 2002:a17:90b:4a48:b0:3a8:7096:9b48 with SMTP id 98e67ed59e1d1-3b41c7b5fb3mr26034655a91.1.1795848581098;
+        Fri, 27 Nov 2026 22:49:41 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b44b217a5bsm19909406a91.0.2026.11.27.22.49.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Nov 2026 22:49:40 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: Andrew Lunn <andrew@lunn.ch>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH] arm64: dts: rockchip: Add CD GPIO to Orange Pi 5/5B/5Pro
-Message-ID: <awpxYCW9N_tqAhiX@melt-pi5>
-References: <20261121-orange-pi-5-sdcard-v1-1-e431e7c46ba0@mainlining.org>
- <c6930807-24de-49c2-adcb-5dbbc3da0c45@cherry.de>
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS)
+Subject: [PATCH v2] ARM: dts: helios5: sort pins alphabetically
+Date: Fri, 27 Nov 2026 22:49:38 -0800
+Message-ID: <20261128064938.9951-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,51 +101,97 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c6930807-24de-49c2-adcb-5dbbc3da0c45@cherry.de>
+Content-Transfer-Encoding: 8bit
 
-Hi Quentin,
+Rename some pins to have helios prefixes for consistency.
 
-On Thu, Nov 26, 2026 at 10:56:12AM +0100, Quentin Schulz wrote:
-> Hi Dang,
-> 
-> On 11/21/26 8:03 AM, Dang Huynh wrote:
-> > CD GPIO is currently not defined in Orange Pi 5, this breaks
-> > SD card hotplugging.
-> 
-> That's not the issue. The issue is that the card detect signal is muxed in
-> the SDMMC_DET function (c.f. sdmmc_det in rk3588-base.dtsi) and that relies
-> on the SDMMC controller being powered on to detect such an event. This
-> cannot work when the controller is in runtime suspend, so we have a chicken
-> and the egg problem. The card detect should resume the controller, but it
-> can only work when the controller is running. Hence why we now go for the
-> gpio function (via cd-gpios) instead. See
-> c7a9549ce46e ("arm64: dts: rockchip: Switch microSD card detect to gpio on
-> Radxa ROCK 5 ITX/5C") for an example.
-Interesting, I didn't know that the controller could do that. You learn
-something new every day I guess.
+Also use hyphens in fan pinctrl node names.
 
-> > diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
-> > index 2db6ee95e504..8fbb0ba19b74 100644
-> > --- a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
-> > +++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
-> > @@ -282,6 +282,7 @@ &sdhci {
-> >   &sdmmc {
-> >   	bus-width = <4>;
-> >   	cap-sd-highspeed;
-> > +	cd-gpios = <&gpio0 RK_PA4 GPIO_ACTIVE_LOW>;
-> 
-> issue: missing pinmuxing
-> 
-> You need to configure the pinmux and pinconf for this pin (via pinctrl-0 and
-> we require repeating pinctrl-names wherever pinctrl-0 is modified).
-pinmux/pinconf is already defined in rk3588-base-pinctrl.dtsi for this
-exact GPIO. I guess this is in case when controller's card detect works?
+dtc W=1 warns about the underscores in the fan pinctrl group node
+names:
 
-> 
-> Cheers,
-> Quentin
+  Warning (node_name_chars_strict): .../helios_fan1_pins: Character '_' not recommended in node name
 
-Best regards,
-Dang
+Use hyphens like every other pin group in this file. The labels are
+unchanged, so no references need updating.
+
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v2: sort pins alphabetically instead of just fixing fan1 pins
+ .../boot/dts/marvell/armada-388-helios4.dts   | 38 +++++++++----------
+ 1 file changed, 19 insertions(+), 19 deletions(-)
+
+diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+index d4ed47ae73c5..50a80ae659c4 100644
+--- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
++++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+@@ -164,7 +164,7 @@ expander0: gpio-expander@20 {
+ 					reg = <0x20>;
+ 					vcc-supply = <&reg_3p3v>;
+ 					pinctrl-names = "default";
+-					pinctrl-0 = <&pca0_pins>;
++					pinctrl-0 = <&helios_pca0_pins>;
+ 					interrupt-parent = <&gpio0>;
+ 					interrupts = <23 IRQ_TYPE_LEVEL_LOW>;
+ 					interrupt-controller;
+@@ -268,18 +268,32 @@ usb3@f8000 {
+ 			};
+ 
+ 			pinctrl@18000 {
+-				pca0_pins: pca0-pins {
+-					marvell,pins = "mpp23";
++				helios_fan1_pins: helios-fan1-pins {
++					marvell,pins = "mpp41", "mpp43";
+ 					marvell,function = "gpio";
+ 				};
+-				microsom_phy0_int_pins: microsom-phy0-int-pins {
+-					marvell,pins = "mpp18";
++				helios_fan2_pins: helios-fan2-pins {
++					marvell,pins = "mpp48", "mpp55";
+ 					marvell,function = "gpio";
+ 				};
+ 				helios_i2c1_pins: i2c1-pins {
+ 					marvell,pins = "mpp26", "mpp27";
+ 					marvell,function = "i2c1";
+ 				};
++				helios_io_led_pins: helios-io-led-pins {
++					marvell,pins = "mpp49", "mpp50",
++						       "mpp52", "mpp53",
++						       "mpp54";
++					marvell,function = "gpio";
++				};
++				helios_pca0_pins: pca0-pins {
++					marvell,pins = "mpp23";
++					marvell,function = "gpio";
++				};
++				helios_phy0_int_pins: microsom-phy0-int-pins {
++					marvell,pins = "mpp18";
++					marvell,function = "gpio";
++				};
+ 				helios_sdhci_cd_pins: helios-sdhci-cd-pins {
+ 					marvell,pins = "mpp20";
+ 					marvell,function = "gpio";
+@@ -294,20 +308,6 @@ helios_system_led_pins: helios-system-led-pins {
+ 					marvell,pins = "mpp24", "mpp25";
+ 					marvell,function = "gpio";
+ 				};
+-				helios_io_led_pins: helios-io-led-pins {
+-					marvell,pins = "mpp49", "mpp50",
+-						       "mpp52", "mpp53",
+-						       "mpp54";
+-					marvell,function = "gpio";
+-				};
+-				helios_fan1_pins: helios_fan1_pins {
+-					marvell,pins = "mpp41", "mpp43";
+-					marvell,function = "gpio";
+-				};
+-				helios_fan2_pins: helios_fan2_pins {
+-					marvell,pins = "mpp48", "mpp55";
+-					marvell,function = "gpio";
+-				};
+ 			};
+ 		};
+ 	};
+-- 
+2.56.1
+
