@@ -1,56 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795874591;
-	b=qgzHrsaj9VPUXU5vMV0GPSHBEoR+HLaTc1v64uJqbJePjBbHVLltYfliJXLL/tsc6Zdc
-	 bp4P4KmKBPosLc3tmWNm823Fgl+q3QWmHUYEisl7FSH0CYJtzrwHM2pEPcN1Jm6qZfVa9
-	 v+tJ9xrI5mY6x4sVtExzx6EruEGS1OJz+dACvliC4T16XhJPsLbiEMBs40kiyLOmrMFhe
-	 A6YqXyHUCIoA++oZwtRiRC17xuZK9wp8JsHhIE4OJg0WoI+yR6eof7/y0kZyPtwyoZXXn
-	 KpSUeAG345vkYhHqqeHztMuvpzGaxUrfWj24meGG+VU/iOM/uBArH91/7gpZiAxlIqQ==
+	t=1795875297;
+	b=3Wsnl6wtEuVhZUO4+RDEs5Xe0newJAvBub1uLfY8OkZuvfk9jJIESLy6nCnSnsu4/0EJ
+	 hVcur3XhS02mnAWIiZDM6NrEbd+WvhKmbw/RnA81wUlJa7JX3fi+DOg/5NC5bRiSNyFn4
+	 4yrz9AdIm9w0c0uMZiL/YiX01N/htYcBm94AENS4YXfAdauXTRVIPA7YlzGNoNw8ZT24u
+	 xMKpyDrojxvEzlafNY63HMQ+ItDA83J2OEk/+camZkaEDA0z/a4D4AF2NN6CpkuLuNriO
+	 JNRui1uSeHM+RbWuA6wp+6VuZpy10c9y8aZyqzTKdhhNnTJnu+uxppAdzJdREhAAtLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795874591;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=wq7+1npazsL3L4BbEgddagOwCROxtlqGUXm19aAHbVg=;
-	b=ysRxhx6DZ5kCQO/hnSAih6yW7fWKhuJ7hSx+dyapX3Gb7h5+Yjya0AzVqUKGWbxE0bCc
-	 vK4iUQg5I6GeQ4enLi88mUhU0o03OALJ+nWljZ+ra+YKldyBvFe695qmHNtGn6CqM6b1A
-	 nFT25rzwPnKU6Fa+eVZ/zzU/NUvOJdnLZw8jGD8zLiC4ln/B9N+8fRxZcSltST8cJclkv
-	 d2/pKA6/58NYTgJuM7XfFixiO1t2GtlvQZ/rg2QFRC8msJtmODvnhxHJfI/QCVnO91boC
-	 TxTSipSjM96g2olwQYD9nI1z9Rn3DGzC/xpViIgZtoWvz4qHFfOaMZepcr1pd3D6g8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795875297;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ovt3whWqdaT1jywj9I1uBt0fMRtj7mzqaOeqp3btgZw=;
+	b=F+PT6X+PIhJJ/DXBryXArcgbpHNRdIAVWrZ00DCnI2TRcgTFt7LTp7eBYknX9qQ68cXZ
+	 /dHVEtz4hssYMP/Fmoksi0LNdo+dL5YdXDiTb5Inz/bb4DpzApf7hN2kZO0eVcOZNV5S7
+	 wsetP29P9xrBzQ7Eztk5eJVRVOY9DiY9fLps4v1toGIQp/HcCTwd5+9c2dJw6JvQQccZG
+	 VWVkX3DWNkczNTm/Ia+QL/iZOHEDctF45d8PFXewq2nAcY8Tzcr7PL3yoXVENtJDVr7gQ
+	 qSjtACqVSDHDNcj07jdBFeAIBdi5vnxSRcaJMTdBNeykhI/GzpNW0ZL02ELyRD9jn6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="N6S/oq5P";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Au4OlAHX;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D87A5606A321;
-	Sat, 28 Nov 2026 14:03:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18380606A323
+	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 14:14:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18380606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N6S/oq5P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C7D01F000C1;
-	Sat, 28 Nov 2026 14:03:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795874591;
-	bh=wq7+1npazsL3L4BbEgddagOwCROxtlqGUXm19aAHbVg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=N6S/oq5Pmq9SXgGyRiHc3cd2fMkQPoq71EfZPNQejJJvSJn9gFpFcqfqjUVYlLw2W
-	 dUxyZhpA5ggqYSu/S8+z8rsncoVkIVTgAgdl9+x6W2mF+Ti5ORAu72hjm/91FdY0wI
-	 hydaKf87B9oZ/U8/n9ePIX8Z2QwitJ2H1mlzhbHDXgggrbUSGT48/8ySuclIKSIG8u
-	 rZDuFWHQZilaqIso5ySho4E3G4SzfDCQ9cAvSgexj3AUDl3B5U4xQlNS6+5kqDU21U
-	 qXLYjZCD5J2CKDuzN9vBxbZZIQPJbDOMCOxbjP1kP+WuS3aADHCC4iY1/ituOiOKAe
-	 D0xnd67uRwgHw==
-Message-ID: <sashiko-outbox-238744@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/7] Input: s6sy761 - add SPI support for S6SY791
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lukas Timmermann" <foss@timmermann.space>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261128-lat3st-google-raven-touch-upstream-v2-4-1be5c1029087@timmermann.space>
-References: <20261128-lat3st-google-raven-touch-upstream-v2-0-1be5c1029087@timmermann.space>
- <20261128-lat3st-google-raven-touch-upstream-v2-4-1be5c1029087@timmermann.space>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 28 Nov 2026 14:03:11 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Au4OlAHX
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-386ab9ab619so12797758eec.1
+        for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 06:14:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795875296; x=1796480096; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ovt3whWqdaT1jywj9I1uBt0fMRtj7mzqaOeqp3btgZw=;
+        b=Au4OlAHXVW2FgPmm/PstlnjukmVJ+URrrz2s3dg4vqKaWMjWdwSBcpigNqEuHkIVpT
+         VEeGf8Rfe3DdIw+EpOsb3vpEmzUQMVNGwN2UsHrotFwHqV6kPHXuRZOzFNOzHdmrQoPv
+         tlOY6NgLsJFLCduku4kTERHOY4mPputPiCdbQ8Ot3zTQbunvBTqxllGFcCPzb1S8xGfK
+         iASsJC6i6bavpe0CN6KZ56xbgbGdhUH0lKJB6IHqgedlO+u//VIY06UbJ1GyYCb2IP/6
+         wyaIOK45vT57YhAJxt8I5q9RsfbsCE1nuIgR4x/L6w9o1gHML0ZC3VQv1OP+HT1Nw7OE
+         MRQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795875296; x=1796480096;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ovt3whWqdaT1jywj9I1uBt0fMRtj7mzqaOeqp3btgZw=;
+        b=SI62iXiUKa/AYuHnhuJYwGiZJvPIA2uQP/F8UpdCqXvdKXxKGK9MHQaonxZnrp+t9B
+         +XFcN6CurIR0XNrz/AwJxT36wTHHkpNGFSiyk61P8F9CE3MaBa9ZR7NSLC4VlHreGjPI
+         QsDrycz28B5afRWLLOCYsRmOOXk4Ulnjr3nWZVEdykxAs4KULz0g1eUNfySkXnt2dUTY
+         t6hgBdqCOYR9hQsZObJew+h8h0vz4584hAVLHErhnkJP74hdmcPlDKaUgJDQPAdkdihQ
+         ZhlV/Y3HHRR7yJJcs8mJ7rtqTXr/KpO8IxRs6ERnajxlsUkTTMLrpPcFDJmbYapRyVG6
+         ftZg==
+X-Forwarded-Encrypted: i=1; AL+hErFdCyumjrYtcxaL5zYK6OmTtL/5FzVnmcOCziuCPU7rfuhp6w7qzs+0CT+bzBYQHFDEBQUtxzezQKTJ@vger.kernel.org
+X-Gm-Message-State: APuU4Z+2FUsYG6FviKKwZyjuIpS0hZRGPxRmGMhEsuSCBFjKCYiwhD8v
+	0lY//Z2LDd6KqP/l16qEoODEoVOZgyL1CtropmIsVxEn3i259Gs6y/nv
+X-Gm-Gg: AZFdTZes62b2HIv/9sT2m1y2NrRf7rQngrA80LOppg21zsZ95U2IMjbdHdl8SmgfLeU
+	BhRj49U90D82ywTvN+3Hc7RTo+FUExQ3+MZIuvAKP3/1UEOUsVT5v26B7+1RttnR5j+pkE/fTx4
+	unaIOEUANukDZgbrw/33p1gmC9aHGzsdeuTZ4BXZgwBa4sVPm8bAe/0cpTLF+8KTrxjy5PWGLl9
+	XiBU7Hd2BogM5mkctZz7HvsUdrn71IwjhZX1A/0781DdvU2Fpt/Xe7fwu1ZsK90mWDRnkVIwbAp
+	b6TiVg0Cg9eiH/NocYIb6JphNLD9NbPAicRsNt77LZj+Q58OlcNC3I44urXpTohsWnMRr985S+A
+	UToai0CSbwTRjNCUTacWO4RxQtgGO+A7aOrsAiD0t1wlbJfZ2VE63t+HHKSY/+reBzfJ9sSp6Yl
+	mujamC26e/7DPjQCP2Wm/C1T0P3k0me4GhsqxpUf7k1Kf9Vafz/DuPyi//eSx897fri4IYqgMR1
+	jsh7AWKyuk00LSoTSLsWYfiywQtyIBs+S1IhmLUiQJlNqA2zkD/2Rwh6uemkeNoI1NqAXq/u5yA
+	Ix7KwunA9g3j1wk1y2XrxgFfVsC+KzJcvsrnQm5gGRbc6qqrPCavADMEB53+wP7QVuii2QMgjjE
+	5CxMQgGfaHSWNfI6+nG8te6QuJzuW
+X-Received: by 2002:a05:693c:6010:b0:385:849b:7899 with SMTP id 5a478bee46e88-385849b7adamr31917186eec.4.1795875295880;
+        Sat, 28 Nov 2026 06:14:55 -0800 (PST)
+Received: from localhost.localdomain ([2405:201:301c:f8cd:241f:982d:147f:bf76])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e7f59sm87185893eec.6.2026.11.28.06.14.49
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 28 Nov 2026 06:14:55 -0800 (PST)
+From: Aryan Sinha <sinha.aryan03@gmail.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mark Brown <broonie@kernel.org>,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
+	Benson Leung <bleung@chromium.org>
+Cc: Leilk Liu <leilk.liu@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	devicetree@vger.kernel.org,
+	linux-spi@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	chrome-platform@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Aryan Sinha <sinha.aryan03@gmail.com>
+Subject: [PATCH 0/6]  arm64: dts: mediatek: Add MT8189 Skywalker based Tarkin Chromebook
+Date: Sat, 28 Nov 2026 19:44:24 +0530
+Message-ID: <20261128141443.13065-1-sinha.aryan03@gmail.com>
+X-Mailer: git-send-email 2.46.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,83 +110,107 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] Input: s6sy761: DMA-unsafe stack buffers in s6sy761_i2c_read()
---
+This series adds initial support for Tarkin, an ASUS Chromebook (CM1405,
+CM1406) on Google's MT8189 (Kompanio 540) Skywalker platform.
 
-commit 41cdfc7d2236b662f8b09dd26455edb5cb7aa912
-Author: Lukas Timmermann <foss@timmermann.space>
+It builds on the MT8189 base support from the Genio 520/720-EVK series
+and adds:
 
-Input: s6sy761 - add SPI support for S6SY791
+ - an MT8189 compatible to the MediaTek SPI binding (same IPM design as
+   MT6991) and the six SPI controllers in mt8189.dtsi, needed for the
+   EC on SPI0
+ - a label for the MT8189 watchdog, so Chromebooks can disable its
+   external reset like Geralt and Cherry do
+ - the Tarkin board compatible
+ - the Skywalker platform dtsi and the Tarkin board dts
+ - Tarkin in the ChromeOS hardware prober, for its second source
+   trackpad
 
-This commit adds an SPI transport module for the Samsung S6SY791 touchscreen
-controller using the shared s6sy761 core driver.
+- Tested on an ASUS Chromebook CM1405
 
-> diff --git a/drivers/input/touchscreen/s6sy761_spi.c b/drivers/input/touc=
-hscreen/s6sy761_spi.c
-> new file mode 100644
-> index 0000000000000..ddb849cd48457
-> --- /dev/null
-> +++ b/drivers/input/touchscreen/s6sy761_spi.c
-[ ... ]
-> +static int s6sy761_spi_read(struct device *dev, u8 *xfer_buf,
-> +			    u8 cmd, size_t length, void *values)
-> +{
-[ ... ]
-> +	memset(xfer_buf, 0, ALIGN(resp_len, 4));
-> +	reply.tx_buf =3D xfer_buf;
-> +	reply.rx_buf =3D xfer_buf;
-> +	reply.len =3D ALIGN(resp_len, 4);
-> +	ret =3D spi_sync_transfer(spi, &reply, 1);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (xfer_buf[0] !=3D S6SY761_SPI_SYNC_CODE ||
-> +	    xfer_buf[5] !=3D cmd ||
-> +	    xfer_buf[resp_len - 1] !=3D
-> +			s6sy761_spi_checksum(xfer_buf, resp_len - 1))
-> +		return -EIO;
-> +
-> +	memcpy(values, xfer_buf + S6SY761_SPI_READ_HEADER_SIZE, length);
-> +
-> +	return 0;
-> +}
+Not included yet, since the SoC side is not upstream: display, GPU,
+audio, USB, UFS and PCIe.
 
-[Severity: High]
-While s6sy761_spi_read() bounces transfers through the heap-allocated
-xfer_buf, does s6sy761_i2c_read() in commit "Input: s6sy761 - split into
-core and I2C modules" pass stack buffers directly to i2c_transfer()?
+The Skywalker and Tarkin device trees are based on the ChromeOS kernel's
+mt8189-skywalker.dtsi and mt8189-skywalker-tarkin.dts.
 
-drivers/input/touchscreen/s6sy761_i2c.c:s6sy761_i2c_read() {
-	struct i2c_client *client =3D to_i2c_client(dev);
-	struct i2c_msg msgs[2] =3D {
-		{
-			.addr	=3D client->addr,
-			.len	=3D 1,
-			.buf	=3D &cmd,
-		},
-		{
-			.addr	=3D client->addr,
-			.flags	=3D I2C_M_RD,
-			.len	=3D length,
-			.buf	=3D values,
-		},
-	};
-	int ret;
+This series depends on the Genio 520/720-EVK series [1], which adds
+mt8189.dtsi, and on what that series depends on:
 
-	ret =3D i2c_transfer(client->adapter, msgs, ARRAY_SIZE(msgs));
-    ...
-}
+ - MT8189 system and base clock controllers v6 [2], applied to
+   v7.4-next/clk
+ - net/stmmac: Add Mediatek MT8189 support, v5 applied to net-next
+ - the MT8189 pinmux header [3] and timer binding [4], still pending
 
-msgs[0].buf points to the stack parameter cmd, and callers such as
-s6sy761_power_on() and s6sy761_hw_init() also pass stack buffers as values.
-Because I2C controllers may DMA directly from and into i2c_msg buffers,
-passing stack addresses under CONFIG_VMAP_STACK can fail DMA mapping or
-corrupt memory.  Should s6sy761_i2c_read() use xfer_buf for both messages
-and copy the result into values?
+[1] https://lore.kernel.org/linux-mediatek/20260924-add-mediatek-genio-520-720-evk-v3-0-2ec5c80677d4@collabora.com/
+[2] https://lore.kernel.org/linux-mediatek/20260904-mt8189-clocks-system-base-v6-0-5df247f56938@collabora.com/
+[3] https://lore.kernel.org/linux-mediatek/20251205064357.13591-1-ot_cathy.xu@mediatek.com/
+[4] https://lore.kernel.org/linux-mediatek/20250825033136.7705-1-zhanzhan.ge@mediatek.com/
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261128-lat3st-goo=
-gle-raven-touch-upstream-v2-0-1be5c1029087@timmermann.space?part=3D4
+Aryan Sinha (6):
+  dt-bindings: spi: mediatek,spi-mt65xx: Add MT8189
+  arm64: dts: mediatek: mt8189: Add SPI controllers
+  arm64: dts: mediatek: mt8189: Add watchdog label
+  dt-bindings: arm: mediatek: Add Google Tarkin
+  arm64: dts: mediatek: Add MT8189 Skywalker platform based Tarkin
+  platform/chrome: of_hw_prober: Support trackpad probing on Tarkin
+
+ .../devicetree/bindings/arm/mediatek.yaml     |   4 +
+ .../bindings/spi/mediatek,spi-mt65xx.yaml     |   1 +
+ arch/arm64/boot/dts/mediatek/Makefile         |   1 +
+ .../dts/mediatek/mt8189-skywalker-tarkin.dts  |  62 +++
+ .../boot/dts/mediatek/mt8189-skywalker.dtsi   | 453 ++++++++++++++++++
+ arch/arm64/boot/dts/mediatek/mt8189.dtsi      |  86 +++-
+ .../platform/chrome/chromeos_of_hw_prober.c   |   4 +
+ 7 files changed, 610 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm64/boot/dts/mediatek/mt8189-skywalker-tarkin.dts
+ create mode 100644 arch/arm64/boot/dts/mediatek/mt8189-skywalker.dtsi
+
+
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+prerequisite-patch-id: 7aeee7d452186b3bc1c11722b7ddb7dfbae7d396
+prerequisite-patch-id: 7f2d960cde2f0e0a307721150e83b7b05b9a60d7
+prerequisite-patch-id: f383e7157010179243963badff8c663d0ca21592
+prerequisite-patch-id: 742dfe3c56d88bad5dbdae49b34ecf8639db1bdb
+prerequisite-patch-id: 9c9c64b8b3879f230ba18a0d11cbeb584ce2977c
+prerequisite-patch-id: 7b1af194800ee6075aeb7933e2b55ac57e1dc5e2
+prerequisite-patch-id: 8c8e59354c22f2fa141599efaddc1d28da97c910
+prerequisite-patch-id: 560ea66d94464ee05a72499d1bd8adb3830fe9d0
+prerequisite-patch-id: def65116008ad75bae741bacc67552227446449d
+prerequisite-patch-id: 226e61bec983c3cdd39a64d0b5aa64994c6873c4
+prerequisite-patch-id: 988df54e8bb41d0cc56104398da9c8f669eef878
+prerequisite-patch-id: 9a3f954e6efaed40f57a23e721505f5e2abf538e
+prerequisite-patch-id: ac2ae94b727d7e4f2576601e09ed481248e6c099
+prerequisite-patch-id: 5cf430a386ebd823b14ad79aa05e8b723510f2e8
+prerequisite-patch-id: 49a0b4ca405cfbc9854dea09df664f60c7467fb9
+prerequisite-patch-id: 998d0587e6bb0ee244afeb5344cd3e9438d933ca
+prerequisite-patch-id: c23a23ce86063191e84218c496151104c270bead
+prerequisite-patch-id: 9c596a2b6b48b1c646e2aa6fdb12c2fc853f44f2
+prerequisite-patch-id: f0978bcc3be8c1986a00e41aab540c911508ae07
+prerequisite-patch-id: 8ce69ea826d8ebdb9103dab20941b018a10ef230
+prerequisite-patch-id: 7f544c1d5400bb2f6e964f53eeaacb52878bfce9
+prerequisite-patch-id: e2027aa2ac9d98bc9bc577dc0ef5bcb664380c51
+prerequisite-patch-id: 29b5901b08e6c967da57d83d90fdcac50657e4ad
+prerequisite-patch-id: 4442d5bd4b04a393301f974a3aaeabef7a693aac
+prerequisite-patch-id: c6be163e56e8187c47e4ee6adbab4c7877b5b5e9
+prerequisite-patch-id: 12f43414850b4a72ba37967ff7f765e426abd9e5
+prerequisite-patch-id: 9b00d856ced9bea88911a5af4d5e5dd003e66b15
+prerequisite-patch-id: 967e506aa16b20c211cb74080f83e38a7dffecd1
+prerequisite-patch-id: 2943831ea7bc0c4075580adf69e033f9057f4b19
+prerequisite-patch-id: cedfd27a6d86ef771ea29570d7aeaa1de6700d76
+prerequisite-patch-id: d71281b728b70a0c3e6628fcf667df5fce81f2de
+prerequisite-patch-id: f08f0f9abf6ddb4856e6f83f09afbd9a6bd58c69
+prerequisite-patch-id: 547ff4e2a908f87e94fff37f8e0a5cd7b6a06deb
+prerequisite-patch-id: 3b288113483ca2c4181fcc1141f03c4dfc05c43e
+prerequisite-patch-id: a7497035d432d4454a9e9ddf09b4dbef89a060ed
+prerequisite-patch-id: 26b2574fc9d0ead6e8ab193fca387cf6e816dce4
+prerequisite-patch-id: 29c372cf76fc379b8fbc48a1418ab7be81fc9a72
+prerequisite-patch-id: cbb095d95655a5f03ec66e163313544cb6f684ef
+prerequisite-patch-id: 85b0f64a1f172ffb61a5c2f1f312c6e1b9413162
+prerequisite-patch-id: e72c5ab13c8fd89d6ccb022ce6c8d6ebc9400a3b
+-- 
+2.46.0
+
