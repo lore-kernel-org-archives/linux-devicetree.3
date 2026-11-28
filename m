@@ -1,93 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795826655;
-	b=Tqe2HsZQtSQKFDjWQi4qsqc+orA8tTI2dmZZQVgM+cViP3cHUce6QgfjdpFaLtZ+uMfb
-	 GDcT4m2SxH3f8Ker5JonWEv4N773oBPonaZeH1mOQef8Ii+DkxoLmi56nojt72lpo5LHd
-	 M+byvtjFNAqIVuQjYaykXG3Eo4EPFKuQQTnt0TkPnElz8bvoaAwxWSy6dkQ/W4kR5/YMT
-	 cZBEVf7tykUKRHgkqDAgfFM/cct+vZEDkwrNSBg7BnLhOOgCuIvBpFAqVNOXh0boymGO2
-	 uRCKqx3JUX/s2Iq9bkDsLC7gbhEuQMtEHipmQFlBrUeanppzut/iCBdFUpPAuJG1N8w==
+	t=1795827008;
+	b=e3EGgYmoWrs4jiEOvZh4+wo40eqTW1HIYaJw3OZxSA9zhvZy2WIqQQG7nhslZv/0NGbF
+	 mE6uskpe5R4v+OLEE2Q1te+GXCTD0kcIqduv6hoaYD5qqBLYxNY1dJmVq1/+EtZSf5V8H
+	 tC0rB1qCiF+DDyt8C7MsYzh5oK8yZAsPTWP4ch0ldSZ8cMi3n5RQ/sWnIl9L587HiOEd0
+	 Y2s68uNEbgoazrl4ND1Y0kaZ+FyVx+exffElaCdt848DWQOpU9t0CpyACU6kwD6E2iOPx
+	 xfnHcOLMOwLoGDl+7cpuPhNH2advGg8j4QKNFqYHRZyLZdfqs0e9F7kw3upTz62d3wQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795826655;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=ctlHt2JLaIfhdJqip8B29uE4209TAh6ZSBNTqgalats=;
-	b=KNj9eX4p4S6OPmAVqNaBF2FI6B/KgbX3GsdmFY/4HIggPqxej/TuDvbU0kpvB2MmN4SA
-	 cMOEauqwYPKSy8stwpXtD3pgXQ0nqTo97XmWuroyyjG1FC1uk3/bCM9ve5RPpsODLFkDi
-	 vL0M6CgBDMgooAD8YG9u4rLoAYAhsCDDPzh5hNm16917/R+9HVoXjk5mKBbCsKV6gLQw/
-	 Wy8lHGgBVq6q/SyiFcCQWwSEYIiX5l9OfdHRNsBr+07BtoCCdlRQYOfON0D+F6/D4aOTm
-	 c7bKxiO7VRAsZyPW4f/U1yDVmVi6hWmZ3QxK3ySAcWSp/gQamHx7no+y/T9bUC+DsBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795827008;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=vjndxlGs8agolDhu4c30Y/rDIfGEQD4LOMd0Ft+WwAk=;
+	b=Qqrgl0mkVf9ZVZsi89IgWRYR9mrNcSUrhm4akY1MzBSwnHulW3zDpyMbhO8B1SuBzutX
+	 GnGTMo32TJXgv/biDPIfe/7Of9J0HL9A4bqjdu2246h+aNEWzesqwFsoZ1JPc0KS3LJbB
+	 TbB8Sj8wyWS4C7ZLjSdYQplqsuqI+OqhdNQLmYvWc1cgVTbjjYKMywiQeZE1Do/Ids8Gi
+	 nCaVj76hl0LAzLs8O2GiG4zQuIgQoP+dNMu8I9zr+uJCGKUf9JFVtp2xBZ/ucTXeGchRN
+	 RuV0FwbgKvJuB+ufjcgD3Kc4lHEN2pxE94E+sjHtVzyhB20tt3A2st4DOmvinIGPOgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dUL1TbNK;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GR0DhEG9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814F8606A324;
-	Sat, 28 Nov 2026 00:44:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 814F8606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE9C2606A31C;
+	Sat, 28 Nov 2026 00:50:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dUL1TbNK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795826654; x=1827362654;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=jnEq3ovZP6cM1oJUZcdyFoF/mxkTAfO3qY5KxdsrpDQ=;
-  b=dUL1TbNKaSYqplYMJoa59V/omukcgOOs6dFLo2SsRqF7Z4QDbZoJFJM3
-   ghE0hC/WnMs8xk67I7KIhbg8iqzIY+O/KvkayGwhcsm/c6LY/7PvqkRdh
-   WtgwZUxaD1kBBhPFRuM0x1ZRnasoG7u09X584HQ9j9yrswYYB7bnHzzTc
-   dMG48b4ZoYYmsPYdvwGC0Vrf78b4y9EveCecar6Zig/bvlaepLbgRS5mp
-   FHnehGnXq/iZ/BpmJlm4WTg9f1d5LPzsoMocxv2xPEYZ+SIfzi/c5Qi5P
-   thDHDTRPDGA7Mv35BD3ad+QmjXEZO/0ZkckPtAxQCy+Le8d6Akn50UwPw
-   g==;
-X-CSE-ConnectionGUID: Ay/LmSQhSDe0n29Bf3BMuA==
-X-CSE-MsgGUID: YLmWf3A+RnW75pZLCj9HBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11979"; a="4739372"
-X-IronPort-AV: E=Sophos;i="6.27,237,1787036400"; 
-   d="scan'208";a="4739372"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Nov 2026 16:44:14 -0800
-X-CSE-ConnectionGUID: UyqdbBtAQRuPeqKB5NLzuQ==
-X-CSE-MsgGUID: IhKfo2BlQn665SiqLkNS2g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,237,1787036400"; 
-   d="scan'208";a="14508775"
-Received: from igk-lkp-server01.igk.intel.com (HELO 146cf1e082f1) ([10.211.93.152])
-  by fmviesa013.fm.intel.com with ESMTP; 27 Nov 2026 16:44:10 -0800
-Received: from kbuild by 146cf1e082f1 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xX6Xv-000000000Ss-2ZRS;
-	Sat, 28 Nov 2026 00:44:07 +0000
-Date: Sat, 28 Nov 2026 01:43:51 +0100
-From: kernel test robot <lkp@intel.com>
-To: Anthony McGivern <anthony.mcgivern@arm.com>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Cc: oe-kbuild-all@lists.linux.dev,
-	Anthony McGivern <anthony.mcgivern@arm.com>,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>,
-	Nayden Kanchev <nayden.kanchev@arm.com>,
-	Konstantin Babin <konstantin.babin@arm.com>,
-	Linus Walleij <linusw@kernel.org>, jacopo.mondi@ideasonboard.com,
-	kieran.bingham@ideasonboard.com, laurent.pinchart@ideasonboard.com,
-	dan.scally@ideasonboard.com,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH 15/24] media: Documentation: Add Mali-C720 ISP
- documentation
-Message-ID: <20261128014225.kEBjBbCy-lkp@intel.com>
-References: <20261124-b4-initial-upstream-candidate-v1-15-0cb9bde1bd30@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GR0DhEG9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 539001F00897;
+	Sat, 28 Nov 2026 00:50:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795827008;
+	bh=vjndxlGs8agolDhu4c30Y/rDIfGEQD4LOMd0Ft+WwAk=;
+	h=From:Subject:Date:To:Cc;
+	b=GR0DhEG9hg0CyA+l0PyxYEcASdvJD6sWhSFTvu1FdtaFLbw75MxSQy7ZGTXrsQ4Ze
+	 29S3kw19g9WZ26pJ7PWvzaBEjjoNRJEOm2M5G1+H+Jutw3uuw4TQ8C6XVMq0agKf4H
+	 WN27F2Rx9eA6sdXdBFIjsQwfnLTrRYrjQ51Dkvt+ucK8MsVtfLij5PUjTkKBczDxpD
+	 vzbFCa4ASPOVd4vKzLPIRMr/NKRGkGyLtwggdQIw0jJVvWwkTFPTjkQlypBCvcRZbA
+	 hkKNre0mvBY31jzaTSC5pgB053y4dogiAx8tUBqtdNqMMN6gGP4E0LW8BmamQbl56P
+	 /1XzStpJy9hsQ==
+From: Yixun Lan <dlan@kernel.org>
+Subject: [PATCH v9 0/2] Add UFS Host driver support for SpacemiT K3 SoC
+Date: Sat, 28 Nov 2026 00:49:50 +0000
+Message-Id: <20261128-08-k3-ufs-support-v9-0-d27deb096d1e@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -97,212 +53,159 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261124-b4-initial-upstream-candidate-v1-15-0cb9bde1bd30@arm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23RzW7DIAwH8FepOI/JmO+e9h7TDhCgzTolFbTRp
+ irvPtJKa6ZwtOT/z8bcSIm5j4XsdzeS49SXfhxqYV92pDu64RBpH2pNEFCBAknB0BOn11RouZ7
+ PY77QzngOJgomI5KaO+eY+u+7+f7xqMvVf8buskBLx7EvlzH/3IdObOl7+Bqw4U+MAmVOCcedZ
+ 2jS2ynmIX69jvlAlgETrghsrThVlwoJXDl0KJjZEPxJGFAtglcCuE6eI7ou+A0hnoSt+QYhKlH
+ DDn2wOvAtIVcEa24hl1skGTRLDFCHDaFWBLIWUV3KhbZaGYdo7YbQfwSD9o/oSnjPLYBOybq4I
+ cyTYO2H1APRyD1KZTWGIP4R8zz/Ah+SvN+aAgAA
+X-Change-ID: 20260605-08-k3-ufs-support-c8b308e415e2
+To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, 
+ Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, 
+ Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, 
+ Aurelien Jarno <aurelien@aurel32.net>, 
+ Jennifer Berringer <jberring@redhat.com>, 
+ Trevor Gamblin <tgamblin@baylibre.com>, linux-scsi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Yixun Lan <dlan@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4760; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=ijdGu8Pq+mlJCyptmqzWKnq4/EZfSxirNaoZEs5mmoU=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBrCiUxXB8uGzZjJ8KijOFXnf8hfPcxZ6WUlDIdb
+ EBdZru+wDuJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCawolMRsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
+ maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
+ QACgkQMarqR1lNu+0roA//ap7dPnk/FX3i4aIjXjh1JFemAzo0qpJYzXhyAUC58V+ntTP+yacq8
+ dJrJxo8c2ZiLV7OEYzyrL8K3OM2W8Gz+z1n8NPRBDkRtkb9LwOarKQZtwkqChqbGLUE5SAMcUpT
+ fUiy/Ii38fr3SgSaAYxvWW1yqMpnr7Q9ePojmDAe7aQvgLub3YeXGlDIC3nWmVap9FpxRROtHcR
+ ffWqZcnUzueohPkf5R67jRNfyhTxs12IAEMu7XBjkIKYwGpmmJNZT93EfjbPSTxBV2sptv9dfUZ
+ OUF/xx7MlssxY38ePUWaz4AjQffn6dZWUxDoCJQZ464DXCF3+9iNbBV/y4Jc5XTVYQNd1Lm6oS9
+ jCZMMtDHyMdHkQlU26sRsHc7uuAL9dWDU4U4iFyjT+h4144s6JM6Wt9E7TnjnoinjZk3tF+jxpz
+ pI0QLpuI9qDiRACFCv/H2Awwd0o+zH40Vpjm2sYTipSXw4wBL/0UQ5MqwRpzxm7fZkQi8Ov/IV9
+ /XJ4TprTRAFuW6/Gsqx2nzbkZ0hIQu3Q6aRaJc/NMG9f5YBx2I7BLF5PTmKbDXO6T25HzbtOfD5
+ UK4U6+qH5Hyl2tVjCuscMcmTQOndIXRQawYeV6ImUlrwbmku5jvXXs/nSAZiAU+yV8Zxi1yrmNV
+ 0nppsrF57EB12nF8WWTZnO/9+eTjSk=
+X-Developer-Key: i=dlan@kernel.org; a=openpgp;
+ fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-Hi Anthony,
+This series try to add UFS support for SpacemiT K3 SoC, the controller
+components consists of System Bus Interface Unit, UFS Host Controller
+Interface, UFS Transport Protocol Layer, UFS Host Registers, Device
+Management Entity (DME), Transport Layer, Network Layer, Data Link
+Layer, PHY Adapter Layer, and M-PHY Interface. A more detail functional
+block diagram can be found in SpacemiT website, chapter 9.7.3 [1]
 
-kernel test robot noticed the following build warnings:
+The DTS patch has been dropped in this series [2], and will send
+in separate series once this patch accepted. For people who want to
+test UFS driver, please grab the DT patch from version v5 [3].
 
-[auto build test WARNING on b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f]
+Enable UFSHCD_CAP_KEEP_AUTO_BKOPS_ENABLED_EXCEPT_SUSPEND,
+This allows the device auto-bkops to be always enabled except
+during suspend (both runtime and suspend), with this feature,
+the BKOPS interrupt (log below) isn't reported anymore.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Anthony-McGivern/media-uapi-Add-24-bit-Bayer-media-bus-formats/20261124-170729
-base:   b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
-patch link:    https://lore.kernel.org/r/20261124-b4-initial-upstream-candidate-v1-15-0cb9bde1bd30%40arm.com
-patch subject: [PATCH 15/24] media: Documentation: Add Mali-C720 ISP documentation
-compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
-docutils: docutils (Docutils 0.23, Python 3.13.5, on linux)
-sphinx: sphinx-build 9.2.0
-reproduce: (https://download.01.org/0day-ci/archive/20261128/20261128014225.kEBjBbCy-lkp@intel.com/reproduce)
+[  806.710763] ufshcd-spacemit c0e00000.ufshc: ufshcd_bkops_exception_event_handler: device raised urgent BKOPS exception for bkops status 1
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/20261128014225.kEBjBbCy-lkp@intel.com/
+Link: https://spacemit.com/community/document/info?nodepath=hardware/key_stone/k3/k3_docs/k3_usermanual/09_memory_storage.md&lang=en [1]
+Link: https://lore.kernel.org/all/20260918-belligerent-succinct-kraken-7fa592@quoll/ [2]
+Link: https://lore.kernel.org/all/20260916-08-k3-ufs-support-v5-3-1f5d71f1027d@kernel.org/ [3]
+Signed-off-by: Yixun Lan <dlan@kernel.org>
+---
+Changes in v9:
+- return check of ufs_spacemit_dme_set()
+- drop spacemit_ufs_set_dev_cap()
+- log ->saved_err 
+- sort macro definition
+- Link to v8: https://patch.msgid.link/20261116-08-k3-ufs-support-v8-0-e3b256972dd4@kernel.org
 
-All warnings (new ones prefixed by >>):
+Changes in v8:
+- enable UFSHCD_CAP_KEEP_AUTO_BKOPS_ENABLED_EXCEPT_SUSPEND
+- rename to "ref_clk", see explanation in patch
+- add delay between enable clk & deassert reset
+- respect bRefClkGatingWaitTime, add wait delay
+- drop comment of ufs_hba_spacemit_vops, which got CI complaint
+- rebase to v7.4-rc1
+- Link to v7: https://patch.msgid.link/20261002-08-k3-ufs-support-v7-0-bb39007ff9ae@kernel.org
 
-   WARNING: /sys/bus/usb/devices/<busnum>-<devnum>:<config num>.<interface num>/<hid-bus>:<vendor-id>:<product-id>.<num>/os_mode_index is defined 2 times: Documentation/ABI/testing/sysfs-driver-hid-lenovo-go:373; Documentation/ABI/testing/sysfs-driver-hid-lenovo-go-s:243
-   WARNING: /sys/bus/usb/devices/<busnum>-<devnum>:<config num>.<interface num>/<hid-bus>:<vendor-id>:<product-id>.<num>/touchpad/enabled is defined 2 times: Documentation/ABI/testing/sysfs-driver-hid-lenovo-go:636; Documentation/ABI/testing/sysfs-driver-hid-lenovo-go-s:252
-   WARNING: /sys/bus/usb/devices/<busnum>-<devnum>:<config num>.<interface num>/<hid-bus>:<vendor-id>:<product-id>.<num>/touchpad/enabled_index is defined 2 times: Documentation/ABI/testing/sysfs-driver-hid-lenovo-go:645; Documentation/ABI/testing/sysfs-driver-hid-lenovo-go-s:261
-   Documentation/ABI/testing/sysfs-class-power-rt9467:1: WARNING: Inline emphasis start-string without end-string. [docutils]
-   Documentation/ABI/testing/sysfs-class-power-rt9471:1: WARNING: Inline emphasis start-string without end-string. [docutils]
->> Documentation/admin-guide/media/mali-c720.rst:215: WARNING: Title underline too short.
---
-   Capturing Bayer data and processing it to RGB
-   -------------------------------------------- [docutils]
->> Documentation/admin-guide/media/mali-c720.rst:370: WARNING: Footnote [3] is not referenced. [ref.footnote]
-   Documentation/driver-api/basics:42: ./kernel/time/time.c:387: WARNING: Duplicate C declaration, also defined at driver-api/basics:436.
-   Declaration is '.. c:function:: unsigned int jiffies_to_msecs (const unsigned long j)'. [duplicate_declaration.c]
-   Documentation/driver-api/basics:42: ./kernel/time/time.c:410: WARNING: Duplicate C declaration, also defined at driver-api/basics:453.
-   Declaration is '.. c:function:: unsigned int jiffies_to_usecs (const unsigned long j)'. [duplicate_declaration.c]
-   Documentation/driver-api/target:25: ./drivers/target/target_core_user.c:35: ERROR: Unexpected section title.
+Changes in v7:
+- check err return value of ufs_spacemit_quirk_host_pa_saveconfigtime()
+- Link to v6: https://patch.msgid.link/20260921-08-k3-ufs-support-v6-0-3479768a2299@kernel.org
 
+Changes in v6:
+- drop unused macro and dev_req_params
+- use global PX_xx macros
+- fix axi clock name
+- drop dts patch
+- collect tags
+- Link to v5: https://patch.msgid.link/20260916-08-k3-ufs-support-v5-0-1f5d71f1027d@kernel.org
 
-vim +215 Documentation/admin-guide/media/mali-c720.rst
+Changes in v5:
+- adjust clock names
+- add runtime power support
+- collect tags
+- Link to v4: https://patch.msgid.link/20260908-08-k3-ufs-support-v4-0-22aa2bd97d3b@kernel.org
 
-   211	
-   212	    media-ctl -l "'mali-c720 fr 0 pipe':1->'mali-c720 fr0-rgb':0[1]"
-   213	
-   214	Capturing Bayer data and processing it to RGB
- > 215	--------------------------------------------
-   216	
-   217	To capture 1920x1080 Bayer data from the source and push it through the ISP's
-   218	full processing pipeline, we configure formats from the input source towards
-   219	the output.
-   220	
-   221	The TPG produces 16-bit Bayer data, the input subdevice outputs this as 24-bit
-   222	Bayer. The input pipeline, represented by the ISP subdevice, transforms the
-   223	data into the square-root domain and feeds 16-bit Bayer into HV. Within HV,
-   224	the debayering occurs and then produces the 12-bit RGB input used by FR0.
-   225	
-   226	For our example, the formats are configured as follows:
-   227	
-   228	.. code-block:: none
-   229	
-   230	    media-ctl -V "'mali-c720 tpg 0':0[fmt:SRGGB16_1X16/1920x1080]"
-   231	    media-ctl -V "'mali-c720 input':1[fmt:SRGGB16_1X16/1920x1080]"
-   232	    media-ctl -V "'mali-c720 isp':0[fmt:SRGGB24_1X24/1920x1080]"
-   233	    media-ctl -V "'mali-c720 hv pipe':0[fmt:SRGGB16_1X16/1920x1080]"
-   234	    media-ctl -V "'mali-c720 fr 0 pipe':0[fmt:RGB121212_1X36/1920x1080]"
-   235	
-   236	Images can then be captured from the FR0-RGB video device:
-   237	
-   238	.. code-block:: none
-   239	
-   240	    yavta -f RGB24 -s 1920x1080 -c10 /dev/video0
-   241	
-   242	Capturing from multiple outputs
-   243	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   244	
-   245	The RGB and YUV outputs can capture images at the same time. For example,
-   246	enable both FR0 capture nodes:
-   247	
-   248	.. code-block:: none
-   249	
-   250	    media-ctl -l "'mali-c720 fr 0 pipe':1->'mali-c720 fr0-rgb':0[1]"
-   251	    media-ctl -l "'mali-c720 fr 0 pipe':2->'mali-c720 fr0-yuv':0[1]"
-   252	
-   253	Starting the first video device validates the entire media pipeline and
-   254	prevents further format changes. As such, when capturing from multiple outputs,
-   255	formats must be configured on all enabled subdevices and linked video devices
-   256	before starting any streams. For example, set both capture formats using v4l2-ctl:
-   257	
-   258	.. code-block:: none
-   259	
-   260	    v4l2-ctl -d /dev/video0 --set-fmt-video=width=1920,height=1080,pixelformat=RGB3
-   261	    v4l2-ctl -d /dev/video1 --set-fmt-video=width=1920,height=1080,pixelformat=NV12
-   262	
-   263	Then run the two capture processes concurrently:
-   264	
-   265	.. code-block:: none
-   266	
-   267	    yavta -c10 /dev/video0 &
-   268	    yavta -c10 /dev/video1 &
-   269	    wait
-   270	
-   271	Cropping the image
-   272	~~~~~~~~~~~~~~~~~~
-   273	
-   274	The full-resolution pipeline can crop to a minimum resolution of 64x64.
-   275	To crop the image, configure the pipe's source pad crop rectangle and set
-   276	the format on the video device. The FR pipeline has one shared crop for
-   277	its RGB and YUV outputs. Setting the crop on either source pad updates
-   278	both source crops and output dimensions:
-   279	
-   280	.. code-block:: none
-   281	
-   282	    media-ctl -V "'mali-c720 fr 0 pipe':1[crop:(640,300)/640x480]"
-   283	    yavta -f RGB24 -s 640x480 -c10 /dev/video0
-   284	
-   285	Downscaling the image
-   286	~~~~~~~~~~~~~~~~~~~~~
-   287	
-   288	The full-resolution pipeline can produce full-size, cropped or downscaled
-   289	images. Downscaling by up to ~16x is supported, provided the minimum 64x64
-   290	output resolution is adhered to. For the best image result the scaling ratio
-   291	for each direction should be the same. Scaling is configured with the compose
-   292	rectangle on the pipe's sink pad. RGB and YUV outputs share the same
-   293	scaling configuration:
-   294	
-   295	.. code-block:: none
-   296	
-   297	    media-ctl -V "'mali-c720 fr 0 pipe':0[compose:(0,0)/640x360]"
-   298	    yavta -f RGB24 -s 640x360 -c10 /dev/video0
-   299	
-   300	Cropping is applied after scaling. To combine the two operations, set the
-   301	compose rectangle first, then the crop rectangle.
-   302	
-   303	Capturing images in YUV formats
-   304	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   305	
-   306	Within the full resolution pipe there is a colour space conversion block for
-   307	the YUV conversion, but its design permits the RGB and YUV to be output
-   308	simultaneously. Enable the link between the pipe and the YUV video device,
-   309	then configure a capture format like NV12:
-   310	
-   311	.. code-block:: none
-   312	
-   313	    media-ctl -l "'mali-c720 fr 0 pipe':1->'mali-c720 fr0-rgb':0[0]"
-   314	    media-ctl -l "'mali-c720 fr 0 pipe':2->'mali-c720 fr0-yuv':0[1]"
-   315	    yavta -f NV12 -s 1920x1080 -c10 /dev/video1
-   316	
-   317	.. _mali-c720-frame-scheduling:
-   318	
-   319	Frame scheduling and Media Requests
-   320	===================================
-   321	
-   322	Frame scheduling depends on whether the streaming videobuf2 (VB2) queues use
-   323	direct buffer queuing or Media Requests. Use of Media Requests is optional.
-   324	
-   325	Direct mode
-   326	-----------
-   327	
-   328	When all streaming image capture queues use direct buffer queuing through
-   329	:ref:`VIDIOC_QBUF`, the driver schedules frames in free-running mode.
-   330	Scheduling starts only when at least one image output buffer is ready.
-   331	Once started, it continues scheduling frames using the available buffers.
-   332	Empty image capture queues disable their respective capture for the
-   333	scheduled frame.
-   334	
-   335	Request mode
-   336	------------
-   337	
-   338	If any of these streaming VB2 queues uses Media Requests, scheduling starts
-   339	when a request is queued. Each subsequent frame also requires a queued
-   340	request.
-   341	
-   342	Applications allocate a request using :ref:`MEDIA_IOC_REQUEST_ALLOC` on the
-   343	media device.
-   344	Image buffers are associated with it through
-   345	:ref:`VIDIOC_QBUF`, setting ``V4L2_BUF_FLAG_REQUEST_FD`` and ``request_fd``.
-   346	The request is then submitted using :ref:`MEDIA_REQUEST_IOC_QUEUE` on the
-   347	request file descriptor.
-   348	
-   349	Controls cannot currently be associated with Media Requests. Requests
-   350	containing controls are rejected when queued.
-   351	
-   352	A request does not need to include a buffer for every capture queue.
-   353	Queues without a buffer will be disabled for the scheduled frame.
-   354	
-   355	All buffers associated with the request are usually applied on the same
-   356	frame, but a request could span multiple frames if multiple buffers are
-   357	queued for the same buffer queue. Completed buffers are returned to userspace through
-   358	:ref:`VIDIOC_DQBUF <VIDIOC_QBUF>`.
-   359	
-   360	It is permitted to queue buffers directly in other VB2 queues alongside
-   361	those operating in request mode, with requests still driving scheduling.
-   362	Whenever a request is scheduled, available buffers from these queues can
-   363	be used for the same frame, alongside buffers associated with the request.
-   364	
-   365	References
-   366	==========
-   367	
-   368	.. [1] https://git.linuxtv.org/v4l-utils.git/
-   369	.. [2] https://git.ideasonboard.org/yavta.git/
- > 370	.. [3] https://support.arm.com/compute-ip/mali-c720ae
+Changes in v4:
+- fix clock and reset settings
+- drop function which retrieve value of tx_lanes
+- propagate return error of ufs_spacemit_dme_set()
+- check return value ufs_spacemit_check_hibern8()
+- drop call to ufshcd_vops_phy_initialization()
+- handle compiling warning if CONFIG_OF not enabled
+ add __maybe_unused to ufs_spacemit_of_match
+- Link to v3: https://patch.msgid.link/20260806-08-k3-ufs-support-v3-0-037fb322acdb@kernel.org
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Changes in v3:
+- collect tags
+- fix dt-binding warning reported-by sashiko
+- fix low freq in opp-2 table
+- fix err checking in check_hibern8()
+- propagate err code in link_startup_notify()
+- update documents for event_notify()
+- ufs clock driver is merged into v7.3-rc1, update cover letter
+- Link to v2: https://patch.msgid.link/20260725-08-k3-ufs-support-v2-0-45036a2a2418@kernel.org
+
+Changes in v2:
+- fix missing interrupts property
+- move ufs node to k3-com260.dtsi
+- convert freq-table-hz to operating-points-v2
+- rework reset_control, fix header and drop global variable
+- drop dump_host_regs() debug interface
+- converge and refactor dme_set() operations
+- massive reduce of busy delay() loops
+- drop vendor specific hce_enable_notify(), fallback to default
+- drop unused member from struct ufs_spacemit_host
+- add COMPILE_TEST support to Kconfig
+- comment style fix
+- Link to v1: https://patch.msgid.link/20260702-08-k3-ufs-support-v1-0-1a64a3ab128f@kernel.org
+
+---
+Yixun Lan (2):
+      scsi: ufs: spacemit: dt-bindings: Add UFS controller for K3 SoC
+      scsi: ufs: spacemit: k3: Add UFS Host Controller driver
+
+ .../devicetree/bindings/ufs/spacemit,k3-ufshc.yaml |  56 ++
+ drivers/ufs/host/Kconfig                           |  12 +
+ drivers/ufs/host/Makefile                          |   1 +
+ drivers/ufs/host/ufs-spacemit.c                    | 619 +++++++++++++++++++++
+ drivers/ufs/host/ufs-spacemit.h                    |  81 +++
+ 5 files changed, 769 insertions(+)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20260605-08-k3-ufs-support-c8b308e415e2
+
+Best regards,
+--  
+Yixun Lan <dlan@kernel.org>
+
