@@ -1,101 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795873639;
-	b=AQb1VXJ/yiIs6MiAAavcau1Ae5LVw4Kp4EI/DscBQ4dA4pyx+pIOzsUqiwUjWQyfx/Y7
-	 hJY5I1Fq07sG+C2gOOtsFsZzBXliqRqUWruPRVMuyFevvkmPVL14U0ZJEVHXeYPHoha6z
-	 D8XhsCtMHiL47OdFyWMWHYJXyCqh9VuDeA+IX75N04Ths658i4Cl2dz9qXplak541Gh84
-	 UOLlrpNnoxPYwYl1EebboX/ST55TEJsayHfbzhOVNcX7hhWJJ/Ds45lTDQA6OMQkz1o4O
-	 XC1MdTwLhdyVb7KF7iosXgo+eSmLtN987e/VyY5G/w6ci3k9iaugJ9J5uTCz4hW4vpQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795873639;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=r0WbWTy8H8AEJBJ2yF6at8ZT6mtzoF1bxzPJALDoIu4=;
-	b=qdOVuZcgTgFVN/0jCXH+Lr63+pAdA5Et1XPqcVEOeqjzXVTT/S15mqKjDbDPMkTHgEW5
-	 6Z3TwYD1OclpKDF4wIR1PLBvf4CLoGYBYCcfvJdbTmfhzEj6/8OgQpoIKJVglCvLsacJe
-	 YSpKHlG4vNjXu587PhkaUMi/9qYKTVgTqzHUn3l2Pq+SJCe1zHsx7fa/wCTsAaORHm/wZ
-	 V+mQAV/qMtMWw0dcLgEnQSsM8NAyozqsqekX6E9ic5Gq26L/rN9ipM4Q3YAIEkKQVnszQ
-	 qKwPIzjn+mdM2i/byFSNowqN6DMTvSE9PrfLjO+2LTYAKjWKj7u02dCBxLtahfTRIMg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.tenstorrent.com;
-	spf=pass smtp.mailfrom=tenstorrent.com;
-	dkim=pass header.d=tenstorrent.com header.i=@tenstorrent.com header.a=rsa-sha256 header.s=google header.b=D0uipOTx;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.44
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795873903;
+	b=qWDb4YTQVyPddvNDlRi1t0B6weVsH2XT9N3ZcxlUvTpaPcMMpXZjC3GG4TIsQO8kDWjt
+	 +fqfC8EdMwehay43az9L+9PBe3GaI7ugCt5YhS9dTfwT8ns9vQ4wUV2YcbwJFI7ZAI/uK
+	 ybvb/8rSEtQUnXHe4LvchHicYW9CWo54PinHSdy8MMqx+EIgZ/hm/zo5jvPy2Hj9zLNXI
+	 PbxVwdRy2VEPpcJ/H1uyWr+F03OjKmvcSl9/Q3wSN3SP7mALQCUxe7Nvz1CPz7BhXHEJX
+	 x4XPHc83OzhTVp/kxlibO5S9MNFXWPU5/rVcjQaAOSDFm6vGLteMMDsC0OL7b7uKang==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795873903;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Rspamd-Queue-Id;
+	bh=2a+Yri10/zFE3o9wz8FYNDHmwFSDAaf5+qNG/L9KbRg=;
+	b=zTuCRJOit4lysj34OF2e7GDm4IcWrgVMAhR3TKI0dXNEJLD+lMSgepWDApyN6AoyQYk/
+	 nXjdkvqOcUcO5Yd917ndI/ADQpjkSCB78qsW3RpAV0VR+oWu/w7trpK73dtOEF6NGG8v9
+	 70pTQ4U+toWYEetjC+3rjLiFJCsja8RxcfoJxi/abm/2UXgpo+Xu07E0p5cD9UeHBzbQC
+	 d12OSzElTdOH6ZaFWt2mgCPumDJDFg4EfoFoho2FIaYZ5kkHiLatSmGJdvCffpU0nOH1Q
+	 fcx/CI5jgAXyqmZ+ob2xhEZ9aGD7H6/7kchHpMxZ+dsSVBTrY8IsPQxKFmdIrMu7K6Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=timmermann.space;
+	spf=pass smtp.mailfrom=timmermann.space;
+	dkim=pass header.d=timmermann.space header.i=@timmermann.space header.a=rsa-sha256 header.s=MBO0001 header.b=vuVekJQ6;
+	arc=none smtp.remote-ip=80.241.56.151
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D30F8606A31C
-	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 13:47:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D30F8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC96C606A31C;
+	Sat, 28 Nov 2026 13:51:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC96C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=timmermann.space
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=timmermann.space
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.a=rsa-sha256 header.s=google header.b=D0uipOTx
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-67db1f6f50eso9213999d50.0
-        for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 05:47:17 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795873637; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SPr0e9J4nDu4nfxjQC0hjH2ljeX3zUmee2c5F0DpJN6MlboGpbHlI813NLc3HcF/7z
-         pDTcRI5jY0McwSUxIeLzoCGPLzx9TdSAeQ1wrVVMIxf2JzjOx5OpG8Csb8YzFg8LLIrn
-         SfM5JVx1CzaqqCjDffThbXwJ+1ujf+S+g+mmw5mR5622mwBxupnLb+q/ZnDOP6R52afR
-         f7cKXvAqUL1T5+Gv3GrSn09XA8rfeOCJDVGxCKaD7jHm+wwBRDlPRXFAg+fY7rouKt3x
-         +0ZfBb3SnLnouP6SduRMm7jDAXLNeG/F1N0g505VyX7AcJIcq/aImgRT6NSnzp0Bz9NQ
-         ZL/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=r0WbWTy8H8AEJBJ2yF6at8ZT6mtzoF1bxzPJALDoIu4=;
-        fh=mhcrmkh14GlM/BjdeqDrjTO47F9ZLEOhOzMZUVqwrs4=;
-        b=PEeLNjAgtf3QwJF6+5FD4v0q+bt6mtjQIXQfCWP9W1NaektsHk3cW7R1sgTlk09ZXH
-         qxa5LxfgDrWEFkqaZOe6WeWW/hyuPTrE1Cv+ErLDWLXCYirSbEYUfKcQH3zXuWJQZL7k
-         +XrTlp9xQhEOeAS72HFt8TJM0AYQL0E8Pm5HRNChrDY+YCY+c6aKtooebf9ibdCk52DL
-         Dhi6DZlWCoHDozt9RslaJTM6sK0rYlTg2UvlWe3S3kNvYlfpXpJLlOhHGrbaJBUf8Gfv
-         QzFiGOA0TAPPXELbh4tuNYiQtk+WbDm3L2hFmktAoOUy1+NrSkhhvbvursUX/MrR1J9k
-         /oBg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tenstorrent.com; s=google; t=1795873637; x=1796478437; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=r0WbWTy8H8AEJBJ2yF6at8ZT6mtzoF1bxzPJALDoIu4=;
-        b=D0uipOTxbuZl5ilAGrum+9ZqBr4KKzd2qMCgu3VrnG+UshuBVBiKLPg8wU6BXkP9m1
-         crPt1VtBMJHu3jkenaj9R8AyvtzusZGQj5jgW4+VDDRNsXdsKS0ljx+idJ9pBaZHhUht
-         3gnuBgzbi+rd2EXSmmEH8f6MQ1z0FwbsLwEhQ/aUu1DSB40U+/bR4vOFLRpHY8e7j5Hd
-         laesr+sU9v7zsRhhXwCa9kIgVofi33BFxqwDSUIAQTWjgngrWzrOeDukbsQrcTFKAJsW
-         XOSwwZygR4sajBwd6WH9FH5/TiwOeW4iH3eQZ9getvF7C7OiiM4YBqE8C7IJViz2XcYs
-         T1nQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795873637; x=1796478437;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r0WbWTy8H8AEJBJ2yF6at8ZT6mtzoF1bxzPJALDoIu4=;
-        b=nmVBbuLy9vVJYNYxBSTkqGnndPg+f59QLutg747J0vsmZEklOsgjNQQj2f0zbYYX8R
-         3p4XrINFM4oTNyxzt1Tc4wEanHxfT4jolEyQQK36xuSGnvSOvnG7WA156TFUCC3/amN+
-         MXLYLhr30fMZrNYRdBMXVMjaD1dDT4+UvryC97Eys3lApfkq0/f4dyBKuPZRr5Lp5PCx
-         d14gK/b4pJNaZcyUeufl6r1qaMtu8RLpU9n92gsJs/fT+542PwW0Z/NEoVGZC9yHJvQh
-         ZXGdyWQhhnCzBeQ/nfM7uhS4vIkw80LOWNaevZ1wn4SyVu4Iy6n0dmIXefVZLfUtYdZp
-         242w==
-X-Forwarded-Encrypted: i=1; AL+hErFcrRCT0RRdKH2KG06fozj/s0KSM7E+80mLPhCIpBaWC6CVvgB0jiEXJf/Qb4tX8sYkaX2w8pHqOwHk@vger.kernel.org
-X-Gm-Message-State: APuU4Z9XxzgDGWx3oQ4RNDNptKImQs/fJHnHMnxsw2ZvM6qmMt6brQuk
-	s+dZyCOFJgBxiP555m/Z+yqJ5GbYLHOKpPUWuaJG51CU/Ku/VzcEfzKcupIrTOLDMUIIHbUaOR4
-	ualwA4CxiLuOxuzs5IXusQgmyItIhAmbTZNXvhIkOCQ==
-X-Gm-Gg: AZFdTZfrbH2T2T1EJ2ljweTx7TYoK46y7invcpLaN8FUZ5GHMNONDaeN6DMMGHpSB59
-	80xG4APJXa2wFPRll5tfHCbeIbVG2UqqM9MvlLE6s9t3RxUgbsJN+Bk2MlJKZIoOahJ7nN8/jN+
-	x9VU0evPbtxY0+WLub3g+6b3HqwTN2KgXr41EMHrROltRoF+/weOcyKo+AzNVRW9ifLXQxOGMgl
-	f4gdYp8/VZTF9WBGy5pnpYi4+SKI2947VTynseVgOcNqoXcp80VI1dI1KVomDQJG5grAcvmtOq2
-	VfIB+TnHcRA4vL9D/XaQGQg5ZIOJLlXGAPyxu2TvcWkWhRs8rBFYRun5o1LGx0WaF3SrPJU3ahB
-	JJk5JJhQ1Cu5Hg6cNO7IDYewCs5xqiGe83QbRni/D9LBVhlyLYUAb3ctjDpAg6JrhWlNd93SxQ/
-	TLw1Q1MIvl5ZTvxKAQGQZbMpbgjA==
-X-Received: by 2002:a05:690e:440d:b0:67b:9953:2d97 with SMTP id
- 956f58d0204a3-67df4479b3cmr7173129d50.79.1795873636887; Sat, 28 Nov 2026
- 05:47:16 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=timmermann.space header.i=@timmermann.space header.a=rsa-sha256 header.s=MBO0001 header.b=vuVekJQ6
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jcBXW1CdMz8tH9;
+	Sat, 28 Nov 2026 14:51:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=timmermann.space;
+	s=MBO0001; t=1795873899;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=2a+Yri10/zFE3o9wz8FYNDHmwFSDAaf5+qNG/L9KbRg=;
+	b=vuVekJQ64sop22dz12YCBiw5cfW3TvTYZnX8Q0AL616Xp0OjwpByoeYPUcnfigAAyLD/CU
+	IwGoMtQIflxO29oAmD8Mcnruzg5PSLc0HYPDJV395jxfEQYJ9W6uhDNSPaXgdVprdu8HYi
+	IfYRhK8L4LFOvay+ZvOM12mSWeLshbijlNonSefhRABzibODqOAXfsLqcUnuFXdFsziNvI
+	HfI6aF0afY4c9iW+7iB4X4THIB2/8BD+wTUcqLKqXwZ9mMVqoOlytfCTF8nKAwqfn0R82+
+	T7rdnOj7V5F39TB9V+d1+XDY6J136L2ZQiRSmvUDuOLBERW5F6tTlrnAidhoQA==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of foss@timmermann.space designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=foss@timmermann.space
+From: Lukas Timmermann <foss@timmermann.space>
+Subject: [PATCH v2 0/7] Input: s6sy761 - add SPI support for the S6SY791
+Date: Sat, 28 Nov 2026 14:51:27 +0100
+Message-Id: <20261128-lat3st-google-raven-touch-upstream-v2-0-1be5c1029087@timmermann.space>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,164 +66,101 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260918-k3-aclint-v3-0-cf4fd4050e14@pigmoral.tech>
- <20260918-k3-aclint-v3-6-cf4fd4050e14@pigmoral.tech> <yf2dawzefycxhhs7zkua3v3hoirals3wtr6rheh4li33eq7r4i@yb7cem4r6x3z>
- <DN6QXCF5LYQM.1F5IA58ETMXVM@pigmoral.tech>
-In-Reply-To: <DN6QXCF5LYQM.1F5IA58ETMXVM@pigmoral.tech>
-From: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-Date: Sat, 28 Nov 2026 07:47:03 -0600
-X-Gm-Features: Aa3M54r7COSuoCAZh2e-0U3S35YxbgE_qpFJlIopzh7FxBeYqA4RHXPR262VGcc
-Message-ID: <CAEev2e-XsKPkEuvvdQeOuz9YymoZ_MZ8zGod+AuUUxxQPzLWPg@mail.gmail.com>
-Subject: Re: [PATCH v3 6/6] riscv: dts: spacemit: k3: Replace incorrect CLINT
- node with ACLINT nodes
-To: Junhui Liu <junhui.liu@pigmoral.tech>
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Yixun Lan <dlan@kernel.org>, Inochi Amaoto <inochiama@outlook.com>, Radu Rendec <radu@rendec.net>, 
-	Paul Walmsley <pjw@kernel.org>, Samuel Holland <samuel.holland@sifive.com>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Anup Patel <anup@brainfault.org>, 
-	Guodong Xu <docular.xu@gmail.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
-	Conor Dooley <conor.dooley@microchip.com>, Bo Gan <ganboing@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WOQQ6CMBBFr2K6dgxTg0ldeQ/DopQp1NCWdEqjI
+ dxdwBO4fMnLf38RTMkRi/tpEYmKYxfDBvJ8EmbQoSdw3cZCVvKGFSKMOl85Qx9jPxIkXShAjrM
+ ZYJ44J9IeLCptOpRopRHb0JTIuvcReTY/5rl9kcn78m4MjnNMn+NFwd37K1gQKpBa2brGWrWKH
+ tl5T8nrEC48aUOiWdf1C4JvBBrtAAAA
+X-Change-ID: 20261011-lat3st-google-raven-touch-upstream-f19acd121f2c
+To: Lukas Timmermann <foss@timmermann.space>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Rspamd-Queue-Id: 4jcBXW1CdMz8tH9
 
-Hi Junhui,
+This series adds SPI support to S6SY761 touch controllers, specifically
+S6SY791 devices. Also included are the necessary adjustments in the DTS
+for the Google Pixel 6 Pro (raven) which uses the aforementioned SPI
+version. As the mentioned board has a reset line wired, I also added that
+functionality to the bindings and driver. To implement SPI versions
+cleanly, the driver was split into core and bus transfer modules like
+seen in other drivers.
 
-On Sat, Nov 28, 2026 at 3:45=E2=80=AFAM Junhui Liu <junhui.liu@pigmoral.tec=
-h> wrote:
->
-> Hi Anirudh,
->
-> On Fri Nov 27, 2026 at 1:27 PM CST, Anirudh Srinivasan wrote:
-> > Hi Junhui,
-> >
-> > On Fri, Sep 18, 2026 at 12:29:38AM +0800, Junhui Liu wrote:
-> >> The K3 implements separate ACLINT MSWI, MTIMER and SSWI devices. The
-> >> existing CLINT node at 0xe081c000 incorrectly describes the SSWI
-> >> register space in the non-secure window as a legacy CLINT.
-> >>
-> >> The ACLINT register space is mapped at two base addresses: a secure
-> >> window at 0xf1810000 and a non-secure window at 0xe0810000. The
-> >> secure window exposes all three components, while the non-secure
-> >> window only exposes SSWI; the MSWI and MTIMER offsets are reserved
-> >> there. Moreover, depending on the eFuse configuration, the non-secure
-> >> window may be entirely inaccessible, whereas the secure window is
-> >> always available.
-> >>
-> >> Replace the CLINT node with the three ACLINT devices, all using
-> >> secure-window addresses: MSWI and MTIMER for machine-level firmware
-> >> such as OpenSBI, and SSWI for supervisor software interrupts.
-> >>
-> >> Fixes: 56f37e391a62 ("riscv: dts: spacemit: add initial support for K3=
- SoC")
-> >> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
-> >> ---
-> >>  arch/riscv/boot/dts/spacemit/k3.dtsi | 43 +++++++++++++++++++++++++--=
----------
-> >>  1 file changed, 30 insertions(+), 13 deletions(-)
-> >>
-> >> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dt=
-s/spacemit/k3.dtsi
-> >> index c3f2dce0969c..74831974435e 100644
-> >> --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-> >> +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-> >> @@ -1261,19 +1261,6 @@ saplic: interrupt-controller@e0804000 {
-> >>                      riscv,num-sources =3D <512>;
-> >>              };
-> >>
-> >> -            clint: timer@e081c000 {
-> >> -                    compatible =3D "spacemit,k3-clint", "sifive,clint=
-0";
-> >> -                    reg =3D <0x0 0xe081c000 0x0 0x4000>;
-> >> -                    interrupts-extended =3D <&cpu0_intc 3>, <&cpu0_in=
-tc 7>,
-> >> -                                          <&cpu1_intc 3>, <&cpu1_intc=
- 7>,
-> >> -                                          <&cpu2_intc 3>, <&cpu2_intc=
- 7>,
-> >> -                                          <&cpu3_intc 3>, <&cpu3_intc=
- 7>,
-> >> -                                          <&cpu4_intc 3>, <&cpu4_intc=
- 7>,
-> >> -                                          <&cpu5_intc 3>, <&cpu5_intc=
- 7>,
-> >> -                                          <&cpu6_intc 3>, <&cpu6_intc=
- 7>,
-> >> -                                          <&cpu7_intc 3>, <&cpu7_intc=
- 7>;
-> >> -            };
-> >> -
-> >>              /* sec_i2c3: 0xf0614000, not available from Linux */
-> >>
-> >>              mimsic: interrupt-controller@f1000000 {
-> >> @@ -1305,5 +1292,35 @@ maplic: interrupt-controller@f1800000 {
-> >>                      riscv,num-sources =3D <512>;
-> >>                      status =3D "reserved";
-> >>              };
-> >> +
-> >> +            aclint_mswi: interrupt-controller@f1810000 {
-> >> +                    compatible =3D "spacemit,k3-aclint-mswi";
-> >> +                    reg =3D <0x0 0xf1810000 0x0 0x4000>;
-> >> +                    interrupts-extended =3D <&cpu0_intc 3>, <&cpu1_in=
-tc 3>,
-> >> +                                          <&cpu2_intc 3>, <&cpu3_intc=
- 3>,
-> >> +                                          <&cpu4_intc 3>, <&cpu5_intc=
- 3>,
-> >> +                                          <&cpu6_intc 3>, <&cpu7_intc=
- 3>;
-> >> +            };
-> >> +
-> >> +            aclint_mtimer: timer@f1814000 {
-> >> +                    compatible =3D "spacemit,k3-aclint-mtimer";
-> >
-> > I think you'll need to also include the "riscv,aclint-mtimer" compatibl=
-e
-> > here so that this DT can be used with upstream OpenSBI. OpenSBI doesn't
-> > include the spacemit specific compatible. OpenSBI boot prints this
-> > currently.
-> >
-> > Platform Timer Device       : --- @ 0Hz
-> >
->
-> Currently, "riscv,aclint-mtimer" is not part of an upstream Linux
-> binding, so I don't think we should add it to the K3 DTS yet.
->
-> Your colleagues at Tenstorrent proposed adding this compatible in v3
-> of the Atlantis series [1], but it was dropped from v4. The v4
-> changelog says that the binding will be submitted separately [2].
->
-> If the binding is accepted, we can then add the generic compatible
-> to the K3 DTS. Otherwise, OpenSBI will need to add support for the
-> K3-specific compatible.
->
-> [1] https://lore.kernel.org/linux-riscv/20261109051050.105623-5-joel@jms.=
-id.au/
-> [2] https://lore.kernel.org/linux-riscv/20261127061432.17306-1-joel@jms.i=
-d.au/
+This series was successfully tested with a Google Pixel 6 Pro. The I2C
+transfer part was untested because I don't have a device with an
+S6SY761 controller.
 
-Sorry, didn't realize that this was the reason. Lets get it added once
-the fixed binding is in.
+Known issue: on gs101 the touchscreen probe at boot fails with -EIO
+because the very first SPI transfer is not understood by the controller
+(the reply is all zeros); rebinding the driver works. This looks like
+spi-s3c64xx applying CPOL/CPHA only in transfer_one(), after chip
+select has been asserted, but I have not verified this further. It is
+not addressed by this series.
 
->
-> Best regards,
-> Junhui Liu
->
-> >> +                    reg =3D <0x0 0xf1814000 0x0 0x8000>;
-> >> +                    reg-names =3D "mtimecmp";
-> >> +                    interrupts-extended =3D <&cpu0_intc 7>, <&cpu1_in=
-tc 7>,
-> >> +                                          <&cpu2_intc 7>, <&cpu3_intc=
- 7>,
-> >> +                                          <&cpu4_intc 7>, <&cpu5_intc=
- 7>,
-> >> +                                          <&cpu6_intc 7>, <&cpu7_intc=
- 7>;
-> >> +            };
-> >
-> >
-> > Regards
-> > Anirudh Srinivasan
->
+Patches 1-4 and 7 are meant for the input tree, patches 5-6 for the
+Samsung SoC tree. The DTS patches depend on the binding in patch 1.
+
+---
+Changes in v2:
+- Reworked dt-bindings to require properties for SPI variants
+- Fixed I²C variants having SPI properties allowed
+- Don't wait for devices without reset gpio to come out of reset
+  anymore
+- Remove includes of linux/mod_devicetable.h
+- Cleaned up array initialization around of_ids
+- Link to v1: https://patch.msgid.link/20261011-lat3st-google-raven-touch-upstream-v1-0-2a9f55159b9e@timmermann.space
+
+To: Lukas Timmermann <foss@timmermann.space>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Andi Shyti <andi.shyti@kernel.org>
+To: Peter Griffin <peter.griffin@linaro.org>
+To: André Draszik <andre.draszik@linaro.org>
+To: Tudor Ambarus <tudor.ambarus@linaro.org>
+To: Alim Akhtar <alim.akhtar@samsung.com>
+Cc: linux-input@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-samsung-soc@vger.kernel.org
+
+---
+Lukas Timmermann (7):
+      dt-bindings: input: touchscreen: samsung,s6sy761: Add S6SY791 and reset GPIO
+      Input: s6sy761 - split into core and I2C modules
+      Input: s6sy761 - add reset GPIO support
+      Input: s6sy761 - add SPI support for S6SY791
+      arm64: dts: exynos: gs101-pixel-common: add labels for touchscreen supplies
+      arm64: dts: exynos: gs101-raven: add S6SY791 touchscreen
+      MAINTAINERS: add entry for Samsung S6SY761 touchscreen driver
+
+ .../input/touchscreen/samsung,s6sy761.yaml         |  51 ++++-
+ MAINTAINERS                                        |   7 +
+ .../boot/dts/exynos/google/gs101-pixel-common.dtsi |   4 +-
+ arch/arm64/boot/dts/exynos/google/gs101-raven.dts  |  50 +++++
+ drivers/input/touchscreen/Kconfig                  |  20 +-
+ drivers/input/touchscreen/Makefile                 |   4 +-
+ .../touchscreen/{s6sy761.c => s6sy761_core.c}      | 228 ++++++++++-----------
+ drivers/input/touchscreen/s6sy761_core.h           |  34 +++
+ drivers/input/touchscreen/s6sy761_i2c.c            | 111 ++++++++++
+ drivers/input/touchscreen/s6sy761_spi.c            | 171 ++++++++++++++++
+ 10 files changed, 548 insertions(+), 132 deletions(-)
+---
+base-commit: 56beabeaf17aaf9acc6afc6d6d21ea28d8f67797
+change-id: 20261011-lat3st-google-raven-touch-upstream-f19acd121f2c
+
+Best regards,
+--  
+Lukas Timmermann <foss@timmermann.space>
+
