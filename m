@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795875345;
-	b=XFNdIb/d5ladLaWbMnTa4ysTY1g5UB5BtoXLg5e8qMKEUN36WKwtYzPaXaLvA/q0Do+N
-	 fJ7sV8owIrLSAFzoijdqQ78vRDWDNnmvQA/8d0mJpugxGOBGI2/JAFXcfa1GACQ3zeCeQ
-	 CROrIDMF+9SXe2l3NZXZb97onZFGIQgzbbLBbmnTxtcQxA6vc41N1ZPqDYogqXZbb95bR
-	 KmxBmgqJIW1+563JehCDora/WqjpqBumGsBNQ62diRAXO1UiOZJ2Bk6Pep9MG15gJp6/b
-	 YMq0VA7nlkquRN0x5QVU1vpn9Gamy7KPwHnoAyVzECGrH/1wX4PbPmZKvsdjF9FL+OQ==
+	t=1795875352;
+	b=gnAf4sTLj5iIpvRaa/fyXxekl1p6g7A52tUnBn4Lf6WjekyDAB5wdRfAfxaT1ASbju8g
+	 ZjwjYOsM9nNOEOo8AOgHKzYSsUaM1wN4M6g0njM9J/z/IM5A/+d1gbAL9u0fZTrPmbPec
+	 xE/aSQCof4tYX2xW4Eod2dDVtwH7ty7WRGDBsTrG61eFHRZ7CkCTKup3wbF0DOi9c/xYb
+	 0Eh/mESbrou5NS+LKWDFoEZsPx0xoCG9xY0a9k7BdD9EdTk8WH20VoqmB9+phbbUCZRPc
+	 qq1HaKIojSt6w+ipwx9ZYizgXJr9TGTvrNUao34zntts/H12gUKg72WnDRQWi6Aml/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795875345;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795875352;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=/byIlVMP9LxJ2ciT0gDQ4yghuuOkdLHgAUlgdYldohc=;
-	b=LsQfSJB1ScQEHR3PYqTQ0/HkrJ1KxpgH789yMF8462lAJYHhWaNA4+PM0rUtvWHysh49
-	 4Dp1mcmoK9ZXyKW7d/CN1zpGK+bwXtKC4ADcqePjdDKwhF9q0LG9HetZPiMwzDt6pSaPQ
-	 DqrkKj8qnSWxuykNf3cxq7pIQfiQF60DvoB2GJBv+FSppsirwD62tTkwHMWuHjyysmbud
-	 hjXuieBkpAFgFwifL9iUdVt0VPNHzdo0/JTF/ont6iiTPs/qmgRORnY/Lmr6icpj68Avv
-	 xGqIb43KVuk9o3+PK8szu7QIO5ZBehsF2MJdTYsoPYre2WkwfrqDYI9s6m1kZwzJROA==
+	bh=ev8d3+xo3xhDELRSOvURnSYyDkv05Teh5t0TRLg5EnA=;
+	b=EkLL7fwFvSR0Q9EifXaka7clrdokzoRMFJj+65CtyQx+EJIk4ETIAwKQJ0bOw6SNMBxH
+	 6brDLHWpxLQ7A6JgjbYe3w/N9ly2+cwS9uTOw4YBZ5zJTL9+ue2PRxVMlyCCQdMEH1yhN
+	 EZuVE0eHow9GXr1XXoGNnlAFOA2bLnoKDmApONQq+O8/9n4YAA+K+6blMZzlswM6nej6C
+	 koNRpyogNSM5IRcPcxhbYG1cYdWnPBqhfAOudNdQJxtO/SQITj1GJfwTontRGa7FTSuUM
+	 iuqRVEfH9xLkQP3e1+RlMs9EPDK1fY0f9cSAh/dWYznpE2+9ck7onlk7WWqywJ57VTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wZ7xDRcr;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0elJMzCE;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7793606A325
-	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 14:15:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7793606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2189606A325
+	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 14:15:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2189606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wZ7xDRcr
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-385d8a00598so14488950eec.1
-        for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 06:15:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0elJMzCE
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-385c497bf94so10143308eec.1
+        for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 06:15:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795875344; x=1796480144; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795875351; x=1796480151; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/byIlVMP9LxJ2ciT0gDQ4yghuuOkdLHgAUlgdYldohc=;
-        b=wZ7xDRcrEUkK9ZrETumyYvgEHSJSUDnytGdlPort2FAo1vOoKxCRkZT0b0+9wfgJXP
-         f1ejAnBqNu2+eQIPPsNQJOrAt/t46OnrS2HjIfTYnBcgdlyRPKTnQqLodLsqh0Q+0CNe
-         r4S6Fp0EERvOZMkeUp1wu9vOKxsn24WKgoWtBtLlRPKq0jEyOuA7ElOoaHE7TYFGGRZN
-         FlMWfxLggvQ3pUCgGu2CDlsvAlaYIFgxhSIjsvMgbZx0Md508c9/8vfzIRhxjnaJWhi1
-         VAFlpTQQxed4yrPMqNL+FU26TjixUXhwSxQKWkVzatIhSidbAQKcEEUuP7lA3mu6CuYQ
-         R+1A==
+        bh=ev8d3+xo3xhDELRSOvURnSYyDkv05Teh5t0TRLg5EnA=;
+        b=0elJMzCE2RC6o9t4VBSoRh9LGquJ22F3QTJQ9xjVjm1b7xJb8qy3q9ltf8H2VMvGYk
+         vr3Q/Q58cc0kowVw4x01eKDjL07G40Cdqsu2rWV1vvvdUNHPWslJR6Zz2dov7E2RsiKH
+         LbKwpVJm2d6IVOsgjXI4Fc9Nx+C5NFVvPmeOTojUBAUqeHk164Z78JiNCpuRmWISvjO3
+         o2TqFW0Fepj+uZjgEoBM0hGuYArIeSCWlu4K5eSAWQ2erR+0pv2Yxp6OvsIh0dF3YvM4
+         fy+mL4ZYKUySs9RJSVrQm6wFXiHSjJ30EKBuijwlN6ZBy974pnp+mjHxO3ZiOHK8bV/y
+         NFsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795875344; x=1796480144;
+        d=1e100.net; s=20260707; t=1795875351; x=1796480151;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/byIlVMP9LxJ2ciT0gDQ4yghuuOkdLHgAUlgdYldohc=;
-        b=N4JPjl0ujBYRfB3NzItxjW8gEQzX677u6e6MnywTjCXfN+Hp8A4pLHGgGNNvbXF4qL
-         5uZjCyT5NbIHUzNyWJAXoJlVDtKXoKzVyRYp8E33610FJCFelMG8e5TWPScAKC/UplBG
-         aikh4YCk9CLXMETKrnOI6qIdzxw3R0Q6zjCzpRfq647Eefx/89KZsIhddYEsUb/hMBMO
-         rU4gTx+ITXk3RyR4oHb2fK7rCAN4WznjGGAccX5LbEHT6238S0coJhOPf90yisluxDw1
-         kSEcn8EaPgWecJ1oakugix8b3OwOD00TG4D4Jsl8XrGKR66SozrpK7FeizeCVEPWa3Ob
-         6NFA==
-X-Forwarded-Encrypted: i=1; AL+hErEr7vMsSKj5rWRZYNIoEZxSAD+goztquSPjq7PToo4EMzOVBUJM6ujUYsYvAQvOJorqK27RjHchOfSI@vger.kernel.org
-X-Gm-Message-State: APuU4Z8/j9b1zUA7bpG7K771KydpzuMn0n+N5euf175NTh4c107PQblQ
-	HNB79KA8Hu17yR1qmLW4om970ulr9rAoZQS53AnjOMRFQvtbeoR6hgeE
-X-Gm-Gg: AZFdTZei38AdEoDwzcfizfTBtmhhVJS5IBaP7GVkh/URhMjK1xOKD4JMYuK07nlhn70
-	Se9f39yCDJRfCdCYcAxsiJiVO6NU52VJItYphLnOOB5GHVpZbjLdyTNP4wjcDCyTehDIzuzxgzr
-	ms3XrcP0z8fc8dX8pPszS3NDUGmIS7DByTPPrStYN+b5zjJ1E2hYV0ZsiSc5jbDWka+fNgsl0wV
-	x0rtxSXQ8qFC0wGCf0Vrdt5dgtUUH3wvkM1lqMZsWO2Zq/8AMMEe2eo8UoqWo0KHR7HW22mhoPP
-	fHfRVcfghkb3ipiGP2E+M1ox8jolBBN7xAIYA26WYI9ZXIKEZ8BpiIPLlE9DXiR/XFJrFtgRlie
-	fuNvO8OHvk2kI5CE5Ehak+mlmW+h4g6quvUjj8Q9LO+M1KdFm32/K5aAQ1xGqe7fny6Pgo0xayg
-	9+38MGrbrUA2plHmMfh95hRfM+ediv8ofNWk3C8XUH3bXEh58NY2c+lZsWd2iYfwDc224H2Rwwy
-	rEzL/cfEXO2G052s1zSS6RsKAx1XHcFRo22Hm05XIc4Pgs6qCyVs7b/o67fTtVo8icjDqL0deVo
-	nBtRC5tU66FygSmPbXolXfvW/vq2+UkF2A5NXg832+4B5QVzlays/KcKMUDVwYPPfukBJGFmf5K
-	1P2AnSRNqI9pYubAhGQ7wC1psyx/4
-X-Received: by 2002:a05:7301:4704:b0:383:729:cabe with SMTP id 5a478bee46e88-3856f8519ecmr28974642eec.19.1795875343193;
-        Sat, 28 Nov 2026 06:15:43 -0800 (PST)
+        bh=ev8d3+xo3xhDELRSOvURnSYyDkv05Teh5t0TRLg5EnA=;
+        b=KCKR/Vgs+M1q248avL+7Ou/PFfsgnLOR+7SBnVpz/PX/VzIZh5HjRl6mxCv5DOnJKG
+         bhSMXwEKc+dkOLeoTrDP5J+Tqi27J0sdUfDH3AXTpwM5ug3xNMTYI76JrkD+CsS8yaZ4
+         9LRx397u2YV3nhGM4BdO6cXk72T0OkXFCjMq6KPJ72szGpnhGsxac7ggTwI8SrK38ppk
+         7kF/PeyWx4hKQRpBWnpYeHEN79ATJqVYHRK4NwTWYIko8SqkqpdMB2kYNiJjUa6q+isc
+         J9KqRQDUeRy750uvTcRO59l3dhJTW86yax8Ws6khxII/mxc8lp1JdkGnq6kjfOJAC1Fq
+         HxLA==
+X-Forwarded-Encrypted: i=1; AL+hErFSz8nP4S4fw6uff+hXgIWexdsPkZjQrmXYh8s1AXRTjLuLECEBZO/lDtSBo8IqL9hWadPP+8W2BWI8@vger.kernel.org
+X-Gm-Message-State: APuU4Z/RN9U5zGBeC5lFE7P+ygEpveanyHfNGgiHTHQ568lueyfUYlqr
+	FPvUgZ0ziP0xH0okcidMkWHr9b/oZGEXrIDl/85RKYZsfDVRyrYv3LCz
+X-Gm-Gg: AZFdTZcW+EyjHuv4odemsmY4F17NJb1kmnnFjUNFOKxGUhPnZKmQxyT4dth6HqSPDfx
+	PRVgsQdRScExAa7ZGIy5euVZJoIHKE+rfAUS5GIYHjJWnzBQmMC9sRBG/h68oLX1Mlhz3Zy7NEZ
+	5922qSWgl2j2vLsVP19/i+0PsP9MiiTVmEQCzyjTI1XC5/+Abjk9sOatFWqa0MBMDD8RWYIhISX
+	QrzBD5kuw54Zp4WvInQzy3MXL/e5Zck0uH3T3k0Pi9hNadKdqcQ58WoKiuYADhEQ8ZNA7Qt5Liq
+	u31ttAb0znJNZuaCi5RZt5HMo0K7q1iy8X4D7wxokQvN/M/YPxmhsTGHANB9+m7c2xa/iKlrr5u
+	KShizTHe2a5YzOVk+xbS9ND/Kh/NQy0iuZ1neSXzzQRysb898GVkUt9KqhDypV8imR07KHqPM6j
+	VWuW2d6dsb8PHNc9vcWxdGBlYvYUrBquVgjptK9Dvgd5SN6weotNt1tEjxbpwhcmi+h7nlqXkTc
+	KtGMD3INHmFL0Z5yV0iJRsKv/rvYMo+yAREzW2+RyIrCI2V7PS9zM2xF7AamR7xp4H/RnbBlf0v
+	icdtLMtiNtggX0uUFp47UXieaxgkWTi/5t4jXzKMehukiiiL7PcMW0Hs9w2J7pKYNDWryEN8Yqo
+	MwBDaKC8KrPQwsuV83mO8fgIPN4S7fv9JZ/CBHT9JAedXNU4VsA==
+X-Received: by 2002:a05:7301:3a82:b0:374:ea35:9069 with SMTP id 5a478bee46e88-3856fb67380mr24839784eec.39.1795875350839;
+        Sat, 28 Nov 2026 06:15:50 -0800 (PST)
 Received: from localhost.localdomain ([2405:201:301c:f8cd:241f:982d:147f:bf76])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e7f59sm87185893eec.6.2026.11.28.06.15.36
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e7f59sm87185893eec.6.2026.11.28.06.15.44
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 28 Nov 2026 06:15:42 -0800 (PST)
+        Sat, 28 Nov 2026 06:15:50 -0800 (PST)
 From: Aryan Sinha <sinha.aryan03@gmail.com>
 To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
 	Matthias Brugger <matthias.bgg@gmail.com>,
@@ -99,9 +99,9 @@ Cc: Leilk Liu <leilk.liu@mediatek.com>,
 	chrome-platform@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Aryan Sinha <sinha.aryan03@gmail.com>
-Subject: [PATCH 5/6] arm64: dts: mediatek: Add MT8189 Skywalker platform based Tarkin
-Date: Sat, 28 Nov 2026 19:44:29 +0530
-Message-ID: <20261128141443.13065-6-sinha.aryan03@gmail.com>
+Subject: [PATCH 6/6] platform/chrome: of_hw_prober: Support trackpad probing on Tarkin
+Date: Sat, 28 Nov 2026 19:44:30 +0530
+Message-ID: <20261128141443.13065-7-sinha.aryan03@gmail.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20261128141443.13065-1-sinha.aryan03@gmail.com>
 References: <20261128141443.13065-1-sinha.aryan03@gmail.com>
@@ -116,573 +116,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Tarkin is an ASUS Chromebook (CM1405, CM1406) built on Google's MT8189
-Skywalker reference design. Add the common Skywalker dtsi and a board
-file for Tarkin.
-
-This covers what the MT8189 bindings support today: the debug UART,
-eMMC and the SD slot, the PMIC, the EC on SPI0 with the keyboard,
-battery and Type-C ports, the GSC TPM and the trackpad. Tarkin can have
-a HID over I2C trackpad at 0x15 or an Elan one at 0x2c, so both are
-marked fail-needs-probe and left to the ChromeOS hardware prober.
-
-The EC resets the PMIC on these boards, so the watchdog external reset
-is disabled, as on the other MediaTek Chromebooks.
-
-Display, GPU, audio, USB, UFS and PCIe are left out until the SoC side
-for them is upstream.
-
-The Skywalker and Tarkin descriptions are based on mt8189-skywalker.dtsi
-and mt8189-skywalker-tarkin.dts from the ChromeOS kernel.
+Tarkin ships with either a Pixart or an Elan trackpad on the same bus.
+Both are always powered and expose no reset or enable line, so the dumb
+prober can pick whichever one answers, as it does on the Corsola boards.
 
 Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
 ---
- arch/arm64/boot/dts/mediatek/Makefile         |   1 +
- .../dts/mediatek/mt8189-skywalker-tarkin.dts  |  62 +++
- .../boot/dts/mediatek/mt8189-skywalker.dtsi   | 453 ++++++++++++++++++
- 3 files changed, 516 insertions(+)
- create mode 100644 arch/arm64/boot/dts/mediatek/mt8189-skywalker-tarkin.dts
- create mode 100644 arch/arm64/boot/dts/mediatek/mt8189-skywalker.dtsi
+ drivers/platform/chrome/chromeos_of_hw_prober.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/mediatek/Makefile b/arch/arm64/boot/dts/mediatek/Makefile
-index e6a8109ff..cb8c01ea8 100644
---- a/arch/arm64/boot/dts/mediatek/Makefile
-+++ b/arch/arm64/boot/dts/mediatek/Makefile
-@@ -155,6 +155,7 @@ dtb-$(CONFIG_ARCH_MEDIATEK) += mt8188-geralt-ciri-sku4.dtb
- dtb-$(CONFIG_ARCH_MEDIATEK) += mt8188-geralt-ciri-sku5.dtb
- dtb-$(CONFIG_ARCH_MEDIATEK) += mt8188-geralt-ciri-sku6.dtb
- dtb-$(CONFIG_ARCH_MEDIATEK) += mt8188-geralt-ciri-sku7.dtb
-+dtb-$(CONFIG_ARCH_MEDIATEK) += mt8189-skywalker-tarkin.dtb
- dtb-$(CONFIG_ARCH_MEDIATEK) += mt8192-asurada-hayato-r1.dtb
- dtb-$(CONFIG_ARCH_MEDIATEK) += mt8192-asurada-spherion-r0.dtb
- dtb-$(CONFIG_ARCH_MEDIATEK) += mt8192-evb.dtb
-diff --git a/arch/arm64/boot/dts/mediatek/mt8189-skywalker-tarkin.dts b/arch/arm64/boot/dts/mediatek/mt8189-skywalker-tarkin.dts
-new file mode 100644
-index 000000000..5b76d0ca9
---- /dev/null
-+++ b/arch/arm64/boot/dts/mediatek/mt8189-skywalker-tarkin.dts
-@@ -0,0 +1,62 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * Copyright (C) 2025 Google Inc.
-+ */
-+
-+/dts-v1/;
-+#include "mt8189-skywalker.dtsi"
-+
-+/ {
-+	model = "Google Tarkin board";
-+	chassis-type = "laptop";
-+	compatible = "google,tarkin", "mediatek,mt8189";
-+};
-+
-+&i2c7 {
-+	trackpad@2c {
-+		compatible = "elan,ekth3000";
-+		reg = <0x2c>;
-+		interrupts-extended = <&pio 125 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&trackpad_pins>;
-+		vcc-supply = <&pp3300_s3>;
-+		wakeup-source;
-+
-+		status = "fail-needs-probe";
-+	};
-+};
-+
-+&i2c_tunnel {
-+	/delete-node/ sbs-battery@b;
-+
-+	battery: sbs-battery@f {
-+		compatible = "sbs,sbs-battery";
-+		reg = <0xf>;
-+		sbs,i2c-retry-count = <2>;
-+		sbs,poll-retry-count = <10>;
-+	};
-+};
-+
-+&mmc0 {
-+	vmmc-supply = <&mt6359_vemc_1_ldo_reg>;
-+	vqmmc-supply = <&mt6359_vufs_ldo_reg>;
-+
-+	status = "okay";
-+};
-+
-+&mmc1 {
-+	status = "disabled";
-+};
-+
-+&mt6359_vpa_buck_reg {
-+	regulator-min-microvolt = <1000000>;
-+	regulator-max-microvolt = <1000000>;
-+};
-+
-+&mt6359_vufs_ldo_reg {
-+	regulator-always-on;
-+};
-+
-+&trackpad {
-+	status = "fail-needs-probe";
-+};
-diff --git a/arch/arm64/boot/dts/mediatek/mt8189-skywalker.dtsi b/arch/arm64/boot/dts/mediatek/mt8189-skywalker.dtsi
-new file mode 100644
-index 000000000..f0c5a0da7
---- /dev/null
-+++ b/arch/arm64/boot/dts/mediatek/mt8189-skywalker.dtsi
-@@ -0,0 +1,453 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * Copyright (C) 2025 Google Inc.
-+ */
-+
-+#include "mt8189.dtsi"
-+#include "mt6359.dtsi"
-+#include "mt8189-pinfunc.h"
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+
-+/ {
-+	aliases {
-+		i2c3 = &i2c3;
-+		i2c7 = &i2c7;
-+		mmc0 = &mmc0;
-+		mmc1 = &mmc1;
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	ppvar_sys: regulator-ppvar-sys {
-+		compatible = "regulator-fixed";
-+		regulator-name = "ppvar_sys";
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	/* system wide 3.3V rail, controlled by the EC */
-+	pp3300_z1: regulator-pp3300-z1 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "pp3300_z1";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&ppvar_sys>;
-+	};
-+
-+	/* separately switched 3.3V rail, controlled by the PMIC */
-+	pp3300_s3: regulator-pp3300-s3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "pp3300_s3";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&pp3300_z1>;
-+	};
-+};
-+
-+&i2c3 {
-+	clock-frequency = <400000>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c3_pins>;
-+
-+	status = "okay";
-+
-+	tpm@50 {
-+		compatible = "google,cr50";
-+		reg = <0x50>;
-+		interrupts-extended = <&pio 138 IRQ_TYPE_EDGE_RISING>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&gsc_int_pin>;
-+	};
-+};
-+
-+&i2c7 {
-+	clock-frequency = <400000>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c7_pins>;
-+
-+	status = "okay";
-+
-+	trackpad: trackpad@15 {
-+		compatible = "hid-over-i2c";
-+		reg = <0x15>;
-+		hid-descr-addr = <0x0001>;
-+		interrupts-extended = <&pio 125 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&trackpad_pins>;
-+		post-power-on-delay-ms = <10>;
-+		vdd-supply = <&pp3300_s3>;
-+		wakeup-source;
-+	};
-+};
-+
-+&mmc0 {
-+	bus-width = <8>;
-+	cap-mmc-highspeed;
-+	cap-mmc-hw-reset;
-+	hs400-ds-delay = <0x1481b>;
-+	max-frequency = <200000000>;
-+	mmc-hs200-1_8v;
-+	mmc-hs400-1_8v;
-+	mmc-hs400-enhanced-strobe;
-+	no-sd;
-+	no-sdio;
-+	non-removable;
-+	pinctrl-names = "default", "state_uhs";
-+	pinctrl-0 = <&mmc0_pins_default>;
-+	pinctrl-1 = <&mmc0_pins_uhs>;
-+	supports-cqe;
-+};
-+
-+&mmc1 {
-+	bus-width = <4>;
-+	cap-sd-highspeed;
-+	cd-gpios = <&pio 136 GPIO_ACTIVE_LOW>;
-+	max-frequency = <200000000>;
-+	no-mmc;
-+	no-sdio;
-+	pinctrl-names = "default", "state_uhs";
-+	pinctrl-0 = <&mmc1_pins_default>;
-+	pinctrl-1 = <&mmc1_pins_uhs>;
-+	sd-uhs-sdr50;
-+	sd-uhs-sdr104;
-+	vmmc-supply = <&mt6359_vpa_buck_reg>;
-+	vqmmc-supply = <&mt6359_vsim1_ldo_reg>;
-+	mediatek,tuning-step = <64>;
-+
-+	status = "okay";
-+};
-+
-+/*
-+ * Rails the bootloader turns on that no driver here claims. Keep them on
-+ * so they survive the regulator core disabling unused supplies.
-+ */
-+&mt6359_va09_ldo_reg {
-+	regulator-always-on;
-+};
-+
-+&mt6359_vaux18_ldo_reg {
-+	regulator-always-on;
-+};
-+
-+&mt6359_vbbck_ldo_reg {
-+	regulator-always-on;
-+};
-+
-+&mt6359_vgpu11_buck_reg {
-+	regulator-always-on;
-+};
-+
-+&mt6359_vmodem_buck_reg {
-+	regulator-always-on;
-+};
-+
-+&mt6359_vpa_buck_reg {
-+	regulator-min-microvolt = <3000000>;
-+	regulator-max-microvolt = <3000000>;
-+};
-+
-+&mt6359_vproc2_buck_reg {
-+	regulator-always-on;
-+};
-+
-+&mt6359_vpu_buck_reg {
-+	regulator-always-on;
-+};
-+
-+&mt6359_vrf12_ldo_reg {
-+	regulator-always-on;
-+};
-+
-+&mt6359_vrfck_ldo_reg {
-+	regulator-always-on;
-+};
-+
-+&mt6359_vsram_md_ldo_reg {
-+	regulator-always-on;
-+};
-+
-+&mt6359_vsram_proc2_ldo_reg {
-+	regulator-always-on;
-+};
-+
-+&pio {
-+	uart0_pins: uart0-pins {
-+		pins-bus {
-+			pinmux = <PINMUX_GPIO31__FUNC_UTXD0>,
-+				 <PINMUX_GPIO32__FUNC_URXD0>;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	i2c3_pins: i2c3-pins {
-+		pins-bus {
-+			pinmux = <PINMUX_GPIO57__FUNC_SCL3>,
-+				 <PINMUX_GPIO58__FUNC_SDA3>;
-+			bias-disable;
-+		};
-+	};
-+
-+	i2c7_pins: i2c7-pins {
-+		pins-bus {
-+			pinmux = <PINMUX_GPIO65__FUNC_SCL7>,
-+				 <PINMUX_GPIO66__FUNC_SDA7>;
-+			bias-disable;
-+			drive-strength = <4>;
-+		};
-+	};
-+
-+	spi0_pins: spi0-pins {
-+		pins-bus {
-+			pinmux = <PINMUX_GPIO69__FUNC_SPIM0_CSB>,
-+				 <PINMUX_GPIO70__FUNC_SPIM0_CLK>,
-+				 <PINMUX_GPIO71__FUNC_SPIM0_MO>,
-+				 <PINMUX_GPIO72__FUNC_SPIM0_MI>;
-+		};
-+	};
-+
-+	ec_int_pins: ec-int-pins {
-+		pins-int {
-+			pinmux = <PINMUX_GPIO132__FUNC_GPIO132>;
-+			bias-disable;
-+			input-enable;
-+		};
-+	};
-+
-+	gsc_int_pin: gsc-int-pins {
-+		pins-int {
-+			pinmux = <PINMUX_GPIO138__FUNC_GPIO138>;
-+			input-enable;
-+		};
-+	};
-+
-+	trackpad_pins: trackpad-pins {
-+		pins-int {
-+			pinmux = <PINMUX_GPIO125__FUNC_GPIO125>;
-+			bias-disable;
-+			input-enable;
-+		};
-+	};
-+
-+	mmc0_pins_default: mmc0-default-pins {
-+		pins-cmd-dat {
-+			pinmux = <PINMUX_GPIO156__FUNC_MSDC0_DAT7>,
-+				 <PINMUX_GPIO157__FUNC_MSDC0_DAT6>,
-+				 <PINMUX_GPIO158__FUNC_MSDC0_DAT5>,
-+				 <PINMUX_GPIO159__FUNC_MSDC0_DAT4>,
-+				 <PINMUX_GPIO161__FUNC_MSDC0_CMD>,
-+				 <PINMUX_GPIO163__FUNC_MSDC0_DAT3>,
-+				 <PINMUX_GPIO164__FUNC_MSDC0_DAT2>,
-+				 <PINMUX_GPIO165__FUNC_MSDC0_DAT1>,
-+				 <PINMUX_GPIO166__FUNC_MSDC0_DAT0>;
-+			bias-pull-up = <MTK_PUPD_SET_R1R0_01>;
-+			drive-strength = <6>;
-+			input-enable;
-+		};
-+		pins-clk {
-+			pinmux = <PINMUX_GPIO162__FUNC_MSDC0_CLK>;
-+			bias-pull-down = <MTK_PUPD_SET_R1R0_10>;
-+			drive-strength = <6>;
-+		};
-+		pins-rst {
-+			pinmux = <PINMUX_GPIO160__FUNC_MSDC0_RSTB>;
-+			bias-pull-up = <MTK_PUPD_SET_R1R0_00>;
-+			drive-strength = <6>;
-+		};
-+	};
-+
-+	mmc0_pins_uhs: mmc0-uhs-pins {
-+		pins-cmd-dat {
-+			pinmux = <PINMUX_GPIO156__FUNC_MSDC0_DAT7>,
-+				 <PINMUX_GPIO157__FUNC_MSDC0_DAT6>,
-+				 <PINMUX_GPIO158__FUNC_MSDC0_DAT5>,
-+				 <PINMUX_GPIO159__FUNC_MSDC0_DAT4>,
-+				 <PINMUX_GPIO161__FUNC_MSDC0_CMD>,
-+				 <PINMUX_GPIO163__FUNC_MSDC0_DAT3>,
-+				 <PINMUX_GPIO164__FUNC_MSDC0_DAT2>,
-+				 <PINMUX_GPIO165__FUNC_MSDC0_DAT1>,
-+				 <PINMUX_GPIO166__FUNC_MSDC0_DAT0>;
-+			bias-pull-up = <MTK_PUPD_SET_R1R0_01>;
-+			drive-strength = <8>;
-+			input-enable;
-+		};
-+		pins-clk {
-+			pinmux = <PINMUX_GPIO162__FUNC_MSDC0_CLK>;
-+			bias-pull-down = <MTK_PUPD_SET_R1R0_10>;
-+			drive-strength = <8>;
-+		};
-+		pins-ds {
-+			pinmux = <PINMUX_GPIO167__FUNC_MSDC0_DSL>;
-+			bias-pull-down = <MTK_PUPD_SET_R1R0_10>;
-+			drive-strength = <8>;
-+		};
-+		pins-rst {
-+			pinmux = <PINMUX_GPIO160__FUNC_MSDC0_RSTB>;
-+			bias-pull-up = <MTK_PUPD_SET_R1R0_00>;
-+		};
-+	};
-+
-+	mmc1_pins_default: mmc1-default-pins {
-+		pins-cmd-dat {
-+			pinmux = <PINMUX_GPIO168__FUNC_MSDC1_CMD>,
-+				 <PINMUX_GPIO170__FUNC_MSDC1_DAT0>,
-+				 <PINMUX_GPIO171__FUNC_MSDC1_DAT1>,
-+				 <PINMUX_GPIO172__FUNC_MSDC1_DAT2>,
-+				 <PINMUX_GPIO173__FUNC_MSDC1_DAT3>;
-+			bias-pull-up = <MTK_PUPD_SET_R1R0_01>;
-+			drive-strength = <8>;
-+			input-enable;
-+		};
-+
-+		pins-clk {
-+			pinmux = <PINMUX_GPIO169__FUNC_MSDC1_CLK>;
-+			bias-pull-down = <MTK_PUPD_SET_R1R0_10>;
-+			drive-strength = <8>;
-+		};
-+
-+		pins-insert {
-+			pinmux = <PINMUX_GPIO136__FUNC_GPIO136>;
-+			bias-pull-up;
-+			input-enable;
-+		};
-+	};
-+
-+	mmc1_pins_uhs: mmc1-uhs-pins{
-+		pins-cmd-dat {
-+			pinmux = <PINMUX_GPIO168__FUNC_MSDC1_CMD>,
-+				 <PINMUX_GPIO170__FUNC_MSDC1_DAT0>,
-+				 <PINMUX_GPIO171__FUNC_MSDC1_DAT1>,
-+				 <PINMUX_GPIO172__FUNC_MSDC1_DAT2>,
-+				 <PINMUX_GPIO173__FUNC_MSDC1_DAT3>;
-+			bias-pull-up = <MTK_PUPD_SET_R1R0_01>;
-+			drive-strength = <8>;
-+			input-enable;
-+		};
-+
-+		pins-clk {
-+			pinmux = <PINMUX_GPIO169__FUNC_MSDC1_CLK>;
-+			bias-pull-down = <MTK_PUPD_SET_R1R0_10>;
-+			drive-strength = <8>;
-+		};
-+	};
-+
-+};
-+
-+&pmic {
-+	interrupts-extended = <&pio 194 IRQ_TYPE_LEVEL_HIGH>;
-+};
-+
-+&spi0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&spi0_pins>;
-+	mediatek,pad-select = <0>;
-+
-+	status = "okay";
-+
-+	cros_ec: ec@0 {
-+		compatible = "google,cros-ec-spi";
-+		reg = <0>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+		interrupts-extended = <&pio 132 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&ec_int_pins>;
-+		spi-max-frequency = <3000000>;
-+
-+		i2c_tunnel: i2c-tunnel {
-+			compatible = "google,cros-ec-i2c-tunnel";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			google,remote-bus = <4>;
-+		};
-+
-+		typec {
-+			compatible = "google,cros-ec-ucsi";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			usb_c0: connector@0 {
-+				compatible = "usb-c-connector";
-+				reg = <0>;
-+				data-role = "host";
-+				label = "left";
-+				power-role = "dual";
-+				try-power-role = "source";
-+			};
-+
-+			usb_c1: connector@1 {
-+				compatible = "usb-c-connector";
-+				reg = <1>;
-+				data-role = "host";
-+				label = "right";
-+				power-role = "dual";
-+				try-power-role = "source";
-+			};
-+		};
-+	};
-+};
-+
-+&uart0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart0_pins>;
-+
-+	status = "okay";
-+};
-+
-+&watchdog {
-+	mediatek,disable-extrst;
-+};
-+
-+#include <arm/cros-ec-keyboard.dtsi>
-+#include <arm/cros-ec-sbs.dtsi>
-+
-+&keyboard_controller {
-+	keypad,num-columns = <15>;
-+
-+	function-row-physmap = <
-+		MATRIX_KEY(0x00, 0x02, 0)	/* T1 */
-+		MATRIX_KEY(0x03, 0x02, 0)	/* T2 */
-+		MATRIX_KEY(0x02, 0x02, 0)	/* T3 */
-+		MATRIX_KEY(0x01, 0x02, 0)	/* T4 */
-+		MATRIX_KEY(0x03, 0x04, 0)	/* T5 */
-+		MATRIX_KEY(0x02, 0x04, 0)	/* T6 */
-+		MATRIX_KEY(0x01, 0x04, 0)	/* T7 */
-+		MATRIX_KEY(0x02, 0x09, 0)	/* T8 */
-+		MATRIX_KEY(0x01, 0x09, 0)	/* T9 */
-+		MATRIX_KEY(0x00, 0x04, 0)	/* T10 */
-+		MATRIX_KEY(0x00, 0x01, 0)	/* T11 */
-+		MATRIX_KEY(0x01, 0x05, 0)	/* T12 */
-+	>;
-+
-+	linux,keymap = <
-+		CROS_STD_MAIN_KEYMAP
-+		MATRIX_KEY(0x00, 0x02, KEY_BACK)		/* T1 */
-+		MATRIX_KEY(0x03, 0x02, KEY_REFRESH)		/* T2 */
-+		MATRIX_KEY(0x02, 0x02, KEY_ZOOM)		/* T3 */
-+		MATRIX_KEY(0x01, 0x02, KEY_SCALE)		/* T4 */
-+		MATRIX_KEY(0x03, 0x04, KEY_SYSRQ)		/* T5 */
-+		MATRIX_KEY(0x02, 0x04, KEY_BRIGHTNESSDOWN)	/* T6 */
-+		MATRIX_KEY(0x01, 0x04, KEY_BRIGHTNESSUP)	/* T7 */
-+		MATRIX_KEY(0x02, 0x09, KEY_MUTE)		/* T8 */
-+		MATRIX_KEY(0x01, 0x09, KEY_VOLUMEDOWN)		/* T9 */
-+		MATRIX_KEY(0x00, 0x04, KEY_VOLUMEUP)		/* T10 */
-+		MATRIX_KEY(0x00, 0x01, KEY_MICMUTE)		/* T11 */
-+		MATRIX_KEY(0x01, 0x05, KEY_CONTROLPANEL)	/* T12 */
-+		MATRIX_KEY(0x03, 0x05, KEY_PREVIOUSSONG)	/* T13 */
-+		MATRIX_KEY(0x00, 0x09, KEY_PLAYPAUSE)		/* T14 */
-+		MATRIX_KEY(0x00, 0x0b, KEY_NEXTSONG)		/* T15 */
-+		MATRIX_KEY(0x03, 0x00, KEY_LEFTMETA)		/* Search */
-+		MATRIX_KEY(0x01, 0x0e, KEY_LEFTCTRL)		/* Left Control */
-+		MATRIX_KEY(0x06, 0x0d, KEY_LEFTALT)		/* Left Alt */
-+		MATRIX_KEY(0x03, 0x0e, KEY_RIGHTCTRL)		/* Right Control */
-+		MATRIX_KEY(0x06, 0x0a, KEY_BACKSLASH)		/* Backslash */
-+	>;
-+};
+diff --git a/drivers/platform/chrome/chromeos_of_hw_prober.c b/drivers/platform/chrome/chromeos_of_hw_prober.c
+index 54d894161..215fa9adc 100644
+--- a/drivers/platform/chrome/chromeos_of_hw_prober.c
++++ b/drivers/platform/chrome/chromeos_of_hw_prober.c
+@@ -111,6 +111,10 @@ static const struct hw_prober_entry hw_prober_platforms[] = {
+ 		.compatible = "google,steelix",
+ 		.prober = chromeos_i2c_component_prober,
+ 		.data = &chromeos_i2c_probe_dumb_trackpad,
++	}, {
++		.compatible = "google,tarkin",
++		.prober = chromeos_i2c_component_prober,
++		.data = &chromeos_i2c_probe_dumb_trackpad,
+ 	}, {
+ 		.compatible = "google,voltorb",
+ 		.prober = chromeos_i2c_component_prober,
 -- 
 2.46.0
 
