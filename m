@@ -1,62 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795831913;
-	b=EY34nW7x8iSCNPbt+HFPtlCRbz8XDZA1KGt1d82pKAJnIrz3F+3zN9YZr1TAnpfyRN0y
-	 QlTSjvVknRBdnhbVA08iXtrv5wmCsxfip+oxyn6SSBtvKnalU+TSKn/xqe+VB2uz5kplR
-	 CPxLTDjEB+KIbmpZR0jVMCRv1XhExGGU/WFypvEvu0oF0+LrQsXDZX6GZPbwDV69/Zf2c
-	 S1bT7Psy3B7+UkBT9K4LFpBpcnMmqYrPfVHOIl0J2pyq/SHn7QwobQPmHkvKTlVgmieCm
-	 A+bAeCvx7CvpOPTpUFZ/YItyRnIr5o6WNgvEjdSAMMMGHf54wNsitlubo5D9BaftLcw==
+	t=1795832349;
+	b=GKYRCual9VVAJTvjEkbdR18GInnPdpZwFhMe2U82r2loDV8cyZ59wDV8CRcpbQlckS1W
+	 gBE9JTmYcbq3zRmQVfwnrb+r1VtkzbLUT8jfHGlruluwL/noBSN8/EfS65lzuc5nGPxZJ
+	 TGoWKd7aKwLCBtf22WnIjheZScypf73sGMsFdcpLT1T1YNqQ6AYNV8h7MWOAR8yO9dcAL
+	 civk9xLE59ytexR09uvakwP1bl705p3GrfT6kuXNPKKmvlOaHpDJI9sMS0x105jc5LIRi
+	 mOkRVDkGqnxep9vRMVSqqJirhh4bpE+jNNvNv1Vg3YCpMGbo4hjwa0im4WTfBihFR8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795831913;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=hEFPo6U1iCQb4pbKLYkGAkm38AyWvr0lKY/Xs7M5frM=;
-	b=3RO83bn27u16l9L0wwtL3kB7jmImkZPjKGWsujNJOuFPL0JHLIV04MPo/HWSwFgwJ03K
-	 rDky/5jxZrs8oEXeD0Df4vreY6/Cs2wFI32VLwhByDFsmmV1Hv+6d9rSOvkXijWHGnjXR
-	 yqVk6cNZ9CW7fLXuVqr81BPToDZy8KLCS7db7vJfAI6dlrpsOXoqEHh6Rk2u0eM5bh2Z2
-	 7yt/Kx4J/3ia7lzmaBUEHZN+AA7IaWZsXsPbAPIoYSOrrYeqxv+gsxct+u7+i6VFtV1Da
-	 YqcnV9uyTYbdwKT8h8MuTHroE4TOfNrvk8KoMdIrRUmoF21oFLhWTltp8AWeKzBDUEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795832349;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=HZiLbeveVkP0thWq6lXBRnjI4/oS76xhNlaIHRsGwXI=;
+	b=uh2NJJ/TzzlpqyZFP5Hrk3Z0cYpeNUuJGcwxhGRqUMkwUlFD8d9sGEBNIVE3/Xqv7QzR
+	 1GBqWPFjCGTaG0DsKZo0MfeiGsAKkQDHUFvHzZwK03wpVfJA530tFUxehkrp1D30eC5W9
+	 5qfIfMz0qgYUZGqp/ftL3zb/JFDF/1eRygUcLBqPNgO+3x5M3p8TaF31Dghe3TbNFfvtE
+	 fljQ3RgLipn9Lexa9TieqMJHVfaC/O19LmcEDmD+f3FiuvpeQABKtW5uRQC51zAyvtRc/
+	 HGoqdHGFxC+w6FsJHjFYY501qesBh2my4uYVpMeETEXkT3k/5oMNfm7h6lANjGMqhTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DHw9VI6W;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=wl6gPvEb;
+	arc=none smtp.remote-ip=113.46.200.219
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72418606A31C;
-	Sat, 28 Nov 2026 02:11:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 639BA606A339;
+	Sat, 28 Nov 2026 02:19:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 639BA606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DHw9VI6W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38D541F00893;
-	Sat, 28 Nov 2026 02:11:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795831913;
-	bh=hEFPo6U1iCQb4pbKLYkGAkm38AyWvr0lKY/Xs7M5frM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DHw9VI6Wx3lH++eBGpLtb1iwcR+ga53NtsRWRIOTnlwbgzUSlmxldiQwS6cMHQHCa
-	 5sWNyCrfAyD/R1EcLI2B1Dws9zBujSj6Q80vutVF17TSTAOb+FNM/ETsgFwEz6KfD6
-	 JDWKfrA0KgQBhhsIJUHT4hGcaa1OcVygyOp9VmVoCv0MlrtOItql7hFN0vu850phta
-	 Lrx7v8r+yAL8b+SnejC/7A4cglITTn4IPkTQwMms3ArVm8CeWGHDICUot7cwcHBApJ
-	 QuAIVp+/O21ttKWxMYwocBR8SlJFomX399GlPV0TgucB+2kKYLpzXamJ/ECBPq0j/I
-	 kNTqoQDNZPvMw==
-Date: Sat, 28 Nov 2026 02:11:44 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Romain TISSERAND <romain.tisserand@gmail.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
- sashiko-reviews@lists.linux.dev
-Subject: Re: [PATCH 0/4] iio: adc: Add the Miyoo A30 and PocketGo S30 analog
- stick MCUs
-Message-ID: <20261128021144.67d1672f@jic23-hlaptop>
-In-Reply-To: <awluLgvMt9BN1Aj8@ashevche-desk.local>
-References: <20261127012612.1589039-1-romain.tisserand@gmail.com>
-	<awluLgvMt9BN1Aj8@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=wl6gPvEb
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=HZiLbeveVkP0thWq6lXBRnjI4/oS76xhNlaIHRsGwXI=;
+	b=wl6gPvEb8+GbDNNj0Igr3ynb5fLY54UN8ir/arw4RT8N4XcxGf6b4e2TsKYfaErA97c21omUh
+	9NJPI8/bB1k8Quxo1eFSqwsMZDnYh6r8JrXrKbhWN6rmvW/QIPXRnXyaBDOJDioODOuD+MDpA+X
+	L8fDffTxns7RVHqRIsC7vF4=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4jbv904pYxz1prKm;
+	Sat, 28 Nov 2026 10:18:44 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 4879540538;
+	Sat, 28 Nov 2026 10:19:03 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sat, 28 Nov
+ 2026 10:19:01 +0800
+Message-ID: <6339810b-1666-441c-a8b8-17bfb885fc8f@huawei.com>
+Date: Sat, 28 Nov 2026 10:19:01 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,68 +62,232 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 2/8] crash_core: fold duplicated memblock arch hooks
+ into the weak default
+To: Wandun Chen <chenwandun1@gmail.com>, <pjw@kernel.org>,
+	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
+	<robh@kernel.org>, <baoquan.he@linux.dev>, <rppt@kernel.org>,
+	<m.szyprowski@samsung.com>
+CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <tglx@kernel.org>,
+	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
+	<x86@kernel.org>, <hpa@zytor.com>, <saravanak@kernel.org>,
+	<akpm@linux-foundation.org>, <pasha.tatashin@soleen.com>,
+	<pratyush@kernel.org>, <ruirui.yang@linux.dev>, <robin.murphy@arm.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<loongarch@lists.linux.dev>, <linux-riscv@lists.infradead.org>,
+	<devicetree@vger.kernel.org>, <kexec@lists.infradead.org>,
+	<linux-mm@kvack.org>, <iommu@lists.linux.dev>
+References: <20261127090723.741253-1-chenwandun1@gmail.com>
+ <20261127090723.741253-3-chenwandun1@gmail.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20261127090723.741253-3-chenwandun1@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Fri, 27 Nov 2026 13:49:02 +0200
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-> On Fri, Nov 27, 2026 at 02:26:08AM +0100, Romain TISSERAND wrote:
-> > The Miyoo A30 and the PocketGo S30 are two Allwinner A33 handhelds
-> > whose analog stick is read by a small microcontroller: the MCU samples
-> > the stick potentiometers and hands the raw 8-bit readings to the SoC,
-> > on a UART (A30, a stream of frames at 9600 baud) or over I2C (S30, a
-> > four-byte read with complements). Neither MCU takes commands.  
+
+在 2026/11/27 17:07, Wandun Chen 写道:
+> From: Wandun Chen <chenwandun@lixiang.com>
 > 
-> Why a brand new driver for each of the cases?
+> arm64, loongarch and riscv open-code the same memblock walk in
+> arch_get_system_nr_ranges() and arch_crash_populate_cmem(). Move it into
+> the __weak defaults in kernel/crash_core.c and delete the arch copies.
 
-I'd also ask whether we expect to ever see these as useful other than
-for the joystick function.  If not maybe going directly to input makes
-more sense than using the adc joystick bridge?
+The code looks good, but shouldn't the commit message also mention x86
+and loongarch? Loongarch does not implement crash CMA reservation, so
+crashk_cma_cnt is 0. x86 has its own arch hook implementation, so the
+__weak implementation will be overridden by the arch implementation.
 
-Basically more info needed.
+otherwise, LGTM
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+
+Best regards,
+Jinjie
 
 > 
-> > Both drivers expose the readings as raw IIO channels for the existing
-> > adc-joystick driver. The A30 MCU pushes its frames on its own, so its
-> > driver also feeds a software IIO buffer and adc-joystick takes the stick
-> > from it without polling. The S30 MCU only answers when read and has no
-> > data-ready line, so adc-joystick polls it, as on the Anbernic RGxx3
-> > boards where the stick is behind a SARADC. There is no scale: the
-> > readings are raw ADC codes of the MCU.  
+> No functional change.
 > 
-> > Patches 1 and 2 add the A30 binding and driver, patches 3 and 4 the S30
-> > ones. Both use the existing "miyoo" vendor prefix (the PocketGo S30 is
-> > a Miyoo/Bittboy product). The board devicetrees will be sent to the
-> > sunxi tree.
-> > 
-> > Testing: each patch built with W=1 for arm (multi_v7_defconfig, both
-> > drivers =y and =m) and arm64 (defconfig, =m), no warnings;
-> > dt_binding_check clean for both bindings; the board devicetrees pass
-> > dtbs_check with these bindings.
-> > 
-> > On a PocketGo S30 on 7.3.1: about one single read in four fails an exact
-> > complement check (the value and its complement differ by a count or two
-> > at rest, up to about thirty while the stick moves fast); with the +-2
-> > tolerance and up to three tries, polling as adc-joystick does (two reads
-> > every 10 ms), no read failed over 2 x 6000 reads at rest and moving, and
-> > under 2% needed a second try (exact check: about 4% failed). The in-tree
-> > adc-joystick driver on the S30 channels reported 365 and 374 events over
-> > 15 s of full circles, 42..231 and 24..246.
-> > 
-> > On a Miyoo A30 on 7.3.1: rest 136/123; reading the channels from sysfs,
-> > full circles 22..248 (X) and 11..221 (Y). The in-tree adc-joystick
-> > driver, without poll-interval, takes the stick from the IIO buffer: 826
-> > and 852 events over 15 s of full circles (the MCU sends about 67 frames
-> > a second), 37..246 and 11..220.
-> > 
-> > Retested with this version on the A30 (7.3.1): with only one channel
-> > enabled in the buffer, each channel gives its own axis (stick held
-> > right: ch0 alone 141..242, ch1 alone 116..119); three unbind/bind rounds
-> > with adc-joystick bound: no warning, the readings and the adc-joystick
-> > device come back; at rest 139/118, +-1 over 50 sysfs reads.
-> > On the S30 (7.3.1): at rest 152/126, no failed read; adc-joystick 1213
-> > events over 15 s of full circles; three unbind/bind rounds: no warning,
-> > readings and adc-joystick back.  
+> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+> Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
+> Acked-by: Baoquan He <baoquan.he@linux.dev>
+> ---
+>  arch/arm64/kernel/machine_kexec_file.c     | 29 ----------------------
+>  arch/loongarch/kernel/machine_kexec_file.c | 27 --------------------
+>  arch/riscv/kernel/machine_kexec_file.c     | 26 -------------------
+>  kernel/crash_core.c                        | 27 ++++++++++++++++++++
+>  4 files changed, 27 insertions(+), 82 deletions(-)
 > 
+> diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
+> index 14f453dd0946..18695f01043c 100644
+> --- a/arch/arm64/kernel/machine_kexec_file.c
+> +++ b/arch/arm64/kernel/machine_kexec_file.c
+> @@ -14,7 +14,6 @@
+>  #include <linux/kernel.h>
+>  #include <linux/kexec.h>
+>  #include <linux/libfdt.h>
+> -#include <linux/memblock.h>
+>  #include <linux/of.h>
+>  #include <linux/of_fdt.h>
+>  #include <linux/slab.h>
+> @@ -39,34 +38,6 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
+>  	return kexec_image_post_load_cleanup_default(image);
+>  }
+>  
+> -#ifdef CONFIG_CRASH_DUMP
+> -unsigned int arch_get_system_nr_ranges(void)
+> -{
+> -	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* for exclusion of crashkernel region */
+> -	phys_addr_t start, end;
+> -	u64 i;
+> -
+> -	for_each_mem_range(i, &start, &end)
+> -		nr_ranges++;
+> -
+> -	return nr_ranges;
+> -}
+> -
+> -int arch_crash_populate_cmem(struct crash_mem *cmem)
+> -{
+> -	phys_addr_t start, end;
+> -	u64 i;
+> -
+> -	for_each_mem_range(i, &start, &end) {
+> -		cmem->ranges[cmem->nr_ranges].start = start;
+> -		cmem->ranges[cmem->nr_ranges].end = end - 1;
+> -		cmem->nr_ranges++;
+> -	}
+> -
+> -	return 0;
+> -}
+> -#endif
+> -
+>  /*
+>   * Tries to add the initrd and DTB to the image. If it is not possible to find
+>   * valid locations, this function will undo changes to the image and return non
+> diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/kernel/machine_kexec_file.c
+> index 0fe60907b97f..bef459287683 100644
+> --- a/arch/loongarch/kernel/machine_kexec_file.c
+> +++ b/arch/loongarch/kernel/machine_kexec_file.c
+> @@ -13,7 +13,6 @@
+>  #include <linux/ioport.h>
+>  #include <linux/kernel.h>
+>  #include <linux/kexec.h>
+> -#include <linux/memblock.h>
+>  #include <linux/slab.h>
+>  #include <linux/string.h>
+>  #include <linux/types.h>
+> @@ -56,32 +55,6 @@ static void cmdline_add_initrd(struct kimage *image, unsigned long *cmdline_tmpl
+>  }
+>  
+>  #ifdef CONFIG_CRASH_DUMP
+> -unsigned int arch_get_system_nr_ranges(void)
+> -{
+> -	int nr_ranges = 2; /* for exclusion of crashkernel region */
+> -	phys_addr_t start, end;
+> -	uint64_t i;
+> -
+> -	for_each_mem_range(i, &start, &end)
+> -		nr_ranges++;
+> -
+> -	return nr_ranges;
+> -}
+> -
+> -int arch_crash_populate_cmem(struct crash_mem *cmem)
+> -{
+> -	phys_addr_t start, end;
+> -	uint64_t i;
+> -
+> -	for_each_mem_range(i, &start, &end) {
+> -		cmem->ranges[cmem->nr_ranges].start = start;
+> -		cmem->ranges[cmem->nr_ranges].end = end - 1;
+> -		cmem->nr_ranges++;
+> -	}
+> -
+> -	return 0;
+> -}
+> -
+>  /*
+>   * Add the "mem=size@start" command line parameter to command line, indicating the
+>   * memory region the new kernel can use to boot into.
+> diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
+> index dad7f02365d3..fdc6695e8588 100644
+> --- a/arch/riscv/kernel/machine_kexec_file.c
+> +++ b/arch/riscv/kernel/machine_kexec_file.c
+> @@ -37,32 +37,6 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
+>  }
+>  
+>  #ifdef CONFIG_CRASH_DUMP
+> -unsigned int arch_get_system_nr_ranges(void)
+> -{
+> -	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* For exclusion of crashkernel region */
+> -	phys_addr_t start, end;
+> -	u64 i;
+> -
+> -	for_each_mem_range(i, &start, &end)
+> -		nr_ranges++;
+> -
+> -	return nr_ranges;
+> -}
+> -
+> -int arch_crash_populate_cmem(struct crash_mem *cmem)
+> -{
+> -	phys_addr_t start, end;
+> -	u64 i;
+> -
+> -	for_each_mem_range(i, &start, &end) {
+> -		cmem->ranges[cmem->nr_ranges].start = start;
+> -		cmem->ranges[cmem->nr_ranges].end = end - 1;
+> -		cmem->nr_ranges++;
+> -	}
+> -
+> -	return 0;
+> -}
+> -
+>  static char *setup_kdump_cmdline(struct kimage *image, char *cmdline,
+>  				 unsigned long cmdline_len)
+>  {
+> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
+> index d0bd2d0cf899..faa0f22dbb41 100644
+> --- a/kernel/crash_core.c
+> +++ b/kernel/crash_core.c
+> @@ -281,8 +281,35 @@ static struct crash_mem *alloc_cmem(unsigned int nr_ranges)
+>  	return cmem;
+>  }
+>  
+> +#ifdef CONFIG_ARCH_KEEP_MEMBLOCK
+> +unsigned int __weak arch_get_system_nr_ranges(void)
+> +{
+> +	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* crashk_res + crashk_low_res, +CMA splits */
+> +	phys_addr_t start, end;
+> +	u64 i;
+> +
+> +	for_each_mem_range(i, &start, &end)
+> +		nr_ranges++;
+> +	return nr_ranges;
+> +}
+> +
+> +int __weak arch_crash_populate_cmem(struct crash_mem *cmem)
+> +{
+> +	phys_addr_t start, end;
+> +	u64 i;
+> +
+> +	for_each_mem_range(i, &start, &end) {
+> +		cmem->ranges[cmem->nr_ranges].start = start;
+> +		cmem->ranges[cmem->nr_ranges].end = end - 1;
+> +		cmem->nr_ranges++;
+> +	}
+> +	return 0;
+> +}
+> +#else
+>  unsigned int __weak arch_get_system_nr_ranges(void) { return 0; }
+>  int __weak arch_crash_populate_cmem(struct crash_mem *cmem) { return -1; }
+> +#endif
+> +
+>  int __weak arch_crash_exclude_ranges(struct crash_mem *cmem) { return 0; }
+>  
+>  int __weak arch_crash_exclude_mem_range(struct crash_mem **mem,
 
