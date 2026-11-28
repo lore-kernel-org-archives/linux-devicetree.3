@@ -1,100 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1795845466;
-	b=KQQ1eRFMqmu0FqaYVtoVws8x9xtBz1lygUfSOk/U8bopY6kiPz1ow/OyLlKmpiJ/02T3
-	 /E2VIM3uv8WiR2Ap8DGU0h0xCDvoUw5X4nuTMWDAwZ1Jne9M7rPTQ2XFmumBx551ZHLYN
-	 DiidCSmBBW4f+0yG/TfLWAGMwKSROTHKXXmcv9iCpsA3rkPHLA8iNw9I/V7D3g40EDKWu
-	 jbnG+SkeDfjQMnmyGaJcug0zBu7lQ+LnVLFqTmlQIIgsebW1k6JjrwETTr9FTNyJLu6R0
-	 bNIcTC66hzv1UGG8LOPkf+3vGu2cqCW0AQGMNKZEBW+Hcr+LWqKtk/S3Tgfnt5q9zPQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795845466;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=mpYKemDJEpUf9ISq0dzDk0OlvVaWeNnymI3fjjwmLkg=;
-	b=hCRDcAJcSZBQpwkIMyopxYJGw/QU4OETGXEJlqBIVhxcmpdItJ4yBl/bJxSlz0+BkzT4
-	 AAbB1WvaVg5VtkGjWq55vJDC+LKkMqFvygOB5d6ktxKPYR/RB2BNVpMZASAx0UbOuzQfQ
-	 qr8wc6uqF6+o0TyoqzgKLKdMB3s1eEEY3b+hwcKYd6CFtgsw2yUKmkTSMDZRKwDJMErkG
-	 SDyuwpkaDEccCpk+FAUlX+OtjnRw51DUqSQvsWu4xt2OFgaCJz5+smZMx7TIrHU7CaGAt
-	 Tt8XuPEs1/LepbCHOWoEpMABujsavaibL9E5PrH8Zfglssv2sDIlDgR3arPE82zhM2A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lmrVlhXl;
-	arc=fail smtp.remote-ip=209.85.208.49
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795846715;
+	b=kVYVJCBsJT0yDPJbXvuJuvXSJI84cmqwDgyN1XKkExrmZQJDSD7ai3I5Fn034L1AkAOX
+	 BFj3ZqdFv/4/4BtERSWLZhFsoxdWpTvkRiFdqQyNIMUkDTdO+SOr9iUOlmCWwKOuYlLaP
+	 aK+lXZekwZyOnsPDyez24h9gRqWtly/Z7WBdFhv03NjuAd/b7YbrZxasnz+nrjC9OgMJy
+	 fEezsXAQWB7N+s4TllNWXgBLIAV3Jk6q2Cgf6Ke6Si8Y4Imi+wPVGbRuDjhGdFRaCBQQt
+	 UaKSXQIiFJMB0JyRZiwzX8hleZoV7dkPR6vqbTosANlf9vciRzzK47RmOsoSvXAehsg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795846715;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=k7J6TLLCIarsWD8/5ux9wv2wr1oM4S9+UrlbnYXYYKU=;
+	b=sT99l8qD453LIz/jidTjrI8LwkAjIRXzmoCNFHSesxGqa+1L+DavwJIM5E+gzxR/4oRU
+	 p7D0A7BvN1s/1Fd2ZsF9KwlHUXyWNHd0AulICRgIIdERdCfJyYCn9So5NMcMQubAwFOxT
+	 d5HhM0tfUw4f7GamtcW30GOJMbqwIzXb1ZvH3d7fu+PCudik3U1iMuGqO+1/ueLeasB6h
+	 JGuGZBtTs72P1Ez+1m7y4AUlHpv29W/wgadJcQ7keMbEQFH5ywTfttR4/Z9lGq5mbSgNF
+	 sQFusooOI69xxZEQ0nsGk8bstpZ/PD6tMj73fGBuPdfivKX7eVTMTTHHHKo405wSfeA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=Rodce3Gt;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=8Cukuoul;
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D718A606A31F
-	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 05:57:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D718A606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0980606A31C
+	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 06:18:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0980606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lmrVlhXl
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b8a52db5f9so10665723a12.3
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 21:57:45 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795845464; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FMKblQtxBgBC2JPvCggWOptIIOBX6SYzGso0x8zwa4IxFSe+YBYwLZ3Q4LHXzH0cLQ
-         Ymy6KdjHdCBwVIqxpKak7rnucapgfOsa2yhWr03fSHRKsKXEYZNQ7H3DvoVUz+S/GqZr
-         9sMrQvsKhHvyN2IlYKvk8xkvyFUpCLo3DyQfglH+lJpbsRbimItKG961YGeh8KeaEu/5
-         xch7+eaK6l5/BqexCzRap9IGv0WZ2pqZ9n35s80rYq6KlsUqB6ZAFsSQn8aI7S+GfoFX
-         45g9/hV0ei9Cp6GEQUdtZHNtz68GiacocozMK+M3mAK1pi3XqS+dPg9Ss76M7sBL2vMS
-         7kdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=mpYKemDJEpUf9ISq0dzDk0OlvVaWeNnymI3fjjwmLkg=;
-        fh=/lo3Vygo2I/uLQMRTLwRYpIKe873b2Owfo6OepAlcG4=;
-        b=rItWvidROwMxL2+WDcCQacCT6+RlquRbW4Hiu57pQZ1SXONbI9f9iei6Jc5fNzxKuY
-         Of2ly6EdGsLzAienZ66/WFszjtGb5E9B7TMpgxLK+XsVVKzpcBjuxG6NG2+vT0YUjXNG
-         rBiRjnFFpNDW54gQVUUxR8I0S9dj8NUVkBPDpDxeFKjjYvcqnjHTBWrS2q7HtVLH42xA
-         bAy78y+1vXExV9YwpcNib2AhjKzUaKygVEYU9965W0wmHEa76FWqQE8wpqagwVhbd8qr
-         I5l1HucXAPG+1A5DPPwPkVOId3Y6fmAudzcIpdCnRMpk+LJhSvCXRY8FjlbZCr9LTOCo
-         vdHA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795845464; x=1796450264; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mpYKemDJEpUf9ISq0dzDk0OlvVaWeNnymI3fjjwmLkg=;
-        b=lmrVlhXlsaVMZbgADEPkAy0KVpZgtUOyXGrTxm1M/dNcpxO1ziLWVZEWjImIs7nMKz
-         QS8M6rZjvi6UQ4t7uY0V7e86nAywZ+m4bZ9q6mxf4iJRVezZ9yBOGs1zJYsIwyWAiPq9
-         KYilKGfeAoBXzFfxukar9PQfOhfOcx6QM9Pmd9Wi4JuQScrJtbKjRQ9X1otNCOJ1sV3T
-         Cj5ct6gA/N0tIfcq4HwE8JZxAgVCoCi90dKp+Tu75zIML3qLio09zLpyp5JA1hVN0Lpg
-         OsVrSQpCWzBTKlRmZf8CVVBuZm06DRtdcCP3uTaCtU0EAgH/i8IBepG06JXELgKdScq6
-         VN+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795845464; x=1796450264;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mpYKemDJEpUf9ISq0dzDk0OlvVaWeNnymI3fjjwmLkg=;
-        b=ZtWeoKMR1gvzbftTn/q5Odr/MHd/CMtzQlGu2X8S0oxHdyztkTXZkgIeGPImf3E3dk
-         UG7lkxVGXhAqA+fcwT2KRpFEmPs5trANdC4fPflc8SdREZHYpCKHGopqem9yYWhSU/UK
-         dKEMYGFPfGJXIuunyeEw5DH+itUQzyDtdYuFIw6IC70TlpwEJ3gejqwLyjarmAeESivU
-         eqbiClbYjVgqsP9dMM9lcGsJuYadxQ6V1IKRDkSRyusQdILMQ7PN88cf1WjbdzdoAH60
-         nbs0M4EyUt/lFdqW3tbZXY82Z/RNVoFCChalI97G37YFc8lydMiZjy+lc2agCFNOv4Zg
-         c4XA==
-X-Forwarded-Encrypted: i=1; AL+hErH5OAYRnmIgX4e+h1HFqqlfT5GhfyGHxA+RK3y+vtGPAPwo1v5bTY4ie5QKwsNcFgmH+9MD1WS5qh1R@vger.kernel.org
-X-Gm-Message-State: APuU4Z/5JtZ6L05hk5fwwolcFHc3c9ZqD7kAkNltgmX8u+M1I/LDIXaD
-	HToaBXIlWU3N3E+FXwN0aDCqw6iY4cWgeZFvuuz6sr0y8IaW6JokwLyOVb1Qy6lF5jBoaYKXfET
-	j9fspbrLazcb/FhqI0qXdhv55d+r94mI=
-X-Gm-Gg: AZFdTZe3vvt2jhqukaBwGmYvX+BpGXippJCjytI9Y5CxmrzAwPl6U+2IOK1+Z1t852u
-	xHIU441yvqeU6kcz1i0sqasTNxS1NaY57fG2K+bCm74km8tIxco+wUQ5qjQmanHlryOw60VhsYx
-	YYy/lnublW1yWmgTzCS0uoMHxb7CCheL9NqQdO2Osc//DpZLX7KfDzGoziYxsP2PCcwBNNSHljk
-	9YxCCAwHgi8FWg9nSwngL2iDU1G4AvTprDIbXK2bSdAgq8WwTZkL24craECHdv8Vi//Uj5RfxZu
-	5judK59dxZpUMZpdWucqEjACuO0TuIInV1LBmJu+Z7/jh6Ni/6zWGJJSQU0+wDCDfci4Dw6/5YA
-	80DGxVVGjC9e/xFoiWG9lneoMzHpv/9wooaCWMPTdVSpiqIdNLIhiONhxo1TAqpow5A==
-X-Received: by 2002:aa7:d684:0:b0:6ba:1e56:b7a9 with SMTP id
- 4fb4d7f45d1cf-6ba37d60695mr15032079a12.12.1795845463903; Fri, 27 Nov 2026
- 21:57:43 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=Rodce3Gt;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=8Cukuoul
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1795846699; bh=k7J6TLLCIarsWD8/5ux9wv2
+	wr1oM4S9+UrlbnYXYYKU=; b=Rodce3Gta8SDLrjSPXWt6cEgDCtwC1bW2cG/8/B/EEXW3UYnjH
+	1FO/eUvRMQq+4pu5kS79Z6+XnZvV3MpGmsqrARQ1QzsWFYsQPY20KY5kaSOYe+WMIyQBccnFbj+
+	xyMsiMiXl/Z5vuA8prXQF2JP7catU2D73g5yqZ4HR/IXnOKrcmy8TaWoj+Wb1+vWgj7aDKUtyjl
+	mQOgfEiajFou4nJ0epnMdieVL+T5F9uMlMsx7gzHe9F+ZUKekW0dEiTeBYJg0KhU8hq+gYI8ZNV
+	xWo0sbUgGPCTan5vODNeMR5/LW8sLhg6ABpZsGlV0SlCysTr0MwbYdlv7mu5DJZ6OAA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1795846699; bh=k7J6TLLCIarsWD8/5ux9wv2
+	wr1oM4S9+UrlbnYXYYKU=; b=8CukuoulCXMMpGEKLE537432nLlqh8SMeUbgHIgTSdYagE9Fm6
+	oPHQ2G41QrpG/zUjxQoxFKI6hfBB7p10oXDg==;
+Date: Sat, 28 Nov 2026 13:18:14 +0700
+From: Dang Huynh <dang.huynh@mainlining.org>
+To: Quentin Schulz <quentin.schulz@cherry.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH] arm64: dts: rockchip: Add CD GPIO to Orange Pi 5/5B/5Pro
+Message-ID: <awpxYCW9N_tqAhiX@melt-pi5>
+References: <20261121-orange-pi-5-sdcard-v1-1-e431e7c46ba0@mainlining.org>
+ <c6930807-24de-49c2-adcb-5dbbc3da0c45@cherry.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,68 +67,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261125091309.124354-1-xiaqinghuan@mail.ustc.edu.cn>
-In-Reply-To: <20261125091309.124354-1-xiaqinghuan@mail.ustc.edu.cn>
-From: Pengyu Luo <mitltlatltl@gmail.com>
-Date: Sat, 28 Nov 2026 13:56:59 +0800
-X-Gm-Features: Aa3M54o6oIEszh6kY4GXIp-jdXDpJqhKmrWjTLxx512KQpOfRsaHP5EMKK4ufas
-Message-ID: <CAH2e8h5UCUz0hv203SsZROm_fTRptUzT96Y=ZBNozvD7ntweEg@mail.gmail.com>
-Subject: Re: [PATCH v8 0/2] arm64: dts: qcom: sm8750-lenovo-elden: add the
- Lenovo Legion Y700 Gen4
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-Cc: andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c6930807-24de-49c2-adcb-5dbbc3da0c45@cherry.de>
 
-On Wed, Nov 25, 2026 at 5:13=E2=80=AFPM Qianhui Xu <xiaqinghuan@mail.ustc.e=
-du.cn> wrote:
->
-> This adds a device tree for the Lenovo Legion Y700 Gen4 (TB322FC), an
-> SM8750 tablet, together with the board compatible it needs.  The device
-> tree itself is unchanged from v7; what is new is that 1/2 now documents
-> "lenovo,elden" in the Qualcomm board binding, which v7 forgot.
->
-> Why that is a real gap and not cosmetics: with the device tree alone,
-> dtbs_check rejects the root node,
->
->     sm8750-lenovo-elden.dtb: / (lenovo,elden): compatible: 'oneOf'
->     conditional failed ... 'lenovo,elden' is not one of [...]
->     sm8750-lenovo-elden.dtb: /: failed to match any schema with compatibl=
-e:
->     ['lenovo,elden', 'qcom,sm8750']
->
-> so a board that builds still fails schema validation.  Adding the one lin=
-e
-> to the binding removes that diagnostic, and the same three SM8750 device
-> trees then compile and validate clean (see "Checks" below).
->
-> Relation to Pengyu Luo's series
->
-> The same file was posted before, by Pengyu Luo, as "[PATCH v2 0/2]
-> Introduce Lenovo Legion Y700 Gen4" (2026-07-26, 1170 lines, based on
-> sm8750-qrd).  That series did not go in: it is at changes-requested, Abel
-> Vesa and Konrad Dybcio both reviewed it, and there is no v3.
->
-> This posting supersedes it, with the author of that series in the loop:
-> we agreed on 2026-10-25 to squash the board descriptions and send the who=
-le
-> thing this way.  The binding entry in 1/2 is the same line Pengyu added i=
-n
-> his v2, so credit belongs to him for it - if a trailer is preferred,
-> say which (Co-developed-by needs his Signed-off-by as well) and I will
-> add it in v9.
->
+Hi Quentin,
 
-Feel free to incorporate my previous changes into your series. I am
-happy for you to take the work forward, but I would prefer not to be
-involved in its further development or maintenance. (I graduated and I
-am a 995 full-time employee, I prefer to have a rest in my free time.)
+On Thu, Nov 26, 2026 at 10:56:12AM +0100, Quentin Schulz wrote:
+> Hi Dang,
+> 
+> On 11/21/26 8:03 AM, Dang Huynh wrote:
+> > CD GPIO is currently not defined in Orange Pi 5, this breaks
+> > SD card hotplugging.
+> 
+> That's not the issue. The issue is that the card detect signal is muxed in
+> the SDMMC_DET function (c.f. sdmmc_det in rk3588-base.dtsi) and that relies
+> on the SDMMC controller being powered on to detect such an event. This
+> cannot work when the controller is in runtime suspend, so we have a chicken
+> and the egg problem. The card detect should resume the controller, but it
+> can only work when the controller is running. Hence why we now go for the
+> gpio function (via cd-gpios) instead. See
+> c7a9549ce46e ("arm64: dts: rockchip: Switch microSD card detect to gpio on
+> Radxa ROCK 5 ITX/5C") for an example.
+Interesting, I didn't know that the controller could do that. You learn
+something new every day I guess.
 
-There is no need to add a Co-developed-by tag on my account. A
-reference to my original submission would be sufficient.
+> > diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
+> > index 2db6ee95e504..8fbb0ba19b74 100644
+> > --- a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
+> > +++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
+> > @@ -282,6 +282,7 @@ &sdhci {
+> >   &sdmmc {
+> >   	bus-width = <4>;
+> >   	cap-sd-highspeed;
+> > +	cd-gpios = <&gpio0 RK_PA4 GPIO_ACTIVE_LOW>;
+> 
+> issue: missing pinmuxing
+> 
+> You need to configure the pinmux and pinconf for this pin (via pinctrl-0 and
+> we require repeating pinctrl-names wherever pinctrl-0 is modified).
+pinmux/pinconf is already defined in rk3588-base-pinctrl.dtsi for this
+exact GPIO. I guess this is in case when controller's card detect works?
 
-Best wishes,
-Pengyu
+> 
+> Cheers,
+> Quentin
+
+Best regards,
+Dang
