@@ -1,94 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=60.244.123.138
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795852111;
-	b=zzTGMN+nACjSP5Y9SDQhCRgCXZzB7rDCSjGNE8lPul/M6MEgl5YdgB5bn9aKouZqqn0T
-	 Hj0nl8DD5B+18wy/1uXp0svIsnsZr+bal5tu4BESsOZT7SQoQAWF7yd8dz1dk+pf1rEm5
-	 DsoG1l1w+/KvB+1K8TwFjwd+sLgKZe8M7XsB47VK5+5LVqDpzUUKSkUfsIvoJIhhwC1vQ
-	 Fus/FPkDIP+WSCSf3ER7laBHLkzvIanXF3vzUVrilcxxalfqkTcEOmt8LZj84obiI239H
-	 Eka+8l6NKnX08AyAwVuv5JqOpnWITmmZINmb0ZAU6H5z//ddrVyv0A1RimBVGs5+hhQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795852111;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-MTK;
-	bh=E+173aj9W1CQUJ1n+dj88FblF5rxwIvl1pCcPl7OP8c=;
-	b=Gxw5L/pAd5PGq5FqMI+clr4qG8yrFxYgS+Dno+p4u9h7o49YsGpjqyH3VGzpOqf+7Y5E
-	 88qVZ4yHhnPt7Cb1Jxz3iJsX2wpbtgSmaE2/dxk1p22tvtHqgt1z9RW7594AMCVf0nL+K
-	 SWkUdInLLML2XOPLwePV83evPSvT5NN4jVHAYKUsjYOvKp6xjd1jzdecXly2+TQI0Iq+6
-	 nV3O2lNbpkVELqdn88T4sogbGi78qFHK4XORfkcVHnzZ5hRQgCaV+KkQBjR5khmjqdm0v
-	 ysCxKBWL8675mRzgI4GPZe7Cm3e/UyjbKn50Hb2TYsJVr4WgJexUq7VLM8GKVZeU7Uw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=KnUfKic3;
-	arc=none smtp.remote-ip=60.244.123.138
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.180
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795852438;
+	b=XroaVLk0sONAcl7kNZYt8JRFqlyNTsnaFrE+XoZWcff48HKUfWrjdyiAqevfXM1KtyJf
+	 OaDVu3IiGDFkYeAtEosjiQUALsiut6rNZZ9nUxyRYlOp3ccGl3IHbnMfg+PYRoXa1i8k1
+	 K6uPVf2Gy/7S46YYwA4+Z0mqqmY7jNFMY0hyrBQac57A6RxqzpwRtBPcA5UysGqWY+StD
+	 FerkqM5vuLx4ABVg9iYQDx1TLKgGI4CQERiIHWVr2vdP6v6O+jGX5OmlZuc12pn0EclWO
+	 zS3GSG82rwGcXZAzeSEXDeopdvUy2gAKzaNhqDIqGSdDFEQwqIR6RkRkqyd53DpNobQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795852438;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=3E26Yt2ovRK5OMZtgqMHVcJ89/Y9SO5NO/MzyS43R8M=;
+	b=5Wa/6nJ3VXZz0nMILskd3qXzZel/pXvp84y89fVGCEAOi/9g/1J4f3+Dksp7MtDaHXoS
+	 jjzuVVhATTbWWr/m9G8c3QZMmlZb5ZqGqnYc9bQzMvbvg4EPwqJNJnldOW+c3x0IHU6bM
+	 fdSPhQr2mZrV/hJtwisfZP8dgIcvdfpLcvkHdIR3g9tQtSB6/Xg06NU+sn0HSvTqpinJ2
+	 vwyzMfUFhEUmQKv1IdVd5R7B6njZXetswYoT6sGwN8VqOr0usU27KwoO7Zt59JkbhfejM
+	 cj8ow39sKu03k6pjQJDQC1kV1w3EnOTk96oC3AjeX5j4w4SYWGxNbyLXm7cBTgJlHMA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ltiIC14N;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4189F606A329;
-	Sat, 28 Nov 2026 07:48:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4189F606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 851FC606A31F
+	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 07:53:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 851FC606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=KnUfKic3
-X-UUID: 1727e660eb0011f1b9cf3d4034dccee2-20261128
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=E+173aj9W1CQUJ1n+dj88FblF5rxwIvl1pCcPl7OP8c=;
-	b=KnUfKic3aIFcrmyjVOCietCgVaBSx//8CTLhKNWD95Fs8/zD2uCIl9mmWDEzkD9ram+XWoF8TBkIzJOz7zK+Tor+iSctiPrDuG2H8AQjzt8IEW2JCWfKf4LodupPQeZwWwDsAqVWn/wIfelvLscGdL443XPn1o8ORvdhpt2J6N4=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:bc0fe6cf-44e0-4e51-b07e-63ac8bb2c316,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:b0318ac,CLOUDID:84cd2c1a-ae4c-4a2b-b1c4-72e411efd0c9,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|136|836|865|888|898,TC:-5,Content:0|
-	15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,CO
-	L:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 1727e660eb0011f1b9cf3d4034dccee2-20261128
-Received: from mtkmbs14n2.mediatek.inc [(172.21.101.76)] by mailgw01.mediatek.com
-	(envelope-from <kyrie.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1418819399; Sat, 28 Nov 2026 15:48:24 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Sat, 28 Nov 2026 15:48:23 +0800
-Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
- mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.56 via Frontend Transport; Sat, 28 Nov 2026 15:48:21 +0800
-From: Kyrie Wu <kyrie.wu@mediatek.com>
-To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
-	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
- Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, Kyrie Wu <kyrie.wu@mediatek.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>, Ricardo Ribalda
-	<ribalda@chromium.org>, Kees Cook <kees@kernel.org>, Hans Verkuil
-	<hverkuil+cisco@kernel.org>, Fei Shao <fshao@chromium.org>, Haoxiang Li
-	<haoxiang_li2024@163.com>, Chen-Yu Tsai <wenst@chromium.org>, Laurent
- Pinchart <laurent.pinchart+renesas@ideasonboard.com>, Tomasz Figa
-	<tfiga@chromium.org>, Philipp Zabel <p.zabel@pengutronix.de>, Benjamin
- Gaignard <benjamin.gaignard@collabora.com>, Qianfeng Rong
-	<rongqianfeng@vivo.com>, Irui Wang <irui.wang@mediatek.com>, Jacopo Mondi
-	<jacopo.mondi@ideasonboard.com>, Fan Wu <fanwu01@zju.edu.cn>,
-	<linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-mediatek@lists.infradead.org>
-CC: Sakari Ailus <sakari.ailus@linux.intel.com>
-Subject: [PATCH v10 12/14] media: mediatek: vcodec: clean xpc status
-Date: Sat, 28 Nov 2026 15:47:58 +0800
-Message-ID: <20261128074800.3108429-13-kyrie.wu@mediatek.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261128074800.3108429-1-kyrie.wu@mediatek.com>
-References: <20261128074800.3108429-1-kyrie.wu@mediatek.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ltiIC14N
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-38699cf08dfso11407812eec.1
+        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 23:53:58 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795852437; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OucQaUi9ZUt8lzJ+iJ12yPsGa+Wj3YS9EedYCUTmGHrYSJwNh7381W1ISmODAUuhHm
+         CyF6J88Wn7rQSOC8a8e0UJGW9AccE8Ya1b4vyMt/9rVxiwz/h55HpTCp6PTpDQ6vAAQS
+         LPfIfgLrN0C8YTZNwXCZ3BZQOkmP14OUP4E5O8cTQBQMahH5TbQZ/k7N+RSB7u52Yahh
+         K/lCLxnC2DuEJsvYIl1WLHQBTgOOHv7/wtqbn1RlmRrvfQzPQ9CKIw1twPpR5ZCZ0Zbn
+         e6n2hs/vG+MXUWNcODBgJHLadyQ2zCnobHAWBN16T4YBX5SKzvlXx++BI8GhPhHRm7X0
+         BVEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3E26Yt2ovRK5OMZtgqMHVcJ89/Y9SO5NO/MzyS43R8M=;
+        fh=hYrUnh3yyo+PLPuNfeqp0mYvRTvtLT3kf8U/0+9jooc=;
+        b=hK8ZOlIyQ5x8zyOySpTV7cyul8N1v81NDYUOhydatUlWT8xvUDvU+btTlvNx8z8990
+         hnrfrTJKKU/xyyH3tqdPrru9Ex4So18eoLlJq3QVbOldIYF8jKPtZcGeC0yjjxJrEuww
+         NiGkTO6lHEiBUFOxPwLtz85SXpmfFodKmA+Odf/u2/oMnEO8aKZzbRShLQQ9+4sp9c+w
+         UBfRzzRAyU53wVw0cy4rqDK9EbF1Zc8fpCeBAstRSC53lofhBWLTe6/uYXcgFcXxCyCD
+         QZCGC/CrdZ2RP0LRvCI5h9A2ECj5AhhMrAe67x7xyUSKNwyasiFMMjsUUDRkFBItUXd+
+         Q47A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795852437; x=1796457237; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3E26Yt2ovRK5OMZtgqMHVcJ89/Y9SO5NO/MzyS43R8M=;
+        b=ltiIC14NGhhf1LBTp/gVQSt09VevCzt+8DroWCWbHEVNDFbQUEL7yuDlNlFOd4Amal
+         Fm9UVQk3U4XOCt0JYGwOhjK2SC61q0x4RrsuSHYknRSn1xT+oAws3L9Uu2/+BJT2MyUf
+         B0deuVXxV8ddF9o4UCF/ihpskUrtfoZiGXFadG7FX7pYEeP/RSkSUndufPfoqa4pg0+j
+         cOo0SRMsgY0CNue0YGJHNlLUOW6w6xFiqmBmKUYPckcu4ywV5NHcwYmLk4Hs0efSn35Z
+         PemD+i9gWfb6s2ttvZxVUFg5ZicyqMmeE2uK4iCEwKyruJpPfuUmoqF8WPhu2Uh15HAp
+         ZI2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795852437; x=1796457237;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3E26Yt2ovRK5OMZtgqMHVcJ89/Y9SO5NO/MzyS43R8M=;
+        b=NLcXUf1wt49KgSik3Z5GMaqfNr5OM47JJRIz1arH5FnLUbMjMa9hFNt6pWTH1zNZ+q
+         UAPEsSvcvo7vfO9iskrVFxTmGvQWMExdPOQxMDt+jbHZLb+ngMgUE2z2azUea+AcVeqp
+         U4b49IMnaZToxYnuAU6BTiPZ9qRAUI18Z6funvUVT6/9tvXJ5JjgKjM5GXYr6NSSPkYe
+         gIcu09uCoplL2y3hq2E1wCpkBIXaDZKON/ii80pKw7kl5jSzbXkE6YIvd3qK6i/Ey7Dj
+         wCeIdnNWex/tvoOReZZ5W5UKmYeHGOiaNYdiQIdAHhGmjQ1F4buJqfz0sBreyQRoowoY
+         kIvg==
+X-Gm-Message-State: APuU4Z+C+6njjCUoHICMuZeWuYRatuNu0lt36ndHkyddIwnrtYFn6ToQ
+	PGmgwf/w6jERaxho21oHBeaovsyqEvWjkRBKGe0NS6YnwATlekA97eWkoefWAYeYlS/ucnTK1Co
+	0XdWUyfysW+nJ8VnHeHaQEk3ErGwy5U8=
+X-Gm-Gg: AZFdTZcMS/lXODmqUCHq/22E+/PkgDrSEo0c4mPjfNEacXpBW2ew+8bGH+lZQY2HfjJ
+	yBkXxIIuNM818PST4Z5H2B3lx6gzdkjeUuOIssUlCMqC+OLsWTzzgtnzFN6smVfmncRQppIV/rC
+	aTUx/xGmQL3MX+Alw1aPtUvNLU0eLB7am5gUT6dWs22//AYj0Ul3Nm/JUuLZXqrcLhVNEUWD23r
+	CDUo+6NAswcl7dp4GRVwUlfjq3ZFw52VpS05hRauk6v2yrl4rYyjoqoQnGTtxv/P5HGpF8CURDq
+	hWNDS4YXmvfPfZ980uB0wWmQjLwCwBLdRNWsg+/qLUe/iOepnx6/ApgCg2Ch0qZmU+6pW8jOgOJ
+	ZNBTr5wkrgTUfNJRNHtsmkFhcIjCzA0YAwF6/oNz8RBWxVwBHmRUXdG2hnOxRdesqGtkXFBasWj
+	fYi6cznxRP7URZ9HJtswcuPr90frpkog==
+X-Received: by 2002:a05:7301:2108:b0:386:b99:8ff9 with SMTP id
+ 5a478bee46e88-3860b999354mr23606691eec.40.1795852437505; Fri, 27 Nov 2026
+ 23:53:57 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -98,109 +104,197 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
+References: <20261122081820.53199-1-clamor95@gmail.com> <QEeSnm4uTjq24quMQBzlfQ@nvidia.com>
+ <CAPVz0n2xxEG5vR4X_dZeyQfN9TVSCBn+2uW1wY7Z+P3N8BhNqQ@mail.gmail.com> <TYDAsh0fQ52x0yM4_wAp5A@nvidia.com>
+In-Reply-To: <TYDAsh0fQ52x0yM4_wAp5A@nvidia.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Sat, 28 Nov 2026 09:53:45 +0200
+X-Gm-Features: Aa3M54q-zu7VNZG7RQnUkD49ZZ4GXHDbs3pfd4VbGKumQK7WmjGiO3UixS-hPEM
+Message-ID: <CAPVz0n2no09Dkf_+wBf_f0dejHxCkLtnjB-Tu-PKjn5PMQHuTg@mail.gmail.com>
+Subject: Re: [PATCH v8 10/12] drm/tegra: rgb: Parameterize configuration based
+ on bus flags
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: devicetree@vger.kernel.org, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The driver need to clean xpc status when receive decoder hardware
-interrupt for mt8196 platform.
+=D1=81=D0=B1, 28 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 03:2=
+8 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Friday, November 27, 2026 10:21=E2=80=AFPM Svyatoslav Ryhel wrote:
+> > =D0=BF=D1=82, 27 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
+14:35 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > On Friday, November 27, 2026 6:21=E2=80=AFPM Svyatoslav Ryhel wrote:
+> > > > =D0=BF=D1=82, 27 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=
+=BE 08:22 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> > > > >
+> > > > > On Sunday, November 22, 2026 5:18=E2=80=AFPM Svyatoslav Ryhel wro=
+te:
+> > > > > > Parameterize configuration based on bus flags passed from the b=
+ridge or
+> > > > > > panel. The list of supported flags includes now pixel clock pol=
+arity,
+> > > > > > display enable (DE) polarity, and data alignment.
+> > > > > >
+> > > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > > > ---
+> > > > > >  drivers/gpu/drm/tegra/rgb.c | 39 +++++++++++++++++++++++++++++=
+++++----
+> > > > > >  1 file changed, 35 insertions(+), 4 deletions(-)
+> > > > > >
+> > > > > > diff --git a/drivers/gpu/drm/tegra/rgb.c b/drivers/gpu/drm/tegr=
+a/rgb.c
+> > > > > > index d48d498068ac8..faecd6f94359f 100644
+> > > > > > --- a/drivers/gpu/drm/tegra/rgb.c
+> > > > > > +++ b/drivers/gpu/drm/tegra/rgb.c
+> > > > > > @@ -5,6 +5,7 @@
+> > > > > >   */
+> > > > > >
+> > > > > >  #include <linux/clk.h>
+> > > > > > +#include <linux/media-bus-format.h>
+> > > > > >  #include <linux/of.h>
+> > > > > >
+> > > > > >  #include <drm/drm_atomic_helper.h>
+> > > > > > @@ -106,6 +107,7 @@ static void tegra_rgb_encoder_enable(struct=
+ drm_encoder *encoder,
+> > > > > >       struct tegra_output *output =3D encoder_to_output(encoder=
+);
+> > > > > >       struct tegra_rgb *rgb =3D to_rgb(output);
+> > > > > >       struct drm_connector_state *conn_state;
+> > > > > > +     struct drm_bridge_state *bridge_state;
+> > > > > >       struct drm_crtc_state *crtc_state;
+> > > > > >       struct drm_connector *connector;
+> > > > > >       struct drm_display_mode *mode;
+> > > > > > @@ -117,12 +119,21 @@ static void tegra_rgb_encoder_enable(stru=
+ct drm_encoder *encoder,
+> > > > > >       crtc_state =3D drm_atomic_get_new_crtc_state(state, conn_=
+state->crtc);
+> > > > > >       mode =3D &crtc_state->adjusted_mode;
+> > > > > >
+> > > > > > +     /* Get but flags from the bridge state. */
+> > > > >
+> > > > > s/but/bus/
+> > > > >
+> > > > > > +     bridge_state =3D drm_atomic_get_new_bridge_state(state, o=
+utput->bridge);
+> > > > > > +     if (bridge_state)
+> > > > > > +             bus_flags =3D bridge_state->input_bus_cfg.flags;
+> > > > > > +     else
+> > > > > > +             bus_flags =3D DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE=
+ |
+> > > > > > +                         DRM_BUS_FLAG_DE_HIGH |
+> > > > > > +                         DRM_BUS_FLAG_DATA_MSB_TO_LSB;
+> > > > > > +
+> > > > > >       tegra_dc_write_regs(rgb->dc, rgb_enable, ARRAY_SIZE(rgb_e=
+nable));
+> > > > > >
+> > > > > >       value =3D DE_SELECT_ACTIVE | DE_CONTROL_NORMAL;
+> > > > > >       tegra_dc_writel(rgb->dc, value, DC_DISP_DATA_ENABLE_OPTIO=
+NS);
+> > > > > >
+> > > > > > -     /* configure H- and V-sync signal polarities */
+> > > > > > +     /* configure H- and V-sync and pixel clock signal polarit=
+ies */
+> > > > > >       value =3D tegra_dc_readl(rgb->dc, DC_COM_PIN_OUTPUT_POLAR=
+ITY(1));
+> > > > > >
+> > > > > >       if (mode->flags & DRM_MODE_FLAG_NHSYNC)
+> > > > > > @@ -135,11 +146,31 @@ static void tegra_rgb_encoder_enable(stru=
+ct drm_encoder *encoder,
+> > > > > >       else
+> > > > > >               value &=3D ~LVS_OUTPUT_POLARITY_LOW;
+> > > > > >
+> > > > > > +     if (bus_flags & DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE)
+> > > > > > +             value &=3D ~BIT(PIN_LSC0);
+> > > > > > +     else
+> > > > > > +             value |=3D BIT(PIN_LSC0);
+> > > > >
+> > > > > I think this is the wrong way around: SAMPLE_POSEDGE means that t=
+he
+> > > > > pixel data is sampled on a rising edge. That is, it should be dri=
+ven on
+> > > > > the low edge so it's ready for sampling in time for the rising ed=
+ge.
+> > > > >
+> > > > > LSC0_OUTPUT_POLARITY says that the value "LOW" (a bit confusingly=
+, 1)
+> > > > > corresponds to a data transition on the falling edge, i.e. sampli=
+ng on
+> > > > > the rising edge.
+> > > > >
+> > > > > Section 31.9.6 states this a bit more clearly: "an active low pix=
+el
+> > > > > clock means that the data changes on the falling edge of the cloc=
+k, to
+> > > > > be latched on the rising edge".
+> > > > >
+> > > >
+> > > > DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE =3D DRM_BUS_FLAG_PIXDATA_DRIVE_=
+NEGEDGE
+> > > >
+> > > > Should I replace with DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE?
+> > >
+> > > No -- with the current code, let's say
+> > > DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE is set. I.e. the panel tells us t=
+hat
+> > > it will be sampling pixel data on the positive (rising) edge.
+> > >
+> > > LSC0_OUTPUT_POLARITY will be set to 0. The TRM documents the value 0 =
+as
+> > > "active high", and "means that rising edge coincides with data
+> > > transition". That is, the display controller will change the output p=
+in
+> > > state to color data on the rising edge. So the SoC pins will change
+> > > state at the rising edge, and the panel will sample at the rising edg=
+e.
+> > >
+> > > But the pins will take some time to take their new values, so this mi=
+ght
+> > > not work or could be unreliable depending on all kinds of timing
+> > > factors. So if the panel is sampling as the rising edge, the SoC shou=
+ld
+> > > be driving the pins at the falling edge, that way there is time for t=
+he
+> > > pins to settle before the panel samples them.
+> > >
+> > > So the value written to LSC0_OUTPUT_POLARITY should be the opposite o=
+f
+> > > what it's now. If that breaks the panel, either it's reporting the
+> > > incorrect DRM_BUS_FLAG_PIXDATA_SAMPLE_* value or something else is
+> > > incorrect.
+> > >
+> >
+> > This may/will cause regressions across multiple panels and devices.
+>
+> Looking at the panels we have, if we retain the previous behavior when
+> neither PIXDATA_SAMPLE_POSEDGE nor PIXDATA_SAMPLE_NEGEDGE is set, then
+> we'll retain the same programming as we've had before.
+>
+> Actually, from what I can tell, the change in this patch will change the
+> programmed polarity compared to before the patch for the panels/bridges
+> on the Colibri/Apalis/TF700T boards, which do specify SAMPLE_POSEDGE.
+>
+> So if we flip the logic around, and default to SAMPLE_POSEDGE if neither
+> is specified, we should retain previous programming for existing panels.
+>
 
-Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
----
- .../vcodec/decoder/mtk_vcodec_dec_hw.c        | 31 +++++++++++++++++++
- .../vcodec/decoder/mtk_vcodec_dec_hw.h        | 13 ++++++--
- 2 files changed, 42 insertions(+), 2 deletions(-)
+so default to
 
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_hw.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_hw.c
-index fa0e13145..e75fe79d0 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_hw.c
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_hw.c
-@@ -61,6 +61,34 @@ static int mtk_vdec_hw_prob_done(struct mtk_vcodec_dec_dev *vdec_dev)
- 	return 0;
- }
- 
-+static void mtk_vdec_hw_write_reg_mask(void __iomem *reg_base, u32 reg_offset, u32 val, u32 mask)
-+{
-+	void __iomem *reg_addr = reg_base + reg_offset;
-+	u32 reg_val;
-+
-+	reg_val =  readl(reg_addr);
-+	reg_val &= ~mask;
-+	reg_val |= (val & mask);
-+	writel(reg_val, reg_addr);
-+}
-+
-+static void mtk_vdec_hw_clean_xpc(struct mtk_vdec_hw_dev *dev)
-+{
-+	unsigned long flags;
-+	u32 val, mask, addr = VDEC_XPC_CLEAN_ADDR;
-+
-+	if (dev->main_dev->chip_name != MTK_VDEC_MT8196)
-+		return;
-+
-+	val = dev->hw_idx == MTK_VDEC_LAT0 ? VDEC_XPC_LAT_VAL : VDEC_XPC_CORE_VAL;
-+	mask = dev->hw_idx == MTK_VDEC_LAT0 ? VDEC_XPC_LAT_MASK : VDEC_XPC_CORE_MASK;
-+
-+	spin_lock_irqsave(&dev->main_dev->irqlock, flags);
-+	mtk_vdec_hw_write_reg_mask(dev->reg_base[VDEC_HW_XPC], addr, val, mask);
-+	mtk_vdec_hw_write_reg_mask(dev->reg_base[VDEC_HW_XPC], addr, 0, mask);
-+	spin_unlock_irqrestore(&dev->main_dev->irqlock, flags);
-+}
-+
- static irqreturn_t mtk_vdec_hw_irq_handler(int irq, void *priv)
- {
- 	struct mtk_vdec_hw_dev *dev = priv;
-@@ -88,6 +116,8 @@ static irqreturn_t mtk_vdec_hw_irq_handler(int irq, void *priv)
- 	writel(dec_done_status | VDEC_IRQ_CFG, vdec_misc_addr);
- 	writel(dec_done_status & ~VDEC_IRQ_CLR, vdec_misc_addr);
- 
-+	mtk_vdec_hw_clean_xpc(dev);
-+
- 	wake_up_dec_ctx(ctx, MTK_INST_IRQ_RECEIVED, dev->hw_idx);
- 
- 	mtk_v4l2_vdec_dbg(3, ctx, "wake up ctx %d, dec_done_status=%x",
-@@ -166,6 +196,7 @@ static int mtk_vdec_hw_probe(struct platform_device *pdev)
- 	subdev_dev->hw_idx = hw_idx;
- 	subdev_dev->main_dev = main_dev;
- 	subdev_dev->reg_base[VDEC_HW_SYS] = main_dev->reg_base[VDEC_HW_SYS];
-+	subdev_dev->reg_base[VDEC_HW_XPC] = main_dev->reg_base[VDEC_HW_MISC];
- 	set_bit(subdev_dev->hw_idx, main_dev->subdev_bitmap);
- 
- 	if (IS_SUPPORT_VDEC_HW_IRQ(hw_idx)) {
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_hw.h b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_hw.h
-index 83fe8b942..5c906143c 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_hw.h
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_hw.h
-@@ -18,17 +18,26 @@
- #define VDEC_IRQ_CLR 0x10
- #define VDEC_IRQ_CFG_REG 0xa4
- 
-+#define VDEC_XPC_CLEAN_ADDR 0xc
-+#define VDEC_XPC_LAT_VAL BIT(0)
-+#define VDEC_XPC_LAT_MASK BIT(0)
-+
-+#define VDEC_XPC_CORE_VAL BIT(4)
-+#define VDEC_XPC_CORE_MASK BIT(4)
-+
- #define IS_SUPPORT_VDEC_HW_IRQ(hw_idx) ((hw_idx) != MTK_VDEC_LAT_SOC)
- 
- /**
-  * enum mtk_vdec_hw_reg_idx - subdev hardware register base index
-- * @VDEC_HW_SYS : vdec soc register index
-+ * @VDEC_HW_SYS:  vdec soc register index
-  * @VDEC_HW_MISC: vdec misc register index
-- * @VDEC_HW_MAX : vdec supported max register index
-+ * @VDEC_HW_XPC:  vdec xpc register index
-+ * @VDEC_HW_MAX:  vdec supported max register index
-  */
- enum mtk_vdec_hw_reg_idx {
- 	VDEC_HW_SYS,
- 	VDEC_HW_MISC,
-+	VDEC_HW_XPC,
- 	VDEC_HW_MAX
- };
- 
--- 
-2.51.0.windows.2
++             bus_flags =3D DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
++                         DRM_BUS_FLAG_DE_HIGH |
++                         DRM_BUS_FLAG_DATA_MSB_TO_LSB;
 
+and this remains same?
+
++     if (bus_flags & DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE)
++             value &=3D ~BIT(PIN_LSC0);
++     else
++             value |=3D BIT(PIN_LSC0);
