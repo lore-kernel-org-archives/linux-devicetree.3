@@ -1,84 +1,84 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795875307;
-	b=RXJQZzpOfQnXv6MbZ+0HAIi6e58unPY2xigSmss5ZmfIm0L2G4FDxqgbMa/UU+qHzyMx
-	 UWMSiDyjS0DOxyOqWrTipG/ZLYpGMfMwJJ00l92C4zE/mgNEHpzgeejSsLIu127iWyxkj
-	 Q6LyQTrFMt7XTYY7KzsjW1mxnwPQcTs8Dn2dDhpch/tsjQq1pz6BME8dRg9D6HwcAc3YV
-	 czPj3G2JCtvkbNbY9y6rQKJpBg6+hXPAGIs/cZoU6vdneYl3Z++y/cOCrXXBxpnn8q9dN
-	 dmH2sOxuw/iMerSvFnDyVWVVVTFEyX4WC4vnAbJHZ72mlDq7Vl5hoBRbLLBvVixO0Rg==
+	t=1795875321;
+	b=DCbTmaPrJY4hQt1d5ozu6pDg9sTwhvkOKpAJfpHaSG16Bw0ZhY5h0ihNpRncQkHq4oOx
+	 R1IB6hEJlUilRGcWYe0sfx0724JTHAotiTHNfI2Jd4Sr2WC6l5LjfOro27aZXJm1nVUB/
+	 q0cePtqqJnzPrLBNOpkl1xDtRqxhsACR97o+Y7g0w9isIIoCVY5R1vvfLzWoUcOEJDmPW
+	 NcfEkViDbQnn54PApRCiT2sOSV+xrQHMHvLg7Al/gDhfG6ghsSUzjuHDGKw3uJbWnH/WF
+	 J4CkYmuRTQl0oLyooIv9uHD2lp4mPcF0chINprktxSj/rvA1TfoyVvhTSKGb5mZfMxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795875307;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795875321;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=HJn84ZfJNZIuHrzv0CHcIfvwZwaHinXtB9Ojn/nATMM=;
-	b=tBwqpT2Sw8WUaKHDWbY1Gm3ERQ60c9kku9uPzcjwBaWY2vnvAbPXVJGcpFy/o55Xm61w
-	 GBbpYYy+frg711wLL7zatOr/CV8MIXxM/VA941c65+MaxZjiUVrVHZflUDXN26CgQrciw
-	 yKeKEwH8R2rI0cOYa/zCMpB0gq0+PQbsvl74RGqvSTtVEcnWLLg6Bctd5hXgYIIM5LMLK
-	 4YFpFpfOuJ6+oZIfPHsBYYdda9617qfkDKsTxaCoPw2sQZK/thaPc3gBr76nA66stga4H
-	 78xdtypjYaHMiUQuMhj0Qt8NO60gBuXo6SGDTBzYqZ/y7Wy5Y449wYi7nzmYg7pP6Dw==
+	bh=he4/rKCDgbdZk3ll2x91Vj1rujh0RIHLy9dZg3Zrwz0=;
+	b=P8KTadBYjJnXSKwQQnsUOyAPJX6nBcm73TZrLNSORn5FRmKWjjjkpKdr2L7R3Cf6PTaO
+	 xLrfXDgW5WaYYY5NyFxG8iI/Ytex92aI8QBgEv8+xvd9tw/35/zX2ygUd+8EemVJRTRon
+	 iuZvKurHoF+0YBkv5P5fGhHuJEofJpkyQirjgXUJOCWy7F6XkGPyzzfBga0y1v9gjq6vy
+	 GUCyEUDf+imJFC+AZIxFz/g0v/yY3hlRtZsg6XjGNxOGOi2X5W83BIspvkPuGJGwjEqBr
+	 TwwZMrRFXSZs1MXPb/hVTG3MFzAKP1tK2c+hLuuAQx6EHr6BIrMNZ2ojZvya8MfgYOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="v/wuzQHb";
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yRpcwWTB;
 	arc=none smtp.remote-ip=74.125.82.170
 Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE566606A325
-	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 14:15:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE566606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2351606A325
+	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 14:15:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2351606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v/wuzQHb
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso147936eec.0
-        for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 06:15:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yRpcwWTB
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3282db206d3so7906999eec.0
+        for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 06:15:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795875306; x=1796480106; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795875320; x=1796480120; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HJn84ZfJNZIuHrzv0CHcIfvwZwaHinXtB9Ojn/nATMM=;
-        b=v/wuzQHbD8nfeNbSx0XGxb9bZ6T647gP1hj6dG+zdKBlNrtDRuqcefzv6m4RhGTP79
-         mmGld9iGkATVHczfUZuNavM2051luVlacG1Ew1TnEjG8Y23c0xB+znir720ZIfWRwyAv
-         waF2b2dUoI5zJdxTsg7npmXZ/RjLRHsXqX6yYCratmiQqj2BBrxJGELtRjZU5brjQTHV
-         dyBlTVp0TRWcp3YI0AW/yuqcssP2oI4STazXV2aJN7hztjooODIvTL5R/gBsLfJQd6pW
-         kE8I6rtafmaTT4yP9suCEN6tub6t3Z1e//qc94sXf9sRYivkN7dA7NWfm1TFIkxfnGmr
-         6+fQ==
+        bh=he4/rKCDgbdZk3ll2x91Vj1rujh0RIHLy9dZg3Zrwz0=;
+        b=yRpcwWTBKAfBHmSL2M5j4D7BiiVv+5v/Y93NurmtSFbLUKusop6h8FuTgMWSoOBtxC
+         qePrHUGiLUyFe9My+DqUz16gKzoueTzWrpOcG4PE5Sa/2vtsAoUAxs00jKEXAU0Mk4gb
+         88LIKfaQz+N0Ed/BQlvemKsx7Z8s91YqDychRFMeJR9Gjo0L88LG4bpcX/4NJ1UZdtp+
+         0vVUz206unHPv6HhqWqgfHHdoGtWjPl47CXD1WkFupd0zYkyUnQqMOMjxkpuJu2C7pp6
+         WjRK3dPBq4bcIPKMScQ+0EKKEqJSzu+DMa3rrPacCfGu90O7GVUNU4IZPun8Tj7hTr3j
+         +Usg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795875306; x=1796480106;
+        d=1e100.net; s=20260707; t=1795875320; x=1796480120;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HJn84ZfJNZIuHrzv0CHcIfvwZwaHinXtB9Ojn/nATMM=;
-        b=Z4JrcFyA6JI6l68OafRilS/6UB3o7lL7hZMkGWoBjqaWGLqjoJ0zhlkq4benYiKJGg
-         9gaZBwfhSq7WKJyQFDCqVKHs42PrndjHTtghtAJ+UultWhCeOEV8p0rn5owlKnsRkSNr
-         we6LYkLZd0IZsmhgm9LvuhTIzLWIwZR66WwasWrtz9ReGqfxbc3TFiNLvIXxqMa9G8uE
-         P+nPHPvOb6wIP9WbnsUQCTQS0Jx4GTB4hU9IPgOQIrjFGA9+OGM5LEkLks0VeZ9HSK9S
-         3pP7ypIeEKC74wgYMAHCZ+bNO/TMRdCLAzE+hf/mnA+/OxBU/i5fF4ejCS3YPtHQbzer
-         nUGw==
-X-Forwarded-Encrypted: i=1; AL+hErELgMQtZyi7S1/jG8ITDwywxKVsgq2Yi329CjR0JbqI8Uo30aBRYTomT6U+S5HyajQl7jiirxVIE4fe@vger.kernel.org
-X-Gm-Message-State: APuU4Z+mLH0po7+ULzjcZpJxK3oAV5zOwkKktPYG64Z7yvdrkD9/bHW9
-	MND+VLHiMkL+CFSI6fAgDLCkKoeqLiIe1HNbPTtikTyaLIT+1/vP1oqp
-X-Gm-Gg: AZFdTZeKZ3VtNi50uF1QkM0c2Xb91KgLH/y7bGN63kkudYKnnbJNznpwc8dHj6sn4M5
-	Qm3pB9/+9e8v0KynSFXj7zpF0Pg+g9udEKXY7ZiB80URwWC9bOj0TUZcR74lRdazVAX4v3ZkuHu
-	/U2KxZMPwVNS6vWhnQos6C2lnKNiFWSvacNeifyfDwy6swooZutVpVPaIORQaq/UotVELN4xKyo
-	f5yGb4Z42IjH4R8cFxZ6oU/io6qD2VdJ0Y5tkDsTUgv7CxoCs0M0dR8OZ+IOCwZZddInAzXgHmX
-	hDyt0nrrJVtbqsHEbIgJ1NizFmMps/aauJSK1o+ARVGQFdaIECSFy35TVdGD/zb31OczHSvkQWO
-	RAztpOMXNswOjU6777cpCvdWDq5q/5ODaDlYfMNx8scF07YycWX2rI/CfdmallW8yvaHZ+LILkW
-	HeHTir5uq3CsoUOHNpblLP4xxhVGbV2glCpM09hqSDzXfTglnmiK9r/fQknoA1DdtgktcNMlhBo
-	cPh3MhzTqhowmh0Zs3rzVLxhRtTZC6yNf1edv6hXk2aHQL6Pat4ZQoMOGv6DYsEjD1gfcVg5jcg
-	TU4cQV7stN5yZ50NOPiwLobRfT9w3oqTNbM4zTyEHpZqMQHqz3nssbl7uUU/UHivnjZEA/tzJ8c
-	16Cugu6KXVeoQyO1LDE0xpyq7cM49
-X-Received: by 2002:a05:7300:f797:b0:386:95e7:848c with SMTP id 5a478bee46e88-38695e79009mr24469794eec.7.1795875305781;
-        Sat, 28 Nov 2026 06:15:05 -0800 (PST)
+        bh=he4/rKCDgbdZk3ll2x91Vj1rujh0RIHLy9dZg3Zrwz0=;
+        b=fdUBbSnrCsxC6CDIjbWl9OVeEWVFMIdxIlxCjLg7uWIAIT2c4vERTXAaQxXEQc3q6t
+         WUkCINtyUfGjHjCUFIJleKyX8hARkQ6mwyb248Ug+6aqTSavMOfyp8n14SoZcOuFvp/o
+         zSm7TbLfs4m5F+nhTPr7/Fe6Lmfjrykvw1Q1E0wnMl0E2tLaZNuQ+MCFoekIH6t6hI63
+         kvAo2dT3JnMWchDcuKWRGJXF4EFb4KG2rlzDDokFNFiazyLsvEVTuZ9aEIUgybMekTpF
+         bDYcI8595Auz+r9FTzKkF5ogmOaXd/7XEI+AC8rW//AMx1PlR5dbaRS6o5LWJMaZa0Mp
+         buLA==
+X-Forwarded-Encrypted: i=1; AL+hErEklBIn9oT7+BmJsdAgpkzdmYB5u3deHHMk6gcdA+CSu4vkKkOaRvn9FYRWWRAWMIiMBRQPu7Igum+b@vger.kernel.org
+X-Gm-Message-State: APuU4Z8pohnql1nyQaZQx4yWcpHETk2E5b6QQYw3PJ1kzQMbn3i2/KxF
+	e4mo4EvwPtKuArGeg4QMoeG/ugaQNbfWBDBruGiGLBN1k+1EqauGEjeO
+X-Gm-Gg: AZFdTZcWgyUeCLoFwoF3+Psmo5P8rOX2FAwpdqqLDjwXQ7egzv1kJkofRWt4Kig30dc
+	A1M/qjy+/G/kwXePVG20sCe7Viff5C3CCbfUY0RWCFSrfnQOXugoUeqh9Cg7SLRkPaYZj0KV+08
+	wky3KsjiJFjiZMmIHQ6WQ1AOF7yYFrHyaoNP+hRri4fMZ3kXz8S78R20nRfosydWnJNbohEmfob
+	JVcQsaamO55tdUd4QIvrFTFNpPtMZ2GHyrWEIpFo3pdQLqCgakZLnFsE3A6XA8HafYTbjM1sUfn
+	yReGoJGmMCTRnFK0yZht2TmsidZ/bgEQ8r5n4zzY5SGwUktscHR7JdGz8mhK59y0VVoJV0/Dzhk
+	k3rfFDAa7JXGb1+F66GXz8xMpriYqDk7X4RESWcqNnrhahMoEr2Qk0rs9HDEsBU3rgXEYu8FA7u
+	t3JhT4OS2GojEv0VZwpaSxfyfWQr7yGOlSBzZ6A/LANQZGVF7I37wWpYzri9elDQG9urqCFHLTH
+	6ybmYkwTInxfo2gWPYNOHSN6PheYd4LXH8isK3Qd1552HqBJH7wI3UOyc34v7GU2JMLXKHeoATv
+	tmp/GLcnXcEcXTEgUjzyvJdsTZHljbXQg4SNjnhue8JpN7pwf+w72k1XZXp7CxRmm4a2nqL0fO+
+	A8xPfh0XV4DoLMqHeKG1lHvkg1N8x
+X-Received: by 2002:a05:693c:8859:b0:386:b826:3f9 with SMTP id 5a478bee46e88-386b82605b9mr16717778eec.7.1795875319705;
+        Sat, 28 Nov 2026 06:15:19 -0800 (PST)
 Received: from localhost.localdomain ([2405:201:301c:f8cd:241f:982d:147f:bf76])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e7f59sm87185893eec.6.2026.11.28.06.14.59
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e7f59sm87185893eec.6.2026.11.28.06.15.07
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 28 Nov 2026 06:15:05 -0800 (PST)
+        Sat, 28 Nov 2026 06:15:19 -0800 (PST)
 From: Aryan Sinha <sinha.aryan03@gmail.com>
 To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
 	Matthias Brugger <matthias.bgg@gmail.com>,
@@ -99,9 +99,9 @@ Cc: Leilk Liu <leilk.liu@mediatek.com>,
 	chrome-platform@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Aryan Sinha <sinha.aryan03@gmail.com>
-Subject: [PATCH 1/6] dt-bindings: spi: mediatek,spi-mt65xx: Add MT8189
-Date: Sat, 28 Nov 2026 19:44:25 +0530
-Message-ID: <20261128141443.13065-2-sinha.aryan03@gmail.com>
+Subject: [PATCH 2/6] arm64: dts: mediatek: mt8189: Add SPI controllers
+Date: Sat, 28 Nov 2026 19:44:26 +0530
+Message-ID: <20261128141443.13065-3-sinha.aryan03@gmail.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20261128141443.13065-1-sinha.aryan03@gmail.com>
 References: <20261128141443.13065-1-sinha.aryan03@gmail.com>
@@ -116,31 +116,112 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The SPI controllers on MT8189 use the same IPM design as MT6991, so add
-the MT8189 compatible with mediatek,mt6991-spi as the fallback, the same
-way MT8196 does.
+MT8189 has six SPI controllers. Add them, disabled, so boards can enable
+the ones they use. Chromebooks need this for the EC, which sits on SPI0.
 
-The vendor driver's MT8189 data differs from MT6991 only in not setting
-must_tx. That makes no difference here, the driver then just supplies a
-dummy TX buffer for RX-only transfers.
+The nodes follow the downstream ChromeOS kernel's mt8189.dtsi, with the
+clock providers renamed to match this file.
 
 Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
 ---
- Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/mediatek/mt8189.dtsi | 84 ++++++++++++++++++++++++
+ 1 file changed, 84 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml b/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
-index 3bf3eb1f8..34e833745 100644
---- a/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
-+++ b/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
-@@ -41,6 +41,7 @@ properties:
-           - const: mediatek,spi-ipm
-       - items:
-           - enum:
-+              - mediatek,mt8189-spi
-               - mediatek,mt8196-spi
-           - const: mediatek,mt6991-spi
-       - items:
+diff --git a/arch/arm64/boot/dts/mediatek/mt8189.dtsi b/arch/arm64/boot/dts/mediatek/mt8189.dtsi
+index b64882a93..e0883da15 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8189.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8189.dtsi
+@@ -484,6 +484,90 @@ uart3: serial@11004000 {
+ 			status = "disabled";
+ 		};
+ 
++		spi0: spi@11010800 {
++			compatible = "mediatek,mt8189-spi", "mediatek,mt6991-spi";
++			reg = <0 0x11010800 0 0x100>;
++			#address-cells = <1>;
++			clocks = <&topckgen CLK_TOP_UNIVPLL_D6_D2>,
++				 <&topckgen CLK_TOP_SPI0_SEL>,
++				 <&peri_ao CLK_PERAO_SPI0_B>,
++				 <&peri_ao CLK_PERAO_SPI0_H>;
++			clock-names = "parent-clk", "sel-clk", "spi-clk", "hclk";
++			interrupts = <GIC_SPI 459 IRQ_TYPE_LEVEL_HIGH 0>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		spi1: spi@11011800 {
++			compatible = "mediatek,mt8189-spi", "mediatek,mt6991-spi";
++			reg = <0 0x11011800 0 0x100>;
++			#address-cells = <1>;
++			clocks = <&topckgen CLK_TOP_UNIVPLL_D6_D2>,
++				 <&topckgen CLK_TOP_SPI1_SEL>,
++				 <&peri_ao CLK_PERAO_SPI1_B>,
++				 <&peri_ao CLK_PERAO_SPI1_H>;
++			clock-names = "parent-clk", "sel-clk", "spi-clk", "hclk";
++			interrupts = <GIC_SPI 460 IRQ_TYPE_LEVEL_HIGH 0>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		spi2: spi@11012800 {
++			compatible = "mediatek,mt8189-spi", "mediatek,mt6991-spi";
++			reg = <0 0x11012800 0 0x100>;
++			#address-cells = <1>;
++			clocks = <&topckgen CLK_TOP_UNIVPLL_D6_D2>,
++				 <&topckgen CLK_TOP_SPI2_SEL>,
++				 <&peri_ao CLK_PERAO_SPI2_B>,
++				 <&peri_ao CLK_PERAO_SPI2_H>;
++			clock-names = "parent-clk", "sel-clk", "spi-clk", "hclk";
++			interrupts = <GIC_SPI 461 IRQ_TYPE_LEVEL_HIGH 0>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		spi3: spi@11013800 {
++			compatible = "mediatek,mt8189-spi", "mediatek,mt6991-spi";
++			reg = <0 0x11013800 0 0x100>;
++			#address-cells = <1>;
++			clocks = <&topckgen CLK_TOP_UNIVPLL_D6_D2>,
++				 <&topckgen CLK_TOP_SPI3_SEL>,
++				 <&peri_ao CLK_PERAO_SPI3_B>,
++				 <&peri_ao CLK_PERAO_SPI3_H>;
++			clock-names = "parent-clk", "sel-clk", "spi-clk", "hclk";
++			interrupts = <GIC_SPI 462 IRQ_TYPE_LEVEL_HIGH 0>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		spi4: spi@11014800 {
++			compatible = "mediatek,mt8189-spi", "mediatek,mt6991-spi";
++			reg = <0 0x11014800 0 0x100>;
++			#address-cells = <1>;
++			clocks = <&topckgen CLK_TOP_UNIVPLL_D6_D2>,
++				 <&topckgen CLK_TOP_SPI4_SEL>,
++				 <&peri_ao CLK_PERAO_SPI4_B>,
++				 <&peri_ao CLK_PERAO_SPI4_H>;
++			clock-names = "parent-clk", "sel-clk", "spi-clk", "hclk";
++			interrupts = <GIC_SPI 463 IRQ_TYPE_LEVEL_HIGH 0>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		spi5: spi@11015800 {
++			compatible = "mediatek,mt8189-spi", "mediatek,mt6991-spi";
++			reg = <0 0x11015800 0 0x100>;
++			#address-cells = <1>;
++			clocks = <&topckgen CLK_TOP_UNIVPLL_D6_D2>,
++				 <&topckgen CLK_TOP_SPI5_SEL>,
++				 <&peri_ao CLK_PERAO_SPI5_B>,
++				 <&peri_ao CLK_PERAO_SPI5_H>;
++			clock-names = "parent-clk", "sel-clk", "spi-clk", "hclk";
++			interrupts = <GIC_SPI 464 IRQ_TYPE_LEVEL_HIGH 0>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
+ 		auxadc: adc@11019000 {
+ 			compatible = "mediatek,mt8189-auxadc", "mediatek,mt8173-auxadc";
+ 			reg = <0 0x11019000 0 0x1000>;
 -- 
 2.46.0
 
