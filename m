@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795853922;
-	b=kat2n772s/cvQgXVwFWoxpl1RjWxZcuCG5EMS9s/IBhFCln6/hRZawgxfkkdLID+0iWy
-	 MxuLO1z3qCbgovbeO5yZJuL3ysD7SgySTnvE2JTYaIMiq85pGbp/vNsrYiY6j0T0WcLVb
-	 4B5L5iFTlA/cZACO1wptLgvpVd/0kPyekrkVuNAfy9DvU59k0ZA0y8+UFKAi5/n/lB9A8
-	 Hl7yXmHH9HUL9B2MD7NGHG+fUHJLLNvEQfom1eFe0GCPTCB9xQz3Sxn6GTmgTqjbqxYPc
-	 uz1LvifXDzx561J5Vn/k9yL8tcVAbAWv6fxcUcQ8CkV2okDe9d8nQFLbbXeFtNQX7Sg==
+	t=1795853925;
+	b=1IA/j8LuvPviJj6leLCyNN5+y2wZ/U6d62yL3beP/0mWPgP0uMD06gbuzC7CYc6kRazO
+	 yByWBY5RAlCUrhcgsiGNW/lYMKxakQimZ2L/66aUB9u2f+VUVrreQ6u8gnMvY+QsmAkjL
+	 6u5YxzpYXyeLTQqJiFl3Owi2Sy1GwABdW64anmPCJd6adOc90leZNVAB7iYQb/0dAwTLR
+	 Pi80Xha8MXvUCwVFtXnfVog5dD9y9d9o9YcNJrtRyrLBZVdWMcg7TLV2H3JG3EdoRy21L
+	 Coc0B+tis7kPBM8tDsK55J5Y2qoES6/dO1e9S41sTVLoGT1QjPoiOKgGAxrLhYt3/DA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795853922;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795853925;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=5e4yoQg/j5YEK37mURWiQZOmG6BYjI+8fHMt09fqOkc=;
-	b=wcsPiFAbi+4dDK1alKvjnRnQSNooRx1bFIBUg4MuEcz0CO0SVPlX6HJr9OlRwqvLaIMT
-	 K8gXmBBsdkt8JuR0BrA6RTuscjq+fmHlTqjJ/yMvglLvPWBzqMR5XR4+pU2nRX2CpD9ph
-	 Cysyiz8VQLPt5W9mHK4AXXDKxn9RhIBEmdMQHoHAvNPLm1DJX/CznzlMsU0Z914SCHeF7
-	 XKXiF0Ny1HKrLP1abdr+sEf1/+JvD7ZDo30L89HGnjTaNYYX5wGDKz/6q7jNs12A/FF1Z
-	 oisaqtxvT4ByGQwdhLn69wNgK+5yXIJxvmLG7YewkokdsddxyQrmhKoH+yOCV+NSACw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=OYxs5uDpKgH0xFuFCpWuT5JmihYHR57LmroU0k+TYNg=;
+	b=R6gSDMa4wZEZUCc4PY/FMD5u+ylp/TNBS6efv33VW8HiNddy27K7Ey2ocP6bpfkMloXL
+	 jMgCH7jFw8M0dxAC/8dcucyoY37h19ag/sG95t4+i8NGoqDLgLSlqEJEAfr0q78QBWVXx
+	 l6yBAP+HodpEN699F4IADzMOkF71ooRlFcOn2PczJZzPWeauhoL0KsqI5C3Hee4lylq3G
+	 +zTT7q1ZidDeajKZTIp8db/I6E3DVImWiX8PpdlhpzYa09RwzEo673dcqLaI5JQ65UB7o
+	 Y+6Ta6IAVvC6PLG/mvLTLqXNsIzUtVWjkUjgNXa+uL7DZS1bLXYiG+V73fPTaTZ8ZYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fFhTpdvx;
-	arc=none smtp.remote-ip=209.85.215.179
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o17SAo8d;
+	arc=none smtp.remote-ip=209.85.210.177
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E83C6606A31F
-	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 08:18:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E83C6606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5B6606A33D
+	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 08:18:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC5B6606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fFhTpdvx
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cdebab6fdb3so1372175a12.2
-        for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 00:18:41 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o17SAo8d
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8b6b22be970so3347578b3a.1
+        for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 00:18:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795853921; x=1796458721; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5e4yoQg/j5YEK37mURWiQZOmG6BYjI+8fHMt09fqOkc=;
-        b=fFhTpdvx69cx1gGTuyGtkSu1a0AWHqAQ1SkmO2HlmsRBSUo1gogSl7HkruAQ11EwXe
-         Am+MxBhey9wa7Ji7Z84J5S3W0RCrYkVulKMoMeLoRu68IwL3HF23ZUHKYzasTn6ycx9f
-         uu53FPDcff0arDYFVBW+1AWhILAkOxGdzUYK/iTF5EEDwkk8U5wtdfu9cvuuOLp6NGf5
-         vQ44W/a7lxD8ECJJ+2c7i8tGR5up/L96ZL2+6Ck+6+jws+/fdMVNLtDI7wpxQQozmlSA
-         /QB0/QLK90nMTEvlZuJMiCerb1qhvXmy+wKXmpngHrH061SGJRvmX61Tt9aI8kLMBN+8
-         ZA2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795853921; x=1796458721;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1795853924; x=1796458724; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5e4yoQg/j5YEK37mURWiQZOmG6BYjI+8fHMt09fqOkc=;
-        b=b/3Q1JFnDjTj6FlDH2k3oXzgRAwwHNgh9KsaD3raiW6+HFphP7ubBd7t6xBtPRv/+5
-         t8IzQgHABSZyO29EW/e22GqTvocgqsoWMwfnzh4Y25kdje9haSXHrdIPyT25x6pC5tqT
-         RTthhBEzQjxdG6lx50AMv34J6PK3GBItzJVnUHF46AcjgcYKXUhNpVmJKvav+S8zZWdu
-         2FUkcwoHTDBJe+v/fNXQ1gyHYam09d/UUPLOkdhvtoV6zlmw2Ui4xrAUjsKyoBo7I4va
-         Jv7UDMDVvxKaVILGupd5SMTcL9Od0TZU6ff5BqfNu55sLDshN6VckFnH/iMjDvizYjlK
-         na5Q==
-X-Forwarded-Encrypted: i=1; AL+hErHEtBZMNMg+i8CtgIPpLVkj3n5vQUmrXjxBZ3qXmM/Y1mQbghTa25EttZypbdgJOm2dRsAGzwF4Kcj8@vger.kernel.org
-X-Gm-Message-State: APuU4Z/9Fg5CvYRFqZOk+RCxKdxmvmzGYlG1TJ+NIC3WmvJZdRioIvYg
-	Awm5iK1JvYJzRYmLiQH0IjHtixPlkwomCOM3dlvAArjhhWs7buARofwJ
-X-Gm-Gg: AZFdTZdTawpY1x1JcoaIwsg1BzHWmblJw7F1tk+Gv5BxPt5G5y3KLD2v/lNbY+JJ3+X
-	mnnhF6Sw+lPeVyX6cN3n0/KpxRWsNC9EKoghJvyA0eyJqqzcLqFjf2aMVNtI8u5AASmmVVaMqjf
-	vy3b7b5oo5K+LyTezhoB8tiN+yPp1bJO2BmfFX357ojnu3TNfL/4eR6wHXxsFVxXF2Edx6sLCpH
-	+uQlnwQRTwwW7z6uD4VI3NZE7uexZ1d0YzG1OCOlj1mmwRUECm821GwGyiDi52yzTJFKAwYxAoA
-	37wqHam5eex5I1tAO9Vyhw5AETyYEtdJ3jNBMF0wSbiEjhbssUelWZ3J9gfhNpR6d5joEMyHKyZ
-	KO3yD0JexT29dQe8uZkWBku9B/InwAtKqhBohzJxbEXgI5zbxxtGT/X/ePWYj6LplCkxLLtqR9r
-	Q3QexIt5ER2JwBQiFD4UVNReMcAI8yKhetLnvnaJ2dFs4dT/MRuH3lVL5rJZN8Xzkce4udWoVL6
-	W3Z/GNwnFwzmWYtl/5eWSyOJ39jBCkHjoFNOSJdhpbhv8DSoXCMOEBD7DhH1PHISt5t3bEH3XjG
-	EAi1YA==
-X-Received: by 2002:a17:90b:224e:b0:3a0:d265:3647 with SMTP id 98e67ed59e1d1-3b41c7d6084mr24828076a91.8.1795853921157;
-        Sat, 28 Nov 2026 00:18:41 -0800 (PST)
+        bh=OYxs5uDpKgH0xFuFCpWuT5JmihYHR57LmroU0k+TYNg=;
+        b=o17SAo8dtN6T/w6l4wPJRVwYOckpuXlc4NWF+jipEFUA8twjOrREZ0hhehFcC8+zJU
+         9emERwxwuz1heHG3LMZOhvvQy8Uw3qrxO22p6mmvlZCI/69QyE3WJH9sdDj7csZ011w0
+         H/+QPjZaXnomEG0UXFe2N3agZ+PrKVOgUhjTRFNnbA1clCjyXfOxjhpBkvsV4Cf7BiCq
+         7ETfqS6aDMD+EFTRq70RCivbk25SKzQk75ikfhC+vQujmG9Xkqpr8qGyS71hh0s1jyZu
+         55+bZ4cpVRK6hV0Mag5d9iSWUT1yNRQtr59o0GpRLDtWSu0ZX4TGaVEX8M16P4CfUE0Q
+         Um6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795853924; x=1796458724;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OYxs5uDpKgH0xFuFCpWuT5JmihYHR57LmroU0k+TYNg=;
+        b=hnKj5S27em9+wpJRnRAIyX+4qHJuwvKHrp2AqZQc0LEii+wLFkpGgHuB2eV2U1Yff6
+         qoyCEMs7nM6UbEYvtCVepVN9sK6hcQoby9PM8K5os5lVuPOe28+fjvm+UBkCEb9DZluq
+         zLbrFAqwGYV3gLAFVE25GPjcNFoyA1RKoGSTwH1Cn2GEcgKOp08w25xe4+lJnCZltWuK
+         HiKIVLOzq6TK/MqARxSStdZsXfiHzq61XT+8/D1IRkx9iLZes9q4lD+omNM7Uw6qVmgO
+         W8pELCFkPCgyCWMLYJ+AiV7DtvWDN+jyPtPFRYVsf4MTF+IXd953FFGwOSTN/fphTKkF
+         qzBg==
+X-Forwarded-Encrypted: i=1; AL+hErFPB+RGyDUGbV409lOogFCWpUVdufWY380MMhWSw+DT29P5KHPShxl393GizjnWqJcEPRCKOQab9iyj@vger.kernel.org
+X-Gm-Message-State: APuU4Z/2mzP1oC6tvo6c5FnJubmwTrvt/4JiB1xzf5qSme+atZN3Z3dQ
+	+tXlqridddGHQr4jYJ9CM4l1XcMkizwmO0U1shi44MGzmz+NSW1Tmidn
+X-Gm-Gg: AZFdTZevu3q45kC328VTyAAFPfLl6z6vQaBfQwpahCeCEXN0gZDluzgfGNpYwRAh6V8
+	ooxQmU4IR++/c+FQ37LloWqouznlzeVa5KKe2p/so+IFp59o3JX6mfouQvwFj+kHnymxNVVhaBT
+	ncMLT2CQeutIFuMJ4uoXCQIbTwI1Q3ZOPZI67slmoffPHLCGH5rasPrHeYAi6gIE5OV/zsd+VWQ
+	Rdla2xAmF7VDJW7Y9t9pUjMhd1p/NN5Z2zYgAp00fbECQ6ll1MnkBGNwQPAZJB8bhwQ+AI2DCyo
+	2mFOlOWjAYBZkBI4QUOgg/VqfZ1p8IGM2xBsJYmuit3cwn1J6oYQ0ThPKV+6t0XtRK5BtajN4qW
+	F7bffN3ouFBBwTHv/e/VnL37OSWtKQqIrdjWlAjtLiDjGRvI782eIng7yacLFKtUPBY7zOfnfq8
+	Vnb2iiAQS+AyAVzVCEMtukR4YDHNoUDRj7E6mEWvchi6QgQ1fwaPDwWkwnBp2ycxcyQitkDwKGW
+	rSZr5F2V748dSUumi1h9q6bzn05tDx1ZI6TNpUwwdcO9HBWLIHEjh+Gd7wwdHuvcGvMn6O05U/z
+	FWpszg==
+X-Received: by 2002:a05:6a20:7489:b0:3dd:d729:c62c with SMTP id adf61e73a8af0-4014df5e9b9mr30546154637.54.1795853924162;
+        Sat, 28 Nov 2026 00:18:44 -0800 (PST)
 Received: from wyb-ms7e59 ([2001:df1:7880:4::50a])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde7f91c6f5sm11550749a12.27.2026.11.28.00.18.38
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde7f91c6f5sm11550749a12.27.2026.11.28.00.18.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 28 Nov 2026 00:18:40 -0800 (PST)
+        Sat, 28 Nov 2026 00:18:43 -0800 (PST)
 From: wyibo6109@gmail.com
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	linux-input@vger.kernel.org
@@ -86,10 +87,12 @@ Cc: Krzysztof Kozlowski <krzk@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Yibo Wang <wyibo6109@gmail.com>
-Subject: [PATCH v7 0/2] Input: add support for OnePlus/OPPO Pad pogo-pin keyboards
-Date: Sat, 28 Nov 2026 02:18:33 -0600
-Message-ID: <20261128081835.366128-1-wyibo6109@gmail.com>
+Subject: [PATCH v7 1/2] dt-bindings: input: add OnePlus pogo-pin keyboard
+Date: Sat, 28 Nov 2026 02:18:34 -0600
+Message-ID: <20261128081835.366128-2-wyibo6109@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261128081835.366128-1-wyibo6109@gmail.com>
+References: <20261128081835.366128-1-wyibo6109@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,115 +106,126 @@ Content-Transfer-Encoding: 8bit
 
 From: Yibo Wang <wyibo6109@gmail.com>
 
-This series adds support for the magnetic pogo-pin smart keyboards of
-the OnePlus Pad 3 Pro / Pad 4 and the OPPO Pad 5 Pro.  The keyboard is
-built around a Tinno MCU attached to a tablet UART.  Both sides share a
-single data wire, so the host gates its transmission onto the bus with a
-PMIC GPIO for the duration of a frame, and every host frame is echoed
-back on RX.
+Binding for the OnePlus Pad 3 Pro / Pad 4 and OPPO Pad 5 Pro pogo-pin
+smart keyboards, built around a Tinno keyboard MCU and attached to a
+tablet UART.  Describes the supply, TX-gate and wake GPIOs, with a
+MAINTAINERS entry.
 
-The MCU speaks a framed "one wire bus" protocol over the half-duplex
-921600 8N1 UART: 8x 0x55 preamble, 0xF1, src/dst addresses, command,
-length, payload, CRC16-IBM (poly 0x8005, init 0xC596), 0xFE and 4x 0xAA.
-The protocol was reverse engineered from the vendor kernel driver; this
-is a clean-room serdev reimplementation that replaces the downstream
-platform driver, which depends on a private msm_geni_serial callback and
-a user-space held tty fd.
+The compatible names the tablet project the pogo port belongs to
+(caihong, erhai or iceland), which pins the keyboard generation and
+with it the protocol extensions the host may use: the 0x3A general
+sub-commands grew over time, from the caihong (sm8650 era) keyboards
+with neither wake notification nor backlight, through erhai (sm8750
+era, wake notification) to iceland (sm8850 era, keyboard backlight).
 
-The core protocol (framing, keys, touchpad, sync/heartbeat) has been
-carried unchanged across four SoC generations of these keyboards, from
-the sm8550 era to the sm8850 ones covered here; only the 0x3A general
-sub-commands grew over time.  Patch 1 adds the DT binding, patch 2 the
-driver.
-
-Changes in v7, addressing Krzysztof Kozlowski's comments:
-
-- dropped the touchscreen size/mm properties from the binding as
-  agreed: the touchpad geometry is per-project driver data and neither
-  the binding documents it nor the driver parses it from DT;
-
-- moved the MAINTAINERS entry to its alphabetical place, after
-  ONENAND;
-
-- the disclosure prose now says LLM.
-
-Changes in v6:
-
-- disclose the AI assistance in preparing the binding documentation
-  with an Assisted-by trailer; no functional change.
-
-Changes in v5, addressing Rob Herring's comments on the binding:
-
-- dropped the block scalar from the top-level description;
-
-- rewrapped the descriptions to stay within 75 columns;
-
-- restored the serial parent node in the example.
-
-Changes in v4, after Krzysztof Kozlowski's comment that the binding
-describes the keyboard rather than the MCU (wording only, no functional
-change):
-
-- the binding description and the commit messages now describe the
-  keyboard (built around the Tinno MCU) instead of the MCU itself, and
-  spell out that a keyboard is a fixed physical device, so the touchpad
-  geometry and the product names are per-compatible constants in the
-  driver.
-
-Changes in v3:
-
-- the compatible names the tablet project the pogo port belongs to
-  (oneplus,caihong- / erhai- / iceland-pogo-keyboard, the codenames
-  used by the vendor trees), and the driver carries a per-project
-  description in the OF match data: feature flags gate each 0x3A
-  general sub-command (caihong, sm8650 era, has no wake notification
-  and no backlight; erhai, sm8750 era, adds the wake notification;
-  iceland, sm8850 era, adds the keyboard backlight), while the touchpad
-  geometry and the per-brand product names are per-project constants -
-  the wake notification is skipped and the backlight LED only
-  registered where supported;
-
-- the touchpad geometry and product names are no longer DT properties:
-  they are fixed per project and live in the driver; the common
-  touchscreen properties (touchscreen-size-x/y, touchscreen-x-mm/y-mm)
-  remain as an optional override, parsed with
-  touchscreen_parse_properties(), for the unlikely case of a variant.
-
-Changes in v2:
-
-- dropped the redundant "binding" from the dt-bindings subject;
-
-- replaced the custom oneplus,touchpad-xy-max/-resolution properties
-  with the common touchscreen properties;
-
-- dropped the serial wrapper node from the binding example;
-
-- the MAINTAINERS entry added with the binding references only the
-  binding file; the driver F: line is added together with the driver
-  patch.
-
-Tested on the OnePlus Pad 4 (iceland) running Linux 7.2.0-sm8850
-(v7.2-based iceland tree).
+The keyboard is a fixed physical device, so the touchpad geometry and
+the product names are per-project constants and live in the driver.
 
 The binding documentation was prepared with the assistance of an LLM;
 the technical content was reviewed, adjusted and validated by the
 author.
 
 Assisted-by: Z.ai:GLM-5.3
-
-Yibo Wang (2):
-  dt-bindings: input: add OnePlus pogo-pin keyboard
-  Input: add OnePlus/OPPO Pad pogo-pin keyboard serdev driver
-
- .../bindings/input/oneplus,pogo-keyboard.yaml |   70 ++
- MAINTAINERS                                   |    7 +
- drivers/input/keyboard/Kconfig                |   13 +
- drivers/input/keyboard/Makefile               |    1 +
- drivers/input/keyboard/oneplus-pogo-kbd.c     | 1251 ++++++++++++++++++++
- 5 files changed, 1342 insertions(+)
+Signed-off-by: Yibo Wang <wyibo6109@gmail.com>
+---
+ .../bindings/input/oneplus,pogo-keyboard.yaml | 70 +++++++++++++++++++
+ MAINTAINERS                                   |  6 ++
+ 2 files changed, 76 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
- create mode 100644 drivers/input/keyboard/oneplus-pogo-kbd.c
 
+diff --git a/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml b/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
+new file mode 100644
+index 0000000000..e76e82ea6a
+--- /dev/null
++++ b/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
+@@ -0,0 +1,70 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright (c) 2026 Yibo Wang <wyibo6109@gmail.com>
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/input/oneplus,pogo-keyboard.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: OnePlus / OPPO Pad pogo-pin smart keyboard
++
++maintainers:
++  - Yibo Wang <wyibo6109@gmail.com>
++
++description:
++  The OnePlus Pad 3 Pro / Pad 4 and OPPO Pad 5 Pro pogo-pin smart
++  keyboards, built around a Tinno keyboard MCU.  The keyboard is
++  attached to a tablet UART and speaks a framed half-duplex protocol
++  over a shared single wire; host transmission is gated onto the wire
++  by a PMIC GPIO for the duration of a frame.  It provides a keyboard
++  matrix, a touchpad and a keyboard backlight.
++
++allOf:
++  - $ref: /schemas/serial/serial-peripheral-props.yaml#
++
++properties:
++  compatible:
++    description: |
++      Names the tablet project the pogo port belongs to, which pins the
++      keyboard generation and the protocol extensions the host may
++      use: caihong (sm8650 era) supports neither the wake notification
++      nor a backlight, erhai (sm8750 era) adds the wake notification,
++      iceland (sm8850 era) adds the keyboard backlight.
++    enum:
++      - oneplus,caihong-pogo-keyboard
++      - oneplus,erhai-pogo-keyboard
++      - oneplus,iceland-pogo-keyboard
++
++  power-gpios:
++    description:
++      GPIO enabling the keyboard supply, held high while attached.
++    maxItems: 1
++
++  tx-enable-gpios:
++    description: GPIO gating host TX onto the shared one-wire bus.
++    maxItems: 1
++
++  wake-gpios:
++    description: GPIO signalling attach/detach, also used as the wake line.
++    maxItems: 1
++
++required:
++  - compatible
++  - power-gpios
++  - tx-enable-gpios
++  - wake-gpios
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    serial {
++        keyboard {
++            compatible = "oneplus,iceland-pogo-keyboard";
++            power-gpios = <&pmic_gpios 12 GPIO_ACTIVE_HIGH>;
++            tx-enable-gpios = <&pmic2_gpios 6 GPIO_ACTIVE_HIGH>;
++            wake-gpios = <&tlmm 151 GPIO_ACTIVE_LOW>;
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 8014b9f825..7730128d6c 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -20163,6 +20163,12 @@ S:	Maintained
+ F:	drivers/mtd/nand/onenand/
+ F:	include/linux/mtd/onenand*.h
+ 
++ONEPLUS POGO-PIN KEYBOARD DRIVER
++M:	Yibo Wang <wyibo6109@gmail.com>
++L:	linux-input@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
++
+ ONEXPLAYER HID DRIVER
+ M:	Derek J. Clark <derekjohn.clark@gmail.com>
+ L:	linux-input@vger.kernel.org
 -- 
 2.53.0
 
