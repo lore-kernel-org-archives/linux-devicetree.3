@@ -1,57 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795828245;
-	b=IzdyKIQMg95i2hk8nPEDqmibK+UJgp42CdFYmEcFaaN6wenJwVzswPHipXwZB15CoAv+
-	 HNq2sHrjLv/AxIQL7OuVvzCRtchNc4cNq6jeisQyPtQ5N4GGIhGcYYkixUt9wwzLURl3c
-	 7PMhA22g04phwEntJ5epSMcSPrrUXuozYnlL/i7nXeLxKYY3A96hrxmqeYCq+n89mOaXC
-	 vBxXveb6nObXoNKYJ2wHnzZH6K3+IY3I+INDosDT1vILBFEpDyuXNsN6b/XQ/Bg4e0fqZ
-	 YjHv+R1XDRiRe9DLXmlrnZ3EdBOpZ5hB2hX0cr47cNwsFHWvdjSDTUgWG42DmXvEBpA==
+	t=1795828654;
+	b=rdCtigr8aU1lDsHS53PLaJNm8cFfCpD/Kfx9p7xrC1c3CQ1nem+rCsGFf2NrQYCTcK8D
+	 A8bNZ9vOOvTB1KrWBCENKrPGigUA0CWNvjWnM8k0XcHDYqe1bKUARJtvDTxCK599f1YfN
+	 mXRfGi2PQkWzV4UEARhuO38dKFDXMyy/J7hczhx7ZuH/BcBsVoi3yt4wDsR4MzE7Qi4Q2
+	 Ti05XrBBmi1CBakCCSnbcWX8kHtXQImR4WQ2AnxEzFz8pqLWXL/hHOJDlbvT42xYMpkTg
+	 GW/8yaSCh8kF8Fgs3PRsd/isuI196JsWMYTbJKn1g/suimWhp61mm+FR/n8uDImGUOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795828245;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=oA6+axFWdbvfyylMGbfdz9tnLwCnTfNZuB0xGxk5pO0=;
-	b=AiQ3wLpHuJnc/3ORPXL9DtCtI7sGfXgZ6EGVxz5A9uWF3qzGPaDXEV5j/bZUD0PGiTyS
-	 YTup5YrPBWky0/nKNAY0vKErdsIZGHigEWIg/wGFA/e4MZtGL8KZfS/O0hpEX1aJ4Avcs
-	 rIBY5NVWQRtNZSbNpv5ET2DUHGW1Z1SUBaWcdwKnEwqIWVGW6F8wL3nHmG6Vh4gEVf/oZ
-	 HyQ30NlRqEjPRUzuH6nfJR2SD6WTStRKkJUq5Bg1xynSx4eaRvjzmcEecqc87lY1H5cPK
-	 C6No/s2KV7BetQAsvb9ZW2Q20jiC9Owm6kLOBsu6eAvTDYfM5HD3muvjpzRRjSinWXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795828654;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=OSBwzpdqGrkNuDnhZM4boZGZHKeJDG3XgxYt1ZiYd2g=;
+	b=Qxtm72THzojOmcjnzVdJ1p8nmCp0rqjBU79STSSB3u8OQ4fWQPHPmpd2JtC1wrFxAjlh
+	 HqGzehpYsFRtAGhTvGB40Ph331cepj+8uR+bi6wUj+b66BLXe4Cd9zfTVEZqFaJoDAvg5
+	 k43iNgeEWwHeldtsJQQ20oTo09PdgXc7+M6smDv7MbPNrDE9BJyDez8tEjxNd7bXzpPWZ
+	 /Xt6IdoR6hsTHtWyn1vJRfd1l8o9qWYV+YBBEP5n058G8Qo9ol027LTWXtYy6EthCV7zB
+	 NkKVOaCFF0vah0nSUOda9QYYJkobjSVRi05Xr9usN+F3JWX+m5Pqibx91zIbQvNvnbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HixYHQEm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YwFQFO9O;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F3F8606A31C;
-	Sat, 28 Nov 2026 01:10:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E83D606A31C;
+	Sat, 28 Nov 2026 01:17:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HixYHQEm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB42E1F000C1;
-	Sat, 28 Nov 2026 01:10:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YwFQFO9O
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E8E11F0089B;
+	Sat, 28 Nov 2026 01:17:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795828245;
-	bh=oA6+axFWdbvfyylMGbfdz9tnLwCnTfNZuB0xGxk5pO0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HixYHQEmY4huq9YL9isf4KMEWMGe1ojrsvMzk13z89JSYxrx27dcsv1dSHkG5wlCP
-	 talO7ze4y1aQZQ1Q2MHKSWQPpHlwLoGjm0Wd/E6ssxya05e2/tIMueP3+vj2xc+9an
-	 OjGw9G3HHCbNx0/2dcm+N++38DoV/k8Z2dEXPcsmjMKnC20aNfzTvrTiZ7NrVuYobR
-	 86NloAt0fLqR07j5DK91bPECTIH3J/zY1Y+iV44RHAckGD6/TW+fCodyG5FyjOCzG/
-	 PqsiApyL3fY76WEE2vfwSFgA9xVO5cZZ3Jgt7ixS1x84Aza+Z6YysjGRKPGUECNdpC
-	 8/h3hrA02eMAw==
-Message-ID: <sashiko-outbox-238396@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 2/2] scsi: ufs: spacemit: k3: Add UFS Host Controller
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yixun Lan" <dlan@kernel.org>
-Cc: linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261128-08-k3-ufs-support-v9-2-d27deb096d1e@kernel.org>
-References: <20261128-08-k3-ufs-support-v9-0-d27deb096d1e@kernel.org>
- <20261128-08-k3-ufs-support-v9-2-d27deb096d1e@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 28 Nov 2026 01:10:44 +0000
+	s=k20260515; t=1795828654;
+	bh=OSBwzpdqGrkNuDnhZM4boZGZHKeJDG3XgxYt1ZiYd2g=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=YwFQFO9ORRWN227/l0GCnmRpWQK2NbB7lShlcN7s9QtxxMtBiY5L+V9/8GYTxgvzC
+	 UHigp8GPJoqdqmze5EQz1rPCz97pFahvKRDxLZSS6i9SxC823lGpxDbn4Rbeyh0Okt
+	 TR/QF7EdGsyb4iX9xEema999kED+0qHOXTSC/zd9W6SqwEk9t6Tq7kV9VRLpw/2ULX
+	 lZDU+LXHYelHhnbJYShr7VmPhRuzE46TyOGynMxiWc9nAwYPf08wj+7j5tMlEebMPw
+	 La/jbPw8aTHKVyNuWkmLIdCrY4HKAU0JGcs7rf3I0ZFJY3TUwn7hzwnRpX1wHag7fv
+	 vSZXRK6okGcuw==
+Date: Sat, 28 Nov 2026 01:17:27 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: robertijtsma@gmail.com, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] iio: light: add ams OSRAM TCS3430 XYZ and
+ ambient light sensor driver
+Message-ID: <20261128011727.297d2a27@jic23-hlaptop>
+In-Reply-To: <awnB1KT-oJQoPjOM@ashevche-desk.local>
+References: <20261127-iio-tcs3430-v3-0-e191a40a4ae9@gmail.com>
+	<20261127-iio-tcs3430-v3-2-e191a40a4ae9@gmail.com>
+	<awnB1KT-oJQoPjOM@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,112 +64,62 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Low] scsi: ufs: spacemit: incomplete kernel-doc comments in
-  ufs-spacemit.c
-- [Low] scsi: ufs: spacemit: positive UIC error codes missed by negative
-  err checks
-- [Low] scsi: ufs: spacemit: unused variant struct, headers, macros, and
-  duplicate tag
---
+On Fri, 27 Nov 2026 19:45:56 +0200
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-commit d1110f647e4d5741aaea4207a41324cfd65f105b
-Author: Yixun Lan <dlan@kernel.org>
+> On Fri, Nov 27, 2026 at 09:12:50AM +0100, Robert Ijtsma via B4 Relay wrote:
+> > 
+> > Add an IIO driver for the ams OSRAM TCS3430 ambient light and CIE 1931
+> > XYZ tristimulus color sensor (found at I2C address 0x39 on devices such
+> > as the Microsoft Surface Pro X).
+> > 
+> > Unlike the older TAOS RGBC drivers (tcs3414, tcs3472) that use the 0x80
+> > COMMAND-bit SMBus protocol and RGBC channels, and unlike the banked
+> > MAZeT/JENCOLOR as73211 driver, the TCS3430 uses ams's direct-addressed
+> > 0x80..0xdd register map and exposes Z, Y, IR1, and X tristimulus channels.
+> > 
+> > The driver exposes:
+> > - Illuminance (photopic Y channel) with raw counts and lux scale
+> > - Modified intensity channels for X, Y, Z, and IR1
+> > - Selectable scale and integration time via the IIO GTS helper across
+> >   1x/4x/16x/64x/128x gain and 50.04/100.08/200.16/400.32 ms integration
+> >   time settings
+> > - Regulator management and system sleep suspend/resume support
+> > 
+> > Tested on Microsoft Surface Pro X SQ2 (SC8180X).  
+> 
+> 
+> There are a couple of nit-picks below, but overall LGTM, after addressing them
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> 
+> ...
+> 
+> > +config TCS3430
+> > +	tristate "ams OSRAM TCS3430 ambient light and CIE 1931 XYZ sensor"  
+> 
+> This doesn't scale, but okay, I don't expect this kind of compatible devices
+> appear in a volume, we may rephrase this later on.
+> 
+> > +	depends on I2C
+> > +	select IIO_GTS_HELPER
+> > +	select REGMAP_I2C
+> > +	help
+> > +	  If you say yes here you get support for the ams OSRAM TCS3430
+> > +	  ambient light and CIE 1931 XYZ tristimulus color sensor.  
+> 
+> Usually when it starts with more that a single vendor line of the devices
+> the list of them is better as it's easier to tweak later on:
+> 
+> 	  If you say yes here you get support for the following sensors:
+> 	  - ams OSRAM TCS3430 ambient light
+> 	  - CIE 1931 XYZ tristimulus color
 
-scsi: ufs: spacemit: k3: Add UFS Host Controller driver
+Agree with general statement and perhaps only know this because of
+a history with colour spaces: That second bit is a colour space in which
+the ams OSRAM sensor presents its data, not another sensor.
 
-This commit adds the UFS host controller driver for the SpacemiT K3 SoC,
-supporting UFS 2.2, MIPI UniPro v1.61, and M-PHY v3.0.
-
-> diff --git a/drivers/ufs/host/ufs-spacemit.c b/drivers/ufs/host/ufs-space=
-mit.c
-> new file mode 100644
-> index 0000000000000..8024b2c1f4381
-> --- /dev/null
-> +++ b/drivers/ufs/host/ufs-spacemit.c
-> @@ -0,0 +1,619 @@
-
-[ ... ]
-
-> +/**
-> + * ufs_spacemit_mphy_init
-> + * @hba: host controller instance
-> + */
-> +static int ufs_spacemit_mphy_init(struct ufs_hba *hba)
-
-[Severity: Low]
-This kernel-doc comment is missing a short description after the function
-name and a Return: section, and ufs_spacemit_init() below is also missing a
-Return: section, which causes W=3D1 and W=3D2 kernel-doc warnings.
-
-[ ... ]
-
-> +static int ufs_spacemit_link_startup_pre_change(struct ufs_hba *hba)
-> +{
-> +	u32 value, sys1clk_1us;
-> +	int err;
-> +
-> +	err =3D ufs_spacemit_mphy_init(hba);
-> +	if (err < 0)
-> +		return err;
-> +
-> +	err =3D ufs_spacemit_uniprov1p6_init(hba);
-> +	if (err < 0)
-> +		return err;
-
-[Severity: Low]
-As reported by Troy Mitchell on v6 [1], ufshcd_dme_get() and
-ufshcd_dme_set() return positive 8-bit UIC command result codes
-(0x01..0xFF) when a DME command fails at the UniPro layer.
-
-Checking "if (err < 0)" here and after
-ufs_spacemit_quirk_host_pa_saveconfigtime() in
-ufs_spacemit_apply_dev_quirks() misses those positive error codes and
-allows both functions to continue past failed DME operations instead of
-aborting early. In addition, ufs_spacemit_pwr_change_notify() ignores the
-return value of ufshcd_dme_set() in POST_CHANGE instead of returning it.
-
-[ ... ]
-
-> +/**
-> + * ufs_spacemit_init - init phy and prepare clk
-> + * @hba: host controller instance
-> + */
-> +static int ufs_spacemit_init(struct ufs_hba *hba)
-> +{
-> +	struct device *dev =3D hba->dev;
-> +	struct ufs_spacemit_host *host;
-> +	struct reset_control *rst;
-> +
-> +	host =3D devm_kzalloc(dev, sizeof(*host), GFP_KERNEL);
-> +	if (!host)
-> +		return -ENOMEM;
-> +
-> +	rst =3D devm_reset_control_get_exclusive_deasserted(dev, NULL);
-> +	if (IS_ERR(rst))
-> +		return dev_err_probe(dev, PTR_ERR(rst), "Failed to get reset control\n=
-");
-> +
-> +	host->hba =3D hba;
-> +	ufshcd_set_variant(hba, host);
-
-[Severity: Low]
-This isn't a bug, but struct ufs_spacemit_host is allocated and passed to
-ufshcd_set_variant() here without ever being retrieved via
-ufshcd_get_variant() anywhere in the driver.
-
-Also, drivers/ufs/host/ufs-spacemit.h includes unused headers
-(linux/regulator/consumer.h, linux/pm_qos.h, and linux/workqueue.h) and
-defines 15 unused macros (UFS_LOCAL_PORT_ID_REG, UFS_PA_ERR_CODE,
-UFS_RETRY_TIMER_REG, UFS_CFG1, DEFAULT_CLK_RATE_HZ, BUS_VECTOR_NAME_LEN,
-UFS_HW_VER_*, UFS_DME_VS_CORE_CLK_CTRL, UFS_HCLKDIV_REG, and
-MPHY_RX_FSM_STATE), and the commit message has a duplicate Tested-by: tag
-for Aurelien Jarno.
-
-[1] https://lore.kernel.org/r/DLLQJDEA91FU.18Q1TSX09AUR3@linux.spacemit.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261128-08-k3-ufs-=
-support-v9-0-d27deb096d1e@kernel.org?part=3D2
+Jonathan
