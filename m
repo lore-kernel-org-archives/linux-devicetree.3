@@ -1,101 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795879014;
-	b=uVgKT9RTVXir76hD/0NJkkhZrPdmRUXjQtguvrrjgQ26+dIu31vKhIQDw+CNEQzV9bwg
-	 pU0t9EztO10CrVOaNYWoM6cCNy23IjDCQbEFbh1f5cFIbUvYdIMto0oCurEQfSNAmQAXF
-	 5cOi6ZHL7v0JdEoyyBElUPV/93kkZcDLi6+cE9tAb+mTVfB0M0xNyMZ+FwwhjBjRHn61w
-	 4/TOfGe3uji4jJqXyqGavqctHCrNMWVGlMs3hk+WskqOMtg/ZyFeYvXadI+BpuHraBkom
-	 aUUwje/0gVol/MwbLilcITKoRjXqzQkfnNJy7nvpsdXT2bM/bG2Oq5JpUoeWyurKk3w==
+	t=1795881602;
+	b=sZ3DoECiHxeyJLLotNeR3VWgBUw5l8KtvLRMHcOQ51xIFoZGGKq/0iafGcIurUkg2uho
+	 27av/e14p5DXoh9kyikyfUKSpu8dAcQg8bcVSNb1a/QN+T57O+OR7UartquLrOukk/AdN
+	 t9D80q3DVrAhy/4SxQ+/Hl+slfQYMpIP/CPMpL+/ABs3SHSQoTmsUll8pnlzwiPg31fG4
+	 OY9P9wxJEIOSwNWbJ1wtSqUQpNFXO7F5C5Z6hnyb23m2g4egX6fedSxxwwzCOziuvEI8n
+	 tQD83n4y2E0J23OQCAtOqHcN3zU6yQbnyFz/oMZ0CcQVePdyrzA810bWmkpL4QreDhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795879014;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=1FB6N3ZVeS2iXSTJX9cZqix9YwUql7fjHknIhnBZeO8=;
-	b=zmyl5QwURFIaRW3jcJAKmBHa6SYhHeHoLKcs0fMMyZRaF7jqZUqQKf6alGB1SdYuDvKM
-	 pUE+RJ0zV1XgJ0ZAn524KeedYbBbX2ljxx56l3Mrx77QfkQSsMN6vep7PipYnCD2CTida
-	 l/ardyBmlSBDPU44BeIVBvLdu6free/ONi4pQqLbjoo/h6g0pdCirEIEJUp0VzcIlsbql
-	 YWAJRgwLxjhp82atW4kjx93uGe76mw26AeKf8shhkCoSTl4we84Lylum3Fzrbk4seUrwW
-	 iTO0I7v1kGZBW7sTd9OeDoU88i4wRWEqI7CmjLtuG7gTyoOOvVj2R8GRPfg8qRwq81A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795881602;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=VDZlYT62DLMq4/bV/vxxwJ3hSgltztB3YVXdaM0u9JI=;
+	b=pp+A8yLKPRFWIgQiiDm8wE4M9Sywp0c5uYA7Cw4mgun1DEXIr5a4wDjmpJ0qxKDfIMay
+	 +PIte3NwZE0BPcaNWLDi1xejfU0mA2AzHYmmva+H+isskKYJ1k4FAhkWTv+SVqT2vUOoD
+	 fsnZfpHWrzl1aXFr7GDQ83k9CPSiOUixbyvmNOxioGtvlf6JSX6hOQ5FsTNaGhrp5mYqH
+	 SC8Q83wnhdL4qTu6ZcXo8GG+upNv7EKE54oS1dvOg8ZsvQebCaOoWADYdfqSKsjiSEvAp
+	 mqtEeJzK/npfxQzl5oSxwgiELidxypyR0r2jSqaHpu8Ad3DF73Q4ksgNQwLTaVhCjKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RTAI1v6I;
-	arc=none smtp.remote-ip=209.85.215.172
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=2CxxdLkO;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26475606A321
-	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 15:16:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26475606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 210A1606A324;
+	Sat, 28 Nov 2026 16:00:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 210A1606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RTAI1v6I
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cde1479f76fso4771541a12.0
-        for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 07:16:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795879013; x=1796483813; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1FB6N3ZVeS2iXSTJX9cZqix9YwUql7fjHknIhnBZeO8=;
-        b=RTAI1v6ImNiBmtc0EHCMI2++E9uOOU+pBNG6woahNXDhDoMnfErZMYgNztUondWek0
-         AwpeWg6bsv1gOOfotB0jSMBXVHjY1DFOWs4nx+fb/yQC3QYon2t/gnr5pwB5YEvgdpLn
-         u825zw1vrc3i48yzo6iw/rv1KGGumukpnTjurYf19nL/8hqAXdJm3dhLa4pdDx4UBTZo
-         5JByY+srjJCAqLGGawigeXsRILq+HMPpp4didpeRkjrGGoXW9RTkIaYG2B3Bvrjbw3sK
-         wWihN7Gp4dIUZLzpyDPtY3Ex9VeY12YeC2drR4oiVSp+nY+vxaifP6eAxFlBmTkLuzBL
-         jk6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795879013; x=1796483813;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1FB6N3ZVeS2iXSTJX9cZqix9YwUql7fjHknIhnBZeO8=;
-        b=cWdDaS4Haytgqra43yu586pHcn9i7YgBtcEbNRst2AZRx19OPelnzvNmk6le0uZPxZ
-         NHvGd4wI7EGGAiSuPYvE9c+HOgDyPZKpiAIvpaC3nLgKYHVrjwdipcj1k8RYXA4OGlP7
-         Yw9ydEiDxEXw/vbLamn+HlvJEdhsBQt3BIA2El9KIunWQRt6WkWJYHQC/0N0R0bLgo2u
-         guabZ1VyhKBVnILIzqsvhaw01NO7mOEu0jPa/1Z6/2CkB3vQ3yYx5oelpYieRGfFlD0Z
-         812cYnYe8ob1V+JXF1EhiSFuM5/DJDb1kg2Tfo3o17zAt+PtXqbuOQLRx+FIlwQGrxYD
-         XgmQ==
-X-Forwarded-Encrypted: i=1; AL+hErFRSvAeWvFy4m2icV/fpOxkY8zkuuNTmNfFJwaNoGtuxWmb8ZoKWsDSv8fBSMarmWlkYsvwsPEOyaSg@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Tj2u1jLXQYPwM9kit/xqGJStZ8QjOOXFnZd1HlrNK6LLzL/bH
-	lQhT8OMVa5y2bCfmQ9HpoIO2M+iROFY0R2yiq/CCaATISsuG9le5d0Hr
-X-Gm-Gg: AZFdTZdHZYh4gg6DAJ2b1vCIzsy3s9YyzHo+BSByliPJndqfKpbyxtkkM507OXfQ+b4
-	C6zt4PPrF4Oo3kb4DlbM0cwg9y/Cp+gb4RCll7ybuc/yd8OSH7/Jy6ZVMOhdVk0yPjvuQ6EOUAC
-	sKYUYB+qOyvxARfEOn478WUiWF2NWc3bpF+QtN7Kxr3XjSCd/dSTZTC7/rGGTps135ld8aCgtJh
-	C1gl7YgMPfwb+FvN4acXtfw0hkadZrQF7gdtASgfzgFiwc/VlmxoPp2PmmIuLA7E58No1xtsQDK
-	3qgNYgASYC6L5sXyvlatbUpZOGm4y9nJsWK4n4oBAp+I1Xg96ckIi/JLLKKk4/YpI9Aqm3Cpr3r
-	G5KPp2Mp20sXIHSldUa6gwk7pBKVbJj+4BbuSifgurJvmGWwpvVI1uCdo9bsIwwWLArtEBpYQdv
-	N0NcDTzWzTk6Wxv1CBKo9d49wWUsV3T47nvtpbLtoEmA+pghC9RDhgc91sdibMrBNgM2awo4HCo
-	F1PHD0vASIFOCa8RIqEFwBlVDWjAqyqpTYQGF+z2mPd9iop0r9gD34YiAido0JOxQBGQpzuhBXP
-	zr/9hhMhC4QGssO1fL3/4PaMlDQs38cCOMMHSThyxgHZ5Rql6+FdeLqXffyLpZ2waFN4xlBgqPB
-	RQGiFgofY+IZyh0lkWM4IOmjFPff/
-X-Received: by 2002:a17:90b:268f:b0:3b0:d0c5:c110 with SMTP id 98e67ed59e1d1-3b41c95ce7fmr27156870a91.56.1795879013360;
-        Sat, 28 Nov 2026 07:16:53 -0800 (PST)
-Received: from localhost.localdomain ([2405:201:301c:f8cd:241f:982d:147f:bf76])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b44b7a8c64sm19769280a91.3.2026.11.28.07.16.48
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 28 Nov 2026 07:16:52 -0800 (PST)
-From: Aryan Sinha <sinha.aryan03@gmail.com>
-To: Mark Brown <broonie@kernel.org>,
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=2CxxdLkO
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=VDZlYT62DLMq4/bV/vxxwJ3hSgltztB3YVXdaM0u9JI=; b=2CxxdLkOoxRth1lz6jYvoBrNj5
+	V1XvifqHJ4/7cb3lsAuw826RLA/oYduRgXEG9wrdkmCfM0KFNJyzaWw7FOj4lGwnrRAzIgNl073lG
+	cgwUpQTcR4i+BnJIps2gvl45uYrsoxLeMjG+sic4Ag0HNPAGCf7GN29kNYkOwe/HsR7M=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xXKpu-0020FX-7v; Sat, 28 Nov 2026 16:59:38 +0100
+Date: Sat, 28 Nov 2026 16:59:38 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Paul Louvel <paul.louvel@bootlin.com>
+Cc: Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Leilk Liu <leilk.liu@mediatek.com>,
-	linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Aryan Sinha <sinha.aryan03@gmail.com>
-Subject: [PATCH v2] spi: dt-bindings: mediatek,spi-mt65xx: Add MT8189
-Date: Sat, 28 Nov 2026 20:46:41 +0530
-Message-ID: <20261128151643.16934-1-sinha.aryan03@gmail.com>
-X-Mailer: git-send-email 2.46.0
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Jerry Ray <jerry.ray@microchip.com>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Bo Mellberg <bo.mellberg@se.com>,
+	Pascal Eberhard <pascal.eberhard@se.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: Re: [PATCH net-next 3/3] net: dsa: lan9303: add LED mode
+ configuration
+Message-ID: <de94e9bc-142f-4e3b-8bf9-b2c2c56e3c27@lunn.ch>
+References: <20261126-lan9303-leds-v1-0-a96731317859@bootlin.com>
+ <20261126-lan9303-leds-v1-3-a96731317859@bootlin.com>
+ <4d2a5db3-2829-4383-8f8d-05cf7c94fddc@lunn.ch>
+ <DN627T3YFWKR.2YJE24R4DRSDN@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,36 +76,19 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DN627T3YFWKR.2YJE24R4DRSDN@bootlin.com>
 
-The SPI controllers on MT8189 use the same IPM design as MT6991. Add the
-MT8189 compatible with mediatek,mt6991-spi as the fallback.
+> At first, I thought that the fact that this PHY has a single field for all LEDs
+> function would make the vendor property somewhat acceptable.
 
-Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
----
-Changes in v2:
-- Sent on its own so it applies to the SPI tree, the rest of the
-  series depends on unmerged MT8189 patches (Mark)
-- Fixed the subject prefix (Mark)
-- Link to v1: https://lore.kernel.org/r/20261128141443.13065-2-sinha.aryan03@gmail.com
+As i said, it makes the implementation messy, and many of the blink
+modes are going to end up in software, but it looks like the standard
+/sys/class/led API can be used.
 
- Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml | 1 +
- 1 file changed, 1 insertion(+)
+I would try to document an a simple to understand way what each LED
+can do in hardware. That way users can try to keep with the hardware
+offload cases.
 
-diff --git a/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml b/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
-index 3bf3eb1f8..34e833745 100644
---- a/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
-+++ b/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
-@@ -41,6 +41,7 @@ properties:
-           - const: mediatek,spi-ipm
-       - items:
-           - enum:
-+              - mediatek,mt8189-spi
-               - mediatek,mt8196-spi
-           - const: mediatek,mt6991-spi
-       - items:
-
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
--- 
-2.46.0
-
+	Andrew
