@@ -1,58 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795834714;
-	b=N4PNFugUAn/VSnvPz6OpB6OggSwPLVIGt026jeH4GqCkB/8lJXd2n3sWkyueqI4fBTEo
-	 S2k0lYfV/BAg9973+GMOEDGG/k4UOE5H86IwryacbgWWJsHlQqxwC/zWXVDSuBd0rBwSe
-	 Z9RcitkiO8s6IyvP+SG3w33BT/IMTEqdEVQtOECrJRiM1pBOq0duj8+RyoYNCzV8us8dp
-	 XpW9t0AZzYDNEu63vhHHwJIE3qg7FUtcR6OksURR/MjjR/loe1f0zioGTpsSjmvszAtux
-	 q5K5zV2lxTDfwu6YJ/B6AcZWDFbvuH8A1pMmWQihAaVqAVCoiBV2he0QYzgwWb/JI1w==
+	t=1795835382;
+	b=tuyrZEp780N1g3aWVmisjL+lu7QH7iHnZJSLI/RrlAdxmco18bE5EXdakTz5l6W4efXW
+	 bPLk3ae1G15XLfoZJLpYqlvwz+aXZXQKzMxFXy3VkR/KvLA91gQ00wTsn3clvharl8w4W
+	 GDf2BT+9BPG8poO60EscMHAjEDGMk2P7vzfKasrTPjCfdWisQ4Z3iWGmBOdovo75r8CoC
+	 4wbtiUIE9nLtwpR8h6ksa1g9AGsAzcT2et8dgEn9UX3tim5aSC7vTr8MoZxYfEAAwyTCg
+	 Q0EQCVVgRsSWAjqYiOGNRUL4NZPv4swIvuc3UN3XmeiJk7OlzXzKMaQdgezEipmVxVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795834714;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=iXm9bjNklHkCJkXC6cXS/6l9msjPSXzfutfiuU6LTJE=;
-	b=ljz0UTdzI3pQ16tCXXiTq8V0Rwflw/dSo3XJUc9Z9hNILd7mIlwD5TyjQfZTwRin3Rjo
-	 wbdyXDXuOjinWdyTUUZJuFtuDfJWeGQ33IGQhIRxULExle/mT+3FVZjevdP7EJcFQ1uOr
-	 mrA+PDHMaVl6Nhn34XtatNeSwQnZJSE+VjjgBAB1rq6grM/k9gLVrpMHnGfPS9lyYs5Lq
-	 k4Mxx+pJyVAZed27z3j+BQVP2B0MWrMU4+eo7elQwCSKBFZ/lbr+IjbzZXt0gLm9J6/UL
-	 so8oZBu4dVNsUGlG/l+QGEf+GbLTCialvEnGVKJrjVf8SZoo8Wxt6u7SoK+RfC/j3wQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795835382;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=5uP8bLhleIlCW+2pa4E+cgAik1u/TvGB+vHUxE2NTXg=;
+	b=0NLFxZyFgvxUd7geq4gNdDbxmZhGafVw2oXNbtvSyyB+2uHZegd36MYdLb5novq0s/fl
+	 OD1aUznIkWplOcEvz2/ZK/6LN8x5M7XG54a8JHb/Nhzc4ZTzu3DB/4P0lRMK4rhUWWhg0
+	 juxj6aOGFyneFM+bulTYpFeDkkpbzX08yXFmDhoLteLjscpH6ajzwjGI4Krtf0EWvX+EW
+	 wcFkX1UD4Bm4ZaqNNWJn7Q7dBKrKKe3MnKVqTQEPyf9DtPE6ZISjsxmQ+ZSWOXkBf/BV1
+	 nWpOmRvJvBNgbxgbNt9q1CwhUYYmE/wOLAUcG8mpPEaxRxvuDKGsoLBYSvs9uiom1SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=SfKvHHDA;
-	arc=none smtp.remote-ip=113.46.200.218
-Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nX9TIbVo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B99606A31E;
-	Sat, 28 Nov 2026 02:58:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34B99606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0EED606A31C
+	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 03:09:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=SfKvHHDA
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=iXm9bjNklHkCJkXC6cXS/6l9msjPSXzfutfiuU6LTJE=;
-	b=SfKvHHDA5DZy5PHVuUfUp7ZJIYPFO/O1wYHgqxN6U4/eJpLR+3Ela1UpPw9XS8p/TtJJrEZrr
-	gDPn1UZB2A8lTM0A3I9jkCqzQxTZVWI0Nmo8f3SKrZ6KPSFo+ihxjnn+PVobzzgk/65BELmIsiR
-	LEeIYm+6onwT1S/RxJyVyGY=
-Received: from mail.maildlp.com (unknown [172.19.162.140])
-	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4jbw1Y64lPzpStH;
-	Sat, 28 Nov 2026 10:57:21 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 102B5202E6;
-	Sat, 28 Nov 2026 10:58:29 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sat, 28 Nov
- 2026 10:58:28 +0800
-Message-ID: <ad0126a1-0d5d-47eb-87fd-1df6ccfece02@huawei.com>
-Date: Sat, 28 Nov 2026 10:58:27 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nX9TIbVo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FD441F00893;
+	Sat, 28 Nov 2026 03:09:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795835382;
+	bh=5uP8bLhleIlCW+2pa4E+cgAik1u/TvGB+vHUxE2NTXg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nX9TIbVo0K6J+9pkm9nUIHFCYalsgfkWTDs5bJB/kPhioOpp617kptrsVjk49ygt/
+	 aSOcENb2/oUSnbiGkOLyC9wVmeSF/FiSYOnVE0NZSlSerZv+9zAqBzVYhl4GwNSeMX
+	 RSSigd6/LqTPvQoes7vKg0H0iNQLOTHsczvNtI8Ghk78BmGRdtkro5y/6W7ut0bQYy
+	 9CcOBlMMKjTg+ezOh3YymEYAUpLvSNkFA6X3TNxQETd4y88FCbSb7JS5GHlO8W/9CB
+	 qM2nWsxyJcPUkvnnGznFagznPB1IEWoAStKlwjCgJWXqPh3g8S7LhUNhl0xUQWL1eu
+	 iNNCCUJb3Jd6Q==
+Message-ID: <sashiko-outbox-238430@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] spi: serialize OF notifier device removal with
+ controller removal
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Debjit Ghosh" <dghosh@juniper.net>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261128024830.57367-1-dghosh@juniper.net>
+References: <20261128024830.57367-1-dghosh@juniper.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 28 Nov 2026 03:09:41 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,103 +59,138 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 4/8] crash_core: replace for_each_mem_range() with
- for_each_mem_region()
-To: Wandun Chen <chenwandun1@gmail.com>, <pjw@kernel.org>,
-	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
-	<robh@kernel.org>, <baoquan.he@linux.dev>, <rppt@kernel.org>,
-	<m.szyprowski@samsung.com>
-CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<x86@kernel.org>, <hpa@zytor.com>, <saravanak@kernel.org>,
-	<akpm@linux-foundation.org>, <pasha.tatashin@soleen.com>,
-	<pratyush@kernel.org>, <ruirui.yang@linux.dev>, <robin.murphy@arm.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<loongarch@lists.linux.dev>, <linux-riscv@lists.infradead.org>,
-	<devicetree@vger.kernel.org>, <kexec@lists.infradead.org>,
-	<linux-mm@kvack.org>, <iommu@lists.linux.dev>
-References: <20261127090723.741253-1-chenwandun1@gmail.com>
- <20261127090723.741253-5-chenwandun1@gmail.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20261127090723.741253-5-chenwandun1@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] spi: incomplete serialization in of_spi_notify() allows of_node
+  UAF
+- [Low] spi: missing Fixes trailer for klist corruption fix in
+  of_spi_notify()
+--
 
+commit d8aab75e4e977ea5193817573284d57a2881b77e
+Author: Debjit Ghosh <debjit.ghosh@hpe.com>
 
-在 2026/11/27 17:07, Wandun Chen 写道:
-> From: Wandun Chen <chenwandun@lixiang.com>
-> 
-> for_each_mem_range() skips MEMBLOCK_NOMAP regions implicitly. Switch the
-> weak defaults to for_each_mem_region(), which exposes struct
-> memblock_region and per-region flags, and filter NOMAP regions explicitly
-> via the new crash_should_skip_region() helper. This prepares for a
-> subsequent patch to extend the skip filter.
-> 
-> No functional change.
-> 
-> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-> Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
-> Acked-by: Baoquan He <baoquan.he@linux.dev>
-> ---
->  kernel/crash_core.c | 25 +++++++++++++++++--------
->  1 file changed, 17 insertions(+), 8 deletions(-)
-> 
-> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
-> index 8a861a946e26..e161c8b65e00 100644
-> --- a/kernel/crash_core.c
-> +++ b/kernel/crash_core.c
-> @@ -283,25 +283,34 @@ static struct crash_mem *alloc_cmem(unsigned int nr_ranges)
->  }
->  
->  #ifdef CONFIG_ARCH_KEEP_MEMBLOCK
-> +/* Exclude NOMAP regions from the vmcore. */
-> +static bool crash_should_skip_region(struct memblock_region *reg)
-> +{
-> +	return memblock_is_nomap(reg);
+> spi: serialize OF notifier device removal with controller removal
+>
+> The OF reconfig notifier and spi_unregister_controller() can both
+> unregister the same SPI device concurrently. However,
+> spi_unregister_controller() unregisters children holding ctlr->add_lock,
+> but of_spi_notify() does not. So both contexts, sometimes executing
+> concurrently, would call device_del() on the same device potentially
+> corrupting the controller's child klist.
+>
+>   Oops: general protection fault, probably for non-canonical
+>         address 0xdead0000000000f8
+>   CPU: 13 UID: 0 PID: 173 Comm: irq/38-pciehp
+>   RIP: 0010:klist_next+0x6e/0x140
+>    device_for_each_child+0x5d/0xb0
+>    spi_unregister_controller+0x3a/0x140
+>    ...
+>    mfd_remove_devices+0x36/0x50
+>    pci_device_remove+0x3d/0xb0
+>    ...
+>    pciehp_ist+0x13c/0x180
+>
+> while an overlay unload mechanism was concurrently removing the same
+> device through of_overlay_remove() -> of_spi_notify().
+>
+> Serialize the notifier's removal path with the controller's child
+> unregistration using ctlr->add_lock, and recheck OF_POPULATED under the
+> lock before calling spi_unregister_device().
+>
+> Signed-off-by: Debjit Ghosh <debjit.ghosh@hpe.com>
 
+[Severity: Low]
+Should this bug fix include a Fixes tag?
 
-LGTM
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+  Fixes: ce79d54ae447 ("spi/of: Add OF notifier handler")
 
-> +}
+> diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+> index 0569f30785e9f..6a6c590649c1a 100644
+> --- a/drivers/spi/spi.c
+> +++ b/drivers/spi/spi.c
+> @@ -5390,8 +5390,25 @@ static int of_spi_notify(struct notifier_block *nb=
+, unsigned long action,
+>  		if (spi =3D=3D NULL)
+>  			return NOTIFY_OK;	/* No? not meant for us */
+> =20
+> -		/* Unregister takes one ref away */
+> -		spi_unregister_device(spi);
+> +		/*
+> +		 * Serialize against spi_unregister_controller. The device
+> +		 * can be unregistered concurrently by its controller being
+> +		 * torn down (e.g. on surprise hot removal of the underlying
+> +		 * bus hosting the controller).
+> +		 */
+> +		ctlr =3D spi->controller;
+> +		if (IS_ENABLED(CONFIG_SPI_DYNAMIC))
+> +			mutex_lock(&ctlr->add_lock);
 > +
->  unsigned int __weak arch_get_system_nr_ranges(void)
->  {
->  	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* crashk_res + crashk_low_res, +CMA splits */
-> -	phys_addr_t start, end;
-> -	u64 i;
-> +	struct memblock_region *reg;
->  
-> -	for_each_mem_range(i, &start, &end)
-> +	for_each_mem_region(reg) {
-> +		if (crash_should_skip_region(reg))
-> +			continue;
->  		nr_ranges++;
-> +	}
->  	return nr_ranges;
->  }
->  
->  int __weak arch_crash_populate_cmem(struct crash_mem *cmem)
->  {
-> -	phys_addr_t start, end;
-> -	u64 i;
-> +	struct memblock_region *reg;
->  
-> -	for_each_mem_range(i, &start, &end) {
-> -		cmem->ranges[cmem->nr_ranges].start = start;
-> -		cmem->ranges[cmem->nr_ranges].end = end - 1;
-> +	for_each_mem_region(reg) {
-> +		if (crash_should_skip_region(reg))
-> +			continue;
-> +		cmem->ranges[cmem->nr_ranges].start = reg->base;
-> +		cmem->ranges[cmem->nr_ranges].end = reg->base + reg->size - 1;
->  		cmem->nr_ranges++;
->  	}
->  	return 0;
+> +		/*
+> +		 * Recheck under the lock as whichever context executes first
+> +		 * will depopulate the flag.
+> +		 */
+> +		if (of_node_check_flag(rd->dn, OF_POPULATED))
+> +			spi_unregister_device(spi); /* takes one ref away */
+> +
+> +		if (IS_ENABLED(CONFIG_SPI_DYNAMIC))
+> +			mutex_unlock(&ctlr->add_lock);
 
+[Severity: High]
+Can spi->dev.of_node still be freed while spi_unregister_controller() is
+in the middle of device_del(&spi->dev)?
+
+spi_unregister_device() clears OF_POPULATED and drops its of_node
+reference before calling device_del(&spi->dev):
+
+drivers/spi/spi.c:spi_unregister_device() {
+    ...
+	if (is_of_node(fwnode)) {
+		of_node_clear_flag(to_of_node(fwnode), OF_POPULATED);
+		of_node_put(to_of_node(fwnode));
+	} else if (is_acpi_device_node(fwnode)) {
+		acpi_device_clear_enumerated(to_acpi_device_node(fwnode));
+	}
+	device_remove_software_node(&spi->dev);
+	device_del(&spi->dev);
+    ...
+}
+
+Because of_spi_notify() checks OF_POPULATED (and calls
+of_find_spi_device_by_node()) before acquiring ctlr->add_lock, it can
+return NOTIFY_OK without waiting for spi_unregister_device() to finish:
+
+CPU0                                  CPU1
+spi_unregister_controller()
+  mutex_lock(&ctlr->add_lock)
+  ...
+    spi_unregister_device(spi)
+      of_node_clear_flag(dn,
+                         OF_POPULATED)
+      of_node_put(dn)
+                                      of_overlay_remove()
+                                        ...
+                                          of_spi_notify()
+                                            !of_node_check_flag(rd->dn,
+                                                                OF_POPULATE=
+D)
+                                            return NOTIFY_OK
+                                        free_overlay_changeset()
+                                          ...
+                                            of_node_put(ce->np)
+                                              of_node_release()
+      device_del(&spi->dev)
+        ...
+          of_device_uevent()
+            dev->of_node              <-- use-after-free
+
+When CPU1 sees OF_POPULATED already cleared (or fails to find the device
+on spi_bus_type after bus_remove_device()), of_overlay_remove() proceeds
+to destroy the changeset and free rd->dn and the overlay FDT memory while
+CPU0 is still running driver remove callbacks and of_device_uevent() on
+spi->dev.of_node.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261128024830.5736=
+7-1-dghosh@juniper.net?part=3D1
