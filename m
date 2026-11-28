@@ -1,73 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=121.127.44.73
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795859952;
-	b=WrYel04dOQSrZ/oikCC5JeXOkpvqbp/WsgQWJTj/tx1xyJ+pk8G4SjT6l0LkIWML67L5
-	 yN19DlKk2UVe5/DF2XrhyeOB8jyr+Mk8niK8mE4H5PZJiJRHV7kIavOzGpwIFpQvhPlBz
-	 T8IjFkFLlY0W0ddK3x9A4+eXsPeYlXaOKVqK32oGeCS3TUXGEEJfsV6LemLJXijoeu+1m
-	 Q/yjWRBaocM9FQ+b08E6HmmTZqfBZyuRr5fm4VbR7qms56IIb7FCbuw5BEsgtnkmTG18a
-	 XHzmCNyWrGh7m2PZYVtLLwDV4BBweCjdx0kYX1coIgq8QqUEHxpuDrcXmKTWwByEbig==
+	t=1795862134;
+	b=mWIMi7hljIR1beHFiYNOrUNxVHvd2LGNHVSBxrO1DFfYRWwkv33ywccHIcizbDkmruSR
+	 3QwHJJfh9UMyTCJQhjUsOuGSWHRxW5hrkcwB8deAxXYBI0Gi6yB3FEGLhGfvcHfs+PUgK
+	 4uHkbNxpm8Xb5eVzDB9paNfPEEeI4uYMSmDUDaHisfPgEpr3xU/FL7RAZBdwA9XFnEn4t
+	 ROmaqR5Qb9Cyy3hGS7+CNAc+AxdDl/argA8C977JgyLCsrccep2CrwDx692E1i2/uuu2+
+	 r4j9lN0dxTXCPhsGNr9wSy46/c0tA+TZzVf8ccBMOzndOasIfvOd7/i+S094gK7DHTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795859952;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:CFBL-Feedback-ID:
-	 CFBL-Address:X-Forward-Email-ID:X-Forward-Email-Sender:
-	 X-Forward-Email-Version:X-Forward-Email-Website:X-Complaints-To:
-	 X-Report-Abuse:X-Report-Abuse-To:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795862134;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=ocwDXLOd2EJibowVHGqo+WQcUtYKeJ8W34XFSCoxilM=;
-	b=VlrBHF3iQXBbi22HASJHCvScW+tZJqKbx5gpTUYhMNKGcdb4uG2t8O+67ZjqOvvZaqla
-	 qOxprKYvnGd0xW5JeAiSwWLTqmqhGJyUsvgyz+jPbCJlM5rFmjJzqXSiLlHwvIOK2FXWF
-	 grg/E62wCBzZTNqg7D0D4b1laG0VMoqvie5I8z2CEokfVDfobEwU7vHZJCOGUMnV6/B35
-	 RFoIUyPy8zWqeiNOHnTCBlVv38YxWu+ukBb+yO4hOk0VTPqZ63jYraaQBifDjVTqXfzRh
-	 P7yQVzCutmWzur3y9FmFYpThiluXie7BkdtBR7DpNonVD2auuvT/kRRVYNFIFTFd1nA==
+	bh=aBKW1ICYNfGMQxVpp4JVetndoiFKYUuXJkf+oEE1yts=;
+	b=yVnffCuU05zVbBWo/ZiFx1JBNQokjVVj69dWsbo33vrYdAfa2bVRIIYgkpDq6wt0cmmY
+	 4acokskKQyl1z/tbAMYL7zRN6dPsgjAT+tKdxtsJFPu68w1T1irGV3TWVxkQa+q+qHxUv
+	 1Nf3bjopUPri5B4NnzDq4fOyxdd3KA3SGcp/w0jfS9kwgQoDKLY1/ncv2EA4cgjhZz3lY
+	 U2ybuKikTW2SMxNILEd1hcYc6deNxvuZUTlT0SPins7vGTMK9zweDHKQQc/P//nZugSZx
+	 pYKLESmTo7a96+Dvdjr2Lip7Pacby+oIha72KX5jky2yfRSFMh6JnMTveZDxByvhIug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kwiboo.se;
-	spf=pass smtp.mailfrom=fe-bounces.kwiboo.se;
-	dkim=pass header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=zBTOyEK8;
-	dkim=pass header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=kxive7Uu;
-	arc=none smtp.remote-ip=121.127.44.73
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dNzl9tdV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30DCD606A31F
-	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 09:59:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30DCD606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C680B606A31C;
+	Sat, 28 Nov 2026 10:35:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=zBTOyEK8;
-	dkim=pass (1024-bit key) header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=kxive7Uu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
- h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From:
- Content-Language: References: Cc: To: Subject: MIME-Version: Date:
- Message-ID: CFBL-Address: CFBL-Feedback-ID; q=dns/txt; s=fe-e1b5cab7be;
- t=1795859944; bh=ocwDXLOd2EJibowVHGqo+WQcUtYKeJ8W34XFSCoxilM=;
- b=zBTOyEK87DJrGhBV2oS6HjFyXFvC+qcaRlH921MrxdseERlBWZ8vrkOwyt98Gmsl+AYILh4bg
- Rx3FJwE1DTNcnP53E3wzYXm6ulS3c5GkiskWudk7gASNk/fa3CIPolQ0q4vW3eZe/qwgCEkWQI4
- opGlSCkmksedZplsWkurOKVtoaTbuD3Hg1s6zOWXY7YobJQefSDbDlG+dD/nbsaJxJOAb/Qhfqe
- rt8t+jMqlWj1tsOI+NvfEpauL8CE7BbKDhPV0aLL4tgtWqSywa7Scu0kS07ZwUGUlb4pnaMUL5A
- Py3LZu+zmVNdz0a9Ia7JGkPV+mlk1B0BGHMd+JZEfDtg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=forwardemail.net;
- h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From:
- Content-Language: References: Cc: To: Subject: MIME-Version: Date:
- Message-ID: CFBL-Address: CFBL-Feedback-ID; q=dns/txt; s=default;
- t=1795859944; bh=ocwDXLOd2EJibowVHGqo+WQcUtYKeJ8W34XFSCoxilM=;
- b=kxive7UunxTe/FtPLcpO3DR7fbzRsTHtviCY4Aw5mgaL/22ZjEAiIOey0gt2/Nm6/1sIc+7Yq
- eWaAVsdkEhOoF7tgj4VwnGHL0cfneVgohxVWBeVmcNfSL7rQJ5L+3pZl+OEHdnLYihgxsWhNsbE
- Yzei3P67xvlVgp9gBKvx7IA=
-CFBL-Feedback-ID: 6b0aa5db7f49ff6c4aaf7f68:9c58233b47a767d1fe1831a68928480c
-CFBL-Address: abuse@forwardemail.net; report=arf
-X-Forward-Email-ID: 6b0aa5db7f49ff6c4aaf7f68
-X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 121.127.44.73
-X-Forward-Email-Version: 2.19.39
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-Message-ID: <2828bc56-1628-4030-a343-5c9578d45311@kwiboo.se>
-Date: Sat, 28 Nov 2026 10:58:47 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dNzl9tdV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D36D31F00893;
+	Sat, 28 Nov 2026 10:35:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795862134;
+	bh=aBKW1ICYNfGMQxVpp4JVetndoiFKYUuXJkf+oEE1yts=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=dNzl9tdVzSUIYBrBTWPJHgydoOT0aWXxW48ydh540XacM0M8/ff6Ja/mrCrK2pax2
+	 E7O9QG7OZN9nZaTLszPCMTfnBOs5eczoJS6ZkmAf4HC7G5qoiIogjNpxJeBq+S52ci
+	 asi3MBJz84Fz3FHasB/FYm1J2ENNuGeFltRjS82mAv3M1dN1qpYUp1qZ4qjj0xAKOa
+	 iVN1Mnb+EY0DMAGENZNgVjPoU/VNb5WcL170zYZazqLBHCDNr1MgO7t5jVWnWuI/qD
+	 JFtqd/wH2fTYaVR0wozgQhHXja5yjvrTPW52AuYrEXvnE1tk+kzZB/w0nmc3Bwx379
+	 JcC+TQuivibkw==
+Message-ID: <efc24aac-70f6-439a-8d5d-2de1dcce9821@kernel.org>
+Date: Sat, 28 Nov 2026 10:35:29 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -78,387 +52,86 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] spi: rockchip-sfc: add RK3506 support
-To: ZhuXiangyu <1194781887@qq.com>
-Cc: Mark Brown <broonie@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Chris Morgan <macromorgan@hotmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-spi@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <tencent_B239E24A7651B43AC21C4769D1E75FA0A505@qq.com>
-Content-Language: en-US
-From: Jonas Karlman <jonas@kwiboo.se>
-In-Reply-To: <tencent_B239E24A7651B43AC21C4769D1E75FA0A505@qq.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v5 0/7] Enable front and rear cameras on Xiaomi Mi A1
+ (tissot)
+To: Hikmah Gumelar <hikmahgumelar@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ Abel Vesa <abelvesa@kernel.org>
+References: <__OIHsqpwOqb8kxVYcd2PoPvNYDhN8XO6vyXiYMCCK6o3sfyJ1gl1GNdhcGYhdfBf43tQmn6Dt6cWXcSD1uiPA==@protonmail.internalid>
+ <20261127134507.125513-1-hikmahgumelar@gmail.com>
+ <012855be-7a95-436f-b0ab-11ae3134ced8@kernel.org>
+ <usmhiLIDutYU2qMwKDA2JD_eerKmIm1DhH1J9mWHtDxq6fV84KcRoeen48y1ll_FanU9Yqlo9nP87AfrkKgupw==@protonmail.internalid>
+ <CADA=zOPWzK7Rq+CwY0izzjYdXGvTGKdSZMk2OUgN6_7oYV2xng@mail.gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <CADA=zOPWzK7Rq+CwY0izzjYdXGvTGKdSZMk2OUgN6_7oYV2xng@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi ZhuXiangyu,
-
-On 11/21/2026 8:32 AM, ZhuXiangyu wrote:
-> The RK3506 SFC reports version 9 but is compatible with the version 6
-> feature set. It needs a power-good handshake through the PMU GRF and
-> DLL delay-line training for clock rates above 50 MHz.
+On 27/11/2026 16:32, Hikmah Gumelar wrote:
+> For the gcc-msm8953 change, I will drop the board-specific reference and
+> update the commit message to explain the basis for using P_GPLL0 with a
+> divider of 8 (including comparison with similar Qualcomm GCC drivers like
+> gcc-msm8939.c and verification on MSM8953 hardware).
 > 
-> Add the version handling, DLL cell detection and training, and the
-> optional power-good poll. Parse the rockchip,max-dll property so boards
-> can limit the DLL training range.
-> 
-> Tested on an RK3506B board with the on-board SPI-NAND at 80 MHz.
-> DLL training selects cell 64; read and write are stable.
+> I'll re-spin with these adjustments.
 
-Bringing up Luckfox Lyra [1] and ArmSoM Forge1 [2] boards I only had to
-fix use of x2 clock rate, what issues did you face that delay-line
-training and/or npor powergood helped fix?
+Your best data-source is either published documentation or the 
+downstream sources.
 
-[1] https://patch.msgid.link/20261125214421.1580359-1-jonas@kwiboo.se/
-[2] https://patch.msgid.link/20261126192746.1595707-1-jonas@kwiboo.se/ 
+I assume one of those is where we get this change from so, basically 
+that's what needs to be shown as the basis of your proposed change.
 
-> 
-> Tested-by: ZhuXiangyu <1194781887@qq.com>
-> Signed-off-by: ZhuXiangyu <1194781887@qq.com>
-> ---
->  drivers/spi/spi-rockchip-sfc.c | 201 ++++++++++++++++++++++++++++++++-
->  1 file changed, 199 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/spi/spi-rockchip-sfc.c b/drivers/spi/spi-rockchip-sfc.c
-> index a85a260b..bfcad2fa 100644
-> --- a/drivers/spi/spi-rockchip-sfc.c
-> +++ b/drivers/spi/spi-rockchip-sfc.c
-> @@ -14,12 +14,14 @@
->  #include <linux/dma-mapping.h>
->  #include <linux/iopoll.h>
->  #include <linux/interrupt.h>
-> +#include <linux/mfd/syscon.h>
->  #include <linux/mm.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
->  #include <linux/pinctrl/consumer.h>
->  #include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
-> +#include <linux/regmap.h>
->  #include <linux/slab.h>
->  #include <linux/spi/spi-mem.h>
->  
-> @@ -112,7 +114,9 @@
->  #define  SFC_VER_3			0x3
->  #define  SFC_VER_4			0x4
->  #define  SFC_VER_5			0x5
-> +#define  SFC_VER_6			0x6
->  #define  SFC_VER_8			0x8
-> +#define  SFC_VER_9			0x9
->  
->  /* Delay line controller register */
->  #define SFC_DLL_CTRL0			0x3C
-> @@ -168,23 +172,43 @@
->   * 150MHz. No minimum or average value is suggested.
->   */
->  #define SFC_MAX_SPEED		(150 * 1000 * 1000)
-> +#define SFC_DLL_THRESHOLD_RATE	(50 * 1000 * 1000)
-> +
-> +#define SFC_DLL_TRAINING_STEP		10	/* Training step */
-> +#define SFC_DLL_TRAINING_VALID_WINDOW	80	/* Valid DLL window */
->  
->  #define ROCKCHIP_AUTOSUSPEND_DELAY	2000
->  
-> +struct rockchip_sfc_powergood {
-> +	bool	valid;
-> +	u32	grf_offset;
-> +	u8	bits_mask;
-> +};
-> +
-> +struct rockchip_sfc_data {
-> +	struct rockchip_sfc_powergood powergood;
-> +};
-> +
->  struct rockchip_sfc {
->  	struct device *dev;
->  	void __iomem *regbase;
->  	struct clk *hclk;
->  	struct clk *clk;
->  	u32 speed[SFC_MAX_CHIPSELECT_NUM];
-> +	u32 cur_speed;
-> +	u32 cur_real_speed;
->  	/* virtual mapped addr for dma_buffer */
->  	void *buffer;
->  	dma_addr_t dma_buffer;
->  	struct completion cp;
->  	bool use_dma;
->  	u32 max_iosize;
-> +	u32 max_dll_cells;
-> +	u32 dll_cells[SFC_MAX_CHIPSELECT_NUM];
->  	u16 version;
->  	struct spi_controller *host;
-> +	struct regmap *grf;
-> +	const struct rockchip_sfc_data *data;
->  };
->  
->  static int rockchip_sfc_reset(struct rockchip_sfc *sfc)
-> @@ -218,6 +242,33 @@ static u32 rockchip_sfc_get_max_iosize(struct rockchip_sfc *sfc)
->  	return SFC_MAX_IOSIZE_VER3;
->  }
->  
-> +static u32 rockchip_sfc_get_max_dll_cells(struct rockchip_sfc *sfc)
-> +{
-> +	if (sfc->max_dll_cells)
-> +		return sfc->max_dll_cells;
-> +
-> +	if (sfc->version > SFC_VER_4)
-> +		return SFC_DLL_CTRL0_DLL_MAX_VER5;
-> +	else if (sfc->version == SFC_VER_4)
-> +		return SFC_DLL_CTRL0_DLL_MAX_VER4;
-> +	else
-> +		return 0;
-> +}
-> +
-> +static void rockchip_sfc_set_delay_lines(struct rockchip_sfc *sfc, u16 cells, u8 cs)
-> +{
-> +	u16 cell_max = (u16)rockchip_sfc_get_max_dll_cells(sfc);
-> +	u32 val = 0;
-> +
-> +	if (cells > cell_max)
-> +		cells = cell_max;
-> +
-> +	if (cells)
-> +		val = SFC_DLL_CTRL0_SCLK_SMP_DLL | cells;
-> +
-> +	writel(val, sfc->regbase + cs * SFC_CS1_REG_OFFSET + SFC_DLL_CTRL0);
-> +}
-> +
->  static int rockchip_sfc_clk_set_rate(struct rockchip_sfc *sfc, unsigned long  speed)
->  {
->  	if (sfc->version >= SFC_VER_8)
-> @@ -321,6 +372,7 @@ static int rockchip_sfc_xfer_setup(struct rockchip_sfc *sfc,
->  {
->  	u32 ctrl = 0, cmd = 0;
->  	u8 cs = spi_get_chipselect(mem->spi, 0);
-> +	u32 voltage;
->  
->  	/* set CMD */
->  	cmd = op->cmd.opcode;
-> @@ -375,6 +427,15 @@ static int rockchip_sfc_xfer_setup(struct rockchip_sfc *sfc,
->  	dev_dbg(sfc->dev, "sfc ctrl=%x cmd=%x addr=%llx len=%x\n",
->  		ctrl, cmd, op->addr.val, len);
->  
-> +	if (sfc->data && sfc->data->powergood.valid) {
-> +		if (regmap_read_poll_timeout(sfc->grf, sfc->data->powergood.grf_offset,
-> +					     voltage, voltage & sfc->data->powergood.bits_mask,
-> +					     1000, jiffies_to_usecs(HZ))) {
-> +			dev_err(sfc->dev, "wait for powergood failed\n");
-> +			return -EIO;
-> +		}
-> +	}
-
-Why do we need to check nPOR Power Good state in FSPI driver? Feels
-like it may be better handled in PMU driver, use of power domains or
-with system PM or something similar?
-
-> +
->  	writel(ctrl, sfc->regbase + cs * SFC_CS1_REG_OFFSET + SFC_CTRL);
->  	writel(cmd, sfc->regbase + SFC_CMD);
->  	if (op->addr.nbytes)
-> @@ -521,6 +582,109 @@ static int rockchip_sfc_xfer_done(struct rockchip_sfc *sfc, u32 timeout_us)
->  	return ret;
->  }
->  
-> +static int rockchip_sfc_exec_op_bypass(struct rockchip_sfc *sfc,
-> +				       struct spi_mem *mem,
-> +				       const struct spi_mem_op *op)
-> +{
-> +	u32 len = min_t(u32, op->data.nbytes, sfc->max_iosize);
-> +	int ret;
-> +
-> +	rockchip_sfc_adjust_op_work((struct spi_mem_op *)op);
-> +	rockchip_sfc_xfer_setup(sfc, mem, op, len);
-> +	ret = rockchip_sfc_xfer_data_poll(sfc, op, len);
-> +	if (ret != len) {
-> +		dev_err(sfc->dev, "xfer data failed ret %d\n", ret);
-> +
-> +		return -EIO;
-> +	}
-> +
-> +	ret = rockchip_sfc_xfer_done(sfc, 100000);
-> +
-> +	return ret;
-> +}
-> +
-> +static void rockchip_sfc_delay_lines_tuning(struct rockchip_sfc *sfc, struct spi_mem *mem)
-> +{
-> +	struct spi_mem_op op = SPI_MEM_OP(SPI_MEM_OP_CMD(0x9F, 1),
-> +						SPI_MEM_OP_NO_ADDR,
-> +						SPI_MEM_OP_NO_DUMMY,
-> +						SPI_MEM_OP_DATA_IN(3, NULL, 1));
-> +	u8 id[3], id_temp[3];
-> +	u16 cell_max = (u16)rockchip_sfc_get_max_dll_cells(sfc);
-> +	u16 right, left = 0;
-> +	u16 step = SFC_DLL_TRAINING_STEP;
-> +	bool dll_valid = false;
-> +	u8 cs = spi_get_chipselect(mem->spi, 0);
-> +
-> +	rockchip_sfc_clk_set_rate(sfc, SFC_DLL_THRESHOLD_RATE);
-> +	op.data.buf.in = &id;
-> +	if (rockchip_sfc_exec_op_bypass(sfc, mem, &op) ||
-> +	    (0xFF == id[0] && 0xFF == id[1]) ||
-> +	    (0x00 == id[0] && 0x00 == id[1])) {
-> +		dev_dbg(sfc->dev, "no dev, dll by pass\n");
-> +		rockchip_sfc_clk_set_rate(sfc, sfc->speed[cs]);
-> +		sfc->speed[cs] = SFC_DLL_THRESHOLD_RATE;
-> +
-> +		return;
-> +	}
-> +
-> +	rockchip_sfc_clk_set_rate(sfc, sfc->speed[cs]);
-> +	op.data.buf.in = &id_temp;
-> +	for (right = 0; right <= cell_max; right += step) {
-> +		int ret;
-> +
-> +		rockchip_sfc_set_delay_lines(sfc, right, cs);
-> +		ret = rockchip_sfc_exec_op_bypass(sfc, mem, &op);
-> +		if (!ret) {
-> +			dev_dbg(sfc->dev, "dll read flash id:%x %x %x\n",
-> +				id_temp[0], id_temp[1], id_temp[2]);
-> +
-> +			ret = memcmp(&id, &id_temp, 3);
-> +			if (dll_valid && ret) {
-> +				right -= step;
-> +
-> +				break;
-> +			}
-> +			if (!dll_valid && !ret)
-> +				left = right;
-> +
-> +			if (!ret)
-> +				dll_valid = true;
-> +		}
-> +
-> +		/* Add cell_max to loop */
-> +		if (right == cell_max)
-> +			break;
-> +		if (right + step > cell_max)
-> +			right = cell_max - step;
-> +	}
-> +
-> +	if (dll_valid && (right - left) >= SFC_DLL_TRAINING_VALID_WINDOW) {
-> +		if (left == 0 && right < cell_max)
-> +			sfc->dll_cells[cs] = left + (right - left) * 2 / 5;
-> +		else
-> +			sfc->dll_cells[cs] = left + (right - left) / 2;
-> +	} else {
-> +		sfc->dll_cells[cs] = 0;
-> +	}
-> +
-> +	if (sfc->dll_cells[cs]) {
-> +		dev_dbg(sfc->dev, "%u %u %u dll training success in %uMHz max_cells=%u sfc_ver=%u\n",
-> +			left, right, sfc->dll_cells[cs], sfc->speed[cs],
-> +			rockchip_sfc_get_max_dll_cells(sfc), rockchip_sfc_get_version(sfc));
-> +		rockchip_sfc_set_delay_lines(sfc, (u16)sfc->dll_cells[cs], cs);
-> +	} else {
-> +		dev_err(sfc->dev, "%u %u dll training failed in %uMHz, reduce the frequency\n",
-> +			left, right, sfc->speed[cs]);
-> +		rockchip_sfc_set_delay_lines(sfc, 0, cs);
-> +		rockchip_sfc_clk_set_rate(sfc, SFC_DLL_THRESHOLD_RATE);
-> +		mem->spi->max_speed_hz = SFC_DLL_THRESHOLD_RATE;
-> +		sfc->cur_speed = SFC_DLL_THRESHOLD_RATE;
-> +		sfc->cur_real_speed = rockchip_sfc_clk_get_rate(sfc);
-> +		sfc->speed[cs] = SFC_DLL_THRESHOLD_RATE;
-> +	}
-> +}
-> +
->  static int rockchip_sfc_exec_mem_op(struct spi_mem *mem, const struct spi_mem_op *op)
->  {
->  	struct rockchip_sfc *sfc = spi_controller_get_devdata(mem->spi->controller);
-> @@ -540,8 +704,16 @@ static int rockchip_sfc_exec_mem_op(struct spi_mem *mem, const struct spi_mem_op
->  		if (ret)
->  			goto out;
->  		sfc->speed[cs] = op->max_freq;
-> -		dev_dbg(sfc->dev, "set_freq=%dHz real_freq=%ldHz\n",
-> +		sfc->cur_speed = op->max_freq;
-> +		sfc->cur_real_speed = rockchip_sfc_clk_get_rate(sfc);
-> +		dev_dbg(sfc->dev, "set_freq=%uHz real_freq=%luHz\n",
->  			sfc->speed[cs], rockchip_sfc_clk_get_rate(sfc));
-> +		if (rockchip_sfc_get_version(sfc) >= SFC_VER_4) {
-> +			if (sfc->cur_real_speed > SFC_DLL_THRESHOLD_RATE)
-> +				rockchip_sfc_delay_lines_tuning(sfc, mem);
-> +			else
-> +				rockchip_sfc_set_delay_lines(sfc, 0, cs);
-> +		}
-
-Addition of training and configuring delay lines does not seem to be
-related to just RK3506? Should likely be a separate patch.
-
->  	}
->  
->  	rockchip_sfc_adjust_op_work((struct spi_mem_op *)op);
-> @@ -657,6 +829,10 @@ static int rockchip_sfc_probe(struct platform_device *pdev)
->  
->  	sfc->use_dma = !of_property_read_bool(sfc->dev->of_node, "rockchip,sfc-no-dma");
->  
-> +	device_property_read_u32(&pdev->dev, "rockchip,max-dll", &sfc->max_dll_cells);
-> +	if (sfc->max_dll_cells > SFC_DLL_CTRL0_DLL_MAX_VER5)
-> +		sfc->max_dll_cells = SFC_DLL_CTRL0_DLL_MAX_VER5;
-
-Addition and use of a new vendor property should likely also be a
-separate patch. And why/how is this something that can or need to be
-changed per board? (the devicetree should describe hardware not be used
-to configure software)
-
-> +
->  	ret = clk_prepare_enable(sfc->hclk);
->  	if (ret) {
->  		dev_err(&pdev->dev, "Failed to enable ahb clk\n");
-> @@ -683,11 +859,23 @@ static int rockchip_sfc_probe(struct platform_device *pdev)
->  
->  	platform_set_drvdata(pdev, sfc);
->  
-> +	sfc->data = device_get_match_data(dev);
-> +	if (sfc->data && sfc->data->powergood.valid) {
-> +		sfc->grf = syscon_regmap_lookup_by_phandle(dev->of_node, "rockchip,grf");
-> +		if (IS_ERR(sfc->grf)) {
-> +			ret = dev_err_probe(dev, PTR_ERR(sfc->grf),
-> +					    "failed to get grf\n");
-> +			goto err_irq;
-> +		}
-> +	}
-> +
->  	ret = rockchip_sfc_init(sfc);
->  	if (ret)
->  		goto err_irq;
->  
->  	sfc->version = rockchip_sfc_get_version(sfc);
-> +	if (sfc->version == SFC_VER_9)
-> +		sfc->version = SFC_VER_6;
-
-Why downgrade the saved version just to workaround the version check for
-use of x2 clock rate?, please see [3] for a patch that instead changes
-the x2 clock rate version check to fix current x2 clock rate on RK3506,
-along with RK3528 and RK3562. That seemed enough to fix SPI NAND issues
-on RK3506 for me.
-
-[3] https://patch.msgid.link/20261122174357.1295391-1-jonas@kwiboo.se/
-
-Regards,
-Jonas
-
->  	sfc->max_iosize = rockchip_sfc_get_max_iosize(sfc);
->  
->  	pm_runtime_set_autosuspend_delay(dev, ROCKCHIP_AUTOSUSPEND_DELAY);
-> @@ -823,8 +1011,17 @@ static const struct dev_pm_ops rockchip_sfc_pm_ops = {
->  	SYSTEM_SLEEP_PM_OPS(rockchip_sfc_suspend, rockchip_sfc_resume)
->  };
->  
-> +static const struct rockchip_sfc_data rk3506_fspi_data = {
-> +	.powergood = {
-> +		.valid = true,
-> +		.grf_offset = 0x100,
-> +		.bits_mask = BIT(0),
-> +	},
-> +};
-> +
->  static const struct of_device_id rockchip_sfc_dt_ids[] = {
-> -	{ .compatible = "rockchip,sfc"},
-> +	{ .compatible = "rockchip,rk3506-fspi", .data = &rk3506_fspi_data },
-> +	{ .compatible = "rockchip,sfc" },
->  	{ /* sentinel */ }
->  };
->  MODULE_DEVICE_TABLE(of, rockchip_sfc_dt_ids);
-
+---
+bod
