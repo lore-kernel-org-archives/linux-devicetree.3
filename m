@@ -1,80 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795834344;
-	b=3tShPm9cxmkEL79WXqlsUswdOow2Jzfk+00Uhfz/WItOXG8yhHt9kw1NZCZEC9jxAzmE
-	 R7q7ezQ9A5GJbb2aXIOKmL7Rdoum17HXdyBuNCFTCEPKdRxdkzhcKWyKQgSNlmmwTbBL2
-	 yjJp5IX94bKa8JXRCU5DOgs0LFHKjHIyBdBcr24Z1J7x/ZpOPKoGHsazXlb+Zbe51rZKy
-	 BSlaZzPRplADwginIio1+V3rTG+7V9IDqpLg1p7YiUTWIOtAUcrp0eQwVrDNsRBRB7uNr
-	 7Mmm427fAxZFaaGyHLtIVsdrID0TAOizPFTiZI1Mh18Qg/5jpORRWuK+h+0rn+Px5ww==
+	b=b84ZLYSODE1RpdqF4r7BEQAw4NvT4KzH2z0wAoq5B/1kaWJFpnYC80odNjkPk6EksVJA
+	 q0Aiof8VpAbbYB0J7ahnjCY31mflJL+5NBYYixoijUFrfA8NL0R9P+EyejFA5rnZgxJs8
+	 FwEH/jUbA7zz7cUxgx6ULcijzHv8pj4pkF9+eGGAZNXAb6Uag+riPDH5YfoM2ZDBFLIMU
+	 4p5+a8SSxRys0N6zv9NT3zgLuzan15DG6Wg97raDfpuaXI9YJwKR8lOiVMJV81tdWhPLw
+	 ZmCJdFyfCca/6xh0C07tuXnQKqDHrDd+xbk+hzhGCBVhw+Aot/BeGqKxbGLsbuZ96+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795834344;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=mUpNefJE/J90Sefj1ZIu5Iq8L/qVGagwwxyCZBgYA1Q=;
-	b=ekE7cfW8IYtCWKFuiCXsJy53cirt91/sKq7JlfWhlk4Rp8YKh+368xtI7DPHcR5ingTW
-	 ioO1yNNRmcUcFl01gQ81tkf7DSQ06AAozg6g6LwZa5ukezlmm7by2a52pu4aEHH83S2o6
-	 tsx928689dq3oiYHUNriBBj12gAuiPHlnbRc377ZvMd4xPGBhhWhk+O9hpOYxS/72Sf8H
-	 /Ds/l/SnAOEfmn98eMz61OYr7mlNZRYaefmti0+sGdwwBeJBFQE5DoByJ0Io6PlI28nHn
-	 0X9PB8BUh7dlF4twIAkTi0fpb57J5e1ruT/5NqwHqJGUwpfzx7YGup8TKVb4ZMNqmCw==
+	bh=t00wUIQOglo4PlqX8mnXlhh7m8/kx6uygSjOG16Nct4=;
+	b=TEIbu5cMnV6VgeT/wydSiDboU8bqbyHa4Fm1tTS5mnE0W792NPku3M/1xk780f8FnWeR
+	 5HB3FSWtexWyavYCEydTUxz6V4uwFIqFD96p7jNNY1yYtrV3eIsdv3ndK9SS7r1Sgm0Q6
+	 CtbIzxhEqcbpMfHN284iTMpRT1PuRiJ6Rz+RPj7wfDYZVtO6ZvMOAO4pBg1e5Dmxos3QJ
+	 8k/2Sb+47stIe0AiaVrt/V4rzm0k/NYUIMGCuTPF+ruAupFD8hHt8o9r64TQJIZR5Ypwv
+	 RbHIkFtdnokOC74dAN6NkTOCoanHaCyRehqhzO97stzN61UeOEp6Lx8T1df+ORd/7xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=wkennington.com;
 	spf=none smtp.mailfrom=wkennington.com;
-	dkim=pass header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=QJXNH1aP;
-	arc=none smtp.remote-ip=209.85.215.175
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	dkim=pass header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=eXrOaUP7;
+	arc=none smtp.remote-ip=209.85.214.171
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE96606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC955606A31F
 	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 02:52:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EE96606A31E
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC955606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wkennington.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=wkennington.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=QJXNH1aP
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cd61cef87f1so4102938a12.0
+	dkim=pass (2048-bit key) header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=eXrOaUP7
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2f020d0169eso43102065ad.0
         for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 18:52:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=wkennington-com.20260707.gappssmtp.com; s=20260707; t=1795834343; x=1796439143; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mUpNefJE/J90Sefj1ZIu5Iq8L/qVGagwwxyCZBgYA1Q=;
-        b=QJXNH1aP4uq2TFqwOhqOoRRoVAopzch1145SbAVmuNTahStP9QdMWAN6Y+IUTFCcKA
-         RjF9pO0n51/MYAL/ouYVgvhgKHIy1I3bSxsda27gsxHs5dGBU3s4IC7aBXCIaVGQvqX3
-         24duqNnbvIpXeQOkvhZUP90xetahv3XWMf2no/tSOuAf8m5c7Qo5g47lGhre6ue6UgIB
-         0tObL229++KXjv983TyzoMhkUw6uhG+SJc6hdVtRntekiwScRLruWA++ukF/WUBQPe7J
-         6oBUUahb8M97tfn4Pf1yYJe8RtqXT2B+GgJ8+RUgeWIYc4PacZh2iTo+IU9jIav7V9il
-         jIcw==
+        bh=t00wUIQOglo4PlqX8mnXlhh7m8/kx6uygSjOG16Nct4=;
+        b=eXrOaUP7ZMi7Y5YkwsA3wJ1/qilJCUdfCSQxmvukSfpUrVAZQ7M7HGEd0RPXLOBf7U
+         iDLe9YM/IXea5VEUXvxOHkyS7ILU/5rH0Ij1A6p57c+X0n5N2q+Vlod0vcjDx6Vl4OSz
+         E7JRzqsNZH3AL5YU8qeXUZZ+v1IS7+GP9gf2LzILmhX2r5kDG/cHO5Yl/DyTeF8edn0h
+         fJQIx2RoId/lZrHZsDiZjBr/SIPc3qmcvLTvQ62rxVnOpxTTNE5qUrA2lUVW9z+qPoXg
+         w2vj95FsKVvK1n3uW3UNOE0Xe/phS7HxIMzUDpGlj5aZbmXfvnqY3PqPQpoPNIwC3nSM
+         VLqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1795834343; x=1796439143;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mUpNefJE/J90Sefj1ZIu5Iq8L/qVGagwwxyCZBgYA1Q=;
-        b=GcS452P/kqwkO3hLRG90ARIhpnLwKlY2sM+k95owU8XcjF6a+5f4103AXqEX94E5QP
-         AmsEcqtK5jUQwJpnYyOxS1zk5RfKFE6UWlg0wRLLsJPzdigS7fHa4Yp9gfgkyuNeuprz
-         rcCUfOOpF1aFrnti1f9xGk5FOQzeAOlNNZyDbPABd0w4ylrxVp0fOzZLZp5UKitBj8nL
-         fjPzwTLonaQdP41cNloYkfJGaeoVi/X1Stsjp/PDQIcuhjWURj7CrwKY458aPFV1Sbmu
-         82D3QQIS8xsooKW4x8SEZzI0FlYPfeN+UGx+U/pEh9JHgcvTY+50ldnbPRWMXXiTumWl
-         bimQ==
-X-Forwarded-Encrypted: i=1; AL+hErGP424HHg6Ynx56bt2Zo4Ndzq9g7Cgwvz3qj4rS6W37JkuTZxuVQ9slLVeuSn8cyfxV4QPUQitZswcI@vger.kernel.org
-X-Gm-Message-State: APuU4Z8e1dwDebyE/VliqUaJhFXGCBX3r+7X4/PLtm60zfXsKxqqKfMn
-	IGq/3RUsOZVsaGq/h71cJhwIwRuRwRp9Yzn+FotadcIxavwaJo4O9WhbChnPYC0SUzw=
-X-Gm-Gg: AZFdTZdf3dnq+xycc5OwYMQBiLCaNlTA4FIuNoZbF1ScbFA5iiyFGADLlDIKTYuCBqA
-	aMDZaD6rcQtRLB1fl3/Ok5G3vhEjWvTbXGSi0dhJSUMNbFCcwpSQ2UOx+Wv7lrk1brQkapGM3HI
-	293fv7+RQM4F7dbMv87vdFnq8hxORbi2IN9B2E3q9APASd3Eug9uI1QtUpDYezYZGUP5lIRUSj/
-	B7LLe/TWz5IKjpYFqam66g37haOe7p0hMCuTQIHMc/RA7eiHwe7QUT+9HM8F8rzUW1BW3jkUSRx
-	Tt9aBSqJEwlSmSuGFX0B1lhJYwY8q+JjSJCy2KxTHyzfVYTRtBPQ/DzkL1IVmt3pchGj8vMKspr
-	Zltoy6huAHVc9zNw/GEa5jIYxiMo17DwLmJhRDsunvrX1gjE/DU4U7TVATJMFoOQZ1O/aaY7EX4
-	LKxZDVym8N0STYWncy3fGkfM7pW6UVKrqblt5T7Urn6ln+4dnGL24nVdH/SGQPCSUkoHdf/Jz8T
-	SO+Wv4mstIJGFZHRB5tKXGy5r1Yj8/9Drh6rjcL8I6O75Yv1n8YcFbvlI0tcQBboPOjNMmdC7qh
-	rn2k+yCAotgS/hM00DTPsblMN1GNSGdh6Kg78wGpYASeLY+0wSbn7SCwXE4Npo8BsEJ/Rrp8lDP
-	w/Fwhy80gDzYL2Q==
-X-Received: by 2002:a17:90b:3ec8:b0:3ac:8dfe:8ec9 with SMTP id 98e67ed59e1d1-3b41cafdb7dmr22496986a91.47.1795834342573;
-        Fri, 27 Nov 2026 18:52:22 -0800 (PST)
+        bh=t00wUIQOglo4PlqX8mnXlhh7m8/kx6uygSjOG16Nct4=;
+        b=baCulp1K/4Z9cE0O0M+w4IT8IMpqaal14i0C1brl+/J6bFK4RPuOP9ujxxLLUVcuYM
+         z0C9LuXdZsSKGYsnkKucNCD031fohToch3E4x+dP4pZrYECjV+a6V4TNkOgwEMe5ZICj
+         s8hffaCQF3TI67t8a+zEnMQs7HLHzDHeE8moLOVgIYmFwsuIN3a87eqGAbDpeqPhBX5l
+         ksMf1mNYSyuZXKNT30j1Amy+KESMp7XTAv4nsLMX7P4ceFB9li4Ee65cJSBh8+5o8PYO
+         r4eXKzY3X1Bqj+YDp7xzKth8okrNfQbddewj67Dg8WD0mvxFmk+QgN2o4xEQTTYju1iI
+         pysA==
+X-Forwarded-Encrypted: i=1; AL+hErHwVTBGQIjgHiUiQCkE6KwQGBCa6J++QIs6XViQy5/SsGRhze9+lAHD6Fd74sUAacAYn5DVCXYArW/X@vger.kernel.org
+X-Gm-Message-State: APuU4Z/JV8CN3T8IDYErNp8skoONC4ja2mnSzG+jFpEtSaIWeXj1VLKu
+	jtL0Zo+w4grsFCitY57i5qMKxQqCzgEg/ZBs7zEwpduQ+I34UN1+3uu/aVbNuhmsEwc=
+X-Gm-Gg: AZFdTZcfdHcZg9aOrxk58K81ERPwW4YOmaQlqf3XHuvZ7BQNIOeCkBNz5LJWkz9c9bp
+	B61NFt2264voJDOmy9zCmzie4IDO2sInTZBT3qtA2nZ/kldkaynzmy8pzbAK/V+KWjg9Yx0nuYP
+	ayAlD9uZ4imfHthOvDDiY6/m8sr/ldxy76RocN4Fs+0FwZ/PYdHH0xG/7puobwkl9HysPNVqviJ
+	OE1j3MkELJxoJzAfQEH6+twrXKecN4h5mZN88prziRH1jeSeQZGR/ByWDenrWeatOiimnBr+liW
+	kfQTG3vhg/67hpCr7iYciv3eBxtFecec9kgyiqz/rh02trjiQlh618dN4JZ3PYCEbrH/SScxK9R
+	yd1fp0Wq9QKhh+YSfgR1pUDdeYEL+nJtEouIRenH4elSmeuBCJ7ufeXMcC2GHgHB2Nz3L0DBkUI
+	tDRqHnlSArrwanORatmfdQdvksKp1YC1xauUCN74CtlSO7qY2b6mTCJoxafCdPj4q/W6UTTgtiK
+	FOj6DNx0Fvw17zw9aiyMLVXtV1gE379P/Pc+QS0OoXw+tGdG9xfewaG59Y41rVb5DHFEl14pKOH
+	J1eT6TJx2FB113tR+Qe0ffs7hr61DTrYV/JY3GVxXuSrZ6vM+oSI7qIBsG222YhFAeQO40MlkH8
+	bR0/885Wk7JvPIDlzQ/bMNmrI+BU5vNAwd+E=
+X-Received: by 2002:a17:90b:2f8c:b0:3b3:af8e:ea8d with SMTP id 98e67ed59e1d1-3b41c92a403mr26168454a91.39.1795834343106;
+        Fri, 27 Nov 2026 18:52:23 -0800 (PST)
 Received: from wak.c.googlers.com.com (246.21.127.34.bc.googleusercontent.com. [34.127.21.246])
         by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405ffa98esm43492174a91.17.2026.11.27.18.52.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
@@ -91,9 +91,9 @@ Cc: Andrew Jeffery <andrew@codeconstruct.com.au>,
 	openbmc@lists.ozlabs.org,
 	linux-arm-kernel@lists.infradead.org,
 	"William A. Kennington III" <william@wkennington.com>
-Subject: [PATCH 1/2] ARM: dts: nuvoton: npcm7xx: Fix PECI controller reg offset in APB
-Date: Sat, 28 Nov 2026 02:52:18 +0000
-Message-ID: <20261128025219.2679805-2-william@wkennington.com>
+Subject: [PATCH 2/2] ARM: dts: nuvoton: npcm7xx: Add nuvoton,sysgcr to watchdog nodes
+Date: Sat, 28 Nov 2026 02:52:19 +0000
+Message-ID: <20261128025219.2679805-3-william@wkennington.com>
 X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
 In-Reply-To: <20261128025219.2679805-1-william@wkennington.com>
 References: <20261128025219.2679805-1-william@wkennington.com>
@@ -108,34 +108,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The peci node lives under /ahb/apb, whose ranges property maps
-0x0..0x00300000 to 0xf0000000..0xf0300000. Using the absolute address
-0xf0100000 fails address translation and causes peci-npcm to fail probe
-with -EINVAL (invalid resource).
+Since commit 7762911c0d8c ("watchdog: npcm: add bootstatus support"),
+npcm_wdt looks up the GCR syscon via the optional nuvoton,sysgcr
+phandle (defined in nuvoton,npcm750-wdt.yaml) to read reset status and
+logs a warning when it is absent:
 
-Use the APB-relative offset 0x100000 like sibling APB nodes and
-nuvoton-common-npcm8xx.dtsi. Tested on an NPCM730 BMC where peci-npcm
-and all six CPU/DIMM PECI hwmon devices now probe cleanly.
+  Failed to find nuvoton,sysgcr, WD reset status not supported
 
-Fixes: 9949f98ca5a8 ("ARM: dts: nuvoton: Add PECI controller node")
+Wire <&gcr> to watchdog0..2 in nuvoton-common-npcm7xx.dtsi. Tested on
+an NPCM730 BMC, clearing the warning and enabling bootstatus.
+
 Signed-off-by: William A. Kennington III <william@wkennington.com>
 ---
- arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi b/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
-index 83cd10b47273..3862adf85b68 100644
+index 3862adf85b68..e9765fd6ef8e 100644
 --- a/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
 +++ b/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
-@@ -325,9 +325,9 @@ kcs3: kcs3@0 {
- 				};
+@@ -375,6 +375,7 @@ watchdog0: watchdog@801C {
+ 				reg = <0x801C 0x4>;
+ 				status = "disabled";
+ 				clocks = <&clk NPCM7XX_CLK_TIMER>;
++				nuvoton,sysgcr = <&gcr>;
  			};
  
--			peci: peci-controller@f0100000 {
-+			peci: peci-controller@100000 {
- 				compatible = "nuvoton,npcm750-peci";
--				reg = <0xf0100000 0x200>;
-+				reg = <0x100000 0x200>;
- 				interrupts = <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
- 				clocks = <&clk NPCM7XX_CLK_APB3>;
- 				cmd-timeout-ms = <1000>;
+ 			watchdog1: watchdog@901C {
+@@ -383,6 +384,7 @@ watchdog1: watchdog@901C {
+ 				reg = <0x901C 0x4>;
+ 				status = "disabled";
+ 				clocks = <&clk NPCM7XX_CLK_TIMER>;
++				nuvoton,sysgcr = <&gcr>;
+ 			};
+ 
+ 			watchdog2: watchdog@a01C {
+@@ -391,6 +393,7 @@ watchdog2: watchdog@a01C {
+ 				reg = <0xa01C 0x4>;
+ 				status = "disabled";
+ 				clocks = <&clk NPCM7XX_CLK_TIMER>;
++				nuvoton,sysgcr = <&gcr>;
+ 			};
+ 
+ 			serial0: serial@1000 {
