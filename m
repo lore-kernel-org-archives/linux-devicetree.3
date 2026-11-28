@@ -1,55 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.159
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795850659;
-	b=p6l+vthOx3ZjLHM8zu1CPmYPoaFgLkaqApOmPBrpKlcG5pbAjoMFM88poCVmuQmftlJ5
-	 yIDfKR9MxkTnvXkCH/ILLAZs1+X7ZdwuFkrrQrVsTRQeliUa47v37u792OkhMR09kC/wV
-	 25NKZ9h1qzIr/3+ervoZg53kZijQQlTBu8aBTevs2GjcOCVVDXEFpK89m66k+HAz6gVoL
-	 okwLxFwf0WMLgpwlPNDq/Rg1o/XCZ98aZHRDFfK0VbmisCfqAqZ8XzZLenKPiVJiKn2Mm
-	 WwubpgJtarEEl5rJuF2W+TGEPgezsG2/Xr20au2lJ02nYdHcIRuZ6Gyg2RFoPUY9PgQ==
+	t=1795850668;
+	b=R7dosipFukDbMD11IRH2d0+yR6LefBJCLuX9kFupSlIMyVabvGFz7r2fMfmlPKhm2ZaB
+	 kjSFnA8nRAZOaomA49U8e854zQztjavPs3L5/KRoG/WKeKajVdFjnNkv7OWCipdmZzdHg
+	 qVURbXSSLwOt3x3VjVjBfw20gUqIIh0tKDR5lm4YHHgCWvZgpiY4CNmYJMDtnvedELoBt
+	 ybbBT7s76JK5AU6lYUuIXboqxPsy6DSVToLojCCrm7AU38BV/slF08Nq7c4VnAmM4m92W
+	 NtrQF5YY+Nq1JHAXlwwRpqLtE/ShTQB02gpXbhnpFJLNlMk1e24zEqpa4sPMKz/QDuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795850659;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795850668;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=zLTWZrd18DJhGTlm69yEnTbXZkELX/N8G/HpYWhaGRc=;
-	b=Y4jEwIMACs1jeHRKHeAmEDUbIOPEgmOy48dZ0tuXrNP65p7OpTx723DoOhDtZnFpASuc
-	 PDZBmrBhAmalY2e3ZYMN+DPkgzUpPHzzn0u36gtX2K5WC0h0GY5kcBmnx7nlPHUIxG2pQ
-	 mfaGdknybkXFR6j401M8M51ZFQON6R3f1TA6GPCIPr1lHNlUFAOoFGaty4fCY17AMvPCL
-	 xu0c8m0C13V6LcKCg/bXle8NFTwgPrdRKc71zIwfS32FVsO+eaF6Wa+DlFyJZT4+aZxC8
-	 L6AKlNThvRnFNiQ+yhYAq4XRALpH2ttGxcxLPpMTCTieD/8U+itZhGe8UpGaA2uz07g==
+	bh=aUaqP2SF55Si+vFkyZYV4iUXDbIn8uDcMBRei5iJXLE=;
+	b=oWlb+4aybh25GoAmwhpP9UvDHk7TFE4MlUvl6iqFOiQUvruHDMN8u8tYON75LqFIiClP
+	 /yZ5BQ6OTIObYCA+ammgb0tvrqWD1ztsdCUrFpjpiGO+gloTYDx9lXtGYoLbBz5HE+y6V
+	 JCz9f3oGIBDEnBA4em7ZasJGxgty01uAkI14WYRX9wvuGQ2WWPOfA4OhzoUp77aXZwzHS
+	 c+znYucapLydD8g0ayDyyA8a/2SYrlk0nQpZC+zSuoyPuLsfDzedQ18Li39FKq6AmtYFa
+	 uk1ILJ2Z6v9t4IphDE1ZLit+ZTSvXMPblr04iUINSv+cMze5Q8eNgcgG9uTTMKZlcfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=um8MT+Uc;
-	arc=none smtp.remote-ip=91.218.175.159
-Received: from mta0.migadu.com (out-159.mta0.migadu.com [91.218.175.159])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qHrzGy1X;
+	arc=none smtp.remote-ip=91.218.175.163
+Received: from mta0.migadu.com (out-163.mta0.migadu.com [91.218.175.163])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA392606A323
-	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 07:24:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA392606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A341606A31F
+	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 07:24:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A341606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=um8MT+Uc
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qHrzGy1X
 X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=iSzPfXWqmMeqX2+D3Yjz/92IHrz+RDwSdQT4DO8MXEY=;
+DKIM-Signature: a=rsa-sha256; bh=rVKYX39Z6yW1r3iIoDnclL3hTIIXUWWEoMd8DX4hGhQ=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795850656; v=1; x=1796455456;
- b=um8MT+Uc0rqTnNJthh03I8rupr7isiBkBMmgyGcm9VIzGZjhpkcyFT7NqcM2d2zFqsoV/1LN
- RulY3MvJ+0suRRRggtMb5bTCCwiTsUSrQBZFkpuhHyF9YCkeV6qFtoGDFYbYfs7tLeqqcaE25td
- Y7fWSU9tJQLMRpIR9TXnd8nU=
+ t=1795850665; v=1; x=1796455465;
+ b=qHrzGy1XzB+T/YRLF6pEZXonBxu9j+A56huAWqtWf3ejXp0Px+l4QVyr9LHQdQV5Gs4cACDp
+ v7EAWGdd75XEpQaiVlR8P/8H495GJeDURfaYngRio2TFcIcpXwfT+nfeEJuyOE+lt+LPumCBw5t
+ 4CplT59BLoala/eloX1pXBuM=
 X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ecb3752467dbd51b;
-	Sat, 28 Nov 2026 07:24:16 +0000
-X-Mizu-Trace-ID: ecb3752467dbd51b
+Received: by smtp.migadu.com with ESMTPS id e39fe85fcfd2c4c8;
+	Sat, 28 Nov 2026 07:24:25 +0000
+X-Mizu-Trace-ID: e39fe85fcfd2c4c8
 X-Migadu-Flow: FLOW_OUT
 From: Peng Fan <peng.fan@linux.dev>
-Date: Sat, 28 Nov 2026 15:23:47 +0800
-Subject: [PATCH 2/9] arm64: dts: imx8mp-skov: Correct PMIC interrupt type
+Date: Sat, 28 Nov 2026 15:23:48 +0800
+Subject: [PATCH 3/9] arm64: dts: imx8mp-tx8p-ml81: Correct PMIC interrupt
+ type
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,7 +62,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261128-pca945-int-v1-2-f3fe2beb2b51@nxp.com>
+Message-Id: <20261128-pca945-int-v1-3-f3fe2beb2b51@nxp.com>
 References: <20261128-pca945-int-v1-0-f3fe2beb2b51@nxp.com>
 In-Reply-To: <20261128-pca945-int-v1-0-f3fe2beb2b51@nxp.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -91,25 +92,25 @@ interrupt must be described as level-low instead of edge-triggered.
 This matches the IRQF_TRIGGER_LOW flag requested by the pca9450 driver
 since commit 5d0efaf47ee9 ("regulator: pca9450: Correct interrupt type").
 
-Fixes: 6d382d51d979 ("arm64: dts: freescale: Add SKOV IMX8MP CPU revB board")
+Fixes: bac63d7c5f46 ("arm64: dts: freescale: add Ka-Ro Electronics tx8p-ml81 COM")
 Signed-off-by: Peng Fan <peng.fan@nxp.com>
 ---
- arch/arm64/boot/dts/freescale/imx8mp-skov-reva.dtsi | 2 +-
+ arch/arm64/boot/dts/freescale/imx8mp-tx8p-ml81.dtsi | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-skov-reva.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-skov-reva.dtsi
-index 27ecdc06e679..bae304a712b1 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-skov-reva.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-skov-reva.dtsi
-@@ -253,7 +253,7 @@ pmic@25 {
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-tx8p-ml81.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-tx8p-ml81.dtsi
+index bf49ae942d41..4f5cc73a833b 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-tx8p-ml81.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp-tx8p-ml81.dtsi
+@@ -268,7 +268,7 @@ pmic@25 {
+ 		compatible = "nxp,pca9450c";
  		reg = <0x25>;
- 		pinctrl-names = "default";
+ 		interrupt-parent = <&gpio1>;
+-		interrupts = <3 IRQ_TYPE_EDGE_FALLING>;
++		interrupts = <3 IRQ_TYPE_LEVEL_LOW>;
  		pinctrl-0 = <&pinctrl_pmic>;
--		interrupts-extended = <&gpio1 3 IRQ_TYPE_EDGE_RISING>;
-+		interrupts-extended = <&gpio1 3 IRQ_TYPE_LEVEL_LOW>;
- 		inl1-supply = <&reg_5v_p>;
- 		inb13-supply = <&reg_5v_p>;
- 		inb26-supply = <&reg_5v_p>;
+ 		pinctrl-names = "default";
+ 
 
 -- 
 2.56.0
