@@ -1,63 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795873908;
-	b=nStdO669TVz5pgqKSWdYPw0nraKTg/FeMdgRhIRwzvAc6EQjC80pXs7I+ESSAwz+66c4
-	 ksAuwdWMfLwBqUw8hOKpnqD7tuPMe8DHeRF2eh+Gq8FWQ6c5ibSzzevnDUkJZlCOpdlUR
-	 E2sY66hNEhBqR9hzXiQn1vTz27d5adNfnLPAWJrVGJ6M1bHCWAdusW0Rgv9qYFzt+qzou
-	 IcG00BmX0oUt7b4RbVGY5ZrGYUwppzGKDKXUvuA3qTzkvRvd40CYtT+jjIZ4D8C7L5ZFZ
-	 JtkBkWxP240cbeK6lAxjCOw7LZKS4NXTCWGfDv+2oslg+t6G//t+WldycYfYKbgRLZQ==
+	t=1795874047;
+	b=DbHYYLQrfiMYVvfB2hwR2EwMX7tQMgspykecxTPsteHyaQlKt6F1YHG1uLh7AffUoTjR
+	 yDIdu78dLWICqrimXRpwMnTgVvK8H9YHndfQtPg84jYxrfEoEWAOuk3EXLefDAllQ7Ozq
+	 7ynMWLjp5JWYId+R7egl4bJvgOVizMTP3zLPckY0gP6gPU9ue2ma6EtVKwqMSG0Zf81Rp
+	 0DrDXr87v6vd8KbOyrjfsGa9Lxb9r8ddKaJAKOJPiZLRYCE0xCqf52ybduPC3M+AGIGFG
+	 FnHm8mVxSGUbAaqME52GE/niYSBqjbLvFijfHikyLISThMXR+1iKFMtuAh+vJLpWiPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795873908;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Rspamd-Queue-Id;
-	bh=rxp+ojsSYP6df0Xl+X5RYTP1fM0f6afciX8XTYdpT1E=;
-	b=pG+OkMp/QClrStmf0WY20sgUTGGV/2lhA/iq3/V9Ww4wcX8BZfDwnvYYxNsusm3Ojltw
-	 S1+LlHPVD45HVxz8emjrle5CUb6UeUI/AY0Bc/n0bFKFx3y0LtkjkTkXY+av6p1T/el5O
-	 W7sq/yvivuKNXJOwUhGJ7SSaDRCOra7aSk4R/c6We+BlYRQh6xukZ+swtcrYFSvZEbGYS
-	 IXLudao1AbuY1VwN6O22UCeaJuKyrdaZJR82Ps5Fjn3Tbr8nMtOSxKYO2pdVMbHQUHHJA
-	 9cI0tZmSnW24NxFTHIT+ECYz3uCZLaTvJ6MIv/LCbHzd6JEppnqOfDYh9kt8+RlWuEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795874047;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=9mX1XwkpZzZFlEfmqdehYAaIQV9Aq1Y+dGqXT/HOfNg=;
+	b=jB9Yf5dLlFl0PYhcO/ZLwWaVHBNn8Z/g2ds6vph13U/G+g9EiPheayw5dNN3kwT8YwpJ
+	 8SXtlKdRHgdLU3zlQl6po/gxN9d8SiC+mnHhnimuEpSdURAn4/y+SQkT5OeF/3gQEkBvb
+	 iqLhcT6bU6/rgK1gUeaMCns3JOZ1zYho5rmy8vo/bYJFVQRlz5q7ny0gqBevNdxNDtyFI
+	 nq19sOF3yTSDtQZqPJt1sigTdbDUIjY4ZGGNnqmjPGnW8YTwO8Y9UOfUkFosgiG8T+/Ap
+	 +fa/fgEnFZbOAfnuWsjFqL6zvHQgu/XJhsnkuxKV94DM3d+bid/c9Heyzz1NeqAeB2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=timmermann.space;
-	spf=pass smtp.mailfrom=timmermann.space;
-	dkim=pass header.d=timmermann.space header.i=@timmermann.space header.a=rsa-sha256 header.s=MBO0001 header.b=JfvaIfrc;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qi2hXA7x;
+	arc=none smtp.remote-ip=209.85.167.53
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80518606A337;
-	Sat, 28 Nov 2026 13:51:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80518606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=timmermann.space
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=timmermann.space
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99CAD606A31F
+	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 13:54:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99CAD606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=timmermann.space header.i=@timmermann.space header.a=rsa-sha256 header.s=MBO0001 header.b=JfvaIfrc
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jcBXW6sbQzKp25;
-	Sat, 28 Nov 2026 14:51:39 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=timmermann.space;
-	s=MBO0001; t=1795873899;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rxp+ojsSYP6df0Xl+X5RYTP1fM0f6afciX8XTYdpT1E=;
-	b=JfvaIfrcj2TigiUqVR1TG8CiMZlJZWNqdm9Ujp0NakY909O53e19zPQ81j/Yy+u2JEhRhF
-	taLyxrThwK94t2tOp5z/W7u3BErWPRch4jW+toVKK/9pOtGkmTn3rO1SJLcglMnGYZTqfH
-	uacssl/Hb3wG9nYWMw3On1Llzua3//FzPtRPjrxP0g3gYMVp6hFBPuV+MI6LjNdFxoF3gS
-	3d64uL34DhBwLF8PnbLhbQ74BNuw31lowkWmAiI3i8cWbA5rrd9xVpySRci91PbVrIwHIY
-	WPtYMP4r6KgA+OIaBxZHzt9TuJaEywlsmls+SURdB6FilCcNWnfz6Q3zqYooxw==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of foss@timmermann.space designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=foss@timmermann.space
-From: Lukas Timmermann <foss@timmermann.space>
-Date: Sat, 28 Nov 2026 14:51:28 +0100
-Subject: [PATCH v2 1/7] dt-bindings: input: touchscreen: samsung,s6sy761:
- Add S6SY791 and reset GPIO
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qi2hXA7x
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5c10dc41270so9391297e87.2
+        for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 05:54:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795874045; x=1796478845; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9mX1XwkpZzZFlEfmqdehYAaIQV9Aq1Y+dGqXT/HOfNg=;
+        b=qi2hXA7x7wrRxNS2ksI35vF6o18iVAI3siMasQCM0/EIvffM/SgAi9ZV87TC+rfFl+
+         H5C/YM1XB9Qut/evinyE8MGbSoyucEesjeEw1HI7Ta739KwyxudLpTEblh6MIA3s+WR5
+         +M7pCyTPFnJvc1NOGc6orBtpamkbWmSz03k4L26GfbeDECZPji8MhwOt8zFRsURVKAls
+         5cLsXHTN4w4d3Pp/ShBy/VwZIzTV+kfNVMNj17HuUUMXbgKdKYPb+Gh4sqTWys+zQDN3
+         u8+76dz5XMoumQKDrnAt5S1X3nDr0XG9tn5EtHgTikDZ8poG9RP7jcRfkfIablVyqSj7
+         1P5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795874045; x=1796478845;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9mX1XwkpZzZFlEfmqdehYAaIQV9Aq1Y+dGqXT/HOfNg=;
+        b=tzx1Wl0trZztbZr8kShdr+UASIjReqx4dDjK2G4IDOew6pLP2nnEkP7UiQbnzx/qPM
+         pRqMN1plLUutzyOVbKselr93oGuxnbuZ5qhnI0bOoU8b1eNrgWbNj0gRHmo6Pa6tPBEE
+         ZlTV5JwJlz79hbOsvMpifOy+U5q6yeHVvTFTgM/ZrCg+CjkdOxxHHZ6H2kLIyRPQaZ08
+         lDClkpZF2e4cGR84J5+2uQDdck5SrHqX0+tYSJ2WVrOJQNSt9eNqHmHhpmC3got+H5uC
+         Qo5c+jiBJIp+LH0xkfcv5Z8jrUr4aljSlc9ezDND8xGt+fT+Btf3GXF0+czw/bqxLH4c
+         ZAOw==
+X-Forwarded-Encrypted: i=1; AL+hErF4vJVV6iIvx4tdpc2WkWZGy6gq55AMXkILbgIMd8LDzbpHPU1Lto5uq4fx0di0Vl05p4w+77IkPyk4@vger.kernel.org
+X-Gm-Message-State: APuU4Z9g5XQjRgqfrvmGlPayAw9WXLqDCSIL373gL9wdoDYS/gjbqEfg
+	ye8PygSU13f/FmVDV/2t5xk0NCm+wP+L73OEXOx7j37eUuoy3IN6gRyF
+X-Gm-Gg: AZFdTZeQi0X2Ex0rZ+fmimBo/sAwQFkWVn4HZCJArlFAINImX6HLCLb7tKe09kXMuNN
+	jVjvJ4osuxlhYdlCFbw90okMSOi8WpdiYD8cUvt+1y9AJk9CIdCAhcvMZW/zaSWKB2MzwZFMXg+
+	sKqmf7CBw5uPqY49t942lMioskZl9htVpx78u1tfc4i/APnx77FTtF6zxx01FTYbxmMyU/dBN6d
+	ra4aVtEcJ7Odp7n/z/FIJnBYAPzN56GJ4pgmkXZ9yOG0b94Fapb4yCUqlfxaLXBL2c+amDcjRyy
+	o6Z3wKX0M9z2VU4nXaVGGr9id+QdTgQ8rbGTJ6W0vs/IhQaqTMmiJwYv1a8RSnOySIYTDmyKNz4
+	FYmjacAnsCSbRwLcElnq2XdJxY4GIG4k+jdfW6sPC5258zbFiNmROb7TRWcscsu8PDfOxjylGjT
+	usiC96jnigSizHujIpOQmGFSS05fGNYccU/P0kF7Ik2OLm14MsuKV3yuomYwLQ22vJDqG+pQ7Oy
+	NgSLw1j/wyyKL4I0ZBK256VPtzjtRRW6dkP2LyMdFACGOQoKe6OwwHo9RxYUsMOKB7IDS2VLDkX
+	2TsmxbikRyrbspdyWztaWBfP2xGWvzwut8nK+X48A0v60fFBtg==
+X-Received: by 2002:a05:6512:239f:b0:5c1:5e33:6994 with SMTP id 2adb3069b0e04-5c1bc7ad610mr8583121e87.12.1795874044617;
+        Sat, 28 Nov 2026 05:54:04 -0800 (PST)
+Received: from hekasnap.home.hekalab.eu ([2a00:fd01:82a4:d100:34c4:da37:4e1c:e424])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bcff8bbdsm6725546e87.28.2026.11.28.05.54.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 28 Nov 2026 05:54:04 -0800 (PST)
+Date: Sat, 28 Nov 2026 14:54:03 +0100
+From: Troels Vognbjerg <hekatombe@gmail.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Andreas Noever <andreas.noever@gmail.com>, Mika Westerberg <westeri@kernel.org>, 
+	Yehezkel Bernat <YehezkelShB@gmail.com>, Mario Limonciello <mario.limonciello@amd.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, linux-clk@vger.kernel.org, 
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	usb4-upstream@oss.qualcomm.com
+Subject: Re: [PATCH RFC DNM 13/15] thunderbolt: Introduce Qualcomm USB4
+ router driver
+Message-ID: <awn29nfzVzPi-HDM@hekasnap.home.hekalab.eu>
+References: <20261124-topic-next-20261116-fsm-mvp-v1-0-a9b45c69cd38@oss.qualcomm.com>
+ <20261124-topic-next-20261116-fsm-mvp-v1-13-a9b45c69cd38@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,119 +108,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261128-lat3st-google-raven-touch-upstream-v2-1-1be5c1029087@timmermann.space>
-References: <20261128-lat3st-google-raven-touch-upstream-v2-0-1be5c1029087@timmermann.space>
-In-Reply-To: <20261128-lat3st-google-raven-touch-upstream-v2-0-1be5c1029087@timmermann.space>
-To: Lukas Timmermann <foss@timmermann.space>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Rspamd-Queue-Id: 4jcBXW6sbQzKp25
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261124-topic-next-20261116-fsm-mvp-v1-13-a9b45c69cd38@oss.qualcomm.com>
 
-S6SY791 is the SPI-based counterpart of S6SY761. The register map and
-commands are identical for the subset the kernel currently implements.
-Therefore add S6SY791 as a related touch controller.
+On Tue, Nov 24, 2026 at 21:01:42 +0100, Konrad Dybcio wrote:
+[..]
+> +static int qcom_usb4_mux_set(struct typec_mux_dev *mux, struct typec_mux_state *state)
+> +{
+> +	struct qcom_usb4 *qcusb4 = typec_mux_get_drvdata(mux);
+> +	struct qcusb4_link_req req = { .usb4 = true };
+> +	struct typec_thunderbolt_data *tbt_data;
+> +	struct enter_usb_data *usb4_data;
+> +
+> +	guard(mutex)(&qcusb4->typec_lock);
+> +
+> +	if (state->alt && state->alt->svid == USB_TYPEC_TBT_SID) {
+> +		req.phy_submode = PHY_SUBMODE_TBT3;
+> +
+> +		tbt_data = state->data;
+> +
+> +		req.cable_max_gen = TBT_CABLE_SPEED(tbt_data->cable_mode);
+> +
+> +		if (FIELD_GET(TBT_CABLE_ACTIVE_PASSIVE, tbt_data->cable_mode)) {
+> +			req.active_cable = true;
+> +			req.cable_legacy_tbt3 = true;
+> +		}
+> +	} else if (state->mode == TYPEC_MODE_USB4) {
 
-Optionally, the reset line can be controlled on some boards,
-such as the Google Pixel 6 Pro (raven).
+While testing this series on an ASUS Zenbook A16 (UX3607OA), I ran
+into an issue with a USB type-c display using DP Alt Mode.
 
-Also reference spi-peripheral-props for the SPI bus properties.
+TYPEC_MODE_USB4 and TYPEC_DP_STATE_C share the same integer value,
+causing a DP Alt Mode request to be interpreted as a USB4 request.
 
-Signed-off-by: Lukas Timmermann <foss@timmermann.space>
----
- .../input/touchscreen/samsung,s6sy761.yaml         | 51 +++++++++++++++++++++-
- 1 file changed, 50 insertions(+), 1 deletion(-)
+Changing the above condition to
 
-diff --git a/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml b/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
-index 1ffd17af3c53..d7a116b04f41 100644
---- a/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
-+++ b/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
-@@ -8,13 +8,31 @@ title: Samsung S6SY761 touchscreen controller
- 
- maintainers:
-   - Andi Shyti <andi.shyti@kernel.org>
-+  - Lukas Timmermann <foss@timmermann.space>
- 
- allOf:
-   - $ref: touchscreen.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: samsung,s6sy791
-+    then:
-+      allOf:
-+        - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+        - required:
-+            - spi-cpha
-+            - spi-cpol
-+    else:
-+      properties:
-+        spi-cpha: false
-+        spi-cpol: false
- 
- properties:
-   compatible:
--    const: samsung,s6sy761
-+    enum:
-+      - samsung,s6sy761
-+      - samsung,s6sy791
- 
-   reg:
-     maxItems: 1
-@@ -22,6 +40,16 @@ properties:
-   interrupts:
-     maxItems: 1
- 
-+  spi-cpha:
-+    type: boolean
-+
-+  spi-cpol:
-+    type: boolean
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description: GPIO connected to the reset pin of the controller
-+
-   avdd-supply: true
-   vdd-supply: true
- 
-@@ -52,3 +80,24 @@ examples:
-             touchscreen-size-y = <4096>;
-         };
-     };
-+
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        touchscreen@0 {
-+            compatible = "samsung,s6sy791";
-+            reg = <0>;
-+            spi-max-frequency = <10000000>;
-+            spi-cpol;
-+            spi-cpha;
-+            interrupt-parent = <&gpa9>;
-+            interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
-+            reset-gpios = <&gpp26 0 GPIO_ACTIVE_LOW>;
-+            avdd-supply = <&ldo26_reg>;
-+            vdd-supply = <&ldo25_reg>;
-+        };
-+    };
+	} else if (!state->alt && state->mode == TYPEC_MODE_USB4) {
 
--- 
-2.56.1
+fixes the issue. The display works again with both USB-C ports.
 
+
+> +	} else {
+> +		/* Do nothing for e.g. DP altmode */
+> +		return 0;
+> +	}
+
+Regards,
+Troels
