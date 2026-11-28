@@ -1,98 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795837347;
-	b=CEGCWpPx8qTF7t0Qi9R6bwvah1IxDXrGYpHbZEx7TwyF2e5BoBjTF4f4ERP0R9x1TYZ8
-	 lKXwFkbDPP6MYO9OLcrQmVwS60STWH+x1eSYm1qsMUI3vgO+5rEKAootrx9byu2gfhHx1
-	 2vSUorpxEHyDCx0ReX0H7g8U54GtuFtKC2oGVCqRMpuhFGWk6EmhPGn5U3El4we0SrILL
-	 kHPwGvaZB20hPMjglTjIP2XcZlAo0Tsmd/k34kBGplHH0oMqsVNmfCYsyctJNVj1+xm9L
-	 DecYTTi7NTHQVlTof/xzgbSMcBzdBAvTEC/Uz2TsmvwIlWDJ1ybTIIywDfxVI2QgzKQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795837347;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=izulAhXaz6dK/9l1wG0GpUrapqlxdbrdUeXDR45NNrQ=;
-	b=JhknMKMGOQYiWDz/WCMdjj6t1YAZc02TNCESoc9NHxS027cC3BktixkcD/+7Myyb1s9f
-	 vULN0IRQqGPhppvuS07l4gEYHyH+FHYpWDPaucyR6dGqicvhA4MeObUDuB+mrloyfqwCk
-	 0CZ9yaeSo5Wv8wxPz4KMlf3H/i/edXz4tCvAdSKse8q1W/cuYtUueAuYzgZyDYmoJgs2I
-	 xVh7TvASAxVgipZRCqpeu2EtCD6HSTd8qVlaofSabtxk6cJiocQ1ywgWOAFKInan8H8B4
-	 bPK9h6IA34MLGkv0ZYud4us0k8pTOk9wY9HvSwLkqANlw5rqlf1B8fxsa9XBycfjObw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UJHiKG40;
-	arc=none smtp.remote-ip=209.85.210.181
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795837996;
+	b=V3WhR4TCkKjKKAo7QYswBqUmKLpNqmEFEp4OvLiZWuqlXBinPZjNvXtmyTYHITfsYRji
+	 wFQmzDbiQGiv1oOpj4Mcg+tMVyeaCc3VoRfvPGrSiZ5wYMZ9YP8XAkCJsOWYPy5rxxESt
+	 0B4eGX3vWZU2OR0CPjuQc8O5q43Apx9npwTFQnULxfar4Lcl1j/ZMWeMNx5/Kt3yMsron
+	 pEv7QMKBUIMJzn/yFXVwwVtOE2Y/WSY+vmrECTII+3rk3btKSDz/blKzJs38XrdihuuK3
+	 E4goj3sq3Jtl6Qtty+I5cYOF98TeF2Q2gg4+duLkrJviHwA4tr3XV51sCynIVSVECiw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795837996;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=O9nuYP3K5I/vAib7SOIFU78CMl9MUB8QS3+4jVDN6gM=;
+	b=zzlIPymbOyMoE/VhA+yla7nRPAmCtcfsJSAZZXwQ6JeDUZO4eg7rtyJ9UMhVJHRnzKnq
+	 IHBScMlc/rZ1iG4zijq6fezT0Jj7k1GQ2rfHiYsiYFuEx6STzpIb6aGXzEwHaXwLqojm/
+	 96XF2GwkE8mgkSxfWyIDkHReZDzedQmoDrRLg7Sj18G0kJO1oPRVeafuAW2UXHo9amp9q
+	 VLedxMfFXthSDD50KgywOT5uLfP8S+rcPB7IuB88jQwotCFbjj6Da8bmG2qxuP3OSNZjX
+	 7OVfI3kcjBnpOA1Z3IGDwDTl28sfXiVVqg0bUng1h7QdvdrwUEY4TG85uEuTdAg/fIw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V2KAuzoL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 109D6606A31E;
+	Sat, 28 Nov 2026 03:53:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V2KAuzoL
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795837995;
+	b=o56YkhpLOOazoA2PUpLzand9LkZAg1iXiAmmpweTM159TMAE6Ha6XPvuUoPoDKYXd499
+	 uK/ctbcyL0JkeCvipH66lUOEjgGU8xOfIZlUGR/CN6c9jQwk8jyP+pfHXADtei+0tPiZW
+	 TlGudA9vN3Y53DWR6p8kiGCD+5oVvN0MWQmlK2C1xgBAe0L4Y2DEe8u8SDXyqWlpIBNWh
+	 Liyc21AmbhA56ryZzgovri8EEyvilFFC7Jgq4g/j/8ypK0+V+l4CVa1gyLUp0Cngx82F+
+	 jDtFFX64OydId/ETf06pstkW0svIN8BXiM0NWBgJF3BtbVZs9bhUfZgBCxzZwyyRkMg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795837995;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=O9nuYP3K5I/vAib7SOIFU78CMl9MUB8QS3+4jVDN6gM=;
+	b=krlX0weacqSqYbwl8Ai68KiqXly9Bw7L8uMqGxmh/9Yrdgkv7Cy5do0xB3LT58WQDNO0
+	 XXargP2KjUbHEx2Z7DcThexRrraazmd4pVwOUAHqZJ1xY5wOYg/NTVU1bIIFkDBg681I4
+	 zojHTJmZ1x2yd3vBPt87c+eIFpnYJqKl5p4haPKtn8fAPHZJc7Dr+L0qDY26oVzorYYQY
+	 FXdSjMh69w/oSVGA+Qu47N/DYT5QEMAm6KyNUXDcqEib+hyEojlsHLj8MiXKOP2YcyAzQ
+	 HFaw7AtZJWiL9bLzM9QaCsM08P69ZZkQChpY7tqQf8/GL+/8OObK+QDKIWzHguVcUVw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9A1A606A31C
-	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 03:42:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9A1A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UJHiKG40
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8a06e79e152so4202891b3a.0
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 19:42:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795837346; x=1796442146; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=izulAhXaz6dK/9l1wG0GpUrapqlxdbrdUeXDR45NNrQ=;
-        b=UJHiKG40c2QFQmdXwj/soAVJm2bznwjHvg+7+xNL51lUnjoKJWEGoDD4JgIVxb9g1f
-         lf5DXoRPNr9GY8zV3EkTkY4KqWR6iCgpP4GUrlMg9iDrfYVm5wPw+DgBiJj39t9+82OT
-         fraC9ZBlwBIx4rbQKkQgEwHFhH3o5ICGzoXbqP9GN7fYJtZ8ZbA3m1zEq9n4JR0fYboA
-         ORHjNjNj+erfStXrrmtYWHLZYAuOsFXFJEP3NdJTeQmthKo7XyZ3Pvy4OcehtcpqsQXZ
-         2HT7WzHWDXxE+1OQCR5p/ULSHb/KmTbN/fsU/GqimbbaR4hz5eamTuH/SC5ANSvEWrNk
-         n8Ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795837346; x=1796442146;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=izulAhXaz6dK/9l1wG0GpUrapqlxdbrdUeXDR45NNrQ=;
-        b=zaczMPT0CigiY1/BfYmv6dFB9WNuFzQ3jAyRaA8fnYj4xJDJhpD/Z0xGyMhGov3CNA
-         sBqeSuDsuCp5rdhMtnQXHTkuC7/Ey49srwPDcMedcF5Nu6Wgz+RJt8m9BE4nL1/LnlsB
-         znCSDCsHRY9LFtBToUn5W4JtOiIwCp0gbwCibEOTl4IxFNym/UtNt7gGijxypHbNw/Ek
-         5aQbDdVOhFJ8L2qEGF7VazB5EVoCfHAV1zhHWvb3D9MqmdmKvfGHlGP5xk6pQQ45a84q
-         SUiRhMgjqiMjaoTNjnFf3Dlay9ixwI6bN4ozpDGtBGIkRclHwYsaU70CCW8cmhVwYMpb
-         FwgQ==
-X-Forwarded-Encrypted: i=1; AL+hErHr2snjPLKKc2XHduzCTiq0ylCfS/RCc4RSXAl2DKN8FRkuB5mKRsmZuSf9XLaWa4C3kNVFfmvsNHcV@vger.kernel.org
-X-Gm-Message-State: APuU4Z/eiIkcG6bN9kCq8be845ZST8aBgAmEESfGy4zZbE2JAHAfiDit
-	Gl5HQk4t3zIMIYXRPtCKmG7ekRthW9obCZP7lCPAF6sYQvBGMKpAXoij
-X-Gm-Gg: AZFdTZdZgVt+DaFLa1UWsWXes9MSNdYs9+8FlDdClPwlI+Jun76q10iCDTNWfMGCIgI
-	avXeEyjLaM9nCKAhzFDHYMethVy8DY29OKav5gLhzKrzNYqFfgMrx6gm+mg5hUlPTkC7lj9xOf2
-	hP+WOEy9kg1sNTsuN7xqx2I3mOpGy0OUZQ4wsWlpHdt9LVTKPAnr1xZc7W11QmdVmkm9T8DJlbo
-	oRMnhAUMZ4C8AWOFtVRATPeHBczGiyWpKn23zLUaA5fGZMTmfCw/7xhtL2j0HXUPNN7YPcluc9L
-	dXyV8RdXu3ZDFcVI2xckwSsgQjZc6IV1nytAlnYeVOLkkE+weJS8n8TpWo3k3G3GJd0aC1j6ELB
-	COOlzPNMFsL6FGw9XokiWJJWizAqQuV9UyFj1tZo67yRv0J9tFIfU9papd8/zF+6QqzZqStf+u5
-	EngdbCW2bJewDZRGFy/bUjNs38NVr/6gY8me2oV95MEn9YMGHEDwbzvTOJcbQQWZJVuYeSH+50p
-	/N8L5p9w/AShOiJKdba0wqknGmoQGhp1IhTilneg5jhGGftvQas+jOOAEOi6raK3Ik/+k/zYMhe
-	dCIxtKWjeQGCkK45olz2N/CO6e4=
-X-Received: by 2002:a05:6a00:b86:b0:874:705d:f63d with SMTP id d2e1a72fcca58-8c87c38b5ccmr22393784b3a.31.1795837345926;
-        Fri, 27 Nov 2026 19:42:25 -0800 (PST)
-Received: from debian.. ([192.227.246.212])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c87343f726sm14130965b3a.36.2026.11.27.19.42.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 19:42:25 -0800 (PST)
-From: Harry Bit <idleassetsd@gmail.com>
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	devicetree@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Harry Bit <idleassetsd@gmail.com>
-Subject: [PATCH] ASoC: dt-bindings: everest,es8316: add everest,es8336 compatible
-Date: Sat, 28 Nov 2026 11:42:19 +0800
-Message-ID: <20261128034219.746038-1-idleassetsd@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	by smtp.kernel.org (Postfix) with ESMTPS id BEAC21F00897;
+	Sat, 28 Nov 2026 03:53:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795837995;
+	bh=O9nuYP3K5I/vAib7SOIFU78CMl9MUB8QS3+4jVDN6gM=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=V2KAuzoLG94GKFVFNCcsTQEj1aOXE9o/Elb8fcigfHGWc5yEcaTN6gwRXD2ayx5pr
+	 62XUNfU6oxIY3tLYEc/n66GfyluFYsZwXYSMasCnwpTtwFxTZyBbwiaOFGFEGrVSZL
+	 b2O8UtUNBg3Z3d/k1nTPLSLreoTplc0Kafu1mtPPEhvztoU75/2FjX9xLF/+ZwmNMv
+	 l+mKHt9hEj6GtjtQdihBUs0NqBlGKnwAVfniU7eQ7ca+VvKyIXt5sHhAVQnoH2Ys33
+	 8q9tp2QRbzqHg2eDbMByIYj2SarJ3TDrXgmHhomdubZtE0IqhIV72ZsXxPchto7aXG
+	 +KMjg0k2MMgMg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 1BA484DF84;
+	Sat, 28 Nov 2026 03:53:10 +0000 (UTC)
+From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
+Subject: [PATCH v2 0/3] ARM: dts: cortina: Enable CS7542 Almond+
+ peripherals
+Date: Sat, 28 Nov 2026 06:53:08 +0300
+Message-Id: <20261128-b4-cs7542-peripherals-dts-v2-0-ccab93aac77f@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,40 +84,164 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/41V7W4cNwx8FeN+dwuKlCjJCIq+R5EfFEnZ29g+5
+ +7iOAj87uX5o6gXTZsFbg9aaEYkZ0h93x39sPpxd3nxfXfwh/W47u9igb9c7PRa7q58WS3WOwT
+ klJCWkRc91pJxuQ/k/bUf5Oa42Cl+UxCkaM1t7gJ/f/C5Pj5z//HxZX38Mv50PZ0JX3cc/POXO
+ PT0sm035OiL7m9v19PlxWDpUyir59SqDu5GWlqTPMacSkm92Hg57NaPR3mO9vLiw2uw+Bbs4+P
+ y0BdY0tQ0OgyDXn+/upX15tc467cf4eENvN6ddHkowTBxeC1avFf9f4bU3xiu7tf98sDBQFXcB
+ CTe9hMx/J3AihFCCwKDBjA619b4JwjSIofb5fTVlq92OpchLS2lZpCbTvOfCuGNQW/2+mm525/
+ WufpheUhBxtiJSgVx3Nb0Xk56/UwlSUZ3FULBKgUps3Eiy8E/U0FPA4WpvUdxiQ1jkIpIK6m5F
+ 04zvtJkIDGnznPO/h5VimmeyXuo3Qpl0JwRMzXEMgtMm0xc+wZVpbVKaM16VMUm8oCKHc8VTIa
+ zZo0n1Q1qDu8ZCnLxSZZcGaO6ORXJrACcZFrVTV5QvUGB858VB00G7AXC7NMjsNmjNpF22eRFk
+ ChaoI8yKwsXCBvGIWkwjZmAKfuZYYPyxtMFOrbahSNYrxN6s8FqIYNoSaXRJq/cXXLtzm2ozWi
+ 32tFrlIJgIOroqmhUN3n5sNZrxRBSzZwrQp69lc7htUIYBZ1tcn6PIgYMfRMTuJOHNTsBKpIOK
+ d1yI5duLb1HpZqoRhotGaUMFntaxNUghoNoF0GUCBA2EUpoNHS0nrlZBbBQvXCnGSJmBmMrgi9
+ 6/XsrxET5rNI+RT/sl/Ht5Mt1kEYzrHfr6aUjlHMGLDGupvywIyIj1157dERSkqw5mRjn6CLib
+ NRDuIZJN1mPmLDEjAgEbaTGOSSJWTJRCkUNE6QZdt/4TUpoB2XgGC3nGKAetROMpqwxXUW6Wji
+ W36MGNAIuLY0ZHXWuTMk0IESqJUF84hoilY1LzWco6Mwd1Du3sGktIxzEOcqeqI0+Y/Bs/BZ2P
+ rdmpxhJySnaL1nNo2BxnREwelEodbxHNbM60bh0iH0lLKkwlHmU8FKKAZcpiC3tzrfP9Xo87Q/
+ fni+6h/R82byKWv/jTgtBYanqmKNyOOgfgu4+Pj09/QUMQ4GhQAcAAA==
+X-Change-ID: 20261123-b4-cs7542-peripherals-dts-dfa20a5c748f
+To: Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795837989; l=6678;
+ i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
+ bh=sGmRqkUabfucSKZeZIFtVAexh5HDQvkOlLGp+xzNaQc=;
+ b=VHHAKQamXF34ZKddck3t3TdGvToaKTq9jw3gYpcVzP/D7CIrNwjtuqGQevQ3LRlUytSYHN7m0
+ aUZNKsEfjK5BhahQquwwGivIY8k6P4QfXq0mWeVOVTj4FNsL+jjtITj
+X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
+ pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
+X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
+ auth_id=1085
+X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
+Reply-To: filipp.dunsky@gmail.com
 
-Document the everest,es8336 compatible string (with everest,es8316 as
-fallback) in the Everest ES8316 audio codec binding to match the
-existing ESSX8336 support in the es8316 driver.
+Describe the CS7542 controllers in cs7542.dtsi and the Almond+ wiring in
+cs7542-securifi-almondplus.dts. Enable the peripheral drivers in
+multi_v7_defconfig. Platform v9 supplies the minimal bootable SoC and board
+descriptions; this series completes them using the subsystem bindings.
 
-Signed-off-by: Harry Bit <idleassetsd@gmail.com>
+Use the global syscon for clocks and seven independent network-engine
+resets. Describe all three PCIe Root Ports, with one owner for GPIO92
+shared by the Wi-Fi endpoints. Put endpoint addresses and factory NVMEM
+cells on the actual PCI children. Both QCA8337 CPU links use rgmii-id,
+matching the tested board wiring. The MDIO input is the APB clock, as
+confirmed by a differentiating clock-domain measurement on Almond+.
+
+The NAND node describes the AXI clock, interrupt, data aperture and
+separate flash reset from the vendor resources and posted NAND v5 binding.
+The NAND driver has passed the recorded Almond+ checks; that is driver
+evidence, not execution of this publication commit. The board properties
+follow the tested OpenWrt integration.
+
+Validation: the final sources pass unsuppressed preprocessing/dtc and
+complete board schema validation. Reset/clock specifiers, PCIe addresses,
+shared PERST ownership and NVMEM cells were checked explicitly. The final
+dependency stack is checked with b4 against the base commit below.
+Earlier combined revisions passed full native ARM builds and RAM tests;
+no new hardware result is claimed for these DT-only changes.
+
+Clock/reset/pinctrl v5, MDIO v4, Ethernet v4, NAND v5 and PCIe v3 are now
+posted. Prerequisites select their published code and binding patches;
+independent MAINTAINERS-only additions are not needed by this DTS stack.
+The bindings and drivers can proceed through their subsystem trees, with
+this board series following once those dependencies are available.
+No offload-specific overrides or personal LCD package are included.
+
+Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 ---
- .../devicetree/bindings/sound/everest,es8316.yaml    | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+Changes in v2:
+- Remove the board APB-rate override in the same patch that replaces the
+  fixed APB provider, keeping the DTB buildable after every commit
+  (sashiko-bot).
+- Clarify that the existing watchdog node changes its clock provider; it
+  is not newly introduced (sashiko-bot).
+- Validate the Almond+ DTB after each of the three patches; final tree
+  contents are unchanged from v1.
+- Link to v1: https://patch.msgid.link/20261127-b4-cs7542-peripherals-dts-v1-0-7ce24b842b3a@gmail.com
 
-diff --git a/Documentation/devicetree/bindings/sound/everest,es8316.yaml b/Documentation/devicetree/bindings/sound/everest,es8316.yaml
-index 9060358a90..d0179476e9 100644
---- a/Documentation/devicetree/bindings/sound/everest,es8316.yaml
-+++ b/Documentation/devicetree/bindings/sound/everest,es8316.yaml
-@@ -45,10 +45,14 @@ allOf:
- 
- properties:
-   compatible:
--    enum:
--      - everest,es8311
--      - everest,es8316
--      - everest,es8323
-+    oneOf:
-+      - enum:
-+          - everest,es8311
-+          - everest,es8316
-+          - everest,es8323
-+      - items:
-+          - const: everest,es8336
-+          - const: everest,es8316
- 
-   reg:
-     maxItems: 1
--- 
-2.47.3
+To: Fil Dunsky <filipp.dunsky@gmail.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Kees Cook <kees@kernel.org>
+To: Tony Luck <tony.luck@intel.com>
+To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+To: Russell King <linux@armlinux.org.uk>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Fil Dunsky (3):
+      ARM: dts: cortina: Describe CS7542 peripheral controllers
+      ARM: dts: cortina: Enable Almond+ board peripherals
+      ARM: multi_v7_defconfig: Enable CS7542 board peripherals
+
+ .../dts/cortina/cs7542-securifi-almondplus.dts     | 342 ++++++++++++++++++++-
+ arch/arm/boot/dts/cortina/cs7542.dtsi              | 321 ++++++++++++++++++-
+ arch/arm/configs/multi_v7_defconfig                |  16 +
+ 3 files changed, 666 insertions(+), 13 deletions(-)
+---
+base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
+change-id: 20261123-b4-cs7542-peripherals-dts-dfa20a5c748f
+prerequisite-message-id: <20261122-b4-cs75xx-v9-0-1fc1b90bd097@gmail.com>
+prerequisite-patch-id: 104c6fb668f30ac8c2c5b3b6c524c18caa8808c4
+prerequisite-patch-id: e7d503348cbec7558cd084162133f8e34df1c1bc
+prerequisite-patch-id: 1d5770db02b983d012f6c58806fbf3f5291a06c9
+prerequisite-patch-id: 8515988ae3509d4289a8d845803353f5ed412982
+prerequisite-patch-id: 6c0137d52f201d8ec085ee6cc7b2d49af15583d8
+prerequisite-patch-id: f591d13e0d394441e3cd28149633c1133bfb79ee
+prerequisite-patch-id: b3dad3ee0f7e08ea9e942fd83f3d2a06ff8fb164
+prerequisite-patch-id: 4fdf33aaedc9ca7f4d7a59b48e4ae55c497462e4
+prerequisite-patch-id: 9b4a468b7b74861017ef533ba0a5574bc14b212e
+prerequisite-patch-id: 1f232c94dd3fc0d862203b7c0c1449e6ba9a6859
+prerequisite-message-id: <20261120-cs75xx-intc-v5-0-f2be75c5e97c@gmail.com>
+prerequisite-patch-id: d1aa6857057b1e76a68ba14d4ea17352ffa90c7e
+prerequisite-patch-id: 1fd32c18f2d4a7700528bf45da72b30b62744171
+prerequisite-message-id: <20261119-cs75xx-gpio-v6-0-37aeda0aaedd@gmail.com>
+prerequisite-patch-id: 7189d6a033e0e18b87b72f3f9b49a1c71a97a2b8
+prerequisite-patch-id: a70999df9edd8fbb4ea81ca7e782aa89f52b4a06
+prerequisite-message-id: <20261124-cs75xx-i2c-v8-0-d0800b967886@gmail.com>
+prerequisite-patch-id: 1ccad6a46a6b3391a0244edbdbc4949b6614e271
+prerequisite-patch-id: ac9ec16b2e96d5580a256823ab1330098380ae32
+prerequisite-message-id: <20261121-arm-twd-wdt-v9-1-8118d048cfde@gmail.com>
+prerequisite-patch-id: e8d416021a43d45b01ac95877bb1c42a46d30153
+prerequisite-message-id: <20261124-arm-twd-clock-notifier-v1-1-62933570ae27@gmail.com>
+prerequisite-patch-id: 66eb0299dcb45847726974805c675a856fea149d
+prerequisite-patch-id: a1ab9eca32a27a52346d613d4611f152e1b2a638
+prerequisite-patch-id: 65d46bb3caaa8518ee561f65d3f603ade396fff9
+prerequisite-patch-id: 55dc4f1e91fc85340c4422438225f50fdf636799
+prerequisite-patch-id: 7a88732d8d9fdedf26b0729211211d2f74cccc17
+prerequisite-patch-id: 7fbe9405265ef3d1ec62811415a46c0061afd7c8
+prerequisite-patch-id: 07e805007e8d5e0c1d06e50a9ffe799f9d61bb35
+prerequisite-patch-id: 5301369d9b5f76a650c5e6c01b63bf10634e9ffe
+prerequisite-patch-id: 5e86fea092879a6940e7f098db6cd346ac515837
+prerequisite-patch-id: 49ea479e68bcdf4bb792e712130b22cb9cc2d378
+prerequisite-patch-id: ebd89772638cdde67204f9859648c532072f8f64
+prerequisite-patch-id: 3602aa81630ee3e18d9302c23cba59d483ea9d81
+prerequisite-patch-id: 1713798d81d3140dea98cb980a4bac9aa22a3780
+prerequisite-patch-id: ead1ebcb89468d700d8875693f405460d6d5a2c8
+prerequisite-message-id: <20261124-b4-qca8k-two-byte-header-init-v1-1-c644025b69fa@gmail.com>
+prerequisite-patch-id: 48d4c38319b803b22db91864e3321abdb6ab32b0
+prerequisite-patch-id: 9d8ec97932a1c3a4c41dad64e27364d395e8821c
+prerequisite-patch-id: 1b20a366220308b1864130aaef2a53816101f442
+prerequisite-patch-id: 0a571205b2bb84488ae379a21ab734caa9cd15a6
+prerequisite-patch-id: b08306581bf5dcd6d5543b00ee75105dc67c2355
+prerequisite-patch-id: def18de6690ce96865075b4bb64cb8138b9f8cf7
+prerequisite-patch-id: 6a6f50f93cfd1e3df21d74b525ecf4882e5c057b
+prerequisite-patch-id: 8dd7f2d65905ec5c2dc0bc66b56301048436a6d1
+
+Best regards,
+--  
+Fil Dunsky <filipp.dunsky@gmail.com>
+
 
