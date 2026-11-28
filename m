@@ -1,52 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795886127;
-	b=NBORbKw//KYRHfWAhocmbXSO3IA9qg5iXWmm6je5KQtizPSDBAMvO4jPvL78Y5eL6ACp
-	 CGAO1qQOb4aXyZ5TbPOMhROO6U1gYHqy2ymI1ghte/aRufWq7PkDNKpoztlth4sSM1XuO
-	 F7yVurk7i5LPknKRYmb8Ti29Hk6vZCTWdY+4igJxVeyWaFQdZBTMKjTXQ3Lg1bB/NtgML
-	 yZ65a94qgh7hW9tjyXJuZrWHhWPqL6lsas7paom8ZGDKyNxUBNUBH0vjIeeDUjXD0e53y
-	 jSEUZCLBAS1lCxtb/4F+WoffZVXjqS8dIsjLXKkAIYnoC7PW1cr8oOXCcvcZ630ABaQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795886127;
-	h=DMARC-Filter:DKIM-Signature:Received:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-ZohoMailClient;
-	bh=mxLdkY6vzsVozs32pWOO6o78TSdG6gnBKlks6tfg/FI=;
-	b=Ifd1+2LXEcEQL2QQkWLYc6oBm3oOC+EgIYhUUhW+7PClXWynxhz7XzpVhvD3NPB2k4N/
-	 hTVpwKWus3AWMnovC9LOnxYkaVQFTQAqgBcQ95D2nBkQ3SGQMB1NcXygBIW2Wn38z4kuW
-	 oC51BZr67UKII1OKx2XBWjdxJLuSWQDdC9OEC8sDZAfguRQOvnNWZKjFPqNmFvFjIaVRW
-	 9YLdaM2myozQm97wdcsdqlkqqdIAQFv3DqcwxTuPTGHlX5EriwxtYpMWY9L0tVdoiW5E8
-	 cEunsLOQVzEgKJmQ2i9JVeBf4JgtId6BkTjSlaWX1HibCyrqMlzFGgUNOPZpOHfhLuw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pigmoral.tech;
-	spf=pass smtp.mailfrom=pigmoral.tech;
-	dkim=pass header.d=pigmoral.tech header.i=@pigmoral.tech header.a=rsa-sha256 header.s=zmail header.b=n3Rb+4u3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
-Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795887535;
+	b=cTPEDqsNt1erD25QtBSk6XOXAFiSSm/1RIzOD+dWORmQtHrEnbFYcUmAZdpEstubBJKl
+	 65hlC2UvSCoZUKSSLY7v6sQGGA6qOdF9zdz/o2kKGVtnAh7qh4/GxS3C85SerJD7bpqHe
+	 jwF0yjjjt7y1iIQWHi1cBJtCnyw+LsKh2NJzFbtJEbB4c1kkXVGT39iMlelScU+tamE7H
+	 c1cG5OEg1GPRvwHtJCn2M8kRJdgqZhAA0qGitpq1APqVpK/HrVOojY78GTU2HYuFw2n+4
+	 MB5dYqR6BaiZCI9Gz88VCgX24IEvLCXT9a/bIq3gkSmCDWaI1lUdT0r+10mri7q7pWw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795887535;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=YezWduZI3dCs3swwAq4frMtA1a30WOuo2X+jYwcZoAI=;
+	b=j4xqyrt0gnMbiGHQ0gga+xwlWYS7vensRFGeRIdmlMKLn5qk8UxU0EBOP/Xg4StM8OcR
+	 qbukfcNXMyQ2DnKDYgc9FIfW0NjJwFLxsM/+mcvVzYRq+VfwBm8B3zETlkB3fJOfDSD9q
+	 xSD35EWiT10YtIxwLwMnq+4k/RAlTB3FrsH9TkeZHHvD4XS028W3TFXKFw7NpTsJLFBNn
+	 WcxAIxj4WBcTCqIihJv6q7/PKJ/rj7qFsEjbfzRv5vXlExUW7g7/kPafqT/SBcxQhNLDC
+	 0VAr0g98E7JEuSnyjlnWRi58hYj44MtZEcbrgm6ot1mpxXqyKygsESEOYlKKx6M0FHA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="eJt/xZjQ";
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5ED606A31C;
-	Sat, 28 Nov 2026 17:15:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF5ED606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83E41606A324
+	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 17:38:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83E41606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=@pigmoral.tech header.a=rsa-sha256 header.s=zmail header.b=n3Rb+4u3
-ARC-Seal: i=1; a=rsa-sha256; t=1795886097; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=NC2klko8jRLoHNet+utc/pJ7VOTIikmUThVKPCUUuw6VYSVBbkSoD2U8+g6yycJG7U/kJJle6/fxSJgDeZkYL9/dGA2IswgWPyx5F9qC0WSUPX/pz3EE27Kw4l6p2vX2bH42F76mGTurJKHFzcEDTTbJcj6GAVw8Wfe6+cMjWzY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1795886097; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=mxLdkY6vzsVozs32pWOO6o78TSdG6gnBKlks6tfg/FI=; 
-	b=CdzcEpIsN5Wcwn1sL9gd/2PaWYgHaN9KfgWfk+oeQMgptXJFLomRR//ae8XWfXuqAo+gHsaJN98HKoH5YIQhHL5zPgygoigurKV0COuZQgdS/iYhrWpR7MsxG1a2gWRwbNRAVc26FXIFxHCohT8PInGztY2RrYa8AlTLiufl9e0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=pigmoral.tech;
-	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
-	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
-DKIM-Signature: a=rsa-sha256; b=n3Rb+4u3lNvXBbhrd3qnrekDgZyf9P/MtXD68fbi3LkmFsf3lo9Gd08NARHFbxSdjFDdMG8kQKzEOlR5kBxPzIBJv0F28l1s1P+z8ZxMT7S8d9wwshrqL6PIocf+YQdtv35Bf29709IE8kmsSTGVDDnt9ZH2Rm1lbgJObUof+fk=; c=relaxed/relaxed; s=zmail; d=pigmoral.tech; v=1; bh=mxLdkY6vzsVozs32pWOO6o78TSdG6gnBKlks6tfg/FI=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795886094973517.1431723157222;
-	Sat, 28 Nov 2026 09:14:54 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eJt/xZjQ
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4bb6c7b6dbdso84124675e9.0
+        for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 09:38:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795887534; x=1796492334; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YezWduZI3dCs3swwAq4frMtA1a30WOuo2X+jYwcZoAI=;
+        b=eJt/xZjQj6mLVzLCoPU64MhALkQSgj4g0aaGMfu681JglmpwWORnxaRvp0NmE4QE55
+         8Ehz9DJfIdguAX+bsaW/2KCQ3nk7fKncjudtX5nAXMKXugNqxr8kgKxxB6QQhgPjf7Ph
+         lrj6ErCAgSq2cy74jsick+5BtbVX+McwUDZD9trS6DzL/LiVJe8g2bx+oSRvwKPIw70b
+         BgIrMjlH66Nz/xfxKNE+mn4mLPalbfpgBohAcNo9pulFSqKYxwppUYrJDTB6tlQlEjRd
+         8kGYgPwOAm78ODTpgT/4tmfWhCxp8LJESxC0XvUu5GLofAZqUZwVPs12O3C0MMJfgsrl
+         CMbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795887534; x=1796492334;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YezWduZI3dCs3swwAq4frMtA1a30WOuo2X+jYwcZoAI=;
+        b=TyL0yJ0C52arimn5XL+OgJX0iYVtDdtSWtDSWaay0gDhADpVI/wjfXS3zy6S4/SWON
+         coi5QHMJOCUPVrZgN3QtRaJVHD5CBQo7gD2olta5p45xCUCmww2uLOzY+6cFhlG6j+4o
+         gd4+odYkafznnpYk7Odc5yXX1zhRyjeOUqUDSMviGN4+nDyLAGs81qBR2X2jt3jJyRXH
+         4BMGSJhExX/qXIuSn5IDZsow9AEclG9U+B7vVF4BncHi8ouSnwfAFH/OAKvXHKdodC7R
+         6aEYjoqpmtae4l/KLYV9YoUguXYXHDy8JCV0QT3G0dg2OjV5zjeFxLspXhX9Q6rsKGfQ
+         grDA==
+X-Forwarded-Encrypted: i=1; AL+hErF7UW3PYVn+k1k5bmYMFNSbrKxnKuoajbk7TTc6au45RwT4x8/ax6rGDhbi6+PxTa/Z1c0nijn+CpD4@vger.kernel.org
+X-Gm-Message-State: APuU4Z8RnfWIvD3VhDld4UhYayt3mf/+4hP/d/PCMrdwT8ef2k3LTxmc
+	7yze2tl3dkzPHJzOm1u4lH/4fewxbBy4SPH3Ub8fbxDTKrEtAv3ZH6VJ
+X-Gm-Gg: AZFdTZfBCUb63EQpv2uiLToQ+KRm4UZQlSokl6ICTGbJ/7Q/U7rzfc7s9Dnsu/tvynt
+	F2upzcyIw/nHdzAfgSzjB8SBoY9e3Fl4QktnzX5BJvb2VQLjJ1Icv9Cri1WX+3ggHnHvR4ZKQm3
+	P8F7UapRRviW10rGsiCxj85LXToL50xkiF3XtlV0ofkcxoOSwPnydDmQRtJSljyPZz1C4E9PDO3
+	hHKZBU4sjgKuZJa7dj3Lkt5QE/8avptQNsK+3/mDXFxHgXE+VEDOVK2rYeA4BlkpRJnzAGHQx70
+	Whrv/3gQZExG3fbwxS4t2thHydiET2F4Pe/onp2Gu4v+/zE5HoW15rir9DYDCO8eiyBPNuLayWD
+	kl5klyrol5RZliFZHjm2mdysLiS2hDpVOVWjryQmewSGIAyOfPxOkibuv90ByNCK6KzBQ1MlQpz
+	z1NH65PxY7ydPkS3MAgK18tgF8120vRu8R3YrXgn3OMneIt4wfuyfVb4jMb90vZucamMtAvWYIi
+	JgdzgIJZ3/JsR3rzOT7XBYu4nVQniS7DX/rdW0a6tAnpFaoPMex68RXFStEcQTGDQbX3yl+vdaw
+	a5hI/55Rfng6aqodj/+rM1NalzBh7YB4K+M1DqcVW8vXGwDhAKcRfdgmYiLU5Aq078PEWJCJM5F
+	Dm289dciZNh6dQ3+HBuNVvnCa0/nk8hLHiZmN43WEaTIZzRS5vDi/2h77YSfc6YpyoAuOMC9KTS
+	zwUNrD4lin79RVbUnX6lEFv8uv9jCMGywKFKiNAlForxCcBlWlSUBZMuP9/y+13vMpio5I1Rs+S
+	I5gdu3nB7HGIrTzBtkVrZFWilVVDyEhvEreCw3i68RUlQM=
+X-Received: by 2002:a05:600c:8b5c:b0:4bb:741d:ea0 with SMTP id 5b1f17b1804b1-4bb8880f621mr618917745e9.17.1795887533807;
+        Sat, 28 Nov 2026 09:38:53 -0800 (PST)
+Received: from jernej-laptop.localnet ([2a00:ee2:6a02:9300:bb69:6bcf:1b11:e85b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8849247asm809329415e9.7.2026.11.28.09.38.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 28 Nov 2026 09:38:53 -0800 (PST)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org,
+ samuel@sholland.org, Enzo Adriano <enzo.adriano.code@gmail.com>,
+ Andre Przywara <andre.przywara@arm.com>
+Cc: Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Junhui Liu <junhui.liu@pigmoral.tech>,
+ Jerome Brunet <jbrunet@baylibre.com>, Pablo Mazzini <pmazzini@gmail.com>,
+ Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
+ Alexander Sverdlin <alex@sverdlin.org>, Jun Yan <jerrysteve1101@gmail.com>,
+ Lukas Schmid <lukas.schmid@netcube.li>,
+ Cristian Filipescu <filipescu.cristian@gmail.com>,
+ Norman Herms <dockseed@proton.me>
+Subject: Re: [PATCH v6 2/5] arm64: dts: allwinner: add A733 SoC description
+Date: Sat, 28 Nov 2026 18:38:51 +0100
+Message-ID: <Z0TCXVcTQNqeYPeVJpqj-w@gmail.com>
+In-Reply-To: <9ab5f851-1b56-49ed-bfdd-46abdbdda1c0@arm.com>
+References:
+ <20261126-a733-cubie-a7s-dt-v6-0@gmail.com>
+ <p3YaXlLJTguQBGnWyMpb1w@gmail.com>
+ <9ab5f851-1b56-49ed-bfdd-46abdbdda1c0@arm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,144 +111,140 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 29 Nov 2026 01:14:37 +0800
-Message-Id: <DN70HEN4EFL9.RHMQ0H4T77RG@pigmoral.tech>
-Cc: <spacemit@lists.linux.dev>, <devicetree@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, "Chunyan Zhang" <zhang.lyra@gmail.com>,
- "Troy Mitchell" <troy.mitchell@linux.spacemit.com>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH V2] riscv: dts: spacemit: k3: add USB3 port A (DRD)
- nodes
-From: "Junhui Liu" <junhui.liu@pigmoral.tech>
-To: "Chunyan Zhang" <chunyan.zhang@linux.spacemit.com>, "Yixun Lan"
- <dlan@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Paul Walmsley"
- <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou"
- <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>
-X-Mailer: aerc 0.22.0
-References: <20261105103125.2727341-1-chunyan.zhang@linux.spacemit.com>
-In-Reply-To: <20261105103125.2727341-1-chunyan.zhang@linux.spacemit.com>
-X-ZohoMailClient: External
+Content-Type: text/plain; charset="utf-8"
 
-Hi Chunyan,
+Dne petek, 27. november 2026 ob 11:57:16 Srednjeevropski standardni =C4=8Da=
+s je Andre Przywara napisal(a):
+> Hi Jernej,
+>=20
+> On 11/27/26 05:29, Jernej =C5=A0krabec wrote:
+> > Dne =C4=8Detrtek, 26. november 2026 ob 21:35:40 Srednjeevropski standar=
+dni =C4=8Das je Enzo Adriano napisal(a):
+> >> The Allwinner A733 combines six Cortex-A55 and two Cortex-A76 cores.
+> >> Add the common device tree for the first Cubie A7A, A7S and A7Z board
+> >> DTS files. Describe the CPUs, PSCI, architectural timers, GIC, RTC,
+> >> main and always-on clock/reset and pin controllers, UART, I2C and
+> >> MMC. The preceding revision booted on the A7S and A7Z.
+> >>
+> >> The A7S schematic, sheets 7 and 16, shows the EEPROM wired to I2C0
+> >> on PG8/PG9. Use mux 6 as documented in the A733 Datasheet v1.00,
+> >> section 4.2.6, table 4-36. The A7A schematic shows the external RTC
+> >> on S_TWI1. Add its R-I2C1 pin group on PL12/PL13, mux 3.
+> >>
+> >> The GIC maintenance PPI 9 and ARMv8.2 EL2 virtual-timer PPI 12 follow
+> >> the A733 User Manual v1.00, section 12.2.3. The GICD/GICR/ITS windows
+> >> and noncoherent attributes follow Andre Przywara's A733 reference
+> >> and the A523 precedent. The CPUX interconnect diagram in section
+> >> 5.1.2 supports the noncoherency inference. Leave the ITS disabled
+> >> pending clock/reset and MSI integration.
+> >>
+> >> Describe the single DynamIQ unit and shared L3 shown in section
+> >> 5.1.2, figure 5-1. Partition PPI 7 (section 12.2.3, table 12-1)
+> >> between the Cortex-A55 and Cortex-A76 PMUs so each probes its own
+> >> core type. Defer capacity-dmips-mhz until it is measured on A733.
+> >>
+> >> Link: https://gist.githubusercontent.com/apritzel/60fd7379b9560a15b8b3=
+52986b69d39f/raw/efd9cdf8f26ba5b0c7e138f093af44a1cf322469/sun60i-a733.dts
+> >> Link: https://lore.kernel.org/r/20261126172253.1097838-2-andre.przywar=
+a@arm.com
+> >> Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+> >> Tested-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com> # Rad=
+xa Cubie A7Z V1.11
+> >> Tested-by: Norman Herms <dockseed@proton.me> # Radxa Cubie A7S (A733)
+> >> Co-developed-by: Andre Przywara <andre.przywara@arm.com>
+> >> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+> >> Signed-off-by: Enzo Adriano <enzo.adriano.code@gmail.com>
+> >> ---
+> >> Changes since v5:
+> >> - Mark the I2C0 PG8/PG9 group /omit-if-no-ref/, as requested. This
+> >>    satisfies Andre's review condition.
+> >> - Move the RTC clock include after the A733 clock headers and cite
+> >>    the A733 datasheet and A7S schematic for the I2C0 pins.
+> >> - Fold in Andre's R-I2C1 pin group for A7A. A7S and A7Z leave
+> >>    it unused. A7S still references the I2C0 group.
+> >> - Vinicius tested the v5 DTSI with his A7Z v1.11 board DT. Norman
+> >>    tested the v5 series on A7S. Their tags here cover the SoC DTSI.
+> >>
+> >>   .../arm64/boot/dts/allwinner/sun60i-a733.dtsi | 671 ++++++++++++++++=
+++
+> >>   1 file changed, 671 insertions(+)
+> >>   create mode 100644 arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
+> >>
+> >> diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi b/arch/arm=
+64/boot/dts/allwinner/sun60i-a733.dtsi
+> >> new file mode 100644
+> >> index 000000000000..e062b08006da
+> >> --- /dev/null
+> >> +++ b/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
+> >> @@ -0,0 +1,671 @@
+>=20
+> [ ... ]
+>=20
+> >> +
+> >> +		mmc0: mmc@4020000 {
+> >> +			compatible =3D "allwinner,sun60i-a733-mmc",
+> >> +				     "allwinner,sun20i-d1-mmc";
+> >=20
+> > That's not really the case, is it? A733 emmc has support for voltage sw=
+itching,
+> > so regulator should be added here for voltage switching.
+>=20
+> But it's still compatible to the D1 MMC controller, isn't it? As in: a=20
+> driver capable of supporting the D1 MMC IP can also drive the A733 MMC.=20
+> I think the voltage regulator is a separate problem: it's external to=20
+> the MMC IP. The vqmmc supply property is documented and usable, and the=20
+> availability of the regulator it points to is a separate issue.
+> The same as the H616 and A523 have the voltage switch already, but are=20
+> still compatible to the A100 and D1, respectively.
 
-Thanks for your work, but I found an issue when testing this patch...
+Ah, sorry, mmc0 node is ok. Power supply is the tricky part and that
+belongs to board dts.
 
-On Thu Nov 5, 2026 at 6:31 PM CST, Chunyan Zhang wrote:
-> Describe the DWC3 controller and its USB 2.0 PHY for USB3 port A
-> of the K3 SoC.
->
-> Only the U2 lane is described: Port A's SuperSpeed PHY has no driver
-> yet, so the port runs at high-speed (maximum-speed =3D "high-speed").
->
-> On the K3 Pico-ITX, Port A is a Type-C connector behind a FUSB301 CC
-> controller, which is not described yet. Nothing configures the
-> FUSB301, so the port relies on its power-on CC mode. Enable Port A
-> with dr_mode =3D "peripheral"; it is device-only until the CC
-> controller is described.
+>=20
+> > I suggest that you drop this node until proper adjustment is made.
+>=20
+> Do you have any code for the voltage switch already? Your comment in the=
+=20
+> UHS-1 prep series suggests so? Any chance you can post that separately,=20
+> to get any DT compatibility problems out of the way early?
 
-In my testing, this patch alone does not make the USB gadget work unless
-I manually run the following command after the kernel has booted:
+As you may remember #linux-sunxi discussion a month or so ago, you had
+objections regarding broking forward compatibility. So now is the time
+to properly address this for A733. As discussed, proper way would be to
+introduce regulator child node in pinctrl and point vmmc-supply to it.
 
-  devmem2 0xcad30040 w 0xA4080401
+Example is here:
+https://github.com/jernejsk/linux-1/commits/sunxi-mmc-uhs/
 
-0xCAD30040 is a register in Port A's USB3 PHY. It seems that even when
-using only USB2, the USB3 PHY registers still need to be configured,
-so USB3 PHY driver support appears to be needed first for the gadget
-to work properly.
-
->
-> Signed-off-by: Chunyan Zhang <chunyan.zhang@linux.spacemit.com>
-> ---
-> Changes in v2:
-> - Rebase onto v7.4-rc1.
-> - Move phys/phy-names to the board dts, matching usb3b/c/d.
-> - Add snps,dis_u3_susphy_quirk and snps,parkmode-disable-ss-quirk.
-> - Note in the commit message that Port A is a Type-C port behind a
->   FUSB301 and is device-only until the CC controller is described.
-> ---
->  arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 12 ++++++++
->  arch/riscv/boot/dts/spacemit/k3.dtsi         | 29 ++++++++++++++++++++
->  2 files changed, 41 insertions(+)
->
-> diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/bo=
-ot/dts/spacemit/k3-pico-itx.dts
-> index dda420900aa2..d0fbed23ccca 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> @@ -337,6 +337,18 @@ &usb2_phy {
->  	status =3D "okay";
->  };
-> =20
-> +&usb3a {
-> +	phys =3D <&usb3a_u2phy>;
-> +	phy-names =3D "usb2-phy";
-> +	maximum-speed =3D "high-speed";
-> +	dr_mode =3D "peripheral";
-> +	status =3D "okay";
-> +};
-> +
-> +&usb3a_u2phy {
-> +	status =3D "okay";
-> +};
-> +
->  &usb3b {
->  	phys =3D <&usb3b_u2phy>;
->  	phy-names =3D "usb2-phy";
-> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/s=
-pacemit/k3.dtsi
-> index e89d2cc5ca8c..2d2569cfe676 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-> @@ -687,6 +687,35 @@ gmac2_axi_setup: stmmac-axi-config {
->  			};
->  		};
-> =20
-> +		usb3a: usb@cad00000 {
-> +			compatible =3D "spacemit,k3-dwc3";
-> +			reg =3D <0x0 0xcad00000 0x0 0x10000>;
-> +			interrupts =3D <118 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-parent =3D <&saplic>;
-> +			clocks =3D <&syscon_apmu CLK_APMU_USB3_PORTA_BUS>;
-> +			clock-names =3D "usbdrd30";
-> +			resets =3D <&syscon_apmu RESET_APMU_USB3_A_AHB>,
-> +				 <&syscon_apmu RESET_APMU_USB3_A_VCC>,
-> +				 <&syscon_apmu RESET_APMU_USB3_A_PHY>;
-> +			reset-names =3D "ahb", "vcc", "phy";
-
-I also tried booting through the BootROM's USB download mode (fastboot,
-with USB worked as a gadget), so that the BootROM would initialize the
-PHY registers needed for USB gadget operation. However, I found that
-asserting RESET_APMU_USB3_A_AHB during the kernel driver's probe resets
-the PHY register state, losing the configuration left by the BootROM.
-
-Am I missing something? How did you test this?
+(just pretend that vmmc-supply is used instead of vqmmc-supply)
 
 Best regards,
-Junhui Liu
+Jernej
 
-> +			phy_type =3D "utmi";
-> +			snps,dis_enblslpm_quirk;
-> +			snps,dis_u2_susphy_quirk;
-> +			snps,dis_u3_susphy_quirk;
-> +			snps,dis-del-phy-power-chg-quirk;
-> +			snps,dis-tx-ipgap-linecheck-quirk;
-> +			snps,parkmode-disable-ss-quirk;
-> +			status =3D "disabled";
-> +		};
-> +
-> +		usb3a_u2phy: phy@cad20000 {
-> +			compatible =3D "spacemit,k3-usb2-phy";
-> +			reg =3D <0x0 0xcad20000 0x0 0x200>;
-> +			clocks =3D <&syscon_apmu CLK_APMU_USB3_PORTA_BUS>;
-> +			#phy-cells =3D <0>;
-> +			status =3D "disabled";
-> +		};
-> +
->  		pdma: dma-controller@d4000000 {
->  			compatible =3D "spacemit,k3-pdma";
->  			reg =3D <0x0 0xd4000000 0x0 0x4000>;
+>=20
+> Cheers,
+> Andre
+>=20
+> > Best regards,
+> > Jernej
+> >=20
+> >> +			reg =3D <0x04020000 0x1000>;
+> >> +			interrupts =3D <GIC_SPI 161 IRQ_TYPE_LEVEL_HIGH 0>;
+> >> +			clocks =3D <&ccu CLK_BUS_MMC0>, <&ccu CLK_MMC0>;
+> >> +			clock-names =3D "ahb", "mmc";
+> >> +			resets =3D <&ccu RST_BUS_MMC0>;
+> >> +			reset-names =3D "ahb";
+> >> +			pinctrl-names =3D "default";
+> >> +			pinctrl-0 =3D <&mmc0_pins>;
+> >> +			#address-cells =3D <1>;
+> >> +			#size-cells =3D <0>;
+> >> +			status =3D "disabled";
+> >> +		};
+> >> +
+>=20
+
+
+
 
