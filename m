@@ -1,102 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.218
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795834344;
-	b=b84ZLYSODE1RpdqF4r7BEQAw4NvT4KzH2z0wAoq5B/1kaWJFpnYC80odNjkPk6EksVJA
-	 q0Aiof8VpAbbYB0J7ahnjCY31mflJL+5NBYYixoijUFrfA8NL0R9P+EyejFA5rnZgxJs8
-	 FwEH/jUbA7zz7cUxgx6ULcijzHv8pj4pkF9+eGGAZNXAb6Uag+riPDH5YfoM2ZDBFLIMU
-	 4p5+a8SSxRys0N6zv9NT3zgLuzan15DG6Wg97raDfpuaXI9YJwKR8lOiVMJV81tdWhPLw
-	 ZmCJdFyfCca/6xh0C07tuXnQKqDHrDd+xbk+hzhGCBVhw+Aot/BeGqKxbGLsbuZ96+Q==
+	t=1795834714;
+	b=N4PNFugUAn/VSnvPz6OpB6OggSwPLVIGt026jeH4GqCkB/8lJXd2n3sWkyueqI4fBTEo
+	 S2k0lYfV/BAg9973+GMOEDGG/k4UOE5H86IwryacbgWWJsHlQqxwC/zWXVDSuBd0rBwSe
+	 Z9RcitkiO8s6IyvP+SG3w33BT/IMTEqdEVQtOECrJRiM1pBOq0duj8+RyoYNCzV8us8dp
+	 XpW9t0AZzYDNEu63vhHHwJIE3qg7FUtcR6OksURR/MjjR/loe1f0zioGTpsSjmvszAtux
+	 q5K5zV2lxTDfwu6YJ/B6AcZWDFbvuH8A1pMmWQihAaVqAVCoiBV2he0QYzgwWb/JI1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795834344;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=t00wUIQOglo4PlqX8mnXlhh7m8/kx6uygSjOG16Nct4=;
-	b=TEIbu5cMnV6VgeT/wydSiDboU8bqbyHa4Fm1tTS5mnE0W792NPku3M/1xk780f8FnWeR
-	 5HB3FSWtexWyavYCEydTUxz6V4uwFIqFD96p7jNNY1yYtrV3eIsdv3ndK9SS7r1Sgm0Q6
-	 CtbIzxhEqcbpMfHN284iTMpRT1PuRiJ6Rz+RPj7wfDYZVtO6ZvMOAO4pBg1e5Dmxos3QJ
-	 8k/2Sb+47stIe0AiaVrt/V4rzm0k/NYUIMGCuTPF+ruAupFD8hHt8o9r64TQJIZR5Ypwv
-	 RbHIkFtdnokOC74dAN6NkTOCoanHaCyRehqhzO97stzN61UeOEp6Lx8T1df+ORd/7xg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795834714;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=iXm9bjNklHkCJkXC6cXS/6l9msjPSXzfutfiuU6LTJE=;
+	b=ljz0UTdzI3pQ16tCXXiTq8V0Rwflw/dSo3XJUc9Z9hNILd7mIlwD5TyjQfZTwRin3Rjo
+	 wbdyXDXuOjinWdyTUUZJuFtuDfJWeGQ33IGQhIRxULExle/mT+3FVZjevdP7EJcFQ1uOr
+	 mrA+PDHMaVl6Nhn34XtatNeSwQnZJSE+VjjgBAB1rq6grM/k9gLVrpMHnGfPS9lyYs5Lq
+	 k4Mxx+pJyVAZed27z3j+BQVP2B0MWrMU4+eo7elQwCSKBFZ/lbr+IjbzZXt0gLm9J6/UL
+	 so8oZBu4dVNsUGlG/l+QGEf+GbLTCialvEnGVKJrjVf8SZoo8Wxt6u7SoK+RfC/j3wQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=wkennington.com;
-	spf=none smtp.mailfrom=wkennington.com;
-	dkim=pass header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=eXrOaUP7;
-	arc=none smtp.remote-ip=209.85.214.171
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=SfKvHHDA;
+	arc=none smtp.remote-ip=113.46.200.218
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC955606A31F
-	for <devicetree@vger.kernel.org>; Sat, 28 Nov 2026 02:52:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC955606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wkennington.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=wkennington.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B99606A31E;
+	Sat, 28 Nov 2026 02:58:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34B99606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=eXrOaUP7
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2f020d0169eso43102065ad.0
-        for <devicetree@vger.kernel.org>; Fri, 27 Nov 2026 18:52:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=wkennington-com.20260707.gappssmtp.com; s=20260707; t=1795834343; x=1796439143; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=t00wUIQOglo4PlqX8mnXlhh7m8/kx6uygSjOG16Nct4=;
-        b=eXrOaUP7ZMi7Y5YkwsA3wJ1/qilJCUdfCSQxmvukSfpUrVAZQ7M7HGEd0RPXLOBf7U
-         iDLe9YM/IXea5VEUXvxOHkyS7ILU/5rH0Ij1A6p57c+X0n5N2q+Vlod0vcjDx6Vl4OSz
-         E7JRzqsNZH3AL5YU8qeXUZZ+v1IS7+GP9gf2LzILmhX2r5kDG/cHO5Yl/DyTeF8edn0h
-         fJQIx2RoId/lZrHZsDiZjBr/SIPc3qmcvLTvQ62rxVnOpxTTNE5qUrA2lUVW9z+qPoXg
-         w2vj95FsKVvK1n3uW3UNOE0Xe/phS7HxIMzUDpGlj5aZbmXfvnqY3PqPQpoPNIwC3nSM
-         VLqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795834343; x=1796439143;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=t00wUIQOglo4PlqX8mnXlhh7m8/kx6uygSjOG16Nct4=;
-        b=baCulp1K/4Z9cE0O0M+w4IT8IMpqaal14i0C1brl+/J6bFK4RPuOP9ujxxLLUVcuYM
-         z0C9LuXdZsSKGYsnkKucNCD031fohToch3E4x+dP4pZrYECjV+a6V4TNkOgwEMe5ZICj
-         s8hffaCQF3TI67t8a+zEnMQs7HLHzDHeE8moLOVgIYmFwsuIN3a87eqGAbDpeqPhBX5l
-         ksMf1mNYSyuZXKNT30j1Amy+KESMp7XTAv4nsLMX7P4ceFB9li4Ee65cJSBh8+5o8PYO
-         r4eXKzY3X1Bqj+YDp7xzKth8okrNfQbddewj67Dg8WD0mvxFmk+QgN2o4xEQTTYju1iI
-         pysA==
-X-Forwarded-Encrypted: i=1; AL+hErHwVTBGQIjgHiUiQCkE6KwQGBCa6J++QIs6XViQy5/SsGRhze9+lAHD6Fd74sUAacAYn5DVCXYArW/X@vger.kernel.org
-X-Gm-Message-State: APuU4Z/JV8CN3T8IDYErNp8skoONC4ja2mnSzG+jFpEtSaIWeXj1VLKu
-	jtL0Zo+w4grsFCitY57i5qMKxQqCzgEg/ZBs7zEwpduQ+I34UN1+3uu/aVbNuhmsEwc=
-X-Gm-Gg: AZFdTZcfdHcZg9aOrxk58K81ERPwW4YOmaQlqf3XHuvZ7BQNIOeCkBNz5LJWkz9c9bp
-	B61NFt2264voJDOmy9zCmzie4IDO2sInTZBT3qtA2nZ/kldkaynzmy8pzbAK/V+KWjg9Yx0nuYP
-	ayAlD9uZ4imfHthOvDDiY6/m8sr/ldxy76RocN4Fs+0FwZ/PYdHH0xG/7puobwkl9HysPNVqviJ
-	OE1j3MkELJxoJzAfQEH6+twrXKecN4h5mZN88prziRH1jeSeQZGR/ByWDenrWeatOiimnBr+liW
-	kfQTG3vhg/67hpCr7iYciv3eBxtFecec9kgyiqz/rh02trjiQlh618dN4JZ3PYCEbrH/SScxK9R
-	yd1fp0Wq9QKhh+YSfgR1pUDdeYEL+nJtEouIRenH4elSmeuBCJ7ufeXMcC2GHgHB2Nz3L0DBkUI
-	tDRqHnlSArrwanORatmfdQdvksKp1YC1xauUCN74CtlSO7qY2b6mTCJoxafCdPj4q/W6UTTgtiK
-	FOj6DNx0Fvw17zw9aiyMLVXtV1gE379P/Pc+QS0OoXw+tGdG9xfewaG59Y41rVb5DHFEl14pKOH
-	J1eT6TJx2FB113tR+Qe0ffs7hr61DTrYV/JY3GVxXuSrZ6vM+oSI7qIBsG222YhFAeQO40MlkH8
-	bR0/885Wk7JvPIDlzQ/bMNmrI+BU5vNAwd+E=
-X-Received: by 2002:a17:90b:2f8c:b0:3b3:af8e:ea8d with SMTP id 98e67ed59e1d1-3b41c92a403mr26168454a91.39.1795834343106;
-        Fri, 27 Nov 2026 18:52:23 -0800 (PST)
-Received: from wak.c.googlers.com.com (246.21.127.34.bc.googleusercontent.com. [34.127.21.246])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405ffa98esm43492174a91.17.2026.11.27.18.52.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 18:52:22 -0800 (PST)
-From: "William A. Kennington III" <william@wkennington.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Tomer Maimon <tmaimon77@gmail.com>,
-	Arnd Bergmann <arnd@arndb.de>
-Cc: Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Iwona Winiarska <iwona.winiarska@intel.com>,
-	devicetree@vger.kernel.org,
-	openbmc@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org,
-	"William A. Kennington III" <william@wkennington.com>
-Subject: [PATCH 2/2] ARM: dts: nuvoton: npcm7xx: Add nuvoton,sysgcr to watchdog nodes
-Date: Sat, 28 Nov 2026 02:52:19 +0000
-Message-ID: <20261128025219.2679805-3-william@wkennington.com>
-X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-In-Reply-To: <20261128025219.2679805-1-william@wkennington.com>
-References: <20261128025219.2679805-1-william@wkennington.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=SfKvHHDA
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=iXm9bjNklHkCJkXC6cXS/6l9msjPSXzfutfiuU6LTJE=;
+	b=SfKvHHDA5DZy5PHVuUfUp7ZJIYPFO/O1wYHgqxN6U4/eJpLR+3Ela1UpPw9XS8p/TtJJrEZrr
+	gDPn1UZB2A8lTM0A3I9jkCqzQxTZVWI0Nmo8f3SKrZ6KPSFo+ihxjnn+PVobzzgk/65BELmIsiR
+	LEeIYm+6onwT1S/RxJyVyGY=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4jbw1Y64lPzpStH;
+	Sat, 28 Nov 2026 10:57:21 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 102B5202E6;
+	Sat, 28 Nov 2026 10:58:29 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sat, 28 Nov
+ 2026 10:58:28 +0800
+Message-ID: <ad0126a1-0d5d-47eb-87fd-1df6ccfece02@huawei.com>
+Date: Sat, 28 Nov 2026 10:58:27 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,48 +62,102 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 4/8] crash_core: replace for_each_mem_range() with
+ for_each_mem_region()
+To: Wandun Chen <chenwandun1@gmail.com>, <pjw@kernel.org>,
+	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
+	<robh@kernel.org>, <baoquan.he@linux.dev>, <rppt@kernel.org>,
+	<m.szyprowski@samsung.com>
+CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <tglx@kernel.org>,
+	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
+	<x86@kernel.org>, <hpa@zytor.com>, <saravanak@kernel.org>,
+	<akpm@linux-foundation.org>, <pasha.tatashin@soleen.com>,
+	<pratyush@kernel.org>, <ruirui.yang@linux.dev>, <robin.murphy@arm.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<loongarch@lists.linux.dev>, <linux-riscv@lists.infradead.org>,
+	<devicetree@vger.kernel.org>, <kexec@lists.infradead.org>,
+	<linux-mm@kvack.org>, <iommu@lists.linux.dev>
+References: <20261127090723.741253-1-chenwandun1@gmail.com>
+ <20261127090723.741253-5-chenwandun1@gmail.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20261127090723.741253-5-chenwandun1@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-Since commit 7762911c0d8c ("watchdog: npcm: add bootstatus support"),
-npcm_wdt looks up the GCR syscon via the optional nuvoton,sysgcr
-phandle (defined in nuvoton,npcm750-wdt.yaml) to read reset status and
-logs a warning when it is absent:
 
-  Failed to find nuvoton,sysgcr, WD reset status not supported
 
-Wire <&gcr> to watchdog0..2 in nuvoton-common-npcm7xx.dtsi. Tested on
-an NPCM730 BMC, clearing the warning and enabling bootstatus.
+在 2026/11/27 17:07, Wandun Chen 写道:
+> From: Wandun Chen <chenwandun@lixiang.com>
+> 
+> for_each_mem_range() skips MEMBLOCK_NOMAP regions implicitly. Switch the
+> weak defaults to for_each_mem_region(), which exposes struct
+> memblock_region and per-region flags, and filter NOMAP regions explicitly
+> via the new crash_should_skip_region() helper. This prepares for a
+> subsequent patch to extend the skip filter.
+> 
+> No functional change.
+> 
+> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+> Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
+> Acked-by: Baoquan He <baoquan.he@linux.dev>
+> ---
+>  kernel/crash_core.c | 25 +++++++++++++++++--------
+>  1 file changed, 17 insertions(+), 8 deletions(-)
+> 
+> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
+> index 8a861a946e26..e161c8b65e00 100644
+> --- a/kernel/crash_core.c
+> +++ b/kernel/crash_core.c
+> @@ -283,25 +283,34 @@ static struct crash_mem *alloc_cmem(unsigned int nr_ranges)
+>  }
+>  
+>  #ifdef CONFIG_ARCH_KEEP_MEMBLOCK
+> +/* Exclude NOMAP regions from the vmcore. */
+> +static bool crash_should_skip_region(struct memblock_region *reg)
+> +{
+> +	return memblock_is_nomap(reg);
 
-Signed-off-by: William A. Kennington III <william@wkennington.com>
----
- arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi | 3 +++
- 1 file changed, 3 insertions(+)
 
-diff --git a/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi b/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
-index 3862adf85b68..e9765fd6ef8e 100644
---- a/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
-+++ b/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
-@@ -375,6 +375,7 @@ watchdog0: watchdog@801C {
- 				reg = <0x801C 0x4>;
- 				status = "disabled";
- 				clocks = <&clk NPCM7XX_CLK_TIMER>;
-+				nuvoton,sysgcr = <&gcr>;
- 			};
- 
- 			watchdog1: watchdog@901C {
-@@ -383,6 +384,7 @@ watchdog1: watchdog@901C {
- 				reg = <0x901C 0x4>;
- 				status = "disabled";
- 				clocks = <&clk NPCM7XX_CLK_TIMER>;
-+				nuvoton,sysgcr = <&gcr>;
- 			};
- 
- 			watchdog2: watchdog@a01C {
-@@ -391,6 +393,7 @@ watchdog2: watchdog@a01C {
- 				reg = <0xa01C 0x4>;
- 				status = "disabled";
- 				clocks = <&clk NPCM7XX_CLK_TIMER>;
-+				nuvoton,sysgcr = <&gcr>;
- 			};
- 
- 			serial0: serial@1000 {
+LGTM
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+
+> +}
+> +
+>  unsigned int __weak arch_get_system_nr_ranges(void)
+>  {
+>  	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* crashk_res + crashk_low_res, +CMA splits */
+> -	phys_addr_t start, end;
+> -	u64 i;
+> +	struct memblock_region *reg;
+>  
+> -	for_each_mem_range(i, &start, &end)
+> +	for_each_mem_region(reg) {
+> +		if (crash_should_skip_region(reg))
+> +			continue;
+>  		nr_ranges++;
+> +	}
+>  	return nr_ranges;
+>  }
+>  
+>  int __weak arch_crash_populate_cmem(struct crash_mem *cmem)
+>  {
+> -	phys_addr_t start, end;
+> -	u64 i;
+> +	struct memblock_region *reg;
+>  
+> -	for_each_mem_range(i, &start, &end) {
+> -		cmem->ranges[cmem->nr_ranges].start = start;
+> -		cmem->ranges[cmem->nr_ranges].end = end - 1;
+> +	for_each_mem_region(reg) {
+> +		if (crash_should_skip_region(reg))
+> +			continue;
+> +		cmem->ranges[cmem->nr_ranges].start = reg->base;
+> +		cmem->ranges[cmem->nr_ranges].end = reg->base + reg->size - 1;
+>  		cmem->nr_ranges++;
+>  	}
+>  	return 0;
+
